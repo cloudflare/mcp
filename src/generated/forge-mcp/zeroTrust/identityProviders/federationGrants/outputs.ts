@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `access_idp_federation_grant` in responses.
  */
-export const access_idp_federation_grant_output: JsonSchema = {
+export const access_idp_federation_grant: JsonSchema = {
   "properties": {
     "created_at": {
       "$ref": "#/$defs/access_created_at"
@@ -30,7 +30,7 @@ export const access_idp_federation_grant_output: JsonSchema = {
 /**
  * The schema of `access_idp_federation_grant_id_response` in responses.
  */
-export const access_idp_federation_grant_id_response_output: JsonSchema = {
+export const access_idp_federation_grant_id_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/access_api-response-single"
@@ -54,7 +54,7 @@ export const access_idp_federation_grant_id_response_output: JsonSchema = {
 /**
  * The schema of `access_idp_federation_grant_list_response` in responses.
  */
-export const access_idp_federation_grant_list_response_output: JsonSchema = {
+export const access_idp_federation_grant_list_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/access_api-response-collection"
@@ -76,7 +76,7 @@ export const access_idp_federation_grant_list_response_output: JsonSchema = {
 /**
  * The schema of `access_idp_federation_grant_response` in responses.
  */
-export const access_idp_federation_grant_response_output: JsonSchema = {
+export const access_idp_federation_grant_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/access_api-response-single"

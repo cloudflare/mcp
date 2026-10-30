@@ -7,7 +7,7 @@ import type { JsonSchema } from "../../../../_/tool.js";
  * The schema of `workers_namespace-script-and-version-settings-item` in
  * responses.
  */
-export const workers_namespace_script_and_version_settings_item_output: JsonSchema = {
+export const workers_namespace$$script$$and$$version$$settings$$item: JsonSchema = {
   "properties": {
     "bindings": {
       "allOf": [

@@ -3,11 +3,11 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
-  mq_api_v4_error_output,
-  mq_api_v4_failure_output,
-  mq_api_v4_message_output,
-  mq_api_v4_success_output,
-  mq_queue_metrics_output,
+  mq_api$$v4$$error,
+  mq_api$$v4$$failure,
+  mq_api$$v4$$message,
+  mq_api$$v4$$success,
+  mq_queue$$metrics,
 } from "../outputs.js";
 import { mq_identifier } from "../schemas.js";
 
@@ -22,18 +22,26 @@ export const tools: readonly Tool[] = [
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/mq_identifier",
-          "description": "A Resource identifier."
-        },
-        "queue_id": {
-          "$ref": "#/$defs/mq_identifier",
-          "description": "A Resource identifier."
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/mq_identifier",
+              "description": "A Resource identifier."
+            },
+            "queue_id": {
+              "$ref": "#/$defs/mq_identifier",
+              "description": "A Resource identifier."
+            }
+          },
+          "required": [
+            "account_id",
+            "queue_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "queue_id"
+        "path"
       ],
       $defs: {
         "mq_identifier": mq_identifier,
@@ -54,10 +62,10 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "mq_api-v4-error": mq_api_v4_error_output,
-        "mq_api-v4-message": mq_api_v4_message_output,
-        "mq_api-v4-success": mq_api_v4_success_output,
-        "mq_queue-metrics": mq_queue_metrics_output,
+        "mq_api-v4-error": mq_api$$v4$$error,
+        "mq_api-v4-message": mq_api$$v4$$message,
+        "mq_api-v4-success": mq_api$$v4$$success,
+        "mq_queue-metrics": mq_queue$$metrics,
       },
     },
     annotations: {
@@ -99,11 +107,11 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "mq_api-v4-error": mq_api_v4_error_output,
-        "mq_api-v4-failure": mq_api_v4_failure_output,
-        "mq_api-v4-message": mq_api_v4_message_output,
-        "mq_api-v4-success": mq_api_v4_success_output,
-        "mq_queue-metrics": mq_queue_metrics_output,
+        "mq_api-v4-error": mq_api$$v4$$error,
+        "mq_api-v4-failure": mq_api$$v4$$failure,
+        "mq_api-v4-message": mq_api$$v4$$message,
+        "mq_api-v4-success": mq_api$$v4$$success,
+        "mq_queue-metrics": mq_queue$$metrics,
       },
     },
     request: (args) => ({

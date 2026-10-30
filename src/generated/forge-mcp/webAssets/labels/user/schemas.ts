@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `api-shield_label_request`.
  */
-export const api_shield_label_request: JsonSchema = {
+export const api$$shield_label_request: JsonSchema = {
   "properties": {
     "description": {
       "$ref": "#/$defs/api-shield_label_description",
@@ -30,7 +30,7 @@ export const api_shield_label_request: JsonSchema = {
 /**
  * The schema of `api-shield_patch_label_request`.
  */
-export const api_shield_patch_label_request: JsonSchema = {
+export const api$$shield_patch_label_request: JsonSchema = {
   "properties": {
     "description": {
       "$ref": "#/$defs/api-shield_label_description",
@@ -47,7 +47,7 @@ export const api_shield_patch_label_request: JsonSchema = {
 /**
  * The schema of `api-shield_put_label_request`.
  */
-export const api_shield_put_label_request: JsonSchema = {
+export const api$$shield_put_label_request: JsonSchema = {
   "properties": {
     "description": {
       "$ref": "#/$defs/api-shield_label_description",

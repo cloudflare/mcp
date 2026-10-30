@@ -3,37 +3,45 @@
 
 import { type Tool, pathParam } from "../../../../_/tool.js";
 import {
-  access_api_response_collection_output,
-  access_api_response_common_failure_output,
-  access_api_response_common_output,
-  access_messages_output,
+  access_api$$response$$collection,
+  access_api$$response$$common,
+  access_api$$response$$common$$failure,
+  access_messages,
 } from "../../../outputs.js";
 import { access_identifier, access_uuid } from "../../../schemas.js";
-import { access_failed_login_response_output } from "./outputs.js";
+import { access_failed_login_response } from "./outputs.js";
 
 /**
- * The tools of `zero_trust.access.users.failed_logins`.
+ * The tools of `zeroTrust.access.users.failedLogins`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "zero_trust_access_users_failed_logins_list",
+    name: "zeroTrust_access_users_failedLogins_list",
     title: "Get failed logins",
     description: "Get all failed login attempts for a single user.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/access_identifier",
-          "description": "Identifier."
-        },
-        "user_id": {
-          "$ref": "#/$defs/access_uuid",
-          "description": "UUID."
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/access_identifier",
+              "description": "Identifier."
+            },
+            "user_id": {
+              "$ref": "#/$defs/access_uuid",
+              "description": "UUID."
+            }
+          },
+          "required": [
+            "account_id",
+            "user_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "user_id"
+        "path"
       ],
       $defs: {
         "access_identifier": access_identifier,
@@ -43,10 +51,10 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/access_failed_login_response",
       $defs: {
-        "access_api-response-collection": access_api_response_collection_output,
-        "access_api-response-common": access_api_response_common_output,
-        "access_failed_login_response": access_failed_login_response_output,
-        "access_messages": access_messages_output,
+        "access_api-response-collection": access_api$$response$$collection,
+        "access_api-response-common": access_api$$response$$common,
+        "access_failed_login_response": access_failed_login_response,
+        "access_messages": access_messages,
       },
     },
     annotations: {
@@ -73,11 +81,11 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "access_api-response-collection": access_api_response_collection_output,
-        "access_api-response-common": access_api_response_common_output,
-        "access_api-response-common-failure": access_api_response_common_failure_output,
-        "access_failed_login_response": access_failed_login_response_output,
-        "access_messages": access_messages_output,
+        "access_api-response-collection": access_api$$response$$collection,
+        "access_api-response-common": access_api$$response$$common,
+        "access_api-response-common-failure": access_api$$response$$common$$failure,
+        "access_failed_login_response": access_failed_login_response,
+        "access_messages": access_messages,
       },
     },
     request: (args) => ({

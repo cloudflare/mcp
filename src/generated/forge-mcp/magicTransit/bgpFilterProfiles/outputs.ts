@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `magic_bgp_filter_match_action` in responses.
  */
-export const magic_bgp_filter_match_action_output: JsonSchema = {
+export const magic_bgp_filter_match_action: JsonSchema = {
   "enum": [
     "allow",
     "deny"
@@ -17,7 +17,7 @@ export const magic_bgp_filter_match_action_output: JsonSchema = {
 /**
  * The schema of `magic_bgp_filter_profile` in responses.
  */
-export const magic_bgp_filter_profile_output: JsonSchema = {
+export const magic_bgp_filter_profile: JsonSchema = {
   "properties": {
     "created_on": {
       "format": "date-time",
@@ -60,7 +60,7 @@ export const magic_bgp_filter_profile_output: JsonSchema = {
 /**
  * The schema of `magic_magic_bgp_filter_profile_response` in responses.
  */
-export const magic_magic_bgp_filter_profile_response_output: JsonSchema = {
+export const magic_magic_bgp_filter_profile_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/magic_api-response-single"
@@ -79,7 +79,7 @@ export const magic_magic_bgp_filter_profile_response_output: JsonSchema = {
 /**
  * The schema of `magic_magic_bgp_filter_profiles_list_response` in responses.
  */
-export const magic_magic_bgp_filter_profiles_list_response_output: JsonSchema = {
+export const magic_magic_bgp_filter_profiles_list_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/magic_api-response-common"

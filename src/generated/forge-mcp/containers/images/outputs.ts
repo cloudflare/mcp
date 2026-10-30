@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `cc_ContainerImagePreparation` in responses.
  */
-export const cc_ContainerImagePreparation_output: JsonSchema = {
+export const cc_ContainerImagePreparation: JsonSchema = {
   "properties": {
     "artifact_digest": {
       "type": "string"
@@ -31,7 +31,7 @@ export const cc_ContainerImagePreparation_output: JsonSchema = {
 /**
  * The schema of `cc_ContainerImagePreparationStatus` in responses.
  */
-export const cc_ContainerImagePreparationStatus_output: JsonSchema = {
+export const cc_ContainerImagePreparationStatus: JsonSchema = {
   "enum": [
     "pending",
     "ready",

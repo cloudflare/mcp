@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `magic-visibility-mnm_mnm_config_default_sampling`.
  */
-export const magic_visibility_mnm_mnm_config_default_sampling: JsonSchema = {
+export const magic$$visibility$$mnm_mnm_config_default_sampling: JsonSchema = {
   "description": "Fallback sampling rate of flow messages being sent in packets per second. This should match the packet sampling rate configured on the router.",
   "type": "number"
 };
@@ -14,7 +14,7 @@ export const magic_visibility_mnm_mnm_config_default_sampling: JsonSchema = {
 /**
  * The schema of `magic-visibility-mnm_mnm_config_name`.
  */
-export const magic_visibility_mnm_mnm_config_name: JsonSchema = {
+export const magic$$visibility$$mnm_mnm_config_name: JsonSchema = {
   "description": "The account name.",
   "type": "string"
 };
@@ -22,7 +22,7 @@ export const magic_visibility_mnm_mnm_config_name: JsonSchema = {
 /**
  * The schema of `magic-visibility-mnm_mnm_config_router_ip`.
  */
-export const magic_visibility_mnm_mnm_config_router_ip: JsonSchema = {
+export const magic$$visibility$$mnm_mnm_config_router_ip: JsonSchema = {
   "description": "IPv4 CIDR of the router sourcing flow data. Only /32 addresses are currently supported.",
   "type": "string"
 };
@@ -30,7 +30,7 @@ export const magic_visibility_mnm_mnm_config_router_ip: JsonSchema = {
 /**
  * The schema of `magic-visibility-mnm_mnm_config_router_ips`.
  */
-export const magic_visibility_mnm_mnm_config_router_ips: JsonSchema = {
+export const magic$$visibility$$mnm_mnm_config_router_ips: JsonSchema = {
   "items": {
     "$ref": "#/$defs/magic-visibility-mnm_mnm_config_router_ip"
   },
@@ -40,7 +40,7 @@ export const magic_visibility_mnm_mnm_config_router_ips: JsonSchema = {
 /**
  * The schema of `magic-visibility-mnm_mnm_config_warp_device`.
  */
-export const magic_visibility_mnm_mnm_config_warp_device: JsonSchema = {
+export const magic$$visibility$$mnm_mnm_config_warp_device: JsonSchema = {
   "description": "Object representing a warp device with an ID and name.",
   "properties": {
     "id": {
@@ -67,7 +67,7 @@ export const magic_visibility_mnm_mnm_config_warp_device: JsonSchema = {
 /**
  * The schema of `magic-visibility-mnm_mnm_config_warp_devices`.
  */
-export const magic_visibility_mnm_mnm_config_warp_devices: JsonSchema = {
+export const magic$$visibility$$mnm_mnm_config_warp_devices: JsonSchema = {
   "items": {
     "$ref": "#/$defs/magic-visibility-mnm_mnm_config_warp_device"
   },

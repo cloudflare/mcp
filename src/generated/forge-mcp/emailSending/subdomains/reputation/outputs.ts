@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `email_sending_subdomain_reputation_complaints` in responses.
  */
-export const email_sending_subdomain_reputation_complaints_output: JsonSchema = {
+export const email_sending_subdomain_reputation_complaints: JsonSchema = {
   "properties": {
     "complaints": {
       "type": "integer"
@@ -22,7 +22,7 @@ export const email_sending_subdomain_reputation_complaints_output: JsonSchema = 
  * The schema of `email_sending_subdomain_reputation_complaints_response` in
  * responses.
  */
-export const email_sending_subdomain_reputation_complaints_response_output: JsonSchema = {
+export const email_sending_subdomain_reputation_complaints_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/email_api-response-single"

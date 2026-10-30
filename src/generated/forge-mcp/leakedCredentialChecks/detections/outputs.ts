@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `waf-product-api-bundle_api-response-collection` in responses.
  */
-export const waf_product_api_bundle_api_response_collection_output: JsonSchema = {
+export const waf$$product$$api$$bundle_api$$response$$collection: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/waf-product-api-bundle_api-response-common"
@@ -35,7 +35,7 @@ export const waf_product_api_bundle_api_response_collection_output: JsonSchema =
 /**
  * The schema of `waf-product-api-bundle_custom-detection` in responses.
  */
-export const waf_product_api_bundle_custom_detection_output: JsonSchema = {
+export const waf$$product$$api$$bundle_custom$$detection: JsonSchema = {
   "properties": {
     "id": {
       "$ref": "#/$defs/waf-product-api-bundle_detection-id"
@@ -53,7 +53,7 @@ export const waf_product_api_bundle_custom_detection_output: JsonSchema = {
 /**
  * The schema of `waf-product-api-bundle_detection-id` in responses.
  */
-export const waf_product_api_bundle_detection_id_output: JsonSchema = {
+export const waf$$product$$api$$bundle_detection$$id: JsonSchema = {
   "$ref": "#/$defs/waf-product-api-bundle_identifier"
 };
 
@@ -61,7 +61,7 @@ export const waf_product_api_bundle_detection_id_output: JsonSchema = {
  * The schema of `waf-product-api-bundle_response-custom-detection` in
  * responses.
  */
-export const waf_product_api_bundle_response_custom_detection_output: JsonSchema = {
+export const waf$$product$$api$$bundle_response$$custom$$detection: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/waf-product-api-bundle_api-response-single"
@@ -81,7 +81,7 @@ export const waf_product_api_bundle_response_custom_detection_output: JsonSchema
  * The schema of `waf-product-api-bundle_response-custom-detection-collection`
  * in responses.
  */
-export const waf_product_api_bundle_response_custom_detection_collection_output: JsonSchema = {
+export const waf$$product$$api$$bundle_response$$custom$$detection$$collection: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/waf-product-api-bundle_api-response-collection"

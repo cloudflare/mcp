@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `access_certificate_set_list_response` in responses.
  */
-export const access_certificate_set_list_response_output: JsonSchema = {
+export const access_certificate_set_list_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/access_api-response-collection"
@@ -28,7 +28,7 @@ export const access_certificate_set_list_response_output: JsonSchema = {
 /**
  * The schema of `access_certificate_set_response` in responses.
  */
-export const access_certificate_set_response_output: JsonSchema = {
+export const access_certificate_set_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/access_api-response-single"
@@ -47,7 +47,7 @@ export const access_certificate_set_response_output: JsonSchema = {
 /**
  * The schema of `access_saml_certificate-2` in responses.
  */
-export const access_saml_certificate_2_output: JsonSchema = {
+export const access_saml_certificate$$2: JsonSchema = {
   "properties": {
     "is_current": {
       "type": "boolean"
@@ -75,7 +75,7 @@ export const access_saml_certificate_2_output: JsonSchema = {
 /**
  * The schema of `access_saml_certificate_set-2` in responses.
  */
-export const access_saml_certificate_set_2_output: JsonSchema = {
+export const access_saml_certificate_set$$2: JsonSchema = {
   "properties": {
     "created_at": {
       "format": "date-time",

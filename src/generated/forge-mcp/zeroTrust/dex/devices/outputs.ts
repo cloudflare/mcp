@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `digital-experience-monitoring_cpu_pct_by_app` in responses.
  */
-export const digital_experience_monitoring_cpu_pct_by_app_output: JsonSchema = {
+export const digital$$experience$$monitoring_cpu_pct_by_app: JsonSchema = {
   "properties": {
     "cpu_pct": {
       "oneOf": [
@@ -35,7 +35,7 @@ export const digital_experience_monitoring_cpu_pct_by_app_output: JsonSchema = {
 /**
  * The schema of `digital-experience-monitoring_device` in responses.
  */
-export const digital_experience_monitoring_device_output: JsonSchema = {
+export const digital$$experience$$monitoring_device: JsonSchema = {
   "properties": {
     "alwaysOn": {
       "oneOf": [
@@ -426,7 +426,7 @@ export const digital_experience_monitoring_device_output: JsonSchema = {
 /**
  * The schema of `digital-experience-monitoring_directional_stat` in responses.
  */
-export const digital_experience_monitoring_directional_stat_output: JsonSchema = {
+export const digital$$experience$$monitoring_directional_stat: JsonSchema = {
   "properties": {
     "downstream": {
       "oneOf": [
@@ -456,7 +456,7 @@ export const digital_experience_monitoring_directional_stat_output: JsonSchema =
  * The schema of `digital-experience-monitoring_fleet_status_devices_response`
  * in responses.
  */
-export const digital_experience_monitoring_fleet_status_devices_response_output: JsonSchema = {
+export const digital$$experience$$monitoring_fleet_status_devices_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/digital-experience-monitoring_api-response-collection"
@@ -478,14 +478,14 @@ export const digital_experience_monitoring_fleet_status_devices_response_output:
 /**
  * The schema of `digital-experience-monitoring_mode` in responses.
  */
-export const digital_experience_monitoring_mode_output: JsonSchema = {
+export const digital$$experience$$monitoring_mode: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `digital-experience-monitoring_personEmail` in responses.
  */
-export const digital_experience_monitoring_personEmail_output: JsonSchema = {
+export const digital$$experience$$monitoring_personEmail: JsonSchema = {
   "type": "string"
 };
 
@@ -493,7 +493,7 @@ export const digital_experience_monitoring_personEmail_output: JsonSchema = {
  * The schema of `digital-experience-monitoring_ram_used_pct_by_app` in
  * responses.
  */
-export const digital_experience_monitoring_ram_used_pct_by_app_output: JsonSchema = {
+export const digital$$experience$$monitoring_ram_used_pct_by_app: JsonSchema = {
   "properties": {
     "name": {
       "oneOf": [
@@ -522,7 +522,7 @@ export const digital_experience_monitoring_ram_used_pct_by_app_output: JsonSchem
 /**
  * The schema of `digital-experience-monitoring_rtt_stats` in responses.
  */
-export const digital_experience_monitoring_rtt_stats_output: JsonSchema = {
+export const digital$$experience$$monitoring_rtt_stats: JsonSchema = {
   "properties": {
     "minRttUs": {
       "oneOf": [
@@ -561,7 +561,7 @@ export const digital_experience_monitoring_rtt_stats_output: JsonSchema = {
 /**
  * The schema of `digital-experience-monitoring_schemas-ip_info` in responses.
  */
-export const digital_experience_monitoring_schemas_ip_info_output: JsonSchema = {
+export const digital$$experience$$monitoring_schemas$$ip_info: JsonSchema = {
   "properties": {
     "address": {
       "oneOf": [
@@ -668,7 +668,7 @@ export const digital_experience_monitoring_schemas_ip_info_output: JsonSchema = 
 /**
  * The schema of `digital-experience-monitoring_tunnel_stats` in responses.
  */
-export const digital_experience_monitoring_tunnel_stats_output: JsonSchema = {
+export const digital$$experience$$monitoring_tunnel_stats: JsonSchema = {
   "properties": {
     "bytesLost": {
       "oneOf": [

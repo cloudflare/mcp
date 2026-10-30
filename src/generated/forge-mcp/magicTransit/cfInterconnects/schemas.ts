@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `magic_components-schemas-name`.
  */
-export const magic_components_schemas_name: JsonSchema = {
+export const magic_components$$schemas$$name: JsonSchema = {
   "description": "The name of the interconnect. The name cannot share a name with other tunnels.",
   "type": "string"
 };
@@ -75,7 +75,7 @@ export const magic_interconnect_bgp_config: JsonSchema = {
 /**
  * The schema of `magic_interconnect_components-schemas-description`.
  */
-export const magic_interconnect_components_schemas_description: JsonSchema = {
+export const magic_interconnect_components$$schemas$$description: JsonSchema = {
   "description": "An optional description of the interconnect.",
   "type": "string"
 };
@@ -164,7 +164,7 @@ export const magic_interface_address_interconnect: JsonSchema = {
 /**
  * The schema of `magic_schemas-mtu`.
  */
-export const magic_schemas_mtu: JsonSchema = {
+export const magic_schemas$$mtu: JsonSchema = {
   "description": "The Maximum Transmission Unit (MTU) in bytes for the interconnect. The minimum value is 576.",
   "type": "integer"
 };

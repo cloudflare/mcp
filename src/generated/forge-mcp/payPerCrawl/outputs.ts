@@ -6,7 +6,7 @@ import type { JsonSchema } from "../_/tool.js";
 /**
  * The schema of `pay-per-crawl_StripeConnectResp` in responses.
  */
-export const pay_per_crawl_StripeConnectResp_output: JsonSchema = {
+export const pay$$per$$crawl_StripeConnectResp: JsonSchema = {
   "properties": {
     "url": {
       "type": "string"
@@ -18,7 +18,7 @@ export const pay_per_crawl_StripeConnectResp_output: JsonSchema = {
 /**
  * The schema of `pay-per-crawl_StripeConnection` in responses.
  */
-export const pay_per_crawl_StripeConnection_output: JsonSchema = {
+export const pay$$per$$crawl_StripeConnection: JsonSchema = {
   "properties": {
     "connect_status": {
       "type": "string"
@@ -33,7 +33,7 @@ export const pay_per_crawl_StripeConnection_output: JsonSchema = {
 /**
  * The schema of `pay-per-crawl_createStripeConfigResponse` in responses.
  */
-export const pay_per_crawl_createStripeConfigResponse_output: JsonSchema = {
+export const pay$$per$$crawl_createStripeConfigResponse: JsonSchema = {
   "properties": {
     "errors": {
       "items": {
@@ -63,7 +63,7 @@ export const pay_per_crawl_createStripeConfigResponse_output: JsonSchema = {
 /**
  * The schema of `pay-per-crawl_getStripeConfigResponse` in responses.
  */
-export const pay_per_crawl_getStripeConfigResponse_output: JsonSchema = {
+export const pay$$per$$crawl_getStripeConfigResponse: JsonSchema = {
   "properties": {
     "errors": {
       "items": {

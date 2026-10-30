@@ -3,62 +3,73 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
-  dlp_Empty_output,
-  dlp_api_response_common_failure_output,
-  dlp_api_response_single_output,
-  dlp_messages_output,
+  dlp_Empty,
+  dlp_api$$response$$common$$failure,
+  dlp_api$$response$$single,
+  dlp_messages,
 } from "../../outputs.js";
 import {
-  dlp_CustomEntry_output,
-  dlp_CustomPromptTopicEntry_output,
-  dlp_DatasetUploadStatus_output,
-  dlp_DocumentFingerprintEntry_output,
-  dlp_EntryConfidence_output,
-  dlp_Entry_output,
-  dlp_ExactDataEntry_output,
-  dlp_IntegrationEntry_output,
-  dlp_Pattern_output,
-  dlp_PredefinedEntryVariant_output,
-  dlp_PredefinedEntry_output,
-  dlp_PromptTopicType_output,
-  dlp_Validation_output,
-  dlp_WordListEntry_output,
+  dlp_CustomEntry,
+  dlp_CustomPromptTopicEntry,
+  dlp_DatasetUploadStatus,
+  dlp_DocumentFingerprintEntry,
+  dlp_Entry,
+  dlp_EntryConfidence,
+  dlp_ExactDataEntry,
+  dlp_IntegrationEntry,
+  dlp_Pattern,
+  dlp_PredefinedEntry,
+  dlp_PredefinedEntryVariant,
+  dlp_PromptTopicType,
+  dlp_Validation,
+  dlp_WordListEntry,
 } from "../outputs.js";
-import { dlp_Pattern, dlp_Validation } from "../schemas.js";
 import {
-  dlp_EntryProfile_output,
-  dlp_EntryWithSharedProfiles_output,
-  dlp_EntryWithUploadStatus_output,
+  dlp_Pattern as dlp_Pattern$,
+  dlp_Validation as dlp_Validation$,
+} from "../schemas.js";
+import {
+  dlp_EntryProfile,
+  dlp_EntryWithSharedProfiles,
+  dlp_EntryWithUploadStatus,
 } from "./outputs.js";
 import { dlp_EntryUpdate, dlp_NewEntry } from "./schemas.js";
 
 /**
- * The tools of `zero_trust.dlp.entries`.
+ * The tools of `zeroTrust.dlp.entries`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "zero_trust_dlp_entries_create",
+    name: "zeroTrust_dlp_entries_create",
     title: "Create custom entry",
     description: "Creates a DLP custom entry.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "type": "string"
-        },
         "body": {
           "$ref": "#/$defs/dlp_NewEntry",
           "description": "A new entry to create."
+        },
+        "path": {
+          "properties": {
+            "account_id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
+        "path",
         "body"
       ],
       $defs: {
         "dlp_NewEntry": dlp_NewEntry,
-        "dlp_Pattern": dlp_Pattern,
-        "dlp_Validation": dlp_Validation,
+        "dlp_Pattern": dlp_Pattern$,
+        "dlp_Validation": dlp_Validation$,
       },
     },
     outputSchema: {
@@ -76,11 +87,11 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "dlp_CustomEntry": dlp_CustomEntry_output,
-        "dlp_Pattern": dlp_Pattern_output,
-        "dlp_Validation": dlp_Validation_output,
-        "dlp_api-response-single": dlp_api_response_single_output,
-        "dlp_messages": dlp_messages_output,
+        "dlp_CustomEntry": dlp_CustomEntry,
+        "dlp_Pattern": dlp_Pattern,
+        "dlp_Validation": dlp_Validation,
+        "dlp_api-response-single": dlp_api$$response$$single,
+        "dlp_messages": dlp_messages,
       },
     },
     annotations: {
@@ -119,12 +130,12 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "dlp_CustomEntry": dlp_CustomEntry_output,
-        "dlp_Pattern": dlp_Pattern_output,
-        "dlp_Validation": dlp_Validation_output,
-        "dlp_api-response-common-failure": dlp_api_response_common_failure_output,
-        "dlp_api-response-single": dlp_api_response_single_output,
-        "dlp_messages": dlp_messages_output,
+        "dlp_CustomEntry": dlp_CustomEntry,
+        "dlp_Pattern": dlp_Pattern,
+        "dlp_Validation": dlp_Validation,
+        "dlp_api-response-common-failure": dlp_api$$response$$common$$failure,
+        "dlp_api-response-single": dlp_api$$response$$single,
+        "dlp_messages": dlp_messages,
       },
     },
     request: (args) => ({
@@ -133,23 +144,31 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "zero_trust_dlp_entries_delete",
+    name: "zeroTrust_dlp_entries_delete",
     title: "Delete custom entry",
     description: "Deletes a DLP custom entry.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "type": "string"
-        },
-        "entry_id": {
-          "format": "uuid",
-          "type": "string"
+        "path": {
+          "properties": {
+            "account_id": {
+              "type": "string"
+            },
+            "entry_id": {
+              "format": "uuid",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "entry_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "entry_id"
+        "path"
       ],
     },
     outputSchema: {
@@ -167,9 +186,9 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "dlp_Empty": dlp_Empty_output,
-        "dlp_api-response-single": dlp_api_response_single_output,
-        "dlp_messages": dlp_messages_output,
+        "dlp_Empty": dlp_Empty,
+        "dlp_api-response-single": dlp_api$$response$$single,
+        "dlp_messages": dlp_messages,
       },
     },
     annotations: {
@@ -208,10 +227,10 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "dlp_Empty": dlp_Empty_output,
-        "dlp_api-response-common-failure": dlp_api_response_common_failure_output,
-        "dlp_api-response-single": dlp_api_response_single_output,
-        "dlp_messages": dlp_messages_output,
+        "dlp_Empty": dlp_Empty,
+        "dlp_api-response-common-failure": dlp_api$$response$$common$$failure,
+        "dlp_api-response-single": dlp_api$$response$$single,
+        "dlp_messages": dlp_messages,
       },
     },
     request: (args) => ({
@@ -219,23 +238,31 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "zero_trust_dlp_entries_get",
+    name: "zeroTrust_dlp_entries_get",
     title: "Get DLP Entry",
     description: "Fetches a DLP entry by ID.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "type": "string"
-        },
-        "entry_id": {
-          "format": "uuid",
-          "type": "string"
+        "path": {
+          "properties": {
+            "account_id": {
+              "type": "string"
+            },
+            "entry_id": {
+              "format": "uuid",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "entry_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "entry_id"
+        "path"
       ],
     },
     outputSchema: {
@@ -253,25 +280,25 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "dlp_CustomEntry": dlp_CustomEntry_output,
-        "dlp_CustomPromptTopicEntry": dlp_CustomPromptTopicEntry_output,
-        "dlp_DatasetUploadStatus": dlp_DatasetUploadStatus_output,
-        "dlp_DocumentFingerprintEntry": dlp_DocumentFingerprintEntry_output,
-        "dlp_Entry": dlp_Entry_output,
-        "dlp_EntryConfidence": dlp_EntryConfidence_output,
-        "dlp_EntryProfile": dlp_EntryProfile_output,
-        "dlp_EntryWithSharedProfiles": dlp_EntryWithSharedProfiles_output,
-        "dlp_EntryWithUploadStatus": dlp_EntryWithUploadStatus_output,
-        "dlp_ExactDataEntry": dlp_ExactDataEntry_output,
-        "dlp_IntegrationEntry": dlp_IntegrationEntry_output,
-        "dlp_Pattern": dlp_Pattern_output,
-        "dlp_PredefinedEntry": dlp_PredefinedEntry_output,
-        "dlp_PredefinedEntryVariant": dlp_PredefinedEntryVariant_output,
-        "dlp_PromptTopicType": dlp_PromptTopicType_output,
-        "dlp_Validation": dlp_Validation_output,
-        "dlp_WordListEntry": dlp_WordListEntry_output,
-        "dlp_api-response-single": dlp_api_response_single_output,
-        "dlp_messages": dlp_messages_output,
+        "dlp_CustomEntry": dlp_CustomEntry,
+        "dlp_CustomPromptTopicEntry": dlp_CustomPromptTopicEntry,
+        "dlp_DatasetUploadStatus": dlp_DatasetUploadStatus,
+        "dlp_DocumentFingerprintEntry": dlp_DocumentFingerprintEntry,
+        "dlp_Entry": dlp_Entry,
+        "dlp_EntryConfidence": dlp_EntryConfidence,
+        "dlp_EntryProfile": dlp_EntryProfile,
+        "dlp_EntryWithSharedProfiles": dlp_EntryWithSharedProfiles,
+        "dlp_EntryWithUploadStatus": dlp_EntryWithUploadStatus,
+        "dlp_ExactDataEntry": dlp_ExactDataEntry,
+        "dlp_IntegrationEntry": dlp_IntegrationEntry,
+        "dlp_Pattern": dlp_Pattern,
+        "dlp_PredefinedEntry": dlp_PredefinedEntry,
+        "dlp_PredefinedEntryVariant": dlp_PredefinedEntryVariant,
+        "dlp_PromptTopicType": dlp_PromptTopicType,
+        "dlp_Validation": dlp_Validation,
+        "dlp_WordListEntry": dlp_WordListEntry,
+        "dlp_api-response-single": dlp_api$$response$$single,
+        "dlp_messages": dlp_messages,
       },
     },
     annotations: {
@@ -311,26 +338,26 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "dlp_CustomEntry": dlp_CustomEntry_output,
-        "dlp_CustomPromptTopicEntry": dlp_CustomPromptTopicEntry_output,
-        "dlp_DatasetUploadStatus": dlp_DatasetUploadStatus_output,
-        "dlp_DocumentFingerprintEntry": dlp_DocumentFingerprintEntry_output,
-        "dlp_Entry": dlp_Entry_output,
-        "dlp_EntryConfidence": dlp_EntryConfidence_output,
-        "dlp_EntryProfile": dlp_EntryProfile_output,
-        "dlp_EntryWithSharedProfiles": dlp_EntryWithSharedProfiles_output,
-        "dlp_EntryWithUploadStatus": dlp_EntryWithUploadStatus_output,
-        "dlp_ExactDataEntry": dlp_ExactDataEntry_output,
-        "dlp_IntegrationEntry": dlp_IntegrationEntry_output,
-        "dlp_Pattern": dlp_Pattern_output,
-        "dlp_PredefinedEntry": dlp_PredefinedEntry_output,
-        "dlp_PredefinedEntryVariant": dlp_PredefinedEntryVariant_output,
-        "dlp_PromptTopicType": dlp_PromptTopicType_output,
-        "dlp_Validation": dlp_Validation_output,
-        "dlp_WordListEntry": dlp_WordListEntry_output,
-        "dlp_api-response-common-failure": dlp_api_response_common_failure_output,
-        "dlp_api-response-single": dlp_api_response_single_output,
-        "dlp_messages": dlp_messages_output,
+        "dlp_CustomEntry": dlp_CustomEntry,
+        "dlp_CustomPromptTopicEntry": dlp_CustomPromptTopicEntry,
+        "dlp_DatasetUploadStatus": dlp_DatasetUploadStatus,
+        "dlp_DocumentFingerprintEntry": dlp_DocumentFingerprintEntry,
+        "dlp_Entry": dlp_Entry,
+        "dlp_EntryConfidence": dlp_EntryConfidence,
+        "dlp_EntryProfile": dlp_EntryProfile,
+        "dlp_EntryWithSharedProfiles": dlp_EntryWithSharedProfiles,
+        "dlp_EntryWithUploadStatus": dlp_EntryWithUploadStatus,
+        "dlp_ExactDataEntry": dlp_ExactDataEntry,
+        "dlp_IntegrationEntry": dlp_IntegrationEntry,
+        "dlp_Pattern": dlp_Pattern,
+        "dlp_PredefinedEntry": dlp_PredefinedEntry,
+        "dlp_PredefinedEntryVariant": dlp_PredefinedEntryVariant,
+        "dlp_PromptTopicType": dlp_PromptTopicType,
+        "dlp_Validation": dlp_Validation,
+        "dlp_WordListEntry": dlp_WordListEntry,
+        "dlp_api-response-common-failure": dlp_api$$response$$common$$failure,
+        "dlp_api-response-single": dlp_api$$response$$single,
+        "dlp_messages": dlp_messages,
       },
     },
     request: (args) => ({
@@ -338,18 +365,26 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "zero_trust_dlp_entries_list",
+    name: "zeroTrust_dlp_entries_list",
     title: "List all entries",
     description: "Lists all DLP entries in an account.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "type": "string"
+        "path": {
+          "properties": {
+            "account_id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id"
+        "path"
       ],
     },
     outputSchema: {
@@ -370,23 +405,23 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "dlp_CustomEntry": dlp_CustomEntry_output,
-        "dlp_CustomPromptTopicEntry": dlp_CustomPromptTopicEntry_output,
-        "dlp_DatasetUploadStatus": dlp_DatasetUploadStatus_output,
-        "dlp_DocumentFingerprintEntry": dlp_DocumentFingerprintEntry_output,
-        "dlp_Entry": dlp_Entry_output,
-        "dlp_EntryConfidence": dlp_EntryConfidence_output,
-        "dlp_EntryWithUploadStatus": dlp_EntryWithUploadStatus_output,
-        "dlp_ExactDataEntry": dlp_ExactDataEntry_output,
-        "dlp_IntegrationEntry": dlp_IntegrationEntry_output,
-        "dlp_Pattern": dlp_Pattern_output,
-        "dlp_PredefinedEntry": dlp_PredefinedEntry_output,
-        "dlp_PredefinedEntryVariant": dlp_PredefinedEntryVariant_output,
-        "dlp_PromptTopicType": dlp_PromptTopicType_output,
-        "dlp_Validation": dlp_Validation_output,
-        "dlp_WordListEntry": dlp_WordListEntry_output,
-        "dlp_api-response-single": dlp_api_response_single_output,
-        "dlp_messages": dlp_messages_output,
+        "dlp_CustomEntry": dlp_CustomEntry,
+        "dlp_CustomPromptTopicEntry": dlp_CustomPromptTopicEntry,
+        "dlp_DatasetUploadStatus": dlp_DatasetUploadStatus,
+        "dlp_DocumentFingerprintEntry": dlp_DocumentFingerprintEntry,
+        "dlp_Entry": dlp_Entry,
+        "dlp_EntryConfidence": dlp_EntryConfidence,
+        "dlp_EntryWithUploadStatus": dlp_EntryWithUploadStatus,
+        "dlp_ExactDataEntry": dlp_ExactDataEntry,
+        "dlp_IntegrationEntry": dlp_IntegrationEntry,
+        "dlp_Pattern": dlp_Pattern,
+        "dlp_PredefinedEntry": dlp_PredefinedEntry,
+        "dlp_PredefinedEntryVariant": dlp_PredefinedEntryVariant,
+        "dlp_PromptTopicType": dlp_PromptTopicType,
+        "dlp_Validation": dlp_Validation,
+        "dlp_WordListEntry": dlp_WordListEntry,
+        "dlp_api-response-single": dlp_api$$response$$single,
+        "dlp_messages": dlp_messages,
       },
     },
     annotations: {
@@ -429,24 +464,24 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "dlp_CustomEntry": dlp_CustomEntry_output,
-        "dlp_CustomPromptTopicEntry": dlp_CustomPromptTopicEntry_output,
-        "dlp_DatasetUploadStatus": dlp_DatasetUploadStatus_output,
-        "dlp_DocumentFingerprintEntry": dlp_DocumentFingerprintEntry_output,
-        "dlp_Entry": dlp_Entry_output,
-        "dlp_EntryConfidence": dlp_EntryConfidence_output,
-        "dlp_EntryWithUploadStatus": dlp_EntryWithUploadStatus_output,
-        "dlp_ExactDataEntry": dlp_ExactDataEntry_output,
-        "dlp_IntegrationEntry": dlp_IntegrationEntry_output,
-        "dlp_Pattern": dlp_Pattern_output,
-        "dlp_PredefinedEntry": dlp_PredefinedEntry_output,
-        "dlp_PredefinedEntryVariant": dlp_PredefinedEntryVariant_output,
-        "dlp_PromptTopicType": dlp_PromptTopicType_output,
-        "dlp_Validation": dlp_Validation_output,
-        "dlp_WordListEntry": dlp_WordListEntry_output,
-        "dlp_api-response-common-failure": dlp_api_response_common_failure_output,
-        "dlp_api-response-single": dlp_api_response_single_output,
-        "dlp_messages": dlp_messages_output,
+        "dlp_CustomEntry": dlp_CustomEntry,
+        "dlp_CustomPromptTopicEntry": dlp_CustomPromptTopicEntry,
+        "dlp_DatasetUploadStatus": dlp_DatasetUploadStatus,
+        "dlp_DocumentFingerprintEntry": dlp_DocumentFingerprintEntry,
+        "dlp_Entry": dlp_Entry,
+        "dlp_EntryConfidence": dlp_EntryConfidence,
+        "dlp_EntryWithUploadStatus": dlp_EntryWithUploadStatus,
+        "dlp_ExactDataEntry": dlp_ExactDataEntry,
+        "dlp_IntegrationEntry": dlp_IntegrationEntry,
+        "dlp_Pattern": dlp_Pattern,
+        "dlp_PredefinedEntry": dlp_PredefinedEntry,
+        "dlp_PredefinedEntryVariant": dlp_PredefinedEntryVariant,
+        "dlp_PromptTopicType": dlp_PromptTopicType,
+        "dlp_Validation": dlp_Validation,
+        "dlp_WordListEntry": dlp_WordListEntry,
+        "dlp_api-response-common-failure": dlp_api$$response$$common$$failure,
+        "dlp_api-response-single": dlp_api$$response$$single,
+        "dlp_messages": dlp_messages,
       },
     },
     request: (args) => ({
@@ -454,33 +489,41 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "zero_trust_dlp_entries_update",
+    name: "zeroTrust_dlp_entries_update",
     title: "Update entry",
     description: "Updates a DLP entry.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "type": "string"
-        },
         "body": {
           "$ref": "#/$defs/dlp_EntryUpdate",
           "description": "Update to be applied to the entry."
         },
-        "entry_id": {
-          "format": "uuid",
-          "type": "string"
+        "path": {
+          "properties": {
+            "account_id": {
+              "type": "string"
+            },
+            "entry_id": {
+              "format": "uuid",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "entry_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "entry_id",
+        "path",
         "body"
       ],
       $defs: {
         "dlp_EntryUpdate": dlp_EntryUpdate,
-        "dlp_Pattern": dlp_Pattern,
-        "dlp_Validation": dlp_Validation,
+        "dlp_Pattern": dlp_Pattern$,
+        "dlp_Validation": dlp_Validation$,
       },
     },
     outputSchema: {
@@ -498,21 +541,21 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "dlp_CustomEntry": dlp_CustomEntry_output,
-        "dlp_CustomPromptTopicEntry": dlp_CustomPromptTopicEntry_output,
-        "dlp_DocumentFingerprintEntry": dlp_DocumentFingerprintEntry_output,
-        "dlp_Entry": dlp_Entry_output,
-        "dlp_EntryConfidence": dlp_EntryConfidence_output,
-        "dlp_ExactDataEntry": dlp_ExactDataEntry_output,
-        "dlp_IntegrationEntry": dlp_IntegrationEntry_output,
-        "dlp_Pattern": dlp_Pattern_output,
-        "dlp_PredefinedEntry": dlp_PredefinedEntry_output,
-        "dlp_PredefinedEntryVariant": dlp_PredefinedEntryVariant_output,
-        "dlp_PromptTopicType": dlp_PromptTopicType_output,
-        "dlp_Validation": dlp_Validation_output,
-        "dlp_WordListEntry": dlp_WordListEntry_output,
-        "dlp_api-response-single": dlp_api_response_single_output,
-        "dlp_messages": dlp_messages_output,
+        "dlp_CustomEntry": dlp_CustomEntry,
+        "dlp_CustomPromptTopicEntry": dlp_CustomPromptTopicEntry,
+        "dlp_DocumentFingerprintEntry": dlp_DocumentFingerprintEntry,
+        "dlp_Entry": dlp_Entry,
+        "dlp_EntryConfidence": dlp_EntryConfidence,
+        "dlp_ExactDataEntry": dlp_ExactDataEntry,
+        "dlp_IntegrationEntry": dlp_IntegrationEntry,
+        "dlp_Pattern": dlp_Pattern,
+        "dlp_PredefinedEntry": dlp_PredefinedEntry,
+        "dlp_PredefinedEntryVariant": dlp_PredefinedEntryVariant,
+        "dlp_PromptTopicType": dlp_PromptTopicType,
+        "dlp_Validation": dlp_Validation,
+        "dlp_WordListEntry": dlp_WordListEntry,
+        "dlp_api-response-single": dlp_api$$response$$single,
+        "dlp_messages": dlp_messages,
       },
     },
     annotations: {
@@ -551,22 +594,22 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "dlp_CustomEntry": dlp_CustomEntry_output,
-        "dlp_CustomPromptTopicEntry": dlp_CustomPromptTopicEntry_output,
-        "dlp_DocumentFingerprintEntry": dlp_DocumentFingerprintEntry_output,
-        "dlp_Entry": dlp_Entry_output,
-        "dlp_EntryConfidence": dlp_EntryConfidence_output,
-        "dlp_ExactDataEntry": dlp_ExactDataEntry_output,
-        "dlp_IntegrationEntry": dlp_IntegrationEntry_output,
-        "dlp_Pattern": dlp_Pattern_output,
-        "dlp_PredefinedEntry": dlp_PredefinedEntry_output,
-        "dlp_PredefinedEntryVariant": dlp_PredefinedEntryVariant_output,
-        "dlp_PromptTopicType": dlp_PromptTopicType_output,
-        "dlp_Validation": dlp_Validation_output,
-        "dlp_WordListEntry": dlp_WordListEntry_output,
-        "dlp_api-response-common-failure": dlp_api_response_common_failure_output,
-        "dlp_api-response-single": dlp_api_response_single_output,
-        "dlp_messages": dlp_messages_output,
+        "dlp_CustomEntry": dlp_CustomEntry,
+        "dlp_CustomPromptTopicEntry": dlp_CustomPromptTopicEntry,
+        "dlp_DocumentFingerprintEntry": dlp_DocumentFingerprintEntry,
+        "dlp_Entry": dlp_Entry,
+        "dlp_EntryConfidence": dlp_EntryConfidence,
+        "dlp_ExactDataEntry": dlp_ExactDataEntry,
+        "dlp_IntegrationEntry": dlp_IntegrationEntry,
+        "dlp_Pattern": dlp_Pattern,
+        "dlp_PredefinedEntry": dlp_PredefinedEntry,
+        "dlp_PredefinedEntryVariant": dlp_PredefinedEntryVariant,
+        "dlp_PromptTopicType": dlp_PromptTopicType,
+        "dlp_Validation": dlp_Validation,
+        "dlp_WordListEntry": dlp_WordListEntry,
+        "dlp_api-response-common-failure": dlp_api$$response$$common$$failure,
+        "dlp_api-response-single": dlp_api$$response$$single,
+        "dlp_messages": dlp_messages,
       },
     },
     request: (args) => ({

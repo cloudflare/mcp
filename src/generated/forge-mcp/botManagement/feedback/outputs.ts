@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `bot-management_feedback_report` in responses.
  */
-export const bot_management_feedback_report_output: JsonSchema = {
+export const bot$$management_feedback_report: JsonSchema = {
   "properties": {
     "created_at": {
       "format": "date-time",
@@ -62,7 +62,7 @@ export const bot_management_feedback_report_output: JsonSchema = {
 /**
  * The schema of `bot-management_feedback_type` in responses.
  */
-export const bot_management_feedback_type_output: JsonSchema = {
+export const bot$$management_feedback_type: JsonSchema = {
   "enum": [
     "false_positive",
     "false_negative"
@@ -73,7 +73,7 @@ export const bot_management_feedback_type_output: JsonSchema = {
 /**
  * The schema of `bot-management_metric_requests` in responses.
  */
-export const bot_management_metric_requests_output: JsonSchema = {
+export const bot$$management_metric_requests: JsonSchema = {
   "properties": {
     "metric": {
       "type": "string"
@@ -92,7 +92,7 @@ export const bot_management_metric_requests_output: JsonSchema = {
 /**
  * The schema of `bot-management_requests_by_attribute` in responses.
  */
-export const bot_management_requests_by_attribute_output: JsonSchema = {
+export const bot$$management_requests_by_attribute: JsonSchema = {
   "additionalProperties": {
     "items": {
       "$ref": "#/$defs/bot-management_metric_requests"
@@ -105,7 +105,7 @@ export const bot_management_requests_by_attribute_output: JsonSchema = {
 /**
  * The schema of `bot-management_requests_by_score` in responses.
  */
-export const bot_management_requests_by_score_output: JsonSchema = {
+export const bot$$management_requests_by_score: JsonSchema = {
   "additionalProperties": {
     "type": "integer"
   },
@@ -115,7 +115,7 @@ export const bot_management_requests_by_score_output: JsonSchema = {
 /**
  * The schema of `bot-management_requests_by_score_src` in responses.
  */
-export const bot_management_requests_by_score_src_output: JsonSchema = {
+export const bot$$management_requests_by_score_src: JsonSchema = {
   "additionalProperties": {
     "type": "integer"
   },

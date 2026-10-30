@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `tls-certificates-and-hostnames_cert_id`.
  */
-export const tls_certificates_and_hostnames_cert_id: JsonSchema = {
+export const tls$$certificates$$and$$hostnames_cert_id: JsonSchema = {
   "description": "Certificate identifier tag.",
   "type": "string"
 };
@@ -14,7 +14,7 @@ export const tls_certificates_and_hostnames_cert_id: JsonSchema = {
 /**
  * The schema of `tls-certificates-and-hostnames_certificate-6`.
  */
-export const tls_certificates_and_hostnames_certificate_6: JsonSchema = {
+export const tls$$certificates$$and$$hostnames_certificate$$6: JsonSchema = {
   "description": "The hostname certificate.",
   "type": "string"
 };
@@ -22,7 +22,7 @@ export const tls_certificates_and_hostnames_certificate_6: JsonSchema = {
 /**
  * The schema of `tls-certificates-and-hostnames_enabled-4`.
  */
-export const tls_certificates_and_hostnames_enabled_4: JsonSchema = {
+export const tls$$certificates$$and$$hostnames_enabled$$4: JsonSchema = {
   "description": "Indicates whether zone-level authenticated origin pulls is enabled.",
   "type": "boolean"
 };
@@ -30,7 +30,7 @@ export const tls_certificates_and_hostnames_enabled_4: JsonSchema = {
 /**
  * The schema of `tls-certificates-and-hostnames_enabled-5`.
  */
-export const tls_certificates_and_hostnames_enabled_5: JsonSchema = {
+export const tls$$certificates$$and$$hostnames_enabled$$5: JsonSchema = {
   "description": "Indicates whether hostname-level authenticated origin pulls is enabled. A null value voids the association.",
   "oneOf": [
     {
@@ -45,7 +45,7 @@ export const tls_certificates_and_hostnames_enabled_5: JsonSchema = {
 /**
  * The schema of `tls-certificates-and-hostnames_hostname-2`.
  */
-export const tls_certificates_and_hostnames_hostname_2: JsonSchema = {
+export const tls$$certificates$$and$$hostnames_hostname$$2: JsonSchema = {
   "description": "The hostname on the origin for which the client certificate uploaded will be used.",
   "type": "string"
 };
@@ -54,7 +54,7 @@ export const tls_certificates_and_hostnames_hostname_2: JsonSchema = {
  * The schema of
  * `tls-certificates-and-hostnames_hostname_aop_certificate_identifier`.
  */
-export const tls_certificates_and_hostnames_hostname_aop_certificate_identifier: JsonSchema = {
+export const tls$$certificates$$and$$hostnames_hostname_aop_certificate_identifier: JsonSchema = {
   "description": "Certificate identifier tag.",
   "type": "string"
 };
@@ -62,7 +62,7 @@ export const tls_certificates_and_hostnames_hostname_aop_certificate_identifier:
 /**
  * The schema of `tls-certificates-and-hostnames_private_key-3`.
  */
-export const tls_certificates_and_hostnames_private_key_3: JsonSchema = {
+export const tls$$certificates$$and$$hostnames_private_key$$3: JsonSchema = {
   "description": "The hostname certificate's private key.",
   "type": "string"
 };

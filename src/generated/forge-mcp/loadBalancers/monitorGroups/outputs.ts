@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `load-balancing_monitor-group` in responses.
  */
-export const load_balancing_monitor_group_output: JsonSchema = {
+export const load$$balancing_monitor$$group: JsonSchema = {
   "properties": {
     "created_on": {
       "format": "date-time",
@@ -40,7 +40,7 @@ export const load_balancing_monitor_group_output: JsonSchema = {
 /**
  * The schema of `load-balancing_monitor-group-member` in responses.
  */
-export const load_balancing_monitor_group_member_output: JsonSchema = {
+export const load$$balancing_monitor$$group$$member: JsonSchema = {
   "properties": {
     "created_at": {
       "format": "date-time",
@@ -76,7 +76,7 @@ export const load_balancing_monitor_group_member_output: JsonSchema = {
  * The schema of `load-balancing_monitor-group-response-collection` in
  * responses.
  */
-export const load_balancing_monitor_group_response_collection_output: JsonSchema = {
+export const load$$balancing_monitor$$group$$response$$collection: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/load-balancing_api-response-common"
@@ -101,7 +101,7 @@ export const load_balancing_monitor_group_response_collection_output: JsonSchema
 /**
  * The schema of `load-balancing_monitor-group-single-response` in responses.
  */
-export const load_balancing_monitor_group_single_response_output: JsonSchema = {
+export const load$$balancing_monitor$$group$$single$$response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/load-balancing_api-response-common"

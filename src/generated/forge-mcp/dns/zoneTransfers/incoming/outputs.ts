@@ -6,14 +6,14 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `secondary-dns_auto_refresh_seconds` in responses.
  */
-export const secondary_dns_auto_refresh_seconds_output: JsonSchema = {
+export const secondary$$dns_auto_refresh_seconds: JsonSchema = {
   "type": "number"
 };
 
 /**
  * The schema of `secondary-dns_single_response_incoming` in responses.
  */
-export const secondary_dns_single_response_incoming_output: JsonSchema = {
+export const secondary$$dns_single_response_incoming: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/secondary-dns_api-response-single"

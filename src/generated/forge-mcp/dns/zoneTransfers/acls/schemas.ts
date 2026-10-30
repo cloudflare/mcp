@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `secondary-dns_acl`.
  */
-export const secondary_dns_acl: JsonSchema = {
+export const secondary$$dns_acl: JsonSchema = {
   "properties": {
     "ip_range": {
       "$ref": "#/$defs/secondary-dns_ip_range",
@@ -27,7 +27,7 @@ export const secondary_dns_acl: JsonSchema = {
 /**
  * The schema of `secondary-dns_ip_range`.
  */
-export const secondary_dns_ip_range: JsonSchema = {
+export const secondary$$dns_ip_range: JsonSchema = {
   "description": "Allowed IPv4/IPv6 address range of primary or secondary nameservers. This will be applied for the entire account. The IP range is used to allow additional NOTIFY IPs for secondary zones and IPs Cloudflare allows AXFR/IXFR requests from for primary zones. CIDRs are limited to a maximum of /24 for IPv4 and /64 for IPv6 respectively.",
   "type": "string"
 };
@@ -35,7 +35,7 @@ export const secondary_dns_ip_range: JsonSchema = {
 /**
  * The schema of `secondary-dns_name-4`.
  */
-export const secondary_dns_name_4: JsonSchema = {
+export const secondary$$dns_name$$4: JsonSchema = {
   "description": "The name of the acl.",
   "type": "string"
 };

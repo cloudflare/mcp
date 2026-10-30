@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `cloud-connector_identifier`.
  */
-export const cloud_connector_identifier: JsonSchema = {
+export const cloud$$connector_identifier: JsonSchema = {
   "description": "Identifier.",
   "type": "string"
 };
@@ -14,7 +14,7 @@ export const cloud_connector_identifier: JsonSchema = {
 /**
  * The schema of `cloud-connector_provider`.
  */
-export const cloud_connector_provider: JsonSchema = {
+export const cloud$$connector_provider: JsonSchema = {
   "description": "Cloud Provider type",
   "enum": [
     "aws_s3",
@@ -29,7 +29,7 @@ export const cloud_connector_provider: JsonSchema = {
 /**
  * The schema of `cloud-connector_rule`.
  */
-export const cloud_connector_rule: JsonSchema = {
+export const cloud$$connector_rule: JsonSchema = {
   "properties": {
     "description": {
       "type": "string"

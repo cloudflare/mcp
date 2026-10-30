@@ -3,29 +3,29 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
-  builds_APIResponse_output,
-  builds_ApiError_output,
-  builds_ErrorResponse_output,
-  builds_PaginationInfo_output,
-  builds_SCMProviderType_output,
-  builds_UpsertRepoConnectionResponse_output,
-  builds_created_on_output,
-  builds_deleted_on_output,
-  builds_modified_on_output,
-  builds_provider_account_id_output,
-  builds_provider_account_name_output,
-  builds_repo_connection_uuid_output,
-  builds_repo_id_output,
-  builds_repo_name_output,
-} from "../../../outputs.js";
-import {
+  builds_APIResponse,
+  builds_ApiError,
+  builds_ErrorResponse,
+  builds_PaginationInfo,
   builds_SCMProviderType,
-  builds_account_id,
+  builds_UpsertRepoConnectionResponse,
+  builds_created_on,
+  builds_deleted_on,
+  builds_modified_on,
   builds_provider_account_id,
   builds_provider_account_name,
   builds_repo_connection_uuid,
   builds_repo_id,
   builds_repo_name,
+} from "../../../outputs.js";
+import {
+  builds_SCMProviderType as builds_SCMProviderType$,
+  builds_account_id,
+  builds_provider_account_id as builds_provider_account_id$,
+  builds_provider_account_name as builds_provider_account_name$,
+  builds_repo_connection_uuid as builds_repo_connection_uuid$,
+  builds_repo_id as builds_repo_id$,
+  builds_repo_name as builds_repo_name$,
 } from "../../../schemas.js";
 import { builds_UpsertRepoConnectionRequest } from "./schemas.js";
 
@@ -40,30 +40,38 @@ export const tools: readonly Tool[] = [
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/builds_account_id",
-          "description": "Account identifier."
-        },
-        "repo_connection_uuid": {
-          "$ref": "#/$defs/builds_repo_connection_uuid",
-          "description": "Repository connection UUID."
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/builds_account_id",
+              "description": "Account identifier."
+            },
+            "repo_connection_uuid": {
+              "$ref": "#/$defs/builds_repo_connection_uuid",
+              "description": "Repository connection UUID."
+            }
+          },
+          "required": [
+            "account_id",
+            "repo_connection_uuid"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "repo_connection_uuid"
+        "path"
       ],
       $defs: {
         "builds_account_id": builds_account_id,
-        "builds_repo_connection_uuid": builds_repo_connection_uuid,
+        "builds_repo_connection_uuid": builds_repo_connection_uuid$,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/builds_APIResponse",
       $defs: {
-        "builds_APIResponse": builds_APIResponse_output,
-        "builds_ApiError": builds_ApiError_output,
-        "builds_PaginationInfo": builds_PaginationInfo_output,
+        "builds_APIResponse": builds_APIResponse,
+        "builds_ApiError": builds_ApiError,
+        "builds_PaginationInfo": builds_PaginationInfo,
       },
     },
     annotations: {
@@ -93,10 +101,10 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "builds_APIResponse": builds_APIResponse_output,
-        "builds_ApiError": builds_ApiError_output,
-        "builds_ErrorResponse": builds_ErrorResponse_output,
-        "builds_PaginationInfo": builds_PaginationInfo_output,
+        "builds_APIResponse": builds_APIResponse,
+        "builds_ApiError": builds_ApiError,
+        "builds_ErrorResponse": builds_ErrorResponse,
+        "builds_PaginationInfo": builds_PaginationInfo,
       },
     },
     request: (args) => ({
@@ -110,26 +118,34 @@ export const tools: readonly Tool[] = [
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/builds_account_id",
-          "description": "Account identifier."
-        },
         "body": {
           "$ref": "#/$defs/builds_UpsertRepoConnectionRequest"
+        },
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/builds_account_id",
+              "description": "Account identifier."
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
+        "path",
         "body"
       ],
       $defs: {
-        "builds_SCMProviderType": builds_SCMProviderType,
+        "builds_SCMProviderType": builds_SCMProviderType$,
         "builds_UpsertRepoConnectionRequest": builds_UpsertRepoConnectionRequest,
         "builds_account_id": builds_account_id,
-        "builds_provider_account_id": builds_provider_account_id,
-        "builds_provider_account_name": builds_provider_account_name,
-        "builds_repo_id": builds_repo_id,
-        "builds_repo_name": builds_repo_name,
+        "builds_provider_account_id": builds_provider_account_id$,
+        "builds_provider_account_name": builds_provider_account_name$,
+        "builds_repo_id": builds_repo_id$,
+        "builds_repo_name": builds_repo_name$,
       },
     },
     outputSchema: {
@@ -147,19 +163,19 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "builds_APIResponse": builds_APIResponse_output,
-        "builds_ApiError": builds_ApiError_output,
-        "builds_PaginationInfo": builds_PaginationInfo_output,
-        "builds_SCMProviderType": builds_SCMProviderType_output,
-        "builds_UpsertRepoConnectionResponse": builds_UpsertRepoConnectionResponse_output,
-        "builds_created_on": builds_created_on_output,
-        "builds_deleted_on": builds_deleted_on_output,
-        "builds_modified_on": builds_modified_on_output,
-        "builds_provider_account_id": builds_provider_account_id_output,
-        "builds_provider_account_name": builds_provider_account_name_output,
-        "builds_repo_connection_uuid": builds_repo_connection_uuid_output,
-        "builds_repo_id": builds_repo_id_output,
-        "builds_repo_name": builds_repo_name_output,
+        "builds_APIResponse": builds_APIResponse,
+        "builds_ApiError": builds_ApiError,
+        "builds_PaginationInfo": builds_PaginationInfo,
+        "builds_SCMProviderType": builds_SCMProviderType,
+        "builds_UpsertRepoConnectionResponse": builds_UpsertRepoConnectionResponse,
+        "builds_created_on": builds_created_on,
+        "builds_deleted_on": builds_deleted_on,
+        "builds_modified_on": builds_modified_on,
+        "builds_provider_account_id": builds_provider_account_id,
+        "builds_provider_account_name": builds_provider_account_name,
+        "builds_repo_connection_uuid": builds_repo_connection_uuid,
+        "builds_repo_id": builds_repo_id,
+        "builds_repo_name": builds_repo_name,
       },
     },
     annotations: {
@@ -198,20 +214,20 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "builds_APIResponse": builds_APIResponse_output,
-        "builds_ApiError": builds_ApiError_output,
-        "builds_ErrorResponse": builds_ErrorResponse_output,
-        "builds_PaginationInfo": builds_PaginationInfo_output,
-        "builds_SCMProviderType": builds_SCMProviderType_output,
-        "builds_UpsertRepoConnectionResponse": builds_UpsertRepoConnectionResponse_output,
-        "builds_created_on": builds_created_on_output,
-        "builds_deleted_on": builds_deleted_on_output,
-        "builds_modified_on": builds_modified_on_output,
-        "builds_provider_account_id": builds_provider_account_id_output,
-        "builds_provider_account_name": builds_provider_account_name_output,
-        "builds_repo_connection_uuid": builds_repo_connection_uuid_output,
-        "builds_repo_id": builds_repo_id_output,
-        "builds_repo_name": builds_repo_name_output,
+        "builds_APIResponse": builds_APIResponse,
+        "builds_ApiError": builds_ApiError,
+        "builds_ErrorResponse": builds_ErrorResponse,
+        "builds_PaginationInfo": builds_PaginationInfo,
+        "builds_SCMProviderType": builds_SCMProviderType,
+        "builds_UpsertRepoConnectionResponse": builds_UpsertRepoConnectionResponse,
+        "builds_created_on": builds_created_on,
+        "builds_deleted_on": builds_deleted_on,
+        "builds_modified_on": builds_modified_on,
+        "builds_provider_account_id": builds_provider_account_id,
+        "builds_provider_account_name": builds_provider_account_name,
+        "builds_repo_connection_uuid": builds_repo_connection_uuid,
+        "builds_repo_id": builds_repo_id,
+        "builds_repo_name": builds_repo_name,
       },
     },
     request: (args) => ({

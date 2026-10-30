@@ -132,7 +132,7 @@ export const access_cloudflare: JsonSchema = {
 /**
  * The schema of `access_custom-claims-support`.
  */
-export const access_custom_claims_support: JsonSchema = {
+export const access_custom$$claims$$support: JsonSchema = {
   "properties": {
     "claims": {
       "description": "Custom claims",
@@ -212,7 +212,7 @@ export const access_facebook: JsonSchema = {
 /**
  * The schema of `access_generic-oauth-config`.
  */
-export const access_generic_oauth_config: JsonSchema = {
+export const access_generic$$oauth$$config: JsonSchema = {
   "properties": {
     "client_id": {
       "description": "Your OAuth Client ID",
@@ -276,7 +276,7 @@ export const access_google: JsonSchema = {
 /**
  * The schema of `access_google-apps`.
  */
-export const access_google_apps: JsonSchema = {
+export const access_google$$apps: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/access_identity-provider"
@@ -325,7 +325,7 @@ export const access_google_apps: JsonSchema = {
 /**
  * The schema of `access_identity-provider`.
  */
-export const access_identity_provider: JsonSchema = {
+export const access_identity$$provider: JsonSchema = {
   "properties": {
     "config": {
       "description": "The configuration parameters for the identity provider. To view the required parameters for a specific provider, refer to our [developer documentation](https://developers.cloudflare.com/cloudflare-one/identity/idp-integration/).",
@@ -410,7 +410,7 @@ export const access_identity_provider: JsonSchema = {
 /**
  * The schema of `access_identity-providers`.
  */
-export const access_identity_providers: JsonSchema = {
+export const access_identity$$providers: JsonSchema = {
   "anyOf": [
     {
       "$ref": "#/$defs/access_azureAD"
@@ -489,7 +489,7 @@ export const access_linkedin: JsonSchema = {
 /**
  * The schema of `access_name-3`.
  */
-export const access_name_3: JsonSchema = {
+export const access_name$$3: JsonSchema = {
   "description": "The name of the identity provider, shown to users on the login page.",
   "type": "string"
 };

@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `client-side-security_policy`.
  */
-export const client_side_security_policy: JsonSchema = {
+export const client$$side$$security_policy: JsonSchema = {
   "properties": {
     "action": {
       "$ref": "#/$defs/client-side-security_policy-action",
@@ -42,7 +42,7 @@ export const client_side_security_policy: JsonSchema = {
 /**
  * The schema of `client-side-security_policy-action`.
  */
-export const client_side_security_policy_action: JsonSchema = {
+export const client$$side$$security_policy$$action: JsonSchema = {
   "description": "The action to take if the expression matches",
   "enum": [
     "allow",
@@ -55,7 +55,7 @@ export const client_side_security_policy_action: JsonSchema = {
 /**
  * The schema of `client-side-security_policy-description`.
  */
-export const client_side_security_policy_description: JsonSchema = {
+export const client$$side$$security_policy$$description: JsonSchema = {
   "description": "A description for the policy",
   "type": "string"
 };
@@ -63,7 +63,7 @@ export const client_side_security_policy_description: JsonSchema = {
 /**
  * The schema of `client-side-security_policy-enabled`.
  */
-export const client_side_security_policy_enabled: JsonSchema = {
+export const client$$side$$security_policy$$enabled: JsonSchema = {
   "description": "Whether the policy is enabled",
   "type": "boolean"
 };
@@ -71,7 +71,7 @@ export const client_side_security_policy_enabled: JsonSchema = {
 /**
  * The schema of `client-side-security_policy-expression`.
  */
-export const client_side_security_policy_expression: JsonSchema = {
+export const client$$side$$security_policy$$expression: JsonSchema = {
   "description": "The expression which must match for the policy to be applied, using the Cloudflare Firewall rule expression syntax",
   "type": "string"
 };
@@ -79,7 +79,7 @@ export const client_side_security_policy_expression: JsonSchema = {
 /**
  * The schema of `client-side-security_policy-value`.
  */
-export const client_side_security_policy_value: JsonSchema = {
+export const client$$side$$security_policy$$value: JsonSchema = {
   "description": "The policy which will be applied",
   "type": "string"
 };

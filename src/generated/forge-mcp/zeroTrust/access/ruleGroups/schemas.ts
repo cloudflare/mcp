@@ -36,7 +36,7 @@ export const access_is_default: JsonSchema = {
 /**
  * The schema of `access_name-6`.
  */
-export const access_name_6: JsonSchema = {
+export const access_name$$6: JsonSchema = {
   "description": "The name of the Access group.",
   "type": "string"
 };

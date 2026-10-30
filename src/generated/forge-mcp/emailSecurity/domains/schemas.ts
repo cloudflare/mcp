@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `email-security_CreateDomain`.
  */
-export const email_security_CreateDomain: JsonSchema = {
+export const email$$security_CreateDomain: JsonSchema = {
   "properties": {
     "allowed_delivery_modes": {
       "description": "Delivery modes to onboard the domain through.",
@@ -120,7 +120,7 @@ export const email_security_CreateDomain: JsonSchema = {
 /**
  * The schema of `email-security_DeliveryMode`.
  */
-export const email_security_DeliveryMode: JsonSchema = {
+export const email$$security_DeliveryMode: JsonSchema = {
   "enum": [
     "DIRECT",
     "BCC",
@@ -134,7 +134,7 @@ export const email_security_DeliveryMode: JsonSchema = {
 /**
  * The schema of `email-security_DomainId`.
  */
-export const email_security_DomainId: JsonSchema = {
+export const email$$security_DomainId: JsonSchema = {
   "description": "Domain identifier.",
   "format": "uuid",
   "type": "string"
@@ -143,7 +143,7 @@ export const email_security_DomainId: JsonSchema = {
 /**
  * The schema of `email-security_DomainStatus`.
  */
-export const email_security_DomainStatus: JsonSchema = {
+export const email$$security_DomainStatus: JsonSchema = {
   "oneOf": [
     {
       "enum": [
@@ -163,7 +163,7 @@ export const email_security_DomainStatus: JsonSchema = {
 /**
  * The schema of `email-security_Region`.
  */
-export const email_security_Region: JsonSchema = {
+export const email$$security_Region: JsonSchema = {
   "description": "The region that processes messages for this domain.",
   "enum": [
     "GLOBAL",
@@ -178,7 +178,7 @@ export const email_security_Region: JsonSchema = {
 /**
  * The schema of `email-security_ReplaceDomain`.
  */
-export const email_security_ReplaceDomain: JsonSchema = {
+export const email$$security_ReplaceDomain: JsonSchema = {
   "description": "Request body for replacing an email domain. The `domain` field is intentionally\nabsent — the domain name is immutable after creation.\n",
   "properties": {
     "allowed_delivery_modes": {
@@ -288,7 +288,7 @@ export const email_security_ReplaceDomain: JsonSchema = {
 /**
  * The schema of `email-security_ScannableFolder`.
  */
-export const email_security_ScannableFolder: JsonSchema = {
+export const email$$security_ScannableFolder: JsonSchema = {
   "description": "The mailbox folder to scan, for API-scanning domains.",
   "oneOf": [
     {
@@ -307,7 +307,7 @@ export const email_security_ScannableFolder: JsonSchema = {
 /**
  * The schema of `email-security_UpdateDomain`.
  */
-export const email_security_UpdateDomain: JsonSchema = {
+export const email$$security_UpdateDomain: JsonSchema = {
   "properties": {
     "allowed_delivery_modes": {
       "description": "Delivery modes to onboard the domain through.",

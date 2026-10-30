@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `intel_collection_response` in responses.
  */
-export const intel_collection_response_output: JsonSchema = {
+export const intel_collection_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/intel_api-response-collection"

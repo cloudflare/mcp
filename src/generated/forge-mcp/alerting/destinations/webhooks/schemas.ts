@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `aaa_components-schemas-name`.
  */
-export const aaa_components_schemas_name: JsonSchema = {
+export const aaa_components$$schemas$$name: JsonSchema = {
   "description": "The name of the webhook destination. This will be included in the request body when you receive a webhook notification.",
   "type": "string"
 };
@@ -30,7 +30,7 @@ export const aaa_url: JsonSchema = {
 /**
  * The schema of `aaa_webhook-id`.
  */
-export const aaa_webhook_id: JsonSchema = {
+export const aaa_webhook$$id: JsonSchema = {
   "description": "The unique identifier of a webhook",
   "type": "string"
 };

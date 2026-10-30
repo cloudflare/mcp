@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `intel_domain-history` in responses.
  */
-export const intel_domain_history_output: JsonSchema = {
+export const intel_domain$$history: JsonSchema = {
   "properties": {
     "categorizations": {
       "items": {
@@ -48,7 +48,7 @@ export const intel_domain_history_output: JsonSchema = {
 /**
  * The schema of `intel_response` in responses.
  */
-export const intel_response_output: JsonSchema = {
+export const intel_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/intel_api-response-collection"

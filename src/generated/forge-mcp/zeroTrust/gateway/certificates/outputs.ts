@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `zero-trust-gateway_binding_status` in responses.
  */
-export const zero_trust_gateway_binding_status_output: JsonSchema = {
+export const zero$$trust$$gateway_binding_status: JsonSchema = {
   "enum": [
     "pending_deployment",
     "available",
@@ -19,7 +19,7 @@ export const zero_trust_gateway_binding_status_output: JsonSchema = {
 /**
  * The schema of `zero-trust-gateway_certificates` in responses.
  */
-export const zero_trust_gateway_certificates_output: JsonSchema = {
+export const zero$$trust$$gateway_certificates: JsonSchema = {
   "properties": {
     "binding_status": {
       "$ref": "#/$defs/zero-trust-gateway_binding_status"
@@ -67,14 +67,14 @@ export const zero_trust_gateway_certificates_output: JsonSchema = {
 /**
  * The schema of `zero-trust-gateway_region` in responses.
  */
-export const zero_trust_gateway_region_output: JsonSchema = {
+export const zero$$trust$$gateway_region: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `zero-trust-gateway_response_collection` in responses.
  */
-export const zero_trust_gateway_response_collection_output: JsonSchema = {
+export const zero$$trust$$gateway_response_collection: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/zero-trust-gateway_api-response-collection"
@@ -96,7 +96,7 @@ export const zero_trust_gateway_response_collection_output: JsonSchema = {
 /**
  * The schema of `zero-trust-gateway_single_response` in responses.
  */
-export const zero_trust_gateway_single_response_output: JsonSchema = {
+export const zero$$trust$$gateway_single_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/zero-trust-gateway_api-response-single"
@@ -115,7 +115,7 @@ export const zero_trust_gateway_single_response_output: JsonSchema = {
 /**
  * The schema of `zero-trust-gateway_type` in responses.
  */
-export const zero_trust_gateway_type_output: JsonSchema = {
+export const zero$$trust$$gateway_type: JsonSchema = {
   "enum": [
     "custom",
     "gateway_managed"
@@ -126,6 +126,6 @@ export const zero_trust_gateway_type_output: JsonSchema = {
 /**
  * The schema of `zero-trust-gateway_uuid` in responses.
  */
-export const zero_trust_gateway_uuid_output: JsonSchema = {
+export const zero$$trust$$gateway_uuid: JsonSchema = {
   "type": "string"
 };

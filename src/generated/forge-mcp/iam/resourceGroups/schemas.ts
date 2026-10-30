@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `iam_create-scope`.
  */
-export const iam_create_scope: JsonSchema = {
+export const iam_create$$scope: JsonSchema = {
   "description": "A scope is a combination of scope objects which provides additional context.",
   "properties": {
     "key": {

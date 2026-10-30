@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `iam_scim_schema` in responses.
  */
-export const iam_scim_schema_output: JsonSchema = {
+export const iam_scim_schema: JsonSchema = {
   "properties": {
     "attributes": {
       "items": {
@@ -45,7 +45,7 @@ export const iam_scim_schema_output: JsonSchema = {
 /**
  * The schema of `iam_scim_schema_attr` in responses.
  */
-export const iam_scim_schema_attr_output: JsonSchema = {
+export const iam_scim_schema_attr: JsonSchema = {
   "properties": {
     "canonicalValues": {
       "items": {
@@ -136,7 +136,7 @@ export const iam_scim_schema_attr_output: JsonSchema = {
 /**
  * The schema of `iam_scim_schema_list_response` in responses.
  */
-export const iam_scim_schema_list_response_output: JsonSchema = {
+export const iam_scim_schema_list_response: JsonSchema = {
   "properties": {
     "Resources": {
       "items": {
@@ -171,7 +171,7 @@ export const iam_scim_schema_list_response_output: JsonSchema = {
 /**
  * The schema of `iam_scim_schema_meta` in responses.
  */
-export const iam_scim_schema_meta_output: JsonSchema = {
+export const iam_scim_schema_meta: JsonSchema = {
   "properties": {
     "location": {
       "type": "string"

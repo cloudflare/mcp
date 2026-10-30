@@ -6,14 +6,14 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `rum_auto_install` in responses.
  */
-export const rum_auto_install_output: JsonSchema = {
+export const rum_auto_install: JsonSchema = {
   "type": "boolean"
 };
 
 /**
  * The schema of `rum_empty-response` in responses.
  */
-export const rum_empty_response_output: JsonSchema = {
+export const rum_empty$$response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/rum_api-response-common"
@@ -32,7 +32,7 @@ export const rum_empty_response_output: JsonSchema = {
 /**
  * The schema of `rum_result_info` in responses.
  */
-export const rum_result_info_output: JsonSchema = {
+export const rum_result_info: JsonSchema = {
   "properties": {
     "count": {
       "type": "integer"
@@ -63,7 +63,7 @@ export const rum_result_info_output: JsonSchema = {
 /**
  * The schema of `rum_site` in responses.
  */
-export const rum_site_output: JsonSchema = {
+export const rum_site: JsonSchema = {
   "properties": {
     "auto_install": {
       "$ref": "#/$defs/rum_auto_install"
@@ -93,7 +93,7 @@ export const rum_site_output: JsonSchema = {
 /**
  * The schema of `rum_site-response-single` in responses.
  */
-export const rum_site_response_single_output: JsonSchema = {
+export const rum_site$$response$$single: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/rum_api-response-common"
@@ -112,7 +112,7 @@ export const rum_site_response_single_output: JsonSchema = {
 /**
  * The schema of `rum_site-tag-list-response` in responses.
  */
-export const rum_site_tag_list_response_output: JsonSchema = {
+export const rum_site$$tag$$list$$response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/rum_api-response-common"
@@ -134,7 +134,7 @@ export const rum_site_tag_list_response_output: JsonSchema = {
 /**
  * The schema of `rum_site-tag-response-single` in responses.
  */
-export const rum_site_tag_response_single_output: JsonSchema = {
+export const rum_site$$tag$$response$$single: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/rum_api-response-common"
@@ -158,21 +158,21 @@ export const rum_site_tag_response_single_output: JsonSchema = {
 /**
  * The schema of `rum_site_tag` in responses.
  */
-export const rum_site_tag_output: JsonSchema = {
+export const rum_site_tag: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `rum_site_token` in responses.
  */
-export const rum_site_token_output: JsonSchema = {
+export const rum_site_token: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `rum_sites-response-collection` in responses.
  */
-export const rum_sites_response_collection_output: JsonSchema = {
+export const rum_sites$$response$$collection: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/rum_api-response-common"
@@ -197,14 +197,14 @@ export const rum_sites_response_collection_output: JsonSchema = {
 /**
  * The schema of `rum_snippet` in responses.
  */
-export const rum_snippet_output: JsonSchema = {
+export const rum_snippet: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `rum_zone-tag-list-response` in responses.
  */
-export const rum_zone_tag_list_response_output: JsonSchema = {
+export const rum_zone$$tag$$list$$response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/rum_api-response-common"

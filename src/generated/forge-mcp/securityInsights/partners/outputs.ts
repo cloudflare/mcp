@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `security-center_partnerAssetResultInfo` in responses.
  */
-export const security_center_partnerAssetResultInfo_output: JsonSchema = {
+export const security$$center_partnerAssetResultInfo: JsonSchema = {
   "properties": {
     "count": {
       "type": "integer"
@@ -28,7 +28,7 @@ export const security_center_partnerAssetResultInfo_output: JsonSchema = {
 /**
  * The schema of `security-center_partnerEntitlement` in responses.
  */
-export const security_center_partnerEntitlement_output: JsonSchema = {
+export const security$$center_partnerEntitlement: JsonSchema = {
   "enum": [
     "baseline",
     "premium"
@@ -39,7 +39,7 @@ export const security_center_partnerEntitlement_output: JsonSchema = {
 /**
  * The schema of `security-center_shadowHost` in responses.
  */
-export const security_center_shadowHost_output: JsonSchema = {
+export const security$$center_shadowHost: JsonSchema = {
   "properties": {
     "criticality": {
       "enum": [
@@ -81,7 +81,7 @@ export const security_center_shadowHost_output: JsonSchema = {
 /**
  * The schema of `security-center_shadowHostsResponse` in responses.
  */
-export const security_center_shadowHostsResponse_output: JsonSchema = {
+export const security$$center_shadowHostsResponse: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/security-center_api-response-common"

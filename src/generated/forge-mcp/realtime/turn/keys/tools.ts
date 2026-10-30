@@ -3,28 +3,31 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
-  calls_api_response_common_failure_output,
-  calls_api_response_common_output,
-  calls_api_response_single_output,
-  calls_created_output,
-  calls_identifier_output,
-  calls_messages_output,
-  calls_modified_output,
-  calls_name_output,
+  calls_api$$response$$common,
+  calls_api$$response$$common$$failure,
+  calls_api$$response$$single,
+  calls_created,
+  calls_identifier,
+  calls_messages,
+  calls_modified,
+  calls_name,
 } from "../../outputs.js";
-import { calls_account_identifier, calls_identifier } from "../../schemas.js";
 import {
-  calls_turn_key_collection_output,
-  calls_turn_key_name_output,
-  calls_turn_key_object_output,
-  calls_turn_key_output,
-  calls_turn_key_response_single_output,
-  calls_turn_key_single_with_secret_output,
-  calls_turn_key_with_key_output,
+  calls_account_identifier,
+  calls_identifier as calls_identifier$,
+} from "../../schemas.js";
+import {
+  calls_turn_key,
+  calls_turn_key_collection,
+  calls_turn_key_name,
+  calls_turn_key_object,
+  calls_turn_key_response_single,
+  calls_turn_key_single_with_secret,
+  calls_turn_key_with_key,
 } from "./outputs.js";
 import {
   calls_turn_key_editable_fields,
-  calls_turn_key_name,
+  calls_turn_key_name as calls_turn_key_name$,
 } from "./schemas.js";
 
 /**
@@ -38,36 +41,44 @@ export const tools: readonly Tool[] = [
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/calls_account_identifier",
-          "description": "The account identifier tag."
-        },
         "body": {
           "$ref": "#/$defs/calls_turn_key_editable_fields"
+        },
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/calls_account_identifier",
+              "description": "The account identifier tag."
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
+        "path",
         "body"
       ],
       $defs: {
         "calls_account_identifier": calls_account_identifier,
         "calls_turn_key_editable_fields": calls_turn_key_editable_fields,
-        "calls_turn_key_name": calls_turn_key_name,
+        "calls_turn_key_name": calls_turn_key_name$,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/calls_turn_key_single_with_secret",
       $defs: {
-        "calls_api-response-single": calls_api_response_single_output,
-        "calls_created": calls_created_output,
-        "calls_identifier": calls_identifier_output,
-        "calls_messages": calls_messages_output,
-        "calls_modified": calls_modified_output,
-        "calls_turn_key": calls_turn_key_output,
-        "calls_turn_key_name": calls_turn_key_name_output,
-        "calls_turn_key_single_with_secret": calls_turn_key_single_with_secret_output,
-        "calls_turn_key_with_key": calls_turn_key_with_key_output,
+        "calls_api-response-single": calls_api$$response$$single,
+        "calls_created": calls_created,
+        "calls_identifier": calls_identifier,
+        "calls_messages": calls_messages,
+        "calls_modified": calls_modified,
+        "calls_turn_key": calls_turn_key,
+        "calls_turn_key_name": calls_turn_key_name,
+        "calls_turn_key_single_with_secret": calls_turn_key_single_with_secret,
+        "calls_turn_key_with_key": calls_turn_key_with_key,
       },
     },
     annotations: {
@@ -94,16 +105,16 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "calls_api-response-common-failure": calls_api_response_common_failure_output,
-        "calls_api-response-single": calls_api_response_single_output,
-        "calls_created": calls_created_output,
-        "calls_identifier": calls_identifier_output,
-        "calls_messages": calls_messages_output,
-        "calls_modified": calls_modified_output,
-        "calls_turn_key": calls_turn_key_output,
-        "calls_turn_key_name": calls_turn_key_name_output,
-        "calls_turn_key_single_with_secret": calls_turn_key_single_with_secret_output,
-        "calls_turn_key_with_key": calls_turn_key_with_key_output,
+        "calls_api-response-common-failure": calls_api$$response$$common$$failure,
+        "calls_api-response-single": calls_api$$response$$single,
+        "calls_created": calls_created,
+        "calls_identifier": calls_identifier,
+        "calls_messages": calls_messages,
+        "calls_modified": calls_modified,
+        "calls_turn_key": calls_turn_key,
+        "calls_turn_key_name": calls_turn_key_name,
+        "calls_turn_key_single_with_secret": calls_turn_key_single_with_secret,
+        "calls_turn_key_with_key": calls_turn_key_with_key,
       },
     },
     request: (args) => ({
@@ -118,35 +129,43 @@ export const tools: readonly Tool[] = [
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/calls_account_identifier",
-          "description": "The account identifier tag."
-        },
-        "key_id": {
-          "$ref": "#/$defs/calls_identifier",
-          "description": "A Cloudflare-generated unique identifier for a item."
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/calls_account_identifier",
+              "description": "The account identifier tag."
+            },
+            "key_id": {
+              "$ref": "#/$defs/calls_identifier",
+              "description": "A Cloudflare-generated unique identifier for a item."
+            }
+          },
+          "required": [
+            "account_id",
+            "key_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "key_id"
+        "path"
       ],
       $defs: {
         "calls_account_identifier": calls_account_identifier,
-        "calls_identifier": calls_identifier,
+        "calls_identifier": calls_identifier$,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/calls_turn_key_response_single",
       $defs: {
-        "calls_api-response-single": calls_api_response_single_output,
-        "calls_created": calls_created_output,
-        "calls_identifier": calls_identifier_output,
-        "calls_messages": calls_messages_output,
-        "calls_modified": calls_modified_output,
-        "calls_name": calls_name_output,
-        "calls_turn_key_object": calls_turn_key_object_output,
-        "calls_turn_key_response_single": calls_turn_key_response_single_output,
+        "calls_api-response-single": calls_api$$response$$single,
+        "calls_created": calls_created,
+        "calls_identifier": calls_identifier,
+        "calls_messages": calls_messages,
+        "calls_modified": calls_modified,
+        "calls_name": calls_name,
+        "calls_turn_key_object": calls_turn_key_object,
+        "calls_turn_key_response_single": calls_turn_key_response_single,
       },
     },
     annotations: {
@@ -171,14 +190,14 @@ export const tools: readonly Tool[] = [
         "4XX": {}
       },
       $defs: {
-        "calls_api-response-single": calls_api_response_single_output,
-        "calls_created": calls_created_output,
-        "calls_identifier": calls_identifier_output,
-        "calls_messages": calls_messages_output,
-        "calls_modified": calls_modified_output,
-        "calls_name": calls_name_output,
-        "calls_turn_key_object": calls_turn_key_object_output,
-        "calls_turn_key_response_single": calls_turn_key_response_single_output,
+        "calls_api-response-single": calls_api$$response$$single,
+        "calls_created": calls_created,
+        "calls_identifier": calls_identifier,
+        "calls_messages": calls_messages,
+        "calls_modified": calls_modified,
+        "calls_name": calls_name,
+        "calls_turn_key_object": calls_turn_key_object,
+        "calls_turn_key_response_single": calls_turn_key_response_single,
       },
     },
     request: (args) => ({
@@ -192,35 +211,43 @@ export const tools: readonly Tool[] = [
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/calls_account_identifier",
-          "description": "The account identifier tag."
-        },
-        "key_id": {
-          "$ref": "#/$defs/calls_identifier",
-          "description": "A Cloudflare-generated unique identifier for a item."
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/calls_account_identifier",
+              "description": "The account identifier tag."
+            },
+            "key_id": {
+              "$ref": "#/$defs/calls_identifier",
+              "description": "A Cloudflare-generated unique identifier for a item."
+            }
+          },
+          "required": [
+            "account_id",
+            "key_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "key_id"
+        "path"
       ],
       $defs: {
         "calls_account_identifier": calls_account_identifier,
-        "calls_identifier": calls_identifier,
+        "calls_identifier": calls_identifier$,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/calls_turn_key_response_single",
       $defs: {
-        "calls_api-response-single": calls_api_response_single_output,
-        "calls_created": calls_created_output,
-        "calls_identifier": calls_identifier_output,
-        "calls_messages": calls_messages_output,
-        "calls_modified": calls_modified_output,
-        "calls_name": calls_name_output,
-        "calls_turn_key_object": calls_turn_key_object_output,
-        "calls_turn_key_response_single": calls_turn_key_response_single_output,
+        "calls_api-response-single": calls_api$$response$$single,
+        "calls_created": calls_created,
+        "calls_identifier": calls_identifier,
+        "calls_messages": calls_messages,
+        "calls_modified": calls_modified,
+        "calls_name": calls_name,
+        "calls_turn_key_object": calls_turn_key_object,
+        "calls_turn_key_response_single": calls_turn_key_response_single,
       },
     },
     annotations: {
@@ -248,15 +275,15 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "calls_api-response-common-failure": calls_api_response_common_failure_output,
-        "calls_api-response-single": calls_api_response_single_output,
-        "calls_created": calls_created_output,
-        "calls_identifier": calls_identifier_output,
-        "calls_messages": calls_messages_output,
-        "calls_modified": calls_modified_output,
-        "calls_name": calls_name_output,
-        "calls_turn_key_object": calls_turn_key_object_output,
-        "calls_turn_key_response_single": calls_turn_key_response_single_output,
+        "calls_api-response-common-failure": calls_api$$response$$common$$failure,
+        "calls_api-response-single": calls_api$$response$$single,
+        "calls_created": calls_created,
+        "calls_identifier": calls_identifier,
+        "calls_messages": calls_messages,
+        "calls_modified": calls_modified,
+        "calls_name": calls_name,
+        "calls_turn_key_object": calls_turn_key_object,
+        "calls_turn_key_response_single": calls_turn_key_response_single,
       },
     },
     request: (args) => ({
@@ -270,13 +297,21 @@ export const tools: readonly Tool[] = [
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/calls_account_identifier",
-          "description": "The account identifier tag."
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/calls_account_identifier",
+              "description": "The account identifier tag."
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id"
+        "path"
       ],
       $defs: {
         "calls_account_identifier": calls_account_identifier,
@@ -285,14 +320,14 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/calls_turn_key_collection",
       $defs: {
-        "calls_api-response-common": calls_api_response_common_output,
-        "calls_created": calls_created_output,
-        "calls_identifier": calls_identifier_output,
-        "calls_messages": calls_messages_output,
-        "calls_modified": calls_modified_output,
-        "calls_name": calls_name_output,
-        "calls_turn_key_collection": calls_turn_key_collection_output,
-        "calls_turn_key_object": calls_turn_key_object_output,
+        "calls_api-response-common": calls_api$$response$$common,
+        "calls_created": calls_created,
+        "calls_identifier": calls_identifier,
+        "calls_messages": calls_messages,
+        "calls_modified": calls_modified,
+        "calls_name": calls_name,
+        "calls_turn_key_collection": calls_turn_key_collection,
+        "calls_turn_key_object": calls_turn_key_object,
       },
     },
     annotations: {
@@ -320,15 +355,15 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "calls_api-response-common": calls_api_response_common_output,
-        "calls_api-response-common-failure": calls_api_response_common_failure_output,
-        "calls_created": calls_created_output,
-        "calls_identifier": calls_identifier_output,
-        "calls_messages": calls_messages_output,
-        "calls_modified": calls_modified_output,
-        "calls_name": calls_name_output,
-        "calls_turn_key_collection": calls_turn_key_collection_output,
-        "calls_turn_key_object": calls_turn_key_object_output,
+        "calls_api-response-common": calls_api$$response$$common,
+        "calls_api-response-common-failure": calls_api$$response$$common$$failure,
+        "calls_created": calls_created,
+        "calls_identifier": calls_identifier,
+        "calls_messages": calls_messages,
+        "calls_modified": calls_modified,
+        "calls_name": calls_name,
+        "calls_turn_key_collection": calls_turn_key_collection,
+        "calls_turn_key_object": calls_turn_key_object,
       },
     },
     request: (args) => ({
@@ -342,41 +377,49 @@ export const tools: readonly Tool[] = [
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/calls_account_identifier",
-          "description": "The account identifier tag."
-        },
         "body": {
           "$ref": "#/$defs/calls_turn_key_editable_fields"
         },
-        "key_id": {
-          "$ref": "#/$defs/calls_identifier",
-          "description": "A Cloudflare-generated unique identifier for a item."
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/calls_account_identifier",
+              "description": "The account identifier tag."
+            },
+            "key_id": {
+              "$ref": "#/$defs/calls_identifier",
+              "description": "A Cloudflare-generated unique identifier for a item."
+            }
+          },
+          "required": [
+            "account_id",
+            "key_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "key_id",
+        "path",
         "body"
       ],
       $defs: {
         "calls_account_identifier": calls_account_identifier,
-        "calls_identifier": calls_identifier,
+        "calls_identifier": calls_identifier$,
         "calls_turn_key_editable_fields": calls_turn_key_editable_fields,
-        "calls_turn_key_name": calls_turn_key_name,
+        "calls_turn_key_name": calls_turn_key_name$,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/calls_turn_key_response_single",
       $defs: {
-        "calls_api-response-single": calls_api_response_single_output,
-        "calls_created": calls_created_output,
-        "calls_identifier": calls_identifier_output,
-        "calls_messages": calls_messages_output,
-        "calls_modified": calls_modified_output,
-        "calls_name": calls_name_output,
-        "calls_turn_key_object": calls_turn_key_object_output,
-        "calls_turn_key_response_single": calls_turn_key_response_single_output,
+        "calls_api-response-single": calls_api$$response$$single,
+        "calls_created": calls_created,
+        "calls_identifier": calls_identifier,
+        "calls_messages": calls_messages,
+        "calls_modified": calls_modified,
+        "calls_name": calls_name,
+        "calls_turn_key_object": calls_turn_key_object,
+        "calls_turn_key_response_single": calls_turn_key_response_single,
       },
     },
     annotations: {
@@ -403,15 +446,15 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "calls_api-response-common-failure": calls_api_response_common_failure_output,
-        "calls_api-response-single": calls_api_response_single_output,
-        "calls_created": calls_created_output,
-        "calls_identifier": calls_identifier_output,
-        "calls_messages": calls_messages_output,
-        "calls_modified": calls_modified_output,
-        "calls_name": calls_name_output,
-        "calls_turn_key_object": calls_turn_key_object_output,
-        "calls_turn_key_response_single": calls_turn_key_response_single_output,
+        "calls_api-response-common-failure": calls_api$$response$$common$$failure,
+        "calls_api-response-single": calls_api$$response$$single,
+        "calls_created": calls_created,
+        "calls_identifier": calls_identifier,
+        "calls_messages": calls_messages,
+        "calls_modified": calls_modified,
+        "calls_name": calls_name,
+        "calls_turn_key_object": calls_turn_key_object,
+        "calls_turn_key_response_single": calls_turn_key_response_single,
       },
     },
     request: (args) => ({

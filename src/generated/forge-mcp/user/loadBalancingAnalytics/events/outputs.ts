@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `load-balancing_analytics` in responses.
  */
-export const load_balancing_analytics_output: JsonSchema = {
+export const load$$balancing_analytics: JsonSchema = {
   "properties": {
     "id": {
       "type": "integer"
@@ -32,7 +32,7 @@ export const load_balancing_analytics_output: JsonSchema = {
  * The schema of `load-balancing_components-schemas-response_collection` in
  * responses.
  */
-export const load_balancing_components_schemas_response_collection_output: JsonSchema = {
+export const load$$balancing_components$$schemas$$response_collection: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/load-balancing_api-paginated-response-collection"
@@ -54,7 +54,7 @@ export const load_balancing_components_schemas_response_collection_output: JsonS
 /**
  * The schema of `load-balancing_origin-analytics` in responses.
  */
-export const load_balancing_origin_analytics_output: JsonSchema = {
+export const load$$balancing_origin$$analytics: JsonSchema = {
   "properties": {
     "address": {
       "$ref": "#/$defs/load-balancing_address"
@@ -84,27 +84,27 @@ export const load_balancing_origin_analytics_output: JsonSchema = {
 /**
  * The schema of `load-balancing_origin-changed` in responses.
  */
-export const load_balancing_origin_changed_output: JsonSchema = {
+export const load$$balancing_origin$$changed: JsonSchema = {
   "type": "boolean"
 };
 
 /**
  * The schema of `load-balancing_origin-failure-reason` in responses.
  */
-export const load_balancing_origin_failure_reason_output: JsonSchema = {
+export const load$$balancing_origin$$failure$$reason: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `load-balancing_origin-healthy` in responses.
  */
-export const load_balancing_origin_healthy_output: JsonSchema = {
+export const load$$balancing_origin$$healthy: JsonSchema = {
   "type": "boolean"
 };
 
 /**
  * The schema of `load-balancing_origin-ip` in responses.
  */
-export const load_balancing_origin_ip_output: JsonSchema = {
+export const load$$balancing_origin$$ip: JsonSchema = {
   "type": "string"
 };

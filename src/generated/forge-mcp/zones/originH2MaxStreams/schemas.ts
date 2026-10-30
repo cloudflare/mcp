@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `cache-settings_origin_h2_max_streams_value`.
  */
-export const cache_settings_origin_h2_max_streams_value: JsonSchema = {
+export const cache$$settings_origin_h2_max_streams_value: JsonSchema = {
   "description": "Value of the Origin H2 Max Streams Setting.",
   "type": "integer"
 };

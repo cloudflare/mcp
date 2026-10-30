@@ -6,13 +6,13 @@ import type { JsonSchema } from "../_/tool.js";
 /**
  * The schema of `firewall_identifier` in responses.
  */
-export const firewall_identifier_output: JsonSchema = {
+export const firewall_identifier: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `firewall_schemas-paused` in responses.
  */
-export const firewall_schemas_paused_output: JsonSchema = {
+export const firewall_schemas$$paused: JsonSchema = {
   "type": "boolean"
 };

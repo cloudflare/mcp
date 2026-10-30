@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `email-auth_InspectError` in responses.
  */
-export const email_auth_InspectError_output: JsonSchema = {
+export const email$$auth_InspectError: JsonSchema = {
   "properties": {
     "code": {
       "type": "string"
@@ -32,7 +32,7 @@ export const email_auth_InspectError_output: JsonSchema = {
 /**
  * The schema of `email-auth_SpfComponent` in responses.
  */
-export const email_auth_SpfComponent_output: JsonSchema = {
+export const email$$auth_SpfComponent: JsonSchema = {
   "properties": {
     "lookup_count": {
       "type": "integer"
@@ -73,7 +73,7 @@ export const email_auth_SpfComponent_output: JsonSchema = {
 /**
  * The schema of `email-auth_SpfResult` in responses.
  */
-export const email_auth_SpfResult_output: JsonSchema = {
+export const email$$auth_SpfResult: JsonSchema = {
   "enum": [
     "pass",
     "neutral",
@@ -89,7 +89,7 @@ export const email_auth_SpfResult_output: JsonSchema = {
 /**
  * The schema of `email-auth_SpfTree` in responses.
  */
-export const email_auth_SpfTree_output: JsonSchema = {
+export const email$$auth_SpfTree: JsonSchema = {
   "properties": {
     "components": {
       "items": {

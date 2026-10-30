@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `stream_caption_status` in responses.
  */
-export const stream_caption_status_output: JsonSchema = {
+export const stream_caption_status: JsonSchema = {
   "enum": [
     "ready",
     "inprogress",
@@ -18,7 +18,7 @@ export const stream_caption_status_output: JsonSchema = {
 /**
  * The schema of `stream_captions` in responses.
  */
-export const stream_captions_output: JsonSchema = {
+export const stream_captions: JsonSchema = {
   "properties": {
     "generated": {
       "$ref": "#/$defs/stream_generated_caption"
@@ -39,28 +39,28 @@ export const stream_captions_output: JsonSchema = {
 /**
  * The schema of `stream_generated_caption` in responses.
  */
-export const stream_generated_caption_output: JsonSchema = {
+export const stream_generated_caption: JsonSchema = {
   "type": "boolean"
 };
 
 /**
  * The schema of `stream_label` in responses.
  */
-export const stream_label_output: JsonSchema = {
+export const stream_label: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `stream_language` in responses.
  */
-export const stream_language_output: JsonSchema = {
+export const stream_language: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `stream_language_response_collection` in responses.
  */
-export const stream_language_response_collection_output: JsonSchema = {
+export const stream_language_response_collection: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/stream_api-response-common"

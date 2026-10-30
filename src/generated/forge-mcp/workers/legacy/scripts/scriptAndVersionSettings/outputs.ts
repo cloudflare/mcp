@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../../_/tool.js";
 /**
  * The schema of `workers_script-and-version-settings-item` in responses.
  */
-export const workers_script_and_version_settings_item_output: JsonSchema = {
+export const workers_script$$and$$version$$settings$$item: JsonSchema = {
   "properties": {
     "annotations": {
       "properties": {
@@ -125,7 +125,7 @@ export const workers_script_and_version_settings_item_output: JsonSchema = {
 /**
  * The schema of `workers_script-and-version-settings-response` in responses.
  */
-export const workers_script_and_version_settings_response_output: JsonSchema = {
+export const workers_script$$and$$version$$settings$$response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/workers_api-response-common"

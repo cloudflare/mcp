@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `rum_toggle-rum-request`.
  */
-export const rum_toggle_rum_request: JsonSchema = {
+export const rum_toggle$$rum$$request: JsonSchema = {
   "properties": {
     "value": {
       "description": "Value can either be On or Off.",

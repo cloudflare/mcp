@@ -6,7 +6,7 @@ import type { JsonSchema } from "../_/tool.js";
 /**
  * The schema of `tunnel_virtual_network_id` in responses.
  */
-export const tunnel_virtual_network_id_output: JsonSchema = {
+export const tunnel_virtual_network_id: JsonSchema = {
   "format": "uuid",
   "type": "string"
 };
@@ -14,6 +14,6 @@ export const tunnel_virtual_network_id_output: JsonSchema = {
 /**
  * The schema of `tunnel_virtual_network_name` in responses.
  */
-export const tunnel_virtual_network_name_output: JsonSchema = {
+export const tunnel_virtual_network_name: JsonSchema = {
   "type": "string"
 };

@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `turnstile_api-response-common` in responses.
  */
-export const turnstile_api_response_common_output: JsonSchema = {
+export const turnstile_api$$response$$common: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/turnstile_messages"
@@ -29,7 +29,7 @@ export const turnstile_api_response_common_output: JsonSchema = {
 /**
  * The schema of `turnstile_api-response-common-failure` in responses.
  */
-export const turnstile_api_response_common_failure_output: JsonSchema = {
+export const turnstile_api$$response$$common$$failure: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/turnstile_messages"
@@ -63,14 +63,14 @@ export const turnstile_api_response_common_failure_output: JsonSchema = {
 /**
  * The schema of `turnstile_bot_fight_mode` in responses.
  */
-export const turnstile_bot_fight_mode_output: JsonSchema = {
+export const turnstile_bot_fight_mode: JsonSchema = {
   "type": "boolean"
 };
 
 /**
  * The schema of `turnstile_clearance_level` in responses.
  */
-export const turnstile_clearance_level_output: JsonSchema = {
+export const turnstile_clearance_level: JsonSchema = {
   "enum": [
     "no_clearance",
     "jschallenge",
@@ -83,7 +83,7 @@ export const turnstile_clearance_level_output: JsonSchema = {
 /**
  * The schema of `turnstile_created_on` in responses.
  */
-export const turnstile_created_on_output: JsonSchema = {
+export const turnstile_created_on: JsonSchema = {
   "format": "date-time",
   "type": "string"
 };
@@ -91,7 +91,7 @@ export const turnstile_created_on_output: JsonSchema = {
 /**
  * The schema of `turnstile_deployed_via` in responses.
  */
-export const turnstile_deployed_via_output: JsonSchema = {
+export const turnstile_deployed_via: JsonSchema = {
   "enum": [
     "wrangler",
     "dashboard",
@@ -105,7 +105,7 @@ export const turnstile_deployed_via_output: JsonSchema = {
 /**
  * The schema of `turnstile_domains` in responses.
  */
-export const turnstile_domains_output: JsonSchema = {
+export const turnstile_domains: JsonSchema = {
   "items": {
     "type": "string"
   },
@@ -115,14 +115,14 @@ export const turnstile_domains_output: JsonSchema = {
 /**
  * The schema of `turnstile_ephemeral_id` in responses.
  */
-export const turnstile_ephemeral_id_output: JsonSchema = {
+export const turnstile_ephemeral_id: JsonSchema = {
   "type": "boolean"
 };
 
 /**
  * The schema of `turnstile_last_modified_via` in responses.
  */
-export const turnstile_last_modified_via_output: JsonSchema = {
+export const turnstile_last_modified_via: JsonSchema = {
   "enum": [
     "wrangler",
     "dashboard",
@@ -136,7 +136,7 @@ export const turnstile_last_modified_via_output: JsonSchema = {
 /**
  * The schema of `turnstile_messages` in responses.
  */
-export const turnstile_messages_output: JsonSchema = {
+export const turnstile_messages: JsonSchema = {
   "items": {
     "properties": {
       "code": {
@@ -158,7 +158,7 @@ export const turnstile_messages_output: JsonSchema = {
 /**
  * The schema of `turnstile_modified_on` in responses.
  */
-export const turnstile_modified_on_output: JsonSchema = {
+export const turnstile_modified_on: JsonSchema = {
   "format": "date-time",
   "type": "string"
 };
@@ -166,21 +166,21 @@ export const turnstile_modified_on_output: JsonSchema = {
 /**
  * The schema of `turnstile_name` in responses.
  */
-export const turnstile_name_output: JsonSchema = {
+export const turnstile_name: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `turnstile_offlabel` in responses.
  */
-export const turnstile_offlabel_output: JsonSchema = {
+export const turnstile_offlabel: JsonSchema = {
   "type": "boolean"
 };
 
 /**
  * The schema of `turnstile_region` in responses.
  */
-export const turnstile_region_output: JsonSchema = {
+export const turnstile_region: JsonSchema = {
   "enum": [
     "world",
     "china"
@@ -191,7 +191,7 @@ export const turnstile_region_output: JsonSchema = {
 /**
  * The schema of `turnstile_result_info` in responses.
  */
-export const turnstile_result_info_output: JsonSchema = {
+export const turnstile_result_info: JsonSchema = {
   "properties": {
     "count": {
       "type": "number"
@@ -218,21 +218,21 @@ export const turnstile_result_info_output: JsonSchema = {
 /**
  * The schema of `turnstile_secret` in responses.
  */
-export const turnstile_secret_output: JsonSchema = {
+export const turnstile_secret: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `turnstile_sitekey` in responses.
  */
-export const turnstile_sitekey_output: JsonSchema = {
+export const turnstile_sitekey: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `turnstile_widget_detail` in responses.
  */
-export const turnstile_widget_detail_output: JsonSchema = {
+export const turnstile_widget_detail: JsonSchema = {
   "properties": {
     "bot_fight_mode": {
       "$ref": "#/$defs/turnstile_bot_fight_mode"
@@ -297,7 +297,7 @@ export const turnstile_widget_detail_output: JsonSchema = {
 /**
  * The schema of `turnstile_widget_list` in responses.
  */
-export const turnstile_widget_list_output: JsonSchema = {
+export const turnstile_widget_list: JsonSchema = {
   "properties": {
     "bot_fight_mode": {
       "$ref": "#/$defs/turnstile_bot_fight_mode"
@@ -358,7 +358,7 @@ export const turnstile_widget_list_output: JsonSchema = {
 /**
  * The schema of `turnstile_widget_mode` in responses.
  */
-export const turnstile_widget_mode_output: JsonSchema = {
+export const turnstile_widget_mode: JsonSchema = {
   "enum": [
     "non-interactive",
     "invisible",

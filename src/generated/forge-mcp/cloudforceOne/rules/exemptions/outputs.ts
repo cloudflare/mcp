@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `cloudforce-one_AccountExemptions` in responses.
  */
-export const cloudforce_one_AccountExemptions_output: JsonSchema = {
+export const cloudforce$$one_AccountExemptions: JsonSchema = {
   "properties": {
     "namespace": {
       "items": {

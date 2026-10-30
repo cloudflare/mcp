@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `posture-api_ContentAsset` in responses.
  */
-export const posture_api_ContentAsset_output: JsonSchema = {
+export const posture$$api_ContentAsset: JsonSchema = {
   "properties": {
     "asset_id": {
       "format": "uuid",
@@ -54,7 +54,7 @@ export const posture_api_ContentAsset_output: JsonSchema = {
 /**
  * The schema of `posture-api_PaginatedContentAssetList` in responses.
  */
-export const posture_api_PaginatedContentAssetList_output: JsonSchema = {
+export const posture$$api_PaginatedContentAssetList: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/posture-api_api-response-collection"

@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `dlp_CustomPromptTopic` in responses.
  */
-export const dlp_CustomPromptTopic_output: JsonSchema = {
+export const dlp_CustomPromptTopic: JsonSchema = {
   "properties": {
     "created_at": {
       "format": "date-time",

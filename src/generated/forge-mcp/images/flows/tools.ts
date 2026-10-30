@@ -14,13 +14,21 @@ export const tools: readonly Tool[] = [
     inputSchema: {
       type: "object",
       properties: {
-        "zone_id": {
-          "description": "Zone identifier.",
-          "type": "string"
+        "path": {
+          "properties": {
+            "zone_id": {
+              "description": "Zone identifier.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "zone_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "zone_id"
+        "path"
       ],
     },
     outputSchema: {
@@ -749,13 +757,21 @@ export const tools: readonly Tool[] = [
           ],
           "type": "object"
         },
-        "zone_id": {
-          "description": "Zone identifier.",
-          "type": "string"
+        "path": {
+          "properties": {
+            "zone_id": {
+              "description": "Zone identifier.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "zone_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "zone_id"
+        "path"
       ],
     },
     outputSchema: {

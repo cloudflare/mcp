@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `secrets-store_comment`.
  */
-export const secrets_store_comment: JsonSchema = {
+export const secrets$$store_comment: JsonSchema = {
   "description": "Freeform text describing the secret.",
   "type": "string"
 };
@@ -14,7 +14,7 @@ export const secrets_store_comment: JsonSchema = {
 /**
  * The schema of `secrets-store_createSecretObject`.
  */
-export const secrets_store_createSecretObject: JsonSchema = {
+export const secrets$$store_createSecretObject: JsonSchema = {
   "properties": {
     "comment": {
       "$ref": "#/$defs/secrets-store_comment",
@@ -43,7 +43,7 @@ export const secrets_store_createSecretObject: JsonSchema = {
 /**
  * The schema of `secrets-store_deleteSecretsRequest`.
  */
-export const secrets_store_deleteSecretsRequest: JsonSchema = {
+export const secrets$$store_deleteSecretsRequest: JsonSchema = {
   "description": "Request body for bulk deleting secrets.",
   "properties": {
     "ids": {
@@ -63,7 +63,7 @@ export const secrets_store_deleteSecretsRequest: JsonSchema = {
 /**
  * The schema of `secrets-store_duplicateSecretObject`.
  */
-export const secrets_store_duplicateSecretObject: JsonSchema = {
+export const secrets$$store_duplicateSecretObject: JsonSchema = {
   "properties": {
     "comment": {
       "$ref": "#/$defs/secrets-store_comment",
@@ -87,7 +87,7 @@ export const secrets_store_duplicateSecretObject: JsonSchema = {
 /**
  * The schema of `secrets-store_identifier`.
  */
-export const secrets_store_identifier: JsonSchema = {
+export const secrets$$store_identifier: JsonSchema = {
   "description": "Secret identifier tag.",
   "type": "string"
 };
@@ -95,7 +95,7 @@ export const secrets_store_identifier: JsonSchema = {
 /**
  * The schema of `secrets-store_inheritable_scopes`.
  */
-export const secrets_store_inheritable_scopes: JsonSchema = {
+export const secrets$$store_inheritable_scopes: JsonSchema = {
   "description": "The list of services that can use this secret, or null when the secret inherits its store's scopes. Set it to null in a patch to inherit again. An empty list lets no service use the secret.",
   "oneOf": [
     {
@@ -121,7 +121,7 @@ export const secrets_store_inheritable_scopes: JsonSchema = {
 /**
  * The schema of `secrets-store_patchSecretObject`.
  */
-export const secrets_store_patchSecretObject: JsonSchema = {
+export const secrets$$store_patchSecretObject: JsonSchema = {
   "properties": {
     "comment": {
       "$ref": "#/$defs/secrets-store_comment",
@@ -142,7 +142,7 @@ export const secrets_store_patchSecretObject: JsonSchema = {
 /**
  * The schema of `secrets-store_scopes`.
  */
-export const secrets_store_scopes: JsonSchema = {
+export const secrets$$store_scopes: JsonSchema = {
   "description": "The list of services that can use this secret. Omit it on create or duplicate to inherit the store's scopes. An empty list lets no service use the secret.",
   "items": {
     "enum": [
@@ -161,7 +161,7 @@ export const secrets_store_scopes: JsonSchema = {
 /**
  * The schema of `secrets-store_secret_name`.
  */
-export const secrets_store_secret_name: JsonSchema = {
+export const secrets$$store_secret_name: JsonSchema = {
   "description": "The name of the secret.",
   "type": "string"
 };
@@ -169,7 +169,7 @@ export const secrets_store_secret_name: JsonSchema = {
 /**
  * The schema of `secrets-store_value`.
  */
-export const secrets_store_value: JsonSchema = {
+export const secrets$$store_value: JsonSchema = {
   "description": "The value of the secret. Maximum 64 KiB (65,536 bytes). Note that this is 'write only' - the API never returns this value; it exists only to create or modify secrets.",
   "type": "string"
 };

@@ -6,7 +6,7 @@ import type { JsonSchema } from "../_/tool.js";
 /**
  * The schema of `load-balancing_components-schemas-identifier`.
  */
-export const load_balancing_components_schemas_identifier: JsonSchema = {
+export const load$$balancing_components$$schemas$$identifier: JsonSchema = {
   "description": "Identifier.",
   "type": "string"
 };

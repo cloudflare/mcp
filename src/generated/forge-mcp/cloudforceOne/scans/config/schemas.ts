@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `cloudforce-one-port-scan-api_frequency`.
  */
-export const cloudforce_one_port_scan_api_frequency: JsonSchema = {
+export const cloudforce$$one$$port$$scan$$api_frequency: JsonSchema = {
   "description": "Defines the number of days between each scan (0 = One-off scan).",
   "type": "number"
 };
@@ -14,7 +14,7 @@ export const cloudforce_one_port_scan_api_frequency: JsonSchema = {
 /**
  * The schema of `cloudforce-one-port-scan-api_ips`.
  */
-export const cloudforce_one_port_scan_api_ips: JsonSchema = {
+export const cloudforce$$one$$port$$scan$$api_ips: JsonSchema = {
   "description": "Defines a list of IP addresses or CIDR blocks to scan. The maximum number of total IP addresses allowed is 5000.",
   "items": {
     "type": "string"
@@ -25,7 +25,7 @@ export const cloudforce_one_port_scan_api_ips: JsonSchema = {
 /**
  * The schema of `cloudforce-one-port-scan-api_ports`.
  */
-export const cloudforce_one_port_scan_api_ports: JsonSchema = {
+export const cloudforce$$one$$port$$scan$$api_ports: JsonSchema = {
   "description": "Defines a list of ports to scan. Valid values are:\"default\", \"all\", or a comma-separated list of ports or range of ports (e.g. [\"1-80\", \"443\"]). \"default\" scans the 100 most commonly open ports.",
   "items": {
     "type": "string"

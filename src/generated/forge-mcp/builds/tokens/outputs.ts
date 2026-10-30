@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `builds_CreateBuildTokenResponse` in responses.
  */
-export const builds_CreateBuildTokenResponse_output: JsonSchema = {
+export const builds_CreateBuildTokenResponse: JsonSchema = {
   "properties": {
     "build_token_name": {
       "$ref": "#/$defs/builds_build_token_name"
@@ -27,7 +27,7 @@ export const builds_CreateBuildTokenResponse_output: JsonSchema = {
 /**
  * The schema of `builds_ListTokensResponse` in responses.
  */
-export const builds_ListTokensResponse_output: JsonSchema = {
+export const builds_ListTokensResponse: JsonSchema = {
   "properties": {
     "build_token_name": {
       "$ref": "#/$defs/builds_build_token_name"
@@ -48,13 +48,13 @@ export const builds_ListTokensResponse_output: JsonSchema = {
 /**
  * The schema of `builds_cloudflare_token_id` in responses.
  */
-export const builds_cloudflare_token_id_output: JsonSchema = {
+export const builds_cloudflare_token_id: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `builds_owner_type` in responses.
  */
-export const builds_owner_type_output: JsonSchema = {
+export const builds_owner_type: JsonSchema = {
   "type": "string"
 };

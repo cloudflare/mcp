@@ -3,31 +3,31 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
-  cache_settings_api_response_common_failure_output,
-  cache_settings_api_response_common_output,
-  cache_settings_base_output,
-  cache_settings_editable_output,
-  cache_settings_messages_output,
-  cache_settings_modified_on_output,
-  cache_settings_result_object_output,
-  cache_settings_setting_id_output,
-  cache_settings_setting_value_output,
-  cache_settings_zone_cache_settings_response_single_output,
+  cache$$settings_api$$response$$common,
+  cache$$settings_api$$response$$common$$failure,
+  cache$$settings_base,
+  cache$$settings_editable,
+  cache$$settings_messages,
+  cache$$settings_modified_on,
+  cache$$settings_result$$object,
+  cache$$settings_setting_id,
+  cache$$settings_setting_value,
+  cache$$settings_zone_cache_settings_response_single,
 } from "../../outputs.js";
-import { cache_settings_identifier } from "../../schemas.js";
+import { cache$$settings_identifier } from "../../schemas.js";
 import {
-  cache_settings_origin_max_http_version_output,
-  cache_settings_origin_max_http_version_response_value_output,
-  cache_settings_origin_max_http_version_value_output,
+  cache$$settings_origin_max_http_version,
+  cache$$settings_origin_max_http_version_response_value,
+  cache$$settings_origin_max_http_version_value,
 } from "./outputs.js";
-import { cache_settings_origin_max_http_version_value } from "./schemas.js";
+import { cache$$settings_origin_max_http_version_value as cache$$settings_origin_max_http_version_value$ } from "./schemas.js";
 
 /**
- * The tools of `zones.origin_max_http_version`.
+ * The tools of `zones.originMaxHttpVersion`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "zones_origin_max_http_version_edit",
+    name: "zones_originMaxHttpVersion_edit",
     title: "Change Origin Max HTTP Version Setting",
     description: "Origin Max HTTP Setting Version sets the highest HTTP version Cloudflare will attempt to use with your origin. This setting allows Cloudflare to make HTTP/2 requests to your origin. (Refer to [Enable HTTP/2 to Origin](https://developers.cloudflare.com/cache/how-to/enable-http2-to-origin/), for more information.). The default value is \"2\" for all plan types except Enterprise where it is \"1\".",
     inputSchema: {
@@ -45,18 +45,26 @@ export const tools: readonly Tool[] = [
           ],
           "type": "object"
         },
-        "zone_id": {
-          "$ref": "#/$defs/cache-settings_identifier",
-          "description": "Identifier."
+        "path": {
+          "properties": {
+            "zone_id": {
+              "$ref": "#/$defs/cache-settings_identifier",
+              "description": "Identifier."
+            }
+          },
+          "required": [
+            "zone_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "zone_id",
+        "path",
         "body"
       ],
       $defs: {
-        "cache-settings_identifier": cache_settings_identifier,
-        "cache-settings_origin_max_http_version_value": cache_settings_origin_max_http_version_value,
+        "cache-settings_identifier": cache$$settings_identifier,
+        "cache-settings_origin_max_http_version_value": cache$$settings_origin_max_http_version_value$,
       },
     },
     outputSchema: {
@@ -69,18 +77,18 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "cache-settings_api-response-common": cache_settings_api_response_common_output,
-        "cache-settings_base": cache_settings_base_output,
-        "cache-settings_editable": cache_settings_editable_output,
-        "cache-settings_messages": cache_settings_messages_output,
-        "cache-settings_modified_on": cache_settings_modified_on_output,
-        "cache-settings_origin_max_http_version": cache_settings_origin_max_http_version_output,
-        "cache-settings_origin_max_http_version_response_value": cache_settings_origin_max_http_version_response_value_output,
-        "cache-settings_origin_max_http_version_value": cache_settings_origin_max_http_version_value_output,
-        "cache-settings_result-object": cache_settings_result_object_output,
-        "cache-settings_setting_id": cache_settings_setting_id_output,
-        "cache-settings_setting_value": cache_settings_setting_value_output,
-        "cache-settings_zone_cache_settings_response_single": cache_settings_zone_cache_settings_response_single_output,
+        "cache-settings_api-response-common": cache$$settings_api$$response$$common,
+        "cache-settings_base": cache$$settings_base,
+        "cache-settings_editable": cache$$settings_editable,
+        "cache-settings_messages": cache$$settings_messages,
+        "cache-settings_modified_on": cache$$settings_modified_on,
+        "cache-settings_origin_max_http_version": cache$$settings_origin_max_http_version,
+        "cache-settings_origin_max_http_version_response_value": cache$$settings_origin_max_http_version_response_value,
+        "cache-settings_origin_max_http_version_value": cache$$settings_origin_max_http_version_value,
+        "cache-settings_result-object": cache$$settings_result$$object,
+        "cache-settings_setting_id": cache$$settings_setting_id,
+        "cache-settings_setting_value": cache$$settings_setting_value,
+        "cache-settings_zone_cache_settings_response_single": cache$$settings_zone_cache_settings_response_single,
       },
     },
     annotations: {
@@ -126,19 +134,19 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "cache-settings_api-response-common": cache_settings_api_response_common_output,
-        "cache-settings_api-response-common-failure": cache_settings_api_response_common_failure_output,
-        "cache-settings_base": cache_settings_base_output,
-        "cache-settings_editable": cache_settings_editable_output,
-        "cache-settings_messages": cache_settings_messages_output,
-        "cache-settings_modified_on": cache_settings_modified_on_output,
-        "cache-settings_origin_max_http_version": cache_settings_origin_max_http_version_output,
-        "cache-settings_origin_max_http_version_response_value": cache_settings_origin_max_http_version_response_value_output,
-        "cache-settings_origin_max_http_version_value": cache_settings_origin_max_http_version_value_output,
-        "cache-settings_result-object": cache_settings_result_object_output,
-        "cache-settings_setting_id": cache_settings_setting_id_output,
-        "cache-settings_setting_value": cache_settings_setting_value_output,
-        "cache-settings_zone_cache_settings_response_single": cache_settings_zone_cache_settings_response_single_output,
+        "cache-settings_api-response-common": cache$$settings_api$$response$$common,
+        "cache-settings_api-response-common-failure": cache$$settings_api$$response$$common$$failure,
+        "cache-settings_base": cache$$settings_base,
+        "cache-settings_editable": cache$$settings_editable,
+        "cache-settings_messages": cache$$settings_messages,
+        "cache-settings_modified_on": cache$$settings_modified_on,
+        "cache-settings_origin_max_http_version": cache$$settings_origin_max_http_version,
+        "cache-settings_origin_max_http_version_response_value": cache$$settings_origin_max_http_version_response_value,
+        "cache-settings_origin_max_http_version_value": cache$$settings_origin_max_http_version_value,
+        "cache-settings_result-object": cache$$settings_result$$object,
+        "cache-settings_setting_id": cache$$settings_setting_id,
+        "cache-settings_setting_value": cache$$settings_setting_value,
+        "cache-settings_zone_cache_settings_response_single": cache$$settings_zone_cache_settings_response_single,
       },
     },
     request: (args) => ({
@@ -147,22 +155,30 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "zones_origin_max_http_version_get",
+    name: "zones_originMaxHttpVersion_get",
     title: "Get Origin Max HTTP Version Setting",
     description: "Origin Max HTTP Setting Version sets the highest HTTP version Cloudflare will attempt to use with your origin. This setting allows Cloudflare to make HTTP/2 requests to your origin. (Refer to [Enable HTTP/2 to Origin](https://developers.cloudflare.com/cache/how-to/enable-http2-to-origin/), for more information.). The default value is \"2\" for all plan types except Enterprise where it is \"1\".",
     inputSchema: {
       type: "object",
       properties: {
-        "zone_id": {
-          "$ref": "#/$defs/cache-settings_identifier",
-          "description": "Identifier."
+        "path": {
+          "properties": {
+            "zone_id": {
+              "$ref": "#/$defs/cache-settings_identifier",
+              "description": "Identifier."
+            }
+          },
+          "required": [
+            "zone_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "zone_id"
+        "path"
       ],
       $defs: {
-        "cache-settings_identifier": cache_settings_identifier,
+        "cache-settings_identifier": cache$$settings_identifier,
       },
     },
     outputSchema: {
@@ -175,18 +191,18 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "cache-settings_api-response-common": cache_settings_api_response_common_output,
-        "cache-settings_base": cache_settings_base_output,
-        "cache-settings_editable": cache_settings_editable_output,
-        "cache-settings_messages": cache_settings_messages_output,
-        "cache-settings_modified_on": cache_settings_modified_on_output,
-        "cache-settings_origin_max_http_version": cache_settings_origin_max_http_version_output,
-        "cache-settings_origin_max_http_version_response_value": cache_settings_origin_max_http_version_response_value_output,
-        "cache-settings_origin_max_http_version_value": cache_settings_origin_max_http_version_value_output,
-        "cache-settings_result-object": cache_settings_result_object_output,
-        "cache-settings_setting_id": cache_settings_setting_id_output,
-        "cache-settings_setting_value": cache_settings_setting_value_output,
-        "cache-settings_zone_cache_settings_response_single": cache_settings_zone_cache_settings_response_single_output,
+        "cache-settings_api-response-common": cache$$settings_api$$response$$common,
+        "cache-settings_base": cache$$settings_base,
+        "cache-settings_editable": cache$$settings_editable,
+        "cache-settings_messages": cache$$settings_messages,
+        "cache-settings_modified_on": cache$$settings_modified_on,
+        "cache-settings_origin_max_http_version": cache$$settings_origin_max_http_version,
+        "cache-settings_origin_max_http_version_response_value": cache$$settings_origin_max_http_version_response_value,
+        "cache-settings_origin_max_http_version_value": cache$$settings_origin_max_http_version_value,
+        "cache-settings_result-object": cache$$settings_result$$object,
+        "cache-settings_setting_id": cache$$settings_setting_id,
+        "cache-settings_setting_value": cache$$settings_setting_value,
+        "cache-settings_zone_cache_settings_response_single": cache$$settings_zone_cache_settings_response_single,
       },
     },
     annotations: {
@@ -234,19 +250,19 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "cache-settings_api-response-common": cache_settings_api_response_common_output,
-        "cache-settings_api-response-common-failure": cache_settings_api_response_common_failure_output,
-        "cache-settings_base": cache_settings_base_output,
-        "cache-settings_editable": cache_settings_editable_output,
-        "cache-settings_messages": cache_settings_messages_output,
-        "cache-settings_modified_on": cache_settings_modified_on_output,
-        "cache-settings_origin_max_http_version": cache_settings_origin_max_http_version_output,
-        "cache-settings_origin_max_http_version_response_value": cache_settings_origin_max_http_version_response_value_output,
-        "cache-settings_origin_max_http_version_value": cache_settings_origin_max_http_version_value_output,
-        "cache-settings_result-object": cache_settings_result_object_output,
-        "cache-settings_setting_id": cache_settings_setting_id_output,
-        "cache-settings_setting_value": cache_settings_setting_value_output,
-        "cache-settings_zone_cache_settings_response_single": cache_settings_zone_cache_settings_response_single_output,
+        "cache-settings_api-response-common": cache$$settings_api$$response$$common,
+        "cache-settings_api-response-common-failure": cache$$settings_api$$response$$common$$failure,
+        "cache-settings_base": cache$$settings_base,
+        "cache-settings_editable": cache$$settings_editable,
+        "cache-settings_messages": cache$$settings_messages,
+        "cache-settings_modified_on": cache$$settings_modified_on,
+        "cache-settings_origin_max_http_version": cache$$settings_origin_max_http_version,
+        "cache-settings_origin_max_http_version_response_value": cache$$settings_origin_max_http_version_response_value,
+        "cache-settings_origin_max_http_version_value": cache$$settings_origin_max_http_version_value,
+        "cache-settings_result-object": cache$$settings_result$$object,
+        "cache-settings_setting_id": cache$$settings_setting_id,
+        "cache-settings_setting_value": cache$$settings_setting_value,
+        "cache-settings_zone_cache_settings_response_single": cache$$settings_zone_cache_settings_response_single,
       },
     },
     request: (args) => ({

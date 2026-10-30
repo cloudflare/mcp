@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `registrar-api_domain_check_request`.
  */
-export const registrar_api_domain_check_request: JsonSchema = {
+export const registrar$$api_domain_check_request: JsonSchema = {
   "description": "Request body for checking domain availability.",
   "properties": {
     "domains": {
@@ -28,7 +28,7 @@ export const registrar_api_domain_check_request: JsonSchema = {
 /**
  * The schema of `registrar-api_domain_name`.
  */
-export const registrar_api_domain_name: JsonSchema = {
+export const registrar$$api_domain_name: JsonSchema = {
   "description": "Provides a fully qualified domain name (FQDN), including the extension\n(e.g., `example.com`, `mybrand.app`). The domain name uniquely identifies\na registration. Cloudflare permits only one registration per domain, making\nthe domain name a natural idempotency key for registration requests.\n",
   "type": "string"
 };
@@ -36,7 +36,7 @@ export const registrar_api_domain_name: JsonSchema = {
 /**
  * The schema of `registrar-api_domain_transfer_check_request`.
  */
-export const registrar_api_domain_transfer_check_request: JsonSchema = {
+export const registrar$$api_domain_transfer_check_request: JsonSchema = {
   "description": "Request body for checking domain transfer eligibility.",
   "properties": {
     "domains": {
@@ -72,7 +72,7 @@ export const registrar_api_domain_transfer_check_request: JsonSchema = {
 /**
  * The schema of `registrar-api_registration_contact`.
  */
-export const registrar_api_registration_contact: JsonSchema = {
+export const registrar$$api_registration_contact: JsonSchema = {
   "description": "Contact data for the domain registration. This information\nis submitted to the domain registry and, depending on extension and\nprivacy settings, may appear in public WHOIS records.\n",
   "properties": {
     "email": {
@@ -103,7 +103,7 @@ export const registrar_api_registration_contact: JsonSchema = {
 /**
  * The schema of `registrar-api_registration_contact_address`.
  */
-export const registrar_api_registration_contact_address: JsonSchema = {
+export const registrar$$api_registration_contact_address: JsonSchema = {
   "description": "Physical mailing address for the registrant contact.",
   "properties": {
     "city": {
@@ -140,7 +140,7 @@ export const registrar_api_registration_contact_address: JsonSchema = {
 /**
  * The schema of `registrar-api_registration_contact_postal_info`.
  */
-export const registrar_api_registration_contact_postal_info: JsonSchema = {
+export const registrar$$api_registration_contact_postal_info: JsonSchema = {
   "description": "Postal/mailing information for the contact. The `name` field is the\ncomplete contact name in one string. Some registries require a complete\npersonal name, including a family or last name where applicable, but this\nAPI does not accept separate first-name and last-name fields for\nregistration contacts.\n",
   "properties": {
     "address": {
@@ -166,7 +166,7 @@ export const registrar_api_registration_contact_postal_info: JsonSchema = {
 /**
  * The schema of `registrar-api_registration_contacts`.
  */
-export const registrar_api_registration_contacts: JsonSchema = {
+export const registrar$$api_registration_contacts: JsonSchema = {
   "description": "Provides contact data for the registration request.\n\nThe per-extension schema from\n`GET /accounts/{account_id}/registrar/extensions/{extension}` defines the\naccepted contact roles. Every currently supported extension requires only\n`contacts.registrant` from API callers. Callers may provide additional roles\nsuch as `technical`, `administrator`, and `billing` when the extension\nschema includes them. When a registry requires an omitted role, Cloudflare\nmay derive that contact from `contacts.registrant`.\n\nWhen the request omits either the entire `contacts` object or\n`contacts.registrant`, the system uses the account's default address book\nentry as the registrant contact. The account owner must configure this\ndefault at `https://dash.cloudflare.com/{account_id}/domains/registrations`,\nwhere they can create or update the address book entry and accept the\nrequired agreement. Dashboard settings currently provide the only way to\nmanage address book entries.\n\nWithout either a default address book entry or a registrant contact, the\nregistration request fails validation.\n",
   "properties": {
     "administrator": {
@@ -192,7 +192,7 @@ export const registrar_api_registration_contacts: JsonSchema = {
 /**
  * The schema of `registrar-api_registration_create_request`.
  */
-export const registrar_api_registration_create_request: JsonSchema = {
+export const registrar$$api_registration_create_request: JsonSchema = {
   "properties": {
     "acknowledgements": {
       "description": "Provides user acknowledgements for a specific extension or premium\nregistration flow. The extension registration schema from the\nextension discovery endpoint identifies the required keys.\n",
@@ -237,7 +237,7 @@ export const registrar_api_registration_create_request: JsonSchema = {
 /**
  * The schema of `registrar-api_registration_update_request`.
  */
-export const registrar_api_registration_update_request: JsonSchema = {
+export const registrar$$api_registration_update_request: JsonSchema = {
   "description": "Request to update an existing domain registration.\n\nThis endpoint currently supports updating `auto_renew` only.\n",
   "properties": {
     "auto_renew": {
@@ -251,7 +251,7 @@ export const registrar_api_registration_update_request: JsonSchema = {
 /**
  * The schema of `registrar-api_transfer_in_create_request`.
  */
-export const registrar_api_transfer_in_create_request: JsonSchema = {
+export const registrar$$api_transfer_in_create_request: JsonSchema = {
   "properties": {
     "auth_code": {
       "contentEncoding": "base64",

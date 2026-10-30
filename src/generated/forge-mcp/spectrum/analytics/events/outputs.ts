@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `spectrum-analytics_column` in responses.
  */
-export const spectrum_analytics_column_output: JsonSchema = {
+export const spectrum$$analytics_column: JsonSchema = {
   "properties": {
     "dimensions": {
       "items": {
@@ -40,7 +40,7 @@ export const spectrum_analytics_column_output: JsonSchema = {
 /**
  * The schema of `spectrum-analytics_dimensions` in responses.
  */
-export const spectrum_analytics_dimensions_output: JsonSchema = {
+export const spectrum$$analytics_dimensions: JsonSchema = {
   "items": {
     "enum": [
       "event",
@@ -56,14 +56,14 @@ export const spectrum_analytics_dimensions_output: JsonSchema = {
 /**
  * The schema of `spectrum-analytics_filters` in responses.
  */
-export const spectrum_analytics_filters_output: JsonSchema = {
+export const spectrum$$analytics_filters: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `spectrum-analytics_metrics` in responses.
  */
-export const spectrum_analytics_metrics_output: JsonSchema = {
+export const spectrum$$analytics_metrics: JsonSchema = {
   "items": {
     "enum": [
       "count",
@@ -82,7 +82,7 @@ export const spectrum_analytics_metrics_output: JsonSchema = {
 /**
  * The schema of `spectrum-analytics_query` in responses.
  */
-export const spectrum_analytics_query_output: JsonSchema = {
+export const spectrum$$analytics_query: JsonSchema = {
   "properties": {
     "dimensions": {
       "$ref": "#/$defs/spectrum-analytics_dimensions"
@@ -112,7 +112,7 @@ export const spectrum_analytics_query_output: JsonSchema = {
 /**
  * The schema of `spectrum-analytics_query-response-single` in responses.
  */
-export const spectrum_analytics_query_response_single_output: JsonSchema = {
+export const spectrum$$analytics_query$$response$$single: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/spectrum-analytics_api-response-single"
@@ -175,7 +175,7 @@ export const spectrum_analytics_query_response_single_output: JsonSchema = {
 /**
  * The schema of `spectrum-analytics_sort` in responses.
  */
-export const spectrum_analytics_sort_output: JsonSchema = {
+export const spectrum$$analytics_sort: JsonSchema = {
   "items": {
     "type": "string"
   },
@@ -185,7 +185,7 @@ export const spectrum_analytics_sort_output: JsonSchema = {
 /**
  * The schema of `spectrum-analytics_stat` in responses.
  */
-export const spectrum_analytics_stat_output: JsonSchema = {
+export const spectrum$$analytics_stat: JsonSchema = {
   "additionalProperties": {
     "type": "number"
   },

@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `spectrum-config_app_config`.
  */
-export const spectrum_config_app_config: JsonSchema = {
+export const spectrum$$config_app_config: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/spectrum-config_base_app_config"
@@ -88,7 +88,7 @@ export const spectrum_config_app_config: JsonSchema = {
 /**
  * The schema of `spectrum-config_app_identifier`.
  */
-export const spectrum_config_app_identifier: JsonSchema = {
+export const spectrum$$config_app_identifier: JsonSchema = {
   "$ref": "#/$defs/spectrum-config_identifier",
   "description": "App identifier."
 };
@@ -96,7 +96,7 @@ export const spectrum_config_app_identifier: JsonSchema = {
 /**
  * The schema of `spectrum-config_argo_smart_routing`.
  */
-export const spectrum_config_argo_smart_routing: JsonSchema = {
+export const spectrum$$config_argo_smart_routing: JsonSchema = {
   "description": "Enables Argo Smart Routing for this application.\nNotes: Only available for TCP or UDP applications with traffic_type set to \"direct\".",
   "type": "boolean"
 };
@@ -104,14 +104,14 @@ export const spectrum_config_argo_smart_routing: JsonSchema = {
 /**
  * The schema of `spectrum-config_base_app_config`.
  */
-export const spectrum_config_base_app_config: JsonSchema = {
+export const spectrum$$config_base_app_config: JsonSchema = {
   "type": "object"
 };
 
 /**
  * The schema of `spectrum-config_dns`.
  */
-export const spectrum_config_dns: JsonSchema = {
+export const spectrum$$config_dns: JsonSchema = {
   "description": "The name and type of DNS record for the Spectrum application.",
   "properties": {
     "name": {
@@ -129,7 +129,7 @@ export const spectrum_config_dns: JsonSchema = {
 /**
  * The schema of `spectrum-config_dns_name`.
  */
-export const spectrum_config_dns_name: JsonSchema = {
+export const spectrum$$config_dns_name: JsonSchema = {
   "description": "The name of the DNS record associated with the application.",
   "type": "string"
 };
@@ -137,7 +137,7 @@ export const spectrum_config_dns_name: JsonSchema = {
 /**
  * The schema of `spectrum-config_dns_ttl`.
  */
-export const spectrum_config_dns_ttl: JsonSchema = {
+export const spectrum$$config_dns_ttl: JsonSchema = {
   "description": "The TTL of our resolution of your DNS record in seconds.",
   "type": "integer"
 };
@@ -145,7 +145,7 @@ export const spectrum_config_dns_ttl: JsonSchema = {
 /**
  * The schema of `spectrum-config_dns_type`.
  */
-export const spectrum_config_dns_type: JsonSchema = {
+export const spectrum$$config_dns_type: JsonSchema = {
   "description": "The type of DNS record associated with the application.",
   "enum": [
     "CNAME",
@@ -157,7 +157,7 @@ export const spectrum_config_dns_type: JsonSchema = {
 /**
  * The schema of `spectrum-config_edge_ips`.
  */
-export const spectrum_config_edge_ips: JsonSchema = {
+export const spectrum$$config_edge_ips: JsonSchema = {
   "description": "The anycast edge IP configuration for the hostname of this application.",
   "oneOf": [
     {
@@ -206,7 +206,7 @@ export const spectrum_config_edge_ips: JsonSchema = {
 /**
  * The schema of `spectrum-config_ip_firewall`.
  */
-export const spectrum_config_ip_firewall: JsonSchema = {
+export const spectrum$$config_ip_firewall: JsonSchema = {
   "description": "Enables IP Access Rules for this application.\nNotes: Only available for TCP applications.",
   "type": "boolean"
 };
@@ -214,7 +214,7 @@ export const spectrum_config_ip_firewall: JsonSchema = {
 /**
  * The schema of `spectrum-config_origin_direct`.
  */
-export const spectrum_config_origin_direct: JsonSchema = {
+export const spectrum$$config_origin_direct: JsonSchema = {
   "description": "List of origin IP addresses. Array may contain multiple IP addresses for load balancing.",
   "items": {
     "type": "string"
@@ -225,7 +225,7 @@ export const spectrum_config_origin_direct: JsonSchema = {
 /**
  * The schema of `spectrum-config_origin_dns`.
  */
-export const spectrum_config_origin_dns: JsonSchema = {
+export const spectrum$$config_origin_dns: JsonSchema = {
   "description": "The name and type of DNS record for the Spectrum application.",
   "properties": {
     "name": {
@@ -247,7 +247,7 @@ export const spectrum_config_origin_dns: JsonSchema = {
 /**
  * The schema of `spectrum-config_origin_dns_name`.
  */
-export const spectrum_config_origin_dns_name: JsonSchema = {
+export const spectrum$$config_origin_dns_name: JsonSchema = {
   "description": "The name of the DNS record associated with the origin.",
   "type": "string"
 };
@@ -255,7 +255,7 @@ export const spectrum_config_origin_dns_name: JsonSchema = {
 /**
  * The schema of `spectrum-config_origin_dns_type`.
  */
-export const spectrum_config_origin_dns_type: JsonSchema = {
+export const spectrum$$config_origin_dns_type: JsonSchema = {
   "description": "The type of DNS record associated with the origin. \"\" is used to specify a combination of A/AAAA records.",
   "enum": [
     "",
@@ -269,7 +269,7 @@ export const spectrum_config_origin_dns_type: JsonSchema = {
 /**
  * The schema of `spectrum-config_origin_port`.
  */
-export const spectrum_config_origin_port: JsonSchema = {
+export const spectrum$$config_origin_port: JsonSchema = {
   "anyOf": [
     {
       "type": "integer"
@@ -284,7 +284,7 @@ export const spectrum_config_origin_port: JsonSchema = {
 /**
  * The schema of `spectrum-config_origin_worker_id`.
  */
-export const spectrum_config_origin_worker_id: JsonSchema = {
+export const spectrum$$config_origin_worker_id: JsonSchema = {
   "description": "Optional Worker script tag (worker ID) to use as the application's origin. Only supported for TCP applications with traffic_type \"worker\"; mutually exclusive with origin_direct, origin_dns, origin_port, proxy_protocol, and argo_smart_routing. tls may only be \"off\" or \"flexible\".",
   "type": "string"
 };
@@ -292,7 +292,7 @@ export const spectrum_config_origin_worker_id: JsonSchema = {
 /**
  * The schema of `spectrum-config_paygo_app_config`.
  */
-export const spectrum_config_paygo_app_config: JsonSchema = {
+export const spectrum$$config_paygo_app_config: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/spectrum-config_base_app_config"
@@ -324,7 +324,7 @@ export const spectrum_config_paygo_app_config: JsonSchema = {
 /**
  * The schema of `spectrum-config_protocol`.
  */
-export const spectrum_config_protocol: JsonSchema = {
+export const spectrum$$config_protocol: JsonSchema = {
   "description": "The port configuration at Cloudflare's edge. May specify a single port, for example `\"tcp/1000\"`, or a range of ports, for example `\"tcp/1000-2000\"`.",
   "type": "string"
 };
@@ -332,7 +332,7 @@ export const spectrum_config_protocol: JsonSchema = {
 /**
  * The schema of `spectrum-config_proxy_protocol`.
  */
-export const spectrum_config_proxy_protocol: JsonSchema = {
+export const spectrum$$config_proxy_protocol: JsonSchema = {
   "description": "Enables Proxy Protocol to the origin. Refer to [Enable Proxy protocol](https://developers.cloudflare.com/spectrum/getting-started/proxy-protocol/) for implementation details on PROXY Protocol V1, PROXY Protocol V2, and Simple Proxy Protocol.",
   "enum": [
     "off",
@@ -346,7 +346,7 @@ export const spectrum_config_proxy_protocol: JsonSchema = {
 /**
  * The schema of `spectrum-config_tls`.
  */
-export const spectrum_config_tls: JsonSchema = {
+export const spectrum$$config_tls: JsonSchema = {
   "description": "The type of TLS termination associated with the application.",
   "enum": [
     "off",
@@ -360,7 +360,7 @@ export const spectrum_config_tls: JsonSchema = {
 /**
  * The schema of `spectrum-config_traffic_type`.
  */
-export const spectrum_config_traffic_type: JsonSchema = {
+export const spectrum$$config_traffic_type: JsonSchema = {
   "description": "Determines how data travels from the edge to your origin. When set to \"direct\", Spectrum will send traffic directly to your origin, and the application's type is derived from the `protocol`. When set to \"http\" or \"https\", Spectrum will apply Cloudflare's HTTP/HTTPS features as it sends traffic to your origin, and the application type matches this property exactly. When set to \"worker\", traffic is sent to the Worker specified by `origin_worker_id`.",
   "enum": [
     "direct",
@@ -374,7 +374,7 @@ export const spectrum_config_traffic_type: JsonSchema = {
 /**
  * The schema of `spectrum-config_update_app_config`.
  */
-export const spectrum_config_update_app_config: JsonSchema = {
+export const spectrum$$config_update_app_config: JsonSchema = {
   "oneOf": [
     {
       "$ref": "#/$defs/spectrum-config_app_config"
@@ -388,7 +388,7 @@ export const spectrum_config_update_app_config: JsonSchema = {
 /**
  * The schema of `spectrum-config_virtual_network_id`.
  */
-export const spectrum_config_virtual_network_id: JsonSchema = {
+export const spectrum$$config_virtual_network_id: JsonSchema = {
   "description": "Optional UUID of a virtual network for routing origin traffic through tunnel virtual networks.",
   "format": "uuid",
   "type": "string"

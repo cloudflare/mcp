@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `tunnel_tunnel_warp_connector_client_response` in responses.
  */
-export const tunnel_tunnel_warp_connector_client_response_output: JsonSchema = {
+export const tunnel_tunnel_warp_connector_client_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/tunnel_api-response-common"

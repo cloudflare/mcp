@@ -3,8 +3,8 @@
 
 import { type Tool, pathParam } from "../../../../_/tool.js";
 import {
-  workers_api_response_common_failure_output,
-  workers_messages_output,
+  workers_api$$response$$common$$failure,
+  workers_messages,
 } from "../../../../outputs.js";
 import {
   workers_identifier,
@@ -13,33 +13,41 @@ import {
 import { workers_dispatch_namespace_name } from "../../schemas.js";
 
 /**
- * The tools of `workers_for_platforms.dispatch_namespaces.scripts.content`.
+ * The tools of `workersForPlatforms.dispatchNamespaces.scripts.content`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "workers_for_platforms_dispatch_namespaces_scripts_content_get",
+    name: "workersForPlatforms_dispatchNamespaces_scripts_content_get",
     title: "Get Workers for Platforms Script Content",
     description: "Fetch content from a script uploaded to a Workers for Platforms dispatch namespace.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/workers_identifier",
-          "description": "Identifier."
-        },
-        "dispatch_namespace": {
-          "$ref": "#/$defs/workers_dispatch_namespace_name",
-          "description": "Name of the Workers for Platforms dispatch namespace."
-        },
-        "script_name": {
-          "$ref": "#/$defs/workers_script_name",
-          "description": "Name of the script."
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/workers_identifier",
+              "description": "Identifier."
+            },
+            "dispatch_namespace": {
+              "$ref": "#/$defs/workers_dispatch_namespace_name",
+              "description": "Name of the Workers for Platforms dispatch namespace."
+            },
+            "script_name": {
+              "$ref": "#/$defs/workers_script_name",
+              "description": "Name of the script."
+            }
+          },
+          "required": [
+            "account_id",
+            "dispatch_namespace",
+            "script_name"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "dispatch_namespace",
-        "script_name"
+        "path"
       ],
       $defs: {
         "workers_dispatch_namespace_name": workers_dispatch_namespace_name,
@@ -74,8 +82,8 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "workers_api-response-common-failure": workers_api_response_common_failure_output,
-        "workers_messages": workers_messages_output,
+        "workers_api-response-common-failure": workers_api$$response$$common$$failure,
+        "workers_messages": workers_messages,
       },
     },
     request: (args) => ({

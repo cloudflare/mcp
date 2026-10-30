@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `dlp_DataTagCategory` in responses.
  */
-export const dlp_DataTagCategory_output: JsonSchema = {
+export const dlp_DataTagCategory: JsonSchema = {
   "properties": {
     "created_at": {
       "format": "date-time",
@@ -64,7 +64,7 @@ export const dlp_DataTagCategory_output: JsonSchema = {
 /**
  * The schema of `dlp_DataTagCategoryArray` in responses.
  */
-export const dlp_DataTagCategoryArray_output: JsonSchema = {
+export const dlp_DataTagCategoryArray: JsonSchema = {
   "items": {
     "$ref": "#/$defs/dlp_DataTagCategory"
   },

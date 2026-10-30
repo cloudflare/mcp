@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../../_/tool.js";
 /**
  * The schema of `cws_PageResponseTenantStructureNode` in responses.
  */
-export const cws_PageResponseTenantStructureNode_output: JsonSchema = {
+export const cws_PageResponseTenantStructureNode: JsonSchema = {
   "properties": {
     "errors": {
       "oneOf": [
@@ -67,7 +67,7 @@ export const cws_PageResponseTenantStructureNode_output: JsonSchema = {
 /**
  * The schema of `cws_ResponseTenantNodeBatchResult` in responses.
  */
-export const cws_ResponseTenantNodeBatchResult_output: JsonSchema = {
+export const cws_ResponseTenantNodeBatchResult: JsonSchema = {
   "properties": {
     "errors": {
       "oneOf": [
@@ -114,7 +114,7 @@ export const cws_ResponseTenantNodeBatchResult_output: JsonSchema = {
 /**
  * The schema of `cws_ResponseTenantStructureNode` in responses.
  */
-export const cws_ResponseTenantStructureNode_output: JsonSchema = {
+export const cws_ResponseTenantStructureNode: JsonSchema = {
   "properties": {
     "errors": {
       "oneOf": [
@@ -161,7 +161,7 @@ export const cws_ResponseTenantStructureNode_output: JsonSchema = {
 /**
  * The schema of `cws_TenantNodeBatchResult` in responses.
  */
-export const cws_TenantNodeBatchResult_output: JsonSchema = {
+export const cws_TenantNodeBatchResult: JsonSchema = {
   "properties": {
     "created": {
       "items": {
@@ -193,7 +193,7 @@ export const cws_TenantNodeBatchResult_output: JsonSchema = {
 /**
  * The schema of `cws_TenantStructureNode` in responses.
  */
-export const cws_TenantStructureNode_output: JsonSchema = {
+export const cws_TenantStructureNode: JsonSchema = {
   "properties": {
     "created_at": {
       "format": "date-time",

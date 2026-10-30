@@ -6,14 +6,14 @@ import type { JsonSchema } from "../../../../_/tool.js";
 /**
  * The schema of `access_aud` in responses.
  */
-export const access_aud_output: JsonSchema = {
+export const access_aud: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `access_ca` in responses.
  */
-export const access_ca_output: JsonSchema = {
+export const access_ca: JsonSchema = {
   "properties": {
     "aud": {
       "$ref": "#/$defs/access_aud"
@@ -31,14 +31,14 @@ export const access_ca_output: JsonSchema = {
 /**
  * The schema of `access_id-2` in responses.
  */
-export const access_id_2_output: JsonSchema = {
+export const access_id$$2: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `access_id_response-2` in responses.
  */
-export const access_id_response_2_output: JsonSchema = {
+export const access_id_response$$2: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/access_api-response-single"
@@ -62,14 +62,14 @@ export const access_id_response_2_output: JsonSchema = {
 /**
  * The schema of `access_public_key` in responses.
  */
-export const access_public_key_output: JsonSchema = {
+export const access_public_key: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `access_response_collection-5` in responses.
  */
-export const access_response_collection_5_output: JsonSchema = {
+export const access_response_collection$$5: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/access_api-response-collection"
@@ -91,7 +91,7 @@ export const access_response_collection_5_output: JsonSchema = {
 /**
  * The schema of `access_single_response-6` in responses.
  */
-export const access_single_response_6_output: JsonSchema = {
+export const access_single_response$$6: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/access_api-response-single"

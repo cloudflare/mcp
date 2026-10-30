@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `email-security_BulkActionMessageDetail` in responses.
  */
-export const email_security_BulkActionMessageDetail_output: JsonSchema = {
+export const email$$security_BulkActionMessageDetail: JsonSchema = {
   "properties": {
     "action_params": {
       "$ref": "#/$defs/email-security_BulkMessageActionParams"
@@ -106,7 +106,7 @@ export const email_security_BulkActionMessageDetail_output: JsonSchema = {
 /**
  * The schema of `email-security_BulkActionMessageStatus` in responses.
  */
-export const email_security_BulkActionMessageStatus_output: JsonSchema = {
+export const email$$security_BulkActionMessageStatus: JsonSchema = {
   "enum": [
     "PENDING",
     "PROCESSING",
@@ -121,7 +121,7 @@ export const email_security_BulkActionMessageStatus_output: JsonSchema = {
 /**
  * The schema of `email-security_BulkMessageActionParams` in responses.
  */
-export const email_security_BulkMessageActionParams_output: JsonSchema = {
+export const email$$security_BulkMessageActionParams: JsonSchema = {
   "oneOf": [
     {
       "properties": {

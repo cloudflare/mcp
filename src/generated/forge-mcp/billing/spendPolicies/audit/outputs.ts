@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `billing-spend-policies_policy_audit_entry` in responses.
  */
-export const billing_spend_policies_policy_audit_entry_output: JsonSchema = {
+export const billing$$spend$$policies_policy_audit_entry: JsonSchema = {
   "properties": {
     "action": {
       "$ref": "#/$defs/billing-spend-policies_policy_action"
@@ -68,7 +68,7 @@ export const billing_spend_policies_policy_audit_entry_output: JsonSchema = {
 /**
  * The schema of `billing-spend-policies_policy_audit_response` in responses.
  */
-export const billing_spend_policies_policy_audit_response_output: JsonSchema = {
+export const billing$$spend$$policies_policy_audit_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/billing-spend-policies_api-response-common-success"

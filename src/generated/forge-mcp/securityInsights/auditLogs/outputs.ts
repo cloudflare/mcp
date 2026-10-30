@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `security-center_auditLog` in responses.
  */
-export const security_center_auditLog_output: JsonSchema = {
+export const security$$center_auditLog: JsonSchema = {
   "properties": {
     "changed_at": {
       "format": "date-time",
@@ -69,7 +69,7 @@ export const security_center_auditLog_output: JsonSchema = {
 /**
  * The schema of `security-center_auditLogResponse` in responses.
  */
-export const security_center_auditLogResponse_output: JsonSchema = {
+export const security$$center_auditLogResponse: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/security-center_api-response-common"

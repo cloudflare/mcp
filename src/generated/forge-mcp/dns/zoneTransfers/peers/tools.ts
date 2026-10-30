@@ -3,51 +3,48 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
-  secondary_dns_api_response_collection_output,
-  secondary_dns_api_response_common_failure_output,
-  secondary_dns_api_response_common_output,
-  secondary_dns_api_response_single_output,
-  secondary_dns_id_response_3_output,
-  secondary_dns_identifier_3_output,
-  secondary_dns_messages_output,
+  secondary$$dns_api$$response$$collection,
+  secondary$$dns_api$$response$$common,
+  secondary$$dns_api$$response$$common$$failure,
+  secondary$$dns_api$$response$$single,
+  secondary$$dns_id_response$$3,
+  secondary$$dns_identifier$$3,
+  secondary$$dns_messages,
 } from "../outputs.js";
 import {
-  secondary_dns_account_identifier,
-  secondary_dns_identifier_3,
+  secondary$$dns_account_identifier,
+  secondary$$dns_identifier$$3 as secondary$$dns_identifier$$3$,
 } from "../schemas.js";
 import {
-  secondary_dns_ip_output,
-  secondary_dns_ixfr_enable_output,
-  secondary_dns_name_3_output,
-  secondary_dns_peer_output,
-  secondary_dns_port_output,
-  secondary_dns_response_collection_2_output,
-  secondary_dns_single_response_2_output,
-  secondary_dns_tsig_id_output,
+  secondary$$dns_ip,
+  secondary$$dns_ixfr_enable,
+  secondary$$dns_name$$3,
+  secondary$$dns_peer,
+  secondary$$dns_port,
+  secondary$$dns_response_collection$$2,
+  secondary$$dns_single_response$$2,
+  secondary$$dns_tsig_id,
 } from "./outputs.js";
 import {
-  secondary_dns_ip,
-  secondary_dns_ixfr_enable,
-  secondary_dns_name_3,
-  secondary_dns_peer,
-  secondary_dns_port,
-  secondary_dns_tsig_id,
+  secondary$$dns_ip as secondary$$dns_ip$,
+  secondary$$dns_ixfr_enable as secondary$$dns_ixfr_enable$,
+  secondary$$dns_name$$3 as secondary$$dns_name$$3$,
+  secondary$$dns_peer as secondary$$dns_peer$,
+  secondary$$dns_port as secondary$$dns_port$,
+  secondary$$dns_tsig_id as secondary$$dns_tsig_id$,
 } from "./schemas.js";
 
 /**
- * The tools of `dns.zone_transfers.peers`.
+ * The tools of `dns.zoneTransfers.peers`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "dns_zone_transfers_peers_create",
+    name: "dns_zoneTransfers_peers_create",
     title: "Create Peer",
     description: "Create Peer.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/secondary-dns_account_identifier"
-        },
         "body": {
           "properties": {
             "name": {
@@ -59,30 +56,41 @@ export const tools: readonly Tool[] = [
             "name"
           ],
           "type": "object"
+        },
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/secondary-dns_account_identifier"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
+        "path",
         "body"
       ],
       $defs: {
-        "secondary-dns_account_identifier": secondary_dns_account_identifier,
-        "secondary-dns_name-3": secondary_dns_name_3,
+        "secondary-dns_account_identifier": secondary$$dns_account_identifier,
+        "secondary-dns_name-3": secondary$$dns_name$$3$,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/secondary-dns_single_response-2",
       $defs: {
-        "secondary-dns_api-response-single": secondary_dns_api_response_single_output,
-        "secondary-dns_identifier-3": secondary_dns_identifier_3_output,
-        "secondary-dns_ip": secondary_dns_ip_output,
-        "secondary-dns_ixfr_enable": secondary_dns_ixfr_enable_output,
-        "secondary-dns_messages": secondary_dns_messages_output,
-        "secondary-dns_name-3": secondary_dns_name_3_output,
-        "secondary-dns_peer": secondary_dns_peer_output,
-        "secondary-dns_port": secondary_dns_port_output,
-        "secondary-dns_single_response-2": secondary_dns_single_response_2_output,
-        "secondary-dns_tsig_id": secondary_dns_tsig_id_output,
+        "secondary-dns_api-response-single": secondary$$dns_api$$response$$single,
+        "secondary-dns_identifier-3": secondary$$dns_identifier$$3,
+        "secondary-dns_ip": secondary$$dns_ip,
+        "secondary-dns_ixfr_enable": secondary$$dns_ixfr_enable,
+        "secondary-dns_messages": secondary$$dns_messages,
+        "secondary-dns_name-3": secondary$$dns_name$$3,
+        "secondary-dns_peer": secondary$$dns_peer,
+        "secondary-dns_port": secondary$$dns_port,
+        "secondary-dns_single_response-2": secondary$$dns_single_response$$2,
+        "secondary-dns_tsig_id": secondary$$dns_tsig_id,
       },
     },
     annotations: {
@@ -122,17 +130,17 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "secondary-dns_api-response-common-failure": secondary_dns_api_response_common_failure_output,
-        "secondary-dns_api-response-single": secondary_dns_api_response_single_output,
-        "secondary-dns_identifier-3": secondary_dns_identifier_3_output,
-        "secondary-dns_ip": secondary_dns_ip_output,
-        "secondary-dns_ixfr_enable": secondary_dns_ixfr_enable_output,
-        "secondary-dns_messages": secondary_dns_messages_output,
-        "secondary-dns_name-3": secondary_dns_name_3_output,
-        "secondary-dns_peer": secondary_dns_peer_output,
-        "secondary-dns_port": secondary_dns_port_output,
-        "secondary-dns_single_response-2": secondary_dns_single_response_2_output,
-        "secondary-dns_tsig_id": secondary_dns_tsig_id_output,
+        "secondary-dns_api-response-common-failure": secondary$$dns_api$$response$$common$$failure,
+        "secondary-dns_api-response-single": secondary$$dns_api$$response$$single,
+        "secondary-dns_identifier-3": secondary$$dns_identifier$$3,
+        "secondary-dns_ip": secondary$$dns_ip,
+        "secondary-dns_ixfr_enable": secondary$$dns_ixfr_enable,
+        "secondary-dns_messages": secondary$$dns_messages,
+        "secondary-dns_name-3": secondary$$dns_name$$3,
+        "secondary-dns_peer": secondary$$dns_peer,
+        "secondary-dns_port": secondary$$dns_port,
+        "secondary-dns_single_response-2": secondary$$dns_single_response$$2,
+        "secondary-dns_tsig_id": secondary$$dns_tsig_id,
       },
     },
     request: (args) => ({
@@ -141,35 +149,43 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "dns_zone_transfers_peers_delete",
+    name: "dns_zoneTransfers_peers_delete",
     title: "Delete Peer",
     description: "Delete Peer.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/secondary-dns_account_identifier"
-        },
-        "peer_id": {
-          "$ref": "#/$defs/secondary-dns_identifier-3"
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/secondary-dns_account_identifier"
+            },
+            "peer_id": {
+              "$ref": "#/$defs/secondary-dns_identifier-3"
+            }
+          },
+          "required": [
+            "account_id",
+            "peer_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "peer_id"
+        "path"
       ],
       $defs: {
-        "secondary-dns_account_identifier": secondary_dns_account_identifier,
-        "secondary-dns_identifier-3": secondary_dns_identifier_3,
+        "secondary-dns_account_identifier": secondary$$dns_account_identifier,
+        "secondary-dns_identifier-3": secondary$$dns_identifier$$3$,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/secondary-dns_id_response-3",
       $defs: {
-        "secondary-dns_api-response-single": secondary_dns_api_response_single_output,
-        "secondary-dns_id_response-3": secondary_dns_id_response_3_output,
-        "secondary-dns_identifier-3": secondary_dns_identifier_3_output,
-        "secondary-dns_messages": secondary_dns_messages_output,
+        "secondary-dns_api-response-single": secondary$$dns_api$$response$$single,
+        "secondary-dns_id_response-3": secondary$$dns_id_response$$3,
+        "secondary-dns_identifier-3": secondary$$dns_identifier$$3,
+        "secondary-dns_messages": secondary$$dns_messages,
       },
     },
     annotations: {
@@ -209,11 +225,11 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "secondary-dns_api-response-common-failure": secondary_dns_api_response_common_failure_output,
-        "secondary-dns_api-response-single": secondary_dns_api_response_single_output,
-        "secondary-dns_id_response-3": secondary_dns_id_response_3_output,
-        "secondary-dns_identifier-3": secondary_dns_identifier_3_output,
-        "secondary-dns_messages": secondary_dns_messages_output,
+        "secondary-dns_api-response-common-failure": secondary$$dns_api$$response$$common$$failure,
+        "secondary-dns_api-response-single": secondary$$dns_api$$response$$single,
+        "secondary-dns_id_response-3": secondary$$dns_id_response$$3,
+        "secondary-dns_identifier-3": secondary$$dns_identifier$$3,
+        "secondary-dns_messages": secondary$$dns_messages,
       },
     },
     request: (args) => ({
@@ -221,41 +237,49 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "dns_zone_transfers_peers_get",
+    name: "dns_zoneTransfers_peers_get",
     title: "Peer Details",
     description: "Get Peer.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/secondary-dns_account_identifier"
-        },
-        "peer_id": {
-          "$ref": "#/$defs/secondary-dns_identifier-3"
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/secondary-dns_account_identifier"
+            },
+            "peer_id": {
+              "$ref": "#/$defs/secondary-dns_identifier-3"
+            }
+          },
+          "required": [
+            "account_id",
+            "peer_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "peer_id"
+        "path"
       ],
       $defs: {
-        "secondary-dns_account_identifier": secondary_dns_account_identifier,
-        "secondary-dns_identifier-3": secondary_dns_identifier_3,
+        "secondary-dns_account_identifier": secondary$$dns_account_identifier,
+        "secondary-dns_identifier-3": secondary$$dns_identifier$$3$,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/secondary-dns_single_response-2",
       $defs: {
-        "secondary-dns_api-response-single": secondary_dns_api_response_single_output,
-        "secondary-dns_identifier-3": secondary_dns_identifier_3_output,
-        "secondary-dns_ip": secondary_dns_ip_output,
-        "secondary-dns_ixfr_enable": secondary_dns_ixfr_enable_output,
-        "secondary-dns_messages": secondary_dns_messages_output,
-        "secondary-dns_name-3": secondary_dns_name_3_output,
-        "secondary-dns_peer": secondary_dns_peer_output,
-        "secondary-dns_port": secondary_dns_port_output,
-        "secondary-dns_single_response-2": secondary_dns_single_response_2_output,
-        "secondary-dns_tsig_id": secondary_dns_tsig_id_output,
+        "secondary-dns_api-response-single": secondary$$dns_api$$response$$single,
+        "secondary-dns_identifier-3": secondary$$dns_identifier$$3,
+        "secondary-dns_ip": secondary$$dns_ip,
+        "secondary-dns_ixfr_enable": secondary$$dns_ixfr_enable,
+        "secondary-dns_messages": secondary$$dns_messages,
+        "secondary-dns_name-3": secondary$$dns_name$$3,
+        "secondary-dns_peer": secondary$$dns_peer,
+        "secondary-dns_port": secondary$$dns_port,
+        "secondary-dns_single_response-2": secondary$$dns_single_response$$2,
+        "secondary-dns_tsig_id": secondary$$dns_tsig_id,
       },
     },
     annotations: {
@@ -296,17 +320,17 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "secondary-dns_api-response-common-failure": secondary_dns_api_response_common_failure_output,
-        "secondary-dns_api-response-single": secondary_dns_api_response_single_output,
-        "secondary-dns_identifier-3": secondary_dns_identifier_3_output,
-        "secondary-dns_ip": secondary_dns_ip_output,
-        "secondary-dns_ixfr_enable": secondary_dns_ixfr_enable_output,
-        "secondary-dns_messages": secondary_dns_messages_output,
-        "secondary-dns_name-3": secondary_dns_name_3_output,
-        "secondary-dns_peer": secondary_dns_peer_output,
-        "secondary-dns_port": secondary_dns_port_output,
-        "secondary-dns_single_response-2": secondary_dns_single_response_2_output,
-        "secondary-dns_tsig_id": secondary_dns_tsig_id_output,
+        "secondary-dns_api-response-common-failure": secondary$$dns_api$$response$$common$$failure,
+        "secondary-dns_api-response-single": secondary$$dns_api$$response$$single,
+        "secondary-dns_identifier-3": secondary$$dns_identifier$$3,
+        "secondary-dns_ip": secondary$$dns_ip,
+        "secondary-dns_ixfr_enable": secondary$$dns_ixfr_enable,
+        "secondary-dns_messages": secondary$$dns_messages,
+        "secondary-dns_name-3": secondary$$dns_name$$3,
+        "secondary-dns_peer": secondary$$dns_peer,
+        "secondary-dns_port": secondary$$dns_port,
+        "secondary-dns_single_response-2": secondary$$dns_single_response$$2,
+        "secondary-dns_tsig_id": secondary$$dns_tsig_id,
       },
     },
     request: (args) => ({
@@ -314,37 +338,45 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "dns_zone_transfers_peers_list",
+    name: "dns_zoneTransfers_peers_list",
     title: "List Peers",
     description: "List Peers.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/secondary-dns_account_identifier"
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/secondary-dns_account_identifier"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id"
+        "path"
       ],
       $defs: {
-        "secondary-dns_account_identifier": secondary_dns_account_identifier,
+        "secondary-dns_account_identifier": secondary$$dns_account_identifier,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/secondary-dns_response_collection-2",
       $defs: {
-        "secondary-dns_api-response-collection": secondary_dns_api_response_collection_output,
-        "secondary-dns_api-response-common": secondary_dns_api_response_common_output,
-        "secondary-dns_identifier-3": secondary_dns_identifier_3_output,
-        "secondary-dns_ip": secondary_dns_ip_output,
-        "secondary-dns_ixfr_enable": secondary_dns_ixfr_enable_output,
-        "secondary-dns_messages": secondary_dns_messages_output,
-        "secondary-dns_name-3": secondary_dns_name_3_output,
-        "secondary-dns_peer": secondary_dns_peer_output,
-        "secondary-dns_port": secondary_dns_port_output,
-        "secondary-dns_response_collection-2": secondary_dns_response_collection_2_output,
-        "secondary-dns_tsig_id": secondary_dns_tsig_id_output,
+        "secondary-dns_api-response-collection": secondary$$dns_api$$response$$collection,
+        "secondary-dns_api-response-common": secondary$$dns_api$$response$$common,
+        "secondary-dns_identifier-3": secondary$$dns_identifier$$3,
+        "secondary-dns_ip": secondary$$dns_ip,
+        "secondary-dns_ixfr_enable": secondary$$dns_ixfr_enable,
+        "secondary-dns_messages": secondary$$dns_messages,
+        "secondary-dns_name-3": secondary$$dns_name$$3,
+        "secondary-dns_peer": secondary$$dns_peer,
+        "secondary-dns_port": secondary$$dns_port,
+        "secondary-dns_response_collection-2": secondary$$dns_response_collection$$2,
+        "secondary-dns_tsig_id": secondary$$dns_tsig_id,
       },
     },
     annotations: {
@@ -385,18 +417,18 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "secondary-dns_api-response-collection": secondary_dns_api_response_collection_output,
-        "secondary-dns_api-response-common": secondary_dns_api_response_common_output,
-        "secondary-dns_api-response-common-failure": secondary_dns_api_response_common_failure_output,
-        "secondary-dns_identifier-3": secondary_dns_identifier_3_output,
-        "secondary-dns_ip": secondary_dns_ip_output,
-        "secondary-dns_ixfr_enable": secondary_dns_ixfr_enable_output,
-        "secondary-dns_messages": secondary_dns_messages_output,
-        "secondary-dns_name-3": secondary_dns_name_3_output,
-        "secondary-dns_peer": secondary_dns_peer_output,
-        "secondary-dns_port": secondary_dns_port_output,
-        "secondary-dns_response_collection-2": secondary_dns_response_collection_2_output,
-        "secondary-dns_tsig_id": secondary_dns_tsig_id_output,
+        "secondary-dns_api-response-collection": secondary$$dns_api$$response$$collection,
+        "secondary-dns_api-response-common": secondary$$dns_api$$response$$common,
+        "secondary-dns_api-response-common-failure": secondary$$dns_api$$response$$common$$failure,
+        "secondary-dns_identifier-3": secondary$$dns_identifier$$3,
+        "secondary-dns_ip": secondary$$dns_ip,
+        "secondary-dns_ixfr_enable": secondary$$dns_ixfr_enable,
+        "secondary-dns_messages": secondary$$dns_messages,
+        "secondary-dns_name-3": secondary$$dns_name$$3,
+        "secondary-dns_peer": secondary$$dns_peer,
+        "secondary-dns_port": secondary$$dns_port,
+        "secondary-dns_response_collection-2": secondary$$dns_response_collection$$2,
+        "secondary-dns_tsig_id": secondary$$dns_tsig_id,
       },
     },
     request: (args) => ({
@@ -404,51 +436,59 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "dns_zone_transfers_peers_update",
+    name: "dns_zoneTransfers_peers_update",
     title: "Update Peer",
     description: "Modify Peer.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/secondary-dns_account_identifier"
-        },
         "body": {
           "$ref": "#/$defs/secondary-dns_peer"
         },
-        "peer_id": {
-          "$ref": "#/$defs/secondary-dns_identifier-3"
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/secondary-dns_account_identifier"
+            },
+            "peer_id": {
+              "$ref": "#/$defs/secondary-dns_identifier-3"
+            }
+          },
+          "required": [
+            "account_id",
+            "peer_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "peer_id",
+        "path",
         "body"
       ],
       $defs: {
-        "secondary-dns_account_identifier": secondary_dns_account_identifier,
-        "secondary-dns_identifier-3": secondary_dns_identifier_3,
-        "secondary-dns_ip": secondary_dns_ip,
-        "secondary-dns_ixfr_enable": secondary_dns_ixfr_enable,
-        "secondary-dns_name-3": secondary_dns_name_3,
-        "secondary-dns_peer": secondary_dns_peer,
-        "secondary-dns_port": secondary_dns_port,
-        "secondary-dns_tsig_id": secondary_dns_tsig_id,
+        "secondary-dns_account_identifier": secondary$$dns_account_identifier,
+        "secondary-dns_identifier-3": secondary$$dns_identifier$$3$,
+        "secondary-dns_ip": secondary$$dns_ip$,
+        "secondary-dns_ixfr_enable": secondary$$dns_ixfr_enable$,
+        "secondary-dns_name-3": secondary$$dns_name$$3$,
+        "secondary-dns_peer": secondary$$dns_peer$,
+        "secondary-dns_port": secondary$$dns_port$,
+        "secondary-dns_tsig_id": secondary$$dns_tsig_id$,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/secondary-dns_single_response-2",
       $defs: {
-        "secondary-dns_api-response-single": secondary_dns_api_response_single_output,
-        "secondary-dns_identifier-3": secondary_dns_identifier_3_output,
-        "secondary-dns_ip": secondary_dns_ip_output,
-        "secondary-dns_ixfr_enable": secondary_dns_ixfr_enable_output,
-        "secondary-dns_messages": secondary_dns_messages_output,
-        "secondary-dns_name-3": secondary_dns_name_3_output,
-        "secondary-dns_peer": secondary_dns_peer_output,
-        "secondary-dns_port": secondary_dns_port_output,
-        "secondary-dns_single_response-2": secondary_dns_single_response_2_output,
-        "secondary-dns_tsig_id": secondary_dns_tsig_id_output,
+        "secondary-dns_api-response-single": secondary$$dns_api$$response$$single,
+        "secondary-dns_identifier-3": secondary$$dns_identifier$$3,
+        "secondary-dns_ip": secondary$$dns_ip,
+        "secondary-dns_ixfr_enable": secondary$$dns_ixfr_enable,
+        "secondary-dns_messages": secondary$$dns_messages,
+        "secondary-dns_name-3": secondary$$dns_name$$3,
+        "secondary-dns_peer": secondary$$dns_peer,
+        "secondary-dns_port": secondary$$dns_port,
+        "secondary-dns_single_response-2": secondary$$dns_single_response$$2,
+        "secondary-dns_tsig_id": secondary$$dns_tsig_id,
       },
     },
     annotations: {
@@ -488,17 +528,17 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "secondary-dns_api-response-common-failure": secondary_dns_api_response_common_failure_output,
-        "secondary-dns_api-response-single": secondary_dns_api_response_single_output,
-        "secondary-dns_identifier-3": secondary_dns_identifier_3_output,
-        "secondary-dns_ip": secondary_dns_ip_output,
-        "secondary-dns_ixfr_enable": secondary_dns_ixfr_enable_output,
-        "secondary-dns_messages": secondary_dns_messages_output,
-        "secondary-dns_name-3": secondary_dns_name_3_output,
-        "secondary-dns_peer": secondary_dns_peer_output,
-        "secondary-dns_port": secondary_dns_port_output,
-        "secondary-dns_single_response-2": secondary_dns_single_response_2_output,
-        "secondary-dns_tsig_id": secondary_dns_tsig_id_output,
+        "secondary-dns_api-response-common-failure": secondary$$dns_api$$response$$common$$failure,
+        "secondary-dns_api-response-single": secondary$$dns_api$$response$$single,
+        "secondary-dns_identifier-3": secondary$$dns_identifier$$3,
+        "secondary-dns_ip": secondary$$dns_ip,
+        "secondary-dns_ixfr_enable": secondary$$dns_ixfr_enable,
+        "secondary-dns_messages": secondary$$dns_messages,
+        "secondary-dns_name-3": secondary$$dns_name$$3,
+        "secondary-dns_peer": secondary$$dns_peer,
+        "secondary-dns_port": secondary$$dns_port,
+        "secondary-dns_single_response-2": secondary$$dns_single_response$$2,
+        "secondary-dns_tsig_id": secondary$$dns_tsig_id,
       },
     },
     request: (args) => ({

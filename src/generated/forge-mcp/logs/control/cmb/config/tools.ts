@@ -3,22 +3,22 @@
 
 import { type Tool, pathParam } from "../../../../_/tool.js";
 import {
-  logcontrol_api_response_common_failure_output,
-  logcontrol_api_response_single_output,
-  logcontrol_messages_output,
+  logcontrol_api$$response$$common$$failure,
+  logcontrol_api$$response$$single,
+  logcontrol_messages,
 } from "../../outputs.js";
 import { logcontrol_identifier } from "../../schemas.js";
 import {
-  logcontrol_allow_out_of_region_access_output,
-  logcontrol_api_response_common_output,
-  logcontrol_cmb_config_output,
-  logcontrol_cmb_config_response_single_output,
-  logcontrol_regions_output,
+  logcontrol_allow_out_of_region_access,
+  logcontrol_api$$response$$common,
+  logcontrol_cmb_config,
+  logcontrol_cmb_config_response_single,
+  logcontrol_regions,
 } from "./outputs.js";
 import {
-  logcontrol_allow_out_of_region_access,
-  logcontrol_cmb_config,
-  logcontrol_regions,
+  logcontrol_allow_out_of_region_access as logcontrol_allow_out_of_region_access$,
+  logcontrol_cmb_config as logcontrol_cmb_config$,
+  logcontrol_regions as logcontrol_regions$,
 } from "./schemas.js";
 
 /**
@@ -32,34 +32,42 @@ export const tools: readonly Tool[] = [
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/logcontrol_identifier",
-          "description": "Identifier."
-        },
         "body": {
           "$ref": "#/$defs/logcontrol_cmb_config"
+        },
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/logcontrol_identifier",
+              "description": "Identifier."
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
+        "path",
         "body"
       ],
       $defs: {
-        "logcontrol_allow_out_of_region_access": logcontrol_allow_out_of_region_access,
-        "logcontrol_cmb_config": logcontrol_cmb_config,
+        "logcontrol_allow_out_of_region_access": logcontrol_allow_out_of_region_access$,
+        "logcontrol_cmb_config": logcontrol_cmb_config$,
         "logcontrol_identifier": logcontrol_identifier,
-        "logcontrol_regions": logcontrol_regions,
+        "logcontrol_regions": logcontrol_regions$,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/logcontrol_cmb_config_response_single",
       $defs: {
-        "logcontrol_allow_out_of_region_access": logcontrol_allow_out_of_region_access_output,
-        "logcontrol_api-response-single": logcontrol_api_response_single_output,
-        "logcontrol_cmb_config": logcontrol_cmb_config_output,
-        "logcontrol_cmb_config_response_single": logcontrol_cmb_config_response_single_output,
-        "logcontrol_messages": logcontrol_messages_output,
-        "logcontrol_regions": logcontrol_regions_output,
+        "logcontrol_allow_out_of_region_access": logcontrol_allow_out_of_region_access,
+        "logcontrol_api-response-single": logcontrol_api$$response$$single,
+        "logcontrol_cmb_config": logcontrol_cmb_config,
+        "logcontrol_cmb_config_response_single": logcontrol_cmb_config_response_single,
+        "logcontrol_messages": logcontrol_messages,
+        "logcontrol_regions": logcontrol_regions,
       },
     },
     annotations: {
@@ -91,13 +99,13 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "logcontrol_allow_out_of_region_access": logcontrol_allow_out_of_region_access_output,
-        "logcontrol_api-response-common-failure": logcontrol_api_response_common_failure_output,
-        "logcontrol_api-response-single": logcontrol_api_response_single_output,
-        "logcontrol_cmb_config": logcontrol_cmb_config_output,
-        "logcontrol_cmb_config_response_single": logcontrol_cmb_config_response_single_output,
-        "logcontrol_messages": logcontrol_messages_output,
-        "logcontrol_regions": logcontrol_regions_output,
+        "logcontrol_allow_out_of_region_access": logcontrol_allow_out_of_region_access,
+        "logcontrol_api-response-common-failure": logcontrol_api$$response$$common$$failure,
+        "logcontrol_api-response-single": logcontrol_api$$response$$single,
+        "logcontrol_cmb_config": logcontrol_cmb_config,
+        "logcontrol_cmb_config_response_single": logcontrol_cmb_config_response_single,
+        "logcontrol_messages": logcontrol_messages,
+        "logcontrol_regions": logcontrol_regions,
       },
     },
     request: (args) => ({
@@ -112,13 +120,21 @@ export const tools: readonly Tool[] = [
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/logcontrol_identifier",
-          "description": "Identifier."
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/logcontrol_identifier",
+              "description": "Identifier."
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id"
+        "path"
       ],
       $defs: {
         "logcontrol_identifier": logcontrol_identifier,
@@ -139,8 +155,8 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "logcontrol_api-response-common": logcontrol_api_response_common_output,
-        "logcontrol_messages": logcontrol_messages_output,
+        "logcontrol_api-response-common": logcontrol_api$$response$$common,
+        "logcontrol_messages": logcontrol_messages,
       },
     },
     annotations: {
@@ -184,9 +200,9 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "logcontrol_api-response-common": logcontrol_api_response_common_output,
-        "logcontrol_api-response-common-failure": logcontrol_api_response_common_failure_output,
-        "logcontrol_messages": logcontrol_messages_output,
+        "logcontrol_api-response-common": logcontrol_api$$response$$common,
+        "logcontrol_api-response-common-failure": logcontrol_api$$response$$common$$failure,
+        "logcontrol_messages": logcontrol_messages,
       },
     },
     request: (args) => ({
@@ -200,13 +216,21 @@ export const tools: readonly Tool[] = [
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/logcontrol_identifier",
-          "description": "Identifier."
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/logcontrol_identifier",
+              "description": "Identifier."
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id"
+        "path"
       ],
       $defs: {
         "logcontrol_identifier": logcontrol_identifier,
@@ -215,12 +239,12 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/logcontrol_cmb_config_response_single",
       $defs: {
-        "logcontrol_allow_out_of_region_access": logcontrol_allow_out_of_region_access_output,
-        "logcontrol_api-response-single": logcontrol_api_response_single_output,
-        "logcontrol_cmb_config": logcontrol_cmb_config_output,
-        "logcontrol_cmb_config_response_single": logcontrol_cmb_config_response_single_output,
-        "logcontrol_messages": logcontrol_messages_output,
-        "logcontrol_regions": logcontrol_regions_output,
+        "logcontrol_allow_out_of_region_access": logcontrol_allow_out_of_region_access,
+        "logcontrol_api-response-single": logcontrol_api$$response$$single,
+        "logcontrol_cmb_config": logcontrol_cmb_config,
+        "logcontrol_cmb_config_response_single": logcontrol_cmb_config_response_single,
+        "logcontrol_messages": logcontrol_messages,
+        "logcontrol_regions": logcontrol_regions,
       },
     },
     annotations: {
@@ -254,13 +278,13 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "logcontrol_allow_out_of_region_access": logcontrol_allow_out_of_region_access_output,
-        "logcontrol_api-response-common-failure": logcontrol_api_response_common_failure_output,
-        "logcontrol_api-response-single": logcontrol_api_response_single_output,
-        "logcontrol_cmb_config": logcontrol_cmb_config_output,
-        "logcontrol_cmb_config_response_single": logcontrol_cmb_config_response_single_output,
-        "logcontrol_messages": logcontrol_messages_output,
-        "logcontrol_regions": logcontrol_regions_output,
+        "logcontrol_allow_out_of_region_access": logcontrol_allow_out_of_region_access,
+        "logcontrol_api-response-common-failure": logcontrol_api$$response$$common$$failure,
+        "logcontrol_api-response-single": logcontrol_api$$response$$single,
+        "logcontrol_cmb_config": logcontrol_cmb_config,
+        "logcontrol_cmb_config_response_single": logcontrol_cmb_config_response_single,
+        "logcontrol_messages": logcontrol_messages,
+        "logcontrol_regions": logcontrol_regions,
       },
     },
     request: (args) => ({

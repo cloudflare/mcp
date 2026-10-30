@@ -7,7 +7,7 @@ import type { JsonSchema } from "../../../_/tool.js";
  * The schema of `tls-certificates-and-hostnames_hostname_assoc_object` in
  * responses.
  */
-export const tls_certificates_and_hostnames_hostname_assoc_object_output: JsonSchema = {
+export const tls$$certificates$$and$$hostnames_hostname_assoc_object: JsonSchema = {
   "properties": {
     "cert_id": {
       "$ref": "#/$defs/tls-certificates-and-hostnames_cert_id"
@@ -36,7 +36,7 @@ export const tls_certificates_and_hostnames_hostname_assoc_object_output: JsonSc
  * `tls-certificates-and-hostnames_hostname_assoc_response_collection` in
  * responses.
  */
-export const tls_certificates_and_hostnames_hostname_assoc_response_collection_output: JsonSchema = {
+export const tls$$certificates$$and$$hostnames_hostname_assoc_response_collection: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/tls-certificates-and-hostnames_api-response-collection"

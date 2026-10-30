@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `tls-certificates-and-hostnames_certificate_authority-3`.
  */
-export const tls_certificates_and_hostnames_certificate_authority_3: JsonSchema = {
+export const tls$$certificates$$and$$hostnames_certificate_authority$$3: JsonSchema = {
   "description": "The Certificate Authority that Total TLS certificates will be issued through.",
   "enum": [
     "google",
@@ -19,7 +19,7 @@ export const tls_certificates_and_hostnames_certificate_authority_3: JsonSchema 
 /**
  * The schema of `tls-certificates-and-hostnames_enabled-3`.
  */
-export const tls_certificates_and_hostnames_enabled_3: JsonSchema = {
+export const tls$$certificates$$and$$hostnames_enabled$$3: JsonSchema = {
   "description": "If enabled, Total TLS will order a hostname specific TLS certificate for any proxied A, AAAA, or CNAME record in your zone.",
   "type": "boolean"
 };

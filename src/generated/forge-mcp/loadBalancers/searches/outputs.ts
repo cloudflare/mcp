@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `load-balancing_resource_reference` in responses.
  */
-export const load_balancing_resource_reference_output: JsonSchema = {
+export const load$$balancing_resource_reference: JsonSchema = {
   "properties": {
     "reference_type": {
       "enum": [
@@ -42,7 +42,7 @@ export const load_balancing_resource_reference_output: JsonSchema = {
 /**
  * The schema of `load-balancing_search` in responses.
  */
-export const load_balancing_search_output: JsonSchema = {
+export const load$$balancing_search: JsonSchema = {
   "properties": {
     "resources": {
       "items": {
@@ -57,7 +57,7 @@ export const load_balancing_search_output: JsonSchema = {
 /**
  * The schema of `load-balancing_search_result` in responses.
  */
-export const load_balancing_search_result_output: JsonSchema = {
+export const load$$balancing_search_result: JsonSchema = {
   "properties": {
     "result": {
       "$ref": "#/$defs/load-balancing_search"

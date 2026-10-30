@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `builds_DeployHookResponse` in responses.
  */
-export const builds_DeployHookResponse_output: JsonSchema = {
+export const builds_DeployHookResponse: JsonSchema = {
   "properties": {
     "branch": {
       "$ref": "#/$defs/builds_branch"
@@ -33,7 +33,7 @@ export const builds_DeployHookResponse_output: JsonSchema = {
 /**
  * The schema of `builds_DetailedDeployHookResponse` in responses.
  */
-export const builds_DetailedDeployHookResponse_output: JsonSchema = {
+export const builds_DetailedDeployHookResponse: JsonSchema = {
   "properties": {
     "branch": {
       "$ref": "#/$defs/builds_branch"
@@ -75,7 +75,7 @@ export const builds_DetailedDeployHookResponse_output: JsonSchema = {
 /**
  * The schema of `builds_TriggerDeployHookResponse` in responses.
  */
-export const builds_TriggerDeployHookResponse_output: JsonSchema = {
+export const builds_TriggerDeployHookResponse: JsonSchema = {
   "properties": {
     "already_exists": {
       "type": "boolean"
@@ -96,7 +96,7 @@ export const builds_TriggerDeployHookResponse_output: JsonSchema = {
 /**
  * The schema of `builds_deploy_hook_uuid` in responses.
  */
-export const builds_deploy_hook_uuid_output: JsonSchema = {
+export const builds_deploy_hook_uuid: JsonSchema = {
   "format": "uuid",
   "type": "string"
 };

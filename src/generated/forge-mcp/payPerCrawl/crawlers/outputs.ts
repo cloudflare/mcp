@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `pay-per-crawl_CrawlerEntry` in responses.
  */
-export const pay_per_crawl_CrawlerEntry_output: JsonSchema = {
+export const pay$$per$$crawl_CrawlerEntry: JsonSchema = {
   "properties": {
     "bot_management": {
       "type": "boolean"
@@ -102,7 +102,7 @@ export const pay_per_crawl_CrawlerEntry_output: JsonSchema = {
 /**
  * The schema of `pay-per-crawl_listCrawlersResponse` in responses.
  */
-export const pay_per_crawl_listCrawlersResponse_output: JsonSchema = {
+export const pay$$per$$crawl_listCrawlersResponse: JsonSchema = {
   "properties": {
     "errors": {
       "items": {

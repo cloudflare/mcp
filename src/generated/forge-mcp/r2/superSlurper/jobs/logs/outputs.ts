@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../../_/tool.js";
 /**
  * The schema of `r2-slurper_JobLogResponse` in responses.
  */
-export const r2_slurper_JobLogResponse_output: JsonSchema = {
+export const r2$$slurper_JobLogResponse: JsonSchema = {
   "properties": {
     "createdAt": {
       "type": "string"

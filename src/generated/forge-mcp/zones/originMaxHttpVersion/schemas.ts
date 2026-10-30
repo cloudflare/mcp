@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `cache-settings_origin_max_http_version_value`.
  */
-export const cache_settings_origin_max_http_version_value: JsonSchema = {
+export const cache$$settings_origin_max_http_version_value: JsonSchema = {
   "description": "Value of the Origin Max HTTP Version Setting.",
   "enum": [
     "2",

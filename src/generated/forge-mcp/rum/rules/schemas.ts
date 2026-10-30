@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `rum_create-rule-request`.
  */
-export const rum_create_rule_request: JsonSchema = {
+export const rum_create$$rule$$request: JsonSchema = {
   "properties": {
     "host": {
       "type": "string"
@@ -32,7 +32,7 @@ export const rum_create_rule_request: JsonSchema = {
 /**
  * The schema of `rum_modify-rules-request`.
  */
-export const rum_modify_rules_request: JsonSchema = {
+export const rum_modify$$rules$$request: JsonSchema = {
   "properties": {
     "delete_rules": {
       "description": "A list of rule identifiers to delete.",

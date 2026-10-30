@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `builds_ConfigAutofillResponse` in responses.
  */
-export const builds_ConfigAutofillResponse_output: JsonSchema = {
+export const builds_ConfigAutofillResponse: JsonSchema = {
   "properties": {
     "config_file": {
       "oneOf": [
@@ -64,7 +64,7 @@ export const builds_ConfigAutofillResponse_output: JsonSchema = {
 /**
  * The schema of `builds_PackageManager` in responses.
  */
-export const builds_PackageManager_output: JsonSchema = {
+export const builds_PackageManager: JsonSchema = {
   "enum": [
     "npm",
     "yarn",

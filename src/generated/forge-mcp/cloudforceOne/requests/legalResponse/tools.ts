@@ -4,23 +4,31 @@
 import { type Tool, pathParam } from "../../../_/tool.js";
 
 /**
- * The tools of `cloudforce_one.requests.legal_response`.
+ * The tools of `cloudforceOne.requests.legalResponse`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "cloudforce_one_requests_legal_response_access_check",
+    name: "cloudforceOne_requests_legalResponse_accessCheck",
     title: "Check if current user is allowlisted for Legal Response",
     description: "Returns whether the JWT-authenticated user's email is on the legal-response allowlist. This endpoint is purely informational for UI gating; actual access enforcement is performed by `legalResponseMiddleware` on real legal-response endpoints. Read-only — no Durable Object writes are performed.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "description": "Account ID (used for JWT validation only)",
-          "type": "string"
+        "path": {
+          "properties": {
+            "account_id": {
+              "description": "Account ID (used for JWT validation only)",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id"
+        "path"
       ],
     },
     outputSchema: {

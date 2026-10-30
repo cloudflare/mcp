@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `email-security_BulkJobActionParams` in responses.
  */
-export const email_security_BulkJobActionParams_output: JsonSchema = {
+export const email$$security_BulkJobActionParams: JsonSchema = {
   "oneOf": [
     {
       "properties": {
@@ -56,7 +56,7 @@ export const email_security_BulkJobActionParams_output: JsonSchema = {
 /**
  * The schema of `email-security_BulkJobDetail` in responses.
  */
-export const email_security_BulkJobDetail_output: JsonSchema = {
+export const email$$security_BulkJobDetail: JsonSchema = {
   "properties": {
     "action_params": {
       "$ref": "#/$defs/email-security_BulkJobActionParams"
@@ -163,7 +163,7 @@ export const email_security_BulkJobDetail_output: JsonSchema = {
 /**
  * The schema of `email-security_BulkJobStatus` in responses.
  */
-export const email_security_BulkJobStatus_output: JsonSchema = {
+export const email$$security_BulkJobStatus: JsonSchema = {
   "enum": [
     "PENDING",
     "DISCOVERING",
@@ -178,7 +178,7 @@ export const email_security_BulkJobStatus_output: JsonSchema = {
 /**
  * The schema of `email-security_BulkSearchParams` in responses.
  */
-export const email_security_BulkSearchParams_output: JsonSchema = {
+export const email$$security_BulkSearchParams: JsonSchema = {
   "properties": {
     "action_log": {
       "type": "boolean"

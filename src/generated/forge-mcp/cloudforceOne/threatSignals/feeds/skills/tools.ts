@@ -4,28 +4,36 @@
 import { type Tool, pathParam } from "../../../../_/tool.js";
 
 /**
- * The tools of `cloudforce_one.threat_signals.feeds.skills`.
+ * The tools of `cloudforceOne.threatSignals.feeds.skills`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "cloudforce_one_threat_signals_feeds_skills_get",
+    name: "cloudforceOne_threatSignals_feeds_skills_get",
     title: "Get Threat Signals feed skills",
     description: "Retrieves active non-IOC-context Managed Default Skills followed by active Custom Skills assigned to the feed, with each entry's source. Free Threat Signals accounts receive only those Managed Default Skills.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "type": "string"
-        },
-        "feed_id": {
-          "description": "UUID of the Threat Signals feed",
-          "format": "uuid",
-          "type": "string"
+        "path": {
+          "properties": {
+            "account_id": {
+              "type": "string"
+            },
+            "feed_id": {
+              "description": "UUID of the Threat Signals feed",
+              "format": "uuid",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "feed_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "feed_id"
+        "path"
       ],
     },
     outputSchema: {
@@ -365,15 +373,12 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "cloudforce_one_threat_signals_feeds_skills_update",
+    name: "cloudforceOne_threatSignals_feeds_skills_update",
     title: "Set Threat Signals feed skills",
     description: "Replaces the ordered custom skills assigned to a Threat Signals feed. Requires a paid Threat Signals subscription.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "type": "string"
-        },
         "body": {
           "properties": {
             "skill_ids": {
@@ -391,15 +396,26 @@ export const tools: readonly Tool[] = [
           ],
           "type": "object"
         },
-        "feed_id": {
-          "description": "UUID of the Threat Signals feed",
-          "format": "uuid",
-          "type": "string"
+        "path": {
+          "properties": {
+            "account_id": {
+              "type": "string"
+            },
+            "feed_id": {
+              "description": "UUID of the Threat Signals feed",
+              "format": "uuid",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "feed_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "feed_id"
+        "path"
       ],
     },
     outputSchema: {

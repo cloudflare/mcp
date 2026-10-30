@@ -3,53 +3,61 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
-  custom_indicator_feeds_api_response_common_failure_output,
-  custom_indicator_feeds_api_response_single_output,
-  custom_indicator_feeds_messages_2_output,
-  custom_indicator_feeds_messages_output,
+  custom$$indicator$$feeds_api$$response$$single,
+  custom$$indicator$$feeds_api_response_common_failure,
+  custom$$indicator$$feeds_messages,
+  custom$$indicator$$feeds_messages$$2,
 } from "../outputs.js";
-import { custom_indicator_feeds_identifier } from "../schemas.js";
+import { custom$$indicator$$feeds_identifier } from "../schemas.js";
 import {
-  custom_indicator_feeds_create_provider_response_output,
-  custom_indicator_feeds_create_provider_result_output,
+  custom$$indicator$$feeds_create_provider_response,
+  custom$$indicator$$feeds_create_provider_result,
 } from "./outputs.js";
-import { custom_indicator_feeds_create_provider_request } from "./schemas.js";
+import { custom$$indicator$$feeds_create_provider_request } from "./schemas.js";
 
 /**
- * The tools of `intel.indicator_feeds.providers`.
+ * The tools of `intel.indicatorFeeds.providers`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "intel_indicator_feeds_providers_create",
+    name: "intel_indicatorFeeds_providers_create",
     title: "Create indicator feed provider",
     description: "Creates a new indicator feed provider for an account. Only available to Intel accounts.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/custom-indicator-feeds_identifier",
-          "description": "Identifier"
-        },
         "body": {
           "$ref": "#/$defs/custom-indicator-feeds_create_provider_request"
+        },
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/custom-indicator-feeds_identifier",
+              "description": "Identifier"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
+        "path",
         "body"
       ],
       $defs: {
-        "custom-indicator-feeds_create_provider_request": custom_indicator_feeds_create_provider_request,
-        "custom-indicator-feeds_identifier": custom_indicator_feeds_identifier,
+        "custom-indicator-feeds_create_provider_request": custom$$indicator$$feeds_create_provider_request,
+        "custom-indicator-feeds_identifier": custom$$indicator$$feeds_identifier,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/custom-indicator-feeds_create_provider_response",
       $defs: {
-        "custom-indicator-feeds_api-response-single": custom_indicator_feeds_api_response_single_output,
-        "custom-indicator-feeds_create_provider_response": custom_indicator_feeds_create_provider_response_output,
-        "custom-indicator-feeds_create_provider_result": custom_indicator_feeds_create_provider_result_output,
-        "custom-indicator-feeds_messages-2": custom_indicator_feeds_messages_2_output,
+        "custom-indicator-feeds_api-response-single": custom$$indicator$$feeds_api$$response$$single,
+        "custom-indicator-feeds_create_provider_response": custom$$indicator$$feeds_create_provider_response,
+        "custom-indicator-feeds_create_provider_result": custom$$indicator$$feeds_create_provider_result,
+        "custom-indicator-feeds_messages-2": custom$$indicator$$feeds_messages$$2,
       },
     },
     annotations: {
@@ -78,12 +86,12 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "custom-indicator-feeds_api-response-single": custom_indicator_feeds_api_response_single_output,
-        "custom-indicator-feeds_api_response_common_failure": custom_indicator_feeds_api_response_common_failure_output,
-        "custom-indicator-feeds_create_provider_response": custom_indicator_feeds_create_provider_response_output,
-        "custom-indicator-feeds_create_provider_result": custom_indicator_feeds_create_provider_result_output,
-        "custom-indicator-feeds_messages": custom_indicator_feeds_messages_output,
-        "custom-indicator-feeds_messages-2": custom_indicator_feeds_messages_2_output,
+        "custom-indicator-feeds_api-response-single": custom$$indicator$$feeds_api$$response$$single,
+        "custom-indicator-feeds_api_response_common_failure": custom$$indicator$$feeds_api_response_common_failure,
+        "custom-indicator-feeds_create_provider_response": custom$$indicator$$feeds_create_provider_response,
+        "custom-indicator-feeds_create_provider_result": custom$$indicator$$feeds_create_provider_result,
+        "custom-indicator-feeds_messages": custom$$indicator$$feeds_messages,
+        "custom-indicator-feeds_messages-2": custom$$indicator$$feeds_messages$$2,
       },
     },
     request: (args) => ({

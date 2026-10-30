@@ -6,7 +6,7 @@ import type { JsonSchema } from "../_/tool.js";
 /**
  * The schema of `smartshield_api-response-common` in responses.
  */
-export const smartshield_api_response_common_output: JsonSchema = {
+export const smartshield_api$$response$$common: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/smartshield_messages"
@@ -36,7 +36,7 @@ export const smartshield_api_response_common_output: JsonSchema = {
 /**
  * The schema of `smartshield_api-response-common-failure` in responses.
  */
-export const smartshield_api_response_common_failure_output: JsonSchema = {
+export const smartshield_api$$response$$common$$failure: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/smartshield_messages"
@@ -64,7 +64,7 @@ export const smartshield_api_response_common_failure_output: JsonSchema = {
 /**
  * The schema of `smartshield_api-response-result` in responses.
  */
-export const smartshield_api_response_result_output: JsonSchema = {
+export const smartshield_api$$response$$result: JsonSchema = {
   "anyOf": [
     {
       "type": "object"
@@ -84,14 +84,14 @@ export const smartshield_api_response_result_output: JsonSchema = {
 /**
  * The schema of `smartshield_identifier` in responses.
  */
-export const smartshield_identifier_output: JsonSchema = {
+export const smartshield_identifier: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `smartshield_messages` in responses.
  */
-export const smartshield_messages_output: JsonSchema = {
+export const smartshield_messages: JsonSchema = {
   "items": {
     "properties": {
       "code": {
@@ -113,7 +113,7 @@ export const smartshield_messages_output: JsonSchema = {
 /**
  * The schema of `smartshield_single_smart_shield_get_response` in responses.
  */
-export const smartshield_single_smart_shield_get_response_output: JsonSchema = {
+export const smartshield_single_smart_shield_get_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/smartshield_api-response-common"
@@ -132,7 +132,7 @@ export const smartshield_single_smart_shield_get_response_output: JsonSchema = {
 /**
  * The schema of `smartshield_single_smart_shield_patch_response` in responses.
  */
-export const smartshield_single_smart_shield_patch_response_output: JsonSchema = {
+export const smartshield_single_smart_shield_patch_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/smartshield_api-response-common"
@@ -151,7 +151,7 @@ export const smartshield_single_smart_shield_patch_response_output: JsonSchema =
 /**
  * The schema of `smartshield_smart_shield_settings` in responses.
  */
-export const smartshield_smart_shield_settings_output: JsonSchema = {
+export const smartshield_smart_shield_settings: JsonSchema = {
   "properties": {
     "cache_reserve": {
       "properties": {
@@ -235,7 +235,7 @@ export const smartshield_smart_shield_settings_output: JsonSchema = {
 /**
  * The schema of `smartshield_smart_shield_settings_get_response` in responses.
  */
-export const smartshield_smart_shield_settings_get_response_output: JsonSchema = {
+export const smartshield_smart_shield_settings_get_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/smartshield_smart_shield_settings"
@@ -255,7 +255,7 @@ export const smartshield_smart_shield_settings_get_response_output: JsonSchema =
  * The schema of `smartshield_smart_shield_settings_patch_response` in
  * responses.
  */
-export const smartshield_smart_shield_settings_patch_response_output: JsonSchema = {
+export const smartshield_smart_shield_settings_patch_response: JsonSchema = {
   "properties": {
     "cache_reserve": {
       "properties": {

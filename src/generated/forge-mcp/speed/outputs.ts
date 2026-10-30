@@ -6,7 +6,7 @@ import type { JsonSchema } from "../_/tool.js";
 /**
  * The schema of `observatory_api-response-common-failure` in responses.
  */
-export const observatory_api_response_common_failure_output: JsonSchema = {
+export const observatory_api$$response$$common$$failure: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/observatory_messages"
@@ -36,7 +36,7 @@ export const observatory_api_response_common_failure_output: JsonSchema = {
 /**
  * The schema of `observatory_api-response-single` in responses.
  */
-export const observatory_api_response_single_output: JsonSchema = {
+export const observatory_api$$response$$single: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/observatory_messages"
@@ -59,7 +59,7 @@ export const observatory_api_response_single_output: JsonSchema = {
 /**
  * The schema of `observatory_count-response` in responses.
  */
-export const observatory_count_response_output: JsonSchema = {
+export const observatory_count$$response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/observatory_api-response-single"
@@ -83,7 +83,7 @@ export const observatory_count_response_output: JsonSchema = {
 /**
  * The schema of `observatory_device_type` in responses.
  */
-export const observatory_device_type_output: JsonSchema = {
+export const observatory_device_type: JsonSchema = {
   "enum": [
     "DESKTOP",
     "MOBILE"
@@ -94,7 +94,7 @@ export const observatory_device_type_output: JsonSchema = {
 /**
  * The schema of `observatory_labeled_region` in responses.
  */
-export const observatory_labeled_region_output: JsonSchema = {
+export const observatory_labeled_region: JsonSchema = {
   "properties": {
     "label": {
       "type": "string"
@@ -109,7 +109,7 @@ export const observatory_labeled_region_output: JsonSchema = {
 /**
  * The schema of `observatory_lighthouse_error_code` in responses.
  */
-export const observatory_lighthouse_error_code_output: JsonSchema = {
+export const observatory_lighthouse_error_code: JsonSchema = {
   "enum": [
     "NOT_REACHABLE",
     "DNS_FAILURE",
@@ -123,7 +123,7 @@ export const observatory_lighthouse_error_code_output: JsonSchema = {
 /**
  * The schema of `observatory_lighthouse_report` in responses.
  */
-export const observatory_lighthouse_report_output: JsonSchema = {
+export const observatory_lighthouse_report: JsonSchema = {
   "properties": {
     "cls": {
       "type": "number"
@@ -179,7 +179,7 @@ export const observatory_lighthouse_report_output: JsonSchema = {
 /**
  * The schema of `observatory_lighthouse_state` in responses.
  */
-export const observatory_lighthouse_state_output: JsonSchema = {
+export const observatory_lighthouse_state: JsonSchema = {
   "enum": [
     "RUNNING",
     "COMPLETE",
@@ -191,7 +191,7 @@ export const observatory_lighthouse_state_output: JsonSchema = {
 /**
  * The schema of `observatory_messages` in responses.
  */
-export const observatory_messages_output: JsonSchema = {
+export const observatory_messages: JsonSchema = {
   "items": {
     "properties": {
       "code": {
@@ -213,7 +213,7 @@ export const observatory_messages_output: JsonSchema = {
 /**
  * The schema of `observatory_page_test` in responses.
  */
-export const observatory_page_test_output: JsonSchema = {
+export const observatory_page_test: JsonSchema = {
   "properties": {
     "date": {
       "$ref": "#/$defs/observatory_timestamp"
@@ -243,7 +243,7 @@ export const observatory_page_test_output: JsonSchema = {
 /**
  * The schema of `observatory_region` in responses.
  */
-export const observatory_region_output: JsonSchema = {
+export const observatory_region: JsonSchema = {
   "enum": [
     "asia-east1",
     "asia-northeast1",
@@ -273,7 +273,7 @@ export const observatory_region_output: JsonSchema = {
 /**
  * The schema of `observatory_schedule_frequency` in responses.
  */
-export const observatory_schedule_frequency_output: JsonSchema = {
+export const observatory_schedule_frequency: JsonSchema = {
   "enum": [
     "DAILY",
     "WEEKLY"
@@ -284,7 +284,7 @@ export const observatory_schedule_frequency_output: JsonSchema = {
 /**
  * The schema of `observatory_timestamp` in responses.
  */
-export const observatory_timestamp_output: JsonSchema = {
+export const observatory_timestamp: JsonSchema = {
   "format": "date-time",
   "type": "string"
 };
@@ -292,13 +292,13 @@ export const observatory_timestamp_output: JsonSchema = {
 /**
  * The schema of `observatory_url` in responses.
  */
-export const observatory_url_output: JsonSchema = {
+export const observatory_url: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `observatory_uuid` in responses.
  */
-export const observatory_uuid_output: JsonSchema = {
+export const observatory_uuid: JsonSchema = {
   "type": "string"
 };

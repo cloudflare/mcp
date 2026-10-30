@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `iam_user_group` in responses.
  */
-export const iam_user_group_output: JsonSchema = {
+export const iam_user_group: JsonSchema = {
   "properties": {
     "created_on": {
       "format": "date-time",
@@ -55,14 +55,14 @@ export const iam_user_group_output: JsonSchema = {
 /**
  * The schema of `iam_user_group_identifier` in responses.
  */
-export const iam_user_group_identifier_output: JsonSchema = {
+export const iam_user_group_identifier: JsonSchema = {
   "$ref": "#/$defs/iam_common_components-schemas-identifier"
 };
 
 /**
  * The schema of `iam_user_groups` in responses.
  */
-export const iam_user_groups_output: JsonSchema = {
+export const iam_user_groups: JsonSchema = {
   "items": {
     "$ref": "#/$defs/iam_user_group"
   },

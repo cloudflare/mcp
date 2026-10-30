@@ -7,7 +7,7 @@ import type { JsonSchema } from "../_/tool.js";
  * The schema of `client-side-security_api-get-response-collection` in
  * responses.
  */
-export const client_side_security_api_get_response_collection_output: JsonSchema = {
+export const client$$side$$security_api$$get$$response$$collection: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/client-side-security_api-response-common"
@@ -34,7 +34,7 @@ export const client_side_security_api_get_response_collection_output: JsonSchema
  * The schema of `client-side-security_api-list-response-collection` in
  * responses.
  */
-export const client_side_security_api_list_response_collection_output: JsonSchema = {
+export const client$$side$$security_api$$list$$response$$collection: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/client-side-security_api-response-common"
@@ -56,7 +56,7 @@ export const client_side_security_api_list_response_collection_output: JsonSchem
 /**
  * The schema of `client-side-security_api-response-common` in responses.
  */
-export const client_side_security_api_response_common_output: JsonSchema = {
+export const client$$side$$security_api$$response$$common: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/client-side-security_messages"
@@ -81,7 +81,7 @@ export const client_side_security_api_response_common_output: JsonSchema = {
  * The schema of `client-side-security_api-response-common-failure` in
  * responses.
  */
-export const client_side_security_api_response_common_failure_output: JsonSchema = {
+export const client$$side$$security_api$$response$$common$$failure: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/client-side-security_messages"
@@ -109,14 +109,14 @@ export const client_side_security_api_response_common_failure_output: JsonSchema
 /**
  * The schema of `client-side-security_id` in responses.
  */
-export const client_side_security_id_output: JsonSchema = {
+export const client$$side$$security_id: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `client-side-security_messages` in responses.
  */
-export const client_side_security_messages_output: JsonSchema = {
+export const client$$side$$security_messages: JsonSchema = {
   "items": {
     "properties": {
       "code": {
@@ -138,7 +138,7 @@ export const client_side_security_messages_output: JsonSchema = {
 /**
  * The schema of `client-side-security_result_info` in responses.
  */
-export const client_side_security_result_info_output: JsonSchema = {
+export const client$$side$$security_result_info: JsonSchema = {
   "properties": {
     "count": {
       "type": "number"

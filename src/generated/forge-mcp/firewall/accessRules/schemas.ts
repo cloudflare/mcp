@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `firewall_schemas-rule`.
  */
-export const firewall_schemas_rule: JsonSchema = {
+export const firewall_schemas$$rule: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/firewall_rule"

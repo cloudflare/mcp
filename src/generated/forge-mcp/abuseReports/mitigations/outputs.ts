@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `abuse-reports_MitigatedEntityType` in responses.
  */
-export const abuse_reports_MitigatedEntityType_output: JsonSchema = {
+export const abuse$$reports_MitigatedEntityType: JsonSchema = {
   "enum": [
     "url_pattern",
     "account",
@@ -19,7 +19,7 @@ export const abuse_reports_MitigatedEntityType_output: JsonSchema = {
 /**
  * The schema of `abuse-reports_MitigationAppealResult` in responses.
  */
-export const abuse_reports_MitigationAppealResult_output: JsonSchema = {
+export const abuse$$reports_MitigationAppealResult: JsonSchema = {
   "properties": {
     "errors": {
       "items": {
@@ -80,7 +80,7 @@ export const abuse_reports_MitigationAppealResult_output: JsonSchema = {
 /**
  * The schema of `abuse-reports_MitigationListItem` in responses.
  */
-export const abuse_reports_MitigationListItem_output: JsonSchema = {
+export const abuse$$reports_MitigationListItem: JsonSchema = {
   "properties": {
     "effective_date": {
       "type": "string"
@@ -115,6 +115,6 @@ export const abuse_reports_MitigationListItem_output: JsonSchema = {
 /**
  * The schema of `abuse-reports_MitigationType` in responses.
  */
-export const abuse_reports_MitigationType_output: JsonSchema = {
+export const abuse$$reports_MitigationType: JsonSchema = {
   "type": "string"
 };

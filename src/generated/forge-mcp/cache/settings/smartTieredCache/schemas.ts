@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `cache-settings_smart_tiered_cache_patch`.
  */
-export const cache_settings_smart_tiered_cache_patch: JsonSchema = {
+export const cache$$settings_smart_tiered_cache_patch: JsonSchema = {
   "description": "Update enablement of Smart Tiered Cache.",
   "properties": {
     "value": {

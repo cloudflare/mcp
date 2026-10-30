@@ -6,14 +6,14 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `secrets-store_quota` in responses.
  */
-export const secrets_store_quota_output: JsonSchema = {
+export const secrets$$store_quota: JsonSchema = {
   "type": "number"
 };
 
 /**
  * The schema of `secrets-store_quota_response` in responses.
  */
-export const secrets_store_quota_response_output: JsonSchema = {
+export const secrets$$store_quota_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/secrets-store_api-response-collection"
@@ -32,7 +32,7 @@ export const secrets_store_quota_response_output: JsonSchema = {
 /**
  * The schema of `secrets-store_secretsUsageObject` in responses.
  */
-export const secrets_store_secretsUsageObject_output: JsonSchema = {
+export const secrets$$store_secretsUsageObject: JsonSchema = {
   "properties": {
     "secrets": {
       "$ref": "#/$defs/secrets-store_usageQuotaObject"
@@ -47,14 +47,14 @@ export const secrets_store_secretsUsageObject_output: JsonSchema = {
 /**
  * The schema of `secrets-store_usage` in responses.
  */
-export const secrets_store_usage_output: JsonSchema = {
+export const secrets$$store_usage: JsonSchema = {
   "type": "number"
 };
 
 /**
  * The schema of `secrets-store_usageQuotaObject` in responses.
  */
-export const secrets_store_usageQuotaObject_output: JsonSchema = {
+export const secrets$$store_usageQuotaObject: JsonSchema = {
   "properties": {
     "quota": {
       "$ref": "#/$defs/secrets-store_quota"

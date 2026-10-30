@@ -75,7 +75,8 @@ describe('generated direct tools (?codemode=false&experimentalForge=true)', () =
       ...generatedTools.map((tool) => tool.name)
     ])
     const d1 = tools.find((tool) => tool.name === 'd1_list')!
-    expect(d1.inputSchema.required ?? []).not.toContain('account_id')
+    expect(d1.inputSchema.required ?? []).not.toContain('path')
+    expect(d1.inputSchema.properties?.path).not.toHaveProperty('required')
     expect(generatedTools.find((tool) => tool.name === 'd1_list')?.responses).toBeDefined()
     for (const key of ['request', 'method', 'path', 'extensions', 'responses']) {
       expect(d1).not.toHaveProperty(key)
@@ -134,7 +135,9 @@ describe('generated direct tools (?codemode=false&experimentalForge=true)', () =
       })
     )
 
-    const result = await callForgeTool(ACCOUNT_TOKEN, 'd1_list', { name: 'prod', per_page: 5 })
+    const result = await callForgeTool(ACCOUNT_TOKEN, 'd1_list', {
+      query: { name: 'prod', per_page: 5 }
+    })
 
     expect(result.result?.isError).toBeFalsy()
     expect(toolText(result)).toContain('db-1')
@@ -170,11 +173,11 @@ describe('generated direct tools (?codemode=false&experimentalForge=true)', () =
       )
     )
     const call = (args: Record<string, unknown>) =>
-      callForgeTool(ACCOUNT_TOKEN, 'zero_trust_access_applications_list', args)
+      callForgeTool(ACCOUNT_TOKEN, 'zeroTrust_access_applications_list', args)
 
-    const accounts = await call({ account_or_zone: 'accounts' })
-    const zoneWithoutId = await call({ account_or_zone: 'zones' })
-    const zone = await call({ account_or_zone: 'zones', account_or_zone_id: ZONE_ID })
+    const accounts = await call({ path: { account_or_zone: 'accounts' } })
+    const zoneWithoutId = await call({ path: { account_or_zone: 'zones' } })
+    const zone = await call({ path: { account_or_zone: 'zones', account_or_zone_id: ZONE_ID } })
 
     expect(toolText(accounts)).toContain('app-1')
     expect(zoneWithoutId.result?.isError).toBe(true)
@@ -189,7 +192,9 @@ describe('generated direct tools (?codemode=false&experimentalForge=true)', () =
       )
     )
 
-    const result = await callForgeTool(ACCOUNT_TOKEN, 'd1_list', { account_id: 'not-mine' })
+    const result = await callForgeTool(ACCOUNT_TOKEN, 'd1_list', {
+      path: { account_id: 'not-mine' }
+    })
 
     expect(result.result?.isError).toBe(true)
     const text = toolText(result)
@@ -249,7 +254,7 @@ describe('generated direct tools (?codemode=false&experimentalForge=true)', () =
 
     it('returns the whole response by default', async () => {
       const result = await callForgeTool(ACCOUNT_TOKEN, 'workers_legacy_scripts_list', {
-        account_id: ACCOUNT_ID
+        path: { account_id: ACCOUNT_ID }
       })
 
       expect(JSON.parse(toolText(result))).toEqual(cfSuccess(SCRIPTS))
@@ -259,7 +264,7 @@ describe('generated direct tools (?codemode=false&experimentalForge=true)', () =
       const result = await callForgeTool(
         ACCOUNT_TOKEN,
         'workers_legacy_scripts_list',
-        { account_id: ACCOUNT_ID },
+        { path: { account_id: ACCOUNT_ID } },
         `${FORGE_URL}&truncateToolResult=true`
       )
       const text = toolText(result)
@@ -359,7 +364,7 @@ describe('generated direct tools (?codemode=false&experimentalForge=true)', () =
       })
 
       it('leaves structuredContent out of an error', async () => {
-        const result = await callModern('d1_list', { account_id: 'not-mine' })
+        const result = await callModern('d1_list', { path: { account_id: 'not-mine' } })
 
         expect(result.result?.isError).toBe(true)
         expect(result.result).not.toHaveProperty('structuredContent')

@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `observatory_api-response-collection` in responses.
  */
-export const observatory_api_response_collection_output: JsonSchema = {
+export const observatory_api$$response$$collection: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/observatory_messages"
@@ -29,7 +29,7 @@ export const observatory_api_response_collection_output: JsonSchema = {
 /**
  * The schema of `observatory_pages-response-collection` in responses.
  */
-export const observatory_pages_response_collection_output: JsonSchema = {
+export const observatory_pages$$response$$collection: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/observatory_api-response-collection"
@@ -68,7 +68,7 @@ export const observatory_pages_response_collection_output: JsonSchema = {
 /**
  * The schema of `observatory_trend` in responses.
  */
-export const observatory_trend_output: JsonSchema = {
+export const observatory_trend: JsonSchema = {
   "properties": {
     "cls": {
       "items": {
@@ -181,7 +181,7 @@ export const observatory_trend_output: JsonSchema = {
 /**
  * The schema of `observatory_trend-response` in responses.
  */
-export const observatory_trend_response_output: JsonSchema = {
+export const observatory_trend$$response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/observatory_api-response-single"

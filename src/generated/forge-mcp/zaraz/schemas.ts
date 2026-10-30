@@ -6,7 +6,7 @@ import type { JsonSchema } from "../_/tool.js";
 /**
  * The schema of `zaraz_base-mc`.
  */
-export const zaraz_base_mc: JsonSchema = {
+export const zaraz_base$$mc: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/zaraz_base-tool"
@@ -128,7 +128,7 @@ export const zaraz_base_mc: JsonSchema = {
 /**
  * The schema of `zaraz_base-tool`.
  */
-export const zaraz_base_tool: JsonSchema = {
+export const zaraz_base$$tool: JsonSchema = {
   "properties": {
     "blockingTriggers": {
       "description": "List of blocking trigger IDs.",
@@ -184,7 +184,7 @@ export const zaraz_base_tool: JsonSchema = {
 /**
  * The schema of `zaraz_click-listener-rule`.
  */
-export const zaraz_click_listener_rule: JsonSchema = {
+export const zaraz_click$$listener$$rule: JsonSchema = {
   "properties": {
     "action": {
       "enum": [
@@ -230,7 +230,7 @@ export const zaraz_click_listener_rule: JsonSchema = {
 /**
  * The schema of `zaraz_custom-managed-component`.
  */
-export const zaraz_custom_managed_component: JsonSchema = {
+export const zaraz_custom$$managed$$component: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/zaraz_base-mc"
@@ -272,7 +272,7 @@ export const zaraz_custom_managed_component: JsonSchema = {
 /**
  * The schema of `zaraz_element-visibility-rule`.
  */
-export const zaraz_element_visibility_rule: JsonSchema = {
+export const zaraz_element$$visibility$$rule: JsonSchema = {
   "properties": {
     "action": {
       "enum": [
@@ -306,7 +306,7 @@ export const zaraz_element_visibility_rule: JsonSchema = {
 /**
  * The schema of `zaraz_form-submission-rule`.
  */
-export const zaraz_form_submission_rule: JsonSchema = {
+export const zaraz_form$$submission$$rule: JsonSchema = {
   "properties": {
     "action": {
       "enum": [
@@ -352,7 +352,7 @@ export const zaraz_identifier: JsonSchema = {
 /**
  * The schema of `zaraz_load-rule`.
  */
-export const zaraz_load_rule: JsonSchema = {
+export const zaraz_load$$rule: JsonSchema = {
   "properties": {
     "id": {
       "type": "string"
@@ -391,7 +391,7 @@ export const zaraz_load_rule: JsonSchema = {
 /**
  * The schema of `zaraz_managed-component`.
  */
-export const zaraz_managed_component: JsonSchema = {
+export const zaraz_managed$$component: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/zaraz_base-mc"
@@ -416,7 +416,7 @@ export const zaraz_managed_component: JsonSchema = {
 /**
  * The schema of `zaraz_scroll-depth-rule`.
  */
-export const zaraz_scroll_depth_rule: JsonSchema = {
+export const zaraz_scroll$$depth$$rule: JsonSchema = {
   "properties": {
     "action": {
       "enum": [
@@ -502,7 +502,7 @@ export const zaraz_string_variable: JsonSchema = {
 /**
  * The schema of `zaraz_timer-rule`.
  */
-export const zaraz_timer_rule: JsonSchema = {
+export const zaraz_timer$$rule: JsonSchema = {
   "properties": {
     "action": {
       "enum": [
@@ -540,7 +540,7 @@ export const zaraz_timer_rule: JsonSchema = {
 /**
  * The schema of `zaraz_variable-match-rule`.
  */
-export const zaraz_variable_match_rule: JsonSchema = {
+export const zaraz_variable$$match$$rule: JsonSchema = {
   "properties": {
     "action": {
       "enum": [
@@ -616,7 +616,7 @@ export const zaraz_worker_variable: JsonSchema = {
 /**
  * The schema of `zaraz_zaraz-config-base`.
  */
-export const zaraz_zaraz_config_base: JsonSchema = {
+export const zaraz_zaraz$$config$$base: JsonSchema = {
   "description": "Zaraz configuration.",
   "properties": {
     "analytics": {

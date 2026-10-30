@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `workers_Domain` in responses.
  */
-export const workers_Domain_output: JsonSchema = {
+export const workers_Domain: JsonSchema = {
   "properties": {
     "cert_id": {
       "format": "uuid",

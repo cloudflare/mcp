@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `digital-experience-monitoring_create_rule_body`.
  */
-export const digital_experience_monitoring_create_rule_body: JsonSchema = {
+export const digital$$experience$$monitoring_create_rule_body: JsonSchema = {
   "properties": {
     "description": {
       "type": "string"
@@ -30,7 +30,7 @@ export const digital_experience_monitoring_create_rule_body: JsonSchema = {
 /**
  * The schema of `digital-experience-monitoring_patch_rule_body`.
  */
-export const digital_experience_monitoring_patch_rule_body: JsonSchema = {
+export const digital$$experience$$monitoring_patch_rule_body: JsonSchema = {
   "properties": {
     "description": {
       "type": "string"

@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../../../../_/tool.js";
 /**
  * The schema of `advanced-ddos-protection_NewSynProtectionRule`.
  */
-export const advanced_ddos_protection_NewSynProtectionRule: JsonSchema = {
+export const advanced$$ddos$$protection_NewSynProtectionRule: JsonSchema = {
   "properties": {
     "burst_sensitivity": {
       "description": "The burst sensitivity. Must be one of 'low', 'medium', 'high'.",
@@ -46,7 +46,7 @@ export const advanced_ddos_protection_NewSynProtectionRule: JsonSchema = {
 /**
  * The schema of `advanced-ddos-protection_SynProtectionRuleUpdate`.
  */
-export const advanced_ddos_protection_SynProtectionRuleUpdate: JsonSchema = {
+export const advanced$$ddos$$protection_SynProtectionRuleUpdate: JsonSchema = {
   "properties": {
     "burst_sensitivity": {
       "description": "The new burst sensitivity. Optional. Must be one of 'low', 'medium', 'high'.",

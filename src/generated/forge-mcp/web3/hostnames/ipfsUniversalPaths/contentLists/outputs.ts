@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../../_/tool.js";
 /**
  * The schema of `web3_content_list_action` in responses.
  */
-export const web3_content_list_action_output: JsonSchema = {
+export const web3_content_list_action: JsonSchema = {
   "enum": [
     "block"
   ],
@@ -16,7 +16,7 @@ export const web3_content_list_action_output: JsonSchema = {
 /**
  * The schema of `web3_content_list_details` in responses.
  */
-export const web3_content_list_details_output: JsonSchema = {
+export const web3_content_list_details: JsonSchema = {
   "properties": {
     "action": {
       "$ref": "#/$defs/web3_content_list_action"
@@ -28,7 +28,7 @@ export const web3_content_list_details_output: JsonSchema = {
 /**
  * The schema of `web3_content_list_details_response` in responses.
  */
-export const web3_content_list_details_response_output: JsonSchema = {
+export const web3_content_list_details_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/web3_api-response-single"
@@ -47,7 +47,7 @@ export const web3_content_list_details_response_output: JsonSchema = {
 /**
  * The schema of `web3_content_list_entries` in responses.
  */
-export const web3_content_list_entries_output: JsonSchema = {
+export const web3_content_list_entries: JsonSchema = {
   "items": {
     "$ref": "#/$defs/web3_content_list_entry"
   },
@@ -57,7 +57,7 @@ export const web3_content_list_entries_output: JsonSchema = {
 /**
  * The schema of `web3_content_list_entry` in responses.
  */
-export const web3_content_list_entry_output: JsonSchema = {
+export const web3_content_list_entry: JsonSchema = {
   "properties": {
     "content": {
       "$ref": "#/$defs/web3_content_list_entry_content"
@@ -84,21 +84,21 @@ export const web3_content_list_entry_output: JsonSchema = {
 /**
  * The schema of `web3_content_list_entry_content` in responses.
  */
-export const web3_content_list_entry_content_output: JsonSchema = {
+export const web3_content_list_entry_content: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `web3_content_list_entry_description` in responses.
  */
-export const web3_content_list_entry_description_output: JsonSchema = {
+export const web3_content_list_entry_description: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `web3_content_list_entry_type` in responses.
  */
-export const web3_content_list_entry_type_output: JsonSchema = {
+export const web3_content_list_entry_type: JsonSchema = {
   "enum": [
     "cid",
     "content_path"

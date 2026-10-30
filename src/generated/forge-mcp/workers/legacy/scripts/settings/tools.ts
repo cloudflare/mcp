@@ -3,32 +3,32 @@
 
 import { type Tool, pathParam } from "../../../../_/tool.js";
 import {
-  workers_api_response_common_failure_output,
-  workers_api_response_common_output,
-  workers_exports_reconciliation_error_output,
-  workers_exports_reconciliation_error_response_output,
-  workers_exports_reconciliation_scenario_output,
-  workers_logpush_output,
-  workers_messages_output,
-  workers_observability_2_output,
-  workers_tag_output,
-  workers_tags_output,
-  workers_tail_consumers_script_output,
-} from "../../../../outputs.js";
-import {
-  workers_identifier,
+  workers_api$$response$$common,
+  workers_api$$response$$common$$failure,
+  workers_exports_reconciliation_error,
+  workers_exports_reconciliation_error_response,
+  workers_exports_reconciliation_scenario,
   workers_logpush,
-  workers_observability_2,
-  workers_script_name,
+  workers_messages,
+  workers_observability$$2,
   workers_tag,
   workers_tags,
   workers_tail_consumers_script,
+} from "../../../../outputs.js";
+import {
+  workers_identifier,
+  workers_logpush as workers_logpush$,
+  workers_observability$$2 as workers_observability$$2$,
+  workers_script_name,
+  workers_tag as workers_tag$,
+  workers_tags as workers_tags$,
+  workers_tail_consumers_script as workers_tail_consumers_script$,
 } from "../../../../schemas.js";
 import {
-  workers_script_settings_item_output,
-  workers_script_settings_response_output,
+  workers_script$$settings$$item,
+  workers_script$$settings$$response,
 } from "./outputs.js";
-import { workers_script_settings_item } from "./schemas.js";
+import { workers_script$$settings$$item as workers_script$$settings$$item$ } from "./schemas.js";
 
 /**
  * The tools of `workers.legacy.scripts.settings`.
@@ -41,46 +41,54 @@ export const tools: readonly Tool[] = [
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/workers_identifier",
-          "description": "Identifier."
-        },
         "body": {
           "$ref": "#/$defs/workers_script-settings-item"
         },
-        "script_name": {
-          "$ref": "#/$defs/workers_script_name",
-          "description": "Name of the script."
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/workers_identifier",
+              "description": "Identifier."
+            },
+            "script_name": {
+              "$ref": "#/$defs/workers_script_name",
+              "description": "Name of the script."
+            }
+          },
+          "required": [
+            "account_id",
+            "script_name"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "script_name",
+        "path",
         "body"
       ],
       $defs: {
         "workers_identifier": workers_identifier,
-        "workers_logpush": workers_logpush,
-        "workers_observability-2": workers_observability_2,
-        "workers_script-settings-item": workers_script_settings_item,
+        "workers_logpush": workers_logpush$,
+        "workers_observability-2": workers_observability$$2$,
+        "workers_script-settings-item": workers_script$$settings$$item$,
         "workers_script_name": workers_script_name,
-        "workers_tag": workers_tag,
-        "workers_tags": workers_tags,
-        "workers_tail_consumers_script": workers_tail_consumers_script,
+        "workers_tag": workers_tag$,
+        "workers_tags": workers_tags$,
+        "workers_tail_consumers_script": workers_tail_consumers_script$,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/workers_script-settings-response",
       $defs: {
-        "workers_api-response-common": workers_api_response_common_output,
-        "workers_logpush": workers_logpush_output,
-        "workers_messages": workers_messages_output,
-        "workers_observability-2": workers_observability_2_output,
-        "workers_script-settings-item": workers_script_settings_item_output,
-        "workers_script-settings-response": workers_script_settings_response_output,
-        "workers_tag": workers_tag_output,
-        "workers_tags": workers_tags_output,
-        "workers_tail_consumers_script": workers_tail_consumers_script_output,
+        "workers_api-response-common": workers_api$$response$$common,
+        "workers_logpush": workers_logpush,
+        "workers_messages": workers_messages,
+        "workers_observability-2": workers_observability$$2,
+        "workers_script-settings-item": workers_script$$settings$$item,
+        "workers_script-settings-response": workers_script$$settings$$response,
+        "workers_tag": workers_tag,
+        "workers_tags": workers_tags,
+        "workers_tail_consumers_script": workers_tail_consumers_script,
       },
     },
     annotations: {
@@ -121,19 +129,19 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "workers_api-response-common": workers_api_response_common_output,
-        "workers_api-response-common-failure": workers_api_response_common_failure_output,
-        "workers_exports_reconciliation_error": workers_exports_reconciliation_error_output,
-        "workers_exports_reconciliation_error_response": workers_exports_reconciliation_error_response_output,
-        "workers_exports_reconciliation_scenario": workers_exports_reconciliation_scenario_output,
-        "workers_logpush": workers_logpush_output,
-        "workers_messages": workers_messages_output,
-        "workers_observability-2": workers_observability_2_output,
-        "workers_script-settings-item": workers_script_settings_item_output,
-        "workers_script-settings-response": workers_script_settings_response_output,
-        "workers_tag": workers_tag_output,
-        "workers_tags": workers_tags_output,
-        "workers_tail_consumers_script": workers_tail_consumers_script_output,
+        "workers_api-response-common": workers_api$$response$$common,
+        "workers_api-response-common-failure": workers_api$$response$$common$$failure,
+        "workers_exports_reconciliation_error": workers_exports_reconciliation_error,
+        "workers_exports_reconciliation_error_response": workers_exports_reconciliation_error_response,
+        "workers_exports_reconciliation_scenario": workers_exports_reconciliation_scenario,
+        "workers_logpush": workers_logpush,
+        "workers_messages": workers_messages,
+        "workers_observability-2": workers_observability$$2,
+        "workers_script-settings-item": workers_script$$settings$$item,
+        "workers_script-settings-response": workers_script$$settings$$response,
+        "workers_tag": workers_tag,
+        "workers_tags": workers_tags,
+        "workers_tail_consumers_script": workers_tail_consumers_script,
       },
     },
     request: (args) => ({
@@ -148,18 +156,26 @@ export const tools: readonly Tool[] = [
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/workers_identifier",
-          "description": "Identifier."
-        },
-        "script_name": {
-          "$ref": "#/$defs/workers_script_name",
-          "description": "Name of the script."
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/workers_identifier",
+              "description": "Identifier."
+            },
+            "script_name": {
+              "$ref": "#/$defs/workers_script_name",
+              "description": "Name of the script."
+            }
+          },
+          "required": [
+            "account_id",
+            "script_name"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "script_name"
+        "path"
       ],
       $defs: {
         "workers_identifier": workers_identifier,
@@ -169,15 +185,15 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/workers_script-settings-response",
       $defs: {
-        "workers_api-response-common": workers_api_response_common_output,
-        "workers_logpush": workers_logpush_output,
-        "workers_messages": workers_messages_output,
-        "workers_observability-2": workers_observability_2_output,
-        "workers_script-settings-item": workers_script_settings_item_output,
-        "workers_script-settings-response": workers_script_settings_response_output,
-        "workers_tag": workers_tag_output,
-        "workers_tags": workers_tags_output,
-        "workers_tail_consumers_script": workers_tail_consumers_script_output,
+        "workers_api-response-common": workers_api$$response$$common,
+        "workers_logpush": workers_logpush,
+        "workers_messages": workers_messages,
+        "workers_observability-2": workers_observability$$2,
+        "workers_script-settings-item": workers_script$$settings$$item,
+        "workers_script-settings-response": workers_script$$settings$$response,
+        "workers_tag": workers_tag,
+        "workers_tags": workers_tags,
+        "workers_tail_consumers_script": workers_tail_consumers_script,
       },
     },
     annotations: {
@@ -217,16 +233,16 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "workers_api-response-common": workers_api_response_common_output,
-        "workers_api-response-common-failure": workers_api_response_common_failure_output,
-        "workers_logpush": workers_logpush_output,
-        "workers_messages": workers_messages_output,
-        "workers_observability-2": workers_observability_2_output,
-        "workers_script-settings-item": workers_script_settings_item_output,
-        "workers_script-settings-response": workers_script_settings_response_output,
-        "workers_tag": workers_tag_output,
-        "workers_tags": workers_tags_output,
-        "workers_tail_consumers_script": workers_tail_consumers_script_output,
+        "workers_api-response-common": workers_api$$response$$common,
+        "workers_api-response-common-failure": workers_api$$response$$common$$failure,
+        "workers_logpush": workers_logpush,
+        "workers_messages": workers_messages,
+        "workers_observability-2": workers_observability$$2,
+        "workers_script-settings-item": workers_script$$settings$$item,
+        "workers_script-settings-response": workers_script$$settings$$response,
+        "workers_tag": workers_tag,
+        "workers_tags": workers_tags,
+        "workers_tail_consumers_script": workers_tail_consumers_script,
       },
     },
     request: (args) => ({

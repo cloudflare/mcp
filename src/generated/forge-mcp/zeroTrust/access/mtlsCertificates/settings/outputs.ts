@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../../_/tool.js";
 /**
  * The schema of `access_response_collection_hostnames` in responses.
  */
-export const access_response_collection_hostnames_output: JsonSchema = {
+export const access_response_collection_hostnames: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/access_api-response-collection"
@@ -28,7 +28,7 @@ export const access_response_collection_hostnames_output: JsonSchema = {
 /**
  * The schema of `access_settings` in responses.
  */
-export const access_settings_output: JsonSchema = {
+export const access_settings: JsonSchema = {
   "properties": {
     "china_network": {
       "type": "boolean"

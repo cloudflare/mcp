@@ -6,7 +6,7 @@ import type { JsonSchema } from "../_/tool.js";
 /**
  * The schema of `magic-visibility-mnm_api-response-common` in responses.
  */
-export const magic_visibility_mnm_api_response_common_output: JsonSchema = {
+export const magic$$visibility$$mnm_api$$response$$common: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/magic-visibility-mnm_messages"
@@ -48,7 +48,7 @@ export const magic_visibility_mnm_api_response_common_output: JsonSchema = {
  * The schema of `magic-visibility-mnm_api-response-common-failure` in
  * responses.
  */
-export const magic_visibility_mnm_api_response_common_failure_output: JsonSchema = {
+export const magic$$visibility$$mnm_api$$response$$common$$failure: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/magic-visibility-mnm_messages"
@@ -78,7 +78,7 @@ export const magic_visibility_mnm_api_response_common_failure_output: JsonSchema
 /**
  * The schema of `magic-visibility-mnm_api-response-single` in responses.
  */
-export const magic_visibility_mnm_api_response_single_output: JsonSchema = {
+export const magic$$visibility$$mnm_api$$response$$single: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/magic-visibility-mnm_api-response-common"
@@ -107,7 +107,7 @@ export const magic_visibility_mnm_api_response_single_output: JsonSchema = {
 /**
  * The schema of `magic-visibility-mnm_messages` in responses.
  */
-export const magic_visibility_mnm_messages_output: JsonSchema = {
+export const magic$$visibility$$mnm_messages: JsonSchema = {
   "items": {
     "properties": {
       "code": {

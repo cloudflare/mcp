@@ -3,47 +3,55 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
-  load_balancing_api_response_common_failure_output,
-  load_balancing_api_response_common_output,
-  load_balancing_api_response_single_output,
-  load_balancing_messages_output,
-  load_balancing_origin_health_data_output,
-  load_balancing_preview_result_output,
-  load_balancing_preview_result_response_output,
+  load$$balancing_api$$response$$common,
+  load$$balancing_api$$response$$common$$failure,
+  load$$balancing_api$$response$$single,
+  load$$balancing_messages,
+  load$$balancing_origin_health_data,
+  load$$balancing_preview_result,
+  load$$balancing_preview_result_response,
 } from "../../../outputs.js";
-import { load_balancing_preview_id } from "./schemas.js";
+import { load$$balancing_preview_id } from "./schemas.js";
 
 /**
- * The tools of `user.load_balancers.preview`.
+ * The tools of `user.loadBalancers.preview`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "user_load_balancers_preview_get",
+    name: "user_loadBalancers_preview_get",
     title: "Preview Result",
     description: "Get the result of a previous preview operation using the provided preview_id.",
     inputSchema: {
       type: "object",
       properties: {
-        "preview_id": {
-          "$ref": "#/$defs/load-balancing_preview_id"
+        "path": {
+          "properties": {
+            "preview_id": {
+              "$ref": "#/$defs/load-balancing_preview_id"
+            }
+          },
+          "required": [
+            "preview_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "preview_id"
+        "path"
       ],
       $defs: {
-        "load-balancing_preview_id": load_balancing_preview_id,
+        "load-balancing_preview_id": load$$balancing_preview_id,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/load-balancing_preview_result_response",
       $defs: {
-        "load-balancing_api-response-common": load_balancing_api_response_common_output,
-        "load-balancing_api-response-single": load_balancing_api_response_single_output,
-        "load-balancing_messages": load_balancing_messages_output,
-        "load-balancing_origin_health_data": load_balancing_origin_health_data_output,
-        "load-balancing_preview_result": load_balancing_preview_result_output,
-        "load-balancing_preview_result_response": load_balancing_preview_result_response_output,
+        "load-balancing_api-response-common": load$$balancing_api$$response$$common,
+        "load-balancing_api-response-single": load$$balancing_api$$response$$single,
+        "load-balancing_messages": load$$balancing_messages,
+        "load-balancing_origin_health_data": load$$balancing_origin_health_data,
+        "load-balancing_preview_result": load$$balancing_preview_result,
+        "load-balancing_preview_result_response": load$$balancing_preview_result_response,
       },
     },
     annotations: {
@@ -71,13 +79,13 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "load-balancing_api-response-common": load_balancing_api_response_common_output,
-        "load-balancing_api-response-common-failure": load_balancing_api_response_common_failure_output,
-        "load-balancing_api-response-single": load_balancing_api_response_single_output,
-        "load-balancing_messages": load_balancing_messages_output,
-        "load-balancing_origin_health_data": load_balancing_origin_health_data_output,
-        "load-balancing_preview_result": load_balancing_preview_result_output,
-        "load-balancing_preview_result_response": load_balancing_preview_result_response_output,
+        "load-balancing_api-response-common": load$$balancing_api$$response$$common,
+        "load-balancing_api-response-common-failure": load$$balancing_api$$response$$common$$failure,
+        "load-balancing_api-response-single": load$$balancing_api$$response$$single,
+        "load-balancing_messages": load$$balancing_messages,
+        "load-balancing_origin_health_data": load$$balancing_origin_health_data,
+        "load-balancing_preview_result": load$$balancing_preview_result,
+        "load-balancing_preview_result_response": load$$balancing_preview_result_response,
       },
     },
     request: (args) => ({

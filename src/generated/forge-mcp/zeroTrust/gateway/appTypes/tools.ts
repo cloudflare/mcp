@@ -3,64 +3,72 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
-  zero_trust_gateway_api_response_common_failure_output,
-  zero_trust_gateway_messages_output,
+  zero$$trust$$gateway_api$$response$$common$$failure,
+  zero$$trust$$gateway_messages,
 } from "../../outputs.js";
 import {
-  zero_trust_gateway_api_response_collection_output,
-  zero_trust_gateway_api_response_common_output,
-  zero_trust_gateway_result_info_output,
-  zero_trust_gateway_timestamp_output,
+  zero$$trust$$gateway_api$$response$$collection,
+  zero$$trust$$gateway_api$$response$$common,
+  zero$$trust$$gateway_result_info,
+  zero$$trust$$gateway_timestamp,
 } from "../outputs.js";
-import { zero_trust_gateway_identifier_3 } from "../schemas.js";
+import { zero$$trust$$gateway_identifier$$3 } from "../schemas.js";
 import {
-  zero_trust_gateway_app_id_output,
-  zero_trust_gateway_app_type_id_output,
-  zero_trust_gateway_app_types_output,
-  zero_trust_gateway_application_output,
-  zero_trust_gateway_application_type_output,
-  zero_trust_gateway_name_4_output,
-  zero_trust_gateway_response_collection_7_output,
+  zero$$trust$$gateway_app$$types,
+  zero$$trust$$gateway_app_id,
+  zero$$trust$$gateway_app_type_id,
+  zero$$trust$$gateway_application,
+  zero$$trust$$gateway_application_type,
+  zero$$trust$$gateway_name$$4,
+  zero$$trust$$gateway_response_collection$$7,
 } from "./outputs.js";
 
 /**
- * The tools of `zero_trust.gateway.app_types`.
+ * The tools of `zeroTrust.gateway.appTypes`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "zero_trust_gateway_app_types_list",
+    name: "zeroTrust_gateway_appTypes_list",
     title: "List application and application type mappings",
     description: "List all application and application type mappings.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/zero-trust-gateway_identifier-3",
-          "description": "Provide the identifier string."
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/zero-trust-gateway_identifier-3",
+              "description": "Provide the identifier string."
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id"
+        "path"
       ],
       $defs: {
-        "zero-trust-gateway_identifier-3": zero_trust_gateway_identifier_3,
+        "zero-trust-gateway_identifier-3": zero$$trust$$gateway_identifier$$3,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/zero-trust-gateway_response_collection-7",
       $defs: {
-        "zero-trust-gateway_api-response-collection": zero_trust_gateway_api_response_collection_output,
-        "zero-trust-gateway_api-response-common": zero_trust_gateway_api_response_common_output,
-        "zero-trust-gateway_app-types": zero_trust_gateway_app_types_output,
-        "zero-trust-gateway_app_id": zero_trust_gateway_app_id_output,
-        "zero-trust-gateway_app_type_id": zero_trust_gateway_app_type_id_output,
-        "zero-trust-gateway_application": zero_trust_gateway_application_output,
-        "zero-trust-gateway_application_type": zero_trust_gateway_application_type_output,
-        "zero-trust-gateway_messages": zero_trust_gateway_messages_output,
-        "zero-trust-gateway_name-4": zero_trust_gateway_name_4_output,
-        "zero-trust-gateway_response_collection-7": zero_trust_gateway_response_collection_7_output,
-        "zero-trust-gateway_result_info": zero_trust_gateway_result_info_output,
-        "zero-trust-gateway_timestamp": zero_trust_gateway_timestamp_output,
+        "zero-trust-gateway_api-response-collection": zero$$trust$$gateway_api$$response$$collection,
+        "zero-trust-gateway_api-response-common": zero$$trust$$gateway_api$$response$$common,
+        "zero-trust-gateway_app-types": zero$$trust$$gateway_app$$types,
+        "zero-trust-gateway_app_id": zero$$trust$$gateway_app_id,
+        "zero-trust-gateway_app_type_id": zero$$trust$$gateway_app_type_id,
+        "zero-trust-gateway_application": zero$$trust$$gateway_application,
+        "zero-trust-gateway_application_type": zero$$trust$$gateway_application_type,
+        "zero-trust-gateway_messages": zero$$trust$$gateway_messages,
+        "zero-trust-gateway_name-4": zero$$trust$$gateway_name$$4,
+        "zero-trust-gateway_response_collection-7": zero$$trust$$gateway_response_collection$$7,
+        "zero-trust-gateway_result_info": zero$$trust$$gateway_result_info,
+        "zero-trust-gateway_timestamp": zero$$trust$$gateway_timestamp,
       },
     },
     annotations: {
@@ -95,19 +103,19 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "zero-trust-gateway_api-response-collection": zero_trust_gateway_api_response_collection_output,
-        "zero-trust-gateway_api-response-common": zero_trust_gateway_api_response_common_output,
-        "zero-trust-gateway_api-response-common-failure": zero_trust_gateway_api_response_common_failure_output,
-        "zero-trust-gateway_app-types": zero_trust_gateway_app_types_output,
-        "zero-trust-gateway_app_id": zero_trust_gateway_app_id_output,
-        "zero-trust-gateway_app_type_id": zero_trust_gateway_app_type_id_output,
-        "zero-trust-gateway_application": zero_trust_gateway_application_output,
-        "zero-trust-gateway_application_type": zero_trust_gateway_application_type_output,
-        "zero-trust-gateway_messages": zero_trust_gateway_messages_output,
-        "zero-trust-gateway_name-4": zero_trust_gateway_name_4_output,
-        "zero-trust-gateway_response_collection-7": zero_trust_gateway_response_collection_7_output,
-        "zero-trust-gateway_result_info": zero_trust_gateway_result_info_output,
-        "zero-trust-gateway_timestamp": zero_trust_gateway_timestamp_output,
+        "zero-trust-gateway_api-response-collection": zero$$trust$$gateway_api$$response$$collection,
+        "zero-trust-gateway_api-response-common": zero$$trust$$gateway_api$$response$$common,
+        "zero-trust-gateway_api-response-common-failure": zero$$trust$$gateway_api$$response$$common$$failure,
+        "zero-trust-gateway_app-types": zero$$trust$$gateway_app$$types,
+        "zero-trust-gateway_app_id": zero$$trust$$gateway_app_id,
+        "zero-trust-gateway_app_type_id": zero$$trust$$gateway_app_type_id,
+        "zero-trust-gateway_application": zero$$trust$$gateway_application,
+        "zero-trust-gateway_application_type": zero$$trust$$gateway_application_type,
+        "zero-trust-gateway_messages": zero$$trust$$gateway_messages,
+        "zero-trust-gateway_name-4": zero$$trust$$gateway_name$$4,
+        "zero-trust-gateway_response_collection-7": zero$$trust$$gateway_response_collection$$7,
+        "zero-trust-gateway_result_info": zero$$trust$$gateway_result_info,
+        "zero-trust-gateway_timestamp": zero$$trust$$gateway_timestamp,
       },
     },
     request: (args) => ({

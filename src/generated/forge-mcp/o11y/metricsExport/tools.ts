@@ -4,23 +4,31 @@
 import { type Tool, pathParam } from "../../_/tool.js";
 
 /**
- * The tools of `o11y.metrics_export`.
+ * The tools of `o11y.metricsExport`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "o11y_metrics_export_list",
+    name: "o11y_metricsExport_list",
     title: "List Metrics Exports",
     description: "List resources configured for Workers Observability metrics export.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "description": "Your Cloudflare account ID.",
-          "type": "string"
+        "path": {
+          "properties": {
+            "account_id": {
+              "description": "Your Cloudflare account ID.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id"
+        "path"
       ],
     },
     outputSchema: {
@@ -317,16 +325,12 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "o11y_metrics_export_upsert",
+    name: "o11y_metricsExport_upsert",
     title: "Upsert Metrics Exports",
     description: "Create or replace resources configured for Workers Observability metrics export.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "description": "Your Cloudflare account ID.",
-          "type": "string"
-        },
         "body": {
           "properties": {
             "requester": {
@@ -385,10 +389,22 @@ export const tools: readonly Tool[] = [
             "resources"
           ],
           "type": "object"
+        },
+        "path": {
+          "properties": {
+            "account_id": {
+              "description": "Your Cloudflare account ID.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id"
+        "path"
       ],
     },
     outputSchema: {

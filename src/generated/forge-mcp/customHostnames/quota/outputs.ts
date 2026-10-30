@@ -8,7 +8,7 @@ import type { JsonSchema } from "../../_/tool.js";
  * `tls-certificates-and-hostnames_custom_hostname_api_response_failure` in
  * responses.
  */
-export const tls_certificates_and_hostnames_custom_hostname_api_response_failure_output: JsonSchema = {
+export const tls$$certificates$$and$$hostnames_custom_hostname_api_response_failure: JsonSchema = {
   "properties": {
     "errors": {
       "allOf": [
@@ -50,7 +50,7 @@ export const tls_certificates_and_hostnames_custom_hostname_api_response_failure
  * The schema of `tls-certificates-and-hostnames_custom_hostname_quota` in
  * responses.
  */
-export const tls_certificates_and_hostnames_custom_hostname_quota_output: JsonSchema = {
+export const tls$$certificates$$and$$hostnames_custom_hostname_quota: JsonSchema = {
   "properties": {
     "allocated": {
       "type": "integer"
@@ -78,7 +78,7 @@ export const tls_certificates_and_hostnames_custom_hostname_quota_output: JsonSc
  * The schema of `tls-certificates-and-hostnames_custom_hostname_quota_response`
  * in responses.
  */
-export const tls_certificates_and_hostnames_custom_hostname_quota_response_output: JsonSchema = {
+export const tls$$certificates$$and$$hostnames_custom_hostname_quota_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/tls-certificates-and-hostnames_custom_hostname_api_response_common"

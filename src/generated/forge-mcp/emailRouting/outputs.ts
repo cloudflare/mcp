@@ -6,7 +6,7 @@ import type { JsonSchema } from "../_/tool.js";
 /**
  * The schema of `email_email_setting_created` in responses.
  */
-export const email_email_setting_created_output: JsonSchema = {
+export const email_email_setting_created: JsonSchema = {
   "format": "date-time",
   "type": "string"
 };
@@ -14,7 +14,7 @@ export const email_email_setting_created_output: JsonSchema = {
 /**
  * The schema of `email_email_setting_enabled` in responses.
  */
-export const email_email_setting_enabled_output: JsonSchema = {
+export const email_email_setting_enabled: JsonSchema = {
   "enum": [
     true,
     false
@@ -25,14 +25,14 @@ export const email_email_setting_enabled_output: JsonSchema = {
 /**
  * The schema of `email_email_setting_identifier` in responses.
  */
-export const email_email_setting_identifier_output: JsonSchema = {
+export const email_email_setting_identifier: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `email_email_setting_modified` in responses.
  */
-export const email_email_setting_modified_output: JsonSchema = {
+export const email_email_setting_modified: JsonSchema = {
   "format": "date-time",
   "type": "string"
 };
@@ -40,14 +40,14 @@ export const email_email_setting_modified_output: JsonSchema = {
 /**
  * The schema of `email_email_setting_name` in responses.
  */
-export const email_email_setting_name_output: JsonSchema = {
+export const email_email_setting_name: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `email_email_setting_skip-wizard` in responses.
  */
-export const email_email_setting_skip_wizard_output: JsonSchema = {
+export const email_email_setting_skip$$wizard: JsonSchema = {
   "enum": [
     true,
     false
@@ -58,7 +58,7 @@ export const email_email_setting_skip_wizard_output: JsonSchema = {
 /**
  * The schema of `email_email_setting_status` in responses.
  */
-export const email_email_setting_status_output: JsonSchema = {
+export const email_email_setting_status: JsonSchema = {
   "enum": [
     "ready",
     "unconfigured",
@@ -72,7 +72,7 @@ export const email_email_setting_status_output: JsonSchema = {
 /**
  * The schema of `email_email_setting_support_subaddress` in responses.
  */
-export const email_email_setting_support_subaddress_output: JsonSchema = {
+export const email_email_setting_support_subaddress: JsonSchema = {
   "enum": [
     true,
     false
@@ -83,14 +83,14 @@ export const email_email_setting_support_subaddress_output: JsonSchema = {
 /**
  * The schema of `email_email_setting_tag` in responses.
  */
-export const email_email_setting_tag_output: JsonSchema = {
+export const email_email_setting_tag: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `email_email_settings_response_single` in responses.
  */
-export const email_email_settings_response_single_output: JsonSchema = {
+export const email_email_settings_response_single: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/email_api-response-single"
@@ -109,7 +109,7 @@ export const email_email_settings_response_single_output: JsonSchema = {
 /**
  * The schema of `email_settings` in responses.
  */
-export const email_settings_output: JsonSchema = {
+export const email_settings: JsonSchema = {
   "properties": {
     "created": {
       "$ref": "#/$defs/email_email_setting_created"

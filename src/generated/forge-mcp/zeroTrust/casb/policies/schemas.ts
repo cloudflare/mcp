@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `posture-api_CreatePolicyRequest`.
  */
-export const posture_api_CreatePolicyRequest: JsonSchema = {
+export const posture$$api_CreatePolicyRequest: JsonSchema = {
   "description": "Request body for creating a new policy configuration.",
   "properties": {
     "actions": {
@@ -56,7 +56,7 @@ export const posture_api_CreatePolicyRequest: JsonSchema = {
 /**
  * The schema of `posture-api_PolicyActionsInput`.
  */
-export const posture_api_PolicyActionsInput: JsonSchema = {
+export const posture$$api_PolicyActionsInput: JsonSchema = {
   "description": "Actions to execute when this policy is triggered, grouped by action type.\nA policy must contain at least one action across all groups and may include\nat most one remediation.",
   "properties": {
     "remediation_types": {
@@ -81,7 +81,7 @@ export const posture_api_PolicyActionsInput: JsonSchema = {
 /**
  * The schema of `posture-api_PolicyRemediationActionInput`.
  */
-export const posture_api_PolicyRemediationActionInput: JsonSchema = {
+export const posture$$api_PolicyRemediationActionInput: JsonSchema = {
   "description": "A remediation action to be executed.",
   "properties": {
     "remediation_type_id": {
@@ -99,7 +99,7 @@ export const posture_api_PolicyRemediationActionInput: JsonSchema = {
 /**
  * The schema of `posture-api_PolicyWebhookActionInput`.
  */
-export const posture_api_PolicyWebhookActionInput: JsonSchema = {
+export const posture$$api_PolicyWebhookActionInput: JsonSchema = {
   "description": "A webhook action to be executed.",
   "properties": {
     "webhook_config_id": {
@@ -117,7 +117,7 @@ export const posture_api_PolicyWebhookActionInput: JsonSchema = {
 /**
  * The schema of `posture-api_UpdatePolicyRequest`.
  */
-export const posture_api_UpdatePolicyRequest: JsonSchema = {
+export const posture$$api_UpdatePolicyRequest: JsonSchema = {
   "description": "Request body for updating an existing policy configuration.",
   "properties": {
     "actions": {

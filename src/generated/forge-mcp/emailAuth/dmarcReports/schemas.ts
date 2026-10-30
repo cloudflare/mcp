@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `email-auth_ConfigureDmarcReportsRequest`.
  */
-export const email_auth_ConfigureDmarcReportsRequest: JsonSchema = {
+export const email$$auth_ConfigureDmarcReportsRequest: JsonSchema = {
   "description": "Request body for PATCH /dmarc-reports",
   "properties": {
     "enabled": {

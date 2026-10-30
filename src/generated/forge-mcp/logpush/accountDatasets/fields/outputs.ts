@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `logpush_logpush_field_response_collection` in responses.
  */
-export const logpush_logpush_field_response_collection_output: JsonSchema = {
+export const logpush_logpush_field_response_collection: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/logpush_api-response-common"

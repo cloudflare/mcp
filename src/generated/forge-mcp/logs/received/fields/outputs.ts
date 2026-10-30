@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `logshare_fields_response` in responses.
  */
-export const logshare_fields_response_output: JsonSchema = {
+export const logshare_fields_response: JsonSchema = {
   "properties": {
     "key": {
       "type": "string"

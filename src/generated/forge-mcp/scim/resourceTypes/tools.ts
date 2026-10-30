@@ -4,55 +4,63 @@
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
   iam_account_identifier,
-  iam_common_components_schemas_identifier,
+  iam_common_components$$schemas$$identifier,
 } from "../../schemas.js";
-import { iam_scim_error_response_output } from "../outputs.js";
+import { iam_scim_error_response } from "../outputs.js";
 import {
-  iam_scim_resource_type_list_response_output,
-  iam_scim_resource_type_meta_output,
-  iam_scim_resource_type_output,
-  iam_scim_schema_extension_output,
+  iam_scim_resource_type,
+  iam_scim_resource_type_list_response,
+  iam_scim_resource_type_meta,
+  iam_scim_schema_extension,
 } from "./outputs.js";
 
 /**
- * The tools of `scim.resource_types`.
+ * The tools of `scim.resourceTypes`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "scim_resource_types_get",
+    name: "scim_resourceTypes_get",
     title: "Get SCIM Resource Type",
     description: "Returns a single SCIM resource type by ID (RFC 7643 Section 6). Valid IDs are `User` and `Group`.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/iam_account_identifier",
-          "description": "Account identifier tag."
-        },
-        "resource_type_id": {
-          "description": "The resource type identifier.",
-          "enum": [
-            "User",
-            "Group"
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/iam_account_identifier",
+              "description": "Account identifier tag."
+            },
+            "resource_type_id": {
+              "description": "The resource type identifier.",
+              "enum": [
+                "User",
+                "Group"
+              ],
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "resource_type_id"
           ],
-          "type": "string"
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "resource_type_id"
+        "path"
       ],
       $defs: {
         "iam_account_identifier": iam_account_identifier,
-        "iam_common_components-schemas-identifier": iam_common_components_schemas_identifier,
+        "iam_common_components-schemas-identifier": iam_common_components$$schemas$$identifier,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/iam_scim_resource_type",
       $defs: {
-        "iam_scim_resource_type": iam_scim_resource_type_output,
-        "iam_scim_resource_type_meta": iam_scim_resource_type_meta_output,
-        "iam_scim_schema_extension": iam_scim_schema_extension_output,
+        "iam_scim_resource_type": iam_scim_resource_type,
+        "iam_scim_resource_type_meta": iam_scim_resource_type_meta,
+        "iam_scim_schema_extension": iam_scim_schema_extension,
       },
     },
     annotations: {
@@ -92,10 +100,10 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "iam_scim_error_response": iam_scim_error_response_output,
-        "iam_scim_resource_type": iam_scim_resource_type_output,
-        "iam_scim_resource_type_meta": iam_scim_resource_type_meta_output,
-        "iam_scim_schema_extension": iam_scim_schema_extension_output,
+        "iam_scim_error_response": iam_scim_error_response,
+        "iam_scim_resource_type": iam_scim_resource_type,
+        "iam_scim_resource_type_meta": iam_scim_resource_type_meta,
+        "iam_scim_schema_extension": iam_scim_schema_extension,
       },
     },
     request: (args) => ({
@@ -103,32 +111,40 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "scim_resource_types_list",
+    name: "scim_resourceTypes_list",
     title: "List SCIM Resource Types",
     description: "Returns the list of SCIM resource types supported by the Cloudflare SCIM service (RFC 7643 Section 6, RFC 7644 Section 4). Clients use this to discover available resource categories (e.g. Users, Groups) and their associated schemas. Query parameters are not supported on this endpoint.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/iam_account_identifier",
-          "description": "Account identifier tag."
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/iam_account_identifier",
+              "description": "Account identifier tag."
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id"
+        "path"
       ],
       $defs: {
         "iam_account_identifier": iam_account_identifier,
-        "iam_common_components-schemas-identifier": iam_common_components_schemas_identifier,
+        "iam_common_components-schemas-identifier": iam_common_components$$schemas$$identifier,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/iam_scim_resource_type_list_response",
       $defs: {
-        "iam_scim_resource_type": iam_scim_resource_type_output,
-        "iam_scim_resource_type_list_response": iam_scim_resource_type_list_response_output,
-        "iam_scim_resource_type_meta": iam_scim_resource_type_meta_output,
-        "iam_scim_schema_extension": iam_scim_schema_extension_output,
+        "iam_scim_resource_type": iam_scim_resource_type,
+        "iam_scim_resource_type_list_response": iam_scim_resource_type_list_response,
+        "iam_scim_resource_type_meta": iam_scim_resource_type_meta,
+        "iam_scim_schema_extension": iam_scim_schema_extension,
       },
     },
     annotations: {
@@ -168,11 +184,11 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "iam_scim_error_response": iam_scim_error_response_output,
-        "iam_scim_resource_type": iam_scim_resource_type_output,
-        "iam_scim_resource_type_list_response": iam_scim_resource_type_list_response_output,
-        "iam_scim_resource_type_meta": iam_scim_resource_type_meta_output,
-        "iam_scim_schema_extension": iam_scim_schema_extension_output,
+        "iam_scim_error_response": iam_scim_error_response,
+        "iam_scim_resource_type": iam_scim_resource_type,
+        "iam_scim_resource_type_list_response": iam_scim_resource_type_list_response,
+        "iam_scim_resource_type_meta": iam_scim_resource_type_meta,
+        "iam_scim_schema_extension": iam_scim_schema_extension,
       },
     },
     request: (args) => ({

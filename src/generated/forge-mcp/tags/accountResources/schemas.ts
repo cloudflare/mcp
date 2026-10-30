@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `resource-tagging_account_resource_type`.
  */
-export const resource_tagging_account_resource_type: JsonSchema = {
+export const resource$$tagging_account_resource_type: JsonSchema = {
   "description": "Identifies the type of account-level resource.",
   "enum": [
     "access_application",
@@ -51,7 +51,7 @@ export const resource_tagging_account_resource_type: JsonSchema = {
 /**
  * The schema of `resource-tagging_account_resource_type_base_enum`.
  */
-export const resource_tagging_account_resource_type_base_enum: JsonSchema = {
+export const resource$$tagging_account_resource_type_base_enum: JsonSchema = {
   "description": "Enum for base account-level resource types (those with no extra required fields).",
   "enum": [
     "access_application",
@@ -95,7 +95,7 @@ export const resource_tagging_account_resource_type_base_enum: JsonSchema = {
 /**
  * The schema of `resource-tagging_account_resource_type_worker_version_enum`.
  */
-export const resource_tagging_account_resource_type_worker_version_enum: JsonSchema = {
+export const resource$$tagging_account_resource_type_worker_version_enum: JsonSchema = {
   "description": "Enum for worker_version resource type.",
   "enum": [
     "worker_version"
@@ -106,7 +106,7 @@ export const resource_tagging_account_resource_type_worker_version_enum: JsonSch
 /**
  * The schema of `resource-tagging_delete_tags_request_account_level`.
  */
-export const resource_tagging_delete_tags_request_account_level: JsonSchema = {
+export const resource$$tagging_delete_tags_request_account_level: JsonSchema = {
   "description": "Request body schema for deleting tags from account-level resources. Use /zones/{zone_id}/tags for zone-level resources.",
   "oneOf": [
     {
@@ -121,7 +121,7 @@ export const resource_tagging_delete_tags_request_account_level: JsonSchema = {
 /**
  * The schema of `resource-tagging_delete_tags_request_account_level_base`.
  */
-export const resource_tagging_delete_tags_request_account_level_base: JsonSchema = {
+export const resource$$tagging_delete_tags_request_account_level_base: JsonSchema = {
   "description": "Request body schema for deleting tags from account-level resources.",
   "properties": {
     "resource_id": {
@@ -144,7 +144,7 @@ export const resource_tagging_delete_tags_request_account_level_base: JsonSchema
  * The schema of
  * `resource-tagging_delete_tags_request_account_level_worker_version`.
  */
-export const resource_tagging_delete_tags_request_account_level_worker_version: JsonSchema = {
+export const resource$$tagging_delete_tags_request_account_level_worker_version: JsonSchema = {
   "description": "Request body schema for deleting tags from worker_version resources.",
   "properties": {
     "resource_id": {
@@ -171,7 +171,7 @@ export const resource_tagging_delete_tags_request_account_level_worker_version: 
 /**
  * The schema of `resource-tagging_set_tags_request_account_level`.
  */
-export const resource_tagging_set_tags_request_account_level: JsonSchema = {
+export const resource$$tagging_set_tags_request_account_level: JsonSchema = {
   "description": "Request body schema for setting tags on account-level resources.",
   "oneOf": [
     {
@@ -186,7 +186,7 @@ export const resource_tagging_set_tags_request_account_level: JsonSchema = {
 /**
  * The schema of `resource-tagging_set_tags_request_account_level_base`.
  */
-export const resource_tagging_set_tags_request_account_level_base: JsonSchema = {
+export const resource$$tagging_set_tags_request_account_level_base: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/resource-tagging_delete_tags_request_account_level_base"
@@ -208,7 +208,7 @@ export const resource_tagging_set_tags_request_account_level_base: JsonSchema = 
  * The schema of
  * `resource-tagging_set_tags_request_account_level_worker_version`.
  */
-export const resource_tagging_set_tags_request_account_level_worker_version: JsonSchema = {
+export const resource$$tagging_set_tags_request_account_level_worker_version: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/resource-tagging_delete_tags_request_account_level_worker_version"

@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `nsc_BgpControl` in responses.
  */
-export const nsc_BgpControl_output: JsonSchema = {
+export const nsc_BgpControl: JsonSchema = {
   "properties": {
     "customer_asn": {
       "type": "integer"
@@ -38,7 +38,7 @@ export const nsc_BgpControl_output: JsonSchema = {
 /**
  * The schema of `nsc_BgpMode` in responses.
  */
-export const nsc_BgpMode_output: JsonSchema = {
+export const nsc_BgpMode: JsonSchema = {
   "enum": [
     "dynamic_route_exchange",
     "advertise_only"
@@ -49,7 +49,7 @@ export const nsc_BgpMode_output: JsonSchema = {
 /**
  * The schema of `nsc_Cni` in responses.
  */
-export const nsc_Cni_output: JsonSchema = {
+export const nsc_Cni: JsonSchema = {
   "properties": {
     "account": {
       "$ref": "#/$defs/nsc_AccountTag"
@@ -91,7 +91,7 @@ export const nsc_Cni_output: JsonSchema = {
 /**
  * The schema of `nsc_CniList` in responses.
  */
-export const nsc_CniList_output: JsonSchema = {
+export const nsc_CniList: JsonSchema = {
   "properties": {
     "items": {
       "items": {
@@ -119,7 +119,7 @@ export const nsc_CniList_output: JsonSchema = {
 /**
  * The schema of `nsc_MagicSettings` in responses.
  */
-export const nsc_MagicSettings_output: JsonSchema = {
+export const nsc_MagicSettings: JsonSchema = {
   "properties": {
     "conduit_name": {
       "type": "string"

@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `cloud-connector_api-response-common` in responses.
  */
-export const cloud_connector_api_response_common_output: JsonSchema = {
+export const cloud$$connector_api$$response$$common: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/cloud-connector_messages"
@@ -32,7 +32,7 @@ export const cloud_connector_api_response_common_output: JsonSchema = {
 /**
  * The schema of `cloud-connector_api-response-common-failure` in responses.
  */
-export const cloud_connector_api_response_common_failure_output: JsonSchema = {
+export const cloud$$connector_api$$response$$common$$failure: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/cloud-connector_messages"
@@ -62,7 +62,7 @@ export const cloud_connector_api_response_common_failure_output: JsonSchema = {
 /**
  * The schema of `cloud-connector_messages` in responses.
  */
-export const cloud_connector_messages_output: JsonSchema = {
+export const cloud$$connector_messages: JsonSchema = {
   "items": {
     "properties": {
       "code": {
@@ -95,7 +95,7 @@ export const cloud_connector_messages_output: JsonSchema = {
 /**
  * The schema of `cloud-connector_provider` in responses.
  */
-export const cloud_connector_provider_output: JsonSchema = {
+export const cloud$$connector_provider: JsonSchema = {
   "enum": [
     "aws_s3",
     "cloudflare_r2",
@@ -109,7 +109,7 @@ export const cloud_connector_provider_output: JsonSchema = {
 /**
  * The schema of `cloud-connector_rule` in responses.
  */
-export const cloud_connector_rule_output: JsonSchema = {
+export const cloud$$connector_rule: JsonSchema = {
   "properties": {
     "description": {
       "type": "string"
@@ -141,7 +141,7 @@ export const cloud_connector_rule_output: JsonSchema = {
 /**
  * The schema of `cloud-connector_rules` in responses.
  */
-export const cloud_connector_rules_output: JsonSchema = {
+export const cloud$$connector_rules: JsonSchema = {
   "items": {
     "$ref": "#/$defs/cloud-connector_rule"
   },

@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../../_/tool.js";
 /**
  * The schema of `advanced-ddos-protection_NewPrefix`.
  */
-export const advanced_ddos_protection_NewPrefix: JsonSchema = {
+export const advanced$$ddos$$protection_NewPrefix: JsonSchema = {
   "properties": {
     "comment": {
       "description": "A comment describing the prefix.",
@@ -32,7 +32,7 @@ export const advanced_ddos_protection_NewPrefix: JsonSchema = {
 /**
  * The schema of `advanced-ddos-protection_PrefixUpdate`.
  */
-export const advanced_ddos_protection_PrefixUpdate: JsonSchema = {
+export const advanced$$ddos$$protection_PrefixUpdate: JsonSchema = {
   "properties": {
     "comment": {
       "description": "A new comment for the prefix. Optional.",

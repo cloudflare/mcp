@@ -6,7 +6,7 @@ import type { JsonSchema } from "../_/tool.js";
 /**
  * The schema of `dns-custom-nameservers_CustomNS-2` in responses.
  */
-export const dns_custom_nameservers_CustomNS_2_output: JsonSchema = {
+export const dns$$custom$$nameservers_CustomNS$$2: JsonSchema = {
   "properties": {
     "dns_records": {
       "items": {
@@ -56,7 +56,7 @@ export const dns_custom_nameservers_CustomNS_2_output: JsonSchema = {
 /**
  * The schema of `dns-custom-nameservers_empty_response-3` in responses.
  */
-export const dns_custom_nameservers_empty_response_3_output: JsonSchema = {
+export const dns$$custom$$nameservers_empty_response$$3: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/dns-custom-nameservers_api-response-collection"
@@ -79,7 +79,7 @@ export const dns_custom_nameservers_empty_response_3_output: JsonSchema = {
 /**
  * The schema of `dns-custom-nameservers_tcns_response_collection` in responses.
  */
-export const dns_custom_nameservers_tcns_response_collection_output: JsonSchema = {
+export const dns$$custom$$nameservers_tcns_response_collection: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/dns-custom-nameservers_api-response-collection"
@@ -101,7 +101,7 @@ export const dns_custom_nameservers_tcns_response_collection_output: JsonSchema 
 /**
  * The schema of `dns-custom-nameservers_tcns_response_single` in responses.
  */
-export const dns_custom_nameservers_tcns_response_single_output: JsonSchema = {
+export const dns$$custom$$nameservers_tcns_response_single: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/dns-custom-nameservers_api-response-single"

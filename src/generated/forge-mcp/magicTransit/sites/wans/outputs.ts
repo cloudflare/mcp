@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `magic_wan` in responses.
  */
-export const magic_wan_output: JsonSchema = {
+export const magic_wan: JsonSchema = {
   "properties": {
     "health_check_rate": {
       "enum": [
@@ -53,7 +53,7 @@ export const magic_wan_output: JsonSchema = {
 /**
  * The schema of `magic_wan_deleted_response` in responses.
  */
-export const magic_wan_deleted_response_output: JsonSchema = {
+export const magic_wan_deleted_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/magic_api-response-single"
@@ -72,7 +72,7 @@ export const magic_wan_deleted_response_output: JsonSchema = {
 /**
  * The schema of `magic_wan_modified_response` in responses.
  */
-export const magic_wan_modified_response_output: JsonSchema = {
+export const magic_wan_modified_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/magic_api-response-single"
@@ -91,7 +91,7 @@ export const magic_wan_modified_response_output: JsonSchema = {
 /**
  * The schema of `magic_wan_single_response` in responses.
  */
-export const magic_wan_single_response_output: JsonSchema = {
+export const magic_wan_single_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/magic_api-response-single"
@@ -110,7 +110,7 @@ export const magic_wan_single_response_output: JsonSchema = {
 /**
  * The schema of `magic_wan_static_addressing` in responses.
  */
-export const magic_wan_static_addressing_output: JsonSchema = {
+export const magic_wan_static_addressing: JsonSchema = {
   "properties": {
     "address": {
       "$ref": "#/$defs/magic_cidr"
@@ -135,7 +135,7 @@ export const magic_wan_static_addressing_output: JsonSchema = {
 /**
  * The schema of `magic_wans_collection_response` in responses.
  */
-export const magic_wans_collection_response_output: JsonSchema = {
+export const magic_wans_collection_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/magic_api-response-single"

@@ -3,12 +3,12 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
-  hyperdrive_api_response_common_failure_output,
-  hyperdrive_api_response_single_output,
-  hyperdrive_messages_output,
+  hyperdrive_api$$response$$common$$failure,
+  hyperdrive_api$$response$$single,
+  hyperdrive_messages,
 } from "../../outputs.js";
 import { hyperdrive_identifier } from "../../schemas.js";
-import { hyperdrive_hyperdrive_database_signature_response_output } from "./outputs.js";
+import { hyperdrive_hyperdrive$$database$$signature$$response } from "./outputs.js";
 
 /**
  * The tools of `hyperdrive.integration.planetscale`.
@@ -21,13 +21,21 @@ export const tools: readonly Tool[] = [
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/hyperdrive_identifier",
-          "description": "The Cloudflare account ID."
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/hyperdrive_identifier",
+              "description": "The Cloudflare account ID."
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id"
+        "path"
       ],
       $defs: {
         "hyperdrive_identifier": hyperdrive_identifier,
@@ -48,9 +56,9 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "hyperdrive_api-response-single": hyperdrive_api_response_single_output,
-        "hyperdrive_hyperdrive-database-signature-response": hyperdrive_hyperdrive_database_signature_response_output,
-        "hyperdrive_messages": hyperdrive_messages_output,
+        "hyperdrive_api-response-single": hyperdrive_api$$response$$single,
+        "hyperdrive_hyperdrive-database-signature-response": hyperdrive_hyperdrive$$database$$signature$$response,
+        "hyperdrive_messages": hyperdrive_messages,
       },
     },
     annotations: {
@@ -84,10 +92,10 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "hyperdrive_api-response-common-failure": hyperdrive_api_response_common_failure_output,
-        "hyperdrive_api-response-single": hyperdrive_api_response_single_output,
-        "hyperdrive_hyperdrive-database-signature-response": hyperdrive_hyperdrive_database_signature_response_output,
-        "hyperdrive_messages": hyperdrive_messages_output,
+        "hyperdrive_api-response-common-failure": hyperdrive_api$$response$$common$$failure,
+        "hyperdrive_api-response-single": hyperdrive_api$$response$$single,
+        "hyperdrive_hyperdrive-database-signature-response": hyperdrive_hyperdrive$$database$$signature$$response,
+        "hyperdrive_messages": hyperdrive_messages,
       },
     },
     request: (args) => ({

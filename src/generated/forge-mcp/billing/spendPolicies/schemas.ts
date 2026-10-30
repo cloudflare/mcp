@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `billing-spend-policies_identifier`.
  */
-export const billing_spend_policies_identifier: JsonSchema = {
+export const billing$$spend$$policies_identifier: JsonSchema = {
   "description": "Represents a Cloudflare resource identifier tag.",
   "type": "string"
 };
@@ -14,7 +14,7 @@ export const billing_spend_policies_identifier: JsonSchema = {
 /**
  * The schema of `billing-spend-policies_policy_action`.
  */
-export const billing_spend_policies_policy_action: JsonSchema = {
+export const billing$$spend$$policies_policy_action: JsonSchema = {
   "description": "The action taken when the threshold is reached. `notification` sends an email to `notification_email`. `usage_block` blocks further usage of the product until the end of the billing period. Raising the threshold above the current balance, disabling the policy, or deleting it lifts the block early.",
   "enum": [
     "notification",
@@ -26,7 +26,7 @@ export const billing_spend_policies_policy_action: JsonSchema = {
 /**
  * The schema of `billing-spend-policies_policy_id`.
  */
-export const billing_spend_policies_policy_id: JsonSchema = {
+export const billing$$spend$$policies_policy_id: JsonSchema = {
   "description": "The unique identifier of the spend policy.",
   "format": "uuid",
   "type": "string"
@@ -35,7 +35,7 @@ export const billing_spend_policies_policy_id: JsonSchema = {
 /**
  * The schema of `billing-spend-policies_policy_input`.
  */
-export const billing_spend_policies_policy_input: JsonSchema = {
+export const billing$$spend$$policies_policy_input: JsonSchema = {
   "description": "A spend policy as sent on create and on full replacement. Unknown fields and trailing JSON are rejected. Only the first 1 MiB of the body is read.",
   "properties": {
     "action": {
@@ -76,7 +76,7 @@ export const billing_spend_policies_policy_input: JsonSchema = {
 /**
  * The schema of `billing-spend-policies_product_id`.
  */
-export const billing_spend_policies_product_id: JsonSchema = {
+export const billing$$spend$$policies_product_id: JsonSchema = {
   "description": "The product the policy applies to: `workers` or `durable_objects`. Each product's balance and policies are separate. Both products support `notification` and `usage_block` policies on create and update.",
   "enum": [
     "workers",

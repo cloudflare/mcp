@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `dns-records_dns_response_account_usage` in responses.
  */
-export const dns_records_dns_response_account_usage_output: JsonSchema = {
+export const dns$$records_dns_response_account_usage: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/dns-records_api-response-single"

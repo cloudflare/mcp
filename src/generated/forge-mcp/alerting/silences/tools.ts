@@ -3,21 +3,24 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
-  aaa_api_response_common_2_output,
-  aaa_api_response_common_failure_3_output,
-  aaa_messages_3_output,
-  aaa_policy_id_output,
+  aaa_api$$response$$common$$2,
+  aaa_api$$response$$common$$failure$$3,
+  aaa_messages$$3,
+  aaa_policy$$id,
 } from "../outputs.js";
-import { aaa_account_id, aaa_policy_id } from "../schemas.js";
 import {
-  aaa_silence_components_schemas_response_collection_output,
-  aaa_silence_id_output,
-  aaa_silence_output,
-  aaa_silences_components_schemas_response_collection_output,
+  aaa_account$$id,
+  aaa_policy$$id as aaa_policy$$id$,
+} from "../schemas.js";
+import {
+  aaa_silence,
+  aaa_silence$$id,
+  aaa_silence_components$$schemas$$response_collection,
+  aaa_silences_components$$schemas$$response_collection,
 } from "./outputs.js";
 import {
+  aaa_silence$$id as aaa_silence$$id$,
   aaa_silence_create_request,
-  aaa_silence_id,
   aaa_silence_update_request,
 } from "./schemas.js";
 
@@ -32,32 +35,40 @@ export const tools: readonly Tool[] = [
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/aaa_account-id",
-          "description": "The account id"
-        },
         "body": {
           "items": {
             "$ref": "#/$defs/aaa_silence_create_request"
           },
           "type": "array"
+        },
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/aaa_account-id",
+              "description": "The account id"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
+        "path",
         "body"
       ],
       $defs: {
-        "aaa_account-id": aaa_account_id,
-        "aaa_policy-id": aaa_policy_id,
+        "aaa_account-id": aaa_account$$id,
+        "aaa_policy-id": aaa_policy$$id$,
         "aaa_silence_create_request": aaa_silence_create_request,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/aaa_api-response-common-2",
       $defs: {
-        "aaa_api-response-common-2": aaa_api_response_common_2_output,
-        "aaa_messages-3": aaa_messages_3_output,
+        "aaa_api-response-common-2": aaa_api$$response$$common$$2,
+        "aaa_messages-3": aaa_messages$$3,
       },
     },
     annotations: {
@@ -92,13 +103,13 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "aaa_api-response-common-2": aaa_api_response_common_2_output,
-        "aaa_api-response-common-failure-3": aaa_api_response_common_failure_3_output,
-        "aaa_messages-3": aaa_messages_3_output,
-        "aaa_policy-id": aaa_policy_id_output,
-        "aaa_silence": aaa_silence_output,
-        "aaa_silence-id": aaa_silence_id_output,
-        "aaa_silences_components-schemas-response_collection": aaa_silences_components_schemas_response_collection_output,
+        "aaa_api-response-common-2": aaa_api$$response$$common$$2,
+        "aaa_api-response-common-failure-3": aaa_api$$response$$common$$failure$$3,
+        "aaa_messages-3": aaa_messages$$3,
+        "aaa_policy-id": aaa_policy$$id,
+        "aaa_silence": aaa_silence,
+        "aaa_silence-id": aaa_silence$$id,
+        "aaa_silences_components-schemas-response_collection": aaa_silences_components$$schemas$$response_collection,
       },
     },
     request: (args) => ({
@@ -113,29 +124,37 @@ export const tools: readonly Tool[] = [
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/aaa_account-id",
-          "description": "The account id"
-        },
-        "silence_id": {
-          "$ref": "#/$defs/aaa_silence-id",
-          "description": "Silence ID"
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/aaa_account-id",
+              "description": "The account id"
+            },
+            "silence_id": {
+              "$ref": "#/$defs/aaa_silence-id",
+              "description": "Silence ID"
+            }
+          },
+          "required": [
+            "account_id",
+            "silence_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "silence_id"
+        "path"
       ],
       $defs: {
-        "aaa_account-id": aaa_account_id,
-        "aaa_silence-id": aaa_silence_id,
+        "aaa_account-id": aaa_account$$id,
+        "aaa_silence-id": aaa_silence$$id$,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/aaa_api-response-common-2",
       $defs: {
-        "aaa_api-response-common-2": aaa_api_response_common_2_output,
-        "aaa_messages-3": aaa_messages_3_output,
+        "aaa_api-response-common-2": aaa_api$$response$$common$$2,
+        "aaa_messages-3": aaa_messages$$3,
       },
     },
     annotations: {
@@ -170,13 +189,13 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "aaa_api-response-common-2": aaa_api_response_common_2_output,
-        "aaa_api-response-common-failure-3": aaa_api_response_common_failure_3_output,
-        "aaa_messages-3": aaa_messages_3_output,
-        "aaa_policy-id": aaa_policy_id_output,
-        "aaa_silence": aaa_silence_output,
-        "aaa_silence-id": aaa_silence_id_output,
-        "aaa_silence_components-schemas-response_collection": aaa_silence_components_schemas_response_collection_output,
+        "aaa_api-response-common-2": aaa_api$$response$$common$$2,
+        "aaa_api-response-common-failure-3": aaa_api$$response$$common$$failure$$3,
+        "aaa_messages-3": aaa_messages$$3,
+        "aaa_policy-id": aaa_policy$$id,
+        "aaa_silence": aaa_silence,
+        "aaa_silence-id": aaa_silence$$id,
+        "aaa_silence_components-schemas-response_collection": aaa_silence_components$$schemas$$response_collection,
       },
     },
     request: (args) => ({
@@ -190,33 +209,41 @@ export const tools: readonly Tool[] = [
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/aaa_account-id",
-          "description": "The account id"
-        },
-        "silence_id": {
-          "$ref": "#/$defs/aaa_silence-id",
-          "description": "Silence ID"
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/aaa_account-id",
+              "description": "The account id"
+            },
+            "silence_id": {
+              "$ref": "#/$defs/aaa_silence-id",
+              "description": "Silence ID"
+            }
+          },
+          "required": [
+            "account_id",
+            "silence_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "silence_id"
+        "path"
       ],
       $defs: {
-        "aaa_account-id": aaa_account_id,
-        "aaa_silence-id": aaa_silence_id,
+        "aaa_account-id": aaa_account$$id,
+        "aaa_silence-id": aaa_silence$$id$,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/aaa_silence_components-schemas-response_collection",
       $defs: {
-        "aaa_api-response-common-2": aaa_api_response_common_2_output,
-        "aaa_messages-3": aaa_messages_3_output,
-        "aaa_policy-id": aaa_policy_id_output,
-        "aaa_silence": aaa_silence_output,
-        "aaa_silence-id": aaa_silence_id_output,
-        "aaa_silence_components-schemas-response_collection": aaa_silence_components_schemas_response_collection_output,
+        "aaa_api-response-common-2": aaa_api$$response$$common$$2,
+        "aaa_messages-3": aaa_messages$$3,
+        "aaa_policy-id": aaa_policy$$id,
+        "aaa_silence": aaa_silence,
+        "aaa_silence-id": aaa_silence$$id,
+        "aaa_silence_components-schemas-response_collection": aaa_silence_components$$schemas$$response_collection,
       },
     },
     annotations: {
@@ -254,13 +281,13 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "aaa_api-response-common-2": aaa_api_response_common_2_output,
-        "aaa_api-response-common-failure-3": aaa_api_response_common_failure_3_output,
-        "aaa_messages-3": aaa_messages_3_output,
-        "aaa_policy-id": aaa_policy_id_output,
-        "aaa_silence": aaa_silence_output,
-        "aaa_silence-id": aaa_silence_id_output,
-        "aaa_silence_components-schemas-response_collection": aaa_silence_components_schemas_response_collection_output,
+        "aaa_api-response-common-2": aaa_api$$response$$common$$2,
+        "aaa_api-response-common-failure-3": aaa_api$$response$$common$$failure$$3,
+        "aaa_messages-3": aaa_messages$$3,
+        "aaa_policy-id": aaa_policy$$id,
+        "aaa_silence": aaa_silence,
+        "aaa_silence-id": aaa_silence$$id,
+        "aaa_silence_components-schemas-response_collection": aaa_silence_components$$schemas$$response_collection,
       },
     },
     request: (args) => ({
@@ -274,27 +301,35 @@ export const tools: readonly Tool[] = [
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/aaa_account-id",
-          "description": "The account id"
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/aaa_account-id",
+              "description": "The account id"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id"
+        "path"
       ],
       $defs: {
-        "aaa_account-id": aaa_account_id,
+        "aaa_account-id": aaa_account$$id,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/aaa_silences_components-schemas-response_collection",
       $defs: {
-        "aaa_api-response-common-2": aaa_api_response_common_2_output,
-        "aaa_messages-3": aaa_messages_3_output,
-        "aaa_policy-id": aaa_policy_id_output,
-        "aaa_silence": aaa_silence_output,
-        "aaa_silence-id": aaa_silence_id_output,
-        "aaa_silences_components-schemas-response_collection": aaa_silences_components_schemas_response_collection_output,
+        "aaa_api-response-common-2": aaa_api$$response$$common$$2,
+        "aaa_messages-3": aaa_messages$$3,
+        "aaa_policy-id": aaa_policy$$id,
+        "aaa_silence": aaa_silence,
+        "aaa_silence-id": aaa_silence$$id,
+        "aaa_silences_components-schemas-response_collection": aaa_silences_components$$schemas$$response_collection,
       },
     },
     annotations: {
@@ -332,13 +367,13 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "aaa_api-response-common-2": aaa_api_response_common_2_output,
-        "aaa_api-response-common-failure-3": aaa_api_response_common_failure_3_output,
-        "aaa_messages-3": aaa_messages_3_output,
-        "aaa_policy-id": aaa_policy_id_output,
-        "aaa_silence": aaa_silence_output,
-        "aaa_silence-id": aaa_silence_id_output,
-        "aaa_silences_components-schemas-response_collection": aaa_silences_components_schemas_response_collection_output,
+        "aaa_api-response-common-2": aaa_api$$response$$common$$2,
+        "aaa_api-response-common-failure-3": aaa_api$$response$$common$$failure$$3,
+        "aaa_messages-3": aaa_messages$$3,
+        "aaa_policy-id": aaa_policy$$id,
+        "aaa_silence": aaa_silence,
+        "aaa_silence-id": aaa_silence$$id,
+        "aaa_silences_components-schemas-response_collection": aaa_silences_components$$schemas$$response_collection,
       },
     },
     request: (args) => ({
@@ -352,36 +387,44 @@ export const tools: readonly Tool[] = [
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/aaa_account-id",
-          "description": "The account id"
-        },
         "body": {
           "items": {
             "$ref": "#/$defs/aaa_silence_update_request"
           },
           "type": "array"
+        },
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/aaa_account-id",
+              "description": "The account id"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
+        "path",
         "body"
       ],
       $defs: {
-        "aaa_account-id": aaa_account_id,
-        "aaa_silence-id": aaa_silence_id,
+        "aaa_account-id": aaa_account$$id,
+        "aaa_silence-id": aaa_silence$$id$,
         "aaa_silence_update_request": aaa_silence_update_request,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/aaa_silences_components-schemas-response_collection",
       $defs: {
-        "aaa_api-response-common-2": aaa_api_response_common_2_output,
-        "aaa_messages-3": aaa_messages_3_output,
-        "aaa_policy-id": aaa_policy_id_output,
-        "aaa_silence": aaa_silence_output,
-        "aaa_silence-id": aaa_silence_id_output,
-        "aaa_silences_components-schemas-response_collection": aaa_silences_components_schemas_response_collection_output,
+        "aaa_api-response-common-2": aaa_api$$response$$common$$2,
+        "aaa_messages-3": aaa_messages$$3,
+        "aaa_policy-id": aaa_policy$$id,
+        "aaa_silence": aaa_silence,
+        "aaa_silence-id": aaa_silence$$id,
+        "aaa_silences_components-schemas-response_collection": aaa_silences_components$$schemas$$response_collection,
       },
     },
     annotations: {
@@ -416,13 +459,13 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "aaa_api-response-common-2": aaa_api_response_common_2_output,
-        "aaa_api-response-common-failure-3": aaa_api_response_common_failure_3_output,
-        "aaa_messages-3": aaa_messages_3_output,
-        "aaa_policy-id": aaa_policy_id_output,
-        "aaa_silence": aaa_silence_output,
-        "aaa_silence-id": aaa_silence_id_output,
-        "aaa_silences_components-schemas-response_collection": aaa_silences_components_schemas_response_collection_output,
+        "aaa_api-response-common-2": aaa_api$$response$$common$$2,
+        "aaa_api-response-common-failure-3": aaa_api$$response$$common$$failure$$3,
+        "aaa_messages-3": aaa_messages$$3,
+        "aaa_policy-id": aaa_policy$$id,
+        "aaa_silence": aaa_silence,
+        "aaa_silence-id": aaa_silence$$id,
+        "aaa_silences_components-schemas-response_collection": aaa_silences_components$$schemas$$response_collection,
       },
     },
     request: (args) => ({

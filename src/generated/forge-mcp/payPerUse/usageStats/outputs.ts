@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `pay-per-crawl_PPUUsageStats` in responses.
  */
-export const pay_per_crawl_PPUUsageStats_output: JsonSchema = {
+export const pay$$per$$crawl_PPUUsageStats: JsonSchema = {
   "properties": {
     "buyers": {
       "items": {
@@ -65,7 +65,7 @@ export const pay_per_crawl_PPUUsageStats_output: JsonSchema = {
 /**
  * The schema of `pay-per-crawl_PPUUsageStatsBuyer` in responses.
  */
-export const pay_per_crawl_PPUUsageStatsBuyer_output: JsonSchema = {
+export const pay$$per$$crawl_PPUUsageStatsBuyer: JsonSchema = {
   "properties": {
     "operator_id": {
       "type": "string"
@@ -92,7 +92,7 @@ export const pay_per_crawl_PPUUsageStatsBuyer_output: JsonSchema = {
 /**
  * The schema of `pay-per-crawl_PPUUsageStatsDataPoint` in responses.
  */
-export const pay_per_crawl_PPUUsageStatsDataPoint_output: JsonSchema = {
+export const pay$$per$$crawl_PPUUsageStatsDataPoint: JsonSchema = {
   "properties": {
     "operator_id": {
       "type": "string"
@@ -124,7 +124,7 @@ export const pay_per_crawl_PPUUsageStatsDataPoint_output: JsonSchema = {
 /**
  * The schema of `pay-per-crawl_PPUUsageStatsResponse` in responses.
  */
-export const pay_per_crawl_PPUUsageStatsResponse_output: JsonSchema = {
+export const pay$$per$$crawl_PPUUsageStatsResponse: JsonSchema = {
   "properties": {
     "result": {
       "$ref": "#/$defs/pay-per-crawl_PPUUsageStats"
@@ -146,7 +146,7 @@ export const pay_per_crawl_PPUUsageStatsResponse_output: JsonSchema = {
 /**
  * The schema of `pay-per-crawl_PPUUsageStatsTotals` in responses.
  */
-export const pay_per_crawl_PPUUsageStatsTotals_output: JsonSchema = {
+export const pay$$per$$crawl_PPUUsageStatsTotals: JsonSchema = {
   "properties": {
     "total_price_usd_microcents": {
       "type": "integer"

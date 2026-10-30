@@ -6,28 +6,28 @@ import type { JsonSchema } from "../_/tool.js";
 /**
  * The schema of `cc_AccountID` in responses.
  */
-export const cc_AccountID_output: JsonSchema = {
+export const cc_AccountID: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `cc_ISO8601Timestamp` in responses.
  */
-export const cc_ISO8601Timestamp_output: JsonSchema = {
+export const cc_ISO8601Timestamp: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `cc_Image` in responses.
  */
-export const cc_Image_output: JsonSchema = {
+export const cc_Image: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `cc_Messages` in responses.
  */
-export const cc_Messages_output: JsonSchema = {
+export const cc_Messages: JsonSchema = {
   "items": {
     "properties": {
       "code": {
@@ -60,7 +60,7 @@ export const cc_Messages_output: JsonSchema = {
 /**
  * The schema of `cc_V4BaseErrorResponse` in responses.
  */
-export const cc_V4BaseErrorResponse_output: JsonSchema = {
+export const cc_V4BaseErrorResponse: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/cc_Messages"
@@ -87,7 +87,7 @@ export const cc_V4BaseErrorResponse_output: JsonSchema = {
 /**
  * The schema of `cc_V4BaseResponse` in responses.
  */
-export const cc_V4BaseResponse_output: JsonSchema = {
+export const cc_V4BaseResponse: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/cc_Messages"

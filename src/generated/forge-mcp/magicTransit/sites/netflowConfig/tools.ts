@@ -3,44 +3,52 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
-  magic_api_response_common_failure_output,
-  magic_api_response_common_output,
-  magic_api_response_single_output,
-  magic_messages_output,
+  magic_api$$response$$common,
+  magic_api$$response$$common$$failure,
+  magic_api$$response$$single,
+  magic_messages,
 } from "../../outputs.js";
 import { magic_identifier } from "../../schemas.js";
 import {
-  magic_netflow_config_output,
-  magic_netflow_config_single_response_output,
+  magic_netflow_config,
+  magic_netflow_config_single_response,
 } from "./outputs.js";
 import { magic_netflow_config_request } from "./schemas.js";
 
 /**
- * The tools of `magic_transit.sites.netflow_config`.
+ * The tools of `magicTransit.sites.netflowConfig`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "magic_transit_sites_netflow_config_create",
+    name: "magicTransit_sites_netflowConfig_create",
     title: "Create NetFlow Configuration",
     description: "Creates a NetFlow configuration for a site.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/magic_identifier",
-          "description": "Identifier"
-        },
         "body": {
           "$ref": "#/$defs/magic_netflow_config_request"
         },
-        "site_id": {
-          "$ref": "#/$defs/magic_identifier",
-          "description": "Identifier"
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/magic_identifier",
+              "description": "Identifier"
+            },
+            "site_id": {
+              "$ref": "#/$defs/magic_identifier",
+              "description": "Identifier"
+            }
+          },
+          "required": [
+            "account_id",
+            "site_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "site_id",
+        "path",
         "body"
       ],
       $defs: {
@@ -51,11 +59,11 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/magic_netflow_config_single_response",
       $defs: {
-        "magic_api-response-common": magic_api_response_common_output,
-        "magic_api-response-single": magic_api_response_single_output,
-        "magic_messages": magic_messages_output,
-        "magic_netflow_config": magic_netflow_config_output,
-        "magic_netflow_config_single_response": magic_netflow_config_single_response_output,
+        "magic_api-response-common": magic_api$$response$$common,
+        "magic_api-response-single": magic_api$$response$$single,
+        "magic_messages": magic_messages,
+        "magic_netflow_config": magic_netflow_config,
+        "magic_netflow_config_single_response": magic_netflow_config_single_response,
       },
     },
     annotations: {
@@ -85,12 +93,12 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "magic_api-response-common": magic_api_response_common_output,
-        "magic_api-response-common-failure": magic_api_response_common_failure_output,
-        "magic_api-response-single": magic_api_response_single_output,
-        "magic_messages": magic_messages_output,
-        "magic_netflow_config": magic_netflow_config_output,
-        "magic_netflow_config_single_response": magic_netflow_config_single_response_output,
+        "magic_api-response-common": magic_api$$response$$common,
+        "magic_api-response-common-failure": magic_api$$response$$common$$failure,
+        "magic_api-response-single": magic_api$$response$$single,
+        "magic_messages": magic_messages,
+        "magic_netflow_config": magic_netflow_config,
+        "magic_netflow_config_single_response": magic_netflow_config_single_response,
       },
     },
     request: (args) => ({
@@ -99,24 +107,32 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "magic_transit_sites_netflow_config_delete",
+    name: "magicTransit_sites_netflowConfig_delete",
     title: "Delete NetFlow Configuration",
     description: "Remove NetFlow configuration for a site.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/magic_identifier",
-          "description": "Identifier"
-        },
-        "site_id": {
-          "$ref": "#/$defs/magic_identifier",
-          "description": "Identifier"
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/magic_identifier",
+              "description": "Identifier"
+            },
+            "site_id": {
+              "$ref": "#/$defs/magic_identifier",
+              "description": "Identifier"
+            }
+          },
+          "required": [
+            "account_id",
+            "site_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "site_id"
+        "path"
       ],
       $defs: {
         "magic_identifier": magic_identifier,
@@ -125,11 +141,11 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/magic_netflow_config_single_response",
       $defs: {
-        "magic_api-response-common": magic_api_response_common_output,
-        "magic_api-response-single": magic_api_response_single_output,
-        "magic_messages": magic_messages_output,
-        "magic_netflow_config": magic_netflow_config_output,
-        "magic_netflow_config_single_response": magic_netflow_config_single_response_output,
+        "magic_api-response-common": magic_api$$response$$common,
+        "magic_api-response-single": magic_api$$response$$single,
+        "magic_messages": magic_messages,
+        "magic_netflow_config": magic_netflow_config,
+        "magic_netflow_config_single_response": magic_netflow_config_single_response,
       },
     },
     annotations: {
@@ -163,12 +179,12 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "magic_api-response-common": magic_api_response_common_output,
-        "magic_api-response-common-failure": magic_api_response_common_failure_output,
-        "magic_api-response-single": magic_api_response_single_output,
-        "magic_messages": magic_messages_output,
-        "magic_netflow_config": magic_netflow_config_output,
-        "magic_netflow_config_single_response": magic_netflow_config_single_response_output,
+        "magic_api-response-common": magic_api$$response$$common,
+        "magic_api-response-common-failure": magic_api$$response$$common$$failure,
+        "magic_api-response-single": magic_api$$response$$single,
+        "magic_messages": magic_messages,
+        "magic_netflow_config": magic_netflow_config,
+        "magic_netflow_config_single_response": magic_netflow_config_single_response,
       },
     },
     request: (args) => ({
@@ -176,27 +192,35 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "magic_transit_sites_netflow_config_edit",
+    name: "magicTransit_sites_netflowConfig_edit",
     title: "Update NetFlow Configuration",
     description: "Updates NetFlow configuration for a site.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/magic_identifier",
-          "description": "Identifier"
-        },
         "body": {
           "$ref": "#/$defs/magic_netflow_config_request"
         },
-        "site_id": {
-          "$ref": "#/$defs/magic_identifier",
-          "description": "Identifier"
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/magic_identifier",
+              "description": "Identifier"
+            },
+            "site_id": {
+              "$ref": "#/$defs/magic_identifier",
+              "description": "Identifier"
+            }
+          },
+          "required": [
+            "account_id",
+            "site_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "site_id",
+        "path",
         "body"
       ],
       $defs: {
@@ -207,11 +231,11 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/magic_netflow_config_single_response",
       $defs: {
-        "magic_api-response-common": magic_api_response_common_output,
-        "magic_api-response-single": magic_api_response_single_output,
-        "magic_messages": magic_messages_output,
-        "magic_netflow_config": magic_netflow_config_output,
-        "magic_netflow_config_single_response": magic_netflow_config_single_response_output,
+        "magic_api-response-common": magic_api$$response$$common,
+        "magic_api-response-single": magic_api$$response$$single,
+        "magic_messages": magic_messages,
+        "magic_netflow_config": magic_netflow_config,
+        "magic_netflow_config_single_response": magic_netflow_config_single_response,
       },
     },
     annotations: {
@@ -245,12 +269,12 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "magic_api-response-common": magic_api_response_common_output,
-        "magic_api-response-common-failure": magic_api_response_common_failure_output,
-        "magic_api-response-single": magic_api_response_single_output,
-        "magic_messages": magic_messages_output,
-        "magic_netflow_config": magic_netflow_config_output,
-        "magic_netflow_config_single_response": magic_netflow_config_single_response_output,
+        "magic_api-response-common": magic_api$$response$$common,
+        "magic_api-response-common-failure": magic_api$$response$$common$$failure,
+        "magic_api-response-single": magic_api$$response$$single,
+        "magic_messages": magic_messages,
+        "magic_netflow_config": magic_netflow_config,
+        "magic_netflow_config_single_response": magic_netflow_config_single_response,
       },
     },
     request: (args) => ({
@@ -259,24 +283,32 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "magic_transit_sites_netflow_config_get",
+    name: "magicTransit_sites_netflowConfig_get",
     title: "NetFlow Configuration Details",
     description: "Get NetFlow configuration for a site.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/magic_identifier",
-          "description": "Identifier"
-        },
-        "site_id": {
-          "$ref": "#/$defs/magic_identifier",
-          "description": "Identifier"
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/magic_identifier",
+              "description": "Identifier"
+            },
+            "site_id": {
+              "$ref": "#/$defs/magic_identifier",
+              "description": "Identifier"
+            }
+          },
+          "required": [
+            "account_id",
+            "site_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "site_id"
+        "path"
       ],
       $defs: {
         "magic_identifier": magic_identifier,
@@ -285,11 +317,11 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/magic_netflow_config_single_response",
       $defs: {
-        "magic_api-response-common": magic_api_response_common_output,
-        "magic_api-response-single": magic_api_response_single_output,
-        "magic_messages": magic_messages_output,
-        "magic_netflow_config": magic_netflow_config_output,
-        "magic_netflow_config_single_response": magic_netflow_config_single_response_output,
+        "magic_api-response-common": magic_api$$response$$common,
+        "magic_api-response-single": magic_api$$response$$single,
+        "magic_messages": magic_messages,
+        "magic_netflow_config": magic_netflow_config,
+        "magic_netflow_config_single_response": magic_netflow_config_single_response,
       },
     },
     annotations: {
@@ -325,12 +357,12 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "magic_api-response-common": magic_api_response_common_output,
-        "magic_api-response-common-failure": magic_api_response_common_failure_output,
-        "magic_api-response-single": magic_api_response_single_output,
-        "magic_messages": magic_messages_output,
-        "magic_netflow_config": magic_netflow_config_output,
-        "magic_netflow_config_single_response": magic_netflow_config_single_response_output,
+        "magic_api-response-common": magic_api$$response$$common,
+        "magic_api-response-common-failure": magic_api$$response$$common$$failure,
+        "magic_api-response-single": magic_api$$response$$single,
+        "magic_messages": magic_messages,
+        "magic_netflow_config": magic_netflow_config,
+        "magic_netflow_config_single_response": magic_netflow_config_single_response,
       },
     },
     request: (args) => ({
@@ -338,27 +370,35 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "magic_transit_sites_netflow_config_update",
+    name: "magicTransit_sites_netflowConfig_update",
     title: "Update NetFlow Configuration",
     description: "Updates NetFlow configuration for a site (partial update).",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/magic_identifier",
-          "description": "Identifier"
-        },
         "body": {
           "$ref": "#/$defs/magic_netflow_config_request"
         },
-        "site_id": {
-          "$ref": "#/$defs/magic_identifier",
-          "description": "Identifier"
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/magic_identifier",
+              "description": "Identifier"
+            },
+            "site_id": {
+              "$ref": "#/$defs/magic_identifier",
+              "description": "Identifier"
+            }
+          },
+          "required": [
+            "account_id",
+            "site_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "site_id",
+        "path",
         "body"
       ],
       $defs: {
@@ -369,11 +409,11 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/magic_netflow_config_single_response",
       $defs: {
-        "magic_api-response-common": magic_api_response_common_output,
-        "magic_api-response-single": magic_api_response_single_output,
-        "magic_messages": magic_messages_output,
-        "magic_netflow_config": magic_netflow_config_output,
-        "magic_netflow_config_single_response": magic_netflow_config_single_response_output,
+        "magic_api-response-common": magic_api$$response$$common,
+        "magic_api-response-single": magic_api$$response$$single,
+        "magic_messages": magic_messages,
+        "magic_netflow_config": magic_netflow_config,
+        "magic_netflow_config_single_response": magic_netflow_config_single_response,
       },
     },
     annotations: {
@@ -407,12 +447,12 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "magic_api-response-common": magic_api_response_common_output,
-        "magic_api-response-common-failure": magic_api_response_common_failure_output,
-        "magic_api-response-single": magic_api_response_single_output,
-        "magic_messages": magic_messages_output,
-        "magic_netflow_config": magic_netflow_config_output,
-        "magic_netflow_config_single_response": magic_netflow_config_single_response_output,
+        "magic_api-response-common": magic_api$$response$$common,
+        "magic_api-response-common-failure": magic_api$$response$$common$$failure,
+        "magic_api-response-single": magic_api$$response$$single,
+        "magic_messages": magic_messages,
+        "magic_netflow_config": magic_netflow_config,
+        "magic_netflow_config_single_response": magic_netflow_config_single_response,
       },
     },
     request: (args) => ({

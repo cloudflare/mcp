@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `cache-settings_cache_reserve_value`.
  */
-export const cache_settings_cache_reserve_value: JsonSchema = {
+export const cache$$settings_cache_reserve_value: JsonSchema = {
   "description": "Value of the Cache Reserve zone setting.",
   "enum": [
     "on",

@@ -6,7 +6,7 @@ import type { JsonSchema } from "../_/tool.js";
 /**
  * The schema of `monetization_api-response-common` in responses.
  */
-export const monetization_api_response_common_output: JsonSchema = {
+export const monetization_api$$response$$common: JsonSchema = {
   "properties": {
     "errors": {
       "items": {
@@ -38,7 +38,7 @@ export const monetization_api_response_common_output: JsonSchema = {
 /**
  * The schema of `monetization_api-response-common-failure` in responses.
  */
-export const monetization_api_response_common_failure_output: JsonSchema = {
+export const monetization_api$$response$$common$$failure: JsonSchema = {
   "properties": {
     "errors": {
       "items": {
@@ -75,7 +75,7 @@ export const monetization_api_response_common_failure_output: JsonSchema = {
 /**
  * The schema of `monetization_response-info` in responses.
  */
-export const monetization_response_info_output: JsonSchema = {
+export const monetization_response$$info: JsonSchema = {
   "properties": {
     "code": {
       "type": "integer"

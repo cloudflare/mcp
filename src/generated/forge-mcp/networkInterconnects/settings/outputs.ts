@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `nsc_Settings` in responses.
  */
-export const nsc_Settings_output: JsonSchema = {
+export const nsc_Settings: JsonSchema = {
   "properties": {
     "default_asn": {
       "type": "integer"

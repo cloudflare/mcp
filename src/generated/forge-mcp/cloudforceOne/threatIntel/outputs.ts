@@ -6,14 +6,14 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `cloudforce-one-events_HydratedEntity` in responses.
  */
-export const cloudforce_one_events_HydratedEntity_output: JsonSchema = {
+export const cloudforce$$one$$events_HydratedEntity: JsonSchema = {
   "type": "object"
 };
 
 /**
  * The schema of `cloudforce-one-events_RelationshipEdge` in responses.
  */
-export const cloudforce_one_events_RelationshipEdge_output: JsonSchema = {
+export const cloudforce$$one$$events_RelationshipEdge: JsonSchema = {
   "properties": {
     "confidence": {
       "oneOf": [

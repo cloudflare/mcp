@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `security-center_newScanResponse` in responses.
  */
-export const security_center_newScanResponse_output: JsonSchema = {
+export const security$$center_newScanResponse: JsonSchema = {
   "properties": {
     "scan_id": {
       "type": "string"
@@ -18,7 +18,7 @@ export const security_center_newScanResponse_output: JsonSchema = {
 /**
  * The schema of `security-center_scanQuota` in responses.
  */
-export const security_center_scanQuota_output: JsonSchema = {
+export const security$$center_scanQuota: JsonSchema = {
   "properties": {
     "available": {
       "type": "integer"
@@ -37,7 +37,7 @@ export const security_center_scanQuota_output: JsonSchema = {
 /**
  * The schema of `security-center_scanStatusResponse` in responses.
  */
-export const security_center_scanStatusResponse_output: JsonSchema = {
+export const security$$center_scanStatusResponse: JsonSchema = {
   "properties": {
     "scan_id": {
       "type": "string"
@@ -65,7 +65,7 @@ export const security_center_scanStatusResponse_output: JsonSchema = {
 /**
  * The schema of `security-center_scansListResponse` in responses.
  */
-export const security_center_scansListResponse_output: JsonSchema = {
+export const security$$center_scansListResponse: JsonSchema = {
   "properties": {
     "quota": {
       "$ref": "#/$defs/security-center_scanQuota"

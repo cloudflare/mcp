@@ -6,7 +6,7 @@ import type { JsonSchema } from "../_/tool.js";
 /**
  * The schema of `cloudflare-pipelines_ConnectionSchema`.
  */
-export const cloudflare_pipelines_ConnectionSchema: JsonSchema = {
+export const cloudflare$$pipelines_ConnectionSchema: JsonSchema = {
   "description": "Defines the schema of the events in the data stream.",
   "properties": {
     "fields": {
@@ -32,7 +32,7 @@ export const cloudflare_pipelines_ConnectionSchema: JsonSchema = {
 /**
  * The schema of `cloudflare-pipelines_DecimalEncoding`.
  */
-export const cloudflare_pipelines_DecimalEncoding: JsonSchema = {
+export const cloudflare$$pipelines_DecimalEncoding: JsonSchema = {
   "enum": [
     "number",
     "string",
@@ -44,7 +44,7 @@ export const cloudflare_pipelines_DecimalEncoding: JsonSchema = {
 /**
  * The schema of `cloudflare-pipelines_FieldType`.
  */
-export const cloudflare_pipelines_FieldType: JsonSchema = {
+export const cloudflare$$pipelines_FieldType: JsonSchema = {
   "oneOf": [
     {
       "properties": {
@@ -227,7 +227,7 @@ export const cloudflare_pipelines_FieldType: JsonSchema = {
 /**
  * The schema of `cloudflare-pipelines_JsonFormat`.
  */
-export const cloudflare_pipelines_JsonFormat: JsonSchema = {
+export const cloudflare$$pipelines_JsonFormat: JsonSchema = {
   "properties": {
     "decimal_encoding": {
       "$ref": "#/$defs/cloudflare-pipelines_DecimalEncoding"
@@ -245,7 +245,7 @@ export const cloudflare_pipelines_JsonFormat: JsonSchema = {
 /**
  * The schema of `cloudflare-pipelines_ListField`.
  */
-export const cloudflare_pipelines_ListField: JsonSchema = {
+export const cloudflare$$pipelines_ListField: JsonSchema = {
   "properties": {
     "items": {
       "$ref": "#/$defs/cloudflare-pipelines_SourceField"
@@ -260,7 +260,7 @@ export const cloudflare_pipelines_ListField: JsonSchema = {
 /**
  * The schema of `cloudflare-pipelines_ParquetCompression`.
  */
-export const cloudflare_pipelines_ParquetCompression: JsonSchema = {
+export const cloudflare$$pipelines_ParquetCompression: JsonSchema = {
   "enum": [
     "uncompressed",
     "snappy",
@@ -274,7 +274,7 @@ export const cloudflare_pipelines_ParquetCompression: JsonSchema = {
 /**
  * The schema of `cloudflare-pipelines_ParquetFormat`.
  */
-export const cloudflare_pipelines_ParquetFormat: JsonSchema = {
+export const cloudflare$$pipelines_ParquetFormat: JsonSchema = {
   "properties": {
     "compression": {
       "$ref": "#/$defs/cloudflare-pipelines_ParquetCompression"
@@ -296,7 +296,7 @@ export const cloudflare_pipelines_ParquetFormat: JsonSchema = {
 /**
  * The schema of `cloudflare-pipelines_SourceField`.
  */
-export const cloudflare_pipelines_SourceField: JsonSchema = {
+export const cloudflare$$pipelines_SourceField: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/cloudflare-pipelines_FieldType"
@@ -334,7 +334,7 @@ export const cloudflare_pipelines_SourceField: JsonSchema = {
 /**
  * The schema of `cloudflare-pipelines_StructField`.
  */
-export const cloudflare_pipelines_StructField: JsonSchema = {
+export const cloudflare$$pipelines_StructField: JsonSchema = {
   "properties": {
     "fields": {
       "items": {
@@ -362,7 +362,7 @@ export const cloudflare_pipelines_StructField: JsonSchema = {
 /**
  * The schema of `cloudflare-pipelines_TimestampField`.
  */
-export const cloudflare_pipelines_TimestampField: JsonSchema = {
+export const cloudflare$$pipelines_TimestampField: JsonSchema = {
   "properties": {
     "unit": {
       "$ref": "#/$defs/cloudflare-pipelines_TimestampUnit"
@@ -374,7 +374,7 @@ export const cloudflare_pipelines_TimestampField: JsonSchema = {
 /**
  * The schema of `cloudflare-pipelines_TimestampFormat`.
  */
-export const cloudflare_pipelines_TimestampFormat: JsonSchema = {
+export const cloudflare$$pipelines_TimestampFormat: JsonSchema = {
   "enum": [
     "rfc3339",
     "unix_millis"
@@ -385,7 +385,7 @@ export const cloudflare_pipelines_TimestampFormat: JsonSchema = {
 /**
  * The schema of `cloudflare-pipelines_TimestampUnit`.
  */
-export const cloudflare_pipelines_TimestampUnit: JsonSchema = {
+export const cloudflare$$pipelines_TimestampUnit: JsonSchema = {
   "enum": [
     "second",
     "millisecond",
@@ -398,7 +398,7 @@ export const cloudflare_pipelines_TimestampUnit: JsonSchema = {
 /**
  * The schema of `cloudflare-pipelines_workers-pipelines-account-id`.
  */
-export const cloudflare_pipelines_workers_pipelines_account_id: JsonSchema = {
+export const cloudflare$$pipelines_workers$$pipelines$$account$$id: JsonSchema = {
   "description": "Specifies the public ID of the account.",
   "type": "string"
 };
@@ -406,7 +406,7 @@ export const cloudflare_pipelines_workers_pipelines_account_id: JsonSchema = {
 /**
  * The schema of `cloudflare-pipelines_workers-pipelines-pipeline-id`.
  */
-export const cloudflare_pipelines_workers_pipelines_pipeline_id: JsonSchema = {
+export const cloudflare$$pipelines_workers$$pipelines$$pipeline$$id: JsonSchema = {
   "description": "Specifies the public ID of the pipeline.",
   "type": "string"
 };

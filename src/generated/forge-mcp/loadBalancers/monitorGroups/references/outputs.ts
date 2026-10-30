@@ -7,7 +7,7 @@ import type { JsonSchema } from "../../../_/tool.js";
  * The schema of `load-balancing_monitor-group-references-response` in
  * responses.
  */
-export const load_balancing_monitor_group_references_response_output: JsonSchema = {
+export const load$$balancing_monitor$$group$$references$$response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/load-balancing_api-response-common"

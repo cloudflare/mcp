@@ -6,14 +6,14 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `magic_cloudflare_gre_endpoint` in responses.
  */
-export const magic_cloudflare_gre_endpoint_output: JsonSchema = {
+export const magic_cloudflare_gre_endpoint: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `magic_create_gre_tunnel_response` in responses.
  */
-export const magic_create_gre_tunnel_response_output: JsonSchema = {
+export const magic_create_gre_tunnel_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/magic_api-response-single"
@@ -32,14 +32,14 @@ export const magic_create_gre_tunnel_response_output: JsonSchema = {
 /**
  * The schema of `magic_customer_gre_endpoint` in responses.
  */
-export const magic_customer_gre_endpoint_output: JsonSchema = {
+export const magic_customer_gre_endpoint: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `magic_gre-tunnel` in responses.
  */
-export const magic_gre_tunnel_output: JsonSchema = {
+export const magic_gre$$tunnel: JsonSchema = {
   "properties": {
     "automatic_return_routing": {
       "$ref": "#/$defs/magic_automatic_return_routing"
@@ -100,14 +100,14 @@ export const magic_gre_tunnel_output: JsonSchema = {
 /**
  * The schema of `magic_gre_tunnel_name` in responses.
  */
-export const magic_gre_tunnel_name_output: JsonSchema = {
+export const magic_gre_tunnel_name: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `magic_modified_tunnels_collection_response` in responses.
  */
-export const magic_modified_tunnels_collection_response_output: JsonSchema = {
+export const magic_modified_tunnels_collection_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/magic_api-response-single"
@@ -137,28 +137,28 @@ export const magic_modified_tunnels_collection_response_output: JsonSchema = {
 /**
  * The schema of `magic_mtu` in responses.
  */
-export const magic_mtu_output: JsonSchema = {
+export const magic_mtu: JsonSchema = {
   "type": "integer"
 };
 
 /**
  * The schema of `magic_schemas-description` in responses.
  */
-export const magic_schemas_description_output: JsonSchema = {
+export const magic_schemas$$description: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `magic_ttl` in responses.
  */
-export const magic_ttl_output: JsonSchema = {
+export const magic_ttl: JsonSchema = {
   "type": "integer"
 };
 
 /**
  * The schema of `magic_tunnel_deleted_response` in responses.
  */
-export const magic_tunnel_deleted_response_output: JsonSchema = {
+export const magic_tunnel_deleted_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/magic_api-response-single"
@@ -185,7 +185,7 @@ export const magic_tunnel_deleted_response_output: JsonSchema = {
 /**
  * The schema of `magic_tunnel_modified_response` in responses.
  */
-export const magic_tunnel_modified_response_output: JsonSchema = {
+export const magic_tunnel_modified_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/magic_api-response-single"
@@ -212,7 +212,7 @@ export const magic_tunnel_modified_response_output: JsonSchema = {
 /**
  * The schema of `magic_tunnel_single_response` in responses.
  */
-export const magic_tunnel_single_response_output: JsonSchema = {
+export const magic_tunnel_single_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/magic_api-response-single"
@@ -236,7 +236,7 @@ export const magic_tunnel_single_response_output: JsonSchema = {
 /**
  * The schema of `magic_tunnels_collection_response` in responses.
  */
-export const magic_tunnels_collection_response_output: JsonSchema = {
+export const magic_tunnels_collection_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/magic_api-response-single"

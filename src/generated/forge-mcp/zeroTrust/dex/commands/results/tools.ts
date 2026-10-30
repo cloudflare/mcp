@@ -3,44 +3,52 @@
 
 import { type Tool, pathParam } from "../../../../_/tool.js";
 import {
-  digital_experience_monitoring_api_response_common_failure_output,
-  digital_experience_monitoring_messages_output,
+  digital$$experience$$monitoring_api$$response$$common$$failure,
+  digital$$experience$$monitoring_messages,
 } from "../../outputs.js";
-import { digital_experience_monitoring_account_identifier } from "../../schemas.js";
-import { digital_experience_monitoring_command_id } from "./schemas.js";
+import { digital$$experience$$monitoring_account_identifier } from "../../schemas.js";
+import { digital$$experience$$monitoring_command_id } from "./schemas.js";
 
 /**
- * The tools of `zero_trust.dex.commands.results`.
+ * The tools of `zeroTrust.dex.commands.results`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "zero_trust_dex_commands_results_get",
+    name: "zeroTrust_dex_commands_results_get",
     title: "Download command output file",
     description: "Downloads artifacts for an executed command. Bulk downloads are not supported",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/digital-experience-monitoring_account_identifier",
-          "description": "Unique Cloudflare account ID."
-        },
-        "command_id": {
-          "$ref": "#/$defs/digital-experience-monitoring_command_id",
-          "description": "Unique identifier for command."
-        },
-        "filename": {
-          "description": "The name of the file to be downloaded, including the `.zip` extension.",
-          "type": "string"
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/digital-experience-monitoring_account_identifier",
+              "description": "Unique Cloudflare account ID."
+            },
+            "command_id": {
+              "$ref": "#/$defs/digital-experience-monitoring_command_id",
+              "description": "Unique identifier for command."
+            },
+            "filename": {
+              "description": "The name of the file to be downloaded, including the `.zip` extension.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "command_id",
+            "filename"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "command_id",
-        "filename"
+        "path"
       ],
       $defs: {
-        "digital-experience-monitoring_account_identifier": digital_experience_monitoring_account_identifier,
-        "digital-experience-monitoring_command_id": digital_experience_monitoring_command_id,
+        "digital-experience-monitoring_account_identifier": digital$$experience$$monitoring_account_identifier,
+        "digital-experience-monitoring_command_id": digital$$experience$$monitoring_command_id,
       },
     },
     annotations: {
@@ -68,8 +76,8 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "digital-experience-monitoring_api-response-common-failure": digital_experience_monitoring_api_response_common_failure_output,
-        "digital-experience-monitoring_messages": digital_experience_monitoring_messages_output,
+        "digital-experience-monitoring_api-response-common-failure": digital$$experience$$monitoring_api$$response$$common$$failure,
+        "digital-experience-monitoring_messages": digital$$experience$$monitoring_messages,
       },
     },
     request: (args) => ({

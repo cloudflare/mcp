@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `security-center_partnerSettings` in responses.
  */
-export const security_center_partnerSettings_output: JsonSchema = {
+export const security$$center_partnerSettings: JsonSchema = {
   "properties": {
     "enabled": {
       "type": "boolean"
@@ -21,7 +21,7 @@ export const security_center_partnerSettings_output: JsonSchema = {
 /**
  * The schema of `security-center_partnerSettingsGetResponse` in responses.
  */
-export const security_center_partnerSettingsGetResponse_output: JsonSchema = {
+export const security$$center_partnerSettingsGetResponse: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/security-center_api-response-common"
@@ -57,7 +57,7 @@ export const security_center_partnerSettingsGetResponse_output: JsonSchema = {
 /**
  * The schema of `security-center_partnerSettingsPostResponse` in responses.
  */
-export const security_center_partnerSettingsPostResponse_output: JsonSchema = {
+export const security$$center_partnerSettingsPostResponse: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/security-center_api-response-common"

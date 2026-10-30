@@ -44,7 +44,7 @@ export const access_identifier: JsonSchema = {
 /**
  * The schema of `access_name-2`.
  */
-export const access_name_2: JsonSchema = {
+export const access_name$$2: JsonSchema = {
   "description": "The name of the service token.",
   "type": "string"
 };
@@ -100,7 +100,7 @@ export const access_uuid: JsonSchema = {
 /**
  * The schema of `zero-trust-gateway_identifier-2`.
  */
-export const zero_trust_gateway_identifier_2: JsonSchema = {
+export const zero$$trust$$gateway_identifier$$2: JsonSchema = {
   "description": "Specify the Cloudflare account identifier.",
   "type": "string"
 };

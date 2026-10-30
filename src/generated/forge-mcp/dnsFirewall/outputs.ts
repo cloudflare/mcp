@@ -6,7 +6,7 @@ import type { JsonSchema } from "../_/tool.js";
 /**
  * The schema of `dns-firewall_api-response-collection` in responses.
  */
-export const dns_firewall_api_response_collection_output: JsonSchema = {
+export const dns$$firewall_api$$response$$collection: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/dns-firewall_api-response-common"
@@ -42,7 +42,7 @@ export const dns_firewall_api_response_collection_output: JsonSchema = {
 /**
  * The schema of `dns-firewall_api-response-common` in responses.
  */
-export const dns_firewall_api_response_common_output: JsonSchema = {
+export const dns$$firewall_api$$response$$common: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/dns-firewall_messages"
@@ -68,7 +68,7 @@ export const dns_firewall_api_response_common_output: JsonSchema = {
 /**
  * The schema of `dns-firewall_api-response-common-failure` in responses.
  */
-export const dns_firewall_api_response_common_failure_output: JsonSchema = {
+export const dns$$firewall_api$$response$$common$$failure: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/dns-firewall_messages"
@@ -98,7 +98,7 @@ export const dns_firewall_api_response_common_failure_output: JsonSchema = {
 /**
  * The schema of `dns-firewall_api-response-single` in responses.
  */
-export const dns_firewall_api_response_single_output: JsonSchema = {
+export const dns$$firewall_api$$response$$single: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/dns-firewall_messages"
@@ -124,7 +124,7 @@ export const dns_firewall_api_response_single_output: JsonSchema = {
 /**
  * The schema of `dns-firewall_attack_mitigation` in responses.
  */
-export const dns_firewall_attack_mitigation_output: JsonSchema = {
+export const dns$$firewall_attack_mitigation: JsonSchema = {
   "oneOf": [
     {
       "properties": {
@@ -146,14 +146,14 @@ export const dns_firewall_attack_mitigation_output: JsonSchema = {
 /**
  * The schema of `dns-firewall_deprecate_any_requests` in responses.
  */
-export const dns_firewall_deprecate_any_requests_output: JsonSchema = {
+export const dns$$firewall_deprecate_any_requests: JsonSchema = {
   "type": "boolean"
 };
 
 /**
  * The schema of `dns-firewall_dns-firewall-cluster` in responses.
  */
-export const dns_firewall_dns_firewall_cluster_output: JsonSchema = {
+export const dns$$firewall_dns$$firewall$$cluster: JsonSchema = {
   "properties": {
     "attack_mitigation": {
       "$ref": "#/$defs/dns-firewall_attack_mitigation"
@@ -192,7 +192,7 @@ export const dns_firewall_dns_firewall_cluster_output: JsonSchema = {
 /**
  * The schema of `dns-firewall_dns-firewall-cluster-response` in responses.
  */
-export const dns_firewall_dns_firewall_cluster_response_output: JsonSchema = {
+export const dns$$firewall_dns$$firewall$$cluster$$response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/dns-firewall_dns-firewall-cluster"
@@ -222,7 +222,7 @@ export const dns_firewall_dns_firewall_cluster_response_output: JsonSchema = {
 /**
  * The schema of `dns-firewall_dns_firewall_ips` in responses.
  */
-export const dns_firewall_dns_firewall_ips_output: JsonSchema = {
+export const dns$$firewall_dns_firewall_ips: JsonSchema = {
   "items": {
     "type": "string"
   },
@@ -232,7 +232,7 @@ export const dns_firewall_dns_firewall_ips_output: JsonSchema = {
 /**
  * The schema of `dns-firewall_dns_firewall_response_collection` in responses.
  */
-export const dns_firewall_dns_firewall_response_collection_output: JsonSchema = {
+export const dns$$firewall_dns_firewall_response_collection: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/dns-firewall_api-response-collection"
@@ -254,7 +254,7 @@ export const dns_firewall_dns_firewall_response_collection_output: JsonSchema = 
 /**
  * The schema of `dns-firewall_dns_firewall_single_response` in responses.
  */
-export const dns_firewall_dns_firewall_single_response_output: JsonSchema = {
+export const dns$$firewall_dns_firewall_single_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/dns-firewall_api-response-single"
@@ -273,28 +273,28 @@ export const dns_firewall_dns_firewall_single_response_output: JsonSchema = {
 /**
  * The schema of `dns-firewall_ecs_fallback` in responses.
  */
-export const dns_firewall_ecs_fallback_output: JsonSchema = {
+export const dns$$firewall_ecs_fallback: JsonSchema = {
   "type": "boolean"
 };
 
 /**
  * The schema of `dns-firewall_identifier` in responses.
  */
-export const dns_firewall_identifier_output: JsonSchema = {
+export const dns$$firewall_identifier: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `dns-firewall_maximum_cache_ttl` in responses.
  */
-export const dns_firewall_maximum_cache_ttl_output: JsonSchema = {
+export const dns$$firewall_maximum_cache_ttl: JsonSchema = {
   "type": "number"
 };
 
 /**
  * The schema of `dns-firewall_messages` in responses.
  */
-export const dns_firewall_messages_output: JsonSchema = {
+export const dns$$firewall_messages: JsonSchema = {
   "items": {
     "properties": {
       "code": {
@@ -327,14 +327,14 @@ export const dns_firewall_messages_output: JsonSchema = {
 /**
  * The schema of `dns-firewall_minimum_cache_ttl` in responses.
  */
-export const dns_firewall_minimum_cache_ttl_output: JsonSchema = {
+export const dns$$firewall_minimum_cache_ttl: JsonSchema = {
   "type": "number"
 };
 
 /**
  * The schema of `dns-firewall_modified_on` in responses.
  */
-export const dns_firewall_modified_on_output: JsonSchema = {
+export const dns$$firewall_modified_on: JsonSchema = {
   "format": "date-time",
   "type": "string"
 };
@@ -342,14 +342,14 @@ export const dns_firewall_modified_on_output: JsonSchema = {
 /**
  * The schema of `dns-firewall_name` in responses.
  */
-export const dns_firewall_name_output: JsonSchema = {
+export const dns$$firewall_name: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `dns-firewall_negative_cache_ttl` in responses.
  */
-export const dns_firewall_negative_cache_ttl_output: JsonSchema = {
+export const dns$$firewall_negative_cache_ttl: JsonSchema = {
   "oneOf": [
     {
       "type": "number"
@@ -363,7 +363,7 @@ export const dns_firewall_negative_cache_ttl_output: JsonSchema = {
 /**
  * The schema of `dns-firewall_ratelimit` in responses.
  */
-export const dns_firewall_ratelimit_output: JsonSchema = {
+export const dns$$firewall_ratelimit: JsonSchema = {
   "oneOf": [
     {
       "type": "number"
@@ -377,14 +377,14 @@ export const dns_firewall_ratelimit_output: JsonSchema = {
 /**
  * The schema of `dns-firewall_retries` in responses.
  */
-export const dns_firewall_retries_output: JsonSchema = {
+export const dns$$firewall_retries: JsonSchema = {
   "type": "number"
 };
 
 /**
  * The schema of `dns-firewall_upstream_ips` in responses.
  */
-export const dns_firewall_upstream_ips_output: JsonSchema = {
+export const dns$$firewall_upstream_ips: JsonSchema = {
   "items": {
     "type": "string"
   },

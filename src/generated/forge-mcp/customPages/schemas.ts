@@ -6,7 +6,7 @@ import type { JsonSchema } from "../_/tool.js";
 /**
  * The schema of `custom-pages_identifier`.
  */
-export const custom_pages_identifier: JsonSchema = {
+export const custom$$pages_identifier: JsonSchema = {
   "description": "Identifier.",
   "type": "string"
 };

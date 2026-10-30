@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `tls-certificates-and-hostnames_enabled_response` in responses.
  */
-export const tls_certificates_and_hostnames_enabled_response_output: JsonSchema = {
+export const tls$$certificates$$and$$hostnames_enabled_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/tls-certificates-and-hostnames_api-response-single"

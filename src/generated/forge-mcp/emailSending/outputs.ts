@@ -6,7 +6,7 @@ import type { JsonSchema } from "../_/tool.js";
 /**
  * The schema of `email-sending_EmailApiError` in responses.
  */
-export const email_sending_EmailApiError_output: JsonSchema = {
+export const email$$sending_EmailApiError: JsonSchema = {
   "properties": {
     "errors": {
       "items": {
@@ -67,7 +67,7 @@ export const email_sending_EmailApiError_output: JsonSchema = {
 /**
  * The schema of `email-sending_EmailSendResponse` in responses.
  */
-export const email_sending_EmailSendResponse_output: JsonSchema = {
+export const email$$sending_EmailSendResponse: JsonSchema = {
   "properties": {
     "delivered": {
       "items": {

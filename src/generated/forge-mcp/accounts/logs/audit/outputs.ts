@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `aaa_audit-logs-v2` in responses.
  */
-export const aaa_audit_logs_v2_output: JsonSchema = {
+export const aaa_audit$$logs$$v2: JsonSchema = {
   "properties": {
     "account": {
       "properties": {
@@ -91,7 +91,7 @@ export const aaa_audit_logs_v2_output: JsonSchema = {
 /**
  * The schema of `aaa_audit-logs-v2-history-response-collection` in responses.
  */
-export const aaa_audit_logs_v2_history_response_collection_output: JsonSchema = {
+export const aaa_audit$$logs$$v2$$history$$response$$collection: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/aaa_messages-2"
@@ -125,7 +125,7 @@ export const aaa_audit_logs_v2_history_response_collection_output: JsonSchema = 
  * The schema of `aaa_audit-logs-v2-product-categories-response-collection` in
  * responses.
  */
-export const aaa_audit_logs_v2_product_categories_response_collection_output: JsonSchema = {
+export const aaa_audit$$logs$$v2$$product$$categories$$response$$collection: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/aaa_messages-2"
@@ -149,7 +149,7 @@ export const aaa_audit_logs_v2_product_categories_response_collection_output: Js
 /**
  * The schema of `aaa_audit-logs-v2-product-category` in responses.
  */
-export const aaa_audit_logs_v2_product_category_output: JsonSchema = {
+export const aaa_audit$$logs$$v2$$product$$category: JsonSchema = {
   "properties": {
     "label": {
       "type": "string"
@@ -170,7 +170,7 @@ export const aaa_audit_logs_v2_product_category_output: JsonSchema = {
 /**
  * The schema of `aaa_audit-logs-v2-product-category-item` in responses.
  */
-export const aaa_audit_logs_v2_product_category_item_output: JsonSchema = {
+export const aaa_audit$$logs$$v2$$product$$category$$item: JsonSchema = {
   "properties": {
     "label": {
       "type": "string"
@@ -185,7 +185,7 @@ export const aaa_audit_logs_v2_product_category_item_output: JsonSchema = {
 /**
  * The schema of `aaa_audit-logs-v2-response-collection` in responses.
  */
-export const aaa_audit_logs_v2_response_collection_output: JsonSchema = {
+export const aaa_audit$$logs$$v2$$response$$collection: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/aaa_audit-logs-response-collection"

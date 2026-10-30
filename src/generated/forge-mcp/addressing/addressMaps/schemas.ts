@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `addressing_address-maps-membership-request`.
  */
-export const addressing_address_maps_membership_request: JsonSchema = {
+export const addressing_address$$maps$$membership$$request: JsonSchema = {
   "properties": {
     "identifier": {
       "$ref": "#/$defs/addressing_identifier",
@@ -46,7 +46,7 @@ export const addressing_default_sni: JsonSchema = {
 /**
  * The schema of `addressing_description-2`.
  */
-export const addressing_description_2: JsonSchema = {
+export const addressing_description$$2: JsonSchema = {
   "description": "An optional description field which may be used to describe the types of IPs or zones on the map.",
   "oneOf": [
     {

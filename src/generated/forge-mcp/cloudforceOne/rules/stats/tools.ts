@@ -2,33 +2,41 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../../_/tool.js";
-import { cloudforce_one_ErrorResponse_output } from "../outputs.js";
-import { cloudforce_one_StatsResponse_output } from "./outputs.js";
+import { cloudforce$$one_ErrorResponse } from "../outputs.js";
+import { cloudforce$$one_StatsResponse } from "./outputs.js";
 
 /**
- * The tools of `cloudforce_one.rules.stats`.
+ * The tools of `cloudforceOne.rules.stats`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "cloudforce_one_rules_stats_get",
+    name: "cloudforceOne_rules_stats_get",
     title: "Get dashboard stats",
     description: "Get statistics about rules for the dashboard.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "description": "Cloudflare account ID.",
-          "type": "string"
+        "path": {
+          "properties": {
+            "account_id": {
+              "description": "Cloudflare account ID.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id"
+        "path"
       ],
     },
     outputSchema: {
       "$ref": "#/$defs/cloudforce-one_StatsResponse",
       $defs: {
-        "cloudforce-one_StatsResponse": cloudforce_one_StatsResponse_output,
+        "cloudforce-one_StatsResponse": cloudforce$$one_StatsResponse,
       },
     },
     annotations: {
@@ -50,8 +58,8 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "cloudforce-one_ErrorResponse": cloudforce_one_ErrorResponse_output,
-        "cloudforce-one_StatsResponse": cloudforce_one_StatsResponse_output,
+        "cloudforce-one_ErrorResponse": cloudforce$$one_ErrorResponse,
+        "cloudforce-one_StatsResponse": cloudforce$$one_StatsResponse,
       },
     },
     request: (args) => ({

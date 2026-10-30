@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `digital-experience-monitoring_device_isp` in responses.
  */
-export const digital_experience_monitoring_device_isp_output: JsonSchema = {
+export const digital$$experience$$monitoring_device_isp: JsonSchema = {
   "properties": {
     "ip": {
       "$ref": "#/$defs/digital-experience-monitoring_ip_info"
@@ -34,7 +34,7 @@ export const digital_experience_monitoring_device_isp_output: JsonSchema = {
  * The schema of `digital-experience-monitoring_device_isps_response` in
  * responses.
  */
-export const digital_experience_monitoring_device_isps_response_output: JsonSchema = {
+export const digital$$experience$$monitoring_device_isps_response: JsonSchema = {
   "properties": {
     "isps": {
       "items": {
@@ -52,7 +52,7 @@ export const digital_experience_monitoring_device_isps_response_output: JsonSche
 /**
  * The schema of `digital-experience-monitoring_ip_info` in responses.
  */
-export const digital_experience_monitoring_ip_info_output: JsonSchema = {
+export const digital$$experience$$monitoring_ip_info: JsonSchema = {
   "properties": {
     "address": {
       "type": "string"
@@ -82,7 +82,7 @@ export const digital_experience_monitoring_ip_info_output: JsonSchema = {
 /**
  * The schema of `digital-experience-monitoring_ip_location` in responses.
  */
-export const digital_experience_monitoring_ip_location_output: JsonSchema = {
+export const digital$$experience$$monitoring_ip_location: JsonSchema = {
   "properties": {
     "city": {
       "type": "string"

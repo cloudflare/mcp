@@ -3,21 +3,21 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
-  stream_api_response_common_failure_output,
-  stream_api_response_common_output,
-  stream_api_response_single_output,
-  stream_deleted_response_output,
-  stream_identifier_2_output,
-  stream_messages_output,
+  stream_api$$response$$common,
+  stream_api$$response$$common$$failure,
+  stream_api$$response$$single,
+  stream_deleted_response,
+  stream_identifier$$2,
+  stream_messages,
 } from "../outputs.js";
-import { stream_identifier_2 } from "../schemas.js";
+import { stream_identifier$$2 as stream_identifier$$2$ } from "../schemas.js";
 import {
-  stream_jwk_output,
-  stream_key_generation_response_output,
-  stream_key_response_collection_output,
-  stream_keys_output,
-  stream_pem_output,
-  stream_signing_key_created_output,
+  stream_jwk,
+  stream_key_generation_response,
+  stream_key_response_collection,
+  stream_keys,
+  stream_pem,
+  stream_signing_key_created,
 } from "./outputs.js";
 
 /**
@@ -31,29 +31,37 @@ export const tools: readonly Tool[] = [
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/stream_identifier-2",
-          "description": "Identifier."
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/stream_identifier-2",
+              "description": "Identifier."
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id"
+        "path"
       ],
       $defs: {
-        "stream_identifier-2": stream_identifier_2,
+        "stream_identifier-2": stream_identifier$$2$,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/stream_key_generation_response",
       $defs: {
-        "stream_api-response-common": stream_api_response_common_output,
-        "stream_identifier-2": stream_identifier_2_output,
-        "stream_jwk": stream_jwk_output,
-        "stream_key_generation_response": stream_key_generation_response_output,
-        "stream_keys": stream_keys_output,
-        "stream_messages": stream_messages_output,
-        "stream_pem": stream_pem_output,
-        "stream_signing_key_created": stream_signing_key_created_output,
+        "stream_api-response-common": stream_api$$response$$common,
+        "stream_identifier-2": stream_identifier$$2,
+        "stream_jwk": stream_jwk,
+        "stream_key_generation_response": stream_key_generation_response,
+        "stream_keys": stream_keys,
+        "stream_messages": stream_messages,
+        "stream_pem": stream_pem,
+        "stream_signing_key_created": stream_signing_key_created,
       },
     },
     annotations: {
@@ -80,15 +88,15 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "stream_api-response-common": stream_api_response_common_output,
-        "stream_api-response-common-failure": stream_api_response_common_failure_output,
-        "stream_identifier-2": stream_identifier_2_output,
-        "stream_jwk": stream_jwk_output,
-        "stream_key_generation_response": stream_key_generation_response_output,
-        "stream_keys": stream_keys_output,
-        "stream_messages": stream_messages_output,
-        "stream_pem": stream_pem_output,
-        "stream_signing_key_created": stream_signing_key_created_output,
+        "stream_api-response-common": stream_api$$response$$common,
+        "stream_api-response-common-failure": stream_api$$response$$common$$failure,
+        "stream_identifier-2": stream_identifier$$2,
+        "stream_jwk": stream_jwk,
+        "stream_key_generation_response": stream_key_generation_response,
+        "stream_keys": stream_keys,
+        "stream_messages": stream_messages,
+        "stream_pem": stream_pem,
+        "stream_signing_key_created": stream_signing_key_created,
       },
     },
     request: (args) => ({
@@ -102,29 +110,37 @@ export const tools: readonly Tool[] = [
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/stream_identifier-2",
-          "description": "Identifier."
-        },
-        "identifier": {
-          "$ref": "#/$defs/stream_identifier-2",
-          "description": "Identifier."
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/stream_identifier-2",
+              "description": "Identifier."
+            },
+            "identifier": {
+              "$ref": "#/$defs/stream_identifier-2",
+              "description": "Identifier."
+            }
+          },
+          "required": [
+            "account_id",
+            "identifier"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "identifier"
+        "path"
       ],
       $defs: {
-        "stream_identifier-2": stream_identifier_2,
+        "stream_identifier-2": stream_identifier$$2$,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/stream_deleted_response",
       $defs: {
-        "stream_api-response-single": stream_api_response_single_output,
-        "stream_deleted_response": stream_deleted_response_output,
-        "stream_messages": stream_messages_output,
+        "stream_api-response-single": stream_api$$response$$single,
+        "stream_deleted_response": stream_deleted_response,
+        "stream_messages": stream_messages,
       },
     },
     annotations: {
@@ -151,10 +167,10 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "stream_api-response-common-failure": stream_api_response_common_failure_output,
-        "stream_api-response-single": stream_api_response_single_output,
-        "stream_deleted_response": stream_deleted_response_output,
-        "stream_messages": stream_messages_output,
+        "stream_api-response-common-failure": stream_api$$response$$common$$failure,
+        "stream_api-response-single": stream_api$$response$$single,
+        "stream_deleted_response": stream_deleted_response,
+        "stream_messages": stream_messages,
       },
     },
     request: (args) => ({
@@ -168,26 +184,34 @@ export const tools: readonly Tool[] = [
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/stream_identifier-2",
-          "description": "Identifier."
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/stream_identifier-2",
+              "description": "Identifier."
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id"
+        "path"
       ],
       $defs: {
-        "stream_identifier-2": stream_identifier_2,
+        "stream_identifier-2": stream_identifier$$2$,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/stream_key_response_collection",
       $defs: {
-        "stream_api-response-common": stream_api_response_common_output,
-        "stream_identifier-2": stream_identifier_2_output,
-        "stream_key_response_collection": stream_key_response_collection_output,
-        "stream_messages": stream_messages_output,
-        "stream_signing_key_created": stream_signing_key_created_output,
+        "stream_api-response-common": stream_api$$response$$common,
+        "stream_identifier-2": stream_identifier$$2,
+        "stream_key_response_collection": stream_key_response_collection,
+        "stream_messages": stream_messages,
+        "stream_signing_key_created": stream_signing_key_created,
       },
     },
     annotations: {
@@ -215,12 +239,12 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "stream_api-response-common": stream_api_response_common_output,
-        "stream_api-response-common-failure": stream_api_response_common_failure_output,
-        "stream_identifier-2": stream_identifier_2_output,
-        "stream_key_response_collection": stream_key_response_collection_output,
-        "stream_messages": stream_messages_output,
-        "stream_signing_key_created": stream_signing_key_created_output,
+        "stream_api-response-common": stream_api$$response$$common,
+        "stream_api-response-common-failure": stream_api$$response$$common$$failure,
+        "stream_identifier-2": stream_identifier$$2,
+        "stream_key_response_collection": stream_key_response_collection,
+        "stream_messages": stream_messages,
+        "stream_signing_key_created": stream_signing_key_created,
       },
     },
     request: (args) => ({

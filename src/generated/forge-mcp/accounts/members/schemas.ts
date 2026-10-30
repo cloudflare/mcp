@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `iam_create-member-with-policies`.
  */
-export const iam_create_member_with_policies: JsonSchema = {
+export const iam_create$$member$$with$$policies: JsonSchema = {
   "description": "Add Member with Policies",
   "properties": {
     "email": {
@@ -35,7 +35,7 @@ export const iam_create_member_with_policies: JsonSchema = {
 /**
  * The schema of `iam_create-member-with-roles`.
  */
-export const iam_create_member_with_roles: JsonSchema = {
+export const iam_create$$member$$with$$roles: JsonSchema = {
   "description": "Add Member with Account Roles",
   "properties": {
     "email": {
@@ -91,7 +91,7 @@ export const iam_create_member_policy: JsonSchema = {
 /**
  * The schema of `iam_member-invitation-status`.
  */
-export const iam_member_invitation_status: JsonSchema = {
+export const iam_member$$invitation$$status: JsonSchema = {
   "description": "Status of the member invitation. If not provided during creation, defaults to 'pending'.\nChanging from 'accepted' back to 'pending' will trigger a replacement of the member resource in Terraform.\n",
   "enum": [
     "accepted",
@@ -159,7 +159,7 @@ export const iam_member_resource_groups: JsonSchema = {
 /**
  * The schema of `iam_update-member-with-policies`.
  */
-export const iam_update_member_with_policies: JsonSchema = {
+export const iam_update$$member$$with$$policies: JsonSchema = {
   "description": "Update Member with Policies",
   "properties": {
     "policies": {
@@ -179,7 +179,7 @@ export const iam_update_member_with_policies: JsonSchema = {
 /**
  * The schema of `iam_update-member-with-roles`.
  */
-export const iam_update_member_with_roles: JsonSchema = {
+export const iam_update$$member$$with$$roles: JsonSchema = {
   "description": "Update Member with Account Roles",
   "properties": {
     "roles": {

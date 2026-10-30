@@ -6,7 +6,7 @@ import type { JsonSchema } from "../_/tool.js";
 /**
  * The schema of `bot-management_ai_agent_action` in responses.
  */
-export const bot_management_ai_agent_action_output: JsonSchema = {
+export const bot$$management_ai_agent_action: JsonSchema = {
   "enum": [
     "disabled",
     "block",
@@ -18,7 +18,7 @@ export const bot_management_ai_agent_action_output: JsonSchema = {
 /**
  * The schema of `bot-management_ai_agents` in responses.
  */
-export const bot_management_ai_agents_output: JsonSchema = {
+export const bot$$management_ai_agents: JsonSchema = {
   "properties": {
     "anthropic_agent": {
       "$ref": "#/$defs/bot-management_ai_agent_action"
@@ -42,14 +42,14 @@ export const bot_management_ai_agents_output: JsonSchema = {
 /**
  * The schema of `bot-management_ai_bots_migration_opt_out` in responses.
  */
-export const bot_management_ai_bots_migration_opt_out_output: JsonSchema = {
+export const bot$$management_ai_bots_migration_opt_out: JsonSchema = {
   "type": "boolean"
 };
 
 /**
  * The schema of `bot-management_ai_bots_protection` in responses.
  */
-export const bot_management_ai_bots_protection_output: JsonSchema = {
+export const bot$$management_ai_bots_protection: JsonSchema = {
   "enum": [
     "block",
     "disabled",
@@ -61,7 +61,7 @@ export const bot_management_ai_bots_protection_output: JsonSchema = {
 /**
  * The schema of `bot-management_ai_search` in responses.
  */
-export const bot_management_ai_search_output: JsonSchema = {
+export const bot$$management_ai_search: JsonSchema = {
   "enum": [
     "disabled",
     "block",
@@ -73,7 +73,7 @@ export const bot_management_ai_search_output: JsonSchema = {
 /**
  * The schema of `bot-management_ai_training` in responses.
  */
-export const bot_management_ai_training_output: JsonSchema = {
+export const bot$$management_ai_training: JsonSchema = {
   "enum": [
     "disabled",
     "disallow",
@@ -86,7 +86,7 @@ export const bot_management_ai_training_output: JsonSchema = {
 /**
  * The schema of `bot-management_ai_user` in responses.
  */
-export const bot_management_ai_user_output: JsonSchema = {
+export const bot$$management_ai_user: JsonSchema = {
   "enum": [
     "disabled",
     "block",
@@ -98,7 +98,7 @@ export const bot_management_ai_user_output: JsonSchema = {
 /**
  * The schema of `bot-management_api-response-common-failure` in responses.
  */
-export const bot_management_api_response_common_failure_output: JsonSchema = {
+export const bot$$management_api$$response$$common$$failure: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/bot-management_messages"
@@ -128,7 +128,7 @@ export const bot_management_api_response_common_failure_output: JsonSchema = {
 /**
  * The schema of `bot-management_api-response-single` in responses.
  */
-export const bot_management_api_response_single_output: JsonSchema = {
+export const bot$$management_api$$response$$single: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/bot-management_messages"
@@ -154,14 +154,14 @@ export const bot_management_api_response_single_output: JsonSchema = {
 /**
  * The schema of `bot-management_auto_update_model` in responses.
  */
-export const bot_management_auto_update_model_output: JsonSchema = {
+export const bot$$management_auto_update_model: JsonSchema = {
   "type": "boolean"
 };
 
 /**
  * The schema of `bot-management_base_config` in responses.
  */
-export const bot_management_base_config_output: JsonSchema = {
+export const bot$$management_base_config: JsonSchema = {
   "properties": {
     "ai_agents": {
       "$ref": "#/$defs/bot-management_ai_agents"
@@ -212,14 +212,14 @@ export const bot_management_base_config_output: JsonSchema = {
 /**
  * The schema of `bot-management_bm_cookie_enabled` in responses.
  */
-export const bot_management_bm_cookie_enabled_output: JsonSchema = {
+export const bot$$management_bm_cookie_enabled: JsonSchema = {
   "type": "boolean"
 };
 
 /**
  * The schema of `bot-management_bm_subscription_config` in responses.
  */
-export const bot_management_bm_subscription_config_output: JsonSchema = {
+export const bot$$management_bm_subscription_config: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/bot-management_base_config"
@@ -267,7 +267,7 @@ export const bot_management_bm_subscription_config_output: JsonSchema = {
 /**
  * The schema of `bot-management_bot_fight_mode_config` in responses.
  */
-export const bot_management_bot_fight_mode_config_output: JsonSchema = {
+export const bot$$management_bot_fight_mode_config: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/bot-management_base_config"
@@ -309,7 +309,7 @@ export const bot_management_bot_fight_mode_config_output: JsonSchema = {
 /**
  * The schema of `bot-management_bot_management_response_body` in responses.
  */
-export const bot_management_bot_management_response_body_output: JsonSchema = {
+export const bot$$management_bot_management_response_body: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/bot-management_api-response-single"
@@ -341,14 +341,14 @@ export const bot_management_bot_management_response_body_output: JsonSchema = {
 /**
  * The schema of `bot-management_bot_preference_sync_enabled` in responses.
  */
-export const bot_management_bot_preference_sync_enabled_output: JsonSchema = {
+export const bot$$management_bot_preference_sync_enabled: JsonSchema = {
   "type": "boolean"
 };
 
 /**
  * The schema of `bot-management_cf_robots_variant` in responses.
  */
-export const bot_management_cf_robots_variant_output: JsonSchema = {
+export const bot$$management_cf_robots_variant: JsonSchema = {
   "enum": [
     "off",
     "policy_only"
@@ -359,7 +359,7 @@ export const bot_management_cf_robots_variant_output: JsonSchema = {
 /**
  * The schema of `bot-management_content_bots_protection` in responses.
  */
-export const bot_management_content_bots_protection_output: JsonSchema = {
+export const bot$$management_content_bots_protection: JsonSchema = {
   "enum": [
     "block",
     "disabled"
@@ -370,7 +370,7 @@ export const bot_management_content_bots_protection_output: JsonSchema = {
 /**
  * The schema of `bot-management_crawler_protection` in responses.
  */
-export const bot_management_crawler_protection_output: JsonSchema = {
+export const bot$$management_crawler_protection: JsonSchema = {
   "enum": [
     "enabled",
     "disabled"
@@ -381,42 +381,42 @@ export const bot_management_crawler_protection_output: JsonSchema = {
 /**
  * The schema of `bot-management_enable_js` in responses.
  */
-export const bot_management_enable_js_output: JsonSchema = {
+export const bot$$management_enable_js: JsonSchema = {
   "type": "boolean"
 };
 
 /**
  * The schema of `bot-management_fight_mode` in responses.
  */
-export const bot_management_fight_mode_output: JsonSchema = {
+export const bot$$management_fight_mode: JsonSchema = {
   "type": "boolean"
 };
 
 /**
  * The schema of `bot-management_fight_mode_turned_on` in responses.
  */
-export const bot_management_fight_mode_turned_on_output: JsonSchema = {
+export const bot$$management_fight_mode_turned_on: JsonSchema = {
   "type": "boolean"
 };
 
 /**
  * The schema of `bot-management_is_robots_txt_managed` in responses.
  */
-export const bot_management_is_robots_txt_managed_output: JsonSchema = {
+export const bot$$management_is_robots_txt_managed: JsonSchema = {
   "type": "boolean"
 };
 
 /**
  * The schema of `bot-management_jsd_api_results_enabled` in responses.
  */
-export const bot_management_jsd_api_results_enabled_output: JsonSchema = {
+export const bot$$management_jsd_api_results_enabled: JsonSchema = {
   "type": "boolean"
 };
 
 /**
  * The schema of `bot-management_messages` in responses.
  */
-export const bot_management_messages_output: JsonSchema = {
+export const bot$$management_messages: JsonSchema = {
   "items": {
     "properties": {
       "code": {
@@ -449,21 +449,21 @@ export const bot_management_messages_output: JsonSchema = {
 /**
  * The schema of `bot-management_optimize_wordpress` in responses.
  */
-export const bot_management_optimize_wordpress_output: JsonSchema = {
+export const bot$$management_optimize_wordpress: JsonSchema = {
   "type": "boolean"
 };
 
 /**
  * The schema of `bot-management_optimize_wordpress_turned_on` in responses.
  */
-export const bot_management_optimize_wordpress_turned_on_output: JsonSchema = {
+export const bot$$management_optimize_wordpress_turned_on: JsonSchema = {
   "type": "boolean"
 };
 
 /**
  * The schema of `bot-management_sbfm_definitely_automated` in responses.
  */
-export const bot_management_sbfm_definitely_automated_output: JsonSchema = {
+export const bot$$management_sbfm_definitely_automated: JsonSchema = {
   "enum": [
     "allow",
     "block",
@@ -476,14 +476,14 @@ export const bot_management_sbfm_definitely_automated_output: JsonSchema = {
  * The schema of `bot-management_sbfm_definitely_automated_turned_on` in
  * responses.
  */
-export const bot_management_sbfm_definitely_automated_turned_on_output: JsonSchema = {
+export const bot$$management_sbfm_definitely_automated_turned_on: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `bot-management_sbfm_definitely_config` in responses.
  */
-export const bot_management_sbfm_definitely_config_output: JsonSchema = {
+export const bot$$management_sbfm_definitely_config: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/bot-management_base_config"
@@ -522,7 +522,7 @@ export const bot_management_sbfm_definitely_config_output: JsonSchema = {
 /**
  * The schema of `bot-management_sbfm_likely_automated` in responses.
  */
-export const bot_management_sbfm_likely_automated_output: JsonSchema = {
+export const bot$$management_sbfm_likely_automated: JsonSchema = {
   "enum": [
     "allow",
     "block",
@@ -534,14 +534,14 @@ export const bot_management_sbfm_likely_automated_output: JsonSchema = {
 /**
  * The schema of `bot-management_sbfm_likely_automated_turned_on` in responses.
  */
-export const bot_management_sbfm_likely_automated_turned_on_output: JsonSchema = {
+export const bot$$management_sbfm_likely_automated_turned_on: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `bot-management_sbfm_likely_config` in responses.
  */
-export const bot_management_sbfm_likely_config_output: JsonSchema = {
+export const bot$$management_sbfm_likely_config: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/bot-management_base_config"
@@ -580,7 +580,7 @@ export const bot_management_sbfm_likely_config_output: JsonSchema = {
 /**
  * The schema of `bot-management_sbfm_static_resource_protection` in responses.
  */
-export const bot_management_sbfm_static_resource_protection_output: JsonSchema = {
+export const bot$$management_sbfm_static_resource_protection: JsonSchema = {
   "type": "boolean"
 };
 
@@ -588,14 +588,14 @@ export const bot_management_sbfm_static_resource_protection_output: JsonSchema =
  * The schema of `bot-management_sbfm_static_resource_protection_turned_on` in
  * responses.
  */
-export const bot_management_sbfm_static_resource_protection_turned_on_output: JsonSchema = {
+export const bot$$management_sbfm_static_resource_protection_turned_on: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `bot-management_sbfm_verified_bots` in responses.
  */
-export const bot_management_sbfm_verified_bots_output: JsonSchema = {
+export const bot$$management_sbfm_verified_bots: JsonSchema = {
   "enum": [
     "allow",
     "block"
@@ -606,14 +606,14 @@ export const bot_management_sbfm_verified_bots_output: JsonSchema = {
 /**
  * The schema of `bot-management_sbfm_verified_bots_turned_on` in responses.
  */
-export const bot_management_sbfm_verified_bots_turned_on_output: JsonSchema = {
+export const bot$$management_sbfm_verified_bots_turned_on: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `bot-management_suppress_session_score` in responses.
  */
-export const bot_management_suppress_session_score_output: JsonSchema = {
+export const bot$$management_suppress_session_score: JsonSchema = {
   "type": "boolean"
 };
 
@@ -621,13 +621,13 @@ export const bot_management_suppress_session_score_output: JsonSchema = {
  * The schema of `bot-management_suppress_session_score_turned_off` in
  * responses.
  */
-export const bot_management_suppress_session_score_turned_off_output: JsonSchema = {
+export const bot$$management_suppress_session_score_turned_off: JsonSchema = {
   "type": "boolean"
 };
 
 /**
  * The schema of `bot-management_using_latest_model` in responses.
  */
-export const bot_management_using_latest_model_output: JsonSchema = {
+export const bot$$management_using_latest_model: JsonSchema = {
   "type": "boolean"
 };

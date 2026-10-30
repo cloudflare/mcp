@@ -3,33 +3,41 @@
 
 import { type Tool, pathParam } from "../_/tool.js";
 import {
-  rulesets_Errors_output,
-  rulesets_Message_output,
-  rulesets_Messages_output,
-  rulesets_Response_output,
+  rulesets_Errors,
+  rulesets_Message,
+  rulesets_Messages,
+  rulesets_Response,
 } from "../outputs.js";
 import { rulesets_ZoneId } from "../schemas.js";
-import { rulesets_UrlNormalization_output } from "./outputs.js";
-import { rulesets_UrlNormalization } from "./schemas.js";
+import { rulesets_UrlNormalization } from "./outputs.js";
+import { rulesets_UrlNormalization as rulesets_UrlNormalization$ } from "./schemas.js";
 
 /**
- * The tools of `url_normalization`.
+ * The tools of `urlNormalization`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "url_normalization_delete",
+    name: "urlNormalization_delete",
     title: "Delete URL Normalization settings",
     description: "Deletes the URL Normalization settings.",
     inputSchema: {
       type: "object",
       properties: {
-        "zone_id": {
-          "$ref": "#/$defs/rulesets_ZoneId",
-          "description": "The unique ID of the zone."
+        "path": {
+          "properties": {
+            "zone_id": {
+              "$ref": "#/$defs/rulesets_ZoneId",
+              "description": "The unique ID of the zone."
+            }
+          },
+          "required": [
+            "zone_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "zone_id"
+        "path"
       ],
       $defs: {
         "rulesets_ZoneId": rulesets_ZoneId,
@@ -101,10 +109,10 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "rulesets_Errors": rulesets_Errors_output,
-        "rulesets_Message": rulesets_Message_output,
-        "rulesets_Messages": rulesets_Messages_output,
-        "rulesets_Response": rulesets_Response_output,
+        "rulesets_Errors": rulesets_Errors,
+        "rulesets_Message": rulesets_Message,
+        "rulesets_Messages": rulesets_Messages,
+        "rulesets_Response": rulesets_Response,
       },
     },
     request: (args) => ({
@@ -112,19 +120,27 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "url_normalization_get",
+    name: "urlNormalization_get",
     title: "Get URL Normalization settings",
     description: "Fetches the current URL Normalization settings.",
     inputSchema: {
       type: "object",
       properties: {
-        "zone_id": {
-          "$ref": "#/$defs/rulesets_ZoneId",
-          "description": "The unique ID of the zone."
+        "path": {
+          "properties": {
+            "zone_id": {
+              "$ref": "#/$defs/rulesets_ZoneId",
+              "description": "The unique ID of the zone."
+            }
+          },
+          "required": [
+            "zone_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "zone_id"
+        "path"
       ],
       $defs: {
         "rulesets_ZoneId": rulesets_ZoneId,
@@ -152,11 +168,11 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "rulesets_Errors": rulesets_Errors_output,
-        "rulesets_Message": rulesets_Message_output,
-        "rulesets_Messages": rulesets_Messages_output,
-        "rulesets_Response": rulesets_Response_output,
-        "rulesets_UrlNormalization": rulesets_UrlNormalization_output,
+        "rulesets_Errors": rulesets_Errors,
+        "rulesets_Message": rulesets_Message,
+        "rulesets_Messages": rulesets_Messages,
+        "rulesets_Response": rulesets_Response,
+        "rulesets_UrlNormalization": rulesets_UrlNormalization,
       },
     },
     annotations: {
@@ -267,11 +283,11 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "rulesets_Errors": rulesets_Errors_output,
-        "rulesets_Message": rulesets_Message_output,
-        "rulesets_Messages": rulesets_Messages_output,
-        "rulesets_Response": rulesets_Response_output,
-        "rulesets_UrlNormalization": rulesets_UrlNormalization_output,
+        "rulesets_Errors": rulesets_Errors,
+        "rulesets_Message": rulesets_Message,
+        "rulesets_Messages": rulesets_Messages,
+        "rulesets_Response": rulesets_Response,
+        "rulesets_UrlNormalization": rulesets_UrlNormalization,
       },
     },
     request: (args) => ({
@@ -279,7 +295,7 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "url_normalization_update",
+    name: "urlNormalization_update",
     title: "Update URL Normalization settings",
     description: "Updates the URL Normalization settings.",
     inputSchema: {
@@ -288,17 +304,25 @@ export const tools: readonly Tool[] = [
         "body": {
           "$ref": "#/$defs/rulesets_UrlNormalization"
         },
-        "zone_id": {
-          "$ref": "#/$defs/rulesets_ZoneId",
-          "description": "The unique ID of the zone."
+        "path": {
+          "properties": {
+            "zone_id": {
+              "$ref": "#/$defs/rulesets_ZoneId",
+              "description": "The unique ID of the zone."
+            }
+          },
+          "required": [
+            "zone_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "zone_id",
+        "path",
         "body"
       ],
       $defs: {
-        "rulesets_UrlNormalization": rulesets_UrlNormalization,
+        "rulesets_UrlNormalization": rulesets_UrlNormalization$,
         "rulesets_ZoneId": rulesets_ZoneId,
       },
     },
@@ -324,11 +348,11 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "rulesets_Errors": rulesets_Errors_output,
-        "rulesets_Message": rulesets_Message_output,
-        "rulesets_Messages": rulesets_Messages_output,
-        "rulesets_Response": rulesets_Response_output,
-        "rulesets_UrlNormalization": rulesets_UrlNormalization_output,
+        "rulesets_Errors": rulesets_Errors,
+        "rulesets_Message": rulesets_Message,
+        "rulesets_Messages": rulesets_Messages,
+        "rulesets_Response": rulesets_Response,
+        "rulesets_UrlNormalization": rulesets_UrlNormalization,
       },
     },
     annotations: {
@@ -418,11 +442,11 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "rulesets_Errors": rulesets_Errors_output,
-        "rulesets_Message": rulesets_Message_output,
-        "rulesets_Messages": rulesets_Messages_output,
-        "rulesets_Response": rulesets_Response_output,
-        "rulesets_UrlNormalization": rulesets_UrlNormalization_output,
+        "rulesets_Errors": rulesets_Errors,
+        "rulesets_Message": rulesets_Message,
+        "rulesets_Messages": rulesets_Messages,
+        "rulesets_Response": rulesets_Response,
+        "rulesets_UrlNormalization": rulesets_UrlNormalization,
       },
     },
     request: (args) => ({

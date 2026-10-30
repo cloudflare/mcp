@@ -3,33 +3,41 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
-  dlp_api_response_common_failure_output,
-  dlp_messages_output,
+  dlp_api$$response$$common$$failure,
+  dlp_messages,
 } from "../../outputs.js";
 import {
-  dlp_RiskLevel_output,
-  dlp_api_response_collection_output,
-  dlp_api_response_common_output,
+  dlp_RiskLevel,
+  dlp_api$$response$$collection,
+  dlp_api$$response$$common,
 } from "../outputs.js";
-import { dlp_RiskSummary_output, dlp_UserRiskInfo_output } from "./outputs.js";
+import { dlp_RiskSummary, dlp_UserRiskInfo } from "./outputs.js";
 
 /**
- * The tools of `zero_trust.risk_scoring.summary`.
+ * The tools of `zeroTrust.riskScoring.summary`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "zero_trust_risk_scoring_summary_get",
+    name: "zeroTrust_riskScoring_summary_get",
     title: "Get risk score info for all users in the account",
     description: "Gets an aggregate summary of risk scores across the account, including distribution and trends.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "type": "string"
+        "path": {
+          "properties": {
+            "account_id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id"
+        "path"
       ],
     },
     outputSchema: {
@@ -47,12 +55,12 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "dlp_RiskLevel": dlp_RiskLevel_output,
-        "dlp_RiskSummary": dlp_RiskSummary_output,
-        "dlp_UserRiskInfo": dlp_UserRiskInfo_output,
-        "dlp_api-response-collection": dlp_api_response_collection_output,
-        "dlp_api-response-common": dlp_api_response_common_output,
-        "dlp_messages": dlp_messages_output,
+        "dlp_RiskLevel": dlp_RiskLevel,
+        "dlp_RiskSummary": dlp_RiskSummary,
+        "dlp_UserRiskInfo": dlp_UserRiskInfo,
+        "dlp_api-response-collection": dlp_api$$response$$collection,
+        "dlp_api-response-common": dlp_api$$response$$common,
+        "dlp_messages": dlp_messages,
       },
     },
     annotations: {
@@ -91,13 +99,13 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "dlp_RiskLevel": dlp_RiskLevel_output,
-        "dlp_RiskSummary": dlp_RiskSummary_output,
-        "dlp_UserRiskInfo": dlp_UserRiskInfo_output,
-        "dlp_api-response-collection": dlp_api_response_collection_output,
-        "dlp_api-response-common": dlp_api_response_common_output,
-        "dlp_api-response-common-failure": dlp_api_response_common_failure_output,
-        "dlp_messages": dlp_messages_output,
+        "dlp_RiskLevel": dlp_RiskLevel,
+        "dlp_RiskSummary": dlp_RiskSummary,
+        "dlp_UserRiskInfo": dlp_UserRiskInfo,
+        "dlp_api-response-collection": dlp_api$$response$$collection,
+        "dlp_api-response-common": dlp_api$$response$$common,
+        "dlp_api-response-common-failure": dlp_api$$response$$common$$failure,
+        "dlp_messages": dlp_messages,
       },
     },
     request: (args) => ({

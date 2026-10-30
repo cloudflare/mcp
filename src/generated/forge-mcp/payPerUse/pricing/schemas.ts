@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `pay-per-crawl_PPUPublisherPriceAcceptDefaultRequest`.
  */
-export const pay_per_crawl_PPUPublisherPriceAcceptDefaultRequest: JsonSchema = {
+export const pay$$per$$crawl_PPUPublisherPriceAcceptDefaultRequest: JsonSchema = {
   "properties": {
     "action": {
       "enum": [
@@ -24,7 +24,7 @@ export const pay_per_crawl_PPUPublisherPriceAcceptDefaultRequest: JsonSchema = {
 /**
  * The schema of `pay-per-crawl_PPUPublisherPriceActionRequest`.
  */
-export const pay_per_crawl_PPUPublisherPriceActionRequest: JsonSchema = {
+export const pay$$per$$crawl_PPUPublisherPriceActionRequest: JsonSchema = {
   "oneOf": [
     {
       "$ref": "#/$defs/pay-per-crawl_PPUPublisherPriceProposeRequest"
@@ -44,7 +44,7 @@ export const pay_per_crawl_PPUPublisherPriceActionRequest: JsonSchema = {
 /**
  * The schema of `pay-per-crawl_PPUPublisherPriceProposeRequest`.
  */
-export const pay_per_crawl_PPUPublisherPriceProposeRequest: JsonSchema = {
+export const pay$$per$$crawl_PPUPublisherPriceProposeRequest: JsonSchema = {
   "properties": {
     "action": {
       "enum": [
@@ -67,7 +67,7 @@ export const pay_per_crawl_PPUPublisherPriceProposeRequest: JsonSchema = {
 /**
  * The schema of `pay-per-crawl_PPUPublisherPriceResumeRequest`.
  */
-export const pay_per_crawl_PPUPublisherPriceResumeRequest: JsonSchema = {
+export const pay$$per$$crawl_PPUPublisherPriceResumeRequest: JsonSchema = {
   "properties": {
     "action": {
       "enum": [
@@ -85,7 +85,7 @@ export const pay_per_crawl_PPUPublisherPriceResumeRequest: JsonSchema = {
 /**
  * The schema of `pay-per-crawl_PPUPublisherPriceWithdrawRequest`.
  */
-export const pay_per_crawl_PPUPublisherPriceWithdrawRequest: JsonSchema = {
+export const pay$$per$$crawl_PPUPublisherPriceWithdrawRequest: JsonSchema = {
   "properties": {
     "action": {
       "enum": [

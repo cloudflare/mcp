@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `email-security_BlockedSenderId`.
  */
-export const email_security_BlockedSenderId: JsonSchema = {
+export const email$$security_BlockedSenderId: JsonSchema = {
   "description": "Blocked sender pattern identifier.",
   "format": "uuid",
   "type": "string"
@@ -15,7 +15,7 @@ export const email_security_BlockedSenderId: JsonSchema = {
 /**
  * The schema of `email-security_CreateBlockedSender`.
  */
-export const email_security_CreateBlockedSender: JsonSchema = {
+export const email$$security_CreateBlockedSender: JsonSchema = {
   "description": "Create a blocked sender pattern.",
   "properties": {
     "comments": {
@@ -64,7 +64,7 @@ export const email_security_CreateBlockedSender: JsonSchema = {
 /**
  * The schema of `email-security_UpdateBlockedSender`.
  */
-export const email_security_UpdateBlockedSender: JsonSchema = {
+export const email$$security_UpdateBlockedSender: JsonSchema = {
   "description": "Update a blocked sender pattern.",
   "properties": {
     "comments": {

@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../../_/tool.js";
 /**
  * The schema of `realtimekit_WebhookEventsSuccessResponse` in responses.
  */
-export const realtimekit_WebhookEventsSuccessResponse_output: JsonSchema = {
+export const realtimekit_WebhookEventsSuccessResponse: JsonSchema = {
   "properties": {
     "data": {
       "items": {

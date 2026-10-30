@@ -3,42 +3,50 @@
 
 import { type Tool, pathParam } from "../../../../_/tool.js";
 import {
-  access_api_response_common_failure_output,
-  access_api_response_single_output,
-  access_messages_output,
+  access_api$$response$$common$$failure,
+  access_api$$response$$single,
+  access_messages,
 } from "../../../outputs.js";
 import { access_identifier, access_uuid } from "../../../schemas.js";
-import { access_delete_authenticator_response_output } from "../../outputs.js";
+import { access_delete_authenticator_response } from "../../outputs.js";
 import { access_authenticator_id } from "../../schemas.js";
 
 /**
- * The tools of `zero_trust.users.mfa.authenticators`.
+ * The tools of `zeroTrust.users.mfa.authenticators`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "zero_trust_users_mfa_authenticators_delete",
+    name: "zeroTrust_users_mfa_authenticators_delete",
     title: "Delete a user's authenticator",
     description: "Deletes a specific MFA device or passkey, including a PIV key or FIDO2 key enrollment, for a user. Admin deletion remains available when MFA is disabled. Successful deletion revokes the enrollment and returns a null result.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/access_identifier",
-          "description": "Identifier."
-        },
-        "authenticator_id": {
-          "$ref": "#/$defs/access_authenticator_id",
-          "description": "The unique identifier for the MFA device."
-        },
-        "user_id": {
-          "$ref": "#/$defs/access_uuid",
-          "description": "UUID."
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/access_identifier",
+              "description": "Identifier."
+            },
+            "authenticator_id": {
+              "$ref": "#/$defs/access_authenticator_id",
+              "description": "The unique identifier for the MFA device."
+            },
+            "user_id": {
+              "$ref": "#/$defs/access_uuid",
+              "description": "UUID."
+            }
+          },
+          "required": [
+            "account_id",
+            "user_id",
+            "authenticator_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "user_id",
-        "authenticator_id"
+        "path"
       ],
       $defs: {
         "access_authenticator_id": access_authenticator_id,
@@ -49,9 +57,9 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/access_delete_authenticator_response",
       $defs: {
-        "access_api-response-single": access_api_response_single_output,
-        "access_delete_authenticator_response": access_delete_authenticator_response_output,
-        "access_messages": access_messages_output,
+        "access_api-response-single": access_api$$response$$single,
+        "access_delete_authenticator_response": access_delete_authenticator_response,
+        "access_messages": access_messages,
       },
     },
     annotations: {
@@ -76,10 +84,10 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "access_api-response-common-failure": access_api_response_common_failure_output,
-        "access_api-response-single": access_api_response_single_output,
-        "access_delete_authenticator_response": access_delete_authenticator_response_output,
-        "access_messages": access_messages_output,
+        "access_api-response-common-failure": access_api$$response$$common$$failure,
+        "access_api-response-single": access_api$$response$$single,
+        "access_delete_authenticator_response": access_delete_authenticator_response,
+        "access_messages": access_messages,
       },
     },
     request: (args) => ({

@@ -6,7 +6,7 @@ import type { JsonSchema } from "../_/tool.js";
 /**
  * The schema of `vectorize_create-index-request`.
  */
-export const vectorize_create_index_request: JsonSchema = {
+export const vectorize_create$$index$$request: JsonSchema = {
   "properties": {
     "config": {
       "$ref": "#/$defs/vectorize_index-configuration"
@@ -37,7 +37,7 @@ export const vectorize_identifier: JsonSchema = {
 /**
  * The schema of `vectorize_index-configuration`.
  */
-export const vectorize_index_configuration: JsonSchema = {
+export const vectorize_index$$configuration: JsonSchema = {
   "description": "Specifies the type of configuration to use for the index.",
   "oneOf": [
     {
@@ -52,7 +52,7 @@ export const vectorize_index_configuration: JsonSchema = {
 /**
  * The schema of `vectorize_index-delete-vectors-by-id-request`.
  */
-export const vectorize_index_delete_vectors_by_id_request: JsonSchema = {
+export const vectorize_index$$delete$$vectors$$by$$id$$request: JsonSchema = {
   "properties": {
     "ids": {
       "description": "A list of vector identifiers to delete from the index indicated by the path.",
@@ -68,7 +68,7 @@ export const vectorize_index_delete_vectors_by_id_request: JsonSchema = {
 /**
  * The schema of `vectorize_index-description`.
  */
-export const vectorize_index_description: JsonSchema = {
+export const vectorize_index$$description: JsonSchema = {
   "description": "Specifies the description of the index.",
   "type": "string"
 };
@@ -76,7 +76,7 @@ export const vectorize_index_description: JsonSchema = {
 /**
  * The schema of `vectorize_index-dimension-configuration`.
  */
-export const vectorize_index_dimension_configuration: JsonSchema = {
+export const vectorize_index$$dimension$$configuration: JsonSchema = {
   "properties": {
     "dimensions": {
       "$ref": "#/$defs/vectorize_index-dimensions",
@@ -97,7 +97,7 @@ export const vectorize_index_dimension_configuration: JsonSchema = {
 /**
  * The schema of `vectorize_index-dimensions`.
  */
-export const vectorize_index_dimensions: JsonSchema = {
+export const vectorize_index$$dimensions: JsonSchema = {
   "description": "Specifies the number of dimensions for the index",
   "type": "integer"
 };
@@ -105,7 +105,7 @@ export const vectorize_index_dimensions: JsonSchema = {
 /**
  * The schema of `vectorize_index-get-vectors-by-id-request`.
  */
-export const vectorize_index_get_vectors_by_id_request: JsonSchema = {
+export const vectorize_index$$get$$vectors$$by$$id$$request: JsonSchema = {
   "properties": {
     "ids": {
       "description": "A list of vector identifiers to retrieve from the index indicated by the path.",
@@ -121,7 +121,7 @@ export const vectorize_index_get_vectors_by_id_request: JsonSchema = {
 /**
  * The schema of `vectorize_index-metric`.
  */
-export const vectorize_index_metric: JsonSchema = {
+export const vectorize_index$$metric: JsonSchema = {
   "description": "Specifies the type of metric to use calculating distance.",
   "enum": [
     "cosine",
@@ -134,14 +134,14 @@ export const vectorize_index_metric: JsonSchema = {
 /**
  * The schema of `vectorize_index-name`.
  */
-export const vectorize_index_name: JsonSchema = {
+export const vectorize_index$$name: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `vectorize_index-preset`.
  */
-export const vectorize_index_preset: JsonSchema = {
+export const vectorize_index$$preset: JsonSchema = {
   "description": "Specifies the preset to use for the index.",
   "enum": [
     "@cf/baai/bge-small-en-v1.5",
@@ -156,7 +156,7 @@ export const vectorize_index_preset: JsonSchema = {
 /**
  * The schema of `vectorize_index-preset-configuration`.
  */
-export const vectorize_index_preset_configuration: JsonSchema = {
+export const vectorize_index$$preset$$configuration: JsonSchema = {
   "properties": {
     "preset": {
       "$ref": "#/$defs/vectorize_index-preset",
@@ -172,7 +172,7 @@ export const vectorize_index_preset_configuration: JsonSchema = {
 /**
  * The schema of `vectorize_index-query-v2-request`.
  */
-export const vectorize_index_query_v2_request: JsonSchema = {
+export const vectorize_index$$query$$v2$$request: JsonSchema = {
   "properties": {
     "filter": {
       "description": "A metadata filter expression used to limit nearest neighbor results.",
@@ -215,7 +215,7 @@ export const vectorize_index_query_v2_request: JsonSchema = {
 /**
  * The schema of `vectorize_vector-identifier`.
  */
-export const vectorize_vector_identifier: JsonSchema = {
+export const vectorize_vector$$identifier: JsonSchema = {
   "description": "Identifier for a Vector",
   "type": "string"
 };

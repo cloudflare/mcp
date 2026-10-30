@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `cache-settings_variants_value`.
  */
-export const cache_settings_variants_value: JsonSchema = {
+export const cache$$settings_variants_value: JsonSchema = {
   "description": "Value of the zone setting.",
   "properties": {
     "avif": {

@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `tunnel_management-resources`.
  */
-export const tunnel_management_resources: JsonSchema = {
+export const tunnel_management$$resources: JsonSchema = {
   "description": "Management resources the token will have access to.",
   "enum": [
     "logs"

@@ -3,47 +3,55 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
-  magic_visibility_mnm_api_response_common_failure_output,
-  magic_visibility_mnm_api_response_common_output,
-  magic_visibility_mnm_api_response_single_output,
-  magic_visibility_mnm_messages_output,
+  magic$$visibility$$mnm_api$$response$$common,
+  magic$$visibility$$mnm_api$$response$$common$$failure,
+  magic$$visibility$$mnm_api$$response$$single,
+  magic$$visibility$$mnm_messages,
 } from "../../outputs.js";
-import { magic_visibility_mnm_account_identifier } from "../../schemas.js";
+import { magic$$visibility$$mnm_account_identifier } from "../../schemas.js";
 import {
-  magic_visibility_mnm_mnm_vpc_flows_single_response_output,
-  magic_visibility_mnm_mnm_vpc_flows_token_output,
+  magic$$visibility$$mnm_mnm_vpc_flows_single_response,
+  magic$$visibility$$mnm_mnm_vpc_flows_token,
 } from "./outputs.js";
 
 /**
- * The tools of `magic_network_monitoring.vpc_flows.tokens`.
+ * The tools of `magicNetworkMonitoring.vpcFlows.tokens`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "magic_network_monitoring_vpc_flows_tokens_create",
+    name: "magicNetworkMonitoring_vpcFlows_tokens_create",
     title: "Generate authentication token for VPC flow logs export.",
     description: "Generate authentication token for VPC flow logs export.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/magic-visibility-mnm_account_identifier"
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/magic-visibility-mnm_account_identifier"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id"
+        "path"
       ],
       $defs: {
-        "magic-visibility-mnm_account_identifier": magic_visibility_mnm_account_identifier,
+        "magic-visibility-mnm_account_identifier": magic$$visibility$$mnm_account_identifier,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/magic-visibility-mnm_mnm_vpc_flows_single_response",
       $defs: {
-        "magic-visibility-mnm_api-response-common": magic_visibility_mnm_api_response_common_output,
-        "magic-visibility-mnm_api-response-single": magic_visibility_mnm_api_response_single_output,
-        "magic-visibility-mnm_messages": magic_visibility_mnm_messages_output,
-        "magic-visibility-mnm_mnm_vpc_flows_single_response": magic_visibility_mnm_mnm_vpc_flows_single_response_output,
-        "magic-visibility-mnm_mnm_vpc_flows_token": magic_visibility_mnm_mnm_vpc_flows_token_output,
+        "magic-visibility-mnm_api-response-common": magic$$visibility$$mnm_api$$response$$common,
+        "magic-visibility-mnm_api-response-single": magic$$visibility$$mnm_api$$response$$single,
+        "magic-visibility-mnm_messages": magic$$visibility$$mnm_messages,
+        "magic-visibility-mnm_mnm_vpc_flows_single_response": magic$$visibility$$mnm_mnm_vpc_flows_single_response,
+        "magic-visibility-mnm_mnm_vpc_flows_token": magic$$visibility$$mnm_mnm_vpc_flows_token,
       },
     },
     annotations: {
@@ -77,12 +85,12 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "magic-visibility-mnm_api-response-common": magic_visibility_mnm_api_response_common_output,
-        "magic-visibility-mnm_api-response-common-failure": magic_visibility_mnm_api_response_common_failure_output,
-        "magic-visibility-mnm_api-response-single": magic_visibility_mnm_api_response_single_output,
-        "magic-visibility-mnm_messages": magic_visibility_mnm_messages_output,
-        "magic-visibility-mnm_mnm_vpc_flows_single_response": magic_visibility_mnm_mnm_vpc_flows_single_response_output,
-        "magic-visibility-mnm_mnm_vpc_flows_token": magic_visibility_mnm_mnm_vpc_flows_token_output,
+        "magic-visibility-mnm_api-response-common": magic$$visibility$$mnm_api$$response$$common,
+        "magic-visibility-mnm_api-response-common-failure": magic$$visibility$$mnm_api$$response$$common$$failure,
+        "magic-visibility-mnm_api-response-single": magic$$visibility$$mnm_api$$response$$single,
+        "magic-visibility-mnm_messages": magic$$visibility$$mnm_messages,
+        "magic-visibility-mnm_mnm_vpc_flows_single_response": magic$$visibility$$mnm_mnm_vpc_flows_single_response,
+        "magic-visibility-mnm_mnm_vpc_flows_token": magic$$visibility$$mnm_mnm_vpc_flows_token,
       },
     },
     request: (args) => ({

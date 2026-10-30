@@ -14,7 +14,7 @@ export const r2_queue_identifier: JsonSchema = {
 /**
  * The schema of `r2_r2-action`.
  */
-export const r2_r2_action: JsonSchema = {
+export const r2_r2$$action: JsonSchema = {
   "enum": [
     "PutObject",
     "CopyObject",

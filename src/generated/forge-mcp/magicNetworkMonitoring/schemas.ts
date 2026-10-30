@@ -6,6 +6,6 @@ import type { JsonSchema } from "../_/tool.js";
 /**
  * The schema of `magic-visibility-mnm_account_identifier`.
  */
-export const magic_visibility_mnm_account_identifier: JsonSchema = {
+export const magic$$visibility$$mnm_account_identifier: JsonSchema = {
   "type": "string"
 };

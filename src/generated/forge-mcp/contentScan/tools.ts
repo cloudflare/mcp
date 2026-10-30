@@ -2,47 +2,55 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../_/tool.js";
-import { waf_product_api_bundle_messages_output } from "../outputs.js";
-import { waf_product_api_bundle_identifier } from "../schemas.js";
+import { waf$$product$$api$$bundle_messages } from "../outputs.js";
+import { waf$$product$$api$$bundle_identifier } from "../schemas.js";
 import {
-  waf_product_api_bundle_api_response_common_2_output,
-  waf_product_api_bundle_api_response_common_failure_2_output,
-  waf_product_api_bundle_api_response_single_2_output,
-  waf_product_api_bundle_response_status_2_output,
-  waf_product_api_bundle_status_2_output,
+  waf$$product$$api$$bundle_api$$response$$common$$2,
+  waf$$product$$api$$bundle_api$$response$$common$$failure$$2,
+  waf$$product$$api$$bundle_api$$response$$single$$2,
+  waf$$product$$api$$bundle_response$$status$$2,
+  waf$$product$$api$$bundle_status$$2,
 } from "./outputs.js";
 
 /**
- * The tools of `content_scan`.
+ * The tools of `contentScan`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "content_scan_get",
+    name: "contentScan_get",
     title: "Get the Content Scanning status for a zone.",
     description: "Get the current Content Scanning status for the zone, together with the date the status was last modified.",
     inputSchema: {
       type: "object",
       properties: {
-        "zone_id": {
-          "$ref": "#/$defs/waf-product-api-bundle_identifier",
-          "description": "Defines an identifier."
+        "path": {
+          "properties": {
+            "zone_id": {
+              "$ref": "#/$defs/waf-product-api-bundle_identifier",
+              "description": "Defines an identifier."
+            }
+          },
+          "required": [
+            "zone_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "zone_id"
+        "path"
       ],
       $defs: {
-        "waf-product-api-bundle_identifier": waf_product_api_bundle_identifier,
+        "waf-product-api-bundle_identifier": waf$$product$$api$$bundle_identifier,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/waf-product-api-bundle_response-status-2",
       $defs: {
-        "waf-product-api-bundle_api-response-common-2": waf_product_api_bundle_api_response_common_2_output,
-        "waf-product-api-bundle_api-response-single-2": waf_product_api_bundle_api_response_single_2_output,
-        "waf-product-api-bundle_messages": waf_product_api_bundle_messages_output,
-        "waf-product-api-bundle_response-status-2": waf_product_api_bundle_response_status_2_output,
-        "waf-product-api-bundle_status-2": waf_product_api_bundle_status_2_output,
+        "waf-product-api-bundle_api-response-common-2": waf$$product$$api$$bundle_api$$response$$common$$2,
+        "waf-product-api-bundle_api-response-single-2": waf$$product$$api$$bundle_api$$response$$single$$2,
+        "waf-product-api-bundle_messages": waf$$product$$api$$bundle_messages,
+        "waf-product-api-bundle_response-status-2": waf$$product$$api$$bundle_response$$status$$2,
+        "waf-product-api-bundle_status-2": waf$$product$$api$$bundle_status$$2,
       },
     },
     annotations: {
@@ -72,12 +80,12 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "waf-product-api-bundle_api-response-common-2": waf_product_api_bundle_api_response_common_2_output,
-        "waf-product-api-bundle_api-response-common-failure-2": waf_product_api_bundle_api_response_common_failure_2_output,
-        "waf-product-api-bundle_api-response-single-2": waf_product_api_bundle_api_response_single_2_output,
-        "waf-product-api-bundle_messages": waf_product_api_bundle_messages_output,
-        "waf-product-api-bundle_response-status-2": waf_product_api_bundle_response_status_2_output,
-        "waf-product-api-bundle_status-2": waf_product_api_bundle_status_2_output,
+        "waf-product-api-bundle_api-response-common-2": waf$$product$$api$$bundle_api$$response$$common$$2,
+        "waf-product-api-bundle_api-response-common-failure-2": waf$$product$$api$$bundle_api$$response$$common$$failure$$2,
+        "waf-product-api-bundle_api-response-single-2": waf$$product$$api$$bundle_api$$response$$single$$2,
+        "waf-product-api-bundle_messages": waf$$product$$api$$bundle_messages,
+        "waf-product-api-bundle_response-status-2": waf$$product$$api$$bundle_response$$status$$2,
+        "waf-product-api-bundle_status-2": waf$$product$$api$$bundle_status$$2,
       },
     },
     request: (args) => ({
@@ -85,7 +93,7 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "content_scan_update",
+    name: "contentScan_update",
     title: "Update the Content Scanning status for a zone.",
     description: "Update the Content Scanning status by setting the status value to `enabled` or `disabled`. This is equivalent to calling the dedicated enable and disable endpoints.\n\nConfirm with the user before calling this tool. This operation toggles Content Scanning for a zone.",
     inputSchema: {
@@ -108,27 +116,35 @@ export const tools: readonly Tool[] = [
           ],
           "type": "object"
         },
-        "zone_id": {
-          "$ref": "#/$defs/waf-product-api-bundle_identifier",
-          "description": "Defines an identifier."
+        "path": {
+          "properties": {
+            "zone_id": {
+              "$ref": "#/$defs/waf-product-api-bundle_identifier",
+              "description": "Defines an identifier."
+            }
+          },
+          "required": [
+            "zone_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "zone_id",
+        "path",
         "body"
       ],
       $defs: {
-        "waf-product-api-bundle_identifier": waf_product_api_bundle_identifier,
+        "waf-product-api-bundle_identifier": waf$$product$$api$$bundle_identifier,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/waf-product-api-bundle_response-status-2",
       $defs: {
-        "waf-product-api-bundle_api-response-common-2": waf_product_api_bundle_api_response_common_2_output,
-        "waf-product-api-bundle_api-response-single-2": waf_product_api_bundle_api_response_single_2_output,
-        "waf-product-api-bundle_messages": waf_product_api_bundle_messages_output,
-        "waf-product-api-bundle_response-status-2": waf_product_api_bundle_response_status_2_output,
-        "waf-product-api-bundle_status-2": waf_product_api_bundle_status_2_output,
+        "waf-product-api-bundle_api-response-common-2": waf$$product$$api$$bundle_api$$response$$common$$2,
+        "waf-product-api-bundle_api-response-single-2": waf$$product$$api$$bundle_api$$response$$single$$2,
+        "waf-product-api-bundle_messages": waf$$product$$api$$bundle_messages,
+        "waf-product-api-bundle_response-status-2": waf$$product$$api$$bundle_response$$status$$2,
+        "waf-product-api-bundle_status-2": waf$$product$$api$$bundle_status$$2,
       },
     },
     annotations: {
@@ -156,12 +172,12 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "waf-product-api-bundle_api-response-common-2": waf_product_api_bundle_api_response_common_2_output,
-        "waf-product-api-bundle_api-response-common-failure-2": waf_product_api_bundle_api_response_common_failure_2_output,
-        "waf-product-api-bundle_api-response-single-2": waf_product_api_bundle_api_response_single_2_output,
-        "waf-product-api-bundle_messages": waf_product_api_bundle_messages_output,
-        "waf-product-api-bundle_response-status-2": waf_product_api_bundle_response_status_2_output,
-        "waf-product-api-bundle_status-2": waf_product_api_bundle_status_2_output,
+        "waf-product-api-bundle_api-response-common-2": waf$$product$$api$$bundle_api$$response$$common$$2,
+        "waf-product-api-bundle_api-response-common-failure-2": waf$$product$$api$$bundle_api$$response$$common$$failure$$2,
+        "waf-product-api-bundle_api-response-single-2": waf$$product$$api$$bundle_api$$response$$single$$2,
+        "waf-product-api-bundle_messages": waf$$product$$api$$bundle_messages,
+        "waf-product-api-bundle_response-status-2": waf$$product$$api$$bundle_response$$status$$2,
+        "waf-product-api-bundle_status-2": waf$$product$$api$$bundle_status$$2,
       },
     },
     request: (args) => ({

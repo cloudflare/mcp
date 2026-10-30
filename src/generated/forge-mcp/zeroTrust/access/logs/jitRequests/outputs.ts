@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../../_/tool.js";
 /**
  * The schema of `access_jit_request_event` in responses.
  */
-export const access_jit_request_event_output: JsonSchema = {
+export const access_jit_request_event: JsonSchema = {
   "properties": {
     "actor_email": {
       "type": "string"
@@ -43,7 +43,7 @@ export const access_jit_request_event_output: JsonSchema = {
 /**
  * The schema of `access_jit_request_event_type` in responses.
  */
-export const access_jit_request_event_type_output: JsonSchema = {
+export const access_jit_request_event_type: JsonSchema = {
   "enum": [
     "CREATED",
     "APPROVER_DECISION",
@@ -58,7 +58,7 @@ export const access_jit_request_event_type_output: JsonSchema = {
 /**
  * The schema of `access_jit_request_log` in responses.
  */
-export const access_jit_request_log_output: JsonSchema = {
+export const access_jit_request_log: JsonSchema = {
   "properties": {
     "app_aud": {
       "type": "string"
@@ -100,7 +100,7 @@ export const access_jit_request_log_output: JsonSchema = {
 /**
  * The schema of `access_jit_request_log_detail` in responses.
  */
-export const access_jit_request_log_detail_output: JsonSchema = {
+export const access_jit_request_log_detail: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/access_jit_request_log"
@@ -122,7 +122,7 @@ export const access_jit_request_log_detail_output: JsonSchema = {
 /**
  * The schema of `access_jit_request_status` in responses.
  */
-export const access_jit_request_status_output: JsonSchema = {
+export const access_jit_request_status: JsonSchema = {
   "enum": [
     "PENDING",
     "APPROVED",
@@ -136,7 +136,7 @@ export const access_jit_request_status_output: JsonSchema = {
 /**
  * The schema of `access_response_collection-13` in responses.
  */
-export const access_response_collection_13_output: JsonSchema = {
+export const access_response_collection$$13: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/access_api-response-collection"
@@ -158,7 +158,7 @@ export const access_response_collection_13_output: JsonSchema = {
 /**
  * The schema of `access_response_single` in responses.
  */
-export const access_response_single_output: JsonSchema = {
+export const access_response_single: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/access_api-response-single"

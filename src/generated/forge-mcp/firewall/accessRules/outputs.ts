@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `firewall_api-response-single-id` in responses.
  */
-export const firewall_api_response_single_id_output: JsonSchema = {
+export const firewall_api$$response$$single$$id: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/firewall_api-response-common"
@@ -40,14 +40,14 @@ export const firewall_api_response_single_id_output: JsonSchema = {
 /**
  * The schema of `firewall_email` in responses.
  */
-export const firewall_email_output: JsonSchema = {
+export const firewall_email: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `firewall_response_collection` in responses.
  */
-export const firewall_response_collection_output: JsonSchema = {
+export const firewall_response_collection: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/firewall_api-response-collection"
@@ -69,7 +69,7 @@ export const firewall_response_collection_output: JsonSchema = {
 /**
  * The schema of `firewall_response_single` in responses.
  */
-export const firewall_response_single_output: JsonSchema = {
+export const firewall_response_single: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/firewall_api-response-single"
@@ -88,7 +88,7 @@ export const firewall_response_single_output: JsonSchema = {
 /**
  * The schema of `firewall_schemas-rule` in responses.
  */
-export const firewall_schemas_rule_output: JsonSchema = {
+export const firewall_schemas$$rule: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/firewall_rule"

@@ -304,13 +304,13 @@ describe('forge tools', () => {
     answer(`/zones/${ZONE_ID}/access/apps`, cfSuccess([]))
     answer(`/accounts/${ACCOUNT_ID}/access/apps`, cfSuccess([]))
     const apps = (args: Record<string, unknown>) =>
-      callDirectTool(token, 'zero_trust_access_applications_list', args, FORGE_QUERY)
+      callDirectTool(token, 'zeroTrust_access_applications_list', args, FORGE_QUERY)
 
     expectChallenge(
-      await apps({ account_or_zone: 'zones', account_or_zone_id: ZONE_ID }),
+      await apps({ path: { account_or_zone: 'zones', account_or_zone_id: ZONE_ID } }),
       'zone-access.read'
     )
-    expectChallenge(await apps({ account_or_zone: 'accounts' }), 'access.read')
+    expectChallenge(await apps({ path: { account_or_zone: 'accounts' } }), 'access.read')
   })
 })
 

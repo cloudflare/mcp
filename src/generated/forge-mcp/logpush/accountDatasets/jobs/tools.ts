@@ -3,92 +3,103 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
-  logpush_api_response_common_failure_output,
-  logpush_api_response_common_output,
-  logpush_dataset_output,
-  logpush_destination_conf_output,
-  logpush_enabled_output,
-  logpush_error_message_output,
-  logpush_filter_attack_traffic_output,
-  logpush_frequency_output,
-  logpush_id_output,
-  logpush_kind_output,
-  logpush_last_complete_output,
-  logpush_last_error_output,
-  logpush_logpull_options_output,
-  logpush_logpush_job_output,
-  logpush_logpush_job_response_collection_output,
-  logpush_max_upload_bytes_output,
-  logpush_max_upload_interval_seconds_output,
-  logpush_max_upload_records_output,
-  logpush_messages_output,
-  logpush_name_output,
-  logpush_output_options_output,
+  logpush_api$$response$$common,
+  logpush_api$$response$$common$$failure,
+  logpush_dataset,
+  logpush_destination_conf,
+  logpush_enabled,
+  logpush_error_message,
+  logpush_filter_attack_traffic,
+  logpush_frequency,
+  logpush_id,
+  logpush_kind,
+  logpush_last_complete,
+  logpush_last_error,
+  logpush_logpull_options,
+  logpush_logpush_job,
+  logpush_logpush_job_response_collection,
+  logpush_max_upload_bytes,
+  logpush_max_upload_interval_seconds,
+  logpush_max_upload_records,
+  logpush_messages,
+  logpush_name,
+  logpush_output_options,
 } from "../../outputs.js";
-import { logpush_dataset, logpush_identifier } from "../../schemas.js";
+import {
+  logpush_dataset as logpush_dataset$,
+  logpush_identifier,
+} from "../../schemas.js";
 
 /**
- * The tools of `logpush.account_datasets.jobs`.
+ * The tools of `logpush.accountDatasets.jobs`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "logpush_account_datasets_jobs_get",
+    name: "logpush_accountDatasets_jobs_get",
     title: "List Logpush jobs for a dataset",
     description: "Lists Logpush jobs for an account or zone for a dataset.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_or_zone": {
-          "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
-          "enum": [
-            "accounts",
-            "zones"
+        "path": {
+          "properties": {
+            "account_or_zone": {
+              "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
+              "enum": [
+                "accounts",
+                "zones"
+              ],
+              "type": "string"
+            },
+            "account_or_zone_id": {
+              "$ref": "#/$defs/logpush_identifier",
+              "description": "The account ID or zone ID, as selected by account_or_zone."
+            },
+            "dataset_id": {
+              "$ref": "#/$defs/logpush_dataset",
+              "default": "http_requests",
+              "description": "Name of the dataset. A list of supported datasets can be found on the [Developer Docs](https://developers.cloudflare.com/logs/reference/log-fields/)."
+            }
+          },
+          "required": [
+            "account_or_zone",
+            "account_or_zone_id",
+            "dataset_id"
           ],
-          "type": "string"
-        },
-        "account_or_zone_id": {
-          "$ref": "#/$defs/logpush_identifier",
-          "description": "The account ID or zone ID, as selected by account_or_zone."
-        },
-        "dataset_id": {
-          "$ref": "#/$defs/logpush_dataset",
-          "default": "http_requests",
-          "description": "Name of the dataset. A list of supported datasets can be found on the [Developer Docs](https://developers.cloudflare.com/logs/reference/log-fields/)."
+          "type": "object"
         }
       },
       required: [
-        "account_or_zone",
-        "account_or_zone_id",
-        "dataset_id"
+        "path"
       ],
       $defs: {
-        "logpush_dataset": logpush_dataset,
+        "logpush_dataset": logpush_dataset$,
         "logpush_identifier": logpush_identifier,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/logpush_logpush_job_response_collection",
       $defs: {
-        "logpush_api-response-common": logpush_api_response_common_output,
-        "logpush_dataset": logpush_dataset_output,
-        "logpush_destination_conf": logpush_destination_conf_output,
-        "logpush_enabled": logpush_enabled_output,
-        "logpush_error_message": logpush_error_message_output,
-        "logpush_filter_attack_traffic": logpush_filter_attack_traffic_output,
-        "logpush_frequency": logpush_frequency_output,
-        "logpush_id": logpush_id_output,
-        "logpush_kind": logpush_kind_output,
-        "logpush_last_complete": logpush_last_complete_output,
-        "logpush_last_error": logpush_last_error_output,
-        "logpush_logpull_options": logpush_logpull_options_output,
-        "logpush_logpush_job": logpush_logpush_job_output,
-        "logpush_logpush_job_response_collection": logpush_logpush_job_response_collection_output,
-        "logpush_max_upload_bytes": logpush_max_upload_bytes_output,
-        "logpush_max_upload_interval_seconds": logpush_max_upload_interval_seconds_output,
-        "logpush_max_upload_records": logpush_max_upload_records_output,
-        "logpush_messages": logpush_messages_output,
-        "logpush_name": logpush_name_output,
-        "logpush_output_options": logpush_output_options_output,
+        "logpush_api-response-common": logpush_api$$response$$common,
+        "logpush_dataset": logpush_dataset,
+        "logpush_destination_conf": logpush_destination_conf,
+        "logpush_enabled": logpush_enabled,
+        "logpush_error_message": logpush_error_message,
+        "logpush_filter_attack_traffic": logpush_filter_attack_traffic,
+        "logpush_frequency": logpush_frequency,
+        "logpush_id": logpush_id,
+        "logpush_kind": logpush_kind,
+        "logpush_last_complete": logpush_last_complete,
+        "logpush_last_error": logpush_last_error,
+        "logpush_logpull_options": logpush_logpull_options,
+        "logpush_logpush_job": logpush_logpush_job,
+        "logpush_logpush_job_response_collection": logpush_logpush_job_response_collection,
+        "logpush_max_upload_bytes": logpush_max_upload_bytes,
+        "logpush_max_upload_interval_seconds": logpush_max_upload_interval_seconds,
+        "logpush_max_upload_records": logpush_max_upload_records,
+        "logpush_messages": logpush_messages,
+        "logpush_name": logpush_name,
+        "logpush_output_options": logpush_output_options,
       },
     },
     annotations: {
@@ -126,27 +137,27 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "logpush_api-response-common": logpush_api_response_common_output,
-        "logpush_api-response-common-failure": logpush_api_response_common_failure_output,
-        "logpush_dataset": logpush_dataset_output,
-        "logpush_destination_conf": logpush_destination_conf_output,
-        "logpush_enabled": logpush_enabled_output,
-        "logpush_error_message": logpush_error_message_output,
-        "logpush_filter_attack_traffic": logpush_filter_attack_traffic_output,
-        "logpush_frequency": logpush_frequency_output,
-        "logpush_id": logpush_id_output,
-        "logpush_kind": logpush_kind_output,
-        "logpush_last_complete": logpush_last_complete_output,
-        "logpush_last_error": logpush_last_error_output,
-        "logpush_logpull_options": logpush_logpull_options_output,
-        "logpush_logpush_job": logpush_logpush_job_output,
-        "logpush_logpush_job_response_collection": logpush_logpush_job_response_collection_output,
-        "logpush_max_upload_bytes": logpush_max_upload_bytes_output,
-        "logpush_max_upload_interval_seconds": logpush_max_upload_interval_seconds_output,
-        "logpush_max_upload_records": logpush_max_upload_records_output,
-        "logpush_messages": logpush_messages_output,
-        "logpush_name": logpush_name_output,
-        "logpush_output_options": logpush_output_options_output,
+        "logpush_api-response-common": logpush_api$$response$$common,
+        "logpush_api-response-common-failure": logpush_api$$response$$common$$failure,
+        "logpush_dataset": logpush_dataset,
+        "logpush_destination_conf": logpush_destination_conf,
+        "logpush_enabled": logpush_enabled,
+        "logpush_error_message": logpush_error_message,
+        "logpush_filter_attack_traffic": logpush_filter_attack_traffic,
+        "logpush_frequency": logpush_frequency,
+        "logpush_id": logpush_id,
+        "logpush_kind": logpush_kind,
+        "logpush_last_complete": logpush_last_complete,
+        "logpush_last_error": logpush_last_error,
+        "logpush_logpull_options": logpush_logpull_options,
+        "logpush_logpush_job": logpush_logpush_job,
+        "logpush_logpush_job_response_collection": logpush_logpush_job_response_collection,
+        "logpush_max_upload_bytes": logpush_max_upload_bytes,
+        "logpush_max_upload_interval_seconds": logpush_max_upload_interval_seconds,
+        "logpush_max_upload_records": logpush_max_upload_records,
+        "logpush_messages": logpush_messages,
+        "logpush_name": logpush_name,
+        "logpush_output_options": logpush_output_options,
       },
     },
     request: (args) => ({

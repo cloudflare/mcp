@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../../_/tool.js";
 /**
  * The schema of `posture-api_CreateRemediationJobResponse` in responses.
  */
-export const posture_api_CreateRemediationJobResponse_output: JsonSchema = {
+export const posture$$api_CreateRemediationJobResponse: JsonSchema = {
   "properties": {
     "errors": {
       "items": {
@@ -57,7 +57,7 @@ export const posture_api_CreateRemediationJobResponse_output: JsonSchema = {
 /**
  * The schema of `posture-api_PaginatedRemediationJobList` in responses.
  */
-export const posture_api_PaginatedRemediationJobList_output: JsonSchema = {
+export const posture$$api_PaginatedRemediationJobList: JsonSchema = {
   "properties": {
     "errors": {
       "items": {
@@ -121,7 +121,7 @@ export const posture_api_PaginatedRemediationJobList_output: JsonSchema = {
 /**
  * The schema of `posture-api_RemediationJob` in responses.
  */
-export const posture_api_RemediationJob_output: JsonSchema = {
+export const posture$$api_RemediationJob: JsonSchema = {
   "properties": {
     "asset": {
       "$ref": "#/$defs/posture-api_RemediationJobAsset"
@@ -209,7 +209,7 @@ export const posture_api_RemediationJob_output: JsonSchema = {
 /**
  * The schema of `posture-api_RemediationJobAsset` in responses.
  */
-export const posture_api_RemediationJobAsset_output: JsonSchema = {
+export const posture$$api_RemediationJobAsset: JsonSchema = {
   "properties": {
     "category": {
       "$ref": "#/$defs/posture-api_RemediationJobAssetCategory"
@@ -254,7 +254,7 @@ export const posture_api_RemediationJobAsset_output: JsonSchema = {
 /**
  * The schema of `posture-api_RemediationJobAssetCategory` in responses.
  */
-export const posture_api_RemediationJobAssetCategory_output: JsonSchema = {
+export const posture$$api_RemediationJobAssetCategory: JsonSchema = {
   "properties": {
     "service": {
       "type": "string"
@@ -277,7 +277,7 @@ export const posture_api_RemediationJobAssetCategory_output: JsonSchema = {
 /**
  * The schema of `posture-api_RemediationJobAssetField` in responses.
  */
-export const posture_api_RemediationJobAssetField_output: JsonSchema = {
+export const posture$$api_RemediationJobAssetField: JsonSchema = {
   "properties": {
     "link": {
       "oneOf": [
@@ -316,7 +316,7 @@ export const posture_api_RemediationJobAssetField_output: JsonSchema = {
 /**
  * The schema of `posture-api_RemediationJobFailure` in responses.
  */
-export const posture_api_RemediationJobFailure_output: JsonSchema = {
+export const posture$$api_RemediationJobFailure: JsonSchema = {
   "properties": {
     "error": {
       "type": "string"
@@ -336,7 +336,7 @@ export const posture_api_RemediationJobFailure_output: JsonSchema = {
 /**
  * The schema of `posture-api_VendorsDisplayNameEnum` in responses.
  */
-export const posture_api_VendorsDisplayNameEnum_output: JsonSchema = {
+export const posture$$api_VendorsDisplayNameEnum: JsonSchema = {
   "enum": [
     "AWS",
     "Anthropic",

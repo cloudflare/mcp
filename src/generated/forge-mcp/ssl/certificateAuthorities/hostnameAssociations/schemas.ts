@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `tls-certificates-and-hostnames_hostname_association`.
  */
-export const tls_certificates_and_hostnames_hostname_association: JsonSchema = {
+export const tls$$certificates$$and$$hostnames_hostname_association: JsonSchema = {
   "properties": {
     "hostnames": {
       "$ref": "#/$defs/tls-certificates-and-hostnames_hostnames-2"
@@ -22,7 +22,7 @@ export const tls_certificates_and_hostnames_hostname_association: JsonSchema = {
 /**
  * The schema of `tls-certificates-and-hostnames_hostnames-2`.
  */
-export const tls_certificates_and_hostnames_hostnames_2: JsonSchema = {
+export const tls$$certificates$$and$$hostnames_hostnames$$2: JsonSchema = {
   "items": {
     "type": "string"
   },

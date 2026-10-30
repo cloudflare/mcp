@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `pay-per-crawl_PPUOperatorConfiguration`.
  */
-export const pay_per_crawl_PPUOperatorConfiguration: JsonSchema = {
+export const pay$$per$$crawl_PPUOperatorConfiguration: JsonSchema = {
   "properties": {
     "default_price_usd_microcents": {
       "description": "Default price in microcents. 1 USD = 100,000,000 microcents. Must be a multiple of 100,000 ($0.001) between $0.001 and $9,999.999.",
@@ -30,7 +30,7 @@ export const pay_per_crawl_PPUOperatorConfiguration: JsonSchema = {
 /**
  * The schema of `pay-per-crawl_PPUOperatorConfigurationUpdate`.
  */
-export const pay_per_crawl_PPUOperatorConfigurationUpdate: JsonSchema = {
+export const pay$$per$$crawl_PPUOperatorConfigurationUpdate: JsonSchema = {
   "properties": {
     "default_price_usd_microcents": {
       "description": "Default price in microcents. 1 USD = 100,000,000 microcents. Must be a multiple of 100,000 ($0.001) between $0.001 and $9,999.999.",

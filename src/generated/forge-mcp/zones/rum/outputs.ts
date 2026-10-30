@@ -6,21 +6,21 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `rum_editable` in responses.
  */
-export const rum_editable_output: JsonSchema = {
+export const rum_editable: JsonSchema = {
   "type": "boolean"
 };
 
 /**
  * The schema of `rum_id` in responses.
  */
-export const rum_id_output: JsonSchema = {
+export const rum_id: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `rum_rum-site-response-single` in responses.
  */
-export const rum_rum_site_response_single_output: JsonSchema = {
+export const rum_rum$$site$$response$$single: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/rum_api-response-common"
@@ -39,7 +39,7 @@ export const rum_rum_site_response_single_output: JsonSchema = {
 /**
  * The schema of `rum_rum_site` in responses.
  */
-export const rum_rum_site_output: JsonSchema = {
+export const rum_rum_site: JsonSchema = {
   "properties": {
     "editable": {
       "$ref": "#/$defs/rum_editable"
@@ -57,6 +57,6 @@ export const rum_rum_site_output: JsonSchema = {
 /**
  * The schema of `rum_value` in responses.
  */
-export const rum_value_output: JsonSchema = {
+export const rum_value: JsonSchema = {
   "type": "string"
 };

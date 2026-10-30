@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../../_/tool.js";
 /**
  * The schema of `teams-devices_browser_extension_config` in responses.
  */
-export const teams_devices_browser_extension_config_output: JsonSchema = {
+export const teams$$devices_browser_extension_config: JsonSchema = {
   "oneOf": [
     {
       "properties": {
@@ -36,14 +36,14 @@ export const teams_devices_browser_extension_config_output: JsonSchema = {
 /**
  * The schema of `teams-devices_default` in responses.
  */
-export const teams_devices_default_output: JsonSchema = {
+export const teams$$devices_default: JsonSchema = {
   "type": "boolean"
 };
 
 /**
  * The schema of `teams-devices_device_settings_policy` in responses.
  */
-export const teams_devices_device_settings_policy_output: JsonSchema = {
+export const teams$$devices_device_settings_policy: JsonSchema = {
   "properties": {
     "allow_mode_switch": {
       "$ref": "#/$defs/teams-devices_allow_mode_switch"
@@ -157,7 +157,7 @@ export const teams_devices_device_settings_policy_output: JsonSchema = {
 /**
  * The schema of `teams-devices_device_settings_response` in responses.
  */
-export const teams_devices_device_settings_response_output: JsonSchema = {
+export const teams$$devices_device_settings_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/teams-devices_api-response-single"
@@ -177,7 +177,7 @@ export const teams_devices_device_settings_response_output: JsonSchema = {
  * The schema of `teams-devices_device_settings_response_collection` in
  * responses.
  */
-export const teams_devices_device_settings_response_collection_output: JsonSchema = {
+export const teams$$devices_device_settings_response_collection: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/teams-devices_api-response-collection"
@@ -199,28 +199,28 @@ export const teams_devices_device_settings_response_collection_output: JsonSchem
 /**
  * The schema of `teams-devices_precedence` in responses.
  */
-export const teams_devices_precedence_output: JsonSchema = {
+export const teams$$devices_precedence: JsonSchema = {
   "type": "number"
 };
 
 /**
  * The schema of `teams-devices_schemas-description` in responses.
  */
-export const teams_devices_schemas_description_output: JsonSchema = {
+export const teams$$devices_schemas$$description: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `teams-devices_schemas-match` in responses.
  */
-export const teams_devices_schemas_match_output: JsonSchema = {
+export const teams$$devices_schemas$$match: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `teams-devices_target_dex_test` in responses.
  */
-export const teams_devices_target_dex_test_output: JsonSchema = {
+export const teams$$devices_target_dex_test: JsonSchema = {
   "properties": {
     "id": {
       "type": "string"

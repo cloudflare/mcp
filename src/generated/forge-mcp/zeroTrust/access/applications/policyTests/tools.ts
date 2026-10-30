@@ -3,9 +3,9 @@
 
 import { type Tool, pathParam } from "../../../../_/tool.js";
 import {
-  access_api_response_common_failure_output,
-  access_api_response_single_output,
-  access_messages_output,
+  access_api$$response$$common$$failure,
+  access_api$$response$$single,
+  access_messages,
 } from "../../../outputs.js";
 import { access_identifier } from "../../../schemas.js";
 import {
@@ -32,18 +32,18 @@ import {
   access_email_list_rule,
   access_email_rule,
   access_everyone_rule,
-  access_exclude_2,
+  access_exclude$$2,
   access_external_evaluation_rule,
   access_github_organization_rule,
   access_gsuite_group_rule,
-  access_include_2,
+  access_include$$2,
   access_ip_list_rule,
   access_ip_rule,
   access_isolation_required,
   access_linked_app_token_rule,
   access_login_method_rule,
   access_mfa_config,
-  access_name_9,
+  access_name$$9,
   access_oidc_claim_rule,
   access_okta_group_rule,
   access_policy_req,
@@ -51,52 +51,63 @@ import {
   access_purpose_justification_prompt,
   access_purpose_justification_required,
   access_rdp_clipboard_format,
-  access_require_2,
+  access_require$$2,
   access_rule,
   access_saml_group_rule,
   access_service_token_rule,
   access_service_token_tag_rule,
-  access_session_duration_3,
+  access_session_duration$$3,
   access_user_risk_score_rule,
 } from "../../schemas.js";
 import {
-  access_percent_approved_output,
-  access_percent_blocked_output,
-  access_percent_errored_output,
-  access_percent_users_processed_output,
-  access_policy_init_resp_output,
-  access_policy_test_id_output,
-  access_policy_update_resp_output,
-  access_status_output,
-  access_total_users_output,
-  access_update_status_output,
-  access_users_approved_output,
-  access_users_blocked_output,
-  access_users_errored_output,
+  access_percent_approved,
+  access_percent_blocked,
+  access_percent_errored,
+  access_percent_users_processed,
+  access_policy_init_resp,
+  access_policy_test_id,
+  access_policy_update_resp,
+  access_status,
+  access_total_users,
+  access_update_status,
+  access_users_approved,
+  access_users_blocked,
+  access_users_errored,
 } from "./outputs.js";
-import { access_policy_init_req, access_policy_test_id } from "./schemas.js";
+import {
+  access_policy_init_req,
+  access_policy_test_id as access_policy_test_id$,
+} from "./schemas.js";
 
 /**
- * The tools of `zero_trust.access.applications.policy_tests`.
+ * The tools of `zeroTrust.access.applications.policyTests`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "zero_trust_access_applications_policy_tests_create",
+    name: "zeroTrust_access_applications_policyTests_create",
     title: "Start Access policy test",
     description: "Starts an Access policy test.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/access_identifier",
-          "description": "Identifier."
-        },
         "body": {
           "$ref": "#/$defs/access_policy_init_req"
+        },
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/access_identifier",
+              "description": "Identifier."
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
+        "path",
         "body"
       ],
       $defs: {
@@ -123,19 +134,19 @@ export const tools: readonly Tool[] = [
         "access_email_list_rule": access_email_list_rule,
         "access_email_rule": access_email_rule,
         "access_everyone_rule": access_everyone_rule,
-        "access_exclude-2": access_exclude_2,
+        "access_exclude-2": access_exclude$$2,
         "access_external_evaluation_rule": access_external_evaluation_rule,
         "access_github_organization_rule": access_github_organization_rule,
         "access_gsuite_group_rule": access_gsuite_group_rule,
         "access_identifier": access_identifier,
-        "access_include-2": access_include_2,
+        "access_include-2": access_include$$2,
         "access_ip_list_rule": access_ip_list_rule,
         "access_ip_rule": access_ip_rule,
         "access_isolation_required": access_isolation_required,
         "access_linked_app_token_rule": access_linked_app_token_rule,
         "access_login_method_rule": access_login_method_rule,
         "access_mfa_config": access_mfa_config,
-        "access_name-9": access_name_9,
+        "access_name-9": access_name$$9,
         "access_oidc_claim_rule": access_oidc_claim_rule,
         "access_okta_group_rule": access_okta_group_rule,
         "access_policy_init_req": access_policy_init_req,
@@ -144,23 +155,23 @@ export const tools: readonly Tool[] = [
         "access_purpose_justification_prompt": access_purpose_justification_prompt,
         "access_purpose_justification_required": access_purpose_justification_required,
         "access_rdp_clipboard_format": access_rdp_clipboard_format,
-        "access_require-2": access_require_2,
+        "access_require-2": access_require$$2,
         "access_rule": access_rule,
         "access_saml_group_rule": access_saml_group_rule,
         "access_service_token_rule": access_service_token_rule,
         "access_service_token_tag_rule": access_service_token_tag_rule,
-        "access_session_duration-3": access_session_duration_3,
+        "access_session_duration-3": access_session_duration$$3,
         "access_user_risk_score_rule": access_user_risk_score_rule,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/access_policy_init_resp",
       $defs: {
-        "access_api-response-single": access_api_response_single_output,
-        "access_messages": access_messages_output,
-        "access_policy_init_resp": access_policy_init_resp_output,
-        "access_policy_test_id": access_policy_test_id_output,
-        "access_status": access_status_output,
+        "access_api-response-single": access_api$$response$$single,
+        "access_messages": access_messages,
+        "access_policy_init_resp": access_policy_init_resp,
+        "access_policy_test_id": access_policy_test_id,
+        "access_status": access_status,
       },
     },
     annotations: {
@@ -187,12 +198,12 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "access_api-response-common-failure": access_api_response_common_failure_output,
-        "access_api-response-single": access_api_response_single_output,
-        "access_messages": access_messages_output,
-        "access_policy_init_resp": access_policy_init_resp_output,
-        "access_policy_test_id": access_policy_test_id_output,
-        "access_status": access_status_output,
+        "access_api-response-common-failure": access_api$$response$$common$$failure,
+        "access_api-response-single": access_api$$response$$single,
+        "access_messages": access_messages,
+        "access_policy_init_resp": access_policy_init_resp,
+        "access_policy_test_id": access_policy_test_id,
+        "access_status": access_status,
       },
     },
     request: (args) => ({
@@ -201,46 +212,54 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "zero_trust_access_applications_policy_tests_get",
+    name: "zeroTrust_access_applications_policyTests_get",
     title: "Get the current status of a given Access policy test",
     description: "Fetches the current status of a given Access policy test.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/access_identifier",
-          "description": "Identifier."
-        },
-        "policy_test_id": {
-          "$ref": "#/$defs/access_policy_test_id",
-          "description": "The UUID of the policy test."
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/access_identifier",
+              "description": "Identifier."
+            },
+            "policy_test_id": {
+              "$ref": "#/$defs/access_policy_test_id",
+              "description": "The UUID of the policy test."
+            }
+          },
+          "required": [
+            "account_id",
+            "policy_test_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "policy_test_id"
+        "path"
       ],
       $defs: {
         "access_identifier": access_identifier,
-        "access_policy_test_id": access_policy_test_id,
+        "access_policy_test_id": access_policy_test_id$,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/access_policy_update_resp",
       $defs: {
-        "access_api-response-single": access_api_response_single_output,
-        "access_messages": access_messages_output,
-        "access_percent_approved": access_percent_approved_output,
-        "access_percent_blocked": access_percent_blocked_output,
-        "access_percent_errored": access_percent_errored_output,
-        "access_percent_users_processed": access_percent_users_processed_output,
-        "access_policy_test_id": access_policy_test_id_output,
-        "access_policy_update_resp": access_policy_update_resp_output,
-        "access_total_users": access_total_users_output,
-        "access_update_status": access_update_status_output,
-        "access_users_approved": access_users_approved_output,
-        "access_users_blocked": access_users_blocked_output,
-        "access_users_errored": access_users_errored_output,
+        "access_api-response-single": access_api$$response$$single,
+        "access_messages": access_messages,
+        "access_percent_approved": access_percent_approved,
+        "access_percent_blocked": access_percent_blocked,
+        "access_percent_errored": access_percent_errored,
+        "access_percent_users_processed": access_percent_users_processed,
+        "access_policy_test_id": access_policy_test_id,
+        "access_policy_update_resp": access_policy_update_resp,
+        "access_total_users": access_total_users,
+        "access_update_status": access_update_status,
+        "access_users_approved": access_users_approved,
+        "access_users_blocked": access_users_blocked,
+        "access_users_errored": access_users_errored,
       },
     },
     annotations: {
@@ -268,20 +287,20 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "access_api-response-common-failure": access_api_response_common_failure_output,
-        "access_api-response-single": access_api_response_single_output,
-        "access_messages": access_messages_output,
-        "access_percent_approved": access_percent_approved_output,
-        "access_percent_blocked": access_percent_blocked_output,
-        "access_percent_errored": access_percent_errored_output,
-        "access_percent_users_processed": access_percent_users_processed_output,
-        "access_policy_test_id": access_policy_test_id_output,
-        "access_policy_update_resp": access_policy_update_resp_output,
-        "access_total_users": access_total_users_output,
-        "access_update_status": access_update_status_output,
-        "access_users_approved": access_users_approved_output,
-        "access_users_blocked": access_users_blocked_output,
-        "access_users_errored": access_users_errored_output,
+        "access_api-response-common-failure": access_api$$response$$common$$failure,
+        "access_api-response-single": access_api$$response$$single,
+        "access_messages": access_messages,
+        "access_percent_approved": access_percent_approved,
+        "access_percent_blocked": access_percent_blocked,
+        "access_percent_errored": access_percent_errored,
+        "access_percent_users_processed": access_percent_users_processed,
+        "access_policy_test_id": access_policy_test_id,
+        "access_policy_update_resp": access_policy_update_resp,
+        "access_total_users": access_total_users,
+        "access_update_status": access_update_status,
+        "access_users_approved": access_users_approved,
+        "access_users_blocked": access_users_blocked,
+        "access_users_errored": access_users_errored,
       },
     },
     request: (args) => ({

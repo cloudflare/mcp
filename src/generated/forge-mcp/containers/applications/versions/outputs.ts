@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `cc_ApplicationVersion` in responses.
  */
-export const cc_ApplicationVersion_output: JsonSchema = {
+export const cc_ApplicationVersion: JsonSchema = {
   "properties": {
     "configuration": {
       "$ref": "#/$defs/cc_ModifyUserDeploymentConfiguration"

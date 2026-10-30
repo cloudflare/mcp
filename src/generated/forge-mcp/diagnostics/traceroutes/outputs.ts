@@ -6,14 +6,14 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `magic-transit_asn` in responses.
  */
-export const magic_transit_asn_output: JsonSchema = {
+export const magic$$transit_asn: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `magic-transit_colo` in responses.
  */
-export const magic_transit_colo_output: JsonSchema = {
+export const magic$$transit_colo: JsonSchema = {
   "properties": {
     "city": {
       "$ref": "#/$defs/magic-transit_colo_city"
@@ -28,21 +28,21 @@ export const magic_transit_colo_output: JsonSchema = {
 /**
  * The schema of `magic-transit_colo_city` in responses.
  */
-export const magic_transit_colo_city_output: JsonSchema = {
+export const magic$$transit_colo_city: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `magic-transit_colo_name` in responses.
  */
-export const magic_transit_colo_name_output: JsonSchema = {
+export const magic$$transit_colo_name: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `magic-transit_colo_result` in responses.
  */
-export const magic_transit_colo_result_output: JsonSchema = {
+export const magic$$transit_colo_result: JsonSchema = {
   "properties": {
     "colo": {
       "$ref": "#/$defs/magic-transit_colo"
@@ -69,7 +69,7 @@ export const magic_transit_colo_result_output: JsonSchema = {
 /**
  * The schema of `magic-transit_error` in responses.
  */
-export const magic_transit_error_output: JsonSchema = {
+export const magic$$transit_error: JsonSchema = {
   "enum": [
     "",
     "Could not gather traceroute data: Code 1",
@@ -83,7 +83,7 @@ export const magic_transit_error_output: JsonSchema = {
 /**
  * The schema of `magic-transit_hop_result` in responses.
  */
-export const magic_transit_hop_result_output: JsonSchema = {
+export const magic$$transit_hop_result: JsonSchema = {
   "properties": {
     "nodes": {
       "items": {
@@ -107,14 +107,14 @@ export const magic_transit_hop_result_output: JsonSchema = {
 /**
  * The schema of `magic-transit_ip` in responses.
  */
-export const magic_transit_ip_output: JsonSchema = {
+export const magic$$transit_ip: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `magic-transit_labels` in responses.
  */
-export const magic_transit_labels_output: JsonSchema = {
+export const magic$$transit_labels: JsonSchema = {
   "items": {
     "type": "string"
   },
@@ -124,35 +124,35 @@ export const magic_transit_labels_output: JsonSchema = {
 /**
  * The schema of `magic-transit_max_rtt_ms` in responses.
  */
-export const magic_transit_max_rtt_ms_output: JsonSchema = {
+export const magic$$transit_max_rtt_ms: JsonSchema = {
   "type": "number"
 };
 
 /**
  * The schema of `magic-transit_mean_rtt_ms` in responses.
  */
-export const magic_transit_mean_rtt_ms_output: JsonSchema = {
+export const magic$$transit_mean_rtt_ms: JsonSchema = {
   "type": "number"
 };
 
 /**
  * The schema of `magic-transit_min_rtt_ms` in responses.
  */
-export const magic_transit_min_rtt_ms_output: JsonSchema = {
+export const magic$$transit_min_rtt_ms: JsonSchema = {
   "type": "number"
 };
 
 /**
  * The schema of `magic-transit_name` in responses.
  */
-export const magic_transit_name_output: JsonSchema = {
+export const magic$$transit_name: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `magic-transit_node_result` in responses.
  */
-export const magic_transit_node_result_output: JsonSchema = {
+export const magic$$transit_node_result: JsonSchema = {
   "properties": {
     "asn": {
       "$ref": "#/$defs/magic-transit_asn"
@@ -188,49 +188,49 @@ export const magic_transit_node_result_output: JsonSchema = {
 /**
  * The schema of `magic-transit_packet_count` in responses.
  */
-export const magic_transit_packet_count_output: JsonSchema = {
+export const magic$$transit_packet_count: JsonSchema = {
   "type": "integer"
 };
 
 /**
  * The schema of `magic-transit_packets_lost` in responses.
  */
-export const magic_transit_packets_lost_output: JsonSchema = {
+export const magic$$transit_packets_lost: JsonSchema = {
   "type": "integer"
 };
 
 /**
  * The schema of `magic-transit_packets_sent` in responses.
  */
-export const magic_transit_packets_sent_output: JsonSchema = {
+export const magic$$transit_packets_sent: JsonSchema = {
   "type": "integer"
 };
 
 /**
  * The schema of `magic-transit_packets_ttl` in responses.
  */
-export const magic_transit_packets_ttl_output: JsonSchema = {
+export const magic$$transit_packets_ttl: JsonSchema = {
   "type": "integer"
 };
 
 /**
  * The schema of `magic-transit_std_dev_rtt_ms` in responses.
  */
-export const magic_transit_std_dev_rtt_ms_output: JsonSchema = {
+export const magic$$transit_std_dev_rtt_ms: JsonSchema = {
   "type": "number"
 };
 
 /**
  * The schema of `magic-transit_target` in responses.
  */
-export const magic_transit_target_output: JsonSchema = {
+export const magic$$transit_target: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `magic-transit_target_result` in responses.
  */
-export const magic_transit_target_result_output: JsonSchema = {
+export const magic$$transit_target_result: JsonSchema = {
   "properties": {
     "colos": {
       "items": {
@@ -248,14 +248,14 @@ export const magic_transit_target_result_output: JsonSchema = {
 /**
  * The schema of `magic-transit_target_summary` in responses.
  */
-export const magic_transit_target_summary_output: JsonSchema = {
+export const magic$$transit_target_summary: JsonSchema = {
   "type": "object"
 };
 
 /**
  * The schema of `magic-transit_traceroute_response_collection` in responses.
  */
-export const magic_transit_traceroute_response_collection_output: JsonSchema = {
+export const magic$$transit_traceroute_response_collection: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/magic-transit_api-response-common"
@@ -277,6 +277,6 @@ export const magic_transit_traceroute_response_collection_output: JsonSchema = {
 /**
  * The schema of `magic-transit_traceroute_time_ms` in responses.
  */
-export const magic_transit_traceroute_time_ms_output: JsonSchema = {
+export const magic$$transit_traceroute_time_ms: JsonSchema = {
   "type": "integer"
 };

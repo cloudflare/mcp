@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `domain-connect_httpError` in responses.
  */
-export const domain_connect_httpError_output: JsonSchema = {
+export const domain$$connect_httpError: JsonSchema = {
   "properties": {
     "error": {
       "type": "string"
@@ -18,7 +18,7 @@ export const domain_connect_httpError_output: JsonSchema = {
 /**
  * The schema of `domain-connect_neededByStratus` in responses.
  */
-export const domain_connect_neededByStratus_output: JsonSchema = {
+export const domain$$connect_neededByStratus: JsonSchema = {
   "properties": {
     "logo": {
       "type": "string"
@@ -36,7 +36,7 @@ export const domain_connect_neededByStratus_output: JsonSchema = {
 /**
  * The schema of `domain-connect_templateSpec` in responses.
  */
-export const domain_connect_templateSpec_output: JsonSchema = {
+export const domain$$connect_templateSpec: JsonSchema = {
   "properties": {
     "accountTags": {
       "items": {

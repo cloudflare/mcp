@@ -3,31 +3,31 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
-  addressing_account_identifier_output,
-  addressing_api_response_common_failure_output,
-  addressing_api_response_single_output,
-  addressing_loa_document_identifier_output,
-  addressing_messages_output,
-  addressing_timestamp_output,
+  addressing_account_identifier,
+  addressing_api$$response$$common$$failure,
+  addressing_api$$response$$single,
+  addressing_loa_document_identifier,
+  addressing_messages,
+  addressing_timestamp,
 } from "../../outputs.js";
-import { addressing_account_identifier } from "../../schemas.js";
+import { addressing_account_identifier as addressing_account_identifier$ } from "../../schemas.js";
 import {
-  addressing_advertised_modified_at_nullable_output,
-  addressing_advertised_output,
-  addressing_approved_output,
-  addressing_asn_output,
-  addressing_cidr_output,
-  addressing_delegate_loa_creation_output,
-  addressing_description_output,
-  addressing_ipam_prefixes_output,
-  addressing_on_demand_enabled_output,
-  addressing_on_demand_locked_output,
-  addressing_ownership_validation_token_output,
-  addressing_prefix_identifier_output,
-  addressing_single_response_output,
-  addressing_validation_state_output,
+  addressing_advertised,
+  addressing_advertised_modified_at_nullable,
+  addressing_approved,
+  addressing_asn,
+  addressing_cidr,
+  addressing_delegate_loa_creation,
+  addressing_description,
+  addressing_ipam$$prefixes,
+  addressing_on_demand_enabled,
+  addressing_on_demand_locked,
+  addressing_ownership_validation_token,
+  addressing_prefix_identifier,
+  addressing_single_response,
+  addressing_validation_state,
 } from "../outputs.js";
-import { addressing_prefix_identifier } from "../schemas.js";
+import { addressing_prefix_identifier as addressing_prefix_identifier$ } from "../schemas.js";
 
 /**
  * The tools of `addressing.prefixes.validate`.
@@ -40,46 +40,54 @@ export const tools: readonly Tool[] = [
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/addressing_account_identifier",
-          "description": "Identifier of a Cloudflare account."
-        },
-        "prefix_id": {
-          "$ref": "#/$defs/addressing_prefix_identifier",
-          "description": "Identifier of an IP Prefix."
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/addressing_account_identifier",
+              "description": "Identifier of a Cloudflare account."
+            },
+            "prefix_id": {
+              "$ref": "#/$defs/addressing_prefix_identifier",
+              "description": "Identifier of an IP Prefix."
+            }
+          },
+          "required": [
+            "account_id",
+            "prefix_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "prefix_id"
+        "path"
       ],
       $defs: {
-        "addressing_account_identifier": addressing_account_identifier,
-        "addressing_prefix_identifier": addressing_prefix_identifier,
+        "addressing_account_identifier": addressing_account_identifier$,
+        "addressing_prefix_identifier": addressing_prefix_identifier$,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/addressing_single_response",
       $defs: {
-        "addressing_account_identifier": addressing_account_identifier_output,
-        "addressing_advertised": addressing_advertised_output,
-        "addressing_advertised_modified_at_nullable": addressing_advertised_modified_at_nullable_output,
-        "addressing_api-response-single": addressing_api_response_single_output,
-        "addressing_approved": addressing_approved_output,
-        "addressing_asn": addressing_asn_output,
-        "addressing_cidr": addressing_cidr_output,
-        "addressing_delegate_loa_creation": addressing_delegate_loa_creation_output,
-        "addressing_description": addressing_description_output,
-        "addressing_ipam-prefixes": addressing_ipam_prefixes_output,
-        "addressing_loa_document_identifier": addressing_loa_document_identifier_output,
-        "addressing_messages": addressing_messages_output,
-        "addressing_on_demand_enabled": addressing_on_demand_enabled_output,
-        "addressing_on_demand_locked": addressing_on_demand_locked_output,
-        "addressing_ownership_validation_token": addressing_ownership_validation_token_output,
-        "addressing_prefix_identifier": addressing_prefix_identifier_output,
-        "addressing_single_response": addressing_single_response_output,
-        "addressing_timestamp": addressing_timestamp_output,
-        "addressing_validation_state": addressing_validation_state_output,
+        "addressing_account_identifier": addressing_account_identifier,
+        "addressing_advertised": addressing_advertised,
+        "addressing_advertised_modified_at_nullable": addressing_advertised_modified_at_nullable,
+        "addressing_api-response-single": addressing_api$$response$$single,
+        "addressing_approved": addressing_approved,
+        "addressing_asn": addressing_asn,
+        "addressing_cidr": addressing_cidr,
+        "addressing_delegate_loa_creation": addressing_delegate_loa_creation,
+        "addressing_description": addressing_description,
+        "addressing_ipam-prefixes": addressing_ipam$$prefixes,
+        "addressing_loa_document_identifier": addressing_loa_document_identifier,
+        "addressing_messages": addressing_messages,
+        "addressing_on_demand_enabled": addressing_on_demand_enabled,
+        "addressing_on_demand_locked": addressing_on_demand_locked,
+        "addressing_ownership_validation_token": addressing_ownership_validation_token,
+        "addressing_prefix_identifier": addressing_prefix_identifier,
+        "addressing_single_response": addressing_single_response,
+        "addressing_timestamp": addressing_timestamp,
+        "addressing_validation_state": addressing_validation_state,
       },
     },
     annotations: {
@@ -114,26 +122,26 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "addressing_account_identifier": addressing_account_identifier_output,
-        "addressing_advertised": addressing_advertised_output,
-        "addressing_advertised_modified_at_nullable": addressing_advertised_modified_at_nullable_output,
-        "addressing_api-response-common-failure": addressing_api_response_common_failure_output,
-        "addressing_api-response-single": addressing_api_response_single_output,
-        "addressing_approved": addressing_approved_output,
-        "addressing_asn": addressing_asn_output,
-        "addressing_cidr": addressing_cidr_output,
-        "addressing_delegate_loa_creation": addressing_delegate_loa_creation_output,
-        "addressing_description": addressing_description_output,
-        "addressing_ipam-prefixes": addressing_ipam_prefixes_output,
-        "addressing_loa_document_identifier": addressing_loa_document_identifier_output,
-        "addressing_messages": addressing_messages_output,
-        "addressing_on_demand_enabled": addressing_on_demand_enabled_output,
-        "addressing_on_demand_locked": addressing_on_demand_locked_output,
-        "addressing_ownership_validation_token": addressing_ownership_validation_token_output,
-        "addressing_prefix_identifier": addressing_prefix_identifier_output,
-        "addressing_single_response": addressing_single_response_output,
-        "addressing_timestamp": addressing_timestamp_output,
-        "addressing_validation_state": addressing_validation_state_output,
+        "addressing_account_identifier": addressing_account_identifier,
+        "addressing_advertised": addressing_advertised,
+        "addressing_advertised_modified_at_nullable": addressing_advertised_modified_at_nullable,
+        "addressing_api-response-common-failure": addressing_api$$response$$common$$failure,
+        "addressing_api-response-single": addressing_api$$response$$single,
+        "addressing_approved": addressing_approved,
+        "addressing_asn": addressing_asn,
+        "addressing_cidr": addressing_cidr,
+        "addressing_delegate_loa_creation": addressing_delegate_loa_creation,
+        "addressing_description": addressing_description,
+        "addressing_ipam-prefixes": addressing_ipam$$prefixes,
+        "addressing_loa_document_identifier": addressing_loa_document_identifier,
+        "addressing_messages": addressing_messages,
+        "addressing_on_demand_enabled": addressing_on_demand_enabled,
+        "addressing_on_demand_locked": addressing_on_demand_locked,
+        "addressing_ownership_validation_token": addressing_ownership_validation_token,
+        "addressing_prefix_identifier": addressing_prefix_identifier,
+        "addressing_single_response": addressing_single_response,
+        "addressing_timestamp": addressing_timestamp,
+        "addressing_validation_state": addressing_validation_state,
       },
     },
     request: (args) => ({

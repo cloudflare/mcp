@@ -3,19 +3,19 @@
 
 import { type Tool, pathParam } from "../_/tool.js";
 import {
-  cache_purge_api_response_common_failure_output,
-  cache_purge_api_response_single_id_output,
-  cache_purge_identifier_output,
-  cache_purge_messages_output,
+  cache$$purge_api$$response$$common$$failure,
+  cache$$purge_api$$response$$single$$id,
+  cache$$purge_identifier,
+  cache$$purge_messages,
 } from "./outputs.js";
 import {
-  cache_purge_Everything,
-  cache_purge_FlexPurgeByHostnames,
-  cache_purge_FlexPurgeByPrefixes,
-  cache_purge_FlexPurgeByTags,
-  cache_purge_SingleFile,
-  cache_purge_SingleFileWithUrlAndHeaders,
-  cache_purge_identifier,
+  cache$$purge_Everything,
+  cache$$purge_FlexPurgeByHostnames,
+  cache$$purge_FlexPurgeByPrefixes,
+  cache$$purge_FlexPurgeByTags,
+  cache$$purge_SingleFile,
+  cache$$purge_SingleFileWithUrlAndHeaders,
+  cache$$purge_identifier as cache$$purge_identifier$,
 } from "./schemas.js";
 
 /**
@@ -51,31 +51,39 @@ export const tools: readonly Tool[] = [
             }
           ]
         },
-        "zone_id": {
-          "$ref": "#/$defs/cache-purge_identifier",
-          "description": "The zone ID."
+        "path": {
+          "properties": {
+            "zone_id": {
+              "$ref": "#/$defs/cache-purge_identifier",
+              "description": "The zone ID."
+            }
+          },
+          "required": [
+            "zone_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "zone_id",
+        "path",
         "body"
       ],
       $defs: {
-        "cache-purge_Everything": cache_purge_Everything,
-        "cache-purge_FlexPurgeByHostnames": cache_purge_FlexPurgeByHostnames,
-        "cache-purge_FlexPurgeByPrefixes": cache_purge_FlexPurgeByPrefixes,
-        "cache-purge_FlexPurgeByTags": cache_purge_FlexPurgeByTags,
-        "cache-purge_SingleFile": cache_purge_SingleFile,
-        "cache-purge_SingleFileWithUrlAndHeaders": cache_purge_SingleFileWithUrlAndHeaders,
-        "cache-purge_identifier": cache_purge_identifier,
+        "cache-purge_Everything": cache$$purge_Everything,
+        "cache-purge_FlexPurgeByHostnames": cache$$purge_FlexPurgeByHostnames,
+        "cache-purge_FlexPurgeByPrefixes": cache$$purge_FlexPurgeByPrefixes,
+        "cache-purge_FlexPurgeByTags": cache$$purge_FlexPurgeByTags,
+        "cache-purge_SingleFile": cache$$purge_SingleFile,
+        "cache-purge_SingleFileWithUrlAndHeaders": cache$$purge_SingleFileWithUrlAndHeaders,
+        "cache-purge_identifier": cache$$purge_identifier$,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/cache-purge_api-response-single-id",
       $defs: {
-        "cache-purge_api-response-single-id": cache_purge_api_response_single_id_output,
-        "cache-purge_identifier": cache_purge_identifier_output,
-        "cache-purge_messages": cache_purge_messages_output,
+        "cache-purge_api-response-single-id": cache$$purge_api$$response$$single$$id,
+        "cache-purge_identifier": cache$$purge_identifier,
+        "cache-purge_messages": cache$$purge_messages,
       },
     },
     annotations: {
@@ -104,10 +112,10 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "cache-purge_api-response-common-failure": cache_purge_api_response_common_failure_output,
-        "cache-purge_api-response-single-id": cache_purge_api_response_single_id_output,
-        "cache-purge_identifier": cache_purge_identifier_output,
-        "cache-purge_messages": cache_purge_messages_output,
+        "cache-purge_api-response-common-failure": cache$$purge_api$$response$$common$$failure,
+        "cache-purge_api-response-single-id": cache$$purge_api$$response$$single$$id,
+        "cache-purge_identifier": cache$$purge_identifier,
+        "cache-purge_messages": cache$$purge_messages,
       },
     },
     request: (args) => ({
@@ -116,7 +124,7 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "cache_invalidate_environment",
+    name: "cache_invalidateEnvironment",
     title: "Invalidate Cached Content by Environment",
     description: "Marks cached content as stale for one environment of the zone. Content cached for the zone's other environments, including production, is not affected. Otherwise this works like `POST /zones/{zone_id}/invalidate_cache`: the next request for invalidated content makes Cloudflare revalidate it with your origin, and the request body takes the same fields.\n\nEnvironments are part of [Version Management](https://developers.cloudflare.com/version-management/). To delete the content instead, use `POST /zones/{zone_id}/environments/{environment_id}/purge_cache`.\n\nInvalidating by URL (`files`) does not work for environments that select requests by IP address, country, ASN, or threat score, and fails with error `1136`. Use `tags`, `hosts`, `prefixes`, or `purge_everything` for those environments.\n\n### Availability and limits\n\nRate limits and the number of items you can send in one request depend on your plan. See [Purge cache: availability and limits](https://developers.cloudflare.com/cache/how-to/purge-cache/#availability-and-limits).\n\nConfirm with the user before calling this tool. This operation marks the selected content in the environment's cache as stale.",
     inputSchema: {
@@ -144,36 +152,44 @@ export const tools: readonly Tool[] = [
             }
           ]
         },
-        "environment_id": {
-          "$ref": "#/$defs/cache-purge_identifier",
-          "description": "The environment ID, from Version Management."
-        },
-        "zone_id": {
-          "$ref": "#/$defs/cache-purge_identifier",
-          "description": "The zone ID."
+        "path": {
+          "properties": {
+            "environment_id": {
+              "$ref": "#/$defs/cache-purge_identifier",
+              "description": "The environment ID, from Version Management."
+            },
+            "zone_id": {
+              "$ref": "#/$defs/cache-purge_identifier",
+              "description": "The zone ID."
+            }
+          },
+          "required": [
+            "zone_id",
+            "environment_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "zone_id",
-        "environment_id",
+        "path",
         "body"
       ],
       $defs: {
-        "cache-purge_Everything": cache_purge_Everything,
-        "cache-purge_FlexPurgeByHostnames": cache_purge_FlexPurgeByHostnames,
-        "cache-purge_FlexPurgeByPrefixes": cache_purge_FlexPurgeByPrefixes,
-        "cache-purge_FlexPurgeByTags": cache_purge_FlexPurgeByTags,
-        "cache-purge_SingleFile": cache_purge_SingleFile,
-        "cache-purge_SingleFileWithUrlAndHeaders": cache_purge_SingleFileWithUrlAndHeaders,
-        "cache-purge_identifier": cache_purge_identifier,
+        "cache-purge_Everything": cache$$purge_Everything,
+        "cache-purge_FlexPurgeByHostnames": cache$$purge_FlexPurgeByHostnames,
+        "cache-purge_FlexPurgeByPrefixes": cache$$purge_FlexPurgeByPrefixes,
+        "cache-purge_FlexPurgeByTags": cache$$purge_FlexPurgeByTags,
+        "cache-purge_SingleFile": cache$$purge_SingleFile,
+        "cache-purge_SingleFileWithUrlAndHeaders": cache$$purge_SingleFileWithUrlAndHeaders,
+        "cache-purge_identifier": cache$$purge_identifier$,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/cache-purge_api-response-single-id",
       $defs: {
-        "cache-purge_api-response-single-id": cache_purge_api_response_single_id_output,
-        "cache-purge_identifier": cache_purge_identifier_output,
-        "cache-purge_messages": cache_purge_messages_output,
+        "cache-purge_api-response-single-id": cache$$purge_api$$response$$single$$id,
+        "cache-purge_identifier": cache$$purge_identifier,
+        "cache-purge_messages": cache$$purge_messages,
       },
     },
     annotations: {
@@ -207,10 +223,10 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "cache-purge_api-response-common-failure": cache_purge_api_response_common_failure_output,
-        "cache-purge_api-response-single-id": cache_purge_api_response_single_id_output,
-        "cache-purge_identifier": cache_purge_identifier_output,
-        "cache-purge_messages": cache_purge_messages_output,
+        "cache-purge_api-response-common-failure": cache$$purge_api$$response$$common$$failure,
+        "cache-purge_api-response-single-id": cache$$purge_api$$response$$single$$id,
+        "cache-purge_identifier": cache$$purge_identifier,
+        "cache-purge_messages": cache$$purge_messages,
       },
     },
     request: (args) => ({
@@ -247,31 +263,39 @@ export const tools: readonly Tool[] = [
             }
           ]
         },
-        "zone_id": {
-          "$ref": "#/$defs/cache-purge_identifier",
-          "description": "The zone ID."
+        "path": {
+          "properties": {
+            "zone_id": {
+              "$ref": "#/$defs/cache-purge_identifier",
+              "description": "The zone ID."
+            }
+          },
+          "required": [
+            "zone_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "zone_id",
+        "path",
         "body"
       ],
       $defs: {
-        "cache-purge_Everything": cache_purge_Everything,
-        "cache-purge_FlexPurgeByHostnames": cache_purge_FlexPurgeByHostnames,
-        "cache-purge_FlexPurgeByPrefixes": cache_purge_FlexPurgeByPrefixes,
-        "cache-purge_FlexPurgeByTags": cache_purge_FlexPurgeByTags,
-        "cache-purge_SingleFile": cache_purge_SingleFile,
-        "cache-purge_SingleFileWithUrlAndHeaders": cache_purge_SingleFileWithUrlAndHeaders,
-        "cache-purge_identifier": cache_purge_identifier,
+        "cache-purge_Everything": cache$$purge_Everything,
+        "cache-purge_FlexPurgeByHostnames": cache$$purge_FlexPurgeByHostnames,
+        "cache-purge_FlexPurgeByPrefixes": cache$$purge_FlexPurgeByPrefixes,
+        "cache-purge_FlexPurgeByTags": cache$$purge_FlexPurgeByTags,
+        "cache-purge_SingleFile": cache$$purge_SingleFile,
+        "cache-purge_SingleFileWithUrlAndHeaders": cache$$purge_SingleFileWithUrlAndHeaders,
+        "cache-purge_identifier": cache$$purge_identifier$,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/cache-purge_api-response-single-id",
       $defs: {
-        "cache-purge_api-response-single-id": cache_purge_api_response_single_id_output,
-        "cache-purge_identifier": cache_purge_identifier_output,
-        "cache-purge_messages": cache_purge_messages_output,
+        "cache-purge_api-response-single-id": cache$$purge_api$$response$$single$$id,
+        "cache-purge_identifier": cache$$purge_identifier,
+        "cache-purge_messages": cache$$purge_messages,
       },
     },
     annotations: {
@@ -310,10 +334,10 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "cache-purge_api-response-common-failure": cache_purge_api_response_common_failure_output,
-        "cache-purge_api-response-single-id": cache_purge_api_response_single_id_output,
-        "cache-purge_identifier": cache_purge_identifier_output,
-        "cache-purge_messages": cache_purge_messages_output,
+        "cache-purge_api-response-common-failure": cache$$purge_api$$response$$common$$failure,
+        "cache-purge_api-response-single-id": cache$$purge_api$$response$$single$$id,
+        "cache-purge_identifier": cache$$purge_identifier,
+        "cache-purge_messages": cache$$purge_messages,
       },
     },
     request: (args) => ({
@@ -322,7 +346,7 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "cache_purge_environment",
+    name: "cache_purgeEnvironment",
     title: "Purge Cached Content by Environment",
     description: "Deletes cached content for one environment of the zone. Content cached for the zone's other environments, including production, is not affected. Otherwise this works like `POST /zones/{zone_id}/purge_cache`: the next request for purged content is a cache `MISS`, and the request body takes the same fields.\n\nEnvironments are part of [Version Management](https://developers.cloudflare.com/version-management/). To keep content cached and have Cloudflare revalidate it instead, use `POST /zones/{zone_id}/environments/{environment_id}/invalidate_cache`.\n\nPurging by URL (`files`) does not work for environments that select requests by IP address, country, ASN, or threat score, and fails with error `1136`. Use `tags`, `hosts`, `prefixes`, or `purge_everything` for those environments.\n\n### Availability and limits\n\nRate limits and the number of items you can send in one request depend on your plan. See [Purge cache: availability and limits](https://developers.cloudflare.com/cache/how-to/purge-cache/#availability-and-limits).\n\nConfirm with the user before calling this tool. This operation deletes the selected content from the environment's cache.",
     inputSchema: {
@@ -350,36 +374,44 @@ export const tools: readonly Tool[] = [
             }
           ]
         },
-        "environment_id": {
-          "$ref": "#/$defs/cache-purge_identifier",
-          "description": "The environment ID, from Version Management."
-        },
-        "zone_id": {
-          "$ref": "#/$defs/cache-purge_identifier",
-          "description": "The zone ID."
+        "path": {
+          "properties": {
+            "environment_id": {
+              "$ref": "#/$defs/cache-purge_identifier",
+              "description": "The environment ID, from Version Management."
+            },
+            "zone_id": {
+              "$ref": "#/$defs/cache-purge_identifier",
+              "description": "The zone ID."
+            }
+          },
+          "required": [
+            "zone_id",
+            "environment_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "zone_id",
-        "environment_id",
+        "path",
         "body"
       ],
       $defs: {
-        "cache-purge_Everything": cache_purge_Everything,
-        "cache-purge_FlexPurgeByHostnames": cache_purge_FlexPurgeByHostnames,
-        "cache-purge_FlexPurgeByPrefixes": cache_purge_FlexPurgeByPrefixes,
-        "cache-purge_FlexPurgeByTags": cache_purge_FlexPurgeByTags,
-        "cache-purge_SingleFile": cache_purge_SingleFile,
-        "cache-purge_SingleFileWithUrlAndHeaders": cache_purge_SingleFileWithUrlAndHeaders,
-        "cache-purge_identifier": cache_purge_identifier,
+        "cache-purge_Everything": cache$$purge_Everything,
+        "cache-purge_FlexPurgeByHostnames": cache$$purge_FlexPurgeByHostnames,
+        "cache-purge_FlexPurgeByPrefixes": cache$$purge_FlexPurgeByPrefixes,
+        "cache-purge_FlexPurgeByTags": cache$$purge_FlexPurgeByTags,
+        "cache-purge_SingleFile": cache$$purge_SingleFile,
+        "cache-purge_SingleFileWithUrlAndHeaders": cache$$purge_SingleFileWithUrlAndHeaders,
+        "cache-purge_identifier": cache$$purge_identifier$,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/cache-purge_api-response-single-id",
       $defs: {
-        "cache-purge_api-response-single-id": cache_purge_api_response_single_id_output,
-        "cache-purge_identifier": cache_purge_identifier_output,
-        "cache-purge_messages": cache_purge_messages_output,
+        "cache-purge_api-response-single-id": cache$$purge_api$$response$$single$$id,
+        "cache-purge_identifier": cache$$purge_identifier,
+        "cache-purge_messages": cache$$purge_messages,
       },
     },
     annotations: {
@@ -418,10 +450,10 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "cache-purge_api-response-common-failure": cache_purge_api_response_common_failure_output,
-        "cache-purge_api-response-single-id": cache_purge_api_response_single_id_output,
-        "cache-purge_identifier": cache_purge_identifier_output,
-        "cache-purge_messages": cache_purge_messages_output,
+        "cache-purge_api-response-common-failure": cache$$purge_api$$response$$common$$failure,
+        "cache-purge_api-response-single-id": cache$$purge_api$$response$$single$$id,
+        "cache-purge_identifier": cache$$purge_identifier,
+        "cache-purge_messages": cache$$purge_messages,
       },
     },
     request: (args) => ({

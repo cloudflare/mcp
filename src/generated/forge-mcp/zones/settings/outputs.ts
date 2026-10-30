@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `zones_0rtt` in responses.
  */
-export const zones_0rtt_output: JsonSchema = {
+export const zones_0rtt: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/zones_base"
@@ -31,7 +31,7 @@ export const zones_0rtt_output: JsonSchema = {
 /**
  * The schema of `zones_0rtt_value` in responses.
  */
-export const zones_0rtt_value_output: JsonSchema = {
+export const zones_0rtt_value: JsonSchema = {
   "enum": [
     "on",
     "off"
@@ -42,7 +42,7 @@ export const zones_0rtt_value_output: JsonSchema = {
 /**
  * The schema of `zones_advanced_ddos` in responses.
  */
-export const zones_advanced_ddos_output: JsonSchema = {
+export const zones_advanced_ddos: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/zones_base"
@@ -67,7 +67,7 @@ export const zones_advanced_ddos_output: JsonSchema = {
 /**
  * The schema of `zones_advanced_ddos_value` in responses.
  */
-export const zones_advanced_ddos_value_output: JsonSchema = {
+export const zones_advanced_ddos_value: JsonSchema = {
   "enum": [
     "on",
     "off"
@@ -78,7 +78,7 @@ export const zones_advanced_ddos_value_output: JsonSchema = {
 /**
  * The schema of `zones_always_online` in responses.
  */
-export const zones_always_online_output: JsonSchema = {
+export const zones_always_online: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/zones_base"
@@ -103,7 +103,7 @@ export const zones_always_online_output: JsonSchema = {
 /**
  * The schema of `zones_always_online_value` in responses.
  */
-export const zones_always_online_value_output: JsonSchema = {
+export const zones_always_online_value: JsonSchema = {
   "enum": [
     "on",
     "off"
@@ -114,7 +114,7 @@ export const zones_always_online_value_output: JsonSchema = {
 /**
  * The schema of `zones_always_use_https-2` in responses.
  */
-export const zones_always_use_https_2_output: JsonSchema = {
+export const zones_always_use_https$$2: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/zones_base"
@@ -139,7 +139,7 @@ export const zones_always_use_https_2_output: JsonSchema = {
 /**
  * The schema of `zones_always_use_https_value` in responses.
  */
-export const zones_always_use_https_value_output: JsonSchema = {
+export const zones_always_use_https_value: JsonSchema = {
   "enum": [
     "on",
     "off"
@@ -150,7 +150,7 @@ export const zones_always_use_https_value_output: JsonSchema = {
 /**
  * The schema of `zones_api-response-common-4` in responses.
  */
-export const zones_api_response_common_4_output: JsonSchema = {
+export const zones_api$$response$$common$$4: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/zones_messages"
@@ -173,7 +173,7 @@ export const zones_api_response_common_4_output: JsonSchema = {
 /**
  * The schema of `zones_api-response-common-failure-3` in responses.
  */
-export const zones_api_response_common_failure_3_output: JsonSchema = {
+export const zones_api$$response$$common$$failure$$3: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/zones_messages"
@@ -207,7 +207,7 @@ export const zones_api_response_common_failure_3_output: JsonSchema = {
 /**
  * The schema of `zones_automatic_https_rewrites-2` in responses.
  */
-export const zones_automatic_https_rewrites_2_output: JsonSchema = {
+export const zones_automatic_https_rewrites$$2: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/zones_base"
@@ -232,7 +232,7 @@ export const zones_automatic_https_rewrites_2_output: JsonSchema = {
 /**
  * The schema of `zones_automatic_https_rewrites_value` in responses.
  */
-export const zones_automatic_https_rewrites_value_output: JsonSchema = {
+export const zones_automatic_https_rewrites_value: JsonSchema = {
   "enum": [
     "on",
     "off"
@@ -243,7 +243,7 @@ export const zones_automatic_https_rewrites_value_output: JsonSchema = {
 /**
  * The schema of `zones_automatic_platform_optimization` in responses.
  */
-export const zones_automatic_platform_optimization_output: JsonSchema = {
+export const zones_automatic_platform_optimization: JsonSchema = {
   "properties": {
     "cache_by_device_type": {
       "type": "boolean"
@@ -281,7 +281,7 @@ export const zones_automatic_platform_optimization_output: JsonSchema = {
 /**
  * The schema of `zones_base` in responses.
  */
-export const zones_base_output: JsonSchema = {
+export const zones_base: JsonSchema = {
   "properties": {
     "editable": {
       "enum": [
@@ -337,7 +337,7 @@ export const zones_base_output: JsonSchema = {
 /**
  * The schema of `zones_brotli` in responses.
  */
-export const zones_brotli_output: JsonSchema = {
+export const zones_brotli: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/zones_base"
@@ -362,7 +362,7 @@ export const zones_brotli_output: JsonSchema = {
 /**
  * The schema of `zones_brotli_value` in responses.
  */
-export const zones_brotli_value_output: JsonSchema = {
+export const zones_brotli_value: JsonSchema = {
   "enum": [
     "off",
     "on"
@@ -373,7 +373,7 @@ export const zones_brotli_value_output: JsonSchema = {
 /**
  * The schema of `zones_browser_cache_ttl-2` in responses.
  */
-export const zones_browser_cache_ttl_2_output: JsonSchema = {
+export const zones_browser_cache_ttl$$2: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/zones_base"
@@ -398,14 +398,14 @@ export const zones_browser_cache_ttl_2_output: JsonSchema = {
 /**
  * The schema of `zones_browser_cache_ttl_value` in responses.
  */
-export const zones_browser_cache_ttl_value_output: JsonSchema = {
+export const zones_browser_cache_ttl_value: JsonSchema = {
   "type": "integer"
 };
 
 /**
  * The schema of `zones_browser_check-2` in responses.
  */
-export const zones_browser_check_2_output: JsonSchema = {
+export const zones_browser_check$$2: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/zones_base"
@@ -430,7 +430,7 @@ export const zones_browser_check_2_output: JsonSchema = {
 /**
  * The schema of `zones_browser_check_value` in responses.
  */
-export const zones_browser_check_value_output: JsonSchema = {
+export const zones_browser_check_value: JsonSchema = {
   "enum": [
     "on",
     "off"
@@ -441,7 +441,7 @@ export const zones_browser_check_value_output: JsonSchema = {
 /**
  * The schema of `zones_cache-rules_aegis` in responses.
  */
-export const zones_cache_rules_aegis_output: JsonSchema = {
+export const zones_cache$$rules_aegis: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/zones_cache-rules_base"
@@ -466,7 +466,7 @@ export const zones_cache_rules_aegis_output: JsonSchema = {
 /**
  * The schema of `zones_cache-rules_aegis_value` in responses.
  */
-export const zones_cache_rules_aegis_value_output: JsonSchema = {
+export const zones_cache$$rules_aegis_value: JsonSchema = {
   "properties": {
     "enabled": {
       "type": "boolean"
@@ -481,7 +481,7 @@ export const zones_cache_rules_aegis_value_output: JsonSchema = {
 /**
  * The schema of `zones_cache-rules_base` in responses.
  */
-export const zones_cache_rules_base_output: JsonSchema = {
+export const zones_cache$$rules_base: JsonSchema = {
   "properties": {
     "id": {
       "type": "string"
@@ -507,7 +507,7 @@ export const zones_cache_rules_base_output: JsonSchema = {
 /**
  * The schema of `zones_cache-rules_origin_h2_max_streams` in responses.
  */
-export const zones_cache_rules_origin_h2_max_streams_output: JsonSchema = {
+export const zones_cache$$rules_origin_h2_max_streams: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/zones_cache-rules_base"
@@ -532,14 +532,14 @@ export const zones_cache_rules_origin_h2_max_streams_output: JsonSchema = {
 /**
  * The schema of `zones_cache-rules_origin_h2_max_streams_value` in responses.
  */
-export const zones_cache_rules_origin_h2_max_streams_value_output: JsonSchema = {
+export const zones_cache$$rules_origin_h2_max_streams_value: JsonSchema = {
   "type": "integer"
 };
 
 /**
  * The schema of `zones_cache-rules_origin_max_http_version` in responses.
  */
-export const zones_cache_rules_origin_max_http_version_output: JsonSchema = {
+export const zones_cache$$rules_origin_max_http_version: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/zones_cache-rules_base"
@@ -564,7 +564,7 @@ export const zones_cache_rules_origin_max_http_version_output: JsonSchema = {
 /**
  * The schema of `zones_cache-rules_origin_max_http_version_value` in responses.
  */
-export const zones_cache_rules_origin_max_http_version_value_output: JsonSchema = {
+export const zones_cache$$rules_origin_max_http_version_value: JsonSchema = {
   "enum": [
     "2",
     "1"
@@ -575,7 +575,7 @@ export const zones_cache_rules_origin_max_http_version_value_output: JsonSchema 
 /**
  * The schema of `zones_cache_level-2` in responses.
  */
-export const zones_cache_level_2_output: JsonSchema = {
+export const zones_cache_level$$2: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/zones_base"
@@ -600,7 +600,7 @@ export const zones_cache_level_2_output: JsonSchema = {
 /**
  * The schema of `zones_cache_level_value` in responses.
  */
-export const zones_cache_level_value_output: JsonSchema = {
+export const zones_cache_level_value: JsonSchema = {
   "enum": [
     "aggressive",
     "basic",
@@ -612,7 +612,7 @@ export const zones_cache_level_value_output: JsonSchema = {
 /**
  * The schema of `zones_challenge_ttl` in responses.
  */
-export const zones_challenge_ttl_output: JsonSchema = {
+export const zones_challenge_ttl: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/zones_base"
@@ -637,7 +637,7 @@ export const zones_challenge_ttl_output: JsonSchema = {
 /**
  * The schema of `zones_challenge_ttl_value` in responses.
  */
-export const zones_challenge_ttl_value_output: JsonSchema = {
+export const zones_challenge_ttl_value: JsonSchema = {
   "enum": [
     300,
     900,
@@ -660,7 +660,7 @@ export const zones_challenge_ttl_value_output: JsonSchema = {
 /**
  * The schema of `zones_china_network_enabled` in responses.
  */
-export const zones_china_network_enabled_output: JsonSchema = {
+export const zones_china_network_enabled: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/zones_base"
@@ -685,7 +685,7 @@ export const zones_china_network_enabled_output: JsonSchema = {
 /**
  * The schema of `zones_china_network_enabled_value` in responses.
  */
-export const zones_china_network_enabled_value_output: JsonSchema = {
+export const zones_china_network_enabled_value: JsonSchema = {
   "enum": [
     "on",
     "off"
@@ -696,7 +696,7 @@ export const zones_china_network_enabled_value_output: JsonSchema = {
 /**
  * The schema of `zones_ciphers` in responses.
  */
-export const zones_ciphers_output: JsonSchema = {
+export const zones_ciphers: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/zones_base"
@@ -721,7 +721,7 @@ export const zones_ciphers_output: JsonSchema = {
 /**
  * The schema of `zones_ciphers_value` in responses.
  */
-export const zones_ciphers_value_output: JsonSchema = {
+export const zones_ciphers_value: JsonSchema = {
   "items": {
     "type": "string"
   },
@@ -731,7 +731,7 @@ export const zones_ciphers_value_output: JsonSchema = {
 /**
  * The schema of `zones_cname_flattening` in responses.
  */
-export const zones_cname_flattening_output: JsonSchema = {
+export const zones_cname_flattening: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/zones_base"
@@ -756,7 +756,7 @@ export const zones_cname_flattening_output: JsonSchema = {
 /**
  * The schema of `zones_cname_flattening_value` in responses.
  */
-export const zones_cname_flattening_value_output: JsonSchema = {
+export const zones_cname_flattening_value: JsonSchema = {
   "enum": [
     "flatten_at_root",
     "flatten_all"
@@ -767,7 +767,7 @@ export const zones_cname_flattening_value_output: JsonSchema = {
 /**
  * The schema of `zones_content_converter` in responses.
  */
-export const zones_content_converter_output: JsonSchema = {
+export const zones_content_converter: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/zones_base"
@@ -792,7 +792,7 @@ export const zones_content_converter_output: JsonSchema = {
 /**
  * The schema of `zones_content_converter_value` in responses.
  */
-export const zones_content_converter_value_output: JsonSchema = {
+export const zones_content_converter_value: JsonSchema = {
   "enum": [
     "off",
     "on"
@@ -803,7 +803,7 @@ export const zones_content_converter_value_output: JsonSchema = {
 /**
  * The schema of `zones_development_mode` in responses.
  */
-export const zones_development_mode_output: JsonSchema = {
+export const zones_development_mode: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/zones_base"
@@ -831,7 +831,7 @@ export const zones_development_mode_output: JsonSchema = {
 /**
  * The schema of `zones_development_mode_value` in responses.
  */
-export const zones_development_mode_value_output: JsonSchema = {
+export const zones_development_mode_value: JsonSchema = {
   "enum": [
     "on",
     "off"
@@ -842,7 +842,7 @@ export const zones_development_mode_value_output: JsonSchema = {
 /**
  * The schema of `zones_early_hints` in responses.
  */
-export const zones_early_hints_output: JsonSchema = {
+export const zones_early_hints: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/zones_base"
@@ -867,7 +867,7 @@ export const zones_early_hints_output: JsonSchema = {
 /**
  * The schema of `zones_early_hints_value` in responses.
  */
-export const zones_early_hints_value_output: JsonSchema = {
+export const zones_early_hints_value: JsonSchema = {
   "enum": [
     "on",
     "off"
@@ -878,7 +878,7 @@ export const zones_early_hints_value_output: JsonSchema = {
 /**
  * The schema of `zones_edge_cache_ttl-2` in responses.
  */
-export const zones_edge_cache_ttl_2_output: JsonSchema = {
+export const zones_edge_cache_ttl$$2: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/zones_base"
@@ -903,7 +903,7 @@ export const zones_edge_cache_ttl_2_output: JsonSchema = {
 /**
  * The schema of `zones_edge_cache_ttl_value` in responses.
  */
-export const zones_edge_cache_ttl_value_output: JsonSchema = {
+export const zones_edge_cache_ttl_value: JsonSchema = {
   "enum": [
     30,
     60,
@@ -933,7 +933,7 @@ export const zones_edge_cache_ttl_value_output: JsonSchema = {
 /**
  * The schema of `zones_email_obfuscation-2` in responses.
  */
-export const zones_email_obfuscation_2_output: JsonSchema = {
+export const zones_email_obfuscation$$2: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/zones_base"
@@ -958,7 +958,7 @@ export const zones_email_obfuscation_2_output: JsonSchema = {
 /**
  * The schema of `zones_email_obfuscation_value` in responses.
  */
-export const zones_email_obfuscation_value_output: JsonSchema = {
+export const zones_email_obfuscation_value: JsonSchema = {
   "enum": [
     "on",
     "off"
@@ -969,7 +969,7 @@ export const zones_email_obfuscation_value_output: JsonSchema = {
 /**
  * The schema of `zones_h2_prioritization` in responses.
  */
-export const zones_h2_prioritization_output: JsonSchema = {
+export const zones_h2_prioritization: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/zones_base"
@@ -994,7 +994,7 @@ export const zones_h2_prioritization_output: JsonSchema = {
 /**
  * The schema of `zones_h2_prioritization_value` in responses.
  */
-export const zones_h2_prioritization_value_output: JsonSchema = {
+export const zones_h2_prioritization_value: JsonSchema = {
   "enum": [
     "on",
     "off",
@@ -1006,7 +1006,7 @@ export const zones_h2_prioritization_value_output: JsonSchema = {
 /**
  * The schema of `zones_hotlink_protection` in responses.
  */
-export const zones_hotlink_protection_output: JsonSchema = {
+export const zones_hotlink_protection: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/zones_base"
@@ -1031,7 +1031,7 @@ export const zones_hotlink_protection_output: JsonSchema = {
 /**
  * The schema of `zones_hotlink_protection_value` in responses.
  */
-export const zones_hotlink_protection_value_output: JsonSchema = {
+export const zones_hotlink_protection_value: JsonSchema = {
   "enum": [
     "on",
     "off"
@@ -1042,7 +1042,7 @@ export const zones_hotlink_protection_value_output: JsonSchema = {
 /**
  * The schema of `zones_http2` in responses.
  */
-export const zones_http2_output: JsonSchema = {
+export const zones_http2: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/zones_base"
@@ -1067,7 +1067,7 @@ export const zones_http2_output: JsonSchema = {
 /**
  * The schema of `zones_http2_value` in responses.
  */
-export const zones_http2_value_output: JsonSchema = {
+export const zones_http2_value: JsonSchema = {
   "enum": [
     "on",
     "off"
@@ -1078,7 +1078,7 @@ export const zones_http2_value_output: JsonSchema = {
 /**
  * The schema of `zones_http3` in responses.
  */
-export const zones_http3_output: JsonSchema = {
+export const zones_http3: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/zones_base"
@@ -1103,7 +1103,7 @@ export const zones_http3_output: JsonSchema = {
 /**
  * The schema of `zones_http3_value` in responses.
  */
-export const zones_http3_value_output: JsonSchema = {
+export const zones_http3_value: JsonSchema = {
   "enum": [
     "on",
     "off"
@@ -1114,7 +1114,7 @@ export const zones_http3_value_output: JsonSchema = {
 /**
  * The schema of `zones_image_resizing` in responses.
  */
-export const zones_image_resizing_output: JsonSchema = {
+export const zones_image_resizing: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/zones_base"
@@ -1139,7 +1139,7 @@ export const zones_image_resizing_output: JsonSchema = {
 /**
  * The schema of `zones_image_resizing_value` in responses.
  */
-export const zones_image_resizing_value_output: JsonSchema = {
+export const zones_image_resizing_value: JsonSchema = {
   "enum": [
     "on",
     "off",
@@ -1151,7 +1151,7 @@ export const zones_image_resizing_value_output: JsonSchema = {
 /**
  * The schema of `zones_ip_geolocation-2` in responses.
  */
-export const zones_ip_geolocation_2_output: JsonSchema = {
+export const zones_ip_geolocation$$2: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/zones_base"
@@ -1176,7 +1176,7 @@ export const zones_ip_geolocation_2_output: JsonSchema = {
 /**
  * The schema of `zones_ip_geolocation_value` in responses.
  */
-export const zones_ip_geolocation_value_output: JsonSchema = {
+export const zones_ip_geolocation_value: JsonSchema = {
   "enum": [
     "on",
     "off"
@@ -1187,7 +1187,7 @@ export const zones_ip_geolocation_value_output: JsonSchema = {
 /**
  * The schema of `zones_ipv6` in responses.
  */
-export const zones_ipv6_output: JsonSchema = {
+export const zones_ipv6: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/zones_base"
@@ -1212,7 +1212,7 @@ export const zones_ipv6_output: JsonSchema = {
 /**
  * The schema of `zones_ipv6_value` in responses.
  */
-export const zones_ipv6_value_output: JsonSchema = {
+export const zones_ipv6_value: JsonSchema = {
   "enum": [
     "off",
     "on"
@@ -1223,7 +1223,7 @@ export const zones_ipv6_value_output: JsonSchema = {
 /**
  * The schema of `zones_max_upload` in responses.
  */
-export const zones_max_upload_output: JsonSchema = {
+export const zones_max_upload: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/zones_base"
@@ -1248,7 +1248,7 @@ export const zones_max_upload_output: JsonSchema = {
 /**
  * The schema of `zones_max_upload_value` in responses.
  */
-export const zones_max_upload_value_output: JsonSchema = {
+export const zones_max_upload_value: JsonSchema = {
   "enum": [
     100,
     125,
@@ -1283,7 +1283,7 @@ export const zones_max_upload_value_output: JsonSchema = {
 /**
  * The schema of `zones_min_tls_version` in responses.
  */
-export const zones_min_tls_version_output: JsonSchema = {
+export const zones_min_tls_version: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/zones_base"
@@ -1308,7 +1308,7 @@ export const zones_min_tls_version_output: JsonSchema = {
 /**
  * The schema of `zones_min_tls_version_value` in responses.
  */
-export const zones_min_tls_version_value_output: JsonSchema = {
+export const zones_min_tls_version_value: JsonSchema = {
   "enum": [
     "1.0",
     "1.1",
@@ -1321,7 +1321,7 @@ export const zones_min_tls_version_value_output: JsonSchema = {
 /**
  * The schema of `zones_mirage-2` in responses.
  */
-export const zones_mirage_2_output: JsonSchema = {
+export const zones_mirage$$2: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/zones_base"
@@ -1346,7 +1346,7 @@ export const zones_mirage_2_output: JsonSchema = {
 /**
  * The schema of `zones_mirage_value` in responses.
  */
-export const zones_mirage_value_output: JsonSchema = {
+export const zones_mirage_value: JsonSchema = {
   "enum": [
     "on",
     "off"
@@ -1357,7 +1357,7 @@ export const zones_mirage_value_output: JsonSchema = {
 /**
  * The schema of `zones_nel` in responses.
  */
-export const zones_nel_output: JsonSchema = {
+export const zones_nel: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/zones_base"
@@ -1382,7 +1382,7 @@ export const zones_nel_output: JsonSchema = {
 /**
  * The schema of `zones_nel_value` in responses.
  */
-export const zones_nel_value_output: JsonSchema = {
+export const zones_nel_value: JsonSchema = {
   "properties": {
     "enabled": {
       "type": "boolean"
@@ -1394,7 +1394,7 @@ export const zones_nel_value_output: JsonSchema = {
 /**
  * The schema of `zones_opportunistic_encryption-2` in responses.
  */
-export const zones_opportunistic_encryption_2_output: JsonSchema = {
+export const zones_opportunistic_encryption$$2: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/zones_base"
@@ -1419,7 +1419,7 @@ export const zones_opportunistic_encryption_2_output: JsonSchema = {
 /**
  * The schema of `zones_opportunistic_encryption_value` in responses.
  */
-export const zones_opportunistic_encryption_value_output: JsonSchema = {
+export const zones_opportunistic_encryption_value: JsonSchema = {
   "enum": [
     "on",
     "off"
@@ -1430,7 +1430,7 @@ export const zones_opportunistic_encryption_value_output: JsonSchema = {
 /**
  * The schema of `zones_opportunistic_onion` in responses.
  */
-export const zones_opportunistic_onion_output: JsonSchema = {
+export const zones_opportunistic_onion: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/zones_base"
@@ -1455,7 +1455,7 @@ export const zones_opportunistic_onion_output: JsonSchema = {
 /**
  * The schema of `zones_opportunistic_onion_value` in responses.
  */
-export const zones_opportunistic_onion_value_output: JsonSchema = {
+export const zones_opportunistic_onion_value: JsonSchema = {
   "enum": [
     "on",
     "off"
@@ -1466,7 +1466,7 @@ export const zones_opportunistic_onion_value_output: JsonSchema = {
 /**
  * The schema of `zones_orange_to_orange` in responses.
  */
-export const zones_orange_to_orange_output: JsonSchema = {
+export const zones_orange_to_orange: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/zones_base"
@@ -1491,7 +1491,7 @@ export const zones_orange_to_orange_output: JsonSchema = {
 /**
  * The schema of `zones_orange_to_orange_value` in responses.
  */
-export const zones_orange_to_orange_value_output: JsonSchema = {
+export const zones_orange_to_orange_value: JsonSchema = {
   "enum": [
     "on",
     "off"
@@ -1502,7 +1502,7 @@ export const zones_orange_to_orange_value_output: JsonSchema = {
 /**
  * The schema of `zones_origin_error_page_pass_thru-2` in responses.
  */
-export const zones_origin_error_page_pass_thru_2_output: JsonSchema = {
+export const zones_origin_error_page_pass_thru$$2: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/zones_base"
@@ -1527,7 +1527,7 @@ export const zones_origin_error_page_pass_thru_2_output: JsonSchema = {
 /**
  * The schema of `zones_origin_error_page_pass_thru_value` in responses.
  */
-export const zones_origin_error_page_pass_thru_value_output: JsonSchema = {
+export const zones_origin_error_page_pass_thru_value: JsonSchema = {
   "enum": [
     "on",
     "off"
@@ -1538,7 +1538,7 @@ export const zones_origin_error_page_pass_thru_value_output: JsonSchema = {
 /**
  * The schema of `zones_polish-2` in responses.
  */
-export const zones_polish_2_output: JsonSchema = {
+export const zones_polish$$2: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/zones_base"
@@ -1563,7 +1563,7 @@ export const zones_polish_2_output: JsonSchema = {
 /**
  * The schema of `zones_polish_value` in responses.
  */
-export const zones_polish_value_output: JsonSchema = {
+export const zones_polish_value: JsonSchema = {
   "enum": [
     "off",
     "lossless",
@@ -1575,7 +1575,7 @@ export const zones_polish_value_output: JsonSchema = {
 /**
  * The schema of `zones_pre_render` in responses.
  */
-export const zones_pre_render_output: JsonSchema = {
+export const zones_pre_render: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/zones_base"
@@ -1600,7 +1600,7 @@ export const zones_pre_render_output: JsonSchema = {
 /**
  * The schema of `zones_pre_render_value` in responses.
  */
-export const zones_pre_render_value_output: JsonSchema = {
+export const zones_pre_render_value: JsonSchema = {
   "enum": [
     "off",
     "on"
@@ -1611,7 +1611,7 @@ export const zones_pre_render_value_output: JsonSchema = {
 /**
  * The schema of `zones_prefetch_preload` in responses.
  */
-export const zones_prefetch_preload_output: JsonSchema = {
+export const zones_prefetch_preload: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/zones_base"
@@ -1636,7 +1636,7 @@ export const zones_prefetch_preload_output: JsonSchema = {
 /**
  * The schema of `zones_prefetch_preload_value` in responses.
  */
-export const zones_prefetch_preload_value_output: JsonSchema = {
+export const zones_prefetch_preload_value: JsonSchema = {
   "enum": [
     "on",
     "off"
@@ -1647,7 +1647,7 @@ export const zones_prefetch_preload_value_output: JsonSchema = {
 /**
  * The schema of `zones_privacy_pass` in responses.
  */
-export const zones_privacy_pass_output: JsonSchema = {
+export const zones_privacy_pass: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/zones_base"
@@ -1672,7 +1672,7 @@ export const zones_privacy_pass_output: JsonSchema = {
 /**
  * The schema of `zones_privacy_pass_value` in responses.
  */
-export const zones_privacy_pass_value_output: JsonSchema = {
+export const zones_privacy_pass_value: JsonSchema = {
   "enum": [
     "on",
     "off"
@@ -1683,7 +1683,7 @@ export const zones_privacy_pass_value_output: JsonSchema = {
 /**
  * The schema of `zones_proxy_read_timeout` in responses.
  */
-export const zones_proxy_read_timeout_output: JsonSchema = {
+export const zones_proxy_read_timeout: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/zones_base"
@@ -1708,14 +1708,14 @@ export const zones_proxy_read_timeout_output: JsonSchema = {
 /**
  * The schema of `zones_proxy_read_timeout_value` in responses.
  */
-export const zones_proxy_read_timeout_value_output: JsonSchema = {
+export const zones_proxy_read_timeout_value: JsonSchema = {
   "type": "number"
 };
 
 /**
  * The schema of `zones_pseudo_ipv4` in responses.
  */
-export const zones_pseudo_ipv4_output: JsonSchema = {
+export const zones_pseudo_ipv4: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/zones_base"
@@ -1740,7 +1740,7 @@ export const zones_pseudo_ipv4_output: JsonSchema = {
 /**
  * The schema of `zones_pseudo_ipv4_value` in responses.
  */
-export const zones_pseudo_ipv4_value_output: JsonSchema = {
+export const zones_pseudo_ipv4_value: JsonSchema = {
   "enum": [
     "off",
     "add_header",
@@ -1752,7 +1752,7 @@ export const zones_pseudo_ipv4_value_output: JsonSchema = {
 /**
  * The schema of `zones_redirects_for_ai_training` in responses.
  */
-export const zones_redirects_for_ai_training_output: JsonSchema = {
+export const zones_redirects_for_ai_training: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/zones_base"
@@ -1777,7 +1777,7 @@ export const zones_redirects_for_ai_training_output: JsonSchema = {
 /**
  * The schema of `zones_redirects_for_ai_training_value` in responses.
  */
-export const zones_redirects_for_ai_training_value_output: JsonSchema = {
+export const zones_redirects_for_ai_training_value: JsonSchema = {
   "enum": [
     "off",
     "on"
@@ -1788,7 +1788,7 @@ export const zones_redirects_for_ai_training_value_output: JsonSchema = {
 /**
  * The schema of `zones_replace_insecure_js` in responses.
  */
-export const zones_replace_insecure_js_output: JsonSchema = {
+export const zones_replace_insecure_js: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/zones_base"
@@ -1813,7 +1813,7 @@ export const zones_replace_insecure_js_output: JsonSchema = {
 /**
  * The schema of `zones_replace_insecure_js_value` in responses.
  */
-export const zones_replace_insecure_js_value_output: JsonSchema = {
+export const zones_replace_insecure_js_value: JsonSchema = {
   "enum": [
     "on",
     "off"
@@ -1824,7 +1824,7 @@ export const zones_replace_insecure_js_value_output: JsonSchema = {
 /**
  * The schema of `zones_response_buffering-2` in responses.
  */
-export const zones_response_buffering_2_output: JsonSchema = {
+export const zones_response_buffering$$2: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/zones_base"
@@ -1849,7 +1849,7 @@ export const zones_response_buffering_2_output: JsonSchema = {
 /**
  * The schema of `zones_response_buffering_value` in responses.
  */
-export const zones_response_buffering_value_output: JsonSchema = {
+export const zones_response_buffering_value: JsonSchema = {
   "enum": [
     "on",
     "off"
@@ -1860,7 +1860,7 @@ export const zones_response_buffering_value_output: JsonSchema = {
 /**
  * The schema of `zones_rocket_loader-2` in responses.
  */
-export const zones_rocket_loader_2_output: JsonSchema = {
+export const zones_rocket_loader$$2: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/zones_base"
@@ -1885,7 +1885,7 @@ export const zones_rocket_loader_2_output: JsonSchema = {
 /**
  * The schema of `zones_rocket_loader_value` in responses.
  */
-export const zones_rocket_loader_value_output: JsonSchema = {
+export const zones_rocket_loader_value: JsonSchema = {
   "enum": [
     "on",
     "off"
@@ -1896,7 +1896,7 @@ export const zones_rocket_loader_value_output: JsonSchema = {
 /**
  * The schema of `zones_schemas-automatic_platform_optimization` in responses.
  */
-export const zones_schemas_automatic_platform_optimization_output: JsonSchema = {
+export const zones_schemas$$automatic_platform_optimization: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/zones_base"
@@ -1921,7 +1921,7 @@ export const zones_schemas_automatic_platform_optimization_output: JsonSchema = 
 /**
  * The schema of `zones_search_for_agents` in responses.
  */
-export const zones_search_for_agents_output: JsonSchema = {
+export const zones_search_for_agents: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/zones_base"
@@ -1946,7 +1946,7 @@ export const zones_search_for_agents_output: JsonSchema = {
 /**
  * The schema of `zones_search_for_agents_value` in responses.
  */
-export const zones_search_for_agents_value_output: JsonSchema = {
+export const zones_search_for_agents_value: JsonSchema = {
   "enum": [
     "off",
     "on"
@@ -1957,7 +1957,7 @@ export const zones_search_for_agents_value_output: JsonSchema = {
 /**
  * The schema of `zones_security_header` in responses.
  */
-export const zones_security_header_output: JsonSchema = {
+export const zones_security_header: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/zones_base"
@@ -1982,7 +1982,7 @@ export const zones_security_header_output: JsonSchema = {
 /**
  * The schema of `zones_security_header_value` in responses.
  */
-export const zones_security_header_value_output: JsonSchema = {
+export const zones_security_header_value: JsonSchema = {
   "properties": {
     "strict_transport_security": {
       "properties": {
@@ -2011,7 +2011,7 @@ export const zones_security_header_value_output: JsonSchema = {
 /**
  * The schema of `zones_security_level-2` in responses.
  */
-export const zones_security_level_2_output: JsonSchema = {
+export const zones_security_level$$2: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/zones_base"
@@ -2036,7 +2036,7 @@ export const zones_security_level_2_output: JsonSchema = {
 /**
  * The schema of `zones_security_level_value` in responses.
  */
-export const zones_security_level_value_output: JsonSchema = {
+export const zones_security_level_value: JsonSchema = {
   "enum": [
     "off",
     "essentially_off",
@@ -2051,7 +2051,7 @@ export const zones_security_level_value_output: JsonSchema = {
 /**
  * The schema of `zones_server_side_exclude` in responses.
  */
-export const zones_server_side_exclude_output: JsonSchema = {
+export const zones_server_side_exclude: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/zones_base"
@@ -2076,7 +2076,7 @@ export const zones_server_side_exclude_output: JsonSchema = {
 /**
  * The schema of `zones_server_side_exclude_value` in responses.
  */
-export const zones_server_side_exclude_value_output: JsonSchema = {
+export const zones_server_side_exclude_value: JsonSchema = {
   "enum": [
     "on",
     "off"
@@ -2087,7 +2087,7 @@ export const zones_server_side_exclude_value_output: JsonSchema = {
 /**
  * The schema of `zones_setting` in responses.
  */
-export const zones_setting_output: JsonSchema = {
+export const zones_setting: JsonSchema = {
   "oneOf": [
     {
       "$ref": "#/$defs/zones_0rtt"
@@ -2296,7 +2296,7 @@ export const zones_setting_output: JsonSchema = {
 /**
  * The schema of `zones_sha1_support` in responses.
  */
-export const zones_sha1_support_output: JsonSchema = {
+export const zones_sha1_support: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/zones_base"
@@ -2321,7 +2321,7 @@ export const zones_sha1_support_output: JsonSchema = {
 /**
  * The schema of `zones_sha1_support_value` in responses.
  */
-export const zones_sha1_support_value_output: JsonSchema = {
+export const zones_sha1_support_value: JsonSchema = {
   "enum": [
     "off",
     "on"
@@ -2332,7 +2332,7 @@ export const zones_sha1_support_value_output: JsonSchema = {
 /**
  * The schema of `zones_sort_query_string_for_cache-2` in responses.
  */
-export const zones_sort_query_string_for_cache_2_output: JsonSchema = {
+export const zones_sort_query_string_for_cache$$2: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/zones_base"
@@ -2357,7 +2357,7 @@ export const zones_sort_query_string_for_cache_2_output: JsonSchema = {
 /**
  * The schema of `zones_sort_query_string_for_cache_value` in responses.
  */
-export const zones_sort_query_string_for_cache_value_output: JsonSchema = {
+export const zones_sort_query_string_for_cache_value: JsonSchema = {
   "enum": [
     "on",
     "off"
@@ -2368,7 +2368,7 @@ export const zones_sort_query_string_for_cache_value_output: JsonSchema = {
 /**
  * The schema of `zones_ssl-2` in responses.
  */
-export const zones_ssl_2_output: JsonSchema = {
+export const zones_ssl$$2: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/zones_base"
@@ -2393,7 +2393,7 @@ export const zones_ssl_2_output: JsonSchema = {
 /**
  * The schema of `zones_ssl_recommender` in responses.
  */
-export const zones_ssl_recommender_output: JsonSchema = {
+export const zones_ssl_recommender: JsonSchema = {
   "properties": {
     "enabled": {
       "$ref": "#/$defs/zones_ssl_recommender_enabled"
@@ -2411,14 +2411,14 @@ export const zones_ssl_recommender_output: JsonSchema = {
 /**
  * The schema of `zones_ssl_recommender_enabled` in responses.
  */
-export const zones_ssl_recommender_enabled_output: JsonSchema = {
+export const zones_ssl_recommender_enabled: JsonSchema = {
   "type": "boolean"
 };
 
 /**
  * The schema of `zones_ssl_value` in responses.
  */
-export const zones_ssl_value_output: JsonSchema = {
+export const zones_ssl_value: JsonSchema = {
   "enum": [
     "off",
     "flexible",
@@ -2431,7 +2431,7 @@ export const zones_ssl_value_output: JsonSchema = {
 /**
  * The schema of `zones_tls_1_2_only` in responses.
  */
-export const zones_tls_1_2_only_output: JsonSchema = {
+export const zones_tls_1_2_only: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/zones_base"
@@ -2456,7 +2456,7 @@ export const zones_tls_1_2_only_output: JsonSchema = {
 /**
  * The schema of `zones_tls_1_2_only_value` in responses.
  */
-export const zones_tls_1_2_only_value_output: JsonSchema = {
+export const zones_tls_1_2_only_value: JsonSchema = {
   "enum": [
     "off",
     "on"
@@ -2467,7 +2467,7 @@ export const zones_tls_1_2_only_value_output: JsonSchema = {
 /**
  * The schema of `zones_tls_1_3` in responses.
  */
-export const zones_tls_1_3_output: JsonSchema = {
+export const zones_tls_1_3: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/zones_base"
@@ -2492,7 +2492,7 @@ export const zones_tls_1_3_output: JsonSchema = {
 /**
  * The schema of `zones_tls_1_3_value` in responses.
  */
-export const zones_tls_1_3_value_output: JsonSchema = {
+export const zones_tls_1_3_value: JsonSchema = {
   "enum": [
     "on",
     "off",
@@ -2504,7 +2504,7 @@ export const zones_tls_1_3_value_output: JsonSchema = {
 /**
  * The schema of `zones_tls_client_auth` in responses.
  */
-export const zones_tls_client_auth_output: JsonSchema = {
+export const zones_tls_client_auth: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/zones_base"
@@ -2529,7 +2529,7 @@ export const zones_tls_client_auth_output: JsonSchema = {
 /**
  * The schema of `zones_tls_client_auth_value` in responses.
  */
-export const zones_tls_client_auth_value_output: JsonSchema = {
+export const zones_tls_client_auth_value: JsonSchema = {
   "enum": [
     "on",
     "off"
@@ -2540,7 +2540,7 @@ export const zones_tls_client_auth_value_output: JsonSchema = {
 /**
  * The schema of `zones_transformations` in responses.
  */
-export const zones_transformations_output: JsonSchema = {
+export const zones_transformations: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/zones_base"
@@ -2565,7 +2565,7 @@ export const zones_transformations_output: JsonSchema = {
 /**
  * The schema of `zones_transformations_allowed_origins` in responses.
  */
-export const zones_transformations_allowed_origins_output: JsonSchema = {
+export const zones_transformations_allowed_origins: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/zones_base"
@@ -2590,14 +2590,14 @@ export const zones_transformations_allowed_origins_output: JsonSchema = {
 /**
  * The schema of `zones_transformations_allowed_origins_value` in responses.
  */
-export const zones_transformations_allowed_origins_value_output: JsonSchema = {
+export const zones_transformations_allowed_origins_value: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `zones_true_client_ip_header-2` in responses.
  */
-export const zones_true_client_ip_header_2_output: JsonSchema = {
+export const zones_true_client_ip_header$$2: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/zones_base"
@@ -2622,7 +2622,7 @@ export const zones_true_client_ip_header_2_output: JsonSchema = {
 /**
  * The schema of `zones_true_client_ip_header_value` in responses.
  */
-export const zones_true_client_ip_header_value_output: JsonSchema = {
+export const zones_true_client_ip_header_value: JsonSchema = {
   "enum": [
     "on",
     "off"
@@ -2633,7 +2633,7 @@ export const zones_true_client_ip_header_value_output: JsonSchema = {
 /**
  * The schema of `zones_waf-2` in responses.
  */
-export const zones_waf_2_output: JsonSchema = {
+export const zones_waf$$2: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/zones_base"
@@ -2658,7 +2658,7 @@ export const zones_waf_2_output: JsonSchema = {
 /**
  * The schema of `zones_waf_value` in responses.
  */
-export const zones_waf_value_output: JsonSchema = {
+export const zones_waf_value: JsonSchema = {
   "enum": [
     "on",
     "off"
@@ -2669,7 +2669,7 @@ export const zones_waf_value_output: JsonSchema = {
 /**
  * The schema of `zones_webmcp_enabled` in responses.
  */
-export const zones_webmcp_enabled_output: JsonSchema = {
+export const zones_webmcp_enabled: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/zones_base"
@@ -2694,7 +2694,7 @@ export const zones_webmcp_enabled_output: JsonSchema = {
 /**
  * The schema of `zones_webmcp_enabled_value` in responses.
  */
-export const zones_webmcp_enabled_value_output: JsonSchema = {
+export const zones_webmcp_enabled_value: JsonSchema = {
   "enum": [
     "off",
     "on"
@@ -2705,7 +2705,7 @@ export const zones_webmcp_enabled_value_output: JsonSchema = {
 /**
  * The schema of `zones_webmcp_mcp_url` in responses.
  */
-export const zones_webmcp_mcp_url_output: JsonSchema = {
+export const zones_webmcp_mcp_url: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/zones_base"
@@ -2730,14 +2730,14 @@ export const zones_webmcp_mcp_url_output: JsonSchema = {
 /**
  * The schema of `zones_webmcp_mcp_url_value` in responses.
  */
-export const zones_webmcp_mcp_url_value_output: JsonSchema = {
+export const zones_webmcp_mcp_url_value: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `zones_webmcp_packs` in responses.
  */
-export const zones_webmcp_packs_output: JsonSchema = {
+export const zones_webmcp_packs: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/zones_base"
@@ -2762,14 +2762,14 @@ export const zones_webmcp_packs_output: JsonSchema = {
 /**
  * The schema of `zones_webmcp_packs_value` in responses.
  */
-export const zones_webmcp_packs_value_output: JsonSchema = {
+export const zones_webmcp_packs_value: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `zones_webp` in responses.
  */
-export const zones_webp_output: JsonSchema = {
+export const zones_webp: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/zones_base"
@@ -2794,7 +2794,7 @@ export const zones_webp_output: JsonSchema = {
 /**
  * The schema of `zones_webp_value` in responses.
  */
-export const zones_webp_value_output: JsonSchema = {
+export const zones_webp_value: JsonSchema = {
   "enum": [
     "off",
     "on"
@@ -2805,7 +2805,7 @@ export const zones_webp_value_output: JsonSchema = {
 /**
  * The schema of `zones_websockets` in responses.
  */
-export const zones_websockets_output: JsonSchema = {
+export const zones_websockets: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/zones_base"
@@ -2830,7 +2830,7 @@ export const zones_websockets_output: JsonSchema = {
 /**
  * The schema of `zones_websockets_value` in responses.
  */
-export const zones_websockets_value_output: JsonSchema = {
+export const zones_websockets_value: JsonSchema = {
   "enum": [
     "off",
     "on"

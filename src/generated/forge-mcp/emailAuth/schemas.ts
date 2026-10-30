@@ -6,7 +6,7 @@ import type { JsonSchema } from "../_/tool.js";
 /**
  * The schema of `email-auth_identifier`.
  */
-export const email_auth_identifier: JsonSchema = {
+export const email$$auth_identifier: JsonSchema = {
   "description": "Identifier.",
   "type": "string"
 };

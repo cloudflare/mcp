@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `access_response_collection-3` in responses.
  */
-export const access_response_collection_3_output: JsonSchema = {
+export const access_response_collection$$3: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/access_api-response-collection"
@@ -28,7 +28,7 @@ export const access_response_collection_3_output: JsonSchema = {
 /**
  * The schema of `access_single_response-5` in responses.
  */
-export const access_single_response_5_output: JsonSchema = {
+export const access_single_response$$5: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/access_api-response-single"
@@ -47,7 +47,7 @@ export const access_single_response_5_output: JsonSchema = {
 /**
  * The schema of `access_user_population` in responses.
  */
-export const access_user_population_output: JsonSchema = {
+export const access_user_population: JsonSchema = {
   "properties": {
     "created_at": {
       "$ref": "#/$defs/access_created_at"
@@ -74,6 +74,6 @@ export const access_user_population_output: JsonSchema = {
 /**
  * The schema of `access_user_population_name` in responses.
  */
-export const access_user_population_name_output: JsonSchema = {
+export const access_user_population_name: JsonSchema = {
   "type": "string"
 };

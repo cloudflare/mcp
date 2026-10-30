@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../../_/tool.js";
 /**
  * The schema of `zero-trust-gateway_public_key`.
  */
-export const zero_trust_gateway_public_key: JsonSchema = {
+export const zero$$trust$$gateway_public_key: JsonSchema = {
   "description": "Provide the Base64-encoded HPKE public key that encrypts SSH session logs. See https://developers.cloudflare.com/cloudflare-one/connections/connect-networks/use-cases/ssh/ssh-infrastructure-access/#enable-ssh-command-logging.",
   "type": "string"
 };

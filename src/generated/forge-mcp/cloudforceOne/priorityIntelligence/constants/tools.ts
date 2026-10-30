@@ -4,22 +4,30 @@
 import { type Tool, pathParam } from "../../../_/tool.js";
 
 /**
- * The tools of `cloudforce_one.priority_intelligence.constants`.
+ * The tools of `cloudforceOne.priorityIntelligence.constants`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "cloudforce_one_priority_intelligence_constants_get",
+    name: "cloudforceOne_priorityIntelligence_constants_get",
     title: "Get PIR constants (methods, dimensions, and TLP values)",
     description: "Requirements is the existing free-form PIR method. Interests is the experimental structured-interest method, evaluated independently from requirements.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "type": "string"
+        "path": {
+          "properties": {
+            "account_id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id"
+        "path"
       ],
     },
     annotations: {

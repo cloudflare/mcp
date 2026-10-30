@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `teams-devices_deployment_group_create_request`.
  */
-export const teams_devices_deployment_group_create_request: JsonSchema = {
+export const teams$$devices_deployment_group_create_request: JsonSchema = {
   "properties": {
     "name": {
       "$ref": "#/$defs/teams-devices_deployment_group_name",
@@ -38,7 +38,7 @@ export const teams_devices_deployment_group_create_request: JsonSchema = {
 /**
  * The schema of `teams-devices_deployment_group_name`.
  */
-export const teams_devices_deployment_group_name: JsonSchema = {
+export const teams$$devices_deployment_group_name: JsonSchema = {
   "description": "A user-friendly name for the deployment group.",
   "type": "string"
 };
@@ -46,7 +46,7 @@ export const teams_devices_deployment_group_name: JsonSchema = {
 /**
  * The schema of `teams-devices_deployment_group_update_request`.
  */
-export const teams_devices_deployment_group_update_request: JsonSchema = {
+export const teams$$devices_deployment_group_update_request: JsonSchema = {
   "properties": {
     "name": {
       "$ref": "#/$defs/teams-devices_deployment_group_name",
@@ -73,7 +73,7 @@ export const teams_devices_deployment_group_update_request: JsonSchema = {
 /**
  * The schema of `teams-devices_version_config`.
  */
-export const teams_devices_version_config: JsonSchema = {
+export const teams$$devices_version_config: JsonSchema = {
   "properties": {
     "target_environment": {
       "description": "The target environment for the client version (e.g., windows, macos).",

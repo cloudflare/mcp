@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../../../_/tool.js";
 /**
  * The schema of `access_policy_users` in responses.
  */
-export const access_policy_users_output: JsonSchema = {
+export const access_policy_users: JsonSchema = {
   "properties": {
     "email": {
       "$ref": "#/$defs/access_email-2"
@@ -27,7 +27,7 @@ export const access_policy_users_output: JsonSchema = {
 /**
  * The schema of `access_policy_users_resp` in responses.
  */
-export const access_policy_users_resp_output: JsonSchema = {
+export const access_policy_users_resp: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/access_api-response-single"
@@ -49,7 +49,7 @@ export const access_policy_users_resp_output: JsonSchema = {
 /**
  * The schema of `access_user_result` in responses.
  */
-export const access_user_result_output: JsonSchema = {
+export const access_user_result: JsonSchema = {
   "enum": [
     "approved",
     "blocked",

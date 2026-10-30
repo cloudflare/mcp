@@ -6,14 +6,14 @@ import type { JsonSchema } from "../../../../_/tool.js";
 /**
  * The schema of `logcontrol_allow_out_of_region_access` in responses.
  */
-export const logcontrol_allow_out_of_region_access_output: JsonSchema = {
+export const logcontrol_allow_out_of_region_access: JsonSchema = {
   "type": "boolean"
 };
 
 /**
  * The schema of `logcontrol_api-response-common` in responses.
  */
-export const logcontrol_api_response_common_output: JsonSchema = {
+export const logcontrol_api$$response$$common: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/logcontrol_messages"
@@ -39,7 +39,7 @@ export const logcontrol_api_response_common_output: JsonSchema = {
 /**
  * The schema of `logcontrol_cmb_config` in responses.
  */
-export const logcontrol_cmb_config_output: JsonSchema = {
+export const logcontrol_cmb_config: JsonSchema = {
   "oneOf": [
     {
       "properties": {
@@ -61,7 +61,7 @@ export const logcontrol_cmb_config_output: JsonSchema = {
 /**
  * The schema of `logcontrol_cmb_config_response_single` in responses.
  */
-export const logcontrol_cmb_config_response_single_output: JsonSchema = {
+export const logcontrol_cmb_config_response_single: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/logcontrol_api-response-single"
@@ -87,6 +87,6 @@ export const logcontrol_cmb_config_response_single_output: JsonSchema = {
 /**
  * The schema of `logcontrol_regions` in responses.
  */
-export const logcontrol_regions_output: JsonSchema = {
+export const logcontrol_regions: JsonSchema = {
   "type": "string"
 };

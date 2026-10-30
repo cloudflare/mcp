@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `bot-management_feedback_report`.
  */
-export const bot_management_feedback_report: JsonSchema = {
+export const bot$$management_feedback_report: JsonSchema = {
   "properties": {
     "description": {
       "type": "string"
@@ -63,7 +63,7 @@ export const bot_management_feedback_report: JsonSchema = {
 /**
  * The schema of `bot-management_feedback_type`.
  */
-export const bot_management_feedback_type: JsonSchema = {
+export const bot$$management_feedback_type: JsonSchema = {
   "description": "Type of feedback report.",
   "enum": [
     "false_positive",
@@ -75,7 +75,7 @@ export const bot_management_feedback_type: JsonSchema = {
 /**
  * The schema of `bot-management_metric_requests`.
  */
-export const bot_management_metric_requests: JsonSchema = {
+export const bot$$management_metric_requests: JsonSchema = {
   "properties": {
     "metric": {
       "type": "string"
@@ -94,7 +94,7 @@ export const bot_management_metric_requests: JsonSchema = {
 /**
  * The schema of `bot-management_requests_by_attribute`.
  */
-export const bot_management_requests_by_attribute: JsonSchema = {
+export const bot$$management_requests_by_attribute: JsonSchema = {
   "additionalProperties": {
     "items": {
       "$ref": "#/$defs/bot-management_metric_requests"
@@ -108,7 +108,7 @@ export const bot_management_requests_by_attribute: JsonSchema = {
 /**
  * The schema of `bot-management_requests_by_score`.
  */
-export const bot_management_requests_by_score: JsonSchema = {
+export const bot$$management_requests_by_score: JsonSchema = {
   "additionalProperties": {
     "type": "integer"
   },
@@ -119,7 +119,7 @@ export const bot_management_requests_by_score: JsonSchema = {
 /**
  * The schema of `bot-management_requests_by_score_src`.
  */
-export const bot_management_requests_by_score_src: JsonSchema = {
+export const bot$$management_requests_by_score_src: JsonSchema = {
   "additionalProperties": {
     "type": "integer"
   },

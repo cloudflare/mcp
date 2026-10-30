@@ -8,7 +8,7 @@ import type { JsonSchema } from "../../../../_/tool.js";
  * `tls-certificates-and-hostnames_per_hostname_settings_response_collection` in
  * responses.
  */
-export const tls_certificates_and_hostnames_per_hostname_settings_response_collection_output: JsonSchema = {
+export const tls$$certificates$$and$$hostnames_per_hostname_settings_response_collection: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/tls-certificates-and-hostnames_api-response-collection"
@@ -74,7 +74,7 @@ export const tls_certificates_and_hostnames_per_hostname_settings_response_colle
  * `tls-certificates-and-hostnames_per_hostname_settings_response_delete` in
  * responses.
  */
-export const tls_certificates_and_hostnames_per_hostname_settings_response_delete_output: JsonSchema = {
+export const tls$$certificates$$and$$hostnames_per_hostname_settings_response_delete: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/tls-certificates-and-hostnames_api-response-single"
@@ -94,7 +94,7 @@ export const tls_certificates_and_hostnames_per_hostname_settings_response_delet
  * The schema of `tls-certificates-and-hostnames_settingObjectDelete` in
  * responses.
  */
-export const tls_certificates_and_hostnames_settingObjectDelete_output: JsonSchema = {
+export const tls$$certificates$$and$$hostnames_settingObjectDelete: JsonSchema = {
   "properties": {
     "created_at": {
       "$ref": "#/$defs/tls-certificates-and-hostnames_created_at-4"

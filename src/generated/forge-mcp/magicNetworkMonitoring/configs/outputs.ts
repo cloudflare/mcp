@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `magic-visibility-mnm_mnm_config` in responses.
  */
-export const magic_visibility_mnm_mnm_config_output: JsonSchema = {
+export const magic$$visibility$$mnm_mnm_config: JsonSchema = {
   "properties": {
     "default_sampling": {
       "$ref": "#/$defs/magic-visibility-mnm_mnm_config_default_sampling"
@@ -34,28 +34,28 @@ export const magic_visibility_mnm_mnm_config_output: JsonSchema = {
  * The schema of `magic-visibility-mnm_mnm_config_default_sampling` in
  * responses.
  */
-export const magic_visibility_mnm_mnm_config_default_sampling_output: JsonSchema = {
+export const magic$$visibility$$mnm_mnm_config_default_sampling: JsonSchema = {
   "type": "number"
 };
 
 /**
  * The schema of `magic-visibility-mnm_mnm_config_name` in responses.
  */
-export const magic_visibility_mnm_mnm_config_name_output: JsonSchema = {
+export const magic$$visibility$$mnm_mnm_config_name: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `magic-visibility-mnm_mnm_config_router_ip` in responses.
  */
-export const magic_visibility_mnm_mnm_config_router_ip_output: JsonSchema = {
+export const magic$$visibility$$mnm_mnm_config_router_ip: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `magic-visibility-mnm_mnm_config_router_ips` in responses.
  */
-export const magic_visibility_mnm_mnm_config_router_ips_output: JsonSchema = {
+export const magic$$visibility$$mnm_mnm_config_router_ips: JsonSchema = {
   "items": {
     "$ref": "#/$defs/magic-visibility-mnm_mnm_config_router_ip"
   },
@@ -65,7 +65,7 @@ export const magic_visibility_mnm_mnm_config_router_ips_output: JsonSchema = {
 /**
  * The schema of `magic-visibility-mnm_mnm_config_single_response` in responses.
  */
-export const magic_visibility_mnm_mnm_config_single_response_output: JsonSchema = {
+export const magic$$visibility$$mnm_mnm_config_single_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/magic-visibility-mnm_api-response-single"
@@ -84,7 +84,7 @@ export const magic_visibility_mnm_mnm_config_single_response_output: JsonSchema 
 /**
  * The schema of `magic-visibility-mnm_mnm_config_warp_device` in responses.
  */
-export const magic_visibility_mnm_mnm_config_warp_device_output: JsonSchema = {
+export const magic$$visibility$$mnm_mnm_config_warp_device: JsonSchema = {
   "properties": {
     "id": {
       "type": "string"
@@ -107,7 +107,7 @@ export const magic_visibility_mnm_mnm_config_warp_device_output: JsonSchema = {
 /**
  * The schema of `magic-visibility-mnm_mnm_config_warp_devices` in responses.
  */
-export const magic_visibility_mnm_mnm_config_warp_devices_output: JsonSchema = {
+export const magic$$visibility$$mnm_mnm_config_warp_devices: JsonSchema = {
   "items": {
     "$ref": "#/$defs/magic-visibility-mnm_mnm_config_warp_device"
   },

@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `organizations-api_BatchCreateMembersRequest`.
  */
-export const organizations_api_BatchCreateMembersRequest: JsonSchema = {
+export const organizations$$api_BatchCreateMembersRequest: JsonSchema = {
   "properties": {
     "members": {
       "description": "Omitted or null members are treated as an empty batch.",

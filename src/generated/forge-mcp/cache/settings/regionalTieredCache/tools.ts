@@ -3,31 +3,31 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
-  cache_settings_api_response_common_failure_output,
-  cache_settings_api_response_common_output,
-  cache_settings_base_output,
-  cache_settings_editable_output,
-  cache_settings_messages_output,
-  cache_settings_modified_on_output,
-  cache_settings_result_object_output,
-  cache_settings_setting_id_output,
-  cache_settings_setting_value_output,
-  cache_settings_zone_cache_settings_response_single_output,
+  cache$$settings_api$$response$$common,
+  cache$$settings_api$$response$$common$$failure,
+  cache$$settings_base,
+  cache$$settings_editable,
+  cache$$settings_messages,
+  cache$$settings_modified_on,
+  cache$$settings_result$$object,
+  cache$$settings_setting_id,
+  cache$$settings_setting_value,
+  cache$$settings_zone_cache_settings_response_single,
 } from "../../../outputs.js";
-import { cache_settings_identifier } from "../../../schemas.js";
+import { cache$$settings_identifier } from "../../../schemas.js";
 import {
-  cache_settings_regional_tiered_cache_output,
-  cache_settings_regional_tiered_cache_response_value_output,
-  cache_settings_regional_tiered_cache_value_output,
+  cache$$settings_regional_tiered_cache,
+  cache$$settings_regional_tiered_cache_response_value,
+  cache$$settings_regional_tiered_cache_value,
 } from "./outputs.js";
-import { cache_settings_regional_tiered_cache_value } from "./schemas.js";
+import { cache$$settings_regional_tiered_cache_value as cache$$settings_regional_tiered_cache_value$ } from "./schemas.js";
 
 /**
- * The tools of `cache.settings.regional_tiered_cache`.
+ * The tools of `cache.settings.regionalTieredCache`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "cache_settings_regional_tiered_cache_edit",
+    name: "cache_settings_regionalTieredCache_edit",
     title: "Change Regional Tiered Cache setting",
     description: "Instructs Cloudflare to check a regional hub data center on the way to your upper tier. This can help improve performance for smart and custom tiered cache topologies.",
     inputSchema: {
@@ -46,18 +46,26 @@ export const tools: readonly Tool[] = [
           ],
           "type": "object"
         },
-        "zone_id": {
-          "$ref": "#/$defs/cache-settings_identifier",
-          "description": "Identifier."
+        "path": {
+          "properties": {
+            "zone_id": {
+              "$ref": "#/$defs/cache-settings_identifier",
+              "description": "Identifier."
+            }
+          },
+          "required": [
+            "zone_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "zone_id",
+        "path",
         "body"
       ],
       $defs: {
-        "cache-settings_identifier": cache_settings_identifier,
-        "cache-settings_regional_tiered_cache_value": cache_settings_regional_tiered_cache_value,
+        "cache-settings_identifier": cache$$settings_identifier,
+        "cache-settings_regional_tiered_cache_value": cache$$settings_regional_tiered_cache_value$,
       },
     },
     outputSchema: {
@@ -70,18 +78,18 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "cache-settings_api-response-common": cache_settings_api_response_common_output,
-        "cache-settings_base": cache_settings_base_output,
-        "cache-settings_editable": cache_settings_editable_output,
-        "cache-settings_messages": cache_settings_messages_output,
-        "cache-settings_modified_on": cache_settings_modified_on_output,
-        "cache-settings_regional_tiered_cache": cache_settings_regional_tiered_cache_output,
-        "cache-settings_regional_tiered_cache_response_value": cache_settings_regional_tiered_cache_response_value_output,
-        "cache-settings_regional_tiered_cache_value": cache_settings_regional_tiered_cache_value_output,
-        "cache-settings_result-object": cache_settings_result_object_output,
-        "cache-settings_setting_id": cache_settings_setting_id_output,
-        "cache-settings_setting_value": cache_settings_setting_value_output,
-        "cache-settings_zone_cache_settings_response_single": cache_settings_zone_cache_settings_response_single_output,
+        "cache-settings_api-response-common": cache$$settings_api$$response$$common,
+        "cache-settings_base": cache$$settings_base,
+        "cache-settings_editable": cache$$settings_editable,
+        "cache-settings_messages": cache$$settings_messages,
+        "cache-settings_modified_on": cache$$settings_modified_on,
+        "cache-settings_regional_tiered_cache": cache$$settings_regional_tiered_cache,
+        "cache-settings_regional_tiered_cache_response_value": cache$$settings_regional_tiered_cache_response_value,
+        "cache-settings_regional_tiered_cache_value": cache$$settings_regional_tiered_cache_value,
+        "cache-settings_result-object": cache$$settings_result$$object,
+        "cache-settings_setting_id": cache$$settings_setting_id,
+        "cache-settings_setting_value": cache$$settings_setting_value,
+        "cache-settings_zone_cache_settings_response_single": cache$$settings_zone_cache_settings_response_single,
       },
     },
     annotations: {
@@ -127,19 +135,19 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "cache-settings_api-response-common": cache_settings_api_response_common_output,
-        "cache-settings_api-response-common-failure": cache_settings_api_response_common_failure_output,
-        "cache-settings_base": cache_settings_base_output,
-        "cache-settings_editable": cache_settings_editable_output,
-        "cache-settings_messages": cache_settings_messages_output,
-        "cache-settings_modified_on": cache_settings_modified_on_output,
-        "cache-settings_regional_tiered_cache": cache_settings_regional_tiered_cache_output,
-        "cache-settings_regional_tiered_cache_response_value": cache_settings_regional_tiered_cache_response_value_output,
-        "cache-settings_regional_tiered_cache_value": cache_settings_regional_tiered_cache_value_output,
-        "cache-settings_result-object": cache_settings_result_object_output,
-        "cache-settings_setting_id": cache_settings_setting_id_output,
-        "cache-settings_setting_value": cache_settings_setting_value_output,
-        "cache-settings_zone_cache_settings_response_single": cache_settings_zone_cache_settings_response_single_output,
+        "cache-settings_api-response-common": cache$$settings_api$$response$$common,
+        "cache-settings_api-response-common-failure": cache$$settings_api$$response$$common$$failure,
+        "cache-settings_base": cache$$settings_base,
+        "cache-settings_editable": cache$$settings_editable,
+        "cache-settings_messages": cache$$settings_messages,
+        "cache-settings_modified_on": cache$$settings_modified_on,
+        "cache-settings_regional_tiered_cache": cache$$settings_regional_tiered_cache,
+        "cache-settings_regional_tiered_cache_response_value": cache$$settings_regional_tiered_cache_response_value,
+        "cache-settings_regional_tiered_cache_value": cache$$settings_regional_tiered_cache_value,
+        "cache-settings_result-object": cache$$settings_result$$object,
+        "cache-settings_setting_id": cache$$settings_setting_id,
+        "cache-settings_setting_value": cache$$settings_setting_value,
+        "cache-settings_zone_cache_settings_response_single": cache$$settings_zone_cache_settings_response_single,
       },
     },
     request: (args) => ({
@@ -148,22 +156,30 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "cache_settings_regional_tiered_cache_get",
+    name: "cache_settings_regionalTieredCache_get",
     title: "Get Regional Tiered Cache setting",
     description: "Instructs Cloudflare to check a regional hub data center on the way to your upper tier. This can help improve performance for smart and custom tiered cache topologies.",
     inputSchema: {
       type: "object",
       properties: {
-        "zone_id": {
-          "$ref": "#/$defs/cache-settings_identifier",
-          "description": "Identifier."
+        "path": {
+          "properties": {
+            "zone_id": {
+              "$ref": "#/$defs/cache-settings_identifier",
+              "description": "Identifier."
+            }
+          },
+          "required": [
+            "zone_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "zone_id"
+        "path"
       ],
       $defs: {
-        "cache-settings_identifier": cache_settings_identifier,
+        "cache-settings_identifier": cache$$settings_identifier,
       },
     },
     outputSchema: {
@@ -176,18 +192,18 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "cache-settings_api-response-common": cache_settings_api_response_common_output,
-        "cache-settings_base": cache_settings_base_output,
-        "cache-settings_editable": cache_settings_editable_output,
-        "cache-settings_messages": cache_settings_messages_output,
-        "cache-settings_modified_on": cache_settings_modified_on_output,
-        "cache-settings_regional_tiered_cache": cache_settings_regional_tiered_cache_output,
-        "cache-settings_regional_tiered_cache_response_value": cache_settings_regional_tiered_cache_response_value_output,
-        "cache-settings_regional_tiered_cache_value": cache_settings_regional_tiered_cache_value_output,
-        "cache-settings_result-object": cache_settings_result_object_output,
-        "cache-settings_setting_id": cache_settings_setting_id_output,
-        "cache-settings_setting_value": cache_settings_setting_value_output,
-        "cache-settings_zone_cache_settings_response_single": cache_settings_zone_cache_settings_response_single_output,
+        "cache-settings_api-response-common": cache$$settings_api$$response$$common,
+        "cache-settings_base": cache$$settings_base,
+        "cache-settings_editable": cache$$settings_editable,
+        "cache-settings_messages": cache$$settings_messages,
+        "cache-settings_modified_on": cache$$settings_modified_on,
+        "cache-settings_regional_tiered_cache": cache$$settings_regional_tiered_cache,
+        "cache-settings_regional_tiered_cache_response_value": cache$$settings_regional_tiered_cache_response_value,
+        "cache-settings_regional_tiered_cache_value": cache$$settings_regional_tiered_cache_value,
+        "cache-settings_result-object": cache$$settings_result$$object,
+        "cache-settings_setting_id": cache$$settings_setting_id,
+        "cache-settings_setting_value": cache$$settings_setting_value,
+        "cache-settings_zone_cache_settings_response_single": cache$$settings_zone_cache_settings_response_single,
       },
     },
     annotations: {
@@ -235,19 +251,19 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "cache-settings_api-response-common": cache_settings_api_response_common_output,
-        "cache-settings_api-response-common-failure": cache_settings_api_response_common_failure_output,
-        "cache-settings_base": cache_settings_base_output,
-        "cache-settings_editable": cache_settings_editable_output,
-        "cache-settings_messages": cache_settings_messages_output,
-        "cache-settings_modified_on": cache_settings_modified_on_output,
-        "cache-settings_regional_tiered_cache": cache_settings_regional_tiered_cache_output,
-        "cache-settings_regional_tiered_cache_response_value": cache_settings_regional_tiered_cache_response_value_output,
-        "cache-settings_regional_tiered_cache_value": cache_settings_regional_tiered_cache_value_output,
-        "cache-settings_result-object": cache_settings_result_object_output,
-        "cache-settings_setting_id": cache_settings_setting_id_output,
-        "cache-settings_setting_value": cache_settings_setting_value_output,
-        "cache-settings_zone_cache_settings_response_single": cache_settings_zone_cache_settings_response_single_output,
+        "cache-settings_api-response-common": cache$$settings_api$$response$$common,
+        "cache-settings_api-response-common-failure": cache$$settings_api$$response$$common$$failure,
+        "cache-settings_base": cache$$settings_base,
+        "cache-settings_editable": cache$$settings_editable,
+        "cache-settings_messages": cache$$settings_messages,
+        "cache-settings_modified_on": cache$$settings_modified_on,
+        "cache-settings_regional_tiered_cache": cache$$settings_regional_tiered_cache,
+        "cache-settings_regional_tiered_cache_response_value": cache$$settings_regional_tiered_cache_response_value,
+        "cache-settings_regional_tiered_cache_value": cache$$settings_regional_tiered_cache_value,
+        "cache-settings_result-object": cache$$settings_result$$object,
+        "cache-settings_setting_id": cache$$settings_setting_id,
+        "cache-settings_setting_value": cache$$settings_setting_value,
+        "cache-settings_zone_cache_settings_response_single": cache$$settings_zone_cache_settings_response_single,
       },
     },
     request: (args) => ({

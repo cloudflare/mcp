@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `teams-devices_deployment_group` in responses.
  */
-export const teams_devices_deployment_group_output: JsonSchema = {
+export const teams$$devices_deployment_group: JsonSchema = {
   "properties": {
     "created_at": {
       "$ref": "#/$defs/teams-devices_deployment_group_created_at"
@@ -43,28 +43,28 @@ export const teams_devices_deployment_group_output: JsonSchema = {
 /**
  * The schema of `teams-devices_deployment_group_created_at` in responses.
  */
-export const teams_devices_deployment_group_created_at_output: JsonSchema = {
+export const teams$$devices_deployment_group_created_at: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `teams-devices_deployment_group_id` in responses.
  */
-export const teams_devices_deployment_group_id_output: JsonSchema = {
+export const teams$$devices_deployment_group_id: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `teams-devices_deployment_group_name` in responses.
  */
-export const teams_devices_deployment_group_name_output: JsonSchema = {
+export const teams$$devices_deployment_group_name: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `teams-devices_deployment_group_policy_ids` in responses.
  */
-export const teams_devices_deployment_group_policy_ids_output: JsonSchema = {
+export const teams$$devices_deployment_group_policy_ids: JsonSchema = {
   "oneOf": [
     {
       "items": {
@@ -81,14 +81,14 @@ export const teams_devices_deployment_group_policy_ids_output: JsonSchema = {
 /**
  * The schema of `teams-devices_deployment_group_updated_at` in responses.
  */
-export const teams_devices_deployment_group_updated_at_output: JsonSchema = {
+export const teams$$devices_deployment_group_updated_at: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `teams-devices_version_config` in responses.
  */
-export const teams_devices_version_config_output: JsonSchema = {
+export const teams$$devices_version_config: JsonSchema = {
   "properties": {
     "target_environment": {
       "oneOf": [

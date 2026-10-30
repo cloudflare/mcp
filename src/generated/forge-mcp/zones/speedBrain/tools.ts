@@ -3,20 +3,20 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
-  speed_api_response_common_failure_output,
-  speed_api_response_common_output,
-  speed_base_output,
-  speed_messages_output,
+  speed_api$$response$$common,
+  speed_api$$response$$common$$failure,
+  speed_base,
+  speed_messages,
 } from "../../outputs.js";
 import { speed_identifier } from "../../schemas.js";
-import { speed_cloudflare_speed_brain_response_output } from "./outputs.js";
+import { speed_cloudflare_speed_brain_response } from "./outputs.js";
 
 /**
- * The tools of `zones.speed_brain`.
+ * The tools of `zones.speedBrain`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "zones_speed_brain_edit",
+    name: "zones_speedBrain_edit",
     title: "Change Cloudflare Speed Brain setting",
     description: "Speed Brain lets compatible browsers speculate on content which can be prefetched or preloaded, making website\nnavigation faster. Refer to the Cloudflare Speed Brain documentation for more information.",
     inputSchema: {
@@ -38,13 +38,21 @@ export const tools: readonly Tool[] = [
           ],
           "type": "object"
         },
-        "zone_id": {
-          "$ref": "#/$defs/speed_identifier",
-          "description": "Identifier."
+        "path": {
+          "properties": {
+            "zone_id": {
+              "$ref": "#/$defs/speed_identifier",
+              "description": "Identifier."
+            }
+          },
+          "required": [
+            "zone_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "zone_id",
+        "path",
         "body"
       ],
       $defs: {
@@ -66,10 +74,10 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "speed_api-response-common": speed_api_response_common_output,
-        "speed_base": speed_base_output,
-        "speed_cloudflare_speed_brain_response": speed_cloudflare_speed_brain_response_output,
-        "speed_messages": speed_messages_output,
+        "speed_api-response-common": speed_api$$response$$common,
+        "speed_base": speed_base,
+        "speed_cloudflare_speed_brain_response": speed_cloudflare_speed_brain_response,
+        "speed_messages": speed_messages,
       },
     },
     annotations: {
@@ -119,11 +127,11 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "speed_api-response-common": speed_api_response_common_output,
-        "speed_api-response-common-failure": speed_api_response_common_failure_output,
-        "speed_base": speed_base_output,
-        "speed_cloudflare_speed_brain_response": speed_cloudflare_speed_brain_response_output,
-        "speed_messages": speed_messages_output,
+        "speed_api-response-common": speed_api$$response$$common,
+        "speed_api-response-common-failure": speed_api$$response$$common$$failure,
+        "speed_base": speed_base,
+        "speed_cloudflare_speed_brain_response": speed_cloudflare_speed_brain_response,
+        "speed_messages": speed_messages,
       },
     },
     request: (args) => ({
@@ -132,19 +140,27 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "zones_speed_brain_get",
+    name: "zones_speedBrain_get",
     title: "Get Cloudflare Speed Brain setting",
     description: "Speed Brain lets compatible browsers speculate on content which can be prefetched or preloaded, making website\nnavigation faster. Refer to the Cloudflare Speed Brain documentation for more information.",
     inputSchema: {
       type: "object",
       properties: {
-        "zone_id": {
-          "$ref": "#/$defs/speed_identifier",
-          "description": "Identifier."
+        "path": {
+          "properties": {
+            "zone_id": {
+              "$ref": "#/$defs/speed_identifier",
+              "description": "Identifier."
+            }
+          },
+          "required": [
+            "zone_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "zone_id"
+        "path"
       ],
       $defs: {
         "speed_identifier": speed_identifier,
@@ -165,10 +181,10 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "speed_api-response-common": speed_api_response_common_output,
-        "speed_base": speed_base_output,
-        "speed_cloudflare_speed_brain_response": speed_cloudflare_speed_brain_response_output,
-        "speed_messages": speed_messages_output,
+        "speed_api-response-common": speed_api$$response$$common,
+        "speed_base": speed_base,
+        "speed_cloudflare_speed_brain_response": speed_cloudflare_speed_brain_response,
+        "speed_messages": speed_messages,
       },
     },
     annotations: {
@@ -219,11 +235,11 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "speed_api-response-common": speed_api_response_common_output,
-        "speed_api-response-common-failure": speed_api_response_common_failure_output,
-        "speed_base": speed_base_output,
-        "speed_cloudflare_speed_brain_response": speed_cloudflare_speed_brain_response_output,
-        "speed_messages": speed_messages_output,
+        "speed_api-response-common": speed_api$$response$$common,
+        "speed_api-response-common-failure": speed_api$$response$$common$$failure,
+        "speed_base": speed_base,
+        "speed_cloudflare_speed_brain_response": speed_cloudflare_speed_brain_response,
+        "speed_messages": speed_messages,
       },
     },
     request: (args) => ({

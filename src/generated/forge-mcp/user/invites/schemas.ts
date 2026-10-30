@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `iam_invite_components-schemas-identifier`.
  */
-export const iam_invite_components_schemas_identifier: JsonSchema = {
+export const iam_invite_components$$schemas$$identifier: JsonSchema = {
   "description": "Invite identifier tag.",
   "type": "string"
 };

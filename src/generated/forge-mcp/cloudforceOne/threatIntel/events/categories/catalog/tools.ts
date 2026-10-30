@@ -4,23 +4,31 @@
 import { type Tool, pathParam } from "../../../../../_/tool.js";
 
 /**
- * The tools of `cloudforce_one.threat_intel.events.categories.catalog`.
+ * The tools of `cloudforceOne.threatIntel.events.categories.catalog`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "cloudforce_one_threat_intel_events_categories_catalog_list",
+    name: "cloudforceOne_threatIntel_events_categories_catalog_list",
     title: "List all event categories",
     description: "Lists every event category in the catalog, whether or not an event uses it. To list only the categories used in specific datasets, use `threat-intel events categories list`.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "description": "Account ID.",
-          "type": "string"
+        "path": {
+          "properties": {
+            "account_id": {
+              "description": "Account ID.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id"
+        "path"
       ],
     },
     outputSchema: {

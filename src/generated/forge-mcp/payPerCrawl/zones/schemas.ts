@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `pay-per-crawl_DaricZoneCanBeEnabledUpdate`.
  */
-export const pay_per_crawl_DaricZoneCanBeEnabledUpdate: JsonSchema = {
+export const pay$$per$$crawl_DaricZoneCanBeEnabledUpdate: JsonSchema = {
   "properties": {
     "can_be_enabled": {
       "type": "boolean"
@@ -24,7 +24,7 @@ export const pay_per_crawl_DaricZoneCanBeEnabledUpdate: JsonSchema = {
 /**
  * The schema of `pay-per-crawl_ZonesCanBeEnabledQueryPayload`.
  */
-export const pay_per_crawl_ZonesCanBeEnabledQueryPayload: JsonSchema = {
+export const pay$$per$$crawl_ZonesCanBeEnabledQueryPayload: JsonSchema = {
   "properties": {
     "zones": {
       "items": {
@@ -39,7 +39,7 @@ export const pay_per_crawl_ZonesCanBeEnabledQueryPayload: JsonSchema = {
 /**
  * The schema of `pay-per-crawl_ZonesCanBeEnabledUpdatePayload`.
  */
-export const pay_per_crawl_ZonesCanBeEnabledUpdatePayload: JsonSchema = {
+export const pay$$per$$crawl_ZonesCanBeEnabledUpdatePayload: JsonSchema = {
   "properties": {
     "zones": {
       "items": {

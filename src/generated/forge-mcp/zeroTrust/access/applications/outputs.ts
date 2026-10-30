@@ -6,56 +6,56 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `access_allow_all_headers` in responses.
  */
-export const access_allow_all_headers_output: JsonSchema = {
+export const access_allow_all_headers: JsonSchema = {
   "type": "boolean"
 };
 
 /**
  * The schema of `access_allow_all_methods` in responses.
  */
-export const access_allow_all_methods_output: JsonSchema = {
+export const access_allow_all_methods: JsonSchema = {
   "type": "boolean"
 };
 
 /**
  * The schema of `access_allow_all_origins` in responses.
  */
-export const access_allow_all_origins_output: JsonSchema = {
+export const access_allow_all_origins: JsonSchema = {
   "type": "boolean"
 };
 
 /**
  * The schema of `access_allow_authenticate_via_warp-2` in responses.
  */
-export const access_allow_authenticate_via_warp_2_output: JsonSchema = {
+export const access_allow_authenticate_via_warp$$2: JsonSchema = {
   "type": "boolean"
 };
 
 /**
  * The schema of `access_allow_credentials` in responses.
  */
-export const access_allow_credentials_output: JsonSchema = {
+export const access_allow_credentials: JsonSchema = {
   "type": "boolean"
 };
 
 /**
  * The schema of `access_allow_email_alias` in responses.
  */
-export const access_allow_email_alias_output: JsonSchema = {
+export const access_allow_email_alias: JsonSchema = {
   "type": "boolean"
 };
 
 /**
  * The schema of `access_allow_iframe` in responses.
  */
-export const access_allow_iframe_output: JsonSchema = {
+export const access_allow_iframe: JsonSchema = {
   "type": "boolean"
 };
 
 /**
  * The schema of `access_allowed_headers` in responses.
  */
-export const access_allowed_headers_output: JsonSchema = {
+export const access_allowed_headers: JsonSchema = {
   "items": {
     "type": "string"
   },
@@ -65,7 +65,7 @@ export const access_allowed_headers_output: JsonSchema = {
 /**
  * The schema of `access_allowed_idps` in responses.
  */
-export const access_allowed_idps_output: JsonSchema = {
+export const access_allowed_idps: JsonSchema = {
   "items": {
     "type": "string"
   },
@@ -75,7 +75,7 @@ export const access_allowed_idps_output: JsonSchema = {
 /**
  * The schema of `access_allowed_methods` in responses.
  */
-export const access_allowed_methods_output: JsonSchema = {
+export const access_allowed_methods: JsonSchema = {
   "items": {
     "enum": [
       "GET",
@@ -96,7 +96,7 @@ export const access_allowed_methods_output: JsonSchema = {
 /**
  * The schema of `access_allowed_origins` in responses.
  */
-export const access_allowed_origins_output: JsonSchema = {
+export const access_allowed_origins: JsonSchema = {
   "items": {
     "type": "string"
   },
@@ -106,14 +106,14 @@ export const access_allowed_origins_output: JsonSchema = {
 /**
  * The schema of `access_app_launcher_logo_url` in responses.
  */
-export const access_app_launcher_logo_url_output: JsonSchema = {
+export const access_app_launcher_logo_url: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `access_app_launcher_props` in responses.
  */
-export const access_app_launcher_props_output: JsonSchema = {
+export const access_app_launcher_props: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/access_feature_app_props"
@@ -163,14 +163,14 @@ export const access_app_launcher_props_output: JsonSchema = {
 /**
  * The schema of `access_app_launcher_visible` in responses.
  */
-export const access_app_launcher_visible_output: JsonSchema = {
+export const access_app_launcher_visible: JsonSchema = {
   "type": "boolean"
 };
 
 /**
  * The schema of `access_app_policy_response` in responses.
  */
-export const access_app_policy_response_output: JsonSchema = {
+export const access_app_policy_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/access_policy_resp"
@@ -192,7 +192,7 @@ export const access_app_policy_response_output: JsonSchema = {
 /**
  * The schema of `access_app_resp_embedded_policies` in responses.
  */
-export const access_app_resp_embedded_policies_output: JsonSchema = {
+export const access_app_resp_embedded_policies: JsonSchema = {
   "properties": {
     "policies": {
       "items": {
@@ -207,7 +207,7 @@ export const access_app_resp_embedded_policies_output: JsonSchema = {
 /**
  * The schema of `access_app_resp_embedded_target_criteria_infra` in responses.
  */
-export const access_app_resp_embedded_target_criteria_infra_output: JsonSchema = {
+export const access_app_resp_embedded_target_criteria_infra: JsonSchema = {
   "properties": {
     "target_criteria": {
       "items": {
@@ -223,7 +223,7 @@ export const access_app_resp_embedded_target_criteria_infra_output: JsonSchema =
  * The schema of `access_app_resp_embedded_target_criteria_self_hosted` in
  * responses.
  */
-export const access_app_resp_embedded_target_criteria_self_hosted_output: JsonSchema = {
+export const access_app_resp_embedded_target_criteria_self_hosted: JsonSchema = {
   "properties": {
     "target_criteria": {
       "items": {
@@ -238,7 +238,7 @@ export const access_app_resp_embedded_target_criteria_self_hosted_output: JsonSc
 /**
  * The schema of `access_app_response` in responses.
  */
-export const access_app_response_output: JsonSchema = {
+export const access_app_response: JsonSchema = {
   "anyOf": [
     {
       "allOf": [
@@ -425,21 +425,21 @@ export const access_app_response_output: JsonSchema = {
 /**
  * The schema of `access_aud-2` in responses.
  */
-export const access_aud_2_output: JsonSchema = {
+export const access_aud$$2: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `access_auto_redirect_to_identity-2` in responses.
  */
-export const access_auto_redirect_to_identity_2_output: JsonSchema = {
+export const access_auto_redirect_to_identity$$2: JsonSchema = {
   "type": "boolean"
 };
 
 /**
  * The schema of `access_basic_app_response_props` in responses.
  */
-export const access_basic_app_response_props_output: JsonSchema = {
+export const access_basic_app_response_props: JsonSchema = {
   "properties": {
     "aud": {
       "$ref": "#/$defs/access_aud-2"
@@ -460,14 +460,14 @@ export const access_basic_app_response_props_output: JsonSchema = {
 /**
  * The schema of `access_bg_color` in responses.
  */
-export const access_bg_color_output: JsonSchema = {
+export const access_bg_color: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `access_biso_props` in responses.
  */
-export const access_biso_props_output: JsonSchema = {
+export const access_biso_props: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/access_feature_app_props"
@@ -499,7 +499,7 @@ export const access_biso_props_output: JsonSchema = {
 /**
  * The schema of `access_bookmark_props` in responses.
  */
-export const access_bookmark_props_output: JsonSchema = {
+export const access_bookmark_props: JsonSchema = {
   "properties": {
     "app_launcher_visible": {
       "$ref": "#/$defs/access_app_launcher_visible"
@@ -533,21 +533,21 @@ export const access_bookmark_props_output: JsonSchema = {
 /**
  * The schema of `access_button_color` in responses.
  */
-export const access_button_color_output: JsonSchema = {
+export const access_button_color: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `access_button_text_color` in responses.
  */
-export const access_button_text_color_output: JsonSchema = {
+export const access_button_text_color: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `access_connection_rules_infra` in responses.
  */
-export const access_connection_rules_infra_output: JsonSchema = {
+export const access_connection_rules_infra: JsonSchema = {
   "properties": {
     "ssh": {
       "$ref": "#/$defs/access_connection_rules_ssh"
@@ -559,7 +559,7 @@ export const access_connection_rules_infra_output: JsonSchema = {
 /**
  * The schema of `access_connection_rules_ssh` in responses.
  */
-export const access_connection_rules_ssh_output: JsonSchema = {
+export const access_connection_rules_ssh: JsonSchema = {
   "properties": {
     "allow_email_alias": {
       "$ref": "#/$defs/access_allow_email_alias"
@@ -577,7 +577,7 @@ export const access_connection_rules_ssh_output: JsonSchema = {
 /**
  * The schema of `access_cors_headers` in responses.
  */
-export const access_cors_headers_output: JsonSchema = {
+export const access_cors_headers: JsonSchema = {
   "properties": {
     "allow_all_headers": {
       "$ref": "#/$defs/access_allow_all_headers"
@@ -610,28 +610,28 @@ export const access_cors_headers_output: JsonSchema = {
 /**
  * The schema of `access_custom_deny_message` in responses.
  */
-export const access_custom_deny_message_output: JsonSchema = {
+export const access_custom_deny_message: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `access_custom_deny_url` in responses.
  */
-export const access_custom_deny_url_output: JsonSchema = {
+export const access_custom_deny_url: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `access_custom_non_identity_deny_url` in responses.
  */
-export const access_custom_non_identity_deny_url_output: JsonSchema = {
+export const access_custom_non_identity_deny_url: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `access_custom_pages-2` in responses.
  */
-export const access_custom_pages_2_output: JsonSchema = {
+export const access_custom_pages$$2: JsonSchema = {
   "items": {
     "type": "string"
   },
@@ -641,7 +641,7 @@ export const access_custom_pages_2_output: JsonSchema = {
 /**
  * The schema of `access_destination_overrides` in responses.
  */
-export const access_destination_overrides_output: JsonSchema = {
+export const access_destination_overrides: JsonSchema = {
   "items": {
     "properties": {
       "behavior": {
@@ -667,7 +667,7 @@ export const access_destination_overrides_output: JsonSchema = {
 /**
  * The schema of `access_destinations` in responses.
  */
-export const access_destinations_output: JsonSchema = {
+export const access_destinations: JsonSchema = {
   "items": {
     "oneOf": [
       {
@@ -815,21 +815,21 @@ export const access_destinations_output: JsonSchema = {
 /**
  * The schema of `access_domain` in responses.
  */
-export const access_domain_output: JsonSchema = {
+export const access_domain: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `access_eager_redirect_cookie_setting` in responses.
  */
-export const access_eager_redirect_cookie_setting_output: JsonSchema = {
+export const access_eager_redirect_cookie_setting: JsonSchema = {
   "type": "boolean"
 };
 
 /**
  * The schema of `access_empty_response-2` in responses.
  */
-export const access_empty_response_2_output: JsonSchema = {
+export const access_empty_response$$2: JsonSchema = {
   "properties": {
     "result": {
       "oneOf": [
@@ -855,14 +855,14 @@ export const access_empty_response_2_output: JsonSchema = {
 /**
  * The schema of `access_enable_binding_cookie` in responses.
  */
-export const access_enable_binding_cookie_output: JsonSchema = {
+export const access_enable_binding_cookie: JsonSchema = {
   "type": "boolean"
 };
 
 /**
  * The schema of `access_end_user_all_preview_workers_destination` in responses.
  */
-export const access_end_user_all_preview_workers_destination_output: JsonSchema = {
+export const access_end_user_all_preview_workers_destination: JsonSchema = {
   "properties": {
     "overrides": {
       "$ref": "#/$defs/access_destination_overrides"
@@ -883,7 +883,7 @@ export const access_end_user_all_preview_workers_destination_output: JsonSchema 
 /**
  * The schema of `access_end_user_all_workers_destination` in responses.
  */
-export const access_end_user_all_workers_destination_output: JsonSchema = {
+export const access_end_user_all_workers_destination: JsonSchema = {
   "properties": {
     "overrides": {
       "$ref": "#/$defs/access_destination_overrides"
@@ -904,7 +904,7 @@ export const access_end_user_all_workers_destination_output: JsonSchema = {
 /**
  * The schema of `access_end_user_destinations` in responses.
  */
-export const access_end_user_destinations_output: JsonSchema = {
+export const access_end_user_destinations: JsonSchema = {
   "items": {
     "oneOf": [
       {
@@ -930,7 +930,7 @@ export const access_end_user_destinations_output: JsonSchema = {
 /**
  * The schema of `access_end_user_oauth_configuration` in responses.
  */
-export const access_end_user_oauth_configuration_output: JsonSchema = {
+export const access_end_user_oauth_configuration: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/access_oauth_configuration"
@@ -952,7 +952,7 @@ export const access_end_user_oauth_configuration_output: JsonSchema = {
 /**
  * The schema of `access_end_user_preview_worker_destination` in responses.
  */
-export const access_end_user_preview_worker_destination_output: JsonSchema = {
+export const access_end_user_preview_worker_destination: JsonSchema = {
   "properties": {
     "overrides": {
       "$ref": "#/$defs/access_destination_overrides"
@@ -977,7 +977,7 @@ export const access_end_user_preview_worker_destination_output: JsonSchema = {
 /**
  * The schema of `access_end_user_props` in responses.
  */
-export const access_end_user_props_output: JsonSchema = {
+export const access_end_user_props: JsonSchema = {
   "properties": {
     "allowed_idps": {
       "$ref": "#/$defs/access_allowed_idps"
@@ -1030,7 +1030,7 @@ export const access_end_user_props_output: JsonSchema = {
 /**
  * The schema of `access_end_user_public_destination` in responses.
  */
-export const access_end_user_public_destination_output: JsonSchema = {
+export const access_end_user_public_destination: JsonSchema = {
   "properties": {
     "overrides": {
       "$ref": "#/$defs/access_destination_overrides"
@@ -1054,7 +1054,7 @@ export const access_end_user_public_destination_output: JsonSchema = {
 /**
  * The schema of `access_end_user_worker_destination` in responses.
  */
-export const access_end_user_worker_destination_output: JsonSchema = {
+export const access_end_user_worker_destination: JsonSchema = {
   "properties": {
     "overrides": {
       "$ref": "#/$defs/access_destination_overrides"
@@ -1079,7 +1079,7 @@ export const access_end_user_worker_destination_output: JsonSchema = {
 /**
  * The schema of `access_feature_app_props` in responses.
  */
-export const access_feature_app_props_output: JsonSchema = {
+export const access_feature_app_props: JsonSchema = {
   "properties": {
     "allowed_idps": {
       "$ref": "#/$defs/access_allowed_idps"
@@ -1118,7 +1118,7 @@ export const access_feature_app_props_output: JsonSchema = {
 /**
  * The schema of `access_footer_links` in responses.
  */
-export const access_footer_links_output: JsonSchema = {
+export const access_footer_links: JsonSchema = {
   "items": {
     "properties": {
       "name": {
@@ -1140,28 +1140,28 @@ export const access_footer_links_output: JsonSchema = {
 /**
  * The schema of `access_header_bg_color` in responses.
  */
-export const access_header_bg_color_output: JsonSchema = {
+export const access_header_bg_color: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `access_http_only_cookie_attribute` in responses.
  */
-export const access_http_only_cookie_attribute_output: JsonSchema = {
+export const access_http_only_cookie_attribute: JsonSchema = {
   "type": "boolean"
 };
 
 /**
  * The schema of `access_image_url` in responses.
  */
-export const access_image_url_output: JsonSchema = {
+export const access_image_url: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `access_infra_app_resp_embedded_policies` in responses.
  */
-export const access_infra_app_resp_embedded_policies_output: JsonSchema = {
+export const access_infra_app_resp_embedded_policies: JsonSchema = {
   "properties": {
     "policies": {
       "items": {
@@ -1176,7 +1176,7 @@ export const access_infra_app_resp_embedded_policies_output: JsonSchema = {
 /**
  * The schema of `access_infra_mfa_config` in responses.
  */
-export const access_infra_mfa_config_output: JsonSchema = {
+export const access_infra_mfa_config: JsonSchema = {
   "properties": {
     "allowed_authenticators": {
       "items": {
@@ -1201,7 +1201,7 @@ export const access_infra_mfa_config_output: JsonSchema = {
 /**
  * The schema of `access_infra_policy_resp` in responses.
  */
-export const access_infra_policy_resp_output: JsonSchema = {
+export const access_infra_policy_resp: JsonSchema = {
   "allOf": [
     {
       "properties": {
@@ -1223,7 +1223,7 @@ export const access_infra_policy_resp_output: JsonSchema = {
 /**
  * The schema of `access_infra_props` in responses.
  */
-export const access_infra_props_output: JsonSchema = {
+export const access_infra_props: JsonSchema = {
   "allOf": [
     {
       "properties": {
@@ -1258,7 +1258,7 @@ export const access_infra_props_output: JsonSchema = {
 /**
  * The schema of `access_landing_page_design` in responses.
  */
-export const access_landing_page_design_output: JsonSchema = {
+export const access_landing_page_design: JsonSchema = {
   "properties": {
     "button_color": {
       "$ref": "#/$defs/access_button_color"
@@ -1282,21 +1282,21 @@ export const access_landing_page_design_output: JsonSchema = {
 /**
  * The schema of `access_logo_url` in responses.
  */
-export const access_logo_url_output: JsonSchema = {
+export const access_logo_url: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `access_max_age` in responses.
  */
-export const access_max_age_output: JsonSchema = {
+export const access_max_age: JsonSchema = {
   "type": "number"
 };
 
 /**
  * The schema of `access_mcp_portal_props` in responses.
  */
-export const access_mcp_portal_props_output: JsonSchema = {
+export const access_mcp_portal_props: JsonSchema = {
   "properties": {
     "allow_authenticate_via_warp": {
       "$ref": "#/$defs/access_allow_authenticate_via_warp-2"
@@ -1372,7 +1372,7 @@ export const access_mcp_portal_props_output: JsonSchema = {
 /**
  * The schema of `access_mcp_props` in responses.
  */
-export const access_mcp_props_output: JsonSchema = {
+export const access_mcp_props: JsonSchema = {
   "properties": {
     "allow_authenticate_via_warp": {
       "$ref": "#/$defs/access_allow_authenticate_via_warp-2"
@@ -1445,21 +1445,21 @@ export const access_mcp_props_output: JsonSchema = {
 /**
  * The schema of `access_message` in responses.
  */
-export const access_message_output: JsonSchema = {
+export const access_message: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `access_name-8` in responses.
  */
-export const access_name_8_output: JsonSchema = {
+export const access_name$$8: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `access_oauth_configuration` in responses.
  */
-export const access_oauth_configuration_output: JsonSchema = {
+export const access_oauth_configuration: JsonSchema = {
   "properties": {
     "dynamic_client_registration": {
       "properties": {
@@ -1502,7 +1502,7 @@ export const access_oauth_configuration_output: JsonSchema = {
 /**
  * The schema of `access_oidc_saas_app` in responses.
  */
-export const access_oidc_saas_app_output: JsonSchema = {
+export const access_oidc_saas_app: JsonSchema = {
   "properties": {
     "access_token_lifetime": {
       "type": "string"
@@ -1632,35 +1632,35 @@ export const access_oidc_saas_app_output: JsonSchema = {
 /**
  * The schema of `access_options_preflight_bypass` in responses.
  */
-export const access_options_preflight_bypass_output: JsonSchema = {
+export const access_options_preflight_bypass: JsonSchema = {
   "type": "boolean"
 };
 
 /**
  * The schema of `access_path_cookie_attribute` in responses.
  */
-export const access_path_cookie_attribute_output: JsonSchema = {
+export const access_path_cookie_attribute: JsonSchema = {
   "type": "boolean"
 };
 
 /**
  * The schema of `access_port` in responses.
  */
-export const access_port_output: JsonSchema = {
+export const access_port: JsonSchema = {
   "type": "integer"
 };
 
 /**
  * The schema of `access_precedence` in responses.
  */
-export const access_precedence_output: JsonSchema = {
+export const access_precedence: JsonSchema = {
   "type": "integer"
 };
 
 /**
  * The schema of `access_protocol_infra_app` in responses.
  */
-export const access_protocol_infra_app_output: JsonSchema = {
+export const access_protocol_infra_app: JsonSchema = {
   "enum": [
     "SSH"
   ],
@@ -1670,7 +1670,7 @@ export const access_protocol_infra_app_output: JsonSchema = {
 /**
  * The schema of `access_protocol_self_hosted_app` in responses.
  */
-export const access_protocol_self_hosted_app_output: JsonSchema = {
+export const access_protocol_self_hosted_app: JsonSchema = {
   "enum": [
     "RDP"
   ],
@@ -1680,7 +1680,7 @@ export const access_protocol_self_hosted_app_output: JsonSchema = {
 /**
  * The schema of `access_proxy_endpoint_props` in responses.
  */
-export const access_proxy_endpoint_props_output: JsonSchema = {
+export const access_proxy_endpoint_props: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/access_feature_app_props"
@@ -1712,7 +1712,7 @@ export const access_proxy_endpoint_props_output: JsonSchema = {
 /**
  * The schema of `access_rdp_props` in responses.
  */
-export const access_rdp_props_output: JsonSchema = {
+export const access_rdp_props: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/access_app_resp_embedded_target_criteria_self_hosted"
@@ -1741,14 +1741,14 @@ export const access_rdp_props_output: JsonSchema = {
 /**
  * The schema of `access_read_service_tokens_from_header` in responses.
  */
-export const access_read_service_tokens_from_header_output: JsonSchema = {
+export const access_read_service_tokens_from_header: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `access_response_collection-8` in responses.
  */
-export const access_response_collection_8_output: JsonSchema = {
+export const access_response_collection$$8: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/access_api-response-collection"
@@ -1770,7 +1770,7 @@ export const access_response_collection_8_output: JsonSchema = {
 /**
  * The schema of `access_saas_props` in responses.
  */
-export const access_saas_props_output: JsonSchema = {
+export const access_saas_props: JsonSchema = {
   "properties": {
     "allowed_idps": {
       "$ref": "#/$defs/access_allowed_idps"
@@ -1823,14 +1823,14 @@ export const access_saas_props_output: JsonSchema = {
 /**
  * The schema of `access_same_site_cookie_attribute` in responses.
  */
-export const access_same_site_cookie_attribute_output: JsonSchema = {
+export const access_same_site_cookie_attribute: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `access_saml_saas_app` in responses.
  */
-export const access_saml_saas_app_output: JsonSchema = {
+export const access_saml_saas_app: JsonSchema = {
   "properties": {
     "auth_type": {
       "enum": [
@@ -1930,7 +1930,7 @@ export const access_saml_saas_app_output: JsonSchema = {
 /**
  * The schema of `access_scim_config` in responses.
  */
-export const access_scim_config_output: JsonSchema = {
+export const access_scim_config: JsonSchema = {
   "properties": {
     "authentication": {
       "oneOf": [
@@ -1972,7 +1972,7 @@ export const access_scim_config_output: JsonSchema = {
  * The schema of `access_scim_config_authentication_access_service_token` in
  * responses.
  */
-export const access_scim_config_authentication_access_service_token_output: JsonSchema = {
+export const access_scim_config_authentication_access_service_token: JsonSchema = {
   "properties": {
     "client_id": {
       "type": "string"
@@ -1998,7 +1998,7 @@ export const access_scim_config_authentication_access_service_token_output: Json
 /**
  * The schema of `access_scim_config_authentication_http_basic` in responses.
  */
-export const access_scim_config_authentication_http_basic_output: JsonSchema = {
+export const access_scim_config_authentication_http_basic: JsonSchema = {
   "properties": {
     "password": {
       "type": "string"
@@ -2024,7 +2024,7 @@ export const access_scim_config_authentication_http_basic_output: JsonSchema = {
 /**
  * The schema of `access_scim_config_authentication_oauth2` in responses.
  */
-export const access_scim_config_authentication_oauth2_output: JsonSchema = {
+export const access_scim_config_authentication_oauth2: JsonSchema = {
   "properties": {
     "authorization_url": {
       "type": "string"
@@ -2065,7 +2065,7 @@ export const access_scim_config_authentication_oauth2_output: JsonSchema = {
  * The schema of `access_scim_config_authentication_oauth_bearer_token` in
  * responses.
  */
-export const access_scim_config_authentication_oauth_bearer_token_output: JsonSchema = {
+export const access_scim_config_authentication_oauth_bearer_token: JsonSchema = {
   "properties": {
     "scheme": {
       "enum": [
@@ -2087,7 +2087,7 @@ export const access_scim_config_authentication_oauth_bearer_token_output: JsonSc
 /**
  * The schema of `access_scim_config_mapping` in responses.
  */
-export const access_scim_config_mapping_output: JsonSchema = {
+export const access_scim_config_mapping: JsonSchema = {
   "properties": {
     "enabled": {
       "type": "boolean"
@@ -2132,7 +2132,7 @@ export const access_scim_config_mapping_output: JsonSchema = {
 /**
  * The schema of `access_scim_config_multi_authentication` in responses.
  */
-export const access_scim_config_multi_authentication_output: JsonSchema = {
+export const access_scim_config_multi_authentication: JsonSchema = {
   "items": {
     "$ref": "#/$defs/access_scim_config_single_authentication"
   },
@@ -2142,7 +2142,7 @@ export const access_scim_config_multi_authentication_output: JsonSchema = {
 /**
  * The schema of `access_scim_config_single_authentication` in responses.
  */
-export const access_scim_config_single_authentication_output: JsonSchema = {
+export const access_scim_config_single_authentication: JsonSchema = {
   "oneOf": [
     {
       "$ref": "#/$defs/access_scim_config_authentication_http_basic"
@@ -2162,7 +2162,7 @@ export const access_scim_config_single_authentication_output: JsonSchema = {
 /**
  * The schema of `access_self_hosted_domains` in responses.
  */
-export const access_self_hosted_domains_output: JsonSchema = {
+export const access_self_hosted_domains: JsonSchema = {
   "items": {
     "type": "string"
   },
@@ -2172,7 +2172,7 @@ export const access_self_hosted_domains_output: JsonSchema = {
 /**
  * The schema of `access_self_hosted_props` in responses.
  */
-export const access_self_hosted_props_output: JsonSchema = {
+export const access_self_hosted_props: JsonSchema = {
   "properties": {
     "allow_authenticate_via_warp": {
       "$ref": "#/$defs/access_allow_authenticate_via_warp-2"
@@ -2285,21 +2285,21 @@ export const access_self_hosted_props_output: JsonSchema = {
 /**
  * The schema of `access_service_auth_401_redirect` in responses.
  */
-export const access_service_auth_401_redirect_output: JsonSchema = {
+export const access_service_auth_401_redirect: JsonSchema = {
   "type": "boolean"
 };
 
 /**
  * The schema of `access_session_duration-2` in responses.
  */
-export const access_session_duration_2_output: JsonSchema = {
+export const access_session_duration$$2: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `access_single_response-9` in responses.
  */
-export const access_single_response_9_output: JsonSchema = {
+export const access_single_response$$9: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/access_api-response-single"
@@ -2318,21 +2318,21 @@ export const access_single_response_9_output: JsonSchema = {
 /**
  * The schema of `access_skip_app_launcher_login_page` in responses.
  */
-export const access_skip_app_launcher_login_page_output: JsonSchema = {
+export const access_skip_app_launcher_login_page: JsonSchema = {
   "type": "boolean"
 };
 
 /**
  * The schema of `access_skip_interstitial` in responses.
  */
-export const access_skip_interstitial_output: JsonSchema = {
+export const access_skip_interstitial: JsonSchema = {
   "type": "boolean"
 };
 
 /**
  * The schema of `access_ssh_props` in responses.
  */
-export const access_ssh_props_output: JsonSchema = {
+export const access_ssh_props: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/access_self_hosted_props"
@@ -2358,7 +2358,7 @@ export const access_ssh_props_output: JsonSchema = {
 /**
  * The schema of `access_tags-2` in responses.
  */
-export const access_tags_2_output: JsonSchema = {
+export const access_tags$$2: JsonSchema = {
   "items": {
     "type": "string"
   },
@@ -2368,7 +2368,7 @@ export const access_tags_2_output: JsonSchema = {
 /**
  * The schema of `access_target_attributes` in responses.
  */
-export const access_target_attributes_output: JsonSchema = {
+export const access_target_attributes: JsonSchema = {
   "additionalProperties": {
     "items": {
       "type": "string"
@@ -2381,7 +2381,7 @@ export const access_target_attributes_output: JsonSchema = {
 /**
  * The schema of `access_target_criteria_base` in responses.
  */
-export const access_target_criteria_base_output: JsonSchema = {
+export const access_target_criteria_base: JsonSchema = {
   "properties": {
     "exclude": {
       "$ref": "#/$defs/access_target_rule"
@@ -2408,7 +2408,7 @@ export const access_target_criteria_base_output: JsonSchema = {
 /**
  * The schema of `access_target_criteria_infra_app` in responses.
  */
-export const access_target_criteria_infra_app_output: JsonSchema = {
+export const access_target_criteria_infra_app: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/access_target_criteria_base"
@@ -2427,7 +2427,7 @@ export const access_target_criteria_infra_app_output: JsonSchema = {
 /**
  * The schema of `access_target_criteria_self_hosted_app` in responses.
  */
-export const access_target_criteria_self_hosted_app_output: JsonSchema = {
+export const access_target_criteria_self_hosted_app: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/access_target_criteria_base"
@@ -2446,7 +2446,7 @@ export const access_target_criteria_self_hosted_app_output: JsonSchema = {
 /**
  * The schema of `access_target_rule` in responses.
  */
-export const access_target_rule_output: JsonSchema = {
+export const access_target_rule: JsonSchema = {
   "properties": {
     "tags": {
       "additionalProperties": {
@@ -2469,7 +2469,7 @@ export const access_target_rule_output: JsonSchema = {
 /**
  * The schema of `access_target_rule_attributes` in responses.
  */
-export const access_target_rule_attributes_output: JsonSchema = {
+export const access_target_rule_attributes: JsonSchema = {
   "properties": {
     "hostname": {
       "items": {
@@ -2486,14 +2486,14 @@ export const access_target_rule_attributes_output: JsonSchema = {
 /**
  * The schema of `access_title` in responses.
  */
-export const access_title_output: JsonSchema = {
+export const access_title: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `access_type` in responses.
  */
-export const access_type_output: JsonSchema = {
+export const access_type: JsonSchema = {
   "enum": [
     "self_hosted",
     "end_user",
@@ -2518,14 +2518,14 @@ export const access_type_output: JsonSchema = {
  * The schema of `access_use_clientless_isolation_app_launcher_url` in
  * responses.
  */
-export const access_use_clientless_isolation_app_launcher_url_output: JsonSchema = {
+export const access_use_clientless_isolation_app_launcher_url: JsonSchema = {
   "type": "boolean"
 };
 
 /**
  * The schema of `access_usernames` in responses.
  */
-export const access_usernames_output: JsonSchema = {
+export const access_usernames: JsonSchema = {
   "items": {
     "type": "string"
   },
@@ -2535,7 +2535,7 @@ export const access_usernames_output: JsonSchema = {
 /**
  * The schema of `access_vnc_props` in responses.
  */
-export const access_vnc_props_output: JsonSchema = {
+export const access_vnc_props: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/access_self_hosted_props"
@@ -2561,7 +2561,7 @@ export const access_vnc_props_output: JsonSchema = {
 /**
  * The schema of `access_warp_props` in responses.
  */
-export const access_warp_props_output: JsonSchema = {
+export const access_warp_props: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/access_feature_app_props"

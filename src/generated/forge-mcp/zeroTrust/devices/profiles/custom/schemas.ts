@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../../_/tool.js";
 /**
  * The schema of `teams-devices_browser_extension_config`.
  */
-export const teams_devices_browser_extension_config: JsonSchema = {
+export const teams$$devices_browser_extension_config: JsonSchema = {
   "description": "Browser extension proxy settings. Required when profile_type is browser_extension and invalid for WARP profiles.",
   "oneOf": [
     {
@@ -39,7 +39,7 @@ export const teams_devices_browser_extension_config: JsonSchema = {
 /**
  * The schema of `teams-devices_default`.
  */
-export const teams_devices_default: JsonSchema = {
+export const teams$$devices_default: JsonSchema = {
   "description": "Whether the policy is the account default. WARP group profiles cannot set this field.",
   "type": "boolean"
 };
@@ -47,7 +47,7 @@ export const teams_devices_default: JsonSchema = {
 /**
  * The schema of `teams-devices_precedence`.
  */
-export const teams_devices_precedence: JsonSchema = {
+export const teams$$devices_precedence: JsonSchema = {
   "description": "The precedence of the policy. Lower values indicate higher precedence. Policies will be evaluated in ascending order of this field.",
   "type": "number"
 };
@@ -55,7 +55,7 @@ export const teams_devices_precedence: JsonSchema = {
 /**
  * The schema of `teams-devices_schemas-description`.
  */
-export const teams_devices_schemas_description: JsonSchema = {
+export const teams$$devices_schemas$$description: JsonSchema = {
   "description": "A description of the policy.",
   "type": "string"
 };
@@ -63,7 +63,7 @@ export const teams_devices_schemas_description: JsonSchema = {
 /**
  * The schema of `teams-devices_schemas-match`.
  */
-export const teams_devices_schemas_match: JsonSchema = {
+export const teams$$devices_schemas$$match: JsonSchema = {
   "description": "The wirefilter expression to match devices. Available values: \"identity.email\", \"identity.groups.id\", \"identity.groups.name\", \"identity.groups.email\", \"identity.service_token_uuid\", \"identity.saml_attributes\", \"network\", \"os.name\", \"os.version\", \"device.tags\".",
   "type": "string"
 };

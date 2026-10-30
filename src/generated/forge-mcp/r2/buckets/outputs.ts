@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `r2_bucket` in responses.
  */
-export const r2_bucket_output: JsonSchema = {
+export const r2_bucket: JsonSchema = {
   "properties": {
     "creation_date": {
       "type": "string"
@@ -30,7 +30,7 @@ export const r2_bucket_output: JsonSchema = {
 /**
  * The schema of `r2_bucket_location` in responses.
  */
-export const r2_bucket_location_output: JsonSchema = {
+export const r2_bucket_location: JsonSchema = {
   "enum": [
     "apac",
     "eeur",
@@ -45,7 +45,7 @@ export const r2_bucket_location_output: JsonSchema = {
 /**
  * The schema of `r2_jurisdiction` in responses.
  */
-export const r2_jurisdiction_output: JsonSchema = {
+export const r2_jurisdiction: JsonSchema = {
   "enum": [
     "default",
     "eu",
@@ -59,7 +59,7 @@ export const r2_jurisdiction_output: JsonSchema = {
 /**
  * The schema of `r2_result_info` in responses.
  */
-export const r2_result_info_output: JsonSchema = {
+export const r2_result_info: JsonSchema = {
   "properties": {
     "cursor": {
       "type": "string"
@@ -80,7 +80,7 @@ export const r2_result_info_output: JsonSchema = {
 /**
  * The schema of `r2_v4_response_list` in responses.
  */
-export const r2_v4_response_list_output: JsonSchema = {
+export const r2_v4_response_list: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/r2_v4_response"

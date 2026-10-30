@@ -3,50 +3,42 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
-  tunnel_api_response_common_failure_output,
-  tunnel_api_response_common_output,
-  tunnel_created_at_output,
-  tunnel_deleted_at_output,
-  tunnel_messages_output,
+  tunnel_api$$response$$common,
+  tunnel_api$$response$$common$$failure,
+  tunnel_created_at,
+  tunnel_deleted_at,
+  tunnel_messages,
 } from "../../../outputs.js";
 import { tunnel_account_id } from "../../../schemas.js";
 import {
-  tunnel_subnet_capacity_output,
-  tunnel_subnet_comment_output,
-  tunnel_subnet_id_output,
-  tunnel_subnet_ip_network_output,
-  tunnel_subnet_is_default_network_output,
-  tunnel_subnet_name_output,
-  tunnel_subnet_output,
-  tunnel_subnet_response_single_output,
-  tunnel_subnet_type_output,
+  tunnel_subnet,
+  tunnel_subnet_capacity,
+  tunnel_subnet_comment,
+  tunnel_subnet_id,
+  tunnel_subnet_ip_network,
+  tunnel_subnet_is_default_network,
+  tunnel_subnet_name,
+  tunnel_subnet_response_single,
+  tunnel_subnet_type,
 } from "../outputs.js";
 import {
   tunnel_address_family,
-  tunnel_subnet_comment,
-  tunnel_subnet_ip_network,
-  tunnel_subnet_name,
+  tunnel_subnet_comment as tunnel_subnet_comment$,
+  tunnel_subnet_ip_network as tunnel_subnet_ip_network$,
+  tunnel_subnet_name as tunnel_subnet_name$,
 } from "../schemas.js";
 
 /**
- * The tools of `network.subnets.initial_resolved_ip`.
+ * The tools of `network.subnets.initialResolvedIp`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "network_subnets_initial_resolved_ip_edit",
+    name: "network_subnets_initialResolvedIp_edit",
     title: "Update Initial Resolved IP Subnet",
     description: "Updates the CIDR for the account's default Initial Resolved IP Subnet of the given address\nfamily. The new CIDR must not conflict with existing private routes in the account.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/tunnel_account_id",
-          "description": "Cloudflare account ID"
-        },
-        "address_family": {
-          "$ref": "#/$defs/tunnel_address_family",
-          "description": "IP address family, either `v4` (IPv4) or `v6` (IPv6)"
-        },
         "body": {
           "properties": {
             "comment": {
@@ -64,37 +56,53 @@ export const tools: readonly Tool[] = [
             }
           },
           "type": "object"
+        },
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/tunnel_account_id",
+              "description": "Cloudflare account ID"
+            },
+            "address_family": {
+              "$ref": "#/$defs/tunnel_address_family",
+              "description": "IP address family, either `v4` (IPv4) or `v6` (IPv6)"
+            }
+          },
+          "required": [
+            "account_id",
+            "address_family"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "address_family",
+        "path",
         "body"
       ],
       $defs: {
         "tunnel_account_id": tunnel_account_id,
         "tunnel_address_family": tunnel_address_family,
-        "tunnel_subnet_comment": tunnel_subnet_comment,
-        "tunnel_subnet_ip_network": tunnel_subnet_ip_network,
-        "tunnel_subnet_name": tunnel_subnet_name,
+        "tunnel_subnet_comment": tunnel_subnet_comment$,
+        "tunnel_subnet_ip_network": tunnel_subnet_ip_network$,
+        "tunnel_subnet_name": tunnel_subnet_name$,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/tunnel_subnet_response_single",
       $defs: {
-        "tunnel_api-response-common": tunnel_api_response_common_output,
-        "tunnel_created_at": tunnel_created_at_output,
-        "tunnel_deleted_at": tunnel_deleted_at_output,
-        "tunnel_messages": tunnel_messages_output,
-        "tunnel_subnet": tunnel_subnet_output,
-        "tunnel_subnet_capacity": tunnel_subnet_capacity_output,
-        "tunnel_subnet_comment": tunnel_subnet_comment_output,
-        "tunnel_subnet_id": tunnel_subnet_id_output,
-        "tunnel_subnet_ip_network": tunnel_subnet_ip_network_output,
-        "tunnel_subnet_is_default_network": tunnel_subnet_is_default_network_output,
-        "tunnel_subnet_name": tunnel_subnet_name_output,
-        "tunnel_subnet_response_single": tunnel_subnet_response_single_output,
-        "tunnel_subnet_type": tunnel_subnet_type_output,
+        "tunnel_api-response-common": tunnel_api$$response$$common,
+        "tunnel_created_at": tunnel_created_at,
+        "tunnel_deleted_at": tunnel_deleted_at,
+        "tunnel_messages": tunnel_messages,
+        "tunnel_subnet": tunnel_subnet,
+        "tunnel_subnet_capacity": tunnel_subnet_capacity,
+        "tunnel_subnet_comment": tunnel_subnet_comment,
+        "tunnel_subnet_id": tunnel_subnet_id,
+        "tunnel_subnet_ip_network": tunnel_subnet_ip_network,
+        "tunnel_subnet_is_default_network": tunnel_subnet_is_default_network,
+        "tunnel_subnet_name": tunnel_subnet_name,
+        "tunnel_subnet_response_single": tunnel_subnet_response_single,
+        "tunnel_subnet_type": tunnel_subnet_type,
       },
     },
     annotations: {
@@ -123,20 +131,20 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "tunnel_api-response-common": tunnel_api_response_common_output,
-        "tunnel_api-response-common-failure": tunnel_api_response_common_failure_output,
-        "tunnel_created_at": tunnel_created_at_output,
-        "tunnel_deleted_at": tunnel_deleted_at_output,
-        "tunnel_messages": tunnel_messages_output,
-        "tunnel_subnet": tunnel_subnet_output,
-        "tunnel_subnet_capacity": tunnel_subnet_capacity_output,
-        "tunnel_subnet_comment": tunnel_subnet_comment_output,
-        "tunnel_subnet_id": tunnel_subnet_id_output,
-        "tunnel_subnet_ip_network": tunnel_subnet_ip_network_output,
-        "tunnel_subnet_is_default_network": tunnel_subnet_is_default_network_output,
-        "tunnel_subnet_name": tunnel_subnet_name_output,
-        "tunnel_subnet_response_single": tunnel_subnet_response_single_output,
-        "tunnel_subnet_type": tunnel_subnet_type_output,
+        "tunnel_api-response-common": tunnel_api$$response$$common,
+        "tunnel_api-response-common-failure": tunnel_api$$response$$common$$failure,
+        "tunnel_created_at": tunnel_created_at,
+        "tunnel_deleted_at": tunnel_deleted_at,
+        "tunnel_messages": tunnel_messages,
+        "tunnel_subnet": tunnel_subnet,
+        "tunnel_subnet_capacity": tunnel_subnet_capacity,
+        "tunnel_subnet_comment": tunnel_subnet_comment,
+        "tunnel_subnet_id": tunnel_subnet_id,
+        "tunnel_subnet_ip_network": tunnel_subnet_ip_network,
+        "tunnel_subnet_is_default_network": tunnel_subnet_is_default_network,
+        "tunnel_subnet_name": tunnel_subnet_name,
+        "tunnel_subnet_response_single": tunnel_subnet_response_single,
+        "tunnel_subnet_type": tunnel_subnet_type,
       },
     },
     request: (args) => ({
@@ -145,24 +153,32 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "network_subnets_initial_resolved_ip_get",
+    name: "network_subnets_initialResolvedIp_get",
     title: "Get Initial Resolved IP Subnet",
     description: "Returns the account's default Initial Resolved IP Subnet for the given address family.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/tunnel_account_id",
-          "description": "Cloudflare account ID"
-        },
-        "address_family": {
-          "$ref": "#/$defs/tunnel_address_family",
-          "description": "IP address family, either `v4` (IPv4) or `v6` (IPv6)"
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/tunnel_account_id",
+              "description": "Cloudflare account ID"
+            },
+            "address_family": {
+              "$ref": "#/$defs/tunnel_address_family",
+              "description": "IP address family, either `v4` (IPv4) or `v6` (IPv6)"
+            }
+          },
+          "required": [
+            "account_id",
+            "address_family"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "address_family"
+        "path"
       ],
       $defs: {
         "tunnel_account_id": tunnel_account_id,
@@ -172,19 +188,19 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/tunnel_subnet_response_single",
       $defs: {
-        "tunnel_api-response-common": tunnel_api_response_common_output,
-        "tunnel_created_at": tunnel_created_at_output,
-        "tunnel_deleted_at": tunnel_deleted_at_output,
-        "tunnel_messages": tunnel_messages_output,
-        "tunnel_subnet": tunnel_subnet_output,
-        "tunnel_subnet_capacity": tunnel_subnet_capacity_output,
-        "tunnel_subnet_comment": tunnel_subnet_comment_output,
-        "tunnel_subnet_id": tunnel_subnet_id_output,
-        "tunnel_subnet_ip_network": tunnel_subnet_ip_network_output,
-        "tunnel_subnet_is_default_network": tunnel_subnet_is_default_network_output,
-        "tunnel_subnet_name": tunnel_subnet_name_output,
-        "tunnel_subnet_response_single": tunnel_subnet_response_single_output,
-        "tunnel_subnet_type": tunnel_subnet_type_output,
+        "tunnel_api-response-common": tunnel_api$$response$$common,
+        "tunnel_created_at": tunnel_created_at,
+        "tunnel_deleted_at": tunnel_deleted_at,
+        "tunnel_messages": tunnel_messages,
+        "tunnel_subnet": tunnel_subnet,
+        "tunnel_subnet_capacity": tunnel_subnet_capacity,
+        "tunnel_subnet_comment": tunnel_subnet_comment,
+        "tunnel_subnet_id": tunnel_subnet_id,
+        "tunnel_subnet_ip_network": tunnel_subnet_ip_network,
+        "tunnel_subnet_is_default_network": tunnel_subnet_is_default_network,
+        "tunnel_subnet_name": tunnel_subnet_name,
+        "tunnel_subnet_response_single": tunnel_subnet_response_single,
+        "tunnel_subnet_type": tunnel_subnet_type,
       },
     },
     annotations: {
@@ -219,20 +235,20 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "tunnel_api-response-common": tunnel_api_response_common_output,
-        "tunnel_api-response-common-failure": tunnel_api_response_common_failure_output,
-        "tunnel_created_at": tunnel_created_at_output,
-        "tunnel_deleted_at": tunnel_deleted_at_output,
-        "tunnel_messages": tunnel_messages_output,
-        "tunnel_subnet": tunnel_subnet_output,
-        "tunnel_subnet_capacity": tunnel_subnet_capacity_output,
-        "tunnel_subnet_comment": tunnel_subnet_comment_output,
-        "tunnel_subnet_id": tunnel_subnet_id_output,
-        "tunnel_subnet_ip_network": tunnel_subnet_ip_network_output,
-        "tunnel_subnet_is_default_network": tunnel_subnet_is_default_network_output,
-        "tunnel_subnet_name": tunnel_subnet_name_output,
-        "tunnel_subnet_response_single": tunnel_subnet_response_single_output,
-        "tunnel_subnet_type": tunnel_subnet_type_output,
+        "tunnel_api-response-common": tunnel_api$$response$$common,
+        "tunnel_api-response-common-failure": tunnel_api$$response$$common$$failure,
+        "tunnel_created_at": tunnel_created_at,
+        "tunnel_deleted_at": tunnel_deleted_at,
+        "tunnel_messages": tunnel_messages,
+        "tunnel_subnet": tunnel_subnet,
+        "tunnel_subnet_capacity": tunnel_subnet_capacity,
+        "tunnel_subnet_comment": tunnel_subnet_comment,
+        "tunnel_subnet_id": tunnel_subnet_id,
+        "tunnel_subnet_ip_network": tunnel_subnet_ip_network,
+        "tunnel_subnet_is_default_network": tunnel_subnet_is_default_network,
+        "tunnel_subnet_name": tunnel_subnet_name,
+        "tunnel_subnet_response_single": tunnel_subnet_response_single,
+        "tunnel_subnet_type": tunnel_subnet_type,
       },
     },
     request: (args) => ({

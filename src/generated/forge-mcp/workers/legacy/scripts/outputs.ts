@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `workers_script-response-collection` in responses.
  */
-export const workers_script_response_collection_output: JsonSchema = {
+export const workers_script$$response$$collection: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/workers_api-response-common"

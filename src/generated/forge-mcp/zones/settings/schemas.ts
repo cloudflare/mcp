@@ -146,7 +146,7 @@ export const zones_browser_check_value: JsonSchema = {
 /**
  * The schema of `zones_cache-rules_aegis_value`.
  */
-export const zones_cache_rules_aegis_value: JsonSchema = {
+export const zones_cache$$rules_aegis_value: JsonSchema = {
   "description": "Value of the zone setting.",
   "properties": {
     "enabled": {
@@ -164,7 +164,7 @@ export const zones_cache_rules_aegis_value: JsonSchema = {
 /**
  * The schema of `zones_cache-rules_origin_h2_max_streams_value`.
  */
-export const zones_cache_rules_origin_h2_max_streams_value: JsonSchema = {
+export const zones_cache$$rules_origin_h2_max_streams_value: JsonSchema = {
   "description": "Value of the Origin H2 Max Streams Setting.",
   "type": "integer"
 };
@@ -172,7 +172,7 @@ export const zones_cache_rules_origin_h2_max_streams_value: JsonSchema = {
 /**
  * The schema of `zones_cache-rules_origin_max_http_version_value`.
  */
-export const zones_cache_rules_origin_max_http_version_value: JsonSchema = {
+export const zones_cache$$rules_origin_max_http_version_value: JsonSchema = {
   "description": "Value of the Origin Max HTTP Version Setting.",
   "enum": [
     "2",

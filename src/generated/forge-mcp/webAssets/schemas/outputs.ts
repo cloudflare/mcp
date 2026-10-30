@@ -6,14 +6,14 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `api-shield_openapi-with-thresholds` in responses.
  */
-export const api_shield_openapi_with_thresholds_output: JsonSchema = {
+export const api$$shield_openapi$$with$$thresholds: JsonSchema = {
   "type": "object"
 };
 
 /**
  * The schema of `api-shield_schema-response-with-thresholds` in responses.
  */
-export const api_shield_schema_response_with_thresholds_output: JsonSchema = {
+export const api$$shield_schema$$response$$with$$thresholds: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/api-shield_api-response-common"

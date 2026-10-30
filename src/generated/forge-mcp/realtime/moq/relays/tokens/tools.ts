@@ -3,14 +3,14 @@
 
 import { type Tool, pathParam } from "../../../../_/tool.js";
 import {
-  moq_api_response_common_output,
-  moq_api_response_error_output,
-  moq_cloudflare_jwt_issuer_output,
-  moq_cloudflare_jwt_token_output,
-  moq_issuer_output,
+  moq_api$$response$$common,
+  moq_api$$response$$error,
+  moq_cloudflare_jwt_issuer,
+  moq_cloudflare_jwt_token,
+  moq_issuer,
 } from "../outputs.js";
 import { moq_account_identifier } from "../schemas.js";
-import { moq_tokens_envelope_output } from "./outputs.js";
+import { moq_tokens_envelope } from "./outputs.js";
 
 /**
  * The tools of `realtime.moq.relays.tokens`.
@@ -23,10 +23,6 @@ export const tools: readonly Tool[] = [
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/moq_account_identifier",
-          "description": "Cloudflare account identifier."
-        },
         "body": {
           "properties": {
             "expires": {
@@ -56,14 +52,26 @@ export const tools: readonly Tool[] = [
           ],
           "type": "object"
         },
-        "relay_id": {
-          "description": "Relay unique identifier (32 hex characters).",
-          "type": "string"
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/moq_account_identifier",
+              "description": "Cloudflare account identifier."
+            },
+            "relay_id": {
+              "description": "Relay unique identifier (32 hex characters).",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "relay_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "relay_id",
+        "path",
         "body"
       ],
       $defs: {
@@ -85,11 +93,11 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "moq_api-response-common": moq_api_response_common_output,
-        "moq_cloudflare_jwt_issuer": moq_cloudflare_jwt_issuer_output,
-        "moq_cloudflare_jwt_token": moq_cloudflare_jwt_token_output,
-        "moq_issuer": moq_issuer_output,
-        "moq_tokens_envelope": moq_tokens_envelope_output,
+        "moq_api-response-common": moq_api$$response$$common,
+        "moq_cloudflare_jwt_issuer": moq_cloudflare_jwt_issuer,
+        "moq_cloudflare_jwt_token": moq_cloudflare_jwt_token,
+        "moq_issuer": moq_issuer,
+        "moq_tokens_envelope": moq_tokens_envelope,
       },
     },
     annotations: {
@@ -135,12 +143,12 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "moq_api-response-common": moq_api_response_common_output,
-        "moq_api-response-error": moq_api_response_error_output,
-        "moq_cloudflare_jwt_issuer": moq_cloudflare_jwt_issuer_output,
-        "moq_cloudflare_jwt_token": moq_cloudflare_jwt_token_output,
-        "moq_issuer": moq_issuer_output,
-        "moq_tokens_envelope": moq_tokens_envelope_output,
+        "moq_api-response-common": moq_api$$response$$common,
+        "moq_api-response-error": moq_api$$response$$error,
+        "moq_cloudflare_jwt_issuer": moq_cloudflare_jwt_issuer,
+        "moq_cloudflare_jwt_token": moq_cloudflare_jwt_token,
+        "moq_issuer": moq_issuer,
+        "moq_tokens_envelope": moq_tokens_envelope,
       },
     },
     request: (args) => ({
@@ -155,23 +163,31 @@ export const tools: readonly Tool[] = [
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/moq_account_identifier",
-          "description": "Cloudflare account identifier."
-        },
-        "jti": {
-          "description": "Token identifier (jti — 32 hex characters).",
-          "type": "string"
-        },
-        "relay_id": {
-          "description": "Relay unique identifier (32 hex characters).",
-          "type": "string"
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/moq_account_identifier",
+              "description": "Cloudflare account identifier."
+            },
+            "jti": {
+              "description": "Token identifier (jti — 32 hex characters).",
+              "type": "string"
+            },
+            "relay_id": {
+              "description": "Relay unique identifier (32 hex characters).",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "relay_id",
+            "jti"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "relay_id",
-        "jti"
+        "path"
       ],
       $defs: {
         "moq_account_identifier": moq_account_identifier,
@@ -180,7 +196,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/moq_api-response-common",
       $defs: {
-        "moq_api-response-common": moq_api_response_common_output,
+        "moq_api-response-common": moq_api$$response$$common,
       },
     },
     annotations: {
@@ -211,8 +227,8 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "moq_api-response-common": moq_api_response_common_output,
-        "moq_api-response-error": moq_api_response_error_output,
+        "moq_api-response-common": moq_api$$response$$common,
+        "moq_api-response-error": moq_api$$response$$error,
       },
     },
     request: (args) => ({
@@ -226,18 +242,26 @@ export const tools: readonly Tool[] = [
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/moq_account_identifier",
-          "description": "Cloudflare account identifier."
-        },
-        "relay_id": {
-          "description": "Relay unique identifier (32 hex characters).",
-          "type": "string"
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/moq_account_identifier",
+              "description": "Cloudflare account identifier."
+            },
+            "relay_id": {
+              "description": "Relay unique identifier (32 hex characters).",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "relay_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "relay_id"
+        "path"
       ],
       $defs: {
         "moq_account_identifier": moq_account_identifier,
@@ -258,11 +282,11 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "moq_api-response-common": moq_api_response_common_output,
-        "moq_cloudflare_jwt_issuer": moq_cloudflare_jwt_issuer_output,
-        "moq_cloudflare_jwt_token": moq_cloudflare_jwt_token_output,
-        "moq_issuer": moq_issuer_output,
-        "moq_tokens_envelope": moq_tokens_envelope_output,
+        "moq_api-response-common": moq_api$$response$$common,
+        "moq_cloudflare_jwt_issuer": moq_cloudflare_jwt_issuer,
+        "moq_cloudflare_jwt_token": moq_cloudflare_jwt_token,
+        "moq_issuer": moq_issuer,
+        "moq_tokens_envelope": moq_tokens_envelope,
       },
     },
     annotations: {
@@ -305,12 +329,12 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "moq_api-response-common": moq_api_response_common_output,
-        "moq_api-response-error": moq_api_response_error_output,
-        "moq_cloudflare_jwt_issuer": moq_cloudflare_jwt_issuer_output,
-        "moq_cloudflare_jwt_token": moq_cloudflare_jwt_token_output,
-        "moq_issuer": moq_issuer_output,
-        "moq_tokens_envelope": moq_tokens_envelope_output,
+        "moq_api-response-common": moq_api$$response$$common,
+        "moq_api-response-error": moq_api$$response$$error,
+        "moq_cloudflare_jwt_issuer": moq_cloudflare_jwt_issuer,
+        "moq_cloudflare_jwt_token": moq_cloudflare_jwt_token,
+        "moq_issuer": moq_issuer,
+        "moq_tokens_envelope": moq_tokens_envelope,
       },
     },
     request: (args) => ({

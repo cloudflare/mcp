@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `dns-firewall_dns-firewall-reverse-dns-response` in responses.
  */
-export const dns_firewall_dns_firewall_reverse_dns_response_output: JsonSchema = {
+export const dns$$firewall_dns$$firewall$$reverse$$dns$$response: JsonSchema = {
   "properties": {
     "ptr": {
       "additionalProperties": {
@@ -24,7 +24,7 @@ export const dns_firewall_dns_firewall_reverse_dns_response_output: JsonSchema =
 /**
  * The schema of `dns-firewall_dns_firewall_reverse_dns_response` in responses.
  */
-export const dns_firewall_dns_firewall_reverse_dns_response_output$: JsonSchema = {
+export const dns$$firewall_dns_firewall_reverse_dns_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/dns-firewall_api-response-single"

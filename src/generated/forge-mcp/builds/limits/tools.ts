@@ -3,13 +3,13 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
-  builds_APIResponse_output,
-  builds_ApiError_output,
-  builds_ErrorResponse_output,
-  builds_PaginationInfo_output,
+  builds_APIResponse,
+  builds_ApiError,
+  builds_ErrorResponse,
+  builds_PaginationInfo,
 } from "../../outputs.js";
 import { builds_account_id } from "../../schemas.js";
-import { builds_GetAccountLimitResponse_output } from "./outputs.js";
+import { builds_GetAccountLimitResponse } from "./outputs.js";
 
 /**
  * The tools of `builds.limits`.
@@ -22,13 +22,21 @@ export const tools: readonly Tool[] = [
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/builds_account_id",
-          "description": "Account identifier."
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/builds_account_id",
+              "description": "Account identifier."
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id"
+        "path"
       ],
       $defs: {
         "builds_account_id": builds_account_id,
@@ -49,10 +57,10 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "builds_APIResponse": builds_APIResponse_output,
-        "builds_ApiError": builds_ApiError_output,
-        "builds_GetAccountLimitResponse": builds_GetAccountLimitResponse_output,
-        "builds_PaginationInfo": builds_PaginationInfo_output,
+        "builds_APIResponse": builds_APIResponse,
+        "builds_ApiError": builds_ApiError,
+        "builds_GetAccountLimitResponse": builds_GetAccountLimitResponse,
+        "builds_PaginationInfo": builds_PaginationInfo,
       },
     },
     annotations: {
@@ -92,11 +100,11 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "builds_APIResponse": builds_APIResponse_output,
-        "builds_ApiError": builds_ApiError_output,
-        "builds_ErrorResponse": builds_ErrorResponse_output,
-        "builds_GetAccountLimitResponse": builds_GetAccountLimitResponse_output,
-        "builds_PaginationInfo": builds_PaginationInfo_output,
+        "builds_APIResponse": builds_APIResponse,
+        "builds_ApiError": builds_ApiError,
+        "builds_ErrorResponse": builds_ErrorResponse,
+        "builds_GetAccountLimitResponse": builds_GetAccountLimitResponse,
+        "builds_PaginationInfo": builds_PaginationInfo,
       },
     },
     request: (args) => ({

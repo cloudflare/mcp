@@ -3,89 +3,97 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
-  iam_api_response_collection_output,
-  iam_api_response_common_failure_output,
-  iam_api_response_common_output,
-  iam_api_response_single_id_output,
-  iam_api_response_single_output,
-  iam_common_components_schemas_identifier_output,
-  iam_messages_2_output,
-  iam_result_info_output,
+  iam_api$$response$$collection,
+  iam_api$$response$$common,
+  iam_api$$response$$common$$failure,
+  iam_api$$response$$single,
+  iam_api$$response$$single$$id,
+  iam_common_components$$schemas$$identifier,
+  iam_messages$$2,
+  iam_result_info,
 } from "../../outputs.js";
 import {
   iam_account_identifier,
-  iam_common_components_schemas_identifier,
+  iam_common_components$$schemas$$identifier as iam_common_components$$schemas$$identifier$,
 } from "../../schemas.js";
 import {
-  iam_collection_oauth_client_response_output,
-  iam_oauth_client_common_output,
-  iam_oauth_client_grant_types_output,
-  iam_oauth_client_identifier_output,
-  iam_oauth_client_output,
-  iam_oauth_client_response_types_output,
-  iam_oauth_client_rotate_secret_response_output,
-  iam_oauth_client_token_endpoint_auth_method_output,
-  iam_oauth_client_uri_verification_output,
-  iam_oauth_client_with_secret_output,
-  iam_single_oauth_client_create_response_output,
-  iam_single_oauth_client_response_output,
-} from "./outputs.js";
-import {
+  iam_collection_oauth_client_response,
+  iam_oauth_client,
   iam_oauth_client_common,
-  iam_oauth_client_create_request,
   iam_oauth_client_grant_types,
   iam_oauth_client_identifier,
   iam_oauth_client_response_types,
+  iam_oauth_client_rotate_secret_response,
   iam_oauth_client_token_endpoint_auth_method,
+  iam_oauth_client_uri_verification,
+  iam_oauth_client_with_secret,
+  iam_single_oauth_client_create_response,
+  iam_single_oauth_client_response,
+} from "./outputs.js";
+import {
+  iam_oauth_client_common as iam_oauth_client_common$,
+  iam_oauth_client_create_request,
+  iam_oauth_client_grant_types as iam_oauth_client_grant_types$,
+  iam_oauth_client_identifier as iam_oauth_client_identifier$,
+  iam_oauth_client_response_types as iam_oauth_client_response_types$,
+  iam_oauth_client_token_endpoint_auth_method as iam_oauth_client_token_endpoint_auth_method$,
   iam_oauth_client_update_request,
 } from "./schemas.js";
 
 /**
- * The tools of `iam.oauth_clients`.
+ * The tools of `iam.oauthClients`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "iam_oauth_clients_create",
+    name: "iam_oauthClients_create",
     title: "Create OAuth Client",
     description: "Create a new OAuth client for an account.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/iam_account_identifier",
-          "description": "Account identifier tag."
-        },
         "body": {
           "$ref": "#/$defs/iam_oauth_client_create_request"
+        },
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/iam_account_identifier",
+              "description": "Account identifier tag."
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
+        "path",
         "body"
       ],
       $defs: {
         "iam_account_identifier": iam_account_identifier,
-        "iam_common_components-schemas-identifier": iam_common_components_schemas_identifier,
+        "iam_common_components-schemas-identifier": iam_common_components$$schemas$$identifier$,
         "iam_oauth_client_create_request": iam_oauth_client_create_request,
-        "iam_oauth_client_grant_types": iam_oauth_client_grant_types,
-        "iam_oauth_client_response_types": iam_oauth_client_response_types,
-        "iam_oauth_client_token_endpoint_auth_method": iam_oauth_client_token_endpoint_auth_method,
+        "iam_oauth_client_grant_types": iam_oauth_client_grant_types$,
+        "iam_oauth_client_response_types": iam_oauth_client_response_types$,
+        "iam_oauth_client_token_endpoint_auth_method": iam_oauth_client_token_endpoint_auth_method$,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/iam_single_oauth_client_create_response",
       $defs: {
-        "iam_api-response-single": iam_api_response_single_output,
-        "iam_messages-2": iam_messages_2_output,
-        "iam_oauth_client": iam_oauth_client_output,
-        "iam_oauth_client_common": iam_oauth_client_common_output,
-        "iam_oauth_client_grant_types": iam_oauth_client_grant_types_output,
-        "iam_oauth_client_identifier": iam_oauth_client_identifier_output,
-        "iam_oauth_client_response_types": iam_oauth_client_response_types_output,
-        "iam_oauth_client_token_endpoint_auth_method": iam_oauth_client_token_endpoint_auth_method_output,
-        "iam_oauth_client_uri_verification": iam_oauth_client_uri_verification_output,
-        "iam_oauth_client_with_secret": iam_oauth_client_with_secret_output,
-        "iam_single_oauth_client_create_response": iam_single_oauth_client_create_response_output,
+        "iam_api-response-single": iam_api$$response$$single,
+        "iam_messages-2": iam_messages$$2,
+        "iam_oauth_client": iam_oauth_client,
+        "iam_oauth_client_common": iam_oauth_client_common,
+        "iam_oauth_client_grant_types": iam_oauth_client_grant_types,
+        "iam_oauth_client_identifier": iam_oauth_client_identifier,
+        "iam_oauth_client_response_types": iam_oauth_client_response_types,
+        "iam_oauth_client_token_endpoint_auth_method": iam_oauth_client_token_endpoint_auth_method,
+        "iam_oauth_client_uri_verification": iam_oauth_client_uri_verification,
+        "iam_oauth_client_with_secret": iam_oauth_client_with_secret,
+        "iam_single_oauth_client_create_response": iam_single_oauth_client_create_response,
       },
     },
     annotations: {
@@ -123,18 +131,18 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "iam_api-response-common-failure": iam_api_response_common_failure_output,
-        "iam_api-response-single": iam_api_response_single_output,
-        "iam_messages-2": iam_messages_2_output,
-        "iam_oauth_client": iam_oauth_client_output,
-        "iam_oauth_client_common": iam_oauth_client_common_output,
-        "iam_oauth_client_grant_types": iam_oauth_client_grant_types_output,
-        "iam_oauth_client_identifier": iam_oauth_client_identifier_output,
-        "iam_oauth_client_response_types": iam_oauth_client_response_types_output,
-        "iam_oauth_client_token_endpoint_auth_method": iam_oauth_client_token_endpoint_auth_method_output,
-        "iam_oauth_client_uri_verification": iam_oauth_client_uri_verification_output,
-        "iam_oauth_client_with_secret": iam_oauth_client_with_secret_output,
-        "iam_single_oauth_client_create_response": iam_single_oauth_client_create_response_output,
+        "iam_api-response-common-failure": iam_api$$response$$common$$failure,
+        "iam_api-response-single": iam_api$$response$$single,
+        "iam_messages-2": iam_messages$$2,
+        "iam_oauth_client": iam_oauth_client,
+        "iam_oauth_client_common": iam_oauth_client_common,
+        "iam_oauth_client_grant_types": iam_oauth_client_grant_types,
+        "iam_oauth_client_identifier": iam_oauth_client_identifier,
+        "iam_oauth_client_response_types": iam_oauth_client_response_types,
+        "iam_oauth_client_token_endpoint_auth_method": iam_oauth_client_token_endpoint_auth_method,
+        "iam_oauth_client_uri_verification": iam_oauth_client_uri_verification,
+        "iam_oauth_client_with_secret": iam_oauth_client_with_secret,
+        "iam_single_oauth_client_create_response": iam_single_oauth_client_create_response,
       },
     },
     request: (args) => ({
@@ -143,38 +151,46 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "iam_oauth_clients_delete",
+    name: "iam_oauthClients_delete",
     title: "Delete OAuth Client",
     description: "Delete an OAuth client.\n\nConfirm with the user before calling this tool. Are you sure? This action cannot be undone.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/iam_account_identifier",
-          "description": "Account identifier tag."
-        },
-        "oauth_client_id": {
-          "$ref": "#/$defs/iam_oauth_client_identifier",
-          "description": "The unique identifier for an OAuth client."
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/iam_account_identifier",
+              "description": "Account identifier tag."
+            },
+            "oauth_client_id": {
+              "$ref": "#/$defs/iam_oauth_client_identifier",
+              "description": "The unique identifier for an OAuth client."
+            }
+          },
+          "required": [
+            "account_id",
+            "oauth_client_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "oauth_client_id"
+        "path"
       ],
       $defs: {
         "iam_account_identifier": iam_account_identifier,
-        "iam_common_components-schemas-identifier": iam_common_components_schemas_identifier,
-        "iam_oauth_client_identifier": iam_oauth_client_identifier,
+        "iam_common_components-schemas-identifier": iam_common_components$$schemas$$identifier$,
+        "iam_oauth_client_identifier": iam_oauth_client_identifier$,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/iam_api-response-single-id",
       $defs: {
-        "iam_api-response-common": iam_api_response_common_output,
-        "iam_api-response-single-id": iam_api_response_single_id_output,
-        "iam_common_components-schemas-identifier": iam_common_components_schemas_identifier_output,
-        "iam_messages-2": iam_messages_2_output,
+        "iam_api-response-common": iam_api$$response$$common,
+        "iam_api-response-single-id": iam_api$$response$$single$$id,
+        "iam_common_components-schemas-identifier": iam_common_components$$schemas$$identifier,
+        "iam_messages-2": iam_messages$$2,
       },
     },
     annotations: {
@@ -212,11 +228,11 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "iam_api-response-common": iam_api_response_common_output,
-        "iam_api-response-common-failure": iam_api_response_common_failure_output,
-        "iam_api-response-single-id": iam_api_response_single_id_output,
-        "iam_common_components-schemas-identifier": iam_common_components_schemas_identifier_output,
-        "iam_messages-2": iam_messages_2_output,
+        "iam_api-response-common": iam_api$$response$$common,
+        "iam_api-response-common-failure": iam_api$$response$$common$$failure,
+        "iam_api-response-single-id": iam_api$$response$$single$$id,
+        "iam_common_components-schemas-identifier": iam_common_components$$schemas$$identifier,
+        "iam_messages-2": iam_messages$$2,
       },
     },
     request: (args) => ({
@@ -224,38 +240,46 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "iam_oauth_clients_delete_rotated_secret",
+    name: "iam_oauthClients_deleteRotatedSecret",
     title: "Delete Rotated OAuth Client Secret",
     description: "Removes the old client secret after a rotation, keeping only the new one. Use this after you have updated your client configuration to use the new secret. The `has_rotated_secret` field on the client indicates whether there is an old secret to delete.\n\nConfirm with the user before calling this tool. Are you sure? This action cannot be undone.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/iam_account_identifier",
-          "description": "Account identifier tag."
-        },
-        "oauth_client_id": {
-          "$ref": "#/$defs/iam_oauth_client_identifier",
-          "description": "The unique identifier for an OAuth client."
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/iam_account_identifier",
+              "description": "Account identifier tag."
+            },
+            "oauth_client_id": {
+              "$ref": "#/$defs/iam_oauth_client_identifier",
+              "description": "The unique identifier for an OAuth client."
+            }
+          },
+          "required": [
+            "account_id",
+            "oauth_client_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "oauth_client_id"
+        "path"
       ],
       $defs: {
         "iam_account_identifier": iam_account_identifier,
-        "iam_common_components-schemas-identifier": iam_common_components_schemas_identifier,
-        "iam_oauth_client_identifier": iam_oauth_client_identifier,
+        "iam_common_components-schemas-identifier": iam_common_components$$schemas$$identifier$,
+        "iam_oauth_client_identifier": iam_oauth_client_identifier$,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/iam_api-response-single-id",
       $defs: {
-        "iam_api-response-common": iam_api_response_common_output,
-        "iam_api-response-single-id": iam_api_response_single_id_output,
-        "iam_common_components-schemas-identifier": iam_common_components_schemas_identifier_output,
-        "iam_messages-2": iam_messages_2_output,
+        "iam_api-response-common": iam_api$$response$$common,
+        "iam_api-response-single-id": iam_api$$response$$single$$id,
+        "iam_common_components-schemas-identifier": iam_common_components$$schemas$$identifier,
+        "iam_messages-2": iam_messages$$2,
       },
     },
     annotations: {
@@ -293,11 +317,11 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "iam_api-response-common": iam_api_response_common_output,
-        "iam_api-response-common-failure": iam_api_response_common_failure_output,
-        "iam_api-response-single-id": iam_api_response_single_id_output,
-        "iam_common_components-schemas-identifier": iam_common_components_schemas_identifier_output,
-        "iam_messages-2": iam_messages_2_output,
+        "iam_api-response-common": iam_api$$response$$common,
+        "iam_api-response-common-failure": iam_api$$response$$common$$failure,
+        "iam_api-response-single-id": iam_api$$response$$single$$id,
+        "iam_common_components-schemas-identifier": iam_common_components$$schemas$$identifier,
+        "iam_messages-2": iam_messages$$2,
       },
     },
     request: (args) => ({
@@ -305,44 +329,52 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "iam_oauth_clients_get",
+    name: "iam_oauthClients_get",
     title: "OAuth Client Details",
     description: "Get details of a specific OAuth client.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/iam_account_identifier",
-          "description": "Account identifier tag."
-        },
-        "oauth_client_id": {
-          "$ref": "#/$defs/iam_oauth_client_identifier",
-          "description": "The unique identifier for an OAuth client."
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/iam_account_identifier",
+              "description": "Account identifier tag."
+            },
+            "oauth_client_id": {
+              "$ref": "#/$defs/iam_oauth_client_identifier",
+              "description": "The unique identifier for an OAuth client."
+            }
+          },
+          "required": [
+            "account_id",
+            "oauth_client_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "oauth_client_id"
+        "path"
       ],
       $defs: {
         "iam_account_identifier": iam_account_identifier,
-        "iam_common_components-schemas-identifier": iam_common_components_schemas_identifier,
-        "iam_oauth_client_identifier": iam_oauth_client_identifier,
+        "iam_common_components-schemas-identifier": iam_common_components$$schemas$$identifier$,
+        "iam_oauth_client_identifier": iam_oauth_client_identifier$,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/iam_single_oauth_client_response",
       $defs: {
-        "iam_api-response-single": iam_api_response_single_output,
-        "iam_messages-2": iam_messages_2_output,
-        "iam_oauth_client": iam_oauth_client_output,
-        "iam_oauth_client_common": iam_oauth_client_common_output,
-        "iam_oauth_client_grant_types": iam_oauth_client_grant_types_output,
-        "iam_oauth_client_identifier": iam_oauth_client_identifier_output,
-        "iam_oauth_client_response_types": iam_oauth_client_response_types_output,
-        "iam_oauth_client_token_endpoint_auth_method": iam_oauth_client_token_endpoint_auth_method_output,
-        "iam_oauth_client_uri_verification": iam_oauth_client_uri_verification_output,
-        "iam_single_oauth_client_response": iam_single_oauth_client_response_output,
+        "iam_api-response-single": iam_api$$response$$single,
+        "iam_messages-2": iam_messages$$2,
+        "iam_oauth_client": iam_oauth_client,
+        "iam_oauth_client_common": iam_oauth_client_common,
+        "iam_oauth_client_grant_types": iam_oauth_client_grant_types,
+        "iam_oauth_client_identifier": iam_oauth_client_identifier,
+        "iam_oauth_client_response_types": iam_oauth_client_response_types,
+        "iam_oauth_client_token_endpoint_auth_method": iam_oauth_client_token_endpoint_auth_method,
+        "iam_oauth_client_uri_verification": iam_oauth_client_uri_verification,
+        "iam_single_oauth_client_response": iam_single_oauth_client_response,
       },
     },
     annotations: {
@@ -380,17 +412,17 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "iam_api-response-common-failure": iam_api_response_common_failure_output,
-        "iam_api-response-single": iam_api_response_single_output,
-        "iam_messages-2": iam_messages_2_output,
-        "iam_oauth_client": iam_oauth_client_output,
-        "iam_oauth_client_common": iam_oauth_client_common_output,
-        "iam_oauth_client_grant_types": iam_oauth_client_grant_types_output,
-        "iam_oauth_client_identifier": iam_oauth_client_identifier_output,
-        "iam_oauth_client_response_types": iam_oauth_client_response_types_output,
-        "iam_oauth_client_token_endpoint_auth_method": iam_oauth_client_token_endpoint_auth_method_output,
-        "iam_oauth_client_uri_verification": iam_oauth_client_uri_verification_output,
-        "iam_single_oauth_client_response": iam_single_oauth_client_response_output,
+        "iam_api-response-common-failure": iam_api$$response$$common$$failure,
+        "iam_api-response-single": iam_api$$response$$single,
+        "iam_messages-2": iam_messages$$2,
+        "iam_oauth_client": iam_oauth_client,
+        "iam_oauth_client_common": iam_oauth_client_common,
+        "iam_oauth_client_grant_types": iam_oauth_client_grant_types,
+        "iam_oauth_client_identifier": iam_oauth_client_identifier,
+        "iam_oauth_client_response_types": iam_oauth_client_response_types,
+        "iam_oauth_client_token_endpoint_auth_method": iam_oauth_client_token_endpoint_auth_method,
+        "iam_oauth_client_uri_verification": iam_oauth_client_uri_verification,
+        "iam_single_oauth_client_response": iam_single_oauth_client_response,
       },
     },
     request: (args) => ({
@@ -398,40 +430,48 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "iam_oauth_clients_list",
+    name: "iam_oauthClients_list",
     title: "List OAuth Clients",
     description: "List all OAuth clients for an account.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/iam_account_identifier",
-          "description": "Account identifier tag."
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/iam_account_identifier",
+              "description": "Account identifier tag."
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id"
+        "path"
       ],
       $defs: {
         "iam_account_identifier": iam_account_identifier,
-        "iam_common_components-schemas-identifier": iam_common_components_schemas_identifier,
+        "iam_common_components-schemas-identifier": iam_common_components$$schemas$$identifier$,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/iam_collection_oauth_client_response",
       $defs: {
-        "iam_api-response-collection": iam_api_response_collection_output,
-        "iam_api-response-common": iam_api_response_common_output,
-        "iam_collection_oauth_client_response": iam_collection_oauth_client_response_output,
-        "iam_messages-2": iam_messages_2_output,
-        "iam_oauth_client": iam_oauth_client_output,
-        "iam_oauth_client_common": iam_oauth_client_common_output,
-        "iam_oauth_client_grant_types": iam_oauth_client_grant_types_output,
-        "iam_oauth_client_identifier": iam_oauth_client_identifier_output,
-        "iam_oauth_client_response_types": iam_oauth_client_response_types_output,
-        "iam_oauth_client_token_endpoint_auth_method": iam_oauth_client_token_endpoint_auth_method_output,
-        "iam_oauth_client_uri_verification": iam_oauth_client_uri_verification_output,
-        "iam_result_info": iam_result_info_output,
+        "iam_api-response-collection": iam_api$$response$$collection,
+        "iam_api-response-common": iam_api$$response$$common,
+        "iam_collection_oauth_client_response": iam_collection_oauth_client_response,
+        "iam_messages-2": iam_messages$$2,
+        "iam_oauth_client": iam_oauth_client,
+        "iam_oauth_client_common": iam_oauth_client_common,
+        "iam_oauth_client_grant_types": iam_oauth_client_grant_types,
+        "iam_oauth_client_identifier": iam_oauth_client_identifier,
+        "iam_oauth_client_response_types": iam_oauth_client_response_types,
+        "iam_oauth_client_token_endpoint_auth_method": iam_oauth_client_token_endpoint_auth_method,
+        "iam_oauth_client_uri_verification": iam_oauth_client_uri_verification,
+        "iam_result_info": iam_result_info,
       },
     },
     annotations: {
@@ -469,19 +509,19 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "iam_api-response-collection": iam_api_response_collection_output,
-        "iam_api-response-common": iam_api_response_common_output,
-        "iam_api-response-common-failure": iam_api_response_common_failure_output,
-        "iam_collection_oauth_client_response": iam_collection_oauth_client_response_output,
-        "iam_messages-2": iam_messages_2_output,
-        "iam_oauth_client": iam_oauth_client_output,
-        "iam_oauth_client_common": iam_oauth_client_common_output,
-        "iam_oauth_client_grant_types": iam_oauth_client_grant_types_output,
-        "iam_oauth_client_identifier": iam_oauth_client_identifier_output,
-        "iam_oauth_client_response_types": iam_oauth_client_response_types_output,
-        "iam_oauth_client_token_endpoint_auth_method": iam_oauth_client_token_endpoint_auth_method_output,
-        "iam_oauth_client_uri_verification": iam_oauth_client_uri_verification_output,
-        "iam_result_info": iam_result_info_output,
+        "iam_api-response-collection": iam_api$$response$$collection,
+        "iam_api-response-common": iam_api$$response$$common,
+        "iam_api-response-common-failure": iam_api$$response$$common$$failure,
+        "iam_collection_oauth_client_response": iam_collection_oauth_client_response,
+        "iam_messages-2": iam_messages$$2,
+        "iam_oauth_client": iam_oauth_client,
+        "iam_oauth_client_common": iam_oauth_client_common,
+        "iam_oauth_client_grant_types": iam_oauth_client_grant_types,
+        "iam_oauth_client_identifier": iam_oauth_client_identifier,
+        "iam_oauth_client_response_types": iam_oauth_client_response_types,
+        "iam_oauth_client_token_endpoint_auth_method": iam_oauth_client_token_endpoint_auth_method,
+        "iam_oauth_client_uri_verification": iam_oauth_client_uri_verification,
+        "iam_result_info": iam_result_info,
       },
     },
     request: (args) => ({
@@ -489,37 +529,45 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "iam_oauth_clients_rotate_secret",
+    name: "iam_oauthClients_rotateSecret",
     title: "Rotate OAuth Client Secret",
     description: "Creates a second client secret so you can update your client configuration before deleting the old one. The `has_rotated_secret` field on the client will be set to `true`.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/iam_account_identifier",
-          "description": "Account identifier tag."
-        },
-        "oauth_client_id": {
-          "$ref": "#/$defs/iam_oauth_client_identifier",
-          "description": "The unique identifier for an OAuth client."
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/iam_account_identifier",
+              "description": "Account identifier tag."
+            },
+            "oauth_client_id": {
+              "$ref": "#/$defs/iam_oauth_client_identifier",
+              "description": "The unique identifier for an OAuth client."
+            }
+          },
+          "required": [
+            "account_id",
+            "oauth_client_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "oauth_client_id"
+        "path"
       ],
       $defs: {
         "iam_account_identifier": iam_account_identifier,
-        "iam_common_components-schemas-identifier": iam_common_components_schemas_identifier,
-        "iam_oauth_client_identifier": iam_oauth_client_identifier,
+        "iam_common_components-schemas-identifier": iam_common_components$$schemas$$identifier$,
+        "iam_oauth_client_identifier": iam_oauth_client_identifier$,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/iam_oauth_client_rotate_secret_response",
       $defs: {
-        "iam_api-response-single": iam_api_response_single_output,
-        "iam_messages-2": iam_messages_2_output,
-        "iam_oauth_client_rotate_secret_response": iam_oauth_client_rotate_secret_response_output,
+        "iam_api-response-single": iam_api$$response$$single,
+        "iam_messages-2": iam_messages$$2,
+        "iam_oauth_client_rotate_secret_response": iam_oauth_client_rotate_secret_response,
       },
     },
     annotations: {
@@ -557,10 +605,10 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "iam_api-response-common-failure": iam_api_response_common_failure_output,
-        "iam_api-response-single": iam_api_response_single_output,
-        "iam_messages-2": iam_messages_2_output,
-        "iam_oauth_client_rotate_secret_response": iam_oauth_client_rotate_secret_response_output,
+        "iam_api-response-common-failure": iam_api$$response$$common$$failure,
+        "iam_api-response-single": iam_api$$response$$single,
+        "iam_messages-2": iam_messages$$2,
+        "iam_oauth_client_rotate_secret_response": iam_oauth_client_rotate_secret_response,
       },
     },
     request: (args) => ({
@@ -568,53 +616,61 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "iam_oauth_clients_update",
+    name: "iam_oauthClients_update",
     title: "Update OAuth Client",
     description: "Update an existing OAuth client. Only include fields you want to update.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/iam_account_identifier",
-          "description": "Account identifier tag."
-        },
         "body": {
           "$ref": "#/$defs/iam_oauth_client_update_request"
         },
-        "oauth_client_id": {
-          "$ref": "#/$defs/iam_oauth_client_identifier",
-          "description": "The unique identifier for an OAuth client."
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/iam_account_identifier",
+              "description": "Account identifier tag."
+            },
+            "oauth_client_id": {
+              "$ref": "#/$defs/iam_oauth_client_identifier",
+              "description": "The unique identifier for an OAuth client."
+            }
+          },
+          "required": [
+            "account_id",
+            "oauth_client_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "oauth_client_id",
+        "path",
         "body"
       ],
       $defs: {
         "iam_account_identifier": iam_account_identifier,
-        "iam_common_components-schemas-identifier": iam_common_components_schemas_identifier,
-        "iam_oauth_client_common": iam_oauth_client_common,
-        "iam_oauth_client_grant_types": iam_oauth_client_grant_types,
-        "iam_oauth_client_identifier": iam_oauth_client_identifier,
-        "iam_oauth_client_response_types": iam_oauth_client_response_types,
-        "iam_oauth_client_token_endpoint_auth_method": iam_oauth_client_token_endpoint_auth_method,
+        "iam_common_components-schemas-identifier": iam_common_components$$schemas$$identifier$,
+        "iam_oauth_client_common": iam_oauth_client_common$,
+        "iam_oauth_client_grant_types": iam_oauth_client_grant_types$,
+        "iam_oauth_client_identifier": iam_oauth_client_identifier$,
+        "iam_oauth_client_response_types": iam_oauth_client_response_types$,
+        "iam_oauth_client_token_endpoint_auth_method": iam_oauth_client_token_endpoint_auth_method$,
         "iam_oauth_client_update_request": iam_oauth_client_update_request,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/iam_single_oauth_client_response",
       $defs: {
-        "iam_api-response-single": iam_api_response_single_output,
-        "iam_messages-2": iam_messages_2_output,
-        "iam_oauth_client": iam_oauth_client_output,
-        "iam_oauth_client_common": iam_oauth_client_common_output,
-        "iam_oauth_client_grant_types": iam_oauth_client_grant_types_output,
-        "iam_oauth_client_identifier": iam_oauth_client_identifier_output,
-        "iam_oauth_client_response_types": iam_oauth_client_response_types_output,
-        "iam_oauth_client_token_endpoint_auth_method": iam_oauth_client_token_endpoint_auth_method_output,
-        "iam_oauth_client_uri_verification": iam_oauth_client_uri_verification_output,
-        "iam_single_oauth_client_response": iam_single_oauth_client_response_output,
+        "iam_api-response-single": iam_api$$response$$single,
+        "iam_messages-2": iam_messages$$2,
+        "iam_oauth_client": iam_oauth_client,
+        "iam_oauth_client_common": iam_oauth_client_common,
+        "iam_oauth_client_grant_types": iam_oauth_client_grant_types,
+        "iam_oauth_client_identifier": iam_oauth_client_identifier,
+        "iam_oauth_client_response_types": iam_oauth_client_response_types,
+        "iam_oauth_client_token_endpoint_auth_method": iam_oauth_client_token_endpoint_auth_method,
+        "iam_oauth_client_uri_verification": iam_oauth_client_uri_verification,
+        "iam_single_oauth_client_response": iam_single_oauth_client_response,
       },
     },
     annotations: {
@@ -652,17 +708,17 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "iam_api-response-common-failure": iam_api_response_common_failure_output,
-        "iam_api-response-single": iam_api_response_single_output,
-        "iam_messages-2": iam_messages_2_output,
-        "iam_oauth_client": iam_oauth_client_output,
-        "iam_oauth_client_common": iam_oauth_client_common_output,
-        "iam_oauth_client_grant_types": iam_oauth_client_grant_types_output,
-        "iam_oauth_client_identifier": iam_oauth_client_identifier_output,
-        "iam_oauth_client_response_types": iam_oauth_client_response_types_output,
-        "iam_oauth_client_token_endpoint_auth_method": iam_oauth_client_token_endpoint_auth_method_output,
-        "iam_oauth_client_uri_verification": iam_oauth_client_uri_verification_output,
-        "iam_single_oauth_client_response": iam_single_oauth_client_response_output,
+        "iam_api-response-common-failure": iam_api$$response$$common$$failure,
+        "iam_api-response-single": iam_api$$response$$single,
+        "iam_messages-2": iam_messages$$2,
+        "iam_oauth_client": iam_oauth_client,
+        "iam_oauth_client_common": iam_oauth_client_common,
+        "iam_oauth_client_grant_types": iam_oauth_client_grant_types,
+        "iam_oauth_client_identifier": iam_oauth_client_identifier,
+        "iam_oauth_client_response_types": iam_oauth_client_response_types,
+        "iam_oauth_client_token_endpoint_auth_method": iam_oauth_client_token_endpoint_auth_method,
+        "iam_oauth_client_uri_verification": iam_oauth_client_uri_verification,
+        "iam_single_oauth_client_response": iam_single_oauth_client_response,
       },
     },
     request: (args) => ({

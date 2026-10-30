@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `magic_netflow_config` in responses.
  */
-export const magic_netflow_config_output: JsonSchema = {
+export const magic_netflow_config: JsonSchema = {
   "properties": {
     "active_timeout": {
       "type": "integer"
@@ -33,7 +33,7 @@ export const magic_netflow_config_output: JsonSchema = {
 /**
  * The schema of `magic_netflow_config_single_response` in responses.
  */
-export const magic_netflow_config_single_response_output: JsonSchema = {
+export const magic_netflow_config_single_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/magic_api-response-single"

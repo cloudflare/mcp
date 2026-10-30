@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `observatory_page-test-response-collection` in responses.
  */
-export const observatory_page_test_response_collection_output: JsonSchema = {
+export const observatory_page$$test$$response$$collection: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/observatory_api-response-collection"
@@ -36,7 +36,7 @@ export const observatory_page_test_response_collection_output: JsonSchema = {
 /**
  * The schema of `observatory_page-test-response-single` in responses.
  */
-export const observatory_page_test_response_single_output: JsonSchema = {
+export const observatory_page$$test$$response$$single: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/observatory_api-response-single"
@@ -55,7 +55,7 @@ export const observatory_page_test_response_single_output: JsonSchema = {
 /**
  * The schema of `observatory_result_info` in responses.
  */
-export const observatory_result_info_output: JsonSchema = {
+export const observatory_result_info: JsonSchema = {
   "properties": {
     "count": {
       "type": "integer"

@@ -3,10 +3,10 @@
 
 import { type Tool, pathParam } from "../../../../_/tool.js";
 import {
-  realtimekit_GenericErrorResponse_output,
-  realtimekit_LivestreamSession_output,
-  realtimekit_Livestream_output,
-  realtimekit_ValidationIssue_output,
+  realtimekit_GenericErrorResponse,
+  realtimekit_Livestream,
+  realtimekit_LivestreamSession,
+  realtimekit_ValidationIssue,
 } from "../../outputs.js";
 import {
   realtimekit_account_identifier,
@@ -24,22 +24,30 @@ export const tools: readonly Tool[] = [
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/realtimekit_account_identifier",
-          "description": "The account identifier tag."
-        },
-        "app_id": {
-          "$ref": "#/$defs/realtimekit_app_id",
-          "description": "The app identifier tag."
-        },
-        "livestream_session_id": {
-          "type": "string"
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/realtimekit_account_identifier",
+              "description": "The account identifier tag."
+            },
+            "app_id": {
+              "$ref": "#/$defs/realtimekit_app_id",
+              "description": "The app identifier tag."
+            },
+            "livestream-session-id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "app_id",
+            "livestream-session-id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "app_id",
-        "livestream_session_id"
+        "path"
       ],
       $defs: {
         "realtimekit_account_identifier": realtimekit_account_identifier,
@@ -61,7 +69,7 @@ export const tools: readonly Tool[] = [
       ],
       "type": "object",
       $defs: {
-        "realtimekit_LivestreamSession": realtimekit_LivestreamSession_output,
+        "realtimekit_LivestreamSession": realtimekit_LivestreamSession,
       },
     },
     annotations: {
@@ -101,38 +109,46 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "realtimekit_GenericErrorResponse": realtimekit_GenericErrorResponse_output,
-        "realtimekit_LivestreamSession": realtimekit_LivestreamSession_output,
-        "realtimekit_ValidationIssue": realtimekit_ValidationIssue_output,
+        "realtimekit_GenericErrorResponse": realtimekit_GenericErrorResponse,
+        "realtimekit_LivestreamSession": realtimekit_LivestreamSession,
+        "realtimekit_ValidationIssue": realtimekit_ValidationIssue,
       },
     },
     request: (args) => ({
-      path: `/accounts/${pathParam(args, "account_id")}/realtime/kit/${pathParam(args, "app_id")}/livestreams/sessions/${pathParam(args, "livestream_session_id")}`,
+      path: `/accounts/${pathParam(args, "account_id")}/realtime/kit/${pathParam(args, "app_id")}/livestreams/sessions/${pathParam(args, "livestream-session-id")}`,
     }),
   },
   {
-    name: "realtime_kit_livestreams_sessions_list_active",
+    name: "realtime_kit_livestreams_sessions_listActive",
     title: "Fetch active livestream session details",
     description: "Returns details of all active livestreams for the given livestream ID. Retreive the livestream ID using the `Start livestreaming a meeting` API.\n\nThis method is beta.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/realtimekit_account_identifier",
-          "description": "The account identifier tag."
-        },
-        "app_id": {
-          "$ref": "#/$defs/realtimekit_app_id",
-          "description": "The app identifier tag."
-        },
-        "livestream_id": {
-          "type": "string"
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/realtimekit_account_identifier",
+              "description": "The account identifier tag."
+            },
+            "app_id": {
+              "$ref": "#/$defs/realtimekit_app_id",
+              "description": "The app identifier tag."
+            },
+            "livestream_id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "app_id",
+            "livestream_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "app_id",
-        "livestream_id"
+        "path"
       ],
       $defs: {
         "realtimekit_account_identifier": realtimekit_account_identifier,
@@ -166,8 +182,8 @@ export const tools: readonly Tool[] = [
       ],
       "type": "object",
       $defs: {
-        "realtimekit_Livestream": realtimekit_Livestream_output,
-        "realtimekit_LivestreamSession": realtimekit_LivestreamSession_output,
+        "realtimekit_Livestream": realtimekit_Livestream,
+        "realtimekit_LivestreamSession": realtimekit_LivestreamSession,
       },
     },
     annotations: {
@@ -219,10 +235,10 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "realtimekit_GenericErrorResponse": realtimekit_GenericErrorResponse_output,
-        "realtimekit_Livestream": realtimekit_Livestream_output,
-        "realtimekit_LivestreamSession": realtimekit_LivestreamSession_output,
-        "realtimekit_ValidationIssue": realtimekit_ValidationIssue_output,
+        "realtimekit_GenericErrorResponse": realtimekit_GenericErrorResponse,
+        "realtimekit_Livestream": realtimekit_Livestream,
+        "realtimekit_LivestreamSession": realtimekit_LivestreamSession,
+        "realtimekit_ValidationIssue": realtimekit_ValidationIssue,
       },
     },
     request: (args) => ({

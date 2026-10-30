@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `pay-per-crawl_PPUZoneCanBeEnabledUpdate`.
  */
-export const pay_per_crawl_PPUZoneCanBeEnabledUpdate: JsonSchema = {
+export const pay$$per$$crawl_PPUZoneCanBeEnabledUpdate: JsonSchema = {
   "properties": {
     "can_be_enabled": {
       "type": "boolean"
@@ -24,7 +24,7 @@ export const pay_per_crawl_PPUZoneCanBeEnabledUpdate: JsonSchema = {
 /**
  * The schema of `pay-per-crawl_PPUZoneConfigurationUpdate`.
  */
-export const pay_per_crawl_PPUZoneConfigurationUpdate: JsonSchema = {
+export const pay$$per$$crawl_PPUZoneConfigurationUpdate: JsonSchema = {
   "properties": {
     "enabled": {
       "type": "boolean"
@@ -36,7 +36,7 @@ export const pay_per_crawl_PPUZoneConfigurationUpdate: JsonSchema = {
 /**
  * The schema of `pay-per-crawl_PPUZonesCanBeEnabledPayload`.
  */
-export const pay_per_crawl_PPUZonesCanBeEnabledPayload: JsonSchema = {
+export const pay$$per$$crawl_PPUZonesCanBeEnabledPayload: JsonSchema = {
   "properties": {
     "zones": {
       "items": {

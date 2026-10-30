@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `organizations-api_OrganizationInviteMember` in responses.
  */
-export const organizations_api_OrganizationInviteMember_output: JsonSchema = {
+export const organizations$$api_OrganizationInviteMember: JsonSchema = {
   "properties": {
     "create_time": {
       "format": "date-time",

@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `api-shield_api_discovery_origin`.
  */
-export const api_shield_api_discovery_origin: JsonSchema = {
+export const api$$shield_api_discovery_origin: JsonSchema = {
   "description": "* `ML` - Discovered operation was sourced using ML API Discovery * `SessionIdentifier` - Discovered operation was sourced using Session Identifier API Discovery * `LabelDiscovery` - Discovered operation was identified to have a specific label\n",
   "enum": [
     "ML",
@@ -19,7 +19,7 @@ export const api_shield_api_discovery_origin: JsonSchema = {
 /**
  * The schema of `api-shield_api_discovery_patch_multiple_request`.
  */
-export const api_shield_api_discovery_patch_multiple_request: JsonSchema = {
+export const api$$shield_api_discovery_patch_multiple_request: JsonSchema = {
   "additionalProperties": {
     "$ref": "#/$defs/api-shield_api_discovery_patch_multiple_request_entry"
   },
@@ -29,7 +29,7 @@ export const api_shield_api_discovery_patch_multiple_request: JsonSchema = {
 /**
  * The schema of `api-shield_api_discovery_patch_multiple_request_entry`.
  */
-export const api_shield_api_discovery_patch_multiple_request_entry: JsonSchema = {
+export const api$$shield_api_discovery_patch_multiple_request_entry: JsonSchema = {
   "description": "Mappings of discovered operations (keys) to objects describing their state",
   "properties": {
     "state": {
@@ -43,7 +43,7 @@ export const api_shield_api_discovery_patch_multiple_request_entry: JsonSchema =
 /**
  * The schema of `api-shield_api_discovery_state`.
  */
-export const api_shield_api_discovery_state: JsonSchema = {
+export const api$$shield_api_discovery_state: JsonSchema = {
   "description": "State of operation in API Discovery\n  * `review` - Operation is not saved into API Shield Endpoint Management\n  * `saved` - Operation is saved into API Shield Endpoint Management\n  * `ignored` - Operation is marked as ignored\n",
   "enum": [
     "review",
@@ -56,7 +56,7 @@ export const api_shield_api_discovery_state: JsonSchema = {
 /**
  * The schema of `api-shield_api_discovery_state_patch`.
  */
-export const api_shield_api_discovery_state_patch: JsonSchema = {
+export const api$$shield_api_discovery_state_patch: JsonSchema = {
   "description": "Mark state of operation in API Discovery\n  * `review` - Mark operation as for review\n  * `ignored` - Mark operation as ignored\n",
   "enum": [
     "review",

@@ -6,21 +6,21 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `addressing_auto_generated` in responses.
  */
-export const addressing_auto_generated_output: JsonSchema = {
+export const addressing_auto_generated: JsonSchema = {
   "type": "boolean"
 };
 
 /**
  * The schema of `addressing_filename` in responses.
  */
-export const addressing_filename_output: JsonSchema = {
+export const addressing_filename: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `addressing_loa_document` in responses.
  */
-export const addressing_loa_document_output: JsonSchema = {
+export const addressing_loa_document: JsonSchema = {
   "properties": {
     "account_id": {
       "$ref": "#/$defs/addressing_account_identifier"
@@ -53,7 +53,7 @@ export const addressing_loa_document_output: JsonSchema = {
 /**
  * The schema of `addressing_loa_document_collection` in responses.
  */
-export const addressing_loa_document_collection_output: JsonSchema = {
+export const addressing_loa_document_collection: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/addressing_api-response-collection"
@@ -75,21 +75,21 @@ export const addressing_loa_document_collection_output: JsonSchema = {
 /**
  * The schema of `addressing_size_bytes` in responses.
  */
-export const addressing_size_bytes_output: JsonSchema = {
+export const addressing_size_bytes: JsonSchema = {
   "type": "integer"
 };
 
 /**
  * The schema of `addressing_verified` in responses.
  */
-export const addressing_verified_output: JsonSchema = {
+export const addressing_verified: JsonSchema = {
   "type": "boolean"
 };
 
 /**
  * The schema of `addressing_verified_at` in responses.
  */
-export const addressing_verified_at_output: JsonSchema = {
+export const addressing_verified_at: JsonSchema = {
   "oneOf": [
     {
       "format": "date-time",

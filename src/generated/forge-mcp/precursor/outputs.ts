@@ -6,7 +6,7 @@ import type { JsonSchema } from "../_/tool.js";
 /**
  * The schema of `precursor_api-response-common-failure` in responses.
  */
-export const precursor_api_response_common_failure_output: JsonSchema = {
+export const precursor_api$$response$$common$$failure: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/precursor_messages"
@@ -36,7 +36,7 @@ export const precursor_api_response_common_failure_output: JsonSchema = {
 /**
  * The schema of `precursor_api-response-single` in responses.
  */
-export const precursor_api_response_single_output: JsonSchema = {
+export const precursor_api$$response$$single: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/precursor_messages"
@@ -62,7 +62,7 @@ export const precursor_api_response_single_output: JsonSchema = {
 /**
  * The schema of `precursor_messages` in responses.
  */
-export const precursor_messages_output: JsonSchema = {
+export const precursor_messages: JsonSchema = {
   "items": {
     "properties": {
       "code": {
@@ -95,7 +95,7 @@ export const precursor_messages_output: JsonSchema = {
 /**
  * The schema of `precursor_precursor_config` in responses.
  */
-export const precursor_precursor_config_output: JsonSchema = {
+export const precursor_precursor_config: JsonSchema = {
   "properties": {
     "mode": {
       "$ref": "#/$defs/precursor_precursor_mode"
@@ -113,7 +113,7 @@ export const precursor_precursor_config_output: JsonSchema = {
 /**
  * The schema of `precursor_precursor_config_response_body` in responses.
  */
-export const precursor_precursor_config_response_body_output: JsonSchema = {
+export const precursor_precursor_config_response_body: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/precursor_api-response-single"
@@ -132,7 +132,7 @@ export const precursor_precursor_config_response_body_output: JsonSchema = {
 /**
  * The schema of `precursor_precursor_mode` in responses.
  */
-export const precursor_precursor_mode_output: JsonSchema = {
+export const precursor_precursor_mode: JsonSchema = {
   "enum": [
     "off",
     "monitor",
@@ -144,7 +144,7 @@ export const precursor_precursor_mode_output: JsonSchema = {
 /**
  * The schema of `precursor_precursor_rule` in responses.
  */
-export const precursor_precursor_rule_output: JsonSchema = {
+export const precursor_precursor_rule: JsonSchema = {
   "properties": {
     "description": {
       "type": "string"
@@ -172,7 +172,7 @@ export const precursor_precursor_rule_output: JsonSchema = {
 /**
  * The schema of `precursor_precursor_rules` in responses.
  */
-export const precursor_precursor_rules_output: JsonSchema = {
+export const precursor_precursor_rules: JsonSchema = {
   "items": {
     "$ref": "#/$defs/precursor_precursor_rule"
   },
@@ -182,6 +182,6 @@ export const precursor_precursor_rules_output: JsonSchema = {
 /**
  * The schema of `precursor_show_interstitial` in responses.
  */
-export const precursor_show_interstitial_output: JsonSchema = {
+export const precursor_show_interstitial: JsonSchema = {
   "type": "boolean"
 };

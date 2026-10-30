@@ -6,7 +6,7 @@ import type { JsonSchema } from "../_/tool.js";
 /**
  * The schema of `tls-certificates-and-hostnames_custom_csr-2` in responses.
  */
-export const tls_certificates_and_hostnames_custom_csr_2_output: JsonSchema = {
+export const tls$$certificates$$and$$hostnames_custom_csr$$2: JsonSchema = {
   "properties": {
     "account_tag": {
       "type": "string"
@@ -71,7 +71,7 @@ export const tls_certificates_and_hostnames_custom_csr_2_output: JsonSchema = {
  * The schema of `tls-certificates-and-hostnames_custom_csr_identifier` in
  * responses.
  */
-export const tls_certificates_and_hostnames_custom_csr_identifier_output: JsonSchema = {
+export const tls$$certificates$$and$$hostnames_custom_csr_identifier: JsonSchema = {
   "type": "string"
 };
 
@@ -80,7 +80,7 @@ export const tls_certificates_and_hostnames_custom_csr_identifier_output: JsonSc
  * `tls-certificates-and-hostnames_custom_csr_response_collection-2` in
  * responses.
  */
-export const tls_certificates_and_hostnames_custom_csr_response_collection_2_output: JsonSchema = {
+export const tls$$certificates$$and$$hostnames_custom_csr_response_collection$$2: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/tls-certificates-and-hostnames_api-response-collection"
@@ -103,7 +103,7 @@ export const tls_certificates_and_hostnames_custom_csr_response_collection_2_out
  * The schema of `tls-certificates-and-hostnames_custom_csr_response_id_only` in
  * responses.
  */
-export const tls_certificates_and_hostnames_custom_csr_response_id_only_output: JsonSchema = {
+export const tls$$certificates$$and$$hostnames_custom_csr_response_id_only: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/tls-certificates-and-hostnames_api-response-single"
@@ -128,7 +128,7 @@ export const tls_certificates_and_hostnames_custom_csr_response_id_only_output: 
  * The schema of `tls-certificates-and-hostnames_custom_csr_response_single-2`
  * in responses.
  */
-export const tls_certificates_and_hostnames_custom_csr_response_single_2_output: JsonSchema = {
+export const tls$$certificates$$and$$hostnames_custom_csr_response_single$$2: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/tls-certificates-and-hostnames_api-response-single"

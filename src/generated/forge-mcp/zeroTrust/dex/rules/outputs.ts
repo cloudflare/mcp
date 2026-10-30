@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `digital-experience-monitoring_dex-rule` in responses.
  */
-export const digital_experience_monitoring_dex_rule_output: JsonSchema = {
+export const digital$$experience$$monitoring_dex$$rule: JsonSchema = {
   "properties": {
     "created_at": {
       "type": "string"
@@ -45,7 +45,7 @@ export const digital_experience_monitoring_dex_rule_output: JsonSchema = {
 /**
  * The schema of `digital-experience-monitoring_dex-targeted-test` in responses.
  */
-export const digital_experience_monitoring_dex_targeted_test_output: JsonSchema = {
+export const digital$$experience$$monitoring_dex$$targeted$$test: JsonSchema = {
   "properties": {
     "data": {
       "$ref": "#/$defs/digital-experience-monitoring_device-dex-test-schemas-data"
@@ -73,7 +73,7 @@ export const digital_experience_monitoring_dex_targeted_test_output: JsonSchema 
  * The schema of `digital-experience-monitoring_list_rules_response` in
  * responses.
  */
-export const digital_experience_monitoring_list_rules_response_output: JsonSchema = {
+export const digital$$experience$$monitoring_list_rules_response: JsonSchema = {
   "properties": {
     "rules": {
       "items": {

@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `cloudforce-one-port-scan-api_port` in responses.
  */
-export const cloudforce_one_port_scan_api_port_output: JsonSchema = {
+export const cloudforce$$one$$port$$scan$$api_port: JsonSchema = {
   "properties": {
     "number": {
       "type": "number"

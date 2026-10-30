@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../../_/tool.js";
 /**
  * The schema of `workers_script_name-2`.
  */
-export const workers_script_name_2: JsonSchema = {
+export const workers_script_name$$2: JsonSchema = {
   "description": "Name of the script.",
   "type": "string"
 };

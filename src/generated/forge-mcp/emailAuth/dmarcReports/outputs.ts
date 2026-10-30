@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `email-auth_ApprovedSourceResponse` in responses.
  */
-export const email_auth_ApprovedSourceResponse_output: JsonSchema = {
+export const email$$auth_ApprovedSourceResponse: JsonSchema = {
   "properties": {
     "created": {
       "format": "date-time",
@@ -49,7 +49,7 @@ export const email_auth_ApprovedSourceResponse_output: JsonSchema = {
 /**
  * The schema of `email-auth_DmarcReportResponse` in responses.
  */
-export const email_auth_DmarcReportResponse_output: JsonSchema = {
+export const email$$auth_DmarcReportResponse: JsonSchema = {
   "properties": {
     "approved_sources": {
       "items": {
@@ -101,7 +101,7 @@ export const email_auth_DmarcReportResponse_output: JsonSchema = {
 /**
  * The schema of `email-auth_DmarcStatus` in responses.
  */
-export const email_auth_DmarcStatus_output: JsonSchema = {
+export const email$$auth_DmarcStatus: JsonSchema = {
   "enum": [
     "missing-dmarc-report",
     "multiple-dmarc-reports",
@@ -115,7 +115,7 @@ export const email_auth_DmarcStatus_output: JsonSchema = {
 /**
  * The schema of `email-auth_DnsRecordInfo` in responses.
  */
-export const email_auth_DnsRecordInfo_output: JsonSchema = {
+export const email$$auth_DnsRecordInfo: JsonSchema = {
   "properties": {
     "content": {
       "type": "string"
@@ -152,7 +152,7 @@ export const email_auth_DnsRecordInfo_output: JsonSchema = {
 /**
  * The schema of `email-auth_ResolvedDmarcRecord` in responses.
  */
-export const email_auth_ResolvedDmarcRecord_output: JsonSchema = {
+export const email$$auth_ResolvedDmarcRecord: JsonSchema = {
   "properties": {
     "content": {
       "type": "string"
@@ -167,7 +167,7 @@ export const email_auth_ResolvedDmarcRecord_output: JsonSchema = {
 /**
  * The schema of `email-auth_ZoneDnsRecords` in responses.
  */
-export const email_auth_ZoneDnsRecords_output: JsonSchema = {
+export const email$$auth_ZoneDnsRecords: JsonSchema = {
   "properties": {
     "bimi_records": {
       "items": {

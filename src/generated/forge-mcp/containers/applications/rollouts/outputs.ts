@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `cc_ApplicationRollout` in responses.
  */
-export const cc_ApplicationRollout_output: JsonSchema = {
+export const cc_ApplicationRollout: JsonSchema = {
   "properties": {
     "created_at": {
       "$ref": "#/$defs/cc_ISO8601Timestamp"
@@ -112,7 +112,7 @@ export const cc_ApplicationRollout_output: JsonSchema = {
 /**
  * The schema of `cc_ApplicationRolloutProgress` in responses.
  */
-export const cc_ApplicationRolloutProgress_output: JsonSchema = {
+export const cc_ApplicationRolloutProgress: JsonSchema = {
   "properties": {
     "current_step": {
       "type": "integer"
@@ -156,7 +156,7 @@ export const cc_ApplicationRolloutProgress_output: JsonSchema = {
 /**
  * The schema of `cc_RolloutStep` in responses.
  */
-export const cc_RolloutStep_output: JsonSchema = {
+export const cc_RolloutStep: JsonSchema = {
   "properties": {
     "completed_at": {
       "$ref": "#/$defs/cc_ISO8601Timestamp"

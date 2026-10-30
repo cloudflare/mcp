@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../../../../_/tool.js";
 /**
  * The schema of `advanced-ddos-protection_DnsProtectionRule` in responses.
  */
-export const advanced_ddos_protection_DnsProtectionRule_output: JsonSchema = {
+export const advanced$$ddos$$protection_DnsProtectionRule: JsonSchema = {
   "properties": {
     "block_any_queries": {
       "type": "boolean"
@@ -60,7 +60,7 @@ export const advanced_ddos_protection_DnsProtectionRule_output: JsonSchema = {
  * The schema of `advanced-ddos-protection_dns-protection-rule-list-response` in
  * responses.
  */
-export const advanced_ddos_protection_dns_protection_rule_list_response_output: JsonSchema = {
+export const advanced$$ddos$$protection_dns$$protection$$rule$$list$$response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/advanced-ddos-protection_api-response-collection"
@@ -83,7 +83,7 @@ export const advanced_ddos_protection_dns_protection_rule_list_response_output: 
  * The schema of `advanced-ddos-protection_dns-protection-rule-response` in
  * responses.
  */
-export const advanced_ddos_protection_dns_protection_rule_response_output: JsonSchema = {
+export const advanced$$ddos$$protection_dns$$protection$$rule$$response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/advanced-ddos-protection_api-response-common"

@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `api-shield_full_managed_label` in responses.
  */
-export const api_shield_full_managed_label_output: JsonSchema = {
+export const api$$shield_full_managed_label: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/api-shield_full_label"

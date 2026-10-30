@@ -3,10 +3,10 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
-  snippets_Errors_output,
-  snippets_Message_output,
-  snippets_Messages_output,
-  snippets_Response_output,
+  snippets_Errors,
+  snippets_Message,
+  snippets_Messages,
+  snippets_Response,
 } from "../outputs.js";
 import { snippets_SnippetName, snippets_ZoneId } from "../schemas.js";
 
@@ -21,18 +21,26 @@ export const tools: readonly Tool[] = [
     inputSchema: {
       type: "object",
       properties: {
-        "snippet_name": {
-          "$ref": "#/$defs/snippets_SnippetName",
-          "description": "Identify the snippet."
-        },
-        "zone_id": {
-          "$ref": "#/$defs/snippets_ZoneId",
-          "description": "Use this field to specify the unique ID of the zone."
+        "path": {
+          "properties": {
+            "snippet_name": {
+              "$ref": "#/$defs/snippets_SnippetName",
+              "description": "Identify the snippet."
+            },
+            "zone_id": {
+              "$ref": "#/$defs/snippets_ZoneId",
+              "description": "Use this field to specify the unique ID of the zone."
+            }
+          },
+          "required": [
+            "zone_id",
+            "snippet_name"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "zone_id",
-        "snippet_name"
+        "path"
       ],
       $defs: {
         "snippets_SnippetName": snippets_SnippetName,
@@ -107,10 +115,10 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "snippets_Errors": snippets_Errors_output,
-        "snippets_Message": snippets_Message_output,
-        "snippets_Messages": snippets_Messages_output,
-        "snippets_Response": snippets_Response_output,
+        "snippets_Errors": snippets_Errors,
+        "snippets_Message": snippets_Message,
+        "snippets_Messages": snippets_Messages,
+        "snippets_Response": snippets_Response,
       },
     },
     request: (args) => ({

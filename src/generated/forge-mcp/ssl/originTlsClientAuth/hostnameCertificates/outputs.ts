@@ -7,7 +7,7 @@ import type { JsonSchema } from "../../../_/tool.js";
  * The schema of `tls-certificates-and-hostnames_certificateObject-2` in
  * responses.
  */
-export const tls_certificates_and_hostnames_certificateObject_2_output: JsonSchema = {
+export const tls$$certificates$$and$$hostnames_certificateObject$$2: JsonSchema = {
   "properties": {
     "certificate": {
       "$ref": "#/$defs/tls-certificates-and-hostnames_certificate-6"
@@ -42,7 +42,7 @@ export const tls_certificates_and_hostnames_certificateObject_2_output: JsonSche
  * `tls-certificates-and-hostnames_certificate_response_collection-4` in
  * responses.
  */
-export const tls_certificates_and_hostnames_certificate_response_collection_4_output: JsonSchema = {
+export const tls$$certificates$$and$$hostnames_certificate_response_collection$$4: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/tls-certificates-and-hostnames_api-response-collection"
@@ -65,7 +65,7 @@ export const tls_certificates_and_hostnames_certificate_response_collection_4_ou
  * The schema of `tls-certificates-and-hostnames_certificate_response_single-4`
  * in responses.
  */
-export const tls_certificates_and_hostnames_certificate_response_single_4_output: JsonSchema = {
+export const tls$$certificates$$and$$hostnames_certificate_response_single$$4: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/tls-certificates-and-hostnames_api-response-single"

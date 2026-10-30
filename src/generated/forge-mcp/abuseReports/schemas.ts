@@ -6,7 +6,7 @@ import type { JsonSchema } from "../_/tool.js";
 /**
  * The schema of `abuse-reports_BaseReportFields`.
  */
-export const abuse_reports_BaseReportFields: JsonSchema = {
+export const abuse$$reports_BaseReportFields: JsonSchema = {
   "properties": {
     "act": {
       "$ref": "#/$defs/abuse-reports_SubmissionReportType",
@@ -66,7 +66,7 @@ export const abuse_reports_BaseReportFields: JsonSchema = {
 /**
  * The schema of `abuse-reports_CSAMReport`.
  */
-export const abuse_reports_CSAMReport: JsonSchema = {
+export const abuse$$reports_CSAMReport: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/abuse-reports_BaseReportFields"
@@ -127,7 +127,7 @@ export const abuse_reports_CSAMReport: JsonSchema = {
 /**
  * The schema of `abuse-reports_DMCAReport`.
  */
-export const abuse_reports_DMCAReport: JsonSchema = {
+export const abuse$$reports_DMCAReport: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/abuse-reports_BaseReportFields"
@@ -210,7 +210,7 @@ export const abuse_reports_DMCAReport: JsonSchema = {
 /**
  * The schema of `abuse-reports_GeneralReport`.
  */
-export const abuse_reports_GeneralReport: JsonSchema = {
+export const abuse$$reports_GeneralReport: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/abuse-reports_BaseReportFields"
@@ -269,7 +269,7 @@ export const abuse_reports_GeneralReport: JsonSchema = {
 /**
  * The schema of `abuse-reports_MitigationStatus`.
  */
-export const abuse_reports_MitigationStatus: JsonSchema = {
+export const abuse$$reports_MitigationStatus: JsonSchema = {
   "description": "The status of a mitigation",
   "enum": [
     "pending",
@@ -284,7 +284,7 @@ export const abuse_reports_MitigationStatus: JsonSchema = {
 /**
  * The schema of `abuse-reports_NCSEIReport`.
  */
-export const abuse_reports_NCSEIReport: JsonSchema = {
+export const abuse$$reports_NCSEIReport: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/abuse-reports_BaseReportFields"
@@ -336,7 +336,7 @@ export const abuse_reports_NCSEIReport: JsonSchema = {
 /**
  * The schema of `abuse-reports_PhishingReport`.
  */
-export const abuse_reports_PhishingReport: JsonSchema = {
+export const abuse$$reports_PhishingReport: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/abuse-reports_BaseReportFields"
@@ -387,7 +387,7 @@ export const abuse_reports_PhishingReport: JsonSchema = {
 /**
  * The schema of `abuse-reports_RegistrarWhoIsFields`.
  */
-export const abuse_reports_RegistrarWhoIsFields: JsonSchema = {
+export const abuse$$reports_RegistrarWhoIsFields: JsonSchema = {
   "description": "RDP-mandated fields for registrar WHOIS data disclosure requests.",
   "properties": {
     "reg_who_authorization_statement": {
@@ -465,7 +465,7 @@ export const abuse_reports_RegistrarWhoIsFields: JsonSchema = {
 /**
  * The schema of `abuse-reports_RegistrarWhoisReport`.
  */
-export const abuse_reports_RegistrarWhoisReport: JsonSchema = {
+export const abuse$$reports_RegistrarWhoisReport: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/abuse-reports_BaseReportFields"
@@ -503,7 +503,7 @@ export const abuse_reports_RegistrarWhoisReport: JsonSchema = {
 /**
  * The schema of `abuse-reports_ReportStatus`.
  */
-export const abuse_reports_ReportStatus: JsonSchema = {
+export const abuse$$reports_ReportStatus: JsonSchema = {
   "description": "An enum value that represents the status of an abuse record",
   "enum": [
     "accepted",
@@ -515,7 +515,7 @@ export const abuse_reports_ReportStatus: JsonSchema = {
 /**
  * The schema of `abuse-reports_ReportType`.
  */
-export const abuse_reports_ReportType: JsonSchema = {
+export const abuse$$reports_ReportType: JsonSchema = {
   "description": "The abuse report type",
   "enum": [
     "PHISH",
@@ -534,7 +534,7 @@ export const abuse_reports_ReportType: JsonSchema = {
 /**
  * The schema of `abuse-reports_SubmissionReportType`.
  */
-export const abuse_reports_SubmissionReportType: JsonSchema = {
+export const abuse$$reports_SubmissionReportType: JsonSchema = {
   "description": "The report type for submitted reports.",
   "type": "string"
 };
@@ -542,7 +542,7 @@ export const abuse_reports_SubmissionReportType: JsonSchema = {
 /**
  * The schema of `abuse-reports_SubmitReportRequest`.
  */
-export const abuse_reports_SubmitReportRequest: JsonSchema = {
+export const abuse$$reports_SubmitReportRequest: JsonSchema = {
   "oneOf": [
     {
       "$ref": "#/$defs/abuse-reports_DMCAReport"
@@ -574,7 +574,7 @@ export const abuse_reports_SubmitReportRequest: JsonSchema = {
 /**
  * The schema of `abuse-reports_SubmittedAbuseReportStatus`.
  */
-export const abuse_reports_SubmittedAbuseReportStatus: JsonSchema = {
+export const abuse$$reports_SubmittedAbuseReportStatus: JsonSchema = {
   "description": "Status visible to the account that submitted the report.",
   "enum": [
     "submitted",
@@ -587,7 +587,7 @@ export const abuse_reports_SubmittedAbuseReportStatus: JsonSchema = {
 /**
  * The schema of `abuse-reports_ThreatReport`.
  */
-export const abuse_reports_ThreatReport: JsonSchema = {
+export const abuse$$reports_ThreatReport: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/abuse-reports_BaseReportFields"
@@ -634,7 +634,7 @@ export const abuse_reports_ThreatReport: JsonSchema = {
 /**
  * The schema of `abuse-reports_TrademarkReport`.
  */
-export const abuse_reports_TrademarkReport: JsonSchema = {
+export const abuse$$reports_TrademarkReport: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/abuse-reports_BaseReportFields"

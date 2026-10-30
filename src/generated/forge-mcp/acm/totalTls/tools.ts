@@ -3,28 +3,28 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
-  tls_certificates_and_hostnames_api_response_common_failure_output,
-  tls_certificates_and_hostnames_api_response_single_output,
-  tls_certificates_and_hostnames_messages_output,
+  tls$$certificates$$and$$hostnames_api$$response$$common$$failure,
+  tls$$certificates$$and$$hostnames_api$$response$$single,
+  tls$$certificates$$and$$hostnames_messages,
 } from "../../outputs.js";
-import { tls_certificates_and_hostnames_identifier } from "../../schemas.js";
+import { tls$$certificates$$and$$hostnames_identifier } from "../../schemas.js";
 import {
-  tls_certificates_and_hostnames_certificate_authority_3_output,
-  tls_certificates_and_hostnames_enabled_3_output,
-  tls_certificates_and_hostnames_total_tls_settings_response_output,
-  tls_certificates_and_hostnames_validity_period_output,
+  tls$$certificates$$and$$hostnames_certificate_authority$$3,
+  tls$$certificates$$and$$hostnames_enabled$$3,
+  tls$$certificates$$and$$hostnames_total_tls_settings_response,
+  tls$$certificates$$and$$hostnames_validity_period,
 } from "./outputs.js";
 import {
-  tls_certificates_and_hostnames_certificate_authority_3,
-  tls_certificates_and_hostnames_enabled_3,
+  tls$$certificates$$and$$hostnames_certificate_authority$$3 as tls$$certificates$$and$$hostnames_certificate_authority$$3$,
+  tls$$certificates$$and$$hostnames_enabled$$3 as tls$$certificates$$and$$hostnames_enabled$$3$,
 } from "./schemas.js";
 
 /**
- * The tools of `acm.total_tls`.
+ * The tools of `acm.totalTls`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "acm_total_tls_edit",
+    name: "acm_totalTls_edit",
     title: "Enable or Disable Total TLS",
     description: "Set Total TLS Settings or disable the feature for a Zone.",
     inputSchema: {
@@ -46,30 +46,38 @@ export const tools: readonly Tool[] = [
           ],
           "type": "object"
         },
-        "zone_id": {
-          "$ref": "#/$defs/tls-certificates-and-hostnames_identifier",
-          "description": "Identifier."
+        "path": {
+          "properties": {
+            "zone_id": {
+              "$ref": "#/$defs/tls-certificates-and-hostnames_identifier",
+              "description": "Identifier."
+            }
+          },
+          "required": [
+            "zone_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "zone_id",
+        "path",
         "body"
       ],
       $defs: {
-        "tls-certificates-and-hostnames_certificate_authority-3": tls_certificates_and_hostnames_certificate_authority_3,
-        "tls-certificates-and-hostnames_enabled-3": tls_certificates_and_hostnames_enabled_3,
-        "tls-certificates-and-hostnames_identifier": tls_certificates_and_hostnames_identifier,
+        "tls-certificates-and-hostnames_certificate_authority-3": tls$$certificates$$and$$hostnames_certificate_authority$$3$,
+        "tls-certificates-and-hostnames_enabled-3": tls$$certificates$$and$$hostnames_enabled$$3$,
+        "tls-certificates-and-hostnames_identifier": tls$$certificates$$and$$hostnames_identifier,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/tls-certificates-and-hostnames_total_tls_settings_response",
       $defs: {
-        "tls-certificates-and-hostnames_api-response-single": tls_certificates_and_hostnames_api_response_single_output,
-        "tls-certificates-and-hostnames_certificate_authority-3": tls_certificates_and_hostnames_certificate_authority_3_output,
-        "tls-certificates-and-hostnames_enabled-3": tls_certificates_and_hostnames_enabled_3_output,
-        "tls-certificates-and-hostnames_messages": tls_certificates_and_hostnames_messages_output,
-        "tls-certificates-and-hostnames_total_tls_settings_response": tls_certificates_and_hostnames_total_tls_settings_response_output,
-        "tls-certificates-and-hostnames_validity_period": tls_certificates_and_hostnames_validity_period_output,
+        "tls-certificates-and-hostnames_api-response-single": tls$$certificates$$and$$hostnames_api$$response$$single,
+        "tls-certificates-and-hostnames_certificate_authority-3": tls$$certificates$$and$$hostnames_certificate_authority$$3,
+        "tls-certificates-and-hostnames_enabled-3": tls$$certificates$$and$$hostnames_enabled$$3,
+        "tls-certificates-and-hostnames_messages": tls$$certificates$$and$$hostnames_messages,
+        "tls-certificates-and-hostnames_total_tls_settings_response": tls$$certificates$$and$$hostnames_total_tls_settings_response,
+        "tls-certificates-and-hostnames_validity_period": tls$$certificates$$and$$hostnames_validity_period,
       },
     },
     annotations: {
@@ -115,13 +123,13 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "tls-certificates-and-hostnames_api-response-common-failure": tls_certificates_and_hostnames_api_response_common_failure_output,
-        "tls-certificates-and-hostnames_api-response-single": tls_certificates_and_hostnames_api_response_single_output,
-        "tls-certificates-and-hostnames_certificate_authority-3": tls_certificates_and_hostnames_certificate_authority_3_output,
-        "tls-certificates-and-hostnames_enabled-3": tls_certificates_and_hostnames_enabled_3_output,
-        "tls-certificates-and-hostnames_messages": tls_certificates_and_hostnames_messages_output,
-        "tls-certificates-and-hostnames_total_tls_settings_response": tls_certificates_and_hostnames_total_tls_settings_response_output,
-        "tls-certificates-and-hostnames_validity_period": tls_certificates_and_hostnames_validity_period_output,
+        "tls-certificates-and-hostnames_api-response-common-failure": tls$$certificates$$and$$hostnames_api$$response$$common$$failure,
+        "tls-certificates-and-hostnames_api-response-single": tls$$certificates$$and$$hostnames_api$$response$$single,
+        "tls-certificates-and-hostnames_certificate_authority-3": tls$$certificates$$and$$hostnames_certificate_authority$$3,
+        "tls-certificates-and-hostnames_enabled-3": tls$$certificates$$and$$hostnames_enabled$$3,
+        "tls-certificates-and-hostnames_messages": tls$$certificates$$and$$hostnames_messages,
+        "tls-certificates-and-hostnames_total_tls_settings_response": tls$$certificates$$and$$hostnames_total_tls_settings_response,
+        "tls-certificates-and-hostnames_validity_period": tls$$certificates$$and$$hostnames_validity_period,
       },
     },
     request: (args) => ({
@@ -130,33 +138,41 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "acm_total_tls_get",
+    name: "acm_totalTls_get",
     title: "Total TLS Settings Details",
     description: "Get Total TLS Settings for a Zone.",
     inputSchema: {
       type: "object",
       properties: {
-        "zone_id": {
-          "$ref": "#/$defs/tls-certificates-and-hostnames_identifier",
-          "description": "Identifier."
+        "path": {
+          "properties": {
+            "zone_id": {
+              "$ref": "#/$defs/tls-certificates-and-hostnames_identifier",
+              "description": "Identifier."
+            }
+          },
+          "required": [
+            "zone_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "zone_id"
+        "path"
       ],
       $defs: {
-        "tls-certificates-and-hostnames_identifier": tls_certificates_and_hostnames_identifier,
+        "tls-certificates-and-hostnames_identifier": tls$$certificates$$and$$hostnames_identifier,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/tls-certificates-and-hostnames_total_tls_settings_response",
       $defs: {
-        "tls-certificates-and-hostnames_api-response-single": tls_certificates_and_hostnames_api_response_single_output,
-        "tls-certificates-and-hostnames_certificate_authority-3": tls_certificates_and_hostnames_certificate_authority_3_output,
-        "tls-certificates-and-hostnames_enabled-3": tls_certificates_and_hostnames_enabled_3_output,
-        "tls-certificates-and-hostnames_messages": tls_certificates_and_hostnames_messages_output,
-        "tls-certificates-and-hostnames_total_tls_settings_response": tls_certificates_and_hostnames_total_tls_settings_response_output,
-        "tls-certificates-and-hostnames_validity_period": tls_certificates_and_hostnames_validity_period_output,
+        "tls-certificates-and-hostnames_api-response-single": tls$$certificates$$and$$hostnames_api$$response$$single,
+        "tls-certificates-and-hostnames_certificate_authority-3": tls$$certificates$$and$$hostnames_certificate_authority$$3,
+        "tls-certificates-and-hostnames_enabled-3": tls$$certificates$$and$$hostnames_enabled$$3,
+        "tls-certificates-and-hostnames_messages": tls$$certificates$$and$$hostnames_messages,
+        "tls-certificates-and-hostnames_total_tls_settings_response": tls$$certificates$$and$$hostnames_total_tls_settings_response,
+        "tls-certificates-and-hostnames_validity_period": tls$$certificates$$and$$hostnames_validity_period,
       },
     },
     annotations: {
@@ -202,13 +218,13 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "tls-certificates-and-hostnames_api-response-common-failure": tls_certificates_and_hostnames_api_response_common_failure_output,
-        "tls-certificates-and-hostnames_api-response-single": tls_certificates_and_hostnames_api_response_single_output,
-        "tls-certificates-and-hostnames_certificate_authority-3": tls_certificates_and_hostnames_certificate_authority_3_output,
-        "tls-certificates-and-hostnames_enabled-3": tls_certificates_and_hostnames_enabled_3_output,
-        "tls-certificates-and-hostnames_messages": tls_certificates_and_hostnames_messages_output,
-        "tls-certificates-and-hostnames_total_tls_settings_response": tls_certificates_and_hostnames_total_tls_settings_response_output,
-        "tls-certificates-and-hostnames_validity_period": tls_certificates_and_hostnames_validity_period_output,
+        "tls-certificates-and-hostnames_api-response-common-failure": tls$$certificates$$and$$hostnames_api$$response$$common$$failure,
+        "tls-certificates-and-hostnames_api-response-single": tls$$certificates$$and$$hostnames_api$$response$$single,
+        "tls-certificates-and-hostnames_certificate_authority-3": tls$$certificates$$and$$hostnames_certificate_authority$$3,
+        "tls-certificates-and-hostnames_enabled-3": tls$$certificates$$and$$hostnames_enabled$$3,
+        "tls-certificates-and-hostnames_messages": tls$$certificates$$and$$hostnames_messages,
+        "tls-certificates-and-hostnames_total_tls_settings_response": tls$$certificates$$and$$hostnames_total_tls_settings_response,
+        "tls-certificates-and-hostnames_validity_period": tls$$certificates$$and$$hostnames_validity_period,
       },
     },
     request: (args) => ({

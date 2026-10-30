@@ -14,7 +14,7 @@ export const rum_auto_install: JsonSchema = {
 /**
  * The schema of `rum_create-site-request`.
  */
-export const rum_create_site_request: JsonSchema = {
+export const rum_create$$site$$request: JsonSchema = {
   "properties": {
     "auto_install": {
       "$ref": "#/$defs/rum_auto_install",
@@ -87,7 +87,7 @@ export const rum_per_page: JsonSchema = {
 /**
  * The schema of `rum_update-site-request`.
  */
-export const rum_update_site_request: JsonSchema = {
+export const rum_update$$site$$request: JsonSchema = {
   "properties": {
     "auto_install": {
       "$ref": "#/$defs/rum_auto_install",

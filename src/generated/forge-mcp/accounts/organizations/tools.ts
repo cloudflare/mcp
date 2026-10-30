@@ -3,12 +3,12 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
-  organizations_api_OrganizationFlags_output,
-  organizations_api_OrganizationID_output,
-  organizations_api_Organization_output,
-  organizations_api_Profile_output,
-  organizations_api_V4ErrorResponse_output,
-  organizations_api_V4Message_output,
+  organizations$$api_Organization,
+  organizations$$api_OrganizationFlags,
+  organizations$$api_OrganizationID,
+  organizations$$api_Profile,
+  organizations$$api_V4ErrorResponse,
+  organizations$$api_V4Message,
 } from "../../outputs.js";
 
 /**
@@ -22,12 +22,20 @@ export const tools: readonly Tool[] = [
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "type": "string"
+        "path": {
+          "properties": {
+            "account_id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id"
+        "path"
       ],
     },
     outputSchema: {
@@ -66,11 +74,11 @@ export const tools: readonly Tool[] = [
       ],
       "type": "object",
       $defs: {
-        "organizations-api_Organization": organizations_api_Organization_output,
-        "organizations-api_OrganizationFlags": organizations_api_OrganizationFlags_output,
-        "organizations-api_OrganizationID": organizations_api_OrganizationID_output,
-        "organizations-api_Profile": organizations_api_Profile_output,
-        "organizations-api_V4Message": organizations_api_V4Message_output,
+        "organizations-api_Organization": organizations$$api_Organization,
+        "organizations-api_OrganizationFlags": organizations$$api_OrganizationFlags,
+        "organizations-api_OrganizationID": organizations$$api_OrganizationID,
+        "organizations-api_Profile": organizations$$api_Profile,
+        "organizations-api_V4Message": organizations$$api_V4Message,
       },
     },
     annotations: {
@@ -133,12 +141,12 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "organizations-api_Organization": organizations_api_Organization_output,
-        "organizations-api_OrganizationFlags": organizations_api_OrganizationFlags_output,
-        "organizations-api_OrganizationID": organizations_api_OrganizationID_output,
-        "organizations-api_Profile": organizations_api_Profile_output,
-        "organizations-api_V4ErrorResponse": organizations_api_V4ErrorResponse_output,
-        "organizations-api_V4Message": organizations_api_V4Message_output,
+        "organizations-api_Organization": organizations$$api_Organization,
+        "organizations-api_OrganizationFlags": organizations$$api_OrganizationFlags,
+        "organizations-api_OrganizationID": organizations$$api_OrganizationID,
+        "organizations-api_Profile": organizations$$api_Profile,
+        "organizations-api_V4ErrorResponse": organizations$$api_V4ErrorResponse,
+        "organizations-api_V4Message": organizations$$api_V4Message,
       },
     },
     request: (args) => ({

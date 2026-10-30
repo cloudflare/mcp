@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `mq_consumer-request`.
  */
-export const mq_consumer_request: JsonSchema = {
+export const mq_consumer$$request: JsonSchema = {
   "description": "Request body for creating or updating a consumer",
   "oneOf": [
     {
@@ -21,7 +21,7 @@ export const mq_consumer_request: JsonSchema = {
 /**
  * The schema of `mq_http-consumer-request`.
  */
-export const mq_http_consumer_request: JsonSchema = {
+export const mq_http$$consumer$$request: JsonSchema = {
   "properties": {
     "dead_letter_queue": {
       "$ref": "#/$defs/mq_queue-name"
@@ -63,7 +63,7 @@ export const mq_http_consumer_request: JsonSchema = {
 /**
  * The schema of `mq_worker-consumer-request`.
  */
-export const mq_worker_consumer_request: JsonSchema = {
+export const mq_worker$$consumer$$request: JsonSchema = {
   "properties": {
     "dead_letter_queue": {
       "$ref": "#/$defs/mq_queue-name"

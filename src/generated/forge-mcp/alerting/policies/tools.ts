@@ -3,42 +3,42 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
-  aaa_api_response_collection_output,
-  aaa_api_response_common_2_output,
-  aaa_api_response_common_failure_3_output,
-  aaa_api_response_single_output,
-  aaa_id_response_output,
-  aaa_messages_3_output,
-  aaa_policy_id_output,
-  aaa_result_info_2_output,
-  aaa_schemas_name_output,
-  aaa_uuid_output,
+  aaa_api$$response$$collection,
+  aaa_api$$response$$common$$2,
+  aaa_api$$response$$common$$failure$$3,
+  aaa_api$$response$$single,
+  aaa_id_response,
+  aaa_messages$$3,
+  aaa_policy$$id,
+  aaa_result_info$$2,
+  aaa_schemas$$name,
+  aaa_uuid,
 } from "../outputs.js";
 import {
-  aaa_account_id,
-  aaa_policy_id,
-  aaa_schemas_name,
-  aaa_uuid,
+  aaa_account$$id,
+  aaa_policy$$id as aaa_policy$$id$,
+  aaa_schemas$$name as aaa_schemas$$name$,
+  aaa_uuid as aaa_uuid$,
 } from "../schemas.js";
-import {
-  aaa_alert_interval_output,
-  aaa_alert_type_output,
-  aaa_enabled_output,
-  aaa_filters_output,
-  aaa_mechanisms_output,
-  aaa_policies_components_schemas_response_collection_output,
-  aaa_policies_output,
-  aaa_schemas_description_output,
-  aaa_single_response_output,
-  aaa_timestamp_output,
-} from "./outputs.js";
 import {
   aaa_alert_interval,
   aaa_alert_type,
   aaa_enabled,
   aaa_filters,
   aaa_mechanisms,
-  aaa_schemas_description,
+  aaa_policies,
+  aaa_policies_components$$schemas$$response_collection,
+  aaa_schemas$$description,
+  aaa_single_response,
+  aaa_timestamp,
+} from "./outputs.js";
+import {
+  aaa_alert_interval as aaa_alert_interval$,
+  aaa_alert_type as aaa_alert_type$,
+  aaa_enabled as aaa_enabled$,
+  aaa_filters as aaa_filters$,
+  aaa_mechanisms as aaa_mechanisms$,
+  aaa_schemas$$description as aaa_schemas$$description$,
 } from "./schemas.js";
 
 /**
@@ -52,10 +52,6 @@ export const tools: readonly Tool[] = [
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/aaa_account-id",
-          "description": "The account id"
-        },
         "body": {
           "properties": {
             "alert_interval": {
@@ -95,31 +91,43 @@ export const tools: readonly Tool[] = [
             "name"
           ],
           "type": "object"
+        },
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/aaa_account-id",
+              "description": "The account id"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
+        "path",
         "body"
       ],
       $defs: {
-        "aaa_account-id": aaa_account_id,
-        "aaa_alert_interval": aaa_alert_interval,
-        "aaa_alert_type": aaa_alert_type,
-        "aaa_enabled": aaa_enabled,
-        "aaa_filters": aaa_filters,
-        "aaa_mechanisms": aaa_mechanisms,
-        "aaa_schemas-description": aaa_schemas_description,
-        "aaa_schemas-name": aaa_schemas_name,
-        "aaa_uuid": aaa_uuid,
+        "aaa_account-id": aaa_account$$id,
+        "aaa_alert_interval": aaa_alert_interval$,
+        "aaa_alert_type": aaa_alert_type$,
+        "aaa_enabled": aaa_enabled$,
+        "aaa_filters": aaa_filters$,
+        "aaa_mechanisms": aaa_mechanisms$,
+        "aaa_schemas-description": aaa_schemas$$description$,
+        "aaa_schemas-name": aaa_schemas$$name$,
+        "aaa_uuid": aaa_uuid$,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/aaa_id_response",
       $defs: {
-        "aaa_api-response-single": aaa_api_response_single_output,
-        "aaa_id_response": aaa_id_response_output,
-        "aaa_messages-3": aaa_messages_3_output,
-        "aaa_uuid": aaa_uuid_output,
+        "aaa_api-response-single": aaa_api$$response$$single,
+        "aaa_id_response": aaa_id_response,
+        "aaa_messages-3": aaa_messages$$3,
+        "aaa_uuid": aaa_uuid,
       },
     },
     annotations: {
@@ -154,11 +162,11 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "aaa_api-response-common-failure-3": aaa_api_response_common_failure_3_output,
-        "aaa_api-response-single": aaa_api_response_single_output,
-        "aaa_id_response": aaa_id_response_output,
-        "aaa_messages-3": aaa_messages_3_output,
-        "aaa_uuid": aaa_uuid_output,
+        "aaa_api-response-common-failure-3": aaa_api$$response$$common$$failure$$3,
+        "aaa_api-response-single": aaa_api$$response$$single,
+        "aaa_id_response": aaa_id_response,
+        "aaa_messages-3": aaa_messages$$3,
+        "aaa_uuid": aaa_uuid,
       },
     },
     request: (args) => ({
@@ -173,31 +181,39 @@ export const tools: readonly Tool[] = [
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/aaa_account-id",
-          "description": "The account id"
-        },
-        "policy_id": {
-          "$ref": "#/$defs/aaa_policy-id",
-          "description": "The unique identifier of a notification policy"
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/aaa_account-id",
+              "description": "The account id"
+            },
+            "policy_id": {
+              "$ref": "#/$defs/aaa_policy-id",
+              "description": "The unique identifier of a notification policy"
+            }
+          },
+          "required": [
+            "account_id",
+            "policy_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "policy_id"
+        "path"
       ],
       $defs: {
-        "aaa_account-id": aaa_account_id,
-        "aaa_policy-id": aaa_policy_id,
+        "aaa_account-id": aaa_account$$id,
+        "aaa_policy-id": aaa_policy$$id$,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/aaa_api-response-collection",
       $defs: {
-        "aaa_api-response-collection": aaa_api_response_collection_output,
-        "aaa_api-response-common-2": aaa_api_response_common_2_output,
-        "aaa_messages-3": aaa_messages_3_output,
-        "aaa_result_info-2": aaa_result_info_2_output,
+        "aaa_api-response-collection": aaa_api$$response$$collection,
+        "aaa_api-response-common-2": aaa_api$$response$$common$$2,
+        "aaa_messages-3": aaa_messages$$3,
+        "aaa_result_info-2": aaa_result_info$$2,
       },
     },
     annotations: {
@@ -232,11 +248,11 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "aaa_api-response-collection": aaa_api_response_collection_output,
-        "aaa_api-response-common-2": aaa_api_response_common_2_output,
-        "aaa_api-response-common-failure-3": aaa_api_response_common_failure_3_output,
-        "aaa_messages-3": aaa_messages_3_output,
-        "aaa_result_info-2": aaa_result_info_2_output,
+        "aaa_api-response-collection": aaa_api$$response$$collection,
+        "aaa_api-response-common-2": aaa_api$$response$$common$$2,
+        "aaa_api-response-common-failure-3": aaa_api$$response$$common$$failure$$3,
+        "aaa_messages-3": aaa_messages$$3,
+        "aaa_result_info-2": aaa_result_info$$2,
       },
     },
     request: (args) => ({
@@ -250,41 +266,49 @@ export const tools: readonly Tool[] = [
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/aaa_account-id",
-          "description": "The account id"
-        },
-        "policy_id": {
-          "$ref": "#/$defs/aaa_policy-id",
-          "description": "The unique identifier of a notification policy"
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/aaa_account-id",
+              "description": "The account id"
+            },
+            "policy_id": {
+              "$ref": "#/$defs/aaa_policy-id",
+              "description": "The unique identifier of a notification policy"
+            }
+          },
+          "required": [
+            "account_id",
+            "policy_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "policy_id"
+        "path"
       ],
       $defs: {
-        "aaa_account-id": aaa_account_id,
-        "aaa_policy-id": aaa_policy_id,
+        "aaa_account-id": aaa_account$$id,
+        "aaa_policy-id": aaa_policy$$id$,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/aaa_single_response",
       $defs: {
-        "aaa_alert_interval": aaa_alert_interval_output,
-        "aaa_alert_type": aaa_alert_type_output,
-        "aaa_api-response-single": aaa_api_response_single_output,
-        "aaa_enabled": aaa_enabled_output,
-        "aaa_filters": aaa_filters_output,
-        "aaa_mechanisms": aaa_mechanisms_output,
-        "aaa_messages-3": aaa_messages_3_output,
-        "aaa_policies": aaa_policies_output,
-        "aaa_policy-id": aaa_policy_id_output,
-        "aaa_schemas-description": aaa_schemas_description_output,
-        "aaa_schemas-name": aaa_schemas_name_output,
-        "aaa_single_response": aaa_single_response_output,
-        "aaa_timestamp": aaa_timestamp_output,
-        "aaa_uuid": aaa_uuid_output,
+        "aaa_alert_interval": aaa_alert_interval,
+        "aaa_alert_type": aaa_alert_type,
+        "aaa_api-response-single": aaa_api$$response$$single,
+        "aaa_enabled": aaa_enabled,
+        "aaa_filters": aaa_filters,
+        "aaa_mechanisms": aaa_mechanisms,
+        "aaa_messages-3": aaa_messages$$3,
+        "aaa_policies": aaa_policies,
+        "aaa_policy-id": aaa_policy$$id,
+        "aaa_schemas-description": aaa_schemas$$description,
+        "aaa_schemas-name": aaa_schemas$$name,
+        "aaa_single_response": aaa_single_response,
+        "aaa_timestamp": aaa_timestamp,
+        "aaa_uuid": aaa_uuid,
       },
     },
     annotations: {
@@ -322,21 +346,21 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "aaa_alert_interval": aaa_alert_interval_output,
-        "aaa_alert_type": aaa_alert_type_output,
-        "aaa_api-response-common-failure-3": aaa_api_response_common_failure_3_output,
-        "aaa_api-response-single": aaa_api_response_single_output,
-        "aaa_enabled": aaa_enabled_output,
-        "aaa_filters": aaa_filters_output,
-        "aaa_mechanisms": aaa_mechanisms_output,
-        "aaa_messages-3": aaa_messages_3_output,
-        "aaa_policies": aaa_policies_output,
-        "aaa_policy-id": aaa_policy_id_output,
-        "aaa_schemas-description": aaa_schemas_description_output,
-        "aaa_schemas-name": aaa_schemas_name_output,
-        "aaa_single_response": aaa_single_response_output,
-        "aaa_timestamp": aaa_timestamp_output,
-        "aaa_uuid": aaa_uuid_output,
+        "aaa_alert_interval": aaa_alert_interval,
+        "aaa_alert_type": aaa_alert_type,
+        "aaa_api-response-common-failure-3": aaa_api$$response$$common$$failure$$3,
+        "aaa_api-response-single": aaa_api$$response$$single,
+        "aaa_enabled": aaa_enabled,
+        "aaa_filters": aaa_filters,
+        "aaa_mechanisms": aaa_mechanisms,
+        "aaa_messages-3": aaa_messages$$3,
+        "aaa_policies": aaa_policies,
+        "aaa_policy-id": aaa_policy$$id,
+        "aaa_schemas-description": aaa_schemas$$description,
+        "aaa_schemas-name": aaa_schemas$$name,
+        "aaa_single_response": aaa_single_response,
+        "aaa_timestamp": aaa_timestamp,
+        "aaa_uuid": aaa_uuid,
       },
     },
     request: (args) => ({
@@ -350,35 +374,43 @@ export const tools: readonly Tool[] = [
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/aaa_account-id",
-          "description": "The account id"
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/aaa_account-id",
+              "description": "The account id"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id"
+        "path"
       ],
       $defs: {
-        "aaa_account-id": aaa_account_id,
+        "aaa_account-id": aaa_account$$id,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/aaa_policies_components-schemas-response_collection",
       $defs: {
-        "aaa_alert_interval": aaa_alert_interval_output,
-        "aaa_alert_type": aaa_alert_type_output,
-        "aaa_api-response-common-2": aaa_api_response_common_2_output,
-        "aaa_enabled": aaa_enabled_output,
-        "aaa_filters": aaa_filters_output,
-        "aaa_mechanisms": aaa_mechanisms_output,
-        "aaa_messages-3": aaa_messages_3_output,
-        "aaa_policies": aaa_policies_output,
-        "aaa_policies_components-schemas-response_collection": aaa_policies_components_schemas_response_collection_output,
-        "aaa_policy-id": aaa_policy_id_output,
-        "aaa_schemas-description": aaa_schemas_description_output,
-        "aaa_schemas-name": aaa_schemas_name_output,
-        "aaa_timestamp": aaa_timestamp_output,
-        "aaa_uuid": aaa_uuid_output,
+        "aaa_alert_interval": aaa_alert_interval,
+        "aaa_alert_type": aaa_alert_type,
+        "aaa_api-response-common-2": aaa_api$$response$$common$$2,
+        "aaa_enabled": aaa_enabled,
+        "aaa_filters": aaa_filters,
+        "aaa_mechanisms": aaa_mechanisms,
+        "aaa_messages-3": aaa_messages$$3,
+        "aaa_policies": aaa_policies,
+        "aaa_policies_components-schemas-response_collection": aaa_policies_components$$schemas$$response_collection,
+        "aaa_policy-id": aaa_policy$$id,
+        "aaa_schemas-description": aaa_schemas$$description,
+        "aaa_schemas-name": aaa_schemas$$name,
+        "aaa_timestamp": aaa_timestamp,
+        "aaa_uuid": aaa_uuid,
       },
     },
     annotations: {
@@ -409,21 +441,21 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "aaa_alert_interval": aaa_alert_interval_output,
-        "aaa_alert_type": aaa_alert_type_output,
-        "aaa_api-response-common-2": aaa_api_response_common_2_output,
-        "aaa_api-response-common-failure-3": aaa_api_response_common_failure_3_output,
-        "aaa_enabled": aaa_enabled_output,
-        "aaa_filters": aaa_filters_output,
-        "aaa_mechanisms": aaa_mechanisms_output,
-        "aaa_messages-3": aaa_messages_3_output,
-        "aaa_policies": aaa_policies_output,
-        "aaa_policies_components-schemas-response_collection": aaa_policies_components_schemas_response_collection_output,
-        "aaa_policy-id": aaa_policy_id_output,
-        "aaa_schemas-description": aaa_schemas_description_output,
-        "aaa_schemas-name": aaa_schemas_name_output,
-        "aaa_timestamp": aaa_timestamp_output,
-        "aaa_uuid": aaa_uuid_output,
+        "aaa_alert_interval": aaa_alert_interval,
+        "aaa_alert_type": aaa_alert_type,
+        "aaa_api-response-common-2": aaa_api$$response$$common$$2,
+        "aaa_api-response-common-failure-3": aaa_api$$response$$common$$failure$$3,
+        "aaa_enabled": aaa_enabled,
+        "aaa_filters": aaa_filters,
+        "aaa_mechanisms": aaa_mechanisms,
+        "aaa_messages-3": aaa_messages$$3,
+        "aaa_policies": aaa_policies,
+        "aaa_policies_components-schemas-response_collection": aaa_policies_components$$schemas$$response_collection,
+        "aaa_policy-id": aaa_policy$$id,
+        "aaa_schemas-description": aaa_schemas$$description,
+        "aaa_schemas-name": aaa_schemas$$name,
+        "aaa_timestamp": aaa_timestamp,
+        "aaa_uuid": aaa_uuid,
       },
     },
     request: (args) => ({
@@ -437,10 +469,6 @@ export const tools: readonly Tool[] = [
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/aaa_account-id",
-          "description": "The account id"
-        },
         "body": {
           "description": "Optional configuration for the test notification. When omitted, a default INFO-severity test alert is sent.",
           "properties": {
@@ -475,25 +503,37 @@ export const tools: readonly Tool[] = [
           },
           "type": "object"
         },
-        "policy_id": {
-          "$ref": "#/$defs/aaa_policy-id",
-          "description": "The unique identifier of a notification policy"
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/aaa_account-id",
+              "description": "The account id"
+            },
+            "policy_id": {
+              "$ref": "#/$defs/aaa_policy-id",
+              "description": "The unique identifier of a notification policy"
+            }
+          },
+          "required": [
+            "account_id",
+            "policy_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "policy_id"
+        "path"
       ],
       $defs: {
-        "aaa_account-id": aaa_account_id,
-        "aaa_policy-id": aaa_policy_id,
+        "aaa_account-id": aaa_account$$id,
+        "aaa_policy-id": aaa_policy$$id$,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/aaa_api-response-common-2",
       $defs: {
-        "aaa_api-response-common-2": aaa_api_response_common_2_output,
-        "aaa_messages-3": aaa_messages_3_output,
+        "aaa_api-response-common-2": aaa_api$$response$$common$$2,
+        "aaa_messages-3": aaa_messages$$3,
       },
     },
     annotations: {
@@ -521,9 +561,9 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "aaa_api-response-common-2": aaa_api_response_common_2_output,
-        "aaa_api-response-common-failure-3": aaa_api_response_common_failure_3_output,
-        "aaa_messages-3": aaa_messages_3_output,
+        "aaa_api-response-common-2": aaa_api$$response$$common$$2,
+        "aaa_api-response-common-failure-3": aaa_api$$response$$common$$failure$$3,
+        "aaa_messages-3": aaa_messages$$3,
       },
     },
     request: (args) => ({
@@ -538,10 +578,6 @@ export const tools: readonly Tool[] = [
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/aaa_account-id",
-          "description": "The account id"
-        },
         "body": {
           "properties": {
             "alert_interval": {
@@ -576,36 +612,48 @@ export const tools: readonly Tool[] = [
           },
           "type": "object"
         },
-        "policy_id": {
-          "$ref": "#/$defs/aaa_policy-id",
-          "description": "The unique identifier of a notification policy"
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/aaa_account-id",
+              "description": "The account id"
+            },
+            "policy_id": {
+              "$ref": "#/$defs/aaa_policy-id",
+              "description": "The unique identifier of a notification policy"
+            }
+          },
+          "required": [
+            "account_id",
+            "policy_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "policy_id",
+        "path",
         "body"
       ],
       $defs: {
-        "aaa_account-id": aaa_account_id,
-        "aaa_alert_interval": aaa_alert_interval,
-        "aaa_alert_type": aaa_alert_type,
-        "aaa_enabled": aaa_enabled,
-        "aaa_filters": aaa_filters,
-        "aaa_mechanisms": aaa_mechanisms,
-        "aaa_policy-id": aaa_policy_id,
-        "aaa_schemas-description": aaa_schemas_description,
-        "aaa_schemas-name": aaa_schemas_name,
-        "aaa_uuid": aaa_uuid,
+        "aaa_account-id": aaa_account$$id,
+        "aaa_alert_interval": aaa_alert_interval$,
+        "aaa_alert_type": aaa_alert_type$,
+        "aaa_enabled": aaa_enabled$,
+        "aaa_filters": aaa_filters$,
+        "aaa_mechanisms": aaa_mechanisms$,
+        "aaa_policy-id": aaa_policy$$id$,
+        "aaa_schemas-description": aaa_schemas$$description$,
+        "aaa_schemas-name": aaa_schemas$$name$,
+        "aaa_uuid": aaa_uuid$,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/aaa_id_response",
       $defs: {
-        "aaa_api-response-single": aaa_api_response_single_output,
-        "aaa_id_response": aaa_id_response_output,
-        "aaa_messages-3": aaa_messages_3_output,
-        "aaa_uuid": aaa_uuid_output,
+        "aaa_api-response-single": aaa_api$$response$$single,
+        "aaa_id_response": aaa_id_response,
+        "aaa_messages-3": aaa_messages$$3,
+        "aaa_uuid": aaa_uuid,
       },
     },
     annotations: {
@@ -640,11 +688,11 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "aaa_api-response-common-failure-3": aaa_api_response_common_failure_3_output,
-        "aaa_api-response-single": aaa_api_response_single_output,
-        "aaa_id_response": aaa_id_response_output,
-        "aaa_messages-3": aaa_messages_3_output,
-        "aaa_uuid": aaa_uuid_output,
+        "aaa_api-response-common-failure-3": aaa_api$$response$$common$$failure$$3,
+        "aaa_api-response-single": aaa_api$$response$$single,
+        "aaa_id_response": aaa_id_response,
+        "aaa_messages-3": aaa_messages$$3,
+        "aaa_uuid": aaa_uuid,
       },
     },
     request: (args) => ({

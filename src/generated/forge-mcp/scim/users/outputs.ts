@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `iam_scim_user` in responses.
  */
-export const iam_scim_user_output: JsonSchema = {
+export const iam_scim_user: JsonSchema = {
   "properties": {
     "active": {
       "type": "boolean"
@@ -65,7 +65,7 @@ export const iam_scim_user_output: JsonSchema = {
 /**
  * The schema of `iam_scim_user_email_object` in responses.
  */
-export const iam_scim_user_email_object_output: JsonSchema = {
+export const iam_scim_user_email_object: JsonSchema = {
   "properties": {
     "primary": {
       "type": "boolean"
@@ -86,7 +86,7 @@ export const iam_scim_user_email_object_output: JsonSchema = {
 /**
  * The schema of `iam_scim_user_list_response` in responses.
  */
-export const iam_scim_user_list_response_output: JsonSchema = {
+export const iam_scim_user_list_response: JsonSchema = {
   "properties": {
     "Resources": {
       "items": {
@@ -121,7 +121,7 @@ export const iam_scim_user_list_response_output: JsonSchema = {
 /**
  * The schema of `iam_scim_user_name_object` in responses.
  */
-export const iam_scim_user_name_object_output: JsonSchema = {
+export const iam_scim_user_name_object: JsonSchema = {
   "properties": {
     "familyName": {
       "type": "string"

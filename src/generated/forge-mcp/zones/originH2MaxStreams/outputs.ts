@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `cache-settings_origin_h2_max_streams` in responses.
  */
-export const cache_settings_origin_h2_max_streams_output: JsonSchema = {
+export const cache$$settings_origin_h2_max_streams: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/cache-settings_base"
@@ -32,7 +32,7 @@ export const cache_settings_origin_h2_max_streams_output: JsonSchema = {
  * The schema of `cache-settings_origin_h2_max_streams_response_value` in
  * responses.
  */
-export const cache_settings_origin_h2_max_streams_response_value_output: JsonSchema = {
+export const cache$$settings_origin_h2_max_streams_response_value: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/cache-settings_api-response-common"
@@ -51,6 +51,6 @@ export const cache_settings_origin_h2_max_streams_response_value_output: JsonSch
 /**
  * The schema of `cache-settings_origin_h2_max_streams_value` in responses.
  */
-export const cache_settings_origin_h2_max_streams_value_output: JsonSchema = {
+export const cache$$settings_origin_h2_max_streams_value: JsonSchema = {
   "type": "integer"
 };

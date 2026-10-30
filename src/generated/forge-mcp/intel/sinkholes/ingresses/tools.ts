@@ -3,18 +3,18 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
-  intel_sinkholes_api_response_common_failure_output,
-  intel_sinkholes_api_response_common_output,
-  intel_sinkholes_api_response_single_empty_output,
-  intel_sinkholes_messages_output,
+  intel$$sinkholes_api$$response$$common,
+  intel$$sinkholes_api_response_common_failure,
+  intel$$sinkholes_api_response_single_empty,
+  intel$$sinkholes_messages,
 } from "../outputs.js";
-import { intel_sinkholes_identifier } from "../schemas.js";
+import { intel$$sinkholes_identifier } from "../schemas.js";
 import {
-  intel_sinkholes_ingress_collection_response_output,
-  intel_sinkholes_ingress_item_output,
-  intel_sinkholes_ingress_single_response_output,
+  intel$$sinkholes_ingress_collection_response,
+  intel$$sinkholes_ingress_item,
+  intel$$sinkholes_ingress_single_response,
 } from "./outputs.js";
-import { intel_sinkholes_ingress_create_params } from "./schemas.js";
+import { intel$$sinkholes_ingress_create_params } from "./schemas.js";
 
 /**
  * The tools of `intel.sinkholes.ingresses`.
@@ -30,32 +30,40 @@ export const tools: readonly Tool[] = [
         "body": {
           "$ref": "#/$defs/intel-sinkholes_ingress_create_params"
         },
-        "sinkhole_id": {
-          "description": "The unique identifier for the sinkhole.",
-          "type": "string"
-        },
-        "zone_id": {
-          "$ref": "#/$defs/intel-sinkholes_identifier",
-          "description": "The unique identifier for the Cloudflare zone."
+        "path": {
+          "properties": {
+            "sinkhole_id": {
+              "description": "The unique identifier for the sinkhole.",
+              "type": "string"
+            },
+            "zone_id": {
+              "$ref": "#/$defs/intel-sinkholes_identifier",
+              "description": "The unique identifier for the Cloudflare zone."
+            }
+          },
+          "required": [
+            "zone_id",
+            "sinkhole_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "zone_id",
-        "sinkhole_id",
+        "path",
         "body"
       ],
       $defs: {
-        "intel-sinkholes_identifier": intel_sinkholes_identifier,
-        "intel-sinkholes_ingress_create_params": intel_sinkholes_ingress_create_params,
+        "intel-sinkholes_identifier": intel$$sinkholes_identifier,
+        "intel-sinkholes_ingress_create_params": intel$$sinkholes_ingress_create_params,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/intel-sinkholes_ingress_single_response",
       $defs: {
-        "intel-sinkholes_api-response-common": intel_sinkholes_api_response_common_output,
-        "intel-sinkholes_ingress_item": intel_sinkholes_ingress_item_output,
-        "intel-sinkholes_ingress_single_response": intel_sinkholes_ingress_single_response_output,
-        "intel-sinkholes_messages": intel_sinkholes_messages_output,
+        "intel-sinkholes_api-response-common": intel$$sinkholes_api$$response$$common,
+        "intel-sinkholes_ingress_item": intel$$sinkholes_ingress_item,
+        "intel-sinkholes_ingress_single_response": intel$$sinkholes_ingress_single_response,
+        "intel-sinkholes_messages": intel$$sinkholes_messages,
       },
     },
     annotations: {
@@ -82,11 +90,11 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "intel-sinkholes_api-response-common": intel_sinkholes_api_response_common_output,
-        "intel-sinkholes_api_response_common_failure": intel_sinkholes_api_response_common_failure_output,
-        "intel-sinkholes_ingress_item": intel_sinkholes_ingress_item_output,
-        "intel-sinkholes_ingress_single_response": intel_sinkholes_ingress_single_response_output,
-        "intel-sinkholes_messages": intel_sinkholes_messages_output,
+        "intel-sinkholes_api-response-common": intel$$sinkholes_api$$response$$common,
+        "intel-sinkholes_api_response_common_failure": intel$$sinkholes_api_response_common_failure,
+        "intel-sinkholes_ingress_item": intel$$sinkholes_ingress_item,
+        "intel-sinkholes_ingress_single_response": intel$$sinkholes_ingress_single_response,
+        "intel-sinkholes_messages": intel$$sinkholes_messages,
       },
     },
     request: (args) => ({
@@ -101,34 +109,42 @@ export const tools: readonly Tool[] = [
     inputSchema: {
       type: "object",
       properties: {
-        "ingress_id": {
-          "description": "The unique identifier for the ingress rule.",
-          "type": "string"
-        },
-        "sinkhole_id": {
-          "description": "The unique identifier for the sinkhole.",
-          "type": "string"
-        },
-        "zone_id": {
-          "$ref": "#/$defs/intel-sinkholes_identifier",
-          "description": "The unique identifier for the Cloudflare zone."
+        "path": {
+          "properties": {
+            "ingress_id": {
+              "description": "The unique identifier for the ingress rule.",
+              "type": "string"
+            },
+            "sinkhole_id": {
+              "description": "The unique identifier for the sinkhole.",
+              "type": "string"
+            },
+            "zone_id": {
+              "$ref": "#/$defs/intel-sinkholes_identifier",
+              "description": "The unique identifier for the Cloudflare zone."
+            }
+          },
+          "required": [
+            "zone_id",
+            "sinkhole_id",
+            "ingress_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "zone_id",
-        "sinkhole_id",
-        "ingress_id"
+        "path"
       ],
       $defs: {
-        "intel-sinkholes_identifier": intel_sinkholes_identifier,
+        "intel-sinkholes_identifier": intel$$sinkholes_identifier,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/intel-sinkholes_api_response_single_empty",
       $defs: {
-        "intel-sinkholes_api-response-common": intel_sinkholes_api_response_common_output,
-        "intel-sinkholes_api_response_single_empty": intel_sinkholes_api_response_single_empty_output,
-        "intel-sinkholes_messages": intel_sinkholes_messages_output,
+        "intel-sinkholes_api-response-common": intel$$sinkholes_api$$response$$common,
+        "intel-sinkholes_api_response_single_empty": intel$$sinkholes_api_response_single_empty,
+        "intel-sinkholes_messages": intel$$sinkholes_messages,
       },
     },
     annotations: {
@@ -155,10 +171,10 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "intel-sinkholes_api-response-common": intel_sinkholes_api_response_common_output,
-        "intel-sinkholes_api_response_common_failure": intel_sinkholes_api_response_common_failure_output,
-        "intel-sinkholes_api_response_single_empty": intel_sinkholes_api_response_single_empty_output,
-        "intel-sinkholes_messages": intel_sinkholes_messages_output,
+        "intel-sinkholes_api-response-common": intel$$sinkholes_api$$response$$common,
+        "intel-sinkholes_api_response_common_failure": intel$$sinkholes_api_response_common_failure,
+        "intel-sinkholes_api_response_single_empty": intel$$sinkholes_api_response_single_empty,
+        "intel-sinkholes_messages": intel$$sinkholes_messages,
       },
     },
     request: (args) => ({
@@ -172,35 +188,43 @@ export const tools: readonly Tool[] = [
     inputSchema: {
       type: "object",
       properties: {
-        "ingress_id": {
-          "description": "The unique identifier for the ingress rule.",
-          "type": "string"
-        },
-        "sinkhole_id": {
-          "description": "The unique identifier for the sinkhole.",
-          "type": "string"
-        },
-        "zone_id": {
-          "$ref": "#/$defs/intel-sinkholes_identifier",
-          "description": "The unique identifier for the Cloudflare zone."
+        "path": {
+          "properties": {
+            "ingress_id": {
+              "description": "The unique identifier for the ingress rule.",
+              "type": "string"
+            },
+            "sinkhole_id": {
+              "description": "The unique identifier for the sinkhole.",
+              "type": "string"
+            },
+            "zone_id": {
+              "$ref": "#/$defs/intel-sinkholes_identifier",
+              "description": "The unique identifier for the Cloudflare zone."
+            }
+          },
+          "required": [
+            "zone_id",
+            "sinkhole_id",
+            "ingress_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "zone_id",
-        "sinkhole_id",
-        "ingress_id"
+        "path"
       ],
       $defs: {
-        "intel-sinkholes_identifier": intel_sinkholes_identifier,
+        "intel-sinkholes_identifier": intel$$sinkholes_identifier,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/intel-sinkholes_ingress_single_response",
       $defs: {
-        "intel-sinkholes_api-response-common": intel_sinkholes_api_response_common_output,
-        "intel-sinkholes_ingress_item": intel_sinkholes_ingress_item_output,
-        "intel-sinkholes_ingress_single_response": intel_sinkholes_ingress_single_response_output,
-        "intel-sinkholes_messages": intel_sinkholes_messages_output,
+        "intel-sinkholes_api-response-common": intel$$sinkholes_api$$response$$common,
+        "intel-sinkholes_ingress_item": intel$$sinkholes_ingress_item,
+        "intel-sinkholes_ingress_single_response": intel$$sinkholes_ingress_single_response,
+        "intel-sinkholes_messages": intel$$sinkholes_messages,
       },
     },
     annotations: {
@@ -228,11 +252,11 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "intel-sinkholes_api-response-common": intel_sinkholes_api_response_common_output,
-        "intel-sinkholes_api_response_common_failure": intel_sinkholes_api_response_common_failure_output,
-        "intel-sinkholes_ingress_item": intel_sinkholes_ingress_item_output,
-        "intel-sinkholes_ingress_single_response": intel_sinkholes_ingress_single_response_output,
-        "intel-sinkholes_messages": intel_sinkholes_messages_output,
+        "intel-sinkholes_api-response-common": intel$$sinkholes_api$$response$$common,
+        "intel-sinkholes_api_response_common_failure": intel$$sinkholes_api_response_common_failure,
+        "intel-sinkholes_ingress_item": intel$$sinkholes_ingress_item,
+        "intel-sinkholes_ingress_single_response": intel$$sinkholes_ingress_single_response,
+        "intel-sinkholes_messages": intel$$sinkholes_messages,
       },
     },
     request: (args) => ({
@@ -246,39 +270,47 @@ export const tools: readonly Tool[] = [
     inputSchema: {
       type: "object",
       properties: {
-        "account_or_zone": {
-          "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
-          "enum": [
-            "accounts",
-            "zones"
+        "path": {
+          "properties": {
+            "account_or_zone": {
+              "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
+              "enum": [
+                "accounts",
+                "zones"
+              ],
+              "type": "string"
+            },
+            "account_or_zone_id": {
+              "$ref": "#/$defs/intel-sinkholes_identifier",
+              "description": "The account ID or zone ID, as selected by account_or_zone."
+            },
+            "sinkhole_id": {
+              "description": "The unique identifier for the sinkhole.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_or_zone",
+            "account_or_zone_id",
+            "sinkhole_id"
           ],
-          "type": "string"
-        },
-        "account_or_zone_id": {
-          "$ref": "#/$defs/intel-sinkholes_identifier",
-          "description": "The account ID or zone ID, as selected by account_or_zone."
-        },
-        "sinkhole_id": {
-          "description": "The unique identifier for the sinkhole.",
-          "type": "string"
+          "type": "object"
         }
       },
       required: [
-        "account_or_zone",
-        "account_or_zone_id",
-        "sinkhole_id"
+        "path"
       ],
       $defs: {
-        "intel-sinkholes_identifier": intel_sinkholes_identifier,
+        "intel-sinkholes_identifier": intel$$sinkholes_identifier,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/intel-sinkholes_ingress_collection_response",
       $defs: {
-        "intel-sinkholes_api-response-common": intel_sinkholes_api_response_common_output,
-        "intel-sinkholes_ingress_collection_response": intel_sinkholes_ingress_collection_response_output,
-        "intel-sinkholes_ingress_item": intel_sinkholes_ingress_item_output,
-        "intel-sinkholes_messages": intel_sinkholes_messages_output,
+        "intel-sinkholes_api-response-common": intel$$sinkholes_api$$response$$common,
+        "intel-sinkholes_ingress_collection_response": intel$$sinkholes_ingress_collection_response,
+        "intel-sinkholes_ingress_item": intel$$sinkholes_ingress_item,
+        "intel-sinkholes_messages": intel$$sinkholes_messages,
       },
     },
     annotations: {
@@ -306,11 +338,11 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "intel-sinkholes_api-response-common": intel_sinkholes_api_response_common_output,
-        "intel-sinkholes_api_response_common_failure": intel_sinkholes_api_response_common_failure_output,
-        "intel-sinkholes_ingress_collection_response": intel_sinkholes_ingress_collection_response_output,
-        "intel-sinkholes_ingress_item": intel_sinkholes_ingress_item_output,
-        "intel-sinkholes_messages": intel_sinkholes_messages_output,
+        "intel-sinkholes_api-response-common": intel$$sinkholes_api$$response$$common,
+        "intel-sinkholes_api_response_common_failure": intel$$sinkholes_api_response_common_failure,
+        "intel-sinkholes_ingress_collection_response": intel$$sinkholes_ingress_collection_response,
+        "intel-sinkholes_ingress_item": intel$$sinkholes_ingress_item,
+        "intel-sinkholes_messages": intel$$sinkholes_messages,
       },
     },
     request: (args) => ({
@@ -327,36 +359,44 @@ export const tools: readonly Tool[] = [
         "body": {
           "$ref": "#/$defs/intel-sinkholes_ingress_create_params"
         },
-        "ingress_id": {
-          "description": "The unique identifier for the ingress rule.",
-          "type": "string"
-        },
-        "sinkhole_id": {
-          "description": "The unique identifier for the sinkhole.",
-          "type": "string"
-        },
-        "zone_id": {
-          "$ref": "#/$defs/intel-sinkholes_identifier",
-          "description": "The unique identifier for the Cloudflare zone."
+        "path": {
+          "properties": {
+            "ingress_id": {
+              "description": "The unique identifier for the ingress rule.",
+              "type": "string"
+            },
+            "sinkhole_id": {
+              "description": "The unique identifier for the sinkhole.",
+              "type": "string"
+            },
+            "zone_id": {
+              "$ref": "#/$defs/intel-sinkholes_identifier",
+              "description": "The unique identifier for the Cloudflare zone."
+            }
+          },
+          "required": [
+            "zone_id",
+            "sinkhole_id",
+            "ingress_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "zone_id",
-        "sinkhole_id",
-        "ingress_id",
+        "path",
         "body"
       ],
       $defs: {
-        "intel-sinkholes_identifier": intel_sinkholes_identifier,
-        "intel-sinkholes_ingress_create_params": intel_sinkholes_ingress_create_params,
+        "intel-sinkholes_identifier": intel$$sinkholes_identifier,
+        "intel-sinkholes_ingress_create_params": intel$$sinkholes_ingress_create_params,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/intel-sinkholes_api_response_single_empty",
       $defs: {
-        "intel-sinkholes_api-response-common": intel_sinkholes_api_response_common_output,
-        "intel-sinkholes_api_response_single_empty": intel_sinkholes_api_response_single_empty_output,
-        "intel-sinkholes_messages": intel_sinkholes_messages_output,
+        "intel-sinkholes_api-response-common": intel$$sinkholes_api$$response$$common,
+        "intel-sinkholes_api_response_single_empty": intel$$sinkholes_api_response_single_empty,
+        "intel-sinkholes_messages": intel$$sinkholes_messages,
       },
     },
     annotations: {
@@ -383,10 +423,10 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "intel-sinkholes_api-response-common": intel_sinkholes_api_response_common_output,
-        "intel-sinkholes_api_response_common_failure": intel_sinkholes_api_response_common_failure_output,
-        "intel-sinkholes_api_response_single_empty": intel_sinkholes_api_response_single_empty_output,
-        "intel-sinkholes_messages": intel_sinkholes_messages_output,
+        "intel-sinkholes_api-response-common": intel$$sinkholes_api$$response$$common,
+        "intel-sinkholes_api_response_common_failure": intel$$sinkholes_api_response_common_failure,
+        "intel-sinkholes_api_response_single_empty": intel$$sinkholes_api_response_single_empty,
+        "intel-sinkholes_messages": intel$$sinkholes_messages,
       },
     },
     request: (args) => ({

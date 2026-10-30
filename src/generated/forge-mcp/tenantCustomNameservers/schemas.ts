@@ -6,7 +6,7 @@ import type { JsonSchema } from "../_/tool.js";
 /**
  * The schema of `dns-custom-nameservers_identifier-3`.
  */
-export const dns_custom_nameservers_identifier_3: JsonSchema = {
+export const dns$$custom$$nameservers_identifier$$3: JsonSchema = {
   "description": "Tenant identifier tag.",
   "type": "string"
 };

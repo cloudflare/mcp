@@ -6,14 +6,14 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `zero-trust-gateway_beta` in responses.
  */
-export const zero_trust_gateway_beta_output: JsonSchema = {
+export const zero$$trust$$gateway_beta: JsonSchema = {
   "type": "boolean"
 };
 
 /**
  * The schema of `zero-trust-gateway_categories` in responses.
  */
-export const zero_trust_gateway_categories_output: JsonSchema = {
+export const zero$$trust$$gateway_categories: JsonSchema = {
   "properties": {
     "beta": {
       "$ref": "#/$defs/zero-trust-gateway_beta"
@@ -43,7 +43,7 @@ export const zero_trust_gateway_categories_output: JsonSchema = {
 /**
  * The schema of `zero-trust-gateway_class` in responses.
  */
-export const zero_trust_gateway_class_output: JsonSchema = {
+export const zero$$trust$$gateway_class: JsonSchema = {
   "enum": [
     "free",
     "premium",
@@ -57,28 +57,28 @@ export const zero_trust_gateway_class_output: JsonSchema = {
 /**
  * The schema of `zero-trust-gateway_description-3` in responses.
  */
-export const zero_trust_gateway_description_3_output: JsonSchema = {
+export const zero$$trust$$gateway_description$$3: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `zero-trust-gateway_id` in responses.
  */
-export const zero_trust_gateway_id_output: JsonSchema = {
+export const zero$$trust$$gateway_id: JsonSchema = {
   "type": "integer"
 };
 
 /**
  * The schema of `zero-trust-gateway_name-5` in responses.
  */
-export const zero_trust_gateway_name_5_output: JsonSchema = {
+export const zero$$trust$$gateway_name$$5: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `zero-trust-gateway_response_collection-8` in responses.
  */
-export const zero_trust_gateway_response_collection_8_output: JsonSchema = {
+export const zero$$trust$$gateway_response_collection$$8: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/zero-trust-gateway_api-response-collection"
@@ -100,7 +100,7 @@ export const zero_trust_gateway_response_collection_8_output: JsonSchema = {
 /**
  * The schema of `zero-trust-gateway_subcategory` in responses.
  */
-export const zero_trust_gateway_subcategory_output: JsonSchema = {
+export const zero$$trust$$gateway_subcategory: JsonSchema = {
   "properties": {
     "beta": {
       "$ref": "#/$defs/zero-trust-gateway_beta"

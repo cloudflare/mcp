@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `cloudflare-k2_CreateK2StreamRequest`.
  */
-export const cloudflare_k2_CreateK2StreamRequest: JsonSchema = {
+export const cloudflare$$k2_CreateK2StreamRequest: JsonSchema = {
   "properties": {
     "http": {
       "$ref": "#/$defs/cloudflare-k2_K2StreamHttpInput",
@@ -39,7 +39,7 @@ export const cloudflare_k2_CreateK2StreamRequest: JsonSchema = {
 /**
  * The schema of `cloudflare-k2_K2StreamCorsOptions`.
  */
-export const cloudflare_k2_K2StreamCorsOptions: JsonSchema = {
+export const cloudflare$$k2_K2StreamCorsOptions: JsonSchema = {
   "properties": {
     "origins": {
       "description": "Allows browser requests from these HTTP or HTTPS origins. Use a wildcard only as the sole origin. An empty list blocks cross-origin browser requests. Defaults to `['*']` when HTTP is enabled without stored origins.",
@@ -56,7 +56,7 @@ export const cloudflare_k2_K2StreamCorsOptions: JsonSchema = {
 /**
  * The schema of `cloudflare-k2_K2StreamHttpInput`.
  */
-export const cloudflare_k2_K2StreamHttpInput: JsonSchema = {
+export const cloudflare$$k2_K2StreamHttpInput: JsonSchema = {
   "description": "Configures the HTTP endpoint. Disabling HTTP keeps `authentication` and `cors`, so enabling it again restores them.",
   "properties": {
     "authentication": {
@@ -80,7 +80,7 @@ export const cloudflare_k2_K2StreamHttpInput: JsonSchema = {
 /**
  * The schema of `cloudflare-k2_K2StreamWorkerBindingInput`.
  */
-export const cloudflare_k2_K2StreamWorkerBindingInput: JsonSchema = {
+export const cloudflare$$k2_K2StreamWorkerBindingInput: JsonSchema = {
   "oneOf": [
     {
       "properties": {
@@ -118,7 +118,7 @@ export const cloudflare_k2_K2StreamWorkerBindingInput: JsonSchema = {
 /**
  * The schema of `cloudflare-k2_UpdateK2StreamRequest`.
  */
-export const cloudflare_k2_UpdateK2StreamRequest: JsonSchema = {
+export const cloudflare$$k2_UpdateK2StreamRequest: JsonSchema = {
   "properties": {
     "http": {
       "$ref": "#/$defs/cloudflare-k2_K2StreamHttpInput",
@@ -138,7 +138,7 @@ export const cloudflare_k2_UpdateK2StreamRequest: JsonSchema = {
 /**
  * The schema of `cloudflare-k2_workers-k2-account-id`.
  */
-export const cloudflare_k2_workers_k2_account_id: JsonSchema = {
+export const cloudflare$$k2_workers$$k2$$account$$id: JsonSchema = {
   "description": "Specifies the public ID of the account.",
   "type": "string"
 };
@@ -146,7 +146,7 @@ export const cloudflare_k2_workers_k2_account_id: JsonSchema = {
 /**
  * The schema of `cloudflare-k2_workers-k2-stream-id`.
  */
-export const cloudflare_k2_workers_k2_stream_id: JsonSchema = {
+export const cloudflare$$k2_workers$$k2$$stream$$id: JsonSchema = {
   "description": "Specifies the public ID of the K2 stream.",
   "type": "string"
 };

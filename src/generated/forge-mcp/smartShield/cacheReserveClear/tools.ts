@@ -3,39 +3,47 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
-  smartshield_api_response_common_failure_output,
-  smartshield_api_response_common_output,
-  smartshield_api_response_result_output,
-  smartshield_messages_output,
+  smartshield_api$$response$$common,
+  smartshield_api$$response$$common$$failure,
+  smartshield_api$$response$$result,
+  smartshield_messages,
 } from "../outputs.js";
 import { smartshield_identifier } from "../schemas.js";
 import {
-  smartshield_base_output,
-  smartshield_cache_reserve_clear_end_ts_output,
-  smartshield_cache_reserve_clear_output,
-  smartshield_cache_reserve_clear_response_value_output,
-  smartshield_cache_reserve_clear_start_ts_output,
-  smartshield_cache_reserve_clear_state_output,
+  smartshield_base,
+  smartshield_cache_reserve_clear,
+  smartshield_cache_reserve_clear_end_ts,
+  smartshield_cache_reserve_clear_response_value,
+  smartshield_cache_reserve_clear_start_ts,
+  smartshield_cache_reserve_clear_state,
 } from "./outputs.js";
 
 /**
- * The tools of `smart_shield.cache_reserve_clear`.
+ * The tools of `smartShield.cacheReserveClear`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "smart_shield_cache_reserve_clear_clear",
+    name: "smartShield_cacheReserveClear_clear",
     title: "Start Cache Reserve Clear",
     description: "You can use Cache Reserve Clear to clear your Cache Reserve, but you must first disable Cache Reserve. In most cases, this will be accomplished within 24 hours. You cannot re-enable Cache Reserve while this process is ongoing. Keep in mind that you cannot undo or cancel this operation.\n\nConfirm with the user before calling this tool. This operation permanently clears Cache Reserve for this zone and cannot be undone.",
     inputSchema: {
       type: "object",
       properties: {
-        "zone_id": {
-          "$ref": "#/$defs/smartshield_identifier",
-          "description": "Identifier."
+        "path": {
+          "properties": {
+            "zone_id": {
+              "$ref": "#/$defs/smartshield_identifier",
+              "description": "Identifier."
+            }
+          },
+          "required": [
+            "zone_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "zone_id"
+        "path"
       ],
       $defs: {
         "smartshield_identifier": smartshield_identifier,
@@ -51,15 +59,15 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "smartshield_api-response-common": smartshield_api_response_common_output,
-        "smartshield_api-response-result": smartshield_api_response_result_output,
-        "smartshield_base": smartshield_base_output,
-        "smartshield_cache_reserve_clear": smartshield_cache_reserve_clear_output,
-        "smartshield_cache_reserve_clear_end_ts": smartshield_cache_reserve_clear_end_ts_output,
-        "smartshield_cache_reserve_clear_response_value": smartshield_cache_reserve_clear_response_value_output,
-        "smartshield_cache_reserve_clear_start_ts": smartshield_cache_reserve_clear_start_ts_output,
-        "smartshield_cache_reserve_clear_state": smartshield_cache_reserve_clear_state_output,
-        "smartshield_messages": smartshield_messages_output,
+        "smartshield_api-response-common": smartshield_api$$response$$common,
+        "smartshield_api-response-result": smartshield_api$$response$$result,
+        "smartshield_base": smartshield_base,
+        "smartshield_cache_reserve_clear": smartshield_cache_reserve_clear,
+        "smartshield_cache_reserve_clear_end_ts": smartshield_cache_reserve_clear_end_ts,
+        "smartshield_cache_reserve_clear_response_value": smartshield_cache_reserve_clear_response_value,
+        "smartshield_cache_reserve_clear_start_ts": smartshield_cache_reserve_clear_start_ts,
+        "smartshield_cache_reserve_clear_state": smartshield_cache_reserve_clear_state,
+        "smartshield_messages": smartshield_messages,
       },
     },
     annotations: {
@@ -105,16 +113,16 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "smartshield_api-response-common": smartshield_api_response_common_output,
-        "smartshield_api-response-common-failure": smartshield_api_response_common_failure_output,
-        "smartshield_api-response-result": smartshield_api_response_result_output,
-        "smartshield_base": smartshield_base_output,
-        "smartshield_cache_reserve_clear": smartshield_cache_reserve_clear_output,
-        "smartshield_cache_reserve_clear_end_ts": smartshield_cache_reserve_clear_end_ts_output,
-        "smartshield_cache_reserve_clear_response_value": smartshield_cache_reserve_clear_response_value_output,
-        "smartshield_cache_reserve_clear_start_ts": smartshield_cache_reserve_clear_start_ts_output,
-        "smartshield_cache_reserve_clear_state": smartshield_cache_reserve_clear_state_output,
-        "smartshield_messages": smartshield_messages_output,
+        "smartshield_api-response-common": smartshield_api$$response$$common,
+        "smartshield_api-response-common-failure": smartshield_api$$response$$common$$failure,
+        "smartshield_api-response-result": smartshield_api$$response$$result,
+        "smartshield_base": smartshield_base,
+        "smartshield_cache_reserve_clear": smartshield_cache_reserve_clear,
+        "smartshield_cache_reserve_clear_end_ts": smartshield_cache_reserve_clear_end_ts,
+        "smartshield_cache_reserve_clear_response_value": smartshield_cache_reserve_clear_response_value,
+        "smartshield_cache_reserve_clear_start_ts": smartshield_cache_reserve_clear_start_ts,
+        "smartshield_cache_reserve_clear_state": smartshield_cache_reserve_clear_state,
+        "smartshield_messages": smartshield_messages,
       },
     },
     request: (args) => ({
@@ -122,19 +130,27 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "smart_shield_cache_reserve_clear_status",
+    name: "smartShield_cacheReserveClear_status",
     title: "Get Cache Reserve Clear",
     description: "You can use Cache Reserve Clear to clear your Cache Reserve, but you must first disable Cache Reserve. In most cases, this will be accomplished within 24 hours. You cannot re-enable Cache Reserve while this process is ongoing. Keep in mind that you cannot undo or cancel this operation.",
     inputSchema: {
       type: "object",
       properties: {
-        "zone_id": {
-          "$ref": "#/$defs/smartshield_identifier",
-          "description": "Identifier."
+        "path": {
+          "properties": {
+            "zone_id": {
+              "$ref": "#/$defs/smartshield_identifier",
+              "description": "Identifier."
+            }
+          },
+          "required": [
+            "zone_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "zone_id"
+        "path"
       ],
       $defs: {
         "smartshield_identifier": smartshield_identifier,
@@ -150,15 +166,15 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "smartshield_api-response-common": smartshield_api_response_common_output,
-        "smartshield_api-response-result": smartshield_api_response_result_output,
-        "smartshield_base": smartshield_base_output,
-        "smartshield_cache_reserve_clear": smartshield_cache_reserve_clear_output,
-        "smartshield_cache_reserve_clear_end_ts": smartshield_cache_reserve_clear_end_ts_output,
-        "smartshield_cache_reserve_clear_response_value": smartshield_cache_reserve_clear_response_value_output,
-        "smartshield_cache_reserve_clear_start_ts": smartshield_cache_reserve_clear_start_ts_output,
-        "smartshield_cache_reserve_clear_state": smartshield_cache_reserve_clear_state_output,
-        "smartshield_messages": smartshield_messages_output,
+        "smartshield_api-response-common": smartshield_api$$response$$common,
+        "smartshield_api-response-result": smartshield_api$$response$$result,
+        "smartshield_base": smartshield_base,
+        "smartshield_cache_reserve_clear": smartshield_cache_reserve_clear,
+        "smartshield_cache_reserve_clear_end_ts": smartshield_cache_reserve_clear_end_ts,
+        "smartshield_cache_reserve_clear_response_value": smartshield_cache_reserve_clear_response_value,
+        "smartshield_cache_reserve_clear_start_ts": smartshield_cache_reserve_clear_start_ts,
+        "smartshield_cache_reserve_clear_state": smartshield_cache_reserve_clear_state,
+        "smartshield_messages": smartshield_messages,
       },
     },
     annotations: {
@@ -206,16 +222,16 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "smartshield_api-response-common": smartshield_api_response_common_output,
-        "smartshield_api-response-common-failure": smartshield_api_response_common_failure_output,
-        "smartshield_api-response-result": smartshield_api_response_result_output,
-        "smartshield_base": smartshield_base_output,
-        "smartshield_cache_reserve_clear": smartshield_cache_reserve_clear_output,
-        "smartshield_cache_reserve_clear_end_ts": smartshield_cache_reserve_clear_end_ts_output,
-        "smartshield_cache_reserve_clear_response_value": smartshield_cache_reserve_clear_response_value_output,
-        "smartshield_cache_reserve_clear_start_ts": smartshield_cache_reserve_clear_start_ts_output,
-        "smartshield_cache_reserve_clear_state": smartshield_cache_reserve_clear_state_output,
-        "smartshield_messages": smartshield_messages_output,
+        "smartshield_api-response-common": smartshield_api$$response$$common,
+        "smartshield_api-response-common-failure": smartshield_api$$response$$common$$failure,
+        "smartshield_api-response-result": smartshield_api$$response$$result,
+        "smartshield_base": smartshield_base,
+        "smartshield_cache_reserve_clear": smartshield_cache_reserve_clear,
+        "smartshield_cache_reserve_clear_end_ts": smartshield_cache_reserve_clear_end_ts,
+        "smartshield_cache_reserve_clear_response_value": smartshield_cache_reserve_clear_response_value,
+        "smartshield_cache_reserve_clear_start_ts": smartshield_cache_reserve_clear_start_ts,
+        "smartshield_cache_reserve_clear_state": smartshield_cache_reserve_clear_state,
+        "smartshield_messages": smartshield_messages,
       },
     },
     request: (args) => ({

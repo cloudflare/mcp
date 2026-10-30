@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `cloudforce-one_CompilerWarning` in responses.
  */
-export const cloudforce_one_CompilerWarning_output: JsonSchema = {
+export const cloudforce$$one_CompilerWarning: JsonSchema = {
   "properties": {
     "code": {
       "type": "string"
@@ -106,7 +106,7 @@ export const cloudforce_one_CompilerWarning_output: JsonSchema = {
 /**
  * The schema of `cloudforce-one_RuleApprovalDetailResponse` in responses.
  */
-export const cloudforce_one_RuleApprovalDetailResponse_output: JsonSchema = {
+export const cloudforce$$one_RuleApprovalDetailResponse: JsonSchema = {
   "properties": {
     "approval": {
       "properties": {
@@ -289,7 +289,7 @@ export const cloudforce_one_RuleApprovalDetailResponse_output: JsonSchema = {
 /**
  * The schema of `cloudforce-one_RuleApprovalsListResponse` in responses.
  */
-export const cloudforce_one_RuleApprovalsListResponse_output: JsonSchema = {
+export const cloudforce$$one_RuleApprovalsListResponse: JsonSchema = {
   "properties": {
     "approvals": {
       "items": {

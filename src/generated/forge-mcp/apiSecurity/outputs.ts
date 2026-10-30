@@ -6,7 +6,7 @@ import type { JsonSchema } from "../_/tool.js";
 /**
  * The schema of `api-shield_api-response-single` in responses.
  */
-export const api_shield_api_response_single_output: JsonSchema = {
+export const api$$shield_api$$response$$single: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/api-shield_messages"

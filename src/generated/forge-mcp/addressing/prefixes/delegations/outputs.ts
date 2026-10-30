@@ -6,21 +6,21 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `addressing_delegated_account_identifier` in responses.
  */
-export const addressing_delegated_account_identifier_output: JsonSchema = {
+export const addressing_delegated_account_identifier: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `addressing_delegation_identifier` in responses.
  */
-export const addressing_delegation_identifier_output: JsonSchema = {
+export const addressing_delegation_identifier: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `addressing_id_response` in responses.
  */
-export const addressing_id_response_output: JsonSchema = {
+export const addressing_id_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/addressing_api-response-single"
@@ -44,7 +44,7 @@ export const addressing_id_response_output: JsonSchema = {
 /**
  * The schema of `addressing_ipam-delegations` in responses.
  */
-export const addressing_ipam_delegations_output: JsonSchema = {
+export const addressing_ipam$$delegations: JsonSchema = {
   "properties": {
     "cidr": {
       "$ref": "#/$defs/addressing_cidr"
@@ -71,7 +71,7 @@ export const addressing_ipam_delegations_output: JsonSchema = {
 /**
  * The schema of `addressing_response_collection-2` in responses.
  */
-export const addressing_response_collection_2_output: JsonSchema = {
+export const addressing_response_collection$$2: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/addressing_api-response-collection"
@@ -93,7 +93,7 @@ export const addressing_response_collection_2_output: JsonSchema = {
 /**
  * The schema of `addressing_single_response-2` in responses.
  */
-export const addressing_single_response_2_output: JsonSchema = {
+export const addressing_single_response$$2: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/addressing_api-response-single"

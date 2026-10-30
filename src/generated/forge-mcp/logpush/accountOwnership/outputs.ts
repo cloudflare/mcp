@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `logpush_get_ownership_response` in responses.
  */
-export const logpush_get_ownership_response_output: JsonSchema = {
+export const logpush_get_ownership_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/logpush_api-response-common"

@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `email-security_BulkActionMessageStatus`.
  */
-export const email_security_BulkActionMessageStatus: JsonSchema = {
+export const email$$security_BulkActionMessageStatus: JsonSchema = {
   "description": "Status of a message within a bulk action job.",
   "enum": [
     "PENDING",

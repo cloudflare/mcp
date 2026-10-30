@@ -6,7 +6,7 @@ import type { JsonSchema } from "../_/tool.js";
 /**
  * The schema of `waitingroom_additional_routes` in responses.
  */
-export const waitingroom_additional_routes_output: JsonSchema = {
+export const waitingroom_additional_routes: JsonSchema = {
   "items": {
     "properties": {
       "host": {
@@ -24,7 +24,7 @@ export const waitingroom_additional_routes_output: JsonSchema = {
 /**
  * The schema of `waitingroom_api-response-collection` in responses.
  */
-export const waitingroom_api_response_collection_output: JsonSchema = {
+export const waitingroom_api$$response$$collection: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/waitingroom_api-response-common-2"
@@ -60,7 +60,7 @@ export const waitingroom_api_response_collection_output: JsonSchema = {
 /**
  * The schema of `waitingroom_api-response-common` in responses.
  */
-export const waitingroom_api_response_common_output: JsonSchema = {
+export const waitingroom_api$$response$$common: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/waitingroom_messages"
@@ -94,7 +94,7 @@ export const waitingroom_api_response_common_output: JsonSchema = {
 /**
  * The schema of `waitingroom_api-response-common-2` in responses.
  */
-export const waitingroom_api_response_common_2_output: JsonSchema = {
+export const waitingroom_api$$response$$common$$2: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/waitingroom_messages"
@@ -120,7 +120,7 @@ export const waitingroom_api_response_common_2_output: JsonSchema = {
 /**
  * The schema of `waitingroom_api-response-common-failure` in responses.
  */
-export const waitingroom_api_response_common_failure_output: JsonSchema = {
+export const waitingroom_api$$response$$common$$failure: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/waitingroom_messages"
@@ -150,7 +150,7 @@ export const waitingroom_api_response_common_failure_output: JsonSchema = {
 /**
  * The schema of `waitingroom_api-response-single` in responses.
  */
-export const waitingroom_api_response_single_output: JsonSchema = {
+export const waitingroom_api$$response$$single: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/waitingroom_api-response-common"
@@ -176,7 +176,7 @@ export const waitingroom_api_response_single_output: JsonSchema = {
 /**
  * The schema of `waitingroom_cookie_attributes` in responses.
  */
-export const waitingroom_cookie_attributes_output: JsonSchema = {
+export const waitingroom_cookie_attributes: JsonSchema = {
   "properties": {
     "samesite": {
       "enum": [
@@ -202,21 +202,21 @@ export const waitingroom_cookie_attributes_output: JsonSchema = {
 /**
  * The schema of `waitingroom_cookie_suffix` in responses.
  */
-export const waitingroom_cookie_suffix_output: JsonSchema = {
+export const waitingroom_cookie_suffix: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `waitingroom_custom_page_html` in responses.
  */
-export const waitingroom_custom_page_html_output: JsonSchema = {
+export const waitingroom_custom_page_html: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `waitingroom_default_template_language` in responses.
  */
-export const waitingroom_default_template_language_output: JsonSchema = {
+export const waitingroom_default_template_language: JsonSchema = {
   "enum": [
     "en-US",
     "es-ES",
@@ -264,21 +264,21 @@ export const waitingroom_default_template_language_output: JsonSchema = {
 /**
  * The schema of `waitingroom_description` in responses.
  */
-export const waitingroom_description_output: JsonSchema = {
+export const waitingroom_description: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `waitingroom_disable_session_renewal` in responses.
  */
-export const waitingroom_disable_session_renewal_output: JsonSchema = {
+export const waitingroom_disable_session_renewal: JsonSchema = {
   "type": "boolean"
 };
 
 /**
  * The schema of `waitingroom_enabled_origin_commands` in responses.
  */
-export const waitingroom_enabled_origin_commands_output: JsonSchema = {
+export const waitingroom_enabled_origin_commands: JsonSchema = {
   "items": {
     "enum": [
       "revoke"
@@ -291,21 +291,21 @@ export const waitingroom_enabled_origin_commands_output: JsonSchema = {
 /**
  * The schema of `waitingroom_host` in responses.
  */
-export const waitingroom_host_output: JsonSchema = {
+export const waitingroom_host: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `waitingroom_json_response_enabled` in responses.
  */
-export const waitingroom_json_response_enabled_output: JsonSchema = {
+export const waitingroom_json_response_enabled: JsonSchema = {
   "type": "boolean"
 };
 
 /**
  * The schema of `waitingroom_messages` in responses.
  */
-export const waitingroom_messages_output: JsonSchema = {
+export const waitingroom_messages: JsonSchema = {
   "items": {
     "properties": {
       "code": {
@@ -338,21 +338,21 @@ export const waitingroom_messages_output: JsonSchema = {
 /**
  * The schema of `waitingroom_name` in responses.
  */
-export const waitingroom_name_output: JsonSchema = {
+export const waitingroom_name: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `waitingroom_new_users_per_minute` in responses.
  */
-export const waitingroom_new_users_per_minute_output: JsonSchema = {
+export const waitingroom_new_users_per_minute: JsonSchema = {
   "type": "integer"
 };
 
 /**
  * The schema of `waitingroom_next_event_prequeue_start_time` in responses.
  */
-export const waitingroom_next_event_prequeue_start_time_output: JsonSchema = {
+export const waitingroom_next_event_prequeue_start_time: JsonSchema = {
   "oneOf": [
     {
       "type": "string"
@@ -366,7 +366,7 @@ export const waitingroom_next_event_prequeue_start_time_output: JsonSchema = {
 /**
  * The schema of `waitingroom_next_event_start_time` in responses.
  */
-export const waitingroom_next_event_start_time_output: JsonSchema = {
+export const waitingroom_next_event_start_time: JsonSchema = {
   "oneOf": [
     {
       "type": "string"
@@ -380,21 +380,21 @@ export const waitingroom_next_event_start_time_output: JsonSchema = {
 /**
  * The schema of `waitingroom_path` in responses.
  */
-export const waitingroom_path_output: JsonSchema = {
+export const waitingroom_path: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `waitingroom_queue_all` in responses.
  */
-export const waitingroom_queue_all_output: JsonSchema = {
+export const waitingroom_queue_all: JsonSchema = {
   "type": "boolean"
 };
 
 /**
  * The schema of `waitingroom_queueing_method` in responses.
  */
-export const waitingroom_queueing_method_output: JsonSchema = {
+export const waitingroom_queueing_method: JsonSchema = {
   "enum": [
     "fifo",
     "random",
@@ -407,7 +407,7 @@ export const waitingroom_queueing_method_output: JsonSchema = {
 /**
  * The schema of `waitingroom_queueing_status_code` in responses.
  */
-export const waitingroom_queueing_status_code_output: JsonSchema = {
+export const waitingroom_queueing_status_code: JsonSchema = {
   "enum": [
     200,
     202,
@@ -419,14 +419,14 @@ export const waitingroom_queueing_status_code_output: JsonSchema = {
 /**
  * The schema of `waitingroom_session_duration` in responses.
  */
-export const waitingroom_session_duration_output: JsonSchema = {
+export const waitingroom_session_duration: JsonSchema = {
   "type": "integer"
 };
 
 /**
  * The schema of `waitingroom_single_response` in responses.
  */
-export const waitingroom_single_response_output: JsonSchema = {
+export const waitingroom_single_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/waitingroom_api-response-single"
@@ -445,14 +445,14 @@ export const waitingroom_single_response_output: JsonSchema = {
 /**
  * The schema of `waitingroom_suspended` in responses.
  */
-export const waitingroom_suspended_output: JsonSchema = {
+export const waitingroom_suspended: JsonSchema = {
   "type": "boolean"
 };
 
 /**
  * The schema of `waitingroom_timestamp` in responses.
  */
-export const waitingroom_timestamp_output: JsonSchema = {
+export const waitingroom_timestamp: JsonSchema = {
   "format": "date-time",
   "type": "string"
 };
@@ -460,14 +460,14 @@ export const waitingroom_timestamp_output: JsonSchema = {
 /**
  * The schema of `waitingroom_total_active_users` in responses.
  */
-export const waitingroom_total_active_users_output: JsonSchema = {
+export const waitingroom_total_active_users: JsonSchema = {
   "type": "integer"
 };
 
 /**
  * The schema of `waitingroom_turnstile_action` in responses.
  */
-export const waitingroom_turnstile_action_output: JsonSchema = {
+export const waitingroom_turnstile_action: JsonSchema = {
   "enum": [
     "log",
     "infinite_queue"
@@ -478,7 +478,7 @@ export const waitingroom_turnstile_action_output: JsonSchema = {
 /**
  * The schema of `waitingroom_turnstile_mode` in responses.
  */
-export const waitingroom_turnstile_mode_output: JsonSchema = {
+export const waitingroom_turnstile_mode: JsonSchema = {
   "enum": [
     "off",
     "invisible",
@@ -491,14 +491,14 @@ export const waitingroom_turnstile_mode_output: JsonSchema = {
 /**
  * The schema of `waitingroom_waiting_room_id` in responses.
  */
-export const waitingroom_waiting_room_id_output: JsonSchema = {
+export const waitingroom_waiting_room_id: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `waitingroom_waiting_room_id_response` in responses.
  */
-export const waitingroom_waiting_room_id_response_output: JsonSchema = {
+export const waitingroom_waiting_room_id_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/waitingroom_api-response-single"
@@ -522,7 +522,7 @@ export const waitingroom_waiting_room_id_response_output: JsonSchema = {
 /**
  * The schema of `waitingroom_waitingroom` in responses.
  */
-export const waitingroom_waitingroom_output: JsonSchema = {
+export const waitingroom_waitingroom: JsonSchema = {
   "properties": {
     "additional_routes": {
       "$ref": "#/$defs/waitingroom_additional_routes"

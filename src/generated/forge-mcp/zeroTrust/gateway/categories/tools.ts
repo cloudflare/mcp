@@ -3,64 +3,72 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
-  zero_trust_gateway_api_response_common_failure_output,
-  zero_trust_gateway_messages_output,
+  zero$$trust$$gateway_api$$response$$common$$failure,
+  zero$$trust$$gateway_messages,
 } from "../../outputs.js";
 import {
-  zero_trust_gateway_api_response_collection_output,
-  zero_trust_gateway_api_response_common_output,
-  zero_trust_gateway_result_info_output,
+  zero$$trust$$gateway_api$$response$$collection,
+  zero$$trust$$gateway_api$$response$$common,
+  zero$$trust$$gateway_result_info,
 } from "../outputs.js";
-import { zero_trust_gateway_identifier_3 } from "../schemas.js";
+import { zero$$trust$$gateway_identifier$$3 } from "../schemas.js";
 import {
-  zero_trust_gateway_beta_output,
-  zero_trust_gateway_categories_output,
-  zero_trust_gateway_class_output,
-  zero_trust_gateway_description_3_output,
-  zero_trust_gateway_id_output,
-  zero_trust_gateway_name_5_output,
-  zero_trust_gateway_response_collection_8_output,
-  zero_trust_gateway_subcategory_output,
+  zero$$trust$$gateway_beta,
+  zero$$trust$$gateway_categories,
+  zero$$trust$$gateway_class,
+  zero$$trust$$gateway_description$$3,
+  zero$$trust$$gateway_id,
+  zero$$trust$$gateway_name$$5,
+  zero$$trust$$gateway_response_collection$$8,
+  zero$$trust$$gateway_subcategory,
 } from "./outputs.js";
 
 /**
- * The tools of `zero_trust.gateway.categories`.
+ * The tools of `zeroTrust.gateway.categories`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "zero_trust_gateway_categories_list",
+    name: "zeroTrust_gateway_categories_list",
     title: "List categories",
     description: "List all categories.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/zero-trust-gateway_identifier-3",
-          "description": "Provide the identifier string."
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/zero-trust-gateway_identifier-3",
+              "description": "Provide the identifier string."
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id"
+        "path"
       ],
       $defs: {
-        "zero-trust-gateway_identifier-3": zero_trust_gateway_identifier_3,
+        "zero-trust-gateway_identifier-3": zero$$trust$$gateway_identifier$$3,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/zero-trust-gateway_response_collection-8",
       $defs: {
-        "zero-trust-gateway_api-response-collection": zero_trust_gateway_api_response_collection_output,
-        "zero-trust-gateway_api-response-common": zero_trust_gateway_api_response_common_output,
-        "zero-trust-gateway_beta": zero_trust_gateway_beta_output,
-        "zero-trust-gateway_categories": zero_trust_gateway_categories_output,
-        "zero-trust-gateway_class": zero_trust_gateway_class_output,
-        "zero-trust-gateway_description-3": zero_trust_gateway_description_3_output,
-        "zero-trust-gateway_id": zero_trust_gateway_id_output,
-        "zero-trust-gateway_messages": zero_trust_gateway_messages_output,
-        "zero-trust-gateway_name-5": zero_trust_gateway_name_5_output,
-        "zero-trust-gateway_response_collection-8": zero_trust_gateway_response_collection_8_output,
-        "zero-trust-gateway_result_info": zero_trust_gateway_result_info_output,
-        "zero-trust-gateway_subcategory": zero_trust_gateway_subcategory_output,
+        "zero-trust-gateway_api-response-collection": zero$$trust$$gateway_api$$response$$collection,
+        "zero-trust-gateway_api-response-common": zero$$trust$$gateway_api$$response$$common,
+        "zero-trust-gateway_beta": zero$$trust$$gateway_beta,
+        "zero-trust-gateway_categories": zero$$trust$$gateway_categories,
+        "zero-trust-gateway_class": zero$$trust$$gateway_class,
+        "zero-trust-gateway_description-3": zero$$trust$$gateway_description$$3,
+        "zero-trust-gateway_id": zero$$trust$$gateway_id,
+        "zero-trust-gateway_messages": zero$$trust$$gateway_messages,
+        "zero-trust-gateway_name-5": zero$$trust$$gateway_name$$5,
+        "zero-trust-gateway_response_collection-8": zero$$trust$$gateway_response_collection$$8,
+        "zero-trust-gateway_result_info": zero$$trust$$gateway_result_info,
+        "zero-trust-gateway_subcategory": zero$$trust$$gateway_subcategory,
       },
     },
     annotations: {
@@ -95,19 +103,19 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "zero-trust-gateway_api-response-collection": zero_trust_gateway_api_response_collection_output,
-        "zero-trust-gateway_api-response-common": zero_trust_gateway_api_response_common_output,
-        "zero-trust-gateway_api-response-common-failure": zero_trust_gateway_api_response_common_failure_output,
-        "zero-trust-gateway_beta": zero_trust_gateway_beta_output,
-        "zero-trust-gateway_categories": zero_trust_gateway_categories_output,
-        "zero-trust-gateway_class": zero_trust_gateway_class_output,
-        "zero-trust-gateway_description-3": zero_trust_gateway_description_3_output,
-        "zero-trust-gateway_id": zero_trust_gateway_id_output,
-        "zero-trust-gateway_messages": zero_trust_gateway_messages_output,
-        "zero-trust-gateway_name-5": zero_trust_gateway_name_5_output,
-        "zero-trust-gateway_response_collection-8": zero_trust_gateway_response_collection_8_output,
-        "zero-trust-gateway_result_info": zero_trust_gateway_result_info_output,
-        "zero-trust-gateway_subcategory": zero_trust_gateway_subcategory_output,
+        "zero-trust-gateway_api-response-collection": zero$$trust$$gateway_api$$response$$collection,
+        "zero-trust-gateway_api-response-common": zero$$trust$$gateway_api$$response$$common,
+        "zero-trust-gateway_api-response-common-failure": zero$$trust$$gateway_api$$response$$common$$failure,
+        "zero-trust-gateway_beta": zero$$trust$$gateway_beta,
+        "zero-trust-gateway_categories": zero$$trust$$gateway_categories,
+        "zero-trust-gateway_class": zero$$trust$$gateway_class,
+        "zero-trust-gateway_description-3": zero$$trust$$gateway_description$$3,
+        "zero-trust-gateway_id": zero$$trust$$gateway_id,
+        "zero-trust-gateway_messages": zero$$trust$$gateway_messages,
+        "zero-trust-gateway_name-5": zero$$trust$$gateway_name$$5,
+        "zero-trust-gateway_response_collection-8": zero$$trust$$gateway_response_collection$$8,
+        "zero-trust-gateway_result_info": zero$$trust$$gateway_result_info,
+        "zero-trust-gateway_subcategory": zero$$trust$$gateway_subcategory,
       },
     },
     request: (args) => ({

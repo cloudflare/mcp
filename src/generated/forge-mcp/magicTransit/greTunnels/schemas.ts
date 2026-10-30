@@ -155,7 +155,7 @@ export const magic_mtu: JsonSchema = {
 /**
  * The schema of `magic_schemas-description`.
  */
-export const magic_schemas_description: JsonSchema = {
+export const magic_schemas$$description: JsonSchema = {
   "description": "An optional description of the GRE tunnel.",
   "type": "string"
 };

@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `magic-transit_colos`.
  */
-export const magic_transit_colos: JsonSchema = {
+export const magic$$transit_colos: JsonSchema = {
   "description": "If no source colo names specified, all colos will be used. China colos are unavailable for traceroutes.",
   "items": {
     "type": "string"
@@ -17,7 +17,7 @@ export const magic_transit_colos: JsonSchema = {
 /**
  * The schema of `magic-transit_max_ttl`.
  */
-export const magic_transit_max_ttl: JsonSchema = {
+export const magic$$transit_max_ttl: JsonSchema = {
   "description": "Max TTL.",
   "type": "integer"
 };
@@ -25,7 +25,7 @@ export const magic_transit_max_ttl: JsonSchema = {
 /**
  * The schema of `magic-transit_options`.
  */
-export const magic_transit_options: JsonSchema = {
+export const magic$$transit_options: JsonSchema = {
   "properties": {
     "max_ttl": {
       "$ref": "#/$defs/magic-transit_max_ttl",
@@ -59,7 +59,7 @@ export const magic_transit_options: JsonSchema = {
 /**
  * The schema of `magic-transit_packet_type`.
  */
-export const magic_transit_packet_type: JsonSchema = {
+export const magic$$transit_packet_type: JsonSchema = {
   "description": "Type of packet sent.",
   "enum": [
     "icmp",
@@ -74,7 +74,7 @@ export const magic_transit_packet_type: JsonSchema = {
 /**
  * The schema of `magic-transit_packets_per_ttl`.
  */
-export const magic_transit_packets_per_ttl: JsonSchema = {
+export const magic$$transit_packets_per_ttl: JsonSchema = {
   "description": "Number of packets sent at each TTL.",
   "type": "integer"
 };
@@ -82,7 +82,7 @@ export const magic_transit_packets_per_ttl: JsonSchema = {
 /**
  * The schema of `magic-transit_port`.
  */
-export const magic_transit_port: JsonSchema = {
+export const magic$$transit_port: JsonSchema = {
   "description": "For UDP and TCP, specifies the destination port. For ICMP, specifies the initial ICMP sequence value. Default value 0 will choose the best value to use for each protocol.",
   "type": "integer"
 };
@@ -90,7 +90,7 @@ export const magic_transit_port: JsonSchema = {
 /**
  * The schema of `magic-transit_targets`.
  */
-export const magic_transit_targets: JsonSchema = {
+export const magic$$transit_targets: JsonSchema = {
   "items": {
     "type": "string"
   },
@@ -101,7 +101,7 @@ export const magic_transit_targets: JsonSchema = {
 /**
  * The schema of `magic-transit_wait_time`.
  */
-export const magic_transit_wait_time: JsonSchema = {
+export const magic$$transit_wait_time: JsonSchema = {
   "description": "Set the time (in seconds) to wait for a response to a probe.",
   "type": "integer"
 };

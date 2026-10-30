@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `cws_DeletedResult` in responses.
  */
-export const cws_DeletedResult_output: JsonSchema = {
+export const cws_DeletedResult: JsonSchema = {
   "properties": {
     "id": {
       "format": "uuid",
@@ -22,7 +22,7 @@ export const cws_DeletedResult_output: JsonSchema = {
 /**
  * The schema of `cws_ErrorResponse` in responses.
  */
-export const cws_ErrorResponse_output: JsonSchema = {
+export const cws_ErrorResponse: JsonSchema = {
   "properties": {
     "errors": {
       "oneOf": [
@@ -72,7 +72,7 @@ export const cws_ErrorResponse_output: JsonSchema = {
 /**
  * The schema of `cws_MessageSource` in responses.
  */
-export const cws_MessageSource_output: JsonSchema = {
+export const cws_MessageSource: JsonSchema = {
   "properties": {
     "pointer": {
       "type": "string"
@@ -87,7 +87,7 @@ export const cws_MessageSource_output: JsonSchema = {
 /**
  * The schema of `cws_ResponseDeletedResult` in responses.
  */
-export const cws_ResponseDeletedResult_output: JsonSchema = {
+export const cws_ResponseDeletedResult: JsonSchema = {
   "properties": {
     "errors": {
       "oneOf": [
@@ -134,7 +134,7 @@ export const cws_ResponseDeletedResult_output: JsonSchema = {
 /**
  * The schema of `cws_ResponseMessage` in responses.
  */
-export const cws_ResponseMessage_output: JsonSchema = {
+export const cws_ResponseMessage: JsonSchema = {
   "properties": {
     "code": {
       "type": "integer"
@@ -156,7 +156,7 @@ export const cws_ResponseMessage_output: JsonSchema = {
 /**
  * The schema of `cws_ResultInfo` in responses.
  */
-export const cws_ResultInfo_output: JsonSchema = {
+export const cws_ResultInfo: JsonSchema = {
   "properties": {
     "count": {
       "type": "integer"

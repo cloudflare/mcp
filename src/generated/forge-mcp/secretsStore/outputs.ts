@@ -6,7 +6,7 @@ import type { JsonSchema } from "../_/tool.js";
 /**
  * The schema of `secrets-store_api-response-collection` in responses.
  */
-export const secrets_store_api_response_collection_output: JsonSchema = {
+export const secrets$$store_api$$response$$collection: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/secrets-store_api-response-common"
@@ -42,7 +42,7 @@ export const secrets_store_api_response_collection_output: JsonSchema = {
 /**
  * The schema of `secrets-store_api-response-common` in responses.
  */
-export const secrets_store_api_response_common_output: JsonSchema = {
+export const secrets$$store_api$$response$$common: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/secrets-store_messages"
@@ -68,7 +68,7 @@ export const secrets_store_api_response_common_output: JsonSchema = {
 /**
  * The schema of `secrets-store_api-response-common-failure` in responses.
  */
-export const secrets_store_api_response_common_failure_output: JsonSchema = {
+export const secrets$$store_api$$response$$common$$failure: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/secrets-store_messages"
@@ -98,7 +98,7 @@ export const secrets_store_api_response_common_failure_output: JsonSchema = {
 /**
  * The schema of `secrets-store_created` in responses.
  */
-export const secrets_store_created_output: JsonSchema = {
+export const secrets$$store_created: JsonSchema = {
   "format": "date-time",
   "type": "string"
 };
@@ -106,7 +106,7 @@ export const secrets_store_created_output: JsonSchema = {
 /**
  * The schema of `secrets-store_messages` in responses.
  */
-export const secrets_store_messages_output: JsonSchema = {
+export const secrets$$store_messages: JsonSchema = {
   "items": {
     "properties": {
       "code": {
@@ -139,7 +139,7 @@ export const secrets_store_messages_output: JsonSchema = {
 /**
  * The schema of `secrets-store_modified` in responses.
  */
-export const secrets_store_modified_output: JsonSchema = {
+export const secrets$$store_modified: JsonSchema = {
   "format": "date-time",
   "type": "string"
 };
@@ -147,6 +147,6 @@ export const secrets_store_modified_output: JsonSchema = {
 /**
  * The schema of `secrets-store_store_identifier` in responses.
  */
-export const secrets_store_store_identifier_output: JsonSchema = {
+export const secrets$$store_store_identifier: JsonSchema = {
   "type": "string"
 };

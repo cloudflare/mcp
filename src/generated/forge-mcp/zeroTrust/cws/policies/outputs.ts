@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `cws_PageResponsePolicy` in responses.
  */
-export const cws_PageResponsePolicy_output: JsonSchema = {
+export const cws_PageResponsePolicy: JsonSchema = {
   "properties": {
     "errors": {
       "oneOf": [
@@ -67,7 +67,7 @@ export const cws_PageResponsePolicy_output: JsonSchema = {
 /**
  * The schema of `cws_Policy` in responses.
  */
-export const cws_Policy_output: JsonSchema = {
+export const cws_Policy: JsonSchema = {
   "properties": {
     "created_at": {
       "format": "date-time",
@@ -123,7 +123,7 @@ export const cws_Policy_output: JsonSchema = {
 /**
  * The schema of `cws_ResponsePolicy` in responses.
  */
-export const cws_ResponsePolicy_output: JsonSchema = {
+export const cws_ResponsePolicy: JsonSchema = {
   "properties": {
     "errors": {
       "oneOf": [

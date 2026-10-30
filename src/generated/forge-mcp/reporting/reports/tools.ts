@@ -3,16 +3,16 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
-  reports_Error_output,
-  reports_Message_output,
-  reports_PolicyErrorResponse_output,
+  reports_Error,
+  reports_Message,
+  reports_PolicyErrorResponse,
 } from "../outputs.js";
 import {
-  reports_ApplicationSecurityReportV1Data_output,
-  reports_ApplicationSecurityReportV1_output,
-  reports_GetReportResponse_output,
-  reports_ReportSingleResponse_output,
-  reports_ReportsListResponse_output,
+  reports_ApplicationSecurityReportV1,
+  reports_ApplicationSecurityReportV1Data,
+  reports_GetReportResponse,
+  reports_ReportSingleResponse,
+  reports_ReportsListResponse,
 } from "./outputs.js";
 
 /**
@@ -26,30 +26,38 @@ export const tools: readonly Tool[] = [
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "description": "Cloudflare public account ID (32-character hexadecimal string)",
-          "type": "string"
-        },
-        "report_id": {
-          "description": "Unique report identifier",
-          "format": "uuid",
-          "type": "string"
+        "path": {
+          "properties": {
+            "account_id": {
+              "description": "Cloudflare public account ID (32-character hexadecimal string)",
+              "type": "string"
+            },
+            "report_id": {
+              "description": "Unique report identifier",
+              "format": "uuid",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "report_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "report_id"
+        "path"
       ],
     },
     outputSchema: {
       "$ref": "#/$defs/reports_ReportSingleResponse",
       $defs: {
-        "reports_ApplicationSecurityReportV1": reports_ApplicationSecurityReportV1_output,
-        "reports_ApplicationSecurityReportV1Data": reports_ApplicationSecurityReportV1Data_output,
-        "reports_Error": reports_Error_output,
-        "reports_GetReportResponse": reports_GetReportResponse_output,
-        "reports_Message": reports_Message_output,
-        "reports_ReportSingleResponse": reports_ReportSingleResponse_output,
+        "reports_ApplicationSecurityReportV1": reports_ApplicationSecurityReportV1,
+        "reports_ApplicationSecurityReportV1Data": reports_ApplicationSecurityReportV1Data,
+        "reports_Error": reports_Error,
+        "reports_GetReportResponse": reports_GetReportResponse,
+        "reports_Message": reports_Message,
+        "reports_ReportSingleResponse": reports_ReportSingleResponse,
       },
     },
     annotations: {
@@ -76,13 +84,13 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "reports_ApplicationSecurityReportV1": reports_ApplicationSecurityReportV1_output,
-        "reports_ApplicationSecurityReportV1Data": reports_ApplicationSecurityReportV1Data_output,
-        "reports_Error": reports_Error_output,
-        "reports_GetReportResponse": reports_GetReportResponse_output,
-        "reports_Message": reports_Message_output,
-        "reports_PolicyErrorResponse": reports_PolicyErrorResponse_output,
-        "reports_ReportSingleResponse": reports_ReportSingleResponse_output,
+        "reports_ApplicationSecurityReportV1": reports_ApplicationSecurityReportV1,
+        "reports_ApplicationSecurityReportV1Data": reports_ApplicationSecurityReportV1Data,
+        "reports_Error": reports_Error,
+        "reports_GetReportResponse": reports_GetReportResponse,
+        "reports_Message": reports_Message,
+        "reports_PolicyErrorResponse": reports_PolicyErrorResponse,
+        "reports_ReportSingleResponse": reports_ReportSingleResponse,
       },
     },
     request: (args) => ({
@@ -96,21 +104,29 @@ export const tools: readonly Tool[] = [
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "description": "Cloudflare public account ID (32-character hexadecimal string)",
-          "type": "string"
+        "path": {
+          "properties": {
+            "account_id": {
+              "description": "Cloudflare public account ID (32-character hexadecimal string)",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id"
+        "path"
       ],
     },
     outputSchema: {
       "$ref": "#/$defs/reports_ReportsListResponse",
       $defs: {
-        "reports_Error": reports_Error_output,
-        "reports_Message": reports_Message_output,
-        "reports_ReportsListResponse": reports_ReportsListResponse_output,
+        "reports_Error": reports_Error,
+        "reports_Message": reports_Message,
+        "reports_ReportsListResponse": reports_ReportsListResponse,
       },
     },
     annotations: {
@@ -137,10 +153,10 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "reports_Error": reports_Error_output,
-        "reports_Message": reports_Message_output,
-        "reports_PolicyErrorResponse": reports_PolicyErrorResponse_output,
-        "reports_ReportsListResponse": reports_ReportsListResponse_output,
+        "reports_Error": reports_Error,
+        "reports_Message": reports_Message,
+        "reports_PolicyErrorResponse": reports_PolicyErrorResponse,
+        "reports_ReportsListResponse": reports_ReportsListResponse,
       },
     },
     request: (args) => ({

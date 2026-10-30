@@ -4,20 +4,16 @@
 import { type Tool, pathParam } from "../../_/tool.js";
 
 /**
- * The tools of `cloudforce_one.threat_intel`.
+ * The tools of `cloudforceOne.threatIntel`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "cloudforce_one_threat_intel_search",
+    name: "cloudforceOne_threatIntel_search",
     title: "Search threat intelligence",
     description: "Searches the articles, actors, tags, events, and indicators you can read and returns one list of typed results, most relevant first. Use `entity_types` to limit the types searched.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "description": "Account ID.",
-          "type": "string"
-        },
         "body": {
           "properties": {
             "entity_types": {
@@ -62,10 +58,22 @@ export const tools: readonly Tool[] = [
             "query"
           ],
           "type": "object"
+        },
+        "path": {
+          "properties": {
+            "account_id": {
+              "description": "Account ID.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id"
+        "path"
       ],
     },
     outputSchema: {

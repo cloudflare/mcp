@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `custom-pages_error_page_type`.
  */
-export const custom_pages_error_page_type: JsonSchema = {
+export const custom$$pages_error_page_type: JsonSchema = {
   "description": "Custom page type.",
   "enum": [
     "1000_errors",
@@ -26,7 +26,7 @@ export const custom_pages_error_page_type: JsonSchema = {
 /**
  * The schema of `custom-pages_state`.
  */
-export const custom_pages_state: JsonSchema = {
+export const custom$$pages_state: JsonSchema = {
   "description": "The custom page state.",
   "enum": [
     "default",
@@ -38,7 +38,7 @@ export const custom_pages_state: JsonSchema = {
 /**
  * The schema of `custom-pages_url`.
  */
-export const custom_pages_url: JsonSchema = {
+export const custom$$pages_url: JsonSchema = {
   "description": "The URL associated with the custom page.",
   "type": "string"
 };

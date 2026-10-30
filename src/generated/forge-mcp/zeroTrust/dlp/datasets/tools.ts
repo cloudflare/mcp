@@ -3,42 +3,50 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
-  dlp_api_response_common_failure_output,
-  dlp_api_response_single_output,
-  dlp_messages_output,
+  dlp_api$$response$$common$$failure,
+  dlp_api$$response$$single,
+  dlp_messages,
 } from "../../outputs.js";
-import { dlp_DatasetUploadStatus_output } from "../outputs.js";
+import { dlp_DatasetUploadStatus } from "../outputs.js";
 import {
-  dlp_DatasetArray_output,
-  dlp_DatasetColumn_output,
-  dlp_DatasetCreation_output,
-  dlp_DatasetNewVersion_output,
-  dlp_DatasetUpload_output,
-  dlp_Dataset_output,
+  dlp_Dataset,
+  dlp_DatasetArray,
+  dlp_DatasetColumn,
+  dlp_DatasetCreation,
+  dlp_DatasetNewVersion,
+  dlp_DatasetUpload,
 } from "./outputs.js";
 import { dlp_DatasetUpdate, dlp_NewDataset } from "./schemas.js";
 
 /**
- * The tools of `zero_trust.dlp.datasets`.
+ * The tools of `zeroTrust.dlp.datasets`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "zero_trust_dlp_datasets_create",
+    name: "zeroTrust_dlp_datasets_create",
     title: "Create a new dataset",
     description: "Creates a new DLP (Data Loss Prevention) dataset for storing custom detection patterns. Datasets can contain exact match data, word lists, or EDM (Exact Data Match) configurations.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "type": "string"
-        },
         "body": {
           "$ref": "#/$defs/dlp_NewDataset",
           "description": "Dataset description."
+        },
+        "path": {
+          "properties": {
+            "account_id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
+        "path",
         "body"
       ],
       $defs: {
@@ -60,13 +68,13 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "dlp_Dataset": dlp_Dataset_output,
-        "dlp_DatasetColumn": dlp_DatasetColumn_output,
-        "dlp_DatasetCreation": dlp_DatasetCreation_output,
-        "dlp_DatasetUpload": dlp_DatasetUpload_output,
-        "dlp_DatasetUploadStatus": dlp_DatasetUploadStatus_output,
-        "dlp_api-response-single": dlp_api_response_single_output,
-        "dlp_messages": dlp_messages_output,
+        "dlp_Dataset": dlp_Dataset,
+        "dlp_DatasetColumn": dlp_DatasetColumn,
+        "dlp_DatasetCreation": dlp_DatasetCreation,
+        "dlp_DatasetUpload": dlp_DatasetUpload,
+        "dlp_DatasetUploadStatus": dlp_DatasetUploadStatus,
+        "dlp_api-response-single": dlp_api$$response$$single,
+        "dlp_messages": dlp_messages,
       },
     },
     annotations: {
@@ -105,14 +113,14 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "dlp_Dataset": dlp_Dataset_output,
-        "dlp_DatasetColumn": dlp_DatasetColumn_output,
-        "dlp_DatasetCreation": dlp_DatasetCreation_output,
-        "dlp_DatasetUpload": dlp_DatasetUpload_output,
-        "dlp_DatasetUploadStatus": dlp_DatasetUploadStatus_output,
-        "dlp_api-response-common-failure": dlp_api_response_common_failure_output,
-        "dlp_api-response-single": dlp_api_response_single_output,
-        "dlp_messages": dlp_messages_output,
+        "dlp_Dataset": dlp_Dataset,
+        "dlp_DatasetColumn": dlp_DatasetColumn,
+        "dlp_DatasetCreation": dlp_DatasetCreation,
+        "dlp_DatasetUpload": dlp_DatasetUpload,
+        "dlp_DatasetUploadStatus": dlp_DatasetUploadStatus,
+        "dlp_api-response-common-failure": dlp_api$$response$$common$$failure,
+        "dlp_api-response-single": dlp_api$$response$$single,
+        "dlp_messages": dlp_messages,
       },
     },
     request: (args) => ({
@@ -121,23 +129,31 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "zero_trust_dlp_datasets_delete",
+    name: "zeroTrust_dlp_datasets_delete",
     title: "Delete a dataset",
     description: "This deletes all versions of the dataset.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "type": "string"
-        },
-        "dataset_id": {
-          "format": "uuid",
-          "type": "string"
+        "path": {
+          "properties": {
+            "account_id": {
+              "type": "string"
+            },
+            "dataset_id": {
+              "format": "uuid",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "dataset_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "dataset_id"
+        "path"
       ],
     },
     annotations: {
@@ -162,8 +178,8 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "dlp_api-response-common-failure": dlp_api_response_common_failure_output,
-        "dlp_messages": dlp_messages_output,
+        "dlp_api-response-common-failure": dlp_api$$response$$common$$failure,
+        "dlp_messages": dlp_messages,
       },
     },
     request: (args) => ({
@@ -171,23 +187,31 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "zero_trust_dlp_datasets_get",
+    name: "zeroTrust_dlp_datasets_get",
     title: "Fetch a specific dataset",
     description: "Gets a dataset and its latest upload status.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "type": "string"
-        },
-        "dataset_id": {
-          "format": "uuid",
-          "type": "string"
+        "path": {
+          "properties": {
+            "account_id": {
+              "type": "string"
+            },
+            "dataset_id": {
+              "format": "uuid",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "dataset_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "dataset_id"
+        "path"
       ],
     },
     outputSchema: {
@@ -205,12 +229,12 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "dlp_Dataset": dlp_Dataset_output,
-        "dlp_DatasetColumn": dlp_DatasetColumn_output,
-        "dlp_DatasetUpload": dlp_DatasetUpload_output,
-        "dlp_DatasetUploadStatus": dlp_DatasetUploadStatus_output,
-        "dlp_api-response-single": dlp_api_response_single_output,
-        "dlp_messages": dlp_messages_output,
+        "dlp_Dataset": dlp_Dataset,
+        "dlp_DatasetColumn": dlp_DatasetColumn,
+        "dlp_DatasetUpload": dlp_DatasetUpload,
+        "dlp_DatasetUploadStatus": dlp_DatasetUploadStatus,
+        "dlp_api-response-single": dlp_api$$response$$single,
+        "dlp_messages": dlp_messages,
       },
     },
     annotations: {
@@ -250,13 +274,13 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "dlp_Dataset": dlp_Dataset_output,
-        "dlp_DatasetColumn": dlp_DatasetColumn_output,
-        "dlp_DatasetUpload": dlp_DatasetUpload_output,
-        "dlp_DatasetUploadStatus": dlp_DatasetUploadStatus_output,
-        "dlp_api-response-common-failure": dlp_api_response_common_failure_output,
-        "dlp_api-response-single": dlp_api_response_single_output,
-        "dlp_messages": dlp_messages_output,
+        "dlp_Dataset": dlp_Dataset,
+        "dlp_DatasetColumn": dlp_DatasetColumn,
+        "dlp_DatasetUpload": dlp_DatasetUpload,
+        "dlp_DatasetUploadStatus": dlp_DatasetUploadStatus,
+        "dlp_api-response-common-failure": dlp_api$$response$$common$$failure,
+        "dlp_api-response-single": dlp_api$$response$$single,
+        "dlp_messages": dlp_messages,
       },
     },
     request: (args) => ({
@@ -264,18 +288,26 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "zero_trust_dlp_datasets_list",
+    name: "zeroTrust_dlp_datasets_list",
     title: "Fetch all datasets",
     description: "Lists all DLP datasets configured for the account, including custom word lists and EDM datasets.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "type": "string"
+        "path": {
+          "properties": {
+            "account_id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id"
+        "path"
       ],
     },
     outputSchema: {
@@ -293,13 +325,13 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "dlp_Dataset": dlp_Dataset_output,
-        "dlp_DatasetArray": dlp_DatasetArray_output,
-        "dlp_DatasetColumn": dlp_DatasetColumn_output,
-        "dlp_DatasetUpload": dlp_DatasetUpload_output,
-        "dlp_DatasetUploadStatus": dlp_DatasetUploadStatus_output,
-        "dlp_api-response-single": dlp_api_response_single_output,
-        "dlp_messages": dlp_messages_output,
+        "dlp_Dataset": dlp_Dataset,
+        "dlp_DatasetArray": dlp_DatasetArray,
+        "dlp_DatasetColumn": dlp_DatasetColumn,
+        "dlp_DatasetUpload": dlp_DatasetUpload,
+        "dlp_DatasetUploadStatus": dlp_DatasetUploadStatus,
+        "dlp_api-response-single": dlp_api$$response$$single,
+        "dlp_messages": dlp_messages,
       },
     },
     annotations: {
@@ -339,14 +371,14 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "dlp_Dataset": dlp_Dataset_output,
-        "dlp_DatasetArray": dlp_DatasetArray_output,
-        "dlp_DatasetColumn": dlp_DatasetColumn_output,
-        "dlp_DatasetUpload": dlp_DatasetUpload_output,
-        "dlp_DatasetUploadStatus": dlp_DatasetUploadStatus_output,
-        "dlp_api-response-common-failure": dlp_api_response_common_failure_output,
-        "dlp_api-response-single": dlp_api_response_single_output,
-        "dlp_messages": dlp_messages_output,
+        "dlp_Dataset": dlp_Dataset,
+        "dlp_DatasetArray": dlp_DatasetArray,
+        "dlp_DatasetColumn": dlp_DatasetColumn,
+        "dlp_DatasetUpload": dlp_DatasetUpload,
+        "dlp_DatasetUploadStatus": dlp_DatasetUploadStatus,
+        "dlp_api-response-common-failure": dlp_api$$response$$common$$failure,
+        "dlp_api-response-single": dlp_api$$response$$single,
+        "dlp_messages": dlp_messages,
       },
     },
     request: (args) => ({
@@ -354,23 +386,31 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "zero_trust_dlp_datasets_prepare_upload",
+    name: "zeroTrust_dlp_datasets_prepareUpload",
     title: "Prepare to upload a new version of a dataset",
     description: "Creates a new version of a DLP dataset, allowing you to stage changes before activation. Used for single-column EDM and custom word lists.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "type": "string"
-        },
-        "dataset_id": {
-          "format": "uuid",
-          "type": "string"
+        "path": {
+          "properties": {
+            "account_id": {
+              "type": "string"
+            },
+            "dataset_id": {
+              "format": "uuid",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "dataset_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "dataset_id"
+        "path"
       ],
     },
     outputSchema: {
@@ -388,11 +428,11 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "dlp_DatasetColumn": dlp_DatasetColumn_output,
-        "dlp_DatasetNewVersion": dlp_DatasetNewVersion_output,
-        "dlp_DatasetUploadStatus": dlp_DatasetUploadStatus_output,
-        "dlp_api-response-single": dlp_api_response_single_output,
-        "dlp_messages": dlp_messages_output,
+        "dlp_DatasetColumn": dlp_DatasetColumn,
+        "dlp_DatasetNewVersion": dlp_DatasetNewVersion,
+        "dlp_DatasetUploadStatus": dlp_DatasetUploadStatus,
+        "dlp_api-response-single": dlp_api$$response$$single,
+        "dlp_messages": dlp_messages,
       },
     },
     annotations: {
@@ -431,12 +471,12 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "dlp_DatasetColumn": dlp_DatasetColumn_output,
-        "dlp_DatasetNewVersion": dlp_DatasetNewVersion_output,
-        "dlp_DatasetUploadStatus": dlp_DatasetUploadStatus_output,
-        "dlp_api-response-common-failure": dlp_api_response_common_failure_output,
-        "dlp_api-response-single": dlp_api_response_single_output,
-        "dlp_messages": dlp_messages_output,
+        "dlp_DatasetColumn": dlp_DatasetColumn,
+        "dlp_DatasetNewVersion": dlp_DatasetNewVersion,
+        "dlp_DatasetUploadStatus": dlp_DatasetUploadStatus,
+        "dlp_api-response-common-failure": dlp_api$$response$$common$$failure,
+        "dlp_api-response-single": dlp_api$$response$$single,
+        "dlp_messages": dlp_messages,
       },
     },
     request: (args) => ({
@@ -444,27 +484,35 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "zero_trust_dlp_datasets_update",
+    name: "zeroTrust_dlp_datasets_update",
     title: "Update details about a dataset",
     description: "Updates the configuration of an existing DLP dataset, such as its name, description, or detection settings.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "type": "string"
-        },
         "body": {
           "$ref": "#/$defs/dlp_DatasetUpdate",
           "description": "Dataset description."
         },
-        "dataset_id": {
-          "format": "uuid",
-          "type": "string"
+        "path": {
+          "properties": {
+            "account_id": {
+              "type": "string"
+            },
+            "dataset_id": {
+              "format": "uuid",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "dataset_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "dataset_id",
+        "path",
         "body"
       ],
       $defs: {
@@ -486,12 +534,12 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "dlp_Dataset": dlp_Dataset_output,
-        "dlp_DatasetColumn": dlp_DatasetColumn_output,
-        "dlp_DatasetUpload": dlp_DatasetUpload_output,
-        "dlp_DatasetUploadStatus": dlp_DatasetUploadStatus_output,
-        "dlp_api-response-single": dlp_api_response_single_output,
-        "dlp_messages": dlp_messages_output,
+        "dlp_Dataset": dlp_Dataset,
+        "dlp_DatasetColumn": dlp_DatasetColumn,
+        "dlp_DatasetUpload": dlp_DatasetUpload,
+        "dlp_DatasetUploadStatus": dlp_DatasetUploadStatus,
+        "dlp_api-response-single": dlp_api$$response$$single,
+        "dlp_messages": dlp_messages,
       },
     },
     annotations: {
@@ -530,13 +578,13 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "dlp_Dataset": dlp_Dataset_output,
-        "dlp_DatasetColumn": dlp_DatasetColumn_output,
-        "dlp_DatasetUpload": dlp_DatasetUpload_output,
-        "dlp_DatasetUploadStatus": dlp_DatasetUploadStatus_output,
-        "dlp_api-response-common-failure": dlp_api_response_common_failure_output,
-        "dlp_api-response-single": dlp_api_response_single_output,
-        "dlp_messages": dlp_messages_output,
+        "dlp_Dataset": dlp_Dataset,
+        "dlp_DatasetColumn": dlp_DatasetColumn,
+        "dlp_DatasetUpload": dlp_DatasetUpload,
+        "dlp_DatasetUploadStatus": dlp_DatasetUploadStatus,
+        "dlp_api-response-common-failure": dlp_api$$response$$common$$failure,
+        "dlp_api-response-single": dlp_api$$response$$single,
+        "dlp_messages": dlp_messages,
       },
     },
     request: (args) => ({

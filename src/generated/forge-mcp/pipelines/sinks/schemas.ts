@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `cloudflare-pipelines_JsonCompression`.
  */
-export const cloudflare_pipelines_JsonCompression: JsonSchema = {
+export const cloudflare$$pipelines_JsonCompression: JsonSchema = {
   "description": "Specifies the compression applied to JSON sink output.",
   "enum": [
     "uncompressed",
@@ -18,7 +18,7 @@ export const cloudflare_pipelines_JsonCompression: JsonSchema = {
 /**
  * The schema of `cloudflare-pipelines_SinkFormat`.
  */
-export const cloudflare_pipelines_SinkFormat: JsonSchema = {
+export const cloudflare$$pipelines_SinkFormat: JsonSchema = {
   "description": "Defines the output data format of a sink.",
   "oneOf": [
     {
@@ -33,7 +33,7 @@ export const cloudflare_pipelines_SinkFormat: JsonSchema = {
 /**
  * The schema of `cloudflare-pipelines_SinkJsonFormat`.
  */
-export const cloudflare_pipelines_SinkJsonFormat: JsonSchema = {
+export const cloudflare$$pipelines_SinkJsonFormat: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/cloudflare-pipelines_JsonFormat"
@@ -64,7 +64,7 @@ export const cloudflare_pipelines_SinkJsonFormat: JsonSchema = {
 /**
  * The schema of `cloudflare-pipelines_SinkParquetFormat`.
  */
-export const cloudflare_pipelines_SinkParquetFormat: JsonSchema = {
+export const cloudflare$$pipelines_SinkParquetFormat: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/cloudflare-pipelines_ParquetFormat"
@@ -90,7 +90,7 @@ export const cloudflare_pipelines_SinkParquetFormat: JsonSchema = {
 /**
  * The schema of `cloudflare-pipelines_r2Table`.
  */
-export const cloudflare_pipelines_r2Table: JsonSchema = {
+export const cloudflare$$pipelines_r2Table: JsonSchema = {
   "description": "R2 Sink",
   "properties": {
     "account_id": {
@@ -190,7 +190,7 @@ export const cloudflare_pipelines_r2Table: JsonSchema = {
 /**
  * The schema of `cloudflare-pipelines_r2_data_catalogTable`.
  */
-export const cloudflare_pipelines_r2_data_catalogTable: JsonSchema = {
+export const cloudflare$$pipelines_r2_data_catalogTable: JsonSchema = {
   "description": "R2 Data Catalog Sink",
   "properties": {
     "account_id": {
@@ -244,7 +244,7 @@ export const cloudflare_pipelines_r2_data_catalogTable: JsonSchema = {
 /**
  * The schema of `cloudflare-pipelines_workers-pipelines-sink-id`.
  */
-export const cloudflare_pipelines_workers_pipelines_sink_id: JsonSchema = {
+export const cloudflare$$pipelines_workers$$pipelines$$sink$$id: JsonSchema = {
   "description": "Specifies the publid ID of the sink.",
   "type": "string"
 };

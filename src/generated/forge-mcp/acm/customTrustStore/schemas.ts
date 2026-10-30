@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `tls-certificates-and-hostnames_certificate-3`.
  */
-export const tls_certificates_and_hostnames_certificate_3: JsonSchema = {
+export const tls$$certificates$$and$$hostnames_certificate$$3: JsonSchema = {
   "description": "The root CA certificate in PEM format. Only root CA certificates are accepted; intermediate and leaf certificates are not supported.",
   "type": "string"
 };
@@ -14,7 +14,7 @@ export const tls_certificates_and_hostnames_certificate_3: JsonSchema = {
 /**
  * The schema of `tls-certificates-and-hostnames_custom_trust_store_identifier`.
  */
-export const tls_certificates_and_hostnames_custom_trust_store_identifier: JsonSchema = {
+export const tls$$certificates$$and$$hostnames_custom_trust_store_identifier: JsonSchema = {
   "description": "Certificate identifier tag.",
   "type": "string"
 };

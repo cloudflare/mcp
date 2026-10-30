@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `cloudflare-k2_K2Stream` in responses.
  */
-export const cloudflare_k2_K2Stream_output: JsonSchema = {
+export const cloudflare$$k2_K2Stream: JsonSchema = {
   "properties": {
     "created_at": {
       "format": "date-time",
@@ -51,7 +51,7 @@ export const cloudflare_k2_K2Stream_output: JsonSchema = {
 /**
  * The schema of `cloudflare-k2_K2StreamCorsOptions` in responses.
  */
-export const cloudflare_k2_K2StreamCorsOptions_output: JsonSchema = {
+export const cloudflare$$k2_K2StreamCorsOptions: JsonSchema = {
   "properties": {
     "origins": {
       "items": {
@@ -67,7 +67,7 @@ export const cloudflare_k2_K2StreamCorsOptions_output: JsonSchema = {
 /**
  * The schema of `cloudflare-k2_K2StreamHttpInput` in responses.
  */
-export const cloudflare_k2_K2StreamHttpInput_output: JsonSchema = {
+export const cloudflare$$k2_K2StreamHttpInput: JsonSchema = {
   "properties": {
     "authentication": {
       "type": "boolean"
@@ -88,7 +88,7 @@ export const cloudflare_k2_K2StreamHttpInput_output: JsonSchema = {
 /**
  * The schema of `cloudflare-k2_K2StreamListResponse` in responses.
  */
-export const cloudflare_k2_K2StreamListResponse_output: JsonSchema = {
+export const cloudflare$$k2_K2StreamListResponse: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/cloudflare-k2_workers-k2-messages"
@@ -142,7 +142,7 @@ export const cloudflare_k2_K2StreamListResponse_output: JsonSchema = {
 /**
  * The schema of `cloudflare-k2_K2StreamResponse` in responses.
  */
-export const cloudflare_k2_K2StreamResponse_output: JsonSchema = {
+export const cloudflare$$k2_K2StreamResponse: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/cloudflare-k2_workers-k2-messages"
@@ -169,7 +169,7 @@ export const cloudflare_k2_K2StreamResponse_output: JsonSchema = {
 /**
  * The schema of `cloudflare-k2_K2StreamWorkerBindingInput` in responses.
  */
-export const cloudflare_k2_K2StreamWorkerBindingInput_output: JsonSchema = {
+export const cloudflare$$k2_K2StreamWorkerBindingInput: JsonSchema = {
   "oneOf": [
     {
       "properties": {
@@ -205,14 +205,14 @@ export const cloudflare_k2_K2StreamWorkerBindingInput_output: JsonSchema = {
 /**
  * The schema of `cloudflare-k2_workers-k2-common-success` in responses.
  */
-export const cloudflare_k2_workers_k2_common_success_output: JsonSchema = {
+export const cloudflare$$k2_workers$$k2$$common$$success: JsonSchema = {
   "type": "boolean"
 };
 
 /**
  * The schema of `cloudflare-k2_workers-k2-messages` in responses.
  */
-export const cloudflare_k2_workers_k2_messages_output: JsonSchema = {
+export const cloudflare$$k2_workers$$k2$$messages: JsonSchema = {
   "items": {
     "properties": {
       "code": {
@@ -233,6 +233,6 @@ export const cloudflare_k2_workers_k2_messages_output: JsonSchema = {
 /**
  * The schema of `cloudflare-k2_workers-k2-stream-id` in responses.
  */
-export const cloudflare_k2_workers_k2_stream_id_output: JsonSchema = {
+export const cloudflare$$k2_workers$$k2$$stream$$id: JsonSchema = {
   "type": "string"
 };

@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `r2_bucket-config` in responses.
  */
-export const r2_bucket_config_output: JsonSchema = {
+export const r2_bucket$$config: JsonSchema = {
   "properties": {
     "bucketName": {
       "type": "string"
@@ -24,7 +24,7 @@ export const r2_bucket_config_output: JsonSchema = {
 /**
  * The schema of `r2_queues-config` in responses.
  */
-export const r2_queues_config_output: JsonSchema = {
+export const r2_queues$$config: JsonSchema = {
   "properties": {
     "queueId": {
       "type": "string"
@@ -63,7 +63,7 @@ export const r2_queues_config_output: JsonSchema = {
 /**
  * The schema of `r2_r2-action` in responses.
  */
-export const r2_r2_action_output: JsonSchema = {
+export const r2_r2$$action: JsonSchema = {
   "enum": [
     "PutObject",
     "CopyObject",
@@ -77,7 +77,7 @@ export const r2_r2_action_output: JsonSchema = {
 /**
  * The schema of `r2_rule` in responses.
  */
-export const r2_rule_output: JsonSchema = {
+export const r2_rule: JsonSchema = {
   "properties": {
     "actions": {
       "items": {

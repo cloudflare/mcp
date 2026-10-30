@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `addressing_advertised` in responses.
  */
-export const addressing_advertised_output: JsonSchema = {
+export const addressing_advertised: JsonSchema = {
   "oneOf": [
     {
       "type": "boolean"
@@ -20,7 +20,7 @@ export const addressing_advertised_output: JsonSchema = {
 /**
  * The schema of `addressing_advertised_modified_at_nullable` in responses.
  */
-export const addressing_advertised_modified_at_nullable_output: JsonSchema = {
+export const addressing_advertised_modified_at_nullable: JsonSchema = {
   "oneOf": [
     {
       "format": "date-time",
@@ -35,42 +35,42 @@ export const addressing_advertised_modified_at_nullable_output: JsonSchema = {
 /**
  * The schema of `addressing_approved` in responses.
  */
-export const addressing_approved_output: JsonSchema = {
+export const addressing_approved: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `addressing_asn` in responses.
  */
-export const addressing_asn_output: JsonSchema = {
+export const addressing_asn: JsonSchema = {
   "type": "integer"
 };
 
 /**
  * The schema of `addressing_cidr` in responses.
  */
-export const addressing_cidr_output: JsonSchema = {
+export const addressing_cidr: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `addressing_delegate_loa_creation` in responses.
  */
-export const addressing_delegate_loa_creation_output: JsonSchema = {
+export const addressing_delegate_loa_creation: JsonSchema = {
   "type": "boolean"
 };
 
 /**
  * The schema of `addressing_description` in responses.
  */
-export const addressing_description_output: JsonSchema = {
+export const addressing_description: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `addressing_ipam-prefixes` in responses.
  */
-export const addressing_ipam_prefixes_output: JsonSchema = {
+export const addressing_ipam$$prefixes: JsonSchema = {
   "properties": {
     "account_id": {
       "$ref": "#/$defs/addressing_account_identifier"
@@ -133,7 +133,7 @@ export const addressing_ipam_prefixes_output: JsonSchema = {
 /**
  * The schema of `addressing_modified_at_nullable` in responses.
  */
-export const addressing_modified_at_nullable_output: JsonSchema = {
+export const addressing_modified_at_nullable: JsonSchema = {
   "oneOf": [
     {
       "format": "date-time",
@@ -148,35 +148,35 @@ export const addressing_modified_at_nullable_output: JsonSchema = {
 /**
  * The schema of `addressing_on_demand_enabled` in responses.
  */
-export const addressing_on_demand_enabled_output: JsonSchema = {
+export const addressing_on_demand_enabled: JsonSchema = {
   "type": "boolean"
 };
 
 /**
  * The schema of `addressing_on_demand_locked` in responses.
  */
-export const addressing_on_demand_locked_output: JsonSchema = {
+export const addressing_on_demand_locked: JsonSchema = {
   "type": "boolean"
 };
 
 /**
  * The schema of `addressing_ownership_validation_token` in responses.
  */
-export const addressing_ownership_validation_token_output: JsonSchema = {
+export const addressing_ownership_validation_token: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `addressing_prefix_identifier` in responses.
  */
-export const addressing_prefix_identifier_output: JsonSchema = {
+export const addressing_prefix_identifier: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `addressing_response_collection` in responses.
  */
-export const addressing_response_collection_output: JsonSchema = {
+export const addressing_response_collection: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/addressing_api-response-single"
@@ -198,7 +198,7 @@ export const addressing_response_collection_output: JsonSchema = {
 /**
  * The schema of `addressing_single_response` in responses.
  */
-export const addressing_single_response_output: JsonSchema = {
+export const addressing_single_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/addressing_api-response-single"
@@ -217,6 +217,6 @@ export const addressing_single_response_output: JsonSchema = {
 /**
  * The schema of `addressing_validation_state` in responses.
  */
-export const addressing_validation_state_output: JsonSchema = {
+export const addressing_validation_state: JsonSchema = {
   "type": "string"
 };

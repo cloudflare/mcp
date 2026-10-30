@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../../_/tool.js";
 /**
  * The schema of `teams-devices_components-schemas-name`.
  */
-export const teams_devices_components_schemas_name: JsonSchema = {
+export const teams$$devices_components$$schemas$$name: JsonSchema = {
   "description": "The name of the device posture integration.",
   "type": "string"
 };
@@ -14,7 +14,7 @@ export const teams_devices_components_schemas_name: JsonSchema = {
 /**
  * The schema of `teams-devices_config_request`.
  */
-export const teams_devices_config_request: JsonSchema = {
+export const teams$$devices_config_request: JsonSchema = {
   "description": "The configuration object containing third-party integration information.",
   "oneOf": [
     {
@@ -47,7 +47,7 @@ export const teams_devices_config_request: JsonSchema = {
 /**
  * The schema of `teams-devices_crowdstrike_config_request`.
  */
-export const teams_devices_crowdstrike_config_request: JsonSchema = {
+export const teams$$devices_crowdstrike_config_request: JsonSchema = {
   "description": "Crowdstrike Config",
   "properties": {
     "api_url": {
@@ -79,7 +79,7 @@ export const teams_devices_crowdstrike_config_request: JsonSchema = {
 /**
  * The schema of `teams-devices_custom_s2s_config_request`.
  */
-export const teams_devices_custom_s2s_config_request: JsonSchema = {
+export const teams$$devices_custom_s2s_config_request: JsonSchema = {
   "description": "Custom Device Posture Integration Config",
   "properties": {
     "access_client_id": {
@@ -106,7 +106,7 @@ export const teams_devices_custom_s2s_config_request: JsonSchema = {
 /**
  * The schema of `teams-devices_interval`.
  */
-export const teams_devices_interval: JsonSchema = {
+export const teams$$devices_interval: JsonSchema = {
   "description": "The interval between each posture check with the third-party API. Use `m` for minutes (e.g. `5m`) and `h` for hours (e.g. `12h`).",
   "type": "string"
 };
@@ -114,7 +114,7 @@ export const teams_devices_interval: JsonSchema = {
 /**
  * The schema of `teams-devices_intune_config_request`.
  */
-export const teams_devices_intune_config_request: JsonSchema = {
+export const teams$$devices_intune_config_request: JsonSchema = {
   "description": "Intune Config",
   "properties": {
     "client_id": {
@@ -141,7 +141,7 @@ export const teams_devices_intune_config_request: JsonSchema = {
 /**
  * The schema of `teams-devices_kolide_config_request`.
  */
-export const teams_devices_kolide_config_request: JsonSchema = {
+export const teams$$devices_kolide_config_request: JsonSchema = {
   "description": "Kolide Config",
   "properties": {
     "client_id": {
@@ -163,7 +163,7 @@ export const teams_devices_kolide_config_request: JsonSchema = {
 /**
  * The schema of `teams-devices_schemas-type`.
  */
-export const teams_devices_schemas_type: JsonSchema = {
+export const teams$$devices_schemas$$type: JsonSchema = {
   "description": "The type of device posture integration.",
   "enum": [
     "workspace_one",
@@ -181,7 +181,7 @@ export const teams_devices_schemas_type: JsonSchema = {
 /**
  * The schema of `teams-devices_sentinelone_s2s_config_request`.
  */
-export const teams_devices_sentinelone_s2s_config_request: JsonSchema = {
+export const teams$$devices_sentinelone_s2s_config_request: JsonSchema = {
   "description": "SentinelOne S2S Config",
   "properties": {
     "api_url": {
@@ -203,7 +203,7 @@ export const teams_devices_sentinelone_s2s_config_request: JsonSchema = {
 /**
  * The schema of `teams-devices_tanium_config_request`.
  */
-export const teams_devices_tanium_config_request: JsonSchema = {
+export const teams$$devices_tanium_config_request: JsonSchema = {
   "description": "Tanium Config",
   "properties": {
     "access_client_id": {
@@ -233,7 +233,7 @@ export const teams_devices_tanium_config_request: JsonSchema = {
 /**
  * The schema of `teams-devices_uptycs_config_request`.
  */
-export const teams_devices_uptycs_config_request: JsonSchema = {
+export const teams$$devices_uptycs_config_request: JsonSchema = {
   "description": "Uptycs Config",
   "properties": {
     "api_url": {
@@ -265,7 +265,7 @@ export const teams_devices_uptycs_config_request: JsonSchema = {
 /**
  * The schema of `teams-devices_workspace_one_config_request`.
  */
-export const teams_devices_workspace_one_config_request: JsonSchema = {
+export const teams$$devices_workspace_one_config_request: JsonSchema = {
   "description": "Workspace One Config",
   "properties": {
     "api_url": {

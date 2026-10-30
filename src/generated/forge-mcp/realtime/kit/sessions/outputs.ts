@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `realtimekit_PeerEvent` in responses.
  */
-export const realtimekit_PeerEvent_output: JsonSchema = {
+export const realtimekit_PeerEvent: JsonSchema = {
   "properties": {
     "created_at": {
       "type": "string"

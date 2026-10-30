@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `organizations-api_CreateMemberRequest`.
  */
-export const organizations_api_CreateMemberRequest: JsonSchema = {
+export const organizations$$api_CreateMemberRequest: JsonSchema = {
   "properties": {
     "member": {
       "$ref": "#/$defs/organizations-api_CreateSingleMember"
@@ -21,7 +21,7 @@ export const organizations_api_CreateMemberRequest: JsonSchema = {
 /**
  * The schema of `organizations-api_CreateSingleMember`.
  */
-export const organizations_api_CreateSingleMember: JsonSchema = {
+export const organizations$$api_CreateSingleMember: JsonSchema = {
   "properties": {
     "user": {
       "properties": {

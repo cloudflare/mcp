@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `dnssec_algorithm` in responses.
  */
-export const dnssec_algorithm_output: JsonSchema = {
+export const dnssec_algorithm: JsonSchema = {
   "oneOf": [
     {
       "type": "string"
@@ -20,7 +20,7 @@ export const dnssec_algorithm_output: JsonSchema = {
 /**
  * The schema of `dnssec_api-response-common-failure` in responses.
  */
-export const dnssec_api_response_common_failure_output: JsonSchema = {
+export const dnssec_api$$response$$common$$failure: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/dnssec_messages"
@@ -50,7 +50,7 @@ export const dnssec_api_response_common_failure_output: JsonSchema = {
 /**
  * The schema of `dnssec_api-response-single` in responses.
  */
-export const dnssec_api_response_single_output: JsonSchema = {
+export const dnssec_api$$response$$single: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/dnssec_messages"
@@ -76,7 +76,7 @@ export const dnssec_api_response_single_output: JsonSchema = {
 /**
  * The schema of `dnssec_delete_dnssec_response_single` in responses.
  */
-export const dnssec_delete_dnssec_response_single_output: JsonSchema = {
+export const dnssec_delete_dnssec_response_single: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/dnssec_api-response-single"
@@ -95,7 +95,7 @@ export const dnssec_delete_dnssec_response_single_output: JsonSchema = {
 /**
  * The schema of `dnssec_digest` in responses.
  */
-export const dnssec_digest_output: JsonSchema = {
+export const dnssec_digest: JsonSchema = {
   "oneOf": [
     {
       "type": "string"
@@ -109,7 +109,7 @@ export const dnssec_digest_output: JsonSchema = {
 /**
  * The schema of `dnssec_digest_algorithm` in responses.
  */
-export const dnssec_digest_algorithm_output: JsonSchema = {
+export const dnssec_digest_algorithm: JsonSchema = {
   "oneOf": [
     {
       "type": "string"
@@ -123,7 +123,7 @@ export const dnssec_digest_algorithm_output: JsonSchema = {
 /**
  * The schema of `dnssec_digest_type` in responses.
  */
-export const dnssec_digest_type_output: JsonSchema = {
+export const dnssec_digest_type: JsonSchema = {
   "oneOf": [
     {
       "type": "string"
@@ -137,7 +137,7 @@ export const dnssec_digest_type_output: JsonSchema = {
 /**
  * The schema of `dnssec_dnssec` in responses.
  */
-export const dnssec_dnssec_output: JsonSchema = {
+export const dnssec_dnssec: JsonSchema = {
   "properties": {
     "algorithm": {
       "$ref": "#/$defs/dnssec_algorithm"
@@ -188,21 +188,21 @@ export const dnssec_dnssec_output: JsonSchema = {
 /**
  * The schema of `dnssec_dnssec_multi_signer` in responses.
  */
-export const dnssec_dnssec_multi_signer_output: JsonSchema = {
+export const dnssec_dnssec_multi_signer: JsonSchema = {
   "type": "boolean"
 };
 
 /**
  * The schema of `dnssec_dnssec_presigned` in responses.
  */
-export const dnssec_dnssec_presigned_output: JsonSchema = {
+export const dnssec_dnssec_presigned: JsonSchema = {
   "type": "boolean"
 };
 
 /**
  * The schema of `dnssec_dnssec_response_single` in responses.
  */
-export const dnssec_dnssec_response_single_output: JsonSchema = {
+export const dnssec_dnssec_response_single: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/dnssec_api-response-single"
@@ -221,14 +221,14 @@ export const dnssec_dnssec_response_single_output: JsonSchema = {
 /**
  * The schema of `dnssec_dnssec_use_nsec3` in responses.
  */
-export const dnssec_dnssec_use_nsec3_output: JsonSchema = {
+export const dnssec_dnssec_use_nsec3: JsonSchema = {
   "type": "boolean"
 };
 
 /**
  * The schema of `dnssec_ds` in responses.
  */
-export const dnssec_ds_output: JsonSchema = {
+export const dnssec_ds: JsonSchema = {
   "oneOf": [
     {
       "type": "string"
@@ -242,7 +242,7 @@ export const dnssec_ds_output: JsonSchema = {
 /**
  * The schema of `dnssec_flags` in responses.
  */
-export const dnssec_flags_output: JsonSchema = {
+export const dnssec_flags: JsonSchema = {
   "oneOf": [
     {
       "type": "number"
@@ -256,7 +256,7 @@ export const dnssec_flags_output: JsonSchema = {
 /**
  * The schema of `dnssec_key_tag` in responses.
  */
-export const dnssec_key_tag_output: JsonSchema = {
+export const dnssec_key_tag: JsonSchema = {
   "oneOf": [
     {
       "type": "number"
@@ -270,7 +270,7 @@ export const dnssec_key_tag_output: JsonSchema = {
 /**
  * The schema of `dnssec_key_type` in responses.
  */
-export const dnssec_key_type_output: JsonSchema = {
+export const dnssec_key_type: JsonSchema = {
   "oneOf": [
     {
       "type": "string"
@@ -284,7 +284,7 @@ export const dnssec_key_type_output: JsonSchema = {
 /**
  * The schema of `dnssec_messages` in responses.
  */
-export const dnssec_messages_output: JsonSchema = {
+export const dnssec_messages: JsonSchema = {
   "items": {
     "properties": {
       "code": {
@@ -317,7 +317,7 @@ export const dnssec_messages_output: JsonSchema = {
 /**
  * The schema of `dnssec_modified_on` in responses.
  */
-export const dnssec_modified_on_output: JsonSchema = {
+export const dnssec_modified_on: JsonSchema = {
   "oneOf": [
     {
       "format": "date-time",
@@ -332,7 +332,7 @@ export const dnssec_modified_on_output: JsonSchema = {
 /**
  * The schema of `dnssec_public_key` in responses.
  */
-export const dnssec_public_key_output: JsonSchema = {
+export const dnssec_public_key: JsonSchema = {
   "oneOf": [
     {
       "type": "string"
@@ -346,7 +346,7 @@ export const dnssec_public_key_output: JsonSchema = {
 /**
  * The schema of `dnssec_status` in responses.
  */
-export const dnssec_status_output: JsonSchema = {
+export const dnssec_status: JsonSchema = {
   "enum": [
     "active",
     "pending",

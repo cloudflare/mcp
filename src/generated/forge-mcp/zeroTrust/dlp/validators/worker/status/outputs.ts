@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../../../_/tool.js";
 /**
  * The schema of `dlp_WorkerStatus` in responses.
  */
-export const dlp_WorkerStatus_output: JsonSchema = {
+export const dlp_WorkerStatus: JsonSchema = {
   "enum": [
     "worker_not_found",
     "worker_error",
@@ -19,7 +19,7 @@ export const dlp_WorkerStatus_output: JsonSchema = {
 /**
  * The schema of `dlp_WorkerValidatorStatus` in responses.
  */
-export const dlp_WorkerValidatorStatus_output: JsonSchema = {
+export const dlp_WorkerValidatorStatus: JsonSchema = {
   "properties": {
     "status": {
       "$ref": "#/$defs/dlp_WorkerStatus"

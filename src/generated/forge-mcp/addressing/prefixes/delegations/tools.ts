@@ -3,30 +3,30 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
-  addressing_api_response_collection_output,
-  addressing_api_response_common_failure_output,
-  addressing_api_response_common_output,
-  addressing_api_response_single_output,
-  addressing_messages_output,
-  addressing_timestamp_output,
+  addressing_api$$response$$collection,
+  addressing_api$$response$$common,
+  addressing_api$$response$$common$$failure,
+  addressing_api$$response$$single,
+  addressing_messages,
+  addressing_timestamp,
 } from "../../outputs.js";
 import { addressing_account_identifier } from "../../schemas.js";
+import { addressing_cidr, addressing_prefix_identifier } from "../outputs.js";
 import {
-  addressing_cidr_output,
-  addressing_prefix_identifier_output,
-} from "../outputs.js";
-import { addressing_cidr, addressing_prefix_identifier } from "../schemas.js";
-import {
-  addressing_delegated_account_identifier_output,
-  addressing_delegation_identifier_output,
-  addressing_id_response_output,
-  addressing_ipam_delegations_output,
-  addressing_response_collection_2_output,
-  addressing_single_response_2_output,
-} from "./outputs.js";
+  addressing_cidr as addressing_cidr$,
+  addressing_prefix_identifier as addressing_prefix_identifier$,
+} from "../schemas.js";
 import {
   addressing_delegated_account_identifier,
   addressing_delegation_identifier,
+  addressing_id_response,
+  addressing_ipam$$delegations,
+  addressing_response_collection$$2,
+  addressing_single_response$$2,
+} from "./outputs.js";
+import {
+  addressing_delegated_account_identifier as addressing_delegated_account_identifier$,
+  addressing_delegation_identifier as addressing_delegation_identifier$,
 } from "./schemas.js";
 
 /**
@@ -40,10 +40,6 @@ export const tools: readonly Tool[] = [
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/addressing_account_identifier",
-          "description": "Identifier of a Cloudflare account."
-        },
         "body": {
           "properties": {
             "cidr": {
@@ -61,35 +57,47 @@ export const tools: readonly Tool[] = [
           ],
           "type": "object"
         },
-        "prefix_id": {
-          "$ref": "#/$defs/addressing_prefix_identifier",
-          "description": "Identifier of an IP Prefix."
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/addressing_account_identifier",
+              "description": "Identifier of a Cloudflare account."
+            },
+            "prefix_id": {
+              "$ref": "#/$defs/addressing_prefix_identifier",
+              "description": "Identifier of an IP Prefix."
+            }
+          },
+          "required": [
+            "account_id",
+            "prefix_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "prefix_id",
+        "path",
         "body"
       ],
       $defs: {
         "addressing_account_identifier": addressing_account_identifier,
-        "addressing_cidr": addressing_cidr,
-        "addressing_delegated_account_identifier": addressing_delegated_account_identifier,
-        "addressing_prefix_identifier": addressing_prefix_identifier,
+        "addressing_cidr": addressing_cidr$,
+        "addressing_delegated_account_identifier": addressing_delegated_account_identifier$,
+        "addressing_prefix_identifier": addressing_prefix_identifier$,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/addressing_single_response-2",
       $defs: {
-        "addressing_api-response-single": addressing_api_response_single_output,
-        "addressing_cidr": addressing_cidr_output,
-        "addressing_delegated_account_identifier": addressing_delegated_account_identifier_output,
-        "addressing_delegation_identifier": addressing_delegation_identifier_output,
-        "addressing_ipam-delegations": addressing_ipam_delegations_output,
-        "addressing_messages": addressing_messages_output,
-        "addressing_prefix_identifier": addressing_prefix_identifier_output,
-        "addressing_single_response-2": addressing_single_response_2_output,
-        "addressing_timestamp": addressing_timestamp_output,
+        "addressing_api-response-single": addressing_api$$response$$single,
+        "addressing_cidr": addressing_cidr,
+        "addressing_delegated_account_identifier": addressing_delegated_account_identifier,
+        "addressing_delegation_identifier": addressing_delegation_identifier,
+        "addressing_ipam-delegations": addressing_ipam$$delegations,
+        "addressing_messages": addressing_messages,
+        "addressing_prefix_identifier": addressing_prefix_identifier,
+        "addressing_single_response-2": addressing_single_response$$2,
+        "addressing_timestamp": addressing_timestamp,
       },
     },
     annotations: {
@@ -123,16 +131,16 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "addressing_api-response-common-failure": addressing_api_response_common_failure_output,
-        "addressing_api-response-single": addressing_api_response_single_output,
-        "addressing_cidr": addressing_cidr_output,
-        "addressing_delegated_account_identifier": addressing_delegated_account_identifier_output,
-        "addressing_delegation_identifier": addressing_delegation_identifier_output,
-        "addressing_ipam-delegations": addressing_ipam_delegations_output,
-        "addressing_messages": addressing_messages_output,
-        "addressing_prefix_identifier": addressing_prefix_identifier_output,
-        "addressing_single_response-2": addressing_single_response_2_output,
-        "addressing_timestamp": addressing_timestamp_output,
+        "addressing_api-response-common-failure": addressing_api$$response$$common$$failure,
+        "addressing_api-response-single": addressing_api$$response$$single,
+        "addressing_cidr": addressing_cidr,
+        "addressing_delegated_account_identifier": addressing_delegated_account_identifier,
+        "addressing_delegation_identifier": addressing_delegation_identifier,
+        "addressing_ipam-delegations": addressing_ipam$$delegations,
+        "addressing_messages": addressing_messages,
+        "addressing_prefix_identifier": addressing_prefix_identifier,
+        "addressing_single_response-2": addressing_single_response$$2,
+        "addressing_timestamp": addressing_timestamp,
       },
     },
     request: (args) => ({
@@ -147,37 +155,45 @@ export const tools: readonly Tool[] = [
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/addressing_account_identifier",
-          "description": "Identifier of a Cloudflare account."
-        },
-        "delegation_id": {
-          "$ref": "#/$defs/addressing_delegation_identifier",
-          "description": "Identifier of a Delegation."
-        },
-        "prefix_id": {
-          "$ref": "#/$defs/addressing_prefix_identifier",
-          "description": "Identifier of an IP Prefix."
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/addressing_account_identifier",
+              "description": "Identifier of a Cloudflare account."
+            },
+            "delegation_id": {
+              "$ref": "#/$defs/addressing_delegation_identifier",
+              "description": "Identifier of a Delegation."
+            },
+            "prefix_id": {
+              "$ref": "#/$defs/addressing_prefix_identifier",
+              "description": "Identifier of an IP Prefix."
+            }
+          },
+          "required": [
+            "account_id",
+            "prefix_id",
+            "delegation_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "prefix_id",
-        "delegation_id"
+        "path"
       ],
       $defs: {
         "addressing_account_identifier": addressing_account_identifier,
-        "addressing_delegation_identifier": addressing_delegation_identifier,
-        "addressing_prefix_identifier": addressing_prefix_identifier,
+        "addressing_delegation_identifier": addressing_delegation_identifier$,
+        "addressing_prefix_identifier": addressing_prefix_identifier$,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/addressing_id_response",
       $defs: {
-        "addressing_api-response-single": addressing_api_response_single_output,
-        "addressing_delegation_identifier": addressing_delegation_identifier_output,
-        "addressing_id_response": addressing_id_response_output,
-        "addressing_messages": addressing_messages_output,
+        "addressing_api-response-single": addressing_api$$response$$single,
+        "addressing_delegation_identifier": addressing_delegation_identifier,
+        "addressing_id_response": addressing_id_response,
+        "addressing_messages": addressing_messages,
       },
     },
     annotations: {
@@ -211,11 +227,11 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "addressing_api-response-common-failure": addressing_api_response_common_failure_output,
-        "addressing_api-response-single": addressing_api_response_single_output,
-        "addressing_delegation_identifier": addressing_delegation_identifier_output,
-        "addressing_id_response": addressing_id_response_output,
-        "addressing_messages": addressing_messages_output,
+        "addressing_api-response-common-failure": addressing_api$$response$$common$$failure,
+        "addressing_api-response-single": addressing_api$$response$$single,
+        "addressing_delegation_identifier": addressing_delegation_identifier,
+        "addressing_id_response": addressing_id_response,
+        "addressing_messages": addressing_messages,
       },
     },
     request: (args) => ({
@@ -229,37 +245,45 @@ export const tools: readonly Tool[] = [
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/addressing_account_identifier",
-          "description": "Identifier of a Cloudflare account."
-        },
-        "prefix_id": {
-          "$ref": "#/$defs/addressing_prefix_identifier",
-          "description": "Identifier of an IP Prefix."
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/addressing_account_identifier",
+              "description": "Identifier of a Cloudflare account."
+            },
+            "prefix_id": {
+              "$ref": "#/$defs/addressing_prefix_identifier",
+              "description": "Identifier of an IP Prefix."
+            }
+          },
+          "required": [
+            "account_id",
+            "prefix_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "prefix_id"
+        "path"
       ],
       $defs: {
         "addressing_account_identifier": addressing_account_identifier,
-        "addressing_prefix_identifier": addressing_prefix_identifier,
+        "addressing_prefix_identifier": addressing_prefix_identifier$,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/addressing_response_collection-2",
       $defs: {
-        "addressing_api-response-collection": addressing_api_response_collection_output,
-        "addressing_api-response-common": addressing_api_response_common_output,
-        "addressing_cidr": addressing_cidr_output,
-        "addressing_delegated_account_identifier": addressing_delegated_account_identifier_output,
-        "addressing_delegation_identifier": addressing_delegation_identifier_output,
-        "addressing_ipam-delegations": addressing_ipam_delegations_output,
-        "addressing_messages": addressing_messages_output,
-        "addressing_prefix_identifier": addressing_prefix_identifier_output,
-        "addressing_response_collection-2": addressing_response_collection_2_output,
-        "addressing_timestamp": addressing_timestamp_output,
+        "addressing_api-response-collection": addressing_api$$response$$collection,
+        "addressing_api-response-common": addressing_api$$response$$common,
+        "addressing_cidr": addressing_cidr,
+        "addressing_delegated_account_identifier": addressing_delegated_account_identifier,
+        "addressing_delegation_identifier": addressing_delegation_identifier,
+        "addressing_ipam-delegations": addressing_ipam$$delegations,
+        "addressing_messages": addressing_messages,
+        "addressing_prefix_identifier": addressing_prefix_identifier,
+        "addressing_response_collection-2": addressing_response_collection$$2,
+        "addressing_timestamp": addressing_timestamp,
       },
     },
     annotations: {
@@ -288,17 +312,17 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "addressing_api-response-collection": addressing_api_response_collection_output,
-        "addressing_api-response-common": addressing_api_response_common_output,
-        "addressing_api-response-common-failure": addressing_api_response_common_failure_output,
-        "addressing_cidr": addressing_cidr_output,
-        "addressing_delegated_account_identifier": addressing_delegated_account_identifier_output,
-        "addressing_delegation_identifier": addressing_delegation_identifier_output,
-        "addressing_ipam-delegations": addressing_ipam_delegations_output,
-        "addressing_messages": addressing_messages_output,
-        "addressing_prefix_identifier": addressing_prefix_identifier_output,
-        "addressing_response_collection-2": addressing_response_collection_2_output,
-        "addressing_timestamp": addressing_timestamp_output,
+        "addressing_api-response-collection": addressing_api$$response$$collection,
+        "addressing_api-response-common": addressing_api$$response$$common,
+        "addressing_api-response-common-failure": addressing_api$$response$$common$$failure,
+        "addressing_cidr": addressing_cidr,
+        "addressing_delegated_account_identifier": addressing_delegated_account_identifier,
+        "addressing_delegation_identifier": addressing_delegation_identifier,
+        "addressing_ipam-delegations": addressing_ipam$$delegations,
+        "addressing_messages": addressing_messages,
+        "addressing_prefix_identifier": addressing_prefix_identifier,
+        "addressing_response_collection-2": addressing_response_collection$$2,
+        "addressing_timestamp": addressing_timestamp,
       },
     },
     request: (args) => ({

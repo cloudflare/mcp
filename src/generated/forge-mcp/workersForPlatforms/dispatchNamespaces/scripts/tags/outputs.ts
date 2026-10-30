@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../../_/tool.js";
 /**
  * The schema of `workers_tags-kv-response` in responses.
  */
-export const workers_tags_kv_response_output: JsonSchema = {
+export const workers_tags$$kv$$response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/workers_api-response-common"
@@ -28,7 +28,7 @@ export const workers_tags_kv_response_output: JsonSchema = {
 /**
  * The schema of `workers_tags_kv` in responses.
  */
-export const workers_tags_kv_output: JsonSchema = {
+export const workers_tags_kv: JsonSchema = {
   "additionalProperties": {
     "type": "string"
   },

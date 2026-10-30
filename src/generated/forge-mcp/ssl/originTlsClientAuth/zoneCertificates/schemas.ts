@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `tls-certificates-and-hostnames_certificate-5`.
  */
-export const tls_certificates_and_hostnames_certificate_5: JsonSchema = {
+export const tls$$certificates$$and$$hostnames_certificate$$5: JsonSchema = {
   "description": "The zone's leaf certificate.",
   "type": "string"
 };
@@ -14,7 +14,7 @@ export const tls_certificates_and_hostnames_certificate_5: JsonSchema = {
 /**
  * The schema of `tls-certificates-and-hostnames_private_key-2`.
  */
-export const tls_certificates_and_hostnames_private_key_2: JsonSchema = {
+export const tls$$certificates$$and$$hostnames_private_key$$2: JsonSchema = {
   "description": "The zone's private key.",
   "type": "string"
 };
@@ -23,7 +23,7 @@ export const tls_certificates_and_hostnames_private_key_2: JsonSchema = {
  * The schema of
  * `tls-certificates-and-hostnames_zone_aop_certificate_identifier`.
  */
-export const tls_certificates_and_hostnames_zone_aop_certificate_identifier: JsonSchema = {
+export const tls$$certificates$$and$$hostnames_zone_aop_certificate_identifier: JsonSchema = {
   "description": "Certificate identifier tag.",
   "type": "string"
 };

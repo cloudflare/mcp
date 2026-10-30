@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../../_/tool.js";
 /**
  * The schema of `cloudforce-one-events_FieldDefinition`.
  */
-export const cloudforce_one_events_FieldDefinition: JsonSchema = {
+export const cloudforce$$one$$events_FieldDefinition: JsonSchema = {
   "properties": {
     "allowedValues": {
       "items": {

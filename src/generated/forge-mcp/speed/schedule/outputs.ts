@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `observatory_create-schedule-response` in responses.
  */
-export const observatory_create_schedule_response_output: JsonSchema = {
+export const observatory_create$$schedule$$response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/observatory_api-response-single"
@@ -33,7 +33,7 @@ export const observatory_create_schedule_response_output: JsonSchema = {
 /**
  * The schema of `observatory_schedule` in responses.
  */
-export const observatory_schedule_output: JsonSchema = {
+export const observatory_schedule: JsonSchema = {
   "properties": {
     "frequency": {
       "$ref": "#/$defs/observatory_schedule_frequency"
@@ -51,7 +51,7 @@ export const observatory_schedule_output: JsonSchema = {
 /**
  * The schema of `observatory_schedule-response-single` in responses.
  */
-export const observatory_schedule_response_single_output: JsonSchema = {
+export const observatory_schedule$$response$$single: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/observatory_api-response-single"

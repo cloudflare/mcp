@@ -3,10 +3,10 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
-  builds_APIResponse_output,
-  builds_ApiError_output,
-  builds_ErrorResponse_output,
-  builds_PaginationInfo_output,
+  builds_APIResponse,
+  builds_ApiError,
+  builds_ErrorResponse,
+  builds_PaginationInfo,
 } from "../../../outputs.js";
 import { builds_account_id, builds_trigger_uuid } from "../../../schemas.js";
 
@@ -21,18 +21,26 @@ export const tools: readonly Tool[] = [
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/builds_account_id",
-          "description": "Account identifier."
-        },
-        "trigger_uuid": {
-          "$ref": "#/$defs/builds_trigger_uuid",
-          "description": "Trigger UUID."
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/builds_account_id",
+              "description": "Account identifier."
+            },
+            "trigger_uuid": {
+              "$ref": "#/$defs/builds_trigger_uuid",
+              "description": "Trigger UUID."
+            }
+          },
+          "required": [
+            "account_id",
+            "trigger_uuid"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "trigger_uuid"
+        "path"
       ],
       $defs: {
         "builds_account_id": builds_account_id,
@@ -42,9 +50,9 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/builds_APIResponse",
       $defs: {
-        "builds_APIResponse": builds_APIResponse_output,
-        "builds_ApiError": builds_ApiError_output,
-        "builds_PaginationInfo": builds_PaginationInfo_output,
+        "builds_APIResponse": builds_APIResponse,
+        "builds_ApiError": builds_ApiError,
+        "builds_PaginationInfo": builds_PaginationInfo,
       },
     },
     annotations: {
@@ -74,10 +82,10 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "builds_APIResponse": builds_APIResponse_output,
-        "builds_ApiError": builds_ApiError_output,
-        "builds_ErrorResponse": builds_ErrorResponse_output,
-        "builds_PaginationInfo": builds_PaginationInfo_output,
+        "builds_APIResponse": builds_APIResponse,
+        "builds_ApiError": builds_ApiError,
+        "builds_ErrorResponse": builds_ErrorResponse,
+        "builds_PaginationInfo": builds_PaginationInfo,
       },
     },
     request: (args) => ({

@@ -30,7 +30,7 @@ export const access_allow_all_origins: JsonSchema = {
 /**
  * The schema of `access_allow_authenticate_via_warp-2`.
  */
-export const access_allow_authenticate_via_warp_2: JsonSchema = {
+export const access_allow_authenticate_via_warp$$2: JsonSchema = {
   "description": "When set to true, users can authenticate to this application using their WARP session.  When set to false this application will always require direct IdP authentication. This setting always overrides the organization setting for WARP authentication.",
   "type": "boolean"
 };
@@ -484,7 +484,7 @@ export const access_app_resp_embedded_target_criteria_self_hosted: JsonSchema = 
 /**
  * The schema of `access_auto_redirect_to_identity-2`.
  */
-export const access_auto_redirect_to_identity_2: JsonSchema = {
+export const access_auto_redirect_to_identity$$2: JsonSchema = {
   "description": "When set to `true`, users skip the identity provider selection step during login. You must specify only one identity provider in allowed_idps.",
   "type": "boolean"
 };
@@ -684,7 +684,7 @@ export const access_custom_non_identity_deny_url: JsonSchema = {
 /**
  * The schema of `access_custom_pages-2`.
  */
-export const access_custom_pages_2: JsonSchema = {
+export const access_custom_pages$$2: JsonSchema = {
   "description": "The custom pages that will be displayed when applicable for this application",
   "items": {
     "type": "string"
@@ -1606,7 +1606,7 @@ export const access_message: JsonSchema = {
 /**
  * The schema of `access_name-8`.
  */
-export const access_name_8: JsonSchema = {
+export const access_name$$8: JsonSchema = {
   "description": "The name of the application.",
   "type": "string"
 };
@@ -2574,7 +2574,7 @@ export const access_service_auth_401_redirect: JsonSchema = {
 /**
  * The schema of `access_session_duration-2`.
  */
-export const access_session_duration_2: JsonSchema = {
+export const access_session_duration$$2: JsonSchema = {
   "description": "The amount of time that tokens issued for this application will be valid. Must be in the format `300ms` or `2h45m`. Valid time units are: ns, us (or µs), ms, s, m, h.",
   "type": "string"
 };
@@ -2624,7 +2624,7 @@ export const access_ssh_props: JsonSchema = {
 /**
  * The schema of `access_tags-2`.
  */
-export const access_tags_2: JsonSchema = {
+export const access_tags$$2: JsonSchema = {
   "description": "The tags you want assigned to an application. Tags are used to filter applications in the App Launcher dashboard.",
   "items": {
     "type": "string"

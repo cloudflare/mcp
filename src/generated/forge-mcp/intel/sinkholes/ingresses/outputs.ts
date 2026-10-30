@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `intel-sinkholes_ingress_collection_response` in responses.
  */
-export const intel_sinkholes_ingress_collection_response_output: JsonSchema = {
+export const intel$$sinkholes_ingress_collection_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/intel-sinkholes_api-response-common"
@@ -28,7 +28,7 @@ export const intel_sinkholes_ingress_collection_response_output: JsonSchema = {
 /**
  * The schema of `intel-sinkholes_ingress_item` in responses.
  */
-export const intel_sinkholes_ingress_item_output: JsonSchema = {
+export const intel$$sinkholes_ingress_item: JsonSchema = {
   "properties": {
     "cidr": {
       "type": "string"
@@ -57,7 +57,7 @@ export const intel_sinkholes_ingress_item_output: JsonSchema = {
 /**
  * The schema of `intel-sinkholes_ingress_single_response` in responses.
  */
-export const intel_sinkholes_ingress_single_response_output: JsonSchema = {
+export const intel$$sinkholes_ingress_single_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/intel-sinkholes_api-response-common"

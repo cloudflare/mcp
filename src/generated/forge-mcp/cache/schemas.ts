@@ -6,7 +6,7 @@ import type { JsonSchema } from "../_/tool.js";
 /**
  * The schema of `cache-purge_Everything`.
  */
-export const cache_purge_Everything: JsonSchema = {
+export const cache$$purge_Everything: JsonSchema = {
   "description": "Purge everything",
   "properties": {
     "purge_everything": {
@@ -20,7 +20,7 @@ export const cache_purge_Everything: JsonSchema = {
 /**
  * The schema of `cache-purge_FlexPurgeByHostnames`.
  */
-export const cache_purge_FlexPurgeByHostnames: JsonSchema = {
+export const cache$$purge_FlexPurgeByHostnames: JsonSchema = {
   "description": "Purge by hostnames",
   "properties": {
     "hosts": {
@@ -37,7 +37,7 @@ export const cache_purge_FlexPurgeByHostnames: JsonSchema = {
 /**
  * The schema of `cache-purge_FlexPurgeByPrefixes`.
  */
-export const cache_purge_FlexPurgeByPrefixes: JsonSchema = {
+export const cache$$purge_FlexPurgeByPrefixes: JsonSchema = {
   "description": "Purge by prefixes",
   "properties": {
     "prefixes": {
@@ -54,7 +54,7 @@ export const cache_purge_FlexPurgeByPrefixes: JsonSchema = {
 /**
  * The schema of `cache-purge_FlexPurgeByTags`.
  */
-export const cache_purge_FlexPurgeByTags: JsonSchema = {
+export const cache$$purge_FlexPurgeByTags: JsonSchema = {
   "description": "Purge by tags",
   "properties": {
     "tags": {
@@ -71,7 +71,7 @@ export const cache_purge_FlexPurgeByTags: JsonSchema = {
 /**
  * The schema of `cache-purge_SingleFile`.
  */
-export const cache_purge_SingleFile: JsonSchema = {
+export const cache$$purge_SingleFile: JsonSchema = {
   "description": "Purge files",
   "properties": {
     "files": {
@@ -88,7 +88,7 @@ export const cache_purge_SingleFile: JsonSchema = {
 /**
  * The schema of `cache-purge_SingleFileWithUrlAndHeaders`.
  */
-export const cache_purge_SingleFileWithUrlAndHeaders: JsonSchema = {
+export const cache$$purge_SingleFileWithUrlAndHeaders: JsonSchema = {
   "description": "Purge files with URL and headers",
   "properties": {
     "files": {
@@ -118,6 +118,6 @@ export const cache_purge_SingleFileWithUrlAndHeaders: JsonSchema = {
 /**
  * The schema of `cache-purge_identifier`.
  */
-export const cache_purge_identifier: JsonSchema = {
+export const cache$$purge_identifier: JsonSchema = {
   "type": "string"
 };

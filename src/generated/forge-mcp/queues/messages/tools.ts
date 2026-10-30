@@ -3,31 +3,31 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
-  mq_api_v4_error_output,
-  mq_api_v4_failure_output,
-  mq_api_v4_message_output,
-  mq_api_v4_success_output,
-  mq_queue_metrics_output,
+  mq_api$$v4$$error,
+  mq_api$$v4$$failure,
+  mq_api$$v4$$message,
+  mq_api$$v4$$success,
+  mq_queue$$metrics,
 } from "../outputs.js";
 import {
-  mq_batch_size,
+  mq_batch$$size,
   mq_identifier,
-  mq_retry_delay,
-  mq_visibility_timeout,
+  mq_retry$$delay,
+  mq_visibility$$timeout,
 } from "../schemas.js";
 import {
-  mq_lease_id_output,
-  mq_queue_peek_batch_output,
-  mq_queue_pull_batch_output,
-  mq_ref_output,
+  mq_lease$$id,
+  mq_queue$$peek$$batch,
+  mq_queue$$pull$$batch,
+  mq_ref,
 } from "./outputs.js";
 import {
-  mq_lease_id,
-  mq_queue_batch,
-  mq_queue_message,
-  mq_queue_message_json,
-  mq_queue_message_text,
-  mq_ref,
+  mq_lease$$id as mq_lease$$id$,
+  mq_queue$$batch,
+  mq_queue$$message,
+  mq_queue$$message$$json,
+  mq_queue$$message$$text,
+  mq_ref as mq_ref$,
 } from "./schemas.js";
 
 /**
@@ -41,10 +41,6 @@ export const tools: readonly Tool[] = [
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/mq_identifier",
-          "description": "A Resource identifier."
-        },
         "body": {
           "properties": {
             "acks": {
@@ -78,19 +74,31 @@ export const tools: readonly Tool[] = [
           },
           "type": "object"
         },
-        "queue_id": {
-          "$ref": "#/$defs/mq_identifier",
-          "description": "A Resource identifier."
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/mq_identifier",
+              "description": "A Resource identifier."
+            },
+            "queue_id": {
+              "$ref": "#/$defs/mq_identifier",
+              "description": "A Resource identifier."
+            }
+          },
+          "required": [
+            "account_id",
+            "queue_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "queue_id"
+        "path"
       ],
       $defs: {
         "mq_identifier": mq_identifier,
-        "mq_lease-id": mq_lease_id,
-        "mq_retry-delay": mq_retry_delay,
+        "mq_lease-id": mq_lease$$id$,
+        "mq_retry-delay": mq_retry$$delay,
       },
     },
     outputSchema: {
@@ -122,9 +130,9 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "mq_api-v4-error": mq_api_v4_error_output,
-        "mq_api-v4-message": mq_api_v4_message_output,
-        "mq_api-v4-success": mq_api_v4_success_output,
+        "mq_api-v4-error": mq_api$$v4$$error,
+        "mq_api-v4-message": mq_api$$v4$$message,
+        "mq_api-v4-success": mq_api$$v4$$success,
       },
     },
     annotations: {
@@ -184,10 +192,10 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "mq_api-v4-error": mq_api_v4_error_output,
-        "mq_api-v4-failure": mq_api_v4_failure_output,
-        "mq_api-v4-message": mq_api_v4_message_output,
-        "mq_api-v4-success": mq_api_v4_success_output,
+        "mq_api-v4-error": mq_api$$v4$$error,
+        "mq_api-v4-failure": mq_api$$v4$$failure,
+        "mq_api-v4-message": mq_api$$v4$$message,
+        "mq_api-v4-success": mq_api$$v4$$success,
       },
     },
     request: (args) => ({
@@ -196,34 +204,42 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "queues_messages_bulk_push",
+    name: "queues_messages_bulkPush",
     title: "Push Message Batch",
     description: "Pushes a batch of messages to a Queue.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/mq_identifier",
-          "description": "A Resource identifier."
-        },
         "body": {
           "$ref": "#/$defs/mq_queue-batch"
         },
-        "queue_id": {
-          "$ref": "#/$defs/mq_identifier",
-          "description": "A Resource identifier."
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/mq_identifier",
+              "description": "A Resource identifier."
+            },
+            "queue_id": {
+              "$ref": "#/$defs/mq_identifier",
+              "description": "A Resource identifier."
+            }
+          },
+          "required": [
+            "account_id",
+            "queue_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "queue_id"
+        "path"
       ],
       $defs: {
         "mq_identifier": mq_identifier,
-        "mq_queue-batch": mq_queue_batch,
-        "mq_queue-message": mq_queue_message,
-        "mq_queue-message-json": mq_queue_message_json,
-        "mq_queue-message-text": mq_queue_message_text,
+        "mq_queue-batch": mq_queue$$batch,
+        "mq_queue-message": mq_queue$$message,
+        "mq_queue-message-json": mq_queue$$message$$json,
+        "mq_queue-message-text": mq_queue$$message$$text,
       },
     },
     outputSchema: {
@@ -251,10 +267,10 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "mq_api-v4-error": mq_api_v4_error_output,
-        "mq_api-v4-message": mq_api_v4_message_output,
-        "mq_api-v4-success": mq_api_v4_success_output,
-        "mq_queue-metrics": mq_queue_metrics_output,
+        "mq_api-v4-error": mq_api$$v4$$error,
+        "mq_api-v4-message": mq_api$$v4$$message,
+        "mq_api-v4-success": mq_api$$v4$$success,
+        "mq_queue-metrics": mq_queue$$metrics,
       },
     },
     annotations: {
@@ -310,11 +326,11 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "mq_api-v4-error": mq_api_v4_error_output,
-        "mq_api-v4-failure": mq_api_v4_failure_output,
-        "mq_api-v4-message": mq_api_v4_message_output,
-        "mq_api-v4-success": mq_api_v4_success_output,
-        "mq_queue-metrics": mq_queue_metrics_output,
+        "mq_api-v4-error": mq_api$$v4$$error,
+        "mq_api-v4-failure": mq_api$$v4$$failure,
+        "mq_api-v4-message": mq_api$$v4$$message,
+        "mq_api-v4-success": mq_api$$v4$$success,
+        "mq_queue-metrics": mq_queue$$metrics,
       },
     },
     request: (args) => ({
@@ -323,16 +339,12 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "queues_messages_extend_leases",
+    name: "queues_messages_extendLeases",
     title: "Extend Message Leases",
     description: "Extends message leases without incrementing the messages' `attempts` counters. Each message receives a new lease identifier.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/mq_identifier",
-          "description": "A Resource identifier."
-        },
         "body": {
           "properties": {
             "extend": {
@@ -354,19 +366,31 @@ export const tools: readonly Tool[] = [
           },
           "type": "object"
         },
-        "queue_id": {
-          "$ref": "#/$defs/mq_identifier",
-          "description": "A Resource identifier."
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/mq_identifier",
+              "description": "A Resource identifier."
+            },
+            "queue_id": {
+              "$ref": "#/$defs/mq_identifier",
+              "description": "A Resource identifier."
+            }
+          },
+          "required": [
+            "account_id",
+            "queue_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "queue_id"
+        "path"
       ],
       $defs: {
         "mq_identifier": mq_identifier,
-        "mq_lease-id": mq_lease_id,
-        "mq_visibility-timeout": mq_visibility_timeout,
+        "mq_lease-id": mq_lease$$id$,
+        "mq_visibility-timeout": mq_visibility$$timeout,
       },
     },
     outputSchema: {
@@ -395,9 +419,9 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "mq_api-v4-error": mq_api_v4_error_output,
-        "mq_api-v4-message": mq_api_v4_message_output,
-        "mq_api-v4-success": mq_api_v4_success_output,
+        "mq_api-v4-error": mq_api$$v4$$error,
+        "mq_api-v4-message": mq_api$$v4$$message,
+        "mq_api-v4-success": mq_api$$v4$$success,
       },
     },
     annotations: {
@@ -454,10 +478,10 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "mq_api-v4-error": mq_api_v4_error_output,
-        "mq_api-v4-failure": mq_api_v4_failure_output,
-        "mq_api-v4-message": mq_api_v4_message_output,
-        "mq_api-v4-success": mq_api_v4_success_output,
+        "mq_api-v4-error": mq_api$$v4$$error,
+        "mq_api-v4-failure": mq_api$$v4$$failure,
+        "mq_api-v4-message": mq_api$$v4$$message,
+        "mq_api-v4-success": mq_api$$v4$$success,
       },
     },
     request: (args) => ({
@@ -472,10 +496,6 @@ export const tools: readonly Tool[] = [
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/mq_identifier",
-          "description": "A Resource identifier."
-        },
         "body": {
           "properties": {
             "batch_size": {
@@ -485,17 +505,29 @@ export const tools: readonly Tool[] = [
           },
           "type": "object"
         },
-        "queue_id": {
-          "$ref": "#/$defs/mq_identifier",
-          "description": "A Resource identifier."
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/mq_identifier",
+              "description": "A Resource identifier."
+            },
+            "queue_id": {
+              "$ref": "#/$defs/mq_identifier",
+              "description": "A Resource identifier."
+            }
+          },
+          "required": [
+            "account_id",
+            "queue_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "queue_id"
+        "path"
       ],
       $defs: {
-        "mq_batch-size": mq_batch_size,
+        "mq_batch-size": mq_batch$$size,
         "mq_identifier": mq_identifier,
       },
     },
@@ -519,11 +551,11 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "mq_api-v4-error": mq_api_v4_error_output,
-        "mq_api-v4-message": mq_api_v4_message_output,
-        "mq_api-v4-success": mq_api_v4_success_output,
-        "mq_queue-peek-batch": mq_queue_peek_batch_output,
-        "mq_ref": mq_ref_output,
+        "mq_api-v4-error": mq_api$$v4$$error,
+        "mq_api-v4-message": mq_api$$v4$$message,
+        "mq_api-v4-success": mq_api$$v4$$success,
+        "mq_queue-peek-batch": mq_queue$$peek$$batch,
+        "mq_ref": mq_ref,
       },
     },
     annotations: {
@@ -574,12 +606,12 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "mq_api-v4-error": mq_api_v4_error_output,
-        "mq_api-v4-failure": mq_api_v4_failure_output,
-        "mq_api-v4-message": mq_api_v4_message_output,
-        "mq_api-v4-success": mq_api_v4_success_output,
-        "mq_queue-peek-batch": mq_queue_peek_batch_output,
-        "mq_ref": mq_ref_output,
+        "mq_api-v4-error": mq_api$$v4$$error,
+        "mq_api-v4-failure": mq_api$$v4$$failure,
+        "mq_api-v4-message": mq_api$$v4$$message,
+        "mq_api-v4-success": mq_api$$v4$$success,
+        "mq_queue-peek-batch": mq_queue$$peek$$batch,
+        "mq_ref": mq_ref,
       },
     },
     request: (args) => ({
@@ -594,10 +626,6 @@ export const tools: readonly Tool[] = [
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/mq_identifier",
-          "description": "A Resource identifier."
-        },
         "body": {
           "properties": {
             "batch_size": {
@@ -611,19 +639,31 @@ export const tools: readonly Tool[] = [
           },
           "type": "object"
         },
-        "queue_id": {
-          "$ref": "#/$defs/mq_identifier",
-          "description": "A Resource identifier."
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/mq_identifier",
+              "description": "A Resource identifier."
+            },
+            "queue_id": {
+              "$ref": "#/$defs/mq_identifier",
+              "description": "A Resource identifier."
+            }
+          },
+          "required": [
+            "account_id",
+            "queue_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "queue_id"
+        "path"
       ],
       $defs: {
-        "mq_batch-size": mq_batch_size,
+        "mq_batch-size": mq_batch$$size,
         "mq_identifier": mq_identifier,
-        "mq_visibility-timeout": mq_visibility_timeout,
+        "mq_visibility-timeout": mq_visibility$$timeout,
       },
     },
     outputSchema: {
@@ -657,12 +697,12 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "mq_api-v4-error": mq_api_v4_error_output,
-        "mq_api-v4-message": mq_api_v4_message_output,
-        "mq_api-v4-success": mq_api_v4_success_output,
-        "mq_lease-id": mq_lease_id_output,
-        "mq_queue-metrics": mq_queue_metrics_output,
-        "mq_queue-pull-batch": mq_queue_pull_batch_output,
+        "mq_api-v4-error": mq_api$$v4$$error,
+        "mq_api-v4-message": mq_api$$v4$$message,
+        "mq_api-v4-success": mq_api$$v4$$success,
+        "mq_lease-id": mq_lease$$id,
+        "mq_queue-metrics": mq_queue$$metrics,
+        "mq_queue-pull-batch": mq_queue$$pull$$batch,
       },
     },
     annotations: {
@@ -724,13 +764,13 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "mq_api-v4-error": mq_api_v4_error_output,
-        "mq_api-v4-failure": mq_api_v4_failure_output,
-        "mq_api-v4-message": mq_api_v4_message_output,
-        "mq_api-v4-success": mq_api_v4_success_output,
-        "mq_lease-id": mq_lease_id_output,
-        "mq_queue-metrics": mq_queue_metrics_output,
-        "mq_queue-pull-batch": mq_queue_pull_batch_output,
+        "mq_api-v4-error": mq_api$$v4$$error,
+        "mq_api-v4-failure": mq_api$$v4$$failure,
+        "mq_api-v4-message": mq_api$$v4$$message,
+        "mq_api-v4-success": mq_api$$v4$$success,
+        "mq_lease-id": mq_lease$$id,
+        "mq_queue-metrics": mq_queue$$metrics,
+        "mq_queue-pull-batch": mq_queue$$pull$$batch,
       },
     },
     request: (args) => ({
@@ -745,10 +785,6 @@ export const tools: readonly Tool[] = [
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/mq_identifier",
-          "description": "A Resource identifier."
-        },
         "body": {
           "properties": {
             "refs": {
@@ -772,19 +808,31 @@ export const tools: readonly Tool[] = [
           ],
           "type": "object"
         },
-        "queue_id": {
-          "$ref": "#/$defs/mq_identifier",
-          "description": "A Resource identifier."
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/mq_identifier",
+              "description": "A Resource identifier."
+            },
+            "queue_id": {
+              "$ref": "#/$defs/mq_identifier",
+              "description": "A Resource identifier."
+            }
+          },
+          "required": [
+            "account_id",
+            "queue_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "queue_id",
+        "path",
         "body"
       ],
       $defs: {
         "mq_identifier": mq_identifier,
-        "mq_ref": mq_ref,
+        "mq_ref": mq_ref$,
       },
     },
     outputSchema: {
@@ -821,9 +869,9 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "mq_api-v4-error": mq_api_v4_error_output,
-        "mq_api-v4-message": mq_api_v4_message_output,
-        "mq_api-v4-success": mq_api_v4_success_output,
+        "mq_api-v4-error": mq_api$$v4$$error,
+        "mq_api-v4-message": mq_api$$v4$$message,
+        "mq_api-v4-success": mq_api$$v4$$success,
       },
     },
     annotations: {
@@ -888,10 +936,10 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "mq_api-v4-error": mq_api_v4_error_output,
-        "mq_api-v4-failure": mq_api_v4_failure_output,
-        "mq_api-v4-message": mq_api_v4_message_output,
-        "mq_api-v4-success": mq_api_v4_success_output,
+        "mq_api-v4-error": mq_api$$v4$$error,
+        "mq_api-v4-failure": mq_api$$v4$$failure,
+        "mq_api-v4-message": mq_api$$v4$$message,
+        "mq_api-v4-success": mq_api$$v4$$success,
       },
     },
     request: (args) => ({
@@ -906,27 +954,35 @@ export const tools: readonly Tool[] = [
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/mq_identifier",
-          "description": "A Resource identifier."
-        },
         "body": {
           "$ref": "#/$defs/mq_queue-message"
         },
-        "queue_id": {
-          "$ref": "#/$defs/mq_identifier",
-          "description": "A Resource identifier."
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/mq_identifier",
+              "description": "A Resource identifier."
+            },
+            "queue_id": {
+              "$ref": "#/$defs/mq_identifier",
+              "description": "A Resource identifier."
+            }
+          },
+          "required": [
+            "account_id",
+            "queue_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "queue_id"
+        "path"
       ],
       $defs: {
         "mq_identifier": mq_identifier,
-        "mq_queue-message": mq_queue_message,
-        "mq_queue-message-json": mq_queue_message_json,
-        "mq_queue-message-text": mq_queue_message_text,
+        "mq_queue-message": mq_queue$$message,
+        "mq_queue-message-json": mq_queue$$message$$json,
+        "mq_queue-message-text": mq_queue$$message$$text,
       },
     },
     outputSchema: {
@@ -954,10 +1010,10 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "mq_api-v4-error": mq_api_v4_error_output,
-        "mq_api-v4-message": mq_api_v4_message_output,
-        "mq_api-v4-success": mq_api_v4_success_output,
-        "mq_queue-metrics": mq_queue_metrics_output,
+        "mq_api-v4-error": mq_api$$v4$$error,
+        "mq_api-v4-message": mq_api$$v4$$message,
+        "mq_api-v4-success": mq_api$$v4$$success,
+        "mq_queue-metrics": mq_queue$$metrics,
       },
     },
     annotations: {
@@ -1013,11 +1069,11 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "mq_api-v4-error": mq_api_v4_error_output,
-        "mq_api-v4-failure": mq_api_v4_failure_output,
-        "mq_api-v4-message": mq_api_v4_message_output,
-        "mq_api-v4-success": mq_api_v4_success_output,
-        "mq_queue-metrics": mq_queue_metrics_output,
+        "mq_api-v4-error": mq_api$$v4$$error,
+        "mq_api-v4-failure": mq_api$$v4$$failure,
+        "mq_api-v4-message": mq_api$$v4$$message,
+        "mq_api-v4-success": mq_api$$v4$$success,
+        "mq_queue-metrics": mq_queue$$metrics,
       },
     },
     request: (args) => ({

@@ -6,14 +6,14 @@ import type { JsonSchema } from "../../../../_/tool.js";
 /**
  * The schema of `dns-settings_nameserver-name` in responses.
  */
-export const dns_settings_nameserver_name_output: JsonSchema = {
+export const dns$$settings_nameserver$$name: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `dns-settings_nameserver-set-address-groups` in responses.
  */
-export const dns_settings_nameserver_set_address_groups_output: JsonSchema = {
+export const dns$$settings_nameserver$$set$$address$$groups: JsonSchema = {
   "items": {
     "enum": [
       "a",
@@ -29,7 +29,7 @@ export const dns_settings_nameserver_set_address_groups_output: JsonSchema = {
 /**
  * The schema of `dns-settings_nameserver-set-advanced-response` in responses.
  */
-export const dns_settings_nameserver_set_advanced_response_output: JsonSchema = {
+export const dns$$settings_nameserver$$set$$advanced$$response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/dns-settings_nameserver-set-response-base"
@@ -64,7 +64,7 @@ export const dns_settings_nameserver_set_advanced_response_output: JsonSchema = 
  * The schema of `dns-settings_nameserver-set-advanced-response-member` in
  * responses.
  */
-export const dns_settings_nameserver_set_advanced_response_member_output: JsonSchema = {
+export const dns$$settings_nameserver$$set$$advanced$$response$$member: JsonSchema = {
   "properties": {
     "ipv4": {
       "$ref": "#/$defs/dns-settings_nameserver-set-ipv4-addresses"
@@ -95,21 +95,21 @@ export const dns_settings_nameserver_set_advanced_response_member_output: JsonSc
 /**
  * The schema of `dns-settings_nameserver-set-id` in responses.
  */
-export const dns_settings_nameserver_set_id_output: JsonSchema = {
+export const dns$$settings_nameserver$$set$$id: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `dns-settings_nameserver-set-ip-set` in responses.
  */
-export const dns_settings_nameserver_set_ip_set_output: JsonSchema = {
+export const dns$$settings_nameserver$$set$$ip$$set: JsonSchema = {
   "type": "integer"
 };
 
 /**
  * The schema of `dns-settings_nameserver-set-ipv4-addresses` in responses.
  */
-export const dns_settings_nameserver_set_ipv4_addresses_output: JsonSchema = {
+export const dns$$settings_nameserver$$set$$ipv4$$addresses: JsonSchema = {
   "items": {
     "type": "string"
   },
@@ -120,7 +120,7 @@ export const dns_settings_nameserver_set_ipv4_addresses_output: JsonSchema = {
 /**
  * The schema of `dns-settings_nameserver-set-ipv6-addresses` in responses.
  */
-export const dns_settings_nameserver_set_ipv6_addresses_output: JsonSchema = {
+export const dns$$settings_nameserver$$set$$ipv6$$addresses: JsonSchema = {
   "items": {
     "type": "string"
   },
@@ -131,14 +131,14 @@ export const dns_settings_nameserver_set_ipv6_addresses_output: JsonSchema = {
 /**
  * The schema of `dns-settings_nameserver-set-name` in responses.
  */
-export const dns_settings_nameserver_set_name_output: JsonSchema = {
+export const dns$$settings_nameserver$$set$$name: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `dns-settings_nameserver-set-response` in responses.
  */
-export const dns_settings_nameserver_set_response_output: JsonSchema = {
+export const dns$$settings_nameserver$$set$$response: JsonSchema = {
   "oneOf": [
     {
       "$ref": "#/$defs/dns-settings_nameserver-set-standard-response"
@@ -152,7 +152,7 @@ export const dns_settings_nameserver_set_response_output: JsonSchema = {
 /**
  * The schema of `dns-settings_nameserver-set-response-base` in responses.
  */
-export const dns_settings_nameserver_set_response_base_output: JsonSchema = {
+export const dns$$settings_nameserver$$set$$response$$base: JsonSchema = {
   "properties": {
     "created_on": {
       "format": "date-time",
@@ -180,7 +180,7 @@ export const dns_settings_nameserver_set_response_base_output: JsonSchema = {
 /**
  * The schema of `dns-settings_nameserver-set-response-member` in responses.
  */
-export const dns_settings_nameserver_set_response_member_output: JsonSchema = {
+export const dns$$settings_nameserver$$set$$response$$member: JsonSchema = {
   "properties": {
     "ipv4": {
       "$ref": "#/$defs/dns-settings_nameserver-set-ipv4-addresses"
@@ -203,7 +203,7 @@ export const dns_settings_nameserver_set_response_member_output: JsonSchema = {
 /**
  * The schema of `dns-settings_nameserver-set-standard-response` in responses.
  */
-export const dns_settings_nameserver_set_standard_response_output: JsonSchema = {
+export const dns$$settings_nameserver$$set$$standard$$response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/dns-settings_nameserver-set-response-base"
@@ -237,7 +237,7 @@ export const dns_settings_nameserver_set_standard_response_output: JsonSchema = 
 /**
  * The schema of `dns-settings_nameserver_set_delete_response` in responses.
  */
-export const dns_settings_nameserver_set_delete_response_output: JsonSchema = {
+export const dns$$settings_nameserver_set_delete_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/dns-settings_api-response-single"
@@ -267,7 +267,7 @@ export const dns_settings_nameserver_set_delete_response_output: JsonSchema = {
 /**
  * The schema of `dns-settings_nameserver_set_response_collection` in responses.
  */
-export const dns_settings_nameserver_set_response_collection_output: JsonSchema = {
+export const dns$$settings_nameserver_set_response_collection: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/dns-settings_api-response-collection"
@@ -292,7 +292,7 @@ export const dns_settings_nameserver_set_response_collection_output: JsonSchema 
 /**
  * The schema of `dns-settings_nameserver_set_response_single` in responses.
  */
-export const dns_settings_nameserver_set_response_single_output: JsonSchema = {
+export const dns$$settings_nameserver_set_response_single: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/dns-settings_api-response-single"

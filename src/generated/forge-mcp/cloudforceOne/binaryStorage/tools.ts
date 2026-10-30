@@ -4,28 +4,36 @@
 import { type Tool, pathParam } from "../../_/tool.js";
 
 /**
- * The tools of `cloudforce_one.binary_storage`.
+ * The tools of `cloudforceOne.binaryStorage`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "cloudforce_one_binary_storage_get",
+    name: "cloudforceOne_binaryStorage_get",
     title: "Retrieves a file from Binary Storage",
     description: "Retrieves a binary file from the Cloudforce One binary storage for analysis.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "description": "Account ID.",
-          "type": "string"
-        },
-        "hash": {
-          "description": "hash of the binary",
-          "type": "string"
+        "path": {
+          "properties": {
+            "account_id": {
+              "description": "Account ID.",
+              "type": "string"
+            },
+            "hash": {
+              "description": "hash of the binary",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "hash"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "hash"
+        "path"
       ],
     },
     annotations: {

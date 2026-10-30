@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `cache-settings_regional_tiered_cache_value`.
  */
-export const cache_settings_regional_tiered_cache_value: JsonSchema = {
+export const cache$$settings_regional_tiered_cache_value: JsonSchema = {
   "description": "Value of the Regional Tiered Cache zone setting.",
   "enum": [
     "on",

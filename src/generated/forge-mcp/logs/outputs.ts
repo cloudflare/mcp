@@ -6,7 +6,7 @@ import type { JsonSchema } from "../_/tool.js";
 /**
  * The schema of `logshare_api-response-common-failure` in responses.
  */
-export const logshare_api_response_common_failure_output: JsonSchema = {
+export const logshare_api$$response$$common$$failure: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/logshare_messages"
@@ -36,7 +36,7 @@ export const logshare_api_response_common_failure_output: JsonSchema = {
 /**
  * The schema of `logshare_logs_response_json_lines` in responses.
  */
-export const logshare_logs_response_json_lines_output: JsonSchema = {
+export const logshare_logs_response_json_lines: JsonSchema = {
   "anyOf": [
     {
       "type": "string"
@@ -50,7 +50,7 @@ export const logshare_logs_response_json_lines_output: JsonSchema = {
 /**
  * The schema of `logshare_messages` in responses.
  */
-export const logshare_messages_output: JsonSchema = {
+export const logshare_messages: JsonSchema = {
   "items": {
     "properties": {
       "code": {

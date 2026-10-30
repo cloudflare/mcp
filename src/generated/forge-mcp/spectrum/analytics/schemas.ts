@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `spectrum-analytics_identifier`.
  */
-export const spectrum_analytics_identifier: JsonSchema = {
+export const spectrum$$analytics_identifier: JsonSchema = {
   "description": "Identifier.",
   "type": "string"
 };
@@ -14,7 +14,7 @@ export const spectrum_analytics_identifier: JsonSchema = {
 /**
  * The schema of `spectrum-analytics_since`.
  */
-export const spectrum_analytics_since: JsonSchema = {
+export const spectrum$$analytics_since: JsonSchema = {
   "allOf": [
     {
       "type": "string"
@@ -28,7 +28,7 @@ export const spectrum_analytics_since: JsonSchema = {
 /**
  * The schema of `spectrum-analytics_timestamp`.
  */
-export const spectrum_analytics_timestamp: JsonSchema = {
+export const spectrum$$analytics_timestamp: JsonSchema = {
   "format": "date-time",
   "type": "string"
 };
@@ -36,7 +36,7 @@ export const spectrum_analytics_timestamp: JsonSchema = {
 /**
  * The schema of `spectrum-analytics_until`.
  */
-export const spectrum_analytics_until: JsonSchema = {
+export const spectrum$$analytics_until: JsonSchema = {
   "allOf": [
     {
       "type": "string"

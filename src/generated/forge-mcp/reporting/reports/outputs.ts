@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `reports_ApplicationSecurityReportV1` in responses.
  */
-export const reports_ApplicationSecurityReportV1_output: JsonSchema = {
+export const reports_ApplicationSecurityReportV1: JsonSchema = {
   "properties": {
     "input": {
       "properties": {
@@ -61,7 +61,7 @@ export const reports_ApplicationSecurityReportV1_output: JsonSchema = {
 /**
  * The schema of `reports_ApplicationSecurityReportV1Data` in responses.
  */
-export const reports_ApplicationSecurityReportV1Data_output: JsonSchema = {
+export const reports_ApplicationSecurityReportV1Data: JsonSchema = {
   "properties": {
     "account_id": {
       "type": "string"
@@ -391,7 +391,7 @@ export const reports_ApplicationSecurityReportV1Data_output: JsonSchema = {
 /**
  * The schema of `reports_GetReportResponse` in responses.
  */
-export const reports_GetReportResponse_output: JsonSchema = {
+export const reports_GetReportResponse: JsonSchema = {
   "oneOf": [
     {
       "properties": {
@@ -554,7 +554,7 @@ export const reports_GetReportResponse_output: JsonSchema = {
 /**
  * The schema of `reports_ReportSingleResponse` in responses.
  */
-export const reports_ReportSingleResponse_output: JsonSchema = {
+export const reports_ReportSingleResponse: JsonSchema = {
   "properties": {
     "errors": {
       "items": {
@@ -588,7 +588,7 @@ export const reports_ReportSingleResponse_output: JsonSchema = {
 /**
  * The schema of `reports_ReportsListResponse` in responses.
  */
-export const reports_ReportsListResponse_output: JsonSchema = {
+export const reports_ReportsListResponse: JsonSchema = {
   "properties": {
     "errors": {
       "items": {

@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `billing-spend-policies_policy_activity_event` in responses.
  */
-export const billing_spend_policies_policy_activity_event_output: JsonSchema = {
+export const billing$$spend$$policies_policy_activity_event: JsonSchema = {
   "properties": {
     "action": {
       "enum": [
@@ -72,7 +72,7 @@ export const billing_spend_policies_policy_activity_event_output: JsonSchema = {
 /**
  * The schema of `billing-spend-policies_policy_activity_response` in responses.
  */
-export const billing_spend_policies_policy_activity_response_output: JsonSchema = {
+export const billing$$spend$$policies_policy_activity_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/billing-spend-policies_api-response-common-success"

@@ -6,6 +6,6 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `access_doh_jwt_duration` in responses.
  */
-export const access_doh_jwt_duration_output: JsonSchema = {
+export const access_doh_jwt_duration: JsonSchema = {
   "type": "string"
 };

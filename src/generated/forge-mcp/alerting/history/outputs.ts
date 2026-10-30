@@ -6,21 +6,21 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `aaa_alert_body` in responses.
  */
-export const aaa_alert_body_output: JsonSchema = {
+export const aaa_alert_body: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `aaa_components-schemas-description` in responses.
  */
-export const aaa_components_schemas_description_output: JsonSchema = {
+export const aaa_components$$schemas$$description: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `aaa_history` in responses.
  */
-export const aaa_history_output: JsonSchema = {
+export const aaa_history: JsonSchema = {
   "properties": {
     "alert_body": {
       "$ref": "#/$defs/aaa_alert_body"
@@ -57,7 +57,7 @@ export const aaa_history_output: JsonSchema = {
  * The schema of `aaa_history_components-schemas-response_collection` in
  * responses.
  */
-export const aaa_history_components_schemas_response_collection_output: JsonSchema = {
+export const aaa_history_components$$schemas$$response_collection: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/aaa_api-response-collection"
@@ -82,14 +82,14 @@ export const aaa_history_components_schemas_response_collection_output: JsonSche
 /**
  * The schema of `aaa_mechanism` in responses.
  */
-export const aaa_mechanism_output: JsonSchema = {
+export const aaa_mechanism: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `aaa_mechanism_type` in responses.
  */
-export const aaa_mechanism_type_output: JsonSchema = {
+export const aaa_mechanism_type: JsonSchema = {
   "enum": [
     "email",
     "pagerduty",
@@ -101,14 +101,14 @@ export const aaa_mechanism_type_output: JsonSchema = {
 /**
  * The schema of `aaa_schemas-alert_type` in responses.
  */
-export const aaa_schemas_alert_type_output: JsonSchema = {
+export const aaa_schemas$$alert_type: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `aaa_sent` in responses.
  */
-export const aaa_sent_output: JsonSchema = {
+export const aaa_sent: JsonSchema = {
   "format": "date-time",
   "type": "string"
 };

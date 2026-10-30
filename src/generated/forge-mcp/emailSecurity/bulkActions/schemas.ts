@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `email-security_BulkActionRequest`.
  */
-export const email_security_BulkActionRequest: JsonSchema = {
+export const email$$security_BulkActionRequest: JsonSchema = {
   "properties": {
     "action": {
       "description": "The action the job performs on every message matching the search parameters.",
@@ -57,7 +57,7 @@ export const email_security_BulkActionRequest: JsonSchema = {
 /**
  * The schema of `email-security_BulkJobId`.
  */
-export const email_security_BulkJobId: JsonSchema = {
+export const email$$security_BulkJobId: JsonSchema = {
   "description": "Bulk action job identifier.",
   "format": "uuid",
   "type": "string"
@@ -66,7 +66,7 @@ export const email_security_BulkJobId: JsonSchema = {
 /**
  * The schema of `email-security_BulkJobStatus`.
  */
-export const email_security_BulkJobStatus: JsonSchema = {
+export const email$$security_BulkJobStatus: JsonSchema = {
   "description": "Status of a bulk action job.",
   "enum": [
     "PENDING",
@@ -82,7 +82,7 @@ export const email_security_BulkJobStatus: JsonSchema = {
 /**
  * The schema of `email-security_BulkSearchParams`.
  */
-export const email_security_BulkSearchParams: JsonSchema = {
+export const email$$security_BulkSearchParams: JsonSchema = {
   "properties": {
     "action_log": {
       "default": false,

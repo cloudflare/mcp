@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../../_/tool.js";
 /**
  * The schema of `access_last_seen_identity_response` in responses.
  */
-export const access_last_seen_identity_response_output: JsonSchema = {
+export const access_last_seen_identity_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/access_api-response-single"

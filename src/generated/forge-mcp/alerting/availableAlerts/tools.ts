@@ -3,54 +3,62 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
-  aaa_api_response_common_2_output,
-  aaa_api_response_common_failure_3_output,
-  aaa_messages_3_output,
+  aaa_api$$response$$common$$2,
+  aaa_api$$response$$common$$failure$$3,
+  aaa_messages$$3,
 } from "../outputs.js";
-import { aaa_account_id } from "../schemas.js";
+import { aaa_account$$id } from "../schemas.js";
 import {
-  aaa_alert_types_output,
-  aaa_alerts_response_collection_output,
-  aaa_description_output,
-  aaa_display_name_output,
-  aaa_filter_options_output,
-  aaa_type_output,
+  aaa_alert$$types,
+  aaa_alerts$$response_collection,
+  aaa_description,
+  aaa_display_name,
+  aaa_filter_options,
+  aaa_type,
 } from "./outputs.js";
 
 /**
- * The tools of `alerting.available_alerts`.
+ * The tools of `alerting.availableAlerts`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "alerting_available_alerts_list",
+    name: "alerting_availableAlerts_list",
     title: "Get Alert Types",
     description: "Gets a list of all alert types for which an account is eligible.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/aaa_account-id",
-          "description": "The account id"
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/aaa_account-id",
+              "description": "The account id"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id"
+        "path"
       ],
       $defs: {
-        "aaa_account-id": aaa_account_id,
+        "aaa_account-id": aaa_account$$id,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/aaa_alerts-response_collection",
       $defs: {
-        "aaa_alert-types": aaa_alert_types_output,
-        "aaa_alerts-response_collection": aaa_alerts_response_collection_output,
-        "aaa_api-response-common-2": aaa_api_response_common_2_output,
-        "aaa_description": aaa_description_output,
-        "aaa_display_name": aaa_display_name_output,
-        "aaa_filter_options": aaa_filter_options_output,
-        "aaa_messages-3": aaa_messages_3_output,
-        "aaa_type": aaa_type_output,
+        "aaa_alert-types": aaa_alert$$types,
+        "aaa_alerts-response_collection": aaa_alerts$$response_collection,
+        "aaa_api-response-common-2": aaa_api$$response$$common$$2,
+        "aaa_description": aaa_description,
+        "aaa_display_name": aaa_display_name,
+        "aaa_filter_options": aaa_filter_options,
+        "aaa_messages-3": aaa_messages$$3,
+        "aaa_type": aaa_type,
       },
     },
     annotations: {
@@ -81,15 +89,15 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "aaa_alert-types": aaa_alert_types_output,
-        "aaa_alerts-response_collection": aaa_alerts_response_collection_output,
-        "aaa_api-response-common-2": aaa_api_response_common_2_output,
-        "aaa_api-response-common-failure-3": aaa_api_response_common_failure_3_output,
-        "aaa_description": aaa_description_output,
-        "aaa_display_name": aaa_display_name_output,
-        "aaa_filter_options": aaa_filter_options_output,
-        "aaa_messages-3": aaa_messages_3_output,
-        "aaa_type": aaa_type_output,
+        "aaa_alert-types": aaa_alert$$types,
+        "aaa_alerts-response_collection": aaa_alerts$$response_collection,
+        "aaa_api-response-common-2": aaa_api$$response$$common$$2,
+        "aaa_api-response-common-failure-3": aaa_api$$response$$common$$failure$$3,
+        "aaa_description": aaa_description,
+        "aaa_display_name": aaa_display_name,
+        "aaa_filter_options": aaa_filter_options,
+        "aaa_messages-3": aaa_messages$$3,
+        "aaa_type": aaa_type,
       },
     },
     request: (args) => ({

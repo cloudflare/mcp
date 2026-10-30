@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../../_/tool.js";
 /**
  * The schema of `digital-experience-monitoring_command_id`.
  */
-export const digital_experience_monitoring_command_id: JsonSchema = {
+export const digital$$experience$$monitoring_command_id: JsonSchema = {
   "description": "Unique identifier for a command",
   "type": "string"
 };

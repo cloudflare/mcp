@@ -4,20 +4,16 @@
 import { type Tool, pathParam } from "../../../../../_/tool.js";
 
 /**
- * The tools of `cloudforce_one.threat_intel.datasets.access.permissions`.
+ * The tools of `cloudforceOne.threatIntel.datasets.access.permissions`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "cloudforce_one_threat_intel_datasets_access_permissions_create",
+    name: "cloudforceOne_threatIntel_datasets_access_permissions_create",
     title: "Grant access to a dataset",
     description: "Gives an account or account group (`subjectType` and `subjectId`) `read` or `write` access to a dataset.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "description": "Account ID.",
-          "type": "string"
-        },
         "body": {
           "properties": {
             "role": {
@@ -45,15 +41,27 @@ export const tools: readonly Tool[] = [
           ],
           "type": "object"
         },
-        "dataset_id": {
-          "description": "Dataset UUID.",
-          "format": "uuid",
-          "type": "string"
+        "path": {
+          "properties": {
+            "account_id": {
+              "description": "Account ID.",
+              "type": "string"
+            },
+            "dataset_id": {
+              "description": "Dataset UUID.",
+              "format": "uuid",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "dataset_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "dataset_id"
+        "path"
       ],
     },
     outputSchema: {
@@ -213,29 +221,37 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "cloudforce_one_threat_intel_datasets_access_permissions_delete",
+    name: "cloudforceOne_threatIntel_datasets_access_permissions_delete",
     title: "Revoke access to a dataset",
     description: "Removes an access grant from a dataset.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "description": "Account ID.",
-          "type": "string"
-        },
-        "dataset_id": {
-          "description": "Dataset UUID.",
-          "format": "uuid",
-          "type": "string"
-        },
-        "grant_id": {
-          "type": "string"
+        "path": {
+          "properties": {
+            "account_id": {
+              "description": "Account ID.",
+              "type": "string"
+            },
+            "dataset_id": {
+              "description": "Dataset UUID.",
+              "format": "uuid",
+              "type": "string"
+            },
+            "grant_id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "dataset_id",
+            "grant_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "dataset_id",
-        "grant_id"
+        "path"
       ],
     },
     outputSchema: {
@@ -343,25 +359,33 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "cloudforce_one_threat_intel_datasets_access_permissions_list",
+    name: "cloudforceOne_threatIntel_datasets_access_permissions_list",
     title: "List dataset permissions",
     description: "Lists the access grants on a dataset.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "description": "Account ID.",
-          "type": "string"
-        },
-        "dataset_id": {
-          "description": "Dataset UUID.",
-          "format": "uuid",
-          "type": "string"
+        "path": {
+          "properties": {
+            "account_id": {
+              "description": "Account ID.",
+              "type": "string"
+            },
+            "dataset_id": {
+              "description": "Dataset UUID.",
+              "format": "uuid",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "dataset_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "dataset_id"
+        "path"
       ],
     },
     outputSchema: {
@@ -556,16 +580,12 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "cloudforce_one_threat_intel_datasets_access_permissions_update",
+    name: "cloudforceOne_threatIntel_datasets_access_permissions_update",
     title: "Change a dataset permission",
     description: "Changes the `role` of an access grant to `read` or `write`.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "description": "Account ID.",
-          "type": "string"
-        },
         "body": {
           "properties": {
             "role": {
@@ -581,19 +601,31 @@ export const tools: readonly Tool[] = [
           ],
           "type": "object"
         },
-        "dataset_id": {
-          "description": "Dataset UUID.",
-          "format": "uuid",
-          "type": "string"
-        },
-        "grant_id": {
-          "type": "string"
+        "path": {
+          "properties": {
+            "account_id": {
+              "description": "Account ID.",
+              "type": "string"
+            },
+            "dataset_id": {
+              "description": "Dataset UUID.",
+              "format": "uuid",
+              "type": "string"
+            },
+            "grant_id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "dataset_id",
+            "grant_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "dataset_id",
-        "grant_id"
+        "path"
       ],
     },
     outputSchema: {

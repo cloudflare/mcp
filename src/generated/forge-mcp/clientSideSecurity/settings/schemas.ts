@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `client-side-security_enabled`.
  */
-export const client_side_security_enabled: JsonSchema = {
+export const client$$side$$security_enabled: JsonSchema = {
   "description": "When true, indicates that Client-Side Security is enabled.",
   "type": "boolean"
 };
@@ -14,7 +14,7 @@ export const client_side_security_enabled: JsonSchema = {
 /**
  * The schema of `client-side-security_use_cloudflare_reporting_endpoint`.
  */
-export const client_side_security_use_cloudflare_reporting_endpoint: JsonSchema = {
+export const client$$side$$security_use_cloudflare_reporting_endpoint: JsonSchema = {
   "description": "When true, CSP reports will be sent to https://csp-reporting.cloudflare.com/cdn-cgi/script_monitor/report",
   "type": "boolean"
 };
@@ -22,7 +22,7 @@ export const client_side_security_use_cloudflare_reporting_endpoint: JsonSchema 
 /**
  * The schema of `client-side-security_use_connection_url_path`.
  */
-export const client_side_security_use_connection_url_path: JsonSchema = {
+export const client$$side$$security_use_connection_url_path: JsonSchema = {
   "description": "When true, the paths associated with connections URLs will also be analyzed.",
   "type": "boolean"
 };

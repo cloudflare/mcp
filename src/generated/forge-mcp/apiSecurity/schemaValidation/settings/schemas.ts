@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `api-shield_global_setting_change_base`.
  */
-export const api_shield_global_setting_change_base: JsonSchema = {
+export const api$$shield_global_setting_change_base: JsonSchema = {
   "properties": {
     "validation_default_mitigation_action": {
       "description": "The default mitigation action used\nMitigation actions are as follows:\n\n  - `\"log\"` - log request when request does not conform to schema\n  - `\"block\"` - deny access to the site when request does not conform to schema\n  - `\"none\"` - skip running schema validation\n",

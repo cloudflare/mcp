@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `email-security_DeletedTrustedDomain` in responses.
  */
-export const email_security_DeletedTrustedDomain_output: JsonSchema = {
+export const email$$security_DeletedTrustedDomain: JsonSchema = {
   "properties": {
     "id": {
       "$ref": "#/$defs/email-security_TrustedDomainId"
@@ -21,7 +21,7 @@ export const email_security_DeletedTrustedDomain_output: JsonSchema = {
 /**
  * The schema of `email-security_TrustedDomain` in responses.
  */
-export const email_security_TrustedDomain_output: JsonSchema = {
+export const email$$security_TrustedDomain: JsonSchema = {
   "properties": {
     "comments": {
       "oneOf": [
@@ -64,7 +64,7 @@ export const email_security_TrustedDomain_output: JsonSchema = {
 /**
  * The schema of `email-security_TrustedDomainId` in responses.
  */
-export const email_security_TrustedDomainId_output: JsonSchema = {
+export const email$$security_TrustedDomainId: JsonSchema = {
   "format": "uuid",
   "type": "string"
 };
@@ -72,7 +72,7 @@ export const email_security_TrustedDomainId_output: JsonSchema = {
 /**
  * The schema of `email-security_TrustedDomainList` in responses.
  */
-export const email_security_TrustedDomainList_output: JsonSchema = {
+export const email$$security_TrustedDomainList: JsonSchema = {
   "items": {
     "$ref": "#/$defs/email-security_TrustedDomain"
   },

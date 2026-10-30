@@ -58,7 +58,7 @@ export const iam_account: JsonSchema = {
 /**
  * The schema of `iam_components-schemas-account`.
  */
-export const iam_components_schemas_account: JsonSchema = {
+export const iam_components$$schemas$$account: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/iam_account"
@@ -78,7 +78,7 @@ export const iam_components_schemas_account: JsonSchema = {
 /**
  * The schema of `iam_create-account`.
  */
-export const iam_create_account: JsonSchema = {
+export const iam_create$$account: JsonSchema = {
   "description": "Create Account",
   "properties": {
     "name": {
@@ -135,7 +135,7 @@ export const iam_role: JsonSchema = {
 /**
  * The schema of `iam_role_components-schemas-identifier`.
  */
-export const iam_role_components_schemas_identifier: JsonSchema = {
+export const iam_role_components$$schemas$$identifier: JsonSchema = {
   "description": "Role identifier tag.",
   "type": "string"
 };

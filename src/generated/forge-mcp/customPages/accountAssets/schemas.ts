@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `custom-pages_asset_description`.
  */
-export const custom_pages_asset_description: JsonSchema = {
+export const custom$$pages_asset_description: JsonSchema = {
   "description": "A short description of the custom asset.",
   "type": "string"
 };
@@ -14,7 +14,7 @@ export const custom_pages_asset_description: JsonSchema = {
 /**
  * The schema of `custom-pages_asset_name`.
  */
-export const custom_pages_asset_name: JsonSchema = {
+export const custom$$pages_asset_name: JsonSchema = {
   "description": "The unique name of the custom asset. Can only contain letters (A-Z, a-z), numbers (0-9), and underscores (_).",
   "type": "string"
 };
@@ -22,7 +22,7 @@ export const custom_pages_asset_name: JsonSchema = {
 /**
  * The schema of `custom-pages_asset_url`.
  */
-export const custom_pages_asset_url: JsonSchema = {
+export const custom$$pages_asset_url: JsonSchema = {
   "description": "The URL where the asset content is fetched from.",
   "type": "string"
 };

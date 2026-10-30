@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `dlp_RegexValidationResult` in responses.
  */
-export const dlp_RegexValidationResult_output: JsonSchema = {
+export const dlp_RegexValidationResult: JsonSchema = {
   "properties": {
     "valid": {
       "type": "boolean"

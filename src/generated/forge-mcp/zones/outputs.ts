@@ -6,7 +6,7 @@ import type { JsonSchema } from "../_/tool.js";
 /**
  * The schema of `bill-subs-api_schemas-frequency` in responses.
  */
-export const bill_subs_api_schemas_frequency_output: JsonSchema = {
+export const bill$$subs$$api_schemas$$frequency: JsonSchema = {
   "enum": [
     "weekly",
     "monthly",
@@ -19,14 +19,14 @@ export const bill_subs_api_schemas_frequency_output: JsonSchema = {
 /**
  * The schema of `bill-subs-api_schemas-name` in responses.
  */
-export const bill_subs_api_schemas_name_output: JsonSchema = {
+export const bill$$subs$$api_schemas$$name: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `zones_api-response-common` in responses.
  */
-export const zones_api_response_common_output: JsonSchema = {
+export const zones_api$$response$$common: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/zones_messages"
@@ -49,7 +49,7 @@ export const zones_api_response_common_output: JsonSchema = {
 /**
  * The schema of `zones_api-response-common-failure` in responses.
  */
-export const zones_api_response_common_failure_output: JsonSchema = {
+export const zones_api$$response$$common$$failure: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/zones_messages"
@@ -83,7 +83,7 @@ export const zones_api_response_common_failure_output: JsonSchema = {
 /**
  * The schema of `zones_api-response-single-id` in responses.
  */
-export const zones_api_response_single_id_output: JsonSchema = {
+export const zones_api$$response$$single$$id: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/zones_api-response-common"
@@ -117,14 +117,14 @@ export const zones_api_response_single_id_output: JsonSchema = {
 /**
  * The schema of `zones_identifier` in responses.
  */
-export const zones_identifier_output: JsonSchema = {
+export const zones_identifier: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `zones_messages` in responses.
  */
-export const zones_messages_output: JsonSchema = {
+export const zones_messages: JsonSchema = {
   "items": {
     "properties": {
       "code": {
@@ -146,14 +146,14 @@ export const zones_messages_output: JsonSchema = {
 /**
  * The schema of `zones_paused` in responses.
  */
-export const zones_paused_output: JsonSchema = {
+export const zones_paused: JsonSchema = {
   "type": "boolean"
 };
 
 /**
  * The schema of `zones_result_info` in responses.
  */
-export const zones_result_info_output: JsonSchema = {
+export const zones_result_info: JsonSchema = {
   "properties": {
     "count": {
       "type": "number"
@@ -177,7 +177,7 @@ export const zones_result_info_output: JsonSchema = {
 /**
  * The schema of `zones_type` in responses.
  */
-export const zones_type_output: JsonSchema = {
+export const zones_type: JsonSchema = {
   "enum": [
     "full",
     "partial",
@@ -190,7 +190,7 @@ export const zones_type_output: JsonSchema = {
 /**
  * The schema of `zones_zone` in responses.
  */
-export const zones_zone_output: JsonSchema = {
+export const zones_zone: JsonSchema = {
   "properties": {
     "account": {
       "properties": {

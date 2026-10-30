@@ -6,14 +6,14 @@ import type { JsonSchema } from "../_/tool.js";
 /**
  * The schema of `healthchecks_address` in responses.
  */
-export const healthchecks_address_output: JsonSchema = {
+export const healthchecks_address: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `healthchecks_api-response-collection` in responses.
  */
-export const healthchecks_api_response_collection_output: JsonSchema = {
+export const healthchecks_api$$response$$collection: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/healthchecks_api-response-common"
@@ -45,7 +45,7 @@ export const healthchecks_api_response_collection_output: JsonSchema = {
 /**
  * The schema of `healthchecks_api-response-common` in responses.
  */
-export const healthchecks_api_response_common_output: JsonSchema = {
+export const healthchecks_api$$response$$common: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/healthchecks_messages"
@@ -88,7 +88,7 @@ export const healthchecks_api_response_common_output: JsonSchema = {
 /**
  * The schema of `healthchecks_api-response-common-failure` in responses.
  */
-export const healthchecks_api_response_common_failure_output: JsonSchema = {
+export const healthchecks_api$$response$$common$$failure: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/healthchecks_messages"
@@ -118,7 +118,7 @@ export const healthchecks_api_response_common_failure_output: JsonSchema = {
 /**
  * The schema of `healthchecks_api-response-single` in responses.
  */
-export const healthchecks_api_response_single_output: JsonSchema = {
+export const healthchecks_api$$response$$single: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/healthchecks_api-response-common"
@@ -144,7 +144,7 @@ export const healthchecks_api_response_single_output: JsonSchema = {
 /**
  * The schema of `healthchecks_check_regions` in responses.
  */
-export const healthchecks_check_regions_output: JsonSchema = {
+export const healthchecks_check_regions: JsonSchema = {
   "oneOf": [
     {
       "items": {
@@ -177,35 +177,35 @@ export const healthchecks_check_regions_output: JsonSchema = {
 /**
  * The schema of `healthchecks_consecutive_fails` in responses.
  */
-export const healthchecks_consecutive_fails_output: JsonSchema = {
+export const healthchecks_consecutive_fails: JsonSchema = {
   "type": "integer"
 };
 
 /**
  * The schema of `healthchecks_consecutive_successes` in responses.
  */
-export const healthchecks_consecutive_successes_output: JsonSchema = {
+export const healthchecks_consecutive_successes: JsonSchema = {
   "type": "integer"
 };
 
 /**
  * The schema of `healthchecks_description` in responses.
  */
-export const healthchecks_description_output: JsonSchema = {
+export const healthchecks_description: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `healthchecks_failure_reason` in responses.
  */
-export const healthchecks_failure_reason_output: JsonSchema = {
+export const healthchecks_failure_reason: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `healthchecks_healthchecks` in responses.
  */
-export const healthchecks_healthchecks_output: JsonSchema = {
+export const healthchecks_healthchecks: JsonSchema = {
   "properties": {
     "address": {
       "$ref": "#/$defs/healthchecks_address"
@@ -268,7 +268,7 @@ export const healthchecks_healthchecks_output: JsonSchema = {
 /**
  * The schema of `healthchecks_http_config` in responses.
  */
-export const healthchecks_http_config_output: JsonSchema = {
+export const healthchecks_http_config: JsonSchema = {
   "oneOf": [
     {
       "properties": {
@@ -335,7 +335,7 @@ export const healthchecks_http_config_output: JsonSchema = {
 /**
  * The schema of `healthchecks_id_response` in responses.
  */
-export const healthchecks_id_response_output: JsonSchema = {
+export const healthchecks_id_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/healthchecks_api-response-single"
@@ -359,21 +359,21 @@ export const healthchecks_id_response_output: JsonSchema = {
 /**
  * The schema of `healthchecks_identifier` in responses.
  */
-export const healthchecks_identifier_output: JsonSchema = {
+export const healthchecks_identifier: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `healthchecks_interval` in responses.
  */
-export const healthchecks_interval_output: JsonSchema = {
+export const healthchecks_interval: JsonSchema = {
   "type": "integer"
 };
 
 /**
  * The schema of `healthchecks_messages` in responses.
  */
-export const healthchecks_messages_output: JsonSchema = {
+export const healthchecks_messages: JsonSchema = {
   "items": {
     "properties": {
       "code": {
@@ -395,14 +395,14 @@ export const healthchecks_messages_output: JsonSchema = {
 /**
  * The schema of `healthchecks_name` in responses.
  */
-export const healthchecks_name_output: JsonSchema = {
+export const healthchecks_name: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `healthchecks_response_collection` in responses.
  */
-export const healthchecks_response_collection_output: JsonSchema = {
+export const healthchecks_response_collection: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/healthchecks_api-response-collection"
@@ -424,7 +424,7 @@ export const healthchecks_response_collection_output: JsonSchema = {
 /**
  * The schema of `healthchecks_result_info` in responses.
  */
-export const healthchecks_result_info_output: JsonSchema = {
+export const healthchecks_result_info: JsonSchema = {
   "properties": {
     "count": {
       "type": "number"
@@ -445,14 +445,14 @@ export const healthchecks_result_info_output: JsonSchema = {
 /**
  * The schema of `healthchecks_retries` in responses.
  */
-export const healthchecks_retries_output: JsonSchema = {
+export const healthchecks_retries: JsonSchema = {
   "type": "integer"
 };
 
 /**
  * The schema of `healthchecks_single_response` in responses.
  */
-export const healthchecks_single_response_output: JsonSchema = {
+export const healthchecks_single_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/healthchecks_api-response-single"
@@ -471,7 +471,7 @@ export const healthchecks_single_response_output: JsonSchema = {
 /**
  * The schema of `healthchecks_status` in responses.
  */
-export const healthchecks_status_output: JsonSchema = {
+export const healthchecks_status: JsonSchema = {
   "enum": [
     "unknown",
     "healthy",
@@ -484,14 +484,14 @@ export const healthchecks_status_output: JsonSchema = {
 /**
  * The schema of `healthchecks_suspended` in responses.
  */
-export const healthchecks_suspended_output: JsonSchema = {
+export const healthchecks_suspended: JsonSchema = {
   "type": "boolean"
 };
 
 /**
  * The schema of `healthchecks_tcp_config` in responses.
  */
-export const healthchecks_tcp_config_output: JsonSchema = {
+export const healthchecks_tcp_config: JsonSchema = {
   "oneOf": [
     {
       "properties": {
@@ -516,14 +516,14 @@ export const healthchecks_tcp_config_output: JsonSchema = {
 /**
  * The schema of `healthchecks_timeout` in responses.
  */
-export const healthchecks_timeout_output: JsonSchema = {
+export const healthchecks_timeout: JsonSchema = {
   "type": "integer"
 };
 
 /**
  * The schema of `healthchecks_timestamp` in responses.
  */
-export const healthchecks_timestamp_output: JsonSchema = {
+export const healthchecks_timestamp: JsonSchema = {
   "format": "date-time",
   "type": "string"
 };
@@ -531,6 +531,6 @@ export const healthchecks_timestamp_output: JsonSchema = {
 /**
  * The schema of `healthchecks_type` in responses.
  */
-export const healthchecks_type_output: JsonSchema = {
+export const healthchecks_type: JsonSchema = {
   "type": "string"
 };

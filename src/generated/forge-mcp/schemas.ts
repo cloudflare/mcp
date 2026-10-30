@@ -14,7 +14,7 @@ export const aaa_identifier: JsonSchema = {
 /**
  * The schema of `analytics-sql_SqlQueryAccountScope`.
  */
-export const analytics_sql_SqlQueryAccountScope: JsonSchema = {
+export const analytics$$sql_SqlQueryAccountScope: JsonSchema = {
   "properties": {
     "accountTag": {
       "description": "Account tag used to authorize and scope the query. Must be a 32-character lowercase hex string.\n",
@@ -30,7 +30,7 @@ export const analytics_sql_SqlQueryAccountScope: JsonSchema = {
 /**
  * The schema of `analytics-sql_SqlQueryRequest`.
  */
-export const analytics_sql_SqlQueryRequest: JsonSchema = {
+export const analytics$$sql_SqlQueryRequest: JsonSchema = {
   "properties": {
     "params": {
       "description": "Positional array values for `$1`, `$2`, and similar placeholders, or named object values for placeholders such as `$status`.\n",
@@ -80,7 +80,7 @@ export const analytics_sql_SqlQueryRequest: JsonSchema = {
 /**
  * The schema of `analytics-sql_SqlQueryScope`.
  */
-export const analytics_sql_SqlQueryScope: JsonSchema = {
+export const analytics$$sql_SqlQueryScope: JsonSchema = {
   "description": "Account or zone scope applied to the query. Include exactly one scope tag. Do not include account or zone tenancy predicates in the SQL query when this field is present.\n",
   "oneOf": [
     {
@@ -95,7 +95,7 @@ export const analytics_sql_SqlQueryScope: JsonSchema = {
 /**
  * The schema of `analytics-sql_SqlQueryTimeRange`.
  */
-export const analytics_sql_SqlQueryTimeRange: JsonSchema = {
+export const analytics$$sql_SqlQueryTimeRange: JsonSchema = {
   "description": "Time bounds applied to the dataset's timestamp column. Do not include timestamp predicates in the SQL query when this field is present.\n",
   "properties": {
     "end": {
@@ -116,7 +116,7 @@ export const analytics_sql_SqlQueryTimeRange: JsonSchema = {
 /**
  * The schema of `analytics-sql_SqlQueryZoneScope`.
  */
-export const analytics_sql_SqlQueryZoneScope: JsonSchema = {
+export const analytics$$sql_SqlQueryZoneScope: JsonSchema = {
   "properties": {
     "zoneTag": {
       "description": "Zone tag used to authorize and scope the query. Must be a 32-character lowercase hex string.\n",
@@ -132,7 +132,7 @@ export const analytics_sql_SqlQueryZoneScope: JsonSchema = {
 /**
  * The schema of `api-shield_basic_operation`.
  */
-export const api_shield_basic_operation: JsonSchema = {
+export const api$$shield_basic_operation: JsonSchema = {
   "properties": {
     "endpoint": {
       "$ref": "#/$defs/api-shield_endpoint",
@@ -158,7 +158,7 @@ export const api_shield_basic_operation: JsonSchema = {
 /**
  * The schema of `api-shield_endpoint`.
  */
-export const api_shield_endpoint: JsonSchema = {
+export const api$$shield_endpoint: JsonSchema = {
   "description": "The endpoint which can contain path parameter templates in curly braces, each will be replaced from left to right with {varN}, starting with {var1}, during insertion. This will further be Cloudflare-normalized upon insertion. See: https://developers.cloudflare.com/rules/normalization/how-it-works/.",
   "type": "string"
 };
@@ -166,7 +166,7 @@ export const api_shield_endpoint: JsonSchema = {
 /**
  * The schema of `api-shield_host`.
  */
-export const api_shield_host: JsonSchema = {
+export const api$$shield_host: JsonSchema = {
   "description": "RFC3986-compliant host.",
   "type": "string"
 };
@@ -174,7 +174,7 @@ export const api_shield_host: JsonSchema = {
 /**
  * The schema of `api-shield_identifier`.
  */
-export const api_shield_identifier: JsonSchema = {
+export const api$$shield_identifier: JsonSchema = {
   "description": "Identifier.",
   "type": "string"
 };
@@ -182,7 +182,7 @@ export const api_shield_identifier: JsonSchema = {
 /**
  * The schema of `api-shield_identifier-2`.
  */
-export const api_shield_identifier_2: JsonSchema = {
+export const api$$shield_identifier$$2: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/api-shield_identifier"
@@ -196,7 +196,7 @@ export const api_shield_identifier_2: JsonSchema = {
 /**
  * The schema of `api-shield_method`.
  */
-export const api_shield_method: JsonSchema = {
+export const api$$shield_method: JsonSchema = {
   "description": "The HTTP method used to access the endpoint.",
   "enum": [
     "GET",
@@ -215,7 +215,7 @@ export const api_shield_method: JsonSchema = {
 /**
  * The schema of `api-shield_uuid`.
  */
-export const api_shield_uuid: JsonSchema = {
+export const api$$shield_uuid: JsonSchema = {
   "description": "UUID.",
   "type": "string"
 };
@@ -223,7 +223,7 @@ export const api_shield_uuid: JsonSchema = {
 /**
  * The schema of `api-shield_uuid-2`.
  */
-export const api_shield_uuid_2: JsonSchema = {
+export const api$$shield_uuid$$2: JsonSchema = {
   "allOf": [
     {
       "type": "string"
@@ -237,7 +237,7 @@ export const api_shield_uuid_2: JsonSchema = {
 /**
  * The schema of `bill-subs-api_component_value`.
  */
-export const bill_subs_api_component_value: JsonSchema = {
+export const bill$$subs$$api_component_value: JsonSchema = {
   "description": "A component value for a subscription.",
   "properties": {
     "default": {
@@ -276,7 +276,7 @@ export const bill_subs_api_component_value: JsonSchema = {
 /**
  * The schema of `bill-subs-api_component_values`.
  */
-export const bill_subs_api_component_values: JsonSchema = {
+export const bill$$subs$$api_component_values: JsonSchema = {
   "description": "Configurable component values for the subscription.",
   "items": {
     "$ref": "#/$defs/bill-subs-api_component_value"
@@ -287,7 +287,7 @@ export const bill_subs_api_component_values: JsonSchema = {
 /**
  * The schema of `bill-subs-api_frequency`.
  */
-export const bill_subs_api_frequency: JsonSchema = {
+export const bill$$subs$$api_frequency: JsonSchema = {
   "description": "How often the subscription is renewed automatically.",
   "enum": [
     "weekly",
@@ -301,7 +301,7 @@ export const bill_subs_api_frequency: JsonSchema = {
 /**
  * The schema of `bill-subs-api_identifier`.
  */
-export const bill_subs_api_identifier: JsonSchema = {
+export const bill$$subs$$api_identifier: JsonSchema = {
   "description": "Identifier",
   "type": "string"
 };
@@ -309,7 +309,7 @@ export const bill_subs_api_identifier: JsonSchema = {
 /**
  * The schema of `bill-subs-api_install_id`.
  */
-export const bill_subs_api_install_id: JsonSchema = {
+export const bill$$subs$$api_install_id: JsonSchema = {
   "deprecated": true,
   "description": "app install id.",
   "type": "string"
@@ -318,7 +318,7 @@ export const bill_subs_api_install_id: JsonSchema = {
 /**
  * The schema of `bill-subs-api_rate_plan`.
  */
-export const bill_subs_api_rate_plan: JsonSchema = {
+export const bill$$subs$$api_rate_plan: JsonSchema = {
   "description": "The rate plan applied to the subscription.",
   "properties": {
     "currency": {
@@ -359,7 +359,7 @@ export const bill_subs_api_rate_plan: JsonSchema = {
 /**
  * The schema of `bill-subs-api_schemas-identifier`.
  */
-export const bill_subs_api_schemas_identifier: JsonSchema = {
+export const bill$$subs$$api_schemas$$identifier: JsonSchema = {
   "description": "Subscription identifier tag.",
   "type": "string"
 };
@@ -367,7 +367,7 @@ export const bill_subs_api_schemas_identifier: JsonSchema = {
 /**
  * The schema of `bill-subs-api_subscription-v2`.
  */
-export const bill_subs_api_subscription_v2: JsonSchema = {
+export const bill$$subs$$api_subscription$$v2: JsonSchema = {
   "properties": {
     "app": {
       "deprecated": true,
@@ -402,7 +402,7 @@ export const bill_subs_api_subscription_v2: JsonSchema = {
 /**
  * The schema of `bill-subs-api_zone`.
  */
-export const bill_subs_api_zone: JsonSchema = {
+export const bill$$subs$$api_zone: JsonSchema = {
   "description": "A simple zone object. May have null properties if not a zone subscription.",
   "type": "object"
 };
@@ -410,7 +410,7 @@ export const bill_subs_api_zone: JsonSchema = {
 /**
  * The schema of `billable-usage-api_identifier`.
  */
-export const billable_usage_api_identifier: JsonSchema = {
+export const billable$$usage$$api_identifier: JsonSchema = {
   "description": "Represents a Cloudflare resource identifier tag.",
   "type": "string"
 };
@@ -804,7 +804,7 @@ export const builds_trigger_uuid: JsonSchema = {
 /**
  * The schema of `cache-settings_identifier`.
  */
-export const cache_settings_identifier: JsonSchema = {
+export const cache$$settings_identifier: JsonSchema = {
   "description": "Identifier.",
   "type": "string"
 };
@@ -812,7 +812,7 @@ export const cache_settings_identifier: JsonSchema = {
 /**
  * The schema of `dns-custom-nameservers_CustomNSInput`.
  */
-export const dns_custom_nameservers_CustomNSInput: JsonSchema = {
+export const dns$$custom$$nameservers_CustomNSInput: JsonSchema = {
   "description": "Custom NS Input",
   "properties": {
     "ns_name": {
@@ -834,7 +834,7 @@ export const dns_custom_nameservers_CustomNSInput: JsonSchema = {
 /**
  * The schema of `dns-custom-nameservers_ns_name`.
  */
-export const dns_custom_nameservers_ns_name: JsonSchema = {
+export const dns$$custom$$nameservers_ns_name: JsonSchema = {
   "description": "The FQDN of the name server.",
   "type": "string"
 };
@@ -842,7 +842,7 @@ export const dns_custom_nameservers_ns_name: JsonSchema = {
 /**
  * The schema of `dns-custom-nameservers_ns_set`.
  */
-export const dns_custom_nameservers_ns_set: JsonSchema = {
+export const dns$$custom$$nameservers_ns_set: JsonSchema = {
   "description": "The number of the set that this name server belongs to.",
   "type": "number"
 };
@@ -1027,7 +1027,7 @@ export const firewall_rule_identifier: JsonSchema = {
 /**
  * The schema of `firewall_schemas-mode`.
  */
-export const firewall_schemas_mode: JsonSchema = {
+export const firewall_schemas$$mode: JsonSchema = {
   "description": "The action to apply to a matched request.",
   "enum": [
     "block",
@@ -1054,7 +1054,7 @@ export const iam_access: JsonSchema = {
 /**
  * The schema of `iam_account-type`.
  */
-export const iam_account_type: JsonSchema = {
+export const iam_account$$type: JsonSchema = {
   "enum": [
     "standard",
     "enterprise"
@@ -1084,7 +1084,7 @@ export const iam_cidr_list: JsonSchema = {
 /**
  * The schema of `iam_common_components-schemas-identifier`.
  */
-export const iam_common_components_schemas_identifier: JsonSchema = {
+export const iam_common_components$$schemas$$identifier: JsonSchema = {
   "description": "Identifier",
   "type": "string"
 };
@@ -1211,7 +1211,7 @@ export const iam_last_name: JsonSchema = {
 /**
  * The schema of `iam_membership_components-schemas-identifier`.
  */
-export const iam_membership_components_schemas_identifier: JsonSchema = {
+export const iam_membership_components$$schemas$$identifier: JsonSchema = {
   "description": "Membership identifier tag.",
   "type": "string"
 };
@@ -1510,7 +1510,7 @@ export const infra_AccountTag: JsonSchema = {
 /**
  * The schema of `load-balancing_Host`.
  */
-export const load_balancing_Host: JsonSchema = {
+export const load$$balancing_Host: JsonSchema = {
   "description": "The 'Host' header allows to override the hostname set in the HTTP request. Current support is 1 'Host' header override per origin.",
   "items": {
     "type": "string"
@@ -1521,7 +1521,7 @@ export const load_balancing_Host: JsonSchema = {
 /**
  * The schema of `load-balancing_address`.
  */
-export const load_balancing_address: JsonSchema = {
+export const load$$balancing_address: JsonSchema = {
   "description": "The IP address (IPv4 or IPv6) of the origin, or its publicly addressable hostname. Hostnames entered here should resolve directly to the origin, and not be a hostname proxied by Cloudflare. To set an internal/reserved address, virtual_network_id must also be set.",
   "type": "string"
 };
@@ -1529,7 +1529,7 @@ export const load_balancing_address: JsonSchema = {
 /**
  * The schema of `load-balancing_allow_insecure`.
  */
-export const load_balancing_allow_insecure: JsonSchema = {
+export const load$$balancing_allow_insecure: JsonSchema = {
   "description": "Do not validate the certificate when monitor use HTTPS. This parameter is currently only valid for HTTP and HTTPS monitors.",
   "type": "boolean"
 };
@@ -1537,7 +1537,7 @@ export const load_balancing_allow_insecure: JsonSchema = {
 /**
  * The schema of `load-balancing_check_regions`.
  */
-export const load_balancing_check_regions: JsonSchema = {
+export const load$$balancing_check_regions: JsonSchema = {
   "description": "A list of regions from which to run health checks. Null means every Cloudflare data center.",
   "oneOf": [
     {
@@ -1572,7 +1572,7 @@ export const load_balancing_check_regions: JsonSchema = {
 /**
  * The schema of `load-balancing_consecutive_down`.
  */
-export const load_balancing_consecutive_down: JsonSchema = {
+export const load$$balancing_consecutive_down: JsonSchema = {
   "description": "To be marked unhealthy the monitored origin must fail this healthcheck N consecutive times.",
   "type": "integer"
 };
@@ -1580,7 +1580,7 @@ export const load_balancing_consecutive_down: JsonSchema = {
 /**
  * The schema of `load-balancing_consecutive_up`.
  */
-export const load_balancing_consecutive_up: JsonSchema = {
+export const load$$balancing_consecutive_up: JsonSchema = {
   "description": "To be marked healthy the monitored origin must pass this healthcheck N consecutive times.",
   "type": "integer"
 };
@@ -1588,7 +1588,7 @@ export const load_balancing_consecutive_up: JsonSchema = {
 /**
  * The schema of `load-balancing_description`.
  */
-export const load_balancing_description: JsonSchema = {
+export const load$$balancing_description: JsonSchema = {
   "description": "Object description.",
   "type": "string"
 };
@@ -1596,7 +1596,7 @@ export const load_balancing_description: JsonSchema = {
 /**
  * The schema of `load-balancing_enabled`.
  */
-export const load_balancing_enabled: JsonSchema = {
+export const load$$balancing_enabled: JsonSchema = {
   "description": "Whether to enable (the default) or disable this pool. Disabled pools will not receive traffic and are excluded from health checks. Disabling a pool will cause any load balancers using it to failover to the next pool (if any).",
   "type": "boolean"
 };
@@ -1604,7 +1604,7 @@ export const load_balancing_enabled: JsonSchema = {
 /**
  * The schema of `load-balancing_expected_body`.
  */
-export const load_balancing_expected_body: JsonSchema = {
+export const load$$balancing_expected_body: JsonSchema = {
   "description": "A case-insensitive sub-string to look for in the response body. If this string is not found, the origin will be marked as unhealthy. This parameter is only valid for HTTP and HTTPS monitors.",
   "type": "string"
 };
@@ -1612,7 +1612,7 @@ export const load_balancing_expected_body: JsonSchema = {
 /**
  * The schema of `load-balancing_expected_codes`.
  */
-export const load_balancing_expected_codes: JsonSchema = {
+export const load$$balancing_expected_codes: JsonSchema = {
   "description": "The expected HTTP response code or code range of the health check. This parameter is only valid for HTTP and HTTPS monitors.",
   "type": "string"
 };
@@ -1620,7 +1620,7 @@ export const load_balancing_expected_codes: JsonSchema = {
 /**
  * The schema of `load-balancing_filter_options`.
  */
-export const load_balancing_filter_options: JsonSchema = {
+export const load$$balancing_filter_options: JsonSchema = {
   "description": "Filter options for a particular resource type (pool or origin). Use null to reset.",
   "oneOf": [
     {
@@ -1660,7 +1660,7 @@ export const load_balancing_filter_options: JsonSchema = {
 /**
  * The schema of `load-balancing_follow_redirects`.
  */
-export const load_balancing_follow_redirects: JsonSchema = {
+export const load$$balancing_follow_redirects: JsonSchema = {
   "description": "Follow redirects if returned by the origin. This parameter is only valid for HTTP and HTTPS monitors.",
   "type": "boolean"
 };
@@ -1668,7 +1668,7 @@ export const load_balancing_follow_redirects: JsonSchema = {
 /**
  * The schema of `load-balancing_header`.
  */
-export const load_balancing_header: JsonSchema = {
+export const load$$balancing_header: JsonSchema = {
   "additionalProperties": {
     "items": {
       "type": "string"
@@ -1682,7 +1682,7 @@ export const load_balancing_header: JsonSchema = {
 /**
  * The schema of `load-balancing_health_sources`.
  */
-export const load_balancing_health_sources: JsonSchema = {
+export const load$$balancing_health_sources: JsonSchema = {
   "description": "A list of health sources, ordered from highest to lowest priority, used to evaluate individual origin health and overall pool health. The load balancer uses the first source that has data and falls back to the next. Currently accepted values are null or the exact array [\"regional\", \"global\"]; any other combination is rejected. Null (the default) behaves like [\"local\", \"global\"]. [\"regional\", \"global\"] makes each region steer on its own health, falling back to the global decision when a region has no fresh data. Setting regional requires at least one region in check_regions.",
   "oneOf": [
     {
@@ -1705,14 +1705,14 @@ export const load_balancing_health_sources: JsonSchema = {
 /**
  * The schema of `load-balancing_identifier`.
  */
-export const load_balancing_identifier: JsonSchema = {
+export const load$$balancing_identifier: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `load-balancing_interval`.
  */
-export const load_balancing_interval: JsonSchema = {
+export const load$$balancing_interval: JsonSchema = {
   "description": "The interval between each health check. Shorter intervals may improve failover time, but will increase load on the origins as we check from multiple locations.",
   "type": "integer"
 };
@@ -1720,7 +1720,7 @@ export const load_balancing_interval: JsonSchema = {
 /**
  * The schema of `load-balancing_latitude`.
  */
-export const load_balancing_latitude: JsonSchema = {
+export const load$$balancing_latitude: JsonSchema = {
   "description": "The latitude of the data center containing the origins used in this pool in decimal degrees. If this is set, longitude must also be set.",
   "type": "number"
 };
@@ -1728,7 +1728,7 @@ export const load_balancing_latitude: JsonSchema = {
 /**
  * The schema of `load-balancing_load_shedding`.
  */
-export const load_balancing_load_shedding: JsonSchema = {
+export const load$$balancing_load_shedding: JsonSchema = {
   "description": "Configures load shedding policies and percentages for the pool.",
   "oneOf": [
     {
@@ -1772,7 +1772,7 @@ export const load_balancing_load_shedding: JsonSchema = {
 /**
  * The schema of `load-balancing_longitude`.
  */
-export const load_balancing_longitude: JsonSchema = {
+export const load$$balancing_longitude: JsonSchema = {
   "description": "The longitude of the data center containing the origins used in this pool in decimal degrees. If this is set, latitude must also be set.",
   "type": "number"
 };
@@ -1780,7 +1780,7 @@ export const load_balancing_longitude: JsonSchema = {
 /**
  * The schema of `load-balancing_method`.
  */
-export const load_balancing_method: JsonSchema = {
+export const load$$balancing_method: JsonSchema = {
   "description": "The method to use for the health check. This defaults to 'GET' for HTTP/HTTPS based checks and 'connection_established' for TCP based health checks.",
   "type": "string"
 };
@@ -1788,7 +1788,7 @@ export const load_balancing_method: JsonSchema = {
 /**
  * The schema of `load-balancing_minimum_origins`.
  */
-export const load_balancing_minimum_origins: JsonSchema = {
+export const load$$balancing_minimum_origins: JsonSchema = {
   "description": "The minimum number of origins that must be healthy for this pool to serve traffic. If the number of healthy origins falls below this number, the pool will be marked unhealthy and will failover to the next available pool.",
   "type": "integer"
 };
@@ -1796,7 +1796,7 @@ export const load_balancing_minimum_origins: JsonSchema = {
 /**
  * The schema of `load-balancing_monitor-editable`.
  */
-export const load_balancing_monitor_editable: JsonSchema = {
+export const load$$balancing_monitor$$editable: JsonSchema = {
   "properties": {
     "allow_insecure": {
       "$ref": "#/$defs/load-balancing_allow_insecure",
@@ -1879,7 +1879,7 @@ export const load_balancing_monitor_editable: JsonSchema = {
 /**
  * The schema of `load-balancing_monitor_group_id`.
  */
-export const load_balancing_monitor_group_id: JsonSchema = {
+export const load$$balancing_monitor_group_id: JsonSchema = {
   "description": "The ID of the Monitor Group to use for checking the health of origins within this pool.",
   "type": "string"
 };
@@ -1887,7 +1887,7 @@ export const load_balancing_monitor_group_id: JsonSchema = {
 /**
  * The schema of `load-balancing_monitor_id`.
  */
-export const load_balancing_monitor_id: JsonSchema = {
+export const load$$balancing_monitor_id: JsonSchema = {
   "description": "The ID of the Monitor to use for checking the health of origins within this pool.",
   "type": "string"
 };
@@ -1895,7 +1895,7 @@ export const load_balancing_monitor_id: JsonSchema = {
 /**
  * The schema of `load-balancing_name`.
  */
-export const load_balancing_name: JsonSchema = {
+export const load$$balancing_name: JsonSchema = {
   "description": "A short name (tag) for the pool. Only alphanumeric characters, hyphens, and underscores are allowed.",
   "type": "string"
 };
@@ -1903,7 +1903,7 @@ export const load_balancing_name: JsonSchema = {
 /**
  * The schema of `load-balancing_networks`.
  */
-export const load_balancing_networks: JsonSchema = {
+export const load$$balancing_networks: JsonSchema = {
   "description": "List of networks where Load Balancer or Pool is enabled.",
   "items": {
     "type": "string"
@@ -1914,7 +1914,7 @@ export const load_balancing_networks: JsonSchema = {
 /**
  * The schema of `load-balancing_notification_email`.
  */
-export const load_balancing_notification_email: JsonSchema = {
+export const load$$balancing_notification_email: JsonSchema = {
   "description": "This field is now deprecated. It has been moved to Cloudflare's Centralized Notification service https://developers.cloudflare.com/fundamentals/notifications/. The email address to send health status notifications to. This can be an individual mailbox or a mailing list. Multiple emails can be supplied as a comma delimited list.",
   "type": "string"
 };
@@ -1922,7 +1922,7 @@ export const load_balancing_notification_email: JsonSchema = {
 /**
  * The schema of `load-balancing_notification_filter`.
  */
-export const load_balancing_notification_filter: JsonSchema = {
+export const load$$balancing_notification_filter: JsonSchema = {
   "description": "Filter pool and origin health notifications by resource type or health status. Use null to reset.",
   "oneOf": [
     {
@@ -1947,7 +1947,7 @@ export const load_balancing_notification_filter: JsonSchema = {
 /**
  * The schema of `load-balancing_origin`.
  */
-export const load_balancing_origin: JsonSchema = {
+export const load$$balancing_origin: JsonSchema = {
   "properties": {
     "address": {
       "$ref": "#/$defs/load-balancing_address",
@@ -1992,7 +1992,7 @@ export const load_balancing_origin: JsonSchema = {
 /**
  * The schema of `load-balancing_origin_flatten_cname`.
  */
-export const load_balancing_origin_flatten_cname: JsonSchema = {
+export const load$$balancing_origin_flatten_cname: JsonSchema = {
   "description": "Whether to flatten CNAME records for this origin, resolving them to A/AAAA records before returning to the client. When true (the default), the director resolves CNAME addresses to their underlying A/AAAA records. When false, the origin address is returned as a raw CNAME record without resolution. This setting mirrors the DNS API record flatten_cname setting.",
   "type": "boolean"
 };
@@ -2000,7 +2000,7 @@ export const load_balancing_origin_flatten_cname: JsonSchema = {
 /**
  * The schema of `load-balancing_origin_port`.
  */
-export const load_balancing_origin_port: JsonSchema = {
+export const load$$balancing_origin_port: JsonSchema = {
   "description": "The port for upstream connections. A value of 0 means the default port for the protocol will be used.",
   "type": "integer"
 };
@@ -2008,7 +2008,7 @@ export const load_balancing_origin_port: JsonSchema = {
 /**
  * The schema of `load-balancing_origin_steering`.
  */
-export const load_balancing_origin_steering: JsonSchema = {
+export const load$$balancing_origin_steering: JsonSchema = {
   "description": "Configures origin steering for the pool. Controls how origins are selected for new sessions and traffic without session affinity.",
   "oneOf": [
     {
@@ -2036,7 +2036,7 @@ export const load_balancing_origin_steering: JsonSchema = {
 /**
  * The schema of `load-balancing_origins`.
  */
-export const load_balancing_origins: JsonSchema = {
+export const load$$balancing_origins: JsonSchema = {
   "description": "The list of origins within this pool. Traffic directed at this pool is balanced across all currently healthy origins, provided the pool itself is healthy.",
   "items": {
     "$ref": "#/$defs/load-balancing_origin"
@@ -2047,7 +2047,7 @@ export const load_balancing_origins: JsonSchema = {
 /**
  * The schema of `load-balancing_patch_pools_notification_email`.
  */
-export const load_balancing_patch_pools_notification_email: JsonSchema = {
+export const load$$balancing_patch_pools_notification_email: JsonSchema = {
   "description": "The email address to send health status notifications to. This field is now deprecated in favor of Cloudflare Notifications for Load Balancing, so only resetting this field with an empty string `\"\"` is accepted.",
   "type": "string"
 };
@@ -2055,7 +2055,7 @@ export const load_balancing_patch_pools_notification_email: JsonSchema = {
 /**
  * The schema of `load-balancing_path`.
  */
-export const load_balancing_path: JsonSchema = {
+export const load$$balancing_path: JsonSchema = {
   "description": "The endpoint path you want to conduct a health check against. This parameter is only valid for HTTP and HTTPS monitors.",
   "type": "string"
 };
@@ -2063,7 +2063,7 @@ export const load_balancing_path: JsonSchema = {
 /**
  * The schema of `load-balancing_port`.
  */
-export const load_balancing_port: JsonSchema = {
+export const load$$balancing_port: JsonSchema = {
   "description": "The port number to connect to for the health check. Required for TCP, UDP, and SMTP checks. HTTP and HTTPS checks should only define the port when using a non-standard port (HTTP: default 80, HTTPS: default 443).",
   "oneOf": [
     {
@@ -2078,7 +2078,7 @@ export const load_balancing_port: JsonSchema = {
 /**
  * The schema of `load-balancing_probe_zone`.
  */
-export const load_balancing_probe_zone: JsonSchema = {
+export const load$$balancing_probe_zone: JsonSchema = {
   "description": "Assign this monitor to emulate the specified zone while probing. This parameter is only valid for HTTP and HTTPS monitors.",
   "type": "string"
 };
@@ -2086,7 +2086,7 @@ export const load_balancing_probe_zone: JsonSchema = {
 /**
  * The schema of `load-balancing_retries`.
  */
-export const load_balancing_retries: JsonSchema = {
+export const load$$balancing_retries: JsonSchema = {
   "description": "The number of retries to attempt in case of a timeout before marking the origin as unhealthy. Retries are attempted immediately.",
   "type": "integer"
 };
@@ -2094,7 +2094,7 @@ export const load_balancing_retries: JsonSchema = {
 /**
  * The schema of `load-balancing_schemas-description`.
  */
-export const load_balancing_schemas_description: JsonSchema = {
+export const load$$balancing_schemas$$description: JsonSchema = {
   "description": "A human-readable description of the pool.",
   "type": "string"
 };
@@ -2102,7 +2102,7 @@ export const load_balancing_schemas_description: JsonSchema = {
 /**
  * The schema of `load-balancing_schemas-enabled`.
  */
-export const load_balancing_schemas_enabled: JsonSchema = {
+export const load$$balancing_schemas$$enabled: JsonSchema = {
   "description": "Whether to enable (the default) this origin within the pool. Disabled origins will not receive traffic and are excluded from health checks. The origin will only be disabled for the current pool.",
   "type": "boolean"
 };
@@ -2110,7 +2110,7 @@ export const load_balancing_schemas_enabled: JsonSchema = {
 /**
  * The schema of `load-balancing_schemas-header`.
  */
-export const load_balancing_schemas_header: JsonSchema = {
+export const load$$balancing_schemas$$header: JsonSchema = {
   "description": "The request header is used to pass additional information with an HTTP request. Currently supported header is 'Host'.",
   "properties": {
     "Host": {
@@ -2124,14 +2124,14 @@ export const load_balancing_schemas_header: JsonSchema = {
 /**
  * The schema of `load-balancing_schemas-identifier`.
  */
-export const load_balancing_schemas_identifier: JsonSchema = {
+export const load$$balancing_schemas$$identifier: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `load-balancing_schemas-name`.
  */
-export const load_balancing_schemas_name: JsonSchema = {
+export const load$$balancing_schemas$$name: JsonSchema = {
   "description": "A human-identifiable name for the origin.",
   "type": "string"
 };
@@ -2139,7 +2139,7 @@ export const load_balancing_schemas_name: JsonSchema = {
 /**
  * The schema of `load-balancing_subdivision_code_a2`.
  */
-export const load_balancing_subdivision_code_a2: JsonSchema = {
+export const load$$balancing_subdivision_code_a2: JsonSchema = {
   "description": "Two-letter subdivision code followed in ISO 3166-2.",
   "type": "string"
 };
@@ -2147,7 +2147,7 @@ export const load_balancing_subdivision_code_a2: JsonSchema = {
 /**
  * The schema of `load-balancing_timeout`.
  */
-export const load_balancing_timeout: JsonSchema = {
+export const load$$balancing_timeout: JsonSchema = {
   "description": "The timeout (in seconds) before marking the health check as failed.",
   "type": "integer"
 };
@@ -2155,7 +2155,7 @@ export const load_balancing_timeout: JsonSchema = {
 /**
  * The schema of `load-balancing_type`.
  */
-export const load_balancing_type: JsonSchema = {
+export const load$$balancing_type: JsonSchema = {
   "description": "The protocol to use for the health check. Currently supported protocols are 'HTTP','HTTPS', 'TCP', 'ICMP-PING', 'UDP-ICMP', and 'SMTP'.",
   "enum": [
     "http",
@@ -2171,7 +2171,7 @@ export const load_balancing_type: JsonSchema = {
 /**
  * The schema of `load-balancing_virtual_network_id`.
  */
-export const load_balancing_virtual_network_id: JsonSchema = {
+export const load$$balancing_virtual_network_id: JsonSchema = {
   "description": "The virtual network subnet ID the origin belongs in. Virtual network must also belong to the account.",
   "type": "string"
 };
@@ -2179,7 +2179,7 @@ export const load_balancing_virtual_network_id: JsonSchema = {
 /**
  * The schema of `load-balancing_weight`.
  */
-export const load_balancing_weight: JsonSchema = {
+export const load$$balancing_weight: JsonSchema = {
   "description": "The weight of this origin relative to other origins in the pool. Based on the configured weight the total traffic is distributed among origins within the pool.\n- `origin_steering.policy=\"least_outstanding_requests\"`: Use weight to scale the origin's outstanding requests.\n- `origin_steering.policy=\"least_connections\"`: Use weight to scale the origin's open connections.",
   "type": "number"
 };
@@ -2187,7 +2187,7 @@ export const load_balancing_weight: JsonSchema = {
 /**
  * The schema of `mconn-telemetry_account_id`.
  */
-export const mconn_telemetry_account_id: JsonSchema = {
+export const mconn$$telemetry_account_id: JsonSchema = {
   "description": "Account identifier",
   "type": "string"
 };
@@ -2209,7 +2209,7 @@ export const mconn_uuid: JsonSchema = {
 /**
  * The schema of `organizations-api_ModifyProfileRequest`.
  */
-export const organizations_api_ModifyProfileRequest: JsonSchema = {
+export const organizations$$api_ModifyProfileRequest: JsonSchema = {
   "description": "Partial business profile update. Omitted, empty, or null fields remain unchanged. At least\none of business name, address, phone, or email must be non-empty.",
   "properties": {
     "business_address": {
@@ -2269,7 +2269,7 @@ export const organizations_api_ModifyProfileRequest: JsonSchema = {
 /**
  * The schema of `organizations-api_OrganizationID`.
  */
-export const organizations_api_OrganizationID: JsonSchema = {
+export const organizations$$api_OrganizationID: JsonSchema = {
   "description": "Organization ID",
   "type": "string"
 };
@@ -2277,7 +2277,7 @@ export const organizations_api_OrganizationID: JsonSchema = {
 /**
  * The schema of `r2-data-catalog_account-id`.
  */
-export const r2_data_catalog_account_id: JsonSchema = {
+export const r2$$data$$catalog_account$$id: JsonSchema = {
   "description": "Use this to identify the account.",
   "type": "string"
 };
@@ -2285,7 +2285,7 @@ export const r2_data_catalog_account_id: JsonSchema = {
 /**
  * The schema of `r2-data-catalog_bucket-name`.
  */
-export const r2_data_catalog_bucket_name: JsonSchema = {
+export const r2$$data$$catalog_bucket$$name: JsonSchema = {
   "description": "Specifies the R2 bucket name.",
   "type": "string"
 };
@@ -2293,7 +2293,7 @@ export const r2_data_catalog_bucket_name: JsonSchema = {
 /**
  * The schema of `r2-data-catalog_catalog-activation-request`.
  */
-export const r2_data_catalog_catalog_activation_request: JsonSchema = {
+export const r2$$data$$catalog_catalog$$activation$$request: JsonSchema = {
   "description": "Contains the optional request to enable a catalog. Send an empty body\nto keep the defaults. If you include `credential`, the service checks\nthat the token can access the bucket, then stores it as the catalog's\nmaintenance credential, like the store credentials operation.\n",
   "properties": {
     "credential": {
@@ -2307,7 +2307,7 @@ export const r2_data_catalog_catalog_activation_request: JsonSchema = {
 /**
  * The schema of `r2-data-catalog_catalog-credential-request`.
  */
-export const r2_data_catalog_catalog_credential_request: JsonSchema = {
+export const r2$$data$$catalog_catalog$$credential$$request: JsonSchema = {
   "description": "Contains request to store catalog credentials.",
   "properties": {
     "token": {
@@ -2324,7 +2324,7 @@ export const r2_data_catalog_catalog_credential_request: JsonSchema = {
 /**
  * The schema of `r2-data-catalog_catalog-maintenance-state`.
  */
-export const r2_data_catalog_catalog_maintenance_state: JsonSchema = {
+export const r2$$data$$catalog_catalog$$maintenance$$state: JsonSchema = {
   "description": "Specifies the state of maintenance operations.",
   "enum": [
     "enabled",
@@ -2336,7 +2336,7 @@ export const r2_data_catalog_catalog_maintenance_state: JsonSchema = {
 /**
  * The schema of `r2-data-catalog_catalog-maintenance-update-request`.
  */
-export const r2_data_catalog_catalog_maintenance_update_request: JsonSchema = {
+export const r2$$data$$catalog_catalog$$maintenance$$update$$request: JsonSchema = {
   "description": "Contains request to update catalog maintenance configuration.",
   "properties": {
     "compaction": {
@@ -2354,7 +2354,7 @@ export const r2_data_catalog_catalog_maintenance_update_request: JsonSchema = {
 /**
  * The schema of `r2-data-catalog_catalog-target-file-size`.
  */
-export const r2_data_catalog_catalog_target_file_size: JsonSchema = {
+export const r2$$data$$catalog_catalog$$target$$file$$size: JsonSchema = {
   "description": "Sets the target file size for compaction in megabytes. Defaults to \"128\".",
   "enum": [
     "64",
@@ -2368,7 +2368,7 @@ export const r2_data_catalog_catalog_target_file_size: JsonSchema = {
 /**
  * The schema of `r2-data-catalog_compaction-update-params`.
  */
-export const r2_data_catalog_compaction_update_params: JsonSchema = {
+export const r2$$data$$catalog_compaction$$update$$params: JsonSchema = {
   "description": "Updates compaction configuration (all fields optional).",
   "properties": {
     "state": {
@@ -2386,7 +2386,7 @@ export const r2_data_catalog_compaction_update_params: JsonSchema = {
 /**
  * The schema of `r2-data-catalog_queue-maintenance-request`.
  */
-export const r2_data_catalog_queue_maintenance_request: JsonSchema = {
+export const r2$$data$$catalog_queue$$maintenance$$request: JsonSchema = {
   "properties": {
     "request_id": {
       "oneOf": [
@@ -2406,7 +2406,7 @@ export const r2_data_catalog_queue_maintenance_request: JsonSchema = {
 /**
  * The schema of `r2-data-catalog_snapshot-expiration-update-params`.
  */
-export const r2_data_catalog_snapshot_expiration_update_params: JsonSchema = {
+export const r2$$data$$catalog_snapshot$$expiration$$update$$params: JsonSchema = {
   "description": "Updates snapshot expiration configuration (all fields optional).",
   "properties": {
     "max_snapshot_age": {
@@ -2428,7 +2428,7 @@ export const r2_data_catalog_snapshot_expiration_update_params: JsonSchema = {
 /**
  * The schema of `r2-data-catalog_table-compaction-update-params`.
  */
-export const r2_data_catalog_table_compaction_update_params: JsonSchema = {
+export const r2$$data$$catalog_table$$compaction$$update$$params: JsonSchema = {
   "description": "Updates table compaction configuration; all fields are optional.",
   "properties": {
     "state": {
@@ -2446,7 +2446,7 @@ export const r2_data_catalog_table_compaction_update_params: JsonSchema = {
 /**
  * The schema of `r2-data-catalog_table-maintenance-update-request`.
  */
-export const r2_data_catalog_table_maintenance_update_request: JsonSchema = {
+export const r2$$data$$catalog_table$$maintenance$$update$$request: JsonSchema = {
   "description": "Contains request to update table maintenance configuration.",
   "properties": {
     "compaction": {
@@ -2464,7 +2464,7 @@ export const r2_data_catalog_table_maintenance_update_request: JsonSchema = {
 /**
  * The schema of `resource-sharing_account_id`.
  */
-export const resource_sharing_account_id: JsonSchema = {
+export const resource$$sharing_account_id: JsonSchema = {
   "description": "Account identifier.",
   "type": "string"
 };
@@ -2472,7 +2472,7 @@ export const resource_sharing_account_id: JsonSchema = {
 /**
  * The schema of `resource-sharing_organization_id`.
  */
-export const resource_sharing_organization_id: JsonSchema = {
+export const resource$$sharing_organization_id: JsonSchema = {
   "description": "Organization identifier.",
   "type": "string"
 };
@@ -2480,7 +2480,7 @@ export const resource_sharing_organization_id: JsonSchema = {
 /**
  * The schema of `resource-sharing_resource_id`.
  */
-export const resource_sharing_resource_id: JsonSchema = {
+export const resource$$sharing_resource_id: JsonSchema = {
   "description": "Share Resource identifier.",
   "type": "string"
 };
@@ -2488,7 +2488,7 @@ export const resource_sharing_resource_id: JsonSchema = {
 /**
  * The schema of `resource-sharing_resource_meta`.
  */
-export const resource_sharing_resource_meta: JsonSchema = {
+export const resource$$sharing_resource_meta: JsonSchema = {
   "description": "Resource Metadata.",
   "type": "object"
 };
@@ -2496,7 +2496,7 @@ export const resource_sharing_resource_meta: JsonSchema = {
 /**
  * The schema of `resource-sharing_resource_resource_id`.
  */
-export const resource_sharing_resource_resource_id: JsonSchema = {
+export const resource$$sharing_resource_resource_id: JsonSchema = {
   "description": "Share Resource identifier.",
   "type": "string"
 };
@@ -2504,7 +2504,7 @@ export const resource_sharing_resource_resource_id: JsonSchema = {
 /**
  * The schema of `resource-sharing_resource_status`.
  */
-export const resource_sharing_resource_status: JsonSchema = {
+export const resource$$sharing_resource_status: JsonSchema = {
   "description": "Resource Status.",
   "enum": [
     "active",
@@ -2517,7 +2517,7 @@ export const resource_sharing_resource_status: JsonSchema = {
 /**
  * The schema of `resource-sharing_resource_type`.
  */
-export const resource_sharing_resource_type: JsonSchema = {
+export const resource$$sharing_resource_type: JsonSchema = {
   "description": "Resource Type.",
   "enum": [
     "custom-ruleset",
@@ -2534,7 +2534,7 @@ export const resource_sharing_resource_type: JsonSchema = {
 /**
  * The schema of `resource-sharing_share_id`.
  */
-export const resource_sharing_share_id: JsonSchema = {
+export const resource$$sharing_share_id: JsonSchema = {
   "description": "Share identifier tag.",
   "type": "string"
 };
@@ -2542,7 +2542,7 @@ export const resource_sharing_share_id: JsonSchema = {
 /**
  * The schema of `resource-sharing_share_kind`.
  */
-export const resource_sharing_share_kind: JsonSchema = {
+export const resource$$sharing_share_kind: JsonSchema = {
   "enum": [
     "sent",
     "received"
@@ -2553,7 +2553,7 @@ export const resource_sharing_share_kind: JsonSchema = {
 /**
  * The schema of `resource-sharing_share_name`.
  */
-export const resource_sharing_share_name: JsonSchema = {
+export const resource$$sharing_share_name: JsonSchema = {
   "description": "The name of the share.",
   "type": "string"
 };
@@ -2561,7 +2561,7 @@ export const resource_sharing_share_name: JsonSchema = {
 /**
  * The schema of `resource-sharing_share_status`.
  */
-export const resource_sharing_share_status: JsonSchema = {
+export const resource$$sharing_share_status: JsonSchema = {
   "enum": [
     "active",
     "deleting",
@@ -2573,7 +2573,7 @@ export const resource_sharing_share_status: JsonSchema = {
 /**
  * The schema of `resource-sharing_share_target_type`.
  */
-export const resource_sharing_share_target_type: JsonSchema = {
+export const resource$$sharing_share_target_type: JsonSchema = {
   "enum": [
     "account",
     "organization"
@@ -2600,14 +2600,14 @@ export const rum_identifier: JsonSchema = {
 /**
  * The schema of `security-center_dismissed`.
  */
-export const security_center_dismissed: JsonSchema = {
+export const security$$center_dismissed: JsonSchema = {
   "type": "boolean"
 };
 
 /**
  * The schema of `security-center_identifier`.
  */
-export const security_center_identifier: JsonSchema = {
+export const security$$center_identifier: JsonSchema = {
   "description": "Identifier.",
   "type": "string"
 };
@@ -2615,14 +2615,14 @@ export const security_center_identifier: JsonSchema = {
 /**
  * The schema of `security-center_issueClass`.
  */
-export const security_center_issueClass: JsonSchema = {
+export const security$$center_issueClass: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `security-center_issueClasses`.
  */
-export const security_center_issueClasses: JsonSchema = {
+export const security$$center_issueClasses: JsonSchema = {
   "items": {
     "$ref": "#/$defs/security-center_issueClass"
   },
@@ -2632,7 +2632,7 @@ export const security_center_issueClasses: JsonSchema = {
 /**
  * The schema of `security-center_issueType`.
  */
-export const security_center_issueType: JsonSchema = {
+export const security$$center_issueType: JsonSchema = {
   "enum": [
     "compliance_violation",
     "email_security",
@@ -2647,7 +2647,7 @@ export const security_center_issueType: JsonSchema = {
 /**
  * The schema of `security-center_issueTypes`.
  */
-export const security_center_issueTypes: JsonSchema = {
+export const security$$center_issueTypes: JsonSchema = {
   "items": {
     "$ref": "#/$defs/security-center_issueType"
   },
@@ -2657,7 +2657,7 @@ export const security_center_issueTypes: JsonSchema = {
 /**
  * The schema of `security-center_page`.
  */
-export const security_center_page: JsonSchema = {
+export const security$$center_page: JsonSchema = {
   "description": "Specifies the current page within paginated list of results.",
   "type": "integer"
 };
@@ -2665,7 +2665,7 @@ export const security_center_page: JsonSchema = {
 /**
  * The schema of `security-center_perPage`.
  */
-export const security_center_perPage: JsonSchema = {
+export const security$$center_perPage: JsonSchema = {
   "description": "Sets the number of results per page of results.",
   "type": "integer"
 };
@@ -2673,7 +2673,7 @@ export const security_center_perPage: JsonSchema = {
 /**
  * The schema of `security-center_products`.
  */
-export const security_center_products: JsonSchema = {
+export const security$$center_products: JsonSchema = {
   "items": {
     "type": "string"
   },
@@ -2683,7 +2683,7 @@ export const security_center_products: JsonSchema = {
 /**
  * The schema of `security-center_severityQueryParam`.
  */
-export const security_center_severityQueryParam: JsonSchema = {
+export const security$$center_severityQueryParam: JsonSchema = {
   "items": {
     "enum": [
       "low",
@@ -2698,7 +2698,7 @@ export const security_center_severityQueryParam: JsonSchema = {
 /**
  * The schema of `security-center_source`.
  */
-export const security_center_source: JsonSchema = {
+export const security$$center_source: JsonSchema = {
   "description": "Who generated the insight. `cloudflare` for Cloudflare-generated insights, otherwise the partner.",
   "enum": [
     "cloudflare",
@@ -2710,7 +2710,7 @@ export const security_center_source: JsonSchema = {
 /**
  * The schema of `security-center_sources`.
  */
-export const security_center_sources: JsonSchema = {
+export const security$$center_sources: JsonSchema = {
   "items": {
     "$ref": "#/$defs/security-center_source"
   },
@@ -2720,14 +2720,14 @@ export const security_center_sources: JsonSchema = {
 /**
  * The schema of `security-center_subject`.
  */
-export const security_center_subject: JsonSchema = {
+export const security$$center_subject: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `security-center_subjects`.
  */
-export const security_center_subjects: JsonSchema = {
+export const security$$center_subjects: JsonSchema = {
   "items": {
     "$ref": "#/$defs/security-center_subject"
   },
@@ -2737,7 +2737,7 @@ export const security_center_subjects: JsonSchema = {
 /**
  * The schema of `security-center_userClassification`.
  */
-export const security_center_userClassification: JsonSchema = {
+export const security$$center_userClassification: JsonSchema = {
   "description": "User-defined classification for the insight. Can be 'false_positive', 'accept_risk', 'other', or null.",
   "oneOf": [
     {
@@ -2765,7 +2765,7 @@ export const speed_identifier: JsonSchema = {
 /**
  * The schema of `tls-certificates-and-hostnames_identifier`.
  */
-export const tls_certificates_and_hostnames_identifier: JsonSchema = {
+export const tls$$certificates$$and$$hostnames_identifier: JsonSchema = {
   "description": "Identifier.",
   "type": "string"
 };
@@ -2864,7 +2864,7 @@ export const tunnel_tunnel_id: JsonSchema = {
 /**
  * The schema of `tunnel_tunnel_id-2`.
  */
-export const tunnel_tunnel_id_2: JsonSchema = {
+export const tunnel_tunnel_id$$2: JsonSchema = {
   "description": "UUID of the tunnel.",
   "format": "uuid",
   "type": "string"
@@ -2917,7 +2917,7 @@ export const tunnel_tunnel_types: JsonSchema = {
 /**
  * The schema of `usage-analytics_identifier`.
  */
-export const usage_analytics_identifier: JsonSchema = {
+export const usage$$analytics_identifier: JsonSchema = {
   "description": "Cloudflare resource identifier.",
   "type": "string"
 };
@@ -2925,7 +2925,7 @@ export const usage_analytics_identifier: JsonSchema = {
 /**
  * The schema of `waf-product-api-bundle_identifier`.
  */
-export const waf_product_api_bundle_identifier: JsonSchema = {
+export const waf$$product$$api$$bundle_identifier: JsonSchema = {
   "description": "Defines an identifier.",
   "type": "string"
 };
@@ -4439,7 +4439,7 @@ export const workers_compatibility_flags: JsonSchema = {
 /**
  * The schema of `workers_create-assets-upload-session-object`.
  */
-export const workers_create_assets_upload_session_object: JsonSchema = {
+export const workers_create$$assets$$upload$$session$$object: JsonSchema = {
   "properties": {
     "manifest": {
       "additionalProperties": {
@@ -5016,7 +5016,7 @@ export const workers_logpush: JsonSchema = {
 /**
  * The schema of `workers_manifest-value`.
  */
-export const workers_manifest_value: JsonSchema = {
+export const workers_manifest$$value: JsonSchema = {
   "properties": {
     "hash": {
       "description": "The hash of the file.",
@@ -5148,7 +5148,7 @@ export const workers_namespace_identifier: JsonSchema = {
 /**
  * The schema of `workers_observability-2`.
  */
-export const workers_observability_2: JsonSchema = {
+export const workers_observability$$2: JsonSchema = {
   "description": "Observability settings for the Worker.",
   "properties": {
     "enabled": {
@@ -5514,7 +5514,7 @@ export const workers_secret: JsonSchema = {
 /**
  * The schema of `workers_secret-patch-request`.
  */
-export const workers_secret_patch_request: JsonSchema = {
+export const workers_secret$$patch$$request: JsonSchema = {
   "description": "JSON Merge Patch (RFC 7396) request body for bulk secret changes.\n",
   "properties": {
     "secrets": {
@@ -5669,7 +5669,7 @@ export const workers_worker_export: JsonSchema = {
 /**
  * The schema of `zones_identifier-2`.
  */
-export const zones_identifier_2: JsonSchema = {
+export const zones_identifier$$2: JsonSchema = {
   "description": "Identifier.",
   "type": "string"
 };

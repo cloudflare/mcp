@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../../_/tool.js";
 /**
  * The schema of `dlp_WorkerValidatorArray` in responses.
  */
-export const dlp_WorkerValidatorArray_output: JsonSchema = {
+export const dlp_WorkerValidatorArray: JsonSchema = {
   "items": {
     "$ref": "#/$defs/dlp_WorkerValidator"
   },

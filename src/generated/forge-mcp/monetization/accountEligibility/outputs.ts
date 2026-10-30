@@ -7,7 +7,7 @@ import type { JsonSchema } from "../../_/tool.js";
  * The schema of `monetization_monetization-account-eligibility-check-response`
  * in responses.
  */
-export const monetization_monetization_account_eligibility_check_response_output: JsonSchema = {
+export const monetization_monetization$$account$$eligibility$$check$$response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/monetization_api-response-common"
@@ -29,7 +29,7 @@ export const monetization_monetization_account_eligibility_check_response_output
 /**
  * The schema of `monetization_monetization-eligibility-response` in responses.
  */
-export const monetization_monetization_eligibility_response_output: JsonSchema = {
+export const monetization_monetization$$eligibility$$response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/monetization_api-response-common"
@@ -51,7 +51,7 @@ export const monetization_monetization_eligibility_response_output: JsonSchema =
 /**
  * The schema of `monetization_monetization-eligibility-result` in responses.
  */
-export const monetization_monetization_eligibility_result_output: JsonSchema = {
+export const monetization_monetization$$eligibility$$result: JsonSchema = {
   "properties": {
     "reasons": {
       "items": {

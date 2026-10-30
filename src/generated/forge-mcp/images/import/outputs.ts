@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `images_sourcingkit_acceptable_content_type` in responses.
  */
-export const images_sourcingkit_acceptable_content_type_output: JsonSchema = {
+export const images_sourcingkit_acceptable_content_type: JsonSchema = {
   "enum": [
     "image/jpeg",
     "image/png",
@@ -22,7 +22,7 @@ export const images_sourcingkit_acceptable_content_type_output: JsonSchema = {
 /**
  * The schema of `images_sourcingkit_conflict_behaviour` in responses.
  */
-export const images_sourcingkit_conflict_behaviour_output: JsonSchema = {
+export const images_sourcingkit_conflict_behaviour: JsonSchema = {
   "enum": [
     "skip",
     "overwrite"
@@ -33,7 +33,7 @@ export const images_sourcingkit_conflict_behaviour_output: JsonSchema = {
 /**
  * The schema of `images_sourcingkit_migration` in responses.
  */
-export const images_sourcingkit_migration_output: JsonSchema = {
+export const images_sourcingkit_migration: JsonSchema = {
   "properties": {
     "conflictBehaviour": {
       "$ref": "#/$defs/images_sourcingkit_conflict_behaviour"
@@ -135,7 +135,7 @@ export const images_sourcingkit_migration_output: JsonSchema = {
 /**
  * The schema of `images_sourcingkit_migration_create_response` in responses.
  */
-export const images_sourcingkit_migration_create_response_output: JsonSchema = {
+export const images_sourcingkit_migration_create_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/images_api-response-single"
@@ -154,7 +154,7 @@ export const images_sourcingkit_migration_create_response_output: JsonSchema = {
 /**
  * The schema of `images_sourcingkit_migration_list_response` in responses.
  */
-export const images_sourcingkit_migration_list_response_output: JsonSchema = {
+export const images_sourcingkit_migration_list_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/images_api-response-common"
@@ -181,7 +181,7 @@ export const images_sourcingkit_migration_list_response_output: JsonSchema = {
 /**
  * The schema of `images_sourcingkit_migration_log` in responses.
  */
-export const images_sourcingkit_migration_log_output: JsonSchema = {
+export const images_sourcingkit_migration_log: JsonSchema = {
   "properties": {
     "createdAt": {
       "oneOf": [
@@ -214,7 +214,7 @@ export const images_sourcingkit_migration_log_output: JsonSchema = {
 /**
  * The schema of `images_sourcingkit_migration_log_list_response` in responses.
  */
-export const images_sourcingkit_migration_log_list_response_output: JsonSchema = {
+export const images_sourcingkit_migration_log_list_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/images_api-response-common"
@@ -241,7 +241,7 @@ export const images_sourcingkit_migration_log_list_response_output: JsonSchema =
 /**
  * The schema of `images_sourcingkit_migration_log_type` in responses.
  */
-export const images_sourcingkit_migration_log_type_output: JsonSchema = {
+export const images_sourcingkit_migration_log_type: JsonSchema = {
   "enum": [
     "default",
     "importSkippedUnsupportedContentType",
@@ -262,7 +262,7 @@ export const images_sourcingkit_migration_log_type_output: JsonSchema = {
 /**
  * The schema of `images_sourcingkit_migration_progress_response` in responses.
  */
-export const images_sourcingkit_migration_progress_response_output: JsonSchema = {
+export const images_sourcingkit_migration_progress_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/images_api-response-single"
@@ -341,7 +341,7 @@ export const images_sourcingkit_migration_progress_response_output: JsonSchema =
 /**
  * The schema of `images_sourcingkit_migration_single_response` in responses.
  */
-export const images_sourcingkit_migration_single_response_output: JsonSchema = {
+export const images_sourcingkit_migration_single_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/images_api-response-single"
@@ -360,7 +360,7 @@ export const images_sourcingkit_migration_single_response_output: JsonSchema = {
 /**
  * The schema of `images_sourcingkit_migration_status` in responses.
  */
-export const images_sourcingkit_migration_status_output: JsonSchema = {
+export const images_sourcingkit_migration_status: JsonSchema = {
   "enum": [
     "pending",
     "processing",

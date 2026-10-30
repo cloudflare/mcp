@@ -3,14 +3,14 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
-  workers_api_response_common_failure_output,
-  workers_api_response_common_output,
-  workers_identifier_output,
-  workers_messages_output,
+  workers_api$$response$$common,
+  workers_api$$response$$common$$failure,
+  workers_identifier,
+  workers_messages,
 } from "../../outputs.js";
-import { workers_identifier } from "../../schemas.js";
-import { workers_route_output } from "../outputs.js";
-import { workers_route } from "../schemas.js";
+import { workers_identifier as workers_identifier$ } from "../../schemas.js";
+import { workers_route } from "../outputs.js";
+import { workers_route as workers_route$ } from "../schemas.js";
 
 /**
  * The tools of `workers.routes`.
@@ -26,18 +26,26 @@ export const tools: readonly Tool[] = [
         "body": {
           "$ref": "#/$defs/workers_route"
         },
-        "zone_id": {
-          "$ref": "#/$defs/workers_identifier",
-          "description": "Identifier."
+        "path": {
+          "properties": {
+            "zone_id": {
+              "$ref": "#/$defs/workers_identifier",
+              "description": "Identifier."
+            }
+          },
+          "required": [
+            "zone_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "zone_id",
+        "path",
         "body"
       ],
       $defs: {
-        "workers_identifier": workers_identifier,
-        "workers_route": workers_route,
+        "workers_identifier": workers_identifier$,
+        "workers_route": workers_route$,
       },
     },
     outputSchema: {
@@ -58,10 +66,10 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "workers_api-response-common": workers_api_response_common_output,
-        "workers_identifier": workers_identifier_output,
-        "workers_messages": workers_messages_output,
-        "workers_route": workers_route_output,
+        "workers_api-response-common": workers_api$$response$$common,
+        "workers_identifier": workers_identifier,
+        "workers_messages": workers_messages,
+        "workers_route": workers_route,
       },
     },
     annotations: {
@@ -106,11 +114,11 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "workers_api-response-common": workers_api_response_common_output,
-        "workers_api-response-common-failure": workers_api_response_common_failure_output,
-        "workers_identifier": workers_identifier_output,
-        "workers_messages": workers_messages_output,
-        "workers_route": workers_route_output,
+        "workers_api-response-common": workers_api$$response$$common,
+        "workers_api-response-common-failure": workers_api$$response$$common$$failure,
+        "workers_identifier": workers_identifier,
+        "workers_messages": workers_messages,
+        "workers_route": workers_route,
       },
     },
     request: (args) => ({
@@ -125,21 +133,29 @@ export const tools: readonly Tool[] = [
     inputSchema: {
       type: "object",
       properties: {
-        "route_id": {
-          "$ref": "#/$defs/workers_identifier",
-          "description": "Identifier."
-        },
-        "zone_id": {
-          "$ref": "#/$defs/workers_identifier",
-          "description": "Identifier."
+        "path": {
+          "properties": {
+            "route_id": {
+              "$ref": "#/$defs/workers_identifier",
+              "description": "Identifier."
+            },
+            "zone_id": {
+              "$ref": "#/$defs/workers_identifier",
+              "description": "Identifier."
+            }
+          },
+          "required": [
+            "zone_id",
+            "route_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "zone_id",
-        "route_id"
+        "path"
       ],
       $defs: {
-        "workers_identifier": workers_identifier,
+        "workers_identifier": workers_identifier$,
       },
     },
     outputSchema: {
@@ -165,9 +181,9 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "workers_api-response-common": workers_api_response_common_output,
-        "workers_identifier": workers_identifier_output,
-        "workers_messages": workers_messages_output,
+        "workers_api-response-common": workers_api$$response$$common,
+        "workers_identifier": workers_identifier,
+        "workers_messages": workers_messages,
       },
     },
     annotations: {
@@ -217,10 +233,10 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "workers_api-response-common": workers_api_response_common_output,
-        "workers_api-response-common-failure": workers_api_response_common_failure_output,
-        "workers_identifier": workers_identifier_output,
-        "workers_messages": workers_messages_output,
+        "workers_api-response-common": workers_api$$response$$common,
+        "workers_api-response-common-failure": workers_api$$response$$common$$failure,
+        "workers_identifier": workers_identifier,
+        "workers_messages": workers_messages,
       },
     },
     request: (args) => ({
@@ -234,21 +250,29 @@ export const tools: readonly Tool[] = [
     inputSchema: {
       type: "object",
       properties: {
-        "route_id": {
-          "$ref": "#/$defs/workers_identifier",
-          "description": "Identifier."
-        },
-        "zone_id": {
-          "$ref": "#/$defs/workers_identifier",
-          "description": "Identifier."
+        "path": {
+          "properties": {
+            "route_id": {
+              "$ref": "#/$defs/workers_identifier",
+              "description": "Identifier."
+            },
+            "zone_id": {
+              "$ref": "#/$defs/workers_identifier",
+              "description": "Identifier."
+            }
+          },
+          "required": [
+            "zone_id",
+            "route_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "zone_id",
-        "route_id"
+        "path"
       ],
       $defs: {
-        "workers_identifier": workers_identifier,
+        "workers_identifier": workers_identifier$,
       },
     },
     outputSchema: {
@@ -269,10 +293,10 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "workers_api-response-common": workers_api_response_common_output,
-        "workers_identifier": workers_identifier_output,
-        "workers_messages": workers_messages_output,
-        "workers_route": workers_route_output,
+        "workers_api-response-common": workers_api$$response$$common,
+        "workers_identifier": workers_identifier,
+        "workers_messages": workers_messages,
+        "workers_route": workers_route,
       },
     },
     annotations: {
@@ -318,11 +342,11 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "workers_api-response-common": workers_api_response_common_output,
-        "workers_api-response-common-failure": workers_api_response_common_failure_output,
-        "workers_identifier": workers_identifier_output,
-        "workers_messages": workers_messages_output,
-        "workers_route": workers_route_output,
+        "workers_api-response-common": workers_api$$response$$common,
+        "workers_api-response-common-failure": workers_api$$response$$common$$failure,
+        "workers_identifier": workers_identifier,
+        "workers_messages": workers_messages,
+        "workers_route": workers_route,
       },
     },
     request: (args) => ({
@@ -336,16 +360,24 @@ export const tools: readonly Tool[] = [
     inputSchema: {
       type: "object",
       properties: {
-        "zone_id": {
-          "$ref": "#/$defs/workers_identifier",
-          "description": "Identifier."
+        "path": {
+          "properties": {
+            "zone_id": {
+              "$ref": "#/$defs/workers_identifier",
+              "description": "Identifier."
+            }
+          },
+          "required": [
+            "zone_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "zone_id"
+        "path"
       ],
       $defs: {
-        "workers_identifier": workers_identifier,
+        "workers_identifier": workers_identifier$,
       },
     },
     outputSchema: {
@@ -369,10 +401,10 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "workers_api-response-common": workers_api_response_common_output,
-        "workers_identifier": workers_identifier_output,
-        "workers_messages": workers_messages_output,
-        "workers_route": workers_route_output,
+        "workers_api-response-common": workers_api$$response$$common,
+        "workers_identifier": workers_identifier,
+        "workers_messages": workers_messages,
+        "workers_route": workers_route,
       },
     },
     annotations: {
@@ -421,11 +453,11 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "workers_api-response-common": workers_api_response_common_output,
-        "workers_api-response-common-failure": workers_api_response_common_failure_output,
-        "workers_identifier": workers_identifier_output,
-        "workers_messages": workers_messages_output,
-        "workers_route": workers_route_output,
+        "workers_api-response-common": workers_api$$response$$common,
+        "workers_api-response-common-failure": workers_api$$response$$common$$failure,
+        "workers_identifier": workers_identifier,
+        "workers_messages": workers_messages,
+        "workers_route": workers_route,
       },
     },
     request: (args) => ({
@@ -442,23 +474,31 @@ export const tools: readonly Tool[] = [
         "body": {
           "$ref": "#/$defs/workers_route"
         },
-        "route_id": {
-          "$ref": "#/$defs/workers_identifier",
-          "description": "Identifier."
-        },
-        "zone_id": {
-          "$ref": "#/$defs/workers_identifier",
-          "description": "Identifier."
+        "path": {
+          "properties": {
+            "route_id": {
+              "$ref": "#/$defs/workers_identifier",
+              "description": "Identifier."
+            },
+            "zone_id": {
+              "$ref": "#/$defs/workers_identifier",
+              "description": "Identifier."
+            }
+          },
+          "required": [
+            "zone_id",
+            "route_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "zone_id",
-        "route_id",
+        "path",
         "body"
       ],
       $defs: {
-        "workers_identifier": workers_identifier,
-        "workers_route": workers_route,
+        "workers_identifier": workers_identifier$,
+        "workers_route": workers_route$,
       },
     },
     outputSchema: {
@@ -479,10 +519,10 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "workers_api-response-common": workers_api_response_common_output,
-        "workers_identifier": workers_identifier_output,
-        "workers_messages": workers_messages_output,
-        "workers_route": workers_route_output,
+        "workers_api-response-common": workers_api$$response$$common,
+        "workers_identifier": workers_identifier,
+        "workers_messages": workers_messages,
+        "workers_route": workers_route,
       },
     },
     annotations: {
@@ -527,11 +567,11 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "workers_api-response-common": workers_api_response_common_output,
-        "workers_api-response-common-failure": workers_api_response_common_failure_output,
-        "workers_identifier": workers_identifier_output,
-        "workers_messages": workers_messages_output,
-        "workers_route": workers_route_output,
+        "workers_api-response-common": workers_api$$response$$common,
+        "workers_api-response-common-failure": workers_api$$response$$common$$failure,
+        "workers_identifier": workers_identifier,
+        "workers_messages": workers_messages,
+        "workers_route": workers_route,
       },
     },
     request: (args) => ({

@@ -3,62 +3,70 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
-  custom_indicator_feeds_api_response_common_failure_output,
-  custom_indicator_feeds_api_response_single_output,
-  custom_indicator_feeds_feed_id_output,
-  custom_indicator_feeds_messages_2_output,
-  custom_indicator_feeds_messages_output,
+  custom$$indicator$$feeds_api$$response$$single,
+  custom$$indicator$$feeds_api_response_common_failure,
+  custom$$indicator$$feeds_feed_id,
+  custom$$indicator$$feeds_messages,
+  custom$$indicator$$feeds_messages$$2,
 } from "../outputs.js";
 import {
-  custom_indicator_feeds_feed_id,
-  custom_indicator_feeds_identifier,
+  custom$$indicator$$feeds_feed_id as custom$$indicator$$feeds_feed_id$,
+  custom$$indicator$$feeds_identifier,
 } from "../schemas.js";
 import {
-  custom_indicator_feeds_upload_status_output,
-  custom_indicator_feeds_upload_status_response_output,
+  custom$$indicator$$feeds_upload_status,
+  custom$$indicator$$feeds_upload_status_response,
 } from "./outputs.js";
 
 /**
- * The tools of `intel.indicator_feeds.uploads`.
+ * The tools of `intel.indicatorFeeds.uploads`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "intel_indicator_feeds_uploads_get",
+    name: "intel_indicatorFeeds_uploads_get",
     title: "Get indicator feed upload status",
     description: "Polls an asynchronously accepted upload. Continue polling after the\nrecommended `poll_after_seconds` delay until status is `Unified` or\n`Error`. `Unified` is returned only after the durable loader finishes.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/custom-indicator-feeds_identifier",
-          "description": "Identifier"
-        },
-        "feed_id": {
-          "$ref": "#/$defs/custom-indicator-feeds_feed_id",
-          "description": "Indicator feed ID"
-        },
-        "upload_id": {
-          "type": "integer"
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/custom-indicator-feeds_identifier",
+              "description": "Identifier"
+            },
+            "feed_id": {
+              "$ref": "#/$defs/custom-indicator-feeds_feed_id",
+              "description": "Indicator feed ID"
+            },
+            "upload_id": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "account_id",
+            "feed_id",
+            "upload_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "feed_id",
-        "upload_id"
+        "path"
       ],
       $defs: {
-        "custom-indicator-feeds_feed_id": custom_indicator_feeds_feed_id,
-        "custom-indicator-feeds_identifier": custom_indicator_feeds_identifier,
+        "custom-indicator-feeds_feed_id": custom$$indicator$$feeds_feed_id$,
+        "custom-indicator-feeds_identifier": custom$$indicator$$feeds_identifier,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/custom-indicator-feeds_upload_status_response",
       $defs: {
-        "custom-indicator-feeds_api-response-single": custom_indicator_feeds_api_response_single_output,
-        "custom-indicator-feeds_feed_id": custom_indicator_feeds_feed_id_output,
-        "custom-indicator-feeds_messages-2": custom_indicator_feeds_messages_2_output,
-        "custom-indicator-feeds_upload_status": custom_indicator_feeds_upload_status_output,
-        "custom-indicator-feeds_upload_status_response": custom_indicator_feeds_upload_status_response_output,
+        "custom-indicator-feeds_api-response-single": custom$$indicator$$feeds_api$$response$$single,
+        "custom-indicator-feeds_feed_id": custom$$indicator$$feeds_feed_id,
+        "custom-indicator-feeds_messages-2": custom$$indicator$$feeds_messages$$2,
+        "custom-indicator-feeds_upload_status": custom$$indicator$$feeds_upload_status,
+        "custom-indicator-feeds_upload_status_response": custom$$indicator$$feeds_upload_status_response,
       },
     },
     annotations: {
@@ -93,13 +101,13 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "custom-indicator-feeds_api-response-single": custom_indicator_feeds_api_response_single_output,
-        "custom-indicator-feeds_api_response_common_failure": custom_indicator_feeds_api_response_common_failure_output,
-        "custom-indicator-feeds_feed_id": custom_indicator_feeds_feed_id_output,
-        "custom-indicator-feeds_messages": custom_indicator_feeds_messages_output,
-        "custom-indicator-feeds_messages-2": custom_indicator_feeds_messages_2_output,
-        "custom-indicator-feeds_upload_status": custom_indicator_feeds_upload_status_output,
-        "custom-indicator-feeds_upload_status_response": custom_indicator_feeds_upload_status_response_output,
+        "custom-indicator-feeds_api-response-single": custom$$indicator$$feeds_api$$response$$single,
+        "custom-indicator-feeds_api_response_common_failure": custom$$indicator$$feeds_api_response_common_failure,
+        "custom-indicator-feeds_feed_id": custom$$indicator$$feeds_feed_id,
+        "custom-indicator-feeds_messages": custom$$indicator$$feeds_messages,
+        "custom-indicator-feeds_messages-2": custom$$indicator$$feeds_messages$$2,
+        "custom-indicator-feeds_upload_status": custom$$indicator$$feeds_upload_status,
+        "custom-indicator-feeds_upload_status_response": custom$$indicator$$feeds_upload_status_response,
       },
     },
     request: (args) => ({

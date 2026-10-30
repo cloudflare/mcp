@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `argo-analytics_identifier`.
  */
-export const argo_analytics_identifier: JsonSchema = {
+export const argo$$analytics_identifier: JsonSchema = {
   "description": "Identifier",
   "type": "string"
 };

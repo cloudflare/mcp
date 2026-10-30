@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `magic_acl-port-range`.
  */
-export const magic_acl_port_range: JsonSchema = {
+export const magic_acl$$port$$range: JsonSchema = {
   "description": "A valid port range value.",
   "type": "string"
 };
@@ -14,7 +14,7 @@ export const magic_acl_port_range: JsonSchema = {
 /**
  * The schema of `magic_acl-subnet`.
  */
-export const magic_acl_subnet: JsonSchema = {
+export const magic_acl$$subnet: JsonSchema = {
   "oneOf": [
     {
       "$ref": "#/$defs/magic_ip-address"
@@ -126,7 +126,7 @@ export const magic_forward_locally: JsonSchema = {
 /**
  * The schema of `magic_lan-acl-configuration`.
  */
-export const magic_lan_acl_configuration: JsonSchema = {
+export const magic_lan$$acl$$configuration: JsonSchema = {
   "properties": {
     "lan_id": {
       "description": "The identifier for the LAN you want to create an ACL policy with.",

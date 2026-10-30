@@ -7,6 +7,6 @@ import type { JsonSchema } from "../../../../_/tool.js";
  * The schema of `digital-experience-monitoring_uniqueDevicesTotal` in
  * responses.
  */
-export const digital_experience_monitoring_uniqueDevicesTotal_output: JsonSchema = {
+export const digital$$experience$$monitoring_uniqueDevicesTotal: JsonSchema = {
   "type": "number"
 };

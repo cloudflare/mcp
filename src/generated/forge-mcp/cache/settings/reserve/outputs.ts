@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `cache-settings_cache_reserve` in responses.
  */
-export const cache_settings_cache_reserve_output: JsonSchema = {
+export const cache$$settings_cache_reserve: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/cache-settings_base"
@@ -28,7 +28,7 @@ export const cache_settings_cache_reserve_output: JsonSchema = {
 /**
  * The schema of `cache-settings_cache_reserve_clear` in responses.
  */
-export const cache_settings_cache_reserve_clear_output: JsonSchema = {
+export const cache$$settings_cache_reserve_clear: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/cache-settings_base"
@@ -50,7 +50,7 @@ export const cache_settings_cache_reserve_clear_output: JsonSchema = {
 /**
  * The schema of `cache-settings_cache_reserve_clear_end_ts` in responses.
  */
-export const cache_settings_cache_reserve_clear_end_ts_output: JsonSchema = {
+export const cache$$settings_cache_reserve_clear_end_ts: JsonSchema = {
   "format": "date-time",
   "type": "string"
 };
@@ -59,7 +59,7 @@ export const cache_settings_cache_reserve_clear_end_ts_output: JsonSchema = {
  * The schema of `cache-settings_cache_reserve_clear_response_value` in
  * responses.
  */
-export const cache_settings_cache_reserve_clear_response_value_output: JsonSchema = {
+export const cache$$settings_cache_reserve_clear_response_value: JsonSchema = {
   "properties": {
     "result": {
       "allOf": [
@@ -93,7 +93,7 @@ export const cache_settings_cache_reserve_clear_response_value_output: JsonSchem
 /**
  * The schema of `cache-settings_cache_reserve_clear_start_ts` in responses.
  */
-export const cache_settings_cache_reserve_clear_start_ts_output: JsonSchema = {
+export const cache$$settings_cache_reserve_clear_start_ts: JsonSchema = {
   "format": "date-time",
   "type": "string"
 };
@@ -101,7 +101,7 @@ export const cache_settings_cache_reserve_clear_start_ts_output: JsonSchema = {
 /**
  * The schema of `cache-settings_cache_reserve_clear_state` in responses.
  */
-export const cache_settings_cache_reserve_clear_state_output: JsonSchema = {
+export const cache$$settings_cache_reserve_clear_state: JsonSchema = {
   "enum": [
     "In-progress",
     "Completed"
@@ -112,7 +112,7 @@ export const cache_settings_cache_reserve_clear_state_output: JsonSchema = {
 /**
  * The schema of `cache-settings_cache_reserve_response_value` in responses.
  */
-export const cache_settings_cache_reserve_response_value_output: JsonSchema = {
+export const cache$$settings_cache_reserve_response_value: JsonSchema = {
   "properties": {
     "result": {
       "allOf": [
@@ -139,7 +139,7 @@ export const cache_settings_cache_reserve_response_value_output: JsonSchema = {
 /**
  * The schema of `cache-settings_cache_reserve_value` in responses.
  */
-export const cache_settings_cache_reserve_value_output: JsonSchema = {
+export const cache$$settings_cache_reserve_value: JsonSchema = {
   "enum": [
     "on",
     "off"

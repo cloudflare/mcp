@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `tls-certificates-and-hostnames_client_certificate_identifier`.
  */
-export const tls_certificates_and_hostnames_client_certificate_identifier: JsonSchema = {
+export const tls$$certificates$$and$$hostnames_client_certificate_identifier: JsonSchema = {
   "description": "Client Certificate Tag",
   "type": "string"
 };
@@ -14,7 +14,7 @@ export const tls_certificates_and_hostnames_client_certificate_identifier: JsonS
 /**
  * The schema of `tls-certificates-and-hostnames_csr-2`.
  */
-export const tls_certificates_and_hostnames_csr_2: JsonSchema = {
+export const tls$$certificates$$and$$hostnames_csr$$2: JsonSchema = {
   "description": "The Certificate Signing Request (CSR). Must be newline-encoded.",
   "type": "string"
 };
@@ -22,7 +22,7 @@ export const tls_certificates_and_hostnames_csr_2: JsonSchema = {
 /**
  * The schema of `tls-certificates-and-hostnames_validity_days-2`.
  */
-export const tls_certificates_and_hostnames_validity_days_2: JsonSchema = {
+export const tls$$certificates$$and$$hostnames_validity_days$$2: JsonSchema = {
   "description": "The number of days the Client Certificate will be valid after the issued_on date.",
   "type": "integer"
 };

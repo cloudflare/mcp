@@ -6,7 +6,7 @@ import type { JsonSchema } from "../_/tool.js";
 /**
  * The schema of `logpush_api-response-common` in responses.
  */
-export const logpush_api_response_common_output: JsonSchema = {
+export const logpush_api$$response$$common: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/logpush_messages"
@@ -32,7 +32,7 @@ export const logpush_api_response_common_output: JsonSchema = {
 /**
  * The schema of `logpush_api-response-common-failure` in responses.
  */
-export const logpush_api_response_common_failure_output: JsonSchema = {
+export const logpush_api$$response$$common$$failure: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/logpush_messages"
@@ -62,7 +62,7 @@ export const logpush_api_response_common_failure_output: JsonSchema = {
 /**
  * The schema of `logpush_api-response-single` in responses.
  */
-export const logpush_api_response_single_output: JsonSchema = {
+export const logpush_api$$response$$single: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/logpush_messages"
@@ -88,7 +88,7 @@ export const logpush_api_response_single_output: JsonSchema = {
 /**
  * The schema of `logpush_dataset` in responses.
  */
-export const logpush_dataset_output: JsonSchema = {
+export const logpush_dataset: JsonSchema = {
   "oneOf": [
     {
       "enum": [
@@ -142,21 +142,21 @@ export const logpush_dataset_output: JsonSchema = {
 /**
  * The schema of `logpush_destination_conf` in responses.
  */
-export const logpush_destination_conf_output: JsonSchema = {
+export const logpush_destination_conf: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `logpush_enabled` in responses.
  */
-export const logpush_enabled_output: JsonSchema = {
+export const logpush_enabled: JsonSchema = {
   "type": "boolean"
 };
 
 /**
  * The schema of `logpush_error_message` in responses.
  */
-export const logpush_error_message_output: JsonSchema = {
+export const logpush_error_message: JsonSchema = {
   "oneOf": [
     {
       "type": "string"
@@ -170,14 +170,14 @@ export const logpush_error_message_output: JsonSchema = {
 /**
  * The schema of `logpush_filter_attack_traffic` in responses.
  */
-export const logpush_filter_attack_traffic_output: JsonSchema = {
+export const logpush_filter_attack_traffic: JsonSchema = {
   "type": "boolean"
 };
 
 /**
  * The schema of `logpush_frequency` in responses.
  */
-export const logpush_frequency_output: JsonSchema = {
+export const logpush_frequency: JsonSchema = {
   "oneOf": [
     {
       "enum": [
@@ -195,14 +195,14 @@ export const logpush_frequency_output: JsonSchema = {
 /**
  * The schema of `logpush_id` in responses.
  */
-export const logpush_id_output: JsonSchema = {
+export const logpush_id: JsonSchema = {
   "type": "integer"
 };
 
 /**
  * The schema of `logpush_kind` in responses.
  */
-export const logpush_kind_output: JsonSchema = {
+export const logpush_kind: JsonSchema = {
   "enum": [
     "",
     "edge"
@@ -213,7 +213,7 @@ export const logpush_kind_output: JsonSchema = {
 /**
  * The schema of `logpush_last_complete` in responses.
  */
-export const logpush_last_complete_output: JsonSchema = {
+export const logpush_last_complete: JsonSchema = {
   "oneOf": [
     {
       "format": "date-time",
@@ -228,7 +228,7 @@ export const logpush_last_complete_output: JsonSchema = {
 /**
  * The schema of `logpush_last_error` in responses.
  */
-export const logpush_last_error_output: JsonSchema = {
+export const logpush_last_error: JsonSchema = {
   "oneOf": [
     {
       "format": "date-time",
@@ -243,7 +243,7 @@ export const logpush_last_error_output: JsonSchema = {
 /**
  * The schema of `logpush_logpull_options` in responses.
  */
-export const logpush_logpull_options_output: JsonSchema = {
+export const logpush_logpull_options: JsonSchema = {
   "oneOf": [
     {
       "type": "string"
@@ -257,7 +257,7 @@ export const logpush_logpull_options_output: JsonSchema = {
 /**
  * The schema of `logpush_logpush_job` in responses.
  */
-export const logpush_logpush_job_output: JsonSchema = {
+export const logpush_logpush_job: JsonSchema = {
   "oneOf": [
     {
       "properties": {
@@ -321,7 +321,7 @@ export const logpush_logpush_job_output: JsonSchema = {
 /**
  * The schema of `logpush_logpush_job_response_collection` in responses.
  */
-export const logpush_logpush_job_response_collection_output: JsonSchema = {
+export const logpush_logpush_job_response_collection: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/logpush_api-response-common"
@@ -350,7 +350,7 @@ export const logpush_logpush_job_response_collection_output: JsonSchema = {
 /**
  * The schema of `logpush_max_upload_bytes` in responses.
  */
-export const logpush_max_upload_bytes_output: JsonSchema = {
+export const logpush_max_upload_bytes: JsonSchema = {
   "oneOf": [
     {
       "type": "integer"
@@ -370,7 +370,7 @@ export const logpush_max_upload_bytes_output: JsonSchema = {
 /**
  * The schema of `logpush_max_upload_interval_seconds` in responses.
  */
-export const logpush_max_upload_interval_seconds_output: JsonSchema = {
+export const logpush_max_upload_interval_seconds: JsonSchema = {
   "oneOf": [
     {
       "type": "integer"
@@ -390,7 +390,7 @@ export const logpush_max_upload_interval_seconds_output: JsonSchema = {
 /**
  * The schema of `logpush_max_upload_records` in responses.
  */
-export const logpush_max_upload_records_output: JsonSchema = {
+export const logpush_max_upload_records: JsonSchema = {
   "oneOf": [
     {
       "type": "integer"
@@ -410,7 +410,7 @@ export const logpush_max_upload_records_output: JsonSchema = {
 /**
  * The schema of `logpush_messages` in responses.
  */
-export const logpush_messages_output: JsonSchema = {
+export const logpush_messages: JsonSchema = {
   "items": {
     "properties": {
       "code": {
@@ -443,7 +443,7 @@ export const logpush_messages_output: JsonSchema = {
 /**
  * The schema of `logpush_name` in responses.
  */
-export const logpush_name_output: JsonSchema = {
+export const logpush_name: JsonSchema = {
   "oneOf": [
     {
       "type": "string"
@@ -457,7 +457,7 @@ export const logpush_name_output: JsonSchema = {
 /**
  * The schema of `logpush_output_options` in responses.
  */
-export const logpush_output_options_output: JsonSchema = {
+export const logpush_output_options: JsonSchema = {
   "oneOf": [
     {
       "properties": {

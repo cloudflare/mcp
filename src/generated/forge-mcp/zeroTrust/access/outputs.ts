@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `access_access_group_rule` in responses.
  */
-export const access_access_group_rule_output: JsonSchema = {
+export const access_access_group_rule: JsonSchema = {
   "properties": {
     "group": {
       "properties": {
@@ -30,7 +30,7 @@ export const access_access_group_rule_output: JsonSchema = {
  * The schema of `access_allowed_clipboard_local_to_remote_formats` in
  * responses.
  */
-export const access_allowed_clipboard_local_to_remote_formats_output: JsonSchema = {
+export const access_allowed_clipboard_local_to_remote_formats: JsonSchema = {
   "items": {
     "$ref": "#/$defs/access_rdp_clipboard_format"
   },
@@ -41,7 +41,7 @@ export const access_allowed_clipboard_local_to_remote_formats_output: JsonSchema
  * The schema of `access_allowed_clipboard_remote_to_local_formats` in
  * responses.
  */
-export const access_allowed_clipboard_remote_to_local_formats_output: JsonSchema = {
+export const access_allowed_clipboard_remote_to_local_formats: JsonSchema = {
   "items": {
     "$ref": "#/$defs/access_rdp_clipboard_format"
   },
@@ -51,7 +51,7 @@ export const access_allowed_clipboard_remote_to_local_formats_output: JsonSchema
 /**
  * The schema of `access_any_valid_service_token_rule` in responses.
  */
-export const access_any_valid_service_token_rule_output: JsonSchema = {
+export const access_any_valid_service_token_rule: JsonSchema = {
   "properties": {
     "any_valid_service_token": {
       "type": "object"
@@ -66,7 +66,7 @@ export const access_any_valid_service_token_rule_output: JsonSchema = {
 /**
  * The schema of `access_approval_group` in responses.
  */
-export const access_approval_group_output: JsonSchema = {
+export const access_approval_group: JsonSchema = {
   "properties": {
     "approvals_needed": {
       "type": "number"
@@ -90,7 +90,7 @@ export const access_approval_group_output: JsonSchema = {
 /**
  * The schema of `access_approval_groups` in responses.
  */
-export const access_approval_groups_output: JsonSchema = {
+export const access_approval_groups: JsonSchema = {
   "items": {
     "$ref": "#/$defs/access_approval_group"
   },
@@ -100,14 +100,14 @@ export const access_approval_groups_output: JsonSchema = {
 /**
  * The schema of `access_approval_required` in responses.
  */
-export const access_approval_required_output: JsonSchema = {
+export const access_approval_required: JsonSchema = {
   "type": "boolean"
 };
 
 /**
  * The schema of `access_auth_context_rule` in responses.
  */
-export const access_auth_context_rule_output: JsonSchema = {
+export const access_auth_context_rule: JsonSchema = {
   "properties": {
     "auth_context": {
       "properties": {
@@ -138,7 +138,7 @@ export const access_auth_context_rule_output: JsonSchema = {
 /**
  * The schema of `access_authentication_method_rule` in responses.
  */
-export const access_authentication_method_rule_output: JsonSchema = {
+export const access_authentication_method_rule: JsonSchema = {
   "properties": {
     "auth_method": {
       "properties": {
@@ -161,7 +161,7 @@ export const access_authentication_method_rule_output: JsonSchema = {
 /**
  * The schema of `access_azure_group_rule` in responses.
  */
-export const access_azure_group_rule_output: JsonSchema = {
+export const access_azure_group_rule: JsonSchema = {
   "properties": {
     "azureAD": {
       "properties": {
@@ -188,7 +188,7 @@ export const access_azure_group_rule_output: JsonSchema = {
 /**
  * The schema of `access_base_policy_resp` in responses.
  */
-export const access_base_policy_resp_output: JsonSchema = {
+export const access_base_policy_resp: JsonSchema = {
   "properties": {
     "created_at": {
       "$ref": "#/$defs/access_timestamp"
@@ -224,7 +224,7 @@ export const access_base_policy_resp_output: JsonSchema = {
 /**
  * The schema of `access_certificate_rule` in responses.
  */
-export const access_certificate_rule_output: JsonSchema = {
+export const access_certificate_rule: JsonSchema = {
   "properties": {
     "certificate": {
       "type": "object"
@@ -239,7 +239,7 @@ export const access_certificate_rule_output: JsonSchema = {
 /**
  * The schema of `access_cloudflare_account_member_rule` in responses.
  */
-export const access_cloudflare_account_member_rule_output: JsonSchema = {
+export const access_cloudflare_account_member_rule: JsonSchema = {
   "properties": {
     "cloudflare_account_member": {
       "properties": {
@@ -259,7 +259,7 @@ export const access_cloudflare_account_member_rule_output: JsonSchema = {
 /**
  * The schema of `access_common_name_rule` in responses.
  */
-export const access_common_name_rule_output: JsonSchema = {
+export const access_common_name_rule: JsonSchema = {
   "properties": {
     "common_name": {
       "properties": {
@@ -282,7 +282,7 @@ export const access_common_name_rule_output: JsonSchema = {
 /**
  * The schema of `access_connection_rules` in responses.
  */
-export const access_connection_rules_output: JsonSchema = {
+export const access_connection_rules: JsonSchema = {
   "properties": {
     "rdp": {
       "$ref": "#/$defs/access_connection_rules_rdp"
@@ -294,7 +294,7 @@ export const access_connection_rules_output: JsonSchema = {
 /**
  * The schema of `access_connection_rules_rdp` in responses.
  */
-export const access_connection_rules_rdp_output: JsonSchema = {
+export const access_connection_rules_rdp: JsonSchema = {
   "properties": {
     "allowed_clipboard_local_to_remote_formats": {
       "$ref": "#/$defs/access_allowed_clipboard_local_to_remote_formats"
@@ -309,7 +309,7 @@ export const access_connection_rules_rdp_output: JsonSchema = {
 /**
  * The schema of `access_country_rule` in responses.
  */
-export const access_country_rule_output: JsonSchema = {
+export const access_country_rule: JsonSchema = {
   "properties": {
     "geo": {
       "properties": {
@@ -332,7 +332,7 @@ export const access_country_rule_output: JsonSchema = {
 /**
  * The schema of `access_decision` in responses.
  */
-export const access_decision_output: JsonSchema = {
+export const access_decision: JsonSchema = {
   "enum": [
     "allow",
     "deny",
@@ -345,7 +345,7 @@ export const access_decision_output: JsonSchema = {
 /**
  * The schema of `access_device_posture_rule` in responses.
  */
-export const access_device_posture_rule_output: JsonSchema = {
+export const access_device_posture_rule: JsonSchema = {
   "properties": {
     "device_posture": {
       "properties": {
@@ -371,7 +371,7 @@ export const access_device_posture_rule_output: JsonSchema = {
 /**
  * The schema of `access_domain_rule` in responses.
  */
-export const access_domain_rule_output: JsonSchema = {
+export const access_domain_rule: JsonSchema = {
   "properties": {
     "email_domain": {
       "properties": {
@@ -394,14 +394,14 @@ export const access_domain_rule_output: JsonSchema = {
 /**
  * The schema of `access_email-2` in responses.
  */
-export const access_email_2_output: JsonSchema = {
+export const access_email$$2: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `access_email_list_rule` in responses.
  */
-export const access_email_list_rule_output: JsonSchema = {
+export const access_email_list_rule: JsonSchema = {
   "properties": {
     "email_list": {
       "properties": {
@@ -424,7 +424,7 @@ export const access_email_list_rule_output: JsonSchema = {
 /**
  * The schema of `access_email_rule` in responses.
  */
-export const access_email_rule_output: JsonSchema = {
+export const access_email_rule: JsonSchema = {
   "properties": {
     "email": {
       "properties": {
@@ -447,7 +447,7 @@ export const access_email_rule_output: JsonSchema = {
 /**
  * The schema of `access_everyone_rule` in responses.
  */
-export const access_everyone_rule_output: JsonSchema = {
+export const access_everyone_rule: JsonSchema = {
   "properties": {
     "everyone": {
       "type": "object"
@@ -462,7 +462,7 @@ export const access_everyone_rule_output: JsonSchema = {
 /**
  * The schema of `access_exclude-2` in responses.
  */
-export const access_exclude_2_output: JsonSchema = {
+export const access_exclude$$2: JsonSchema = {
   "items": {
     "$ref": "#/$defs/access_rule"
   },
@@ -472,7 +472,7 @@ export const access_exclude_2_output: JsonSchema = {
 /**
  * The schema of `access_external_evaluation_rule` in responses.
  */
-export const access_external_evaluation_rule_output: JsonSchema = {
+export const access_external_evaluation_rule: JsonSchema = {
   "properties": {
     "external_evaluation": {
       "properties": {
@@ -499,7 +499,7 @@ export const access_external_evaluation_rule_output: JsonSchema = {
 /**
  * The schema of `access_github_organization_rule` in responses.
  */
-export const access_github_organization_rule_output: JsonSchema = {
+export const access_github_organization_rule: JsonSchema = {
   "properties": {
     "github-organization": {
       "properties": {
@@ -529,7 +529,7 @@ export const access_github_organization_rule_output: JsonSchema = {
 /**
  * The schema of `access_gsuite_group_rule` in responses.
  */
-export const access_gsuite_group_rule_output: JsonSchema = {
+export const access_gsuite_group_rule: JsonSchema = {
   "properties": {
     "gsuite": {
       "properties": {
@@ -556,7 +556,7 @@ export const access_gsuite_group_rule_output: JsonSchema = {
 /**
  * The schema of `access_id_response-3` in responses.
  */
-export const access_id_response_3_output: JsonSchema = {
+export const access_id_response$$3: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/access_api-response-common"
@@ -580,7 +580,7 @@ export const access_id_response_3_output: JsonSchema = {
 /**
  * The schema of `access_include-2` in responses.
  */
-export const access_include_2_output: JsonSchema = {
+export const access_include$$2: JsonSchema = {
   "items": {
     "$ref": "#/$defs/access_rule"
   },
@@ -590,7 +590,7 @@ export const access_include_2_output: JsonSchema = {
 /**
  * The schema of `access_ip_list_rule` in responses.
  */
-export const access_ip_list_rule_output: JsonSchema = {
+export const access_ip_list_rule: JsonSchema = {
   "properties": {
     "ip_list": {
       "properties": {
@@ -613,7 +613,7 @@ export const access_ip_list_rule_output: JsonSchema = {
 /**
  * The schema of `access_ip_rule` in responses.
  */
-export const access_ip_rule_output: JsonSchema = {
+export const access_ip_rule: JsonSchema = {
   "properties": {
     "ip": {
       "properties": {
@@ -636,14 +636,14 @@ export const access_ip_rule_output: JsonSchema = {
 /**
  * The schema of `access_isolation_required` in responses.
  */
-export const access_isolation_required_output: JsonSchema = {
+export const access_isolation_required: JsonSchema = {
   "type": "boolean"
 };
 
 /**
  * The schema of `access_linked_app_token_rule` in responses.
  */
-export const access_linked_app_token_rule_output: JsonSchema = {
+export const access_linked_app_token_rule: JsonSchema = {
   "properties": {
     "linked_app_token": {
       "properties": {
@@ -666,7 +666,7 @@ export const access_linked_app_token_rule_output: JsonSchema = {
 /**
  * The schema of `access_login_method_rule` in responses.
  */
-export const access_login_method_rule_output: JsonSchema = {
+export const access_login_method_rule: JsonSchema = {
   "properties": {
     "login_method": {
       "properties": {
@@ -689,7 +689,7 @@ export const access_login_method_rule_output: JsonSchema = {
 /**
  * The schema of `access_mfa_config` in responses.
  */
-export const access_mfa_config_output: JsonSchema = {
+export const access_mfa_config: JsonSchema = {
   "properties": {
     "allowed_authenticators": {
       "items": {
@@ -715,21 +715,21 @@ export const access_mfa_config_output: JsonSchema = {
 /**
  * The schema of `access_name-10` in responses.
  */
-export const access_name_10_output: JsonSchema = {
+export const access_name$$10: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `access_name-9` in responses.
  */
-export const access_name_9_output: JsonSchema = {
+export const access_name$$9: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `access_oidc_claim_rule` in responses.
  */
-export const access_oidc_claim_rule_output: JsonSchema = {
+export const access_oidc_claim_rule: JsonSchema = {
   "properties": {
     "oidc": {
       "properties": {
@@ -760,7 +760,7 @@ export const access_oidc_claim_rule_output: JsonSchema = {
 /**
  * The schema of `access_okta_group_rule` in responses.
  */
-export const access_okta_group_rule_output: JsonSchema = {
+export const access_okta_group_rule: JsonSchema = {
   "properties": {
     "okta": {
       "properties": {
@@ -787,14 +787,14 @@ export const access_okta_group_rule_output: JsonSchema = {
 /**
  * The schema of `access_policy_resolution_account_id` in responses.
  */
-export const access_policy_resolution_account_id_output: JsonSchema = {
+export const access_policy_resolution_account_id: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `access_policy_resp` in responses.
  */
-export const access_policy_resp_output: JsonSchema = {
+export const access_policy_resp: JsonSchema = {
   "allOf": [
     {
       "properties": {
@@ -834,21 +834,21 @@ export const access_policy_resp_output: JsonSchema = {
 /**
  * The schema of `access_purpose_justification_prompt` in responses.
  */
-export const access_purpose_justification_prompt_output: JsonSchema = {
+export const access_purpose_justification_prompt: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `access_purpose_justification_required` in responses.
  */
-export const access_purpose_justification_required_output: JsonSchema = {
+export const access_purpose_justification_required: JsonSchema = {
   "type": "boolean"
 };
 
 /**
  * The schema of `access_rdp_clipboard_format` in responses.
  */
-export const access_rdp_clipboard_format_output: JsonSchema = {
+export const access_rdp_clipboard_format: JsonSchema = {
   "enum": [
     "text",
     "file"
@@ -859,7 +859,7 @@ export const access_rdp_clipboard_format_output: JsonSchema = {
 /**
  * The schema of `access_require-2` in responses.
  */
-export const access_require_2_output: JsonSchema = {
+export const access_require$$2: JsonSchema = {
   "items": {
     "$ref": "#/$defs/access_rule"
   },
@@ -869,7 +869,7 @@ export const access_require_2_output: JsonSchema = {
 /**
  * The schema of `access_rule` in responses.
  */
-export const access_rule_output: JsonSchema = {
+export const access_rule: JsonSchema = {
   "oneOf": [
     {
       "$ref": "#/$defs/access_access_group_rule"
@@ -958,7 +958,7 @@ export const access_rule_output: JsonSchema = {
 /**
  * The schema of `access_saml_group_rule` in responses.
  */
-export const access_saml_group_rule_output: JsonSchema = {
+export const access_saml_group_rule: JsonSchema = {
   "properties": {
     "saml": {
       "properties": {
@@ -989,7 +989,7 @@ export const access_saml_group_rule_output: JsonSchema = {
 /**
  * The schema of `access_service_token_rule` in responses.
  */
-export const access_service_token_rule_output: JsonSchema = {
+export const access_service_token_rule: JsonSchema = {
   "properties": {
     "service_token": {
       "properties": {
@@ -1012,7 +1012,7 @@ export const access_service_token_rule_output: JsonSchema = {
 /**
  * The schema of `access_service_token_tag_rule` in responses.
  */
-export const access_service_token_tag_rule_output: JsonSchema = {
+export const access_service_token_tag_rule: JsonSchema = {
   "properties": {
     "service_token_tag": {
       "properties": {
@@ -1039,7 +1039,7 @@ export const access_service_token_tag_rule_output: JsonSchema = {
 /**
  * The schema of `access_session_duration-3` in responses.
  */
-export const access_session_duration_3_output: JsonSchema = {
+export const access_session_duration$$3: JsonSchema = {
   "oneOf": [
     {
       "type": "string"
@@ -1053,7 +1053,7 @@ export const access_session_duration_3_output: JsonSchema = {
 /**
  * The schema of `access_user_risk_score_rule` in responses.
  */
-export const access_user_risk_score_rule_output: JsonSchema = {
+export const access_user_risk_score_rule: JsonSchema = {
   "properties": {
     "user_risk_score": {
       "properties": {
@@ -1086,6 +1086,6 @@ export const access_user_risk_score_rule_output: JsonSchema = {
 /**
  * The schema of `access_uuid-2` in responses.
  */
-export const access_uuid_2_output: JsonSchema = {
+export const access_uuid$$2: JsonSchema = {
   "type": "string"
 };

@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `cc_Application` in responses.
  */
-export const cc_Application_output: JsonSchema = {
+export const cc_Application: JsonSchema = {
   "properties": {
     "account_id": {
       "$ref": "#/$defs/cc_AccountID"
@@ -74,7 +74,7 @@ export const cc_Application_output: JsonSchema = {
 /**
  * The schema of `cc_ApplicationConstraints` in responses.
  */
-export const cc_ApplicationConstraints_output: JsonSchema = {
+export const cc_ApplicationConstraints: JsonSchema = {
   "properties": {
     "jurisdiction": {
       "$ref": "#/$defs/cc_ApplicationJurisdiction"
@@ -92,14 +92,14 @@ export const cc_ApplicationConstraints_output: JsonSchema = {
 /**
  * The schema of `cc_ApplicationDurableObjectsConfiguration` in responses.
  */
-export const cc_ApplicationDurableObjectsConfiguration_output: JsonSchema = {
+export const cc_ApplicationDurableObjectsConfiguration: JsonSchema = {
   "$ref": "#/$defs/cc_DurableObjectsConfigurationNamespaceId"
 };
 
 /**
  * The schema of `cc_ApplicationHealth` in responses.
  */
-export const cc_ApplicationHealth_output: JsonSchema = {
+export const cc_ApplicationHealth: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/cc_ApplicationHealthErrors"
@@ -127,7 +127,7 @@ export const cc_ApplicationHealth_output: JsonSchema = {
 /**
  * The schema of `cc_ApplicationHealthError` in responses.
  */
-export const cc_ApplicationHealthError_output: JsonSchema = {
+export const cc_ApplicationHealthError: JsonSchema = {
   "properties": {
     "event": {
       "$ref": "#/$defs/cc_PlacementEvent"
@@ -146,7 +146,7 @@ export const cc_ApplicationHealthError_output: JsonSchema = {
 /**
  * The schema of `cc_ApplicationHealthErrors` in responses.
  */
-export const cc_ApplicationHealthErrors_output: JsonSchema = {
+export const cc_ApplicationHealthErrors: JsonSchema = {
   "items": {
     "$ref": "#/$defs/cc_ApplicationHealthError"
   },
@@ -156,7 +156,7 @@ export const cc_ApplicationHealthErrors_output: JsonSchema = {
 /**
  * The schema of `cc_ApplicationHealthInstances` in responses.
  */
-export const cc_ApplicationHealthInstances_output: JsonSchema = {
+export const cc_ApplicationHealthInstances: JsonSchema = {
   "properties": {
     "active": {
       "type": "integer"
@@ -175,28 +175,28 @@ export const cc_ApplicationHealthInstances_output: JsonSchema = {
 /**
  * The schema of `cc_ApplicationID` in responses.
  */
-export const cc_ApplicationID_output: JsonSchema = {
+export const cc_ApplicationID: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `cc_ApplicationJurisdiction` in responses.
  */
-export const cc_ApplicationJurisdiction_output: JsonSchema = {
+export const cc_ApplicationJurisdiction: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `cc_ApplicationName` in responses.
  */
-export const cc_ApplicationName_output: JsonSchema = {
+export const cc_ApplicationName: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `cc_ApplicationObservability` in responses.
  */
-export const cc_ApplicationObservability_output: JsonSchema = {
+export const cc_ApplicationObservability: JsonSchema = {
   "properties": {
     "logs": {
       "$ref": "#/$defs/cc_ObservabilityLogs"
@@ -208,14 +208,14 @@ export const cc_ApplicationObservability_output: JsonSchema = {
 /**
  * The schema of `cc_ApplicationRolloutActiveGracePeriod` in responses.
  */
-export const cc_ApplicationRolloutActiveGracePeriod_output: JsonSchema = {
+export const cc_ApplicationRolloutActiveGracePeriod: JsonSchema = {
   "type": "integer"
 };
 
 /**
  * The schema of `cc_Command` in responses.
  */
-export const cc_Command_output: JsonSchema = {
+export const cc_Command: JsonSchema = {
   "items": {
     "$ref": "#/$defs/cc_ExecFormParam"
   },
@@ -225,7 +225,7 @@ export const cc_Command_output: JsonSchema = {
 /**
  * The schema of `cc_ContainersApplicationResponse` in responses.
  */
-export const cc_ContainersApplicationResponse_output: JsonSchema = {
+export const cc_ContainersApplicationResponse: JsonSchema = {
   "oneOf": [
     {
       "$ref": "#/$defs/cc_ScheduledApplication"
@@ -239,7 +239,7 @@ export const cc_ContainersApplicationResponse_output: JsonSchema = {
 /**
  * The schema of `cc_ContainersDeleteApplicationResponseBody` in responses.
  */
-export const cc_ContainersDeleteApplicationResponseBody_output: JsonSchema = {
+export const cc_ContainersDeleteApplicationResponseBody: JsonSchema = {
   "properties": {
     "message": {
       "type": "string"
@@ -254,7 +254,7 @@ export const cc_ContainersDeleteApplicationResponseBody_output: JsonSchema = {
 /**
  * The schema of `cc_ContainersListApplications` in responses.
  */
-export const cc_ContainersListApplications_output: JsonSchema = {
+export const cc_ContainersListApplications: JsonSchema = {
   "items": {
     "$ref": "#/$defs/cc_ContainersApplicationResponse"
   },
@@ -264,7 +264,7 @@ export const cc_ContainersListApplications_output: JsonSchema = {
 /**
  * The schema of `cc_DeploymentObservability` in responses.
  */
-export const cc_DeploymentObservability_output: JsonSchema = {
+export const cc_DeploymentObservability: JsonSchema = {
   "properties": {
     "logs": {
       "$ref": "#/$defs/cc_ObservabilityLogs"
@@ -276,7 +276,7 @@ export const cc_DeploymentObservability_output: JsonSchema = {
 /**
  * The schema of `cc_DurableObjectApplication` in responses.
  */
-export const cc_DurableObjectApplication_output: JsonSchema = {
+export const cc_DurableObjectApplication: JsonSchema = {
   "properties": {
     "account_id": {
       "$ref": "#/$defs/cc_AccountID"
@@ -327,7 +327,7 @@ export const cc_DurableObjectApplication_output: JsonSchema = {
 /**
  * The schema of `cc_DurableObjectApplicationConfiguration` in responses.
  */
-export const cc_DurableObjectApplicationConfiguration_output: JsonSchema = {
+export const cc_DurableObjectApplicationConfiguration: JsonSchema = {
   "properties": {
     "authorized_keys": {
       "items": {
@@ -345,7 +345,7 @@ export const cc_DurableObjectApplicationConfiguration_output: JsonSchema = {
 /**
  * The schema of `cc_DurableObjectApplicationConstraints` in responses.
  */
-export const cc_DurableObjectApplicationConstraints_output: JsonSchema = {
+export const cc_DurableObjectApplicationConstraints: JsonSchema = {
   "properties": {
     "jurisdiction": {
       "enum": [
@@ -365,7 +365,7 @@ export const cc_DurableObjectApplicationConstraints_output: JsonSchema = {
 /**
  * The schema of `cc_DurableObjectApplicationHealth` in responses.
  */
-export const cc_DurableObjectApplicationHealth_output: JsonSchema = {
+export const cc_DurableObjectApplicationHealth: JsonSchema = {
   "properties": {
     "instances": {
       "properties": {
@@ -398,7 +398,7 @@ export const cc_DurableObjectApplicationHealth_output: JsonSchema = {
 /**
  * The schema of `cc_DurableObjectApplicationObservability` in responses.
  */
-export const cc_DurableObjectApplicationObservability_output: JsonSchema = {
+export const cc_DurableObjectApplicationObservability: JsonSchema = {
   "properties": {
     "logs": {
       "properties": {
@@ -415,7 +415,7 @@ export const cc_DurableObjectApplicationObservability_output: JsonSchema = {
 /**
  * The schema of `cc_DurableObjectApplicationSchedulingPolicy` in responses.
  */
-export const cc_DurableObjectApplicationSchedulingPolicy_output: JsonSchema = {
+export const cc_DurableObjectApplicationSchedulingPolicy: JsonSchema = {
   "enum": [
     "durable_object"
   ],
@@ -425,7 +425,7 @@ export const cc_DurableObjectApplicationSchedulingPolicy_output: JsonSchema = {
 /**
  * The schema of `cc_DurableObjectsConfigurationNamespaceId` in responses.
  */
-export const cc_DurableObjectsConfigurationNamespaceId_output: JsonSchema = {
+export const cc_DurableObjectsConfigurationNamespaceId: JsonSchema = {
   "properties": {
     "namespace_id": {
       "type": "string"
@@ -440,7 +440,7 @@ export const cc_DurableObjectsConfigurationNamespaceId_output: JsonSchema = {
 /**
  * The schema of `cc_Entrypoint` in responses.
  */
-export const cc_Entrypoint_output: JsonSchema = {
+export const cc_Entrypoint: JsonSchema = {
   "items": {
     "$ref": "#/$defs/cc_ExecFormParam"
   },
@@ -450,7 +450,7 @@ export const cc_Entrypoint_output: JsonSchema = {
 /**
  * The schema of `cc_EnvironmentVariable` in responses.
  */
-export const cc_EnvironmentVariable_output: JsonSchema = {
+export const cc_EnvironmentVariable: JsonSchema = {
   "properties": {
     "name": {
       "$ref": "#/$defs/cc_EnvironmentVariableName"
@@ -469,21 +469,21 @@ export const cc_EnvironmentVariable_output: JsonSchema = {
 /**
  * The schema of `cc_EnvironmentVariableName` in responses.
  */
-export const cc_EnvironmentVariableName_output: JsonSchema = {
+export const cc_EnvironmentVariableName: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `cc_EnvironmentVariableValue` in responses.
  */
-export const cc_EnvironmentVariableValue_output: JsonSchema = {
+export const cc_EnvironmentVariableValue: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `cc_EventName` in responses.
  */
-export const cc_EventName_output: JsonSchema = {
+export const cc_EventName: JsonSchema = {
   "enum": [
     "SchedulerPlaced",
     "NetworkingIPAssigned",
@@ -509,7 +509,7 @@ export const cc_EventName_output: JsonSchema = {
 /**
  * The schema of `cc_EventType` in responses.
  */
-export const cc_EventType_output: JsonSchema = {
+export const cc_EventType: JsonSchema = {
   "enum": [
     "Info",
     "Error",
@@ -523,21 +523,21 @@ export const cc_EventType_output: JsonSchema = {
 /**
  * The schema of `cc_ExecFormParam` in responses.
  */
-export const cc_ExecFormParam_output: JsonSchema = {
+export const cc_ExecFormParam: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `cc_InstanceID` in responses.
  */
-export const cc_InstanceID_output: JsonSchema = {
+export const cc_InstanceID: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `cc_InstanceType` in responses.
  */
-export const cc_InstanceType_output: JsonSchema = {
+export const cc_InstanceType: JsonSchema = {
   "enum": [
     "lite",
     "basic",
@@ -552,7 +552,7 @@ export const cc_InstanceType_output: JsonSchema = {
 /**
  * The schema of `cc_ModifyUserDeploymentConfiguration` in responses.
  */
-export const cc_ModifyUserDeploymentConfiguration_output: JsonSchema = {
+export const cc_ModifyUserDeploymentConfiguration: JsonSchema = {
   "properties": {
     "authorized_keys": {
       "items": {
@@ -588,7 +588,7 @@ export const cc_ModifyUserDeploymentConfiguration_output: JsonSchema = {
 /**
  * The schema of `cc_ObservabilityLogs` in responses.
  */
-export const cc_ObservabilityLogs_output: JsonSchema = {
+export const cc_ObservabilityLogs: JsonSchema = {
   "properties": {
     "enabled": {
       "type": "boolean"
@@ -600,7 +600,7 @@ export const cc_ObservabilityLogs_output: JsonSchema = {
 /**
  * The schema of `cc_PlacementEvent` in responses.
  */
-export const cc_PlacementEvent_output: JsonSchema = {
+export const cc_PlacementEvent: JsonSchema = {
   "properties": {
     "details": {
       "type": "object"
@@ -639,28 +639,28 @@ export const cc_PlacementEvent_output: JsonSchema = {
 /**
  * The schema of `cc_Region` in responses.
  */
-export const cc_Region_output: JsonSchema = {
+export const cc_Region: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `cc_RolloutID` in responses.
  */
-export const cc_RolloutID_output: JsonSchema = {
+export const cc_RolloutID: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `cc_SSHPublicKey` in responses.
  */
-export const cc_SSHPublicKey_output: JsonSchema = {
+export const cc_SSHPublicKey: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `cc_ScheduledApplication` in responses.
  */
-export const cc_ScheduledApplication_output: JsonSchema = {
+export const cc_ScheduledApplication: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/cc_Application"
@@ -682,7 +682,7 @@ export const cc_ScheduledApplication_output: JsonSchema = {
 /**
  * The schema of `cc_ScheduledApplicationSchedulingPolicy` in responses.
  */
-export const cc_ScheduledApplicationSchedulingPolicy_output: JsonSchema = {
+export const cc_ScheduledApplicationSchedulingPolicy: JsonSchema = {
   "enum": [
     "default"
   ],
@@ -692,7 +692,7 @@ export const cc_ScheduledApplicationSchedulingPolicy_output: JsonSchema = {
 /**
  * The schema of `cc_SchedulingPolicy` in responses.
  */
-export const cc_SchedulingPolicy_output: JsonSchema = {
+export const cc_SchedulingPolicy: JsonSchema = {
   "enum": [
     "default",
     "durable_object"
@@ -703,7 +703,7 @@ export const cc_SchedulingPolicy_output: JsonSchema = {
 /**
  * The schema of `cc_UserDeploymentConfiguration` in responses.
  */
-export const cc_UserDeploymentConfiguration_output: JsonSchema = {
+export const cc_UserDeploymentConfiguration: JsonSchema = {
   "properties": {
     "authorized_keys": {
       "items": {
@@ -742,7 +742,7 @@ export const cc_UserDeploymentConfiguration_output: JsonSchema = {
 /**
  * The schema of `cc_UserSSHPublicKey` in responses.
  */
-export const cc_UserSSHPublicKey_output: JsonSchema = {
+export const cc_UserSSHPublicKey: JsonSchema = {
   "properties": {
     "name": {
       "type": "string"
@@ -760,7 +760,7 @@ export const cc_UserSSHPublicKey_output: JsonSchema = {
 /**
  * The schema of `cc_V4PaginatedResultInfo` in responses.
  */
-export const cc_V4PaginatedResultInfo_output: JsonSchema = {
+export const cc_V4PaginatedResultInfo: JsonSchema = {
   "properties": {
     "next_page_token": {
       "type": "string"
@@ -778,7 +778,7 @@ export const cc_V4PaginatedResultInfo_output: JsonSchema = {
 /**
  * The schema of `cc_WranglerSSHConfig` in responses.
  */
-export const cc_WranglerSSHConfig_output: JsonSchema = {
+export const cc_WranglerSSHConfig: JsonSchema = {
   "properties": {
     "enabled": {
       "type": "boolean"

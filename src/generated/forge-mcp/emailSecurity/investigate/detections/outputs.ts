@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `email-security_Attachment` in responses.
  */
-export const email_security_Attachment_output: JsonSchema = {
+export const email$$security_Attachment: JsonSchema = {
   "properties": {
     "content_type": {
       "oneOf": [
@@ -101,7 +101,7 @@ export const email_security_Attachment_output: JsonSchema = {
 /**
  * The schema of `email-security_Finding` in responses.
  */
-export const email_security_Finding_output: JsonSchema = {
+export const email$$security_Finding: JsonSchema = {
   "properties": {
     "attachment": {
       "oneOf": [
@@ -200,7 +200,7 @@ export const email_security_Finding_output: JsonSchema = {
 /**
  * The schema of `email-security_Link` in responses.
  */
-export const email_security_Link_output: JsonSchema = {
+export const email$$security_Link: JsonSchema = {
   "properties": {
     "href": {
       "type": "string"
@@ -225,7 +225,7 @@ export const email_security_Link_output: JsonSchema = {
 /**
  * The schema of `email-security_MessageDetectionDetails` in responses.
  */
-export const email_security_MessageDetectionDetails_output: JsonSchema = {
+export const email$$security_MessageDetectionDetails: JsonSchema = {
   "properties": {
     "action": {
       "type": "string"
@@ -352,7 +352,7 @@ export const email_security_MessageDetectionDetails_output: JsonSchema = {
 /**
  * The schema of `email-security_MessageHeader` in responses.
  */
-export const email_security_MessageHeader_output: JsonSchema = {
+export const email$$security_MessageHeader: JsonSchema = {
   "properties": {
     "name": {
       "type": "string"
@@ -371,7 +371,7 @@ export const email_security_MessageHeader_output: JsonSchema = {
 /**
  * The schema of `email-security_ThreatCategory` in responses.
  */
-export const email_security_ThreatCategory_output: JsonSchema = {
+export const email$$security_ThreatCategory: JsonSchema = {
   "properties": {
     "description": {
       "oneOf": [

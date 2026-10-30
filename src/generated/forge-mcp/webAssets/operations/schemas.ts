@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `api-shield_object-with-operation-id`.
  */
-export const api_shield_object_with_operation_id: JsonSchema = {
+export const api$$shield_object$$with$$operation$$id: JsonSchema = {
   "properties": {
     "operation_id": {
       "allOf": [

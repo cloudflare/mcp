@@ -3,10 +3,10 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
-  flagship_ApiMessage_output,
-  flagship_App_output,
-  flagship_DeleteAppResult_output,
-  flagship_Error_output,
+  flagship_ApiMessage,
+  flagship_App,
+  flagship_DeleteAppResult,
+  flagship_Error,
 } from "./outputs.js";
 
 /**
@@ -20,10 +20,6 @@ export const tools: readonly Tool[] = [
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "description": "Cloudflare account ID that owns the Flagship app.",
-          "type": "string"
-        },
         "body": {
           "properties": {
             "name": {
@@ -35,10 +31,22 @@ export const tools: readonly Tool[] = [
             "name"
           ],
           "type": "object"
+        },
+        "path": {
+          "properties": {
+            "account_id": {
+              "description": "Cloudflare account ID that owns the Flagship app.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
+        "path",
         "body"
       ],
     },
@@ -87,7 +95,7 @@ export const tools: readonly Tool[] = [
       ],
       "type": "object",
       $defs: {
-        "flagship_App": flagship_App_output,
+        "flagship_App": flagship_App,
       },
     },
     annotations: {
@@ -182,9 +190,9 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "flagship_ApiMessage": flagship_ApiMessage_output,
-        "flagship_App": flagship_App_output,
-        "flagship_Error": flagship_Error_output,
+        "flagship_ApiMessage": flagship_ApiMessage,
+        "flagship_App": flagship_App,
+        "flagship_Error": flagship_Error,
       },
     },
     request: (args) => ({
@@ -199,18 +207,26 @@ export const tools: readonly Tool[] = [
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "description": "Cloudflare account ID that owns the Flagship app.",
-          "type": "string"
-        },
-        "app_id": {
-          "description": "Flagship app ID returned when the app was created.",
-          "type": "string"
+        "path": {
+          "properties": {
+            "account_id": {
+              "description": "Cloudflare account ID that owns the Flagship app.",
+              "type": "string"
+            },
+            "app_id": {
+              "description": "Flagship app ID returned when the app was created.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "app_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "app_id"
+        "path"
       ],
     },
     outputSchema: {
@@ -258,7 +274,7 @@ export const tools: readonly Tool[] = [
       ],
       "type": "object",
       $defs: {
-        "flagship_DeleteAppResult": flagship_DeleteAppResult_output,
+        "flagship_DeleteAppResult": flagship_DeleteAppResult,
       },
     },
     annotations: {
@@ -356,9 +372,9 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "flagship_ApiMessage": flagship_ApiMessage_output,
-        "flagship_DeleteAppResult": flagship_DeleteAppResult_output,
-        "flagship_Error": flagship_Error_output,
+        "flagship_ApiMessage": flagship_ApiMessage,
+        "flagship_DeleteAppResult": flagship_DeleteAppResult,
+        "flagship_Error": flagship_Error,
       },
     },
     request: (args) => ({
@@ -372,18 +388,26 @@ export const tools: readonly Tool[] = [
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "description": "Cloudflare account ID that owns the Flagship app.",
-          "type": "string"
-        },
-        "app_id": {
-          "description": "Flagship app ID returned when the app was created.",
-          "type": "string"
+        "path": {
+          "properties": {
+            "account_id": {
+              "description": "Cloudflare account ID that owns the Flagship app.",
+              "type": "string"
+            },
+            "app_id": {
+              "description": "Flagship app ID returned when the app was created.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "app_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "app_id"
+        "path"
       ],
     },
     outputSchema: {
@@ -431,7 +455,7 @@ export const tools: readonly Tool[] = [
       ],
       "type": "object",
       $defs: {
-        "flagship_App": flagship_App_output,
+        "flagship_App": flagship_App,
       },
     },
     annotations: {
@@ -527,9 +551,9 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "flagship_ApiMessage": flagship_ApiMessage_output,
-        "flagship_App": flagship_App_output,
-        "flagship_Error": flagship_Error_output,
+        "flagship_ApiMessage": flagship_ApiMessage,
+        "flagship_App": flagship_App,
+        "flagship_Error": flagship_Error,
       },
     },
     request: (args) => ({
@@ -543,13 +567,21 @@ export const tools: readonly Tool[] = [
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "description": "Cloudflare account ID that owns the Flagship app.",
-          "type": "string"
+        "path": {
+          "properties": {
+            "account_id": {
+              "description": "Cloudflare account ID that owns the Flagship app.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id"
+        "path"
       ],
     },
     outputSchema: {
@@ -600,7 +632,7 @@ export const tools: readonly Tool[] = [
       ],
       "type": "object",
       $defs: {
-        "flagship_App": flagship_App_output,
+        "flagship_App": flagship_App,
       },
     },
     annotations: {
@@ -699,9 +731,9 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "flagship_ApiMessage": flagship_ApiMessage_output,
-        "flagship_App": flagship_App_output,
-        "flagship_Error": flagship_Error_output,
+        "flagship_ApiMessage": flagship_ApiMessage,
+        "flagship_App": flagship_App,
+        "flagship_Error": flagship_Error,
       },
     },
     request: (args) => ({
@@ -715,14 +747,6 @@ export const tools: readonly Tool[] = [
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "description": "Cloudflare account ID that owns the Flagship app.",
-          "type": "string"
-        },
-        "app_id": {
-          "description": "Flagship app ID returned when the app was created.",
-          "type": "string"
-        },
         "body": {
           "properties": {
             "name": {
@@ -731,11 +755,27 @@ export const tools: readonly Tool[] = [
             }
           },
           "type": "object"
+        },
+        "path": {
+          "properties": {
+            "account_id": {
+              "description": "Cloudflare account ID that owns the Flagship app.",
+              "type": "string"
+            },
+            "app_id": {
+              "description": "Flagship app ID returned when the app was created.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "app_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "app_id",
+        "path",
         "body"
       ],
     },
@@ -784,7 +824,7 @@ export const tools: readonly Tool[] = [
       ],
       "type": "object",
       $defs: {
-        "flagship_App": flagship_App_output,
+        "flagship_App": flagship_App,
       },
     },
     annotations: {
@@ -879,9 +919,9 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "flagship_ApiMessage": flagship_ApiMessage_output,
-        "flagship_App": flagship_App_output,
-        "flagship_Error": flagship_Error_output,
+        "flagship_ApiMessage": flagship_ApiMessage,
+        "flagship_App": flagship_App,
+        "flagship_Error": flagship_Error,
       },
     },
     request: (args) => ({

@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../../_/tool.js";
 /**
  * The schema of `access_scim_email` in responses.
  */
-export const access_scim_email_output: JsonSchema = {
+export const access_scim_email: JsonSchema = {
   "properties": {
     "primary": {
       "type": "boolean"
@@ -24,7 +24,7 @@ export const access_scim_email_output: JsonSchema = {
 /**
  * The schema of `access_scim_meta` in responses.
  */
-export const access_scim_meta_output: JsonSchema = {
+export const access_scim_meta: JsonSchema = {
   "properties": {
     "created": {
       "format": "date-time",
@@ -50,7 +50,7 @@ export const access_scim_meta_output: JsonSchema = {
 /**
  * The schema of `access_scim_name` in responses.
  */
-export const access_scim_name_output: JsonSchema = {
+export const access_scim_name: JsonSchema = {
   "properties": {
     "familyName": {
       "type": "string"
@@ -77,7 +77,7 @@ export const access_scim_name_output: JsonSchema = {
 /**
  * The schema of `access_scim_user` in responses.
  */
-export const access_scim_user_output: JsonSchema = {
+export const access_scim_user: JsonSchema = {
   "properties": {
     "active": {
       "type": "boolean"
@@ -119,7 +119,7 @@ export const access_scim_user_output: JsonSchema = {
 /**
  * The schema of `access_scim_user_collection_response` in responses.
  */
-export const access_scim_user_collection_response_output: JsonSchema = {
+export const access_scim_user_collection_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/access_api-response-single"
@@ -138,7 +138,7 @@ export const access_scim_user_collection_response_output: JsonSchema = {
 /**
  * The schema of `access_scim_user_list_response` in responses.
  */
-export const access_scim_user_list_response_output: JsonSchema = {
+export const access_scim_user_list_response: JsonSchema = {
   "properties": {
     "Resources": {
       "items": {
@@ -175,7 +175,7 @@ export const access_scim_user_list_response_output: JsonSchema = {
 /**
  * The schema of `access_scim_user_single_response` in responses.
  */
-export const access_scim_user_single_response_output: JsonSchema = {
+export const access_scim_user_single_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/access_api-response-single"

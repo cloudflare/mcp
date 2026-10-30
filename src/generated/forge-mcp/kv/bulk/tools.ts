@@ -3,30 +3,30 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
-  workers_kv_any_output,
-  workers_kv_api_response_common_failure_output,
-  workers_kv_api_response_common_no_result_output,
-  workers_kv_api_response_common_output,
-  workers_kv_expiration_output,
-  workers_kv_messages_output,
+  workers$$kv_any,
+  workers$$kv_api$$response$$common,
+  workers$$kv_api$$response$$common$$failure,
+  workers$$kv_api$$response$$common$$no$$result,
+  workers$$kv_expiration,
+  workers$$kv_messages,
 } from "../outputs.js";
 import {
-  workers_kv_any,
-  workers_kv_expiration,
-  workers_kv_expiration_ttl,
-  workers_kv_identifier,
-  workers_kv_list_metadata,
-  workers_kv_namespace_identifier,
+  workers$$kv_any as workers$$kv_any$,
+  workers$$kv_expiration as workers$$kv_expiration$,
+  workers$$kv_expiration_ttl,
+  workers$$kv_identifier,
+  workers$$kv_list_metadata,
+  workers$$kv_namespace_identifier,
 } from "../schemas.js";
 import {
-  workers_kv_bulk_get_result_output,
-  workers_kv_bulk_get_result_with_metadata_output,
-  workers_kv_bulk_result_output,
+  workers$$kv_bulk$$get$$result,
+  workers$$kv_bulk$$get$$result$$with$$metadata,
+  workers$$kv_bulk$$result,
 } from "./outputs.js";
 import {
-  workers_kv_bulk_delete,
-  workers_kv_bulk_write,
-  workers_kv_key_name_bulk,
+  workers$$kv_bulk_delete,
+  workers$$kv_bulk_write,
+  workers$$kv_key_name_bulk,
 } from "./schemas.js";
 
 /**
@@ -40,28 +40,36 @@ export const tools: readonly Tool[] = [
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/workers-kv_identifier",
-          "description": "ID of the Cloudflare account that owns the Workers KV namespaces."
-        },
         "body": {
           "$ref": "#/$defs/workers-kv_bulk_delete"
         },
-        "namespace_id": {
-          "$ref": "#/$defs/workers-kv_namespace_identifier",
-          "description": "ID of the Workers KV namespace."
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/workers-kv_identifier",
+              "description": "ID of the Cloudflare account that owns the Workers KV namespaces."
+            },
+            "namespace_id": {
+              "$ref": "#/$defs/workers-kv_namespace_identifier",
+              "description": "ID of the Workers KV namespace."
+            }
+          },
+          "required": [
+            "account_id",
+            "namespace_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "namespace_id",
+        "path",
         "body"
       ],
       $defs: {
-        "workers-kv_bulk_delete": workers_kv_bulk_delete,
-        "workers-kv_identifier": workers_kv_identifier,
-        "workers-kv_key_name_bulk": workers_kv_key_name_bulk,
-        "workers-kv_namespace_identifier": workers_kv_namespace_identifier,
+        "workers-kv_bulk_delete": workers$$kv_bulk_delete,
+        "workers-kv_identifier": workers$$kv_identifier,
+        "workers-kv_key_name_bulk": workers$$kv_key_name_bulk,
+        "workers-kv_namespace_identifier": workers$$kv_namespace_identifier,
       },
     },
     outputSchema: {
@@ -79,10 +87,10 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "workers-kv_api-response-common": workers_kv_api_response_common_output,
-        "workers-kv_api-response-common-no-result": workers_kv_api_response_common_no_result_output,
-        "workers-kv_bulk-result": workers_kv_bulk_result_output,
-        "workers-kv_messages": workers_kv_messages_output,
+        "workers-kv_api-response-common": workers$$kv_api$$response$$common,
+        "workers-kv_api-response-common-no-result": workers$$kv_api$$response$$common$$no$$result,
+        "workers-kv_bulk-result": workers$$kv_bulk$$result,
+        "workers-kv_messages": workers$$kv_messages,
       },
     },
     annotations: {
@@ -133,10 +141,10 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "workers-kv_api-response-common": workers_kv_api_response_common_output,
-        "workers-kv_api-response-common-no-result": workers_kv_api_response_common_no_result_output,
-        "workers-kv_bulk-result": workers_kv_bulk_result_output,
-        "workers-kv_messages": workers_kv_messages_output,
+        "workers-kv_api-response-common": workers$$kv_api$$response$$common,
+        "workers-kv_api-response-common-no-result": workers$$kv_api$$response$$common$$no$$result,
+        "workers-kv_bulk-result": workers$$kv_bulk$$result,
+        "workers-kv_messages": workers$$kv_messages,
       },
     },
     request: (args) => ({
@@ -151,10 +159,6 @@ export const tools: readonly Tool[] = [
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/workers-kv_identifier",
-          "description": "ID of the Cloudflare account that owns the Workers KV namespaces."
-        },
         "body": {
           "properties": {
             "keys": {
@@ -185,20 +189,32 @@ export const tools: readonly Tool[] = [
           ],
           "type": "object"
         },
-        "namespace_id": {
-          "$ref": "#/$defs/workers-kv_namespace_identifier",
-          "description": "ID of the Workers KV namespace."
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/workers-kv_identifier",
+              "description": "ID of the Cloudflare account that owns the Workers KV namespaces."
+            },
+            "namespace_id": {
+              "$ref": "#/$defs/workers-kv_namespace_identifier",
+              "description": "ID of the Workers KV namespace."
+            }
+          },
+          "required": [
+            "account_id",
+            "namespace_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "namespace_id",
+        "path",
         "body"
       ],
       $defs: {
-        "workers-kv_identifier": workers_kv_identifier,
-        "workers-kv_key_name_bulk": workers_kv_key_name_bulk,
-        "workers-kv_namespace_identifier": workers_kv_namespace_identifier,
+        "workers-kv_identifier": workers$$kv_identifier,
+        "workers-kv_key_name_bulk": workers$$kv_key_name_bulk,
+        "workers-kv_namespace_identifier": workers$$kv_namespace_identifier,
       },
     },
     outputSchema: {
@@ -223,13 +239,13 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "workers-kv_any": workers_kv_any_output,
-        "workers-kv_api-response-common": workers_kv_api_response_common_output,
-        "workers-kv_api-response-common-no-result": workers_kv_api_response_common_no_result_output,
-        "workers-kv_bulk-get-result": workers_kv_bulk_get_result_output,
-        "workers-kv_bulk-get-result-with-metadata": workers_kv_bulk_get_result_with_metadata_output,
-        "workers-kv_expiration": workers_kv_expiration_output,
-        "workers-kv_messages": workers_kv_messages_output,
+        "workers-kv_any": workers$$kv_any,
+        "workers-kv_api-response-common": workers$$kv_api$$response$$common,
+        "workers-kv_api-response-common-no-result": workers$$kv_api$$response$$common$$no$$result,
+        "workers-kv_bulk-get-result": workers$$kv_bulk$$get$$result,
+        "workers-kv_bulk-get-result-with-metadata": workers$$kv_bulk$$get$$result$$with$$metadata,
+        "workers-kv_expiration": workers$$kv_expiration,
+        "workers-kv_messages": workers$$kv_messages,
       },
     },
     annotations: {
@@ -276,14 +292,14 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "workers-kv_any": workers_kv_any_output,
-        "workers-kv_api-response-common": workers_kv_api_response_common_output,
-        "workers-kv_api-response-common-failure": workers_kv_api_response_common_failure_output,
-        "workers-kv_api-response-common-no-result": workers_kv_api_response_common_no_result_output,
-        "workers-kv_bulk-get-result": workers_kv_bulk_get_result_output,
-        "workers-kv_bulk-get-result-with-metadata": workers_kv_bulk_get_result_with_metadata_output,
-        "workers-kv_expiration": workers_kv_expiration_output,
-        "workers-kv_messages": workers_kv_messages_output,
+        "workers-kv_any": workers$$kv_any,
+        "workers-kv_api-response-common": workers$$kv_api$$response$$common,
+        "workers-kv_api-response-common-failure": workers$$kv_api$$response$$common$$failure,
+        "workers-kv_api-response-common-no-result": workers$$kv_api$$response$$common$$no$$result,
+        "workers-kv_bulk-get-result": workers$$kv_bulk$$get$$result,
+        "workers-kv_bulk-get-result-with-metadata": workers$$kv_bulk$$get$$result$$with$$metadata,
+        "workers-kv_expiration": workers$$kv_expiration,
+        "workers-kv_messages": workers$$kv_messages,
       },
     },
     request: (args) => ({
@@ -298,32 +314,40 @@ export const tools: readonly Tool[] = [
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/workers-kv_identifier",
-          "description": "ID of the Cloudflare account that owns the Workers KV namespaces."
-        },
         "body": {
           "$ref": "#/$defs/workers-kv_bulk_write"
         },
-        "namespace_id": {
-          "$ref": "#/$defs/workers-kv_namespace_identifier",
-          "description": "ID of the Workers KV namespace."
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/workers-kv_identifier",
+              "description": "ID of the Cloudflare account that owns the Workers KV namespaces."
+            },
+            "namespace_id": {
+              "$ref": "#/$defs/workers-kv_namespace_identifier",
+              "description": "ID of the Workers KV namespace."
+            }
+          },
+          "required": [
+            "account_id",
+            "namespace_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "namespace_id",
+        "path",
         "body"
       ],
       $defs: {
-        "workers-kv_any": workers_kv_any,
-        "workers-kv_bulk_write": workers_kv_bulk_write,
-        "workers-kv_expiration": workers_kv_expiration,
-        "workers-kv_expiration_ttl": workers_kv_expiration_ttl,
-        "workers-kv_identifier": workers_kv_identifier,
-        "workers-kv_key_name_bulk": workers_kv_key_name_bulk,
-        "workers-kv_list_metadata": workers_kv_list_metadata,
-        "workers-kv_namespace_identifier": workers_kv_namespace_identifier,
+        "workers-kv_any": workers$$kv_any$,
+        "workers-kv_bulk_write": workers$$kv_bulk_write,
+        "workers-kv_expiration": workers$$kv_expiration$,
+        "workers-kv_expiration_ttl": workers$$kv_expiration_ttl,
+        "workers-kv_identifier": workers$$kv_identifier,
+        "workers-kv_key_name_bulk": workers$$kv_key_name_bulk,
+        "workers-kv_list_metadata": workers$$kv_list_metadata,
+        "workers-kv_namespace_identifier": workers$$kv_namespace_identifier,
       },
     },
     outputSchema: {
@@ -341,10 +365,10 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "workers-kv_api-response-common": workers_kv_api_response_common_output,
-        "workers-kv_api-response-common-no-result": workers_kv_api_response_common_no_result_output,
-        "workers-kv_bulk-result": workers_kv_bulk_result_output,
-        "workers-kv_messages": workers_kv_messages_output,
+        "workers-kv_api-response-common": workers$$kv_api$$response$$common,
+        "workers-kv_api-response-common-no-result": workers$$kv_api$$response$$common$$no$$result,
+        "workers-kv_bulk-result": workers$$kv_bulk$$result,
+        "workers-kv_messages": workers$$kv_messages,
       },
     },
     annotations: {
@@ -395,10 +419,10 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "workers-kv_api-response-common": workers_kv_api_response_common_output,
-        "workers-kv_api-response-common-no-result": workers_kv_api_response_common_no_result_output,
-        "workers-kv_bulk-result": workers_kv_bulk_result_output,
-        "workers-kv_messages": workers_kv_messages_output,
+        "workers-kv_api-response-common": workers$$kv_api$$response$$common,
+        "workers-kv_api-response-common-no-result": workers$$kv_api$$response$$common$$no$$result,
+        "workers-kv_bulk-result": workers$$kv_bulk$$result,
+        "workers-kv_messages": workers$$kv_messages,
       },
     },
     request: (args) => ({

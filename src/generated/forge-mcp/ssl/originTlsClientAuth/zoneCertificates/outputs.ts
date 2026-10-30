@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `tls-certificates-and-hostnames_certificate-5` in responses.
  */
-export const tls_certificates_and_hostnames_certificate_5_output: JsonSchema = {
+export const tls$$certificates$$and$$hostnames_certificate$$5: JsonSchema = {
   "type": "string"
 };
 
@@ -14,7 +14,7 @@ export const tls_certificates_and_hostnames_certificate_5_output: JsonSchema = {
  * The schema of `tls-certificates-and-hostnames_certificateObject` in
  * responses.
  */
-export const tls_certificates_and_hostnames_certificateObject_output: JsonSchema = {
+export const tls$$certificates$$and$$hostnames_certificateObject: JsonSchema = {
   "properties": {
     "certificate": {
       "$ref": "#/$defs/tls-certificates-and-hostnames_certificate-5"
@@ -46,7 +46,7 @@ export const tls_certificates_and_hostnames_certificateObject_output: JsonSchema
  * `tls-certificates-and-hostnames_certificate_response_collection-3` in
  * responses.
  */
-export const tls_certificates_and_hostnames_certificate_response_collection_3_output: JsonSchema = {
+export const tls$$certificates$$and$$hostnames_certificate_response_collection$$3: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/tls-certificates-and-hostnames_api-response-collection"
@@ -69,7 +69,7 @@ export const tls_certificates_and_hostnames_certificate_response_collection_3_ou
  * The schema of `tls-certificates-and-hostnames_certificate_response_single-3`
  * in responses.
  */
-export const tls_certificates_and_hostnames_certificate_response_single_3_output: JsonSchema = {
+export const tls$$certificates$$and$$hostnames_certificate_response_single$$3: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/tls-certificates-and-hostnames_api-response-single"
@@ -88,7 +88,7 @@ export const tls_certificates_and_hostnames_certificate_response_single_3_output
 /**
  * The schema of `tls-certificates-and-hostnames_expires_on-4` in responses.
  */
-export const tls_certificates_and_hostnames_expires_on_4_output: JsonSchema = {
+export const tls$$certificates$$and$$hostnames_expires_on$$4: JsonSchema = {
   "format": "date-time",
   "type": "string"
 };
@@ -96,14 +96,14 @@ export const tls_certificates_and_hostnames_expires_on_4_output: JsonSchema = {
 /**
  * The schema of `tls-certificates-and-hostnames_private_key-2` in responses.
  */
-export const tls_certificates_and_hostnames_private_key_2_output: JsonSchema = {
+export const tls$$certificates$$and$$hostnames_private_key$$2: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `tls-certificates-and-hostnames_status-8` in responses.
  */
-export const tls_certificates_and_hostnames_status_8_output: JsonSchema = {
+export const tls$$certificates$$and$$hostnames_status$$8: JsonSchema = {
   "enum": [
     "initializing",
     "pending_deployment",
@@ -119,7 +119,7 @@ export const tls_certificates_and_hostnames_status_8_output: JsonSchema = {
 /**
  * The schema of `tls-certificates-and-hostnames_uploaded_on-2` in responses.
  */
-export const tls_certificates_and_hostnames_uploaded_on_2_output: JsonSchema = {
+export const tls$$certificates$$and$$hostnames_uploaded_on$$2: JsonSchema = {
   "format": "date-time",
   "type": "string"
 };
@@ -128,7 +128,7 @@ export const tls_certificates_and_hostnames_uploaded_on_2_output: JsonSchema = {
  * The schema of `tls-certificates-and-hostnames_zone-authenticated-origin-pull`
  * in responses.
  */
-export const tls_certificates_and_hostnames_zone_authenticated_origin_pull_output: JsonSchema = {
+export const tls$$certificates$$and$$hostnames_zone$$authenticated$$origin$$pull: JsonSchema = {
   "allOf": [
     {
       "properties": {
@@ -158,6 +158,6 @@ export const tls_certificates_and_hostnames_zone_authenticated_origin_pull_outpu
  * `tls-certificates-and-hostnames_zone_aop_certificate_identifier` in
  * responses.
  */
-export const tls_certificates_and_hostnames_zone_aop_certificate_identifier_output: JsonSchema = {
+export const tls$$certificates$$and$$hostnames_zone_aop_certificate_identifier: JsonSchema = {
   "type": "string"
 };

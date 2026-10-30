@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `cloudflare-pipelines_Format` in responses.
  */
-export const cloudflare_pipelines_Format_output: JsonSchema = {
+export const cloudflare$$pipelines_Format: JsonSchema = {
   "oneOf": [
     {
       "allOf": [

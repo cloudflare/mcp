@@ -3,46 +3,54 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
-  email_security_api_response_common_failure_output,
-  email_security_api_response_common_output,
-  email_security_messages_output,
+  email$$security_api$$response$$common,
+  email$$security_api$$response$$common$$failure,
+  email$$security_messages,
 } from "../../outputs.js";
 import {
-  email_security_InvestigateId,
-  email_security_identifier,
+  email$$security_InvestigateId,
+  email$$security_identifier,
 } from "../../schemas.js";
 import {
-  email_security_MessageTrace_output,
-  email_security_TraceLine_output,
+  email$$security_MessageTrace,
+  email$$security_TraceLine,
 } from "./outputs.js";
 
 /**
- * The tools of `email_security.investigate.trace`.
+ * The tools of `emailSecurity.investigate.trace`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "email_security_investigate_trace_get",
+    name: "emailSecurity_investigate_trace_get",
     title: "Get email trace",
     description: "Retrieves delivery and processing trace information for an email message. Shows the delivery path, retraction history, and move operations performed on the message. Useful for debugging delivery issues.\n\nThis method is beta.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/email-security_identifier",
-          "description": "Account identifier tag."
-        },
-        "investigate_id": {
-          "$ref": "#/$defs/email-security_InvestigateId",
-          "description": "Unique identifier for a message retrieved from investigation."
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/email-security_identifier",
+              "description": "Account identifier tag."
+            },
+            "investigate_id": {
+              "$ref": "#/$defs/email-security_InvestigateId",
+              "description": "Unique identifier for a message retrieved from investigation."
+            }
+          },
+          "required": [
+            "account_id",
+            "investigate_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "investigate_id"
+        "path"
       ],
       $defs: {
-        "email-security_InvestigateId": email_security_InvestigateId,
-        "email-security_identifier": email_security_identifier,
+        "email-security_InvestigateId": email$$security_InvestigateId,
+        "email-security_identifier": email$$security_identifier,
       },
     },
     outputSchema: {
@@ -63,10 +71,10 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "email-security_MessageTrace": email_security_MessageTrace_output,
-        "email-security_TraceLine": email_security_TraceLine_output,
-        "email-security_api-response-common": email_security_api_response_common_output,
-        "email-security_messages": email_security_messages_output,
+        "email-security_MessageTrace": email$$security_MessageTrace,
+        "email-security_TraceLine": email$$security_TraceLine,
+        "email-security_api-response-common": email$$security_api$$response$$common,
+        "email-security_messages": email$$security_messages,
       },
     },
     annotations: {
@@ -110,11 +118,11 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "email-security_MessageTrace": email_security_MessageTrace_output,
-        "email-security_TraceLine": email_security_TraceLine_output,
-        "email-security_api-response-common": email_security_api_response_common_output,
-        "email-security_api-response-common-failure": email_security_api_response_common_failure_output,
-        "email-security_messages": email_security_messages_output,
+        "email-security_MessageTrace": email$$security_MessageTrace,
+        "email-security_TraceLine": email$$security_TraceLine,
+        "email-security_api-response-common": email$$security_api$$response$$common,
+        "email-security_api-response-common-failure": email$$security_api$$response$$common$$failure,
+        "email-security_messages": email$$security_messages,
       },
     },
     request: (args) => ({

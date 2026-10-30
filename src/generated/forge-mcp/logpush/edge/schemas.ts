@@ -14,7 +14,7 @@ export const logpush_fields: JsonSchema = {
 /**
  * The schema of `logpush_filter-2`.
  */
-export const logpush_filter_2: JsonSchema = {
+export const logpush_filter$$2: JsonSchema = {
   "description": "Filters to drill down into specific events.",
   "type": "string"
 };

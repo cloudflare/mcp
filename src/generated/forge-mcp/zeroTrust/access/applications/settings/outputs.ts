@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../../_/tool.js";
 /**
  * The schema of `access_app_settings_response` in responses.
  */
-export const access_app_settings_response_output: JsonSchema = {
+export const access_app_settings_response: JsonSchema = {
   "properties": {
     "allow_iframe": {
       "$ref": "#/$defs/access_allow_iframe"
@@ -21,7 +21,7 @@ export const access_app_settings_response_output: JsonSchema = {
 /**
  * The schema of `access_single_response_update` in responses.
  */
-export const access_single_response_update_output: JsonSchema = {
+export const access_single_response_update: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/access_api-response-single"

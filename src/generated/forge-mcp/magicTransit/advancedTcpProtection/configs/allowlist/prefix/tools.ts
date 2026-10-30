@@ -3,55 +3,62 @@
 
 import { type Tool, pathParam } from "../../../../../_/tool.js";
 import {
-  advanced_ddos_protection_api_response_common_failure_output,
-  advanced_ddos_protection_api_response_common_output,
-  advanced_ddos_protection_messages_output,
+  advanced$$ddos$$protection_api$$response$$common,
+  advanced$$ddos$$protection_api$$response$$common$$failure,
+  advanced$$ddos$$protection_messages,
 } from "../../../../outputs.js";
 import {
-  advanced_ddos_protection_identifier,
-  advanced_ddos_protection_uuid,
+  advanced$$ddos$$protection_identifier,
+  advanced$$ddos$$protection_uuid,
 } from "../../../../schemas.js";
 import {
-  advanced_ddos_protection_InfraPrefix_output,
-  advanced_ddos_protection_infra_prefix_response_output,
+  advanced$$ddos$$protection_InfraPrefix,
+  advanced$$ddos$$protection_infra$$prefix$$response,
 } from "../outputs.js";
-import { advanced_ddos_protection_InfraPrefixUpdate } from "./schemas.js";
+import { advanced$$ddos$$protection_InfraPrefixUpdate } from "./schemas.js";
 
 /**
- * The tools of
- * `magic_transit.advanced_tcp_protection.configs.allowlist.prefix`.
+ * The tools of `magicTransit.advancedTcpProtection.configs.allowlist.prefix`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "magic_transit_advanced_tcp_protection_configs_allowlist_prefix_delete",
+    name: "magicTransit_advancedTcpProtection_configs_allowlist_prefix_delete",
     title: "Delete allowlist prefix.",
     description: "Delete the allowlist prefix for an account given a UUID.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/advanced-ddos-protection_identifier",
-          "description": "The ID of the account."
-        },
-        "prefix_id": {
-          "$ref": "#/$defs/advanced-ddos-protection_uuid",
-          "description": "The UUID of the allowlist prefix to delete."
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/advanced-ddos-protection_identifier",
+              "description": "The ID of the account."
+            },
+            "prefix_id": {
+              "$ref": "#/$defs/advanced-ddos-protection_uuid",
+              "description": "The UUID of the allowlist prefix to delete."
+            }
+          },
+          "required": [
+            "account_id",
+            "prefix_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "prefix_id"
+        "path"
       ],
       $defs: {
-        "advanced-ddos-protection_identifier": advanced_ddos_protection_identifier,
-        "advanced-ddos-protection_uuid": advanced_ddos_protection_uuid,
+        "advanced-ddos-protection_identifier": advanced$$ddos$$protection_identifier,
+        "advanced-ddos-protection_uuid": advanced$$ddos$$protection_uuid,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/advanced-ddos-protection_api-response-common",
       $defs: {
-        "advanced-ddos-protection_api-response-common": advanced_ddos_protection_api_response_common_output,
-        "advanced-ddos-protection_messages": advanced_ddos_protection_messages_output,
+        "advanced-ddos-protection_api-response-common": advanced$$ddos$$protection_api$$response$$common,
+        "advanced-ddos-protection_messages": advanced$$ddos$$protection_messages,
       },
     },
     annotations: {
@@ -78,9 +85,9 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "advanced-ddos-protection_api-response-common": advanced_ddos_protection_api_response_common_output,
-        "advanced-ddos-protection_api-response-common-failure": advanced_ddos_protection_api_response_common_failure_output,
-        "advanced-ddos-protection_messages": advanced_ddos_protection_messages_output,
+        "advanced-ddos-protection_api-response-common": advanced$$ddos$$protection_api$$response$$common,
+        "advanced-ddos-protection_api-response-common-failure": advanced$$ddos$$protection_api$$response$$common$$failure,
+        "advanced-ddos-protection_messages": advanced$$ddos$$protection_messages,
       },
     },
     request: (args) => ({
@@ -88,37 +95,45 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "magic_transit_advanced_tcp_protection_configs_allowlist_prefix_get",
+    name: "magicTransit_advancedTcpProtection_configs_allowlist_prefix_get",
     title: "Get allowlist prefix.",
     description: "Get an allowlist prefix specified by the given UUID.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/advanced-ddos-protection_identifier",
-          "description": "The ID of the account."
-        },
-        "prefix_id": {
-          "$ref": "#/$defs/advanced-ddos-protection_uuid",
-          "description": "The UUID of the allowlist prefix."
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/advanced-ddos-protection_identifier",
+              "description": "The ID of the account."
+            },
+            "prefix_id": {
+              "$ref": "#/$defs/advanced-ddos-protection_uuid",
+              "description": "The UUID of the allowlist prefix."
+            }
+          },
+          "required": [
+            "account_id",
+            "prefix_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "prefix_id"
+        "path"
       ],
       $defs: {
-        "advanced-ddos-protection_identifier": advanced_ddos_protection_identifier,
-        "advanced-ddos-protection_uuid": advanced_ddos_protection_uuid,
+        "advanced-ddos-protection_identifier": advanced$$ddos$$protection_identifier,
+        "advanced-ddos-protection_uuid": advanced$$ddos$$protection_uuid,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/advanced-ddos-protection_infra-prefix-response",
       $defs: {
-        "advanced-ddos-protection_InfraPrefix": advanced_ddos_protection_InfraPrefix_output,
-        "advanced-ddos-protection_api-response-common": advanced_ddos_protection_api_response_common_output,
-        "advanced-ddos-protection_infra-prefix-response": advanced_ddos_protection_infra_prefix_response_output,
-        "advanced-ddos-protection_messages": advanced_ddos_protection_messages_output,
+        "advanced-ddos-protection_InfraPrefix": advanced$$ddos$$protection_InfraPrefix,
+        "advanced-ddos-protection_api-response-common": advanced$$ddos$$protection_api$$response$$common,
+        "advanced-ddos-protection_infra-prefix-response": advanced$$ddos$$protection_infra$$prefix$$response,
+        "advanced-ddos-protection_messages": advanced$$ddos$$protection_messages,
       },
     },
     annotations: {
@@ -146,11 +161,11 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "advanced-ddos-protection_InfraPrefix": advanced_ddos_protection_InfraPrefix_output,
-        "advanced-ddos-protection_api-response-common": advanced_ddos_protection_api_response_common_output,
-        "advanced-ddos-protection_api-response-common-failure": advanced_ddos_protection_api_response_common_failure_output,
-        "advanced-ddos-protection_infra-prefix-response": advanced_ddos_protection_infra_prefix_response_output,
-        "advanced-ddos-protection_messages": advanced_ddos_protection_messages_output,
+        "advanced-ddos-protection_InfraPrefix": advanced$$ddos$$protection_InfraPrefix,
+        "advanced-ddos-protection_api-response-common": advanced$$ddos$$protection_api$$response$$common,
+        "advanced-ddos-protection_api-response-common-failure": advanced$$ddos$$protection_api$$response$$common$$failure,
+        "advanced-ddos-protection_infra-prefix-response": advanced$$ddos$$protection_infra$$prefix$$response,
+        "advanced-ddos-protection_messages": advanced$$ddos$$protection_messages,
       },
     },
     request: (args) => ({
@@ -158,43 +173,51 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "magic_transit_advanced_tcp_protection_configs_allowlist_prefix_update",
+    name: "magicTransit_advancedTcpProtection_configs_allowlist_prefix_update",
     title: "Update allowlist prefix.",
     description: "Update an allowlist prefix specified by the given UUID.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/advanced-ddos-protection_identifier",
-          "description": "The ID of the account."
-        },
         "body": {
           "$ref": "#/$defs/advanced-ddos-protection_InfraPrefixUpdate",
           "description": "The updates to apply to the allowlist prefix."
         },
-        "prefix_id": {
-          "$ref": "#/$defs/advanced-ddos-protection_uuid",
-          "description": "The UUID of the allowlist prefix to update."
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/advanced-ddos-protection_identifier",
+              "description": "The ID of the account."
+            },
+            "prefix_id": {
+              "$ref": "#/$defs/advanced-ddos-protection_uuid",
+              "description": "The UUID of the allowlist prefix to update."
+            }
+          },
+          "required": [
+            "account_id",
+            "prefix_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "prefix_id",
+        "path",
         "body"
       ],
       $defs: {
-        "advanced-ddos-protection_InfraPrefixUpdate": advanced_ddos_protection_InfraPrefixUpdate,
-        "advanced-ddos-protection_identifier": advanced_ddos_protection_identifier,
-        "advanced-ddos-protection_uuid": advanced_ddos_protection_uuid,
+        "advanced-ddos-protection_InfraPrefixUpdate": advanced$$ddos$$protection_InfraPrefixUpdate,
+        "advanced-ddos-protection_identifier": advanced$$ddos$$protection_identifier,
+        "advanced-ddos-protection_uuid": advanced$$ddos$$protection_uuid,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/advanced-ddos-protection_infra-prefix-response",
       $defs: {
-        "advanced-ddos-protection_InfraPrefix": advanced_ddos_protection_InfraPrefix_output,
-        "advanced-ddos-protection_api-response-common": advanced_ddos_protection_api_response_common_output,
-        "advanced-ddos-protection_infra-prefix-response": advanced_ddos_protection_infra_prefix_response_output,
-        "advanced-ddos-protection_messages": advanced_ddos_protection_messages_output,
+        "advanced-ddos-protection_InfraPrefix": advanced$$ddos$$protection_InfraPrefix,
+        "advanced-ddos-protection_api-response-common": advanced$$ddos$$protection_api$$response$$common,
+        "advanced-ddos-protection_infra-prefix-response": advanced$$ddos$$protection_infra$$prefix$$response,
+        "advanced-ddos-protection_messages": advanced$$ddos$$protection_messages,
       },
     },
     annotations: {
@@ -221,11 +244,11 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "advanced-ddos-protection_InfraPrefix": advanced_ddos_protection_InfraPrefix_output,
-        "advanced-ddos-protection_api-response-common": advanced_ddos_protection_api_response_common_output,
-        "advanced-ddos-protection_api-response-common-failure": advanced_ddos_protection_api_response_common_failure_output,
-        "advanced-ddos-protection_infra-prefix-response": advanced_ddos_protection_infra_prefix_response_output,
-        "advanced-ddos-protection_messages": advanced_ddos_protection_messages_output,
+        "advanced-ddos-protection_InfraPrefix": advanced$$ddos$$protection_InfraPrefix,
+        "advanced-ddos-protection_api-response-common": advanced$$ddos$$protection_api$$response$$common,
+        "advanced-ddos-protection_api-response-common-failure": advanced$$ddos$$protection_api$$response$$common$$failure,
+        "advanced-ddos-protection_infra-prefix-response": advanced$$ddos$$protection_infra$$prefix$$response,
+        "advanced-ddos-protection_messages": advanced$$ddos$$protection_messages,
       },
     },
     request: (args) => ({

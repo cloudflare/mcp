@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `cache-settings_aegis_value`.
  */
-export const cache_settings_aegis_value: JsonSchema = {
+export const cache$$settings_aegis_value: JsonSchema = {
   "description": "Value of the zone setting.",
   "properties": {
     "enabled": {

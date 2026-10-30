@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `observatory_availabilities` in responses.
  */
-export const observatory_availabilities_output: JsonSchema = {
+export const observatory_availabilities: JsonSchema = {
   "properties": {
     "quota": {
       "properties": {
@@ -80,7 +80,7 @@ export const observatory_availabilities_output: JsonSchema = {
 /**
  * The schema of `observatory_availabilities-response` in responses.
  */
-export const observatory_availabilities_response_output: JsonSchema = {
+export const observatory_availabilities$$response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/observatory_api-response-single"
@@ -99,7 +99,7 @@ export const observatory_availabilities_response_output: JsonSchema = {
 /**
  * The schema of `observatory_plan-properties-info` in responses.
  */
-export const observatory_plan_properties_info_output: JsonSchema = {
+export const observatory_plan$$properties$$info: JsonSchema = {
   "properties": {
     "business": {
       "type": "integer"

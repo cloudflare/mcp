@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `email-security_DeletedImpersonationRegistry` in responses.
  */
-export const email_security_DeletedImpersonationRegistry_output: JsonSchema = {
+export const email$$security_DeletedImpersonationRegistry: JsonSchema = {
   "properties": {
     "id": {
       "$ref": "#/$defs/email-security_ImpersonationRegistryId"
@@ -21,7 +21,7 @@ export const email_security_DeletedImpersonationRegistry_output: JsonSchema = {
 /**
  * The schema of `email-security_ImpersonationRegistry` in responses.
  */
-export const email_security_ImpersonationRegistry_output: JsonSchema = {
+export const email$$security_ImpersonationRegistry: JsonSchema = {
   "properties": {
     "comments": {
       "oneOf": [
@@ -101,7 +101,7 @@ export const email_security_ImpersonationRegistry_output: JsonSchema = {
 /**
  * The schema of `email-security_ImpersonationRegistryId` in responses.
  */
-export const email_security_ImpersonationRegistryId_output: JsonSchema = {
+export const email$$security_ImpersonationRegistryId: JsonSchema = {
   "format": "uuid",
   "type": "string"
 };
@@ -109,7 +109,7 @@ export const email_security_ImpersonationRegistryId_output: JsonSchema = {
 /**
  * The schema of `email-security_ImpersonationRegistryList` in responses.
  */
-export const email_security_ImpersonationRegistryList_output: JsonSchema = {
+export const email$$security_ImpersonationRegistryList: JsonSchema = {
   "items": {
     "$ref": "#/$defs/email-security_ImpersonationRegistry"
   },
@@ -119,7 +119,7 @@ export const email_security_ImpersonationRegistryList_output: JsonSchema = {
 /**
  * The schema of `email-security_Provenance` in responses.
  */
-export const email_security_Provenance_output: JsonSchema = {
+export const email$$security_Provenance: JsonSchema = {
   "enum": [
     "A1S_INTERNAL",
     "SNOOPY-CASB_OFFICE_365",

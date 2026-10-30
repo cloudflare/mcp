@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `spectrum-analytics_api-response-common-failure` in responses.
  */
-export const spectrum_analytics_api_response_common_failure_output: JsonSchema = {
+export const spectrum$$analytics_api$$response$$common$$failure: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/spectrum-analytics_messages"
@@ -36,7 +36,7 @@ export const spectrum_analytics_api_response_common_failure_output: JsonSchema =
 /**
  * The schema of `spectrum-analytics_api-response-single` in responses.
  */
-export const spectrum_analytics_api_response_single_output: JsonSchema = {
+export const spectrum$$analytics_api$$response$$single: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/spectrum-analytics_messages"
@@ -62,14 +62,14 @@ export const spectrum_analytics_api_response_single_output: JsonSchema = {
 /**
  * The schema of `spectrum-analytics_identifier` in responses.
  */
-export const spectrum_analytics_identifier_output: JsonSchema = {
+export const spectrum$$analytics_identifier: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `spectrum-analytics_messages` in responses.
  */
-export const spectrum_analytics_messages_output: JsonSchema = {
+export const spectrum$$analytics_messages: JsonSchema = {
   "items": {
     "properties": {
       "code": {
@@ -102,7 +102,7 @@ export const spectrum_analytics_messages_output: JsonSchema = {
 /**
  * The schema of `spectrum-analytics_since` in responses.
  */
-export const spectrum_analytics_since_output: JsonSchema = {
+export const spectrum$$analytics_since: JsonSchema = {
   "allOf": [
     {
       "type": "string"
@@ -116,7 +116,7 @@ export const spectrum_analytics_since_output: JsonSchema = {
 /**
  * The schema of `spectrum-analytics_timestamp` in responses.
  */
-export const spectrum_analytics_timestamp_output: JsonSchema = {
+export const spectrum$$analytics_timestamp: JsonSchema = {
   "format": "date-time",
   "type": "string"
 };
@@ -124,7 +124,7 @@ export const spectrum_analytics_timestamp_output: JsonSchema = {
 /**
  * The schema of `spectrum-analytics_until` in responses.
  */
-export const spectrum_analytics_until_output: JsonSchema = {
+export const spectrum$$analytics_until: JsonSchema = {
   "allOf": [
     {
       "type": "string"

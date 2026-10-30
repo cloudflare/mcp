@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../../_/tool.js";
 /**
  * The schema of `posture-api_Asset` in responses.
  */
-export const posture_api_Asset_output: JsonSchema = {
+export const posture$$api_Asset: JsonSchema = {
   "properties": {
     "category": {
       "$ref": "#/$defs/posture-api_AssetCategory"
@@ -54,7 +54,7 @@ export const posture_api_Asset_output: JsonSchema = {
 /**
  * The schema of `posture-api_AssetCategory` in responses.
  */
-export const posture_api_AssetCategory_output: JsonSchema = {
+export const posture$$api_AssetCategory: JsonSchema = {
   "properties": {
     "id": {
       "format": "uuid",
@@ -88,7 +88,7 @@ export const posture_api_AssetCategory_output: JsonSchema = {
 /**
  * The schema of `posture-api_AssetField` in responses.
  */
-export const posture_api_AssetField_output: JsonSchema = {
+export const posture$$api_AssetField: JsonSchema = {
   "properties": {
     "link": {
       "oneOf": [
@@ -117,7 +117,7 @@ export const posture_api_AssetField_output: JsonSchema = {
 /**
  * The schema of `posture-api_FindingInstance` in responses.
  */
-export const posture_api_FindingInstance_output: JsonSchema = {
+export const posture$$api_FindingInstance: JsonSchema = {
   "properties": {
     "affliction_date": {
       "format": "date-time",
@@ -165,7 +165,7 @@ export const posture_api_FindingInstance_output: JsonSchema = {
 /**
  * The schema of `posture-api_RemediationJobSummary` in responses.
  */
-export const posture_api_RemediationJobSummary_output: JsonSchema = {
+export const posture$$api_RemediationJobSummary: JsonSchema = {
   "properties": {
     "created_at": {
       "format": "date-time",
@@ -194,7 +194,7 @@ export const posture_api_RemediationJobSummary_output: JsonSchema = {
 /**
  * The schema of `posture-api_WebhookInvocationSummary` in responses.
  */
-export const posture_api_WebhookInvocationSummary_output: JsonSchema = {
+export const posture$$api_WebhookInvocationSummary: JsonSchema = {
   "properties": {
     "latest_job": {
       "properties": {
@@ -245,7 +245,7 @@ export const posture_api_WebhookInvocationSummary_output: JsonSchema = {
 /**
  * The schema of `posture-api_finding-instance-response` in responses.
  */
-export const posture_api_finding_instance_response_output: JsonSchema = {
+export const posture$$api_finding$$instance$$response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/posture-api_api-response-common"
@@ -264,7 +264,7 @@ export const posture_api_finding_instance_response_output: JsonSchema = {
 /**
  * The schema of `posture-api_paginated-finding-instance-list` in responses.
  */
-export const posture_api_paginated_finding_instance_list_output: JsonSchema = {
+export const posture$$api_paginated$$finding$$instance$$list: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/posture-api_api-response-collection"

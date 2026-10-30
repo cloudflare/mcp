@@ -3,44 +3,52 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
-  firewall_api_response_common_failure_output,
-  firewall_api_response_common_output,
-  firewall_messages_output,
+  firewall_api$$response$$common,
+  firewall_api$$response$$common$$failure,
+  firewall_messages,
 } from "../../outputs.js";
 import { firewall_account_identifier } from "../schemas.js";
 import {
-  firewall_payload_logging_key_output,
-  firewall_payload_logging_key_response_single_output,
+  firewall_payload_logging_key,
+  firewall_payload_logging_key_response_single,
 } from "./outputs.js";
-import { firewall_payload_logging_key } from "./schemas.js";
+import { firewall_payload_logging_key as firewall_payload_logging_key$ } from "./schemas.js";
 
 /**
- * The tools of `firewall.payload_logging`.
+ * The tools of `firewall.payloadLogging`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "firewall_payload_logging_delete",
+    name: "firewall_payloadLogging_delete",
     title: "Delete the payload logging key",
     description: "Deletes the payload logging public key of the account or zone.\n\nThis method is beta.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_or_zone": {
-          "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
-          "enum": [
-            "accounts",
-            "zones"
+        "path": {
+          "properties": {
+            "account_or_zone": {
+              "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
+              "enum": [
+                "accounts",
+                "zones"
+              ],
+              "type": "string"
+            },
+            "account_or_zone_id": {
+              "$ref": "#/$defs/firewall_account_identifier",
+              "description": "The account ID or zone ID, as selected by account_or_zone."
+            }
+          },
+          "required": [
+            "account_or_zone",
+            "account_or_zone_id"
           ],
-          "type": "string"
-        },
-        "account_or_zone_id": {
-          "$ref": "#/$defs/firewall_account_identifier",
-          "description": "The account ID or zone ID, as selected by account_or_zone."
+          "type": "object"
         }
       },
       required: [
-        "account_or_zone",
-        "account_or_zone_id"
+        "path"
       ],
       $defs: {
         "firewall_account_identifier": firewall_account_identifier,
@@ -49,10 +57,10 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/firewall_payload_logging_key_response_single",
       $defs: {
-        "firewall_api-response-common": firewall_api_response_common_output,
-        "firewall_messages": firewall_messages_output,
-        "firewall_payload_logging_key": firewall_payload_logging_key_output,
-        "firewall_payload_logging_key_response_single": firewall_payload_logging_key_response_single_output,
+        "firewall_api-response-common": firewall_api$$response$$common,
+        "firewall_messages": firewall_messages,
+        "firewall_payload_logging_key": firewall_payload_logging_key,
+        "firewall_payload_logging_key_response_single": firewall_payload_logging_key_response_single,
       },
     },
     annotations: {
@@ -82,11 +90,11 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "firewall_api-response-common": firewall_api_response_common_output,
-        "firewall_api-response-common-failure": firewall_api_response_common_failure_output,
-        "firewall_messages": firewall_messages_output,
-        "firewall_payload_logging_key": firewall_payload_logging_key_output,
-        "firewall_payload_logging_key_response_single": firewall_payload_logging_key_response_single_output,
+        "firewall_api-response-common": firewall_api$$response$$common,
+        "firewall_api-response-common-failure": firewall_api$$response$$common$$failure,
+        "firewall_messages": firewall_messages,
+        "firewall_payload_logging_key": firewall_payload_logging_key,
+        "firewall_payload_logging_key_response_single": firewall_payload_logging_key_response_single,
       },
     },
     request: (args) => ({
@@ -94,28 +102,36 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "firewall_payload_logging_get",
+    name: "firewall_payloadLogging_get",
     title: "Get the payload logging key",
     description: "Fetches the public key that payload logging uses to encrypt matched payloads for the account or zone.\n\nThis method is beta.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_or_zone": {
-          "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
-          "enum": [
-            "accounts",
-            "zones"
+        "path": {
+          "properties": {
+            "account_or_zone": {
+              "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
+              "enum": [
+                "accounts",
+                "zones"
+              ],
+              "type": "string"
+            },
+            "account_or_zone_id": {
+              "$ref": "#/$defs/firewall_account_identifier",
+              "description": "The account ID or zone ID, as selected by account_or_zone."
+            }
+          },
+          "required": [
+            "account_or_zone",
+            "account_or_zone_id"
           ],
-          "type": "string"
-        },
-        "account_or_zone_id": {
-          "$ref": "#/$defs/firewall_account_identifier",
-          "description": "The account ID or zone ID, as selected by account_or_zone."
+          "type": "object"
         }
       },
       required: [
-        "account_or_zone",
-        "account_or_zone_id"
+        "path"
       ],
       $defs: {
         "firewall_account_identifier": firewall_account_identifier,
@@ -124,10 +140,10 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/firewall_payload_logging_key_response_single",
       $defs: {
-        "firewall_api-response-common": firewall_api_response_common_output,
-        "firewall_messages": firewall_messages_output,
-        "firewall_payload_logging_key": firewall_payload_logging_key_output,
-        "firewall_payload_logging_key_response_single": firewall_payload_logging_key_response_single_output,
+        "firewall_api-response-common": firewall_api$$response$$common,
+        "firewall_messages": firewall_messages,
+        "firewall_payload_logging_key": firewall_payload_logging_key,
+        "firewall_payload_logging_key_response_single": firewall_payload_logging_key_response_single,
       },
     },
     annotations: {
@@ -157,11 +173,11 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "firewall_api-response-common": firewall_api_response_common_output,
-        "firewall_api-response-common-failure": firewall_api_response_common_failure_output,
-        "firewall_messages": firewall_messages_output,
-        "firewall_payload_logging_key": firewall_payload_logging_key_output,
-        "firewall_payload_logging_key_response_single": firewall_payload_logging_key_response_single_output,
+        "firewall_api-response-common": firewall_api$$response$$common,
+        "firewall_api-response-common-failure": firewall_api$$response$$common$$failure,
+        "firewall_messages": firewall_messages,
+        "firewall_payload_logging_key": firewall_payload_logging_key,
+        "firewall_payload_logging_key_response_single": firewall_payload_logging_key_response_single,
       },
     },
     request: (args) => ({
@@ -169,45 +185,53 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "firewall_payload_logging_update",
+    name: "firewall_payloadLogging_update",
     title: "Set the payload logging key",
     description: "Creates or replaces the public key that payload logging uses to encrypt matched payloads for the account or zone. It applies to every zone in the account or zone that has no zone key. Requires a plan that includes payload logging (Enterprise); otherwise it returns 403.\n\nThis method is beta.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_or_zone": {
-          "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
-          "enum": [
-            "accounts",
-            "zones"
-          ],
-          "type": "string"
-        },
-        "account_or_zone_id": {
-          "$ref": "#/$defs/firewall_account_identifier",
-          "description": "The account ID or zone ID, as selected by account_or_zone."
-        },
         "body": {
           "$ref": "#/$defs/firewall_payload_logging_key"
+        },
+        "path": {
+          "properties": {
+            "account_or_zone": {
+              "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
+              "enum": [
+                "accounts",
+                "zones"
+              ],
+              "type": "string"
+            },
+            "account_or_zone_id": {
+              "$ref": "#/$defs/firewall_account_identifier",
+              "description": "The account ID or zone ID, as selected by account_or_zone."
+            }
+          },
+          "required": [
+            "account_or_zone",
+            "account_or_zone_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_or_zone",
-        "account_or_zone_id",
+        "path",
         "body"
       ],
       $defs: {
         "firewall_account_identifier": firewall_account_identifier,
-        "firewall_payload_logging_key": firewall_payload_logging_key,
+        "firewall_payload_logging_key": firewall_payload_logging_key$,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/firewall_payload_logging_key_response_single",
       $defs: {
-        "firewall_api-response-common": firewall_api_response_common_output,
-        "firewall_messages": firewall_messages_output,
-        "firewall_payload_logging_key": firewall_payload_logging_key_output,
-        "firewall_payload_logging_key_response_single": firewall_payload_logging_key_response_single_output,
+        "firewall_api-response-common": firewall_api$$response$$common,
+        "firewall_messages": firewall_messages,
+        "firewall_payload_logging_key": firewall_payload_logging_key,
+        "firewall_payload_logging_key_response_single": firewall_payload_logging_key_response_single,
       },
     },
     annotations: {
@@ -237,11 +261,11 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "firewall_api-response-common": firewall_api_response_common_output,
-        "firewall_api-response-common-failure": firewall_api_response_common_failure_output,
-        "firewall_messages": firewall_messages_output,
-        "firewall_payload_logging_key": firewall_payload_logging_key_output,
-        "firewall_payload_logging_key_response_single": firewall_payload_logging_key_response_single_output,
+        "firewall_api-response-common": firewall_api$$response$$common,
+        "firewall_api-response-common-failure": firewall_api$$response$$common$$failure,
+        "firewall_messages": firewall_messages,
+        "firewall_payload_logging_key": firewall_payload_logging_key,
+        "firewall_payload_logging_key_response_single": firewall_payload_logging_key_response_single,
       },
     },
     request: (args) => ({

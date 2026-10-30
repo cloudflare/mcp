@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../../_/tool.js";
 /**
  * The schema of `cws_BasicAuthSecretResponse` in responses.
  */
-export const cws_BasicAuthSecretResponse_output: JsonSchema = {
+export const cws_BasicAuthSecretResponse: JsonSchema = {
   "properties": {
     "created_at": {
       "format": "date-time",
@@ -31,7 +31,7 @@ export const cws_BasicAuthSecretResponse_output: JsonSchema = {
 /**
  * The schema of `cws_PageResponseBasicAuthSecretResponse` in responses.
  */
-export const cws_PageResponseBasicAuthSecretResponse_output: JsonSchema = {
+export const cws_PageResponseBasicAuthSecretResponse: JsonSchema = {
   "properties": {
     "errors": {
       "oneOf": [
@@ -92,7 +92,7 @@ export const cws_PageResponseBasicAuthSecretResponse_output: JsonSchema = {
 /**
  * The schema of `cws_ResponseBasicAuthSecretResponse` in responses.
  */
-export const cws_ResponseBasicAuthSecretResponse_output: JsonSchema = {
+export const cws_ResponseBasicAuthSecretResponse: JsonSchema = {
   "properties": {
     "errors": {
       "oneOf": [

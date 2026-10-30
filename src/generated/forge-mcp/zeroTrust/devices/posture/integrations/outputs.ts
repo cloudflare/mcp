@@ -6,21 +6,21 @@ import type { JsonSchema } from "../../../../_/tool.js";
 /**
  * The schema of `teams-devices_components-schemas-name` in responses.
  */
-export const teams_devices_components_schemas_name_output: JsonSchema = {
+export const teams$$devices_components$$schemas$$name: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `teams-devices_config_response` in responses.
  */
-export const teams_devices_config_response_output: JsonSchema = {
+export const teams$$devices_config_response: JsonSchema = {
   "$ref": "#/$defs/teams-devices_workspace_one_config_response"
 };
 
 /**
  * The schema of `teams-devices_device-posture-integrations` in responses.
  */
-export const teams_devices_device_posture_integrations_output: JsonSchema = {
+export const teams$$devices_device$$posture$$integrations: JsonSchema = {
   "properties": {
     "config": {
       "$ref": "#/$defs/teams-devices_config_response"
@@ -44,14 +44,14 @@ export const teams_devices_device_posture_integrations_output: JsonSchema = {
 /**
  * The schema of `teams-devices_interval` in responses.
  */
-export const teams_devices_interval_output: JsonSchema = {
+export const teams$$devices_interval: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `teams-devices_schemas-id_response` in responses.
  */
-export const teams_devices_schemas_id_response_output: JsonSchema = {
+export const teams$$devices_schemas$$id_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/teams-devices_api-response-single"
@@ -77,7 +77,7 @@ export const teams_devices_schemas_id_response_output: JsonSchema = {
 /**
  * The schema of `teams-devices_schemas-response_collection` in responses.
  */
-export const teams_devices_schemas_response_collection_output: JsonSchema = {
+export const teams$$devices_schemas$$response_collection: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/teams-devices_api-response-collection"
@@ -99,7 +99,7 @@ export const teams_devices_schemas_response_collection_output: JsonSchema = {
 /**
  * The schema of `teams-devices_schemas-single_response` in responses.
  */
-export const teams_devices_schemas_single_response_output: JsonSchema = {
+export const teams$$devices_schemas$$single_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/teams-devices_api-response-single"
@@ -118,7 +118,7 @@ export const teams_devices_schemas_single_response_output: JsonSchema = {
 /**
  * The schema of `teams-devices_schemas-type` in responses.
  */
-export const teams_devices_schemas_type_output: JsonSchema = {
+export const teams$$devices_schemas$$type: JsonSchema = {
   "enum": [
     "workspace_one",
     "crowdstrike_s2s",
@@ -135,7 +135,7 @@ export const teams_devices_schemas_type_output: JsonSchema = {
 /**
  * The schema of `teams-devices_workspace_one_config_response` in responses.
  */
-export const teams_devices_workspace_one_config_response_output: JsonSchema = {
+export const teams$$devices_workspace_one_config_response: JsonSchema = {
   "properties": {
     "api_url": {
       "type": "string"

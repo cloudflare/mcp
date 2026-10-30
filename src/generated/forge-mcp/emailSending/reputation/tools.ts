@@ -2,36 +2,41 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../_/tool.js";
-import {
-  email_api_response_single_output,
-  email_messages_output,
-} from "../../outputs.js";
+import { email_api$$response$$single, email_messages } from "../../outputs.js";
 import { email_identifier } from "../../schemas.js";
 import {
-  email_ReputationPolicy_output,
-  email_ReputationThreshold_output,
-  email_sending_reputation_properties_output,
-  email_sending_reputation_response_single_output,
+  email_ReputationPolicy,
+  email_ReputationThreshold,
+  email_sending_reputation_properties,
+  email_sending_reputation_response_single,
 } from "./outputs.js";
 
 /**
- * The tools of `email_sending.reputation`.
+ * The tools of `emailSending.reputation`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "email_sending_reputation_get",
+    name: "emailSending_reputation_get",
     title: "Get account reputation",
     description: "Returns the authoritative Email Sending reputation state and active evaluation policy. Accounts without an evaluation are Healthy with null evaluation timestamps.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/email_identifier",
-          "description": "Identifier."
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/email_identifier",
+              "description": "Identifier."
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id"
+        "path"
       ],
       $defs: {
         "email_identifier": email_identifier,
@@ -40,12 +45,12 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/email_sending_reputation_response_single",
       $defs: {
-        "email_ReputationPolicy": email_ReputationPolicy_output,
-        "email_ReputationThreshold": email_ReputationThreshold_output,
-        "email_api-response-single": email_api_response_single_output,
-        "email_messages": email_messages_output,
-        "email_sending_reputation_properties": email_sending_reputation_properties_output,
-        "email_sending_reputation_response_single": email_sending_reputation_response_single_output,
+        "email_ReputationPolicy": email_ReputationPolicy,
+        "email_ReputationThreshold": email_ReputationThreshold,
+        "email_api-response-single": email_api$$response$$single,
+        "email_messages": email_messages,
+        "email_sending_reputation_properties": email_sending_reputation_properties,
+        "email_sending_reputation_response_single": email_sending_reputation_response_single,
       },
     },
     annotations: {
@@ -78,12 +83,12 @@ export const tools: readonly Tool[] = [
         "403": null
       },
       $defs: {
-        "email_ReputationPolicy": email_ReputationPolicy_output,
-        "email_ReputationThreshold": email_ReputationThreshold_output,
-        "email_api-response-single": email_api_response_single_output,
-        "email_messages": email_messages_output,
-        "email_sending_reputation_properties": email_sending_reputation_properties_output,
-        "email_sending_reputation_response_single": email_sending_reputation_response_single_output,
+        "email_ReputationPolicy": email_ReputationPolicy,
+        "email_ReputationThreshold": email_ReputationThreshold,
+        "email_api-response-single": email_api$$response$$single,
+        "email_messages": email_messages,
+        "email_sending_reputation_properties": email_sending_reputation_properties,
+        "email_sending_reputation_response_single": email_sending_reputation_response_single,
       },
     },
     request: (args) => ({

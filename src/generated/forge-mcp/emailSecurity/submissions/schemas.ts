@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `email-security_MissedDetectionSubmission`.
  */
-export const email_security_MissedDetectionSubmission: JsonSchema = {
+export const email$$security_MissedDetectionSubmission: JsonSchema = {
   "properties": {
     "eml_content": {
       "description": "Base64 encoded content of the EML file.",
@@ -49,7 +49,7 @@ export const email_security_MissedDetectionSubmission: JsonSchema = {
 /**
  * The schema of `email-security_ReclassificationSubmission`.
  */
-export const email_security_ReclassificationSubmission: JsonSchema = {
+export const email$$security_ReclassificationSubmission: JsonSchema = {
   "properties": {
     "alert_id": {
       "description": "Alert ID of the detection to reclassify.",
@@ -74,7 +74,7 @@ export const email_security_ReclassificationSubmission: JsonSchema = {
 /**
  * The schema of `email-security_SubmissionDisposition`.
  */
-export const email_security_SubmissionDisposition: JsonSchema = {
+export const email$$security_SubmissionDisposition: JsonSchema = {
   "description": "The disposition a message is submitted to have.",
   "enum": [
     "MALICIOUS",

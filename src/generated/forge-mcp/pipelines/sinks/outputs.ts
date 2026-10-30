@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `cloudflare-pipelines_JsonCompression` in responses.
  */
-export const cloudflare_pipelines_JsonCompression_output: JsonSchema = {
+export const cloudflare$$pipelines_JsonCompression: JsonSchema = {
   "enum": [
     "uncompressed",
     "gzip"
@@ -17,7 +17,7 @@ export const cloudflare_pipelines_JsonCompression_output: JsonSchema = {
 /**
  * The schema of `cloudflare-pipelines_SinkFormat` in responses.
  */
-export const cloudflare_pipelines_SinkFormat_output: JsonSchema = {
+export const cloudflare$$pipelines_SinkFormat: JsonSchema = {
   "oneOf": [
     {
       "$ref": "#/$defs/cloudflare-pipelines_SinkJsonFormat"
@@ -31,7 +31,7 @@ export const cloudflare_pipelines_SinkFormat_output: JsonSchema = {
 /**
  * The schema of `cloudflare-pipelines_SinkJsonFormat` in responses.
  */
-export const cloudflare_pipelines_SinkJsonFormat_output: JsonSchema = {
+export const cloudflare$$pipelines_SinkJsonFormat: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/cloudflare-pipelines_JsonFormat"
@@ -59,7 +59,7 @@ export const cloudflare_pipelines_SinkJsonFormat_output: JsonSchema = {
 /**
  * The schema of `cloudflare-pipelines_SinkParquetFormat` in responses.
  */
-export const cloudflare_pipelines_SinkParquetFormat_output: JsonSchema = {
+export const cloudflare$$pipelines_SinkParquetFormat: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/cloudflare-pipelines_ParquetFormat"
@@ -84,7 +84,7 @@ export const cloudflare_pipelines_SinkParquetFormat_output: JsonSchema = {
 /**
  * The schema of `cloudflare-pipelines_r2Table` in responses.
  */
-export const cloudflare_pipelines_r2Table_output: JsonSchema = {
+export const cloudflare$$pipelines_r2Table: JsonSchema = {
   "properties": {
     "account_id": {
       "type": "string"
@@ -167,7 +167,7 @@ export const cloudflare_pipelines_r2Table_output: JsonSchema = {
 /**
  * The schema of `cloudflare-pipelines_r2TablePublic` in responses.
  */
-export const cloudflare_pipelines_r2TablePublic_output: JsonSchema = {
+export const cloudflare$$pipelines_r2TablePublic: JsonSchema = {
   "properties": {
     "account_id": {
       "type": "string"
@@ -234,7 +234,7 @@ export const cloudflare_pipelines_r2TablePublic_output: JsonSchema = {
 /**
  * The schema of `cloudflare-pipelines_r2_data_catalogTable` in responses.
  */
-export const cloudflare_pipelines_r2_data_catalogTable_output: JsonSchema = {
+export const cloudflare$$pipelines_r2_data_catalogTable: JsonSchema = {
   "properties": {
     "account_id": {
       "type": "string"
@@ -278,7 +278,7 @@ export const cloudflare_pipelines_r2_data_catalogTable_output: JsonSchema = {
 /**
  * The schema of `cloudflare-pipelines_r2_data_catalogTablePublic` in responses.
  */
-export const cloudflare_pipelines_r2_data_catalogTablePublic_output: JsonSchema = {
+export const cloudflare$$pipelines_r2_data_catalogTablePublic: JsonSchema = {
   "properties": {
     "account_id": {
       "type": "string"

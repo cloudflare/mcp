@@ -3,11 +3,11 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
-  organizations_api_Profile_output,
-  organizations_api_V4ErrorResponse_output,
-  organizations_api_V4Message_output,
+  organizations$$api_Profile,
+  organizations$$api_V4ErrorResponse,
+  organizations$$api_V4Message,
 } from "../../outputs.js";
-import { organizations_api_ModifyProfileRequest } from "../../schemas.js";
+import { organizations$$api_ModifyProfileRequest } from "../../schemas.js";
 
 /**
  * The tools of `accounts.profile`.
@@ -20,13 +20,21 @@ export const tools: readonly Tool[] = [
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "description": "The ID of the account whose business profile to retrieve.",
-          "type": "string"
+        "path": {
+          "properties": {
+            "account_id": {
+              "description": "The ID of the account whose business profile to retrieve.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id"
+        "path"
       ],
     },
     outputSchema: {
@@ -62,8 +70,8 @@ export const tools: readonly Tool[] = [
       ],
       "type": "object",
       $defs: {
-        "organizations-api_Profile": organizations_api_Profile_output,
-        "organizations-api_V4Message": organizations_api_V4Message_output,
+        "organizations-api_Profile": organizations$$api_Profile,
+        "organizations-api_V4Message": organizations$$api_V4Message,
       },
     },
     annotations: {
@@ -123,9 +131,9 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "organizations-api_Profile": organizations_api_Profile_output,
-        "organizations-api_V4ErrorResponse": organizations_api_V4ErrorResponse_output,
-        "organizations-api_V4Message": organizations_api_V4Message_output,
+        "organizations-api_Profile": organizations$$api_Profile,
+        "organizations-api_V4ErrorResponse": organizations$$api_V4ErrorResponse,
+        "organizations-api_V4Message": organizations$$api_V4Message,
       },
     },
     request: (args) => ({
@@ -139,20 +147,28 @@ export const tools: readonly Tool[] = [
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "description": "The ID of the account whose business profile to update.",
-          "type": "string"
-        },
         "body": {
           "$ref": "#/$defs/organizations-api_ModifyProfileRequest"
+        },
+        "path": {
+          "properties": {
+            "account_id": {
+              "description": "The ID of the account whose business profile to update.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
+        "path",
         "body"
       ],
       $defs: {
-        "organizations-api_ModifyProfileRequest": organizations_api_ModifyProfileRequest,
+        "organizations-api_ModifyProfileRequest": organizations$$api_ModifyProfileRequest,
       },
     },
     annotations: {
@@ -180,8 +196,8 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "organizations-api_V4ErrorResponse": organizations_api_V4ErrorResponse_output,
-        "organizations-api_V4Message": organizations_api_V4Message_output,
+        "organizations-api_V4ErrorResponse": organizations$$api_V4ErrorResponse,
+        "organizations-api_V4Message": organizations$$api_V4Message,
       },
     },
     request: (args) => ({

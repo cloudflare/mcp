@@ -3,45 +3,53 @@
 
 import { type Tool, pathParam } from "../../../../_/tool.js";
 import {
-  load_balancing_api_response_common_failure_output,
-  load_balancing_api_response_common_output,
-  load_balancing_api_response_single_output,
-  load_balancing_health_details_output,
-  load_balancing_messages_output,
-  load_balancing_origin_health_output,
+  load$$balancing_api$$response$$common,
+  load$$balancing_api$$response$$common$$failure,
+  load$$balancing_api$$response$$single,
+  load$$balancing_health_details,
+  load$$balancing_messages,
+  load$$balancing_origin$$health,
 } from "../../../../outputs.js";
-import { load_balancing_schemas_identifier } from "../../../../schemas.js";
+import { load$$balancing_schemas$$identifier } from "../../../../schemas.js";
 
 /**
- * The tools of `user.load_balancers.pools.health`.
+ * The tools of `user.loadBalancers.pools.health`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "user_load_balancers_pools_health_get",
+    name: "user_loadBalancers_pools_health_get",
     title: "Pool Health Details",
     description: "Fetch the latest pool health status for a single pool.",
     inputSchema: {
       type: "object",
       properties: {
-        "pool_id": {
-          "$ref": "#/$defs/load-balancing_schemas-identifier"
+        "path": {
+          "properties": {
+            "pool_id": {
+              "$ref": "#/$defs/load-balancing_schemas-identifier"
+            }
+          },
+          "required": [
+            "pool_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "pool_id"
+        "path"
       ],
       $defs: {
-        "load-balancing_schemas-identifier": load_balancing_schemas_identifier,
+        "load-balancing_schemas-identifier": load$$balancing_schemas$$identifier,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/load-balancing_health_details",
       $defs: {
-        "load-balancing_api-response-common": load_balancing_api_response_common_output,
-        "load-balancing_api-response-single": load_balancing_api_response_single_output,
-        "load-balancing_health_details": load_balancing_health_details_output,
-        "load-balancing_messages": load_balancing_messages_output,
-        "load-balancing_origin-health": load_balancing_origin_health_output,
+        "load-balancing_api-response-common": load$$balancing_api$$response$$common,
+        "load-balancing_api-response-single": load$$balancing_api$$response$$single,
+        "load-balancing_health_details": load$$balancing_health_details,
+        "load-balancing_messages": load$$balancing_messages,
+        "load-balancing_origin-health": load$$balancing_origin$$health,
       },
     },
     annotations: {
@@ -69,12 +77,12 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "load-balancing_api-response-common": load_balancing_api_response_common_output,
-        "load-balancing_api-response-common-failure": load_balancing_api_response_common_failure_output,
-        "load-balancing_api-response-single": load_balancing_api_response_single_output,
-        "load-balancing_health_details": load_balancing_health_details_output,
-        "load-balancing_messages": load_balancing_messages_output,
-        "load-balancing_origin-health": load_balancing_origin_health_output,
+        "load-balancing_api-response-common": load$$balancing_api$$response$$common,
+        "load-balancing_api-response-common-failure": load$$balancing_api$$response$$common$$failure,
+        "load-balancing_api-response-single": load$$balancing_api$$response$$single,
+        "load-balancing_health_details": load$$balancing_health_details,
+        "load-balancing_messages": load$$balancing_messages,
+        "load-balancing_origin-health": load$$balancing_origin$$health,
       },
     },
     request: (args) => ({

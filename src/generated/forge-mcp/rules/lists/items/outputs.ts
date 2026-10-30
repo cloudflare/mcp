@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `lists_item` in responses.
  */
-export const lists_item_output: JsonSchema = {
+export const lists_item: JsonSchema = {
   "oneOf": [
     {
       "$ref": "#/$defs/lists_list_item_ip_full"
@@ -26,7 +26,7 @@ export const lists_item_output: JsonSchema = {
 /**
  * The schema of `lists_item-response-single` in responses.
  */
-export const lists_item_response_single_output: JsonSchema = {
+export const lists_item$$response$$single: JsonSchema = {
   "allOf": [
     {
       "properties": {
@@ -45,14 +45,14 @@ export const lists_item_response_single_output: JsonSchema = {
 /**
  * The schema of `lists_item_asn` in responses.
  */
-export const lists_item_asn_output: JsonSchema = {
+export const lists_item_asn: JsonSchema = {
   "type": "integer"
 };
 
 /**
  * The schema of `lists_item_base` in responses.
  */
-export const lists_item_base_output: JsonSchema = {
+export const lists_item_base: JsonSchema = {
   "properties": {
     "comment": {
       "$ref": "#/$defs/lists_item_comment"
@@ -78,14 +78,14 @@ export const lists_item_base_output: JsonSchema = {
 /**
  * The schema of `lists_item_comment` in responses.
  */
-export const lists_item_comment_output: JsonSchema = {
+export const lists_item_comment: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `lists_item_hostname` in responses.
  */
-export const lists_item_hostname_output: JsonSchema = {
+export const lists_item_hostname: JsonSchema = {
   "properties": {
     "exclude_exact_hostname": {
       "type": "boolean"
@@ -103,21 +103,21 @@ export const lists_item_hostname_output: JsonSchema = {
 /**
  * The schema of `lists_item_id` in responses.
  */
-export const lists_item_id_output: JsonSchema = {
+export const lists_item_id: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `lists_item_ip` in responses.
  */
-export const lists_item_ip_output: JsonSchema = {
+export const lists_item_ip: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `lists_item_redirect` in responses.
  */
-export const lists_item_redirect_output: JsonSchema = {
+export const lists_item_redirect: JsonSchema = {
   "properties": {
     "include_subdomains": {
       "type": "boolean"
@@ -157,7 +157,7 @@ export const lists_item_redirect_output: JsonSchema = {
 /**
  * The schema of `lists_items` in responses.
  */
-export const lists_items_output: JsonSchema = {
+export const lists_items: JsonSchema = {
   "items": {
     "$ref": "#/$defs/lists_item"
   },
@@ -167,7 +167,7 @@ export const lists_items_output: JsonSchema = {
 /**
  * The schema of `lists_items-list-response-collection` in responses.
  */
-export const lists_items_list_response_collection_output: JsonSchema = {
+export const lists_items$$list$$response$$collection: JsonSchema = {
   "allOf": [
     {
       "properties": {
@@ -202,7 +202,7 @@ export const lists_items_list_response_collection_output: JsonSchema = {
 /**
  * The schema of `lists_list_item_asn_full` in responses.
  */
-export const lists_list_item_asn_full_output: JsonSchema = {
+export const lists_list_item_asn_full: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/lists_list_item_asn_object"
@@ -216,7 +216,7 @@ export const lists_list_item_asn_full_output: JsonSchema = {
 /**
  * The schema of `lists_list_item_asn_object` in responses.
  */
-export const lists_list_item_asn_object_output: JsonSchema = {
+export const lists_list_item_asn_object: JsonSchema = {
   "properties": {
     "asn": {
       "$ref": "#/$defs/lists_item_asn"
@@ -231,7 +231,7 @@ export const lists_list_item_asn_object_output: JsonSchema = {
 /**
  * The schema of `lists_list_item_hostname_full` in responses.
  */
-export const lists_list_item_hostname_full_output: JsonSchema = {
+export const lists_list_item_hostname_full: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/lists_list_item_hostname_object"
@@ -245,7 +245,7 @@ export const lists_list_item_hostname_full_output: JsonSchema = {
 /**
  * The schema of `lists_list_item_hostname_object` in responses.
  */
-export const lists_list_item_hostname_object_output: JsonSchema = {
+export const lists_list_item_hostname_object: JsonSchema = {
   "properties": {
     "hostname": {
       "$ref": "#/$defs/lists_item_hostname"
@@ -260,7 +260,7 @@ export const lists_list_item_hostname_object_output: JsonSchema = {
 /**
  * The schema of `lists_list_item_ip_full` in responses.
  */
-export const lists_list_item_ip_full_output: JsonSchema = {
+export const lists_list_item_ip_full: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/lists_list_item_ip_object"
@@ -274,7 +274,7 @@ export const lists_list_item_ip_full_output: JsonSchema = {
 /**
  * The schema of `lists_list_item_ip_object` in responses.
  */
-export const lists_list_item_ip_object_output: JsonSchema = {
+export const lists_list_item_ip_object: JsonSchema = {
   "properties": {
     "ip": {
       "$ref": "#/$defs/lists_item_ip"
@@ -289,7 +289,7 @@ export const lists_list_item_ip_object_output: JsonSchema = {
 /**
  * The schema of `lists_list_item_redirect_full` in responses.
  */
-export const lists_list_item_redirect_full_output: JsonSchema = {
+export const lists_list_item_redirect_full: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/lists_list_item_redirect_object"
@@ -303,7 +303,7 @@ export const lists_list_item_redirect_full_output: JsonSchema = {
 /**
  * The schema of `lists_list_item_redirect_object` in responses.
  */
-export const lists_list_item_redirect_object_output: JsonSchema = {
+export const lists_list_item_redirect_object: JsonSchema = {
   "properties": {
     "redirect": {
       "$ref": "#/$defs/lists_item_redirect"
@@ -318,7 +318,7 @@ export const lists_list_item_redirect_object_output: JsonSchema = {
 /**
  * The schema of `lists_lists-async-response` in responses.
  */
-export const lists_lists_async_response_output: JsonSchema = {
+export const lists_lists$$async$$response: JsonSchema = {
   "allOf": [
     {
       "properties": {

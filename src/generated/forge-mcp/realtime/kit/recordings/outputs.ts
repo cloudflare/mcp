@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `realtimekit_Recording` in responses.
  */
-export const realtimekit_Recording_output: JsonSchema = {
+export const realtimekit_Recording: JsonSchema = {
   "properties": {
     "audio_download_url": {
       "oneOf": [
@@ -127,7 +127,7 @@ export const realtimekit_Recording_output: JsonSchema = {
 /**
  * The schema of `realtimekit_startReason` in responses.
  */
-export const realtimekit_startReason_output: JsonSchema = {
+export const realtimekit_startReason: JsonSchema = {
   "properties": {
     "caller": {
       "properties": {
@@ -162,7 +162,7 @@ export const realtimekit_startReason_output: JsonSchema = {
 /**
  * The schema of `realtimekit_stopReason` in responses.
  */
-export const realtimekit_stopReason_output: JsonSchema = {
+export const realtimekit_stopReason: JsonSchema = {
   "properties": {
     "caller": {
       "properties": {

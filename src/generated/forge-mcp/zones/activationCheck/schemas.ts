@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `zone-activation_identifier`.
  */
-export const zone_activation_identifier: JsonSchema = {
+export const zone$$activation_identifier: JsonSchema = {
   "description": "Identifier.",
   "type": "string"
 };

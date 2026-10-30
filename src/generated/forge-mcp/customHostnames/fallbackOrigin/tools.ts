@@ -3,57 +3,65 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
-  tls_certificates_and_hostnames_api_response_common_failure_output,
-  tls_certificates_and_hostnames_api_response_single_output,
-  tls_certificates_and_hostnames_messages_output,
+  tls$$certificates$$and$$hostnames_api$$response$$common$$failure,
+  tls$$certificates$$and$$hostnames_api$$response$$single,
+  tls$$certificates$$and$$hostnames_messages,
 } from "../../outputs.js";
-import { tls_certificates_and_hostnames_identifier } from "../../schemas.js";
+import { tls$$certificates$$and$$hostnames_identifier } from "../../schemas.js";
 import {
-  tls_certificates_and_hostnames_created_at_2_output,
-  tls_certificates_and_hostnames_errors_output,
-  tls_certificates_and_hostnames_fallback_origin_response_output,
-  tls_certificates_and_hostnames_fallbackorigin_output,
-  tls_certificates_and_hostnames_origin_output,
-  tls_certificates_and_hostnames_status_4_output,
-  tls_certificates_and_hostnames_updated_at_output,
+  tls$$certificates$$and$$hostnames_created_at$$2,
+  tls$$certificates$$and$$hostnames_errors,
+  tls$$certificates$$and$$hostnames_fallback_origin_response,
+  tls$$certificates$$and$$hostnames_fallbackorigin,
+  tls$$certificates$$and$$hostnames_origin,
+  tls$$certificates$$and$$hostnames_status$$4,
+  tls$$certificates$$and$$hostnames_updated_at,
 } from "./outputs.js";
-import { tls_certificates_and_hostnames_origin } from "./schemas.js";
+import { tls$$certificates$$and$$hostnames_origin as tls$$certificates$$and$$hostnames_origin$ } from "./schemas.js";
 
 /**
- * The tools of `custom_hostnames.fallback_origin`.
+ * The tools of `customHostnames.fallbackOrigin`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "custom_hostnames_fallback_origin_delete",
+    name: "customHostnames_fallbackOrigin_delete",
     title: "Delete Fallback Origin for Custom Hostnames",
     description: "Removes the fallback origin configuration for custom hostnames on a zone. Custom hostnames without specific origins will no longer have a fallback.",
     inputSchema: {
       type: "object",
       properties: {
-        "zone_id": {
-          "$ref": "#/$defs/tls-certificates-and-hostnames_identifier",
-          "description": "Identifier."
+        "path": {
+          "properties": {
+            "zone_id": {
+              "$ref": "#/$defs/tls-certificates-and-hostnames_identifier",
+              "description": "Identifier."
+            }
+          },
+          "required": [
+            "zone_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "zone_id"
+        "path"
       ],
       $defs: {
-        "tls-certificates-and-hostnames_identifier": tls_certificates_and_hostnames_identifier,
+        "tls-certificates-and-hostnames_identifier": tls$$certificates$$and$$hostnames_identifier,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/tls-certificates-and-hostnames_fallback_origin_response",
       $defs: {
-        "tls-certificates-and-hostnames_api-response-single": tls_certificates_and_hostnames_api_response_single_output,
-        "tls-certificates-and-hostnames_created_at-2": tls_certificates_and_hostnames_created_at_2_output,
-        "tls-certificates-and-hostnames_errors": tls_certificates_and_hostnames_errors_output,
-        "tls-certificates-and-hostnames_fallback_origin_response": tls_certificates_and_hostnames_fallback_origin_response_output,
-        "tls-certificates-and-hostnames_fallbackorigin": tls_certificates_and_hostnames_fallbackorigin_output,
-        "tls-certificates-and-hostnames_messages": tls_certificates_and_hostnames_messages_output,
-        "tls-certificates-and-hostnames_origin": tls_certificates_and_hostnames_origin_output,
-        "tls-certificates-and-hostnames_status-4": tls_certificates_and_hostnames_status_4_output,
-        "tls-certificates-and-hostnames_updated_at": tls_certificates_and_hostnames_updated_at_output,
+        "tls-certificates-and-hostnames_api-response-single": tls$$certificates$$and$$hostnames_api$$response$$single,
+        "tls-certificates-and-hostnames_created_at-2": tls$$certificates$$and$$hostnames_created_at$$2,
+        "tls-certificates-and-hostnames_errors": tls$$certificates$$and$$hostnames_errors,
+        "tls-certificates-and-hostnames_fallback_origin_response": tls$$certificates$$and$$hostnames_fallback_origin_response,
+        "tls-certificates-and-hostnames_fallbackorigin": tls$$certificates$$and$$hostnames_fallbackorigin,
+        "tls-certificates-and-hostnames_messages": tls$$certificates$$and$$hostnames_messages,
+        "tls-certificates-and-hostnames_origin": tls$$certificates$$and$$hostnames_origin,
+        "tls-certificates-and-hostnames_status-4": tls$$certificates$$and$$hostnames_status$$4,
+        "tls-certificates-and-hostnames_updated_at": tls$$certificates$$and$$hostnames_updated_at,
       },
     },
     annotations: {
@@ -98,16 +106,16 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "tls-certificates-and-hostnames_api-response-common-failure": tls_certificates_and_hostnames_api_response_common_failure_output,
-        "tls-certificates-and-hostnames_api-response-single": tls_certificates_and_hostnames_api_response_single_output,
-        "tls-certificates-and-hostnames_created_at-2": tls_certificates_and_hostnames_created_at_2_output,
-        "tls-certificates-and-hostnames_errors": tls_certificates_and_hostnames_errors_output,
-        "tls-certificates-and-hostnames_fallback_origin_response": tls_certificates_and_hostnames_fallback_origin_response_output,
-        "tls-certificates-and-hostnames_fallbackorigin": tls_certificates_and_hostnames_fallbackorigin_output,
-        "tls-certificates-and-hostnames_messages": tls_certificates_and_hostnames_messages_output,
-        "tls-certificates-and-hostnames_origin": tls_certificates_and_hostnames_origin_output,
-        "tls-certificates-and-hostnames_status-4": tls_certificates_and_hostnames_status_4_output,
-        "tls-certificates-and-hostnames_updated_at": tls_certificates_and_hostnames_updated_at_output,
+        "tls-certificates-and-hostnames_api-response-common-failure": tls$$certificates$$and$$hostnames_api$$response$$common$$failure,
+        "tls-certificates-and-hostnames_api-response-single": tls$$certificates$$and$$hostnames_api$$response$$single,
+        "tls-certificates-and-hostnames_created_at-2": tls$$certificates$$and$$hostnames_created_at$$2,
+        "tls-certificates-and-hostnames_errors": tls$$certificates$$and$$hostnames_errors,
+        "tls-certificates-and-hostnames_fallback_origin_response": tls$$certificates$$and$$hostnames_fallback_origin_response,
+        "tls-certificates-and-hostnames_fallbackorigin": tls$$certificates$$and$$hostnames_fallbackorigin,
+        "tls-certificates-and-hostnames_messages": tls$$certificates$$and$$hostnames_messages,
+        "tls-certificates-and-hostnames_origin": tls$$certificates$$and$$hostnames_origin,
+        "tls-certificates-and-hostnames_status-4": tls$$certificates$$and$$hostnames_status$$4,
+        "tls-certificates-and-hostnames_updated_at": tls$$certificates$$and$$hostnames_updated_at,
       },
     },
     request: (args) => ({
@@ -115,36 +123,44 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "custom_hostnames_fallback_origin_get",
+    name: "customHostnames_fallbackOrigin_get",
     title: "Get Fallback Origin for Custom Hostnames",
     description: "Retrieves the current fallback origin configuration for custom hostnames on a zone. The fallback origin handles traffic when specific custom hostname origins are unavailable.",
     inputSchema: {
       type: "object",
       properties: {
-        "zone_id": {
-          "$ref": "#/$defs/tls-certificates-and-hostnames_identifier",
-          "description": "Identifier."
+        "path": {
+          "properties": {
+            "zone_id": {
+              "$ref": "#/$defs/tls-certificates-and-hostnames_identifier",
+              "description": "Identifier."
+            }
+          },
+          "required": [
+            "zone_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "zone_id"
+        "path"
       ],
       $defs: {
-        "tls-certificates-and-hostnames_identifier": tls_certificates_and_hostnames_identifier,
+        "tls-certificates-and-hostnames_identifier": tls$$certificates$$and$$hostnames_identifier,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/tls-certificates-and-hostnames_fallback_origin_response",
       $defs: {
-        "tls-certificates-and-hostnames_api-response-single": tls_certificates_and_hostnames_api_response_single_output,
-        "tls-certificates-and-hostnames_created_at-2": tls_certificates_and_hostnames_created_at_2_output,
-        "tls-certificates-and-hostnames_errors": tls_certificates_and_hostnames_errors_output,
-        "tls-certificates-and-hostnames_fallback_origin_response": tls_certificates_and_hostnames_fallback_origin_response_output,
-        "tls-certificates-and-hostnames_fallbackorigin": tls_certificates_and_hostnames_fallbackorigin_output,
-        "tls-certificates-and-hostnames_messages": tls_certificates_and_hostnames_messages_output,
-        "tls-certificates-and-hostnames_origin": tls_certificates_and_hostnames_origin_output,
-        "tls-certificates-and-hostnames_status-4": tls_certificates_and_hostnames_status_4_output,
-        "tls-certificates-and-hostnames_updated_at": tls_certificates_and_hostnames_updated_at_output,
+        "tls-certificates-and-hostnames_api-response-single": tls$$certificates$$and$$hostnames_api$$response$$single,
+        "tls-certificates-and-hostnames_created_at-2": tls$$certificates$$and$$hostnames_created_at$$2,
+        "tls-certificates-and-hostnames_errors": tls$$certificates$$and$$hostnames_errors,
+        "tls-certificates-and-hostnames_fallback_origin_response": tls$$certificates$$and$$hostnames_fallback_origin_response,
+        "tls-certificates-and-hostnames_fallbackorigin": tls$$certificates$$and$$hostnames_fallbackorigin,
+        "tls-certificates-and-hostnames_messages": tls$$certificates$$and$$hostnames_messages,
+        "tls-certificates-and-hostnames_origin": tls$$certificates$$and$$hostnames_origin,
+        "tls-certificates-and-hostnames_status-4": tls$$certificates$$and$$hostnames_status$$4,
+        "tls-certificates-and-hostnames_updated_at": tls$$certificates$$and$$hostnames_updated_at,
       },
     },
     annotations: {
@@ -190,16 +206,16 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "tls-certificates-and-hostnames_api-response-common-failure": tls_certificates_and_hostnames_api_response_common_failure_output,
-        "tls-certificates-and-hostnames_api-response-single": tls_certificates_and_hostnames_api_response_single_output,
-        "tls-certificates-and-hostnames_created_at-2": tls_certificates_and_hostnames_created_at_2_output,
-        "tls-certificates-and-hostnames_errors": tls_certificates_and_hostnames_errors_output,
-        "tls-certificates-and-hostnames_fallback_origin_response": tls_certificates_and_hostnames_fallback_origin_response_output,
-        "tls-certificates-and-hostnames_fallbackorigin": tls_certificates_and_hostnames_fallbackorigin_output,
-        "tls-certificates-and-hostnames_messages": tls_certificates_and_hostnames_messages_output,
-        "tls-certificates-and-hostnames_origin": tls_certificates_and_hostnames_origin_output,
-        "tls-certificates-and-hostnames_status-4": tls_certificates_and_hostnames_status_4_output,
-        "tls-certificates-and-hostnames_updated_at": tls_certificates_and_hostnames_updated_at_output,
+        "tls-certificates-and-hostnames_api-response-common-failure": tls$$certificates$$and$$hostnames_api$$response$$common$$failure,
+        "tls-certificates-and-hostnames_api-response-single": tls$$certificates$$and$$hostnames_api$$response$$single,
+        "tls-certificates-and-hostnames_created_at-2": tls$$certificates$$and$$hostnames_created_at$$2,
+        "tls-certificates-and-hostnames_errors": tls$$certificates$$and$$hostnames_errors,
+        "tls-certificates-and-hostnames_fallback_origin_response": tls$$certificates$$and$$hostnames_fallback_origin_response,
+        "tls-certificates-and-hostnames_fallbackorigin": tls$$certificates$$and$$hostnames_fallbackorigin,
+        "tls-certificates-and-hostnames_messages": tls$$certificates$$and$$hostnames_messages,
+        "tls-certificates-and-hostnames_origin": tls$$certificates$$and$$hostnames_origin,
+        "tls-certificates-and-hostnames_status-4": tls$$certificates$$and$$hostnames_status$$4,
+        "tls-certificates-and-hostnames_updated_at": tls$$certificates$$and$$hostnames_updated_at,
       },
     },
     request: (args) => ({
@@ -207,7 +223,7 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "custom_hostnames_fallback_origin_update",
+    name: "customHostnames_fallbackOrigin_update",
     title: "Update Fallback Origin for Custom Hostnames",
     description: "Updates the fallback origin configuration for custom hostnames on a zone. Sets the default origin server for custom hostname traffic.",
     inputSchema: {
@@ -225,32 +241,40 @@ export const tools: readonly Tool[] = [
           ],
           "type": "object"
         },
-        "zone_id": {
-          "$ref": "#/$defs/tls-certificates-and-hostnames_identifier",
-          "description": "Identifier."
+        "path": {
+          "properties": {
+            "zone_id": {
+              "$ref": "#/$defs/tls-certificates-and-hostnames_identifier",
+              "description": "Identifier."
+            }
+          },
+          "required": [
+            "zone_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "zone_id",
+        "path",
         "body"
       ],
       $defs: {
-        "tls-certificates-and-hostnames_identifier": tls_certificates_and_hostnames_identifier,
-        "tls-certificates-and-hostnames_origin": tls_certificates_and_hostnames_origin,
+        "tls-certificates-and-hostnames_identifier": tls$$certificates$$and$$hostnames_identifier,
+        "tls-certificates-and-hostnames_origin": tls$$certificates$$and$$hostnames_origin$,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/tls-certificates-and-hostnames_fallback_origin_response",
       $defs: {
-        "tls-certificates-and-hostnames_api-response-single": tls_certificates_and_hostnames_api_response_single_output,
-        "tls-certificates-and-hostnames_created_at-2": tls_certificates_and_hostnames_created_at_2_output,
-        "tls-certificates-and-hostnames_errors": tls_certificates_and_hostnames_errors_output,
-        "tls-certificates-and-hostnames_fallback_origin_response": tls_certificates_and_hostnames_fallback_origin_response_output,
-        "tls-certificates-and-hostnames_fallbackorigin": tls_certificates_and_hostnames_fallbackorigin_output,
-        "tls-certificates-and-hostnames_messages": tls_certificates_and_hostnames_messages_output,
-        "tls-certificates-and-hostnames_origin": tls_certificates_and_hostnames_origin_output,
-        "tls-certificates-and-hostnames_status-4": tls_certificates_and_hostnames_status_4_output,
-        "tls-certificates-and-hostnames_updated_at": tls_certificates_and_hostnames_updated_at_output,
+        "tls-certificates-and-hostnames_api-response-single": tls$$certificates$$and$$hostnames_api$$response$$single,
+        "tls-certificates-and-hostnames_created_at-2": tls$$certificates$$and$$hostnames_created_at$$2,
+        "tls-certificates-and-hostnames_errors": tls$$certificates$$and$$hostnames_errors,
+        "tls-certificates-and-hostnames_fallback_origin_response": tls$$certificates$$and$$hostnames_fallback_origin_response,
+        "tls-certificates-and-hostnames_fallbackorigin": tls$$certificates$$and$$hostnames_fallbackorigin,
+        "tls-certificates-and-hostnames_messages": tls$$certificates$$and$$hostnames_messages,
+        "tls-certificates-and-hostnames_origin": tls$$certificates$$and$$hostnames_origin,
+        "tls-certificates-and-hostnames_status-4": tls$$certificates$$and$$hostnames_status$$4,
+        "tls-certificates-and-hostnames_updated_at": tls$$certificates$$and$$hostnames_updated_at,
       },
     },
     annotations: {
@@ -295,16 +319,16 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "tls-certificates-and-hostnames_api-response-common-failure": tls_certificates_and_hostnames_api_response_common_failure_output,
-        "tls-certificates-and-hostnames_api-response-single": tls_certificates_and_hostnames_api_response_single_output,
-        "tls-certificates-and-hostnames_created_at-2": tls_certificates_and_hostnames_created_at_2_output,
-        "tls-certificates-and-hostnames_errors": tls_certificates_and_hostnames_errors_output,
-        "tls-certificates-and-hostnames_fallback_origin_response": tls_certificates_and_hostnames_fallback_origin_response_output,
-        "tls-certificates-and-hostnames_fallbackorigin": tls_certificates_and_hostnames_fallbackorigin_output,
-        "tls-certificates-and-hostnames_messages": tls_certificates_and_hostnames_messages_output,
-        "tls-certificates-and-hostnames_origin": tls_certificates_and_hostnames_origin_output,
-        "tls-certificates-and-hostnames_status-4": tls_certificates_and_hostnames_status_4_output,
-        "tls-certificates-and-hostnames_updated_at": tls_certificates_and_hostnames_updated_at_output,
+        "tls-certificates-and-hostnames_api-response-common-failure": tls$$certificates$$and$$hostnames_api$$response$$common$$failure,
+        "tls-certificates-and-hostnames_api-response-single": tls$$certificates$$and$$hostnames_api$$response$$single,
+        "tls-certificates-and-hostnames_created_at-2": tls$$certificates$$and$$hostnames_created_at$$2,
+        "tls-certificates-and-hostnames_errors": tls$$certificates$$and$$hostnames_errors,
+        "tls-certificates-and-hostnames_fallback_origin_response": tls$$certificates$$and$$hostnames_fallback_origin_response,
+        "tls-certificates-and-hostnames_fallbackorigin": tls$$certificates$$and$$hostnames_fallbackorigin,
+        "tls-certificates-and-hostnames_messages": tls$$certificates$$and$$hostnames_messages,
+        "tls-certificates-and-hostnames_origin": tls$$certificates$$and$$hostnames_origin,
+        "tls-certificates-and-hostnames_status-4": tls$$certificates$$and$$hostnames_status$$4,
+        "tls-certificates-and-hostnames_updated_at": tls$$certificates$$and$$hostnames_updated_at,
       },
     },
     request: (args) => ({

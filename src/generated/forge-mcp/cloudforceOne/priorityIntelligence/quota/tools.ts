@@ -4,22 +4,30 @@
 import { type Tool, pathParam } from "../../../_/tool.js";
 
 /**
- * The tools of `cloudforce_one.priority_intelligence.quota`.
+ * The tools of `cloudforceOne.priorityIntelligence.quota`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "cloudforce_one_priority_intelligence_quota_create",
+    name: "cloudforceOne_priorityIntelligence_quota_create",
     title: "Get PIR quota for an account",
     description: "Returns the account's PIR quota. `quota` and `remaining` count active PIRs against the entitlement limit; moving a PIR to draft or deleting it frees its slot. `total_quota` and `total_remaining` count every PIR, drafts included, against five times the limit. Anniversary dates are informational.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "type": "string"
+        "path": {
+          "properties": {
+            "account_id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id"
+        "path"
       ],
     },
     annotations: {

@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../../../_/tool.js";
 /**
  * The schema of `digital-experience-monitoring_execution_context` in responses.
  */
-export const digital_experience_monitoring_execution_context_output: JsonSchema = {
+export const digital$$experience$$monitoring_execution_context: JsonSchema = {
   "enum": [
     "EXECUTION_CONTEXT_INVALID",
     "OUT_OF_TUNNEL",
@@ -20,7 +20,7 @@ export const digital_experience_monitoring_execution_context_output: JsonSchema 
  * `digital-experience-monitoring_traceroute_test_result_network_path_response`
  * in responses.
  */
-export const digital_experience_monitoring_traceroute_test_result_network_path_response_output: JsonSchema = {
+export const digital$$experience$$monitoring_traceroute_test_result_network_path_response: JsonSchema = {
   "properties": {
     "colo": {
       "$ref": "#/$defs/digital-experience-monitoring_colo"

@@ -14,7 +14,7 @@ function plan(name: string, args: Record<string, unknown>, options: Partial<Plan
 
 describe('planning a generated tool call', () => {
   it("fills in the session's account and carries the method's permissions", async () => {
-    const result = await plan('d1_list', { per_page: 5 }, { sessionAccountId: ACCOUNT })
+    const result = await plan('d1_list', { query: { per_page: 5 } }, { sessionAccountId: ACCOUNT })
 
     expect(result).toMatchObject({
       kind: 'request',
@@ -32,7 +32,7 @@ describe('planning a generated tool call', () => {
   })
 
   it('keeps an account the caller passed, and sends the body', async () => {
-    const result = await plan('d1_create', { account_id: 'mine', body: { name: 'db' } })
+    const result = await plan('d1_create', { path: { account_id: 'mine' }, body: { name: 'db' } })
 
     expect(result).toMatchObject({
       kind: 'request',
@@ -44,13 +44,12 @@ describe('planning a generated tool call', () => {
   })
 
   it('fills in the account for a merged account-or-zone path called with accounts', async () => {
-    const zone = await plan('zero_trust_access_applications_list', {
-      account_or_zone: 'zones',
-      account_or_zone_id: 'z1'
+    const zone = await plan('zeroTrust_access_applications_list', {
+      path: { account_or_zone: 'zones', account_or_zone_id: 'z1' }
     })
     const account = await plan(
-      'zero_trust_access_applications_list',
-      { account_or_zone: 'accounts' },
+      'zeroTrust_access_applications_list',
+      { path: { account_or_zone: 'accounts' } },
       { sessionAccountId: ACCOUNT }
     )
 
@@ -68,7 +67,15 @@ describe('planning a generated tool call', () => {
   it('reports arguments the request cannot be built from', async () => {
     expect(await plan('zones_get', {})).toEqual({
       kind: 'invalid',
-      message: 'Missing required arguments: zone_id'
+      message: 'Missing required arguments: path'
+    })
+    expect(await plan('zones_get', { path: {} })).toEqual({
+      kind: 'invalid',
+      message: 'Missing required arguments: path.zone_id'
+    })
+    expect(await plan('zones_get', { path: 'z1' })).toEqual({
+      kind: 'invalid',
+      message: 'path must be an object'
     })
   })
 })

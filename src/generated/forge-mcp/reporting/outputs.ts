@@ -6,7 +6,7 @@ import type { JsonSchema } from "../_/tool.js";
 /**
  * The schema of `reports_Error` in responses.
  */
-export const reports_Error_output: JsonSchema = {
+export const reports_Error: JsonSchema = {
   "properties": {
     "code": {
       "type": "number"
@@ -25,7 +25,7 @@ export const reports_Error_output: JsonSchema = {
 /**
  * The schema of `reports_Message` in responses.
  */
-export const reports_Message_output: JsonSchema = {
+export const reports_Message: JsonSchema = {
   "properties": {
     "code": {
       "type": "number"
@@ -44,7 +44,7 @@ export const reports_Message_output: JsonSchema = {
 /**
  * The schema of `reports_PolicyErrorResponse` in responses.
  */
-export const reports_PolicyErrorResponse_output: JsonSchema = {
+export const reports_PolicyErrorResponse: JsonSchema = {
   "properties": {
     "errors": {
       "items": {

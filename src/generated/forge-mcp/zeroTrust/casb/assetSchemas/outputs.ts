@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `posture-api_AssetSchemaDetail` in responses.
  */
-export const posture_api_AssetSchemaDetail_output: JsonSchema = {
+export const posture$$api_AssetSchemaDetail: JsonSchema = {
   "properties": {
     "asset_class": {
       "type": "string"
@@ -25,7 +25,7 @@ export const posture_api_AssetSchemaDetail_output: JsonSchema = {
 /**
  * The schema of `posture-api_AssetSchemaListResponse` in responses.
  */
-export const posture_api_AssetSchemaListResponse_output: JsonSchema = {
+export const posture$$api_AssetSchemaListResponse: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/posture-api_api-response-common"
@@ -47,7 +47,7 @@ export const posture_api_AssetSchemaListResponse_output: JsonSchema = {
 /**
  * The schema of `posture-api_AssetSchemaResponse` in responses.
  */
-export const posture_api_AssetSchemaResponse_output: JsonSchema = {
+export const posture$$api_AssetSchemaResponse: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/posture-api_api-response-common"
@@ -66,7 +66,7 @@ export const posture_api_AssetSchemaResponse_output: JsonSchema = {
 /**
  * The schema of `posture-api_AssetSchemaSummary` in responses.
  */
-export const posture_api_AssetSchemaSummary_output: JsonSchema = {
+export const posture$$api_AssetSchemaSummary: JsonSchema = {
   "properties": {
     "asset_class": {
       "type": "string"
@@ -81,7 +81,7 @@ export const posture_api_AssetSchemaSummary_output: JsonSchema = {
 /**
  * The schema of `posture-api_AssetSchemaVendorGroup` in responses.
  */
-export const posture_api_AssetSchemaVendorGroup_output: JsonSchema = {
+export const posture$$api_AssetSchemaVendorGroup: JsonSchema = {
   "properties": {
     "asset_classes": {
       "items": {

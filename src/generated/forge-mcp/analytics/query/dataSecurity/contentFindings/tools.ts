@@ -3,36 +3,44 @@
 
 import { type Tool, pathParam } from "../../../../_/tool.js";
 import {
-  art_APIError_output,
-  art_APIMessage_output,
-  art_ErrorResponse_output,
-  art_ResultValues_output,
-  art_TopNResponse_output,
+  art_APIError,
+  art_APIMessage,
+  art_ErrorResponse,
+  art_ResultValues,
+  art_TopNResponse,
 } from "../../outputs.js";
 import { art_Filter } from "../../schemas.js";
 import { art_DataSecurityContentFindingsTopNQuery } from "./schemas.js";
 
 /**
- * The tools of `analytics.query.data_security.content_findings`.
+ * The tools of `analytics.query.dataSecurity.contentFindings`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "analytics_query_data_security_content_findings_top_n",
+    name: "analytics_query_dataSecurity_contentFindings_topN",
     title: "Top integrations by content findings",
     description: "Returns the top N integrations ranked by total content findings.\n\nThis method is beta.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "description": "Cloudflare account identifier.",
-          "type": "string"
-        },
         "body": {
           "$ref": "#/$defs/art_DataSecurityContentFindingsTopNQuery"
+        },
+        "path": {
+          "properties": {
+            "account_id": {
+              "description": "Cloudflare account identifier.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
+        "path",
         "body"
       ],
       $defs: {
@@ -43,10 +51,10 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/art_TopNResponse",
       $defs: {
-        "art_APIError": art_APIError_output,
-        "art_APIMessage": art_APIMessage_output,
-        "art_ResultValues": art_ResultValues_output,
-        "art_TopNResponse": art_TopNResponse_output,
+        "art_APIError": art_APIError,
+        "art_APIMessage": art_APIMessage,
+        "art_ResultValues": art_ResultValues,
+        "art_TopNResponse": art_TopNResponse,
       },
     },
     annotations: {
@@ -80,11 +88,11 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "art_APIError": art_APIError_output,
-        "art_APIMessage": art_APIMessage_output,
-        "art_ErrorResponse": art_ErrorResponse_output,
-        "art_ResultValues": art_ResultValues_output,
-        "art_TopNResponse": art_TopNResponse_output,
+        "art_APIError": art_APIError,
+        "art_APIMessage": art_APIMessage,
+        "art_ErrorResponse": art_ErrorResponse,
+        "art_ResultValues": art_ResultValues,
+        "art_TopNResponse": art_TopNResponse,
       },
     },
     request: (args) => ({

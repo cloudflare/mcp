@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `tunnel_subnet_response_single_nullable` in responses.
  */
-export const tunnel_subnet_response_single_nullable_output: JsonSchema = {
+export const tunnel_subnet_response_single_nullable: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/tunnel_api-response-common"

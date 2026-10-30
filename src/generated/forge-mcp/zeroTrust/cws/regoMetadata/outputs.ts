@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `cws_JSONDocument` in responses.
  */
-export const cws_JSONDocument_output: JsonSchema = {
+export const cws_JSONDocument: JsonSchema = {
   "anyOf": [
     {
       "additionalProperties": {
@@ -35,7 +35,7 @@ export const cws_JSONDocument_output: JsonSchema = {
 /**
  * The schema of `cws_JSONValue` in responses.
  */
-export const cws_JSONValue_output: JsonSchema = {
+export const cws_JSONValue: JsonSchema = {
   "anyOf": [
     {
       "additionalProperties": {
@@ -67,7 +67,7 @@ export const cws_JSONValue_output: JsonSchema = {
 /**
  * The schema of `cws_PageResponseRegoMetadata` in responses.
  */
-export const cws_PageResponseRegoMetadata_output: JsonSchema = {
+export const cws_PageResponseRegoMetadata: JsonSchema = {
   "properties": {
     "errors": {
       "oneOf": [
@@ -128,7 +128,7 @@ export const cws_PageResponseRegoMetadata_output: JsonSchema = {
 /**
  * The schema of `cws_RegoMetadata` in responses.
  */
-export const cws_RegoMetadata_output: JsonSchema = {
+export const cws_RegoMetadata: JsonSchema = {
   "properties": {
     "created_at": {
       "format": "date-time",
@@ -166,7 +166,7 @@ export const cws_RegoMetadata_output: JsonSchema = {
 /**
  * The schema of `cws_ResponseRegoMetadata` in responses.
  */
-export const cws_ResponseRegoMetadata_output: JsonSchema = {
+export const cws_ResponseRegoMetadata: JsonSchema = {
   "properties": {
     "errors": {
       "oneOf": [

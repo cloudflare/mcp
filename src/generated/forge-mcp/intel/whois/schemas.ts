@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `cloudforce-one-whois_identifier`.
  */
-export const cloudforce_one_whois_identifier: JsonSchema = {
+export const cloudforce$$one$$whois_identifier: JsonSchema = {
   "description": "Use to uniquely identify or reference the resource.",
   "type": "string"
 };

@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `r2-slurper_JobProgressResponse` in responses.
  */
-export const r2_slurper_JobProgressResponse_output: JsonSchema = {
+export const r2$$slurper_JobProgressResponse: JsonSchema = {
   "properties": {
     "createdAt": {
       "type": "string"
@@ -36,7 +36,7 @@ export const r2_slurper_JobProgressResponse_output: JsonSchema = {
 /**
  * The schema of `r2-slurper_JobResponse` in responses.
  */
-export const r2_slurper_JobResponse_output: JsonSchema = {
+export const r2$$slurper_JobResponse: JsonSchema = {
   "properties": {
     "createdAt": {
       "type": "string"
@@ -212,7 +212,7 @@ export const r2_slurper_JobResponse_output: JsonSchema = {
 /**
  * The schema of `r2-slurper_JobStatus` in responses.
  */
-export const r2_slurper_JobStatus_output: JsonSchema = {
+export const r2$$slurper_JobStatus: JsonSchema = {
   "enum": [
     "running",
     "paused",

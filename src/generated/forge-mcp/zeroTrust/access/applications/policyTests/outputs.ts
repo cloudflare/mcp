@@ -6,35 +6,35 @@ import type { JsonSchema } from "../../../../_/tool.js";
 /**
  * The schema of `access_percent_approved` in responses.
  */
-export const access_percent_approved_output: JsonSchema = {
+export const access_percent_approved: JsonSchema = {
   "type": "integer"
 };
 
 /**
  * The schema of `access_percent_blocked` in responses.
  */
-export const access_percent_blocked_output: JsonSchema = {
+export const access_percent_blocked: JsonSchema = {
   "type": "integer"
 };
 
 /**
  * The schema of `access_percent_errored` in responses.
  */
-export const access_percent_errored_output: JsonSchema = {
+export const access_percent_errored: JsonSchema = {
   "type": "integer"
 };
 
 /**
  * The schema of `access_percent_users_processed` in responses.
  */
-export const access_percent_users_processed_output: JsonSchema = {
+export const access_percent_users_processed: JsonSchema = {
   "type": "integer"
 };
 
 /**
  * The schema of `access_policy_init_resp` in responses.
  */
-export const access_policy_init_resp_output: JsonSchema = {
+export const access_policy_init_resp: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/access_api-response-single"
@@ -61,14 +61,14 @@ export const access_policy_init_resp_output: JsonSchema = {
 /**
  * The schema of `access_policy_test_id` in responses.
  */
-export const access_policy_test_id_output: JsonSchema = {
+export const access_policy_test_id: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `access_policy_update_resp` in responses.
  */
-export const access_policy_update_resp_output: JsonSchema = {
+export const access_policy_update_resp: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/access_api-response-single"
@@ -119,7 +119,7 @@ export const access_policy_update_resp_output: JsonSchema = {
 /**
  * The schema of `access_status` in responses.
  */
-export const access_status_output: JsonSchema = {
+export const access_status: JsonSchema = {
   "enum": [
     "success"
   ],
@@ -129,14 +129,14 @@ export const access_status_output: JsonSchema = {
 /**
  * The schema of `access_total_users` in responses.
  */
-export const access_total_users_output: JsonSchema = {
+export const access_total_users: JsonSchema = {
   "type": "integer"
 };
 
 /**
  * The schema of `access_update_status` in responses.
  */
-export const access_update_status_output: JsonSchema = {
+export const access_update_status: JsonSchema = {
   "enum": [
     "blocked",
     "processing",
@@ -149,20 +149,20 @@ export const access_update_status_output: JsonSchema = {
 /**
  * The schema of `access_users_approved` in responses.
  */
-export const access_users_approved_output: JsonSchema = {
+export const access_users_approved: JsonSchema = {
   "type": "integer"
 };
 
 /**
  * The schema of `access_users_blocked` in responses.
  */
-export const access_users_blocked_output: JsonSchema = {
+export const access_users_blocked: JsonSchema = {
   "type": "integer"
 };
 
 /**
  * The schema of `access_users_errored` in responses.
  */
-export const access_users_errored_output: JsonSchema = {
+export const access_users_errored: JsonSchema = {
   "type": "integer"
 };

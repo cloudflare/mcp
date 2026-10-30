@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../../_/tool.js";
 /**
  * The schema of `access_cf_resource_id-2`.
  */
-export const access_cf_resource_id_2: JsonSchema = {
+export const access_cf_resource_id$$2: JsonSchema = {
   "description": "The unique Cloudflare-generated Id of the SCIM User resource; also known as the \"Id\".\nPass once for a single lookup (`?cf_resource_id=A`) or repeat the parameter\n(`?cf_resource_id=A&cf_resource_id=B`) to look up multiple users in one request,\nup to 50 values. Mutually exclusive with `idp_resource_id`, `username`, `email`,\n`name`, `search_contains`, and `search_starts_with`.",
   "items": {
     "type": "string"
@@ -26,7 +26,7 @@ export const access_email: JsonSchema = {
 /**
  * The schema of `access_idp_resource_id-2`.
  */
-export const access_idp_resource_id_2: JsonSchema = {
+export const access_idp_resource_id$$2: JsonSchema = {
   "description": "The IdP-generated Id of the SCIM User resource; also known as the \"external Id\".\nPass once for a single lookup (`?idp_resource_id=A`) or repeat the parameter\n(`?idp_resource_id=A&idp_resource_id=B`) to look up multiple users in one request,\nup to 50 values. Mutually exclusive with `cf_resource_id`, `username`, `email`,\n`name`, `search_contains`, and `search_starts_with`.",
   "items": {
     "type": "string"
@@ -38,7 +38,7 @@ export const access_idp_resource_id_2: JsonSchema = {
 /**
  * The schema of `access_name-5`.
  */
-export const access_name_5: JsonSchema = {
+export const access_name$$5: JsonSchema = {
   "description": "The name of the SCIM User resource.",
   "type": "string"
 };

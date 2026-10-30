@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `monetization_account-identifier`.
  */
-export const monetization_account_identifier: JsonSchema = {
+export const monetization_account$$identifier: JsonSchema = {
   "description": "The unique ID of the account.",
   "type": "string"
 };
@@ -14,7 +14,7 @@ export const monetization_account_identifier: JsonSchema = {
 /**
  * The schema of `monetization_monetization-account-eligibility-check-input`.
  */
-export const monetization_monetization_account_eligibility_check_input: JsonSchema = {
+export const monetization_monetization$$account$$eligibility$$check$$input: JsonSchema = {
   "properties": {
     "acceptedTermsOfService": {
       "description": "Confirms acceptance of the Monetization Gateway terms of service.",

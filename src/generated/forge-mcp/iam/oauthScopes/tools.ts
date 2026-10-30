@@ -3,23 +3,23 @@
 
 import type { Tool } from "../../_/tool.js";
 import {
-  iam_api_response_collection_output,
-  iam_api_response_common_failure_output,
-  iam_api_response_common_output,
-  iam_messages_2_output,
-  iam_result_info_output,
+  iam_api$$response$$collection,
+  iam_api$$response$$common,
+  iam_api$$response$$common$$failure,
+  iam_messages$$2,
+  iam_result_info,
 } from "../../outputs.js";
 import {
-  iam_collection_oauth_scopes_response_output,
-  iam_oauth_scope_output,
+  iam_collection_oauth_scopes_response,
+  iam_oauth_scope,
 } from "./outputs.js";
 
 /**
- * The tools of `iam.oauth_scopes`.
+ * The tools of `iam.oauthScopes`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "iam_oauth_scopes_list",
+    name: "iam_oauthScopes_list",
     title: "List OAuth Scopes",
     description: "List all available OAuth scopes. This endpoint requires authentication but has no authorization role requirements.",
     inputSchema: {
@@ -29,12 +29,12 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/iam_collection_oauth_scopes_response",
       $defs: {
-        "iam_api-response-collection": iam_api_response_collection_output,
-        "iam_api-response-common": iam_api_response_common_output,
-        "iam_collection_oauth_scopes_response": iam_collection_oauth_scopes_response_output,
-        "iam_messages-2": iam_messages_2_output,
-        "iam_oauth_scope": iam_oauth_scope_output,
-        "iam_result_info": iam_result_info_output,
+        "iam_api-response-collection": iam_api$$response$$collection,
+        "iam_api-response-common": iam_api$$response$$common,
+        "iam_collection_oauth_scopes_response": iam_collection_oauth_scopes_response,
+        "iam_messages-2": iam_messages$$2,
+        "iam_oauth_scope": iam_oauth_scope,
+        "iam_result_info": iam_result_info,
       },
     },
     annotations: {
@@ -64,13 +64,13 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "iam_api-response-collection": iam_api_response_collection_output,
-        "iam_api-response-common": iam_api_response_common_output,
-        "iam_api-response-common-failure": iam_api_response_common_failure_output,
-        "iam_collection_oauth_scopes_response": iam_collection_oauth_scopes_response_output,
-        "iam_messages-2": iam_messages_2_output,
-        "iam_oauth_scope": iam_oauth_scope_output,
-        "iam_result_info": iam_result_info_output,
+        "iam_api-response-collection": iam_api$$response$$collection,
+        "iam_api-response-common": iam_api$$response$$common,
+        "iam_api-response-common-failure": iam_api$$response$$common$$failure,
+        "iam_collection_oauth_scopes_response": iam_collection_oauth_scopes_response,
+        "iam_messages-2": iam_messages$$2,
+        "iam_oauth_scope": iam_oauth_scope,
+        "iam_result_info": iam_result_info,
       },
     },
     request: (_args) => ({

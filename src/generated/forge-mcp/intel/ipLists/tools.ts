@@ -3,36 +3,44 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
-  intel_api_response_collection_output,
-  intel_api_response_common_failure_output,
-  intel_api_response_common_output,
-  intel_messages_output,
-  intel_result_info_output,
+  intel_api$$response$$collection,
+  intel_api$$response$$common,
+  intel_api$$response$$common$$failure,
+  intel_messages,
+  intel_result_info,
 } from "../outputs.js";
 import { intel_identifier } from "../schemas.js";
 import {
-  intel_components_schemas_response_output,
-  intel_ip_list_output,
+  intel_components$$schemas$$response,
+  intel_ip$$list,
 } from "./outputs.js";
 
 /**
- * The tools of `intel.ip_lists`.
+ * The tools of `intel.ipLists`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "intel_ip_lists_get",
+    name: "intel_ipLists_get",
     title: "Get Available IP Lists",
     description: "Returns a list of available IP list categories (e.g., anonymizer, botnetcc, malware, tor, vpn, open_proxies). This endpoint provides metadata about which IP lists are available in the system.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/intel_identifier",
-          "description": "Identifier."
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/intel_identifier",
+              "description": "Identifier."
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id"
+        "path"
       ],
       $defs: {
         "intel_identifier": intel_identifier,
@@ -41,12 +49,12 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/intel_components-schemas-response",
       $defs: {
-        "intel_api-response-collection": intel_api_response_collection_output,
-        "intel_api-response-common": intel_api_response_common_output,
-        "intel_components-schemas-response": intel_components_schemas_response_output,
-        "intel_ip-list": intel_ip_list_output,
-        "intel_messages": intel_messages_output,
-        "intel_result_info": intel_result_info_output,
+        "intel_api-response-collection": intel_api$$response$$collection,
+        "intel_api-response-common": intel_api$$response$$common,
+        "intel_components-schemas-response": intel_components$$schemas$$response,
+        "intel_ip-list": intel_ip$$list,
+        "intel_messages": intel_messages,
+        "intel_result_info": intel_result_info,
       },
     },
     annotations: {
@@ -81,13 +89,13 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "intel_api-response-collection": intel_api_response_collection_output,
-        "intel_api-response-common": intel_api_response_common_output,
-        "intel_api-response-common-failure": intel_api_response_common_failure_output,
-        "intel_components-schemas-response": intel_components_schemas_response_output,
-        "intel_ip-list": intel_ip_list_output,
-        "intel_messages": intel_messages_output,
-        "intel_result_info": intel_result_info_output,
+        "intel_api-response-collection": intel_api$$response$$collection,
+        "intel_api-response-common": intel_api$$response$$common,
+        "intel_api-response-common-failure": intel_api$$response$$common$$failure,
+        "intel_components-schemas-response": intel_components$$schemas$$response,
+        "intel_ip-list": intel_ip$$list,
+        "intel_messages": intel_messages,
+        "intel_result_info": intel_result_info,
       },
     },
     request: (args) => ({

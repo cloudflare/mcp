@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `waf-product-api-bundle_custom-scan-id`.
  */
-export const waf_product_api_bundle_custom_scan_id: JsonSchema = {
+export const waf$$product$$api$$bundle_custom$$scan$$id: JsonSchema = {
   "$ref": "#/$defs/waf-product-api-bundle_identifier",
   "description": "Defines the unique ID for this Content Scanning custom expression."
 };
@@ -14,7 +14,7 @@ export const waf_product_api_bundle_custom_scan_id: JsonSchema = {
 /**
  * The schema of `waf-product-api-bundle_custom-scan-payload`.
  */
-export const waf_product_api_bundle_custom_scan_payload: JsonSchema = {
+export const waf$$product$$api$$bundle_custom$$scan$$payload: JsonSchema = {
   "description": "Defines the custom content extraction expression used to reach content objects in the request.",
   "type": "string"
 };

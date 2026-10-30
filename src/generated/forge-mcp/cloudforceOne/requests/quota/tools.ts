@@ -4,42 +4,50 @@
 import { type Tool, pathParam } from "../../../_/tool.js";
 
 /**
- * The tools of `cloudforce_one.requests.quota`.
+ * The tools of `cloudforceOne.requests.quota`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "cloudforce_one_requests_quota_get",
+    name: "cloudforceOne_requests_quota_get",
     title: "Get request token quota",
     description: "Returns the account's token quota for the current anniversary quarter: total granted, used, remaining, and the quarter/anniversary boundaries.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "description": "Account ID.",
-          "type": "string"
-        },
-        "project_type": {
-          "description": "RFI project type",
-          "enum": [
-            "threat-intelligence",
-            "incident-response",
-            "ir-emergency-response",
-            "table-top",
-            "pentest",
-            "irp",
-            "threat-hunting",
-            "cybersecurity-assessment",
-            "react-general",
-            "legal-response",
-            "soc-alerts",
-            "demo"
+        "path": {
+          "properties": {
+            "account_id": {
+              "description": "Account ID.",
+              "type": "string"
+            },
+            "project_type": {
+              "description": "RFI project type",
+              "enum": [
+                "threat-intelligence",
+                "incident-response",
+                "ir-emergency-response",
+                "table-top",
+                "pentest",
+                "irp",
+                "threat-hunting",
+                "cybersecurity-assessment",
+                "react-general",
+                "legal-response",
+                "soc-alerts",
+                "demo"
+              ],
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "project_type"
           ],
-          "type": "string"
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "project_type"
+        "path"
       ],
     },
     annotations: {

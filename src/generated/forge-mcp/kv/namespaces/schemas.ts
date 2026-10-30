@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `workers-kv_create_namespace_body`.
  */
-export const workers_kv_create_namespace_body: JsonSchema = {
+export const workers$$kv_create_namespace_body: JsonSchema = {
   "properties": {
     "jurisdiction": {
       "$ref": "#/$defs/workers-kv_jurisdiction",
@@ -33,7 +33,7 @@ export const workers_kv_create_namespace_body: JsonSchema = {
 /**
  * The schema of `workers-kv_create_rename_namespace_body`.
  */
-export const workers_kv_create_rename_namespace_body: JsonSchema = {
+export const workers$$kv_create_rename_namespace_body: JsonSchema = {
   "properties": {
     "title": {
       "$ref": "#/$defs/workers-kv_namespace_title",
@@ -49,7 +49,7 @@ export const workers_kv_create_rename_namespace_body: JsonSchema = {
 /**
  * The schema of `workers-kv_jurisdiction`.
  */
-export const workers_kv_jurisdiction: JsonSchema = {
+export const workers$$kv_jurisdiction: JsonSchema = {
   "description": "Specify the jurisdiction to restrict the KV namespace to durably store data within. Can only be set at namespace creation time.",
   "enum": [
     "eu",
@@ -62,7 +62,7 @@ export const workers_kv_jurisdiction: JsonSchema = {
 /**
  * The schema of `workers-kv_namespace_title`.
  */
-export const workers_kv_namespace_title: JsonSchema = {
+export const workers$$kv_namespace_title: JsonSchema = {
   "description": "Human-readable string name for a Workers KV namespace.",
   "type": "string"
 };

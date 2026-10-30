@@ -3,11 +3,11 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
-  addressing_api_response_common_failure_output,
-  addressing_api_response_common_output,
-  addressing_messages_output,
-  addressing_service_identifier_output,
-  addressing_service_name_output,
+  addressing_api$$response$$common,
+  addressing_api$$response$$common$$failure,
+  addressing_messages,
+  addressing_service_identifier,
+  addressing_service_name,
 } from "../outputs.js";
 import { addressing_account_identifier } from "../schemas.js";
 
@@ -22,13 +22,21 @@ export const tools: readonly Tool[] = [
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/addressing_account_identifier",
-          "description": "Identifier of a Cloudflare account."
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/addressing_account_identifier",
+              "description": "Identifier of a Cloudflare account."
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id"
+        "path"
       ],
       $defs: {
         "addressing_account_identifier": addressing_account_identifier,
@@ -60,10 +68,10 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "addressing_api-response-common": addressing_api_response_common_output,
-        "addressing_messages": addressing_messages_output,
-        "addressing_service_identifier": addressing_service_identifier_output,
-        "addressing_service_name": addressing_service_name_output,
+        "addressing_api-response-common": addressing_api$$response$$common,
+        "addressing_messages": addressing_messages,
+        "addressing_service_identifier": addressing_service_identifier,
+        "addressing_service_name": addressing_service_name,
       },
     },
     annotations: {
@@ -114,11 +122,11 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "addressing_api-response-common": addressing_api_response_common_output,
-        "addressing_api-response-common-failure": addressing_api_response_common_failure_output,
-        "addressing_messages": addressing_messages_output,
-        "addressing_service_identifier": addressing_service_identifier_output,
-        "addressing_service_name": addressing_service_name_output,
+        "addressing_api-response-common": addressing_api$$response$$common,
+        "addressing_api-response-common-failure": addressing_api$$response$$common$$failure,
+        "addressing_messages": addressing_messages,
+        "addressing_service_identifier": addressing_service_identifier,
+        "addressing_service_name": addressing_service_name,
       },
     },
     request: (args) => ({

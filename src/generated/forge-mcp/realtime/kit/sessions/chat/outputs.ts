@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../../_/tool.js";
 /**
  * The schema of `realtimekit_ChatMessage` in responses.
  */
-export const realtimekit_ChatMessage_output: JsonSchema = {
+export const realtimekit_ChatMessage: JsonSchema = {
   "properties": {
     "chat_download_url": {
       "type": "string"

@@ -2,49 +2,57 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../_/tool.js";
-import { tls_certificates_and_hostnames_messages_output } from "../../outputs.js";
-import { tls_certificates_and_hostnames_identifier } from "../../schemas.js";
+import { tls$$certificates$$and$$hostnames_messages } from "../../outputs.js";
+import { tls$$certificates$$and$$hostnames_identifier } from "../../schemas.js";
 import {
-  tls_certificates_and_hostnames_custom_hostname_api_response_common_output,
-  tls_certificates_and_hostnames_custom_hostname_response_messages_output,
+  tls$$certificates$$and$$hostnames_custom_hostname_api_response_common,
+  tls$$certificates$$and$$hostnames_custom_hostname_response_messages,
 } from "../outputs.js";
 import {
-  tls_certificates_and_hostnames_custom_hostname_api_response_failure_output,
-  tls_certificates_and_hostnames_custom_hostname_quota_output,
-  tls_certificates_and_hostnames_custom_hostname_quota_response_output,
+  tls$$certificates$$and$$hostnames_custom_hostname_api_response_failure,
+  tls$$certificates$$and$$hostnames_custom_hostname_quota,
+  tls$$certificates$$and$$hostnames_custom_hostname_quota_response,
 } from "./outputs.js";
 
 /**
- * The tools of `custom_hostnames.quota`.
+ * The tools of `customHostnames.quota`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "custom_hostnames_quota_get",
+    name: "customHostnames_quota_get",
     title: "Get Custom Hostname Quota",
     description: "Returns custom hostname quota usage for a zone. The allocated quota is a soft limit; creating custom hostnames after usage exceeds this limit can still succeed until the hard cap is reached. Use the exceeded and hard_cap fields to track when usage is above the soft limit and when new custom hostname creation will be rejected.",
     inputSchema: {
       type: "object",
       properties: {
-        "zone_id": {
-          "$ref": "#/$defs/tls-certificates-and-hostnames_identifier",
-          "description": "Identifier."
+        "path": {
+          "properties": {
+            "zone_id": {
+              "$ref": "#/$defs/tls-certificates-and-hostnames_identifier",
+              "description": "Identifier."
+            }
+          },
+          "required": [
+            "zone_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "zone_id"
+        "path"
       ],
       $defs: {
-        "tls-certificates-and-hostnames_identifier": tls_certificates_and_hostnames_identifier,
+        "tls-certificates-and-hostnames_identifier": tls$$certificates$$and$$hostnames_identifier,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/tls-certificates-and-hostnames_custom_hostname_quota_response",
       $defs: {
-        "tls-certificates-and-hostnames_custom_hostname_api_response_common": tls_certificates_and_hostnames_custom_hostname_api_response_common_output,
-        "tls-certificates-and-hostnames_custom_hostname_quota": tls_certificates_and_hostnames_custom_hostname_quota_output,
-        "tls-certificates-and-hostnames_custom_hostname_quota_response": tls_certificates_and_hostnames_custom_hostname_quota_response_output,
-        "tls-certificates-and-hostnames_custom_hostname_response_messages": tls_certificates_and_hostnames_custom_hostname_response_messages_output,
-        "tls-certificates-and-hostnames_messages": tls_certificates_and_hostnames_messages_output,
+        "tls-certificates-and-hostnames_custom_hostname_api_response_common": tls$$certificates$$and$$hostnames_custom_hostname_api_response_common,
+        "tls-certificates-and-hostnames_custom_hostname_quota": tls$$certificates$$and$$hostnames_custom_hostname_quota,
+        "tls-certificates-and-hostnames_custom_hostname_quota_response": tls$$certificates$$and$$hostnames_custom_hostname_quota_response,
+        "tls-certificates-and-hostnames_custom_hostname_response_messages": tls$$certificates$$and$$hostnames_custom_hostname_response_messages,
+        "tls-certificates-and-hostnames_messages": tls$$certificates$$and$$hostnames_messages,
       },
     },
     annotations: {
@@ -78,12 +86,12 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "tls-certificates-and-hostnames_custom_hostname_api_response_common": tls_certificates_and_hostnames_custom_hostname_api_response_common_output,
-        "tls-certificates-and-hostnames_custom_hostname_api_response_failure": tls_certificates_and_hostnames_custom_hostname_api_response_failure_output,
-        "tls-certificates-and-hostnames_custom_hostname_quota": tls_certificates_and_hostnames_custom_hostname_quota_output,
-        "tls-certificates-and-hostnames_custom_hostname_quota_response": tls_certificates_and_hostnames_custom_hostname_quota_response_output,
-        "tls-certificates-and-hostnames_custom_hostname_response_messages": tls_certificates_and_hostnames_custom_hostname_response_messages_output,
-        "tls-certificates-and-hostnames_messages": tls_certificates_and_hostnames_messages_output,
+        "tls-certificates-and-hostnames_custom_hostname_api_response_common": tls$$certificates$$and$$hostnames_custom_hostname_api_response_common,
+        "tls-certificates-and-hostnames_custom_hostname_api_response_failure": tls$$certificates$$and$$hostnames_custom_hostname_api_response_failure,
+        "tls-certificates-and-hostnames_custom_hostname_quota": tls$$certificates$$and$$hostnames_custom_hostname_quota,
+        "tls-certificates-and-hostnames_custom_hostname_quota_response": tls$$certificates$$and$$hostnames_custom_hostname_quota_response,
+        "tls-certificates-and-hostnames_custom_hostname_response_messages": tls$$certificates$$and$$hostnames_custom_hostname_response_messages,
+        "tls-certificates-and-hostnames_messages": tls$$certificates$$and$$hostnames_messages,
       },
     },
     request: (args) => ({

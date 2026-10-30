@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../../_/tool.js";
 /**
  * The schema of `one_AuthMethodDetail` in responses.
  */
-export const one_AuthMethodDetail_output: JsonSchema = {
+export const one_AuthMethodDetail: JsonSchema = {
   "properties": {
     "display_name": {
       "type": "string"
@@ -66,7 +66,7 @@ export const one_AuthMethodDetail_output: JsonSchema = {
 /**
  * The schema of `one_Instructions` in responses.
  */
-export const one_Instructions_output: JsonSchema = {
+export const one_Instructions: JsonSchema = {
   "properties": {
     "markdown": {
       "type": "string"
@@ -81,7 +81,7 @@ export const one_Instructions_output: JsonSchema = {
 /**
  * The schema of `one_PaginatedAuthMethodDetailList` in responses.
  */
-export const one_PaginatedAuthMethodDetailList_output: JsonSchema = {
+export const one_PaginatedAuthMethodDetailList: JsonSchema = {
   "properties": {
     "errors": {
       "items": {

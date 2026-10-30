@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `r2_account_level_metrics` in responses.
  */
-export const r2_account_level_metrics_output: JsonSchema = {
+export const r2_account_level_metrics: JsonSchema = {
   "properties": {
     "infrequentAccess": {
       "$ref": "#/$defs/r2_class_based_metrics"
@@ -21,7 +21,7 @@ export const r2_account_level_metrics_output: JsonSchema = {
 /**
  * The schema of `r2_class_based_metrics` in responses.
  */
-export const r2_class_based_metrics_output: JsonSchema = {
+export const r2_class_based_metrics: JsonSchema = {
   "properties": {
     "published": {
       "$ref": "#/$defs/r2_object_size_metrics"
@@ -36,7 +36,7 @@ export const r2_class_based_metrics_output: JsonSchema = {
 /**
  * The schema of `r2_object_size_metrics` in responses.
  */
-export const r2_object_size_metrics_output: JsonSchema = {
+export const r2_object_size_metrics: JsonSchema = {
   "properties": {
     "metadataSize": {
       "type": "number"

@@ -3,10 +3,10 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
-  addressing_api_response_collection_output,
-  addressing_api_response_common_failure_output,
-  addressing_api_response_common_output,
-  addressing_messages_output,
+  addressing_api$$response$$collection,
+  addressing_api$$response$$common,
+  addressing_api$$response$$common$$failure,
+  addressing_messages,
 } from "../../outputs.js";
 import { addressing_account_identifier } from "../../schemas.js";
 import {
@@ -15,33 +15,41 @@ import {
 } from "../schemas.js";
 
 /**
- * The tools of `addressing.address_maps.ips`.
+ * The tools of `addressing.addressMaps.ips`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "addressing_address_maps_ips_delete",
+    name: "addressing_addressMaps_ips_delete",
     title: "Remove an IP from an Address Map",
     description: "Remove an IP from a particular address map.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/addressing_account_identifier",
-          "description": "Identifier of a Cloudflare account."
-        },
-        "address_map_id": {
-          "$ref": "#/$defs/addressing_address_map_identifier",
-          "description": "Identifier of an Address Map."
-        },
-        "ip_address": {
-          "$ref": "#/$defs/addressing_ip_address",
-          "description": "An IPv4 or IPv6 address."
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/addressing_account_identifier",
+              "description": "Identifier of a Cloudflare account."
+            },
+            "address_map_id": {
+              "$ref": "#/$defs/addressing_address_map_identifier",
+              "description": "Identifier of an Address Map."
+            },
+            "ip_address": {
+              "$ref": "#/$defs/addressing_ip_address",
+              "description": "An IPv4 or IPv6 address."
+            }
+          },
+          "required": [
+            "account_id",
+            "address_map_id",
+            "ip_address"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "address_map_id",
-        "ip_address"
+        "path"
       ],
       $defs: {
         "addressing_account_identifier": addressing_account_identifier,
@@ -52,9 +60,9 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/addressing_api-response-collection",
       $defs: {
-        "addressing_api-response-collection": addressing_api_response_collection_output,
-        "addressing_api-response-common": addressing_api_response_common_output,
-        "addressing_messages": addressing_messages_output,
+        "addressing_api-response-collection": addressing_api$$response$$collection,
+        "addressing_api-response-common": addressing_api$$response$$common,
+        "addressing_messages": addressing_messages,
       },
     },
     annotations: {
@@ -88,10 +96,10 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "addressing_api-response-collection": addressing_api_response_collection_output,
-        "addressing_api-response-common": addressing_api_response_common_output,
-        "addressing_api-response-common-failure": addressing_api_response_common_failure_output,
-        "addressing_messages": addressing_messages_output,
+        "addressing_api-response-collection": addressing_api$$response$$collection,
+        "addressing_api-response-common": addressing_api$$response$$common,
+        "addressing_api-response-common-failure": addressing_api$$response$$common$$failure,
+        "addressing_messages": addressing_messages,
       },
     },
     request: (args) => ({
@@ -99,20 +107,12 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "addressing_address_maps_ips_delete_bulk",
+    name: "addressing_addressMaps_ips_deleteBulk",
     title: "Remove Multiple IPs from an Address Map",
     description: "Remove multiple IPs from a particular address map.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/addressing_account_identifier",
-          "description": "Identifier of a Cloudflare account."
-        },
-        "address_map_id": {
-          "$ref": "#/$defs/addressing_address_map_identifier",
-          "description": "Identifier of an Address Map."
-        },
         "body": {
           "properties": {
             "ips": {
@@ -126,11 +126,27 @@ export const tools: readonly Tool[] = [
             "ips"
           ],
           "type": "object"
+        },
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/addressing_account_identifier",
+              "description": "Identifier of a Cloudflare account."
+            },
+            "address_map_id": {
+              "$ref": "#/$defs/addressing_address_map_identifier",
+              "description": "Identifier of an Address Map."
+            }
+          },
+          "required": [
+            "account_id",
+            "address_map_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "address_map_id",
+        "path",
         "body"
       ],
       $defs: {
@@ -142,9 +158,9 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/addressing_api-response-collection",
       $defs: {
-        "addressing_api-response-collection": addressing_api_response_collection_output,
-        "addressing_api-response-common": addressing_api_response_common_output,
-        "addressing_messages": addressing_messages_output,
+        "addressing_api-response-collection": addressing_api$$response$$collection,
+        "addressing_api-response-common": addressing_api$$response$$common,
+        "addressing_messages": addressing_messages,
       },
     },
     annotations: {
@@ -178,10 +194,10 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "addressing_api-response-collection": addressing_api_response_collection_output,
-        "addressing_api-response-common": addressing_api_response_common_output,
-        "addressing_api-response-common-failure": addressing_api_response_common_failure_output,
-        "addressing_messages": addressing_messages_output,
+        "addressing_api-response-collection": addressing_api$$response$$collection,
+        "addressing_api-response-common": addressing_api$$response$$common,
+        "addressing_api-response-common-failure": addressing_api$$response$$common$$failure,
+        "addressing_messages": addressing_messages,
       },
     },
     request: (args) => ({
@@ -190,29 +206,37 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "addressing_address_maps_ips_update",
+    name: "addressing_addressMaps_ips_update",
     title: "Add an IP to an Address Map",
     description: "Add an IP from a prefix owned by the account to a particular address map.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/addressing_account_identifier",
-          "description": "Identifier of a Cloudflare account."
-        },
-        "address_map_id": {
-          "$ref": "#/$defs/addressing_address_map_identifier",
-          "description": "Identifier of an Address Map."
-        },
-        "ip_address": {
-          "$ref": "#/$defs/addressing_ip_address",
-          "description": "An IPv4 or IPv6 address."
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/addressing_account_identifier",
+              "description": "Identifier of a Cloudflare account."
+            },
+            "address_map_id": {
+              "$ref": "#/$defs/addressing_address_map_identifier",
+              "description": "Identifier of an Address Map."
+            },
+            "ip_address": {
+              "$ref": "#/$defs/addressing_ip_address",
+              "description": "An IPv4 or IPv6 address."
+            }
+          },
+          "required": [
+            "account_id",
+            "address_map_id",
+            "ip_address"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "address_map_id",
-        "ip_address"
+        "path"
       ],
       $defs: {
         "addressing_account_identifier": addressing_account_identifier,
@@ -223,9 +247,9 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/addressing_api-response-collection",
       $defs: {
-        "addressing_api-response-collection": addressing_api_response_collection_output,
-        "addressing_api-response-common": addressing_api_response_common_output,
-        "addressing_messages": addressing_messages_output,
+        "addressing_api-response-collection": addressing_api$$response$$collection,
+        "addressing_api-response-common": addressing_api$$response$$common,
+        "addressing_messages": addressing_messages,
       },
     },
     annotations: {
@@ -259,10 +283,10 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "addressing_api-response-collection": addressing_api_response_collection_output,
-        "addressing_api-response-common": addressing_api_response_common_output,
-        "addressing_api-response-common-failure": addressing_api_response_common_failure_output,
-        "addressing_messages": addressing_messages_output,
+        "addressing_api-response-collection": addressing_api$$response$$collection,
+        "addressing_api-response-common": addressing_api$$response$$common,
+        "addressing_api-response-common-failure": addressing_api$$response$$common$$failure,
+        "addressing_messages": addressing_messages,
       },
     },
     request: (args) => ({
@@ -270,20 +294,12 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "addressing_address_maps_ips_update_bulk",
+    name: "addressing_addressMaps_ips_updateBulk",
     title: "Add Multiple IPs to an Address Map",
     description: "Add multiple IPs to a particular address map.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/addressing_account_identifier",
-          "description": "Identifier of a Cloudflare account."
-        },
-        "address_map_id": {
-          "$ref": "#/$defs/addressing_address_map_identifier",
-          "description": "Identifier of an Address Map."
-        },
         "body": {
           "properties": {
             "ips": {
@@ -297,11 +313,27 @@ export const tools: readonly Tool[] = [
             "ips"
           ],
           "type": "object"
+        },
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/addressing_account_identifier",
+              "description": "Identifier of a Cloudflare account."
+            },
+            "address_map_id": {
+              "$ref": "#/$defs/addressing_address_map_identifier",
+              "description": "Identifier of an Address Map."
+            }
+          },
+          "required": [
+            "account_id",
+            "address_map_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "address_map_id",
+        "path",
         "body"
       ],
       $defs: {
@@ -313,9 +345,9 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/addressing_api-response-collection",
       $defs: {
-        "addressing_api-response-collection": addressing_api_response_collection_output,
-        "addressing_api-response-common": addressing_api_response_common_output,
-        "addressing_messages": addressing_messages_output,
+        "addressing_api-response-collection": addressing_api$$response$$collection,
+        "addressing_api-response-common": addressing_api$$response$$common,
+        "addressing_messages": addressing_messages,
       },
     },
     annotations: {
@@ -344,10 +376,10 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "addressing_api-response-collection": addressing_api_response_collection_output,
-        "addressing_api-response-common": addressing_api_response_common_output,
-        "addressing_api-response-common-failure": addressing_api_response_common_failure_output,
-        "addressing_messages": addressing_messages_output,
+        "addressing_api-response-collection": addressing_api$$response$$collection,
+        "addressing_api-response-common": addressing_api$$response$$common,
+        "addressing_api-response-common-failure": addressing_api$$response$$common$$failure,
+        "addressing_messages": addressing_messages,
       },
     },
     request: (args) => ({

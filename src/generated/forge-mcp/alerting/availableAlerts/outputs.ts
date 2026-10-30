@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `aaa_alert-types` in responses.
  */
-export const aaa_alert_types_output: JsonSchema = {
+export const aaa_alert$$types: JsonSchema = {
   "properties": {
     "description": {
       "$ref": "#/$defs/aaa_description"
@@ -27,7 +27,7 @@ export const aaa_alert_types_output: JsonSchema = {
 /**
  * The schema of `aaa_alerts-response_collection` in responses.
  */
-export const aaa_alerts_response_collection_output: JsonSchema = {
+export const aaa_alerts$$response_collection: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/aaa_api-response-common-2"
@@ -52,21 +52,21 @@ export const aaa_alerts_response_collection_output: JsonSchema = {
 /**
  * The schema of `aaa_description` in responses.
  */
-export const aaa_description_output: JsonSchema = {
+export const aaa_description: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `aaa_display_name` in responses.
  */
-export const aaa_display_name_output: JsonSchema = {
+export const aaa_display_name: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `aaa_filter_options` in responses.
  */
-export const aaa_filter_options_output: JsonSchema = {
+export const aaa_filter_options: JsonSchema = {
   "items": {
     "type": "object"
   },
@@ -76,6 +76,6 @@ export const aaa_filter_options_output: JsonSchema = {
 /**
  * The schema of `aaa_type` in responses.
  */
-export const aaa_type_output: JsonSchema = {
+export const aaa_type: JsonSchema = {
   "type": "string"
 };

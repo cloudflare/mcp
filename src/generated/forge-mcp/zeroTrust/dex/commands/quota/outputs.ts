@@ -7,7 +7,7 @@ import type { JsonSchema } from "../../../../_/tool.js";
  * The schema of `digital-experience-monitoring_get_commands_quota_response` in
  * responses.
  */
-export const digital_experience_monitoring_get_commands_quota_response_output: JsonSchema = {
+export const digital$$experience$$monitoring_get_commands_quota_response: JsonSchema = {
   "properties": {
     "quota": {
       "type": "number"

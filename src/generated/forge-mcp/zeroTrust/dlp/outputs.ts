@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `dlp_CustomEntry` in responses.
  */
-export const dlp_CustomEntry_output: JsonSchema = {
+export const dlp_CustomEntry: JsonSchema = {
   "properties": {
     "created_at": {
       "format": "date-time",
@@ -72,7 +72,7 @@ export const dlp_CustomEntry_output: JsonSchema = {
 /**
  * The schema of `dlp_CustomPromptTopicEntry` in responses.
  */
-export const dlp_CustomPromptTopicEntry_output: JsonSchema = {
+export const dlp_CustomPromptTopicEntry: JsonSchema = {
   "properties": {
     "created_at": {
       "format": "date-time",
@@ -116,7 +116,7 @@ export const dlp_CustomPromptTopicEntry_output: JsonSchema = {
 /**
  * The schema of `dlp_DataTag` in responses.
  */
-export const dlp_DataTag_output: JsonSchema = {
+export const dlp_DataTag: JsonSchema = {
   "properties": {
     "created_at": {
       "format": "date-time",
@@ -156,7 +156,7 @@ export const dlp_DataTag_output: JsonSchema = {
 /**
  * The schema of `dlp_DatasetUploadStatus` in responses.
  */
-export const dlp_DatasetUploadStatus_output: JsonSchema = {
+export const dlp_DatasetUploadStatus: JsonSchema = {
   "enum": [
     "empty",
     "uploading",
@@ -171,7 +171,7 @@ export const dlp_DatasetUploadStatus_output: JsonSchema = {
 /**
  * The schema of `dlp_DocumentFingerprintEntry` in responses.
  */
-export const dlp_DocumentFingerprintEntry_output: JsonSchema = {
+export const dlp_DocumentFingerprintEntry: JsonSchema = {
   "properties": {
     "created_at": {
       "format": "date-time",
@@ -215,7 +215,7 @@ export const dlp_DocumentFingerprintEntry_output: JsonSchema = {
 /**
  * The schema of `dlp_Entry` in responses.
  */
-export const dlp_Entry_output: JsonSchema = {
+export const dlp_Entry: JsonSchema = {
   "oneOf": [
     {
       "allOf": [
@@ -370,7 +370,7 @@ export const dlp_Entry_output: JsonSchema = {
 /**
  * The schema of `dlp_EntryConfidence` in responses.
  */
-export const dlp_EntryConfidence_output: JsonSchema = {
+export const dlp_EntryConfidence: JsonSchema = {
   "properties": {
     "ai_context_available": {
       "type": "boolean"
@@ -389,7 +389,7 @@ export const dlp_EntryConfidence_output: JsonSchema = {
 /**
  * The schema of `dlp_ExactDataEntry` in responses.
  */
-export const dlp_ExactDataEntry_output: JsonSchema = {
+export const dlp_ExactDataEntry: JsonSchema = {
   "properties": {
     "case_sensitive": {
       "type": "boolean"
@@ -441,7 +441,7 @@ export const dlp_ExactDataEntry_output: JsonSchema = {
 /**
  * The schema of `dlp_IntegrationEntry` in responses.
  */
-export const dlp_IntegrationEntry_output: JsonSchema = {
+export const dlp_IntegrationEntry: JsonSchema = {
   "properties": {
     "created_at": {
       "format": "date-time",
@@ -486,7 +486,7 @@ export const dlp_IntegrationEntry_output: JsonSchema = {
 /**
  * The schema of `dlp_Pattern` in responses.
  */
-export const dlp_Pattern_output: JsonSchema = {
+export const dlp_Pattern: JsonSchema = {
   "properties": {
     "regex": {
       "type": "string"
@@ -504,7 +504,7 @@ export const dlp_Pattern_output: JsonSchema = {
 /**
  * The schema of `dlp_PredefinedEntry` in responses.
  */
-export const dlp_PredefinedEntry_output: JsonSchema = {
+export const dlp_PredefinedEntry: JsonSchema = {
   "properties": {
     "confidence": {
       "$ref": "#/$defs/dlp_EntryConfidence"
@@ -549,7 +549,7 @@ export const dlp_PredefinedEntry_output: JsonSchema = {
 /**
  * The schema of `dlp_PredefinedEntryVariant` in responses.
  */
-export const dlp_PredefinedEntryVariant_output: JsonSchema = {
+export const dlp_PredefinedEntryVariant: JsonSchema = {
   "oneOf": [
     {
       "properties": {
@@ -609,7 +609,7 @@ export const dlp_PredefinedEntryVariant_output: JsonSchema = {
 /**
  * The schema of `dlp_PromptTopicType` in responses.
  */
-export const dlp_PromptTopicType_output: JsonSchema = {
+export const dlp_PromptTopicType: JsonSchema = {
   "enum": [
     "Intent",
     "Content"
@@ -620,7 +620,7 @@ export const dlp_PromptTopicType_output: JsonSchema = {
 /**
  * The schema of `dlp_SensitivityLevel` in responses.
  */
-export const dlp_SensitivityLevel_output: JsonSchema = {
+export const dlp_SensitivityLevel: JsonSchema = {
   "properties": {
     "created_at": {
       "format": "date-time",
@@ -660,7 +660,7 @@ export const dlp_SensitivityLevel_output: JsonSchema = {
 /**
  * The schema of `dlp_SensitivityLevelRef` in responses.
  */
-export const dlp_SensitivityLevelRef_output: JsonSchema = {
+export const dlp_SensitivityLevelRef: JsonSchema = {
   "properties": {
     "group_id": {
       "format": "uuid",
@@ -681,7 +681,7 @@ export const dlp_SensitivityLevelRef_output: JsonSchema = {
 /**
  * The schema of `dlp_Validation` in responses.
  */
-export const dlp_Validation_output: JsonSchema = {
+export const dlp_Validation: JsonSchema = {
   "enum": [
     "luhn"
   ],
@@ -691,7 +691,7 @@ export const dlp_Validation_output: JsonSchema = {
 /**
  * The schema of `dlp_WordListEntry` in responses.
  */
-export const dlp_WordListEntry_output: JsonSchema = {
+export const dlp_WordListEntry: JsonSchema = {
   "properties": {
     "created_at": {
       "format": "date-time",

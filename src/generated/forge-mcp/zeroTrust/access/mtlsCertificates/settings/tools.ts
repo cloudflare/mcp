@@ -3,45 +3,53 @@
 
 import { type Tool, pathParam } from "../../../../_/tool.js";
 import {
-  access_api_response_collection_output,
-  access_api_response_common_failure_output,
-  access_api_response_common_output,
-  access_messages_output,
+  access_api$$response$$collection,
+  access_api$$response$$common,
+  access_api$$response$$common$$failure,
+  access_messages,
 } from "../../../outputs.js";
 import { access_identifier } from "../../../schemas.js";
 import {
-  access_response_collection_hostnames_output,
-  access_settings_output,
+  access_response_collection_hostnames,
+  access_settings,
 } from "./outputs.js";
-import { access_settings } from "./schemas.js";
+import { access_settings as access_settings$ } from "./schemas.js";
 
 /**
- * The tools of `zero_trust.access.mtls_certificates.settings`.
+ * The tools of `zeroTrust.access.mtlsCertificates.settings`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "zero_trust_access_mtls_certificates_settings_get",
+    name: "zeroTrust_access_mtlsCertificates_settings_get",
     title: "List all mTLS hostname settings",
     description: "List all mTLS hostname settings for this account or zone.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_or_zone": {
-          "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
-          "enum": [
-            "accounts",
-            "zones"
+        "path": {
+          "properties": {
+            "account_or_zone": {
+              "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
+              "enum": [
+                "accounts",
+                "zones"
+              ],
+              "type": "string"
+            },
+            "account_or_zone_id": {
+              "$ref": "#/$defs/access_identifier",
+              "description": "The account ID or zone ID, as selected by account_or_zone."
+            }
+          },
+          "required": [
+            "account_or_zone",
+            "account_or_zone_id"
           ],
-          "type": "string"
-        },
-        "account_or_zone_id": {
-          "$ref": "#/$defs/access_identifier",
-          "description": "The account ID or zone ID, as selected by account_or_zone."
+          "type": "object"
         }
       },
       required: [
-        "account_or_zone",
-        "account_or_zone_id"
+        "path"
       ],
       $defs: {
         "access_identifier": access_identifier,
@@ -50,11 +58,11 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/access_response_collection_hostnames",
       $defs: {
-        "access_api-response-collection": access_api_response_collection_output,
-        "access_api-response-common": access_api_response_common_output,
-        "access_messages": access_messages_output,
-        "access_response_collection_hostnames": access_response_collection_hostnames_output,
-        "access_settings": access_settings_output,
+        "access_api-response-collection": access_api$$response$$collection,
+        "access_api-response-common": access_api$$response$$common,
+        "access_messages": access_messages,
+        "access_response_collection_hostnames": access_response_collection_hostnames,
+        "access_settings": access_settings,
       },
     },
     annotations: {
@@ -82,12 +90,12 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "access_api-response-collection": access_api_response_collection_output,
-        "access_api-response-common": access_api_response_common_output,
-        "access_api-response-common-failure": access_api_response_common_failure_output,
-        "access_messages": access_messages_output,
-        "access_response_collection_hostnames": access_response_collection_hostnames_output,
-        "access_settings": access_settings_output,
+        "access_api-response-collection": access_api$$response$$collection,
+        "access_api-response-common": access_api$$response$$common,
+        "access_api-response-common-failure": access_api$$response$$common$$failure,
+        "access_messages": access_messages,
+        "access_response_collection_hostnames": access_response_collection_hostnames,
+        "access_settings": access_settings,
       },
     },
     request: (args) => ({
@@ -95,24 +103,12 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "zero_trust_access_mtls_certificates_settings_update",
+    name: "zeroTrust_access_mtlsCertificates_settings_update",
     title: "Update an mTLS certificate's hostname settings",
     description: "Updates an mTLS certificate's hostname settings.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_or_zone": {
-          "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
-          "enum": [
-            "accounts",
-            "zones"
-          ],
-          "type": "string"
-        },
-        "account_or_zone_id": {
-          "$ref": "#/$defs/access_identifier",
-          "description": "The account ID or zone ID, as selected by account_or_zone."
-        },
         "body": {
           "properties": {
             "settings": {
@@ -126,26 +122,46 @@ export const tools: readonly Tool[] = [
             "settings"
           ],
           "type": "object"
+        },
+        "path": {
+          "properties": {
+            "account_or_zone": {
+              "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
+              "enum": [
+                "accounts",
+                "zones"
+              ],
+              "type": "string"
+            },
+            "account_or_zone_id": {
+              "$ref": "#/$defs/access_identifier",
+              "description": "The account ID or zone ID, as selected by account_or_zone."
+            }
+          },
+          "required": [
+            "account_or_zone",
+            "account_or_zone_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_or_zone",
-        "account_or_zone_id",
+        "path",
         "body"
       ],
       $defs: {
         "access_identifier": access_identifier,
-        "access_settings": access_settings,
+        "access_settings": access_settings$,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/access_response_collection_hostnames",
       $defs: {
-        "access_api-response-collection": access_api_response_collection_output,
-        "access_api-response-common": access_api_response_common_output,
-        "access_messages": access_messages_output,
-        "access_response_collection_hostnames": access_response_collection_hostnames_output,
-        "access_settings": access_settings_output,
+        "access_api-response-collection": access_api$$response$$collection,
+        "access_api-response-common": access_api$$response$$common,
+        "access_messages": access_messages,
+        "access_response_collection_hostnames": access_response_collection_hostnames,
+        "access_settings": access_settings,
       },
     },
     annotations: {
@@ -172,12 +188,12 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "access_api-response-collection": access_api_response_collection_output,
-        "access_api-response-common": access_api_response_common_output,
-        "access_api-response-common-failure": access_api_response_common_failure_output,
-        "access_messages": access_messages_output,
-        "access_response_collection_hostnames": access_response_collection_hostnames_output,
-        "access_settings": access_settings_output,
+        "access_api-response-collection": access_api$$response$$collection,
+        "access_api-response-common": access_api$$response$$common,
+        "access_api-response-common-failure": access_api$$response$$common$$failure,
+        "access_messages": access_messages,
+        "access_response_collection_hostnames": access_response_collection_hostnames,
+        "access_settings": access_settings,
       },
     },
     request: (args) => ({

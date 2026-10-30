@@ -3,9 +3,9 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
-  zaraz_api_response_common_failure_output,
-  zaraz_api_response_common_output,
-  zaraz_messages_output,
+  zaraz_api$$response$$common,
+  zaraz_api$$response$$common$$failure,
+  zaraz_messages,
 } from "../outputs.js";
 import { zaraz_identifier } from "../schemas.js";
 
@@ -23,13 +23,21 @@ export const tools: readonly Tool[] = [
         "body": {
           "type": "string"
         },
-        "zone_id": {
-          "$ref": "#/$defs/zaraz_identifier",
-          "description": "Identifier."
+        "path": {
+          "properties": {
+            "zone_id": {
+              "$ref": "#/$defs/zaraz_identifier",
+              "description": "Identifier."
+            }
+          },
+          "required": [
+            "zone_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "zone_id"
+        "path"
       ],
       $defs: {
         "zaraz_identifier": zaraz_identifier,
@@ -50,8 +58,8 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "zaraz_api-response-common": zaraz_api_response_common_output,
-        "zaraz_messages": zaraz_messages_output,
+        "zaraz_api-response-common": zaraz_api$$response$$common,
+        "zaraz_messages": zaraz_messages,
       },
     },
     annotations: {
@@ -95,9 +103,9 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "zaraz_api-response-common": zaraz_api_response_common_output,
-        "zaraz_api-response-common-failure": zaraz_api_response_common_failure_output,
-        "zaraz_messages": zaraz_messages_output,
+        "zaraz_api-response-common": zaraz_api$$response$$common,
+        "zaraz_api-response-common-failure": zaraz_api$$response$$common$$failure,
+        "zaraz_messages": zaraz_messages,
       },
     },
     request: (args) => ({

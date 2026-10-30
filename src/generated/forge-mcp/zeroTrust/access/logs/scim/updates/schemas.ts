@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../../../_/tool.js";
 /**
  * The schema of `access_cf_resource_id-3`.
  */
-export const access_cf_resource_id_3: JsonSchema = {
+export const access_cf_resource_id$$3: JsonSchema = {
   "description": "The unique Cloudflare-generated Id of the SCIM resource. Pass once for\na single lookup (`?cf_resource_id=A`) or repeat the parameter\n(`?cf_resource_id=A&cf_resource_id=B`) to filter by multiple resources\nin one request.",
   "items": {
     "type": "string"
@@ -40,7 +40,7 @@ export const access_idp_id: JsonSchema = {
 /**
  * The schema of `access_idp_resource_id-3`.
  */
-export const access_idp_resource_id_3: JsonSchema = {
+export const access_idp_resource_id$$3: JsonSchema = {
   "description": "The IdP-generated Id of the SCIM resource. Pass once for a single\nlookup (`?idp_resource_id=A`) or repeat the parameter\n(`?idp_resource_id=A&idp_resource_id=B`) to filter by multiple\nresources in one request.",
   "items": {
     "type": "string"
@@ -122,7 +122,7 @@ export const access_since: JsonSchema = {
 /**
  * The schema of `access_status-2`.
  */
-export const access_status_2: JsonSchema = {
+export const access_status$$2: JsonSchema = {
   "description": "The status of the SCIM request.",
   "items": {
     "enum": [

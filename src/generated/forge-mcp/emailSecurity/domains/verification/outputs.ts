@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `email-security_DomainVerificationInfo` in responses.
  */
-export const email_security_DomainVerificationInfo_output: JsonSchema = {
+export const email$$security_DomainVerificationInfo: JsonSchema = {
   "properties": {
     "last_checked_at": {
       "oneOf": [

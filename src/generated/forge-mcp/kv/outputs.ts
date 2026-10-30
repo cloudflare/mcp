@@ -6,7 +6,7 @@ import type { JsonSchema } from "../_/tool.js";
 /**
  * The schema of `workers-kv_any` in responses.
  */
-export const workers_kv_any_output: JsonSchema = {
+export const workers$$kv_any: JsonSchema = {
   "anyOf": [
     {
       "type": "string"
@@ -38,7 +38,7 @@ export const workers_kv_any_output: JsonSchema = {
 /**
  * The schema of `workers-kv_api-response-common` in responses.
  */
-export const workers_kv_api_response_common_output: JsonSchema = {
+export const workers$$kv_api$$response$$common: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/workers-kv_messages"
@@ -64,7 +64,7 @@ export const workers_kv_api_response_common_output: JsonSchema = {
 /**
  * The schema of `workers-kv_api-response-common-failure` in responses.
  */
-export const workers_kv_api_response_common_failure_output: JsonSchema = {
+export const workers$$kv_api$$response$$common$$failure: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/workers-kv_messages"
@@ -101,7 +101,7 @@ export const workers_kv_api_response_common_failure_output: JsonSchema = {
 /**
  * The schema of `workers-kv_api-response-common-no-result` in responses.
  */
-export const workers_kv_api_response_common_no_result_output: JsonSchema = {
+export const workers$$kv_api$$response$$common$$no$$result: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/workers-kv_api-response-common"
@@ -127,28 +127,28 @@ export const workers_kv_api_response_common_no_result_output: JsonSchema = {
 /**
  * The schema of `workers-kv_expiration` in responses.
  */
-export const workers_kv_expiration_output: JsonSchema = {
+export const workers$$kv_expiration: JsonSchema = {
   "type": "number"
 };
 
 /**
  * The schema of `workers-kv_key_name` in responses.
  */
-export const workers_kv_key_name_output: JsonSchema = {
+export const workers$$kv_key_name: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `workers-kv_list_metadata` in responses.
  */
-export const workers_kv_list_metadata_output: JsonSchema = {
+export const workers$$kv_list_metadata: JsonSchema = {
   "$ref": "#/$defs/workers-kv_any"
 };
 
 /**
  * The schema of `workers-kv_messages` in responses.
  */
-export const workers_kv_messages_output: JsonSchema = {
+export const workers$$kv_messages: JsonSchema = {
   "items": {
     "properties": {
       "code": {
@@ -170,6 +170,6 @@ export const workers_kv_messages_output: JsonSchema = {
 /**
  * The schema of `workers-kv_namespace_identifier` in responses.
  */
-export const workers_kv_namespace_identifier_output: JsonSchema = {
+export const workers$$kv_namespace_identifier: JsonSchema = {
   "type": "string"
 };

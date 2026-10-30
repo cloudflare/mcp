@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `bill-subs-api_components-schemas-name` in responses.
  */
-export const bill_subs_api_components_schemas_name_output: JsonSchema = {
+export const bill$$subs$$api_components$$schemas$$name: JsonSchema = {
   "enum": [
     "zones",
     "page_rules",
@@ -19,21 +19,21 @@ export const bill_subs_api_components_schemas_name_output: JsonSchema = {
 /**
  * The schema of `bill-subs-api_default` in responses.
  */
-export const bill_subs_api_default_output: JsonSchema = {
+export const bill$$subs$$api_default: JsonSchema = {
   "type": "number"
 };
 
 /**
  * The schema of `bill-subs-api_duration` in responses.
  */
-export const bill_subs_api_duration_output: JsonSchema = {
+export const bill$$subs$$api_duration: JsonSchema = {
   "type": "number"
 };
 
 /**
  * The schema of `bill-subs-api_plan_component_value` in responses.
  */
-export const bill_subs_api_plan_component_value_output: JsonSchema = {
+export const bill$$subs$$api_plan_component_value: JsonSchema = {
   "properties": {
     "default": {
       "$ref": "#/$defs/bill-subs-api_default"
@@ -51,7 +51,7 @@ export const bill_subs_api_plan_component_value_output: JsonSchema = {
 /**
  * The schema of `bill-subs-api_plan_response_collection` in responses.
  */
-export const bill_subs_api_plan_response_collection_output: JsonSchema = {
+export const bill$$subs$$api_plan_response_collection: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/bill-subs-api_api-response-collection"
@@ -74,14 +74,14 @@ export const bill_subs_api_plan_response_collection_output: JsonSchema = {
  * The schema of `bill-subs-api_rate-plan_components-schemas-identifier` in
  * responses.
  */
-export const bill_subs_api_rate_plan_components_schemas_identifier_output: JsonSchema = {
+export const bill$$subs$$api_rate$$plan_components$$schemas$$identifier: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `bill-subs-api_schemas-component_values` in responses.
  */
-export const bill_subs_api_schemas_component_values_output: JsonSchema = {
+export const bill$$subs$$api_schemas$$component_values: JsonSchema = {
   "items": {
     "$ref": "#/$defs/bill-subs-api_plan_component_value"
   },
@@ -91,7 +91,7 @@ export const bill_subs_api_schemas_component_values_output: JsonSchema = {
 /**
  * The schema of `bill-subs-api_schemas-rate-plan` in responses.
  */
-export const bill_subs_api_schemas_rate_plan_output: JsonSchema = {
+export const bill$$subs$$api_schemas$$rate$$plan: JsonSchema = {
   "properties": {
     "components": {
       "$ref": "#/$defs/bill-subs-api_schemas-component_values"
@@ -118,6 +118,6 @@ export const bill_subs_api_schemas_rate_plan_output: JsonSchema = {
 /**
  * The schema of `bill-subs-api_unit_price` in responses.
  */
-export const bill_subs_api_unit_price_output: JsonSchema = {
+export const bill$$subs$$api_unit_price: JsonSchema = {
   "type": "number"
 };

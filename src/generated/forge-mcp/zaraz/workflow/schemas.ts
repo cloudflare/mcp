@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `zaraz_zaraz-workflow`.
  */
-export const zaraz_zaraz_workflow: JsonSchema = {
+export const zaraz_zaraz$$workflow: JsonSchema = {
   "description": "Zaraz workflow.",
   "enum": [
     "realtime",

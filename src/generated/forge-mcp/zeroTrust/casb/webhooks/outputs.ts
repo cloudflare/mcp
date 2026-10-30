@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `posture-api_EvaluateNewWebhookResponse` in responses.
  */
-export const posture_api_EvaluateNewWebhookResponse_output: JsonSchema = {
+export const posture$$api_EvaluateNewWebhookResponse: JsonSchema = {
   "properties": {
     "message": {
       "type": "string"
@@ -29,7 +29,7 @@ export const posture_api_EvaluateNewWebhookResponse_output: JsonSchema = {
 /**
  * The schema of `posture-api_Webhook` in responses.
  */
-export const posture_api_Webhook_output: JsonSchema = {
+export const posture$$api_Webhook: JsonSchema = {
   "properties": {
     "authentication_type": {
       "enum": [
@@ -100,7 +100,7 @@ export const posture_api_Webhook_output: JsonSchema = {
 /**
  * The schema of `posture-api_webhook-list-response` in responses.
  */
-export const posture_api_webhook_list_response_output: JsonSchema = {
+export const posture$$api_webhook$$list$$response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/posture-api_api-response-common"
@@ -122,7 +122,7 @@ export const posture_api_webhook_list_response_output: JsonSchema = {
 /**
  * The schema of `posture-api_webhook-response` in responses.
  */
-export const posture_api_webhook_response_output: JsonSchema = {
+export const posture$$api_webhook$$response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/posture-api_api-response-common"

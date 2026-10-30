@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../../_/tool.js";
 /**
  * The schema of `stream_language_response_single` in responses.
  */
-export const stream_language_response_single_output: JsonSchema = {
+export const stream_language_response_single: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/stream_api-response-single"

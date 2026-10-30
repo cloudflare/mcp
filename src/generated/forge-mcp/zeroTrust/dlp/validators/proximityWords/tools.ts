@@ -3,49 +3,60 @@
 
 import { type Tool, pathParam } from "../../../../_/tool.js";
 import {
-  dlp_Empty_output,
-  dlp_api_response_common_failure_output,
-  dlp_api_response_single_output,
-  dlp_messages_output,
+  dlp_Empty,
+  dlp_api$$response$$common$$failure,
+  dlp_api$$response$$single,
+  dlp_messages,
 } from "../../../outputs.js";
 import {
-  dlp_AttachedEntry_output,
-  dlp_EntryType_output,
-  dlp_ProximityWeight_output,
-  dlp_ProximityWordValidator_output,
-  dlp_ProximityWord_output,
-  dlp_ValidatorReferences_output,
+  dlp_AttachedEntry,
+  dlp_EntryType,
+  dlp_ProximityWeight,
+  dlp_ProximityWord,
+  dlp_ProximityWordValidator,
+  dlp_ValidatorReferences,
 } from "../outputs.js";
-import { dlp_ProximityWeight, dlp_ProximityWord } from "../schemas.js";
-import { dlp_ProximityWordValidatorArray_output } from "./outputs.js";
+import {
+  dlp_ProximityWeight as dlp_ProximityWeight$,
+  dlp_ProximityWord as dlp_ProximityWord$,
+} from "../schemas.js";
+import { dlp_ProximityWordValidatorArray } from "./outputs.js";
 import { dlp_ProximityWordValidatorWrite } from "./schemas.js";
 
 /**
- * The tools of `zero_trust.dlp.validators.proximity_words`.
+ * The tools of `zeroTrust.dlp.validators.proximityWords`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "zero_trust_dlp_validators_proximity_words_create",
+    name: "zeroTrust_dlp_validators_proximityWords_create",
     title: "Create a proximity word validator",
     description: "Creates a reusable list of weighted words that detection entries can attach to in order to\nrefine their matches. An account may own at most 100 validators across all kinds.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "type": "string"
-        },
         "body": {
           "$ref": "#/$defs/dlp_ProximityWordValidatorWrite",
           "description": "Attributes of the new validator."
+        },
+        "path": {
+          "properties": {
+            "account_id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
+        "path",
         "body"
       ],
       $defs: {
-        "dlp_ProximityWeight": dlp_ProximityWeight,
-        "dlp_ProximityWord": dlp_ProximityWord,
+        "dlp_ProximityWeight": dlp_ProximityWeight$,
+        "dlp_ProximityWord": dlp_ProximityWord$,
         "dlp_ProximityWordValidatorWrite": dlp_ProximityWordValidatorWrite,
       },
     },
@@ -64,14 +75,14 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "dlp_AttachedEntry": dlp_AttachedEntry_output,
-        "dlp_EntryType": dlp_EntryType_output,
-        "dlp_ProximityWeight": dlp_ProximityWeight_output,
-        "dlp_ProximityWord": dlp_ProximityWord_output,
-        "dlp_ProximityWordValidator": dlp_ProximityWordValidator_output,
-        "dlp_ValidatorReferences": dlp_ValidatorReferences_output,
-        "dlp_api-response-single": dlp_api_response_single_output,
-        "dlp_messages": dlp_messages_output,
+        "dlp_AttachedEntry": dlp_AttachedEntry,
+        "dlp_EntryType": dlp_EntryType,
+        "dlp_ProximityWeight": dlp_ProximityWeight,
+        "dlp_ProximityWord": dlp_ProximityWord,
+        "dlp_ProximityWordValidator": dlp_ProximityWordValidator,
+        "dlp_ValidatorReferences": dlp_ValidatorReferences,
+        "dlp_api-response-single": dlp_api$$response$$single,
+        "dlp_messages": dlp_messages,
       },
     },
     annotations: {
@@ -110,15 +121,15 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "dlp_AttachedEntry": dlp_AttachedEntry_output,
-        "dlp_EntryType": dlp_EntryType_output,
-        "dlp_ProximityWeight": dlp_ProximityWeight_output,
-        "dlp_ProximityWord": dlp_ProximityWord_output,
-        "dlp_ProximityWordValidator": dlp_ProximityWordValidator_output,
-        "dlp_ValidatorReferences": dlp_ValidatorReferences_output,
-        "dlp_api-response-common-failure": dlp_api_response_common_failure_output,
-        "dlp_api-response-single": dlp_api_response_single_output,
-        "dlp_messages": dlp_messages_output,
+        "dlp_AttachedEntry": dlp_AttachedEntry,
+        "dlp_EntryType": dlp_EntryType,
+        "dlp_ProximityWeight": dlp_ProximityWeight,
+        "dlp_ProximityWord": dlp_ProximityWord,
+        "dlp_ProximityWordValidator": dlp_ProximityWordValidator,
+        "dlp_ValidatorReferences": dlp_ValidatorReferences,
+        "dlp_api-response-common-failure": dlp_api$$response$$common$$failure,
+        "dlp_api-response-single": dlp_api$$response$$single,
+        "dlp_messages": dlp_messages,
       },
     },
     request: (args) => ({
@@ -127,23 +138,31 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "zero_trust_dlp_validators_proximity_words_delete",
+    name: "zeroTrust_dlp_validators_proximityWords_delete",
     title: "Delete a proximity word validator",
     description: "Deletes a `proximity_words` validator. Fails with `409` while any detection entry is still\nattached to it; detach it from those entries first.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "type": "string"
-        },
-        "validator_id": {
-          "format": "uuid",
-          "type": "string"
+        "path": {
+          "properties": {
+            "account_id": {
+              "type": "string"
+            },
+            "validator_id": {
+              "format": "uuid",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "validator_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "validator_id"
+        "path"
       ],
     },
     outputSchema: {
@@ -161,9 +180,9 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "dlp_Empty": dlp_Empty_output,
-        "dlp_api-response-single": dlp_api_response_single_output,
-        "dlp_messages": dlp_messages_output,
+        "dlp_Empty": dlp_Empty,
+        "dlp_api-response-single": dlp_api$$response$$single,
+        "dlp_messages": dlp_messages,
       },
     },
     annotations: {
@@ -202,10 +221,10 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "dlp_Empty": dlp_Empty_output,
-        "dlp_api-response-common-failure": dlp_api_response_common_failure_output,
-        "dlp_api-response-single": dlp_api_response_single_output,
-        "dlp_messages": dlp_messages_output,
+        "dlp_Empty": dlp_Empty,
+        "dlp_api-response-common-failure": dlp_api$$response$$common$$failure,
+        "dlp_api-response-single": dlp_api$$response$$single,
+        "dlp_messages": dlp_messages,
       },
     },
     request: (args) => ({
@@ -213,23 +232,31 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "zero_trust_dlp_validators_proximity_words_get",
+    name: "zeroTrust_dlp_validators_proximityWords_get",
     title: "Get a proximity word validator",
     description: "Fetches a `proximity_words` validator by ID.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "type": "string"
-        },
-        "validator_id": {
-          "format": "uuid",
-          "type": "string"
+        "path": {
+          "properties": {
+            "account_id": {
+              "type": "string"
+            },
+            "validator_id": {
+              "format": "uuid",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "validator_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "validator_id"
+        "path"
       ],
     },
     outputSchema: {
@@ -247,14 +274,14 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "dlp_AttachedEntry": dlp_AttachedEntry_output,
-        "dlp_EntryType": dlp_EntryType_output,
-        "dlp_ProximityWeight": dlp_ProximityWeight_output,
-        "dlp_ProximityWord": dlp_ProximityWord_output,
-        "dlp_ProximityWordValidator": dlp_ProximityWordValidator_output,
-        "dlp_ValidatorReferences": dlp_ValidatorReferences_output,
-        "dlp_api-response-single": dlp_api_response_single_output,
-        "dlp_messages": dlp_messages_output,
+        "dlp_AttachedEntry": dlp_AttachedEntry,
+        "dlp_EntryType": dlp_EntryType,
+        "dlp_ProximityWeight": dlp_ProximityWeight,
+        "dlp_ProximityWord": dlp_ProximityWord,
+        "dlp_ProximityWordValidator": dlp_ProximityWordValidator,
+        "dlp_ValidatorReferences": dlp_ValidatorReferences,
+        "dlp_api-response-single": dlp_api$$response$$single,
+        "dlp_messages": dlp_messages,
       },
     },
     annotations: {
@@ -294,15 +321,15 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "dlp_AttachedEntry": dlp_AttachedEntry_output,
-        "dlp_EntryType": dlp_EntryType_output,
-        "dlp_ProximityWeight": dlp_ProximityWeight_output,
-        "dlp_ProximityWord": dlp_ProximityWord_output,
-        "dlp_ProximityWordValidator": dlp_ProximityWordValidator_output,
-        "dlp_ValidatorReferences": dlp_ValidatorReferences_output,
-        "dlp_api-response-common-failure": dlp_api_response_common_failure_output,
-        "dlp_api-response-single": dlp_api_response_single_output,
-        "dlp_messages": dlp_messages_output,
+        "dlp_AttachedEntry": dlp_AttachedEntry,
+        "dlp_EntryType": dlp_EntryType,
+        "dlp_ProximityWeight": dlp_ProximityWeight,
+        "dlp_ProximityWord": dlp_ProximityWord,
+        "dlp_ProximityWordValidator": dlp_ProximityWordValidator,
+        "dlp_ValidatorReferences": dlp_ValidatorReferences,
+        "dlp_api-response-common-failure": dlp_api$$response$$common$$failure,
+        "dlp_api-response-single": dlp_api$$response$$single,
+        "dlp_messages": dlp_messages,
       },
     },
     request: (args) => ({
@@ -310,18 +337,26 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "zero_trust_dlp_validators_proximity_words_list",
+    name: "zeroTrust_dlp_validators_proximityWords_list",
     title: "List proximity word validators",
     description: "Lists the `proximity_words` validators configured for the account.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "type": "string"
+        "path": {
+          "properties": {
+            "account_id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id"
+        "path"
       ],
     },
     outputSchema: {
@@ -339,15 +374,15 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "dlp_AttachedEntry": dlp_AttachedEntry_output,
-        "dlp_EntryType": dlp_EntryType_output,
-        "dlp_ProximityWeight": dlp_ProximityWeight_output,
-        "dlp_ProximityWord": dlp_ProximityWord_output,
-        "dlp_ProximityWordValidator": dlp_ProximityWordValidator_output,
-        "dlp_ProximityWordValidatorArray": dlp_ProximityWordValidatorArray_output,
-        "dlp_ValidatorReferences": dlp_ValidatorReferences_output,
-        "dlp_api-response-single": dlp_api_response_single_output,
-        "dlp_messages": dlp_messages_output,
+        "dlp_AttachedEntry": dlp_AttachedEntry,
+        "dlp_EntryType": dlp_EntryType,
+        "dlp_ProximityWeight": dlp_ProximityWeight,
+        "dlp_ProximityWord": dlp_ProximityWord,
+        "dlp_ProximityWordValidator": dlp_ProximityWordValidator,
+        "dlp_ProximityWordValidatorArray": dlp_ProximityWordValidatorArray,
+        "dlp_ValidatorReferences": dlp_ValidatorReferences,
+        "dlp_api-response-single": dlp_api$$response$$single,
+        "dlp_messages": dlp_messages,
       },
     },
     annotations: {
@@ -387,16 +422,16 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "dlp_AttachedEntry": dlp_AttachedEntry_output,
-        "dlp_EntryType": dlp_EntryType_output,
-        "dlp_ProximityWeight": dlp_ProximityWeight_output,
-        "dlp_ProximityWord": dlp_ProximityWord_output,
-        "dlp_ProximityWordValidator": dlp_ProximityWordValidator_output,
-        "dlp_ProximityWordValidatorArray": dlp_ProximityWordValidatorArray_output,
-        "dlp_ValidatorReferences": dlp_ValidatorReferences_output,
-        "dlp_api-response-common-failure": dlp_api_response_common_failure_output,
-        "dlp_api-response-single": dlp_api_response_single_output,
-        "dlp_messages": dlp_messages_output,
+        "dlp_AttachedEntry": dlp_AttachedEntry,
+        "dlp_EntryType": dlp_EntryType,
+        "dlp_ProximityWeight": dlp_ProximityWeight,
+        "dlp_ProximityWord": dlp_ProximityWord,
+        "dlp_ProximityWordValidator": dlp_ProximityWordValidator,
+        "dlp_ProximityWordValidatorArray": dlp_ProximityWordValidatorArray,
+        "dlp_ValidatorReferences": dlp_ValidatorReferences,
+        "dlp_api-response-common-failure": dlp_api$$response$$common$$failure,
+        "dlp_api-response-single": dlp_api$$response$$single,
+        "dlp_messages": dlp_messages,
       },
     },
     request: (args) => ({
@@ -404,32 +439,40 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "zero_trust_dlp_validators_proximity_words_update",
+    name: "zeroTrust_dlp_validators_proximityWords_update",
     title: "Update a proximity word validator",
     description: "Replaces the name and word list of a `proximity_words` validator. Attachments to detection\nentries are owned from the entry side and are not affected.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "type": "string"
-        },
         "body": {
           "$ref": "#/$defs/dlp_ProximityWordValidatorWrite",
           "description": "Attributes of the validator to update."
         },
-        "validator_id": {
-          "format": "uuid",
-          "type": "string"
+        "path": {
+          "properties": {
+            "account_id": {
+              "type": "string"
+            },
+            "validator_id": {
+              "format": "uuid",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "validator_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "validator_id",
+        "path",
         "body"
       ],
       $defs: {
-        "dlp_ProximityWeight": dlp_ProximityWeight,
-        "dlp_ProximityWord": dlp_ProximityWord,
+        "dlp_ProximityWeight": dlp_ProximityWeight$,
+        "dlp_ProximityWord": dlp_ProximityWord$,
         "dlp_ProximityWordValidatorWrite": dlp_ProximityWordValidatorWrite,
       },
     },
@@ -448,14 +491,14 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "dlp_AttachedEntry": dlp_AttachedEntry_output,
-        "dlp_EntryType": dlp_EntryType_output,
-        "dlp_ProximityWeight": dlp_ProximityWeight_output,
-        "dlp_ProximityWord": dlp_ProximityWord_output,
-        "dlp_ProximityWordValidator": dlp_ProximityWordValidator_output,
-        "dlp_ValidatorReferences": dlp_ValidatorReferences_output,
-        "dlp_api-response-single": dlp_api_response_single_output,
-        "dlp_messages": dlp_messages_output,
+        "dlp_AttachedEntry": dlp_AttachedEntry,
+        "dlp_EntryType": dlp_EntryType,
+        "dlp_ProximityWeight": dlp_ProximityWeight,
+        "dlp_ProximityWord": dlp_ProximityWord,
+        "dlp_ProximityWordValidator": dlp_ProximityWordValidator,
+        "dlp_ValidatorReferences": dlp_ValidatorReferences,
+        "dlp_api-response-single": dlp_api$$response$$single,
+        "dlp_messages": dlp_messages,
       },
     },
     annotations: {
@@ -494,15 +537,15 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "dlp_AttachedEntry": dlp_AttachedEntry_output,
-        "dlp_EntryType": dlp_EntryType_output,
-        "dlp_ProximityWeight": dlp_ProximityWeight_output,
-        "dlp_ProximityWord": dlp_ProximityWord_output,
-        "dlp_ProximityWordValidator": dlp_ProximityWordValidator_output,
-        "dlp_ValidatorReferences": dlp_ValidatorReferences_output,
-        "dlp_api-response-common-failure": dlp_api_response_common_failure_output,
-        "dlp_api-response-single": dlp_api_response_single_output,
-        "dlp_messages": dlp_messages_output,
+        "dlp_AttachedEntry": dlp_AttachedEntry,
+        "dlp_EntryType": dlp_EntryType,
+        "dlp_ProximityWeight": dlp_ProximityWeight,
+        "dlp_ProximityWord": dlp_ProximityWord,
+        "dlp_ProximityWordValidator": dlp_ProximityWordValidator,
+        "dlp_ValidatorReferences": dlp_ValidatorReferences,
+        "dlp_api-response-common-failure": dlp_api$$response$$common$$failure,
+        "dlp_api-response-single": dlp_api$$response$$single,
+        "dlp_messages": dlp_messages,
       },
     },
     request: (args) => ({

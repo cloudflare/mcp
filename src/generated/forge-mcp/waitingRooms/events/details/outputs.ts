@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `waitingroom_event_details_custom_page_html` in responses.
  */
-export const waitingroom_event_details_custom_page_html_output: JsonSchema = {
+export const waitingroom_event_details_custom_page_html: JsonSchema = {
   "type": "string"
 };
 
@@ -14,28 +14,28 @@ export const waitingroom_event_details_custom_page_html_output: JsonSchema = {
  * The schema of `waitingroom_event_details_disable_session_renewal` in
  * responses.
  */
-export const waitingroom_event_details_disable_session_renewal_output: JsonSchema = {
+export const waitingroom_event_details_disable_session_renewal: JsonSchema = {
   "type": "boolean"
 };
 
 /**
  * The schema of `waitingroom_event_details_new_users_per_minute` in responses.
  */
-export const waitingroom_event_details_new_users_per_minute_output: JsonSchema = {
+export const waitingroom_event_details_new_users_per_minute: JsonSchema = {
   "type": "integer"
 };
 
 /**
  * The schema of `waitingroom_event_details_queueing_method` in responses.
  */
-export const waitingroom_event_details_queueing_method_output: JsonSchema = {
+export const waitingroom_event_details_queueing_method: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `waitingroom_event_details_response` in responses.
  */
-export const waitingroom_event_details_response_output: JsonSchema = {
+export const waitingroom_event_details_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/waitingroom_api-response-single"
@@ -54,7 +54,7 @@ export const waitingroom_event_details_response_output: JsonSchema = {
 /**
  * The schema of `waitingroom_event_details_result` in responses.
  */
-export const waitingroom_event_details_result_output: JsonSchema = {
+export const waitingroom_event_details_result: JsonSchema = {
   "properties": {
     "created_on": {
       "$ref": "#/$defs/waitingroom_timestamp"
@@ -111,13 +111,13 @@ export const waitingroom_event_details_result_output: JsonSchema = {
 /**
  * The schema of `waitingroom_event_details_session_duration` in responses.
  */
-export const waitingroom_event_details_session_duration_output: JsonSchema = {
+export const waitingroom_event_details_session_duration: JsonSchema = {
   "type": "integer"
 };
 
 /**
  * The schema of `waitingroom_event_details_total_active_users` in responses.
  */
-export const waitingroom_event_details_total_active_users_output: JsonSchema = {
+export const waitingroom_event_details_total_active_users: JsonSchema = {
   "type": "integer"
 };

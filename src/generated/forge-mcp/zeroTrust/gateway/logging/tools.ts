@@ -3,52 +3,60 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
-  zero_trust_gateway_api_response_common_failure_output,
-  zero_trust_gateway_api_response_single_output,
-  zero_trust_gateway_messages_output,
+  zero$$trust$$gateway_api$$response$$common$$failure,
+  zero$$trust$$gateway_api$$response$$single,
+  zero$$trust$$gateway_messages,
 } from "../../outputs.js";
-import { zero_trust_gateway_identifier } from "../schemas.js";
+import { zero$$trust$$gateway_identifier } from "../schemas.js";
 import {
-  zero_trust_gateway_account_log_options_output,
-  zero_trust_gateway_gateway_account_logging_settings_output,
-  zero_trust_gateway_gateway_account_logging_settings_response_output,
+  zero$$trust$$gateway_account$$log$$options,
+  zero$$trust$$gateway_gateway$$account$$logging$$settings,
+  zero$$trust$$gateway_gateway$$account$$logging$$settings$$response,
 } from "./outputs.js";
 import {
-  zero_trust_gateway_account_log_options,
-  zero_trust_gateway_gateway_account_logging_settings,
+  zero$$trust$$gateway_account$$log$$options as zero$$trust$$gateway_account$$log$$options$,
+  zero$$trust$$gateway_gateway$$account$$logging$$settings as zero$$trust$$gateway_gateway$$account$$logging$$settings$,
 } from "./schemas.js";
 
 /**
- * The tools of `zero_trust.gateway.logging`.
+ * The tools of `zeroTrust.gateway.logging`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "zero_trust_gateway_logging_get",
+    name: "zeroTrust_gateway_logging_get",
     title: "Get logging settings for the Zero Trust account",
     description: "Retrieve the current logging settings for the Zero Trust account.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/zero-trust-gateway_identifier",
-          "description": "Specify the Cloudflare account identifier."
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/zero-trust-gateway_identifier",
+              "description": "Specify the Cloudflare account identifier."
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id"
+        "path"
       ],
       $defs: {
-        "zero-trust-gateway_identifier": zero_trust_gateway_identifier,
+        "zero-trust-gateway_identifier": zero$$trust$$gateway_identifier,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/zero-trust-gateway_gateway-account-logging-settings-response",
       $defs: {
-        "zero-trust-gateway_account-log-options": zero_trust_gateway_account_log_options_output,
-        "zero-trust-gateway_api-response-single": zero_trust_gateway_api_response_single_output,
-        "zero-trust-gateway_gateway-account-logging-settings": zero_trust_gateway_gateway_account_logging_settings_output,
-        "zero-trust-gateway_gateway-account-logging-settings-response": zero_trust_gateway_gateway_account_logging_settings_response_output,
-        "zero-trust-gateway_messages": zero_trust_gateway_messages_output,
+        "zero-trust-gateway_account-log-options": zero$$trust$$gateway_account$$log$$options,
+        "zero-trust-gateway_api-response-single": zero$$trust$$gateway_api$$response$$single,
+        "zero-trust-gateway_gateway-account-logging-settings": zero$$trust$$gateway_gateway$$account$$logging$$settings,
+        "zero-trust-gateway_gateway-account-logging-settings-response": zero$$trust$$gateway_gateway$$account$$logging$$settings$$response,
+        "zero-trust-gateway_messages": zero$$trust$$gateway_messages,
       },
     },
     annotations: {
@@ -77,12 +85,12 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "zero-trust-gateway_account-log-options": zero_trust_gateway_account_log_options_output,
-        "zero-trust-gateway_api-response-common-failure": zero_trust_gateway_api_response_common_failure_output,
-        "zero-trust-gateway_api-response-single": zero_trust_gateway_api_response_single_output,
-        "zero-trust-gateway_gateway-account-logging-settings": zero_trust_gateway_gateway_account_logging_settings_output,
-        "zero-trust-gateway_gateway-account-logging-settings-response": zero_trust_gateway_gateway_account_logging_settings_response_output,
-        "zero-trust-gateway_messages": zero_trust_gateway_messages_output,
+        "zero-trust-gateway_account-log-options": zero$$trust$$gateway_account$$log$$options,
+        "zero-trust-gateway_api-response-common-failure": zero$$trust$$gateway_api$$response$$common$$failure,
+        "zero-trust-gateway_api-response-single": zero$$trust$$gateway_api$$response$$single,
+        "zero-trust-gateway_gateway-account-logging-settings": zero$$trust$$gateway_gateway$$account$$logging$$settings,
+        "zero-trust-gateway_gateway-account-logging-settings-response": zero$$trust$$gateway_gateway$$account$$logging$$settings$$response,
+        "zero-trust-gateway_messages": zero$$trust$$gateway_messages,
       },
     },
     request: (args) => ({
@@ -90,38 +98,46 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "zero_trust_gateway_logging_update",
+    name: "zeroTrust_gateway_logging_update",
     title: "Update Zero Trust account logging settings",
     description: "Update logging settings for the current Zero Trust account.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/zero-trust-gateway_identifier",
-          "description": "Specify the Cloudflare account identifier."
-        },
         "body": {
           "$ref": "#/$defs/zero-trust-gateway_gateway-account-logging-settings"
+        },
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/zero-trust-gateway_identifier",
+              "description": "Specify the Cloudflare account identifier."
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
+        "path",
         "body"
       ],
       $defs: {
-        "zero-trust-gateway_account-log-options": zero_trust_gateway_account_log_options,
-        "zero-trust-gateway_gateway-account-logging-settings": zero_trust_gateway_gateway_account_logging_settings,
-        "zero-trust-gateway_identifier": zero_trust_gateway_identifier,
+        "zero-trust-gateway_account-log-options": zero$$trust$$gateway_account$$log$$options$,
+        "zero-trust-gateway_gateway-account-logging-settings": zero$$trust$$gateway_gateway$$account$$logging$$settings$,
+        "zero-trust-gateway_identifier": zero$$trust$$gateway_identifier,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/zero-trust-gateway_gateway-account-logging-settings-response",
       $defs: {
-        "zero-trust-gateway_account-log-options": zero_trust_gateway_account_log_options_output,
-        "zero-trust-gateway_api-response-single": zero_trust_gateway_api_response_single_output,
-        "zero-trust-gateway_gateway-account-logging-settings": zero_trust_gateway_gateway_account_logging_settings_output,
-        "zero-trust-gateway_gateway-account-logging-settings-response": zero_trust_gateway_gateway_account_logging_settings_response_output,
-        "zero-trust-gateway_messages": zero_trust_gateway_messages_output,
+        "zero-trust-gateway_account-log-options": zero$$trust$$gateway_account$$log$$options,
+        "zero-trust-gateway_api-response-single": zero$$trust$$gateway_api$$response$$single,
+        "zero-trust-gateway_gateway-account-logging-settings": zero$$trust$$gateway_gateway$$account$$logging$$settings,
+        "zero-trust-gateway_gateway-account-logging-settings-response": zero$$trust$$gateway_gateway$$account$$logging$$settings$$response,
+        "zero-trust-gateway_messages": zero$$trust$$gateway_messages,
       },
     },
     annotations: {
@@ -150,12 +166,12 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "zero-trust-gateway_account-log-options": zero_trust_gateway_account_log_options_output,
-        "zero-trust-gateway_api-response-common-failure": zero_trust_gateway_api_response_common_failure_output,
-        "zero-trust-gateway_api-response-single": zero_trust_gateway_api_response_single_output,
-        "zero-trust-gateway_gateway-account-logging-settings": zero_trust_gateway_gateway_account_logging_settings_output,
-        "zero-trust-gateway_gateway-account-logging-settings-response": zero_trust_gateway_gateway_account_logging_settings_response_output,
-        "zero-trust-gateway_messages": zero_trust_gateway_messages_output,
+        "zero-trust-gateway_account-log-options": zero$$trust$$gateway_account$$log$$options,
+        "zero-trust-gateway_api-response-common-failure": zero$$trust$$gateway_api$$response$$common$$failure,
+        "zero-trust-gateway_api-response-single": zero$$trust$$gateway_api$$response$$single,
+        "zero-trust-gateway_gateway-account-logging-settings": zero$$trust$$gateway_gateway$$account$$logging$$settings,
+        "zero-trust-gateway_gateway-account-logging-settings-response": zero$$trust$$gateway_gateway$$account$$logging$$settings$$response,
+        "zero-trust-gateway_messages": zero$$trust$$gateway_messages,
       },
     },
     request: (args) => ({

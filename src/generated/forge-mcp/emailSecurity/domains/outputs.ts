@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `email-security_DeletedDomain` in responses.
  */
-export const email_security_DeletedDomain_output: JsonSchema = {
+export const email$$security_DeletedDomain: JsonSchema = {
   "properties": {
     "id": {
       "$ref": "#/$defs/email-security_DomainId"
@@ -21,7 +21,7 @@ export const email_security_DeletedDomain_output: JsonSchema = {
 /**
  * The schema of `email-security_DeliveryMode` in responses.
  */
-export const email_security_DeliveryMode_output: JsonSchema = {
+export const email$$security_DeliveryMode: JsonSchema = {
   "enum": [
     "DIRECT",
     "BCC",
@@ -35,7 +35,7 @@ export const email_security_DeliveryMode_output: JsonSchema = {
 /**
  * The schema of `email-security_DmarcStatus` in responses.
  */
-export const email_security_DmarcStatus_output: JsonSchema = {
+export const email$$security_DmarcStatus: JsonSchema = {
   "oneOf": [
     {
       "enum": [
@@ -54,7 +54,7 @@ export const email_security_DmarcStatus_output: JsonSchema = {
 /**
  * The schema of `email-security_Domain` in responses.
  */
-export const email_security_Domain_output: JsonSchema = {
+export const email$$security_Domain: JsonSchema = {
   "properties": {
     "allowed_delivery_modes": {
       "items": {
@@ -195,7 +195,7 @@ export const email_security_Domain_output: JsonSchema = {
 /**
  * The schema of `email-security_DomainAuthorization` in responses.
  */
-export const email_security_DomainAuthorization_output: JsonSchema = {
+export const email$$security_DomainAuthorization: JsonSchema = {
   "oneOf": [
     {
       "properties": {
@@ -232,7 +232,7 @@ export const email_security_DomainAuthorization_output: JsonSchema = {
 /**
  * The schema of `email-security_DomainId` in responses.
  */
-export const email_security_DomainId_output: JsonSchema = {
+export const email$$security_DomainId: JsonSchema = {
   "format": "uuid",
   "type": "string"
 };
@@ -240,7 +240,7 @@ export const email_security_DomainId_output: JsonSchema = {
 /**
  * The schema of `email-security_DomainList` in responses.
  */
-export const email_security_DomainList_output: JsonSchema = {
+export const email$$security_DomainList: JsonSchema = {
   "items": {
     "$ref": "#/$defs/email-security_Domain"
   },
@@ -250,7 +250,7 @@ export const email_security_DomainList_output: JsonSchema = {
 /**
  * The schema of `email-security_DomainStatus` in responses.
  */
-export const email_security_DomainStatus_output: JsonSchema = {
+export const email$$security_DomainStatus: JsonSchema = {
   "oneOf": [
     {
       "enum": [
@@ -270,7 +270,7 @@ export const email_security_DomainStatus_output: JsonSchema = {
 /**
  * The schema of `email-security_EmailsProcessed` in responses.
  */
-export const email_security_EmailsProcessed_output: JsonSchema = {
+export const email$$security_EmailsProcessed: JsonSchema = {
   "oneOf": [
     {
       "properties": {
@@ -301,7 +301,7 @@ export const email_security_EmailsProcessed_output: JsonSchema = {
 /**
  * The schema of `email-security_Region` in responses.
  */
-export const email_security_Region_output: JsonSchema = {
+export const email$$security_Region: JsonSchema = {
   "enum": [
     "GLOBAL",
     "AU",
@@ -315,7 +315,7 @@ export const email_security_Region_output: JsonSchema = {
 /**
  * The schema of `email-security_ScannableFolder` in responses.
  */
-export const email_security_ScannableFolder_output: JsonSchema = {
+export const email$$security_ScannableFolder: JsonSchema = {
   "oneOf": [
     {
       "enum": [
@@ -333,7 +333,7 @@ export const email_security_ScannableFolder_output: JsonSchema = {
 /**
  * The schema of `email-security_SpfStatus` in responses.
  */
-export const email_security_SpfStatus_output: JsonSchema = {
+export const email$$security_SpfStatus: JsonSchema = {
   "oneOf": [
     {
       "enum": [

@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `zaraz_zaraz-workflow` in responses.
  */
-export const zaraz_zaraz_workflow_output: JsonSchema = {
+export const zaraz_zaraz$$workflow: JsonSchema = {
   "enum": [
     "realtime",
     "preview"
@@ -17,7 +17,7 @@ export const zaraz_zaraz_workflow_output: JsonSchema = {
 /**
  * The schema of `zaraz_zaraz-workflow-response` in responses.
  */
-export const zaraz_zaraz_workflow_response_output: JsonSchema = {
+export const zaraz_zaraz$$workflow$$response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/zaraz_api-response-common"

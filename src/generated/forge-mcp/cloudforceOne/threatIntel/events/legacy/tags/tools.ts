@@ -4,20 +4,16 @@
 import { type Tool, pathParam } from "../../../../../_/tool.js";
 
 /**
- * The tools of `cloudforce_one.threat_intel.events.legacy.tags`.
+ * The tools of `cloudforceOne.threatIntel.events.legacy.tags`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "cloudforce_one_threat_intel_events_legacy_tags_create",
+    name: "cloudforceOne_threatIntel_events_legacy_tags_create",
     title: "Add tags to an event (legacy)",
     description: "Legacy. Use `threat-intel tags relationships create` (`POST /events/tags/{tag_uuid}/relationships`) instead.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "description": "Account ID.",
-          "type": "string"
-        },
         "body": {
           "properties": {
             "tags": {
@@ -32,14 +28,26 @@ export const tools: readonly Tool[] = [
           ],
           "type": "object"
         },
-        "event_id": {
-          "description": "Event UUID.",
-          "type": "string"
+        "path": {
+          "properties": {
+            "account_id": {
+              "description": "Account ID.",
+              "type": "string"
+            },
+            "event_id": {
+              "description": "Event UUID.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "event_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "event_id"
+        "path"
       ],
     },
     outputSchema: {
@@ -143,16 +151,12 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "cloudforce_one_threat_intel_events_legacy_tags_delete",
+    name: "cloudforceOne_threatIntel_events_legacy_tags_delete",
     title: "Remove tags from an event (legacy)",
     description: "Legacy. Use `threat-intel tags relationships delete` (`DELETE /events/tags/{tag_uuid}/relationships/{rel_uuid}`) instead.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "description": "Account ID.",
-          "type": "string"
-        },
         "body": {
           "properties": {
             "tags": {
@@ -167,14 +171,26 @@ export const tools: readonly Tool[] = [
           ],
           "type": "object"
         },
-        "event_id": {
-          "description": "Event UUID.",
-          "type": "string"
+        "path": {
+          "properties": {
+            "account_id": {
+              "description": "Account ID.",
+              "type": "string"
+            },
+            "event_id": {
+              "description": "Event UUID.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "event_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "event_id"
+        "path"
       ],
     },
     outputSchema: {

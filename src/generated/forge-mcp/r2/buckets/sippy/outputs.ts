@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `r2_sippy` in responses.
  */
-export const r2_sippy_output: JsonSchema = {
+export const r2_sippy: JsonSchema = {
   "properties": {
     "destination": {
       "properties": {

@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `custom-indicator-feeds_permissions_request`.
  */
-export const custom_indicator_feeds_permissions_request: JsonSchema = {
+export const custom$$indicator$$feeds_permissions_request: JsonSchema = {
   "properties": {
     "account_tag": {
       "description": "The Cloudflare account tag of the account to change permissions on",

@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `secondary-dns_api-response-collection` in responses.
  */
-export const secondary_dns_api_response_collection_output: JsonSchema = {
+export const secondary$$dns_api$$response$$collection: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/secondary-dns_api-response-common"
@@ -42,7 +42,7 @@ export const secondary_dns_api_response_collection_output: JsonSchema = {
 /**
  * The schema of `secondary-dns_api-response-common` in responses.
  */
-export const secondary_dns_api_response_common_output: JsonSchema = {
+export const secondary$$dns_api$$response$$common: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/secondary-dns_messages"
@@ -68,7 +68,7 @@ export const secondary_dns_api_response_common_output: JsonSchema = {
 /**
  * The schema of `secondary-dns_api-response-common-failure` in responses.
  */
-export const secondary_dns_api_response_common_failure_output: JsonSchema = {
+export const secondary$$dns_api$$response$$common$$failure: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/secondary-dns_messages"
@@ -98,7 +98,7 @@ export const secondary_dns_api_response_common_failure_output: JsonSchema = {
 /**
  * The schema of `secondary-dns_api-response-single` in responses.
  */
-export const secondary_dns_api_response_single_output: JsonSchema = {
+export const secondary$$dns_api$$response$$single: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/secondary-dns_messages"
@@ -124,7 +124,7 @@ export const secondary_dns_api_response_single_output: JsonSchema = {
 /**
  * The schema of `secondary-dns_id_response` in responses.
  */
-export const secondary_dns_id_response_output: JsonSchema = {
+export const secondary$$dns_id_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/secondary-dns_api-response-single"
@@ -148,7 +148,7 @@ export const secondary_dns_id_response_output: JsonSchema = {
 /**
  * The schema of `secondary-dns_id_response-3` in responses.
  */
-export const secondary_dns_id_response_3_output: JsonSchema = {
+export const secondary$$dns_id_response$$3: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/secondary-dns_api-response-single"
@@ -172,21 +172,21 @@ export const secondary_dns_id_response_3_output: JsonSchema = {
 /**
  * The schema of `secondary-dns_identifier` in responses.
  */
-export const secondary_dns_identifier_output: JsonSchema = {
+export const secondary$$dns_identifier: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `secondary-dns_identifier-3` in responses.
  */
-export const secondary_dns_identifier_3_output: JsonSchema = {
+export const secondary$$dns_identifier$$3: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `secondary-dns_messages` in responses.
  */
-export const secondary_dns_messages_output: JsonSchema = {
+export const secondary$$dns_messages: JsonSchema = {
   "items": {
     "properties": {
       "code": {
@@ -219,14 +219,14 @@ export const secondary_dns_messages_output: JsonSchema = {
 /**
  * The schema of `secondary-dns_name` in responses.
  */
-export const secondary_dns_name_output: JsonSchema = {
+export const secondary$$dns_name: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `secondary-dns_peers` in responses.
  */
-export const secondary_dns_peers_output: JsonSchema = {
+export const secondary$$dns_peers: JsonSchema = {
   "items": {
     "$ref": "#/$defs/secondary-dns_identifier"
   },
@@ -236,13 +236,13 @@ export const secondary_dns_peers_output: JsonSchema = {
 /**
  * The schema of `secondary-dns_soa_serial` in responses.
  */
-export const secondary_dns_soa_serial_output: JsonSchema = {
+export const secondary$$dns_soa_serial: JsonSchema = {
   "type": "number"
 };
 
 /**
  * The schema of `secondary-dns_time` in responses.
  */
-export const secondary_dns_time_output: JsonSchema = {
+export const secondary$$dns_time: JsonSchema = {
   "type": "string"
 };

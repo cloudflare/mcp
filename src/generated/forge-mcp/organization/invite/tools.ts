@@ -3,16 +3,16 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
-  organizations_api_V4ErrorResponse_output,
-  organizations_api_V4Message_output,
+  organizations$$api_V4ErrorResponse,
+  organizations$$api_V4Message,
 } from "../../outputs.js";
-import { organizations_api_OrganizationID } from "../../schemas.js";
+import { organizations$$api_OrganizationID } from "../../schemas.js";
 import {
-  organizations_api_MemberID_output,
-  organizations_api_MemberSubjectUser_output,
+  organizations$$api_MemberID,
+  organizations$$api_MemberSubjectUser,
 } from "../outputs.js";
-import { organizations_api_OrganizationInviteMember_output } from "./outputs.js";
-import { organizations_api_HandleOrganizationInviteRequest } from "./schemas.js";
+import { organizations$$api_OrganizationInviteMember } from "./outputs.js";
+import { organizations$$api_HandleOrganizationInviteRequest } from "./schemas.js";
 
 /**
  * The tools of `organization.invite`.
@@ -29,23 +29,31 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/organizations-api_HandleOrganizationInviteRequest",
           "description": "The invitation action. Use `accept` to join the organization or `reject` to decline the invitation."
         },
-        "member_code": {
-          "description": "The invitation code to accept or reject.",
-          "type": "string"
-        },
-        "organization_id": {
-          "$ref": "#/$defs/organizations-api_OrganizationID",
-          "description": "The ID of the organization associated with the invitation."
+        "path": {
+          "properties": {
+            "member_code": {
+              "description": "The invitation code to accept or reject.",
+              "type": "string"
+            },
+            "organization_id": {
+              "$ref": "#/$defs/organizations-api_OrganizationID",
+              "description": "The ID of the organization associated with the invitation."
+            }
+          },
+          "required": [
+            "organization_id",
+            "member_code"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "organization_id",
-        "member_code",
+        "path",
         "body"
       ],
       $defs: {
-        "organizations-api_HandleOrganizationInviteRequest": organizations_api_HandleOrganizationInviteRequest,
-        "organizations-api_OrganizationID": organizations_api_OrganizationID,
+        "organizations-api_HandleOrganizationInviteRequest": organizations$$api_HandleOrganizationInviteRequest,
+        "organizations-api_OrganizationID": organizations$$api_OrganizationID,
       },
     },
     outputSchema: {
@@ -81,10 +89,10 @@ export const tools: readonly Tool[] = [
       ],
       "type": "object",
       $defs: {
-        "organizations-api_MemberID": organizations_api_MemberID_output,
-        "organizations-api_MemberSubjectUser": organizations_api_MemberSubjectUser_output,
-        "organizations-api_OrganizationInviteMember": organizations_api_OrganizationInviteMember_output,
-        "organizations-api_V4Message": organizations_api_V4Message_output,
+        "organizations-api_MemberID": organizations$$api_MemberID,
+        "organizations-api_MemberSubjectUser": organizations$$api_MemberSubjectUser,
+        "organizations-api_OrganizationInviteMember": organizations$$api_OrganizationInviteMember,
+        "organizations-api_V4Message": organizations$$api_V4Message,
       },
     },
     annotations: {
@@ -139,11 +147,11 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "organizations-api_MemberID": organizations_api_MemberID_output,
-        "organizations-api_MemberSubjectUser": organizations_api_MemberSubjectUser_output,
-        "organizations-api_OrganizationInviteMember": organizations_api_OrganizationInviteMember_output,
-        "organizations-api_V4ErrorResponse": organizations_api_V4ErrorResponse_output,
-        "organizations-api_V4Message": organizations_api_V4Message_output,
+        "organizations-api_MemberID": organizations$$api_MemberID,
+        "organizations-api_MemberSubjectUser": organizations$$api_MemberSubjectUser,
+        "organizations-api_OrganizationInviteMember": organizations$$api_OrganizationInviteMember,
+        "organizations-api_V4ErrorResponse": organizations$$api_V4ErrorResponse,
+        "organizations-api_V4Message": organizations$$api_V4Message,
       },
     },
     request: (args) => ({

@@ -3,35 +3,43 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
-  security_center_api_response_common_failure_output,
-  security_center_api_response_common_output,
-  security_center_messages_output,
+  security$$center_api$$response$$common,
+  security$$center_api$$response$$common$$failure,
+  security$$center_messages,
 } from "../../outputs.js";
-import { security_center_identifier } from "../../schemas.js";
-import { security_center_accountStateResponse_output } from "./outputs.js";
-import { security_center_updateAccountStateRequest } from "./schemas.js";
+import { security$$center_identifier } from "../../schemas.js";
+import { security$$center_accountStateResponse } from "./outputs.js";
+import { security$$center_updateAccountStateRequest } from "./schemas.js";
 
 /**
- * The tools of `security_insights.state`.
+ * The tools of `securityInsights.state`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "security_insights_state_get",
+    name: "securityInsights_state_get",
     title: "Retrieves Account State",
     description: "Returns account-level Security Center state: whether scans are enabled for the account and whether the account was recently reactivated from a dormant state.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/security-center_identifier",
-          "description": "Identifier."
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/security-center_identifier",
+              "description": "Identifier."
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id"
+        "path"
       ],
       $defs: {
-        "security-center_identifier": security_center_identifier,
+        "security-center_identifier": security$$center_identifier,
       },
     },
     outputSchema: {
@@ -49,9 +57,9 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "security-center_accountStateResponse": security_center_accountStateResponse_output,
-        "security-center_api-response-common": security_center_api_response_common_output,
-        "security-center_messages": security_center_messages_output,
+        "security-center_accountStateResponse": security$$center_accountStateResponse,
+        "security-center_api-response-common": security$$center_api$$response$$common,
+        "security-center_messages": security$$center_messages,
       },
     },
     annotations: {
@@ -85,10 +93,10 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "security-center_accountStateResponse": security_center_accountStateResponse_output,
-        "security-center_api-response-common": security_center_api_response_common_output,
-        "security-center_api-response-common-failure": security_center_api_response_common_failure_output,
-        "security-center_messages": security_center_messages_output,
+        "security-center_accountStateResponse": security$$center_accountStateResponse,
+        "security-center_api-response-common": security$$center_api$$response$$common,
+        "security-center_api-response-common-failure": security$$center_api$$response$$common$$failure,
+        "security-center_messages": security$$center_messages,
       },
     },
     request: (args) => ({
@@ -96,27 +104,35 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "security_insights_state_update",
+    name: "securityInsights_state_update",
     title: "Updates Account State",
     description: "Updates account-level Security Center state. Currently supports enabling or disabling scans for the account. Returns the account's state after the update.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/security-center_identifier",
-          "description": "Identifier."
-        },
         "body": {
           "$ref": "#/$defs/security-center_updateAccountStateRequest"
+        },
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/security-center_identifier",
+              "description": "Identifier."
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
+        "path",
         "body"
       ],
       $defs: {
-        "security-center_identifier": security_center_identifier,
-        "security-center_updateAccountStateRequest": security_center_updateAccountStateRequest,
+        "security-center_identifier": security$$center_identifier,
+        "security-center_updateAccountStateRequest": security$$center_updateAccountStateRequest,
       },
     },
     outputSchema: {
@@ -134,9 +150,9 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "security-center_accountStateResponse": security_center_accountStateResponse_output,
-        "security-center_api-response-common": security_center_api_response_common_output,
-        "security-center_messages": security_center_messages_output,
+        "security-center_accountStateResponse": security$$center_accountStateResponse,
+        "security-center_api-response-common": security$$center_api$$response$$common,
+        "security-center_messages": security$$center_messages,
       },
     },
     annotations: {
@@ -170,10 +186,10 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "security-center_accountStateResponse": security_center_accountStateResponse_output,
-        "security-center_api-response-common": security_center_api_response_common_output,
-        "security-center_api-response-common-failure": security_center_api_response_common_failure_output,
-        "security-center_messages": security_center_messages_output,
+        "security-center_accountStateResponse": security$$center_accountStateResponse,
+        "security-center_api-response-common": security$$center_api$$response$$common,
+        "security-center_api-response-common-failure": security$$center_api$$response$$common$$failure,
+        "security-center_messages": security$$center_messages,
       },
     },
     request: (args) => ({

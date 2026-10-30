@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `r2_cors-rule`.
  */
-export const r2_cors_rule: JsonSchema = {
+export const r2_cors$$rule: JsonSchema = {
   "properties": {
     "allowed": {
       "description": "Object specifying allowed origins, methods and headers for this CORS rule.",

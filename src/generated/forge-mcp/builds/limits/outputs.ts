@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `builds_GetAccountLimitResponse` in responses.
  */
-export const builds_GetAccountLimitResponse_output: JsonSchema = {
+export const builds_GetAccountLimitResponse: JsonSchema = {
   "properties": {
     "build_minutes_refresh_on": {
       "oneOf": [

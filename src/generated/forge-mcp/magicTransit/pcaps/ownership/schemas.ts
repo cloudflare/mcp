@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `magic-visibility-pcaps_pcaps_ownership_challenge`.
  */
-export const magic_visibility_pcaps_pcaps_ownership_challenge: JsonSchema = {
+export const magic$$visibility$$pcaps_pcaps_ownership_challenge: JsonSchema = {
   "description": "The ownership challenge filename stored in the bucket.",
   "type": "string"
 };
@@ -14,7 +14,7 @@ export const magic_visibility_pcaps_pcaps_ownership_challenge: JsonSchema = {
 /**
  * The schema of `magic-visibility-pcaps_pcaps_ownership_request`.
  */
-export const magic_visibility_pcaps_pcaps_ownership_request: JsonSchema = {
+export const magic$$visibility$$pcaps_pcaps_ownership_request: JsonSchema = {
   "properties": {
     "destination_conf": {
       "$ref": "#/$defs/magic-visibility-pcaps_pcaps_destination_conf",
@@ -30,7 +30,7 @@ export const magic_visibility_pcaps_pcaps_ownership_request: JsonSchema = {
 /**
  * The schema of `magic-visibility-pcaps_pcaps_ownership_validate_request`.
  */
-export const magic_visibility_pcaps_pcaps_ownership_validate_request: JsonSchema = {
+export const magic$$visibility$$pcaps_pcaps_ownership_validate_request: JsonSchema = {
   "properties": {
     "destination_conf": {
       "$ref": "#/$defs/magic-visibility-pcaps_pcaps_destination_conf",

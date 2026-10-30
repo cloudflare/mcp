@@ -6,21 +6,21 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `access_access_seat-2` in responses.
  */
-export const access_access_seat_2_output: JsonSchema = {
+export const access_access_seat$$2: JsonSchema = {
   "type": "boolean"
 };
 
 /**
  * The schema of `access_active_device_count` in responses.
  */
-export const access_active_device_count_output: JsonSchema = {
+export const access_active_device_count: JsonSchema = {
   "type": "number"
 };
 
 /**
  * The schema of `access_delete_user_response` in responses.
  */
-export const access_delete_user_response_output: JsonSchema = {
+export const access_delete_user_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/access_api-response-single"
@@ -46,7 +46,7 @@ export const access_delete_user_response_output: JsonSchema = {
 /**
  * The schema of `access_device_posture_check` in responses.
  */
-export const access_device_posture_check_output: JsonSchema = {
+export const access_device_posture_check: JsonSchema = {
   "properties": {
     "exists": {
       "type": "boolean"
@@ -61,7 +61,7 @@ export const access_device_posture_check_output: JsonSchema = {
 /**
  * The schema of `access_device_posture_rule-2` in responses.
  */
-export const access_device_posture_rule_2_output: JsonSchema = {
+export const access_device_posture_rule$$2: JsonSchema = {
   "properties": {
     "check": {
       "$ref": "#/$defs/access_device_posture_check"
@@ -97,7 +97,7 @@ export const access_device_posture_rule_2_output: JsonSchema = {
 /**
  * The schema of `access_device_session` in responses.
  */
-export const access_device_session_output: JsonSchema = {
+export const access_device_session: JsonSchema = {
   "properties": {
     "last_authenticated": {
       "type": "number"
@@ -109,7 +109,7 @@ export const access_device_session_output: JsonSchema = {
 /**
  * The schema of `access_empty_response` in responses.
  */
-export const access_empty_response_output: JsonSchema = {
+export const access_empty_response: JsonSchema = {
   "properties": {
     "result": {
       "enum": [
@@ -132,14 +132,14 @@ export const access_empty_response_output: JsonSchema = {
 /**
  * The schema of `access_gateway_seat-2` in responses.
  */
-export const access_gateway_seat_2_output: JsonSchema = {
+export const access_gateway_seat$$2: JsonSchema = {
   "type": "boolean"
 };
 
 /**
  * The schema of `access_geo` in responses.
  */
-export const access_geo_output: JsonSchema = {
+export const access_geo: JsonSchema = {
   "properties": {
     "country": {
       "type": "string"
@@ -151,7 +151,7 @@ export const access_geo_output: JsonSchema = {
 /**
  * The schema of `access_identity` in responses.
  */
-export const access_identity_output: JsonSchema = {
+export const access_identity: JsonSchema = {
   "properties": {
     "account_id": {
       "type": "string"
@@ -242,7 +242,7 @@ export const access_identity_output: JsonSchema = {
 /**
  * The schema of `access_last_successful_login` in responses.
  */
-export const access_last_successful_login_output: JsonSchema = {
+export const access_last_successful_login: JsonSchema = {
   "format": "date-time",
   "type": "string"
 };
@@ -250,7 +250,7 @@ export const access_last_successful_login_output: JsonSchema = {
 /**
  * The schema of `access_response_collection-25` in responses.
  */
-export const access_response_collection_25_output: JsonSchema = {
+export const access_response_collection$$25: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/access_api-response-collection"
@@ -294,14 +294,14 @@ export const access_response_collection_25_output: JsonSchema = {
 /**
  * The schema of `access_seat_uid-2` in responses.
  */
-export const access_seat_uid_2_output: JsonSchema = {
+export const access_seat_uid$$2: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `access_single_user_response` in responses.
  */
-export const access_single_user_response_output: JsonSchema = {
+export const access_single_user_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/access_api-response-single"
@@ -320,7 +320,7 @@ export const access_single_user_response_output: JsonSchema = {
 /**
  * The schema of `access_string_key_map_device_session` in responses.
  */
-export const access_string_key_map_device_session_output: JsonSchema = {
+export const access_string_key_map_device_session: JsonSchema = {
   "additionalProperties": {
     "$ref": "#/$defs/access_device_session"
   },
@@ -330,14 +330,14 @@ export const access_string_key_map_device_session_output: JsonSchema = {
 /**
  * The schema of `access_uid` in responses.
  */
-export const access_uid_output: JsonSchema = {
+export const access_uid: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `access_users-2` in responses.
  */
-export const access_users_2_output: JsonSchema = {
+export const access_users$$2: JsonSchema = {
   "properties": {
     "access_seat": {
       "$ref": "#/$defs/access_access_seat-2"

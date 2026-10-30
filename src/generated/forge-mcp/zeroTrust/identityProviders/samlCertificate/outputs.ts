@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `access_saml_certificate_set_response` in responses.
  */
-export const access_saml_certificate_set_response_output: JsonSchema = {
+export const access_saml_certificate_set_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/access_api-response-single"

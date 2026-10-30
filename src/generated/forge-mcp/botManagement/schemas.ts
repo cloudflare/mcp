@@ -6,7 +6,7 @@ import type { JsonSchema } from "../_/tool.js";
 /**
  * The schema of `bot-management_ai_agent_action`.
  */
-export const bot_management_ai_agent_action: JsonSchema = {
+export const bot$$management_ai_agent_action: JsonSchema = {
   "description": "Action to apply to one supported personal AI agent.",
   "enum": [
     "disabled",
@@ -19,7 +19,7 @@ export const bot_management_ai_agent_action: JsonSchema = {
 /**
  * The schema of `bot-management_ai_agents`.
  */
-export const bot_management_ai_agents: JsonSchema = {
+export const bot$$management_ai_agents: JsonSchema = {
   "description": "Configure blocking behavior for supported personal AI agents.",
   "properties": {
     "anthropic_agent": {
@@ -49,7 +49,7 @@ export const bot_management_ai_agents: JsonSchema = {
 /**
  * The schema of `bot-management_ai_bots_migration_opt_out`.
  */
-export const bot_management_ai_bots_migration_opt_out: JsonSchema = {
+export const bot$$management_ai_bots_migration_opt_out: JsonSchema = {
   "description": "Temporary migration flag tracking zones opted out of AI bots managed-rule updates.",
   "type": "boolean"
 };
@@ -57,7 +57,7 @@ export const bot_management_ai_bots_migration_opt_out: JsonSchema = {
 /**
  * The schema of `bot-management_ai_bots_protection`.
  */
-export const bot_management_ai_bots_protection: JsonSchema = {
+export const bot$$management_ai_bots_protection: JsonSchema = {
   "description": "Enable rule to block AI Scrapers and Crawlers.",
   "enum": [
     "block",
@@ -70,7 +70,7 @@ export const bot_management_ai_bots_protection: JsonSchema = {
 /**
  * The schema of `bot-management_ai_search`.
  */
-export const bot_management_ai_search: JsonSchema = {
+export const bot$$management_ai_search: JsonSchema = {
   "description": "Configure robots.txt policy for AI search bots.",
   "enum": [
     "disabled",
@@ -83,7 +83,7 @@ export const bot_management_ai_search: JsonSchema = {
 /**
  * The schema of `bot-management_ai_training`.
  */
-export const bot_management_ai_training: JsonSchema = {
+export const bot$$management_ai_training: JsonSchema = {
   "description": "Configure robots.txt policy for AI model training bots.",
   "enum": [
     "disabled",
@@ -97,7 +97,7 @@ export const bot_management_ai_training: JsonSchema = {
 /**
  * The schema of `bot-management_ai_user`.
  */
-export const bot_management_ai_user: JsonSchema = {
+export const bot$$management_ai_user: JsonSchema = {
   "description": "Configure robots.txt policy for AI assistant and agent bots.",
   "enum": [
     "disabled",
@@ -110,7 +110,7 @@ export const bot_management_ai_user: JsonSchema = {
 /**
  * The schema of `bot-management_auto_update_model`.
  */
-export const bot_management_auto_update_model: JsonSchema = {
+export const bot$$management_auto_update_model: JsonSchema = {
   "description": "Automatically update to the newest bot detection models created by Cloudflare as they are released. [Learn more.](https://developers.cloudflare.com/bots/reference/machine-learning-models#model-versions-and-release-notes)",
   "type": "boolean"
 };
@@ -118,7 +118,7 @@ export const bot_management_auto_update_model: JsonSchema = {
 /**
  * The schema of `bot-management_base_config`.
  */
-export const bot_management_base_config: JsonSchema = {
+export const bot$$management_base_config: JsonSchema = {
   "description": "Shared Config",
   "properties": {
     "ai_agents": {
@@ -183,7 +183,7 @@ export const bot_management_base_config: JsonSchema = {
 /**
  * The schema of `bot-management_bm_cookie_enabled`.
  */
-export const bot_management_bm_cookie_enabled: JsonSchema = {
+export const bot$$management_bm_cookie_enabled: JsonSchema = {
   "description": "Indicates that the bot management cookie can be placed on end user devices accessing the site. Defaults to true",
   "type": "boolean"
 };
@@ -191,7 +191,7 @@ export const bot_management_bm_cookie_enabled: JsonSchema = {
 /**
  * The schema of `bot-management_bm_subscription_config`.
  */
-export const bot_management_bm_subscription_config: JsonSchema = {
+export const bot$$management_bm_subscription_config: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/bot-management_base_config"
@@ -220,7 +220,7 @@ export const bot_management_bm_subscription_config: JsonSchema = {
 /**
  * The schema of `bot-management_bot_fight_mode_config`.
  */
-export const bot_management_bot_fight_mode_config: JsonSchema = {
+export const bot$$management_bot_fight_mode_config: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/bot-management_base_config"
@@ -241,7 +241,7 @@ export const bot_management_bot_fight_mode_config: JsonSchema = {
 /**
  * The schema of `bot-management_bot_preference_sync_enabled`.
  */
-export const bot_management_bot_preference_sync_enabled: JsonSchema = {
+export const bot$$management_bot_preference_sync_enabled: JsonSchema = {
   "description": "Enable Bot Preference Sync for this zone. When enabled, Cloudflare can serve robots.txt content derived from the zone's AI Search, AI User, and AI Training preferences.",
   "type": "boolean"
 };
@@ -249,7 +249,7 @@ export const bot_management_bot_preference_sync_enabled: JsonSchema = {
 /**
  * The schema of `bot-management_cf_robots_variant`.
  */
-export const bot_management_cf_robots_variant: JsonSchema = {
+export const bot$$management_cf_robots_variant: JsonSchema = {
   "description": "Specifies the Robots Access Control License variant to use.",
   "enum": [
     "off",
@@ -261,7 +261,7 @@ export const bot_management_cf_robots_variant: JsonSchema = {
 /**
  * The schema of `bot-management_config_single`.
  */
-export const bot_management_config_single: JsonSchema = {
+export const bot$$management_config_single: JsonSchema = {
   "oneOf": [
     {
       "$ref": "#/$defs/bot-management_bot_fight_mode_config"
@@ -281,7 +281,7 @@ export const bot_management_config_single: JsonSchema = {
 /**
  * The schema of `bot-management_content_bots_protection`.
  */
-export const bot_management_content_bots_protection: JsonSchema = {
+export const bot$$management_content_bots_protection: JsonSchema = {
   "description": "Enable rule to block content bots. When enabled, blocks automated traffic with low bot scores, excluding safe verified bot categories. Exceptions should be managed via skip rules.",
   "enum": [
     "block",
@@ -293,7 +293,7 @@ export const bot_management_content_bots_protection: JsonSchema = {
 /**
  * The schema of `bot-management_crawler_protection`.
  */
-export const bot_management_crawler_protection: JsonSchema = {
+export const bot$$management_crawler_protection: JsonSchema = {
   "description": "Enable rule to punish AI Scrapers and Crawlers via a link maze.",
   "enum": [
     "enabled",
@@ -305,7 +305,7 @@ export const bot_management_crawler_protection: JsonSchema = {
 /**
  * The schema of `bot-management_enable_js`.
  */
-export const bot_management_enable_js: JsonSchema = {
+export const bot$$management_enable_js: JsonSchema = {
   "description": "Use lightweight, invisible JavaScript detections to improve Bot Management. [Learn more about JavaScript Detections](https://developers.cloudflare.com/bots/reference/javascript-detections/).",
   "type": "boolean"
 };
@@ -313,7 +313,7 @@ export const bot_management_enable_js: JsonSchema = {
 /**
  * The schema of `bot-management_fight_mode`.
  */
-export const bot_management_fight_mode: JsonSchema = {
+export const bot$$management_fight_mode: JsonSchema = {
   "description": "Whether to enable Bot Fight Mode.",
   "type": "boolean"
 };
@@ -321,7 +321,7 @@ export const bot_management_fight_mode: JsonSchema = {
 /**
  * The schema of `bot-management_identifier`.
  */
-export const bot_management_identifier: JsonSchema = {
+export const bot$$management_identifier: JsonSchema = {
   "description": "Identifier.",
   "type": "string"
 };
@@ -329,7 +329,7 @@ export const bot_management_identifier: JsonSchema = {
 /**
  * The schema of `bot-management_is_robots_txt_managed`.
  */
-export const bot_management_is_robots_txt_managed: JsonSchema = {
+export const bot$$management_is_robots_txt_managed: JsonSchema = {
   "description": "Enable cloudflare managed robots.txt. If an existing robots.txt is detected, then managed robots.txt will be prepended to the existing robots.txt.",
   "type": "boolean"
 };
@@ -337,7 +337,7 @@ export const bot_management_is_robots_txt_managed: JsonSchema = {
 /**
  * The schema of `bot-management_jsd_api_results_enabled`.
  */
-export const bot_management_jsd_api_results_enabled: JsonSchema = {
+export const bot$$management_jsd_api_results_enabled: JsonSchema = {
   "description": "Whether to use JavaScript Detection results submitted through the API for this zone.",
   "type": "boolean"
 };
@@ -345,7 +345,7 @@ export const bot_management_jsd_api_results_enabled: JsonSchema = {
 /**
  * The schema of `bot-management_optimize_wordpress`.
  */
-export const bot_management_optimize_wordpress: JsonSchema = {
+export const bot$$management_optimize_wordpress: JsonSchema = {
   "description": "Whether to optimize Super Bot Fight Mode protections for Wordpress.",
   "type": "boolean"
 };
@@ -353,7 +353,7 @@ export const bot_management_optimize_wordpress: JsonSchema = {
 /**
  * The schema of `bot-management_sbfm_definitely_automated`.
  */
-export const bot_management_sbfm_definitely_automated: JsonSchema = {
+export const bot$$management_sbfm_definitely_automated: JsonSchema = {
   "description": "Super Bot Fight Mode (SBFM) action to take on definitely automated requests.",
   "enum": [
     "allow",
@@ -366,7 +366,7 @@ export const bot_management_sbfm_definitely_automated: JsonSchema = {
 /**
  * The schema of `bot-management_sbfm_definitely_config`.
  */
-export const bot_management_sbfm_definitely_config: JsonSchema = {
+export const bot$$management_sbfm_definitely_config: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/bot-management_base_config"
@@ -399,7 +399,7 @@ export const bot_management_sbfm_definitely_config: JsonSchema = {
 /**
  * The schema of `bot-management_sbfm_likely_automated`.
  */
-export const bot_management_sbfm_likely_automated: JsonSchema = {
+export const bot$$management_sbfm_likely_automated: JsonSchema = {
   "description": "Super Bot Fight Mode (SBFM) action to take on likely automated requests.",
   "enum": [
     "allow",
@@ -412,7 +412,7 @@ export const bot_management_sbfm_likely_automated: JsonSchema = {
 /**
  * The schema of `bot-management_sbfm_likely_config`.
  */
-export const bot_management_sbfm_likely_config: JsonSchema = {
+export const bot$$management_sbfm_likely_config: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/bot-management_base_config"
@@ -449,7 +449,7 @@ export const bot_management_sbfm_likely_config: JsonSchema = {
 /**
  * The schema of `bot-management_sbfm_static_resource_protection`.
  */
-export const bot_management_sbfm_static_resource_protection: JsonSchema = {
+export const bot$$management_sbfm_static_resource_protection: JsonSchema = {
   "description": "Super Bot Fight Mode (SBFM) to enable static resource protection.\nEnable if static resources on your application need bot protection.\nNote: Static resource protection can also result in legitimate traffic being blocked.\n",
   "type": "boolean"
 };
@@ -457,7 +457,7 @@ export const bot_management_sbfm_static_resource_protection: JsonSchema = {
 /**
  * The schema of `bot-management_sbfm_verified_bots`.
  */
-export const bot_management_sbfm_verified_bots: JsonSchema = {
+export const bot$$management_sbfm_verified_bots: JsonSchema = {
   "description": "Super Bot Fight Mode (SBFM) action to take on verified bots requests.",
   "enum": [
     "allow",
@@ -469,7 +469,7 @@ export const bot_management_sbfm_verified_bots: JsonSchema = {
 /**
  * The schema of `bot-management_suppress_session_score`.
  */
-export const bot_management_suppress_session_score: JsonSchema = {
+export const bot$$management_suppress_session_score: JsonSchema = {
   "description": "Whether to disable tracking the highest bot score for a session in the Bot Management cookie.",
   "type": "boolean"
 };

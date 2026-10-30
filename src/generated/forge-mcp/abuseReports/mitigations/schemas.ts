@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `abuse-reports_AppealReason`.
  */
-export const abuse_reports_AppealReason: JsonSchema = {
+export const abuse$$reports_AppealReason: JsonSchema = {
   "description": "Reason why the customer is appealing.",
   "enum": [
     "removed",
@@ -18,7 +18,7 @@ export const abuse_reports_AppealReason: JsonSchema = {
 /**
  * The schema of `abuse-reports_AppealType`.
  */
-export const abuse_reports_AppealType: JsonSchema = {
+export const abuse$$reports_AppealType: JsonSchema = {
   "description": "The type of appeal being submitted.",
   "enum": [
     "counter_notice",
@@ -30,7 +30,7 @@ export const abuse_reports_AppealType: JsonSchema = {
 /**
  * The schema of `abuse-reports_DMCACounterNotice`.
  */
-export const abuse_reports_DMCACounterNotice: JsonSchema = {
+export const abuse$$reports_DMCACounterNotice: JsonSchema = {
   "description": "Counter-notice details supporting an appeal.",
   "properties": {
     "city": {
@@ -99,7 +99,7 @@ export const abuse_reports_DMCACounterNotice: JsonSchema = {
 /**
  * The schema of `abuse-reports_MitigatedEntityType`.
  */
-export const abuse_reports_MitigatedEntityType: JsonSchema = {
+export const abuse$$reports_MitigatedEntityType: JsonSchema = {
   "description": "The type of entity targeted by a mitigation.",
   "enum": [
     "url_pattern",
@@ -113,7 +113,7 @@ export const abuse_reports_MitigatedEntityType: JsonSchema = {
 /**
  * The schema of `abuse-reports_MitigationAppeal`.
  */
-export const abuse_reports_MitigationAppeal: JsonSchema = {
+export const abuse$$reports_MitigationAppeal: JsonSchema = {
   "properties": {
     "id": {
       "description": "ID of the mitigation to appeal.",
@@ -134,7 +134,7 @@ export const abuse_reports_MitigationAppeal: JsonSchema = {
 /**
  * The schema of `abuse-reports_MitigationAppealRequest`.
  */
-export const abuse_reports_MitigationAppealRequest: JsonSchema = {
+export const abuse$$reports_MitigationAppealRequest: JsonSchema = {
   "description": "Submit an appeal for a report. Provide either a list of mitigations to appeal, or an appeal type with its supporting details, but not both. When type is \"counter_notice\", the counter-notice details are required. A \"content_removed\" appeal takes an optional explanation instead and is accepted only while the report is in its Notice and Takedown notice period (`has_pending_notice` on the eligibility response). Reports that allow a single appeal (`max_appeals` of 1) never have a notice period and accept it whenever `appealable` is true.",
   "properties": {
     "appeals": {
@@ -163,7 +163,7 @@ export const abuse_reports_MitigationAppealRequest: JsonSchema = {
 /**
  * The schema of `abuse-reports_MitigationType`.
  */
-export const abuse_reports_MitigationType: JsonSchema = {
+export const abuse$$reports_MitigationType: JsonSchema = {
   "description": "The type of mitigation applied to a reported entity.",
   "type": "string"
 };

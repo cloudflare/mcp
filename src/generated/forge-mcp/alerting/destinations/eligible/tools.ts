@@ -3,17 +3,17 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
-  aaa_api_response_common_2_output,
-  aaa_api_response_common_failure_3_output,
-  aaa_messages_3_output,
+  aaa_api$$response$$common$$2,
+  aaa_api$$response$$common$$failure$$3,
+  aaa_messages$$3,
 } from "../../outputs.js";
-import { aaa_account_id } from "../../schemas.js";
+import { aaa_account$$id } from "../../schemas.js";
 import {
-  aaa_eligibility_output,
-  aaa_eligible_output,
-  aaa_ready_output,
-  aaa_schemas_response_collection_output,
-  aaa_schemas_type_output,
+  aaa_eligibility,
+  aaa_eligible,
+  aaa_ready,
+  aaa_schemas$$response_collection,
+  aaa_schemas$$type,
 } from "./outputs.js";
 
 /**
@@ -27,28 +27,36 @@ export const tools: readonly Tool[] = [
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/aaa_account-id",
-          "description": "The account id"
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/aaa_account-id",
+              "description": "The account id"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id"
+        "path"
       ],
       $defs: {
-        "aaa_account-id": aaa_account_id,
+        "aaa_account-id": aaa_account$$id,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/aaa_schemas-response_collection",
       $defs: {
-        "aaa_api-response-common-2": aaa_api_response_common_2_output,
-        "aaa_eligibility": aaa_eligibility_output,
-        "aaa_eligible": aaa_eligible_output,
-        "aaa_messages-3": aaa_messages_3_output,
-        "aaa_ready": aaa_ready_output,
-        "aaa_schemas-response_collection": aaa_schemas_response_collection_output,
-        "aaa_schemas-type": aaa_schemas_type_output,
+        "aaa_api-response-common-2": aaa_api$$response$$common$$2,
+        "aaa_eligibility": aaa_eligibility,
+        "aaa_eligible": aaa_eligible,
+        "aaa_messages-3": aaa_messages$$3,
+        "aaa_ready": aaa_ready,
+        "aaa_schemas-response_collection": aaa_schemas$$response_collection,
+        "aaa_schemas-type": aaa_schemas$$type,
       },
     },
     annotations: {
@@ -70,14 +78,14 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "aaa_api-response-common-2": aaa_api_response_common_2_output,
-        "aaa_api-response-common-failure-3": aaa_api_response_common_failure_3_output,
-        "aaa_eligibility": aaa_eligibility_output,
-        "aaa_eligible": aaa_eligible_output,
-        "aaa_messages-3": aaa_messages_3_output,
-        "aaa_ready": aaa_ready_output,
-        "aaa_schemas-response_collection": aaa_schemas_response_collection_output,
-        "aaa_schemas-type": aaa_schemas_type_output,
+        "aaa_api-response-common-2": aaa_api$$response$$common$$2,
+        "aaa_api-response-common-failure-3": aaa_api$$response$$common$$failure$$3,
+        "aaa_eligibility": aaa_eligibility,
+        "aaa_eligible": aaa_eligible,
+        "aaa_messages-3": aaa_messages$$3,
+        "aaa_ready": aaa_ready,
+        "aaa_schemas-response_collection": aaa_schemas$$response_collection,
+        "aaa_schemas-type": aaa_schemas$$type,
       },
     },
     request: (args) => ({

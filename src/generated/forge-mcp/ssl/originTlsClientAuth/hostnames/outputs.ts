@@ -8,7 +8,7 @@ import type { JsonSchema } from "../../../_/tool.js";
  * `tls-certificates-and-hostnames_hostname-authenticated-origin-pull` in
  * responses.
  */
-export const tls_certificates_and_hostnames_hostname_authenticated_origin_pull_output: JsonSchema = {
+export const tls$$certificates$$and$$hostnames_hostname$$authenticated$$origin$$pull: JsonSchema = {
   "allOf": [
     {
       "properties": {
@@ -44,7 +44,7 @@ export const tls_certificates_and_hostnames_hostname_authenticated_origin_pull_o
  * `tls-certificates-and-hostnames_hostname_aop_response_collection` in
  * responses.
  */
-export const tls_certificates_and_hostnames_hostname_aop_response_collection_output: JsonSchema = {
+export const tls$$certificates$$and$$hostnames_hostname_aop_response_collection: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/tls-certificates-and-hostnames_api-response-collection"
@@ -67,7 +67,7 @@ export const tls_certificates_and_hostnames_hostname_aop_response_collection_out
  * The schema of `tls-certificates-and-hostnames_hostname_aop_single_response`
  * in responses.
  */
-export const tls_certificates_and_hostnames_hostname_aop_single_response_output: JsonSchema = {
+export const tls$$certificates$$and$$hostnames_hostname_aop_single_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/tls-certificates-and-hostnames_api-response-single"
@@ -87,7 +87,7 @@ export const tls_certificates_and_hostnames_hostname_aop_single_response_output:
  * The schema of `tls-certificates-and-hostnames_hostname_certid_object` in
  * responses.
  */
-export const tls_certificates_and_hostnames_hostname_certid_object_output: JsonSchema = {
+export const tls$$certificates$$and$$hostnames_hostname_certid_object: JsonSchema = {
   "properties": {
     "cert_id": {
       "$ref": "#/$defs/tls-certificates-and-hostnames_hostname_aop_certificate_identifier"

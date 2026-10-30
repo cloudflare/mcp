@@ -3,14 +3,14 @@
 
 import { type Tool, pathParam } from "../../../../_/tool.js";
 import {
-  realtimekit_GenericErrorResponse_output,
-  realtimekit_ValidationIssue_output,
+  realtimekit_GenericErrorResponse,
+  realtimekit_ValidationIssue,
 } from "../../outputs.js";
 import {
   realtimekit_account_identifier,
   realtimekit_app_id,
 } from "../../schemas.js";
-import { realtimekit_WebhookEventsSuccessResponse_output } from "./outputs.js";
+import { realtimekit_WebhookEventsSuccessResponse } from "./outputs.js";
 
 /**
  * The tools of `realtime.kit.webhooks.events`.
@@ -23,18 +23,26 @@ export const tools: readonly Tool[] = [
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/realtimekit_account_identifier",
-          "description": "The account identifier tag."
-        },
-        "app_id": {
-          "$ref": "#/$defs/realtimekit_app_id",
-          "description": "The app identifier tag."
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/realtimekit_account_identifier",
+              "description": "The account identifier tag."
+            },
+            "app_id": {
+              "$ref": "#/$defs/realtimekit_app_id",
+              "description": "The app identifier tag."
+            }
+          },
+          "required": [
+            "account_id",
+            "app_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "app_id"
+        "path"
       ],
       $defs: {
         "realtimekit_account_identifier": realtimekit_account_identifier,
@@ -44,7 +52,7 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/realtimekit_WebhookEventsSuccessResponse",
       $defs: {
-        "realtimekit_WebhookEventsSuccessResponse": realtimekit_WebhookEventsSuccessResponse_output,
+        "realtimekit_WebhookEventsSuccessResponse": realtimekit_WebhookEventsSuccessResponse,
       },
     },
     annotations: {
@@ -72,9 +80,9 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "realtimekit_GenericErrorResponse": realtimekit_GenericErrorResponse_output,
-        "realtimekit_ValidationIssue": realtimekit_ValidationIssue_output,
-        "realtimekit_WebhookEventsSuccessResponse": realtimekit_WebhookEventsSuccessResponse_output,
+        "realtimekit_GenericErrorResponse": realtimekit_GenericErrorResponse,
+        "realtimekit_ValidationIssue": realtimekit_ValidationIssue,
+        "realtimekit_WebhookEventsSuccessResponse": realtimekit_WebhookEventsSuccessResponse,
       },
     },
     request: (args) => ({

@@ -3,28 +3,36 @@
 
 import { type Tool, pathParam } from "../../../../_/tool.js";
 import {
-  teams_devices_v4_error_response_output,
-  teams_devices_v4_response_message_output,
+  teams$$devices_v4_error_response,
+  teams$$devices_v4_response_message,
 } from "../../outputs.js";
-import { teams_devices_target_environment_info_output } from "./outputs.js";
+import { teams$$devices_target_environment_info } from "./outputs.js";
 
 /**
- * The tools of `zero_trust.devices.client_versions.target_environments`.
+ * The tools of `zeroTrust.devices.clientVersions.targetEnvironments`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "zero_trust_devices_client_versions_target_environments_list",
+    name: "zeroTrust_devices_clientVersions_targetEnvironments_list",
     title: "List available target environments",
     description: "Retrieves a list of all available target environments with their display names. This endpoint is in Beta.\n\nThis method is beta.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "type": "string"
+        "path": {
+          "properties": {
+            "account_id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id"
+        "path"
       ],
     },
     outputSchema: {
@@ -59,8 +67,8 @@ export const tools: readonly Tool[] = [
       ],
       "type": "object",
       $defs: {
-        "teams-devices_target_environment_info": teams_devices_target_environment_info_output,
-        "teams-devices_v4_response_message": teams_devices_v4_response_message_output,
+        "teams-devices_target_environment_info": teams$$devices_target_environment_info,
+        "teams-devices_v4_response_message": teams$$devices_v4_response_message,
       },
     },
     annotations: {
@@ -111,9 +119,9 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "teams-devices_target_environment_info": teams_devices_target_environment_info_output,
-        "teams-devices_v4_error_response": teams_devices_v4_error_response_output,
-        "teams-devices_v4_response_message": teams_devices_v4_response_message_output,
+        "teams-devices_target_environment_info": teams$$devices_target_environment_info,
+        "teams-devices_v4_error_response": teams$$devices_v4_error_response,
+        "teams-devices_v4_response_message": teams$$devices_v4_response_message,
       },
     },
     request: (args) => ({

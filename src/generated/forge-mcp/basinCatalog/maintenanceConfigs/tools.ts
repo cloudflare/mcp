@@ -3,57 +3,65 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
-  r2_data_catalog_api_response_common_failure_output,
-  r2_data_catalog_api_response_errors_output,
-  r2_data_catalog_api_response_messages_output,
-  r2_data_catalog_api_response_single_output,
-  r2_data_catalog_api_response_success_output,
-  r2_data_catalog_catalog_compaction_config_output,
-  r2_data_catalog_catalog_maintenance_config_output,
-  r2_data_catalog_catalog_maintenance_config_response_output,
-  r2_data_catalog_catalog_maintenance_state_output,
-  r2_data_catalog_catalog_target_file_size_output,
-  r2_data_catalog_credential_status_output,
-  r2_data_catalog_maintenance_interval_output,
-  r2_data_catalog_snapshot_expiration_config_output,
+  r2$$data$$catalog_api$$response$$common$$failure,
+  r2$$data$$catalog_api$$response$$errors,
+  r2$$data$$catalog_api$$response$$messages,
+  r2$$data$$catalog_api$$response$$single,
+  r2$$data$$catalog_api$$response$$success,
+  r2$$data$$catalog_catalog$$compaction$$config,
+  r2$$data$$catalog_catalog$$maintenance$$config,
+  r2$$data$$catalog_catalog$$maintenance$$config$$response,
+  r2$$data$$catalog_catalog$$maintenance$$state,
+  r2$$data$$catalog_catalog$$target$$file$$size,
+  r2$$data$$catalog_credential$$status,
+  r2$$data$$catalog_maintenance$$interval,
+  r2$$data$$catalog_snapshot$$expiration$$config,
 } from "../../outputs.js";
 import {
-  r2_data_catalog_account_id,
-  r2_data_catalog_bucket_name,
-  r2_data_catalog_catalog_maintenance_state,
-  r2_data_catalog_catalog_maintenance_update_request,
-  r2_data_catalog_catalog_target_file_size,
-  r2_data_catalog_compaction_update_params,
-  r2_data_catalog_snapshot_expiration_update_params,
+  r2$$data$$catalog_account$$id,
+  r2$$data$$catalog_bucket$$name,
+  r2$$data$$catalog_catalog$$maintenance$$state as r2$$data$$catalog_catalog$$maintenance$$state$,
+  r2$$data$$catalog_catalog$$maintenance$$update$$request,
+  r2$$data$$catalog_catalog$$target$$file$$size as r2$$data$$catalog_catalog$$target$$file$$size$,
+  r2$$data$$catalog_compaction$$update$$params,
+  r2$$data$$catalog_snapshot$$expiration$$update$$params,
 } from "../../schemas.js";
 
 /**
- * The tools of `basin_catalog.maintenance_configs`.
+ * The tools of `basinCatalog.maintenanceConfigs`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "basin_catalog_maintenance_configs_get",
+    name: "basinCatalog_maintenanceConfigs_get",
     title: "Get catalog maintenance configuration",
     description: "Retrieve the maintenance configuration for a specific catalog,\nincluding compaction settings and credential status.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/r2-data-catalog_account-id",
-          "description": "Identifies the account."
-        },
-        "bucket_name": {
-          "$ref": "#/$defs/r2-data-catalog_bucket-name",
-          "description": "Specifies the R2 bucket name."
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/r2-data-catalog_account-id",
+              "description": "Identifies the account."
+            },
+            "bucket_name": {
+              "$ref": "#/$defs/r2-data-catalog_bucket-name",
+              "description": "Specifies the R2 bucket name."
+            }
+          },
+          "required": [
+            "account_id",
+            "bucket_name"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "bucket_name"
+        "path"
       ],
       $defs: {
-        "r2-data-catalog_account-id": r2_data_catalog_account_id,
-        "r2-data-catalog_bucket-name": r2_data_catalog_bucket_name,
+        "r2-data-catalog_account-id": r2$$data$$catalog_account$$id,
+        "r2-data-catalog_bucket-name": r2$$data$$catalog_bucket$$name,
       },
     },
     outputSchema: {
@@ -71,18 +79,18 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "r2-data-catalog_api-response-errors": r2_data_catalog_api_response_errors_output,
-        "r2-data-catalog_api-response-messages": r2_data_catalog_api_response_messages_output,
-        "r2-data-catalog_api-response-single": r2_data_catalog_api_response_single_output,
-        "r2-data-catalog_api-response-success": r2_data_catalog_api_response_success_output,
-        "r2-data-catalog_catalog-compaction-config": r2_data_catalog_catalog_compaction_config_output,
-        "r2-data-catalog_catalog-maintenance-config": r2_data_catalog_catalog_maintenance_config_output,
-        "r2-data-catalog_catalog-maintenance-config-response": r2_data_catalog_catalog_maintenance_config_response_output,
-        "r2-data-catalog_catalog-maintenance-state": r2_data_catalog_catalog_maintenance_state_output,
-        "r2-data-catalog_catalog-target-file-size": r2_data_catalog_catalog_target_file_size_output,
-        "r2-data-catalog_credential-status": r2_data_catalog_credential_status_output,
-        "r2-data-catalog_maintenance-interval": r2_data_catalog_maintenance_interval_output,
-        "r2-data-catalog_snapshot-expiration-config": r2_data_catalog_snapshot_expiration_config_output,
+        "r2-data-catalog_api-response-errors": r2$$data$$catalog_api$$response$$errors,
+        "r2-data-catalog_api-response-messages": r2$$data$$catalog_api$$response$$messages,
+        "r2-data-catalog_api-response-single": r2$$data$$catalog_api$$response$$single,
+        "r2-data-catalog_api-response-success": r2$$data$$catalog_api$$response$$success,
+        "r2-data-catalog_catalog-compaction-config": r2$$data$$catalog_catalog$$compaction$$config,
+        "r2-data-catalog_catalog-maintenance-config": r2$$data$$catalog_catalog$$maintenance$$config,
+        "r2-data-catalog_catalog-maintenance-config-response": r2$$data$$catalog_catalog$$maintenance$$config$$response,
+        "r2-data-catalog_catalog-maintenance-state": r2$$data$$catalog_catalog$$maintenance$$state,
+        "r2-data-catalog_catalog-target-file-size": r2$$data$$catalog_catalog$$target$$file$$size,
+        "r2-data-catalog_credential-status": r2$$data$$catalog_credential$$status,
+        "r2-data-catalog_maintenance-interval": r2$$data$$catalog_maintenance$$interval,
+        "r2-data-catalog_snapshot-expiration-config": r2$$data$$catalog_snapshot$$expiration$$config,
       },
     },
     annotations: {
@@ -134,19 +142,19 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "r2-data-catalog_api-response-common-failure": r2_data_catalog_api_response_common_failure_output,
-        "r2-data-catalog_api-response-errors": r2_data_catalog_api_response_errors_output,
-        "r2-data-catalog_api-response-messages": r2_data_catalog_api_response_messages_output,
-        "r2-data-catalog_api-response-single": r2_data_catalog_api_response_single_output,
-        "r2-data-catalog_api-response-success": r2_data_catalog_api_response_success_output,
-        "r2-data-catalog_catalog-compaction-config": r2_data_catalog_catalog_compaction_config_output,
-        "r2-data-catalog_catalog-maintenance-config": r2_data_catalog_catalog_maintenance_config_output,
-        "r2-data-catalog_catalog-maintenance-config-response": r2_data_catalog_catalog_maintenance_config_response_output,
-        "r2-data-catalog_catalog-maintenance-state": r2_data_catalog_catalog_maintenance_state_output,
-        "r2-data-catalog_catalog-target-file-size": r2_data_catalog_catalog_target_file_size_output,
-        "r2-data-catalog_credential-status": r2_data_catalog_credential_status_output,
-        "r2-data-catalog_maintenance-interval": r2_data_catalog_maintenance_interval_output,
-        "r2-data-catalog_snapshot-expiration-config": r2_data_catalog_snapshot_expiration_config_output,
+        "r2-data-catalog_api-response-common-failure": r2$$data$$catalog_api$$response$$common$$failure,
+        "r2-data-catalog_api-response-errors": r2$$data$$catalog_api$$response$$errors,
+        "r2-data-catalog_api-response-messages": r2$$data$$catalog_api$$response$$messages,
+        "r2-data-catalog_api-response-single": r2$$data$$catalog_api$$response$$single,
+        "r2-data-catalog_api-response-success": r2$$data$$catalog_api$$response$$success,
+        "r2-data-catalog_catalog-compaction-config": r2$$data$$catalog_catalog$$compaction$$config,
+        "r2-data-catalog_catalog-maintenance-config": r2$$data$$catalog_catalog$$maintenance$$config,
+        "r2-data-catalog_catalog-maintenance-config-response": r2$$data$$catalog_catalog$$maintenance$$config$$response,
+        "r2-data-catalog_catalog-maintenance-state": r2$$data$$catalog_catalog$$maintenance$$state,
+        "r2-data-catalog_catalog-target-file-size": r2$$data$$catalog_catalog$$target$$file$$size,
+        "r2-data-catalog_credential-status": r2$$data$$catalog_credential$$status,
+        "r2-data-catalog_maintenance-interval": r2$$data$$catalog_maintenance$$interval,
+        "r2-data-catalog_snapshot-expiration-config": r2$$data$$catalog_snapshot$$expiration$$config,
       },
     },
     request: (args) => ({
@@ -154,37 +162,45 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "basin_catalog_maintenance_configs_update",
+    name: "basinCatalog_maintenanceConfigs_update",
     title: "Update catalog maintenance configuration",
     description: "Update the maintenance configuration for a catalog. This allows you to\nenable or disable compaction and adjust target file sizes for optimization.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/r2-data-catalog_account-id",
-          "description": "Identifies the account."
-        },
         "body": {
           "$ref": "#/$defs/r2-data-catalog_catalog-maintenance-update-request"
         },
-        "bucket_name": {
-          "$ref": "#/$defs/r2-data-catalog_bucket-name",
-          "description": "Specifies the R2 bucket name."
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/r2-data-catalog_account-id",
+              "description": "Identifies the account."
+            },
+            "bucket_name": {
+              "$ref": "#/$defs/r2-data-catalog_bucket-name",
+              "description": "Specifies the R2 bucket name."
+            }
+          },
+          "required": [
+            "account_id",
+            "bucket_name"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "bucket_name",
+        "path",
         "body"
       ],
       $defs: {
-        "r2-data-catalog_account-id": r2_data_catalog_account_id,
-        "r2-data-catalog_bucket-name": r2_data_catalog_bucket_name,
-        "r2-data-catalog_catalog-maintenance-state": r2_data_catalog_catalog_maintenance_state,
-        "r2-data-catalog_catalog-maintenance-update-request": r2_data_catalog_catalog_maintenance_update_request,
-        "r2-data-catalog_catalog-target-file-size": r2_data_catalog_catalog_target_file_size,
-        "r2-data-catalog_compaction-update-params": r2_data_catalog_compaction_update_params,
-        "r2-data-catalog_snapshot-expiration-update-params": r2_data_catalog_snapshot_expiration_update_params,
+        "r2-data-catalog_account-id": r2$$data$$catalog_account$$id,
+        "r2-data-catalog_bucket-name": r2$$data$$catalog_bucket$$name,
+        "r2-data-catalog_catalog-maintenance-state": r2$$data$$catalog_catalog$$maintenance$$state$,
+        "r2-data-catalog_catalog-maintenance-update-request": r2$$data$$catalog_catalog$$maintenance$$update$$request,
+        "r2-data-catalog_catalog-target-file-size": r2$$data$$catalog_catalog$$target$$file$$size$,
+        "r2-data-catalog_compaction-update-params": r2$$data$$catalog_compaction$$update$$params,
+        "r2-data-catalog_snapshot-expiration-update-params": r2$$data$$catalog_snapshot$$expiration$$update$$params,
       },
     },
     outputSchema: {
@@ -202,16 +218,16 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "r2-data-catalog_api-response-errors": r2_data_catalog_api_response_errors_output,
-        "r2-data-catalog_api-response-messages": r2_data_catalog_api_response_messages_output,
-        "r2-data-catalog_api-response-single": r2_data_catalog_api_response_single_output,
-        "r2-data-catalog_api-response-success": r2_data_catalog_api_response_success_output,
-        "r2-data-catalog_catalog-compaction-config": r2_data_catalog_catalog_compaction_config_output,
-        "r2-data-catalog_catalog-maintenance-config": r2_data_catalog_catalog_maintenance_config_output,
-        "r2-data-catalog_catalog-maintenance-state": r2_data_catalog_catalog_maintenance_state_output,
-        "r2-data-catalog_catalog-target-file-size": r2_data_catalog_catalog_target_file_size_output,
-        "r2-data-catalog_maintenance-interval": r2_data_catalog_maintenance_interval_output,
-        "r2-data-catalog_snapshot-expiration-config": r2_data_catalog_snapshot_expiration_config_output,
+        "r2-data-catalog_api-response-errors": r2$$data$$catalog_api$$response$$errors,
+        "r2-data-catalog_api-response-messages": r2$$data$$catalog_api$$response$$messages,
+        "r2-data-catalog_api-response-single": r2$$data$$catalog_api$$response$$single,
+        "r2-data-catalog_api-response-success": r2$$data$$catalog_api$$response$$success,
+        "r2-data-catalog_catalog-compaction-config": r2$$data$$catalog_catalog$$compaction$$config,
+        "r2-data-catalog_catalog-maintenance-config": r2$$data$$catalog_catalog$$maintenance$$config,
+        "r2-data-catalog_catalog-maintenance-state": r2$$data$$catalog_catalog$$maintenance$$state,
+        "r2-data-catalog_catalog-target-file-size": r2$$data$$catalog_catalog$$target$$file$$size,
+        "r2-data-catalog_maintenance-interval": r2$$data$$catalog_maintenance$$interval,
+        "r2-data-catalog_snapshot-expiration-config": r2$$data$$catalog_snapshot$$expiration$$config,
       },
     },
     annotations: {
@@ -262,17 +278,17 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "r2-data-catalog_api-response-common-failure": r2_data_catalog_api_response_common_failure_output,
-        "r2-data-catalog_api-response-errors": r2_data_catalog_api_response_errors_output,
-        "r2-data-catalog_api-response-messages": r2_data_catalog_api_response_messages_output,
-        "r2-data-catalog_api-response-single": r2_data_catalog_api_response_single_output,
-        "r2-data-catalog_api-response-success": r2_data_catalog_api_response_success_output,
-        "r2-data-catalog_catalog-compaction-config": r2_data_catalog_catalog_compaction_config_output,
-        "r2-data-catalog_catalog-maintenance-config": r2_data_catalog_catalog_maintenance_config_output,
-        "r2-data-catalog_catalog-maintenance-state": r2_data_catalog_catalog_maintenance_state_output,
-        "r2-data-catalog_catalog-target-file-size": r2_data_catalog_catalog_target_file_size_output,
-        "r2-data-catalog_maintenance-interval": r2_data_catalog_maintenance_interval_output,
-        "r2-data-catalog_snapshot-expiration-config": r2_data_catalog_snapshot_expiration_config_output,
+        "r2-data-catalog_api-response-common-failure": r2$$data$$catalog_api$$response$$common$$failure,
+        "r2-data-catalog_api-response-errors": r2$$data$$catalog_api$$response$$errors,
+        "r2-data-catalog_api-response-messages": r2$$data$$catalog_api$$response$$messages,
+        "r2-data-catalog_api-response-single": r2$$data$$catalog_api$$response$$single,
+        "r2-data-catalog_api-response-success": r2$$data$$catalog_api$$response$$success,
+        "r2-data-catalog_catalog-compaction-config": r2$$data$$catalog_catalog$$compaction$$config,
+        "r2-data-catalog_catalog-maintenance-config": r2$$data$$catalog_catalog$$maintenance$$config,
+        "r2-data-catalog_catalog-maintenance-state": r2$$data$$catalog_catalog$$maintenance$$state,
+        "r2-data-catalog_catalog-target-file-size": r2$$data$$catalog_catalog$$target$$file$$size,
+        "r2-data-catalog_maintenance-interval": r2$$data$$catalog_maintenance$$interval,
+        "r2-data-catalog_snapshot-expiration-config": r2$$data$$catalog_snapshot$$expiration$$config,
       },
     },
     request: (args) => ({

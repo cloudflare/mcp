@@ -4,33 +4,41 @@
 import { type Tool, pathParam } from "../../../../_/tool.js";
 
 /**
- * The tools of `cloudforce_one.threat_signals.articles.skills`.
+ * The tools of `cloudforceOne.threatSignals.articles.skills`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "cloudforce_one_threat_signals_articles_skills_get_output",
+    name: "cloudforceOne_threatSignals_articles_skills_getOutput",
     title: "Get Threat Signals article skill output",
     description: "Retrieves the stored output of a skill for a Threat Signals article. The custom_output field is parsed JSON when the stored output is valid JSON, otherwise the raw string.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "type": "string"
-        },
-        "article_id": {
-          "description": "Threat Signals article UUID",
-          "format": "uuid",
-          "type": "string"
-        },
-        "skill_id": {
-          "description": "Custom Skill UUID or a Managed Default Skill ID (IOC-context: default-ioc-context-skill)",
-          "type": "string"
+        "path": {
+          "properties": {
+            "account_id": {
+              "type": "string"
+            },
+            "article_id": {
+              "description": "Threat Signals article UUID",
+              "format": "uuid",
+              "type": "string"
+            },
+            "skill_id": {
+              "description": "Custom Skill UUID or a Managed Default Skill ID (IOC-context: default-ioc-context-skill)",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "article_id",
+            "skill_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "article_id",
-        "skill_id"
+        "path"
       ],
     },
     outputSchema: {
@@ -404,24 +412,32 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "cloudforce_one_threat_signals_articles_skills_list",
+    name: "cloudforceOne_threatSignals_articles_skills_list",
     title: "List Threat Signals article custom skills",
     description: "Lists active custom skills currently assigned to the article's feed and whether each has a stored output. Output content and skill configuration are retrieved separately. Free Threat Signals accounts cannot read Custom Skills.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "type": "string"
-        },
-        "article_id": {
-          "description": "Threat Signals article UUID",
-          "format": "uuid",
-          "type": "string"
+        "path": {
+          "properties": {
+            "account_id": {
+              "type": "string"
+            },
+            "article_id": {
+              "description": "Threat Signals article UUID",
+              "format": "uuid",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "article_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "article_id"
+        "path"
       ],
     },
     outputSchema: {
@@ -737,45 +753,53 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "cloudforce_one_threat_signals_articles_skills_run",
+    name: "cloudforceOne_threatSignals_articles_skills_run",
     title: "Run and persist skill output for a Threat Signals article",
     description: "Run an active Custom Skill assigned to the article's feed, or run a managed default skill. Requires a paid Threat Signals subscription and the Cloudforce One Write permission. Always persists output; rerunning overwrites the previous result. Does not expose diagnostic model data or accept server-preview inputs.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "type": "string"
-        },
-        "article_id": {
-          "description": "Threat Signals article UUID",
-          "format": "uuid",
-          "type": "string"
-        },
         "body": {
           "type": "object"
         },
-        "skill_id": {
-          "anyOf": [
-            {
+        "path": {
+          "properties": {
+            "account_id": {
+              "type": "string"
+            },
+            "article_id": {
+              "description": "Threat Signals article UUID",
               "format": "uuid",
               "type": "string"
             },
-            {
-              "enum": [
-                "default-tagging-skill",
-                "default-ioc-context-skill",
-                "default-summary-skill"
+            "skill_id": {
+              "anyOf": [
+                {
+                  "format": "uuid",
+                  "type": "string"
+                },
+                {
+                  "enum": [
+                    "default-tagging-skill",
+                    "default-ioc-context-skill",
+                    "default-summary-skill"
+                  ],
+                  "type": "string"
+                }
               ],
-              "type": "string"
+              "description": "UUID of an active Custom Skill that is assigned to the article's feed, or a managed default skill ID. Requires a paid Threat Signals subscription and the Cloudforce One Write permission. Always persists output; rerunning overwrites the previous result. No diagnostic or server-preview inputs."
             }
+          },
+          "required": [
+            "account_id",
+            "article_id",
+            "skill_id"
           ],
-          "description": "UUID of an active Custom Skill that is assigned to the article's feed, or a managed default skill ID. Requires a paid Threat Signals subscription and the Cloudforce One Write permission. Always persists output; rerunning overwrites the previous result. No diagnostic or server-preview inputs."
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "article_id",
-        "skill_id"
+        "path"
       ],
     },
     outputSchema: {

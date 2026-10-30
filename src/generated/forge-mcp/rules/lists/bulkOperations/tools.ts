@@ -3,62 +3,73 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
-  lists_api_response_common_failure_output,
-  lists_api_response_common_output,
-  lists_messages_output,
-  lists_operation_id_output,
+  lists_api$$response$$common,
+  lists_api$$response$$common$$failure,
+  lists_messages,
+  lists_operation_id,
 } from "../outputs.js";
-import { lists_account_id, lists_operation_id } from "../schemas.js";
 import {
-  lists_bulk_operation_completed_output,
-  lists_bulk_operation_failed_output,
-  lists_bulk_operation_pending_or_running_output,
-  lists_bulk_operation_response_single_output,
-  lists_completed_output,
-  lists_operation_output,
+  lists_account_id,
+  lists_operation_id as lists_operation_id$,
+} from "../schemas.js";
+import {
+  lists_bulk$$operation$$response$$single,
+  lists_bulk_operation_completed,
+  lists_bulk_operation_failed,
+  lists_bulk_operation_pending_or_running,
+  lists_completed,
+  lists_operation,
 } from "./outputs.js";
 
 /**
- * The tools of `rules.lists.bulk_operations`.
+ * The tools of `rules.lists.bulkOperations`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "rules_lists_bulk_operations_get",
+    name: "rules_lists_bulkOperations_get",
     title: "Get bulk operation status",
     description: "Gets the current status of an asynchronous operation on a list.\n\nThe `status` property can have one of the following values: `pending`, `running`, `completed`, or `failed`. If the status is `failed`, the `error` property will contain a message describing the error.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/lists_account_id",
-          "description": "The Account ID for this resource."
-        },
-        "operation_id": {
-          "$ref": "#/$defs/lists_operation_id",
-          "description": "The unique operation ID of the asynchronous action."
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/lists_account_id",
+              "description": "The Account ID for this resource."
+            },
+            "operation_id": {
+              "$ref": "#/$defs/lists_operation_id",
+              "description": "The unique operation ID of the asynchronous action."
+            }
+          },
+          "required": [
+            "account_id",
+            "operation_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "operation_id"
+        "path"
       ],
       $defs: {
         "lists_account_id": lists_account_id,
-        "lists_operation_id": lists_operation_id,
+        "lists_operation_id": lists_operation_id$,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/lists_bulk-operation-response-single",
       $defs: {
-        "lists_api-response-common": lists_api_response_common_output,
-        "lists_bulk-operation-response-single": lists_bulk_operation_response_single_output,
-        "lists_bulk_operation_completed": lists_bulk_operation_completed_output,
-        "lists_bulk_operation_failed": lists_bulk_operation_failed_output,
-        "lists_bulk_operation_pending_or_running": lists_bulk_operation_pending_or_running_output,
-        "lists_completed": lists_completed_output,
-        "lists_messages": lists_messages_output,
-        "lists_operation": lists_operation_output,
-        "lists_operation_id": lists_operation_id_output,
+        "lists_api-response-common": lists_api$$response$$common,
+        "lists_bulk-operation-response-single": lists_bulk$$operation$$response$$single,
+        "lists_bulk_operation_completed": lists_bulk_operation_completed,
+        "lists_bulk_operation_failed": lists_bulk_operation_failed,
+        "lists_bulk_operation_pending_or_running": lists_bulk_operation_pending_or_running,
+        "lists_completed": lists_completed,
+        "lists_messages": lists_messages,
+        "lists_operation": lists_operation,
+        "lists_operation_id": lists_operation_id,
       },
     },
     annotations: {
@@ -99,16 +110,16 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "lists_api-response-common": lists_api_response_common_output,
-        "lists_api-response-common-failure": lists_api_response_common_failure_output,
-        "lists_bulk-operation-response-single": lists_bulk_operation_response_single_output,
-        "lists_bulk_operation_completed": lists_bulk_operation_completed_output,
-        "lists_bulk_operation_failed": lists_bulk_operation_failed_output,
-        "lists_bulk_operation_pending_or_running": lists_bulk_operation_pending_or_running_output,
-        "lists_completed": lists_completed_output,
-        "lists_messages": lists_messages_output,
-        "lists_operation": lists_operation_output,
-        "lists_operation_id": lists_operation_id_output,
+        "lists_api-response-common": lists_api$$response$$common,
+        "lists_api-response-common-failure": lists_api$$response$$common$$failure,
+        "lists_bulk-operation-response-single": lists_bulk$$operation$$response$$single,
+        "lists_bulk_operation_completed": lists_bulk_operation_completed,
+        "lists_bulk_operation_failed": lists_bulk_operation_failed,
+        "lists_bulk_operation_pending_or_running": lists_bulk_operation_pending_or_running,
+        "lists_completed": lists_completed,
+        "lists_messages": lists_messages,
+        "lists_operation": lists_operation,
+        "lists_operation_id": lists_operation_id,
       },
     },
     request: (args) => ({

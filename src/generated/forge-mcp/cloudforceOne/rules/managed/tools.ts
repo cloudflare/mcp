@@ -2,26 +2,34 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../../_/tool.js";
-import { cloudforce_one_ErrorResponse_output } from "../outputs.js";
+import { cloudforce$$one_ErrorResponse } from "../outputs.js";
 
 /**
- * The tools of `cloudforce_one.rules.managed`.
+ * The tools of `cloudforceOne.rules.managed`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "cloudforce_one_rules_managed_get",
+    name: "cloudforceOne_rules_managed_get",
     title: "Get managed rules",
     description: "Get DFP managed rule metadata (name and description) from YARA rules.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "description": "Cloudflare account ID.",
-          "type": "string"
+        "path": {
+          "properties": {
+            "account_id": {
+              "description": "Cloudflare account ID.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id"
+        "path"
       ],
     },
     outputSchema: {
@@ -124,7 +132,7 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "cloudforce-one_ErrorResponse": cloudforce_one_ErrorResponse_output,
+        "cloudforce-one_ErrorResponse": cloudforce$$one_ErrorResponse,
       },
     },
     request: (args) => ({

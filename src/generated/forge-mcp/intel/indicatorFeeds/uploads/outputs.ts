@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `custom-indicator-feeds_upload_status` in responses.
  */
-export const custom_indicator_feeds_upload_status_output: JsonSchema = {
+export const custom$$indicator$$feeds_upload_status: JsonSchema = {
   "properties": {
     "attempts": {
       "type": "integer"
@@ -63,7 +63,7 @@ export const custom_indicator_feeds_upload_status_output: JsonSchema = {
 /**
  * The schema of `custom-indicator-feeds_upload_status_response` in responses.
  */
-export const custom_indicator_feeds_upload_status_response_output: JsonSchema = {
+export const custom$$indicator$$feeds_upload_status_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/custom-indicator-feeds_api-response-single"

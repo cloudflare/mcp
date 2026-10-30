@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../../_/tool.js";
 /**
  * The schema of `flagship_ChangelogEntry` in responses.
  */
-export const flagship_ChangelogEntry_output: JsonSchema = {
+export const flagship_ChangelogEntry: JsonSchema = {
   "oneOf": [
     {
       "properties": {
@@ -95,7 +95,7 @@ export const flagship_ChangelogEntry_output: JsonSchema = {
 /**
  * The schema of `flagship_ChangelogPage` in responses.
  */
-export const flagship_ChangelogPage_output: JsonSchema = {
+export const flagship_ChangelogPage: JsonSchema = {
   "items": {
     "$ref": "#/$defs/flagship_ChangelogEntry"
   },

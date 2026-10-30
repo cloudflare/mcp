@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `domain-connect_PostData`.
  */
-export const domain_connect_PostData: JsonSchema = {
+export const domain$$connect_PostData: JsonSchema = {
   "properties": {
     "domain": {
       "type": "string"

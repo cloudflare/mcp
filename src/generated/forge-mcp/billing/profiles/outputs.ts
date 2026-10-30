@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `bill-subs-api_payment_intent_response_single` in responses.
  */
-export const bill_subs_api_payment_intent_response_single_output: JsonSchema = {
+export const bill$$subs$$api_payment_intent_response_single: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/bill-subs-api_api-response-single"

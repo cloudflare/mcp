@@ -3,44 +3,52 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
-  load_balancing_api_response_common_failure_output,
-  load_balancing_api_response_common_output,
-  load_balancing_api_response_single_output,
-  load_balancing_messages_output,
+  load$$balancing_api$$response$$common,
+  load$$balancing_api$$response$$common$$failure,
+  load$$balancing_api$$response$$single,
+  load$$balancing_messages,
 } from "../../../outputs.js";
-import { load_balancing_components_schemas_identifier } from "../../schemas.js";
-import { load_balancing_load_balancer_components_schemas_usage_response_output } from "./outputs.js";
+import { load$$balancing_components$$schemas$$identifier } from "../../schemas.js";
+import { load$$balancing_load$$balancer_components$$schemas$$usage_response } from "./outputs.js";
 
 /**
- * The tools of `load_balancers.account.usage`.
+ * The tools of `loadBalancers.account.usage`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "load_balancers_account_usage_list",
+    name: "loadBalancers_account_usage_list",
     title: "List Load Balancer Usage",
     description: "Get current load balancer resource usage counts for an account.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/load-balancing_components-schemas-identifier",
-          "description": "Identifier."
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/load-balancing_components-schemas-identifier",
+              "description": "Identifier."
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id"
+        "path"
       ],
       $defs: {
-        "load-balancing_components-schemas-identifier": load_balancing_components_schemas_identifier,
+        "load-balancing_components-schemas-identifier": load$$balancing_components$$schemas$$identifier,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/load-balancing_load-balancer_components-schemas-usage_response",
       $defs: {
-        "load-balancing_api-response-common": load_balancing_api_response_common_output,
-        "load-balancing_api-response-single": load_balancing_api_response_single_output,
-        "load-balancing_load-balancer_components-schemas-usage_response": load_balancing_load_balancer_components_schemas_usage_response_output,
-        "load-balancing_messages": load_balancing_messages_output,
+        "load-balancing_api-response-common": load$$balancing_api$$response$$common,
+        "load-balancing_api-response-single": load$$balancing_api$$response$$single,
+        "load-balancing_load-balancer_components-schemas-usage_response": load$$balancing_load$$balancer_components$$schemas$$usage_response,
+        "load-balancing_messages": load$$balancing_messages,
       },
     },
     annotations: {
@@ -68,11 +76,11 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "load-balancing_api-response-common": load_balancing_api_response_common_output,
-        "load-balancing_api-response-common-failure": load_balancing_api_response_common_failure_output,
-        "load-balancing_api-response-single": load_balancing_api_response_single_output,
-        "load-balancing_load-balancer_components-schemas-usage_response": load_balancing_load_balancer_components_schemas_usage_response_output,
-        "load-balancing_messages": load_balancing_messages_output,
+        "load-balancing_api-response-common": load$$balancing_api$$response$$common,
+        "load-balancing_api-response-common-failure": load$$balancing_api$$response$$common$$failure,
+        "load-balancing_api-response-single": load$$balancing_api$$response$$single,
+        "load-balancing_load-balancer_components-schemas-usage_response": load$$balancing_load$$balancer_components$$schemas$$usage_response,
+        "load-balancing_messages": load$$balancing_messages,
       },
     },
     request: (args) => ({

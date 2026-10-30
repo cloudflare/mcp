@@ -4,20 +4,16 @@
 import { type Tool, pathParam } from "../../../../../../_/tool.js";
 
 /**
- * The tools of `cloudforce_one.threat_intel.datasets.access.groups.members`.
+ * The tools of `cloudforceOne.threatIntel.datasets.access.groups.members`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "cloudforce_one_threat_intel_datasets_access_groups_members_create",
+    name: "cloudforceOne_threatIntel_datasets_access_groups_members_create",
     title: "Add an account to a group",
     description: "Adds an account to an account group. Identify the account by `accountId` or `accountTag`.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "description": "Account ID.",
-          "type": "string"
-        },
         "body": {
           "properties": {
             "accountId": {
@@ -29,13 +25,25 @@ export const tools: readonly Tool[] = [
           },
           "type": "object"
         },
-        "group_id": {
-          "type": "string"
+        "path": {
+          "properties": {
+            "account_id": {
+              "description": "Account ID.",
+              "type": "string"
+            },
+            "group_id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "group_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "group_id"
+        "path"
       ],
     },
     outputSchema: {
@@ -145,27 +153,35 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "cloudforce_one_threat_intel_datasets_access_groups_members_delete",
+    name: "cloudforceOne_threatIntel_datasets_access_groups_members_delete",
     title: "Remove an account from a group",
     description: "Removes an account from an account group.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "description": "Account ID.",
-          "type": "string"
-        },
-        "group_id": {
-          "type": "string"
-        },
-        "member_id": {
-          "type": "string"
+        "path": {
+          "properties": {
+            "account_id": {
+              "description": "Account ID.",
+              "type": "string"
+            },
+            "group_id": {
+              "type": "string"
+            },
+            "member_id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "group_id",
+            "member_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "group_id",
-        "member_id"
+        "path"
       ],
     },
     outputSchema: {
@@ -243,23 +259,31 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "cloudforce_one_threat_intel_datasets_access_groups_members_list",
+    name: "cloudforceOne_threatIntel_datasets_access_groups_members_list",
     title: "List group members",
     description: "Lists the accounts in an account group.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "description": "Account ID.",
-          "type": "string"
-        },
-        "group_id": {
-          "type": "string"
+        "path": {
+          "properties": {
+            "account_id": {
+              "description": "Account ID.",
+              "type": "string"
+            },
+            "group_id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "group_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "group_id"
+        "path"
       ],
     },
     outputSchema: {

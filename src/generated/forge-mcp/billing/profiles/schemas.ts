@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `bill-subs-api_billing_profile_request`.
  */
-export const bill_subs_api_billing_profile_request: JsonSchema = {
+export const bill$$subs$$api_billing_profile_request: JsonSchema = {
   "description": "Request body for creating or updating a billing profile.",
   "properties": {
     "address": {

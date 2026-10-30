@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `posture-api_DirectionEnum`.
  */
-export const posture_api_DirectionEnum: JsonSchema = {
+export const posture$$api_DirectionEnum: JsonSchema = {
   "description": "Sort direction.",
   "enum": [
     "asc",
@@ -18,7 +18,7 @@ export const posture_api_DirectionEnum: JsonSchema = {
 /**
  * The schema of `posture-api_FindingCategoryTypeEnum`.
  */
-export const posture_api_FindingCategoryTypeEnum: JsonSchema = {
+export const posture$$api_FindingCategoryTypeEnum: JsonSchema = {
   "description": "The type of the finding category.",
   "enum": [
     "Content",
@@ -30,7 +30,7 @@ export const posture_api_FindingCategoryTypeEnum: JsonSchema = {
 /**
  * The schema of `posture-api_FindingTypeVendorsEnum`.
  */
-export const posture_api_FindingTypeVendorsEnum: JsonSchema = {
+export const posture$$api_FindingTypeVendorsEnum: JsonSchema = {
   "description": "Vendors whose assets a finding type can evaluate.",
   "enum": [
     "ANTHROPIC",
@@ -56,7 +56,7 @@ export const posture_api_FindingTypeVendorsEnum: JsonSchema = {
 /**
  * The schema of `posture-api_RemediationJobStatusEnum`.
  */
-export const posture_api_RemediationJobStatusEnum: JsonSchema = {
+export const posture$$api_RemediationJobStatusEnum: JsonSchema = {
   "description": "Status of a remediation job.",
   "enum": [
     "pending",
@@ -71,7 +71,7 @@ export const posture_api_RemediationJobStatusEnum: JsonSchema = {
 /**
  * The schema of `posture-api_SeverityEnum`.
  */
-export const posture_api_SeverityEnum: JsonSchema = {
+export const posture$$api_SeverityEnum: JsonSchema = {
   "description": "The severity level of a finding.",
   "enum": [
     "Critical",
@@ -85,7 +85,7 @@ export const posture_api_SeverityEnum: JsonSchema = {
 /**
  * The schema of `posture-api_StatusEnum`.
  */
-export const posture_api_StatusEnum: JsonSchema = {
+export const posture$$api_StatusEnum: JsonSchema = {
   "description": "Status of an export job.",
   "enum": [
     "Pending",
@@ -100,7 +100,7 @@ export const posture_api_StatusEnum: JsonSchema = {
 /**
  * The schema of `posture-api_VendorsEnum`.
  */
-export const posture_api_VendorsEnum: JsonSchema = {
+export const posture$$api_VendorsEnum: JsonSchema = {
   "description": "Supported vendor types for integrations.",
   "enum": [
     "ANTHROPIC",

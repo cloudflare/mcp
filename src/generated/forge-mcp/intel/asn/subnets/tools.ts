@@ -3,17 +3,13 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
-  intel_api_response_common_failure_output,
-  intel_messages_output,
+  intel_api$$response$$common$$failure,
+  intel_messages,
 } from "../../outputs.js";
 import { intel_identifier } from "../../schemas.js";
-import { intel_asn_output } from "../outputs.js";
-import { intel_asn } from "../schemas.js";
-import {
-  intel_count_output,
-  intel_page_output,
-  intel_per_page_output,
-} from "./outputs.js";
+import { intel_asn } from "../outputs.js";
+import { intel_asn as intel_asn$ } from "../schemas.js";
+import { intel_count, intel_page, intel_per_page } from "./outputs.js";
 
 /**
  * The tools of `intel.asn.subnets`.
@@ -26,20 +22,28 @@ export const tools: readonly Tool[] = [
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/intel_identifier",
-          "description": "Identifier."
-        },
-        "asn": {
-          "$ref": "#/$defs/intel_asn"
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/intel_identifier",
+              "description": "Identifier."
+            },
+            "asn": {
+              "$ref": "#/$defs/intel_asn"
+            }
+          },
+          "required": [
+            "account_id",
+            "asn"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "asn"
+        "path"
       ],
       $defs: {
-        "intel_asn": intel_asn,
+        "intel_asn": intel_asn$,
         "intel_identifier": intel_identifier,
       },
     },
@@ -69,10 +73,10 @@ export const tools: readonly Tool[] = [
       },
       "type": "object",
       $defs: {
-        "intel_asn": intel_asn_output,
-        "intel_count": intel_count_output,
-        "intel_page": intel_page_output,
-        "intel_per_page": intel_per_page_output,
+        "intel_asn": intel_asn,
+        "intel_count": intel_count,
+        "intel_page": intel_page,
+        "intel_per_page": intel_per_page,
       },
     },
     annotations: {
@@ -153,12 +157,12 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "intel_api-response-common-failure": intel_api_response_common_failure_output,
-        "intel_asn": intel_asn_output,
-        "intel_count": intel_count_output,
-        "intel_messages": intel_messages_output,
-        "intel_page": intel_page_output,
-        "intel_per_page": intel_per_page_output,
+        "intel_api-response-common-failure": intel_api$$response$$common$$failure,
+        "intel_asn": intel_asn,
+        "intel_count": intel_count,
+        "intel_messages": intel_messages,
+        "intel_page": intel_page,
+        "intel_per_page": intel_per_page,
       },
     },
     request: (args) => ({

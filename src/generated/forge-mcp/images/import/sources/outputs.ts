@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `images_sourcingkit_connectivity_check_response` in responses.
  */
-export const images_sourcingkit_connectivity_check_response_output: JsonSchema = {
+export const images_sourcingkit_connectivity_check_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/images_api-response-single"
@@ -54,7 +54,7 @@ export const images_sourcingkit_connectivity_check_response_output: JsonSchema =
 /**
  * The schema of `images_sourcingkit_source` in responses.
  */
-export const images_sourcingkit_source_output: JsonSchema = {
+export const images_sourcingkit_source: JsonSchema = {
   "properties": {
     "bucket": {
       "type": "string"
@@ -94,7 +94,7 @@ export const images_sourcingkit_source_output: JsonSchema = {
 /**
  * The schema of `images_sourcingkit_source_create_response` in responses.
  */
-export const images_sourcingkit_source_create_response_output: JsonSchema = {
+export const images_sourcingkit_source_create_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/images_api-response-single"
@@ -113,7 +113,7 @@ export const images_sourcingkit_source_create_response_output: JsonSchema = {
 /**
  * The schema of `images_sourcingkit_source_list_response` in responses.
  */
-export const images_sourcingkit_source_list_response_output: JsonSchema = {
+export const images_sourcingkit_source_list_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/images_api-response-common"
@@ -140,7 +140,7 @@ export const images_sourcingkit_source_list_response_output: JsonSchema = {
 /**
  * The schema of `images_sourcingkit_source_single_response` in responses.
  */
-export const images_sourcingkit_source_single_response_output: JsonSchema = {
+export const images_sourcingkit_source_single_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/images_api-response-single"
@@ -159,7 +159,7 @@ export const images_sourcingkit_source_single_response_output: JsonSchema = {
 /**
  * The schema of `images_sourcingkit_source_update_response` in responses.
  */
-export const images_sourcingkit_source_update_response_output: JsonSchema = {
+export const images_sourcingkit_source_update_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/images_api-response-single"
@@ -178,7 +178,7 @@ export const images_sourcingkit_source_update_response_output: JsonSchema = {
 /**
  * The schema of `images_sourcingkit_vendor` in responses.
  */
-export const images_sourcingkit_vendor_output: JsonSchema = {
+export const images_sourcingkit_vendor: JsonSchema = {
   "enum": [
     "s3",
     "r2"

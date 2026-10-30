@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `dls_api-response-collection` in responses.
  */
-export const dls_api_response_collection_output: JsonSchema = {
+export const dls_api$$response$$collection: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/dls_api-response-common"
@@ -42,7 +42,7 @@ export const dls_api_response_collection_output: JsonSchema = {
 /**
  * The schema of `dls_api-response-common` in responses.
  */
-export const dls_api_response_common_output: JsonSchema = {
+export const dls_api$$response$$common: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/dls_messages"
@@ -68,7 +68,7 @@ export const dls_api_response_common_output: JsonSchema = {
 /**
  * The schema of `dls_api-response-common-failure` in responses.
  */
-export const dls_api_response_common_failure_output: JsonSchema = {
+export const dls_api$$response$$common$$failure: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/dls_messages"
@@ -98,14 +98,14 @@ export const dls_api_response_common_failure_output: JsonSchema = {
 /**
  * The schema of `dls_hostname` in responses.
  */
-export const dls_hostname_output: JsonSchema = {
+export const dls_hostname: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `dls_messages` in responses.
  */
-export const dls_messages_output: JsonSchema = {
+export const dls_messages: JsonSchema = {
   "items": {
     "properties": {
       "code": {
@@ -138,14 +138,14 @@ export const dls_messages_output: JsonSchema = {
 /**
  * The schema of `dls_region_key` in responses.
  */
-export const dls_region_key_output: JsonSchema = {
+export const dls_region_key: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `dls_regional_hostname_response` in responses.
  */
-export const dls_regional_hostname_response_output: JsonSchema = {
+export const dls_regional_hostname_response: JsonSchema = {
   "properties": {
     "created_on": {
       "allOf": [
@@ -182,14 +182,14 @@ export const dls_regional_hostname_response_output: JsonSchema = {
 /**
  * The schema of `dls_routing` in responses.
  */
-export const dls_routing_output: JsonSchema = {
+export const dls_routing: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `dls_timestamp` in responses.
  */
-export const dls_timestamp_output: JsonSchema = {
+export const dls_timestamp: JsonSchema = {
   "format": "date-time",
   "type": "string"
 };

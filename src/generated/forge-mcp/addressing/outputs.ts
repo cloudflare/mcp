@@ -6,14 +6,14 @@ import type { JsonSchema } from "../_/tool.js";
 /**
  * The schema of `addressing_account_identifier` in responses.
  */
-export const addressing_account_identifier_output: JsonSchema = {
+export const addressing_account_identifier: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `addressing_api-response-collection` in responses.
  */
-export const addressing_api_response_collection_output: JsonSchema = {
+export const addressing_api$$response$$collection: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/addressing_api-response-common"
@@ -49,7 +49,7 @@ export const addressing_api_response_collection_output: JsonSchema = {
 /**
  * The schema of `addressing_api-response-common` in responses.
  */
-export const addressing_api_response_common_output: JsonSchema = {
+export const addressing_api$$response$$common: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/addressing_messages"
@@ -75,7 +75,7 @@ export const addressing_api_response_common_output: JsonSchema = {
 /**
  * The schema of `addressing_api-response-common-failure` in responses.
  */
-export const addressing_api_response_common_failure_output: JsonSchema = {
+export const addressing_api$$response$$common$$failure: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/addressing_messages"
@@ -105,7 +105,7 @@ export const addressing_api_response_common_failure_output: JsonSchema = {
 /**
  * The schema of `addressing_api-response-single` in responses.
  */
-export const addressing_api_response_single_output: JsonSchema = {
+export const addressing_api$$response$$single: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/addressing_messages"
@@ -131,7 +131,7 @@ export const addressing_api_response_single_output: JsonSchema = {
 /**
  * The schema of `addressing_loa_document_identifier` in responses.
  */
-export const addressing_loa_document_identifier_output: JsonSchema = {
+export const addressing_loa_document_identifier: JsonSchema = {
   "oneOf": [
     {
       "type": "string"
@@ -145,7 +145,7 @@ export const addressing_loa_document_identifier_output: JsonSchema = {
 /**
  * The schema of `addressing_messages` in responses.
  */
-export const addressing_messages_output: JsonSchema = {
+export const addressing_messages: JsonSchema = {
   "items": {
     "properties": {
       "code": {
@@ -178,21 +178,21 @@ export const addressing_messages_output: JsonSchema = {
 /**
  * The schema of `addressing_service_identifier` in responses.
  */
-export const addressing_service_identifier_output: JsonSchema = {
+export const addressing_service_identifier: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `addressing_service_name` in responses.
  */
-export const addressing_service_name_output: JsonSchema = {
+export const addressing_service_name: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `addressing_timestamp` in responses.
  */
-export const addressing_timestamp_output: JsonSchema = {
+export const addressing_timestamp: JsonSchema = {
   "format": "date-time",
   "type": "string"
 };

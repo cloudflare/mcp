@@ -4,20 +4,16 @@
 import { type Tool, pathParam } from "../../../../_/tool.js";
 
 /**
- * The tools of `cloudforce_one.priority_intelligence.interests.backtests`.
+ * The tools of `cloudforceOne.priorityIntelligence.interests.backtests`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "cloudforce_one_priority_intelligence_interests_backtests_create",
+    name: "cloudforceOne_priorityIntelligence_interests_backtests_create",
     title: "Backtest account-interest change detection",
     description: "Uses bounded full-span top-N candidates and daily event-date buckets. Results are conservative rather than an exact historical replay.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "description": "Account ID",
-          "type": "string"
-        },
         "body": {
           "properties": {
             "as_of": {
@@ -64,10 +60,22 @@ export const tools: readonly Tool[] = [
             }
           },
           "type": "object"
+        },
+        "path": {
+          "properties": {
+            "account_id": {
+              "description": "Account ID",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id"
+        "path"
       ],
     },
     annotations: {
@@ -96,25 +104,33 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "cloudforce_one_priority_intelligence_interests_backtests_get",
+    name: "cloudforceOne_priorityIntelligence_interests_backtests_get",
     title: "Get a persisted account-interest backtest",
     description: "Returns a previously completed account-interest backtest by ID. The backtest must belong to this account.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "description": "Account ID",
-          "type": "string"
-        },
-        "backtest_id": {
-          "description": "Backtest UUID",
-          "format": "uuid",
-          "type": "string"
+        "path": {
+          "properties": {
+            "account_id": {
+              "description": "Account ID",
+              "type": "string"
+            },
+            "backtest_id": {
+              "description": "Backtest UUID",
+              "format": "uuid",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "backtest_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "backtest_id"
+        "path"
       ],
     },
     annotations: {

@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `api-shield_multiple-operation-response` in responses.
  */
-export const api_shield_multiple_operation_response_output: JsonSchema = {
+export const api$$shield_multiple$$operation$$response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/api-shield_api-response-common"
@@ -32,7 +32,7 @@ export const api_shield_multiple_operation_response_output: JsonSchema = {
  * The schema of `api-shield_multiple-operation-response-paginated` in
  * responses.
  */
-export const api_shield_multiple_operation_response_paginated_output: JsonSchema = {
+export const api$$shield_multiple$$operation$$response$$paginated: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/api-shield_api-response-collection"
@@ -57,7 +57,7 @@ export const api_shield_multiple_operation_response_paginated_output: JsonSchema
 /**
  * The schema of `api-shield_operation_schema_fragment` in responses.
  */
-export const api_shield_operation_schema_fragment_output: JsonSchema = {
+export const api$$shield_operation_schema_fragment: JsonSchema = {
   "oneOf": [
     {
       "properties": {
@@ -82,7 +82,7 @@ export const api_shield_operation_schema_fragment_output: JsonSchema = {
 /**
  * The schema of `api-shield_operation_schemas` in responses.
  */
-export const api_shield_operation_schemas_output: JsonSchema = {
+export const api$$shield_operation_schemas: JsonSchema = {
   "properties": {
     "learned": {
       "$ref": "#/$defs/api-shield_operation_schema_fragment"
@@ -97,7 +97,7 @@ export const api_shield_operation_schemas_output: JsonSchema = {
 /**
  * The schema of `api-shield_single-operation-response` in responses.
  */
-export const api_shield_single_operation_response_output: JsonSchema = {
+export const api$$shield_single$$operation$$response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/api-shield_api-response-common"

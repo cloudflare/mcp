@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `addressing_advertised-2` in responses.
  */
-export const addressing_advertised_2_output: JsonSchema = {
+export const addressing_advertised$$2: JsonSchema = {
   "oneOf": [
     {
       "type": "boolean"
@@ -20,7 +20,7 @@ export const addressing_advertised_2_output: JsonSchema = {
 /**
  * The schema of `addressing_asn-2` in responses.
  */
-export const addressing_asn_2_output: JsonSchema = {
+export const addressing_asn$$2: JsonSchema = {
   "oneOf": [
     {
       "type": "integer"
@@ -34,21 +34,21 @@ export const addressing_asn_2_output: JsonSchema = {
 /**
  * The schema of `addressing_asn_prepend_count` in responses.
  */
-export const addressing_asn_prepend_count_output: JsonSchema = {
+export const addressing_asn_prepend_count: JsonSchema = {
   "type": "integer"
 };
 
 /**
  * The schema of `addressing_auto_advertise_withdraw` in responses.
  */
-export const addressing_auto_advertise_withdraw_output: JsonSchema = {
+export const addressing_auto_advertise_withdraw: JsonSchema = {
   "type": "boolean"
 };
 
 /**
  * The schema of `addressing_bgp_on_demand` in responses.
  */
-export const addressing_bgp_on_demand_output: JsonSchema = {
+export const addressing_bgp_on_demand: JsonSchema = {
   "properties": {
     "advertised": {
       "$ref": "#/$defs/addressing_advertised-2"
@@ -69,14 +69,14 @@ export const addressing_bgp_on_demand_output: JsonSchema = {
 /**
  * The schema of `addressing_bgp_prefix_identifier` in responses.
  */
-export const addressing_bgp_prefix_identifier_output: JsonSchema = {
+export const addressing_bgp_prefix_identifier: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `addressing_bgp_signal_opts` in responses.
  */
-export const addressing_bgp_signal_opts_output: JsonSchema = {
+export const addressing_bgp_signal_opts: JsonSchema = {
   "properties": {
     "enabled": {
       "$ref": "#/$defs/addressing_bgp_signaling_enabled"
@@ -91,14 +91,14 @@ export const addressing_bgp_signal_opts_output: JsonSchema = {
 /**
  * The schema of `addressing_bgp_signaling_enabled` in responses.
  */
-export const addressing_bgp_signaling_enabled_output: JsonSchema = {
+export const addressing_bgp_signaling_enabled: JsonSchema = {
   "type": "boolean"
 };
 
 /**
  * The schema of `addressing_bgp_signaling_modified_at` in responses.
  */
-export const addressing_bgp_signaling_modified_at_output: JsonSchema = {
+export const addressing_bgp_signaling_modified_at: JsonSchema = {
   "oneOf": [
     {
       "format": "date-time",
@@ -113,7 +113,7 @@ export const addressing_bgp_signaling_modified_at_output: JsonSchema = {
 /**
  * The schema of `addressing_ipam-bgp-prefixes` in responses.
  */
-export const addressing_ipam_bgp_prefixes_output: JsonSchema = {
+export const addressing_ipam$$bgp$$prefixes: JsonSchema = {
   "properties": {
     "asn": {
       "$ref": "#/$defs/addressing_asn-2"
@@ -149,21 +149,21 @@ export const addressing_ipam_bgp_prefixes_output: JsonSchema = {
 /**
  * The schema of `addressing_on_demand_enabled-2` in responses.
  */
-export const addressing_on_demand_enabled_2_output: JsonSchema = {
+export const addressing_on_demand_enabled$$2: JsonSchema = {
   "type": "boolean"
 };
 
 /**
  * The schema of `addressing_on_demand_locked-2` in responses.
  */
-export const addressing_on_demand_locked_2_output: JsonSchema = {
+export const addressing_on_demand_locked$$2: JsonSchema = {
   "type": "boolean"
 };
 
 /**
  * The schema of `addressing_response_collection_bgp` in responses.
  */
-export const addressing_response_collection_bgp_output: JsonSchema = {
+export const addressing_response_collection_bgp: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/addressing_api-response-single"
@@ -185,7 +185,7 @@ export const addressing_response_collection_bgp_output: JsonSchema = {
 /**
  * The schema of `addressing_single_response_bgp` in responses.
  */
-export const addressing_single_response_bgp_output: JsonSchema = {
+export const addressing_single_response_bgp: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/addressing_api-response-single"

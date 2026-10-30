@@ -6,21 +6,21 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `tls-certificates-and-hostnames_cert_id` in responses.
  */
-export const tls_certificates_and_hostnames_cert_id_output: JsonSchema = {
+export const tls$$certificates$$and$$hostnames_cert_id: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `tls-certificates-and-hostnames_certificate-6` in responses.
  */
-export const tls_certificates_and_hostnames_certificate_6_output: JsonSchema = {
+export const tls$$certificates$$and$$hostnames_certificate$$6: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `tls-certificates-and-hostnames_created_at-3` in responses.
  */
-export const tls_certificates_and_hostnames_created_at_3_output: JsonSchema = {
+export const tls$$certificates$$and$$hostnames_created_at$$3: JsonSchema = {
   "format": "date-time",
   "type": "string"
 };
@@ -28,14 +28,14 @@ export const tls_certificates_and_hostnames_created_at_3_output: JsonSchema = {
 /**
  * The schema of `tls-certificates-and-hostnames_enabled-4` in responses.
  */
-export const tls_certificates_and_hostnames_enabled_4_output: JsonSchema = {
+export const tls$$certificates$$and$$hostnames_enabled$$4: JsonSchema = {
   "type": "boolean"
 };
 
 /**
  * The schema of `tls-certificates-and-hostnames_enabled-5` in responses.
  */
-export const tls_certificates_and_hostnames_enabled_5_output: JsonSchema = {
+export const tls$$certificates$$and$$hostnames_enabled$$5: JsonSchema = {
   "oneOf": [
     {
       "type": "boolean"
@@ -49,7 +49,7 @@ export const tls_certificates_and_hostnames_enabled_5_output: JsonSchema = {
 /**
  * The schema of `tls-certificates-and-hostnames_expires_on-5` in responses.
  */
-export const tls_certificates_and_hostnames_expires_on_5_output: JsonSchema = {
+export const tls$$certificates$$and$$hostnames_expires_on$$5: JsonSchema = {
   "format": "date-time",
   "type": "string"
 };
@@ -57,7 +57,7 @@ export const tls_certificates_and_hostnames_expires_on_5_output: JsonSchema = {
 /**
  * The schema of `tls-certificates-and-hostnames_hostname-2` in responses.
  */
-export const tls_certificates_and_hostnames_hostname_2_output: JsonSchema = {
+export const tls$$certificates$$and$$hostnames_hostname$$2: JsonSchema = {
   "type": "string"
 };
 
@@ -66,28 +66,28 @@ export const tls_certificates_and_hostnames_hostname_2_output: JsonSchema = {
  * `tls-certificates-and-hostnames_hostname_aop_certificate_identifier` in
  * responses.
  */
-export const tls_certificates_and_hostnames_hostname_aop_certificate_identifier_output: JsonSchema = {
+export const tls$$certificates$$and$$hostnames_hostname_aop_certificate_identifier: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `tls-certificates-and-hostnames_private_key-3` in responses.
  */
-export const tls_certificates_and_hostnames_private_key_3_output: JsonSchema = {
+export const tls$$certificates$$and$$hostnames_private_key$$3: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `tls-certificates-and-hostnames_serial_number` in responses.
  */
-export const tls_certificates_and_hostnames_serial_number_output: JsonSchema = {
+export const tls$$certificates$$and$$hostnames_serial_number: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `tls-certificates-and-hostnames_status-9` in responses.
  */
-export const tls_certificates_and_hostnames_status_9_output: JsonSchema = {
+export const tls$$certificates$$and$$hostnames_status$$9: JsonSchema = {
   "enum": [
     "initializing",
     "pending_deployment",
@@ -103,7 +103,7 @@ export const tls_certificates_and_hostnames_status_9_output: JsonSchema = {
 /**
  * The schema of `tls-certificates-and-hostnames_updated_at-3` in responses.
  */
-export const tls_certificates_and_hostnames_updated_at_3_output: JsonSchema = {
+export const tls$$certificates$$and$$hostnames_updated_at$$3: JsonSchema = {
   "format": "date-time",
   "type": "string"
 };
@@ -111,7 +111,7 @@ export const tls_certificates_and_hostnames_updated_at_3_output: JsonSchema = {
 /**
  * The schema of `tls-certificates-and-hostnames_uploaded_on-3` in responses.
  */
-export const tls_certificates_and_hostnames_uploaded_on_3_output: JsonSchema = {
+export const tls$$certificates$$and$$hostnames_uploaded_on$$3: JsonSchema = {
   "format": "date-time",
   "type": "string"
 };

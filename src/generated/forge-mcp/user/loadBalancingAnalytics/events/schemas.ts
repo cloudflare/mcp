@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `load-balancing_origin_healthy`.
  */
-export const load_balancing_origin_healthy: JsonSchema = {
+export const load$$balancing_origin_healthy: JsonSchema = {
   "description": "If true, filter events where the origin status is healthy. If false, filter events where the origin status is unhealthy.",
   "type": "boolean"
 };
@@ -14,7 +14,7 @@ export const load_balancing_origin_healthy: JsonSchema = {
 /**
  * The schema of `load-balancing_pool_name`.
  */
-export const load_balancing_pool_name: JsonSchema = {
+export const load$$balancing_pool_name: JsonSchema = {
   "description": "The name for the pool to filter.",
   "type": "string"
 };
@@ -22,7 +22,7 @@ export const load_balancing_pool_name: JsonSchema = {
 /**
  * The schema of `load-balancing_until`.
  */
-export const load_balancing_until: JsonSchema = {
+export const load$$balancing_until: JsonSchema = {
   "description": "End date and time of requesting data period in the ISO8601 format.",
   "format": "date-time",
   "type": "string"

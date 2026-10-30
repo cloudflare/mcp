@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../../_/tool.js";
 /**
  * The schema of `dns-settings_nameserver-name`.
  */
-export const dns_settings_nameserver_name: JsonSchema = {
+export const dns$$settings_nameserver$$name: JsonSchema = {
   "description": "A unique lowercase Punycode nameserver name within the set.",
   "type": "string"
 };
@@ -14,7 +14,7 @@ export const dns_settings_nameserver_name: JsonSchema = {
 /**
  * The schema of `dns-settings_nameserver-set-create`.
  */
-export const dns_settings_nameserver_set_create: JsonSchema = {
+export const dns$$settings_nameserver$$set$$create: JsonSchema = {
   "properties": {
     "advanced": {
       "default": false,
@@ -50,7 +50,7 @@ export const dns_settings_nameserver_set_create: JsonSchema = {
 /**
  * The schema of `dns-settings_nameserver-set-create-member`.
  */
-export const dns_settings_nameserver_set_create_member: JsonSchema = {
+export const dns$$settings_nameserver$$set$$create$$member: JsonSchema = {
   "properties": {
     "ip_count": {
       "$ref": "#/$defs/dns-settings_nameserver-set-ip-count",
@@ -71,7 +71,7 @@ export const dns_settings_nameserver_set_create_member: JsonSchema = {
 /**
  * The schema of `dns-settings_nameserver-set-id`.
  */
-export const dns_settings_nameserver_set_id: JsonSchema = {
+export const dns$$settings_nameserver$$set$$id: JsonSchema = {
   "description": "Identifier for a nameserver set.",
   "type": "string"
 };
@@ -79,7 +79,7 @@ export const dns_settings_nameserver_set_id: JsonSchema = {
 /**
  * The schema of `dns-settings_nameserver-set-ip-count`.
  */
-export const dns_settings_nameserver_set_ip_count: JsonSchema = {
+export const dns$$settings_nameserver$$set$$ip$$count: JsonSchema = {
   "description": "Number of IPv4 addresses and number of IPv6 addresses to allocate to this nameserver. All nameservers in an Advanced nameserver set must use the same value.",
   "type": "integer"
 };
@@ -87,7 +87,7 @@ export const dns_settings_nameserver_set_ip_count: JsonSchema = {
 /**
  * The schema of `dns-settings_nameserver-set-ip-set`.
  */
-export const dns_settings_nameserver_set_ip_set: JsonSchema = {
+export const dns$$settings_nameserver$$set$$ip$$set: JsonSchema = {
   "description": "Selects the account-specific IP set that supplies the nameserver addresses. Nameserver sets with the same `ip_set` and `advanced` value may reuse addresses; otherwise, they use disjoint address groups.",
   "type": "integer"
 };
@@ -95,7 +95,7 @@ export const dns_settings_nameserver_set_ip_set: JsonSchema = {
 /**
  * The schema of `dns-settings_nameserver-set-name`.
  */
-export const dns_settings_nameserver_set_name: JsonSchema = {
+export const dns$$settings_nameserver$$set$$name: JsonSchema = {
   "description": "Customer-defined name, unique within the account by exact string equality (case-sensitive, with no Unicode normalization). Must be valid UTF-8 and at most 255 UTF-8 bytes, not 255 characters. Only graphical Unicode characters are allowed; leading or trailing whitespace is rejected. The name can be changed without changing the set's nameservers or addresses.",
   "type": "string"
 };
@@ -103,7 +103,7 @@ export const dns_settings_nameserver_set_name: JsonSchema = {
 /**
  * The schema of `dns-settings_nameserver-set-patch`.
  */
-export const dns_settings_nameserver_set_patch: JsonSchema = {
+export const dns$$settings_nameserver$$set$$patch: JsonSchema = {
   "description": "Updates only the customer-defined name. All other fields are rejected, even if unchanged. An empty object or the current name succeeds without changing the set. A null name is invalid. Requires the account-scoped creation entitlements, including eligibility for the set's current IP set and the Advanced entitlement for an Advanced set.",
   "properties": {
     "name": {

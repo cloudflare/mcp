@@ -6,14 +6,14 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `aaa_alert_interval` in responses.
  */
-export const aaa_alert_interval_output: JsonSchema = {
+export const aaa_alert_interval: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `aaa_alert_type` in responses.
  */
-export const aaa_alert_type_output: JsonSchema = {
+export const aaa_alert_type: JsonSchema = {
   "enum": [
     "abuse_report_alert",
     "access_custom_certificate_expiration_type",
@@ -91,14 +91,14 @@ export const aaa_alert_type_output: JsonSchema = {
 /**
  * The schema of `aaa_enabled` in responses.
  */
-export const aaa_enabled_output: JsonSchema = {
+export const aaa_enabled: JsonSchema = {
   "type": "boolean"
 };
 
 /**
  * The schema of `aaa_filters` in responses.
  */
-export const aaa_filters_output: JsonSchema = {
+export const aaa_filters: JsonSchema = {
   "properties": {
     "actions": {
       "items": {
@@ -381,7 +381,7 @@ export const aaa_filters_output: JsonSchema = {
 /**
  * The schema of `aaa_mechanisms` in responses.
  */
-export const aaa_mechanisms_output: JsonSchema = {
+export const aaa_mechanisms: JsonSchema = {
   "properties": {
     "email": {
       "items": {
@@ -423,7 +423,7 @@ export const aaa_mechanisms_output: JsonSchema = {
 /**
  * The schema of `aaa_policies` in responses.
  */
-export const aaa_policies_output: JsonSchema = {
+export const aaa_policies: JsonSchema = {
   "properties": {
     "alert_interval": {
       "$ref": "#/$defs/aaa_alert_interval"
@@ -463,7 +463,7 @@ export const aaa_policies_output: JsonSchema = {
  * The schema of `aaa_policies_components-schemas-response_collection` in
  * responses.
  */
-export const aaa_policies_components_schemas_response_collection_output: JsonSchema = {
+export const aaa_policies_components$$schemas$$response_collection: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/aaa_api-response-common-2"
@@ -485,14 +485,14 @@ export const aaa_policies_components_schemas_response_collection_output: JsonSch
 /**
  * The schema of `aaa_schemas-description` in responses.
  */
-export const aaa_schemas_description_output: JsonSchema = {
+export const aaa_schemas$$description: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `aaa_single_response` in responses.
  */
-export const aaa_single_response_output: JsonSchema = {
+export const aaa_single_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/aaa_api-response-single"
@@ -511,7 +511,7 @@ export const aaa_single_response_output: JsonSchema = {
 /**
  * The schema of `aaa_timestamp` in responses.
  */
-export const aaa_timestamp_output: JsonSchema = {
+export const aaa_timestamp: JsonSchema = {
   "format": "date-time",
   "type": "string"
 };

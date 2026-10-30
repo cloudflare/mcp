@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `iam_scim_authentication_scheme` in responses.
  */
-export const iam_scim_authentication_scheme_output: JsonSchema = {
+export const iam_scim_authentication_scheme: JsonSchema = {
   "properties": {
     "description": {
       "type": "string"
@@ -38,7 +38,7 @@ export const iam_scim_authentication_scheme_output: JsonSchema = {
 /**
  * The schema of `iam_scim_bulk_feature` in responses.
  */
-export const iam_scim_bulk_feature_output: JsonSchema = {
+export const iam_scim_bulk_feature: JsonSchema = {
   "properties": {
     "maxOperations": {
       "type": "integer"
@@ -61,7 +61,7 @@ export const iam_scim_bulk_feature_output: JsonSchema = {
 /**
  * The schema of `iam_scim_feature` in responses.
  */
-export const iam_scim_feature_output: JsonSchema = {
+export const iam_scim_feature: JsonSchema = {
   "properties": {
     "supported": {
       "type": "boolean"
@@ -76,7 +76,7 @@ export const iam_scim_feature_output: JsonSchema = {
 /**
  * The schema of `iam_scim_filter_feature` in responses.
  */
-export const iam_scim_filter_feature_output: JsonSchema = {
+export const iam_scim_filter_feature: JsonSchema = {
   "properties": {
     "maxResults": {
       "type": "integer"
@@ -95,7 +95,7 @@ export const iam_scim_filter_feature_output: JsonSchema = {
 /**
  * The schema of `iam_scim_service_provider_config` in responses.
  */
-export const iam_scim_service_provider_config_output: JsonSchema = {
+export const iam_scim_service_provider_config: JsonSchema = {
   "properties": {
     "authenticationSchemes": {
       "items": {

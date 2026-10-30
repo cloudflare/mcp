@@ -6,7 +6,7 @@ import type { JsonSchema } from "../_/tool.js";
 /**
  * The schema of `security-center_securityTxt`.
  */
-export const security_center_securityTxt: JsonSchema = {
+export const security$$center_securityTxt: JsonSchema = {
   "properties": {
     "acknowledgments": {
       "items": {

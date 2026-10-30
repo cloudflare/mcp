@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `access_associated_hostnames` in responses.
  */
-export const access_associated_hostnames_output: JsonSchema = {
+export const access_associated_hostnames: JsonSchema = {
   "items": {
     "type": "string"
   },
@@ -16,7 +16,7 @@ export const access_associated_hostnames_output: JsonSchema = {
 /**
  * The schema of `access_certificates` in responses.
  */
-export const access_certificates_output: JsonSchema = {
+export const access_certificates: JsonSchema = {
   "properties": {
     "associated_hostnames": {
       "$ref": "#/$defs/access_associated_hostnames"
@@ -46,21 +46,21 @@ export const access_certificates_output: JsonSchema = {
 /**
  * The schema of `access_fingerprint` in responses.
  */
-export const access_fingerprint_output: JsonSchema = {
+export const access_fingerprint: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `access_name-7` in responses.
  */
-export const access_name_7_output: JsonSchema = {
+export const access_name$$7: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `access_response_collection-6` in responses.
  */
-export const access_response_collection_6_output: JsonSchema = {
+export const access_response_collection$$6: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/access_api-response-collection"
@@ -82,7 +82,7 @@ export const access_response_collection_6_output: JsonSchema = {
 /**
  * The schema of `access_single_response-7` in responses.
  */
-export const access_single_response_7_output: JsonSchema = {
+export const access_single_response$$7: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/access_api-response-single"

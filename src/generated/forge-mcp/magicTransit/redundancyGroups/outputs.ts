@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `magic_delete_redundancy_group_response` in responses.
  */
-export const magic_delete_redundancy_group_response_output: JsonSchema = {
+export const magic_delete_redundancy_group_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/magic_api-response-single"
@@ -37,7 +37,7 @@ export const magic_delete_redundancy_group_response_output: JsonSchema = {
 /**
  * The schema of `magic_redundancy_group` in responses.
  */
-export const magic_redundancy_group_output: JsonSchema = {
+export const magic_redundancy_group: JsonSchema = {
   "properties": {
     "created_on": {
       "format": "date-time",
@@ -63,7 +63,7 @@ export const magic_redundancy_group_output: JsonSchema = {
 /**
  * The schema of `magic_redundancy_group_single_response` in responses.
  */
-export const magic_redundancy_group_single_response_output: JsonSchema = {
+export const magic_redundancy_group_single_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/magic_api-response-single"
@@ -82,7 +82,7 @@ export const magic_redundancy_group_single_response_output: JsonSchema = {
 /**
  * The schema of `magic_redundancy_group_with_members` in responses.
  */
-export const magic_redundancy_group_with_members_output: JsonSchema = {
+export const magic_redundancy_group_with_members: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/magic_redundancy_group"
@@ -104,7 +104,7 @@ export const magic_redundancy_group_with_members_output: JsonSchema = {
 /**
  * The schema of `magic_redundancy_group_with_members_response` in responses.
  */
-export const magic_redundancy_group_with_members_response_output: JsonSchema = {
+export const magic_redundancy_group_with_members_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/magic_api-response-single"
@@ -123,7 +123,7 @@ export const magic_redundancy_group_with_members_response_output: JsonSchema = {
 /**
  * The schema of `magic_redundancy_groups_collection_response` in responses.
  */
-export const magic_redundancy_groups_collection_response_output: JsonSchema = {
+export const magic_redundancy_groups_collection_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/magic_api-response-single"
@@ -150,7 +150,7 @@ export const magic_redundancy_groups_collection_response_output: JsonSchema = {
 /**
  * The schema of `magic_redundancy_member_data` in responses.
  */
-export const magic_redundancy_member_data_output: JsonSchema = {
+export const magic_redundancy_member_data: JsonSchema = {
   "properties": {
     "data": {
       "type": "object"

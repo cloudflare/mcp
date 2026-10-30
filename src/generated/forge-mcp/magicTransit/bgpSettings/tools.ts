@@ -3,16 +3,16 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
-  magic_api_response_common_failure_output,
-  magic_api_response_common_output,
-  magic_api_response_single_output,
-  magic_messages_output,
+  magic_api$$response$$common,
+  magic_api$$response$$common$$failure,
+  magic_api$$response$$single,
+  magic_messages,
 } from "../outputs.js";
 import { magic_identifier } from "../schemas.js";
 import {
-  magic_bgp_redistribute_sources_output,
-  magic_bgp_settings_output,
-  magic_magic_bgp_settings_response_output,
+  magic_bgp_redistribute_sources,
+  magic_bgp_settings,
+  magic_magic_bgp_settings_response,
 } from "./outputs.js";
 import {
   magic_update_bgp_settings_redistribute_sources,
@@ -20,23 +20,31 @@ import {
 } from "./schemas.js";
 
 /**
- * The tools of `magic_transit.bgp_settings`.
+ * The tools of `magicTransit.bgpSettings`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "magic_transit_bgp_settings_get",
+    name: "magicTransit_bgpSettings_get",
     title: "Get BGP Settings",
     description: "Gets the BGP settings for an account, including the default ASN and redistribution configuration.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/magic_identifier",
-          "description": "Identifier"
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/magic_identifier",
+              "description": "Identifier"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id"
+        "path"
       ],
       $defs: {
         "magic_identifier": magic_identifier,
@@ -45,12 +53,12 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/magic_magic_bgp_settings_response",
       $defs: {
-        "magic_api-response-common": magic_api_response_common_output,
-        "magic_api-response-single": magic_api_response_single_output,
-        "magic_bgp_redistribute_sources": magic_bgp_redistribute_sources_output,
-        "magic_bgp_settings": magic_bgp_settings_output,
-        "magic_magic_bgp_settings_response": magic_magic_bgp_settings_response_output,
-        "magic_messages": magic_messages_output,
+        "magic_api-response-common": magic_api$$response$$common,
+        "magic_api-response-single": magic_api$$response$$single,
+        "magic_bgp_redistribute_sources": magic_bgp_redistribute_sources,
+        "magic_bgp_settings": magic_bgp_settings,
+        "magic_magic_bgp_settings_response": magic_magic_bgp_settings_response,
+        "magic_messages": magic_messages,
       },
     },
     annotations: {
@@ -81,13 +89,13 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "magic_api-response-common": magic_api_response_common_output,
-        "magic_api-response-common-failure": magic_api_response_common_failure_output,
-        "magic_api-response-single": magic_api_response_single_output,
-        "magic_bgp_redistribute_sources": magic_bgp_redistribute_sources_output,
-        "magic_bgp_settings": magic_bgp_settings_output,
-        "magic_magic_bgp_settings_response": magic_magic_bgp_settings_response_output,
-        "magic_messages": magic_messages_output,
+        "magic_api-response-common": magic_api$$response$$common,
+        "magic_api-response-common-failure": magic_api$$response$$common$$failure,
+        "magic_api-response-single": magic_api$$response$$single,
+        "magic_bgp_redistribute_sources": magic_bgp_redistribute_sources,
+        "magic_bgp_settings": magic_bgp_settings,
+        "magic_magic_bgp_settings_response": magic_magic_bgp_settings_response,
+        "magic_messages": magic_messages,
       },
     },
     request: (args) => ({
@@ -95,22 +103,30 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "magic_transit_bgp_settings_update",
+    name: "magicTransit_bgpSettings_update",
     title: "Update BGP Settings",
     description: "Modifies the BGP settings for an account, including the default ASN and redistribution configuration.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/magic_identifier",
-          "description": "Identifier"
-        },
         "body": {
           "$ref": "#/$defs/magic_update_bgp_settings_request"
+        },
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/magic_identifier",
+              "description": "Identifier"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
+        "path",
         "body"
       ],
       $defs: {
@@ -122,12 +138,12 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/magic_magic_bgp_settings_response",
       $defs: {
-        "magic_api-response-common": magic_api_response_common_output,
-        "magic_api-response-single": magic_api_response_single_output,
-        "magic_bgp_redistribute_sources": magic_bgp_redistribute_sources_output,
-        "magic_bgp_settings": magic_bgp_settings_output,
-        "magic_magic_bgp_settings_response": magic_magic_bgp_settings_response_output,
-        "magic_messages": magic_messages_output,
+        "magic_api-response-common": magic_api$$response$$common,
+        "magic_api-response-single": magic_api$$response$$single,
+        "magic_bgp_redistribute_sources": magic_bgp_redistribute_sources,
+        "magic_bgp_settings": magic_bgp_settings,
+        "magic_magic_bgp_settings_response": magic_magic_bgp_settings_response,
+        "magic_messages": magic_messages,
       },
     },
     annotations: {
@@ -158,13 +174,13 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "magic_api-response-common": magic_api_response_common_output,
-        "magic_api-response-common-failure": magic_api_response_common_failure_output,
-        "magic_api-response-single": magic_api_response_single_output,
-        "magic_bgp_redistribute_sources": magic_bgp_redistribute_sources_output,
-        "magic_bgp_settings": magic_bgp_settings_output,
-        "magic_magic_bgp_settings_response": magic_magic_bgp_settings_response_output,
-        "magic_messages": magic_messages_output,
+        "magic_api-response-common": magic_api$$response$$common,
+        "magic_api-response-common-failure": magic_api$$response$$common$$failure,
+        "magic_api-response-single": magic_api$$response$$single,
+        "magic_bgp_redistribute_sources": magic_bgp_redistribute_sources,
+        "magic_bgp_settings": magic_bgp_settings,
+        "magic_magic_bgp_settings_response": magic_magic_bgp_settings_response,
+        "magic_messages": magic_messages,
       },
     },
     request: (args) => ({

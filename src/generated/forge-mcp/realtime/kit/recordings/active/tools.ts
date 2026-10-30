@@ -3,15 +3,15 @@
 
 import { type Tool, pathParam } from "../../../../_/tool.js";
 import {
-  realtimekit_GenericErrorResponse_output,
-  realtimekit_GenericSuccessResponse_output,
-  realtimekit_ValidationIssue_output,
+  realtimekit_GenericErrorResponse,
+  realtimekit_GenericSuccessResponse,
+  realtimekit_ValidationIssue,
 } from "../../outputs.js";
 import {
   realtimekit_account_identifier,
   realtimekit_app_id,
 } from "../../schemas.js";
-import { realtimekit_Recording_output } from "../outputs.js";
+import { realtimekit_Recording } from "../outputs.js";
 
 /**
  * The tools of `realtime.kit.recordings.active`.
@@ -24,23 +24,31 @@ export const tools: readonly Tool[] = [
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/realtimekit_account_identifier",
-          "description": "The account identifier tag."
-        },
-        "app_id": {
-          "$ref": "#/$defs/realtimekit_app_id",
-          "description": "The app identifier tag."
-        },
-        "meeting_id": {
-          "description": "ID of the meeting",
-          "type": "string"
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/realtimekit_account_identifier",
+              "description": "The account identifier tag."
+            },
+            "app_id": {
+              "$ref": "#/$defs/realtimekit_app_id",
+              "description": "The app identifier tag."
+            },
+            "meeting_id": {
+              "description": "ID of the meeting",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "app_id",
+            "meeting_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "app_id",
-        "meeting_id"
+        "path"
       ],
       $defs: {
         "realtimekit_account_identifier": realtimekit_account_identifier,
@@ -65,8 +73,8 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "realtimekit_GenericSuccessResponse": realtimekit_GenericSuccessResponse_output,
-        "realtimekit_Recording": realtimekit_Recording_output,
+        "realtimekit_GenericSuccessResponse": realtimekit_GenericSuccessResponse,
+        "realtimekit_Recording": realtimekit_Recording,
       },
     },
     annotations: {
@@ -109,10 +117,10 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "realtimekit_GenericErrorResponse": realtimekit_GenericErrorResponse_output,
-        "realtimekit_GenericSuccessResponse": realtimekit_GenericSuccessResponse_output,
-        "realtimekit_Recording": realtimekit_Recording_output,
-        "realtimekit_ValidationIssue": realtimekit_ValidationIssue_output,
+        "realtimekit_GenericErrorResponse": realtimekit_GenericErrorResponse,
+        "realtimekit_GenericSuccessResponse": realtimekit_GenericSuccessResponse,
+        "realtimekit_Recording": realtimekit_Recording,
+        "realtimekit_ValidationIssue": realtimekit_ValidationIssue,
       },
     },
     request: (args) => ({

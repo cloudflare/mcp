@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `api-shield_api_discovery_origin` in responses.
  */
-export const api_shield_api_discovery_origin_output: JsonSchema = {
+export const api$$shield_api_discovery_origin: JsonSchema = {
   "enum": [
     "ML",
     "SessionIdentifier",
@@ -18,7 +18,7 @@ export const api_shield_api_discovery_origin_output: JsonSchema = {
 /**
  * The schema of `api-shield_api_discovery_patch_multiple_request` in responses.
  */
-export const api_shield_api_discovery_patch_multiple_request_output: JsonSchema = {
+export const api$$shield_api_discovery_patch_multiple_request: JsonSchema = {
   "additionalProperties": {
     "$ref": "#/$defs/api-shield_api_discovery_patch_multiple_request_entry"
   },
@@ -29,7 +29,7 @@ export const api_shield_api_discovery_patch_multiple_request_output: JsonSchema 
  * The schema of `api-shield_api_discovery_patch_multiple_request_entry` in
  * responses.
  */
-export const api_shield_api_discovery_patch_multiple_request_entry_output: JsonSchema = {
+export const api$$shield_api_discovery_patch_multiple_request_entry: JsonSchema = {
   "properties": {
     "state": {
       "$ref": "#/$defs/api-shield_api_discovery_state_patch"
@@ -41,7 +41,7 @@ export const api_shield_api_discovery_patch_multiple_request_entry_output: JsonS
 /**
  * The schema of `api-shield_api_discovery_state` in responses.
  */
-export const api_shield_api_discovery_state_output: JsonSchema = {
+export const api$$shield_api_discovery_state: JsonSchema = {
   "enum": [
     "review",
     "saved",
@@ -53,7 +53,7 @@ export const api_shield_api_discovery_state_output: JsonSchema = {
 /**
  * The schema of `api-shield_api_discovery_state_patch` in responses.
  */
-export const api_shield_api_discovery_state_patch_output: JsonSchema = {
+export const api$$shield_api_discovery_state_patch: JsonSchema = {
   "enum": [
     "review",
     "ignored"
@@ -64,7 +64,7 @@ export const api_shield_api_discovery_state_patch_output: JsonSchema = {
 /**
  * The schema of `api-shield_discovery_operation` in responses.
  */
-export const api_shield_discovery_operation_output: JsonSchema = {
+export const api$$shield_discovery_operation: JsonSchema = {
   "allOf": [
     {
       "properties": {
@@ -104,7 +104,7 @@ export const api_shield_discovery_operation_output: JsonSchema = {
 /**
  * The schema of `api-shield_patch_discoveries_response` in responses.
  */
-export const api_shield_patch_discoveries_response_output: JsonSchema = {
+export const api$$shield_patch_discoveries_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/api-shield_api-response-common"
@@ -126,7 +126,7 @@ export const api_shield_patch_discoveries_response_output: JsonSchema = {
 /**
  * The schema of `api-shield_patch_discovery_response` in responses.
  */
-export const api_shield_patch_discovery_response_output: JsonSchema = {
+export const api$$shield_patch_discovery_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/api-shield_api-response-common"
@@ -153,7 +153,7 @@ export const api_shield_patch_discovery_response_output: JsonSchema = {
 /**
  * The schema of `api-shield_traffic_stats` in responses.
  */
-export const api_shield_traffic_stats_output: JsonSchema = {
+export const api$$shield_traffic_stats: JsonSchema = {
   "properties": {
     "traffic_stats": {
       "properties": {

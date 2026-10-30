@@ -6,7 +6,7 @@ import type { JsonSchema } from "../_/tool.js";
 /**
  * The schema of `stream_api-response-common` in responses.
  */
-export const stream_api_response_common_output: JsonSchema = {
+export const stream_api$$response$$common: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/stream_messages"
@@ -32,7 +32,7 @@ export const stream_api_response_common_output: JsonSchema = {
 /**
  * The schema of `stream_api-response-common-failure` in responses.
  */
-export const stream_api_response_common_failure_output: JsonSchema = {
+export const stream_api$$response$$common$$failure: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/stream_messages"
@@ -62,7 +62,7 @@ export const stream_api_response_common_failure_output: JsonSchema = {
 /**
  * The schema of `stream_api-response-single` in responses.
  */
-export const stream_api_response_single_output: JsonSchema = {
+export const stream_api$$response$$single: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/stream_messages"
@@ -88,14 +88,14 @@ export const stream_api_response_single_output: JsonSchema = {
 /**
  * The schema of `stream_creator` in responses.
  */
-export const stream_creator_output: JsonSchema = {
+export const stream_creator: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `stream_deleted_response` in responses.
  */
-export const stream_deleted_response_output: JsonSchema = {
+export const stream_deleted_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/stream_api-response-single"
@@ -114,28 +114,28 @@ export const stream_deleted_response_output: JsonSchema = {
 /**
  * The schema of `stream_downloadedFrom` in responses.
  */
-export const stream_downloadedFrom_output: JsonSchema = {
+export const stream_downloadedFrom: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `stream_height` in responses.
  */
-export const stream_height_output: JsonSchema = {
+export const stream_height: JsonSchema = {
   "type": "integer"
 };
 
 /**
  * The schema of `stream_identifier-2` in responses.
  */
-export const stream_identifier_2_output: JsonSchema = {
+export const stream_identifier$$2: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `stream_messages` in responses.
  */
-export const stream_messages_output: JsonSchema = {
+export const stream_messages: JsonSchema = {
   "items": {
     "properties": {
       "code": {
@@ -168,42 +168,42 @@ export const stream_messages_output: JsonSchema = {
 /**
  * The schema of `stream_name` in responses.
  */
-export const stream_name_output: JsonSchema = {
+export const stream_name: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `stream_opacity` in responses.
  */
-export const stream_opacity_output: JsonSchema = {
+export const stream_opacity: JsonSchema = {
   "type": "number"
 };
 
 /**
  * The schema of `stream_padding` in responses.
  */
-export const stream_padding_output: JsonSchema = {
+export const stream_padding: JsonSchema = {
   "type": "number"
 };
 
 /**
  * The schema of `stream_position` in responses.
  */
-export const stream_position_output: JsonSchema = {
+export const stream_position: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `stream_scale` in responses.
  */
-export const stream_scale_output: JsonSchema = {
+export const stream_scale: JsonSchema = {
   "type": "number"
 };
 
 /**
  * The schema of `stream_storage_use_response` in responses.
  */
-export const stream_storage_use_response_output: JsonSchema = {
+export const stream_storage_use_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/stream_api-response-single"
@@ -236,7 +236,7 @@ export const stream_storage_use_response_output: JsonSchema = {
 /**
  * The schema of `stream_watermark_created` in responses.
  */
-export const stream_watermark_created_output: JsonSchema = {
+export const stream_watermark_created: JsonSchema = {
   "format": "date-time",
   "type": "string"
 };
@@ -244,21 +244,21 @@ export const stream_watermark_created_output: JsonSchema = {
 /**
  * The schema of `stream_watermark_identifier` in responses.
  */
-export const stream_watermark_identifier_output: JsonSchema = {
+export const stream_watermark_identifier: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `stream_watermark_size` in responses.
  */
-export const stream_watermark_size_output: JsonSchema = {
+export const stream_watermark_size: JsonSchema = {
   "type": "number"
 };
 
 /**
  * The schema of `stream_watermarks` in responses.
  */
-export const stream_watermarks_output: JsonSchema = {
+export const stream_watermarks: JsonSchema = {
   "properties": {
     "created": {
       "$ref": "#/$defs/stream_watermark_created"
@@ -300,6 +300,6 @@ export const stream_watermarks_output: JsonSchema = {
 /**
  * The schema of `stream_width` in responses.
  */
-export const stream_width_output: JsonSchema = {
+export const stream_width: JsonSchema = {
   "type": "integer"
 };

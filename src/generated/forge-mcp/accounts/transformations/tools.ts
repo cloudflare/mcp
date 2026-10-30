@@ -3,12 +3,12 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
-  speed_api_response_common_failure_output,
-  speed_api_response_common_output,
-  speed_messages_output,
+  speed_api$$response$$common,
+  speed_api$$response$$common$$failure,
+  speed_messages,
 } from "../../outputs.js";
 import { speed_identifier } from "../../schemas.js";
-import { speed_zone_config_item_output } from "./outputs.js";
+import { speed_zone_config_item } from "./outputs.js";
 
 /**
  * The tools of `accounts.transformations`.
@@ -21,13 +21,21 @@ export const tools: readonly Tool[] = [
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/speed_identifier",
-          "description": "Identifier."
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/speed_identifier",
+              "description": "Identifier."
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id"
+        "path"
       ],
       $defs: {
         "speed_identifier": speed_identifier,
@@ -51,9 +59,9 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "speed_api-response-common": speed_api_response_common_output,
-        "speed_messages": speed_messages_output,
-        "speed_zone_config_item": speed_zone_config_item_output,
+        "speed_api-response-common": speed_api$$response$$common,
+        "speed_messages": speed_messages,
+        "speed_zone_config_item": speed_zone_config_item,
       },
     },
     annotations: {
@@ -101,10 +109,10 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "speed_api-response-common": speed_api_response_common_output,
-        "speed_api-response-common-failure": speed_api_response_common_failure_output,
-        "speed_messages": speed_messages_output,
-        "speed_zone_config_item": speed_zone_config_item_output,
+        "speed_api-response-common": speed_api$$response$$common,
+        "speed_api-response-common-failure": speed_api$$response$$common$$failure,
+        "speed_messages": speed_messages,
+        "speed_zone_config_item": speed_zone_config_item,
       },
     },
     request: (args) => ({

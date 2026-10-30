@@ -14,7 +14,7 @@ export const magic_cloudflare_ipsec_endpoint: JsonSchema = {
 /**
  * The schema of `magic_components-schemas-description`.
  */
-export const magic_components_schemas_description: JsonSchema = {
+export const magic_components$$schemas$$description: JsonSchema = {
   "description": "An optional description forthe IPsec tunnel.",
   "type": "string"
 };

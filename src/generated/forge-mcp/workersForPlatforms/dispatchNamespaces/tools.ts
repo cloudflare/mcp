@@ -3,44 +3,40 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
-  workers_api_response_common_failure_output,
-  workers_api_response_common_output,
-  workers_api_response_null_result_output,
-  workers_created_on_output,
-  workers_identifier_output,
-  workers_messages_output,
-  workers_modified_on_output,
+  workers_api$$response$$common,
+  workers_api$$response$$common$$failure,
+  workers_api$$response$$null$$result,
+  workers_created_on,
+  workers_identifier,
+  workers_messages,
+  workers_modified_on,
 } from "../../outputs.js";
-import { workers_identifier } from "../../schemas.js";
-import {
-  workers_dispatch_namespace_name_output,
-  workers_namespace_list_response_output,
-  workers_namespace_response_output,
-  workers_namespace_single_response_output,
-  workers_script_count_output,
-  workers_trusted_workers_output,
-  workers_uuid_output,
-} from "./outputs.js";
+import { workers_identifier as workers_identifier$ } from "../../schemas.js";
 import {
   workers_dispatch_namespace_name,
+  workers_namespace$$list$$response,
+  workers_namespace$$response,
+  workers_namespace$$single$$response,
+  workers_script_count,
   workers_trusted_workers,
+  workers_uuid,
+} from "./outputs.js";
+import {
+  workers_dispatch_namespace_name as workers_dispatch_namespace_name$,
+  workers_trusted_workers as workers_trusted_workers$,
 } from "./schemas.js";
 
 /**
- * The tools of `workers_for_platforms.dispatch_namespaces`.
+ * The tools of `workersForPlatforms.dispatchNamespaces`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "workers_for_platforms_dispatch_namespaces_create",
+    name: "workersForPlatforms_dispatchNamespaces_create",
     title: "Create Workers for Platforms Dispatch Namespace",
     description: "Create a new Workers for Platforms dispatch namespace.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/workers_identifier",
-          "description": "Identifier."
-        },
         "body": {
           "properties": {
             "name": {
@@ -49,30 +45,42 @@ export const tools: readonly Tool[] = [
             }
           },
           "type": "object"
+        },
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/workers_identifier",
+              "description": "Identifier."
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
+        "path",
         "body"
       ],
       $defs: {
-        "workers_identifier": workers_identifier,
+        "workers_identifier": workers_identifier$,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/workers_namespace-single-response",
       $defs: {
-        "workers_api-response-common": workers_api_response_common_output,
-        "workers_created_on": workers_created_on_output,
-        "workers_dispatch_namespace_name": workers_dispatch_namespace_name_output,
-        "workers_identifier": workers_identifier_output,
-        "workers_messages": workers_messages_output,
-        "workers_modified_on": workers_modified_on_output,
-        "workers_namespace-response": workers_namespace_response_output,
-        "workers_namespace-single-response": workers_namespace_single_response_output,
-        "workers_script_count": workers_script_count_output,
-        "workers_trusted_workers": workers_trusted_workers_output,
-        "workers_uuid": workers_uuid_output,
+        "workers_api-response-common": workers_api$$response$$common,
+        "workers_created_on": workers_created_on,
+        "workers_dispatch_namespace_name": workers_dispatch_namespace_name,
+        "workers_identifier": workers_identifier,
+        "workers_messages": workers_messages,
+        "workers_modified_on": workers_modified_on,
+        "workers_namespace-response": workers_namespace$$response,
+        "workers_namespace-single-response": workers_namespace$$single$$response,
+        "workers_script_count": workers_script_count,
+        "workers_trusted_workers": workers_trusted_workers,
+        "workers_uuid": workers_uuid,
       },
     },
     annotations: {
@@ -99,18 +107,18 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "workers_api-response-common": workers_api_response_common_output,
-        "workers_api-response-common-failure": workers_api_response_common_failure_output,
-        "workers_created_on": workers_created_on_output,
-        "workers_dispatch_namespace_name": workers_dispatch_namespace_name_output,
-        "workers_identifier": workers_identifier_output,
-        "workers_messages": workers_messages_output,
-        "workers_modified_on": workers_modified_on_output,
-        "workers_namespace-response": workers_namespace_response_output,
-        "workers_namespace-single-response": workers_namespace_single_response_output,
-        "workers_script_count": workers_script_count_output,
-        "workers_trusted_workers": workers_trusted_workers_output,
-        "workers_uuid": workers_uuid_output,
+        "workers_api-response-common": workers_api$$response$$common,
+        "workers_api-response-common-failure": workers_api$$response$$common$$failure,
+        "workers_created_on": workers_created_on,
+        "workers_dispatch_namespace_name": workers_dispatch_namespace_name,
+        "workers_identifier": workers_identifier,
+        "workers_messages": workers_messages,
+        "workers_modified_on": workers_modified_on,
+        "workers_namespace-response": workers_namespace$$response,
+        "workers_namespace-single-response": workers_namespace$$single$$response,
+        "workers_script_count": workers_script_count,
+        "workers_trusted_workers": workers_trusted_workers,
+        "workers_uuid": workers_uuid,
       },
     },
     request: (args) => ({
@@ -119,36 +127,44 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "workers_for_platforms_dispatch_namespaces_delete",
+    name: "workersForPlatforms_dispatchNamespaces_delete",
     title: "Delete Workers for Platforms Dispatch Namespace",
     description: "Delete a Workers for Platforms dispatch namespace.\n\nConfirm with the user before calling this tool. This will permanently delete the Workers for Platforms dispatch namespace.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/workers_identifier",
-          "description": "Identifier."
-        },
-        "dispatch_namespace": {
-          "$ref": "#/$defs/workers_dispatch_namespace_name",
-          "description": "Name of the Workers for Platforms dispatch namespace."
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/workers_identifier",
+              "description": "Identifier."
+            },
+            "dispatch_namespace": {
+              "$ref": "#/$defs/workers_dispatch_namespace_name",
+              "description": "Name of the Workers for Platforms dispatch namespace."
+            }
+          },
+          "required": [
+            "account_id",
+            "dispatch_namespace"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "dispatch_namespace"
+        "path"
       ],
       $defs: {
-        "workers_dispatch_namespace_name": workers_dispatch_namespace_name,
-        "workers_identifier": workers_identifier,
+        "workers_dispatch_namespace_name": workers_dispatch_namespace_name$,
+        "workers_identifier": workers_identifier$,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/workers_api-response-null-result",
       $defs: {
-        "workers_api-response-common": workers_api_response_common_output,
-        "workers_api-response-null-result": workers_api_response_null_result_output,
-        "workers_messages": workers_messages_output,
+        "workers_api-response-common": workers_api$$response$$common,
+        "workers_api-response-null-result": workers_api$$response$$null$$result,
+        "workers_messages": workers_messages,
       },
     },
     annotations: {
@@ -175,10 +191,10 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "workers_api-response-common": workers_api_response_common_output,
-        "workers_api-response-common-failure": workers_api_response_common_failure_output,
-        "workers_api-response-null-result": workers_api_response_null_result_output,
-        "workers_messages": workers_messages_output,
+        "workers_api-response-common": workers_api$$response$$common,
+        "workers_api-response-common-failure": workers_api$$response$$common$$failure,
+        "workers_api-response-null-result": workers_api$$response$$null$$result,
+        "workers_messages": workers_messages,
       },
     },
     request: (args) => ({
@@ -186,16 +202,12 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "workers_for_platforms_dispatch_namespaces_edit",
+    name: "workersForPlatforms_dispatchNamespaces_edit",
     title: "Patch Workers for Platforms Dispatch Namespace",
     description: "Patch a Workers for Platforms dispatch namespace. Omitted fields are left unchanged.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/workers_identifier",
-          "description": "Identifier."
-        },
         "body": {
           "properties": {
             "name": {
@@ -210,36 +222,48 @@ export const tools: readonly Tool[] = [
           },
           "type": "object"
         },
-        "dispatch_namespace": {
-          "$ref": "#/$defs/workers_dispatch_namespace_name",
-          "description": "Name of the Workers for Platforms dispatch namespace."
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/workers_identifier",
+              "description": "Identifier."
+            },
+            "dispatch_namespace": {
+              "$ref": "#/$defs/workers_dispatch_namespace_name",
+              "description": "Name of the Workers for Platforms dispatch namespace."
+            }
+          },
+          "required": [
+            "account_id",
+            "dispatch_namespace"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "dispatch_namespace",
+        "path",
         "body"
       ],
       $defs: {
-        "workers_dispatch_namespace_name": workers_dispatch_namespace_name,
-        "workers_identifier": workers_identifier,
-        "workers_trusted_workers": workers_trusted_workers,
+        "workers_dispatch_namespace_name": workers_dispatch_namespace_name$,
+        "workers_identifier": workers_identifier$,
+        "workers_trusted_workers": workers_trusted_workers$,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/workers_namespace-single-response",
       $defs: {
-        "workers_api-response-common": workers_api_response_common_output,
-        "workers_created_on": workers_created_on_output,
-        "workers_dispatch_namespace_name": workers_dispatch_namespace_name_output,
-        "workers_identifier": workers_identifier_output,
-        "workers_messages": workers_messages_output,
-        "workers_modified_on": workers_modified_on_output,
-        "workers_namespace-response": workers_namespace_response_output,
-        "workers_namespace-single-response": workers_namespace_single_response_output,
-        "workers_script_count": workers_script_count_output,
-        "workers_trusted_workers": workers_trusted_workers_output,
-        "workers_uuid": workers_uuid_output,
+        "workers_api-response-common": workers_api$$response$$common,
+        "workers_created_on": workers_created_on,
+        "workers_dispatch_namespace_name": workers_dispatch_namespace_name,
+        "workers_identifier": workers_identifier,
+        "workers_messages": workers_messages,
+        "workers_modified_on": workers_modified_on,
+        "workers_namespace-response": workers_namespace$$response,
+        "workers_namespace-single-response": workers_namespace$$single$$response,
+        "workers_script_count": workers_script_count,
+        "workers_trusted_workers": workers_trusted_workers,
+        "workers_uuid": workers_uuid,
       },
     },
     annotations: {
@@ -269,18 +293,18 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "workers_api-response-common": workers_api_response_common_output,
-        "workers_api-response-common-failure": workers_api_response_common_failure_output,
-        "workers_created_on": workers_created_on_output,
-        "workers_dispatch_namespace_name": workers_dispatch_namespace_name_output,
-        "workers_identifier": workers_identifier_output,
-        "workers_messages": workers_messages_output,
-        "workers_modified_on": workers_modified_on_output,
-        "workers_namespace-response": workers_namespace_response_output,
-        "workers_namespace-single-response": workers_namespace_single_response_output,
-        "workers_script_count": workers_script_count_output,
-        "workers_trusted_workers": workers_trusted_workers_output,
-        "workers_uuid": workers_uuid_output,
+        "workers_api-response-common": workers_api$$response$$common,
+        "workers_api-response-common-failure": workers_api$$response$$common$$failure,
+        "workers_created_on": workers_created_on,
+        "workers_dispatch_namespace_name": workers_dispatch_namespace_name,
+        "workers_identifier": workers_identifier,
+        "workers_messages": workers_messages,
+        "workers_modified_on": workers_modified_on,
+        "workers_namespace-response": workers_namespace$$response,
+        "workers_namespace-single-response": workers_namespace$$single$$response,
+        "workers_script_count": workers_script_count,
+        "workers_trusted_workers": workers_trusted_workers,
+        "workers_uuid": workers_uuid,
       },
     },
     request: (args) => ({
@@ -289,44 +313,52 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "workers_for_platforms_dispatch_namespaces_get",
+    name: "workersForPlatforms_dispatchNamespaces_get",
     title: "Get Workers for Platforms Dispatch Namespace",
     description: "Get a Workers for Platforms dispatch namespace.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/workers_identifier",
-          "description": "Identifier."
-        },
-        "dispatch_namespace": {
-          "$ref": "#/$defs/workers_dispatch_namespace_name",
-          "description": "Name of the Workers for Platforms dispatch namespace."
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/workers_identifier",
+              "description": "Identifier."
+            },
+            "dispatch_namespace": {
+              "$ref": "#/$defs/workers_dispatch_namespace_name",
+              "description": "Name of the Workers for Platforms dispatch namespace."
+            }
+          },
+          "required": [
+            "account_id",
+            "dispatch_namespace"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "dispatch_namespace"
+        "path"
       ],
       $defs: {
-        "workers_dispatch_namespace_name": workers_dispatch_namespace_name,
-        "workers_identifier": workers_identifier,
+        "workers_dispatch_namespace_name": workers_dispatch_namespace_name$,
+        "workers_identifier": workers_identifier$,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/workers_namespace-single-response",
       $defs: {
-        "workers_api-response-common": workers_api_response_common_output,
-        "workers_created_on": workers_created_on_output,
-        "workers_dispatch_namespace_name": workers_dispatch_namespace_name_output,
-        "workers_identifier": workers_identifier_output,
-        "workers_messages": workers_messages_output,
-        "workers_modified_on": workers_modified_on_output,
-        "workers_namespace-response": workers_namespace_response_output,
-        "workers_namespace-single-response": workers_namespace_single_response_output,
-        "workers_script_count": workers_script_count_output,
-        "workers_trusted_workers": workers_trusted_workers_output,
-        "workers_uuid": workers_uuid_output,
+        "workers_api-response-common": workers_api$$response$$common,
+        "workers_created_on": workers_created_on,
+        "workers_dispatch_namespace_name": workers_dispatch_namespace_name,
+        "workers_identifier": workers_identifier,
+        "workers_messages": workers_messages,
+        "workers_modified_on": workers_modified_on,
+        "workers_namespace-response": workers_namespace$$response,
+        "workers_namespace-single-response": workers_namespace$$single$$response,
+        "workers_script_count": workers_script_count,
+        "workers_trusted_workers": workers_trusted_workers,
+        "workers_uuid": workers_uuid,
       },
     },
     annotations: {
@@ -355,18 +387,18 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "workers_api-response-common": workers_api_response_common_output,
-        "workers_api-response-common-failure": workers_api_response_common_failure_output,
-        "workers_created_on": workers_created_on_output,
-        "workers_dispatch_namespace_name": workers_dispatch_namespace_name_output,
-        "workers_identifier": workers_identifier_output,
-        "workers_messages": workers_messages_output,
-        "workers_modified_on": workers_modified_on_output,
-        "workers_namespace-response": workers_namespace_response_output,
-        "workers_namespace-single-response": workers_namespace_single_response_output,
-        "workers_script_count": workers_script_count_output,
-        "workers_trusted_workers": workers_trusted_workers_output,
-        "workers_uuid": workers_uuid_output,
+        "workers_api-response-common": workers_api$$response$$common,
+        "workers_api-response-common-failure": workers_api$$response$$common$$failure,
+        "workers_created_on": workers_created_on,
+        "workers_dispatch_namespace_name": workers_dispatch_namespace_name,
+        "workers_identifier": workers_identifier,
+        "workers_messages": workers_messages,
+        "workers_modified_on": workers_modified_on,
+        "workers_namespace-response": workers_namespace$$response,
+        "workers_namespace-single-response": workers_namespace$$single$$response,
+        "workers_script_count": workers_script_count,
+        "workers_trusted_workers": workers_trusted_workers,
+        "workers_uuid": workers_uuid,
       },
     },
     request: (args) => ({
@@ -374,38 +406,46 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "workers_for_platforms_dispatch_namespaces_list",
+    name: "workersForPlatforms_dispatchNamespaces_list",
     title: "List Workers for Platforms Dispatch Namespaces",
     description: "Fetch a list of Workers for Platforms dispatch namespaces.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/workers_identifier",
-          "description": "Identifier."
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/workers_identifier",
+              "description": "Identifier."
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id"
+        "path"
       ],
       $defs: {
-        "workers_identifier": workers_identifier,
+        "workers_identifier": workers_identifier$,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/workers_namespace-list-response",
       $defs: {
-        "workers_api-response-common": workers_api_response_common_output,
-        "workers_created_on": workers_created_on_output,
-        "workers_dispatch_namespace_name": workers_dispatch_namespace_name_output,
-        "workers_identifier": workers_identifier_output,
-        "workers_messages": workers_messages_output,
-        "workers_modified_on": workers_modified_on_output,
-        "workers_namespace-list-response": workers_namespace_list_response_output,
-        "workers_namespace-response": workers_namespace_response_output,
-        "workers_script_count": workers_script_count_output,
-        "workers_trusted_workers": workers_trusted_workers_output,
-        "workers_uuid": workers_uuid_output,
+        "workers_api-response-common": workers_api$$response$$common,
+        "workers_created_on": workers_created_on,
+        "workers_dispatch_namespace_name": workers_dispatch_namespace_name,
+        "workers_identifier": workers_identifier,
+        "workers_messages": workers_messages,
+        "workers_modified_on": workers_modified_on,
+        "workers_namespace-list-response": workers_namespace$$list$$response,
+        "workers_namespace-response": workers_namespace$$response,
+        "workers_script_count": workers_script_count,
+        "workers_trusted_workers": workers_trusted_workers,
+        "workers_uuid": workers_uuid,
       },
     },
     annotations: {
@@ -434,18 +474,18 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "workers_api-response-common": workers_api_response_common_output,
-        "workers_api-response-common-failure": workers_api_response_common_failure_output,
-        "workers_created_on": workers_created_on_output,
-        "workers_dispatch_namespace_name": workers_dispatch_namespace_name_output,
-        "workers_identifier": workers_identifier_output,
-        "workers_messages": workers_messages_output,
-        "workers_modified_on": workers_modified_on_output,
-        "workers_namespace-list-response": workers_namespace_list_response_output,
-        "workers_namespace-response": workers_namespace_response_output,
-        "workers_script_count": workers_script_count_output,
-        "workers_trusted_workers": workers_trusted_workers_output,
-        "workers_uuid": workers_uuid_output,
+        "workers_api-response-common": workers_api$$response$$common,
+        "workers_api-response-common-failure": workers_api$$response$$common$$failure,
+        "workers_created_on": workers_created_on,
+        "workers_dispatch_namespace_name": workers_dispatch_namespace_name,
+        "workers_identifier": workers_identifier,
+        "workers_messages": workers_messages,
+        "workers_modified_on": workers_modified_on,
+        "workers_namespace-list-response": workers_namespace$$list$$response,
+        "workers_namespace-response": workers_namespace$$response,
+        "workers_script_count": workers_script_count,
+        "workers_trusted_workers": workers_trusted_workers,
+        "workers_uuid": workers_uuid,
       },
     },
     request: (args) => ({
@@ -453,16 +493,12 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "workers_for_platforms_dispatch_namespaces_update",
+    name: "workersForPlatforms_dispatchNamespaces_update",
     title: "Update Workers for Platforms Dispatch Namespace",
     description: "Update a Workers for Platforms dispatch namespace.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/workers_identifier",
-          "description": "Identifier."
-        },
         "body": {
           "properties": {
             "name": {
@@ -477,36 +513,48 @@ export const tools: readonly Tool[] = [
           },
           "type": "object"
         },
-        "dispatch_namespace": {
-          "$ref": "#/$defs/workers_dispatch_namespace_name",
-          "description": "Name of the Workers for Platforms dispatch namespace."
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/workers_identifier",
+              "description": "Identifier."
+            },
+            "dispatch_namespace": {
+              "$ref": "#/$defs/workers_dispatch_namespace_name",
+              "description": "Name of the Workers for Platforms dispatch namespace."
+            }
+          },
+          "required": [
+            "account_id",
+            "dispatch_namespace"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "dispatch_namespace",
+        "path",
         "body"
       ],
       $defs: {
-        "workers_dispatch_namespace_name": workers_dispatch_namespace_name,
-        "workers_identifier": workers_identifier,
-        "workers_trusted_workers": workers_trusted_workers,
+        "workers_dispatch_namespace_name": workers_dispatch_namespace_name$,
+        "workers_identifier": workers_identifier$,
+        "workers_trusted_workers": workers_trusted_workers$,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/workers_namespace-single-response",
       $defs: {
-        "workers_api-response-common": workers_api_response_common_output,
-        "workers_created_on": workers_created_on_output,
-        "workers_dispatch_namespace_name": workers_dispatch_namespace_name_output,
-        "workers_identifier": workers_identifier_output,
-        "workers_messages": workers_messages_output,
-        "workers_modified_on": workers_modified_on_output,
-        "workers_namespace-response": workers_namespace_response_output,
-        "workers_namespace-single-response": workers_namespace_single_response_output,
-        "workers_script_count": workers_script_count_output,
-        "workers_trusted_workers": workers_trusted_workers_output,
-        "workers_uuid": workers_uuid_output,
+        "workers_api-response-common": workers_api$$response$$common,
+        "workers_created_on": workers_created_on,
+        "workers_dispatch_namespace_name": workers_dispatch_namespace_name,
+        "workers_identifier": workers_identifier,
+        "workers_messages": workers_messages,
+        "workers_modified_on": workers_modified_on,
+        "workers_namespace-response": workers_namespace$$response,
+        "workers_namespace-single-response": workers_namespace$$single$$response,
+        "workers_script_count": workers_script_count,
+        "workers_trusted_workers": workers_trusted_workers,
+        "workers_uuid": workers_uuid,
       },
     },
     annotations: {
@@ -536,18 +584,18 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "workers_api-response-common": workers_api_response_common_output,
-        "workers_api-response-common-failure": workers_api_response_common_failure_output,
-        "workers_created_on": workers_created_on_output,
-        "workers_dispatch_namespace_name": workers_dispatch_namespace_name_output,
-        "workers_identifier": workers_identifier_output,
-        "workers_messages": workers_messages_output,
-        "workers_modified_on": workers_modified_on_output,
-        "workers_namespace-response": workers_namespace_response_output,
-        "workers_namespace-single-response": workers_namespace_single_response_output,
-        "workers_script_count": workers_script_count_output,
-        "workers_trusted_workers": workers_trusted_workers_output,
-        "workers_uuid": workers_uuid_output,
+        "workers_api-response-common": workers_api$$response$$common,
+        "workers_api-response-common-failure": workers_api$$response$$common$$failure,
+        "workers_created_on": workers_created_on,
+        "workers_dispatch_namespace_name": workers_dispatch_namespace_name,
+        "workers_identifier": workers_identifier,
+        "workers_messages": workers_messages,
+        "workers_modified_on": workers_modified_on,
+        "workers_namespace-response": workers_namespace$$response,
+        "workers_namespace-single-response": workers_namespace$$single$$response,
+        "workers_script_count": workers_script_count,
+        "workers_trusted_workers": workers_trusted_workers,
+        "workers_uuid": workers_uuid,
       },
     },
     request: (args) => ({

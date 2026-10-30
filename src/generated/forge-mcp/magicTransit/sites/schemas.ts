@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `magic_connector-id`.
  */
-export const magic_connector_id: JsonSchema = {
+export const magic_connector$$id: JsonSchema = {
   "description": "Magic Connector identifier tag.",
   "type": "string"
 };
@@ -14,7 +14,7 @@ export const magic_connector_id: JsonSchema = {
 /**
  * The schema of `magic_ip-address`.
  */
-export const magic_ip_address: JsonSchema = {
+export const magic_ip$$address: JsonSchema = {
   "description": "A valid IPv4 address.",
   "type": "string"
 };
@@ -29,7 +29,7 @@ export const magic_port: JsonSchema = {
 /**
  * The schema of `magic_secondary-connector-id`.
  */
-export const magic_secondary_connector_id: JsonSchema = {
+export const magic_secondary$$connector$$id: JsonSchema = {
   "description": "Magic Connector identifier tag. Used when high availability mode is on.",
   "type": "string"
 };
@@ -37,7 +37,7 @@ export const magic_secondary_connector_id: JsonSchema = {
 /**
  * The schema of `magic_site-location`.
  */
-export const magic_site_location: JsonSchema = {
+export const magic_site$$location: JsonSchema = {
   "description": "Location of site in latitude and longitude.",
   "properties": {
     "lat": {
@@ -55,7 +55,7 @@ export const magic_site_location: JsonSchema = {
 /**
  * The schema of `magic_site-name`.
  */
-export const magic_site_name: JsonSchema = {
+export const magic_site$$name: JsonSchema = {
   "description": "The name of the site.",
   "type": "string"
 };

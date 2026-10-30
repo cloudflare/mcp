@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `aaa_integration-token`.
  */
-export const aaa_integration_token: JsonSchema = {
+export const aaa_integration$$token: JsonSchema = {
   "description": "The token integration key",
   "type": "string"
 };

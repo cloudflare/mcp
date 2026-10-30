@@ -6,7 +6,7 @@ import type { JsonSchema } from "../_/tool.js";
 /**
  * The schema of `zones_actions` in responses.
  */
-export const zones_actions_output: JsonSchema = {
+export const zones_actions: JsonSchema = {
   "items": {
     "oneOf": [
       {
@@ -119,7 +119,7 @@ export const zones_actions_output: JsonSchema = {
 /**
  * The schema of `zones_always_use_https` in responses.
  */
-export const zones_always_use_https_output: JsonSchema = {
+export const zones_always_use_https: JsonSchema = {
   "properties": {
     "id": {
       "enum": [
@@ -134,7 +134,7 @@ export const zones_always_use_https_output: JsonSchema = {
 /**
  * The schema of `zones_api-response-common-2` in responses.
  */
-export const zones_api_response_common_2_output: JsonSchema = {
+export const zones_api$$response$$common$$2: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/zones_messages-2"
@@ -160,7 +160,7 @@ export const zones_api_response_common_2_output: JsonSchema = {
 /**
  * The schema of `zones_api-response-single` in responses.
  */
-export const zones_api_response_single_output: JsonSchema = {
+export const zones_api$$response$$single: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/zones_messages-2"
@@ -186,7 +186,7 @@ export const zones_api_response_single_output: JsonSchema = {
 /**
  * The schema of `zones_api-response-single-id-2` in responses.
  */
-export const zones_api_response_single_id_2_output: JsonSchema = {
+export const zones_api$$response$$single$$id$$2: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/zones_api-response-common-2"
@@ -220,7 +220,7 @@ export const zones_api_response_single_id_2_output: JsonSchema = {
 /**
  * The schema of `zones_automatic_https_rewrites` in responses.
  */
-export const zones_automatic_https_rewrites_output: JsonSchema = {
+export const zones_automatic_https_rewrites: JsonSchema = {
   "properties": {
     "id": {
       "enum": [
@@ -242,7 +242,7 @@ export const zones_automatic_https_rewrites_output: JsonSchema = {
 /**
  * The schema of `zones_browser_cache_ttl` in responses.
  */
-export const zones_browser_cache_ttl_output: JsonSchema = {
+export const zones_browser_cache_ttl: JsonSchema = {
   "properties": {
     "id": {
       "enum": [
@@ -260,7 +260,7 @@ export const zones_browser_cache_ttl_output: JsonSchema = {
 /**
  * The schema of `zones_browser_check` in responses.
  */
-export const zones_browser_check_output: JsonSchema = {
+export const zones_browser_check: JsonSchema = {
   "properties": {
     "id": {
       "enum": [
@@ -282,7 +282,7 @@ export const zones_browser_check_output: JsonSchema = {
 /**
  * The schema of `zones_bypass_cache_on_cookie` in responses.
  */
-export const zones_bypass_cache_on_cookie_output: JsonSchema = {
+export const zones_bypass_cache_on_cookie: JsonSchema = {
   "properties": {
     "id": {
       "enum": [
@@ -300,7 +300,7 @@ export const zones_bypass_cache_on_cookie_output: JsonSchema = {
 /**
  * The schema of `zones_cache_by_device_type` in responses.
  */
-export const zones_cache_by_device_type_output: JsonSchema = {
+export const zones_cache_by_device_type: JsonSchema = {
   "properties": {
     "id": {
       "enum": [
@@ -322,7 +322,7 @@ export const zones_cache_by_device_type_output: JsonSchema = {
 /**
  * The schema of `zones_cache_deception_armor` in responses.
  */
-export const zones_cache_deception_armor_output: JsonSchema = {
+export const zones_cache_deception_armor: JsonSchema = {
   "properties": {
     "id": {
       "enum": [
@@ -344,7 +344,7 @@ export const zones_cache_deception_armor_output: JsonSchema = {
 /**
  * The schema of `zones_cache_key_fields` in responses.
  */
-export const zones_cache_key_fields_output: JsonSchema = {
+export const zones_cache_key_fields: JsonSchema = {
   "properties": {
     "id": {
       "enum": [
@@ -477,7 +477,7 @@ export const zones_cache_key_fields_output: JsonSchema = {
 /**
  * The schema of `zones_cache_level` in responses.
  */
-export const zones_cache_level_output: JsonSchema = {
+export const zones_cache_level: JsonSchema = {
   "properties": {
     "id": {
       "enum": [
@@ -502,7 +502,7 @@ export const zones_cache_level_output: JsonSchema = {
 /**
  * The schema of `zones_cache_on_cookie` in responses.
  */
-export const zones_cache_on_cookie_output: JsonSchema = {
+export const zones_cache_on_cookie: JsonSchema = {
   "properties": {
     "id": {
       "enum": [
@@ -520,7 +520,7 @@ export const zones_cache_on_cookie_output: JsonSchema = {
 /**
  * The schema of `zones_cache_ttl_by_status` in responses.
  */
-export const zones_cache_ttl_by_status_output: JsonSchema = {
+export const zones_cache_ttl_by_status: JsonSchema = {
   "properties": {
     "id": {
       "enum": [
@@ -552,7 +552,7 @@ export const zones_cache_ttl_by_status_output: JsonSchema = {
 /**
  * The schema of `zones_created_on` in responses.
  */
-export const zones_created_on_output: JsonSchema = {
+export const zones_created_on: JsonSchema = {
   "format": "date-time",
   "type": "string"
 };
@@ -560,7 +560,7 @@ export const zones_created_on_output: JsonSchema = {
 /**
  * The schema of `zones_disable_apps` in responses.
  */
-export const zones_disable_apps_output: JsonSchema = {
+export const zones_disable_apps: JsonSchema = {
   "properties": {
     "id": {
       "enum": [
@@ -575,7 +575,7 @@ export const zones_disable_apps_output: JsonSchema = {
 /**
  * The schema of `zones_disable_performance` in responses.
  */
-export const zones_disable_performance_output: JsonSchema = {
+export const zones_disable_performance: JsonSchema = {
   "properties": {
     "id": {
       "enum": [
@@ -590,7 +590,7 @@ export const zones_disable_performance_output: JsonSchema = {
 /**
  * The schema of `zones_disable_security` in responses.
  */
-export const zones_disable_security_output: JsonSchema = {
+export const zones_disable_security: JsonSchema = {
   "properties": {
     "id": {
       "enum": [
@@ -605,7 +605,7 @@ export const zones_disable_security_output: JsonSchema = {
 /**
  * The schema of `zones_disable_zaraz` in responses.
  */
-export const zones_disable_zaraz_output: JsonSchema = {
+export const zones_disable_zaraz: JsonSchema = {
   "properties": {
     "id": {
       "enum": [
@@ -620,7 +620,7 @@ export const zones_disable_zaraz_output: JsonSchema = {
 /**
  * The schema of `zones_edge_cache_ttl` in responses.
  */
-export const zones_edge_cache_ttl_output: JsonSchema = {
+export const zones_edge_cache_ttl: JsonSchema = {
   "properties": {
     "id": {
       "enum": [
@@ -638,7 +638,7 @@ export const zones_edge_cache_ttl_output: JsonSchema = {
 /**
  * The schema of `zones_email_obfuscation` in responses.
  */
-export const zones_email_obfuscation_output: JsonSchema = {
+export const zones_email_obfuscation: JsonSchema = {
   "properties": {
     "id": {
       "enum": [
@@ -660,7 +660,7 @@ export const zones_email_obfuscation_output: JsonSchema = {
 /**
  * The schema of `zones_explicit_cache_control` in responses.
  */
-export const zones_explicit_cache_control_output: JsonSchema = {
+export const zones_explicit_cache_control: JsonSchema = {
   "properties": {
     "id": {
       "enum": [
@@ -682,7 +682,7 @@ export const zones_explicit_cache_control_output: JsonSchema = {
 /**
  * The schema of `zones_forwarding_url` in responses.
  */
-export const zones_forwarding_url_output: JsonSchema = {
+export const zones_forwarding_url: JsonSchema = {
   "properties": {
     "id": {
       "enum": [
@@ -712,7 +712,7 @@ export const zones_forwarding_url_output: JsonSchema = {
 /**
  * The schema of `zones_host_header_override` in responses.
  */
-export const zones_host_header_override_output: JsonSchema = {
+export const zones_host_header_override: JsonSchema = {
   "properties": {
     "id": {
       "enum": [
@@ -730,7 +730,7 @@ export const zones_host_header_override_output: JsonSchema = {
 /**
  * The schema of `zones_ip_geolocation` in responses.
  */
-export const zones_ip_geolocation_output: JsonSchema = {
+export const zones_ip_geolocation: JsonSchema = {
   "properties": {
     "id": {
       "enum": [
@@ -752,7 +752,7 @@ export const zones_ip_geolocation_output: JsonSchema = {
 /**
  * The schema of `zones_mirage` in responses.
  */
-export const zones_mirage_output: JsonSchema = {
+export const zones_mirage: JsonSchema = {
   "properties": {
     "id": {
       "enum": [
@@ -774,7 +774,7 @@ export const zones_mirage_output: JsonSchema = {
 /**
  * The schema of `zones_modified_on` in responses.
  */
-export const zones_modified_on_output: JsonSchema = {
+export const zones_modified_on: JsonSchema = {
   "format": "date-time",
   "type": "string"
 };
@@ -782,7 +782,7 @@ export const zones_modified_on_output: JsonSchema = {
 /**
  * The schema of `zones_opportunistic_encryption` in responses.
  */
-export const zones_opportunistic_encryption_output: JsonSchema = {
+export const zones_opportunistic_encryption: JsonSchema = {
   "properties": {
     "id": {
       "enum": [
@@ -804,7 +804,7 @@ export const zones_opportunistic_encryption_output: JsonSchema = {
 /**
  * The schema of `zones_origin_error_page_pass_thru` in responses.
  */
-export const zones_origin_error_page_pass_thru_output: JsonSchema = {
+export const zones_origin_error_page_pass_thru: JsonSchema = {
   "properties": {
     "id": {
       "enum": [
@@ -826,7 +826,7 @@ export const zones_origin_error_page_pass_thru_output: JsonSchema = {
 /**
  * The schema of `zones_page_rule` in responses.
  */
-export const zones_page_rule_output: JsonSchema = {
+export const zones_page_rule: JsonSchema = {
   "properties": {
     "actions": {
       "$ref": "#/$defs/zones_actions"
@@ -865,7 +865,7 @@ export const zones_page_rule_output: JsonSchema = {
 /**
  * The schema of `zones_polish` in responses.
  */
-export const zones_polish_output: JsonSchema = {
+export const zones_polish: JsonSchema = {
   "properties": {
     "id": {
       "enum": [
@@ -888,14 +888,14 @@ export const zones_polish_output: JsonSchema = {
 /**
  * The schema of `zones_priority` in responses.
  */
-export const zones_priority_output: JsonSchema = {
+export const zones_priority: JsonSchema = {
   "type": "integer"
 };
 
 /**
  * The schema of `zones_resolve_override` in responses.
  */
-export const zones_resolve_override_output: JsonSchema = {
+export const zones_resolve_override: JsonSchema = {
   "properties": {
     "id": {
       "enum": [
@@ -913,7 +913,7 @@ export const zones_resolve_override_output: JsonSchema = {
 /**
  * The schema of `zones_respect_strong_etag` in responses.
  */
-export const zones_respect_strong_etag_output: JsonSchema = {
+export const zones_respect_strong_etag: JsonSchema = {
   "properties": {
     "id": {
       "enum": [
@@ -935,7 +935,7 @@ export const zones_respect_strong_etag_output: JsonSchema = {
 /**
  * The schema of `zones_response_buffering` in responses.
  */
-export const zones_response_buffering_output: JsonSchema = {
+export const zones_response_buffering: JsonSchema = {
   "properties": {
     "id": {
       "enum": [
@@ -957,7 +957,7 @@ export const zones_response_buffering_output: JsonSchema = {
 /**
  * The schema of `zones_rocket_loader` in responses.
  */
-export const zones_rocket_loader_output: JsonSchema = {
+export const zones_rocket_loader: JsonSchema = {
   "properties": {
     "id": {
       "enum": [
@@ -979,7 +979,7 @@ export const zones_rocket_loader_output: JsonSchema = {
 /**
  * The schema of `zones_security_level` in responses.
  */
-export const zones_security_level_output: JsonSchema = {
+export const zones_security_level: JsonSchema = {
   "properties": {
     "id": {
       "enum": [
@@ -1005,7 +1005,7 @@ export const zones_security_level_output: JsonSchema = {
 /**
  * The schema of `zones_sort_query_string_for_cache` in responses.
  */
-export const zones_sort_query_string_for_cache_output: JsonSchema = {
+export const zones_sort_query_string_for_cache: JsonSchema = {
   "properties": {
     "id": {
       "enum": [
@@ -1027,7 +1027,7 @@ export const zones_sort_query_string_for_cache_output: JsonSchema = {
 /**
  * The schema of `zones_ssl` in responses.
  */
-export const zones_ssl_output: JsonSchema = {
+export const zones_ssl: JsonSchema = {
   "properties": {
     "id": {
       "enum": [
@@ -1052,7 +1052,7 @@ export const zones_ssl_output: JsonSchema = {
 /**
  * The schema of `zones_status` in responses.
  */
-export const zones_status_output: JsonSchema = {
+export const zones_status: JsonSchema = {
   "enum": [
     "active",
     "disabled"
@@ -1063,7 +1063,7 @@ export const zones_status_output: JsonSchema = {
 /**
  * The schema of `zones_string_constraint` in responses.
  */
-export const zones_string_constraint_output: JsonSchema = {
+export const zones_string_constraint: JsonSchema = {
   "properties": {
     "operator": {
       "enum": [
@@ -1089,14 +1089,14 @@ export const zones_string_constraint_output: JsonSchema = {
 /**
  * The schema of `zones_target` in responses.
  */
-export const zones_target_output: JsonSchema = {
+export const zones_target: JsonSchema = {
   "$ref": "#/$defs/zones_url_target"
 };
 
 /**
  * The schema of `zones_targets` in responses.
  */
-export const zones_targets_output: JsonSchema = {
+export const zones_targets: JsonSchema = {
   "items": {
     "$ref": "#/$defs/zones_target"
   },
@@ -1106,7 +1106,7 @@ export const zones_targets_output: JsonSchema = {
 /**
  * The schema of `zones_true_client_ip_header` in responses.
  */
-export const zones_true_client_ip_header_output: JsonSchema = {
+export const zones_true_client_ip_header: JsonSchema = {
   "properties": {
     "id": {
       "enum": [
@@ -1128,7 +1128,7 @@ export const zones_true_client_ip_header_output: JsonSchema = {
 /**
  * The schema of `zones_url_target` in responses.
  */
-export const zones_url_target_output: JsonSchema = {
+export const zones_url_target: JsonSchema = {
   "properties": {
     "constraint": {
       "allOf": [
@@ -1158,7 +1158,7 @@ export const zones_url_target_output: JsonSchema = {
 /**
  * The schema of `zones_waf` in responses.
  */
-export const zones_waf_output: JsonSchema = {
+export const zones_waf: JsonSchema = {
   "properties": {
     "id": {
       "enum": [

@@ -3,31 +3,27 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
-  email_security_api_response_common_failure_output,
-  email_security_api_response_common_output,
-  email_security_messages_output,
+  email$$security_api$$response$$common,
+  email$$security_api$$response$$common$$failure,
+  email$$security_messages,
 } from "../../outputs.js";
 import {
-  email_security_InvestigateId,
-  email_security_identifier,
+  email$$security_InvestigateId,
+  email$$security_identifier,
 } from "../../schemas.js";
-import { email_security_MessagePreview_output } from "./outputs.js";
+import { email$$security_MessagePreview } from "./outputs.js";
 
 /**
- * The tools of `email_security.investigate.preview`.
+ * The tools of `emailSecurity.investigate.preview`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "email_security_investigate_preview_generate",
+    name: "emailSecurity_investigate_preview_generate",
     title: "Generate preview for a non-detection message",
     description: "Generates a preview image for a message that was not flagged as a detection. The message is rendered from the copy in the recipient's mailbox, so this requires an active integration and only works while the message is still in the recipient's inbox. Returns a base64-encoded PNG screenshot of the email body. For messages with a detection, use the detection preview endpoint instead.\n\nThis method is beta.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/email-security_identifier",
-          "description": "Account identifier tag."
-        },
         "body": {
           "properties": {
             "id": {
@@ -39,15 +35,27 @@ export const tools: readonly Tool[] = [
             "id"
           ],
           "type": "object"
+        },
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/email-security_identifier",
+              "description": "Account identifier tag."
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
+        "path",
         "body"
       ],
       $defs: {
-        "email-security_InvestigateId": email_security_InvestigateId,
-        "email-security_identifier": email_security_identifier,
+        "email-security_InvestigateId": email$$security_InvestigateId,
+        "email-security_identifier": email$$security_identifier,
       },
     },
     outputSchema: {
@@ -68,9 +76,9 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "email-security_MessagePreview": email_security_MessagePreview_output,
-        "email-security_api-response-common": email_security_api_response_common_output,
-        "email-security_messages": email_security_messages_output,
+        "email-security_MessagePreview": email$$security_MessagePreview,
+        "email-security_api-response-common": email$$security_api$$response$$common,
+        "email-security_messages": email$$security_messages,
       },
     },
     annotations: {
@@ -113,10 +121,10 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "email-security_MessagePreview": email_security_MessagePreview_output,
-        "email-security_api-response-common": email_security_api_response_common_output,
-        "email-security_api-response-common-failure": email_security_api_response_common_failure_output,
-        "email-security_messages": email_security_messages_output,
+        "email-security_MessagePreview": email$$security_MessagePreview,
+        "email-security_api-response-common": email$$security_api$$response$$common,
+        "email-security_api-response-common-failure": email$$security_api$$response$$common$$failure,
+        "email-security_messages": email$$security_messages,
       },
     },
     request: (args) => ({
@@ -125,28 +133,36 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "email_security_investigate_preview_get",
+    name: "emailSecurity_investigate_preview_get",
     title: "Get preview for a detection",
     description: "Returns a preview of the message body as a base64-encoded PNG image for any message with a detection. For messages without a detection, use the non-detection preview endpoint instead.\n\nThis method is beta.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/email-security_identifier",
-          "description": "Account identifier tag."
-        },
-        "investigate_id": {
-          "$ref": "#/$defs/email-security_InvestigateId",
-          "description": "Unique identifier for a message retrieved from investigation."
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/email-security_identifier",
+              "description": "Account identifier tag."
+            },
+            "investigate_id": {
+              "$ref": "#/$defs/email-security_InvestigateId",
+              "description": "Unique identifier for a message retrieved from investigation."
+            }
+          },
+          "required": [
+            "account_id",
+            "investigate_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "investigate_id"
+        "path"
       ],
       $defs: {
-        "email-security_InvestigateId": email_security_InvestigateId,
-        "email-security_identifier": email_security_identifier,
+        "email-security_InvestigateId": email$$security_InvestigateId,
+        "email-security_identifier": email$$security_identifier,
       },
     },
     outputSchema: {
@@ -167,9 +183,9 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "email-security_MessagePreview": email_security_MessagePreview_output,
-        "email-security_api-response-common": email_security_api_response_common_output,
-        "email-security_messages": email_security_messages_output,
+        "email-security_MessagePreview": email$$security_MessagePreview,
+        "email-security_api-response-common": email$$security_api$$response$$common,
+        "email-security_messages": email$$security_messages,
       },
     },
     annotations: {
@@ -213,10 +229,10 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "email-security_MessagePreview": email_security_MessagePreview_output,
-        "email-security_api-response-common": email_security_api_response_common_output,
-        "email-security_api-response-common-failure": email_security_api_response_common_failure_output,
-        "email-security_messages": email_security_messages_output,
+        "email-security_MessagePreview": email$$security_MessagePreview,
+        "email-security_api-response-common": email$$security_api$$response$$common,
+        "email-security_api-response-common-failure": email$$security_api$$response$$common$$failure,
+        "email-security_messages": email$$security_messages,
       },
     },
     request: (args) => ({

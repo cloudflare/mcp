@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `waitingroom_rule_action` in responses.
  */
-export const waitingroom_rule_action_output: JsonSchema = {
+export const waitingroom_rule_action: JsonSchema = {
   "enum": [
     "bypass_waiting_room"
   ],
@@ -16,35 +16,35 @@ export const waitingroom_rule_action_output: JsonSchema = {
 /**
  * The schema of `waitingroom_rule_description` in responses.
  */
-export const waitingroom_rule_description_output: JsonSchema = {
+export const waitingroom_rule_description: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `waitingroom_rule_enabled` in responses.
  */
-export const waitingroom_rule_enabled_output: JsonSchema = {
+export const waitingroom_rule_enabled: JsonSchema = {
   "type": "boolean"
 };
 
 /**
  * The schema of `waitingroom_rule_expression` in responses.
  */
-export const waitingroom_rule_expression_output: JsonSchema = {
+export const waitingroom_rule_expression: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `waitingroom_rule_id` in responses.
  */
-export const waitingroom_rule_id_output: JsonSchema = {
+export const waitingroom_rule_id: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `waitingroom_rule_result` in responses.
  */
-export const waitingroom_rule_result_output: JsonSchema = {
+export const waitingroom_rule_result: JsonSchema = {
   "properties": {
     "action": {
       "$ref": "#/$defs/waitingroom_rule_action"
@@ -74,14 +74,14 @@ export const waitingroom_rule_result_output: JsonSchema = {
 /**
  * The schema of `waitingroom_rule_version` in responses.
  */
-export const waitingroom_rule_version_output: JsonSchema = {
+export const waitingroom_rule_version: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `waitingroom_rules_response_collection` in responses.
  */
-export const waitingroom_rules_response_collection_output: JsonSchema = {
+export const waitingroom_rules_response_collection: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/waitingroom_api-response-collection"

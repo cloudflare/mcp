@@ -14,32 +14,40 @@ export const tools: readonly Tool[] = [
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "description": "Cloudflare account ID.",
-          "type": "string"
-        },
-        "name": {
-          "description": "Repository name.",
-          "type": "string"
-        },
-        "namespace": {
-          "description": "Artifacts namespace name.",
-          "type": "string"
-        },
         "path": {
-          "description": "File path. May contain slashes.",
-          "type": "string"
-        },
-        "ref": {
-          "description": "Git ref, branch, tag, or 40-character commit hash.",
-          "type": "string"
+          "properties": {
+            "account_id": {
+              "description": "Cloudflare account ID.",
+              "type": "string"
+            },
+            "name": {
+              "description": "Repository name.",
+              "type": "string"
+            },
+            "namespace": {
+              "description": "Artifacts namespace name.",
+              "type": "string"
+            },
+            "path": {
+              "description": "File path. May contain slashes.",
+              "type": "string"
+            },
+            "ref": {
+              "description": "Git ref, branch, tag, or 40-character commit hash.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "namespace",
+            "name",
+            "ref",
+            "path"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "namespace",
-        "name",
-        "ref",
         "path"
       ],
     },

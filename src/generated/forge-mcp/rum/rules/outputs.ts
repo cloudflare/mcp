@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `rum_rule-id-response-single` in responses.
  */
-export const rum_rule_id_response_single_output: JsonSchema = {
+export const rum_rule$$id$$response$$single: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/rum_api-response-common"
@@ -30,7 +30,7 @@ export const rum_rule_id_response_single_output: JsonSchema = {
 /**
  * The schema of `rum_rule-response-single` in responses.
  */
-export const rum_rule_response_single_output: JsonSchema = {
+export const rum_rule$$response$$single: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/rum_api-response-common"
@@ -49,7 +49,7 @@ export const rum_rule_response_single_output: JsonSchema = {
 /**
  * The schema of `rum_rules-response-collection` in responses.
  */
-export const rum_rules_response_collection_output: JsonSchema = {
+export const rum_rules$$response$$collection: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/rum_api-response-common"

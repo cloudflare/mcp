@@ -3,60 +3,68 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
-  stream_api_response_common_failure_output,
-  stream_api_response_single_output,
-  stream_deleted_response_output,
-  stream_messages_output,
+  stream_api$$response$$common$$failure,
+  stream_api$$response$$single,
+  stream_deleted_response,
+  stream_messages,
 } from "../../outputs.js";
-import { stream_identifier_2 } from "../../schemas.js";
+import { stream_identifier$$2 } from "../../schemas.js";
 import {
-  stream_download_percent_complete_output,
-  stream_download_status_output,
-  stream_download_url_output,
-  stream_downloads_output,
-  stream_downloads_response_output,
+  stream_download_percent_complete,
+  stream_download_status,
+  stream_download_url,
+  stream_downloads,
+  stream_downloads_response,
 } from "../outputs.js";
 import { stream_identifier } from "../schemas.js";
 
 /**
- * The tools of `stream.videos.downloads_default`.
+ * The tools of `stream.videos.downloadsDefault`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "stream_videos_downloads_default_create",
+    name: "stream_videos_downloadsDefault_create",
     title: "Create downloads",
     description: "Creates a download for a video when a video is ready to view. Use `/downloads/{download_type}` instead for type-specific downloads. Available types are `default` and `audio`.\n\nThis method is deprecated.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/stream_identifier-2",
-          "description": "Identifier."
-        },
-        "identifier": {
-          "$ref": "#/$defs/stream_identifier",
-          "description": "A Cloudflare-generated unique identifier for a media item."
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/stream_identifier-2",
+              "description": "Identifier."
+            },
+            "identifier": {
+              "$ref": "#/$defs/stream_identifier",
+              "description": "A Cloudflare-generated unique identifier for a media item."
+            }
+          },
+          "required": [
+            "account_id",
+            "identifier"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "identifier"
+        "path"
       ],
       $defs: {
         "stream_identifier": stream_identifier,
-        "stream_identifier-2": stream_identifier_2,
+        "stream_identifier-2": stream_identifier$$2,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/stream_downloads_response",
       $defs: {
-        "stream_api-response-single": stream_api_response_single_output,
-        "stream_download_percent_complete": stream_download_percent_complete_output,
-        "stream_download_status": stream_download_status_output,
-        "stream_download_url": stream_download_url_output,
-        "stream_downloads": stream_downloads_output,
-        "stream_downloads_response": stream_downloads_response_output,
-        "stream_messages": stream_messages_output,
+        "stream_api-response-single": stream_api$$response$$single,
+        "stream_download_percent_complete": stream_download_percent_complete,
+        "stream_download_status": stream_download_status,
+        "stream_download_url": stream_download_url,
+        "stream_downloads": stream_downloads,
+        "stream_downloads_response": stream_downloads_response,
+        "stream_messages": stream_messages,
       },
     },
     annotations: {
@@ -78,14 +86,14 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "stream_api-response-common-failure": stream_api_response_common_failure_output,
-        "stream_api-response-single": stream_api_response_single_output,
-        "stream_download_percent_complete": stream_download_percent_complete_output,
-        "stream_download_status": stream_download_status_output,
-        "stream_download_url": stream_download_url_output,
-        "stream_downloads": stream_downloads_output,
-        "stream_downloads_response": stream_downloads_response_output,
-        "stream_messages": stream_messages_output,
+        "stream_api-response-common-failure": stream_api$$response$$common$$failure,
+        "stream_api-response-single": stream_api$$response$$single,
+        "stream_download_percent_complete": stream_download_percent_complete,
+        "stream_download_status": stream_download_status,
+        "stream_download_url": stream_download_url,
+        "stream_downloads": stream_downloads,
+        "stream_downloads_response": stream_downloads_response,
+        "stream_messages": stream_messages,
       },
     },
     request: (args) => ({
@@ -93,36 +101,44 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "stream_videos_downloads_default_delete",
+    name: "stream_videos_downloadsDefault_delete",
     title: "Delete downloads",
     description: "Delete the downloads for a video. Use `/downloads/{download_type}` instead for type-specific downloads. Available types are `default` and `audio`.\n\nThis method is deprecated.\n\nConfirm with the user before calling this tool. Remove this default download? It will need to be regenerated for future use.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/stream_identifier-2",
-          "description": "Identifier."
-        },
-        "identifier": {
-          "$ref": "#/$defs/stream_identifier",
-          "description": "A Cloudflare-generated unique identifier for a media item."
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/stream_identifier-2",
+              "description": "Identifier."
+            },
+            "identifier": {
+              "$ref": "#/$defs/stream_identifier",
+              "description": "A Cloudflare-generated unique identifier for a media item."
+            }
+          },
+          "required": [
+            "account_id",
+            "identifier"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "identifier"
+        "path"
       ],
       $defs: {
         "stream_identifier": stream_identifier,
-        "stream_identifier-2": stream_identifier_2,
+        "stream_identifier-2": stream_identifier$$2,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/stream_deleted_response",
       $defs: {
-        "stream_api-response-single": stream_api_response_single_output,
-        "stream_deleted_response": stream_deleted_response_output,
-        "stream_messages": stream_messages_output,
+        "stream_api-response-single": stream_api$$response$$single,
+        "stream_deleted_response": stream_deleted_response,
+        "stream_messages": stream_messages,
       },
     },
     annotations: {
@@ -149,10 +165,10 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "stream_api-response-common-failure": stream_api_response_common_failure_output,
-        "stream_api-response-single": stream_api_response_single_output,
-        "stream_deleted_response": stream_deleted_response_output,
-        "stream_messages": stream_messages_output,
+        "stream_api-response-common-failure": stream_api$$response$$common$$failure,
+        "stream_api-response-single": stream_api$$response$$single,
+        "stream_deleted_response": stream_deleted_response,
+        "stream_messages": stream_messages,
       },
     },
     request: (args) => ({
@@ -160,40 +176,48 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "stream_videos_downloads_default_list",
+    name: "stream_videos_downloadsDefault_list",
     title: "List downloads",
     description: "Lists the downloads created for a video.\n\nThis method is deprecated.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/stream_identifier-2",
-          "description": "Identifier."
-        },
-        "identifier": {
-          "$ref": "#/$defs/stream_identifier",
-          "description": "A Cloudflare-generated unique identifier for a media item."
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/stream_identifier-2",
+              "description": "Identifier."
+            },
+            "identifier": {
+              "$ref": "#/$defs/stream_identifier",
+              "description": "A Cloudflare-generated unique identifier for a media item."
+            }
+          },
+          "required": [
+            "account_id",
+            "identifier"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "identifier"
+        "path"
       ],
       $defs: {
         "stream_identifier": stream_identifier,
-        "stream_identifier-2": stream_identifier_2,
+        "stream_identifier-2": stream_identifier$$2,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/stream_downloads_response",
       $defs: {
-        "stream_api-response-single": stream_api_response_single_output,
-        "stream_download_percent_complete": stream_download_percent_complete_output,
-        "stream_download_status": stream_download_status_output,
-        "stream_download_url": stream_download_url_output,
-        "stream_downloads": stream_downloads_output,
-        "stream_downloads_response": stream_downloads_response_output,
-        "stream_messages": stream_messages_output,
+        "stream_api-response-single": stream_api$$response$$single,
+        "stream_download_percent_complete": stream_download_percent_complete,
+        "stream_download_status": stream_download_status,
+        "stream_download_url": stream_download_url,
+        "stream_downloads": stream_downloads,
+        "stream_downloads_response": stream_downloads_response,
+        "stream_messages": stream_messages,
       },
     },
     annotations: {
@@ -221,14 +245,14 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "stream_api-response-common-failure": stream_api_response_common_failure_output,
-        "stream_api-response-single": stream_api_response_single_output,
-        "stream_download_percent_complete": stream_download_percent_complete_output,
-        "stream_download_status": stream_download_status_output,
-        "stream_download_url": stream_download_url_output,
-        "stream_downloads": stream_downloads_output,
-        "stream_downloads_response": stream_downloads_response_output,
-        "stream_messages": stream_messages_output,
+        "stream_api-response-common-failure": stream_api$$response$$common$$failure,
+        "stream_api-response-single": stream_api$$response$$single,
+        "stream_download_percent_complete": stream_download_percent_complete,
+        "stream_download_status": stream_download_status,
+        "stream_download_url": stream_download_url,
+        "stream_downloads": stream_downloads,
+        "stream_downloads_response": stream_downloads_response,
+        "stream_messages": stream_messages,
       },
     },
     request: (args) => ({

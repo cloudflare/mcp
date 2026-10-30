@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `posture-api_FindingBulkActionRequest`.
  */
-export const posture_api_FindingBulkActionRequest: JsonSchema = {
+export const posture$$api_FindingBulkActionRequest: JsonSchema = {
   "description": "Request body for bulk actions on findings.",
   "properties": {
     "checks": {
@@ -28,7 +28,7 @@ export const posture_api_FindingBulkActionRequest: JsonSchema = {
 /**
  * The schema of `posture-api_FindingExportFilterRequest`.
  */
-export const posture_api_FindingExportFilterRequest: JsonSchema = {
+export const posture$$api_FindingExportFilterRequest: JsonSchema = {
   "description": "Filter specification for findings export jobs.",
   "properties": {
     "ignored": {
@@ -93,7 +93,7 @@ export const posture_api_FindingExportFilterRequest: JsonSchema = {
 /**
  * The schema of `posture-api_FindingExportOrderFilterRequest`.
  */
-export const posture_api_FindingExportOrderFilterRequest: JsonSchema = {
+export const posture$$api_FindingExportOrderFilterRequest: JsonSchema = {
   "description": "Order specification for finding exports.",
   "properties": {
     "direction": {
@@ -122,7 +122,7 @@ export const posture_api_FindingExportOrderFilterRequest: JsonSchema = {
 /**
  * The schema of `posture-api_SeveritiesEnum`.
  */
-export const posture_api_SeveritiesEnum: JsonSchema = {
+export const posture$$api_SeveritiesEnum: JsonSchema = {
   "description": "The severity level for export filters.",
   "enum": [
     "CRITICAL",
@@ -136,7 +136,7 @@ export const posture_api_SeveritiesEnum: JsonSchema = {
 /**
  * The schema of `posture-api_TuneFindingSeverityRequest`.
  */
-export const posture_api_TuneFindingSeverityRequest: JsonSchema = {
+export const posture$$api_TuneFindingSeverityRequest: JsonSchema = {
   "description": "Request body for updating a finding's severity.",
   "properties": {
     "new_severity": {

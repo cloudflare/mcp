@@ -6,21 +6,21 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `zero-trust-gateway_client-default` in responses.
  */
-export const zero_trust_gateway_client_default_output: JsonSchema = {
+export const zero$$trust$$gateway_client$$default: JsonSchema = {
   "type": "boolean"
 };
 
 /**
  * The schema of `zero-trust-gateway_dns-destination-ips-id-read` in responses.
  */
-export const zero_trust_gateway_dns_destination_ips_id_read_output: JsonSchema = {
+export const zero$$trust$$gateway_dns$$destination$$ips$$id$$read: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `zero-trust-gateway_dns64-enabled` in responses.
  */
-export const zero_trust_gateway_dns64_enabled_output: JsonSchema = {
+export const zero$$trust$$gateway_dns64$$enabled: JsonSchema = {
   "type": "boolean"
 };
 
@@ -28,7 +28,7 @@ export const zero_trust_gateway_dns64_enabled_output: JsonSchema = {
  * The schema of `zero-trust-gateway_dns_destination_ipv6_block_id` in
  * responses.
  */
-export const zero_trust_gateway_dns_destination_ipv6_block_id_output: JsonSchema = {
+export const zero$$trust$$gateway_dns_destination_ipv6_block_id: JsonSchema = {
   "oneOf": [
     {
       "type": "string"
@@ -42,7 +42,7 @@ export const zero_trust_gateway_dns_destination_ipv6_block_id_output: JsonSchema
 /**
  * The schema of `zero-trust-gateway_doh_endpoint` in responses.
  */
-export const zero_trust_gateway_doh_endpoint_output: JsonSchema = {
+export const zero$$trust$$gateway_doh_endpoint: JsonSchema = {
   "properties": {
     "enabled": {
       "type": "boolean"
@@ -60,7 +60,7 @@ export const zero_trust_gateway_doh_endpoint_output: JsonSchema = {
 /**
  * The schema of `zero-trust-gateway_dot_endpoint` in responses.
  */
-export const zero_trust_gateway_dot_endpoint_output: JsonSchema = {
+export const zero$$trust$$gateway_dot_endpoint: JsonSchema = {
   "properties": {
     "enabled": {
       "type": "boolean"
@@ -75,14 +75,14 @@ export const zero_trust_gateway_dot_endpoint_output: JsonSchema = {
 /**
  * The schema of `zero-trust-gateway_ecs-support` in responses.
  */
-export const zero_trust_gateway_ecs_support_output: JsonSchema = {
+export const zero$$trust$$gateway_ecs$$support: JsonSchema = {
   "type": "boolean"
 };
 
 /**
  * The schema of `zero-trust-gateway_endpoints` in responses.
  */
-export const zero_trust_gateway_endpoints_output: JsonSchema = {
+export const zero$$trust$$gateway_endpoints: JsonSchema = {
   "oneOf": [
     {
       "properties": {
@@ -116,14 +116,14 @@ export const zero_trust_gateway_endpoints_output: JsonSchema = {
 /**
  * The schema of `zero-trust-gateway_ip` in responses.
  */
-export const zero_trust_gateway_ip_output: JsonSchema = {
+export const zero$$trust$$gateway_ip: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `zero-trust-gateway_ip_network` in responses.
  */
-export const zero_trust_gateway_ip_network_output: JsonSchema = {
+export const zero$$trust$$gateway_ip_network: JsonSchema = {
   "properties": {
     "network": {
       "type": "string"
@@ -138,7 +138,7 @@ export const zero_trust_gateway_ip_network_output: JsonSchema = {
 /**
  * The schema of `zero-trust-gateway_ip_networks` in responses.
  */
-export const zero_trust_gateway_ip_networks_output: JsonSchema = {
+export const zero$$trust$$gateway_ip_networks: JsonSchema = {
   "oneOf": [
     {
       "items": {
@@ -155,7 +155,7 @@ export const zero_trust_gateway_ip_networks_output: JsonSchema = {
 /**
  * The schema of `zero-trust-gateway_ipv4_endpoint` in responses.
  */
-export const zero_trust_gateway_ipv4_endpoint_output: JsonSchema = {
+export const zero$$trust$$gateway_ipv4_endpoint: JsonSchema = {
   "properties": {
     "enabled": {
       "type": "boolean"
@@ -167,7 +167,7 @@ export const zero_trust_gateway_ipv4_endpoint_output: JsonSchema = {
 /**
  * The schema of `zero-trust-gateway_ipv4_network` in responses.
  */
-export const zero_trust_gateway_ipv4_network_output: JsonSchema = {
+export const zero$$trust$$gateway_ipv4_network: JsonSchema = {
   "properties": {
     "network": {
       "type": "string"
@@ -182,7 +182,7 @@ export const zero_trust_gateway_ipv4_network_output: JsonSchema = {
 /**
  * The schema of `zero-trust-gateway_ipv4_networks` in responses.
  */
-export const zero_trust_gateway_ipv4_networks_output: JsonSchema = {
+export const zero$$trust$$gateway_ipv4_networks: JsonSchema = {
   "oneOf": [
     {
       "items": {
@@ -199,7 +199,7 @@ export const zero_trust_gateway_ipv4_networks_output: JsonSchema = {
 /**
  * The schema of `zero-trust-gateway_ipv6_endpoint` in responses.
  */
-export const zero_trust_gateway_ipv6_endpoint_output: JsonSchema = {
+export const zero$$trust$$gateway_ipv6_endpoint: JsonSchema = {
   "properties": {
     "enabled": {
       "type": "boolean"
@@ -214,7 +214,7 @@ export const zero_trust_gateway_ipv6_endpoint_output: JsonSchema = {
 /**
  * The schema of `zero-trust-gateway_ipv6_network` in responses.
  */
-export const zero_trust_gateway_ipv6_network_output: JsonSchema = {
+export const zero$$trust$$gateway_ipv6_network: JsonSchema = {
   "properties": {
     "network": {
       "type": "string"
@@ -229,7 +229,7 @@ export const zero_trust_gateway_ipv6_network_output: JsonSchema = {
 /**
  * The schema of `zero-trust-gateway_ipv6_networks` in responses.
  */
-export const zero_trust_gateway_ipv6_networks_output: JsonSchema = {
+export const zero$$trust$$gateway_ipv6_networks: JsonSchema = {
   "oneOf": [
     {
       "items": {
@@ -246,7 +246,7 @@ export const zero_trust_gateway_ipv6_networks_output: JsonSchema = {
 /**
  * The schema of `zero-trust-gateway_locations` in responses.
  */
-export const zero_trust_gateway_locations_output: JsonSchema = {
+export const zero$$trust$$gateway_locations: JsonSchema = {
   "properties": {
     "client_default": {
       "$ref": "#/$defs/zero-trust-gateway_client-default"
@@ -303,7 +303,7 @@ export const zero_trust_gateway_locations_output: JsonSchema = {
 /**
  * The schema of `zero-trust-gateway_max-ttl` in responses.
  */
-export const zero_trust_gateway_max_ttl_output: JsonSchema = {
+export const zero$$trust$$gateway_max$$ttl: JsonSchema = {
   "oneOf": [
     {
       "properties": {
@@ -340,14 +340,14 @@ export const zero_trust_gateway_max_ttl_output: JsonSchema = {
 /**
  * The schema of `zero-trust-gateway_name-2` in responses.
  */
-export const zero_trust_gateway_name_2_output: JsonSchema = {
+export const zero$$trust$$gateway_name$$2: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `zero-trust-gateway_response_collection-5` in responses.
  */
-export const zero_trust_gateway_response_collection_5_output: JsonSchema = {
+export const zero$$trust$$gateway_response_collection$$5: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/zero-trust-gateway_api-response-collection"
@@ -369,7 +369,7 @@ export const zero_trust_gateway_response_collection_5_output: JsonSchema = {
 /**
  * The schema of `zero-trust-gateway_single_response-3` in responses.
  */
-export const zero_trust_gateway_single_response_3_output: JsonSchema = {
+export const zero$$trust$$gateway_single_response$$3: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/zero-trust-gateway_api-response-single"
@@ -388,6 +388,6 @@ export const zero_trust_gateway_single_response_3_output: JsonSchema = {
 /**
  * The schema of `zero-trust-gateway_subdomain` in responses.
  */
-export const zero_trust_gateway_subdomain_output: JsonSchema = {
+export const zero$$trust$$gateway_subdomain: JsonSchema = {
   "type": "string"
 };

@@ -6,7 +6,7 @@ import type { JsonSchema } from "../_/tool.js";
 /**
  * The schema of `registrar-api-sandbox_api-response-common` in responses.
  */
-export const registrar_api_sandbox_api_response_common_output: JsonSchema = {
+export const registrar$$api$$sandbox_api$$response$$common: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/registrar-api-sandbox_messages"
@@ -50,7 +50,7 @@ export const registrar_api_sandbox_api_response_common_output: JsonSchema = {
  * The schema of `registrar-api-sandbox_api-response-common-failure` in
  * responses.
  */
-export const registrar_api_sandbox_api_response_common_failure_output: JsonSchema = {
+export const registrar$$api$$sandbox_api$$response$$common$$failure: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/registrar-api-sandbox_messages"
@@ -80,7 +80,7 @@ export const registrar_api_sandbox_api_response_common_failure_output: JsonSchem
 /**
  * The schema of `registrar-api-sandbox_messages` in responses.
  */
-export const registrar_api_sandbox_messages_output: JsonSchema = {
+export const registrar$$api$$sandbox_messages: JsonSchema = {
   "items": {
     "properties": {
       "code": {

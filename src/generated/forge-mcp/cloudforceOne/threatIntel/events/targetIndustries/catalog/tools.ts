@@ -4,23 +4,31 @@
 import { type Tool, pathParam } from "../../../../../_/tool.js";
 
 /**
- * The tools of `cloudforce_one.threat_intel.events.target_industries.catalog`.
+ * The tools of `cloudforceOne.threatIntel.events.targetIndustries.catalog`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "cloudforce_one_threat_intel_events_target_industries_catalog_list",
+    name: "cloudforceOne_threatIntel_events_targetIndustries_catalog_list",
     title: "List all target industries",
     description: "Lists every predefined target industry, whether or not an event uses it. To list only the industries used in specific datasets, use `threat-intel events target-industries list`.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "description": "Account ID.",
-          "type": "string"
+        "path": {
+          "properties": {
+            "account_id": {
+              "description": "Account ID.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id"
+        "path"
       ],
     },
     outputSchema: {

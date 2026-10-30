@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `r2_temp_access_creds_response` in responses.
  */
-export const r2_temp_access_creds_response_output: JsonSchema = {
+export const r2_temp_access_creds_response: JsonSchema = {
   "properties": {
     "accessKeyId": {
       "type": "string"

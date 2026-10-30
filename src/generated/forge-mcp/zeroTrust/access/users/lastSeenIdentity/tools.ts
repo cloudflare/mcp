@@ -3,44 +3,52 @@
 
 import { type Tool, pathParam } from "../../../../_/tool.js";
 import {
-  access_api_response_common_failure_output,
-  access_api_response_single_output,
-  access_messages_output,
+  access_api$$response$$common$$failure,
+  access_api$$response$$single,
+  access_messages,
 } from "../../../outputs.js";
 import { access_identifier, access_uuid } from "../../../schemas.js";
 import {
-  access_device_posture_check_output,
-  access_device_posture_rule_2_output,
-  access_device_session_output,
-  access_geo_output,
-  access_identity_output,
-  access_string_key_map_device_session_output,
+  access_device_posture_check,
+  access_device_posture_rule$$2,
+  access_device_session,
+  access_geo,
+  access_identity,
+  access_string_key_map_device_session,
 } from "../outputs.js";
-import { access_last_seen_identity_response_output } from "./outputs.js";
+import { access_last_seen_identity_response } from "./outputs.js";
 
 /**
- * The tools of `zero_trust.access.users.last_seen_identity`.
+ * The tools of `zeroTrust.access.users.lastSeenIdentity`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "zero_trust_access_users_last_seen_identity_get",
+    name: "zeroTrust_access_users_lastSeenIdentity_get",
     title: "Get last seen identity",
     description: "Get last seen identity for a single user.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/access_identifier",
-          "description": "Identifier."
-        },
-        "user_id": {
-          "$ref": "#/$defs/access_uuid",
-          "description": "UUID."
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/access_identifier",
+              "description": "Identifier."
+            },
+            "user_id": {
+              "$ref": "#/$defs/access_uuid",
+              "description": "UUID."
+            }
+          },
+          "required": [
+            "account_id",
+            "user_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "user_id"
+        "path"
       ],
       $defs: {
         "access_identifier": access_identifier,
@@ -50,15 +58,15 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/access_last_seen_identity_response",
       $defs: {
-        "access_api-response-single": access_api_response_single_output,
-        "access_device_posture_check": access_device_posture_check_output,
-        "access_device_posture_rule-2": access_device_posture_rule_2_output,
-        "access_device_session": access_device_session_output,
-        "access_geo": access_geo_output,
-        "access_identity": access_identity_output,
-        "access_last_seen_identity_response": access_last_seen_identity_response_output,
-        "access_messages": access_messages_output,
-        "access_string_key_map_device_session": access_string_key_map_device_session_output,
+        "access_api-response-single": access_api$$response$$single,
+        "access_device_posture_check": access_device_posture_check,
+        "access_device_posture_rule-2": access_device_posture_rule$$2,
+        "access_device_session": access_device_session,
+        "access_geo": access_geo,
+        "access_identity": access_identity,
+        "access_last_seen_identity_response": access_last_seen_identity_response,
+        "access_messages": access_messages,
+        "access_string_key_map_device_session": access_string_key_map_device_session,
       },
     },
     annotations: {
@@ -85,16 +93,16 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "access_api-response-common-failure": access_api_response_common_failure_output,
-        "access_api-response-single": access_api_response_single_output,
-        "access_device_posture_check": access_device_posture_check_output,
-        "access_device_posture_rule-2": access_device_posture_rule_2_output,
-        "access_device_session": access_device_session_output,
-        "access_geo": access_geo_output,
-        "access_identity": access_identity_output,
-        "access_last_seen_identity_response": access_last_seen_identity_response_output,
-        "access_messages": access_messages_output,
-        "access_string_key_map_device_session": access_string_key_map_device_session_output,
+        "access_api-response-common-failure": access_api$$response$$common$$failure,
+        "access_api-response-single": access_api$$response$$single,
+        "access_device_posture_check": access_device_posture_check,
+        "access_device_posture_rule-2": access_device_posture_rule$$2,
+        "access_device_session": access_device_session,
+        "access_geo": access_geo,
+        "access_identity": access_identity,
+        "access_last_seen_identity_response": access_last_seen_identity_response,
+        "access_messages": access_messages,
+        "access_string_key_map_device_session": access_string_key_map_device_session,
       },
     },
     request: (args) => ({

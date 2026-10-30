@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `iam_collection_oauth_client_response` in responses.
  */
-export const iam_collection_oauth_client_response_output: JsonSchema = {
+export const iam_collection_oauth_client_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/iam_api-response-collection"
@@ -28,7 +28,7 @@ export const iam_collection_oauth_client_response_output: JsonSchema = {
 /**
  * The schema of `iam_oauth_client` in responses.
  */
-export const iam_oauth_client_output: JsonSchema = {
+export const iam_oauth_client: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/iam_oauth_client_common"
@@ -76,7 +76,7 @@ export const iam_oauth_client_output: JsonSchema = {
 /**
  * The schema of `iam_oauth_client_common` in responses.
  */
-export const iam_oauth_client_common_output: JsonSchema = {
+export const iam_oauth_client_common: JsonSchema = {
   "properties": {
     "allowed_cors_origins": {
       "items": {
@@ -139,7 +139,7 @@ export const iam_oauth_client_common_output: JsonSchema = {
 /**
  * The schema of `iam_oauth_client_grant_types` in responses.
  */
-export const iam_oauth_client_grant_types_output: JsonSchema = {
+export const iam_oauth_client_grant_types: JsonSchema = {
   "items": {
     "enum": [
       "authorization_code",
@@ -153,14 +153,14 @@ export const iam_oauth_client_grant_types_output: JsonSchema = {
 /**
  * The schema of `iam_oauth_client_identifier` in responses.
  */
-export const iam_oauth_client_identifier_output: JsonSchema = {
+export const iam_oauth_client_identifier: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `iam_oauth_client_response_types` in responses.
  */
-export const iam_oauth_client_response_types_output: JsonSchema = {
+export const iam_oauth_client_response_types: JsonSchema = {
   "items": {
     "enum": [
       "token",
@@ -175,7 +175,7 @@ export const iam_oauth_client_response_types_output: JsonSchema = {
 /**
  * The schema of `iam_oauth_client_rotate_secret_response` in responses.
  */
-export const iam_oauth_client_rotate_secret_response_output: JsonSchema = {
+export const iam_oauth_client_rotate_secret_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/iam_api-response-single"
@@ -199,7 +199,7 @@ export const iam_oauth_client_rotate_secret_response_output: JsonSchema = {
 /**
  * The schema of `iam_oauth_client_token_endpoint_auth_method` in responses.
  */
-export const iam_oauth_client_token_endpoint_auth_method_output: JsonSchema = {
+export const iam_oauth_client_token_endpoint_auth_method: JsonSchema = {
   "enum": [
     "none",
     "client_secret_basic",
@@ -211,7 +211,7 @@ export const iam_oauth_client_token_endpoint_auth_method_output: JsonSchema = {
 /**
  * The schema of `iam_oauth_client_uri_verification` in responses.
  */
-export const iam_oauth_client_uri_verification_output: JsonSchema = {
+export const iam_oauth_client_uri_verification: JsonSchema = {
   "properties": {
     "status": {
       "enum": [
@@ -232,7 +232,7 @@ export const iam_oauth_client_uri_verification_output: JsonSchema = {
 /**
  * The schema of `iam_oauth_client_with_secret` in responses.
  */
-export const iam_oauth_client_with_secret_output: JsonSchema = {
+export const iam_oauth_client_with_secret: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/iam_oauth_client"
@@ -251,7 +251,7 @@ export const iam_oauth_client_with_secret_output: JsonSchema = {
 /**
  * The schema of `iam_single_oauth_client_create_response` in responses.
  */
-export const iam_single_oauth_client_create_response_output: JsonSchema = {
+export const iam_single_oauth_client_create_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/iam_api-response-single"
@@ -270,7 +270,7 @@ export const iam_single_oauth_client_create_response_output: JsonSchema = {
 /**
  * The schema of `iam_single_oauth_client_response` in responses.
  */
-export const iam_single_oauth_client_response_output: JsonSchema = {
+export const iam_single_oauth_client_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/iam_api-response-single"

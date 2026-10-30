@@ -4,14 +4,14 @@
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
   iam_account_identifier,
-  iam_common_components_schemas_identifier,
+  iam_common_components$$schemas$$identifier,
 } from "../../schemas.js";
-import { iam_scim_error_response_output } from "../outputs.js";
+import { iam_scim_error_response } from "../outputs.js";
 import {
-  iam_scim_schema_attr_output,
-  iam_scim_schema_list_response_output,
-  iam_scim_schema_meta_output,
-  iam_scim_schema_output,
+  iam_scim_schema,
+  iam_scim_schema_attr,
+  iam_scim_schema_list_response,
+  iam_scim_schema_meta,
 } from "./outputs.js";
 
 /**
@@ -25,30 +25,38 @@ export const tools: readonly Tool[] = [
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/iam_account_identifier",
-          "description": "Account identifier tag."
-        },
-        "schema_id": {
-          "description": "The schema URI identifier.",
-          "type": "string"
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/iam_account_identifier",
+              "description": "Account identifier tag."
+            },
+            "schema_id": {
+              "description": "The schema URI identifier.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "schema_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "schema_id"
+        "path"
       ],
       $defs: {
         "iam_account_identifier": iam_account_identifier,
-        "iam_common_components-schemas-identifier": iam_common_components_schemas_identifier,
+        "iam_common_components-schemas-identifier": iam_common_components$$schemas$$identifier,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/iam_scim_schema",
       $defs: {
-        "iam_scim_schema": iam_scim_schema_output,
-        "iam_scim_schema_attr": iam_scim_schema_attr_output,
-        "iam_scim_schema_meta": iam_scim_schema_meta_output,
+        "iam_scim_schema": iam_scim_schema,
+        "iam_scim_schema_attr": iam_scim_schema_attr,
+        "iam_scim_schema_meta": iam_scim_schema_meta,
       },
     },
     annotations: {
@@ -88,10 +96,10 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "iam_scim_error_response": iam_scim_error_response_output,
-        "iam_scim_schema": iam_scim_schema_output,
-        "iam_scim_schema_attr": iam_scim_schema_attr_output,
-        "iam_scim_schema_meta": iam_scim_schema_meta_output,
+        "iam_scim_error_response": iam_scim_error_response,
+        "iam_scim_schema": iam_scim_schema,
+        "iam_scim_schema_attr": iam_scim_schema_attr,
+        "iam_scim_schema_meta": iam_scim_schema_meta,
       },
     },
     request: (args) => ({
@@ -105,26 +113,34 @@ export const tools: readonly Tool[] = [
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/iam_account_identifier",
-          "description": "Account identifier tag."
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/iam_account_identifier",
+              "description": "Account identifier tag."
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id"
+        "path"
       ],
       $defs: {
         "iam_account_identifier": iam_account_identifier,
-        "iam_common_components-schemas-identifier": iam_common_components_schemas_identifier,
+        "iam_common_components-schemas-identifier": iam_common_components$$schemas$$identifier,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/iam_scim_schema_list_response",
       $defs: {
-        "iam_scim_schema": iam_scim_schema_output,
-        "iam_scim_schema_attr": iam_scim_schema_attr_output,
-        "iam_scim_schema_list_response": iam_scim_schema_list_response_output,
-        "iam_scim_schema_meta": iam_scim_schema_meta_output,
+        "iam_scim_schema": iam_scim_schema,
+        "iam_scim_schema_attr": iam_scim_schema_attr,
+        "iam_scim_schema_list_response": iam_scim_schema_list_response,
+        "iam_scim_schema_meta": iam_scim_schema_meta,
       },
     },
     annotations: {
@@ -164,11 +180,11 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "iam_scim_error_response": iam_scim_error_response_output,
-        "iam_scim_schema": iam_scim_schema_output,
-        "iam_scim_schema_attr": iam_scim_schema_attr_output,
-        "iam_scim_schema_list_response": iam_scim_schema_list_response_output,
-        "iam_scim_schema_meta": iam_scim_schema_meta_output,
+        "iam_scim_error_response": iam_scim_error_response,
+        "iam_scim_schema": iam_scim_schema,
+        "iam_scim_schema_attr": iam_scim_schema_attr,
+        "iam_scim_schema_list_response": iam_scim_schema_list_response,
+        "iam_scim_schema_meta": iam_scim_schema_meta,
       },
     },
     request: (args) => ({

@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `secondary-dns_auto_refresh_seconds`.
  */
-export const secondary_dns_auto_refresh_seconds: JsonSchema = {
+export const secondary$$dns_auto_refresh_seconds: JsonSchema = {
   "description": "How often should a secondary zone auto refresh regardless of DNS NOTIFY.\nNot applicable for primary zones.",
   "type": "number"
 };
@@ -14,7 +14,7 @@ export const secondary_dns_auto_refresh_seconds: JsonSchema = {
 /**
  * The schema of `secondary-dns_dns-secondary-secondary-zone`.
  */
-export const secondary_dns_dns_secondary_secondary_zone: JsonSchema = {
+export const secondary$$dns_dns$$secondary$$secondary$$zone: JsonSchema = {
   "properties": {
     "auto_refresh_seconds": {
       "$ref": "#/$defs/secondary-dns_auto_refresh_seconds",

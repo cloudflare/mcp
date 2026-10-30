@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `intel_url_intelligence` in responses.
  */
-export const intel_url_intelligence_output: JsonSchema = {
+export const intel_url_intelligence: JsonSchema = {
   "properties": {
     "content_categories": {
       "items": {
@@ -43,7 +43,7 @@ export const intel_url_intelligence_output: JsonSchema = {
 /**
  * The schema of `intel_url_intelligence_category_with_source` in responses.
  */
-export const intel_url_intelligence_category_with_source_output: JsonSchema = {
+export const intel_url_intelligence_category_with_source: JsonSchema = {
   "properties": {
     "id": {
       "type": "integer"
@@ -64,7 +64,7 @@ export const intel_url_intelligence_category_with_source_output: JsonSchema = {
 /**
  * The schema of `intel_url_intelligence_single_response` in responses.
  */
-export const intel_url_intelligence_single_response_output: JsonSchema = {
+export const intel_url_intelligence_single_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/intel_api-response-single"

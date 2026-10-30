@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `intel_ip` in responses.
  */
-export const intel_ip_output: JsonSchema = {
+export const intel_ip: JsonSchema = {
   "anyOf": [
     {
       "$ref": "#/$defs/intel_ipv4"
@@ -20,21 +20,21 @@ export const intel_ip_output: JsonSchema = {
 /**
  * The schema of `intel_ipv4` in responses.
  */
-export const intel_ipv4_output: JsonSchema = {
+export const intel_ipv4: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `intel_ipv6` in responses.
  */
-export const intel_ipv6_output: JsonSchema = {
+export const intel_ipv6: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `intel_schemas-ip` in responses.
  */
-export const intel_schemas_ip_output: JsonSchema = {
+export const intel_schemas$$ip: JsonSchema = {
   "properties": {
     "belongs_to_ref": {
       "properties": {
@@ -88,7 +88,7 @@ export const intel_schemas_ip_output: JsonSchema = {
 /**
  * The schema of `intel_schemas-response` in responses.
  */
-export const intel_schemas_response_output: JsonSchema = {
+export const intel_schemas$$response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/intel_api-response-collection"

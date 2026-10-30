@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `mq_event-destination`.
  */
-export const mq_event_destination: JsonSchema = {
+export const mq_event$$destination: JsonSchema = {
   "$ref": "#/$defs/mq_event-destination-queue",
   "description": "Destination configuration for the subscription"
 };
@@ -14,7 +14,7 @@ export const mq_event_destination: JsonSchema = {
 /**
  * The schema of `mq_event-destination-queue`.
  */
-export const mq_event_destination_queue: JsonSchema = {
+export const mq_event$$destination$$queue: JsonSchema = {
   "properties": {
     "queue_id": {
       "description": "ID of the target queue",
@@ -38,7 +38,7 @@ export const mq_event_destination_queue: JsonSchema = {
 /**
  * The schema of `mq_event-source`.
  */
-export const mq_event_source: JsonSchema = {
+export const mq_event$$source: JsonSchema = {
   "description": "Source configuration for the subscription",
   "oneOf": [
     {
@@ -74,7 +74,7 @@ export const mq_event_source: JsonSchema = {
 /**
  * The schema of `mq_event-source-images`.
  */
-export const mq_event_source_images: JsonSchema = {
+export const mq_event$$source$$images: JsonSchema = {
   "properties": {
     "type": {
       "description": "Type of source",
@@ -90,7 +90,7 @@ export const mq_event_source_images: JsonSchema = {
 /**
  * The schema of `mq_event-source-kv`.
  */
-export const mq_event_source_kv: JsonSchema = {
+export const mq_event$$source$$kv: JsonSchema = {
   "properties": {
     "type": {
       "description": "Type of source",
@@ -106,7 +106,7 @@ export const mq_event_source_kv: JsonSchema = {
 /**
  * The schema of `mq_event-source-r2`.
  */
-export const mq_event_source_r2: JsonSchema = {
+export const mq_event$$source$$r2: JsonSchema = {
   "properties": {
     "type": {
       "description": "Type of source",
@@ -122,7 +122,7 @@ export const mq_event_source_r2: JsonSchema = {
 /**
  * The schema of `mq_event-source-super-slurper`.
  */
-export const mq_event_source_super_slurper: JsonSchema = {
+export const mq_event$$source$$super$$slurper: JsonSchema = {
   "properties": {
     "type": {
       "description": "Type of source",
@@ -138,7 +138,7 @@ export const mq_event_source_super_slurper: JsonSchema = {
 /**
  * The schema of `mq_event-source-vectorize`.
  */
-export const mq_event_source_vectorize: JsonSchema = {
+export const mq_event$$source$$vectorize: JsonSchema = {
   "properties": {
     "type": {
       "description": "Type of source",
@@ -154,7 +154,7 @@ export const mq_event_source_vectorize: JsonSchema = {
 /**
  * The schema of `mq_event-source-workers-ai-model`.
  */
-export const mq_event_source_workers_ai_model: JsonSchema = {
+export const mq_event$$source$$workers$$ai$$model: JsonSchema = {
   "properties": {
     "model_name": {
       "description": "Name of the Workers AI model",
@@ -174,7 +174,7 @@ export const mq_event_source_workers_ai_model: JsonSchema = {
 /**
  * The schema of `mq_event-source-workers-builds-worker`.
  */
-export const mq_event_source_workers_builds_worker: JsonSchema = {
+export const mq_event$$source$$workers$$builds$$worker: JsonSchema = {
   "properties": {
     "type": {
       "description": "Type of source",
@@ -194,7 +194,7 @@ export const mq_event_source_workers_builds_worker: JsonSchema = {
 /**
  * The schema of `mq_event-source-workers-script`.
  */
-export const mq_event_source_workers_script: JsonSchema = {
+export const mq_event$$source$$workers$$script: JsonSchema = {
   "properties": {
     "script_tag": {
       "description": "Tag of the Worker script",
@@ -214,7 +214,7 @@ export const mq_event_source_workers_script: JsonSchema = {
 /**
  * The schema of `mq_event-source-workflows-workflow`.
  */
-export const mq_event_source_workflows_workflow: JsonSchema = {
+export const mq_event$$source$$workflows$$workflow: JsonSchema = {
   "properties": {
     "type": {
       "description": "Type of source",

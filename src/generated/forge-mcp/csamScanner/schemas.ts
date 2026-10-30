@@ -6,7 +6,7 @@ import type { JsonSchema } from "../_/tool.js";
 /**
  * The schema of `csam-config-service_csam_scanner_third_party_update_request`.
  */
-export const csam_config_service_csam_scanner_third_party_update_request: JsonSchema = {
+export const csam$$config$$service_csam_scanner_third_party_update_request: JsonSchema = {
   "description": "Request body for updating CSAM Scanner configuration.\n",
   "properties": {
     "id": {
@@ -27,7 +27,7 @@ export const csam_config_service_csam_scanner_third_party_update_request: JsonSc
 /**
  * The schema of `csam-config-service_csam_scanner_third_party_update_value`.
  */
-export const csam_config_service_csam_scanner_third_party_update_value: JsonSchema = {
+export const csam$$config$$service_csam_scanner_third_party_update_value: JsonSchema = {
   "description": "Writable CSAM Scanner feature configuration values.\n",
   "properties": {
     "email": {
@@ -56,7 +56,7 @@ export const csam_config_service_csam_scanner_third_party_update_value: JsonSche
 /**
  * The schema of `csam-config-service_zone_identifier`.
  */
-export const csam_config_service_zone_identifier: JsonSchema = {
+export const csam$$config$$service_zone_identifier: JsonSchema = {
   "description": "Identifier for the zone.",
   "type": "string"
 };

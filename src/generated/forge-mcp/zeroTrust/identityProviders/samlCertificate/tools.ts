@@ -3,40 +3,48 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
-  access_api_response_common_failure_output,
-  access_api_response_single_output,
-  access_messages_output,
+  access_api$$response$$common$$failure,
+  access_api$$response$$single,
+  access_messages,
 } from "../../outputs.js";
 import { access_identifier, access_uuid } from "../../schemas.js";
 import {
-  access_saml_certificate_output,
-  access_saml_certificate_set_output,
+  access_saml_certificate,
+  access_saml_certificate_set,
 } from "../outputs.js";
-import { access_saml_certificate_set_response_output } from "./outputs.js";
+import { access_saml_certificate_set_response } from "./outputs.js";
 
 /**
- * The tools of `zero_trust.identity_providers.saml_certificate`.
+ * The tools of `zeroTrust.identityProviders.samlCertificate`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "zero_trust_identity_providers_saml_certificate_create",
+    name: "zeroTrust_identityProviders_samlCertificate_create",
     title: "Create SAML encryption certificate for Identity Provider",
     description: "Creates a new SAML encryption certificate set and assigns it to the specified \nSAML Identity Provider. This endpoint is idempotent - if the IdP already has \na certificate set assigned, the existing certificate set is returned with a 200 status.\n\n**Workflow for enabling SAML encryption:**\n1. Call this endpoint to create and assign a certificate set to the IdP\n2. Update the IdP configuration (PUT `/identity_providers/{id}`) with:\n   - `config.enable_encryption: true`\n   - `saml_certificate_set_id: <uid from step 1>`\n3. Configure the certificate's public key in your external SAML Identity Provider",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/access_identifier",
-          "description": "Identifier."
-        },
-        "identity_provider_id": {
-          "$ref": "#/$defs/access_uuid",
-          "description": "UUID."
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/access_identifier",
+              "description": "Identifier."
+            },
+            "identity_provider_id": {
+              "$ref": "#/$defs/access_uuid",
+              "description": "UUID."
+            }
+          },
+          "required": [
+            "account_id",
+            "identity_provider_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "identity_provider_id"
+        "path"
       ],
       $defs: {
         "access_identifier": access_identifier,
@@ -46,11 +54,11 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/access_saml_certificate_set_response",
       $defs: {
-        "access_api-response-single": access_api_response_single_output,
-        "access_messages": access_messages_output,
-        "access_saml_certificate": access_saml_certificate_output,
-        "access_saml_certificate_set": access_saml_certificate_set_output,
-        "access_saml_certificate_set_response": access_saml_certificate_set_response_output,
+        "access_api-response-single": access_api$$response$$single,
+        "access_messages": access_messages,
+        "access_saml_certificate": access_saml_certificate,
+        "access_saml_certificate_set": access_saml_certificate_set,
+        "access_saml_certificate_set_response": access_saml_certificate_set_response,
       },
     },
     annotations: {
@@ -81,12 +89,12 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "access_api-response-common-failure": access_api_response_common_failure_output,
-        "access_api-response-single": access_api_response_single_output,
-        "access_messages": access_messages_output,
-        "access_saml_certificate": access_saml_certificate_output,
-        "access_saml_certificate_set": access_saml_certificate_set_output,
-        "access_saml_certificate_set_response": access_saml_certificate_set_response_output,
+        "access_api-response-common-failure": access_api$$response$$common$$failure,
+        "access_api-response-single": access_api$$response$$single,
+        "access_messages": access_messages,
+        "access_saml_certificate": access_saml_certificate,
+        "access_saml_certificate_set": access_saml_certificate_set,
+        "access_saml_certificate_set_response": access_saml_certificate_set_response,
       },
     },
     request: (args) => ({

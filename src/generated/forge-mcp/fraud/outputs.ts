@@ -6,7 +6,7 @@ import type { JsonSchema } from "../_/tool.js";
 /**
  * The schema of `fraud_api-response-common-failure` in responses.
  */
-export const fraud_api_response_common_failure_output: JsonSchema = {
+export const fraud_api$$response$$common$$failure: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/fraud_messages"
@@ -36,7 +36,7 @@ export const fraud_api_response_common_failure_output: JsonSchema = {
 /**
  * The schema of `fraud_api-response-single` in responses.
  */
-export const fraud_api_response_single_output: JsonSchema = {
+export const fraud_api$$response$$single: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/fraud_messages"
@@ -62,7 +62,7 @@ export const fraud_api_response_single_output: JsonSchema = {
 /**
  * The schema of `fraud_auth_criteria` in responses.
  */
-export const fraud_auth_criteria_output: JsonSchema = {
+export const fraud_auth_criteria: JsonSchema = {
   "properties": {
     "kind": {
       "enum": [
@@ -87,7 +87,7 @@ export const fraud_auth_criteria_output: JsonSchema = {
 /**
  * The schema of `fraud_authentication_settings` in responses.
  */
-export const fraud_authentication_settings_output: JsonSchema = {
+export const fraud_authentication_settings: JsonSchema = {
   "properties": {
     "failure_criteria": {
       "$ref": "#/$defs/fraud_auth_criteria"
@@ -102,7 +102,7 @@ export const fraud_authentication_settings_output: JsonSchema = {
 /**
  * The schema of `fraud_fraud_settings` in responses.
  */
-export const fraud_fraud_settings_output: JsonSchema = {
+export const fraud_fraud_settings: JsonSchema = {
   "properties": {
     "authentication_settings": {
       "$ref": "#/$defs/fraud_authentication_settings"
@@ -120,7 +120,7 @@ export const fraud_fraud_settings_output: JsonSchema = {
 /**
  * The schema of `fraud_fraud_settings_response_body` in responses.
  */
-export const fraud_fraud_settings_response_body_output: JsonSchema = {
+export const fraud_fraud_settings_response_body: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/fraud_api-response-single"
@@ -139,7 +139,7 @@ export const fraud_fraud_settings_response_body_output: JsonSchema = {
 /**
  * The schema of `fraud_messages` in responses.
  */
-export const fraud_messages_output: JsonSchema = {
+export const fraud_messages: JsonSchema = {
   "items": {
     "properties": {
       "code": {
@@ -172,7 +172,7 @@ export const fraud_messages_output: JsonSchema = {
 /**
  * The schema of `fraud_user_profiles_status` in responses.
  */
-export const fraud_user_profiles_status_output: JsonSchema = {
+export const fraud_user_profiles_status: JsonSchema = {
   "enum": [
     "enabled",
     "disabled"
@@ -183,7 +183,7 @@ export const fraud_user_profiles_status_output: JsonSchema = {
 /**
  * The schema of `fraud_username_expressions` in responses.
  */
-export const fraud_username_expressions_output: JsonSchema = {
+export const fraud_username_expressions: JsonSchema = {
   "items": {
     "type": "string"
   },

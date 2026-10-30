@@ -3,35 +3,35 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
-  stream_api_response_common_failure_output,
-  stream_api_response_common_output,
-  stream_api_response_single_output,
-  stream_downloadedFrom_output,
-  stream_height_output,
-  stream_messages_output,
-  stream_name_output,
-  stream_opacity_output,
-  stream_padding_output,
-  stream_position_output,
-  stream_scale_output,
-  stream_watermark_created_output,
-  stream_watermark_identifier_output,
-  stream_watermark_size_output,
-  stream_watermarks_output,
-  stream_width_output,
-} from "../outputs.js";
-import {
-  stream_account_identifier,
+  stream_api$$response$$common,
+  stream_api$$response$$common$$failure,
+  stream_api$$response$$single,
+  stream_downloadedFrom,
+  stream_height,
+  stream_messages,
   stream_name,
   stream_opacity,
   stream_padding,
   stream_position,
   stream_scale,
+  stream_watermark_created,
   stream_watermark_identifier,
+  stream_watermark_size,
+  stream_watermarks,
+  stream_width,
+} from "../outputs.js";
+import {
+  stream_account_identifier,
+  stream_name as stream_name$,
+  stream_opacity as stream_opacity$,
+  stream_padding as stream_padding$,
+  stream_position as stream_position$,
+  stream_scale as stream_scale$,
+  stream_watermark_identifier as stream_watermark_identifier$,
 } from "../schemas.js";
 import {
-  stream_watermark_response_collection_output,
-  stream_watermark_response_single_output,
+  stream_watermark_response_collection,
+  stream_watermark_response_single,
 } from "./outputs.js";
 
 /**
@@ -45,10 +45,6 @@ export const tools: readonly Tool[] = [
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/stream_account_identifier",
-          "description": "The account identifier tag."
-        },
         "body": {
           "properties": {
             "name": {
@@ -82,39 +78,51 @@ export const tools: readonly Tool[] = [
             }
           },
           "type": "object"
+        },
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/stream_account_identifier",
+              "description": "The account identifier tag."
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
+        "path",
         "body"
       ],
       $defs: {
         "stream_account_identifier": stream_account_identifier,
-        "stream_name": stream_name,
-        "stream_opacity": stream_opacity,
-        "stream_padding": stream_padding,
-        "stream_position": stream_position,
-        "stream_scale": stream_scale,
+        "stream_name": stream_name$,
+        "stream_opacity": stream_opacity$,
+        "stream_padding": stream_padding$,
+        "stream_position": stream_position$,
+        "stream_scale": stream_scale$,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/stream_watermark_response_single",
       $defs: {
-        "stream_api-response-single": stream_api_response_single_output,
-        "stream_downloadedFrom": stream_downloadedFrom_output,
-        "stream_height": stream_height_output,
-        "stream_messages": stream_messages_output,
-        "stream_name": stream_name_output,
-        "stream_opacity": stream_opacity_output,
-        "stream_padding": stream_padding_output,
-        "stream_position": stream_position_output,
-        "stream_scale": stream_scale_output,
-        "stream_watermark_created": stream_watermark_created_output,
-        "stream_watermark_identifier": stream_watermark_identifier_output,
-        "stream_watermark_response_single": stream_watermark_response_single_output,
-        "stream_watermark_size": stream_watermark_size_output,
-        "stream_watermarks": stream_watermarks_output,
-        "stream_width": stream_width_output,
+        "stream_api-response-single": stream_api$$response$$single,
+        "stream_downloadedFrom": stream_downloadedFrom,
+        "stream_height": stream_height,
+        "stream_messages": stream_messages,
+        "stream_name": stream_name,
+        "stream_opacity": stream_opacity,
+        "stream_padding": stream_padding,
+        "stream_position": stream_position,
+        "stream_scale": stream_scale,
+        "stream_watermark_created": stream_watermark_created,
+        "stream_watermark_identifier": stream_watermark_identifier,
+        "stream_watermark_response_single": stream_watermark_response_single,
+        "stream_watermark_size": stream_watermark_size,
+        "stream_watermarks": stream_watermarks,
+        "stream_width": stream_width,
       },
     },
     annotations: {
@@ -141,22 +149,22 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "stream_api-response-common-failure": stream_api_response_common_failure_output,
-        "stream_api-response-single": stream_api_response_single_output,
-        "stream_downloadedFrom": stream_downloadedFrom_output,
-        "stream_height": stream_height_output,
-        "stream_messages": stream_messages_output,
-        "stream_name": stream_name_output,
-        "stream_opacity": stream_opacity_output,
-        "stream_padding": stream_padding_output,
-        "stream_position": stream_position_output,
-        "stream_scale": stream_scale_output,
-        "stream_watermark_created": stream_watermark_created_output,
-        "stream_watermark_identifier": stream_watermark_identifier_output,
-        "stream_watermark_response_single": stream_watermark_response_single_output,
-        "stream_watermark_size": stream_watermark_size_output,
-        "stream_watermarks": stream_watermarks_output,
-        "stream_width": stream_width_output,
+        "stream_api-response-common-failure": stream_api$$response$$common$$failure,
+        "stream_api-response-single": stream_api$$response$$single,
+        "stream_downloadedFrom": stream_downloadedFrom,
+        "stream_height": stream_height,
+        "stream_messages": stream_messages,
+        "stream_name": stream_name,
+        "stream_opacity": stream_opacity,
+        "stream_padding": stream_padding,
+        "stream_position": stream_position,
+        "stream_scale": stream_scale,
+        "stream_watermark_created": stream_watermark_created,
+        "stream_watermark_identifier": stream_watermark_identifier,
+        "stream_watermark_response_single": stream_watermark_response_single,
+        "stream_watermark_size": stream_watermark_size,
+        "stream_watermarks": stream_watermarks,
+        "stream_width": stream_width,
       },
     },
     request: (args) => ({
@@ -171,22 +179,30 @@ export const tools: readonly Tool[] = [
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/stream_account_identifier",
-          "description": "The account identifier tag."
-        },
-        "identifier": {
-          "$ref": "#/$defs/stream_watermark_identifier",
-          "description": "The unique identifier for a watermark profile."
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/stream_account_identifier",
+              "description": "The account identifier tag."
+            },
+            "identifier": {
+              "$ref": "#/$defs/stream_watermark_identifier",
+              "description": "The unique identifier for a watermark profile."
+            }
+          },
+          "required": [
+            "account_id",
+            "identifier"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "identifier"
+        "path"
       ],
       $defs: {
         "stream_account_identifier": stream_account_identifier,
-        "stream_watermark_identifier": stream_watermark_identifier,
+        "stream_watermark_identifier": stream_watermark_identifier$,
       },
     },
     outputSchema: {
@@ -204,8 +220,8 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "stream_api-response-single": stream_api_response_single_output,
-        "stream_messages": stream_messages_output,
+        "stream_api-response-single": stream_api$$response$$single,
+        "stream_messages": stream_messages,
       },
     },
     annotations: {
@@ -244,9 +260,9 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "stream_api-response-common-failure": stream_api_response_common_failure_output,
-        "stream_api-response-single": stream_api_response_single_output,
-        "stream_messages": stream_messages_output,
+        "stream_api-response-common-failure": stream_api$$response$$common$$failure,
+        "stream_api-response-single": stream_api$$response$$single,
+        "stream_messages": stream_messages,
       },
     },
     request: (args) => ({
@@ -260,42 +276,50 @@ export const tools: readonly Tool[] = [
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/stream_account_identifier",
-          "description": "The account identifier tag."
-        },
-        "identifier": {
-          "$ref": "#/$defs/stream_watermark_identifier",
-          "description": "The unique identifier for a watermark profile."
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/stream_account_identifier",
+              "description": "The account identifier tag."
+            },
+            "identifier": {
+              "$ref": "#/$defs/stream_watermark_identifier",
+              "description": "The unique identifier for a watermark profile."
+            }
+          },
+          "required": [
+            "account_id",
+            "identifier"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "identifier"
+        "path"
       ],
       $defs: {
         "stream_account_identifier": stream_account_identifier,
-        "stream_watermark_identifier": stream_watermark_identifier,
+        "stream_watermark_identifier": stream_watermark_identifier$,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/stream_watermark_response_single",
       $defs: {
-        "stream_api-response-single": stream_api_response_single_output,
-        "stream_downloadedFrom": stream_downloadedFrom_output,
-        "stream_height": stream_height_output,
-        "stream_messages": stream_messages_output,
-        "stream_name": stream_name_output,
-        "stream_opacity": stream_opacity_output,
-        "stream_padding": stream_padding_output,
-        "stream_position": stream_position_output,
-        "stream_scale": stream_scale_output,
-        "stream_watermark_created": stream_watermark_created_output,
-        "stream_watermark_identifier": stream_watermark_identifier_output,
-        "stream_watermark_response_single": stream_watermark_response_single_output,
-        "stream_watermark_size": stream_watermark_size_output,
-        "stream_watermarks": stream_watermarks_output,
-        "stream_width": stream_width_output,
+        "stream_api-response-single": stream_api$$response$$single,
+        "stream_downloadedFrom": stream_downloadedFrom,
+        "stream_height": stream_height,
+        "stream_messages": stream_messages,
+        "stream_name": stream_name,
+        "stream_opacity": stream_opacity,
+        "stream_padding": stream_padding,
+        "stream_position": stream_position,
+        "stream_scale": stream_scale,
+        "stream_watermark_created": stream_watermark_created,
+        "stream_watermark_identifier": stream_watermark_identifier,
+        "stream_watermark_response_single": stream_watermark_response_single,
+        "stream_watermark_size": stream_watermark_size,
+        "stream_watermarks": stream_watermarks,
+        "stream_width": stream_width,
       },
     },
     annotations: {
@@ -323,22 +347,22 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "stream_api-response-common-failure": stream_api_response_common_failure_output,
-        "stream_api-response-single": stream_api_response_single_output,
-        "stream_downloadedFrom": stream_downloadedFrom_output,
-        "stream_height": stream_height_output,
-        "stream_messages": stream_messages_output,
-        "stream_name": stream_name_output,
-        "stream_opacity": stream_opacity_output,
-        "stream_padding": stream_padding_output,
-        "stream_position": stream_position_output,
-        "stream_scale": stream_scale_output,
-        "stream_watermark_created": stream_watermark_created_output,
-        "stream_watermark_identifier": stream_watermark_identifier_output,
-        "stream_watermark_response_single": stream_watermark_response_single_output,
-        "stream_watermark_size": stream_watermark_size_output,
-        "stream_watermarks": stream_watermarks_output,
-        "stream_width": stream_width_output,
+        "stream_api-response-common-failure": stream_api$$response$$common$$failure,
+        "stream_api-response-single": stream_api$$response$$single,
+        "stream_downloadedFrom": stream_downloadedFrom,
+        "stream_height": stream_height,
+        "stream_messages": stream_messages,
+        "stream_name": stream_name,
+        "stream_opacity": stream_opacity,
+        "stream_padding": stream_padding,
+        "stream_position": stream_position,
+        "stream_scale": stream_scale,
+        "stream_watermark_created": stream_watermark_created,
+        "stream_watermark_identifier": stream_watermark_identifier,
+        "stream_watermark_response_single": stream_watermark_response_single,
+        "stream_watermark_size": stream_watermark_size,
+        "stream_watermarks": stream_watermarks,
+        "stream_width": stream_width,
       },
     },
     request: (args) => ({
@@ -352,13 +376,21 @@ export const tools: readonly Tool[] = [
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/stream_account_identifier",
-          "description": "The account identifier tag."
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/stream_account_identifier",
+              "description": "The account identifier tag."
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id"
+        "path"
       ],
       $defs: {
         "stream_account_identifier": stream_account_identifier,
@@ -367,21 +399,21 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/stream_watermark_response_collection",
       $defs: {
-        "stream_api-response-common": stream_api_response_common_output,
-        "stream_downloadedFrom": stream_downloadedFrom_output,
-        "stream_height": stream_height_output,
-        "stream_messages": stream_messages_output,
-        "stream_name": stream_name_output,
-        "stream_opacity": stream_opacity_output,
-        "stream_padding": stream_padding_output,
-        "stream_position": stream_position_output,
-        "stream_scale": stream_scale_output,
-        "stream_watermark_created": stream_watermark_created_output,
-        "stream_watermark_identifier": stream_watermark_identifier_output,
-        "stream_watermark_response_collection": stream_watermark_response_collection_output,
-        "stream_watermark_size": stream_watermark_size_output,
-        "stream_watermarks": stream_watermarks_output,
-        "stream_width": stream_width_output,
+        "stream_api-response-common": stream_api$$response$$common,
+        "stream_downloadedFrom": stream_downloadedFrom,
+        "stream_height": stream_height,
+        "stream_messages": stream_messages,
+        "stream_name": stream_name,
+        "stream_opacity": stream_opacity,
+        "stream_padding": stream_padding,
+        "stream_position": stream_position,
+        "stream_scale": stream_scale,
+        "stream_watermark_created": stream_watermark_created,
+        "stream_watermark_identifier": stream_watermark_identifier,
+        "stream_watermark_response_collection": stream_watermark_response_collection,
+        "stream_watermark_size": stream_watermark_size,
+        "stream_watermarks": stream_watermarks,
+        "stream_width": stream_width,
       },
     },
     annotations: {
@@ -409,22 +441,22 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "stream_api-response-common": stream_api_response_common_output,
-        "stream_api-response-common-failure": stream_api_response_common_failure_output,
-        "stream_downloadedFrom": stream_downloadedFrom_output,
-        "stream_height": stream_height_output,
-        "stream_messages": stream_messages_output,
-        "stream_name": stream_name_output,
-        "stream_opacity": stream_opacity_output,
-        "stream_padding": stream_padding_output,
-        "stream_position": stream_position_output,
-        "stream_scale": stream_scale_output,
-        "stream_watermark_created": stream_watermark_created_output,
-        "stream_watermark_identifier": stream_watermark_identifier_output,
-        "stream_watermark_response_collection": stream_watermark_response_collection_output,
-        "stream_watermark_size": stream_watermark_size_output,
-        "stream_watermarks": stream_watermarks_output,
-        "stream_width": stream_width_output,
+        "stream_api-response-common": stream_api$$response$$common,
+        "stream_api-response-common-failure": stream_api$$response$$common$$failure,
+        "stream_downloadedFrom": stream_downloadedFrom,
+        "stream_height": stream_height,
+        "stream_messages": stream_messages,
+        "stream_name": stream_name,
+        "stream_opacity": stream_opacity,
+        "stream_padding": stream_padding,
+        "stream_position": stream_position,
+        "stream_scale": stream_scale,
+        "stream_watermark_created": stream_watermark_created,
+        "stream_watermark_identifier": stream_watermark_identifier,
+        "stream_watermark_response_collection": stream_watermark_response_collection,
+        "stream_watermark_size": stream_watermark_size,
+        "stream_watermarks": stream_watermarks,
+        "stream_width": stream_width,
       },
     },
     request: (args) => ({

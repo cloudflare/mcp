@@ -475,7 +475,7 @@ export const aaa_mechanisms: JsonSchema = {
 /**
  * The schema of `aaa_schemas-description`.
  */
-export const aaa_schemas_description: JsonSchema = {
+export const aaa_schemas$$description: JsonSchema = {
   "description": "Optional description for the Notification policy.",
   "type": "string"
 };

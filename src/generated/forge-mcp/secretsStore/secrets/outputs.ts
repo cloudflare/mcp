@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `secrets-store_SecretStatus` in responses.
  */
-export const secrets_store_SecretStatus_output: JsonSchema = {
+export const secrets$$store_SecretStatus: JsonSchema = {
   "enum": [
     "pending",
     "active",
@@ -18,7 +18,7 @@ export const secrets_store_SecretStatus_output: JsonSchema = {
 /**
  * The schema of `secrets-store_api-response-single` in responses.
  */
-export const secrets_store_api_response_single_output: JsonSchema = {
+export const secrets$$store_api$$response$$single: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/secrets-store_messages"
@@ -44,14 +44,14 @@ export const secrets_store_api_response_single_output: JsonSchema = {
 /**
  * The schema of `secrets-store_comment` in responses.
  */
-export const secrets_store_comment_output: JsonSchema = {
+export const secrets$$store_comment: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `secrets-store_delete_response` in responses.
  */
-export const secrets_store_delete_response_output: JsonSchema = {
+export const secrets$$store_delete_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/secrets-store_api-response-single"
@@ -77,14 +77,14 @@ export const secrets_store_delete_response_output: JsonSchema = {
 /**
  * The schema of `secrets-store_identifier` in responses.
  */
-export const secrets_store_identifier_output: JsonSchema = {
+export const secrets$$store_identifier: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `secrets-store_inheritable_scopes` in responses.
  */
-export const secrets_store_inheritable_scopes_output: JsonSchema = {
+export const secrets$$store_inheritable_scopes: JsonSchema = {
   "oneOf": [
     {
       "items": {
@@ -109,7 +109,7 @@ export const secrets_store_inheritable_scopes_output: JsonSchema = {
 /**
  * The schema of `secrets-store_secretObject` in responses.
  */
-export const secrets_store_secretObject_output: JsonSchema = {
+export const secrets$$store_secretObject: JsonSchema = {
   "properties": {
     "comment": {
       "$ref": "#/$defs/secrets-store_comment"
@@ -150,14 +150,14 @@ export const secrets_store_secretObject_output: JsonSchema = {
 /**
  * The schema of `secrets-store_secret_name` in responses.
  */
-export const secrets_store_secret_name_output: JsonSchema = {
+export const secrets$$store_secret_name: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `secrets-store_secret_response` in responses.
  */
-export const secrets_store_secret_response_output: JsonSchema = {
+export const secrets$$store_secret_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/secrets-store_api-response-single"
@@ -176,7 +176,7 @@ export const secrets_store_secret_response_output: JsonSchema = {
 /**
  * The schema of `secrets-store_secrets_response_collection` in responses.
  */
-export const secrets_store_secrets_response_collection_output: JsonSchema = {
+export const secrets$$store_secrets_response_collection: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/secrets-store_api-response-collection"

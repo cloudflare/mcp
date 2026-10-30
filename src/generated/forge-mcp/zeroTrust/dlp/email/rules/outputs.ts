@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../../_/tool.js";
 /**
  * The schema of `dlp_EmailRule` in responses.
  */
-export const dlp_EmailRule_output: JsonSchema = {
+export const dlp_EmailRule: JsonSchema = {
   "properties": {
     "action": {
       "$ref": "#/$defs/dlp_EmailRuleAction"
@@ -65,7 +65,7 @@ export const dlp_EmailRule_output: JsonSchema = {
 /**
  * The schema of `dlp_EmailRuleAction` in responses.
  */
-export const dlp_EmailRuleAction_output: JsonSchema = {
+export const dlp_EmailRuleAction: JsonSchema = {
   "properties": {
     "action": {
       "enum": [
@@ -93,7 +93,7 @@ export const dlp_EmailRuleAction_output: JsonSchema = {
 /**
  * The schema of `dlp_EmailRuleArray` in responses.
  */
-export const dlp_EmailRuleArray_output: JsonSchema = {
+export const dlp_EmailRuleArray: JsonSchema = {
   "items": {
     "$ref": "#/$defs/dlp_EmailRule"
   },
@@ -103,7 +103,7 @@ export const dlp_EmailRuleArray_output: JsonSchema = {
 /**
  * The schema of `dlp_EmailRuleCondition` in responses.
  */
-export const dlp_EmailRuleCondition_output: JsonSchema = {
+export const dlp_EmailRuleCondition: JsonSchema = {
   "properties": {
     "operator": {
       "$ref": "#/$defs/dlp_EmailRuleOperator"
@@ -126,7 +126,7 @@ export const dlp_EmailRuleCondition_output: JsonSchema = {
 /**
  * The schema of `dlp_EmailRuleOperator` in responses.
  */
-export const dlp_EmailRuleOperator_output: JsonSchema = {
+export const dlp_EmailRuleOperator: JsonSchema = {
   "enum": [
     "InList",
     "NotInList",
@@ -139,7 +139,7 @@ export const dlp_EmailRuleOperator_output: JsonSchema = {
 /**
  * The schema of `dlp_EmailRuleSelector` in responses.
  */
-export const dlp_EmailRuleSelector_output: JsonSchema = {
+export const dlp_EmailRuleSelector: JsonSchema = {
   "enum": [
     "Recipients",
     "Sender",
@@ -151,7 +151,7 @@ export const dlp_EmailRuleSelector_output: JsonSchema = {
 /**
  * The schema of `dlp_EmailRuleValue` in responses.
  */
-export const dlp_EmailRuleValue_output: JsonSchema = {
+export const dlp_EmailRuleValue: JsonSchema = {
   "oneOf": [
     {
       "items": {

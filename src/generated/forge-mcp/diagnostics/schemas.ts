@@ -6,7 +6,7 @@ import type { JsonSchema } from "../_/tool.js";
 /**
  * The schema of `magic-transit_identifier`.
  */
-export const magic_transit_identifier: JsonSchema = {
+export const magic$$transit_identifier: JsonSchema = {
   "description": "Identifier",
   "type": "string"
 };

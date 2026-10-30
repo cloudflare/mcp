@@ -3,13 +3,13 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
-  stream_api_response_common_failure_output,
-  stream_api_response_single_output,
-  stream_deleted_response_output,
-  stream_messages_output,
+  stream_api$$response$$common$$failure,
+  stream_api$$response$$single,
+  stream_deleted_response,
+  stream_messages,
 } from "../outputs.js";
 import { stream_account_identifier } from "../schemas.js";
-import { stream_webhook_response_single_output } from "./outputs.js";
+import { stream_webhook_response_single } from "./outputs.js";
 import { stream_webhook_request } from "./schemas.js";
 
 /**
@@ -23,13 +23,21 @@ export const tools: readonly Tool[] = [
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/stream_account_identifier",
-          "description": "The account identifier tag."
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/stream_account_identifier",
+              "description": "The account identifier tag."
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id"
+        "path"
       ],
       $defs: {
         "stream_account_identifier": stream_account_identifier,
@@ -38,9 +46,9 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/stream_deleted_response",
       $defs: {
-        "stream_api-response-single": stream_api_response_single_output,
-        "stream_deleted_response": stream_deleted_response_output,
-        "stream_messages": stream_messages_output,
+        "stream_api-response-single": stream_api$$response$$single,
+        "stream_deleted_response": stream_deleted_response,
+        "stream_messages": stream_messages,
       },
     },
     annotations: {
@@ -67,10 +75,10 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "stream_api-response-common-failure": stream_api_response_common_failure_output,
-        "stream_api-response-single": stream_api_response_single_output,
-        "stream_deleted_response": stream_deleted_response_output,
-        "stream_messages": stream_messages_output,
+        "stream_api-response-common-failure": stream_api$$response$$common$$failure,
+        "stream_api-response-single": stream_api$$response$$single,
+        "stream_deleted_response": stream_deleted_response,
+        "stream_messages": stream_messages,
       },
     },
     request: (args) => ({
@@ -84,13 +92,21 @@ export const tools: readonly Tool[] = [
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/stream_account_identifier",
-          "description": "The account identifier tag."
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/stream_account_identifier",
+              "description": "The account identifier tag."
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id"
+        "path"
       ],
       $defs: {
         "stream_account_identifier": stream_account_identifier,
@@ -99,9 +115,9 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/stream_webhook_response_single",
       $defs: {
-        "stream_api-response-single": stream_api_response_single_output,
-        "stream_messages": stream_messages_output,
-        "stream_webhook_response_single": stream_webhook_response_single_output,
+        "stream_api-response-single": stream_api$$response$$single,
+        "stream_messages": stream_messages,
+        "stream_webhook_response_single": stream_webhook_response_single,
       },
     },
     annotations: {
@@ -129,10 +145,10 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "stream_api-response-common-failure": stream_api_response_common_failure_output,
-        "stream_api-response-single": stream_api_response_single_output,
-        "stream_messages": stream_messages_output,
-        "stream_webhook_response_single": stream_webhook_response_single_output,
+        "stream_api-response-common-failure": stream_api$$response$$common$$failure,
+        "stream_api-response-single": stream_api$$response$$single,
+        "stream_messages": stream_messages,
+        "stream_webhook_response_single": stream_webhook_response_single,
       },
     },
     request: (args) => ({
@@ -146,16 +162,24 @@ export const tools: readonly Tool[] = [
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/stream_account_identifier",
-          "description": "The account identifier tag."
-        },
         "body": {
           "$ref": "#/$defs/stream_webhook_request"
+        },
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/stream_account_identifier",
+              "description": "The account identifier tag."
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
+        "path",
         "body"
       ],
       $defs: {
@@ -166,9 +190,9 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/stream_webhook_response_single",
       $defs: {
-        "stream_api-response-single": stream_api_response_single_output,
-        "stream_messages": stream_messages_output,
-        "stream_webhook_response_single": stream_webhook_response_single_output,
+        "stream_api-response-single": stream_api$$response$$single,
+        "stream_messages": stream_messages,
+        "stream_webhook_response_single": stream_webhook_response_single,
       },
     },
     annotations: {
@@ -195,10 +219,10 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "stream_api-response-common-failure": stream_api_response_common_failure_output,
-        "stream_api-response-single": stream_api_response_single_output,
-        "stream_messages": stream_messages_output,
-        "stream_webhook_response_single": stream_webhook_response_single_output,
+        "stream_api-response-common-failure": stream_api$$response$$common$$failure,
+        "stream_api-response-single": stream_api$$response$$single,
+        "stream_messages": stream_messages,
+        "stream_webhook_response_single": stream_webhook_response_single,
       },
     },
     request: (args) => ({

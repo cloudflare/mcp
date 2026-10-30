@@ -6,7 +6,7 @@ import type { JsonSchema } from "../_/tool.js";
 /**
  * The schema of `resource-sharing_create_share_recipient_request`.
  */
-export const resource_sharing_create_share_recipient_request: JsonSchema = {
+export const resource$$sharing_create_share_recipient_request: JsonSchema = {
   "description": "Optionally specify `recipient_account_id` to target a specific account, or `organization_id` to target the caller's whole organization. If neither is provided, the caller's organization is used.\nThe legacy field `account_id` is accepted as a synonym for `recipient_account_id` during the deprecation period (see `x-sunset` on that field).\n",
   "properties": {
     "account_id": {
@@ -29,7 +29,7 @@ export const resource_sharing_create_share_recipient_request: JsonSchema = {
 /**
  * The schema of `resource-sharing_create_share_request`.
  */
-export const resource_sharing_create_share_request: JsonSchema = {
+export const resource$$sharing_create_share_request: JsonSchema = {
   "properties": {
     "name": {
       "$ref": "#/$defs/resource-sharing_share_name",
@@ -59,7 +59,7 @@ export const resource_sharing_create_share_request: JsonSchema = {
 /**
  * The schema of `resource-sharing_create_share_resource_request`.
  */
-export const resource_sharing_create_share_resource_request: JsonSchema = {
+export const resource$$sharing_create_share_resource_request: JsonSchema = {
   "properties": {
     "meta": {
       "$ref": "#/$defs/resource-sharing_resource_meta",
@@ -90,7 +90,7 @@ export const resource_sharing_create_share_resource_request: JsonSchema = {
 /**
  * The schema of `resource-sharing_update_share_request`.
  */
-export const resource_sharing_update_share_request: JsonSchema = {
+export const resource$$sharing_update_share_request: JsonSchema = {
   "description": "Request body for `PUT /accounts/{account_id}/shares/{share_id}`. The\nshare's display `name` and `tags` can be updated via this endpoint. To\nmodify recipients, use the\n`/accounts/{account_id}/shares/{share_id}/recipients` subresource\nendpoints (POST, PUT, DELETE).\n",
   "properties": {
     "name": {

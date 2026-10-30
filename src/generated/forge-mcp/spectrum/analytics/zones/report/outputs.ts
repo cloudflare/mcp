@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../../_/tool.js";
 /**
  * The schema of `spectrum-analytics_api-response-collection` in responses.
  */
-export const spectrum_analytics_api_response_collection_output: JsonSchema = {
+export const spectrum$$analytics_api$$response$$collection: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/spectrum-analytics_api-response-common"
@@ -42,7 +42,7 @@ export const spectrum_analytics_api_response_collection_output: JsonSchema = {
 /**
  * The schema of `spectrum-analytics_api-response-common` in responses.
  */
-export const spectrum_analytics_api_response_common_output: JsonSchema = {
+export const spectrum$$analytics_api$$response$$common: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/spectrum-analytics_messages"
@@ -68,7 +68,7 @@ export const spectrum_analytics_api_response_common_output: JsonSchema = {
 /**
  * The schema of `spectrum-analytics_zone_report` in responses.
  */
-export const spectrum_analytics_zone_report_output: JsonSchema = {
+export const spectrum$$analytics_zone_report: JsonSchema = {
   "properties": {
     "totals": {
       "properties": {
@@ -111,7 +111,7 @@ export const spectrum_analytics_zone_report_output: JsonSchema = {
 /**
  * The schema of `spectrum-analytics_zones_report_response` in responses.
  */
-export const spectrum_analytics_zones_report_response_output: JsonSchema = {
+export const spectrum$$analytics_zones_report_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/spectrum-analytics_api-response-collection"

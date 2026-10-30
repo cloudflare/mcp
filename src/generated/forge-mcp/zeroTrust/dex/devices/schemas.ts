@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `digital-experience-monitoring_device_id`.
  */
-export const digital_experience_monitoring_device_id: JsonSchema = {
+export const digital$$experience$$monitoring_device_id: JsonSchema = {
   "description": "Unique identifier for the physical device (UUID).",
   "type": "string"
 };
@@ -14,7 +14,7 @@ export const digital_experience_monitoring_device_id: JsonSchema = {
 /**
  * The schema of `digital-experience-monitoring_mode`.
  */
-export const digital_experience_monitoring_mode: JsonSchema = {
+export const digital$$experience$$monitoring_mode: JsonSchema = {
   "description": "The mode under which the WARP client is run.",
   "type": "string"
 };
@@ -22,7 +22,7 @@ export const digital_experience_monitoring_mode: JsonSchema = {
 /**
  * The schema of `digital-experience-monitoring_page`.
  */
-export const digital_experience_monitoring_page: JsonSchema = {
+export const digital$$experience$$monitoring_page: JsonSchema = {
   "description": "Page number of paginated results.",
   "type": "number"
 };
@@ -30,7 +30,7 @@ export const digital_experience_monitoring_page: JsonSchema = {
 /**
  * The schema of `digital-experience-monitoring_per_page`.
  */
-export const digital_experience_monitoring_per_page: JsonSchema = {
+export const digital$$experience$$monitoring_per_page: JsonSchema = {
   "description": "Number of results per page.",
   "type": "number"
 };
@@ -38,7 +38,7 @@ export const digital_experience_monitoring_per_page: JsonSchema = {
 /**
  * The schema of `digital-experience-monitoring_since_minutes`.
  */
-export const digital_experience_monitoring_since_minutes: JsonSchema = {
+export const digital$$experience$$monitoring_since_minutes: JsonSchema = {
   "description": "Number of minutes before current time.",
   "type": "number"
 };
@@ -46,7 +46,7 @@ export const digital_experience_monitoring_since_minutes: JsonSchema = {
 /**
  * The schema of `digital-experience-monitoring_sort_by`.
  */
-export const digital_experience_monitoring_sort_by: JsonSchema = {
+export const digital$$experience$$monitoring_sort_by: JsonSchema = {
   "description": "Dimension to sort results by.",
   "enum": [
     "colo",
@@ -63,7 +63,7 @@ export const digital_experience_monitoring_sort_by: JsonSchema = {
 /**
  * The schema of `digital-experience-monitoring_source`.
  */
-export const digital_experience_monitoring_source: JsonSchema = {
+export const digital$$experience$$monitoring_source: JsonSchema = {
   "description": "Specifies fleet status details source.",
   "enum": [
     "last_seen",
@@ -76,7 +76,7 @@ export const digital_experience_monitoring_source: JsonSchema = {
 /**
  * The schema of `digital-experience-monitoring_time_now`.
  */
-export const digital_experience_monitoring_time_now: JsonSchema = {
+export const digital$$experience$$monitoring_time_now: JsonSchema = {
   "description": "Current time. Timestamp can be provided in ISO 8601 datetime format or milliseconds since epoch.",
   "type": "string"
 };

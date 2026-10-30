@@ -2,26 +2,34 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../_/tool.js";
-import { workers_observability_usage_limit_output } from "./outputs.js";
+import { workers$$observability_usage_limit } from "./outputs.js";
 
 /**
- * The tools of `observability.usage_limit`.
+ * The tools of `observability.usageLimit`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "observability_usage_limit_get",
+    name: "observability_usageLimit_get",
     title: "Get usage limit status",
     description: "Whether Workers Observability is keeping fewer of the account's events, usually because it passed its daily limit, and what that limit is. Daily limits reset at 00:00 UTC; paid accounts are brought back in stages over the following hours.\n\nThis method is beta.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "description": "Your Cloudflare account ID.",
-          "type": "string"
+        "path": {
+          "properties": {
+            "account_id": {
+              "description": "Your Cloudflare account ID.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id"
+        "path"
       ],
     },
     outputSchema: {
@@ -75,7 +83,7 @@ export const tools: readonly Tool[] = [
       ],
       "type": "object",
       $defs: {
-        "workers-observability_usage_limit": workers_observability_usage_limit_output,
+        "workers-observability_usage_limit": workers$$observability_usage_limit,
       },
     },
     annotations: {
@@ -342,7 +350,7 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "workers-observability_usage_limit": workers_observability_usage_limit_output,
+        "workers-observability_usage_limit": workers$$observability_usage_limit,
       },
     },
     request: (args) => ({

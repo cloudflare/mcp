@@ -3,46 +3,54 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
-  logpush_api_response_common_failure_output,
-  logpush_api_response_common_output,
-  logpush_messages_output,
+  logpush_api$$response$$common,
+  logpush_api$$response$$common$$failure,
+  logpush_messages,
 } from "../../outputs.js";
 import { logpush_dataset, logpush_identifier } from "../../schemas.js";
-import { logpush_logpush_field_response_collection_output } from "./outputs.js";
+import { logpush_logpush_field_response_collection } from "./outputs.js";
 
 /**
- * The tools of `logpush.account_datasets.fields`.
+ * The tools of `logpush.accountDatasets.fields`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "logpush_account_datasets_fields_get",
+    name: "logpush_accountDatasets_fields_get",
     title: "List fields",
     description: "Lists all fields available for a dataset. The response result is. an object with key-value pairs, where keys are field names, and values are descriptions.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_or_zone": {
-          "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
-          "enum": [
-            "accounts",
-            "zones"
+        "path": {
+          "properties": {
+            "account_or_zone": {
+              "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
+              "enum": [
+                "accounts",
+                "zones"
+              ],
+              "type": "string"
+            },
+            "account_or_zone_id": {
+              "$ref": "#/$defs/logpush_identifier",
+              "description": "The account ID or zone ID, as selected by account_or_zone."
+            },
+            "dataset_id": {
+              "$ref": "#/$defs/logpush_dataset",
+              "default": "http_requests",
+              "description": "Name of the dataset. A list of supported datasets can be found on the [Developer Docs](https://developers.cloudflare.com/logs/reference/log-fields/)."
+            }
+          },
+          "required": [
+            "account_or_zone",
+            "account_or_zone_id",
+            "dataset_id"
           ],
-          "type": "string"
-        },
-        "account_or_zone_id": {
-          "$ref": "#/$defs/logpush_identifier",
-          "description": "The account ID or zone ID, as selected by account_or_zone."
-        },
-        "dataset_id": {
-          "$ref": "#/$defs/logpush_dataset",
-          "default": "http_requests",
-          "description": "Name of the dataset. A list of supported datasets can be found on the [Developer Docs](https://developers.cloudflare.com/logs/reference/log-fields/)."
+          "type": "object"
         }
       },
       required: [
-        "account_or_zone",
-        "account_or_zone_id",
-        "dataset_id"
+        "path"
       ],
       $defs: {
         "logpush_dataset": logpush_dataset,
@@ -52,9 +60,9 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/logpush_logpush_field_response_collection",
       $defs: {
-        "logpush_api-response-common": logpush_api_response_common_output,
-        "logpush_logpush_field_response_collection": logpush_logpush_field_response_collection_output,
-        "logpush_messages": logpush_messages_output,
+        "logpush_api-response-common": logpush_api$$response$$common,
+        "logpush_logpush_field_response_collection": logpush_logpush_field_response_collection,
+        "logpush_messages": logpush_messages,
       },
     },
     annotations: {
@@ -92,10 +100,10 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "logpush_api-response-common": logpush_api_response_common_output,
-        "logpush_api-response-common-failure": logpush_api_response_common_failure_output,
-        "logpush_logpush_field_response_collection": logpush_logpush_field_response_collection_output,
-        "logpush_messages": logpush_messages_output,
+        "logpush_api-response-common": logpush_api$$response$$common,
+        "logpush_api-response-common-failure": logpush_api$$response$$common$$failure,
+        "logpush_logpush_field_response_collection": logpush_logpush_field_response_collection,
+        "logpush_messages": logpush_messages,
       },
     },
     request: (args) => ({

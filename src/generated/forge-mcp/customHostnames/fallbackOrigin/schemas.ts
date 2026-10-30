@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `tls-certificates-and-hostnames_origin`.
  */
-export const tls_certificates_and_hostnames_origin: JsonSchema = {
+export const tls$$certificates$$and$$hostnames_origin: JsonSchema = {
   "description": "Your origin hostname that requests to your custom hostnames will be sent to.",
   "type": "string"
 };

@@ -3,80 +3,85 @@
 
 import { type Tool, pathParam } from "../../../../_/tool.js";
 import {
-  access_api_response_common_failure_output,
-  access_api_response_single_output,
-  access_messages_output,
+  access_api$$response$$common$$failure,
+  access_api$$response$$single,
+  access_messages,
 } from "../../../outputs.js";
 import { access_identifier, access_uuid } from "../../../schemas.js";
+import { access_allow_iframe, access_skip_interstitial } from "../outputs.js";
 import {
-  access_allow_iframe_output,
-  access_skip_interstitial_output,
-} from "../outputs.js";
-import {
-  access_allow_iframe,
+  access_allow_iframe as access_allow_iframe$,
   access_app_id,
-  access_skip_interstitial,
+  access_skip_interstitial as access_skip_interstitial$,
 } from "../schemas.js";
 import {
-  access_app_settings_response_output,
-  access_single_response_update_output,
+  access_app_settings_response,
+  access_single_response_update,
 } from "./outputs.js";
 import { access_app_settings_request } from "./schemas.js";
 
 /**
- * The tools of `zero_trust.access.applications.settings`.
+ * The tools of `zeroTrust.access.applications.settings`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "zero_trust_access_applications_settings_update",
+    name: "zeroTrust_access_applications_settings_update",
     title: "Update Access application settings",
     description: "Updates Access application settings.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_or_zone": {
-          "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
-          "enum": [
-            "accounts",
-            "zones"
-          ],
-          "type": "string"
-        },
-        "account_or_zone_id": {
-          "$ref": "#/$defs/access_identifier",
-          "description": "The account ID or zone ID, as selected by account_or_zone."
-        },
-        "app_id": {
-          "$ref": "#/$defs/access_app_id"
-        },
         "body": {
           "$ref": "#/$defs/access_app_settings_request"
+        },
+        "path": {
+          "properties": {
+            "account_or_zone": {
+              "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
+              "enum": [
+                "accounts",
+                "zones"
+              ],
+              "type": "string"
+            },
+            "account_or_zone_id": {
+              "$ref": "#/$defs/access_identifier",
+              "description": "The account ID or zone ID, as selected by account_or_zone."
+            },
+            "app_id": {
+              "$ref": "#/$defs/access_app_id"
+            }
+          },
+          "required": [
+            "account_or_zone",
+            "account_or_zone_id",
+            "app_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_or_zone",
-        "account_or_zone_id",
-        "app_id",
+        "path",
         "body"
       ],
       $defs: {
-        "access_allow_iframe": access_allow_iframe,
+        "access_allow_iframe": access_allow_iframe$,
         "access_app_id": access_app_id,
         "access_app_settings_request": access_app_settings_request,
         "access_identifier": access_identifier,
-        "access_skip_interstitial": access_skip_interstitial,
+        "access_skip_interstitial": access_skip_interstitial$,
         "access_uuid": access_uuid,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/access_single_response_update",
       $defs: {
-        "access_allow_iframe": access_allow_iframe_output,
-        "access_api-response-single": access_api_response_single_output,
-        "access_app_settings_response": access_app_settings_response_output,
-        "access_messages": access_messages_output,
-        "access_single_response_update": access_single_response_update_output,
-        "access_skip_interstitial": access_skip_interstitial_output,
+        "access_allow_iframe": access_allow_iframe,
+        "access_api-response-single": access_api$$response$$single,
+        "access_app_settings_response": access_app_settings_response,
+        "access_messages": access_messages,
+        "access_single_response_update": access_single_response_update,
+        "access_skip_interstitial": access_skip_interstitial,
       },
     },
     annotations: {
@@ -103,13 +108,13 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "access_allow_iframe": access_allow_iframe_output,
-        "access_api-response-common-failure": access_api_response_common_failure_output,
-        "access_api-response-single": access_api_response_single_output,
-        "access_app_settings_response": access_app_settings_response_output,
-        "access_messages": access_messages_output,
-        "access_single_response_update": access_single_response_update_output,
-        "access_skip_interstitial": access_skip_interstitial_output,
+        "access_allow_iframe": access_allow_iframe,
+        "access_api-response-common-failure": access_api$$response$$common$$failure,
+        "access_api-response-single": access_api$$response$$single,
+        "access_app_settings_response": access_app_settings_response,
+        "access_messages": access_messages,
+        "access_single_response_update": access_single_response_update,
+        "access_skip_interstitial": access_skip_interstitial,
       },
     },
     request: (args) => ({

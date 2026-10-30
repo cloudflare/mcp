@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `custom-indicator-feeds_create_feed`.
  */
-export const custom_indicator_feeds_create_feed: JsonSchema = {
+export const custom$$indicator$$feeds_create_feed: JsonSchema = {
   "properties": {
     "description": {
       "$ref": "#/$defs/custom-indicator-feeds_description",
@@ -23,7 +23,7 @@ export const custom_indicator_feeds_create_feed: JsonSchema = {
 /**
  * The schema of `custom-indicator-feeds_description`.
  */
-export const custom_indicator_feeds_description: JsonSchema = {
+export const custom$$indicator$$feeds_description: JsonSchema = {
   "description": "The description of the example test",
   "type": "string"
 };
@@ -31,7 +31,7 @@ export const custom_indicator_feeds_description: JsonSchema = {
 /**
  * The schema of `custom-indicator-feeds_feed_id`.
  */
-export const custom_indicator_feeds_feed_id: JsonSchema = {
+export const custom$$indicator$$feeds_feed_id: JsonSchema = {
   "description": "Indicator feed ID",
   "type": "integer"
 };
@@ -39,7 +39,7 @@ export const custom_indicator_feeds_feed_id: JsonSchema = {
 /**
  * The schema of `custom-indicator-feeds_identifier`.
  */
-export const custom_indicator_feeds_identifier: JsonSchema = {
+export const custom$$indicator$$feeds_identifier: JsonSchema = {
   "description": "Identifier",
   "type": "string"
 };
@@ -47,7 +47,7 @@ export const custom_indicator_feeds_identifier: JsonSchema = {
 /**
  * The schema of `custom-indicator-feeds_name`.
  */
-export const custom_indicator_feeds_name: JsonSchema = {
+export const custom$$indicator$$feeds_name: JsonSchema = {
   "description": "The name of the indicator feed",
   "type": "string"
 };
@@ -55,7 +55,7 @@ export const custom_indicator_feeds_name: JsonSchema = {
 /**
  * The schema of `custom-indicator-feeds_update_public_field_request`.
  */
-export const custom_indicator_feeds_update_public_field_request: JsonSchema = {
+export const custom$$indicator$$feeds_update_public_field_request: JsonSchema = {
   "properties": {
     "description": {
       "description": "The new description of the feed",

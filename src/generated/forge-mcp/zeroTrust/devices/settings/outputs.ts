@@ -7,7 +7,7 @@ import type { JsonSchema } from "../../../_/tool.js";
  * The schema of `teams-devices_zero-trust-account-device-settings` in
  * responses.
  */
-export const teams_devices_zero_trust_account_device_settings_output: JsonSchema = {
+export const teams$$devices_zero$$trust$$account$$device$$settings: JsonSchema = {
   "properties": {
     "disable_for_time": {
       "type": "number"
@@ -44,7 +44,7 @@ export const teams_devices_zero_trust_account_device_settings_output: JsonSchema
  * The schema of `teams-devices_zero-trust-account-device-settings-response` in
  * responses.
  */
-export const teams_devices_zero_trust_account_device_settings_response_output: JsonSchema = {
+export const teams$$devices_zero$$trust$$account$$device$$settings$$response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/teams-devices_api-response-single"

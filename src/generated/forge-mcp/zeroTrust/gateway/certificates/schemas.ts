@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `zero-trust-gateway_generate-cert-request`.
  */
-export const zero_trust_gateway_generate_cert_request: JsonSchema = {
+export const zero$$trust$$gateway_generate$$cert$$request: JsonSchema = {
   "properties": {
     "validity_period_days": {
       "description": "Sets the certificate validity period in days (range: 1-10,950 days / ~30 years). Defaults to 1,825 days (5 years). **Important**: This field is only settable during the certificate creation.  Certificates becomes immutable after creation - use the `/activate` and `/deactivate` endpoints to manage certificate lifecycle.",
@@ -19,7 +19,7 @@ export const zero_trust_gateway_generate_cert_request: JsonSchema = {
 /**
  * The schema of `zero-trust-gateway_uuid`.
  */
-export const zero_trust_gateway_uuid: JsonSchema = {
+export const zero$$trust$$gateway_uuid: JsonSchema = {
   "description": "Identify the certificate with a UUID.",
   "type": "string"
 };

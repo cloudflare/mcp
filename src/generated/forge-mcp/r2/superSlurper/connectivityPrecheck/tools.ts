@@ -3,53 +3,61 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
-  r2_slurper_api_v4_error_output,
-  r2_slurper_api_v4_failure_output,
-  r2_slurper_api_v4_message_output,
-  r2_slurper_api_v4_success_output,
+  r2$$slurper_api$$v4$$error,
+  r2$$slurper_api$$v4$$failure,
+  r2$$slurper_api$$v4$$message,
+  r2$$slurper_api$$v4$$success,
 } from "../outputs.js";
 import {
-  r2_slurper_GCSLikeCredsSchema,
-  r2_slurper_GCSSourceSchema,
-  r2_slurper_Jurisdiction,
-  r2_slurper_R2SourceSchema,
-  r2_slurper_R2TargetSchema,
-  r2_slurper_S3LikeCredsSchema,
-  r2_slurper_S3SourceSchema,
-  r2_slurper_SourceJobSchema,
+  r2$$slurper_GCSLikeCredsSchema,
+  r2$$slurper_GCSSourceSchema,
+  r2$$slurper_Jurisdiction,
+  r2$$slurper_R2SourceSchema,
+  r2$$slurper_R2TargetSchema,
+  r2$$slurper_S3LikeCredsSchema,
+  r2$$slurper_S3SourceSchema,
+  r2$$slurper_SourceJobSchema,
 } from "../schemas.js";
-import { r2_slurper_ConnectivityResponse_output } from "./outputs.js";
+import { r2$$slurper_ConnectivityResponse } from "./outputs.js";
 
 /**
- * The tools of `r2.super_slurper.connectivity_precheck`.
+ * The tools of `r2.superSlurper.connectivityPrecheck`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "r2_super_slurper_connectivity_precheck_source",
+    name: "r2_superSlurper_connectivityPrecheck_source",
     title: "Check source connectivity",
     description: "Check whether tokens are valid against the source bucket",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "type": "string"
-        },
         "body": {
           "$ref": "#/$defs/r2-slurper_SourceJobSchema"
+        },
+        "path": {
+          "properties": {
+            "account_id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
+        "path",
         "body"
       ],
       $defs: {
-        "r2-slurper_GCSLikeCredsSchema": r2_slurper_GCSLikeCredsSchema,
-        "r2-slurper_GCSSourceSchema": r2_slurper_GCSSourceSchema,
-        "r2-slurper_Jurisdiction": r2_slurper_Jurisdiction,
-        "r2-slurper_R2SourceSchema": r2_slurper_R2SourceSchema,
-        "r2-slurper_S3LikeCredsSchema": r2_slurper_S3LikeCredsSchema,
-        "r2-slurper_S3SourceSchema": r2_slurper_S3SourceSchema,
-        "r2-slurper_SourceJobSchema": r2_slurper_SourceJobSchema,
+        "r2-slurper_GCSLikeCredsSchema": r2$$slurper_GCSLikeCredsSchema,
+        "r2-slurper_GCSSourceSchema": r2$$slurper_GCSSourceSchema,
+        "r2-slurper_Jurisdiction": r2$$slurper_Jurisdiction,
+        "r2-slurper_R2SourceSchema": r2$$slurper_R2SourceSchema,
+        "r2-slurper_S3LikeCredsSchema": r2$$slurper_S3LikeCredsSchema,
+        "r2-slurper_S3SourceSchema": r2$$slurper_S3SourceSchema,
+        "r2-slurper_SourceJobSchema": r2$$slurper_SourceJobSchema,
       },
     },
     outputSchema: {
@@ -67,10 +75,10 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "r2-slurper_ConnectivityResponse": r2_slurper_ConnectivityResponse_output,
-        "r2-slurper_api-v4-error": r2_slurper_api_v4_error_output,
-        "r2-slurper_api-v4-message": r2_slurper_api_v4_message_output,
-        "r2-slurper_api-v4-success": r2_slurper_api_v4_success_output,
+        "r2-slurper_ConnectivityResponse": r2$$slurper_ConnectivityResponse,
+        "r2-slurper_api-v4-error": r2$$slurper_api$$v4$$error,
+        "r2-slurper_api-v4-message": r2$$slurper_api$$v4$$message,
+        "r2-slurper_api-v4-success": r2$$slurper_api$$v4$$success,
       },
     },
     annotations: {
@@ -104,11 +112,11 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "r2-slurper_ConnectivityResponse": r2_slurper_ConnectivityResponse_output,
-        "r2-slurper_api-v4-error": r2_slurper_api_v4_error_output,
-        "r2-slurper_api-v4-failure": r2_slurper_api_v4_failure_output,
-        "r2-slurper_api-v4-message": r2_slurper_api_v4_message_output,
-        "r2-slurper_api-v4-success": r2_slurper_api_v4_success_output,
+        "r2-slurper_ConnectivityResponse": r2$$slurper_ConnectivityResponse,
+        "r2-slurper_api-v4-error": r2$$slurper_api$$v4$$error,
+        "r2-slurper_api-v4-failure": r2$$slurper_api$$v4$$failure,
+        "r2-slurper_api-v4-message": r2$$slurper_api$$v4$$message,
+        "r2-slurper_api-v4-success": r2$$slurper_api$$v4$$success,
       },
     },
     request: (args) => ({
@@ -117,27 +125,35 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "r2_super_slurper_connectivity_precheck_target",
+    name: "r2_superSlurper_connectivityPrecheck_target",
     title: "Check target connectivity",
     description: "Check whether tokens are valid against the target bucket",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "type": "string"
-        },
         "body": {
           "$ref": "#/$defs/r2-slurper_R2TargetSchema"
+        },
+        "path": {
+          "properties": {
+            "account_id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
+        "path",
         "body"
       ],
       $defs: {
-        "r2-slurper_Jurisdiction": r2_slurper_Jurisdiction,
-        "r2-slurper_R2TargetSchema": r2_slurper_R2TargetSchema,
-        "r2-slurper_S3LikeCredsSchema": r2_slurper_S3LikeCredsSchema,
+        "r2-slurper_Jurisdiction": r2$$slurper_Jurisdiction,
+        "r2-slurper_R2TargetSchema": r2$$slurper_R2TargetSchema,
+        "r2-slurper_S3LikeCredsSchema": r2$$slurper_S3LikeCredsSchema,
       },
     },
     outputSchema: {
@@ -155,10 +171,10 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "r2-slurper_ConnectivityResponse": r2_slurper_ConnectivityResponse_output,
-        "r2-slurper_api-v4-error": r2_slurper_api_v4_error_output,
-        "r2-slurper_api-v4-message": r2_slurper_api_v4_message_output,
-        "r2-slurper_api-v4-success": r2_slurper_api_v4_success_output,
+        "r2-slurper_ConnectivityResponse": r2$$slurper_ConnectivityResponse,
+        "r2-slurper_api-v4-error": r2$$slurper_api$$v4$$error,
+        "r2-slurper_api-v4-message": r2$$slurper_api$$v4$$message,
+        "r2-slurper_api-v4-success": r2$$slurper_api$$v4$$success,
       },
     },
     annotations: {
@@ -192,11 +208,11 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "r2-slurper_ConnectivityResponse": r2_slurper_ConnectivityResponse_output,
-        "r2-slurper_api-v4-error": r2_slurper_api_v4_error_output,
-        "r2-slurper_api-v4-failure": r2_slurper_api_v4_failure_output,
-        "r2-slurper_api-v4-message": r2_slurper_api_v4_message_output,
-        "r2-slurper_api-v4-success": r2_slurper_api_v4_success_output,
+        "r2-slurper_ConnectivityResponse": r2$$slurper_ConnectivityResponse,
+        "r2-slurper_api-v4-error": r2$$slurper_api$$v4$$error,
+        "r2-slurper_api-v4-failure": r2$$slurper_api$$v4$$failure,
+        "r2-slurper_api-v4-message": r2$$slurper_api$$v4$$message,
+        "r2-slurper_api-v4-success": r2$$slurper_api$$v4$$success,
       },
     },
     request: (args) => ({

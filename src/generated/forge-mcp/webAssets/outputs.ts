@@ -6,7 +6,7 @@ import type { JsonSchema } from "../_/tool.js";
 /**
  * The schema of `api-shield_label` in responses.
  */
-export const api_shield_label_output: JsonSchema = {
+export const api$$shield_label: JsonSchema = {
   "properties": {
     "created_at": {
       "$ref": "#/$defs/api-shield_timestamp-2"
@@ -41,28 +41,28 @@ export const api_shield_label_output: JsonSchema = {
 /**
  * The schema of `api-shield_label_description` in responses.
  */
-export const api_shield_label_description_output: JsonSchema = {
+export const api$$shield_label_description: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `api-shield_label_metadata` in responses.
  */
-export const api_shield_label_metadata_output: JsonSchema = {
+export const api$$shield_label_metadata: JsonSchema = {
   "type": "object"
 };
 
 /**
  * The schema of `api-shield_label_name` in responses.
  */
-export const api_shield_label_name_output: JsonSchema = {
+export const api$$shield_label_name: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `api-shield_label_source` in responses.
  */
-export const api_shield_label_source_output: JsonSchema = {
+export const api$$shield_label_source: JsonSchema = {
   "enum": [
     "user",
     "managed"

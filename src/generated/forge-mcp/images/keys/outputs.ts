@@ -6,14 +6,14 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `images_image_key_name` in responses.
  */
-export const images_image_key_name_output: JsonSchema = {
+export const images_image_key_name: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `images_image_key_response_collection` in responses.
  */
-export const images_image_key_response_collection_output: JsonSchema = {
+export const images_image_key_response_collection: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/images_api-response-common"
@@ -32,14 +32,14 @@ export const images_image_key_response_collection_output: JsonSchema = {
 /**
  * The schema of `images_image_key_value` in responses.
  */
-export const images_image_key_value_output: JsonSchema = {
+export const images_image_key_value: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `images_image_keys` in responses.
  */
-export const images_image_keys_output: JsonSchema = {
+export const images_image_keys: JsonSchema = {
   "properties": {
     "name": {
       "$ref": "#/$defs/images_image_key_name"
@@ -54,7 +54,7 @@ export const images_image_keys_output: JsonSchema = {
 /**
  * The schema of `images_image_keys_response` in responses.
  */
-export const images_image_keys_response_output: JsonSchema = {
+export const images_image_keys_response: JsonSchema = {
   "properties": {
     "keys": {
       "items": {

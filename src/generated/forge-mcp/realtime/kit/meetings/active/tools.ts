@@ -3,15 +3,15 @@
 
 import { type Tool, pathParam } from "../../../../_/tool.js";
 import {
-  realtimekit_ActiveSession_output,
-  realtimekit_GenericErrorResponse_output,
-  realtimekit_ValidationIssue_output,
+  realtimekit_ActiveSession,
+  realtimekit_GenericErrorResponse,
+  realtimekit_ValidationIssue,
 } from "../../outputs.js";
 import {
   realtimekit_account_identifier,
   realtimekit_app_id,
 } from "../../schemas.js";
-import { realtimekit_SessionParticipant_output } from "./outputs.js";
+import { realtimekit_SessionParticipant } from "./outputs.js";
 
 /**
  * The tools of `realtime.kit.meetings.active`.
@@ -24,23 +24,31 @@ export const tools: readonly Tool[] = [
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/realtimekit_account_identifier",
-          "description": "The account identifier tag."
-        },
-        "app_id": {
-          "$ref": "#/$defs/realtimekit_app_id",
-          "description": "The app identifier tag."
-        },
-        "meeting_id": {
-          "description": "ID of the meeting",
-          "type": "string"
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/realtimekit_account_identifier",
+              "description": "The account identifier tag."
+            },
+            "app_id": {
+              "$ref": "#/$defs/realtimekit_app_id",
+              "description": "The app identifier tag."
+            },
+            "meeting_id": {
+              "description": "ID of the meeting",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "app_id",
+            "meeting_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "app_id",
-        "meeting_id"
+        "path"
       ],
       $defs: {
         "realtimekit_account_identifier": realtimekit_account_identifier,
@@ -58,7 +66,7 @@ export const tools: readonly Tool[] = [
       },
       "type": "object",
       $defs: {
-        "realtimekit_ActiveSession": realtimekit_ActiveSession_output,
+        "realtimekit_ActiveSession": realtimekit_ActiveSession,
       },
     },
     annotations: {
@@ -94,9 +102,9 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "realtimekit_ActiveSession": realtimekit_ActiveSession_output,
-        "realtimekit_GenericErrorResponse": realtimekit_GenericErrorResponse_output,
-        "realtimekit_ValidationIssue": realtimekit_ValidationIssue_output,
+        "realtimekit_ActiveSession": realtimekit_ActiveSession,
+        "realtimekit_GenericErrorResponse": realtimekit_GenericErrorResponse,
+        "realtimekit_ValidationIssue": realtimekit_ValidationIssue,
       },
     },
     request: (args) => ({
@@ -110,14 +118,6 @@ export const tools: readonly Tool[] = [
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/realtimekit_account_identifier",
-          "description": "The account identifier tag."
-        },
-        "app_id": {
-          "$ref": "#/$defs/realtimekit_app_id",
-          "description": "The app identifier tag."
-        },
         "body": {
           "description": "Request body for kicking participants from an active session. At least one of `participant_ids` or `custom_participant_ids` must contain a value.",
           "properties": {
@@ -139,15 +139,31 @@ export const tools: readonly Tool[] = [
           },
           "type": "object"
         },
-        "meeting_id": {
-          "description": "ID of the meeting",
-          "type": "string"
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/realtimekit_account_identifier",
+              "description": "The account identifier tag."
+            },
+            "app_id": {
+              "$ref": "#/$defs/realtimekit_app_id",
+              "description": "The app identifier tag."
+            },
+            "meeting_id": {
+              "description": "ID of the meeting",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "app_id",
+            "meeting_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "app_id",
-        "meeting_id",
+        "path",
         "body"
       ],
       $defs: {
@@ -177,7 +193,7 @@ export const tools: readonly Tool[] = [
       },
       "type": "object",
       $defs: {
-        "realtimekit_SessionParticipant": realtimekit_SessionParticipant_output,
+        "realtimekit_SessionParticipant": realtimekit_SessionParticipant,
       },
     },
     annotations: {
@@ -224,9 +240,9 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "realtimekit_GenericErrorResponse": realtimekit_GenericErrorResponse_output,
-        "realtimekit_SessionParticipant": realtimekit_SessionParticipant_output,
-        "realtimekit_ValidationIssue": realtimekit_ValidationIssue_output,
+        "realtimekit_GenericErrorResponse": realtimekit_GenericErrorResponse,
+        "realtimekit_SessionParticipant": realtimekit_SessionParticipant,
+        "realtimekit_ValidationIssue": realtimekit_ValidationIssue,
       },
     },
     request: (args) => ({
@@ -235,29 +251,37 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "realtime_kit_meetings_active_kick_all",
+    name: "realtime_kit_meetings_active_kickAll",
     title: "Kick all participants",
     description: "Kicks all participants from an active session for the given meeting ID.\n\nThis method is beta.\n\nConfirm with the user before calling this tool. This operation disconnects every active participant immediately.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/realtimekit_account_identifier",
-          "description": "The account identifier tag."
-        },
-        "app_id": {
-          "$ref": "#/$defs/realtimekit_app_id",
-          "description": "The app identifier tag."
-        },
-        "meeting_id": {
-          "description": "ID of the meeting",
-          "type": "string"
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/realtimekit_account_identifier",
+              "description": "The account identifier tag."
+            },
+            "app_id": {
+              "$ref": "#/$defs/realtimekit_app_id",
+              "description": "The app identifier tag."
+            },
+            "meeting_id": {
+              "description": "ID of the meeting",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "app_id",
+            "meeting_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "app_id",
-        "meeting_id"
+        "path"
       ],
       $defs: {
         "realtimekit_account_identifier": realtimekit_account_identifier,
@@ -324,8 +348,8 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "realtimekit_GenericErrorResponse": realtimekit_GenericErrorResponse_output,
-        "realtimekit_ValidationIssue": realtimekit_ValidationIssue_output,
+        "realtimekit_GenericErrorResponse": realtimekit_GenericErrorResponse,
+        "realtimekit_ValidationIssue": realtimekit_ValidationIssue,
       },
     },
     request: (args) => ({
@@ -339,14 +363,6 @@ export const tools: readonly Tool[] = [
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/realtimekit_account_identifier",
-          "description": "The account identifier tag."
-        },
-        "app_id": {
-          "$ref": "#/$defs/realtimekit_app_id",
-          "description": "The app identifier tag."
-        },
         "body": {
           "description": "Request body for muting participants in an active session. At least one of `participant_ids` or `custom_participant_ids` must contain a value.",
           "properties": {
@@ -367,15 +383,31 @@ export const tools: readonly Tool[] = [
           },
           "type": "object"
         },
-        "meeting_id": {
-          "description": "ID of the meeting",
-          "type": "string"
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/realtimekit_account_identifier",
+              "description": "The account identifier tag."
+            },
+            "app_id": {
+              "$ref": "#/$defs/realtimekit_app_id",
+              "description": "The app identifier tag."
+            },
+            "meeting_id": {
+              "description": "ID of the meeting",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "app_id",
+            "meeting_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "app_id",
-        "meeting_id",
+        "path",
         "body"
       ],
       $defs: {
@@ -405,7 +437,7 @@ export const tools: readonly Tool[] = [
       },
       "type": "object",
       $defs: {
-        "realtimekit_SessionParticipant": realtimekit_SessionParticipant_output,
+        "realtimekit_SessionParticipant": realtimekit_SessionParticipant,
       },
     },
     annotations: {
@@ -452,9 +484,9 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "realtimekit_GenericErrorResponse": realtimekit_GenericErrorResponse_output,
-        "realtimekit_SessionParticipant": realtimekit_SessionParticipant_output,
-        "realtimekit_ValidationIssue": realtimekit_ValidationIssue_output,
+        "realtimekit_GenericErrorResponse": realtimekit_GenericErrorResponse,
+        "realtimekit_SessionParticipant": realtimekit_SessionParticipant,
+        "realtimekit_ValidationIssue": realtimekit_ValidationIssue,
       },
     },
     request: (args) => ({
@@ -463,20 +495,12 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "realtime_kit_meetings_active_mute_all",
+    name: "realtime_kit_meetings_active_muteAll",
     title: "Mute all participants",
     description: "Mutes all participants of an active session for the given meeting ID.\n\nThis method is beta.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/realtimekit_account_identifier",
-          "description": "The account identifier tag."
-        },
-        "app_id": {
-          "$ref": "#/$defs/realtimekit_app_id",
-          "description": "The app identifier tag."
-        },
         "body": {
           "description": "Request body for muting all participants in an active session.",
           "properties": {
@@ -488,15 +512,31 @@ export const tools: readonly Tool[] = [
           },
           "type": "object"
         },
-        "meeting_id": {
-          "description": "ID of the meeting",
-          "type": "string"
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/realtimekit_account_identifier",
+              "description": "The account identifier tag."
+            },
+            "app_id": {
+              "$ref": "#/$defs/realtimekit_app_id",
+              "description": "The app identifier tag."
+            },
+            "meeting_id": {
+              "description": "ID of the meeting",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "app_id",
+            "meeting_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "app_id",
-        "meeting_id",
+        "path",
         "body"
       ],
       $defs: {
@@ -564,8 +604,8 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "realtimekit_GenericErrorResponse": realtimekit_GenericErrorResponse_output,
-        "realtimekit_ValidationIssue": realtimekit_ValidationIssue_output,
+        "realtimekit_GenericErrorResponse": realtimekit_GenericErrorResponse,
+        "realtimekit_ValidationIssue": realtimekit_ValidationIssue,
       },
     },
     request: (args) => ({

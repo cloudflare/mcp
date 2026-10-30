@@ -6,7 +6,7 @@ import type { JsonSchema } from "../_/tool.js";
 /**
  * The schema of `rum_rule` in responses.
  */
-export const rum_rule_output: JsonSchema = {
+export const rum_rule: JsonSchema = {
   "properties": {
     "created": {
       "$ref": "#/$defs/rum_timestamp"
@@ -39,14 +39,14 @@ export const rum_rule_output: JsonSchema = {
 /**
  * The schema of `rum_rule_identifier` in responses.
  */
-export const rum_rule_identifier_output: JsonSchema = {
+export const rum_rule_identifier: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `rum_rules` in responses.
  */
-export const rum_rules_output: JsonSchema = {
+export const rum_rules: JsonSchema = {
   "items": {
     "$ref": "#/$defs/rum_rule"
   },
@@ -56,7 +56,7 @@ export const rum_rules_output: JsonSchema = {
 /**
  * The schema of `rum_ruleset` in responses.
  */
-export const rum_ruleset_output: JsonSchema = {
+export const rum_ruleset: JsonSchema = {
   "properties": {
     "enabled": {
       "type": "boolean"
@@ -77,14 +77,14 @@ export const rum_ruleset_output: JsonSchema = {
 /**
  * The schema of `rum_ruleset_identifier` in responses.
  */
-export const rum_ruleset_identifier_output: JsonSchema = {
+export const rum_ruleset_identifier: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `rum_timestamp` in responses.
  */
-export const rum_timestamp_output: JsonSchema = {
+export const rum_timestamp: JsonSchema = {
   "format": "date-time",
   "type": "string"
 };
@@ -92,6 +92,6 @@ export const rum_timestamp_output: JsonSchema = {
 /**
  * The schema of `rum_zone_tag` in responses.
  */
-export const rum_zone_tag_output: JsonSchema = {
+export const rum_zone_tag: JsonSchema = {
   "type": "string"
 };

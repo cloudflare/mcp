@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `pay-per-crawl_IronCladContract` in responses.
  */
-export const pay_per_crawl_IronCladContract_output: JsonSchema = {
+export const pay$$per$$crawl_IronCladContract: JsonSchema = {
   "properties": {
     "body": {
       "type": "string"
@@ -21,7 +21,7 @@ export const pay_per_crawl_IronCladContract_output: JsonSchema = {
 /**
  * The schema of `pay-per-crawl_SignatureLinkResponse` in responses.
  */
-export const pay_per_crawl_SignatureLinkResponse_output: JsonSchema = {
+export const pay$$per$$crawl_SignatureLinkResponse: JsonSchema = {
   "properties": {
     "link": {
       "type": "string"
@@ -33,7 +33,7 @@ export const pay_per_crawl_SignatureLinkResponse_output: JsonSchema = {
 /**
  * The schema of `pay-per-crawl_getTermsResponse` in responses.
  */
-export const pay_per_crawl_getTermsResponse_output: JsonSchema = {
+export const pay$$per$$crawl_getTermsResponse: JsonSchema = {
   "properties": {
     "errors": {
       "items": {
@@ -63,7 +63,7 @@ export const pay_per_crawl_getTermsResponse_output: JsonSchema = {
 /**
  * The schema of `pay-per-crawl_getTermsSignatureLinkResponse` in responses.
  */
-export const pay_per_crawl_getTermsSignatureLinkResponse_output: JsonSchema = {
+export const pay$$per$$crawl_getTermsSignatureLinkResponse: JsonSchema = {
   "properties": {
     "errors": {
       "items": {
@@ -93,7 +93,7 @@ export const pay_per_crawl_getTermsSignatureLinkResponse_output: JsonSchema = {
 /**
  * The schema of `pay-per-crawl_getTermsSignatureResponse` in responses.
  */
-export const pay_per_crawl_getTermsSignatureResponse_output: JsonSchema = {
+export const pay$$per$$crawl_getTermsSignatureResponse: JsonSchema = {
   "properties": {
     "errors": {
       "items": {

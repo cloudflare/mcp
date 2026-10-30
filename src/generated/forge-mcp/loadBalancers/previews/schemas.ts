@@ -6,6 +6,6 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `load-balancing_schemas-preview_id`.
  */
-export const load_balancing_schemas_preview_id: JsonSchema = {
+export const load$$balancing_schemas$$preview_id: JsonSchema = {
   "type": "string"
 };

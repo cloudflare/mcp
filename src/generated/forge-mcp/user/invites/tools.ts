@@ -3,25 +3,25 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
-  iam_api_response_collection_output,
-  iam_api_response_common_failure_output,
-  iam_api_response_common_output,
-  iam_api_response_single_output,
-  iam_messages_2_output,
-  iam_result_info_output,
+  iam_api$$response$$collection,
+  iam_api$$response$$common,
+  iam_api$$response$$common$$failure,
+  iam_api$$response$$single,
+  iam_messages$$2,
+  iam_result_info,
 } from "../../outputs.js";
-import { iam_role_names_output } from "../outputs.js";
+import { iam_role_names } from "../outputs.js";
 import {
-  iam_invite_components_schemas_identifier_output,
-  iam_invited_by_output,
-  iam_invited_member_email_output,
-  iam_invited_on_output,
-  iam_schemas_collection_invite_response_output,
-  iam_schemas_expires_on_output,
-  iam_single_invite_response_output,
-  iam_user_invite_output,
+  iam_invite_components$$schemas$$identifier,
+  iam_invited_by,
+  iam_invited_member_email,
+  iam_invited_on,
+  iam_schemas$$collection_invite_response,
+  iam_schemas$$expires_on,
+  iam_single_invite_response,
+  iam_user_invite,
 } from "./outputs.js";
-import { iam_invite_components_schemas_identifier } from "./schemas.js";
+import { iam_invite_components$$schemas$$identifier as iam_invite_components$$schemas$$identifier$ } from "./schemas.js";
 
 /**
  * The tools of `user.invites`.
@@ -34,31 +34,39 @@ export const tools: readonly Tool[] = [
     inputSchema: {
       type: "object",
       properties: {
-        "invite_id": {
-          "$ref": "#/$defs/iam_invite_components-schemas-identifier",
-          "description": "Invite identifier tag."
+        "path": {
+          "properties": {
+            "invite_id": {
+              "$ref": "#/$defs/iam_invite_components-schemas-identifier",
+              "description": "Invite identifier tag."
+            }
+          },
+          "required": [
+            "invite_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "invite_id"
+        "path"
       ],
       $defs: {
-        "iam_invite_components-schemas-identifier": iam_invite_components_schemas_identifier,
+        "iam_invite_components-schemas-identifier": iam_invite_components$$schemas$$identifier$,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/iam_single_invite_response",
       $defs: {
-        "iam_api-response-single": iam_api_response_single_output,
-        "iam_invite_components-schemas-identifier": iam_invite_components_schemas_identifier_output,
-        "iam_invited_by": iam_invited_by_output,
-        "iam_invited_member_email": iam_invited_member_email_output,
-        "iam_invited_on": iam_invited_on_output,
-        "iam_messages-2": iam_messages_2_output,
-        "iam_role_names": iam_role_names_output,
-        "iam_schemas-expires_on": iam_schemas_expires_on_output,
-        "iam_single_invite_response": iam_single_invite_response_output,
-        "iam_user_invite": iam_user_invite_output,
+        "iam_api-response-single": iam_api$$response$$single,
+        "iam_invite_components-schemas-identifier": iam_invite_components$$schemas$$identifier,
+        "iam_invited_by": iam_invited_by,
+        "iam_invited_member_email": iam_invited_member_email,
+        "iam_invited_on": iam_invited_on,
+        "iam_messages-2": iam_messages$$2,
+        "iam_role_names": iam_role_names,
+        "iam_schemas-expires_on": iam_schemas$$expires_on,
+        "iam_single_invite_response": iam_single_invite_response,
+        "iam_user_invite": iam_user_invite,
       },
     },
     annotations: {
@@ -92,17 +100,17 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "iam_api-response-common-failure": iam_api_response_common_failure_output,
-        "iam_api-response-single": iam_api_response_single_output,
-        "iam_invite_components-schemas-identifier": iam_invite_components_schemas_identifier_output,
-        "iam_invited_by": iam_invited_by_output,
-        "iam_invited_member_email": iam_invited_member_email_output,
-        "iam_invited_on": iam_invited_on_output,
-        "iam_messages-2": iam_messages_2_output,
-        "iam_role_names": iam_role_names_output,
-        "iam_schemas-expires_on": iam_schemas_expires_on_output,
-        "iam_single_invite_response": iam_single_invite_response_output,
-        "iam_user_invite": iam_user_invite_output,
+        "iam_api-response-common-failure": iam_api$$response$$common$$failure,
+        "iam_api-response-single": iam_api$$response$$single,
+        "iam_invite_components-schemas-identifier": iam_invite_components$$schemas$$identifier,
+        "iam_invited_by": iam_invited_by,
+        "iam_invited_member_email": iam_invited_member_email,
+        "iam_invited_on": iam_invited_on,
+        "iam_messages-2": iam_messages$$2,
+        "iam_role_names": iam_role_names,
+        "iam_schemas-expires_on": iam_schemas$$expires_on,
+        "iam_single_invite_response": iam_single_invite_response,
+        "iam_user_invite": iam_user_invite,
       },
     },
     request: (args) => ({
@@ -120,18 +128,18 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/iam_schemas-collection_invite_response",
       $defs: {
-        "iam_api-response-collection": iam_api_response_collection_output,
-        "iam_api-response-common": iam_api_response_common_output,
-        "iam_invite_components-schemas-identifier": iam_invite_components_schemas_identifier_output,
-        "iam_invited_by": iam_invited_by_output,
-        "iam_invited_member_email": iam_invited_member_email_output,
-        "iam_invited_on": iam_invited_on_output,
-        "iam_messages-2": iam_messages_2_output,
-        "iam_result_info": iam_result_info_output,
-        "iam_role_names": iam_role_names_output,
-        "iam_schemas-collection_invite_response": iam_schemas_collection_invite_response_output,
-        "iam_schemas-expires_on": iam_schemas_expires_on_output,
-        "iam_user_invite": iam_user_invite_output,
+        "iam_api-response-collection": iam_api$$response$$collection,
+        "iam_api-response-common": iam_api$$response$$common,
+        "iam_invite_components-schemas-identifier": iam_invite_components$$schemas$$identifier,
+        "iam_invited_by": iam_invited_by,
+        "iam_invited_member_email": iam_invited_member_email,
+        "iam_invited_on": iam_invited_on,
+        "iam_messages-2": iam_messages$$2,
+        "iam_result_info": iam_result_info,
+        "iam_role_names": iam_role_names,
+        "iam_schemas-collection_invite_response": iam_schemas$$collection_invite_response,
+        "iam_schemas-expires_on": iam_schemas$$expires_on,
+        "iam_user_invite": iam_user_invite,
       },
     },
     annotations: {
@@ -165,19 +173,19 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "iam_api-response-collection": iam_api_response_collection_output,
-        "iam_api-response-common": iam_api_response_common_output,
-        "iam_api-response-common-failure": iam_api_response_common_failure_output,
-        "iam_invite_components-schemas-identifier": iam_invite_components_schemas_identifier_output,
-        "iam_invited_by": iam_invited_by_output,
-        "iam_invited_member_email": iam_invited_member_email_output,
-        "iam_invited_on": iam_invited_on_output,
-        "iam_messages-2": iam_messages_2_output,
-        "iam_result_info": iam_result_info_output,
-        "iam_role_names": iam_role_names_output,
-        "iam_schemas-collection_invite_response": iam_schemas_collection_invite_response_output,
-        "iam_schemas-expires_on": iam_schemas_expires_on_output,
-        "iam_user_invite": iam_user_invite_output,
+        "iam_api-response-collection": iam_api$$response$$collection,
+        "iam_api-response-common": iam_api$$response$$common,
+        "iam_api-response-common-failure": iam_api$$response$$common$$failure,
+        "iam_invite_components-schemas-identifier": iam_invite_components$$schemas$$identifier,
+        "iam_invited_by": iam_invited_by,
+        "iam_invited_member_email": iam_invited_member_email,
+        "iam_invited_on": iam_invited_on,
+        "iam_messages-2": iam_messages$$2,
+        "iam_result_info": iam_result_info,
+        "iam_role_names": iam_role_names,
+        "iam_schemas-collection_invite_response": iam_schemas$$collection_invite_response,
+        "iam_schemas-expires_on": iam_schemas$$expires_on,
+        "iam_user_invite": iam_user_invite,
       },
     },
     request: (_args) => ({
@@ -207,32 +215,40 @@ export const tools: readonly Tool[] = [
           ],
           "type": "object"
         },
-        "invite_id": {
-          "$ref": "#/$defs/iam_invite_components-schemas-identifier",
-          "description": "Invite identifier tag."
+        "path": {
+          "properties": {
+            "invite_id": {
+              "$ref": "#/$defs/iam_invite_components-schemas-identifier",
+              "description": "Invite identifier tag."
+            }
+          },
+          "required": [
+            "invite_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "invite_id",
+        "path",
         "body"
       ],
       $defs: {
-        "iam_invite_components-schemas-identifier": iam_invite_components_schemas_identifier,
+        "iam_invite_components-schemas-identifier": iam_invite_components$$schemas$$identifier$,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/iam_single_invite_response",
       $defs: {
-        "iam_api-response-single": iam_api_response_single_output,
-        "iam_invite_components-schemas-identifier": iam_invite_components_schemas_identifier_output,
-        "iam_invited_by": iam_invited_by_output,
-        "iam_invited_member_email": iam_invited_member_email_output,
-        "iam_invited_on": iam_invited_on_output,
-        "iam_messages-2": iam_messages_2_output,
-        "iam_role_names": iam_role_names_output,
-        "iam_schemas-expires_on": iam_schemas_expires_on_output,
-        "iam_single_invite_response": iam_single_invite_response_output,
-        "iam_user_invite": iam_user_invite_output,
+        "iam_api-response-single": iam_api$$response$$single,
+        "iam_invite_components-schemas-identifier": iam_invite_components$$schemas$$identifier,
+        "iam_invited_by": iam_invited_by,
+        "iam_invited_member_email": iam_invited_member_email,
+        "iam_invited_on": iam_invited_on,
+        "iam_messages-2": iam_messages$$2,
+        "iam_role_names": iam_role_names,
+        "iam_schemas-expires_on": iam_schemas$$expires_on,
+        "iam_single_invite_response": iam_single_invite_response,
+        "iam_user_invite": iam_user_invite,
       },
     },
     annotations: {
@@ -265,17 +281,17 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "iam_api-response-common-failure": iam_api_response_common_failure_output,
-        "iam_api-response-single": iam_api_response_single_output,
-        "iam_invite_components-schemas-identifier": iam_invite_components_schemas_identifier_output,
-        "iam_invited_by": iam_invited_by_output,
-        "iam_invited_member_email": iam_invited_member_email_output,
-        "iam_invited_on": iam_invited_on_output,
-        "iam_messages-2": iam_messages_2_output,
-        "iam_role_names": iam_role_names_output,
-        "iam_schemas-expires_on": iam_schemas_expires_on_output,
-        "iam_single_invite_response": iam_single_invite_response_output,
-        "iam_user_invite": iam_user_invite_output,
+        "iam_api-response-common-failure": iam_api$$response$$common$$failure,
+        "iam_api-response-single": iam_api$$response$$single,
+        "iam_invite_components-schemas-identifier": iam_invite_components$$schemas$$identifier,
+        "iam_invited_by": iam_invited_by,
+        "iam_invited_member_email": iam_invited_member_email,
+        "iam_invited_on": iam_invited_on,
+        "iam_messages-2": iam_messages$$2,
+        "iam_role_names": iam_role_names,
+        "iam_schemas-expires_on": iam_schemas$$expires_on,
+        "iam_single_invite_response": iam_single_invite_response,
+        "iam_user_invite": iam_user_invite,
       },
     },
     request: (args) => ({

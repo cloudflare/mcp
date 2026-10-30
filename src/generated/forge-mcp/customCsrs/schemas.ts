@@ -6,7 +6,7 @@ import type { JsonSchema } from "../_/tool.js";
 /**
  * The schema of `tls-certificates-and-hostnames_custom_csr_create_request-2`.
  */
-export const tls_certificates_and_hostnames_custom_csr_create_request_2: JsonSchema = {
+export const tls$$certificates$$and$$hostnames_custom_csr_create_request$$2: JsonSchema = {
   "description": "Request body for creating a custom CSR.",
   "properties": {
     "common_name": {
@@ -74,7 +74,7 @@ export const tls_certificates_and_hostnames_custom_csr_create_request_2: JsonSch
 /**
  * The schema of `tls-certificates-and-hostnames_custom_csr_identifier`.
  */
-export const tls_certificates_and_hostnames_custom_csr_identifier: JsonSchema = {
+export const tls$$certificates$$and$$hostnames_custom_csr_identifier: JsonSchema = {
   "description": "Custom CSR identifier tag.",
   "type": "string"
 };

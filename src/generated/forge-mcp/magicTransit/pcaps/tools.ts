@@ -3,113 +3,121 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
-  magic_visibility_pcaps_api_response_collection_output,
-  magic_visibility_pcaps_api_response_common_failure_output,
-  magic_visibility_pcaps_api_response_common_output,
-  magic_visibility_pcaps_api_response_single_output,
-  magic_visibility_pcaps_messages_output,
-  magic_visibility_pcaps_pcaps_byte_limit_output,
-  magic_visibility_pcaps_pcaps_collection_response_output,
-  magic_visibility_pcaps_pcaps_colo_name_output,
-  magic_visibility_pcaps_pcaps_destination_conf_output,
-  magic_visibility_pcaps_pcaps_error_message_output,
-  magic_visibility_pcaps_pcaps_filter_v1_output,
-  magic_visibility_pcaps_pcaps_id_output,
-  magic_visibility_pcaps_pcaps_offset_time_output,
-  magic_visibility_pcaps_pcaps_packets_captured_output,
-  magic_visibility_pcaps_pcaps_response_full_output,
-  magic_visibility_pcaps_pcaps_response_simple_output,
-  magic_visibility_pcaps_pcaps_single_response_output,
-  magic_visibility_pcaps_pcaps_status_output,
-  magic_visibility_pcaps_pcaps_stop_requested_output,
-  magic_visibility_pcaps_pcaps_submitted_output,
-  magic_visibility_pcaps_pcaps_system_output,
-  magic_visibility_pcaps_pcaps_time_limit_full_output,
-  magic_visibility_pcaps_pcaps_time_limit_sampled_output,
-  magic_visibility_pcaps_pcaps_type_output,
-  magic_visibility_pcaps_result_info_output,
+  magic$$visibility$$pcaps_api$$response$$collection,
+  magic$$visibility$$pcaps_api$$response$$common,
+  magic$$visibility$$pcaps_api$$response$$common$$failure,
+  magic$$visibility$$pcaps_api$$response$$single,
+  magic$$visibility$$pcaps_messages,
+  magic$$visibility$$pcaps_pcaps_byte_limit,
+  magic$$visibility$$pcaps_pcaps_collection_response,
+  magic$$visibility$$pcaps_pcaps_colo_name,
+  magic$$visibility$$pcaps_pcaps_destination_conf,
+  magic$$visibility$$pcaps_pcaps_error_message,
+  magic$$visibility$$pcaps_pcaps_filter_v1,
+  magic$$visibility$$pcaps_pcaps_id,
+  magic$$visibility$$pcaps_pcaps_offset_time,
+  magic$$visibility$$pcaps_pcaps_packets_captured,
+  magic$$visibility$$pcaps_pcaps_response_full,
+  magic$$visibility$$pcaps_pcaps_response_simple,
+  magic$$visibility$$pcaps_pcaps_single_response,
+  magic$$visibility$$pcaps_pcaps_status,
+  magic$$visibility$$pcaps_pcaps_stop_requested,
+  magic$$visibility$$pcaps_pcaps_submitted,
+  magic$$visibility$$pcaps_pcaps_system,
+  magic$$visibility$$pcaps_pcaps_time_limit_full,
+  magic$$visibility$$pcaps_pcaps_time_limit_sampled,
+  magic$$visibility$$pcaps_pcaps_type,
+  magic$$visibility$$pcaps_result_info,
 } from "./outputs.js";
 import {
-  magic_visibility_pcaps_identifier,
-  magic_visibility_pcaps_pcaps_byte_limit,
-  magic_visibility_pcaps_pcaps_colo_name,
-  magic_visibility_pcaps_pcaps_destination_conf,
-  magic_visibility_pcaps_pcaps_filter_v1,
-  magic_visibility_pcaps_pcaps_offset_time,
-  magic_visibility_pcaps_pcaps_packet_limit,
-  magic_visibility_pcaps_pcaps_request_full,
-  magic_visibility_pcaps_pcaps_request_pcap,
-  magic_visibility_pcaps_pcaps_request_simple,
-  magic_visibility_pcaps_pcaps_system,
-  magic_visibility_pcaps_pcaps_time_limit_full,
-  magic_visibility_pcaps_pcaps_time_limit_sampled,
-  magic_visibility_pcaps_pcaps_type,
+  magic$$visibility$$pcaps_identifier,
+  magic$$visibility$$pcaps_pcaps_byte_limit as magic$$visibility$$pcaps_pcaps_byte_limit$,
+  magic$$visibility$$pcaps_pcaps_colo_name as magic$$visibility$$pcaps_pcaps_colo_name$,
+  magic$$visibility$$pcaps_pcaps_destination_conf as magic$$visibility$$pcaps_pcaps_destination_conf$,
+  magic$$visibility$$pcaps_pcaps_filter_v1 as magic$$visibility$$pcaps_pcaps_filter_v1$,
+  magic$$visibility$$pcaps_pcaps_offset_time as magic$$visibility$$pcaps_pcaps_offset_time$,
+  magic$$visibility$$pcaps_pcaps_packet_limit,
+  magic$$visibility$$pcaps_pcaps_request_full,
+  magic$$visibility$$pcaps_pcaps_request_pcap,
+  magic$$visibility$$pcaps_pcaps_request_simple,
+  magic$$visibility$$pcaps_pcaps_system as magic$$visibility$$pcaps_pcaps_system$,
+  magic$$visibility$$pcaps_pcaps_time_limit_full as magic$$visibility$$pcaps_pcaps_time_limit_full$,
+  magic$$visibility$$pcaps_pcaps_time_limit_sampled as magic$$visibility$$pcaps_pcaps_time_limit_sampled$,
+  magic$$visibility$$pcaps_pcaps_type as magic$$visibility$$pcaps_pcaps_type$,
 } from "./schemas.js";
 
 /**
- * The tools of `magic_transit.pcaps`.
+ * The tools of `magicTransit.pcaps`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "magic_transit_pcaps_create",
+    name: "magicTransit_pcaps_create",
     title: "Create PCAP request",
     description: "Create new PCAP request for account.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/magic-visibility-pcaps_identifier",
-          "description": "Identifier."
-        },
         "body": {
           "$ref": "#/$defs/magic-visibility-pcaps_pcaps_request_pcap"
+        },
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/magic-visibility-pcaps_identifier",
+              "description": "Identifier."
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
+        "path",
         "body"
       ],
       $defs: {
-        "magic-visibility-pcaps_identifier": magic_visibility_pcaps_identifier,
-        "magic-visibility-pcaps_pcaps_byte_limit": magic_visibility_pcaps_pcaps_byte_limit,
-        "magic-visibility-pcaps_pcaps_colo_name": magic_visibility_pcaps_pcaps_colo_name,
-        "magic-visibility-pcaps_pcaps_destination_conf": magic_visibility_pcaps_pcaps_destination_conf,
-        "magic-visibility-pcaps_pcaps_filter_v1": magic_visibility_pcaps_pcaps_filter_v1,
-        "magic-visibility-pcaps_pcaps_offset_time": magic_visibility_pcaps_pcaps_offset_time,
-        "magic-visibility-pcaps_pcaps_packet_limit": magic_visibility_pcaps_pcaps_packet_limit,
-        "magic-visibility-pcaps_pcaps_request_full": magic_visibility_pcaps_pcaps_request_full,
-        "magic-visibility-pcaps_pcaps_request_pcap": magic_visibility_pcaps_pcaps_request_pcap,
-        "magic-visibility-pcaps_pcaps_request_simple": magic_visibility_pcaps_pcaps_request_simple,
-        "magic-visibility-pcaps_pcaps_system": magic_visibility_pcaps_pcaps_system,
-        "magic-visibility-pcaps_pcaps_time_limit_full": magic_visibility_pcaps_pcaps_time_limit_full,
-        "magic-visibility-pcaps_pcaps_time_limit_sampled": magic_visibility_pcaps_pcaps_time_limit_sampled,
-        "magic-visibility-pcaps_pcaps_type": magic_visibility_pcaps_pcaps_type,
+        "magic-visibility-pcaps_identifier": magic$$visibility$$pcaps_identifier,
+        "magic-visibility-pcaps_pcaps_byte_limit": magic$$visibility$$pcaps_pcaps_byte_limit$,
+        "magic-visibility-pcaps_pcaps_colo_name": magic$$visibility$$pcaps_pcaps_colo_name$,
+        "magic-visibility-pcaps_pcaps_destination_conf": magic$$visibility$$pcaps_pcaps_destination_conf$,
+        "magic-visibility-pcaps_pcaps_filter_v1": magic$$visibility$$pcaps_pcaps_filter_v1$,
+        "magic-visibility-pcaps_pcaps_offset_time": magic$$visibility$$pcaps_pcaps_offset_time$,
+        "magic-visibility-pcaps_pcaps_packet_limit": magic$$visibility$$pcaps_pcaps_packet_limit,
+        "magic-visibility-pcaps_pcaps_request_full": magic$$visibility$$pcaps_pcaps_request_full,
+        "magic-visibility-pcaps_pcaps_request_pcap": magic$$visibility$$pcaps_pcaps_request_pcap,
+        "magic-visibility-pcaps_pcaps_request_simple": magic$$visibility$$pcaps_pcaps_request_simple,
+        "magic-visibility-pcaps_pcaps_system": magic$$visibility$$pcaps_pcaps_system$,
+        "magic-visibility-pcaps_pcaps_time_limit_full": magic$$visibility$$pcaps_pcaps_time_limit_full$,
+        "magic-visibility-pcaps_pcaps_time_limit_sampled": magic$$visibility$$pcaps_pcaps_time_limit_sampled$,
+        "magic-visibility-pcaps_pcaps_type": magic$$visibility$$pcaps_pcaps_type$,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/magic-visibility-pcaps_pcaps_single_response",
       $defs: {
-        "magic-visibility-pcaps_api-response-common": magic_visibility_pcaps_api_response_common_output,
-        "magic-visibility-pcaps_api-response-single": magic_visibility_pcaps_api_response_single_output,
-        "magic-visibility-pcaps_messages": magic_visibility_pcaps_messages_output,
-        "magic-visibility-pcaps_pcaps_byte_limit": magic_visibility_pcaps_pcaps_byte_limit_output,
-        "magic-visibility-pcaps_pcaps_colo_name": magic_visibility_pcaps_pcaps_colo_name_output,
-        "magic-visibility-pcaps_pcaps_destination_conf": magic_visibility_pcaps_pcaps_destination_conf_output,
-        "magic-visibility-pcaps_pcaps_error_message": magic_visibility_pcaps_pcaps_error_message_output,
-        "magic-visibility-pcaps_pcaps_filter_v1": magic_visibility_pcaps_pcaps_filter_v1_output,
-        "magic-visibility-pcaps_pcaps_id": magic_visibility_pcaps_pcaps_id_output,
-        "magic-visibility-pcaps_pcaps_offset_time": magic_visibility_pcaps_pcaps_offset_time_output,
-        "magic-visibility-pcaps_pcaps_packets_captured": magic_visibility_pcaps_pcaps_packets_captured_output,
-        "magic-visibility-pcaps_pcaps_response_full": magic_visibility_pcaps_pcaps_response_full_output,
-        "magic-visibility-pcaps_pcaps_response_simple": magic_visibility_pcaps_pcaps_response_simple_output,
-        "magic-visibility-pcaps_pcaps_single_response": magic_visibility_pcaps_pcaps_single_response_output,
-        "magic-visibility-pcaps_pcaps_status": magic_visibility_pcaps_pcaps_status_output,
-        "magic-visibility-pcaps_pcaps_stop_requested": magic_visibility_pcaps_pcaps_stop_requested_output,
-        "magic-visibility-pcaps_pcaps_submitted": magic_visibility_pcaps_pcaps_submitted_output,
-        "magic-visibility-pcaps_pcaps_system": magic_visibility_pcaps_pcaps_system_output,
-        "magic-visibility-pcaps_pcaps_time_limit_full": magic_visibility_pcaps_pcaps_time_limit_full_output,
-        "magic-visibility-pcaps_pcaps_time_limit_sampled": magic_visibility_pcaps_pcaps_time_limit_sampled_output,
-        "magic-visibility-pcaps_pcaps_type": magic_visibility_pcaps_pcaps_type_output,
+        "magic-visibility-pcaps_api-response-common": magic$$visibility$$pcaps_api$$response$$common,
+        "magic-visibility-pcaps_api-response-single": magic$$visibility$$pcaps_api$$response$$single,
+        "magic-visibility-pcaps_messages": magic$$visibility$$pcaps_messages,
+        "magic-visibility-pcaps_pcaps_byte_limit": magic$$visibility$$pcaps_pcaps_byte_limit,
+        "magic-visibility-pcaps_pcaps_colo_name": magic$$visibility$$pcaps_pcaps_colo_name,
+        "magic-visibility-pcaps_pcaps_destination_conf": magic$$visibility$$pcaps_pcaps_destination_conf,
+        "magic-visibility-pcaps_pcaps_error_message": magic$$visibility$$pcaps_pcaps_error_message,
+        "magic-visibility-pcaps_pcaps_filter_v1": magic$$visibility$$pcaps_pcaps_filter_v1,
+        "magic-visibility-pcaps_pcaps_id": magic$$visibility$$pcaps_pcaps_id,
+        "magic-visibility-pcaps_pcaps_offset_time": magic$$visibility$$pcaps_pcaps_offset_time,
+        "magic-visibility-pcaps_pcaps_packets_captured": magic$$visibility$$pcaps_pcaps_packets_captured,
+        "magic-visibility-pcaps_pcaps_response_full": magic$$visibility$$pcaps_pcaps_response_full,
+        "magic-visibility-pcaps_pcaps_response_simple": magic$$visibility$$pcaps_pcaps_response_simple,
+        "magic-visibility-pcaps_pcaps_single_response": magic$$visibility$$pcaps_pcaps_single_response,
+        "magic-visibility-pcaps_pcaps_status": magic$$visibility$$pcaps_pcaps_status,
+        "magic-visibility-pcaps_pcaps_stop_requested": magic$$visibility$$pcaps_pcaps_stop_requested,
+        "magic-visibility-pcaps_pcaps_submitted": magic$$visibility$$pcaps_pcaps_submitted,
+        "magic-visibility-pcaps_pcaps_system": magic$$visibility$$pcaps_pcaps_system,
+        "magic-visibility-pcaps_pcaps_time_limit_full": magic$$visibility$$pcaps_pcaps_time_limit_full,
+        "magic-visibility-pcaps_pcaps_time_limit_sampled": magic$$visibility$$pcaps_pcaps_time_limit_sampled,
+        "magic-visibility-pcaps_pcaps_type": magic$$visibility$$pcaps_pcaps_type,
       },
     },
     annotations: {
@@ -145,28 +153,28 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "magic-visibility-pcaps_api-response-common": magic_visibility_pcaps_api_response_common_output,
-        "magic-visibility-pcaps_api-response-common-failure": magic_visibility_pcaps_api_response_common_failure_output,
-        "magic-visibility-pcaps_api-response-single": magic_visibility_pcaps_api_response_single_output,
-        "magic-visibility-pcaps_messages": magic_visibility_pcaps_messages_output,
-        "magic-visibility-pcaps_pcaps_byte_limit": magic_visibility_pcaps_pcaps_byte_limit_output,
-        "magic-visibility-pcaps_pcaps_colo_name": magic_visibility_pcaps_pcaps_colo_name_output,
-        "magic-visibility-pcaps_pcaps_destination_conf": magic_visibility_pcaps_pcaps_destination_conf_output,
-        "magic-visibility-pcaps_pcaps_error_message": magic_visibility_pcaps_pcaps_error_message_output,
-        "magic-visibility-pcaps_pcaps_filter_v1": magic_visibility_pcaps_pcaps_filter_v1_output,
-        "magic-visibility-pcaps_pcaps_id": magic_visibility_pcaps_pcaps_id_output,
-        "magic-visibility-pcaps_pcaps_offset_time": magic_visibility_pcaps_pcaps_offset_time_output,
-        "magic-visibility-pcaps_pcaps_packets_captured": magic_visibility_pcaps_pcaps_packets_captured_output,
-        "magic-visibility-pcaps_pcaps_response_full": magic_visibility_pcaps_pcaps_response_full_output,
-        "magic-visibility-pcaps_pcaps_response_simple": magic_visibility_pcaps_pcaps_response_simple_output,
-        "magic-visibility-pcaps_pcaps_single_response": magic_visibility_pcaps_pcaps_single_response_output,
-        "magic-visibility-pcaps_pcaps_status": magic_visibility_pcaps_pcaps_status_output,
-        "magic-visibility-pcaps_pcaps_stop_requested": magic_visibility_pcaps_pcaps_stop_requested_output,
-        "magic-visibility-pcaps_pcaps_submitted": magic_visibility_pcaps_pcaps_submitted_output,
-        "magic-visibility-pcaps_pcaps_system": magic_visibility_pcaps_pcaps_system_output,
-        "magic-visibility-pcaps_pcaps_time_limit_full": magic_visibility_pcaps_pcaps_time_limit_full_output,
-        "magic-visibility-pcaps_pcaps_time_limit_sampled": magic_visibility_pcaps_pcaps_time_limit_sampled_output,
-        "magic-visibility-pcaps_pcaps_type": magic_visibility_pcaps_pcaps_type_output,
+        "magic-visibility-pcaps_api-response-common": magic$$visibility$$pcaps_api$$response$$common,
+        "magic-visibility-pcaps_api-response-common-failure": magic$$visibility$$pcaps_api$$response$$common$$failure,
+        "magic-visibility-pcaps_api-response-single": magic$$visibility$$pcaps_api$$response$$single,
+        "magic-visibility-pcaps_messages": magic$$visibility$$pcaps_messages,
+        "magic-visibility-pcaps_pcaps_byte_limit": magic$$visibility$$pcaps_pcaps_byte_limit,
+        "magic-visibility-pcaps_pcaps_colo_name": magic$$visibility$$pcaps_pcaps_colo_name,
+        "magic-visibility-pcaps_pcaps_destination_conf": magic$$visibility$$pcaps_pcaps_destination_conf,
+        "magic-visibility-pcaps_pcaps_error_message": magic$$visibility$$pcaps_pcaps_error_message,
+        "magic-visibility-pcaps_pcaps_filter_v1": magic$$visibility$$pcaps_pcaps_filter_v1,
+        "magic-visibility-pcaps_pcaps_id": magic$$visibility$$pcaps_pcaps_id,
+        "magic-visibility-pcaps_pcaps_offset_time": magic$$visibility$$pcaps_pcaps_offset_time,
+        "magic-visibility-pcaps_pcaps_packets_captured": magic$$visibility$$pcaps_pcaps_packets_captured,
+        "magic-visibility-pcaps_pcaps_response_full": magic$$visibility$$pcaps_pcaps_response_full,
+        "magic-visibility-pcaps_pcaps_response_simple": magic$$visibility$$pcaps_pcaps_response_simple,
+        "magic-visibility-pcaps_pcaps_single_response": magic$$visibility$$pcaps_pcaps_single_response,
+        "magic-visibility-pcaps_pcaps_status": magic$$visibility$$pcaps_pcaps_status,
+        "magic-visibility-pcaps_pcaps_stop_requested": magic$$visibility$$pcaps_pcaps_stop_requested,
+        "magic-visibility-pcaps_pcaps_submitted": magic$$visibility$$pcaps_pcaps_submitted,
+        "magic-visibility-pcaps_pcaps_system": magic$$visibility$$pcaps_pcaps_system,
+        "magic-visibility-pcaps_pcaps_time_limit_full": magic$$visibility$$pcaps_pcaps_time_limit_full,
+        "magic-visibility-pcaps_pcaps_time_limit_sampled": magic$$visibility$$pcaps_pcaps_time_limit_sampled,
+        "magic-visibility-pcaps_pcaps_type": magic$$visibility$$pcaps_pcaps_type,
       },
     },
     request: (args) => ({
@@ -175,53 +183,61 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "magic_transit_pcaps_get",
+    name: "magicTransit_pcaps_get",
     title: "Get PCAP request",
     description: "Get information for a PCAP request by id.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/magic-visibility-pcaps_identifier",
-          "description": "Identifier."
-        },
-        "pcap_id": {
-          "$ref": "#/$defs/magic-visibility-pcaps_identifier",
-          "description": "Identifier."
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/magic-visibility-pcaps_identifier",
+              "description": "Identifier."
+            },
+            "pcap_id": {
+              "$ref": "#/$defs/magic-visibility-pcaps_identifier",
+              "description": "Identifier."
+            }
+          },
+          "required": [
+            "account_id",
+            "pcap_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "pcap_id"
+        "path"
       ],
       $defs: {
-        "magic-visibility-pcaps_identifier": magic_visibility_pcaps_identifier,
+        "magic-visibility-pcaps_identifier": magic$$visibility$$pcaps_identifier,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/magic-visibility-pcaps_pcaps_single_response",
       $defs: {
-        "magic-visibility-pcaps_api-response-common": magic_visibility_pcaps_api_response_common_output,
-        "magic-visibility-pcaps_api-response-single": magic_visibility_pcaps_api_response_single_output,
-        "magic-visibility-pcaps_messages": magic_visibility_pcaps_messages_output,
-        "magic-visibility-pcaps_pcaps_byte_limit": magic_visibility_pcaps_pcaps_byte_limit_output,
-        "magic-visibility-pcaps_pcaps_colo_name": magic_visibility_pcaps_pcaps_colo_name_output,
-        "magic-visibility-pcaps_pcaps_destination_conf": magic_visibility_pcaps_pcaps_destination_conf_output,
-        "magic-visibility-pcaps_pcaps_error_message": magic_visibility_pcaps_pcaps_error_message_output,
-        "magic-visibility-pcaps_pcaps_filter_v1": magic_visibility_pcaps_pcaps_filter_v1_output,
-        "magic-visibility-pcaps_pcaps_id": magic_visibility_pcaps_pcaps_id_output,
-        "magic-visibility-pcaps_pcaps_offset_time": magic_visibility_pcaps_pcaps_offset_time_output,
-        "magic-visibility-pcaps_pcaps_packets_captured": magic_visibility_pcaps_pcaps_packets_captured_output,
-        "magic-visibility-pcaps_pcaps_response_full": magic_visibility_pcaps_pcaps_response_full_output,
-        "magic-visibility-pcaps_pcaps_response_simple": magic_visibility_pcaps_pcaps_response_simple_output,
-        "magic-visibility-pcaps_pcaps_single_response": magic_visibility_pcaps_pcaps_single_response_output,
-        "magic-visibility-pcaps_pcaps_status": magic_visibility_pcaps_pcaps_status_output,
-        "magic-visibility-pcaps_pcaps_stop_requested": magic_visibility_pcaps_pcaps_stop_requested_output,
-        "magic-visibility-pcaps_pcaps_submitted": magic_visibility_pcaps_pcaps_submitted_output,
-        "magic-visibility-pcaps_pcaps_system": magic_visibility_pcaps_pcaps_system_output,
-        "magic-visibility-pcaps_pcaps_time_limit_full": magic_visibility_pcaps_pcaps_time_limit_full_output,
-        "magic-visibility-pcaps_pcaps_time_limit_sampled": magic_visibility_pcaps_pcaps_time_limit_sampled_output,
-        "magic-visibility-pcaps_pcaps_type": magic_visibility_pcaps_pcaps_type_output,
+        "magic-visibility-pcaps_api-response-common": magic$$visibility$$pcaps_api$$response$$common,
+        "magic-visibility-pcaps_api-response-single": magic$$visibility$$pcaps_api$$response$$single,
+        "magic-visibility-pcaps_messages": magic$$visibility$$pcaps_messages,
+        "magic-visibility-pcaps_pcaps_byte_limit": magic$$visibility$$pcaps_pcaps_byte_limit,
+        "magic-visibility-pcaps_pcaps_colo_name": magic$$visibility$$pcaps_pcaps_colo_name,
+        "magic-visibility-pcaps_pcaps_destination_conf": magic$$visibility$$pcaps_pcaps_destination_conf,
+        "magic-visibility-pcaps_pcaps_error_message": magic$$visibility$$pcaps_pcaps_error_message,
+        "magic-visibility-pcaps_pcaps_filter_v1": magic$$visibility$$pcaps_pcaps_filter_v1,
+        "magic-visibility-pcaps_pcaps_id": magic$$visibility$$pcaps_pcaps_id,
+        "magic-visibility-pcaps_pcaps_offset_time": magic$$visibility$$pcaps_pcaps_offset_time,
+        "magic-visibility-pcaps_pcaps_packets_captured": magic$$visibility$$pcaps_pcaps_packets_captured,
+        "magic-visibility-pcaps_pcaps_response_full": magic$$visibility$$pcaps_pcaps_response_full,
+        "magic-visibility-pcaps_pcaps_response_simple": magic$$visibility$$pcaps_pcaps_response_simple,
+        "magic-visibility-pcaps_pcaps_single_response": magic$$visibility$$pcaps_pcaps_single_response,
+        "magic-visibility-pcaps_pcaps_status": magic$$visibility$$pcaps_pcaps_status,
+        "magic-visibility-pcaps_pcaps_stop_requested": magic$$visibility$$pcaps_pcaps_stop_requested,
+        "magic-visibility-pcaps_pcaps_submitted": magic$$visibility$$pcaps_pcaps_submitted,
+        "magic-visibility-pcaps_pcaps_system": magic$$visibility$$pcaps_pcaps_system,
+        "magic-visibility-pcaps_pcaps_time_limit_full": magic$$visibility$$pcaps_pcaps_time_limit_full,
+        "magic-visibility-pcaps_pcaps_time_limit_sampled": magic$$visibility$$pcaps_pcaps_time_limit_sampled,
+        "magic-visibility-pcaps_pcaps_type": magic$$visibility$$pcaps_pcaps_type,
       },
     },
     annotations: {
@@ -258,28 +274,28 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "magic-visibility-pcaps_api-response-common": magic_visibility_pcaps_api_response_common_output,
-        "magic-visibility-pcaps_api-response-common-failure": magic_visibility_pcaps_api_response_common_failure_output,
-        "magic-visibility-pcaps_api-response-single": magic_visibility_pcaps_api_response_single_output,
-        "magic-visibility-pcaps_messages": magic_visibility_pcaps_messages_output,
-        "magic-visibility-pcaps_pcaps_byte_limit": magic_visibility_pcaps_pcaps_byte_limit_output,
-        "magic-visibility-pcaps_pcaps_colo_name": magic_visibility_pcaps_pcaps_colo_name_output,
-        "magic-visibility-pcaps_pcaps_destination_conf": magic_visibility_pcaps_pcaps_destination_conf_output,
-        "magic-visibility-pcaps_pcaps_error_message": magic_visibility_pcaps_pcaps_error_message_output,
-        "magic-visibility-pcaps_pcaps_filter_v1": magic_visibility_pcaps_pcaps_filter_v1_output,
-        "magic-visibility-pcaps_pcaps_id": magic_visibility_pcaps_pcaps_id_output,
-        "magic-visibility-pcaps_pcaps_offset_time": magic_visibility_pcaps_pcaps_offset_time_output,
-        "magic-visibility-pcaps_pcaps_packets_captured": magic_visibility_pcaps_pcaps_packets_captured_output,
-        "magic-visibility-pcaps_pcaps_response_full": magic_visibility_pcaps_pcaps_response_full_output,
-        "magic-visibility-pcaps_pcaps_response_simple": magic_visibility_pcaps_pcaps_response_simple_output,
-        "magic-visibility-pcaps_pcaps_single_response": magic_visibility_pcaps_pcaps_single_response_output,
-        "magic-visibility-pcaps_pcaps_status": magic_visibility_pcaps_pcaps_status_output,
-        "magic-visibility-pcaps_pcaps_stop_requested": magic_visibility_pcaps_pcaps_stop_requested_output,
-        "magic-visibility-pcaps_pcaps_submitted": magic_visibility_pcaps_pcaps_submitted_output,
-        "magic-visibility-pcaps_pcaps_system": magic_visibility_pcaps_pcaps_system_output,
-        "magic-visibility-pcaps_pcaps_time_limit_full": magic_visibility_pcaps_pcaps_time_limit_full_output,
-        "magic-visibility-pcaps_pcaps_time_limit_sampled": magic_visibility_pcaps_pcaps_time_limit_sampled_output,
-        "magic-visibility-pcaps_pcaps_type": magic_visibility_pcaps_pcaps_type_output,
+        "magic-visibility-pcaps_api-response-common": magic$$visibility$$pcaps_api$$response$$common,
+        "magic-visibility-pcaps_api-response-common-failure": magic$$visibility$$pcaps_api$$response$$common$$failure,
+        "magic-visibility-pcaps_api-response-single": magic$$visibility$$pcaps_api$$response$$single,
+        "magic-visibility-pcaps_messages": magic$$visibility$$pcaps_messages,
+        "magic-visibility-pcaps_pcaps_byte_limit": magic$$visibility$$pcaps_pcaps_byte_limit,
+        "magic-visibility-pcaps_pcaps_colo_name": magic$$visibility$$pcaps_pcaps_colo_name,
+        "magic-visibility-pcaps_pcaps_destination_conf": magic$$visibility$$pcaps_pcaps_destination_conf,
+        "magic-visibility-pcaps_pcaps_error_message": magic$$visibility$$pcaps_pcaps_error_message,
+        "magic-visibility-pcaps_pcaps_filter_v1": magic$$visibility$$pcaps_pcaps_filter_v1,
+        "magic-visibility-pcaps_pcaps_id": magic$$visibility$$pcaps_pcaps_id,
+        "magic-visibility-pcaps_pcaps_offset_time": magic$$visibility$$pcaps_pcaps_offset_time,
+        "magic-visibility-pcaps_pcaps_packets_captured": magic$$visibility$$pcaps_pcaps_packets_captured,
+        "magic-visibility-pcaps_pcaps_response_full": magic$$visibility$$pcaps_pcaps_response_full,
+        "magic-visibility-pcaps_pcaps_response_simple": magic$$visibility$$pcaps_pcaps_response_simple,
+        "magic-visibility-pcaps_pcaps_single_response": magic$$visibility$$pcaps_pcaps_single_response,
+        "magic-visibility-pcaps_pcaps_status": magic$$visibility$$pcaps_pcaps_status,
+        "magic-visibility-pcaps_pcaps_stop_requested": magic$$visibility$$pcaps_pcaps_stop_requested,
+        "magic-visibility-pcaps_pcaps_submitted": magic$$visibility$$pcaps_pcaps_submitted,
+        "magic-visibility-pcaps_pcaps_system": magic$$visibility$$pcaps_pcaps_system,
+        "magic-visibility-pcaps_pcaps_time_limit_full": magic$$visibility$$pcaps_pcaps_time_limit_full,
+        "magic-visibility-pcaps_pcaps_time_limit_sampled": magic$$visibility$$pcaps_pcaps_time_limit_sampled,
+        "magic-visibility-pcaps_pcaps_type": magic$$visibility$$pcaps_pcaps_type,
       },
     },
     request: (args) => ({
@@ -287,49 +303,57 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "magic_transit_pcaps_list",
+    name: "magicTransit_pcaps_list",
     title: "List packet capture requests",
     description: "Lists all packet capture requests for an account.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/magic-visibility-pcaps_identifier",
-          "description": "Identifier."
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/magic-visibility-pcaps_identifier",
+              "description": "Identifier."
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id"
+        "path"
       ],
       $defs: {
-        "magic-visibility-pcaps_identifier": magic_visibility_pcaps_identifier,
+        "magic-visibility-pcaps_identifier": magic$$visibility$$pcaps_identifier,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/magic-visibility-pcaps_pcaps_collection_response",
       $defs: {
-        "magic-visibility-pcaps_api-response-collection": magic_visibility_pcaps_api_response_collection_output,
-        "magic-visibility-pcaps_api-response-common": magic_visibility_pcaps_api_response_common_output,
-        "magic-visibility-pcaps_messages": magic_visibility_pcaps_messages_output,
-        "magic-visibility-pcaps_pcaps_byte_limit": magic_visibility_pcaps_pcaps_byte_limit_output,
-        "magic-visibility-pcaps_pcaps_collection_response": magic_visibility_pcaps_pcaps_collection_response_output,
-        "magic-visibility-pcaps_pcaps_colo_name": magic_visibility_pcaps_pcaps_colo_name_output,
-        "magic-visibility-pcaps_pcaps_destination_conf": magic_visibility_pcaps_pcaps_destination_conf_output,
-        "magic-visibility-pcaps_pcaps_error_message": magic_visibility_pcaps_pcaps_error_message_output,
-        "magic-visibility-pcaps_pcaps_filter_v1": magic_visibility_pcaps_pcaps_filter_v1_output,
-        "magic-visibility-pcaps_pcaps_id": magic_visibility_pcaps_pcaps_id_output,
-        "magic-visibility-pcaps_pcaps_offset_time": magic_visibility_pcaps_pcaps_offset_time_output,
-        "magic-visibility-pcaps_pcaps_packets_captured": magic_visibility_pcaps_pcaps_packets_captured_output,
-        "magic-visibility-pcaps_pcaps_response_full": magic_visibility_pcaps_pcaps_response_full_output,
-        "magic-visibility-pcaps_pcaps_response_simple": magic_visibility_pcaps_pcaps_response_simple_output,
-        "magic-visibility-pcaps_pcaps_status": magic_visibility_pcaps_pcaps_status_output,
-        "magic-visibility-pcaps_pcaps_stop_requested": magic_visibility_pcaps_pcaps_stop_requested_output,
-        "magic-visibility-pcaps_pcaps_submitted": magic_visibility_pcaps_pcaps_submitted_output,
-        "magic-visibility-pcaps_pcaps_system": magic_visibility_pcaps_pcaps_system_output,
-        "magic-visibility-pcaps_pcaps_time_limit_full": magic_visibility_pcaps_pcaps_time_limit_full_output,
-        "magic-visibility-pcaps_pcaps_time_limit_sampled": magic_visibility_pcaps_pcaps_time_limit_sampled_output,
-        "magic-visibility-pcaps_pcaps_type": magic_visibility_pcaps_pcaps_type_output,
-        "magic-visibility-pcaps_result_info": magic_visibility_pcaps_result_info_output,
+        "magic-visibility-pcaps_api-response-collection": magic$$visibility$$pcaps_api$$response$$collection,
+        "magic-visibility-pcaps_api-response-common": magic$$visibility$$pcaps_api$$response$$common,
+        "magic-visibility-pcaps_messages": magic$$visibility$$pcaps_messages,
+        "magic-visibility-pcaps_pcaps_byte_limit": magic$$visibility$$pcaps_pcaps_byte_limit,
+        "magic-visibility-pcaps_pcaps_collection_response": magic$$visibility$$pcaps_pcaps_collection_response,
+        "magic-visibility-pcaps_pcaps_colo_name": magic$$visibility$$pcaps_pcaps_colo_name,
+        "magic-visibility-pcaps_pcaps_destination_conf": magic$$visibility$$pcaps_pcaps_destination_conf,
+        "magic-visibility-pcaps_pcaps_error_message": magic$$visibility$$pcaps_pcaps_error_message,
+        "magic-visibility-pcaps_pcaps_filter_v1": magic$$visibility$$pcaps_pcaps_filter_v1,
+        "magic-visibility-pcaps_pcaps_id": magic$$visibility$$pcaps_pcaps_id,
+        "magic-visibility-pcaps_pcaps_offset_time": magic$$visibility$$pcaps_pcaps_offset_time,
+        "magic-visibility-pcaps_pcaps_packets_captured": magic$$visibility$$pcaps_pcaps_packets_captured,
+        "magic-visibility-pcaps_pcaps_response_full": magic$$visibility$$pcaps_pcaps_response_full,
+        "magic-visibility-pcaps_pcaps_response_simple": magic$$visibility$$pcaps_pcaps_response_simple,
+        "magic-visibility-pcaps_pcaps_status": magic$$visibility$$pcaps_pcaps_status,
+        "magic-visibility-pcaps_pcaps_stop_requested": magic$$visibility$$pcaps_pcaps_stop_requested,
+        "magic-visibility-pcaps_pcaps_submitted": magic$$visibility$$pcaps_pcaps_submitted,
+        "magic-visibility-pcaps_pcaps_system": magic$$visibility$$pcaps_pcaps_system,
+        "magic-visibility-pcaps_pcaps_time_limit_full": magic$$visibility$$pcaps_pcaps_time_limit_full,
+        "magic-visibility-pcaps_pcaps_time_limit_sampled": magic$$visibility$$pcaps_pcaps_time_limit_sampled,
+        "magic-visibility-pcaps_pcaps_type": magic$$visibility$$pcaps_pcaps_type,
+        "magic-visibility-pcaps_result_info": magic$$visibility$$pcaps_result_info,
       },
     },
     annotations: {
@@ -366,29 +390,29 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "magic-visibility-pcaps_api-response-collection": magic_visibility_pcaps_api_response_collection_output,
-        "magic-visibility-pcaps_api-response-common": magic_visibility_pcaps_api_response_common_output,
-        "magic-visibility-pcaps_api-response-common-failure": magic_visibility_pcaps_api_response_common_failure_output,
-        "magic-visibility-pcaps_messages": magic_visibility_pcaps_messages_output,
-        "magic-visibility-pcaps_pcaps_byte_limit": magic_visibility_pcaps_pcaps_byte_limit_output,
-        "magic-visibility-pcaps_pcaps_collection_response": magic_visibility_pcaps_pcaps_collection_response_output,
-        "magic-visibility-pcaps_pcaps_colo_name": magic_visibility_pcaps_pcaps_colo_name_output,
-        "magic-visibility-pcaps_pcaps_destination_conf": magic_visibility_pcaps_pcaps_destination_conf_output,
-        "magic-visibility-pcaps_pcaps_error_message": magic_visibility_pcaps_pcaps_error_message_output,
-        "magic-visibility-pcaps_pcaps_filter_v1": magic_visibility_pcaps_pcaps_filter_v1_output,
-        "magic-visibility-pcaps_pcaps_id": magic_visibility_pcaps_pcaps_id_output,
-        "magic-visibility-pcaps_pcaps_offset_time": magic_visibility_pcaps_pcaps_offset_time_output,
-        "magic-visibility-pcaps_pcaps_packets_captured": magic_visibility_pcaps_pcaps_packets_captured_output,
-        "magic-visibility-pcaps_pcaps_response_full": magic_visibility_pcaps_pcaps_response_full_output,
-        "magic-visibility-pcaps_pcaps_response_simple": magic_visibility_pcaps_pcaps_response_simple_output,
-        "magic-visibility-pcaps_pcaps_status": magic_visibility_pcaps_pcaps_status_output,
-        "magic-visibility-pcaps_pcaps_stop_requested": magic_visibility_pcaps_pcaps_stop_requested_output,
-        "magic-visibility-pcaps_pcaps_submitted": magic_visibility_pcaps_pcaps_submitted_output,
-        "magic-visibility-pcaps_pcaps_system": magic_visibility_pcaps_pcaps_system_output,
-        "magic-visibility-pcaps_pcaps_time_limit_full": magic_visibility_pcaps_pcaps_time_limit_full_output,
-        "magic-visibility-pcaps_pcaps_time_limit_sampled": magic_visibility_pcaps_pcaps_time_limit_sampled_output,
-        "magic-visibility-pcaps_pcaps_type": magic_visibility_pcaps_pcaps_type_output,
-        "magic-visibility-pcaps_result_info": magic_visibility_pcaps_result_info_output,
+        "magic-visibility-pcaps_api-response-collection": magic$$visibility$$pcaps_api$$response$$collection,
+        "magic-visibility-pcaps_api-response-common": magic$$visibility$$pcaps_api$$response$$common,
+        "magic-visibility-pcaps_api-response-common-failure": magic$$visibility$$pcaps_api$$response$$common$$failure,
+        "magic-visibility-pcaps_messages": magic$$visibility$$pcaps_messages,
+        "magic-visibility-pcaps_pcaps_byte_limit": magic$$visibility$$pcaps_pcaps_byte_limit,
+        "magic-visibility-pcaps_pcaps_collection_response": magic$$visibility$$pcaps_pcaps_collection_response,
+        "magic-visibility-pcaps_pcaps_colo_name": magic$$visibility$$pcaps_pcaps_colo_name,
+        "magic-visibility-pcaps_pcaps_destination_conf": magic$$visibility$$pcaps_pcaps_destination_conf,
+        "magic-visibility-pcaps_pcaps_error_message": magic$$visibility$$pcaps_pcaps_error_message,
+        "magic-visibility-pcaps_pcaps_filter_v1": magic$$visibility$$pcaps_pcaps_filter_v1,
+        "magic-visibility-pcaps_pcaps_id": magic$$visibility$$pcaps_pcaps_id,
+        "magic-visibility-pcaps_pcaps_offset_time": magic$$visibility$$pcaps_pcaps_offset_time,
+        "magic-visibility-pcaps_pcaps_packets_captured": magic$$visibility$$pcaps_pcaps_packets_captured,
+        "magic-visibility-pcaps_pcaps_response_full": magic$$visibility$$pcaps_pcaps_response_full,
+        "magic-visibility-pcaps_pcaps_response_simple": magic$$visibility$$pcaps_pcaps_response_simple,
+        "magic-visibility-pcaps_pcaps_status": magic$$visibility$$pcaps_pcaps_status,
+        "magic-visibility-pcaps_pcaps_stop_requested": magic$$visibility$$pcaps_pcaps_stop_requested,
+        "magic-visibility-pcaps_pcaps_submitted": magic$$visibility$$pcaps_pcaps_submitted,
+        "magic-visibility-pcaps_pcaps_system": magic$$visibility$$pcaps_pcaps_system,
+        "magic-visibility-pcaps_pcaps_time_limit_full": magic$$visibility$$pcaps_pcaps_time_limit_full,
+        "magic-visibility-pcaps_pcaps_time_limit_sampled": magic$$visibility$$pcaps_pcaps_time_limit_sampled,
+        "magic-visibility-pcaps_pcaps_type": magic$$visibility$$pcaps_pcaps_type,
+        "magic-visibility-pcaps_result_info": magic$$visibility$$pcaps_result_info,
       },
     },
     request: (args) => ({
@@ -396,27 +420,35 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "magic_transit_pcaps_stop",
+    name: "magicTransit_pcaps_stop",
     title: "Stop full PCAP",
     description: "Stop full PCAP.\n\nConfirm with the user before calling this tool. This operation halts an in-progress full packet capture. Any unsaved capture data will be lost.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/magic-visibility-pcaps_identifier",
-          "description": "Identifier."
-        },
-        "pcap_id": {
-          "$ref": "#/$defs/magic-visibility-pcaps_identifier",
-          "description": "Identifier."
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/magic-visibility-pcaps_identifier",
+              "description": "Identifier."
+            },
+            "pcap_id": {
+              "$ref": "#/$defs/magic-visibility-pcaps_identifier",
+              "description": "Identifier."
+            }
+          },
+          "required": [
+            "account_id",
+            "pcap_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "pcap_id"
+        "path"
       ],
       $defs: {
-        "magic-visibility-pcaps_identifier": magic_visibility_pcaps_identifier,
+        "magic-visibility-pcaps_identifier": magic$$visibility$$pcaps_identifier,
       },
     },
     annotations: {
@@ -450,8 +482,8 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "magic-visibility-pcaps_api-response-common-failure": magic_visibility_pcaps_api_response_common_failure_output,
-        "magic-visibility-pcaps_messages": magic_visibility_pcaps_messages_output,
+        "magic-visibility-pcaps_api-response-common-failure": magic$$visibility$$pcaps_api$$response$$common$$failure,
+        "magic-visibility-pcaps_messages": magic$$visibility$$pcaps_messages,
       },
     },
     request: (args) => ({

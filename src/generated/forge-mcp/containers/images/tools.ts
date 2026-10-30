@@ -3,15 +3,15 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
-  cc_Image_output,
-  cc_Messages_output,
-  cc_V4BaseErrorResponse_output,
-  cc_V4BaseResponse_output,
+  cc_Image,
+  cc_Messages,
+  cc_V4BaseErrorResponse,
+  cc_V4BaseResponse,
 } from "../outputs.js";
-import { cc_Image } from "../schemas.js";
+import { cc_Image as cc_Image$ } from "../schemas.js";
 import {
-  cc_ContainerImagePreparationStatus_output,
-  cc_ContainerImagePreparation_output,
+  cc_ContainerImagePreparation,
+  cc_ContainerImagePreparationStatus,
 } from "./outputs.js";
 import { cc_PrepareContainerImageRequestBody } from "./schemas.js";
 
@@ -26,20 +26,28 @@ export const tools: readonly Tool[] = [
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "description": "Account identifier.",
-          "type": "string"
-        },
         "body": {
           "$ref": "#/$defs/cc_PrepareContainerImageRequestBody"
+        },
+        "path": {
+          "properties": {
+            "account_id": {
+              "description": "Account identifier.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
+        "path",
         "body"
       ],
       $defs: {
-        "cc_Image": cc_Image,
+        "cc_Image": cc_Image$,
         "cc_PrepareContainerImageRequestBody": cc_PrepareContainerImageRequestBody,
       },
     },
@@ -61,11 +69,11 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "cc_ContainerImagePreparation": cc_ContainerImagePreparation_output,
-        "cc_ContainerImagePreparationStatus": cc_ContainerImagePreparationStatus_output,
-        "cc_Image": cc_Image_output,
-        "cc_Messages": cc_Messages_output,
-        "cc_V4BaseResponse": cc_V4BaseResponse_output,
+        "cc_ContainerImagePreparation": cc_ContainerImagePreparation,
+        "cc_ContainerImagePreparationStatus": cc_ContainerImagePreparationStatus,
+        "cc_Image": cc_Image,
+        "cc_Messages": cc_Messages,
+        "cc_V4BaseResponse": cc_V4BaseResponse,
       },
     },
     annotations: {
@@ -129,12 +137,12 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "cc_ContainerImagePreparation": cc_ContainerImagePreparation_output,
-        "cc_ContainerImagePreparationStatus": cc_ContainerImagePreparationStatus_output,
-        "cc_Image": cc_Image_output,
-        "cc_Messages": cc_Messages_output,
-        "cc_V4BaseErrorResponse": cc_V4BaseErrorResponse_output,
-        "cc_V4BaseResponse": cc_V4BaseResponse_output,
+        "cc_ContainerImagePreparation": cc_ContainerImagePreparation,
+        "cc_ContainerImagePreparationStatus": cc_ContainerImagePreparationStatus,
+        "cc_Image": cc_Image,
+        "cc_Messages": cc_Messages,
+        "cc_V4BaseErrorResponse": cc_V4BaseErrorResponse,
+        "cc_V4BaseResponse": cc_V4BaseResponse,
       },
     },
     request: (args) => ({

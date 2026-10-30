@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `cws_PageResponseTenantStructure` in responses.
  */
-export const cws_PageResponseTenantStructure_output: JsonSchema = {
+export const cws_PageResponseTenantStructure: JsonSchema = {
   "properties": {
     "errors": {
       "oneOf": [
@@ -67,7 +67,7 @@ export const cws_PageResponseTenantStructure_output: JsonSchema = {
 /**
  * The schema of `cws_ResponseTenantStructure` in responses.
  */
-export const cws_ResponseTenantStructure_output: JsonSchema = {
+export const cws_ResponseTenantStructure: JsonSchema = {
   "properties": {
     "errors": {
       "oneOf": [
@@ -114,7 +114,7 @@ export const cws_ResponseTenantStructure_output: JsonSchema = {
 /**
  * The schema of `cws_TenantStructure` in responses.
  */
-export const cws_TenantStructure_output: JsonSchema = {
+export const cws_TenantStructure: JsonSchema = {
   "properties": {
     "application": {
       "enum": [

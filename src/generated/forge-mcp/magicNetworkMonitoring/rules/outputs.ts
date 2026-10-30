@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `magic-visibility-mnm_api-response-collection` in responses.
  */
-export const magic_visibility_mnm_api_response_collection_output: JsonSchema = {
+export const magic$$visibility$$mnm_api$$response$$collection: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/magic-visibility-mnm_api-response-common"
@@ -36,7 +36,7 @@ export const magic_visibility_mnm_api_response_collection_output: JsonSchema = {
 /**
  * The schema of `magic-visibility-mnm_mnm_rule` in responses.
  */
-export const magic_visibility_mnm_mnm_rule_output: JsonSchema = {
+export const magic$$visibility$$mnm_mnm_rule: JsonSchema = {
   "oneOf": [
     {
       "properties": {
@@ -93,7 +93,7 @@ export const magic_visibility_mnm_mnm_rule_output: JsonSchema = {
  * The schema of `magic-visibility-mnm_mnm_rule_automatic_advertisement` in
  * responses.
  */
-export const magic_visibility_mnm_mnm_rule_automatic_advertisement_output: JsonSchema = {
+export const magic$$visibility$$mnm_mnm_rule_automatic_advertisement: JsonSchema = {
   "oneOf": [
     {
       "type": "boolean"
@@ -108,14 +108,14 @@ export const magic_visibility_mnm_mnm_rule_automatic_advertisement_output: JsonS
  * The schema of `magic-visibility-mnm_mnm_rule_bandwidth_threshold` in
  * responses.
  */
-export const magic_visibility_mnm_mnm_rule_bandwidth_threshold_output: JsonSchema = {
+export const magic$$visibility$$mnm_mnm_rule_bandwidth_threshold: JsonSchema = {
   "type": "number"
 };
 
 /**
  * The schema of `magic-visibility-mnm_mnm_rule_duration` in responses.
  */
-export const magic_visibility_mnm_mnm_rule_duration_output: JsonSchema = {
+export const magic$$visibility$$mnm_mnm_rule_duration: JsonSchema = {
   "enum": [
     "1m",
     "5m",
@@ -132,14 +132,14 @@ export const magic_visibility_mnm_mnm_rule_duration_output: JsonSchema = {
 /**
  * The schema of `magic-visibility-mnm_mnm_rule_ip_prefix` in responses.
  */
-export const magic_visibility_mnm_mnm_rule_ip_prefix_output: JsonSchema = {
+export const magic$$visibility$$mnm_mnm_rule_ip_prefix: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `magic-visibility-mnm_mnm_rule_ip_prefixes` in responses.
  */
-export const magic_visibility_mnm_mnm_rule_ip_prefixes_output: JsonSchema = {
+export const magic$$visibility$$mnm_mnm_rule_ip_prefixes: JsonSchema = {
   "items": {
     "$ref": "#/$defs/magic-visibility-mnm_mnm_rule_ip_prefix"
   },
@@ -149,21 +149,21 @@ export const magic_visibility_mnm_mnm_rule_ip_prefixes_output: JsonSchema = {
 /**
  * The schema of `magic-visibility-mnm_mnm_rule_name` in responses.
  */
-export const magic_visibility_mnm_mnm_rule_name_output: JsonSchema = {
+export const magic$$visibility$$mnm_mnm_rule_name: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `magic-visibility-mnm_mnm_rule_packet_threshold` in responses.
  */
-export const magic_visibility_mnm_mnm_rule_packet_threshold_output: JsonSchema = {
+export const magic$$visibility$$mnm_mnm_rule_packet_threshold: JsonSchema = {
   "type": "number"
 };
 
 /**
  * The schema of `magic-visibility-mnm_mnm_rule_prefix_match` in responses.
  */
-export const magic_visibility_mnm_mnm_rule_prefix_match_output: JsonSchema = {
+export const magic$$visibility$$mnm_mnm_rule_prefix_match: JsonSchema = {
   "oneOf": [
     {
       "enum": [
@@ -182,7 +182,7 @@ export const magic_visibility_mnm_mnm_rule_prefix_match_output: JsonSchema = {
 /**
  * The schema of `magic-visibility-mnm_mnm_rule_type` in responses.
  */
-export const magic_visibility_mnm_mnm_rule_type_output: JsonSchema = {
+export const magic$$visibility$$mnm_mnm_rule_type: JsonSchema = {
   "enum": [
     "threshold",
     "zscore",
@@ -195,7 +195,7 @@ export const magic_visibility_mnm_mnm_rule_type_output: JsonSchema = {
  * The schema of `magic-visibility-mnm_mnm_rule_zscore_sensitivity` in
  * responses.
  */
-export const magic_visibility_mnm_mnm_rule_zscore_sensitivity_output: JsonSchema = {
+export const magic$$visibility$$mnm_mnm_rule_zscore_sensitivity: JsonSchema = {
   "oneOf": [
     {
       "enum": [
@@ -214,7 +214,7 @@ export const magic_visibility_mnm_mnm_rule_zscore_sensitivity_output: JsonSchema
 /**
  * The schema of `magic-visibility-mnm_mnm_rule_zscore_target` in responses.
  */
-export const magic_visibility_mnm_mnm_rule_zscore_target_output: JsonSchema = {
+export const magic$$visibility$$mnm_mnm_rule_zscore_target: JsonSchema = {
   "oneOf": [
     {
       "enum": [
@@ -233,7 +233,7 @@ export const magic_visibility_mnm_mnm_rule_zscore_target_output: JsonSchema = {
  * The schema of `magic-visibility-mnm_mnm_rules_collection_response` in
  * responses.
  */
-export const magic_visibility_mnm_mnm_rules_collection_response_output: JsonSchema = {
+export const magic$$visibility$$mnm_mnm_rules_collection_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/magic-visibility-mnm_api-response-collection"
@@ -262,7 +262,7 @@ export const magic_visibility_mnm_mnm_rules_collection_response_output: JsonSche
 /**
  * The schema of `magic-visibility-mnm_mnm_rules_single_response` in responses.
  */
-export const magic_visibility_mnm_mnm_rules_single_response_output: JsonSchema = {
+export const magic$$visibility$$mnm_mnm_rules_single_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/magic-visibility-mnm_api-response-single"
@@ -281,7 +281,7 @@ export const magic_visibility_mnm_mnm_rules_single_response_output: JsonSchema =
 /**
  * The schema of `magic-visibility-mnm_result_info` in responses.
  */
-export const magic_visibility_mnm_result_info_output: JsonSchema = {
+export const magic$$visibility$$mnm_result_info: JsonSchema = {
   "properties": {
     "count": {
       "type": "number"
@@ -302,6 +302,6 @@ export const magic_visibility_mnm_result_info_output: JsonSchema = {
 /**
  * The schema of `magic-visibility-mnm_rule_identifier` in responses.
  */
-export const magic_visibility_mnm_rule_identifier_output: JsonSchema = {
+export const magic$$visibility$$mnm_rule_identifier: JsonSchema = {
   "type": "string"
 };

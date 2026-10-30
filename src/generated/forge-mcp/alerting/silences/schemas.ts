@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `aaa_silence-id`.
  */
-export const aaa_silence_id: JsonSchema = {
+export const aaa_silence$$id: JsonSchema = {
   "description": "Silence ID",
   "type": "string"
 };

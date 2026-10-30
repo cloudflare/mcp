@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../../_/tool.js";
 /**
  * The schema of `posture-api_CreateWebhookJobsResponse` in responses.
  */
-export const posture_api_CreateWebhookJobsResponse_output: JsonSchema = {
+export const posture$$api_CreateWebhookJobsResponse: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/posture-api_api-response-common"
@@ -46,7 +46,7 @@ export const posture_api_CreateWebhookJobsResponse_output: JsonSchema = {
 /**
  * The schema of `posture-api_WebhookJob` in responses.
  */
-export const posture_api_WebhookJob_output: JsonSchema = {
+export const posture$$api_WebhookJob: JsonSchema = {
   "properties": {
     "asset_data": {
       "type": "object"
@@ -108,7 +108,7 @@ export const posture_api_WebhookJob_output: JsonSchema = {
 /**
  * The schema of `posture-api_WebhookJobActorTypeEnum` in responses.
  */
-export const posture_api_WebhookJobActorTypeEnum_output: JsonSchema = {
+export const posture$$api_WebhookJobActorTypeEnum: JsonSchema = {
   "enum": [
     "user",
     "account_token"
@@ -119,7 +119,7 @@ export const posture_api_WebhookJobActorTypeEnum_output: JsonSchema = {
 /**
  * The schema of `posture-api_WebhookJobFailure` in responses.
  */
-export const posture_api_WebhookJobFailure_output: JsonSchema = {
+export const posture$$api_WebhookJobFailure: JsonSchema = {
   "properties": {
     "error": {
       "type": "string"
@@ -144,7 +144,7 @@ export const posture_api_WebhookJobFailure_output: JsonSchema = {
 /**
  * The schema of `posture-api_WebhookJobFailureReasonEnum` in responses.
  */
-export const posture_api_WebhookJobFailureReasonEnum_output: JsonSchema = {
+export const posture$$api_WebhookJobFailureReasonEnum: JsonSchema = {
   "enum": [
     "Permission Denied",
     "Integration Unavailable",
@@ -157,7 +157,7 @@ export const posture_api_WebhookJobFailureReasonEnum_output: JsonSchema = {
 /**
  * The schema of `posture-api_WebhookJobParameters` in responses.
  */
-export const posture_api_WebhookJobParameters_output: JsonSchema = {
+export const posture$$api_WebhookJobParameters: JsonSchema = {
   "properties": {
     "finding_instance_id": {
       "format": "uuid",
@@ -173,7 +173,7 @@ export const posture_api_WebhookJobParameters_output: JsonSchema = {
 /**
  * The schema of `posture-api_WebhookJobStatusEnum` in responses.
  */
-export const posture_api_WebhookJobStatusEnum_output: JsonSchema = {
+export const posture$$api_WebhookJobStatusEnum: JsonSchema = {
   "enum": [
     "pending",
     "processing",

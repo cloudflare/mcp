@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `aaa_audit-logs-v2-org` in responses.
  */
-export const aaa_audit_logs_v2_org_output: JsonSchema = {
+export const aaa_audit$$logs$$v2$$org: JsonSchema = {
   "properties": {
     "action": {
       "$ref": "#/$defs/aaa_audit-log-action"
@@ -76,7 +76,7 @@ export const aaa_audit_logs_v2_org_output: JsonSchema = {
  * The schema of `aaa_audit-logs-v2-org-history-response-collection` in
  * responses.
  */
-export const aaa_audit_logs_v2_org_history_response_collection_output: JsonSchema = {
+export const aaa_audit$$logs$$v2$$org$$history$$response$$collection: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/aaa_messages-2"
@@ -109,7 +109,7 @@ export const aaa_audit_logs_v2_org_history_response_collection_output: JsonSchem
 /**
  * The schema of `aaa_audit-logs-v2-org-response-collection` in responses.
  */
-export const aaa_audit_logs_v2_org_response_collection_output: JsonSchema = {
+export const aaa_audit$$logs$$v2$$org$$response$$collection: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/aaa_audit-logs-response-collection"

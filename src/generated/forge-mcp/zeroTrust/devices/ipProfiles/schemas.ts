@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `teams-devices_ip_profile_create_request`.
  */
-export const teams_devices_ip_profile_create_request: JsonSchema = {
+export const teams$$devices_ip_profile_create_request: JsonSchema = {
   "properties": {
     "description": {
       "description": "An optional description of the Device IP profile.",
@@ -53,7 +53,7 @@ export const teams_devices_ip_profile_create_request: JsonSchema = {
 /**
  * The schema of `teams-devices_ip_profile_enabled`.
  */
-export const teams_devices_ip_profile_enabled: JsonSchema = {
+export const teams$$devices_ip_profile_enabled: JsonSchema = {
   "description": "Whether the Device IP profile is enabled.",
   "type": "boolean"
 };
@@ -61,7 +61,7 @@ export const teams_devices_ip_profile_enabled: JsonSchema = {
 /**
  * The schema of `teams-devices_ip_profile_match`.
  */
-export const teams_devices_ip_profile_match: JsonSchema = {
+export const teams$$devices_ip_profile_match: JsonSchema = {
   "description": "The wirefilter expression to match registrations. Available values: \"identity.name\", \"identity.email\", \"identity.groups.id\", \"identity.groups.name\", \"identity.groups.email\", \"identity.saml_attributes\".",
   "type": "string"
 };
@@ -69,7 +69,7 @@ export const teams_devices_ip_profile_match: JsonSchema = {
 /**
  * The schema of `teams-devices_ip_profile_name`.
  */
-export const teams_devices_ip_profile_name: JsonSchema = {
+export const teams$$devices_ip_profile_name: JsonSchema = {
   "description": "A user-friendly name for the Device IP profile.",
   "type": "string"
 };
@@ -77,7 +77,7 @@ export const teams_devices_ip_profile_name: JsonSchema = {
 /**
  * The schema of `teams-devices_ip_profile_precedence`.
  */
-export const teams_devices_ip_profile_precedence: JsonSchema = {
+export const teams$$devices_ip_profile_precedence: JsonSchema = {
   "description": "The precedence of the Device IP profile. Lower values indicate higher precedence. Device IP profile will be evaluated in ascending order of this field.",
   "type": "integer"
 };
@@ -85,7 +85,7 @@ export const teams_devices_ip_profile_precedence: JsonSchema = {
 /**
  * The schema of `teams-devices_ip_profile_subnet_id`.
  */
-export const teams_devices_ip_profile_subnet_id: JsonSchema = {
+export const teams$$devices_ip_profile_subnet_id: JsonSchema = {
   "description": "The ID of the Subnet.",
   "type": "string"
 };
@@ -93,7 +93,7 @@ export const teams_devices_ip_profile_subnet_id: JsonSchema = {
 /**
  * The schema of `teams-devices_ip_profile_update_request`.
  */
-export const teams_devices_ip_profile_update_request: JsonSchema = {
+export const teams$$devices_ip_profile_update_request: JsonSchema = {
   "properties": {
     "description": {
       "description": "An optional description of the Device IP profile.",

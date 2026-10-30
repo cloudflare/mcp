@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `tunnel_route` in responses.
  */
-export const tunnel_route_output: JsonSchema = {
+export const tunnel_route: JsonSchema = {
   "properties": {
     "comment": {
       "$ref": "#/$defs/tunnel_route_comment"
@@ -36,7 +36,7 @@ export const tunnel_route_output: JsonSchema = {
 /**
  * The schema of `tunnel_route_response_single` in responses.
  */
-export const tunnel_route_response_single_output: JsonSchema = {
+export const tunnel_route_response_single: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/tunnel_api-response-common"
@@ -55,7 +55,7 @@ export const tunnel_route_response_single_output: JsonSchema = {
 /**
  * The schema of `tunnel_teamnet_response_collection` in responses.
  */
-export const tunnel_teamnet_response_collection_output: JsonSchema = {
+export const tunnel_teamnet_response_collection: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/tunnel_api-response-collection"

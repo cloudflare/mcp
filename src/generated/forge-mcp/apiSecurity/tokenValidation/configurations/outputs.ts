@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `api-shield_TokenConfiguration` in responses.
  */
-export const api_shield_TokenConfiguration_output: JsonSchema = {
+export const api$$shield_TokenConfiguration: JsonSchema = {
   "properties": {
     "created_at": {
       "$ref": "#/$defs/api-shield_timestamp-2"
@@ -49,14 +49,14 @@ export const api_shield_TokenConfiguration_output: JsonSchema = {
 /**
  * The schema of `api-shield_cookie` in responses.
  */
-export const api_shield_cookie_output: JsonSchema = {
+export const api$$shield_cookie: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `api-shield_credentials` in responses.
  */
-export const api_shield_credentials_output: JsonSchema = {
+export const api$$shield_credentials: JsonSchema = {
   "properties": {
     "keys": {
       "items": {
@@ -76,7 +76,7 @@ export const api_shield_credentials_output: JsonSchema = {
 /**
  * The schema of `api-shield_credentials-JWT-Key-EC-ES256` in responses.
  */
-export const api_shield_credentials_JWT_Key_EC_ES256_output: JsonSchema = {
+export const api$$shield_credentials$$JWT$$Key$$EC$$ES256: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/api-shield_credentials-JWT-Key-common"
@@ -111,7 +111,7 @@ export const api_shield_credentials_JWT_Key_EC_ES256_output: JsonSchema = {
 /**
  * The schema of `api-shield_credentials-JWT-Key-EC-ES384` in responses.
  */
-export const api_shield_credentials_JWT_Key_EC_ES384_output: JsonSchema = {
+export const api$$shield_credentials$$JWT$$Key$$EC$$ES384: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/api-shield_credentials-JWT-Key-common"
@@ -146,7 +146,7 @@ export const api_shield_credentials_JWT_Key_EC_ES384_output: JsonSchema = {
 /**
  * The schema of `api-shield_credentials-JWT-Key-EC-common` in responses.
  */
-export const api_shield_credentials_JWT_Key_EC_common_output: JsonSchema = {
+export const api$$shield_credentials$$JWT$$Key$$EC$$common: JsonSchema = {
   "properties": {
     "kty": {
       "enum": [
@@ -172,7 +172,7 @@ export const api_shield_credentials_JWT_Key_EC_common_output: JsonSchema = {
 /**
  * The schema of `api-shield_credentials-JWT-Key-RSA` in responses.
  */
-export const api_shield_credentials_JWT_Key_RSA_output: JsonSchema = {
+export const api$$shield_credentials$$JWT$$Key$$RSA: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/api-shield_credentials-JWT-Key-common"
@@ -217,7 +217,7 @@ export const api_shield_credentials_JWT_Key_RSA_output: JsonSchema = {
 /**
  * The schema of `api-shield_credentials-JWT-Key-common` in responses.
  */
-export const api_shield_credentials_JWT_Key_common_output: JsonSchema = {
+export const api$$shield_credentials$$JWT$$Key$$common: JsonSchema = {
   "properties": {
     "kid": {
       "type": "string"
@@ -232,7 +232,7 @@ export const api_shield_credentials_JWT_Key_common_output: JsonSchema = {
 /**
  * The schema of `api-shield_credentials-JWT-Key-oct-response` in responses.
  */
-export const api_shield_credentials_JWT_Key_oct_response_output: JsonSchema = {
+export const api$$shield_credentials$$JWT$$Key$$oct$$response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/api-shield_credentials-JWT-Key-common"
@@ -266,7 +266,7 @@ export const api_shield_credentials_JWT_Key_oct_response_output: JsonSchema = {
 /**
  * The schema of `api-shield_credentials-JWT-Key-response` in responses.
  */
-export const api_shield_credentials_JWT_Key_response_output: JsonSchema = {
+export const api$$shield_credentials$$JWT$$Key$$response: JsonSchema = {
   "oneOf": [
     {
       "$ref": "#/$defs/api-shield_credentials-JWT-Key-RSA"
@@ -286,28 +286,28 @@ export const api_shield_credentials_JWT_Key_response_output: JsonSchema = {
 /**
  * The schema of `api-shield_description` in responses.
  */
-export const api_shield_description_output: JsonSchema = {
+export const api$$shield_description: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `api-shield_header` in responses.
  */
-export const api_shield_header_output: JsonSchema = {
+export const api$$shield_header: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `api-shield_title` in responses.
  */
-export const api_shield_title_output: JsonSchema = {
+export const api$$shield_title: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `api-shield_token_sources` in responses.
  */
-export const api_shield_token_sources_output: JsonSchema = {
+export const api$$shield_token_sources: JsonSchema = {
   "items": {
     "anyOf": [
       {
@@ -326,7 +326,7 @@ export const api_shield_token_sources_output: JsonSchema = {
 /**
  * The schema of `api-shield_token_type` in responses.
  */
-export const api_shield_token_type_output: JsonSchema = {
+export const api$$shield_token_type: JsonSchema = {
   "enum": [
     "JWT"
   ],

@@ -3,34 +3,42 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
-  zone_activation_api_response_common_failure_output,
-  zone_activation_api_response_single_output,
-  zone_activation_identifier_output,
-  zone_activation_messages_output,
+  zone$$activation_api$$response$$common$$failure,
+  zone$$activation_api$$response$$single,
+  zone$$activation_identifier,
+  zone$$activation_messages,
 } from "./outputs.js";
-import { zone_activation_identifier } from "./schemas.js";
+import { zone$$activation_identifier as zone$$activation_identifier$ } from "./schemas.js";
 
 /**
- * The tools of `zones.activation_check`.
+ * The tools of `zones.activationCheck`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "zones_activation_check_activate",
+    name: "zones_activationCheck_activate",
     title: "Rerun the Activation Check",
     description: "Triggeres a new activation check for a PENDING Zone. This can be\ntriggered every 5 min for paygo/ent customers, every hour for FREE\nZones.",
     inputSchema: {
       type: "object",
       properties: {
-        "zone_id": {
-          "$ref": "#/$defs/zone-activation_identifier",
-          "description": "Zone ID"
+        "path": {
+          "properties": {
+            "zone_id": {
+              "$ref": "#/$defs/zone-activation_identifier",
+              "description": "Zone ID"
+            }
+          },
+          "required": [
+            "zone_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "zone_id"
+        "path"
       ],
       $defs: {
-        "zone-activation_identifier": zone_activation_identifier,
+        "zone-activation_identifier": zone$$activation_identifier$,
       },
     },
     outputSchema: {
@@ -53,9 +61,9 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "zone-activation_api-response-single": zone_activation_api_response_single_output,
-        "zone-activation_identifier": zone_activation_identifier_output,
-        "zone-activation_messages": zone_activation_messages_output,
+        "zone-activation_api-response-single": zone$$activation_api$$response$$single,
+        "zone-activation_identifier": zone$$activation_identifier,
+        "zone-activation_messages": zone$$activation_messages,
       },
     },
     annotations: {
@@ -99,10 +107,10 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "zone-activation_api-response-common-failure": zone_activation_api_response_common_failure_output,
-        "zone-activation_api-response-single": zone_activation_api_response_single_output,
-        "zone-activation_identifier": zone_activation_identifier_output,
-        "zone-activation_messages": zone_activation_messages_output,
+        "zone-activation_api-response-common-failure": zone$$activation_api$$response$$common$$failure,
+        "zone-activation_api-response-single": zone$$activation_api$$response$$single,
+        "zone-activation_identifier": zone$$activation_identifier,
+        "zone-activation_messages": zone$$activation_messages,
       },
     },
     request: (args) => ({

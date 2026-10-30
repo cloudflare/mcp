@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `client-side-security_get-zone-policy-response` in responses.
  */
-export const client_side_security_get_zone_policy_response_output: JsonSchema = {
+export const client$$side$$security_get$$zone$$policy$$response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/client-side-security_api-get-response-collection"
@@ -29,7 +29,7 @@ export const client_side_security_get_zone_policy_response_output: JsonSchema = 
  * The schema of `client-side-security_list-zone-policies-response` in
  * responses.
  */
-export const client_side_security_list_zone_policies_response_output: JsonSchema = {
+export const client$$side$$security_list$$zone$$policies$$response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/client-side-security_api-list-response-collection"
@@ -54,7 +54,7 @@ export const client_side_security_list_zone_policies_response_output: JsonSchema
 /**
  * The schema of `client-side-security_policy` in responses.
  */
-export const client_side_security_policy_output: JsonSchema = {
+export const client$$side$$security_policy: JsonSchema = {
   "properties": {
     "action": {
       "$ref": "#/$defs/client-side-security_policy-action"
@@ -85,7 +85,7 @@ export const client_side_security_policy_output: JsonSchema = {
 /**
  * The schema of `client-side-security_policy-action` in responses.
  */
-export const client_side_security_policy_action_output: JsonSchema = {
+export const client$$side$$security_policy$$action: JsonSchema = {
   "enum": [
     "allow",
     "log",
@@ -97,35 +97,35 @@ export const client_side_security_policy_action_output: JsonSchema = {
 /**
  * The schema of `client-side-security_policy-description` in responses.
  */
-export const client_side_security_policy_description_output: JsonSchema = {
+export const client$$side$$security_policy$$description: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `client-side-security_policy-enabled` in responses.
  */
-export const client_side_security_policy_enabled_output: JsonSchema = {
+export const client$$side$$security_policy$$enabled: JsonSchema = {
   "type": "boolean"
 };
 
 /**
  * The schema of `client-side-security_policy-expression` in responses.
  */
-export const client_side_security_policy_expression_output: JsonSchema = {
+export const client$$side$$security_policy$$expression: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `client-side-security_policy-value` in responses.
  */
-export const client_side_security_policy_value_output: JsonSchema = {
+export const client$$side$$security_policy$$value: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `client-side-security_policy-with-id` in responses.
  */
-export const client_side_security_policy_with_id_output: JsonSchema = {
+export const client$$side$$security_policy$$with$$id: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/client-side-security_policy"

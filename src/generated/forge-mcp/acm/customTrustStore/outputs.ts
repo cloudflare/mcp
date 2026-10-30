@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `tls-certificates-and-hostnames_certificate-3` in responses.
  */
-export const tls_certificates_and_hostnames_certificate_3_output: JsonSchema = {
+export const tls$$certificates$$and$$hostnames_certificate$$3: JsonSchema = {
   "type": "string"
 };
 
@@ -14,7 +14,7 @@ export const tls_certificates_and_hostnames_certificate_3_output: JsonSchema = {
  * The schema of `tls-certificates-and-hostnames_custom-trust-store` in
  * responses.
  */
-export const tls_certificates_and_hostnames_custom_trust_store_output: JsonSchema = {
+export const tls$$certificates$$and$$hostnames_custom$$trust$$store: JsonSchema = {
   "properties": {
     "certificate": {
       "$ref": "#/$defs/tls-certificates-and-hostnames_certificate-3"
@@ -58,7 +58,7 @@ export const tls_certificates_and_hostnames_custom_trust_store_output: JsonSchem
  * The schema of `tls-certificates-and-hostnames_custom_trust_store_identifier`
  * in responses.
  */
-export const tls_certificates_and_hostnames_custom_trust_store_identifier_output: JsonSchema = {
+export const tls$$certificates$$and$$hostnames_custom_trust_store_identifier: JsonSchema = {
   "type": "string"
 };
 
@@ -67,7 +67,7 @@ export const tls_certificates_and_hostnames_custom_trust_store_identifier_output
  * `tls-certificates-and-hostnames_custom_trust_store_response_collection` in
  * responses.
  */
-export const tls_certificates_and_hostnames_custom_trust_store_response_collection_output: JsonSchema = {
+export const tls$$certificates$$and$$hostnames_custom_trust_store_response_collection: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/tls-certificates-and-hostnames_api-response-collection"
@@ -91,7 +91,7 @@ export const tls_certificates_and_hostnames_custom_trust_store_response_collecti
  * `tls-certificates-and-hostnames_custom_trust_store_response_id_only` in
  * responses.
  */
-export const tls_certificates_and_hostnames_custom_trust_store_response_id_only_output: JsonSchema = {
+export const tls$$certificates$$and$$hostnames_custom_trust_store_response_id_only: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/tls-certificates-and-hostnames_api-response-single"
@@ -117,7 +117,7 @@ export const tls_certificates_and_hostnames_custom_trust_store_response_id_only_
  * `tls-certificates-and-hostnames_custom_trust_store_response_single` in
  * responses.
  */
-export const tls_certificates_and_hostnames_custom_trust_store_response_single_output: JsonSchema = {
+export const tls$$certificates$$and$$hostnames_custom_trust_store_response_single: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/tls-certificates-and-hostnames_api-response-single"
@@ -136,7 +136,7 @@ export const tls_certificates_and_hostnames_custom_trust_store_response_single_o
 /**
  * The schema of `tls-certificates-and-hostnames_status-7` in responses.
  */
-export const tls_certificates_and_hostnames_status_7_output: JsonSchema = {
+export const tls$$certificates$$and$$hostnames_status$$7: JsonSchema = {
   "enum": [
     "initializing",
     "pending_deployment",
@@ -151,7 +151,7 @@ export const tls_certificates_and_hostnames_status_7_output: JsonSchema = {
 /**
  * The schema of `tls-certificates-and-hostnames_updated_at-2` in responses.
  */
-export const tls_certificates_and_hostnames_updated_at_2_output: JsonSchema = {
+export const tls$$certificates$$and$$hostnames_updated_at$$2: JsonSchema = {
   "format": "date-time",
   "type": "string"
 };

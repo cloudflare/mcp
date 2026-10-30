@@ -6,7 +6,7 @@ import type { JsonSchema } from "../_/tool.js";
 /**
  * The schema of `api-shield_label_description`.
  */
-export const api_shield_label_description: JsonSchema = {
+export const api$$shield_label_description: JsonSchema = {
   "description": "The description of the label",
   "type": "string"
 };
@@ -14,7 +14,7 @@ export const api_shield_label_description: JsonSchema = {
 /**
  * The schema of `api-shield_label_metadata`.
  */
-export const api_shield_label_metadata: JsonSchema = {
+export const api$$shield_label_metadata: JsonSchema = {
   "description": "Metadata for the label",
   "type": "object"
 };
@@ -22,7 +22,7 @@ export const api_shield_label_metadata: JsonSchema = {
 /**
  * The schema of `api-shield_label_name`.
  */
-export const api_shield_label_name: JsonSchema = {
+export const api$$shield_label_name: JsonSchema = {
   "description": "The name of the label",
   "type": "string"
 };
@@ -30,7 +30,7 @@ export const api_shield_label_name: JsonSchema = {
 /**
  * The schema of `api-shield_label_source`.
  */
-export const api_shield_label_source: JsonSchema = {
+export const api$$shield_label_source: JsonSchema = {
   "description": "* `user` - label is owned by the user\n* `managed` - label is owned by cloudflare\n",
   "enum": [
     "user",
@@ -42,7 +42,7 @@ export const api_shield_label_source: JsonSchema = {
 /**
  * The schema of `api-shield_operation_id_selector`.
  */
-export const api_shield_operation_id_selector: JsonSchema = {
+export const api$$shield_operation_id_selector: JsonSchema = {
   "description": "Operation IDs selector",
   "properties": {
     "include": {

@@ -3,45 +3,53 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
-  tls_certificates_and_hostnames_api_response_common_failure_output,
-  tls_certificates_and_hostnames_api_response_single_output,
-  tls_certificates_and_hostnames_messages_output,
+  tls$$certificates$$and$$hostnames_api$$response$$common$$failure,
+  tls$$certificates$$and$$hostnames_api$$response$$single,
+  tls$$certificates$$and$$hostnames_messages,
 } from "../../../outputs.js";
-import { tls_certificates_and_hostnames_identifier } from "../../../schemas.js";
-import { tls_certificates_and_hostnames_enabled_4_output } from "../outputs.js";
-import { tls_certificates_and_hostnames_enabled_4 } from "../schemas.js";
-import { tls_certificates_and_hostnames_enabled_response_output } from "./outputs.js";
+import { tls$$certificates$$and$$hostnames_identifier } from "../../../schemas.js";
+import { tls$$certificates$$and$$hostnames_enabled$$4 } from "../outputs.js";
+import { tls$$certificates$$and$$hostnames_enabled$$4 as tls$$certificates$$and$$hostnames_enabled$$4$ } from "../schemas.js";
+import { tls$$certificates$$and$$hostnames_enabled_response } from "./outputs.js";
 
 /**
- * The tools of `ssl.origin_tls_client_auth.settings`.
+ * The tools of `ssl.originTlsClientAuth.settings`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "ssl_origin_tls_client_auth_settings_get",
+    name: "ssl_originTlsClientAuth_settings_get",
     title: "Get Enablement Setting for Zone",
     description: "Get whether zone-level authenticated origin pulls is enabled or not. It is false by default.",
     inputSchema: {
       type: "object",
       properties: {
-        "zone_id": {
-          "$ref": "#/$defs/tls-certificates-and-hostnames_identifier",
-          "description": "Identifier."
+        "path": {
+          "properties": {
+            "zone_id": {
+              "$ref": "#/$defs/tls-certificates-and-hostnames_identifier",
+              "description": "Identifier."
+            }
+          },
+          "required": [
+            "zone_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "zone_id"
+        "path"
       ],
       $defs: {
-        "tls-certificates-and-hostnames_identifier": tls_certificates_and_hostnames_identifier,
+        "tls-certificates-and-hostnames_identifier": tls$$certificates$$and$$hostnames_identifier,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/tls-certificates-and-hostnames_enabled_response",
       $defs: {
-        "tls-certificates-and-hostnames_api-response-single": tls_certificates_and_hostnames_api_response_single_output,
-        "tls-certificates-and-hostnames_enabled-4": tls_certificates_and_hostnames_enabled_4_output,
-        "tls-certificates-and-hostnames_enabled_response": tls_certificates_and_hostnames_enabled_response_output,
-        "tls-certificates-and-hostnames_messages": tls_certificates_and_hostnames_messages_output,
+        "tls-certificates-and-hostnames_api-response-single": tls$$certificates$$and$$hostnames_api$$response$$single,
+        "tls-certificates-and-hostnames_enabled-4": tls$$certificates$$and$$hostnames_enabled$$4,
+        "tls-certificates-and-hostnames_enabled_response": tls$$certificates$$and$$hostnames_enabled_response,
+        "tls-certificates-and-hostnames_messages": tls$$certificates$$and$$hostnames_messages,
       },
     },
     annotations: {
@@ -82,11 +90,11 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "tls-certificates-and-hostnames_api-response-common-failure": tls_certificates_and_hostnames_api_response_common_failure_output,
-        "tls-certificates-and-hostnames_api-response-single": tls_certificates_and_hostnames_api_response_single_output,
-        "tls-certificates-and-hostnames_enabled-4": tls_certificates_and_hostnames_enabled_4_output,
-        "tls-certificates-and-hostnames_enabled_response": tls_certificates_and_hostnames_enabled_response_output,
-        "tls-certificates-and-hostnames_messages": tls_certificates_and_hostnames_messages_output,
+        "tls-certificates-and-hostnames_api-response-common-failure": tls$$certificates$$and$$hostnames_api$$response$$common$$failure,
+        "tls-certificates-and-hostnames_api-response-single": tls$$certificates$$and$$hostnames_api$$response$$single,
+        "tls-certificates-and-hostnames_enabled-4": tls$$certificates$$and$$hostnames_enabled$$4,
+        "tls-certificates-and-hostnames_enabled_response": tls$$certificates$$and$$hostnames_enabled_response,
+        "tls-certificates-and-hostnames_messages": tls$$certificates$$and$$hostnames_messages,
       },
     },
     request: (args) => ({
@@ -94,7 +102,7 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "ssl_origin_tls_client_auth_settings_update",
+    name: "ssl_originTlsClientAuth_settings_update",
     title: "Set Enablement for Zone",
     description: "Enable or disable zone-level authenticated origin pulls. 'enabled' should be set true either before/after the certificate is uploaded to see the certificate in use.",
     inputSchema: {
@@ -112,27 +120,35 @@ export const tools: readonly Tool[] = [
           ],
           "type": "object"
         },
-        "zone_id": {
-          "$ref": "#/$defs/tls-certificates-and-hostnames_identifier",
-          "description": "Identifier."
+        "path": {
+          "properties": {
+            "zone_id": {
+              "$ref": "#/$defs/tls-certificates-and-hostnames_identifier",
+              "description": "Identifier."
+            }
+          },
+          "required": [
+            "zone_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "zone_id",
+        "path",
         "body"
       ],
       $defs: {
-        "tls-certificates-and-hostnames_enabled-4": tls_certificates_and_hostnames_enabled_4,
-        "tls-certificates-and-hostnames_identifier": tls_certificates_and_hostnames_identifier,
+        "tls-certificates-and-hostnames_enabled-4": tls$$certificates$$and$$hostnames_enabled$$4$,
+        "tls-certificates-and-hostnames_identifier": tls$$certificates$$and$$hostnames_identifier,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/tls-certificates-and-hostnames_enabled_response",
       $defs: {
-        "tls-certificates-and-hostnames_api-response-single": tls_certificates_and_hostnames_api_response_single_output,
-        "tls-certificates-and-hostnames_enabled-4": tls_certificates_and_hostnames_enabled_4_output,
-        "tls-certificates-and-hostnames_enabled_response": tls_certificates_and_hostnames_enabled_response_output,
-        "tls-certificates-and-hostnames_messages": tls_certificates_and_hostnames_messages_output,
+        "tls-certificates-and-hostnames_api-response-single": tls$$certificates$$and$$hostnames_api$$response$$single,
+        "tls-certificates-and-hostnames_enabled-4": tls$$certificates$$and$$hostnames_enabled$$4,
+        "tls-certificates-and-hostnames_enabled_response": tls$$certificates$$and$$hostnames_enabled_response,
+        "tls-certificates-and-hostnames_messages": tls$$certificates$$and$$hostnames_messages,
       },
     },
     annotations: {
@@ -172,11 +188,11 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "tls-certificates-and-hostnames_api-response-common-failure": tls_certificates_and_hostnames_api_response_common_failure_output,
-        "tls-certificates-and-hostnames_api-response-single": tls_certificates_and_hostnames_api_response_single_output,
-        "tls-certificates-and-hostnames_enabled-4": tls_certificates_and_hostnames_enabled_4_output,
-        "tls-certificates-and-hostnames_enabled_response": tls_certificates_and_hostnames_enabled_response_output,
-        "tls-certificates-and-hostnames_messages": tls_certificates_and_hostnames_messages_output,
+        "tls-certificates-and-hostnames_api-response-common-failure": tls$$certificates$$and$$hostnames_api$$response$$common$$failure,
+        "tls-certificates-and-hostnames_api-response-single": tls$$certificates$$and$$hostnames_api$$response$$single,
+        "tls-certificates-and-hostnames_enabled-4": tls$$certificates$$and$$hostnames_enabled$$4,
+        "tls-certificates-and-hostnames_enabled_response": tls$$certificates$$and$$hostnames_enabled_response,
+        "tls-certificates-and-hostnames_messages": tls$$certificates$$and$$hostnames_messages,
       },
     },
     request: (args) => ({

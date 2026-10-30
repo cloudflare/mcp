@@ -6,14 +6,14 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `addressing_cidr-2` in responses.
  */
-export const addressing_cidr_2_output: JsonSchema = {
+export const addressing_cidr$$2: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `addressing_created_at` in responses.
  */
-export const addressing_created_at_output: JsonSchema = {
+export const addressing_created_at: JsonSchema = {
   "format": "date-time",
   "type": "string"
 };
@@ -21,7 +21,7 @@ export const addressing_created_at_output: JsonSchema = {
 /**
  * The schema of `addressing_lease` in responses.
  */
-export const addressing_lease_output: JsonSchema = {
+export const addressing_lease: JsonSchema = {
   "properties": {
     "active_from": {
       "format": "date-time",
@@ -55,21 +55,21 @@ export const addressing_lease_output: JsonSchema = {
 /**
  * The schema of `addressing_lease_id` in responses.
  */
-export const addressing_lease_id_output: JsonSchema = {
+export const addressing_lease_id: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `addressing_lease_owner_id` in responses.
  */
-export const addressing_lease_owner_id_output: JsonSchema = {
+export const addressing_lease_owner_id: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `addressing_modified_at` in responses.
  */
-export const addressing_modified_at_output: JsonSchema = {
+export const addressing_modified_at: JsonSchema = {
   "format": "date-time",
   "type": "string"
 };
@@ -77,7 +77,7 @@ export const addressing_modified_at_output: JsonSchema = {
 /**
  * The schema of `addressing_response_collection-4` in responses.
  */
-export const addressing_response_collection_4_output: JsonSchema = {
+export const addressing_response_collection$$4: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/addressing_api-response-collection"

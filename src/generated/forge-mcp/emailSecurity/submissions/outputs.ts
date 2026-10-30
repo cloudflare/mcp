@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `email-security_CustomerStatus` in responses.
  */
-export const email_security_CustomerStatus_output: JsonSchema = {
+export const email$$security_CustomerStatus: JsonSchema = {
   "oneOf": [
     {
       "enum": [
@@ -25,7 +25,7 @@ export const email_security_CustomerStatus_output: JsonSchema = {
 /**
  * The schema of `email-security_OptionalSubmissionDisposition` in responses.
  */
-export const email_security_OptionalSubmissionDisposition_output: JsonSchema = {
+export const email$$security_OptionalSubmissionDisposition: JsonSchema = {
   "oneOf": [
     {
       "$ref": "#/$defs/email-security_SubmissionDisposition"
@@ -39,7 +39,7 @@ export const email_security_OptionalSubmissionDisposition_output: JsonSchema = {
 /**
  * The schema of `email-security_Submission` in responses.
  */
-export const email_security_Submission_output: JsonSchema = {
+export const email$$security_Submission: JsonSchema = {
   "properties": {
     "customer_status": {
       "$ref": "#/$defs/email-security_CustomerStatus"
@@ -182,7 +182,7 @@ export const email_security_Submission_output: JsonSchema = {
 /**
  * The schema of `email-security_SubmissionDisposition` in responses.
  */
-export const email_security_SubmissionDisposition_output: JsonSchema = {
+export const email$$security_SubmissionDisposition: JsonSchema = {
   "enum": [
     "MALICIOUS",
     "SUSPICIOUS",
@@ -197,7 +197,7 @@ export const email_security_SubmissionDisposition_output: JsonSchema = {
 /**
  * The schema of `email-security_SubmissionResult` in responses.
  */
-export const email_security_SubmissionResult_output: JsonSchema = {
+export const email$$security_SubmissionResult: JsonSchema = {
   "properties": {
     "accepted": {
       "type": "boolean"

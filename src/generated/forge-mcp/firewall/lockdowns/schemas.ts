@@ -40,7 +40,7 @@ export const firewall_ip_search: JsonSchema = {
 /**
  * The schema of `firewall_lockdowns_components-schemas-id`.
  */
-export const firewall_lockdowns_components_schemas_id: JsonSchema = {
+export const firewall_lockdowns_components$$schemas$$id: JsonSchema = {
   "description": "The unique identifier of the Zone Lockdown rule.",
   "type": "string"
 };
@@ -57,7 +57,7 @@ export const firewall_modified_on: JsonSchema = {
 /**
  * The schema of `firewall_schemas-cidr_configuration`.
  */
-export const firewall_schemas_cidr_configuration: JsonSchema = {
+export const firewall_schemas$$cidr_configuration: JsonSchema = {
   "description": "An IP address range configuration.",
   "properties": {
     "target": {
@@ -78,7 +78,7 @@ export const firewall_schemas_cidr_configuration: JsonSchema = {
 /**
  * The schema of `firewall_schemas-description_search`.
  */
-export const firewall_schemas_description_search: JsonSchema = {
+export const firewall_schemas$$description_search: JsonSchema = {
   "description": "A string to search for in the description of existing rules.",
   "type": "string"
 };
@@ -86,7 +86,7 @@ export const firewall_schemas_description_search: JsonSchema = {
 /**
  * The schema of `firewall_schemas-ip_configuration`.
  */
-export const firewall_schemas_ip_configuration: JsonSchema = {
+export const firewall_schemas$$ip_configuration: JsonSchema = {
   "description": "An IP address configuration.",
   "properties": {
     "target": {
@@ -107,7 +107,7 @@ export const firewall_schemas_ip_configuration: JsonSchema = {
 /**
  * The schema of `firewall_schemas-priority`.
  */
-export const firewall_schemas_priority: JsonSchema = {
+export const firewall_schemas$$priority: JsonSchema = {
   "description": "The priority of the rule to control the processing order. A lower number indicates higher priority. If not provided, any rules with a configured priority will be processed before rules without a priority.",
   "type": "number"
 };

@@ -117,7 +117,7 @@ export const lists_item_redirect: JsonSchema = {
 /**
  * The schema of `lists_items-update-request-collection`.
  */
-export const lists_items_update_request_collection: JsonSchema = {
+export const lists_items$$update$$request$$collection: JsonSchema = {
   "items": {
     "oneOf": [
       {

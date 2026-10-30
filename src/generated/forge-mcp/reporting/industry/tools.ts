@@ -2,11 +2,11 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../_/tool.js";
-import { reports_Error_output, reports_Message_output } from "../outputs.js";
+import { reports_Error, reports_Message } from "../outputs.js";
 import {
-  reports_AccountIndustryErrorResponse_output,
-  reports_AccountIndustryPatchResponse_output,
-  reports_AccountIndustrySingleResponse_output,
+  reports_AccountIndustryErrorResponse,
+  reports_AccountIndustryPatchResponse,
+  reports_AccountIndustrySingleResponse,
 } from "./outputs.js";
 import { reports_PatchAccountIndustryBody } from "./schemas.js";
 
@@ -21,13 +21,21 @@ export const tools: readonly Tool[] = [
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "description": "Cloudflare public account ID (32-character hexadecimal string)",
-          "type": "string"
+        "path": {
+          "properties": {
+            "account_id": {
+              "description": "Cloudflare public account ID (32-character hexadecimal string)",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id"
+        "path"
       ],
     },
     outputSchema: {
@@ -60,9 +68,9 @@ export const tools: readonly Tool[] = [
       ],
       "type": "object",
       $defs: {
-        "reports_AccountIndustrySingleResponse": reports_AccountIndustrySingleResponse_output,
-        "reports_Error": reports_Error_output,
-        "reports_Message": reports_Message_output,
+        "reports_AccountIndustrySingleResponse": reports_AccountIndustrySingleResponse,
+        "reports_Error": reports_Error,
+        "reports_Message": reports_Message,
       },
     },
     annotations: {
@@ -116,10 +124,10 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "reports_AccountIndustryErrorResponse": reports_AccountIndustryErrorResponse_output,
-        "reports_AccountIndustrySingleResponse": reports_AccountIndustrySingleResponse_output,
-        "reports_Error": reports_Error_output,
-        "reports_Message": reports_Message_output,
+        "reports_AccountIndustryErrorResponse": reports_AccountIndustryErrorResponse,
+        "reports_AccountIndustrySingleResponse": reports_AccountIndustrySingleResponse,
+        "reports_Error": reports_Error,
+        "reports_Message": reports_Message,
       },
     },
     request: (args) => ({
@@ -133,16 +141,24 @@ export const tools: readonly Tool[] = [
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "description": "Cloudflare public account ID (32-character hexadecimal string)",
-          "type": "string"
-        },
         "body": {
           "$ref": "#/$defs/reports_PatchAccountIndustryBody"
+        },
+        "path": {
+          "properties": {
+            "account_id": {
+              "description": "Cloudflare public account ID (32-character hexadecimal string)",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id"
+        "path"
       ],
       $defs: {
         "reports_PatchAccountIndustryBody": reports_PatchAccountIndustryBody,
@@ -178,9 +194,9 @@ export const tools: readonly Tool[] = [
       ],
       "type": "object",
       $defs: {
-        "reports_AccountIndustryPatchResponse": reports_AccountIndustryPatchResponse_output,
-        "reports_Error": reports_Error_output,
-        "reports_Message": reports_Message_output,
+        "reports_AccountIndustryPatchResponse": reports_AccountIndustryPatchResponse,
+        "reports_Error": reports_Error,
+        "reports_Message": reports_Message,
       },
     },
     annotations: {
@@ -240,10 +256,10 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "reports_AccountIndustryErrorResponse": reports_AccountIndustryErrorResponse_output,
-        "reports_AccountIndustryPatchResponse": reports_AccountIndustryPatchResponse_output,
-        "reports_Error": reports_Error_output,
-        "reports_Message": reports_Message_output,
+        "reports_AccountIndustryErrorResponse": reports_AccountIndustryErrorResponse,
+        "reports_AccountIndustryPatchResponse": reports_AccountIndustryPatchResponse,
+        "reports_Error": reports_Error,
+        "reports_Message": reports_Message,
       },
     },
     request: (args) => ({

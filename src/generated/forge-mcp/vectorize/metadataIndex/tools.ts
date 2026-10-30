@@ -3,54 +3,62 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
-  vectorize_api_response_common_failure_output,
-  vectorize_api_response_common_output,
-  vectorize_api_response_single_output,
-  vectorize_messages_output,
-  vectorize_mutation_uuid_output,
+  vectorize_api$$response$$common,
+  vectorize_api$$response$$common$$failure,
+  vectorize_api$$response$$single,
+  vectorize_messages,
+  vectorize_mutation$$uuid,
 } from "../outputs.js";
-import { vectorize_identifier, vectorize_index_name } from "../schemas.js";
+import { vectorize_identifier, vectorize_index$$name } from "../schemas.js";
 import {
-  vectorize_create_metadata_index_response_output,
-  vectorize_delete_metadata_index_response_output,
-  vectorize_list_metadata_index_response_output,
+  vectorize_create$$metadata$$index$$response,
+  vectorize_delete$$metadata$$index$$response,
+  vectorize_list$$metadata$$index$$response,
 } from "./outputs.js";
 import {
-  vectorize_create_metadata_index_request,
-  vectorize_delete_metadata_index_request,
+  vectorize_create$$metadata$$index$$request,
+  vectorize_delete$$metadata$$index$$request,
 } from "./schemas.js";
 
 /**
- * The tools of `vectorize.metadata_index`.
+ * The tools of `vectorize.metadataIndex`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "vectorize_metadata_index_create",
+    name: "vectorize_metadataIndex_create",
     title: "Create Metadata Index",
     description: "Enable metadata filtering based on metadata property. Limited to 10 properties.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/vectorize_identifier",
-          "description": "Identifier"
-        },
         "body": {
           "$ref": "#/$defs/vectorize_create-metadata-index-request"
         },
-        "index_name": {
-          "$ref": "#/$defs/vectorize_index-name"
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/vectorize_identifier",
+              "description": "Identifier"
+            },
+            "index_name": {
+              "$ref": "#/$defs/vectorize_index-name"
+            }
+          },
+          "required": [
+            "account_id",
+            "index_name"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "index_name",
+        "path",
         "body"
       ],
       $defs: {
-        "vectorize_create-metadata-index-request": vectorize_create_metadata_index_request,
+        "vectorize_create-metadata-index-request": vectorize_create$$metadata$$index$$request,
         "vectorize_identifier": vectorize_identifier,
-        "vectorize_index-name": vectorize_index_name,
+        "vectorize_index-name": vectorize_index$$name,
       },
     },
     outputSchema: {
@@ -68,11 +76,11 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "vectorize_api-response-common": vectorize_api_response_common_output,
-        "vectorize_api-response-single": vectorize_api_response_single_output,
-        "vectorize_create-metadata-index-response": vectorize_create_metadata_index_response_output,
-        "vectorize_messages": vectorize_messages_output,
-        "vectorize_mutation-uuid": vectorize_mutation_uuid_output,
+        "vectorize_api-response-common": vectorize_api$$response$$common,
+        "vectorize_api-response-single": vectorize_api$$response$$single,
+        "vectorize_create-metadata-index-response": vectorize_create$$metadata$$index$$response,
+        "vectorize_messages": vectorize_messages,
+        "vectorize_mutation-uuid": vectorize_mutation$$uuid,
       },
     },
     annotations: {
@@ -116,12 +124,12 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "vectorize_api-response-common": vectorize_api_response_common_output,
-        "vectorize_api-response-common-failure": vectorize_api_response_common_failure_output,
-        "vectorize_api-response-single": vectorize_api_response_single_output,
-        "vectorize_create-metadata-index-response": vectorize_create_metadata_index_response_output,
-        "vectorize_messages": vectorize_messages_output,
-        "vectorize_mutation-uuid": vectorize_mutation_uuid_output,
+        "vectorize_api-response-common": vectorize_api$$response$$common,
+        "vectorize_api-response-common-failure": vectorize_api$$response$$common$$failure,
+        "vectorize_api-response-single": vectorize_api$$response$$single,
+        "vectorize_create-metadata-index-response": vectorize_create$$metadata$$index$$response,
+        "vectorize_messages": vectorize_messages,
+        "vectorize_mutation-uuid": vectorize_mutation$$uuid,
       },
     },
     request: (args) => ({
@@ -130,32 +138,40 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "vectorize_metadata_index_delete",
+    name: "vectorize_metadataIndex_delete",
     title: "Delete Metadata Index",
     description: "Allow Vectorize to delete the specified metadata index.\n\nConfirm with the user before calling this tool. This operation deletes a metadata index destructively.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/vectorize_identifier",
-          "description": "Identifier"
-        },
         "body": {
           "$ref": "#/$defs/vectorize_delete-metadata-index-request"
         },
-        "index_name": {
-          "$ref": "#/$defs/vectorize_index-name"
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/vectorize_identifier",
+              "description": "Identifier"
+            },
+            "index_name": {
+              "$ref": "#/$defs/vectorize_index-name"
+            }
+          },
+          "required": [
+            "account_id",
+            "index_name"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "index_name",
+        "path",
         "body"
       ],
       $defs: {
-        "vectorize_delete-metadata-index-request": vectorize_delete_metadata_index_request,
+        "vectorize_delete-metadata-index-request": vectorize_delete$$metadata$$index$$request,
         "vectorize_identifier": vectorize_identifier,
-        "vectorize_index-name": vectorize_index_name,
+        "vectorize_index-name": vectorize_index$$name,
       },
     },
     outputSchema: {
@@ -173,11 +189,11 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "vectorize_api-response-common": vectorize_api_response_common_output,
-        "vectorize_api-response-single": vectorize_api_response_single_output,
-        "vectorize_delete-metadata-index-response": vectorize_delete_metadata_index_response_output,
-        "vectorize_messages": vectorize_messages_output,
-        "vectorize_mutation-uuid": vectorize_mutation_uuid_output,
+        "vectorize_api-response-common": vectorize_api$$response$$common,
+        "vectorize_api-response-single": vectorize_api$$response$$single,
+        "vectorize_delete-metadata-index-response": vectorize_delete$$metadata$$index$$response,
+        "vectorize_messages": vectorize_messages,
+        "vectorize_mutation-uuid": vectorize_mutation$$uuid,
       },
     },
     annotations: {
@@ -221,12 +237,12 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "vectorize_api-response-common": vectorize_api_response_common_output,
-        "vectorize_api-response-common-failure": vectorize_api_response_common_failure_output,
-        "vectorize_api-response-single": vectorize_api_response_single_output,
-        "vectorize_delete-metadata-index-response": vectorize_delete_metadata_index_response_output,
-        "vectorize_messages": vectorize_messages_output,
-        "vectorize_mutation-uuid": vectorize_mutation_uuid_output,
+        "vectorize_api-response-common": vectorize_api$$response$$common,
+        "vectorize_api-response-common-failure": vectorize_api$$response$$common$$failure,
+        "vectorize_api-response-single": vectorize_api$$response$$single,
+        "vectorize_delete-metadata-index-response": vectorize_delete$$metadata$$index$$response,
+        "vectorize_messages": vectorize_messages,
+        "vectorize_mutation-uuid": vectorize_mutation$$uuid,
       },
     },
     request: (args) => ({
@@ -235,27 +251,35 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "vectorize_metadata_index_list",
+    name: "vectorize_metadataIndex_list",
     title: "List Metadata Indexes",
     description: "List Metadata Indexes for the specified Vectorize Index.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/vectorize_identifier",
-          "description": "Identifier"
-        },
-        "index_name": {
-          "$ref": "#/$defs/vectorize_index-name"
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/vectorize_identifier",
+              "description": "Identifier"
+            },
+            "index_name": {
+              "$ref": "#/$defs/vectorize_index-name"
+            }
+          },
+          "required": [
+            "account_id",
+            "index_name"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "index_name"
+        "path"
       ],
       $defs: {
         "vectorize_identifier": vectorize_identifier,
-        "vectorize_index-name": vectorize_index_name,
+        "vectorize_index-name": vectorize_index$$name,
       },
     },
     outputSchema: {
@@ -273,10 +297,10 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "vectorize_api-response-common": vectorize_api_response_common_output,
-        "vectorize_api-response-single": vectorize_api_response_single_output,
-        "vectorize_list-metadata-index-response": vectorize_list_metadata_index_response_output,
-        "vectorize_messages": vectorize_messages_output,
+        "vectorize_api-response-common": vectorize_api$$response$$common,
+        "vectorize_api-response-single": vectorize_api$$response$$single,
+        "vectorize_list-metadata-index-response": vectorize_list$$metadata$$index$$response,
+        "vectorize_messages": vectorize_messages,
       },
     },
     annotations: {
@@ -316,11 +340,11 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "vectorize_api-response-common": vectorize_api_response_common_output,
-        "vectorize_api-response-common-failure": vectorize_api_response_common_failure_output,
-        "vectorize_api-response-single": vectorize_api_response_single_output,
-        "vectorize_list-metadata-index-response": vectorize_list_metadata_index_response_output,
-        "vectorize_messages": vectorize_messages_output,
+        "vectorize_api-response-common": vectorize_api$$response$$common,
+        "vectorize_api-response-common-failure": vectorize_api$$response$$common$$failure,
+        "vectorize_api-response-single": vectorize_api$$response$$single,
+        "vectorize_list-metadata-index-response": vectorize_list$$metadata$$index$$response,
+        "vectorize_messages": vectorize_messages,
       },
     },
     request: (args) => ({

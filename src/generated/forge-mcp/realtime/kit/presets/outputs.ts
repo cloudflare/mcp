@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `realtimekit_Preset` in responses.
  */
-export const realtimekit_Preset_output: JsonSchema = {
+export const realtimekit_Preset: JsonSchema = {
   "properties": {
     "config": {
       "properties": {
@@ -562,7 +562,7 @@ export const realtimekit_Preset_output: JsonSchema = {
 /**
  * The schema of `realtimekit_PresetListItem` in responses.
  */
-export const realtimekit_PresetListItem_output: JsonSchema = {
+export const realtimekit_PresetListItem: JsonSchema = {
   "properties": {
     "created_at": {
       "format": "date-time",
@@ -586,7 +586,7 @@ export const realtimekit_PresetListItem_output: JsonSchema = {
 /**
  * The schema of `realtimekit_PresetPluginConfig` in responses.
  */
-export const realtimekit_PresetPluginConfig_output: JsonSchema = {
+export const realtimekit_PresetPluginConfig: JsonSchema = {
   "additionalProperties": {
     "properties": {
       "access_control": {

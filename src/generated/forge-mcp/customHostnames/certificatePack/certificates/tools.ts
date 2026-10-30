@@ -3,73 +3,81 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
-  tls_certificates_and_hostnames_api_response_common_failure_output,
-  tls_certificates_and_hostnames_messages_output,
-  tls_certificates_and_hostnames_validation_record_output,
+  tls$$certificates$$and$$hostnames_api$$response$$common$$failure,
+  tls$$certificates$$and$$hostnames_messages,
+  tls$$certificates$$and$$hostnames_validation_record,
 } from "../../../outputs.js";
-import { tls_certificates_and_hostnames_identifier } from "../../../schemas.js";
+import { tls$$certificates$$and$$hostnames_identifier } from "../../../schemas.js";
 import {
-  tls_certificates_and_hostnames_certificate_authority_output,
-  tls_certificates_and_hostnames_created_at_output,
-  tls_certificates_and_hostnames_custom_hostname_api_response_common_output,
-  tls_certificates_and_hostnames_custom_hostname_identifier_output,
-  tls_certificates_and_hostnames_custom_hostname_output,
-  tls_certificates_and_hostnames_custom_hostname_response_messages_output,
-  tls_certificates_and_hostnames_custom_hostname_response_single_output,
-  tls_certificates_and_hostnames_custom_metadata_output,
-  tls_certificates_and_hostnames_custom_origin_server_output,
-  tls_certificates_and_hostnames_custom_origin_sni_output,
-  tls_certificates_and_hostnames_customhostname_output,
-  tls_certificates_and_hostnames_hostname_output,
-  tls_certificates_and_hostnames_ownership_verification_http_output,
-  tls_certificates_and_hostnames_ownership_verification_output,
-  tls_certificates_and_hostnames_ssl_output,
-  tls_certificates_and_hostnames_sslsettings_output,
-  tls_certificates_and_hostnames_status_3_output,
-  tls_certificates_and_hostnames_verification_errors_output,
+  tls$$certificates$$and$$hostnames_certificate_authority,
+  tls$$certificates$$and$$hostnames_created_at,
+  tls$$certificates$$and$$hostnames_custom$$hostname,
+  tls$$certificates$$and$$hostnames_custom_hostname_api_response_common,
+  tls$$certificates$$and$$hostnames_custom_hostname_identifier,
+  tls$$certificates$$and$$hostnames_custom_hostname_response_messages,
+  tls$$certificates$$and$$hostnames_custom_hostname_response_single,
+  tls$$certificates$$and$$hostnames_custom_metadata,
+  tls$$certificates$$and$$hostnames_custom_origin_server,
+  tls$$certificates$$and$$hostnames_custom_origin_sni,
+  tls$$certificates$$and$$hostnames_customhostname,
+  tls$$certificates$$and$$hostnames_hostname,
+  tls$$certificates$$and$$hostnames_ownership_verification,
+  tls$$certificates$$and$$hostnames_ownership_verification_http,
+  tls$$certificates$$and$$hostnames_ssl,
+  tls$$certificates$$and$$hostnames_sslsettings,
+  tls$$certificates$$and$$hostnames_status$$3,
+  tls$$certificates$$and$$hostnames_verification_errors,
 } from "../../outputs.js";
 import {
-  tls_certificates_and_hostnames_custom_cert_and_key,
-  tls_certificates_and_hostnames_custom_hostname_identifier,
+  tls$$certificates$$and$$hostnames_custom_cert_and_key,
+  tls$$certificates$$and$$hostnames_custom_hostname_identifier as tls$$certificates$$and$$hostnames_custom_hostname_identifier$,
 } from "../../schemas.js";
 
 /**
- * The tools of `custom_hostnames.certificate_pack.certificates`.
+ * The tools of `customHostnames.certificatePack.certificates`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "custom_hostnames_certificate_pack_certificates_delete",
+    name: "customHostnames_certificatePack_certificates_delete",
     title: "Delete Single Certificate And Key For Custom Hostname",
     description: "Delete a single custom certificate from a certificate pack that contains two bundled certificates. Deletion is subject to the following constraints. You cannot delete a certificate if it is the only remaining certificate in the pack. At least one certificate must remain in the pack.",
     inputSchema: {
       type: "object",
       properties: {
-        "certificate_id": {
-          "$ref": "#/$defs/tls-certificates-and-hostnames_custom_hostname_identifier",
-          "description": "Custom hostname identifier tag."
-        },
-        "certificate_pack_id": {
-          "$ref": "#/$defs/tls-certificates-and-hostnames_custom_hostname_identifier",
-          "description": "Custom hostname identifier tag."
-        },
-        "custom_hostname_id": {
-          "$ref": "#/$defs/tls-certificates-and-hostnames_custom_hostname_identifier",
-          "description": "Custom hostname identifier tag."
-        },
-        "zone_id": {
-          "$ref": "#/$defs/tls-certificates-and-hostnames_identifier",
-          "description": "Identifier."
+        "path": {
+          "properties": {
+            "certificate_id": {
+              "$ref": "#/$defs/tls-certificates-and-hostnames_custom_hostname_identifier",
+              "description": "Custom hostname identifier tag."
+            },
+            "certificate_pack_id": {
+              "$ref": "#/$defs/tls-certificates-and-hostnames_custom_hostname_identifier",
+              "description": "Custom hostname identifier tag."
+            },
+            "custom_hostname_id": {
+              "$ref": "#/$defs/tls-certificates-and-hostnames_custom_hostname_identifier",
+              "description": "Custom hostname identifier tag."
+            },
+            "zone_id": {
+              "$ref": "#/$defs/tls-certificates-and-hostnames_identifier",
+              "description": "Identifier."
+            }
+          },
+          "required": [
+            "zone_id",
+            "custom_hostname_id",
+            "certificate_pack_id",
+            "certificate_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "zone_id",
-        "custom_hostname_id",
-        "certificate_pack_id",
-        "certificate_id"
+        "path"
       ],
       $defs: {
-        "tls-certificates-and-hostnames_custom_hostname_identifier": tls_certificates_and_hostnames_custom_hostname_identifier,
-        "tls-certificates-and-hostnames_identifier": tls_certificates_and_hostnames_identifier,
+        "tls-certificates-and-hostnames_custom_hostname_identifier": tls$$certificates$$and$$hostnames_custom_hostname_identifier$,
+        "tls-certificates-and-hostnames_identifier": tls$$certificates$$and$$hostnames_identifier,
       },
     },
     outputSchema: {
@@ -80,7 +88,7 @@ export const tools: readonly Tool[] = [
       },
       "type": "object",
       $defs: {
-        "tls-certificates-and-hostnames_custom_hostname_identifier": tls_certificates_and_hostnames_custom_hostname_identifier_output,
+        "tls-certificates-and-hostnames_custom_hostname_identifier": tls$$certificates$$and$$hostnames_custom_hostname_identifier,
       },
     },
     annotations: {
@@ -130,9 +138,9 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "tls-certificates-and-hostnames_api-response-common-failure": tls_certificates_and_hostnames_api_response_common_failure_output,
-        "tls-certificates-and-hostnames_custom_hostname_identifier": tls_certificates_and_hostnames_custom_hostname_identifier_output,
-        "tls-certificates-and-hostnames_messages": tls_certificates_and_hostnames_messages_output,
+        "tls-certificates-and-hostnames_api-response-common-failure": tls$$certificates$$and$$hostnames_api$$response$$common$$failure,
+        "tls-certificates-and-hostnames_custom_hostname_identifier": tls$$certificates$$and$$hostnames_custom_hostname_identifier,
+        "tls-certificates-and-hostnames_messages": tls$$certificates$$and$$hostnames_messages,
       },
     },
     request: (args) => ({
@@ -140,7 +148,7 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "custom_hostnames_certificate_pack_certificates_update",
+    name: "customHostnames_certificatePack_certificates_update",
     title: "Replace Custom Certificate and Custom Key In Custom Hostname",
     description: "Replace a single custom certificate within a certificate pack that contains two bundled certificates. The replacement must adhere to the following constraints. You can only replace an RSA certificate with another RSA certificate or an ECDSA certificate with another ECDSA certificate.",
     inputSchema: {
@@ -149,59 +157,67 @@ export const tools: readonly Tool[] = [
         "body": {
           "$ref": "#/$defs/tls-certificates-and-hostnames_custom_cert_and_key"
         },
-        "certificate_id": {
-          "$ref": "#/$defs/tls-certificates-and-hostnames_custom_hostname_identifier",
-          "description": "Custom hostname identifier tag."
-        },
-        "certificate_pack_id": {
-          "$ref": "#/$defs/tls-certificates-and-hostnames_custom_hostname_identifier",
-          "description": "Custom hostname identifier tag."
-        },
-        "custom_hostname_id": {
-          "$ref": "#/$defs/tls-certificates-and-hostnames_custom_hostname_identifier",
-          "description": "Custom hostname identifier tag."
-        },
-        "zone_id": {
-          "$ref": "#/$defs/tls-certificates-and-hostnames_identifier",
-          "description": "Identifier."
+        "path": {
+          "properties": {
+            "certificate_id": {
+              "$ref": "#/$defs/tls-certificates-and-hostnames_custom_hostname_identifier",
+              "description": "Custom hostname identifier tag."
+            },
+            "certificate_pack_id": {
+              "$ref": "#/$defs/tls-certificates-and-hostnames_custom_hostname_identifier",
+              "description": "Custom hostname identifier tag."
+            },
+            "custom_hostname_id": {
+              "$ref": "#/$defs/tls-certificates-and-hostnames_custom_hostname_identifier",
+              "description": "Custom hostname identifier tag."
+            },
+            "zone_id": {
+              "$ref": "#/$defs/tls-certificates-and-hostnames_identifier",
+              "description": "Identifier."
+            }
+          },
+          "required": [
+            "zone_id",
+            "custom_hostname_id",
+            "certificate_pack_id",
+            "certificate_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "zone_id",
-        "custom_hostname_id",
-        "certificate_pack_id",
-        "certificate_id",
+        "path",
         "body"
       ],
       $defs: {
-        "tls-certificates-and-hostnames_custom_cert_and_key": tls_certificates_and_hostnames_custom_cert_and_key,
-        "tls-certificates-and-hostnames_custom_hostname_identifier": tls_certificates_and_hostnames_custom_hostname_identifier,
-        "tls-certificates-and-hostnames_identifier": tls_certificates_and_hostnames_identifier,
+        "tls-certificates-and-hostnames_custom_cert_and_key": tls$$certificates$$and$$hostnames_custom_cert_and_key,
+        "tls-certificates-and-hostnames_custom_hostname_identifier": tls$$certificates$$and$$hostnames_custom_hostname_identifier$,
+        "tls-certificates-and-hostnames_identifier": tls$$certificates$$and$$hostnames_identifier,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/tls-certificates-and-hostnames_custom_hostname_response_single",
       $defs: {
-        "tls-certificates-and-hostnames_certificate_authority": tls_certificates_and_hostnames_certificate_authority_output,
-        "tls-certificates-and-hostnames_created_at": tls_certificates_and_hostnames_created_at_output,
-        "tls-certificates-and-hostnames_custom-hostname": tls_certificates_and_hostnames_custom_hostname_output,
-        "tls-certificates-and-hostnames_custom_hostname_api_response_common": tls_certificates_and_hostnames_custom_hostname_api_response_common_output,
-        "tls-certificates-and-hostnames_custom_hostname_identifier": tls_certificates_and_hostnames_custom_hostname_identifier_output,
-        "tls-certificates-and-hostnames_custom_hostname_response_messages": tls_certificates_and_hostnames_custom_hostname_response_messages_output,
-        "tls-certificates-and-hostnames_custom_hostname_response_single": tls_certificates_and_hostnames_custom_hostname_response_single_output,
-        "tls-certificates-and-hostnames_custom_metadata": tls_certificates_and_hostnames_custom_metadata_output,
-        "tls-certificates-and-hostnames_custom_origin_server": tls_certificates_and_hostnames_custom_origin_server_output,
-        "tls-certificates-and-hostnames_custom_origin_sni": tls_certificates_and_hostnames_custom_origin_sni_output,
-        "tls-certificates-and-hostnames_customhostname": tls_certificates_and_hostnames_customhostname_output,
-        "tls-certificates-and-hostnames_hostname": tls_certificates_and_hostnames_hostname_output,
-        "tls-certificates-and-hostnames_messages": tls_certificates_and_hostnames_messages_output,
-        "tls-certificates-and-hostnames_ownership_verification": tls_certificates_and_hostnames_ownership_verification_output,
-        "tls-certificates-and-hostnames_ownership_verification_http": tls_certificates_and_hostnames_ownership_verification_http_output,
-        "tls-certificates-and-hostnames_ssl": tls_certificates_and_hostnames_ssl_output,
-        "tls-certificates-and-hostnames_sslsettings": tls_certificates_and_hostnames_sslsettings_output,
-        "tls-certificates-and-hostnames_status-3": tls_certificates_and_hostnames_status_3_output,
-        "tls-certificates-and-hostnames_validation_record": tls_certificates_and_hostnames_validation_record_output,
-        "tls-certificates-and-hostnames_verification_errors": tls_certificates_and_hostnames_verification_errors_output,
+        "tls-certificates-and-hostnames_certificate_authority": tls$$certificates$$and$$hostnames_certificate_authority,
+        "tls-certificates-and-hostnames_created_at": tls$$certificates$$and$$hostnames_created_at,
+        "tls-certificates-and-hostnames_custom-hostname": tls$$certificates$$and$$hostnames_custom$$hostname,
+        "tls-certificates-and-hostnames_custom_hostname_api_response_common": tls$$certificates$$and$$hostnames_custom_hostname_api_response_common,
+        "tls-certificates-and-hostnames_custom_hostname_identifier": tls$$certificates$$and$$hostnames_custom_hostname_identifier,
+        "tls-certificates-and-hostnames_custom_hostname_response_messages": tls$$certificates$$and$$hostnames_custom_hostname_response_messages,
+        "tls-certificates-and-hostnames_custom_hostname_response_single": tls$$certificates$$and$$hostnames_custom_hostname_response_single,
+        "tls-certificates-and-hostnames_custom_metadata": tls$$certificates$$and$$hostnames_custom_metadata,
+        "tls-certificates-and-hostnames_custom_origin_server": tls$$certificates$$and$$hostnames_custom_origin_server,
+        "tls-certificates-and-hostnames_custom_origin_sni": tls$$certificates$$and$$hostnames_custom_origin_sni,
+        "tls-certificates-and-hostnames_customhostname": tls$$certificates$$and$$hostnames_customhostname,
+        "tls-certificates-and-hostnames_hostname": tls$$certificates$$and$$hostnames_hostname,
+        "tls-certificates-and-hostnames_messages": tls$$certificates$$and$$hostnames_messages,
+        "tls-certificates-and-hostnames_ownership_verification": tls$$certificates$$and$$hostnames_ownership_verification,
+        "tls-certificates-and-hostnames_ownership_verification_http": tls$$certificates$$and$$hostnames_ownership_verification_http,
+        "tls-certificates-and-hostnames_ssl": tls$$certificates$$and$$hostnames_ssl,
+        "tls-certificates-and-hostnames_sslsettings": tls$$certificates$$and$$hostnames_sslsettings,
+        "tls-certificates-and-hostnames_status-3": tls$$certificates$$and$$hostnames_status$$3,
+        "tls-certificates-and-hostnames_validation_record": tls$$certificates$$and$$hostnames_validation_record,
+        "tls-certificates-and-hostnames_verification_errors": tls$$certificates$$and$$hostnames_verification_errors,
       },
     },
     annotations: {
@@ -241,27 +257,27 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "tls-certificates-and-hostnames_api-response-common-failure": tls_certificates_and_hostnames_api_response_common_failure_output,
-        "tls-certificates-and-hostnames_certificate_authority": tls_certificates_and_hostnames_certificate_authority_output,
-        "tls-certificates-and-hostnames_created_at": tls_certificates_and_hostnames_created_at_output,
-        "tls-certificates-and-hostnames_custom-hostname": tls_certificates_and_hostnames_custom_hostname_output,
-        "tls-certificates-and-hostnames_custom_hostname_api_response_common": tls_certificates_and_hostnames_custom_hostname_api_response_common_output,
-        "tls-certificates-and-hostnames_custom_hostname_identifier": tls_certificates_and_hostnames_custom_hostname_identifier_output,
-        "tls-certificates-and-hostnames_custom_hostname_response_messages": tls_certificates_and_hostnames_custom_hostname_response_messages_output,
-        "tls-certificates-and-hostnames_custom_hostname_response_single": tls_certificates_and_hostnames_custom_hostname_response_single_output,
-        "tls-certificates-and-hostnames_custom_metadata": tls_certificates_and_hostnames_custom_metadata_output,
-        "tls-certificates-and-hostnames_custom_origin_server": tls_certificates_and_hostnames_custom_origin_server_output,
-        "tls-certificates-and-hostnames_custom_origin_sni": tls_certificates_and_hostnames_custom_origin_sni_output,
-        "tls-certificates-and-hostnames_customhostname": tls_certificates_and_hostnames_customhostname_output,
-        "tls-certificates-and-hostnames_hostname": tls_certificates_and_hostnames_hostname_output,
-        "tls-certificates-and-hostnames_messages": tls_certificates_and_hostnames_messages_output,
-        "tls-certificates-and-hostnames_ownership_verification": tls_certificates_and_hostnames_ownership_verification_output,
-        "tls-certificates-and-hostnames_ownership_verification_http": tls_certificates_and_hostnames_ownership_verification_http_output,
-        "tls-certificates-and-hostnames_ssl": tls_certificates_and_hostnames_ssl_output,
-        "tls-certificates-and-hostnames_sslsettings": tls_certificates_and_hostnames_sslsettings_output,
-        "tls-certificates-and-hostnames_status-3": tls_certificates_and_hostnames_status_3_output,
-        "tls-certificates-and-hostnames_validation_record": tls_certificates_and_hostnames_validation_record_output,
-        "tls-certificates-and-hostnames_verification_errors": tls_certificates_and_hostnames_verification_errors_output,
+        "tls-certificates-and-hostnames_api-response-common-failure": tls$$certificates$$and$$hostnames_api$$response$$common$$failure,
+        "tls-certificates-and-hostnames_certificate_authority": tls$$certificates$$and$$hostnames_certificate_authority,
+        "tls-certificates-and-hostnames_created_at": tls$$certificates$$and$$hostnames_created_at,
+        "tls-certificates-and-hostnames_custom-hostname": tls$$certificates$$and$$hostnames_custom$$hostname,
+        "tls-certificates-and-hostnames_custom_hostname_api_response_common": tls$$certificates$$and$$hostnames_custom_hostname_api_response_common,
+        "tls-certificates-and-hostnames_custom_hostname_identifier": tls$$certificates$$and$$hostnames_custom_hostname_identifier,
+        "tls-certificates-and-hostnames_custom_hostname_response_messages": tls$$certificates$$and$$hostnames_custom_hostname_response_messages,
+        "tls-certificates-and-hostnames_custom_hostname_response_single": tls$$certificates$$and$$hostnames_custom_hostname_response_single,
+        "tls-certificates-and-hostnames_custom_metadata": tls$$certificates$$and$$hostnames_custom_metadata,
+        "tls-certificates-and-hostnames_custom_origin_server": tls$$certificates$$and$$hostnames_custom_origin_server,
+        "tls-certificates-and-hostnames_custom_origin_sni": tls$$certificates$$and$$hostnames_custom_origin_sni,
+        "tls-certificates-and-hostnames_customhostname": tls$$certificates$$and$$hostnames_customhostname,
+        "tls-certificates-and-hostnames_hostname": tls$$certificates$$and$$hostnames_hostname,
+        "tls-certificates-and-hostnames_messages": tls$$certificates$$and$$hostnames_messages,
+        "tls-certificates-and-hostnames_ownership_verification": tls$$certificates$$and$$hostnames_ownership_verification,
+        "tls-certificates-and-hostnames_ownership_verification_http": tls$$certificates$$and$$hostnames_ownership_verification_http,
+        "tls-certificates-and-hostnames_ssl": tls$$certificates$$and$$hostnames_ssl,
+        "tls-certificates-and-hostnames_sslsettings": tls$$certificates$$and$$hostnames_sslsettings,
+        "tls-certificates-and-hostnames_status-3": tls$$certificates$$and$$hostnames_status$$3,
+        "tls-certificates-and-hostnames_validation_record": tls$$certificates$$and$$hostnames_validation_record,
+        "tls-certificates-and-hostnames_verification_errors": tls$$certificates$$and$$hostnames_verification_errors,
       },
     },
     request: (args) => ({

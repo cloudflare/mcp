@@ -3,28 +3,24 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
-  request_tracer_api_response_common_failure_output,
-  request_tracer_api_response_common_output,
-  request_tracer_messages_output,
-  request_tracer_trace_output,
+  request$$tracer_api$$response$$common,
+  request$$tracer_api$$response$$common$$failure,
+  request$$tracer_messages,
+  request$$tracer_trace,
 } from "./outputs.js";
-import { request_tracer_account_identifier } from "./schemas.js";
+import { request$$tracer_account_identifier } from "./schemas.js";
 
 /**
- * The tools of `request_tracers.traces`.
+ * The tools of `requestTracers.traces`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "request_tracers_traces_create",
+    name: "requestTracers_traces_create",
     title: "Request Trace",
     description: "Traces a simulated HTTP request through Cloudflare's edge to analyze how rules, settings, and configurations would process the request. Useful for debugging firewall rules, page rules, and other request transformations without sending actual traffic. Supports custom headers, cookies, body content, and geolocation context.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/request-tracer_account_identifier",
-          "description": "Identifier."
-        },
         "body": {
           "properties": {
             "body": {
@@ -134,14 +130,26 @@ export const tools: readonly Tool[] = [
             "url"
           ],
           "type": "object"
+        },
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/request-tracer_account_identifier",
+              "description": "Identifier."
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
+        "path",
         "body"
       ],
       $defs: {
-        "request-tracer_account_identifier": request_tracer_account_identifier,
+        "request-tracer_account_identifier": request$$tracer_account_identifier,
       },
     },
     outputSchema: {
@@ -167,9 +175,9 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "request-tracer_api-response-common": request_tracer_api_response_common_output,
-        "request-tracer_messages": request_tracer_messages_output,
-        "request-tracer_trace": request_tracer_trace_output,
+        "request-tracer_api-response-common": request$$tracer_api$$response$$common,
+        "request-tracer_messages": request$$tracer_messages,
+        "request-tracer_trace": request$$tracer_trace,
       },
     },
     annotations: {
@@ -222,10 +230,10 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "request-tracer_api-response-common": request_tracer_api_response_common_output,
-        "request-tracer_api-response-common-failure": request_tracer_api_response_common_failure_output,
-        "request-tracer_messages": request_tracer_messages_output,
-        "request-tracer_trace": request_tracer_trace_output,
+        "request-tracer_api-response-common": request$$tracer_api$$response$$common,
+        "request-tracer_api-response-common-failure": request$$tracer_api$$response$$common$$failure,
+        "request-tracer_messages": request$$tracer_messages,
+        "request-tracer_trace": request$$tracer_trace,
       },
     },
     request: (args) => ({

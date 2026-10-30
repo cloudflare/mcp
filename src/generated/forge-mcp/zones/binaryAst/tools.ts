@@ -3,24 +3,24 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
-  speed_api_response_common_failure_output,
-  speed_api_response_common_output,
-  speed_base_output,
-  speed_messages_output,
+  speed_api$$response$$common,
+  speed_api$$response$$common$$failure,
+  speed_base,
+  speed_messages,
 } from "../../outputs.js";
 import { speed_identifier } from "../../schemas.js";
 import {
-  speed_binary_ast_response_output,
-  speed_binary_ast_value_output,
+  speed_binary_ast_response,
+  speed_binary_ast_value,
 } from "./outputs.js";
-import { speed_binary_ast_value } from "./schemas.js";
+import { speed_binary_ast_value as speed_binary_ast_value$ } from "./schemas.js";
 
 /**
- * The tools of `zones.binary_ast`.
+ * The tools of `zones.binaryAst`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "zones_binary_ast_edit",
+    name: "zones_binaryAst_edit",
     title: "Change Binary AST setting",
     description: "Binary AST is a new binary encoding for JavaScript that enables faster parsing of scripts.\nWhen enabled, Cloudflare will serve a binary-encoded version of JavaScript to compatible browsers.",
     inputSchema: {
@@ -38,17 +38,25 @@ export const tools: readonly Tool[] = [
           ],
           "type": "object"
         },
-        "zone_id": {
-          "$ref": "#/$defs/speed_identifier",
-          "description": "Identifier."
+        "path": {
+          "properties": {
+            "zone_id": {
+              "$ref": "#/$defs/speed_identifier",
+              "description": "Identifier."
+            }
+          },
+          "required": [
+            "zone_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "zone_id",
+        "path",
         "body"
       ],
       $defs: {
-        "speed_binary_ast_value": speed_binary_ast_value,
+        "speed_binary_ast_value": speed_binary_ast_value$,
         "speed_identifier": speed_identifier,
       },
     },
@@ -67,11 +75,11 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "speed_api-response-common": speed_api_response_common_output,
-        "speed_base": speed_base_output,
-        "speed_binary_ast_response": speed_binary_ast_response_output,
-        "speed_binary_ast_value": speed_binary_ast_value_output,
-        "speed_messages": speed_messages_output,
+        "speed_api-response-common": speed_api$$response$$common,
+        "speed_base": speed_base,
+        "speed_binary_ast_response": speed_binary_ast_response,
+        "speed_binary_ast_value": speed_binary_ast_value,
+        "speed_messages": speed_messages,
       },
     },
     annotations: {
@@ -121,12 +129,12 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "speed_api-response-common": speed_api_response_common_output,
-        "speed_api-response-common-failure": speed_api_response_common_failure_output,
-        "speed_base": speed_base_output,
-        "speed_binary_ast_response": speed_binary_ast_response_output,
-        "speed_binary_ast_value": speed_binary_ast_value_output,
-        "speed_messages": speed_messages_output,
+        "speed_api-response-common": speed_api$$response$$common,
+        "speed_api-response-common-failure": speed_api$$response$$common$$failure,
+        "speed_base": speed_base,
+        "speed_binary_ast_response": speed_binary_ast_response,
+        "speed_binary_ast_value": speed_binary_ast_value,
+        "speed_messages": speed_messages,
       },
     },
     request: (args) => ({
@@ -135,19 +143,27 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "zones_binary_ast_get",
+    name: "zones_binaryAst_get",
     title: "Get Binary AST setting",
     description: "Binary AST is a new binary encoding for JavaScript that enables faster parsing of scripts.\nWhen enabled, Cloudflare will serve a binary-encoded version of JavaScript to compatible browsers.",
     inputSchema: {
       type: "object",
       properties: {
-        "zone_id": {
-          "$ref": "#/$defs/speed_identifier",
-          "description": "Identifier."
+        "path": {
+          "properties": {
+            "zone_id": {
+              "$ref": "#/$defs/speed_identifier",
+              "description": "Identifier."
+            }
+          },
+          "required": [
+            "zone_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "zone_id"
+        "path"
       ],
       $defs: {
         "speed_identifier": speed_identifier,
@@ -168,11 +184,11 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "speed_api-response-common": speed_api_response_common_output,
-        "speed_base": speed_base_output,
-        "speed_binary_ast_response": speed_binary_ast_response_output,
-        "speed_binary_ast_value": speed_binary_ast_value_output,
-        "speed_messages": speed_messages_output,
+        "speed_api-response-common": speed_api$$response$$common,
+        "speed_base": speed_base,
+        "speed_binary_ast_response": speed_binary_ast_response,
+        "speed_binary_ast_value": speed_binary_ast_value,
+        "speed_messages": speed_messages,
       },
     },
     annotations: {
@@ -223,12 +239,12 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "speed_api-response-common": speed_api_response_common_output,
-        "speed_api-response-common-failure": speed_api_response_common_failure_output,
-        "speed_base": speed_base_output,
-        "speed_binary_ast_response": speed_binary_ast_response_output,
-        "speed_binary_ast_value": speed_binary_ast_value_output,
-        "speed_messages": speed_messages_output,
+        "speed_api-response-common": speed_api$$response$$common,
+        "speed_api-response-common-failure": speed_api$$response$$common$$failure,
+        "speed_base": speed_base,
+        "speed_binary_ast_response": speed_binary_ast_response,
+        "speed_binary_ast_value": speed_binary_ast_value,
+        "speed_messages": speed_messages,
       },
     },
     request: (args) => ({

@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `lists_api-response-collection` in responses.
  */
-export const lists_api_response_collection_output: JsonSchema = {
+export const lists_api$$response$$collection: JsonSchema = {
   "allOf": [
     {
       "properties": {
@@ -35,7 +35,7 @@ export const lists_api_response_collection_output: JsonSchema = {
 /**
  * The schema of `lists_api-response-common` in responses.
  */
-export const lists_api_response_common_output: JsonSchema = {
+export const lists_api$$response$$common: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/lists_messages"
@@ -75,7 +75,7 @@ export const lists_api_response_common_output: JsonSchema = {
 /**
  * The schema of `lists_api-response-common-failure` in responses.
  */
-export const lists_api_response_common_failure_output: JsonSchema = {
+export const lists_api$$response$$common$$failure: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/lists_messages"
@@ -105,21 +105,21 @@ export const lists_api_response_common_failure_output: JsonSchema = {
 /**
  * The schema of `lists_created_on` in responses.
  */
-export const lists_created_on_output: JsonSchema = {
+export const lists_created_on: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `lists_description` in responses.
  */
-export const lists_description_output: JsonSchema = {
+export const lists_description: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `lists_kind` in responses.
  */
-export const lists_kind_output: JsonSchema = {
+export const lists_kind: JsonSchema = {
   "enum": [
     "ip",
     "redirect",
@@ -132,7 +132,7 @@ export const lists_kind_output: JsonSchema = {
 /**
  * The schema of `lists_list` in responses.
  */
-export const lists_list_output: JsonSchema = {
+export const lists_list: JsonSchema = {
   "properties": {
     "created_on": {
       "$ref": "#/$defs/lists_created_on"
@@ -174,7 +174,7 @@ export const lists_list_output: JsonSchema = {
 /**
  * The schema of `lists_list-delete-response-collection` in responses.
  */
-export const lists_list_delete_response_collection_output: JsonSchema = {
+export const lists_list$$delete$$response$$collection: JsonSchema = {
   "allOf": [
     {
       "properties": {
@@ -201,7 +201,7 @@ export const lists_list_delete_response_collection_output: JsonSchema = {
 /**
  * The schema of `lists_list-response-collection` in responses.
  */
-export const lists_list_response_collection_output: JsonSchema = {
+export const lists_list$$response$$collection: JsonSchema = {
   "allOf": [
     {
       "properties": {
@@ -220,14 +220,14 @@ export const lists_list_response_collection_output: JsonSchema = {
 /**
  * The schema of `lists_list_id` in responses.
  */
-export const lists_list_id_output: JsonSchema = {
+export const lists_list_id: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `lists_lists-response-collection` in responses.
  */
-export const lists_lists_response_collection_output: JsonSchema = {
+export const lists_lists$$response$$collection: JsonSchema = {
   "allOf": [
     {
       "properties": {
@@ -249,7 +249,7 @@ export const lists_lists_response_collection_output: JsonSchema = {
 /**
  * The schema of `lists_messages` in responses.
  */
-export const lists_messages_output: JsonSchema = {
+export const lists_messages: JsonSchema = {
   "items": {
     "properties": {
       "code": {
@@ -271,34 +271,34 @@ export const lists_messages_output: JsonSchema = {
 /**
  * The schema of `lists_modified_on` in responses.
  */
-export const lists_modified_on_output: JsonSchema = {
+export const lists_modified_on: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `lists_name` in responses.
  */
-export const lists_name_output: JsonSchema = {
+export const lists_name: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `lists_num_items` in responses.
  */
-export const lists_num_items_output: JsonSchema = {
+export const lists_num_items: JsonSchema = {
   "type": "number"
 };
 
 /**
  * The schema of `lists_num_referencing_filters` in responses.
  */
-export const lists_num_referencing_filters_output: JsonSchema = {
+export const lists_num_referencing_filters: JsonSchema = {
   "type": "number"
 };
 
 /**
  * The schema of `lists_operation_id` in responses.
  */
-export const lists_operation_id_output: JsonSchema = {
+export const lists_operation_id: JsonSchema = {
   "type": "string"
 };

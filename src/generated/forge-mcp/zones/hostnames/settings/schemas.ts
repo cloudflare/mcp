@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `tls-certificates-and-hostnames_hostname-3`.
  */
-export const tls_certificates_and_hostnames_hostname_3: JsonSchema = {
+export const tls$$certificates$$and$$hostnames_hostname$$3: JsonSchema = {
   "description": "The hostname for which the tls settings are set.",
   "type": "string"
 };
@@ -14,7 +14,7 @@ export const tls_certificates_and_hostnames_hostname_3: JsonSchema = {
 /**
  * The schema of `tls-certificates-and-hostnames_setting_id`.
  */
-export const tls_certificates_and_hostnames_setting_id: JsonSchema = {
+export const tls$$certificates$$and$$hostnames_setting_id: JsonSchema = {
   "description": "The TLS Setting name.\nThe value type depends on the setting:\n- `ciphers`: value is an array of cipher suite strings (e.g., `[\"ECDHE-RSA-AES128-GCM-SHA256\", \"AES128-GCM-SHA256\"]`).\n- `min_tls_version`: value is a TLS version string (`\"1.0\"`, `\"1.1\"`, `\"1.2\"`, or `\"1.3\"`).\n- `http2`: value is `\"on\"` or `\"off\"`.",
   "enum": [
     "ciphers",
@@ -27,7 +27,7 @@ export const tls_certificates_and_hostnames_setting_id: JsonSchema = {
 /**
  * The schema of `tls-certificates-and-hostnames_value`.
  */
-export const tls_certificates_and_hostnames_value: JsonSchema = {
+export const tls$$certificates$$and$$hostnames_value: JsonSchema = {
   "description": "The TLS setting value.\nThe type depends on the `setting_id` used in the request path:\n- `ciphers`: an array of allowed cipher suite strings in BoringSSL format (e.g., `[\"ECDHE-RSA-AES128-GCM-SHA256\", \"AES128-GCM-SHA256\"]`).\n- `min_tls_version`: a string indicating the minimum TLS version — one of `\"1.0\"`, `\"1.1\"`, `\"1.2\"`, or `\"1.3\"` (e.g., `\"1.2\"`).\n- `http2`: a string indicating whether HTTP/2 is enabled — `\"on\"` or `\"off\"` (e.g., `\"on\"`).",
   "oneOf": [
     {

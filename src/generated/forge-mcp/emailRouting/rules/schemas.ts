@@ -195,7 +195,7 @@ export const email_rule_actions: JsonSchema = {
 /**
  * The schema of `email_rule_catchall-action`.
  */
-export const email_rule_catchall_action: JsonSchema = {
+export const email_rule_catchall$$action: JsonSchema = {
   "description": "Action for the catch-all routing rule.",
   "properties": {
     "type": {
@@ -225,7 +225,7 @@ export const email_rule_catchall_action: JsonSchema = {
 /**
  * The schema of `email_rule_catchall-actions`.
  */
-export const email_rule_catchall_actions: JsonSchema = {
+export const email_rule_catchall$$actions: JsonSchema = {
   "description": "List actions for the catch-all routing rule.",
   "items": {
     "$ref": "#/$defs/email_rule_catchall-action"
@@ -238,7 +238,7 @@ export const email_rule_catchall_actions: JsonSchema = {
 /**
  * The schema of `email_rule_catchall-matcher`.
  */
-export const email_rule_catchall_matcher: JsonSchema = {
+export const email_rule_catchall$$matcher: JsonSchema = {
   "description": "Matcher for catch-all routing rule.",
   "properties": {
     "type": {
@@ -258,7 +258,7 @@ export const email_rule_catchall_matcher: JsonSchema = {
 /**
  * The schema of `email_rule_catchall-matchers`.
  */
-export const email_rule_catchall_matchers: JsonSchema = {
+export const email_rule_catchall$$matchers: JsonSchema = {
   "description": "List of matchers for the catch-all routing rule.",
   "items": {
     "$ref": "#/$defs/email_rule_catchall-matcher"

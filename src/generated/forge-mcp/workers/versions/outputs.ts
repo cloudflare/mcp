@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `workers_Version` in responses.
  */
-export const workers_Version_output: JsonSchema = {
+export const workers_Version: JsonSchema = {
   "properties": {
     "annotations": {
       "properties": {

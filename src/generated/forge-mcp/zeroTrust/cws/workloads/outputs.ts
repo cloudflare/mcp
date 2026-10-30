@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `cws_PageResponseWorkload` in responses.
  */
-export const cws_PageResponseWorkload_output: JsonSchema = {
+export const cws_PageResponseWorkload: JsonSchema = {
   "properties": {
     "errors": {
       "oneOf": [
@@ -67,7 +67,7 @@ export const cws_PageResponseWorkload_output: JsonSchema = {
 /**
  * The schema of `cws_ResponseWorkload` in responses.
  */
-export const cws_ResponseWorkload_output: JsonSchema = {
+export const cws_ResponseWorkload: JsonSchema = {
   "properties": {
     "errors": {
       "oneOf": [
@@ -114,7 +114,7 @@ export const cws_ResponseWorkload_output: JsonSchema = {
 /**
  * The schema of `cws_Workload` in responses.
  */
-export const cws_Workload_output: JsonSchema = {
+export const cws_Workload: JsonSchema = {
   "properties": {
     "created_at": {
       "format": "date-time",

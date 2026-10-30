@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `tls-certificates-and-hostnames_advanced_type`.
  */
-export const tls_certificates_and_hostnames_advanced_type: JsonSchema = {
+export const tls$$certificates$$and$$hostnames_advanced_type: JsonSchema = {
   "description": "Type of certificate pack.",
   "enum": [
     "advanced"
@@ -17,7 +17,7 @@ export const tls_certificates_and_hostnames_advanced_type: JsonSchema = {
 /**
  * The schema of `tls-certificates-and-hostnames_certificate_authority-2`.
  */
-export const tls_certificates_and_hostnames_certificate_authority_2: JsonSchema = {
+export const tls$$certificates$$and$$hostnames_certificate_authority$$2: JsonSchema = {
   "description": "Certificate Authority selected for the order.  For information on any certificate authority specific details or restrictions [see this page for more details](https://developers.cloudflare.com/ssl/reference/certificate-authorities).",
   "enum": [
     "google",
@@ -30,7 +30,7 @@ export const tls_certificates_and_hostnames_certificate_authority_2: JsonSchema 
 /**
  * The schema of `tls-certificates-and-hostnames_certificate_pack_identifier`.
  */
-export const tls_certificates_and_hostnames_certificate_pack_identifier: JsonSchema = {
+export const tls$$certificates$$and$$hostnames_certificate_pack_identifier: JsonSchema = {
   "description": "The unique identifier for a certificate_pack.",
   "type": "string"
 };
@@ -38,7 +38,7 @@ export const tls_certificates_and_hostnames_certificate_pack_identifier: JsonSch
 /**
  * The schema of `tls-certificates-and-hostnames_cloudflare_branding`.
  */
-export const tls_certificates_and_hostnames_cloudflare_branding: JsonSchema = {
+export const tls$$certificates$$and$$hostnames_cloudflare_branding: JsonSchema = {
   "description": "Whether or not to add Cloudflare Branding for the order.  This will add a subdomain of sni.cloudflaressl.com as the Common Name if set to true.",
   "type": "boolean"
 };
@@ -46,7 +46,7 @@ export const tls_certificates_and_hostnames_cloudflare_branding: JsonSchema = {
 /**
  * The schema of `tls-certificates-and-hostnames_hosts-2`.
  */
-export const tls_certificates_and_hostnames_hosts_2: JsonSchema = {
+export const tls$$certificates$$and$$hostnames_hosts$$2: JsonSchema = {
   "description": "Comma separated list of valid host names for the certificate packs. Must contain the zone apex, may not contain more than 50 hosts, and may not be empty.",
   "items": {
     "type": "string"
@@ -57,7 +57,7 @@ export const tls_certificates_and_hostnames_hosts_2: JsonSchema = {
 /**
  * The schema of `tls-certificates-and-hostnames_validation_method`.
  */
-export const tls_certificates_and_hostnames_validation_method: JsonSchema = {
+export const tls$$certificates$$and$$hostnames_validation_method: JsonSchema = {
   "description": "Validation Method selected for the order.",
   "enum": [
     "txt",
@@ -70,7 +70,7 @@ export const tls_certificates_and_hostnames_validation_method: JsonSchema = {
 /**
  * The schema of `tls-certificates-and-hostnames_validity_days`.
  */
-export const tls_certificates_and_hostnames_validity_days: JsonSchema = {
+export const tls$$certificates$$and$$hostnames_validity_days: JsonSchema = {
   "description": "Validity Days selected for the order.",
   "enum": [
     14,

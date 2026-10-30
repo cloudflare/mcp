@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `email-security_BlockedSender` in responses.
  */
-export const email_security_BlockedSender_output: JsonSchema = {
+export const email$$security_BlockedSender: JsonSchema = {
   "properties": {
     "comments": {
       "oneOf": [
@@ -57,7 +57,7 @@ export const email_security_BlockedSender_output: JsonSchema = {
 /**
  * The schema of `email-security_BlockedSenderId` in responses.
  */
-export const email_security_BlockedSenderId_output: JsonSchema = {
+export const email$$security_BlockedSenderId: JsonSchema = {
   "format": "uuid",
   "type": "string"
 };
@@ -65,7 +65,7 @@ export const email_security_BlockedSenderId_output: JsonSchema = {
 /**
  * The schema of `email-security_BlockedSenderList` in responses.
  */
-export const email_security_BlockedSenderList_output: JsonSchema = {
+export const email$$security_BlockedSenderList: JsonSchema = {
   "items": {
     "$ref": "#/$defs/email-security_BlockedSender"
   },
@@ -75,7 +75,7 @@ export const email_security_BlockedSenderList_output: JsonSchema = {
 /**
  * The schema of `email-security_DeletedBlockedSender` in responses.
  */
-export const email_security_DeletedBlockedSender_output: JsonSchema = {
+export const email$$security_DeletedBlockedSender: JsonSchema = {
   "properties": {
     "id": {
       "$ref": "#/$defs/email-security_BlockedSenderId"

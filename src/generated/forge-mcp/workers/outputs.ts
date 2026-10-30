@@ -6,7 +6,7 @@ import type { JsonSchema } from "../_/tool.js";
 /**
  * The schema of `workers_ErrorAuth` in responses.
  */
-export const workers_ErrorAuth_output: JsonSchema = {
+export const workers_ErrorAuth: JsonSchema = {
   "properties": {
     "code": {
       "enum": [
@@ -28,7 +28,7 @@ export const workers_ErrorAuth_output: JsonSchema = {
 /**
  * The schema of `workers_ErrorInternalServer` in responses.
  */
-export const workers_ErrorInternalServer_output: JsonSchema = {
+export const workers_ErrorInternalServer: JsonSchema = {
   "properties": {
     "code": {
       "enum": [
@@ -50,7 +50,7 @@ export const workers_ErrorInternalServer_output: JsonSchema = {
 /**
  * The schema of `workers_ErrorMissingParam` in responses.
  */
-export const workers_ErrorMissingParam_output: JsonSchema = {
+export const workers_ErrorMissingParam: JsonSchema = {
   "properties": {
     "code": {
       "enum": [
@@ -72,7 +72,7 @@ export const workers_ErrorMissingParam_output: JsonSchema = {
 /**
  * The schema of `workers_ErrorWorkerInvalid` in responses.
  */
-export const workers_ErrorWorkerInvalid_output: JsonSchema = {
+export const workers_ErrorWorkerInvalid: JsonSchema = {
   "properties": {
     "code": {
       "enum": [
@@ -94,7 +94,7 @@ export const workers_ErrorWorkerInvalid_output: JsonSchema = {
 /**
  * The schema of `workers_ErrorWorkerLimit` in responses.
  */
-export const workers_ErrorWorkerLimit_output: JsonSchema = {
+export const workers_ErrorWorkerLimit: JsonSchema = {
   "properties": {
     "code": {
       "enum": [
@@ -116,7 +116,7 @@ export const workers_ErrorWorkerLimit_output: JsonSchema = {
 /**
  * The schema of `workers_ErrorWorkerNameConflict` in responses.
  */
-export const workers_ErrorWorkerNameConflict_output: JsonSchema = {
+export const workers_ErrorWorkerNameConflict: JsonSchema = {
   "properties": {
     "code": {
       "enum": [
@@ -138,7 +138,7 @@ export const workers_ErrorWorkerNameConflict_output: JsonSchema = {
 /**
  * The schema of `workers_ErrorWorkerNameInvalid` in responses.
  */
-export const workers_ErrorWorkerNameInvalid_output: JsonSchema = {
+export const workers_ErrorWorkerNameInvalid: JsonSchema = {
   "properties": {
     "code": {
       "enum": [
@@ -160,7 +160,7 @@ export const workers_ErrorWorkerNameInvalid_output: JsonSchema = {
 /**
  * The schema of `workers_ErrorWorkerNamePreviewLengthLimit` in responses.
  */
-export const workers_ErrorWorkerNamePreviewLengthLimit_output: JsonSchema = {
+export const workers_ErrorWorkerNamePreviewLengthLimit: JsonSchema = {
   "properties": {
     "code": {
       "enum": [
@@ -182,7 +182,7 @@ export const workers_ErrorWorkerNamePreviewLengthLimit_output: JsonSchema = {
 /**
  * The schema of `workers_ErrorWorkerNameSubdomainLengthLimit` in responses.
  */
-export const workers_ErrorWorkerNameSubdomainLengthLimit_output: JsonSchema = {
+export const workers_ErrorWorkerNameSubdomainLengthLimit: JsonSchema = {
   "properties": {
     "code": {
       "enum": [
@@ -204,7 +204,7 @@ export const workers_ErrorWorkerNameSubdomainLengthLimit_output: JsonSchema = {
 /**
  * The schema of `workers_ErrorWorkerNotFound` in responses.
  */
-export const workers_ErrorWorkerNotFound_output: JsonSchema = {
+export const workers_ErrorWorkerNotFound: JsonSchema = {
   "properties": {
     "code": {
       "enum": [
@@ -227,7 +227,7 @@ export const workers_ErrorWorkerNotFound_output: JsonSchema = {
  * The schema of `workers_ErrorWorkerObservabilitySamplingRateInvalid` in
  * responses.
  */
-export const workers_ErrorWorkerObservabilitySamplingRateInvalid_output: JsonSchema = {
+export const workers_ErrorWorkerObservabilitySamplingRateInvalid: JsonSchema = {
   "properties": {
     "code": {
       "enum": [
@@ -249,7 +249,7 @@ export const workers_ErrorWorkerObservabilitySamplingRateInvalid_output: JsonSch
 /**
  * The schema of `workers_ErrorWorkerTagInvalid` in responses.
  */
-export const workers_ErrorWorkerTagInvalid_output: JsonSchema = {
+export const workers_ErrorWorkerTagInvalid: JsonSchema = {
   "properties": {
     "code": {
       "enum": [
@@ -271,7 +271,7 @@ export const workers_ErrorWorkerTagInvalid_output: JsonSchema = {
 /**
  * The schema of `workers_ErrorWorkerTagLengthLimit` in responses.
  */
-export const workers_ErrorWorkerTagLengthLimit_output: JsonSchema = {
+export const workers_ErrorWorkerTagLengthLimit: JsonSchema = {
   "properties": {
     "code": {
       "enum": [
@@ -293,7 +293,7 @@ export const workers_ErrorWorkerTagLengthLimit_output: JsonSchema = {
 /**
  * The schema of `workers_ErrorWorkerTagLimit` in responses.
  */
-export const workers_ErrorWorkerTagLimit_output: JsonSchema = {
+export const workers_ErrorWorkerTagLimit: JsonSchema = {
   "properties": {
     "code": {
       "enum": [
@@ -315,7 +315,7 @@ export const workers_ErrorWorkerTagLimit_output: JsonSchema = {
 /**
  * The schema of `workers_PreviewsBaseConfig` in responses.
  */
-export const workers_PreviewsBaseConfig_output: JsonSchema = {
+export const workers_PreviewsBaseConfig: JsonSchema = {
   "properties": {
     "cache_options": {
       "$ref": "#/$defs/workers_cache_options"
@@ -356,7 +356,7 @@ export const workers_PreviewsBaseConfig_output: JsonSchema = {
 /**
  * The schema of `workers_Worker` in responses.
  */
-export const workers_Worker_output: JsonSchema = {
+export const workers_Worker: JsonSchema = {
   "properties": {
     "created_on": {
       "format": "date-time",
@@ -666,7 +666,7 @@ export const workers_Worker_output: JsonSchema = {
 /**
  * The schema of `workers_container_item` in responses.
  */
-export const workers_container_item_output: JsonSchema = {
+export const workers_container_item: JsonSchema = {
   "properties": {
     "class_name": {
       "type": "string"
@@ -681,7 +681,7 @@ export const workers_container_item_output: JsonSchema = {
 /**
  * The schema of `workers_containers` in responses.
  */
-export const workers_containers_output: JsonSchema = {
+export const workers_containers: JsonSchema = {
   "items": {
     "$ref": "#/$defs/workers_container_item"
   },
@@ -691,7 +691,7 @@ export const workers_containers_output: JsonSchema = {
 /**
  * The schema of `workers_env` in responses.
  */
-export const workers_env_output: JsonSchema = {
+export const workers_env: JsonSchema = {
   "additionalProperties": {
     "$ref": "#/$defs/workers_env_binding_item"
   },
@@ -701,7 +701,7 @@ export const workers_env_output: JsonSchema = {
 /**
  * The schema of `workers_env_binding_item` in responses.
  */
-export const workers_env_binding_item_output: JsonSchema = {
+export const workers_env_binding_item: JsonSchema = {
   "properties": {
     "type": {
       "type": "string"
@@ -716,7 +716,7 @@ export const workers_env_binding_item_output: JsonSchema = {
 /**
  * The schema of `workers_observability` in responses.
  */
-export const workers_observability_output: JsonSchema = {
+export const workers_observability: JsonSchema = {
   "properties": {
     "enabled": {
       "type": "boolean"
@@ -806,7 +806,7 @@ export const workers_observability_output: JsonSchema = {
 /**
  * The schema of `workers_route` in responses.
  */
-export const workers_route_output: JsonSchema = {
+export const workers_route: JsonSchema = {
   "properties": {
     "id": {
       "$ref": "#/$defs/workers_identifier"

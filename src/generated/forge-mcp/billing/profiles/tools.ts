@@ -3,16 +3,16 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
-  bill_subs_api_api_response_common_failure_output,
-  bill_subs_api_api_response_common_output,
-  bill_subs_api_api_response_single_output,
-  bill_subs_api_billing_response_single_output,
-  bill_subs_api_components_schemas_identifier_output,
-  bill_subs_api_messages_output,
+  bill$$subs$$api_api$$response$$common,
+  bill$$subs$$api_api$$response$$common$$failure,
+  bill$$subs$$api_api$$response$$single,
+  bill$$subs$$api_billing_response_single,
+  bill$$subs$$api_components$$schemas$$identifier,
+  bill$$subs$$api_messages,
 } from "../../outputs.js";
-import { bill_subs_api_identifier } from "../../schemas.js";
-import { bill_subs_api_payment_intent_response_single_output } from "./outputs.js";
-import { bill_subs_api_billing_profile_request } from "./schemas.js";
+import { bill$$subs$$api_identifier } from "../../schemas.js";
+import { bill$$subs$$api_payment_intent_response_single } from "./outputs.js";
+import { bill$$subs$$api_billing_profile_request } from "./schemas.js";
 
 /**
  * The tools of `billing.profiles`.
@@ -25,31 +25,39 @@ export const tools: readonly Tool[] = [
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/bill-subs-api_identifier",
-          "description": "Identifier"
-        },
         "body": {
           "$ref": "#/$defs/bill-subs-api_billing_profile_request"
+        },
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/bill-subs-api_identifier",
+              "description": "Identifier"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
+        "path",
         "body"
       ],
       $defs: {
-        "bill-subs-api_billing_profile_request": bill_subs_api_billing_profile_request,
-        "bill-subs-api_identifier": bill_subs_api_identifier,
+        "bill-subs-api_billing_profile_request": bill$$subs$$api_billing_profile_request,
+        "bill-subs-api_identifier": bill$$subs$$api_identifier,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/bill-subs-api_billing_response_single",
       $defs: {
-        "bill-subs-api_api-response-common": bill_subs_api_api_response_common_output,
-        "bill-subs-api_api-response-single": bill_subs_api_api_response_single_output,
-        "bill-subs-api_billing_response_single": bill_subs_api_billing_response_single_output,
-        "bill-subs-api_components-schemas-identifier": bill_subs_api_components_schemas_identifier_output,
-        "bill-subs-api_messages": bill_subs_api_messages_output,
+        "bill-subs-api_api-response-common": bill$$subs$$api_api$$response$$common,
+        "bill-subs-api_api-response-single": bill$$subs$$api_api$$response$$single,
+        "bill-subs-api_billing_response_single": bill$$subs$$api_billing_response_single,
+        "bill-subs-api_components-schemas-identifier": bill$$subs$$api_components$$schemas$$identifier,
+        "bill-subs-api_messages": bill$$subs$$api_messages,
       },
     },
     annotations: {
@@ -88,12 +96,12 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "bill-subs-api_api-response-common": bill_subs_api_api_response_common_output,
-        "bill-subs-api_api-response-common-failure": bill_subs_api_api_response_common_failure_output,
-        "bill-subs-api_api-response-single": bill_subs_api_api_response_single_output,
-        "bill-subs-api_billing_response_single": bill_subs_api_billing_response_single_output,
-        "bill-subs-api_components-schemas-identifier": bill_subs_api_components_schemas_identifier_output,
-        "bill-subs-api_messages": bill_subs_api_messages_output,
+        "bill-subs-api_api-response-common": bill$$subs$$api_api$$response$$common,
+        "bill-subs-api_api-response-common-failure": bill$$subs$$api_api$$response$$common$$failure,
+        "bill-subs-api_api-response-single": bill$$subs$$api_api$$response$$single,
+        "bill-subs-api_billing_response_single": bill$$subs$$api_billing_response_single,
+        "bill-subs-api_components-schemas-identifier": bill$$subs$$api_components$$schemas$$identifier,
+        "bill-subs-api_messages": bill$$subs$$api_messages,
       },
     },
     request: (args) => ({
@@ -102,31 +110,39 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "billing_profiles_create_payment_intent",
+    name: "billing_profiles_createPaymentIntent",
     title: "Create Payment Intent for Billing Profile",
     description: "Creates a Stripe payment intent for adding or updating a payment method on the account's billing profile. Returns a client secret for frontend payment method collection.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/bill-subs-api_identifier",
-          "description": "Identifier"
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/bill-subs-api_identifier",
+              "description": "Identifier"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id"
+        "path"
       ],
       $defs: {
-        "bill-subs-api_identifier": bill_subs_api_identifier,
+        "bill-subs-api_identifier": bill$$subs$$api_identifier,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/bill-subs-api_payment_intent_response_single",
       $defs: {
-        "bill-subs-api_api-response-common": bill_subs_api_api_response_common_output,
-        "bill-subs-api_api-response-single": bill_subs_api_api_response_single_output,
-        "bill-subs-api_messages": bill_subs_api_messages_output,
-        "bill-subs-api_payment_intent_response_single": bill_subs_api_payment_intent_response_single_output,
+        "bill-subs-api_api-response-common": bill$$subs$$api_api$$response$$common,
+        "bill-subs-api_api-response-single": bill$$subs$$api_api$$response$$single,
+        "bill-subs-api_messages": bill$$subs$$api_messages,
+        "bill-subs-api_payment_intent_response_single": bill$$subs$$api_payment_intent_response_single,
       },
     },
     annotations: {
@@ -159,11 +175,11 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "bill-subs-api_api-response-common": bill_subs_api_api_response_common_output,
-        "bill-subs-api_api-response-common-failure": bill_subs_api_api_response_common_failure_output,
-        "bill-subs-api_api-response-single": bill_subs_api_api_response_single_output,
-        "bill-subs-api_messages": bill_subs_api_messages_output,
-        "bill-subs-api_payment_intent_response_single": bill_subs_api_payment_intent_response_single_output,
+        "bill-subs-api_api-response-common": bill$$subs$$api_api$$response$$common,
+        "bill-subs-api_api-response-common-failure": bill$$subs$$api_api$$response$$common$$failure,
+        "bill-subs-api_api-response-single": bill$$subs$$api_api$$response$$single,
+        "bill-subs-api_messages": bill$$subs$$api_messages,
+        "bill-subs-api_payment_intent_response_single": bill$$subs$$api_payment_intent_response_single,
       },
     },
     request: (args) => ({
@@ -177,16 +193,24 @@ export const tools: readonly Tool[] = [
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/bill-subs-api_identifier",
-          "description": "Identifier"
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/bill-subs-api_identifier",
+              "description": "Identifier"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id"
+        "path"
       ],
       $defs: {
-        "bill-subs-api_identifier": bill_subs_api_identifier,
+        "bill-subs-api_identifier": bill$$subs$$api_identifier,
       },
     },
     annotations: {
@@ -222,8 +246,8 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "bill-subs-api_api-response-common-failure": bill_subs_api_api_response_common_failure_output,
-        "bill-subs-api_messages": bill_subs_api_messages_output,
+        "bill-subs-api_api-response-common-failure": bill$$subs$$api_api$$response$$common$$failure,
+        "bill-subs-api_messages": bill$$subs$$api_messages,
       },
     },
     request: (args) => ({
@@ -237,26 +261,34 @@ export const tools: readonly Tool[] = [
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/bill-subs-api_identifier",
-          "description": "Identifier"
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/bill-subs-api_identifier",
+              "description": "Identifier"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id"
+        "path"
       ],
       $defs: {
-        "bill-subs-api_identifier": bill_subs_api_identifier,
+        "bill-subs-api_identifier": bill$$subs$$api_identifier,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/bill-subs-api_billing_response_single",
       $defs: {
-        "bill-subs-api_api-response-common": bill_subs_api_api_response_common_output,
-        "bill-subs-api_api-response-single": bill_subs_api_api_response_single_output,
-        "bill-subs-api_billing_response_single": bill_subs_api_billing_response_single_output,
-        "bill-subs-api_components-schemas-identifier": bill_subs_api_components_schemas_identifier_output,
-        "bill-subs-api_messages": bill_subs_api_messages_output,
+        "bill-subs-api_api-response-common": bill$$subs$$api_api$$response$$common,
+        "bill-subs-api_api-response-single": bill$$subs$$api_api$$response$$single,
+        "bill-subs-api_billing_response_single": bill$$subs$$api_billing_response_single,
+        "bill-subs-api_components-schemas-identifier": bill$$subs$$api_components$$schemas$$identifier,
+        "bill-subs-api_messages": bill$$subs$$api_messages,
       },
     },
     annotations: {
@@ -295,12 +327,12 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "bill-subs-api_api-response-common": bill_subs_api_api_response_common_output,
-        "bill-subs-api_api-response-common-failure": bill_subs_api_api_response_common_failure_output,
-        "bill-subs-api_api-response-single": bill_subs_api_api_response_single_output,
-        "bill-subs-api_billing_response_single": bill_subs_api_billing_response_single_output,
-        "bill-subs-api_components-schemas-identifier": bill_subs_api_components_schemas_identifier_output,
-        "bill-subs-api_messages": bill_subs_api_messages_output,
+        "bill-subs-api_api-response-common": bill$$subs$$api_api$$response$$common,
+        "bill-subs-api_api-response-common-failure": bill$$subs$$api_api$$response$$common$$failure,
+        "bill-subs-api_api-response-single": bill$$subs$$api_api$$response$$single,
+        "bill-subs-api_billing_response_single": bill$$subs$$api_billing_response_single,
+        "bill-subs-api_components-schemas-identifier": bill$$subs$$api_components$$schemas$$identifier,
+        "bill-subs-api_messages": bill$$subs$$api_messages,
       },
     },
     request: (args) => ({
@@ -314,31 +346,39 @@ export const tools: readonly Tool[] = [
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/bill-subs-api_identifier",
-          "description": "Identifier"
-        },
         "body": {
           "$ref": "#/$defs/bill-subs-api_billing_profile_request"
+        },
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/bill-subs-api_identifier",
+              "description": "Identifier"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
+        "path",
         "body"
       ],
       $defs: {
-        "bill-subs-api_billing_profile_request": bill_subs_api_billing_profile_request,
-        "bill-subs-api_identifier": bill_subs_api_identifier,
+        "bill-subs-api_billing_profile_request": bill$$subs$$api_billing_profile_request,
+        "bill-subs-api_identifier": bill$$subs$$api_identifier,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/bill-subs-api_billing_response_single",
       $defs: {
-        "bill-subs-api_api-response-common": bill_subs_api_api_response_common_output,
-        "bill-subs-api_api-response-single": bill_subs_api_api_response_single_output,
-        "bill-subs-api_billing_response_single": bill_subs_api_billing_response_single_output,
-        "bill-subs-api_components-schemas-identifier": bill_subs_api_components_schemas_identifier_output,
-        "bill-subs-api_messages": bill_subs_api_messages_output,
+        "bill-subs-api_api-response-common": bill$$subs$$api_api$$response$$common,
+        "bill-subs-api_api-response-single": bill$$subs$$api_api$$response$$single,
+        "bill-subs-api_billing_response_single": bill$$subs$$api_billing_response_single,
+        "bill-subs-api_components-schemas-identifier": bill$$subs$$api_components$$schemas$$identifier,
+        "bill-subs-api_messages": bill$$subs$$api_messages,
       },
     },
     annotations: {
@@ -377,12 +417,12 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "bill-subs-api_api-response-common": bill_subs_api_api_response_common_output,
-        "bill-subs-api_api-response-common-failure": bill_subs_api_api_response_common_failure_output,
-        "bill-subs-api_api-response-single": bill_subs_api_api_response_single_output,
-        "bill-subs-api_billing_response_single": bill_subs_api_billing_response_single_output,
-        "bill-subs-api_components-schemas-identifier": bill_subs_api_components_schemas_identifier_output,
-        "bill-subs-api_messages": bill_subs_api_messages_output,
+        "bill-subs-api_api-response-common": bill$$subs$$api_api$$response$$common,
+        "bill-subs-api_api-response-common-failure": bill$$subs$$api_api$$response$$common$$failure,
+        "bill-subs-api_api-response-single": bill$$subs$$api_api$$response$$single,
+        "bill-subs-api_billing_response_single": bill$$subs$$api_billing_response_single,
+        "bill-subs-api_components-schemas-identifier": bill$$subs$$api_components$$schemas$$identifier,
+        "bill-subs-api_messages": bill$$subs$$api_messages,
       },
     },
     request: (args) => ({
@@ -391,16 +431,12 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "billing_profiles_update_email",
+    name: "billing_profiles_updateEmail",
     title: "Update Billing Email",
     description: "Updates the billing email addresses and preferred locale for an account.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/bill-subs-api_identifier",
-          "description": "Identifier"
-        },
         "body": {
           "properties": {
             "billing_email": {
@@ -414,24 +450,36 @@ export const tools: readonly Tool[] = [
             }
           },
           "type": "object"
+        },
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/bill-subs-api_identifier",
+              "description": "Identifier"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
+        "path",
         "body"
       ],
       $defs: {
-        "bill-subs-api_identifier": bill_subs_api_identifier,
+        "bill-subs-api_identifier": bill$$subs$$api_identifier,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/bill-subs-api_billing_response_single",
       $defs: {
-        "bill-subs-api_api-response-common": bill_subs_api_api_response_common_output,
-        "bill-subs-api_api-response-single": bill_subs_api_api_response_single_output,
-        "bill-subs-api_billing_response_single": bill_subs_api_billing_response_single_output,
-        "bill-subs-api_components-schemas-identifier": bill_subs_api_components_schemas_identifier_output,
-        "bill-subs-api_messages": bill_subs_api_messages_output,
+        "bill-subs-api_api-response-common": bill$$subs$$api_api$$response$$common,
+        "bill-subs-api_api-response-single": bill$$subs$$api_api$$response$$single,
+        "bill-subs-api_billing_response_single": bill$$subs$$api_billing_response_single,
+        "bill-subs-api_components-schemas-identifier": bill$$subs$$api_components$$schemas$$identifier,
+        "bill-subs-api_messages": bill$$subs$$api_messages,
       },
     },
     annotations: {
@@ -470,12 +518,12 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "bill-subs-api_api-response-common": bill_subs_api_api_response_common_output,
-        "bill-subs-api_api-response-common-failure": bill_subs_api_api_response_common_failure_output,
-        "bill-subs-api_api-response-single": bill_subs_api_api_response_single_output,
-        "bill-subs-api_billing_response_single": bill_subs_api_billing_response_single_output,
-        "bill-subs-api_components-schemas-identifier": bill_subs_api_components_schemas_identifier_output,
-        "bill-subs-api_messages": bill_subs_api_messages_output,
+        "bill-subs-api_api-response-common": bill$$subs$$api_api$$response$$common,
+        "bill-subs-api_api-response-common-failure": bill$$subs$$api_api$$response$$common$$failure,
+        "bill-subs-api_api-response-single": bill$$subs$$api_api$$response$$single,
+        "bill-subs-api_billing_response_single": bill$$subs$$api_billing_response_single,
+        "bill-subs-api_components-schemas-identifier": bill$$subs$$api_components$$schemas$$identifier,
+        "bill-subs-api_messages": bill$$subs$$api_messages,
       },
     },
     request: (args) => ({

@@ -6,7 +6,7 @@ import type { JsonSchema } from "../_/tool.js";
 /**
  * The schema of `email-sending_EmailAddressObject`.
  */
-export const email_sending_EmailAddressObject: JsonSchema = {
+export const email$$sending_EmailAddressObject: JsonSchema = {
   "properties": {
     "address": {
       "description": "Email address (e.g., 'user@example.com').",
@@ -33,7 +33,7 @@ export const email_sending_EmailAddressObject: JsonSchema = {
 /**
  * The schema of `email-sending_EmailAddressString`.
  */
-export const email_sending_EmailAddressString: JsonSchema = {
+export const email$$sending_EmailAddressString: JsonSchema = {
   "description": "An email address as a plain string.",
   "type": "string"
 };
@@ -41,7 +41,7 @@ export const email_sending_EmailAddressString: JsonSchema = {
 /**
  * The schema of `email-sending_EmailAttachment`.
  */
-export const email_sending_EmailAttachment: JsonSchema = {
+export const email$$sending_EmailAttachment: JsonSchema = {
   "properties": {
     "content": {
       "description": "Base64-encoded content of the attachment.",
@@ -75,7 +75,7 @@ export const email_sending_EmailAttachment: JsonSchema = {
 /**
  * The schema of `email-sending_EmailBuilder`.
  */
-export const email_sending_EmailBuilder: JsonSchema = {
+export const email$$sending_EmailBuilder: JsonSchema = {
   "allOf": [
     {
       "properties": {
@@ -221,7 +221,7 @@ export const email_sending_EmailBuilder: JsonSchema = {
 /**
  * The schema of `email-sending_EmailInlineAttachment`.
  */
-export const email_sending_EmailInlineAttachment: JsonSchema = {
+export const email$$sending_EmailInlineAttachment: JsonSchema = {
   "properties": {
     "content": {
       "description": "Base64-encoded content of the attachment.",
@@ -260,7 +260,7 @@ export const email_sending_EmailInlineAttachment: JsonSchema = {
 /**
  * The schema of `email-sending_SendRawRequest`.
  */
-export const email_sending_SendRawRequest: JsonSchema = {
+export const email$$sending_SendRawRequest: JsonSchema = {
   "properties": {
     "from": {
       "description": "Sender email address.",

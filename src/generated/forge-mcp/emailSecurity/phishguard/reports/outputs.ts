@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `email-security_PhishGuardReport` in responses.
  */
-export const email_security_PhishGuardReport_output: JsonSchema = {
+export const email$$security_PhishGuardReport: JsonSchema = {
   "properties": {
     "content": {
       "type": "string"
@@ -119,7 +119,7 @@ export const email_security_PhishGuardReport_output: JsonSchema = {
 /**
  * The schema of `email-security_PhishGuardReportTag` in responses.
  */
-export const email_security_PhishGuardReportTag_output: JsonSchema = {
+export const email$$security_PhishGuardReportTag: JsonSchema = {
   "properties": {
     "category": {
       "type": "string"

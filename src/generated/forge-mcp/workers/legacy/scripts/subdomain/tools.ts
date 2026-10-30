@@ -3,15 +3,15 @@
 
 import { type Tool, pathParam } from "../../../../_/tool.js";
 import {
-  workers_api_response_common_failure_output,
-  workers_api_response_common_output,
-  workers_messages_output,
+  workers_api$$response$$common,
+  workers_api$$response$$common$$failure,
+  workers_messages,
 } from "../../../../outputs.js";
 import {
   workers_identifier,
   workers_script_name,
 } from "../../../../schemas.js";
-import { workers_subdomain_output } from "./outputs.js";
+import { workers_subdomain } from "./outputs.js";
 
 /**
  * The tools of `workers.legacy.scripts.subdomain`.
@@ -24,10 +24,6 @@ export const tools: readonly Tool[] = [
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/workers_identifier",
-          "description": "Identifier."
-        },
         "body": {
           "properties": {
             "enabled": {
@@ -44,14 +40,26 @@ export const tools: readonly Tool[] = [
           ],
           "type": "object"
         },
-        "script_name": {
-          "$ref": "#/$defs/workers_script_name",
-          "description": "Name of the script."
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/workers_identifier",
+              "description": "Identifier."
+            },
+            "script_name": {
+              "$ref": "#/$defs/workers_script_name",
+              "description": "Name of the script."
+            }
+          },
+          "required": [
+            "account_id",
+            "script_name"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "script_name",
+        "path",
         "body"
       ],
       $defs: {
@@ -77,9 +85,9 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "workers_api-response-common": workers_api_response_common_output,
-        "workers_messages": workers_messages_output,
-        "workers_subdomain": workers_subdomain_output,
+        "workers_api-response-common": workers_api$$response$$common,
+        "workers_messages": workers_messages,
+        "workers_subdomain": workers_subdomain,
       },
     },
     annotations: {
@@ -128,10 +136,10 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "workers_api-response-common": workers_api_response_common_output,
-        "workers_api-response-common-failure": workers_api_response_common_failure_output,
-        "workers_messages": workers_messages_output,
-        "workers_subdomain": workers_subdomain_output,
+        "workers_api-response-common": workers_api$$response$$common,
+        "workers_api-response-common-failure": workers_api$$response$$common$$failure,
+        "workers_messages": workers_messages,
+        "workers_subdomain": workers_subdomain,
       },
     },
     request: (args) => ({
@@ -146,18 +154,26 @@ export const tools: readonly Tool[] = [
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/workers_identifier",
-          "description": "Identifier."
-        },
-        "script_name": {
-          "$ref": "#/$defs/workers_script_name",
-          "description": "Name of the script."
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/workers_identifier",
+              "description": "Identifier."
+            },
+            "script_name": {
+              "$ref": "#/$defs/workers_script_name",
+              "description": "Name of the script."
+            }
+          },
+          "required": [
+            "account_id",
+            "script_name"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "script_name"
+        "path"
       ],
       $defs: {
         "workers_identifier": workers_identifier,
@@ -182,9 +198,9 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "workers_api-response-common": workers_api_response_common_output,
-        "workers_messages": workers_messages_output,
-        "workers_subdomain": workers_subdomain_output,
+        "workers_api-response-common": workers_api$$response$$common,
+        "workers_messages": workers_messages,
+        "workers_subdomain": workers_subdomain,
       },
     },
     annotations: {
@@ -233,10 +249,10 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "workers_api-response-common": workers_api_response_common_output,
-        "workers_api-response-common-failure": workers_api_response_common_failure_output,
-        "workers_messages": workers_messages_output,
-        "workers_subdomain": workers_subdomain_output,
+        "workers_api-response-common": workers_api$$response$$common,
+        "workers_api-response-common-failure": workers_api$$response$$common$$failure,
+        "workers_messages": workers_messages,
+        "workers_subdomain": workers_subdomain,
       },
     },
     request: (args) => ({
@@ -250,18 +266,26 @@ export const tools: readonly Tool[] = [
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/workers_identifier",
-          "description": "Identifier."
-        },
-        "script_name": {
-          "$ref": "#/$defs/workers_script_name",
-          "description": "Name of the script."
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/workers_identifier",
+              "description": "Identifier."
+            },
+            "script_name": {
+              "$ref": "#/$defs/workers_script_name",
+              "description": "Name of the script."
+            }
+          },
+          "required": [
+            "account_id",
+            "script_name"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "script_name"
+        "path"
       ],
       $defs: {
         "workers_identifier": workers_identifier,
@@ -286,9 +310,9 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "workers_api-response-common": workers_api_response_common_output,
-        "workers_messages": workers_messages_output,
-        "workers_subdomain": workers_subdomain_output,
+        "workers_api-response-common": workers_api$$response$$common,
+        "workers_messages": workers_messages,
+        "workers_subdomain": workers_subdomain,
       },
     },
     annotations: {
@@ -343,10 +367,10 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "workers_api-response-common": workers_api_response_common_output,
-        "workers_api-response-common-failure": workers_api_response_common_failure_output,
-        "workers_messages": workers_messages_output,
-        "workers_subdomain": workers_subdomain_output,
+        "workers_api-response-common": workers_api$$response$$common,
+        "workers_api-response-common-failure": workers_api$$response$$common$$failure,
+        "workers_messages": workers_messages,
+        "workers_subdomain": workers_subdomain,
       },
     },
     request: (args) => ({

@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `request-tracer_account_identifier`.
  */
-export const request_tracer_account_identifier: JsonSchema = {
+export const request$$tracer_account_identifier: JsonSchema = {
   "description": "Identifier.",
   "type": "string"
 };

@@ -6,14 +6,14 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `magic_bond_id` in responses.
  */
-export const magic_bond_id_output: JsonSchema = {
+export const magic_bond_id: JsonSchema = {
   "type": "integer"
 };
 
 /**
  * The schema of `magic_dhcp_option` in responses.
  */
-export const magic_dhcp_option_output: JsonSchema = {
+export const magic_dhcp_option: JsonSchema = {
   "properties": {
     "code": {
       "type": "integer"
@@ -44,7 +44,7 @@ export const magic_dhcp_option_output: JsonSchema = {
 /**
  * The schema of `magic_lan` in responses.
  */
-export const magic_lan_output: JsonSchema = {
+export const magic_lan: JsonSchema = {
   "properties": {
     "bond_id": {
       "$ref": "#/$defs/magic_bond_id"
@@ -98,7 +98,7 @@ export const magic_lan_output: JsonSchema = {
 /**
  * The schema of `magic_lan_deleted_response` in responses.
  */
-export const magic_lan_deleted_response_output: JsonSchema = {
+export const magic_lan_deleted_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/magic_api-response-single"
@@ -117,7 +117,7 @@ export const magic_lan_deleted_response_output: JsonSchema = {
 /**
  * The schema of `magic_lan_dhcp_relay` in responses.
  */
-export const magic_lan_dhcp_relay_output: JsonSchema = {
+export const magic_lan_dhcp_relay: JsonSchema = {
   "properties": {
     "server_addresses": {
       "items": {
@@ -132,7 +132,7 @@ export const magic_lan_dhcp_relay_output: JsonSchema = {
 /**
  * The schema of `magic_lan_dhcp_server` in responses.
  */
-export const magic_lan_dhcp_server_output: JsonSchema = {
+export const magic_lan_dhcp_server: JsonSchema = {
   "properties": {
     "dhcp_options": {
       "items": {
@@ -168,7 +168,7 @@ export const magic_lan_dhcp_server_output: JsonSchema = {
 /**
  * The schema of `magic_lan_modified_response` in responses.
  */
-export const magic_lan_modified_response_output: JsonSchema = {
+export const magic_lan_modified_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/magic_api-response-single"
@@ -187,7 +187,7 @@ export const magic_lan_modified_response_output: JsonSchema = {
 /**
  * The schema of `magic_lan_single_response` in responses.
  */
-export const magic_lan_single_response_output: JsonSchema = {
+export const magic_lan_single_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/magic_api-response-single"
@@ -206,7 +206,7 @@ export const magic_lan_single_response_output: JsonSchema = {
 /**
  * The schema of `magic_lan_static_addressing` in responses.
  */
-export const magic_lan_static_addressing_output: JsonSchema = {
+export const magic_lan_static_addressing: JsonSchema = {
   "properties": {
     "address": {
       "$ref": "#/$defs/magic_cidr"
@@ -233,7 +233,7 @@ export const magic_lan_static_addressing_output: JsonSchema = {
 /**
  * The schema of `magic_lans_collection_response` in responses.
  */
-export const magic_lans_collection_response_output: JsonSchema = {
+export const magic_lans_collection_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/magic_api-response-single"
@@ -255,7 +255,7 @@ export const magic_lans_collection_response_output: JsonSchema = {
 /**
  * The schema of `magic_nat` in responses.
  */
-export const magic_nat_output: JsonSchema = {
+export const magic_nat: JsonSchema = {
   "properties": {
     "static_prefix": {
       "$ref": "#/$defs/magic_cidr"
@@ -267,7 +267,7 @@ export const magic_nat_output: JsonSchema = {
 /**
  * The schema of `magic_remote_subnet` in responses.
  */
-export const magic_remote_subnet_output: JsonSchema = {
+export const magic_remote_subnet: JsonSchema = {
   "properties": {
     "local_alias_prefix": {
       "$ref": "#/$defs/magic_cidr"
@@ -286,7 +286,7 @@ export const magic_remote_subnet_output: JsonSchema = {
 /**
  * The schema of `magic_routed_subnet` in responses.
  */
-export const magic_routed_subnet_output: JsonSchema = {
+export const magic_routed_subnet: JsonSchema = {
   "properties": {
     "nat": {
       "$ref": "#/$defs/magic_nat"

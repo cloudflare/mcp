@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `digital-experience-monitoring_account_identifier`.
  */
-export const digital_experience_monitoring_account_identifier: JsonSchema = {
+export const digital$$experience$$monitoring_account_identifier: JsonSchema = {
   "description": "Unique identifier linked to an account.",
   "type": "string"
 };
@@ -14,7 +14,7 @@ export const digital_experience_monitoring_account_identifier: JsonSchema = {
 /**
  * The schema of `digital-experience-monitoring_colo`.
  */
-export const digital_experience_monitoring_colo: JsonSchema = {
+export const digital$$experience$$monitoring_colo: JsonSchema = {
   "description": "Cloudflare colo airport code.",
   "type": "string"
 };
@@ -22,7 +22,7 @@ export const digital_experience_monitoring_colo: JsonSchema = {
 /**
  * The schema of `digital-experience-monitoring_device-dex-test-schemas-data`.
  */
-export const digital_experience_monitoring_device_dex_test_schemas_data: JsonSchema = {
+export const digital$$experience$$monitoring_device$$dex$$test$$schemas$$data: JsonSchema = {
   "description": "The configuration object which contains the details for the WARP client to conduct the test.",
   "properties": {
     "host": {
@@ -55,7 +55,7 @@ export const digital_experience_monitoring_device_dex_test_schemas_data: JsonSch
 /**
  * The schema of `digital-experience-monitoring_platform`.
  */
-export const digital_experience_monitoring_platform: JsonSchema = {
+export const digital$$experience$$monitoring_platform: JsonSchema = {
   "description": "Operating system.",
   "type": "string"
 };
@@ -63,7 +63,7 @@ export const digital_experience_monitoring_platform: JsonSchema = {
 /**
  * The schema of `digital-experience-monitoring_status`.
  */
-export const digital_experience_monitoring_status: JsonSchema = {
+export const digital$$experience$$monitoring_status: JsonSchema = {
   "description": "Network status.",
   "type": "string"
 };
@@ -71,14 +71,14 @@ export const digital_experience_monitoring_status: JsonSchema = {
 /**
  * The schema of `digital-experience-monitoring_timestamp`.
  */
-export const digital_experience_monitoring_timestamp: JsonSchema = {
+export const digital$$experience$$monitoring_timestamp: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `digital-experience-monitoring_uuid`.
  */
-export const digital_experience_monitoring_uuid: JsonSchema = {
+export const digital$$experience$$monitoring_uuid: JsonSchema = {
   "description": "API Resource UUID tag.",
   "type": "string"
 };
@@ -86,7 +86,7 @@ export const digital_experience_monitoring_uuid: JsonSchema = {
 /**
  * The schema of `digital-experience-monitoring_version`.
  */
-export const digital_experience_monitoring_version: JsonSchema = {
+export const digital$$experience$$monitoring_version: JsonSchema = {
   "description": "WARP client version.",
   "type": "string"
 };

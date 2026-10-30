@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../../_/tool.js";
 /**
  * The schema of `dns-settings_direction`.
  */
-export const dns_settings_direction: JsonSchema = {
+export const dns$$settings_direction: JsonSchema = {
   "description": "Direction to order DNS views in.",
   "enum": [
     "asc",
@@ -18,7 +18,7 @@ export const dns_settings_direction: JsonSchema = {
 /**
  * The schema of `dns-settings_dns-view-patch`.
  */
-export const dns_settings_dns_view_patch: JsonSchema = {
+export const dns$$settings_dns$$view$$patch: JsonSchema = {
   "properties": {
     "name": {
       "$ref": "#/$defs/dns-settings_name",
@@ -35,7 +35,7 @@ export const dns_settings_dns_view_patch: JsonSchema = {
 /**
  * The schema of `dns-settings_dns-view-post`.
  */
-export const dns_settings_dns_view_post: JsonSchema = {
+export const dns$$settings_dns$$view$$post: JsonSchema = {
   "properties": {
     "name": {
       "$ref": "#/$defs/dns-settings_name",
@@ -56,7 +56,7 @@ export const dns_settings_dns_view_post: JsonSchema = {
 /**
  * The schema of `dns-settings_match`.
  */
-export const dns_settings_match: JsonSchema = {
+export const dns$$settings_match: JsonSchema = {
   "description": "Whether to match all search requirements or at least one (any). If set to `all`, acts like a logical AND between filters. If set to `any`, acts like a logical OR instead.\n",
   "enum": [
     "any",
@@ -68,7 +68,7 @@ export const dns_settings_match: JsonSchema = {
 /**
  * The schema of `dns-settings_name`.
  */
-export const dns_settings_name: JsonSchema = {
+export const dns$$settings_name: JsonSchema = {
   "description": "The name of the view.",
   "type": "string"
 };
@@ -76,7 +76,7 @@ export const dns_settings_name: JsonSchema = {
 /**
  * The schema of `dns-settings_order`.
  */
-export const dns_settings_order: JsonSchema = {
+export const dns$$settings_order: JsonSchema = {
   "description": "Field to order DNS views by.",
   "enum": [
     "name",
@@ -89,7 +89,7 @@ export const dns_settings_order: JsonSchema = {
 /**
  * The schema of `dns-settings_per_page`.
  */
-export const dns_settings_per_page: JsonSchema = {
+export const dns$$settings_per_page: JsonSchema = {
   "description": "Number of results per page.",
   "type": "integer"
 };
@@ -97,7 +97,7 @@ export const dns_settings_per_page: JsonSchema = {
 /**
  * The schema of `dns-settings_zones`.
  */
-export const dns_settings_zones: JsonSchema = {
+export const dns$$settings_zones: JsonSchema = {
   "description": "The list of zones linked to this view.",
   "items": {
     "type": "string"

@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `zero-trust-gateway_client-default`.
  */
-export const zero_trust_gateway_client_default: JsonSchema = {
+export const zero$$trust$$gateway_client$$default: JsonSchema = {
   "description": "Indicate whether this location is the default location.",
   "type": "boolean"
 };
@@ -14,7 +14,7 @@ export const zero_trust_gateway_client_default: JsonSchema = {
 /**
  * The schema of `zero-trust-gateway_dns-destination-ips-id-write`.
  */
-export const zero_trust_gateway_dns_destination_ips_id_write: JsonSchema = {
+export const zero$$trust$$gateway_dns$$destination$$ips$$id$$write: JsonSchema = {
   "description": "Specify the identifier of the pair of IPv4 addresses assigned to this location. When creating a location, if this field is absent or set to null, the pair of shared IPv4 addresses (0e4a32c6-6fb8-4858-9296-98f51631e8e6) is auto-assigned. When updating a location, if this field is absent or set to null, the pre-assigned pair remains unchanged.",
   "type": "string"
 };
@@ -22,7 +22,7 @@ export const zero_trust_gateway_dns_destination_ips_id_write: JsonSchema = {
 /**
  * The schema of `zero-trust-gateway_dns64-enabled`.
  */
-export const zero_trust_gateway_dns64_enabled: JsonSchema = {
+export const zero$$trust$$gateway_dns64$$enabled: JsonSchema = {
   "description": "Enable DNS64 synthesis for DNS queries matched to this location. When updating a location, omitting this field resets it to false.",
   "type": "boolean"
 };
@@ -30,7 +30,7 @@ export const zero_trust_gateway_dns64_enabled: JsonSchema = {
 /**
  * The schema of `zero-trust-gateway_doh_endpoint`.
  */
-export const zero_trust_gateway_doh_endpoint: JsonSchema = {
+export const zero$$trust$$gateway_doh_endpoint: JsonSchema = {
   "properties": {
     "enabled": {
       "description": "Indicate whether the DOH endpoint is enabled for this location.",
@@ -51,7 +51,7 @@ export const zero_trust_gateway_doh_endpoint: JsonSchema = {
 /**
  * The schema of `zero-trust-gateway_dot_endpoint`.
  */
-export const zero_trust_gateway_dot_endpoint: JsonSchema = {
+export const zero$$trust$$gateway_dot_endpoint: JsonSchema = {
   "properties": {
     "enabled": {
       "description": "Indicate whether the DOT endpoint is enabled for this location.",
@@ -68,7 +68,7 @@ export const zero_trust_gateway_dot_endpoint: JsonSchema = {
 /**
  * The schema of `zero-trust-gateway_ecs-support`.
  */
-export const zero_trust_gateway_ecs_support: JsonSchema = {
+export const zero$$trust$$gateway_ecs$$support: JsonSchema = {
   "description": "Indicate whether the location must resolve EDNS queries.",
   "type": "boolean"
 };
@@ -76,7 +76,7 @@ export const zero_trust_gateway_ecs_support: JsonSchema = {
 /**
  * The schema of `zero-trust-gateway_endpoints`.
  */
-export const zero_trust_gateway_endpoints: JsonSchema = {
+export const zero$$trust$$gateway_endpoints: JsonSchema = {
   "description": "Configure the destination endpoints for this location.",
   "oneOf": [
     {
@@ -111,7 +111,7 @@ export const zero_trust_gateway_endpoints: JsonSchema = {
 /**
  * The schema of `zero-trust-gateway_ip_network`.
  */
-export const zero_trust_gateway_ip_network: JsonSchema = {
+export const zero$$trust$$gateway_ip_network: JsonSchema = {
   "properties": {
     "network": {
       "description": "Specify the IP address or IP CIDR.",
@@ -127,7 +127,7 @@ export const zero_trust_gateway_ip_network: JsonSchema = {
 /**
  * The schema of `zero-trust-gateway_ip_networks`.
  */
-export const zero_trust_gateway_ip_networks: JsonSchema = {
+export const zero$$trust$$gateway_ip_networks: JsonSchema = {
   "description": "Specify the list of allowed source IP network ranges for this endpoint. When the list is empty, the endpoint allows all source IPs. The list takes effect only if the endpoint is enabled for this location.",
   "oneOf": [
     {
@@ -145,7 +145,7 @@ export const zero_trust_gateway_ip_networks: JsonSchema = {
 /**
  * The schema of `zero-trust-gateway_ipv4_endpoint`.
  */
-export const zero_trust_gateway_ipv4_endpoint: JsonSchema = {
+export const zero$$trust$$gateway_ipv4_endpoint: JsonSchema = {
   "properties": {
     "enabled": {
       "description": "Indicate whether the IPv4 endpoint is enabled for this location.",
@@ -158,7 +158,7 @@ export const zero_trust_gateway_ipv4_endpoint: JsonSchema = {
 /**
  * The schema of `zero-trust-gateway_ipv4_network`.
  */
-export const zero_trust_gateway_ipv4_network: JsonSchema = {
+export const zero$$trust$$gateway_ipv4_network: JsonSchema = {
   "properties": {
     "network": {
       "description": "Specify the IPv4 address or IPv4 CIDR. Limit IPv4 CIDRs to a maximum of /24.",
@@ -174,7 +174,7 @@ export const zero_trust_gateway_ipv4_network: JsonSchema = {
 /**
  * The schema of `zero-trust-gateway_ipv4_networks`.
  */
-export const zero_trust_gateway_ipv4_networks: JsonSchema = {
+export const zero$$trust$$gateway_ipv4_networks: JsonSchema = {
   "description": "Specify the list of network ranges from which requests at this location originate. The list takes effect only if it is non-empty and the IPv4 endpoint is enabled for this location.",
   "oneOf": [
     {
@@ -192,7 +192,7 @@ export const zero_trust_gateway_ipv4_networks: JsonSchema = {
 /**
  * The schema of `zero-trust-gateway_ipv6_endpoint`.
  */
-export const zero_trust_gateway_ipv6_endpoint: JsonSchema = {
+export const zero$$trust$$gateway_ipv6_endpoint: JsonSchema = {
   "properties": {
     "enabled": {
       "description": "Indicate whether the IPV6 endpoint is enabled for this location.",
@@ -209,7 +209,7 @@ export const zero_trust_gateway_ipv6_endpoint: JsonSchema = {
 /**
  * The schema of `zero-trust-gateway_ipv6_network`.
  */
-export const zero_trust_gateway_ipv6_network: JsonSchema = {
+export const zero$$trust$$gateway_ipv6_network: JsonSchema = {
   "properties": {
     "network": {
       "description": "Specify the IPv6 address or IPv6 CIDR.",
@@ -225,7 +225,7 @@ export const zero_trust_gateway_ipv6_network: JsonSchema = {
 /**
  * The schema of `zero-trust-gateway_ipv6_networks`.
  */
-export const zero_trust_gateway_ipv6_networks: JsonSchema = {
+export const zero$$trust$$gateway_ipv6_networks: JsonSchema = {
   "description": "Specify the list of allowed source IPv6 network ranges for this endpoint. When the list is empty, the endpoint allows all source IPs. The list takes effect only if the endpoint is enabled for this location.",
   "oneOf": [
     {
@@ -243,7 +243,7 @@ export const zero_trust_gateway_ipv6_networks: JsonSchema = {
 /**
  * The schema of `zero-trust-gateway_max-ttl`.
  */
-export const zero_trust_gateway_max_ttl: JsonSchema = {
+export const zero$$trust$$gateway_max$$ttl: JsonSchema = {
   "description": "Controls how DNS response TTLs are capped for this location relative to the account `max_ttl_secs` setting. Omitting `max_ttl` on update resets it to `inherit`.",
   "oneOf": [
     {
@@ -283,7 +283,7 @@ export const zero_trust_gateway_max_ttl: JsonSchema = {
 /**
  * The schema of `zero-trust-gateway_name-2`.
  */
-export const zero_trust_gateway_name_2: JsonSchema = {
+export const zero$$trust$$gateway_name$$2: JsonSchema = {
   "description": "Specify the location name.",
   "type": "string"
 };

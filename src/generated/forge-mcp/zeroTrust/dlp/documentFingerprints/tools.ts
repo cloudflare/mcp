@@ -3,14 +3,14 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
-  dlp_api_response_common_failure_output,
-  dlp_api_response_single_output,
-  dlp_messages_output,
+  dlp_api$$response$$common$$failure,
+  dlp_api$$response$$single,
+  dlp_messages,
 } from "../../outputs.js";
-import { dlp_DatasetUploadStatus_output } from "../outputs.js";
+import { dlp_DatasetUploadStatus } from "../outputs.js";
 import {
-  dlp_DocumentFingerprintArray_output,
-  dlp_DocumentFingerprint_output,
+  dlp_DocumentFingerprint,
+  dlp_DocumentFingerprintArray,
 } from "./outputs.js";
 import {
   dlp_NewDocumentFingerprint,
@@ -18,26 +18,34 @@ import {
 } from "./schemas.js";
 
 /**
- * The tools of `zero_trust.dlp.document_fingerprints`.
+ * The tools of `zeroTrust.dlp.documentFingerprints`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "zero_trust_dlp_document_fingerprints_create",
+    name: "zeroTrust_dlp_documentFingerprints_create",
     title: "Creates a new document fingerprint.",
     description: "Creates a new document fingerprint for DLP scanning. Document fingerprints detect documents that are structurally similar to the uploaded sample.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "type": "string"
-        },
         "body": {
           "$ref": "#/$defs/dlp_NewDocumentFingerprint",
           "description": "Attributes of the new document fingerprint."
+        },
+        "path": {
+          "properties": {
+            "account_id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
+        "path",
         "body"
       ],
       $defs: {
@@ -59,10 +67,10 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "dlp_DatasetUploadStatus": dlp_DatasetUploadStatus_output,
-        "dlp_DocumentFingerprint": dlp_DocumentFingerprint_output,
-        "dlp_api-response-single": dlp_api_response_single_output,
-        "dlp_messages": dlp_messages_output,
+        "dlp_DatasetUploadStatus": dlp_DatasetUploadStatus,
+        "dlp_DocumentFingerprint": dlp_DocumentFingerprint,
+        "dlp_api-response-single": dlp_api$$response$$single,
+        "dlp_messages": dlp_messages,
       },
     },
     annotations: {
@@ -101,11 +109,11 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "dlp_DatasetUploadStatus": dlp_DatasetUploadStatus_output,
-        "dlp_DocumentFingerprint": dlp_DocumentFingerprint_output,
-        "dlp_api-response-common-failure": dlp_api_response_common_failure_output,
-        "dlp_api-response-single": dlp_api_response_single_output,
-        "dlp_messages": dlp_messages_output,
+        "dlp_DatasetUploadStatus": dlp_DatasetUploadStatus,
+        "dlp_DocumentFingerprint": dlp_DocumentFingerprint,
+        "dlp_api-response-common-failure": dlp_api$$response$$common$$failure,
+        "dlp_api-response-single": dlp_api$$response$$single,
+        "dlp_messages": dlp_messages,
       },
     },
     request: (args) => ({
@@ -114,23 +122,31 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "zero_trust_dlp_document_fingerprints_delete",
+    name: "zeroTrust_dlp_documentFingerprints_delete",
     title: "Delete a single document fingerprint.",
     description: "Removes a document fingerprint from DLP configuration. Documents matching this fingerprint will no longer be detected.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "type": "string"
-        },
-        "document_fingerprint_id": {
-          "format": "uuid",
-          "type": "string"
+        "path": {
+          "properties": {
+            "account_id": {
+              "type": "string"
+            },
+            "document_fingerprint_id": {
+              "format": "uuid",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "document_fingerprint_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "document_fingerprint_id"
+        "path"
       ],
     },
     annotations: {
@@ -155,8 +171,8 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "dlp_api-response-common-failure": dlp_api_response_common_failure_output,
-        "dlp_messages": dlp_messages_output,
+        "dlp_api-response-common-failure": dlp_api$$response$$common$$failure,
+        "dlp_messages": dlp_messages,
       },
     },
     request: (args) => ({
@@ -164,23 +180,31 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "zero_trust_dlp_document_fingerprints_get",
+    name: "zeroTrust_dlp_documentFingerprints_get",
     title: "Retrieve data about a specific document fingerprint.",
     description: "Gets a document fingerprint and its latest upload status.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "type": "string"
-        },
-        "document_fingerprint_id": {
-          "format": "uuid",
-          "type": "string"
+        "path": {
+          "properties": {
+            "account_id": {
+              "type": "string"
+            },
+            "document_fingerprint_id": {
+              "format": "uuid",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "document_fingerprint_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "document_fingerprint_id"
+        "path"
       ],
     },
     outputSchema: {
@@ -198,10 +222,10 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "dlp_DatasetUploadStatus": dlp_DatasetUploadStatus_output,
-        "dlp_DocumentFingerprint": dlp_DocumentFingerprint_output,
-        "dlp_api-response-single": dlp_api_response_single_output,
-        "dlp_messages": dlp_messages_output,
+        "dlp_DatasetUploadStatus": dlp_DatasetUploadStatus,
+        "dlp_DocumentFingerprint": dlp_DocumentFingerprint,
+        "dlp_api-response-single": dlp_api$$response$$single,
+        "dlp_messages": dlp_messages,
       },
     },
     annotations: {
@@ -241,11 +265,11 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "dlp_DatasetUploadStatus": dlp_DatasetUploadStatus_output,
-        "dlp_DocumentFingerprint": dlp_DocumentFingerprint_output,
-        "dlp_api-response-common-failure": dlp_api_response_common_failure_output,
-        "dlp_api-response-single": dlp_api_response_single_output,
-        "dlp_messages": dlp_messages_output,
+        "dlp_DatasetUploadStatus": dlp_DatasetUploadStatus,
+        "dlp_DocumentFingerprint": dlp_DocumentFingerprint,
+        "dlp_api-response-common-failure": dlp_api$$response$$common$$failure,
+        "dlp_api-response-single": dlp_api$$response$$single,
+        "dlp_messages": dlp_messages,
       },
     },
     request: (args) => ({
@@ -253,18 +277,26 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "zero_trust_dlp_document_fingerprints_list",
+    name: "zeroTrust_dlp_documentFingerprints_list",
     title: "Retrieve data about all document fingerprints.",
     description: "Lists all document fingerprints configured for DLP scanning in the account.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "type": "string"
+        "path": {
+          "properties": {
+            "account_id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id"
+        "path"
       ],
     },
     outputSchema: {
@@ -282,11 +314,11 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "dlp_DatasetUploadStatus": dlp_DatasetUploadStatus_output,
-        "dlp_DocumentFingerprint": dlp_DocumentFingerprint_output,
-        "dlp_DocumentFingerprintArray": dlp_DocumentFingerprintArray_output,
-        "dlp_api-response-single": dlp_api_response_single_output,
-        "dlp_messages": dlp_messages_output,
+        "dlp_DatasetUploadStatus": dlp_DatasetUploadStatus,
+        "dlp_DocumentFingerprint": dlp_DocumentFingerprint,
+        "dlp_DocumentFingerprintArray": dlp_DocumentFingerprintArray,
+        "dlp_api-response-single": dlp_api$$response$$single,
+        "dlp_messages": dlp_messages,
       },
     },
     annotations: {
@@ -326,12 +358,12 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "dlp_DatasetUploadStatus": dlp_DatasetUploadStatus_output,
-        "dlp_DocumentFingerprint": dlp_DocumentFingerprint_output,
-        "dlp_DocumentFingerprintArray": dlp_DocumentFingerprintArray_output,
-        "dlp_api-response-common-failure": dlp_api_response_common_failure_output,
-        "dlp_api-response-single": dlp_api_response_single_output,
-        "dlp_messages": dlp_messages_output,
+        "dlp_DatasetUploadStatus": dlp_DatasetUploadStatus,
+        "dlp_DocumentFingerprint": dlp_DocumentFingerprint,
+        "dlp_DocumentFingerprintArray": dlp_DocumentFingerprintArray,
+        "dlp_api-response-common-failure": dlp_api$$response$$common$$failure,
+        "dlp_api-response-single": dlp_api$$response$$single,
+        "dlp_messages": dlp_messages,
       },
     },
     request: (args) => ({
@@ -339,27 +371,35 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "zero_trust_dlp_document_fingerprints_update",
+    name: "zeroTrust_dlp_documentFingerprints_update",
     title: "Update the attributes of a single document fingerprint.",
     description: "Updates metadata for an existing document fingerprint, such as its name or description.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "type": "string"
-        },
         "body": {
           "$ref": "#/$defs/dlp_UpdateDocumentFingerprint",
           "description": "Attributes of the document fingerprint to update."
         },
-        "document_fingerprint_id": {
-          "format": "uuid",
-          "type": "string"
+        "path": {
+          "properties": {
+            "account_id": {
+              "type": "string"
+            },
+            "document_fingerprint_id": {
+              "format": "uuid",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "document_fingerprint_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "document_fingerprint_id",
+        "path",
         "body"
       ],
       $defs: {
@@ -381,10 +421,10 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "dlp_DatasetUploadStatus": dlp_DatasetUploadStatus_output,
-        "dlp_DocumentFingerprint": dlp_DocumentFingerprint_output,
-        "dlp_api-response-single": dlp_api_response_single_output,
-        "dlp_messages": dlp_messages_output,
+        "dlp_DatasetUploadStatus": dlp_DatasetUploadStatus,
+        "dlp_DocumentFingerprint": dlp_DocumentFingerprint,
+        "dlp_api-response-single": dlp_api$$response$$single,
+        "dlp_messages": dlp_messages,
       },
     },
     annotations: {
@@ -423,11 +463,11 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "dlp_DatasetUploadStatus": dlp_DatasetUploadStatus_output,
-        "dlp_DocumentFingerprint": dlp_DocumentFingerprint_output,
-        "dlp_api-response-common-failure": dlp_api_response_common_failure_output,
-        "dlp_api-response-single": dlp_api_response_single_output,
-        "dlp_messages": dlp_messages_output,
+        "dlp_DatasetUploadStatus": dlp_DatasetUploadStatus,
+        "dlp_DocumentFingerprint": dlp_DocumentFingerprint,
+        "dlp_api-response-common-failure": dlp_api$$response$$common$$failure,
+        "dlp_api-response-single": dlp_api$$response$$single,
+        "dlp_messages": dlp_messages,
       },
     },
     request: (args) => ({

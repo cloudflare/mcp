@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `pages_domain` in responses.
  */
-export const pages_domain_output: JsonSchema = {
+export const pages_domain: JsonSchema = {
   "properties": {
     "certificate_authority": {
       "enum": [
@@ -115,6 +115,6 @@ export const pages_domain_output: JsonSchema = {
 /**
  * The schema of `pages_domain_name` in responses.
  */
-export const pages_domain_name_output: JsonSchema = {
+export const pages_domain_name: JsonSchema = {
   "type": "string"
 };

@@ -3,23 +3,23 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
-  cache_settings_api_response_common_failure_output,
-  cache_settings_api_response_common_output,
-  cache_settings_messages_output,
+  cache$$settings_api$$response$$common,
+  cache$$settings_api$$response$$common$$failure,
+  cache$$settings_messages,
 } from "../../../outputs.js";
-import { cache_settings_identifier } from "../../../schemas.js";
-import { cache_settings_origin_cloud_region_v2_request } from "../schemas.js";
+import { cache$$settings_identifier } from "../../../schemas.js";
+import { cache$$settings_origin_cloud_region_v2_request } from "../schemas.js";
 import {
-  cache_settings_origin_cloud_region_v2_batch_item_result_output,
-  cache_settings_origin_cloud_region_v2_batch_result_output,
+  cache$$settings_origin_cloud_region_v2_batch_item_result,
+  cache$$settings_origin_cloud_region_v2_batch_result,
 } from "./outputs.js";
 
 /**
- * The tools of `cache.origin_cloud_regions.bulk`.
+ * The tools of `cache.originCloudRegions.bulk`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "cache_origin_cloud_regions_bulk_delete",
+    name: "cache_originCloudRegions_bulk_delete",
     title: "Batch delete origin cloud region mappings",
     description: "Removes up to 100 IP-to-cloud-region mappings in a single request. Each IP is validated independently — successfully deleted items are returned in the `succeeded` array and IPs that could not be found or are invalid are returned in the `failed` array.\n\nConfirm with the user before calling this tool. Are you sure you want to delete these Origin Cloud Region configurations?",
     inputSchema: {
@@ -32,17 +32,25 @@ export const tools: readonly Tool[] = [
           "maxItems": 100,
           "type": "array"
         },
-        "zone_id": {
-          "$ref": "#/$defs/cache-settings_identifier",
-          "description": "Identifier."
+        "path": {
+          "properties": {
+            "zone_id": {
+              "$ref": "#/$defs/cache-settings_identifier",
+              "description": "Identifier."
+            }
+          },
+          "required": [
+            "zone_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "zone_id",
+        "path",
         "body"
       ],
       $defs: {
-        "cache-settings_identifier": cache_settings_identifier,
+        "cache-settings_identifier": cache$$settings_identifier,
       },
     },
     outputSchema: {
@@ -60,10 +68,10 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "cache-settings_api-response-common": cache_settings_api_response_common_output,
-        "cache-settings_messages": cache_settings_messages_output,
-        "cache-settings_origin_cloud_region_v2_batch_item_result": cache_settings_origin_cloud_region_v2_batch_item_result_output,
-        "cache-settings_origin_cloud_region_v2_batch_result": cache_settings_origin_cloud_region_v2_batch_result_output,
+        "cache-settings_api-response-common": cache$$settings_api$$response$$common,
+        "cache-settings_messages": cache$$settings_messages,
+        "cache-settings_origin_cloud_region_v2_batch_item_result": cache$$settings_origin_cloud_region_v2_batch_item_result,
+        "cache-settings_origin_cloud_region_v2_batch_result": cache$$settings_origin_cloud_region_v2_batch_result,
       },
     },
     annotations: {
@@ -105,11 +113,11 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "cache-settings_api-response-common": cache_settings_api_response_common_output,
-        "cache-settings_api-response-common-failure": cache_settings_api_response_common_failure_output,
-        "cache-settings_messages": cache_settings_messages_output,
-        "cache-settings_origin_cloud_region_v2_batch_item_result": cache_settings_origin_cloud_region_v2_batch_item_result_output,
-        "cache-settings_origin_cloud_region_v2_batch_result": cache_settings_origin_cloud_region_v2_batch_result_output,
+        "cache-settings_api-response-common": cache$$settings_api$$response$$common,
+        "cache-settings_api-response-common-failure": cache$$settings_api$$response$$common$$failure,
+        "cache-settings_messages": cache$$settings_messages,
+        "cache-settings_origin_cloud_region_v2_batch_item_result": cache$$settings_origin_cloud_region_v2_batch_item_result,
+        "cache-settings_origin_cloud_region_v2_batch_result": cache$$settings_origin_cloud_region_v2_batch_result,
       },
     },
     request: (args) => ({
@@ -118,7 +126,7 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "cache_origin_cloud_regions_bulk_update",
+    name: "cache_originCloudRegions_bulk_update",
     title: "Batch create or replace origin cloud region mappings",
     description: "Upserts up to 100 IP-to-cloud-region mappings in a single request. Items in the request body are created or replaced; mappings not included in the request body are preserved unchanged (this is a merge operation, not a full collection replacement). Each item is validated independently — valid items are applied and invalid items are returned in the `failed` array. The vendor and region for every item are validated against the list from `GET /zones/{zone_id}/origin/cloud_regions/supported_regions`.",
     inputSchema: {
@@ -131,18 +139,26 @@ export const tools: readonly Tool[] = [
           "maxItems": 100,
           "type": "array"
         },
-        "zone_id": {
-          "$ref": "#/$defs/cache-settings_identifier",
-          "description": "Identifier."
+        "path": {
+          "properties": {
+            "zone_id": {
+              "$ref": "#/$defs/cache-settings_identifier",
+              "description": "Identifier."
+            }
+          },
+          "required": [
+            "zone_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "zone_id",
+        "path",
         "body"
       ],
       $defs: {
-        "cache-settings_identifier": cache_settings_identifier,
-        "cache-settings_origin_cloud_region_v2_request": cache_settings_origin_cloud_region_v2_request,
+        "cache-settings_identifier": cache$$settings_identifier,
+        "cache-settings_origin_cloud_region_v2_request": cache$$settings_origin_cloud_region_v2_request,
       },
     },
     outputSchema: {
@@ -160,10 +176,10 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "cache-settings_api-response-common": cache_settings_api_response_common_output,
-        "cache-settings_messages": cache_settings_messages_output,
-        "cache-settings_origin_cloud_region_v2_batch_item_result": cache_settings_origin_cloud_region_v2_batch_item_result_output,
-        "cache-settings_origin_cloud_region_v2_batch_result": cache_settings_origin_cloud_region_v2_batch_result_output,
+        "cache-settings_api-response-common": cache$$settings_api$$response$$common,
+        "cache-settings_messages": cache$$settings_messages,
+        "cache-settings_origin_cloud_region_v2_batch_item_result": cache$$settings_origin_cloud_region_v2_batch_item_result,
+        "cache-settings_origin_cloud_region_v2_batch_result": cache$$settings_origin_cloud_region_v2_batch_result,
       },
     },
     annotations: {
@@ -205,11 +221,11 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "cache-settings_api-response-common": cache_settings_api_response_common_output,
-        "cache-settings_api-response-common-failure": cache_settings_api_response_common_failure_output,
-        "cache-settings_messages": cache_settings_messages_output,
-        "cache-settings_origin_cloud_region_v2_batch_item_result": cache_settings_origin_cloud_region_v2_batch_item_result_output,
-        "cache-settings_origin_cloud_region_v2_batch_result": cache_settings_origin_cloud_region_v2_batch_result_output,
+        "cache-settings_api-response-common": cache$$settings_api$$response$$common,
+        "cache-settings_api-response-common-failure": cache$$settings_api$$response$$common$$failure,
+        "cache-settings_messages": cache$$settings_messages,
+        "cache-settings_origin_cloud_region_v2_batch_item_result": cache$$settings_origin_cloud_region_v2_batch_item_result,
+        "cache-settings_origin_cloud_region_v2_batch_result": cache$$settings_origin_cloud_region_v2_batch_result,
       },
     },
     request: (args) => ({

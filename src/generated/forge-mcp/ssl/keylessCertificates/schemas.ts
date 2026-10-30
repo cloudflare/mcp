@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `tls-certificates-and-hostnames_certificate-2`.
  */
-export const tls_certificates_and_hostnames_certificate_2: JsonSchema = {
+export const tls$$certificates$$and$$hostnames_certificate$$2: JsonSchema = {
   "description": "The zone's SSL certificate or SSL certificate and intermediate(s).",
   "type": "string"
 };
@@ -14,7 +14,7 @@ export const tls_certificates_and_hostnames_certificate_2: JsonSchema = {
 /**
  * The schema of `tls-certificates-and-hostnames_enabled_write`.
  */
-export const tls_certificates_and_hostnames_enabled_write: JsonSchema = {
+export const tls$$certificates$$and$$hostnames_enabled_write: JsonSchema = {
   "deprecated": true,
   "description": "Whether or not the Keyless SSL is on or off.",
   "type": "boolean"
@@ -23,7 +23,7 @@ export const tls_certificates_and_hostnames_enabled_write: JsonSchema = {
 /**
  * The schema of `tls-certificates-and-hostnames_name_write`.
  */
-export const tls_certificates_and_hostnames_name_write: JsonSchema = {
+export const tls$$certificates$$and$$hostnames_name_write: JsonSchema = {
   "description": "The keyless SSL name.",
   "type": "string"
 };

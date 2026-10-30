@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `email_catch_all_rule` in responses.
  */
-export const email_catch_all_rule_output: JsonSchema = {
+export const email_catch_all_rule: JsonSchema = {
   "properties": {
     "actions": {
       "$ref": "#/$defs/email_rule_catchall-actions"
@@ -36,7 +36,7 @@ export const email_catch_all_rule_output: JsonSchema = {
 /**
  * The schema of `email_catch_all_rule_response_single` in responses.
  */
-export const email_catch_all_rule_response_single_output: JsonSchema = {
+export const email_catch_all_rule_response_single: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/email_api-response-single"

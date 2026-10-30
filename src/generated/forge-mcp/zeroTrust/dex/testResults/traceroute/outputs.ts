@@ -7,7 +7,7 @@ import type { JsonSchema } from "../../../../_/tool.js";
  * The schema of `digital-experience-monitoring_traceroute_details_response` in
  * responses.
  */
-export const digital_experience_monitoring_traceroute_details_response_output: JsonSchema = {
+export const digital$$experience$$monitoring_traceroute_details_response: JsonSchema = {
   "properties": {
     "host": {
       "type": "string"

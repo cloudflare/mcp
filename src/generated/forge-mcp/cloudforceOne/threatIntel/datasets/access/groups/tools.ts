@@ -4,20 +4,16 @@
 import { type Tool, pathParam } from "../../../../../_/tool.js";
 
 /**
- * The tools of `cloudforce_one.threat_intel.datasets.access.groups`.
+ * The tools of `cloudforceOne.threatIntel.datasets.access.groups`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "cloudforce_one_threat_intel_datasets_access_groups_create",
+    name: "cloudforceOne_threatIntel_datasets_access_groups_create",
     title: "Create an account group",
     description: "Creates a named group of accounts. To give the group access to a dataset, use `threat-intel datasets access permissions create`.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "description": "Account ID.",
-          "type": "string"
-        },
         "body": {
           "properties": {
             "description": {
@@ -32,10 +28,22 @@ export const tools: readonly Tool[] = [
             "name"
           ],
           "type": "object"
+        },
+        "path": {
+          "properties": {
+            "account_id": {
+              "description": "Account ID.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id"
+        "path"
       ],
     },
     outputSchema: {
@@ -151,23 +159,31 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "cloudforce_one_threat_intel_datasets_access_groups_delete",
+    name: "cloudforceOne_threatIntel_datasets_access_groups_delete",
     title: "Delete an account group",
     description: "Deletes an account group by its ID.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "description": "Account ID.",
-          "type": "string"
-        },
-        "group_id": {
-          "type": "string"
+        "path": {
+          "properties": {
+            "account_id": {
+              "description": "Account ID.",
+              "type": "string"
+            },
+            "group_id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "group_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "group_id"
+        "path"
       ],
     },
     outputSchema: {
@@ -245,23 +261,31 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "cloudforce_one_threat_intel_datasets_access_groups_get",
+    name: "cloudforceOne_threatIntel_datasets_access_groups_get",
     title: "Get an account group",
     description: "Returns an account group by its ID.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "description": "Account ID.",
-          "type": "string"
-        },
-        "group_id": {
-          "type": "string"
+        "path": {
+          "properties": {
+            "account_id": {
+              "description": "Account ID.",
+              "type": "string"
+            },
+            "group_id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "group_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "group_id"
+        "path"
       ],
     },
     outputSchema: {
@@ -436,19 +460,27 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "cloudforce_one_threat_intel_datasets_access_groups_list",
+    name: "cloudforceOne_threatIntel_datasets_access_groups_list",
     title: "List account groups",
     description: "Lists the account groups. A group is a set of accounts that can be given access to a dataset with `threat-intel datasets access permissions create`.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "description": "Account ID.",
-          "type": "string"
+        "path": {
+          "properties": {
+            "account_id": {
+              "description": "Account ID.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id"
+        "path"
       ],
     },
     outputSchema: {
@@ -569,16 +601,12 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "cloudforce_one_threat_intel_datasets_access_groups_update",
+    name: "cloudforceOne_threatIntel_datasets_access_groups_update",
     title: "Update an account group",
     description: "Replaces an account group's `name` and `description`.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "description": "Account ID.",
-          "type": "string"
-        },
         "body": {
           "properties": {
             "description": {
@@ -594,13 +622,25 @@ export const tools: readonly Tool[] = [
           ],
           "type": "object"
         },
-        "group_id": {
-          "type": "string"
+        "path": {
+          "properties": {
+            "account_id": {
+              "description": "Account ID.",
+              "type": "string"
+            },
+            "group_id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "group_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "group_id"
+        "path"
       ],
     },
     outputSchema: {

@@ -6,7 +6,7 @@ import type { JsonSchema } from "../_/tool.js";
 /**
  * The schema of `waf-product-api-bundle_settings`.
  */
-export const waf_product_api_bundle_settings: JsonSchema = {
+export const waf$$product$$api$$bundle_settings: JsonSchema = {
   "description": "AI Security for Apps enablement status for a zone.",
   "properties": {
     "enabled": {
@@ -20,7 +20,7 @@ export const waf_product_api_bundle_settings: JsonSchema = {
 /**
  * The schema of `waf-product-api-bundle_zone_id`.
  */
-export const waf_product_api_bundle_zone_id: JsonSchema = {
+export const waf$$product$$api$$bundle_zone_id: JsonSchema = {
   "description": "Defines the zone.",
   "type": "string"
 };

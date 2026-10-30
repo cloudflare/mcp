@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `workers-observability_agent_session` in responses.
  */
-export const workers_observability_agent_session_output: JsonSchema = {
+export const workers$$observability_agent_session: JsonSchema = {
   "properties": {
     "conversationId": {
       "type": "string"
@@ -65,7 +65,7 @@ export const workers_observability_agent_session_output: JsonSchema = {
 /**
  * The schema of `workers-observability_agent_session_run` in responses.
  */
-export const workers_observability_agent_session_run_output: JsonSchema = {
+export const workers$$observability_agent_session_run: JsonSchema = {
   "properties": {
     "conversationId": {
       "type": "string"

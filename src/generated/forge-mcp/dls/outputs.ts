@@ -6,7 +6,7 @@ import type { JsonSchema } from "../_/tool.js";
 /**
  * The schema of `dls_bad_response` in responses.
  */
-export const dls_bad_response_output: JsonSchema = {
+export const dls_bad_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/dls_response"
@@ -34,7 +34,7 @@ export const dls_bad_response_output: JsonSchema = {
 /**
  * The schema of `dls_coded_message` in responses.
  */
-export const dls_coded_message_output: JsonSchema = {
+export const dls_coded_message: JsonSchema = {
   "properties": {
     "code": {
       "type": "integer"
@@ -59,7 +59,7 @@ export const dls_coded_message_output: JsonSchema = {
 /**
  * The schema of `dls_good_response` in responses.
  */
-export const dls_good_response_output: JsonSchema = {
+export const dls_good_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/dls_response"
@@ -81,7 +81,7 @@ export const dls_good_response_output: JsonSchema = {
 /**
  * The schema of `dls_none` in responses.
  */
-export const dls_none_output: JsonSchema = {
+export const dls_none: JsonSchema = {
   "oneOf": [
     {
       "type": "object"
@@ -95,7 +95,7 @@ export const dls_none_output: JsonSchema = {
 /**
  * The schema of `dls_response` in responses.
  */
-export const dls_response_output: JsonSchema = {
+export const dls_response: JsonSchema = {
   "properties": {
     "messages": {
       "items": {

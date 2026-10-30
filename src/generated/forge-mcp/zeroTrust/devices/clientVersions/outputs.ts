@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `teams-devices_client_version` in responses.
  */
-export const teams_devices_client_version_output: JsonSchema = {
+export const teams$$devices_client_version: JsonSchema = {
   "properties": {
     "package_size": {
       "type": "integer"

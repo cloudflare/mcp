@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../../_/tool.js";
 /**
  * The schema of `moq_tokens_envelope` in responses.
  */
-export const moq_tokens_envelope_output: JsonSchema = {
+export const moq_tokens_envelope: JsonSchema = {
   "properties": {
     "issuers": {
       "items": {

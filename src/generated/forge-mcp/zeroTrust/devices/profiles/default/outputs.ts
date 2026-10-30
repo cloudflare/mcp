@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../../_/tool.js";
 /**
  * The schema of `teams-devices_default_device_settings_policy` in responses.
  */
-export const teams_devices_default_device_settings_policy_output: JsonSchema = {
+export const teams$$devices_default_device_settings_policy: JsonSchema = {
   "properties": {
     "allow_mode_switch": {
       "$ref": "#/$defs/teams-devices_allow_mode_switch"
@@ -93,7 +93,7 @@ export const teams_devices_default_device_settings_policy_output: JsonSchema = {
 /**
  * The schema of `teams-devices_default_device_settings_response` in responses.
  */
-export const teams_devices_default_device_settings_response_output: JsonSchema = {
+export const teams$$devices_default_device_settings_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/teams-devices_api-response-single"

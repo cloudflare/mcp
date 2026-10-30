@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `zaraz_zaraz-config-history-response` in responses.
  */
-export const zaraz_zaraz_config_history_response_output: JsonSchema = {
+export const zaraz_zaraz$$config$$history$$response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/zaraz_api-response-common"

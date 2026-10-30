@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `zero-trust-gateway_contents`.
  */
-export const zero_trust_gateway_contents: JsonSchema = {
+export const zero$$trust$$gateway_contents: JsonSchema = {
   "description": "Actual contents of the PAC file",
   "type": "string"
 };
@@ -14,7 +14,7 @@ export const zero_trust_gateway_contents: JsonSchema = {
 /**
  * The schema of `zero-trust-gateway_description-4`.
  */
-export const zero_trust_gateway_description_4: JsonSchema = {
+export const zero$$trust$$gateway_description$$4: JsonSchema = {
   "description": "Detailed description of the PAC file.",
   "type": "string"
 };
@@ -22,7 +22,7 @@ export const zero_trust_gateway_description_4: JsonSchema = {
 /**
  * The schema of `zero-trust-gateway_name-7`.
  */
-export const zero_trust_gateway_name_7: JsonSchema = {
+export const zero$$trust$$gateway_name$$7: JsonSchema = {
   "description": "Name of the PAC file.",
   "type": "string"
 };

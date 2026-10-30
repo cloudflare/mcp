@@ -6,7 +6,7 @@ import type { JsonSchema } from "../_/tool.js";
 /**
  * The schema of `mconn-telemetry_customer_snapshots_get_success` in responses.
  */
-export const mconn_telemetry_customer_snapshots_get_success_output: JsonSchema = {
+export const mconn$$telemetry_customer_snapshots_get_success: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/mconn-telemetry_envelope"
@@ -28,7 +28,7 @@ export const mconn_telemetry_customer_snapshots_get_success_output: JsonSchema =
 /**
  * The schema of `mconn-telemetry_customer_snapshots_list_result` in responses.
  */
-export const mconn_telemetry_customer_snapshots_list_result_output: JsonSchema = {
+export const mconn$$telemetry_customer_snapshots_list_result: JsonSchema = {
   "properties": {
     "count": {
       "type": "number"
@@ -53,7 +53,7 @@ export const mconn_telemetry_customer_snapshots_list_result_output: JsonSchema =
 /**
  * The schema of `mconn-telemetry_customer_snapshots_list_success` in responses.
  */
-export const mconn_telemetry_customer_snapshots_list_success_output: JsonSchema = {
+export const mconn$$telemetry_customer_snapshots_list_success: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/mconn-telemetry_envelope"
@@ -75,7 +75,7 @@ export const mconn_telemetry_customer_snapshots_list_success_output: JsonSchema 
 /**
  * The schema of `mconn-telemetry_snapshot` in responses.
  */
-export const mconn_telemetry_snapshot_output: JsonSchema = {
+export const mconn$$telemetry_snapshot: JsonSchema = {
   "properties": {
     "bonds": {
       "items": {
@@ -644,7 +644,7 @@ export const mconn_telemetry_snapshot_output: JsonSchema = {
 /**
  * The schema of `mconn-telemetry_snapshot_bond` in responses.
  */
-export const mconn_telemetry_snapshot_bond_output: JsonSchema = {
+export const mconn$$telemetry_snapshot_bond: JsonSchema = {
   "properties": {
     "name": {
       "type": "string"
@@ -663,7 +663,7 @@ export const mconn_telemetry_snapshot_bond_output: JsonSchema = {
 /**
  * The schema of `mconn-telemetry_snapshot_dhcp_lease` in responses.
  */
-export const mconn_telemetry_snapshot_dhcp_lease_output: JsonSchema = {
+export const mconn$$telemetry_snapshot_dhcp_lease: JsonSchema = {
   "properties": {
     "client_id": {
       "type": "string"
@@ -698,7 +698,7 @@ export const mconn_telemetry_snapshot_dhcp_lease_output: JsonSchema = {
 /**
  * The schema of `mconn-telemetry_snapshot_disk` in responses.
  */
-export const mconn_telemetry_snapshot_disk_output: JsonSchema = {
+export const mconn$$telemetry_snapshot_disk: JsonSchema = {
   "properties": {
     "discards": {
       "type": "number"
@@ -783,7 +783,7 @@ export const mconn_telemetry_snapshot_disk_output: JsonSchema = {
 /**
  * The schema of `mconn-telemetry_snapshot_interface` in responses.
  */
-export const mconn_telemetry_snapshot_interface_output: JsonSchema = {
+export const mconn$$telemetry_snapshot_interface: JsonSchema = {
   "properties": {
     "health_reason": {
       "type": "string"
@@ -817,7 +817,7 @@ export const mconn_telemetry_snapshot_interface_output: JsonSchema = {
 /**
  * The schema of `mconn-telemetry_snapshot_interface_address` in responses.
  */
-export const mconn_telemetry_snapshot_interface_address_output: JsonSchema = {
+export const mconn$$telemetry_snapshot_interface_address: JsonSchema = {
   "properties": {
     "interface_name": {
       "type": "string"
@@ -836,7 +836,7 @@ export const mconn_telemetry_snapshot_interface_address_output: JsonSchema = {
 /**
  * The schema of `mconn-telemetry_snapshot_metadata` in responses.
  */
-export const mconn_telemetry_snapshot_metadata_output: JsonSchema = {
+export const mconn$$telemetry_snapshot_metadata: JsonSchema = {
   "properties": {
     "a": {
       "type": "number"
@@ -855,7 +855,7 @@ export const mconn_telemetry_snapshot_metadata_output: JsonSchema = {
 /**
  * The schema of `mconn-telemetry_snapshot_mount` in responses.
  */
-export const mconn_telemetry_snapshot_mount_output: JsonSchema = {
+export const mconn$$telemetry_snapshot_mount: JsonSchema = {
   "properties": {
     "available_bytes": {
       "type": "number"
@@ -900,7 +900,7 @@ export const mconn_telemetry_snapshot_mount_output: JsonSchema = {
 /**
  * The schema of `mconn-telemetry_snapshot_netdev` in responses.
  */
-export const mconn_telemetry_snapshot_netdev_output: JsonSchema = {
+export const mconn$$telemetry_snapshot_netdev: JsonSchema = {
   "properties": {
     "name": {
       "type": "string"
@@ -979,7 +979,7 @@ export const mconn_telemetry_snapshot_netdev_output: JsonSchema = {
 /**
  * The schema of `mconn-telemetry_snapshot_route` in responses.
  */
-export const mconn_telemetry_snapshot_route_output: JsonSchema = {
+export const mconn$$telemetry_snapshot_route: JsonSchema = {
   "properties": {
     "destination": {
       "type": "string"
@@ -1012,7 +1012,7 @@ export const mconn_telemetry_snapshot_route_output: JsonSchema = {
 /**
  * The schema of `mconn-telemetry_snapshot_thermal` in responses.
  */
-export const mconn_telemetry_snapshot_thermal_output: JsonSchema = {
+export const mconn$$telemetry_snapshot_thermal: JsonSchema = {
   "properties": {
     "critical_celcius": {
       "type": "number"
@@ -1036,7 +1036,7 @@ export const mconn_telemetry_snapshot_thermal_output: JsonSchema = {
 /**
  * The schema of `mconn-telemetry_snapshot_tunnel` in responses.
  */
-export const mconn_telemetry_snapshot_tunnel_output: JsonSchema = {
+export const mconn$$telemetry_snapshot_tunnel: JsonSchema = {
   "properties": {
     "health_state": {
       "type": "string"

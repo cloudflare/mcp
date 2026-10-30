@@ -14,10 +14,6 @@ export const tools: readonly Tool[] = [
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "description": "Cloudflare account ID.",
-          "type": "string"
-        },
         "body": {
           "properties": {
             "repo": {
@@ -39,14 +35,26 @@ export const tools: readonly Tool[] = [
           ],
           "type": "object"
         },
-        "namespace": {
-          "description": "Artifacts namespace name.",
-          "type": "string"
+        "path": {
+          "properties": {
+            "account_id": {
+              "description": "Cloudflare account ID.",
+              "type": "string"
+            },
+            "namespace": {
+              "description": "Artifacts namespace name.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "namespace"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "namespace",
+        "path",
         "body"
       ],
     },
@@ -903,23 +911,31 @@ export const tools: readonly Tool[] = [
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "description": "Cloudflare account ID.",
-          "type": "string"
-        },
-        "id": {
-          "description": "Token ID. Must match /^[0-9a-z]{16}$/.",
-          "type": "string"
-        },
-        "namespace": {
-          "description": "Artifacts namespace name.",
-          "type": "string"
+        "path": {
+          "properties": {
+            "account_id": {
+              "description": "Cloudflare account ID.",
+              "type": "string"
+            },
+            "id": {
+              "description": "Token ID. Must match /^[0-9a-z]{16}$/.",
+              "type": "string"
+            },
+            "namespace": {
+              "description": "Artifacts namespace name.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "namespace",
+            "id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "namespace",
-        "id"
+        "path"
       ],
     },
     outputSchema: {

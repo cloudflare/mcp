@@ -3,45 +3,42 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
-  magic_visibility_mnm_api_response_common_failure_output,
-  magic_visibility_mnm_api_response_common_output,
-  magic_visibility_mnm_api_response_single_output,
-  magic_visibility_mnm_messages_output,
+  magic$$visibility$$mnm_api$$response$$common,
+  magic$$visibility$$mnm_api$$response$$common$$failure,
+  magic$$visibility$$mnm_api$$response$$single,
+  magic$$visibility$$mnm_messages,
 } from "../outputs.js";
-import { magic_visibility_mnm_account_identifier } from "../schemas.js";
+import { magic$$visibility$$mnm_account_identifier } from "../schemas.js";
 import {
-  magic_visibility_mnm_mnm_config_default_sampling_output,
-  magic_visibility_mnm_mnm_config_name_output,
-  magic_visibility_mnm_mnm_config_output,
-  magic_visibility_mnm_mnm_config_router_ip_output,
-  magic_visibility_mnm_mnm_config_router_ips_output,
-  magic_visibility_mnm_mnm_config_single_response_output,
-  magic_visibility_mnm_mnm_config_warp_device_output,
-  magic_visibility_mnm_mnm_config_warp_devices_output,
+  magic$$visibility$$mnm_mnm_config,
+  magic$$visibility$$mnm_mnm_config_default_sampling,
+  magic$$visibility$$mnm_mnm_config_name,
+  magic$$visibility$$mnm_mnm_config_router_ip,
+  magic$$visibility$$mnm_mnm_config_router_ips,
+  magic$$visibility$$mnm_mnm_config_single_response,
+  magic$$visibility$$mnm_mnm_config_warp_device,
+  magic$$visibility$$mnm_mnm_config_warp_devices,
 } from "./outputs.js";
 import {
-  magic_visibility_mnm_mnm_config_default_sampling,
-  magic_visibility_mnm_mnm_config_name,
-  magic_visibility_mnm_mnm_config_router_ip,
-  magic_visibility_mnm_mnm_config_router_ips,
-  magic_visibility_mnm_mnm_config_warp_device,
-  magic_visibility_mnm_mnm_config_warp_devices,
+  magic$$visibility$$mnm_mnm_config_default_sampling as magic$$visibility$$mnm_mnm_config_default_sampling$,
+  magic$$visibility$$mnm_mnm_config_name as magic$$visibility$$mnm_mnm_config_name$,
+  magic$$visibility$$mnm_mnm_config_router_ip as magic$$visibility$$mnm_mnm_config_router_ip$,
+  magic$$visibility$$mnm_mnm_config_router_ips as magic$$visibility$$mnm_mnm_config_router_ips$,
+  magic$$visibility$$mnm_mnm_config_warp_device as magic$$visibility$$mnm_mnm_config_warp_device$,
+  magic$$visibility$$mnm_mnm_config_warp_devices as magic$$visibility$$mnm_mnm_config_warp_devices$,
 } from "./schemas.js";
 
 /**
- * The tools of `magic_network_monitoring.configs`.
+ * The tools of `magicNetworkMonitoring.configs`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "magic_network_monitoring_configs_create",
+    name: "magicNetworkMonitoring_configs_create",
     title: "Create account configuration",
     description: "Create a new network monitoring configuration.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/magic-visibility-mnm_account_identifier"
-        },
         "body": {
           "properties": {
             "default_sampling": {
@@ -65,36 +62,47 @@ export const tools: readonly Tool[] = [
             "name"
           ],
           "type": "object"
+        },
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/magic-visibility-mnm_account_identifier"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
+        "path",
         "body"
       ],
       $defs: {
-        "magic-visibility-mnm_account_identifier": magic_visibility_mnm_account_identifier,
-        "magic-visibility-mnm_mnm_config_default_sampling": magic_visibility_mnm_mnm_config_default_sampling,
-        "magic-visibility-mnm_mnm_config_name": magic_visibility_mnm_mnm_config_name,
-        "magic-visibility-mnm_mnm_config_router_ip": magic_visibility_mnm_mnm_config_router_ip,
-        "magic-visibility-mnm_mnm_config_router_ips": magic_visibility_mnm_mnm_config_router_ips,
-        "magic-visibility-mnm_mnm_config_warp_device": magic_visibility_mnm_mnm_config_warp_device,
-        "magic-visibility-mnm_mnm_config_warp_devices": magic_visibility_mnm_mnm_config_warp_devices,
+        "magic-visibility-mnm_account_identifier": magic$$visibility$$mnm_account_identifier,
+        "magic-visibility-mnm_mnm_config_default_sampling": magic$$visibility$$mnm_mnm_config_default_sampling$,
+        "magic-visibility-mnm_mnm_config_name": magic$$visibility$$mnm_mnm_config_name$,
+        "magic-visibility-mnm_mnm_config_router_ip": magic$$visibility$$mnm_mnm_config_router_ip$,
+        "magic-visibility-mnm_mnm_config_router_ips": magic$$visibility$$mnm_mnm_config_router_ips$,
+        "magic-visibility-mnm_mnm_config_warp_device": magic$$visibility$$mnm_mnm_config_warp_device$,
+        "magic-visibility-mnm_mnm_config_warp_devices": magic$$visibility$$mnm_mnm_config_warp_devices$,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/magic-visibility-mnm_mnm_config_single_response",
       $defs: {
-        "magic-visibility-mnm_api-response-common": magic_visibility_mnm_api_response_common_output,
-        "magic-visibility-mnm_api-response-single": magic_visibility_mnm_api_response_single_output,
-        "magic-visibility-mnm_messages": magic_visibility_mnm_messages_output,
-        "magic-visibility-mnm_mnm_config": magic_visibility_mnm_mnm_config_output,
-        "magic-visibility-mnm_mnm_config_default_sampling": magic_visibility_mnm_mnm_config_default_sampling_output,
-        "magic-visibility-mnm_mnm_config_name": magic_visibility_mnm_mnm_config_name_output,
-        "magic-visibility-mnm_mnm_config_router_ip": magic_visibility_mnm_mnm_config_router_ip_output,
-        "magic-visibility-mnm_mnm_config_router_ips": magic_visibility_mnm_mnm_config_router_ips_output,
-        "magic-visibility-mnm_mnm_config_single_response": magic_visibility_mnm_mnm_config_single_response_output,
-        "magic-visibility-mnm_mnm_config_warp_device": magic_visibility_mnm_mnm_config_warp_device_output,
-        "magic-visibility-mnm_mnm_config_warp_devices": magic_visibility_mnm_mnm_config_warp_devices_output,
+        "magic-visibility-mnm_api-response-common": magic$$visibility$$mnm_api$$response$$common,
+        "magic-visibility-mnm_api-response-single": magic$$visibility$$mnm_api$$response$$single,
+        "magic-visibility-mnm_messages": magic$$visibility$$mnm_messages,
+        "magic-visibility-mnm_mnm_config": magic$$visibility$$mnm_mnm_config,
+        "magic-visibility-mnm_mnm_config_default_sampling": magic$$visibility$$mnm_mnm_config_default_sampling,
+        "magic-visibility-mnm_mnm_config_name": magic$$visibility$$mnm_mnm_config_name,
+        "magic-visibility-mnm_mnm_config_router_ip": magic$$visibility$$mnm_mnm_config_router_ip,
+        "magic-visibility-mnm_mnm_config_router_ips": magic$$visibility$$mnm_mnm_config_router_ips,
+        "magic-visibility-mnm_mnm_config_single_response": magic$$visibility$$mnm_mnm_config_single_response,
+        "magic-visibility-mnm_mnm_config_warp_device": magic$$visibility$$mnm_mnm_config_warp_device,
+        "magic-visibility-mnm_mnm_config_warp_devices": magic$$visibility$$mnm_mnm_config_warp_devices,
       },
     },
     annotations: {
@@ -128,18 +136,18 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "magic-visibility-mnm_api-response-common": magic_visibility_mnm_api_response_common_output,
-        "magic-visibility-mnm_api-response-common-failure": magic_visibility_mnm_api_response_common_failure_output,
-        "magic-visibility-mnm_api-response-single": magic_visibility_mnm_api_response_single_output,
-        "magic-visibility-mnm_messages": magic_visibility_mnm_messages_output,
-        "magic-visibility-mnm_mnm_config": magic_visibility_mnm_mnm_config_output,
-        "magic-visibility-mnm_mnm_config_default_sampling": magic_visibility_mnm_mnm_config_default_sampling_output,
-        "magic-visibility-mnm_mnm_config_name": magic_visibility_mnm_mnm_config_name_output,
-        "magic-visibility-mnm_mnm_config_router_ip": magic_visibility_mnm_mnm_config_router_ip_output,
-        "magic-visibility-mnm_mnm_config_router_ips": magic_visibility_mnm_mnm_config_router_ips_output,
-        "magic-visibility-mnm_mnm_config_single_response": magic_visibility_mnm_mnm_config_single_response_output,
-        "magic-visibility-mnm_mnm_config_warp_device": magic_visibility_mnm_mnm_config_warp_device_output,
-        "magic-visibility-mnm_mnm_config_warp_devices": magic_visibility_mnm_mnm_config_warp_devices_output,
+        "magic-visibility-mnm_api-response-common": magic$$visibility$$mnm_api$$response$$common,
+        "magic-visibility-mnm_api-response-common-failure": magic$$visibility$$mnm_api$$response$$common$$failure,
+        "magic-visibility-mnm_api-response-single": magic$$visibility$$mnm_api$$response$$single,
+        "magic-visibility-mnm_messages": magic$$visibility$$mnm_messages,
+        "magic-visibility-mnm_mnm_config": magic$$visibility$$mnm_mnm_config,
+        "magic-visibility-mnm_mnm_config_default_sampling": magic$$visibility$$mnm_mnm_config_default_sampling,
+        "magic-visibility-mnm_mnm_config_name": magic$$visibility$$mnm_mnm_config_name,
+        "magic-visibility-mnm_mnm_config_router_ip": magic$$visibility$$mnm_mnm_config_router_ip,
+        "magic-visibility-mnm_mnm_config_router_ips": magic$$visibility$$mnm_mnm_config_router_ips,
+        "magic-visibility-mnm_mnm_config_single_response": magic$$visibility$$mnm_mnm_config_single_response,
+        "magic-visibility-mnm_mnm_config_warp_device": magic$$visibility$$mnm_mnm_config_warp_device,
+        "magic-visibility-mnm_mnm_config_warp_devices": magic$$visibility$$mnm_mnm_config_warp_devices,
       },
     },
     request: (args) => ({
@@ -148,37 +156,45 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "magic_network_monitoring_configs_delete",
+    name: "magicNetworkMonitoring_configs_delete",
     title: "Delete account configuration",
     description: "Delete an existing network monitoring configuration.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/magic-visibility-mnm_account_identifier"
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/magic-visibility-mnm_account_identifier"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id"
+        "path"
       ],
       $defs: {
-        "magic-visibility-mnm_account_identifier": magic_visibility_mnm_account_identifier,
+        "magic-visibility-mnm_account_identifier": magic$$visibility$$mnm_account_identifier,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/magic-visibility-mnm_mnm_config_single_response",
       $defs: {
-        "magic-visibility-mnm_api-response-common": magic_visibility_mnm_api_response_common_output,
-        "magic-visibility-mnm_api-response-single": magic_visibility_mnm_api_response_single_output,
-        "magic-visibility-mnm_messages": magic_visibility_mnm_messages_output,
-        "magic-visibility-mnm_mnm_config": magic_visibility_mnm_mnm_config_output,
-        "magic-visibility-mnm_mnm_config_default_sampling": magic_visibility_mnm_mnm_config_default_sampling_output,
-        "magic-visibility-mnm_mnm_config_name": magic_visibility_mnm_mnm_config_name_output,
-        "magic-visibility-mnm_mnm_config_router_ip": magic_visibility_mnm_mnm_config_router_ip_output,
-        "magic-visibility-mnm_mnm_config_router_ips": magic_visibility_mnm_mnm_config_router_ips_output,
-        "magic-visibility-mnm_mnm_config_single_response": magic_visibility_mnm_mnm_config_single_response_output,
-        "magic-visibility-mnm_mnm_config_warp_device": magic_visibility_mnm_mnm_config_warp_device_output,
-        "magic-visibility-mnm_mnm_config_warp_devices": magic_visibility_mnm_mnm_config_warp_devices_output,
+        "magic-visibility-mnm_api-response-common": magic$$visibility$$mnm_api$$response$$common,
+        "magic-visibility-mnm_api-response-single": magic$$visibility$$mnm_api$$response$$single,
+        "magic-visibility-mnm_messages": magic$$visibility$$mnm_messages,
+        "magic-visibility-mnm_mnm_config": magic$$visibility$$mnm_mnm_config,
+        "magic-visibility-mnm_mnm_config_default_sampling": magic$$visibility$$mnm_mnm_config_default_sampling,
+        "magic-visibility-mnm_mnm_config_name": magic$$visibility$$mnm_mnm_config_name,
+        "magic-visibility-mnm_mnm_config_router_ip": magic$$visibility$$mnm_mnm_config_router_ip,
+        "magic-visibility-mnm_mnm_config_router_ips": magic$$visibility$$mnm_mnm_config_router_ips,
+        "magic-visibility-mnm_mnm_config_single_response": magic$$visibility$$mnm_mnm_config_single_response,
+        "magic-visibility-mnm_mnm_config_warp_device": magic$$visibility$$mnm_mnm_config_warp_device,
+        "magic-visibility-mnm_mnm_config_warp_devices": magic$$visibility$$mnm_mnm_config_warp_devices,
       },
     },
     annotations: {
@@ -212,18 +228,18 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "magic-visibility-mnm_api-response-common": magic_visibility_mnm_api_response_common_output,
-        "magic-visibility-mnm_api-response-common-failure": magic_visibility_mnm_api_response_common_failure_output,
-        "magic-visibility-mnm_api-response-single": magic_visibility_mnm_api_response_single_output,
-        "magic-visibility-mnm_messages": magic_visibility_mnm_messages_output,
-        "magic-visibility-mnm_mnm_config": magic_visibility_mnm_mnm_config_output,
-        "magic-visibility-mnm_mnm_config_default_sampling": magic_visibility_mnm_mnm_config_default_sampling_output,
-        "magic-visibility-mnm_mnm_config_name": magic_visibility_mnm_mnm_config_name_output,
-        "magic-visibility-mnm_mnm_config_router_ip": magic_visibility_mnm_mnm_config_router_ip_output,
-        "magic-visibility-mnm_mnm_config_router_ips": magic_visibility_mnm_mnm_config_router_ips_output,
-        "magic-visibility-mnm_mnm_config_single_response": magic_visibility_mnm_mnm_config_single_response_output,
-        "magic-visibility-mnm_mnm_config_warp_device": magic_visibility_mnm_mnm_config_warp_device_output,
-        "magic-visibility-mnm_mnm_config_warp_devices": magic_visibility_mnm_mnm_config_warp_devices_output,
+        "magic-visibility-mnm_api-response-common": magic$$visibility$$mnm_api$$response$$common,
+        "magic-visibility-mnm_api-response-common-failure": magic$$visibility$$mnm_api$$response$$common$$failure,
+        "magic-visibility-mnm_api-response-single": magic$$visibility$$mnm_api$$response$$single,
+        "magic-visibility-mnm_messages": magic$$visibility$$mnm_messages,
+        "magic-visibility-mnm_mnm_config": magic$$visibility$$mnm_mnm_config,
+        "magic-visibility-mnm_mnm_config_default_sampling": magic$$visibility$$mnm_mnm_config_default_sampling,
+        "magic-visibility-mnm_mnm_config_name": magic$$visibility$$mnm_mnm_config_name,
+        "magic-visibility-mnm_mnm_config_router_ip": magic$$visibility$$mnm_mnm_config_router_ip,
+        "magic-visibility-mnm_mnm_config_router_ips": magic$$visibility$$mnm_mnm_config_router_ips,
+        "magic-visibility-mnm_mnm_config_single_response": magic$$visibility$$mnm_mnm_config_single_response,
+        "magic-visibility-mnm_mnm_config_warp_device": magic$$visibility$$mnm_mnm_config_warp_device,
+        "magic-visibility-mnm_mnm_config_warp_devices": magic$$visibility$$mnm_mnm_config_warp_devices,
       },
     },
     request: (args) => ({
@@ -231,15 +247,12 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "magic_network_monitoring_configs_edit",
+    name: "magicNetworkMonitoring_configs_edit",
     title: "Update account configuration fields",
     description: "Update fields in an existing network monitoring configuration.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/magic-visibility-mnm_account_identifier"
-        },
         "body": {
           "properties": {
             "default_sampling": {
@@ -259,36 +272,47 @@ export const tools: readonly Tool[] = [
             }
           },
           "type": "object"
+        },
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/magic-visibility-mnm_account_identifier"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
+        "path",
         "body"
       ],
       $defs: {
-        "magic-visibility-mnm_account_identifier": magic_visibility_mnm_account_identifier,
-        "magic-visibility-mnm_mnm_config_default_sampling": magic_visibility_mnm_mnm_config_default_sampling,
-        "magic-visibility-mnm_mnm_config_name": magic_visibility_mnm_mnm_config_name,
-        "magic-visibility-mnm_mnm_config_router_ip": magic_visibility_mnm_mnm_config_router_ip,
-        "magic-visibility-mnm_mnm_config_router_ips": magic_visibility_mnm_mnm_config_router_ips,
-        "magic-visibility-mnm_mnm_config_warp_device": magic_visibility_mnm_mnm_config_warp_device,
-        "magic-visibility-mnm_mnm_config_warp_devices": magic_visibility_mnm_mnm_config_warp_devices,
+        "magic-visibility-mnm_account_identifier": magic$$visibility$$mnm_account_identifier,
+        "magic-visibility-mnm_mnm_config_default_sampling": magic$$visibility$$mnm_mnm_config_default_sampling$,
+        "magic-visibility-mnm_mnm_config_name": magic$$visibility$$mnm_mnm_config_name$,
+        "magic-visibility-mnm_mnm_config_router_ip": magic$$visibility$$mnm_mnm_config_router_ip$,
+        "magic-visibility-mnm_mnm_config_router_ips": magic$$visibility$$mnm_mnm_config_router_ips$,
+        "magic-visibility-mnm_mnm_config_warp_device": magic$$visibility$$mnm_mnm_config_warp_device$,
+        "magic-visibility-mnm_mnm_config_warp_devices": magic$$visibility$$mnm_mnm_config_warp_devices$,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/magic-visibility-mnm_mnm_config_single_response",
       $defs: {
-        "magic-visibility-mnm_api-response-common": magic_visibility_mnm_api_response_common_output,
-        "magic-visibility-mnm_api-response-single": magic_visibility_mnm_api_response_single_output,
-        "magic-visibility-mnm_messages": magic_visibility_mnm_messages_output,
-        "magic-visibility-mnm_mnm_config": magic_visibility_mnm_mnm_config_output,
-        "magic-visibility-mnm_mnm_config_default_sampling": magic_visibility_mnm_mnm_config_default_sampling_output,
-        "magic-visibility-mnm_mnm_config_name": magic_visibility_mnm_mnm_config_name_output,
-        "magic-visibility-mnm_mnm_config_router_ip": magic_visibility_mnm_mnm_config_router_ip_output,
-        "magic-visibility-mnm_mnm_config_router_ips": magic_visibility_mnm_mnm_config_router_ips_output,
-        "magic-visibility-mnm_mnm_config_single_response": magic_visibility_mnm_mnm_config_single_response_output,
-        "magic-visibility-mnm_mnm_config_warp_device": magic_visibility_mnm_mnm_config_warp_device_output,
-        "magic-visibility-mnm_mnm_config_warp_devices": magic_visibility_mnm_mnm_config_warp_devices_output,
+        "magic-visibility-mnm_api-response-common": magic$$visibility$$mnm_api$$response$$common,
+        "magic-visibility-mnm_api-response-single": magic$$visibility$$mnm_api$$response$$single,
+        "magic-visibility-mnm_messages": magic$$visibility$$mnm_messages,
+        "magic-visibility-mnm_mnm_config": magic$$visibility$$mnm_mnm_config,
+        "magic-visibility-mnm_mnm_config_default_sampling": magic$$visibility$$mnm_mnm_config_default_sampling,
+        "magic-visibility-mnm_mnm_config_name": magic$$visibility$$mnm_mnm_config_name,
+        "magic-visibility-mnm_mnm_config_router_ip": magic$$visibility$$mnm_mnm_config_router_ip,
+        "magic-visibility-mnm_mnm_config_router_ips": magic$$visibility$$mnm_mnm_config_router_ips,
+        "magic-visibility-mnm_mnm_config_single_response": magic$$visibility$$mnm_mnm_config_single_response,
+        "magic-visibility-mnm_mnm_config_warp_device": magic$$visibility$$mnm_mnm_config_warp_device,
+        "magic-visibility-mnm_mnm_config_warp_devices": magic$$visibility$$mnm_mnm_config_warp_devices,
       },
     },
     annotations: {
@@ -323,18 +347,18 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "magic-visibility-mnm_api-response-common": magic_visibility_mnm_api_response_common_output,
-        "magic-visibility-mnm_api-response-common-failure": magic_visibility_mnm_api_response_common_failure_output,
-        "magic-visibility-mnm_api-response-single": magic_visibility_mnm_api_response_single_output,
-        "magic-visibility-mnm_messages": magic_visibility_mnm_messages_output,
-        "magic-visibility-mnm_mnm_config": magic_visibility_mnm_mnm_config_output,
-        "magic-visibility-mnm_mnm_config_default_sampling": magic_visibility_mnm_mnm_config_default_sampling_output,
-        "magic-visibility-mnm_mnm_config_name": magic_visibility_mnm_mnm_config_name_output,
-        "magic-visibility-mnm_mnm_config_router_ip": magic_visibility_mnm_mnm_config_router_ip_output,
-        "magic-visibility-mnm_mnm_config_router_ips": magic_visibility_mnm_mnm_config_router_ips_output,
-        "magic-visibility-mnm_mnm_config_single_response": magic_visibility_mnm_mnm_config_single_response_output,
-        "magic-visibility-mnm_mnm_config_warp_device": magic_visibility_mnm_mnm_config_warp_device_output,
-        "magic-visibility-mnm_mnm_config_warp_devices": magic_visibility_mnm_mnm_config_warp_devices_output,
+        "magic-visibility-mnm_api-response-common": magic$$visibility$$mnm_api$$response$$common,
+        "magic-visibility-mnm_api-response-common-failure": magic$$visibility$$mnm_api$$response$$common$$failure,
+        "magic-visibility-mnm_api-response-single": magic$$visibility$$mnm_api$$response$$single,
+        "magic-visibility-mnm_messages": magic$$visibility$$mnm_messages,
+        "magic-visibility-mnm_mnm_config": magic$$visibility$$mnm_mnm_config,
+        "magic-visibility-mnm_mnm_config_default_sampling": magic$$visibility$$mnm_mnm_config_default_sampling,
+        "magic-visibility-mnm_mnm_config_name": magic$$visibility$$mnm_mnm_config_name,
+        "magic-visibility-mnm_mnm_config_router_ip": magic$$visibility$$mnm_mnm_config_router_ip,
+        "magic-visibility-mnm_mnm_config_router_ips": magic$$visibility$$mnm_mnm_config_router_ips,
+        "magic-visibility-mnm_mnm_config_single_response": magic$$visibility$$mnm_mnm_config_single_response,
+        "magic-visibility-mnm_mnm_config_warp_device": magic$$visibility$$mnm_mnm_config_warp_device,
+        "magic-visibility-mnm_mnm_config_warp_devices": magic$$visibility$$mnm_mnm_config_warp_devices,
       },
     },
     request: (args) => ({
@@ -343,37 +367,45 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "magic_network_monitoring_configs_get",
+    name: "magicNetworkMonitoring_configs_get",
     title: "List account configuration",
     description: "Lists default sampling, router IPs and warp devices for account.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/magic-visibility-mnm_account_identifier"
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/magic-visibility-mnm_account_identifier"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id"
+        "path"
       ],
       $defs: {
-        "magic-visibility-mnm_account_identifier": magic_visibility_mnm_account_identifier,
+        "magic-visibility-mnm_account_identifier": magic$$visibility$$mnm_account_identifier,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/magic-visibility-mnm_mnm_config_single_response",
       $defs: {
-        "magic-visibility-mnm_api-response-common": magic_visibility_mnm_api_response_common_output,
-        "magic-visibility-mnm_api-response-single": magic_visibility_mnm_api_response_single_output,
-        "magic-visibility-mnm_messages": magic_visibility_mnm_messages_output,
-        "magic-visibility-mnm_mnm_config": magic_visibility_mnm_mnm_config_output,
-        "magic-visibility-mnm_mnm_config_default_sampling": magic_visibility_mnm_mnm_config_default_sampling_output,
-        "magic-visibility-mnm_mnm_config_name": magic_visibility_mnm_mnm_config_name_output,
-        "magic-visibility-mnm_mnm_config_router_ip": magic_visibility_mnm_mnm_config_router_ip_output,
-        "magic-visibility-mnm_mnm_config_router_ips": magic_visibility_mnm_mnm_config_router_ips_output,
-        "magic-visibility-mnm_mnm_config_single_response": magic_visibility_mnm_mnm_config_single_response_output,
-        "magic-visibility-mnm_mnm_config_warp_device": magic_visibility_mnm_mnm_config_warp_device_output,
-        "magic-visibility-mnm_mnm_config_warp_devices": magic_visibility_mnm_mnm_config_warp_devices_output,
+        "magic-visibility-mnm_api-response-common": magic$$visibility$$mnm_api$$response$$common,
+        "magic-visibility-mnm_api-response-single": magic$$visibility$$mnm_api$$response$$single,
+        "magic-visibility-mnm_messages": magic$$visibility$$mnm_messages,
+        "magic-visibility-mnm_mnm_config": magic$$visibility$$mnm_mnm_config,
+        "magic-visibility-mnm_mnm_config_default_sampling": magic$$visibility$$mnm_mnm_config_default_sampling,
+        "magic-visibility-mnm_mnm_config_name": magic$$visibility$$mnm_mnm_config_name,
+        "magic-visibility-mnm_mnm_config_router_ip": magic$$visibility$$mnm_mnm_config_router_ip,
+        "magic-visibility-mnm_mnm_config_router_ips": magic$$visibility$$mnm_mnm_config_router_ips,
+        "magic-visibility-mnm_mnm_config_single_response": magic$$visibility$$mnm_mnm_config_single_response,
+        "magic-visibility-mnm_mnm_config_warp_device": magic$$visibility$$mnm_mnm_config_warp_device,
+        "magic-visibility-mnm_mnm_config_warp_devices": magic$$visibility$$mnm_mnm_config_warp_devices,
       },
     },
     annotations: {
@@ -409,18 +441,18 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "magic-visibility-mnm_api-response-common": magic_visibility_mnm_api_response_common_output,
-        "magic-visibility-mnm_api-response-common-failure": magic_visibility_mnm_api_response_common_failure_output,
-        "magic-visibility-mnm_api-response-single": magic_visibility_mnm_api_response_single_output,
-        "magic-visibility-mnm_messages": magic_visibility_mnm_messages_output,
-        "magic-visibility-mnm_mnm_config": magic_visibility_mnm_mnm_config_output,
-        "magic-visibility-mnm_mnm_config_default_sampling": magic_visibility_mnm_mnm_config_default_sampling_output,
-        "magic-visibility-mnm_mnm_config_name": magic_visibility_mnm_mnm_config_name_output,
-        "magic-visibility-mnm_mnm_config_router_ip": magic_visibility_mnm_mnm_config_router_ip_output,
-        "magic-visibility-mnm_mnm_config_router_ips": magic_visibility_mnm_mnm_config_router_ips_output,
-        "magic-visibility-mnm_mnm_config_single_response": magic_visibility_mnm_mnm_config_single_response_output,
-        "magic-visibility-mnm_mnm_config_warp_device": magic_visibility_mnm_mnm_config_warp_device_output,
-        "magic-visibility-mnm_mnm_config_warp_devices": magic_visibility_mnm_mnm_config_warp_devices_output,
+        "magic-visibility-mnm_api-response-common": magic$$visibility$$mnm_api$$response$$common,
+        "magic-visibility-mnm_api-response-common-failure": magic$$visibility$$mnm_api$$response$$common$$failure,
+        "magic-visibility-mnm_api-response-single": magic$$visibility$$mnm_api$$response$$single,
+        "magic-visibility-mnm_messages": magic$$visibility$$mnm_messages,
+        "magic-visibility-mnm_mnm_config": magic$$visibility$$mnm_mnm_config,
+        "magic-visibility-mnm_mnm_config_default_sampling": magic$$visibility$$mnm_mnm_config_default_sampling,
+        "magic-visibility-mnm_mnm_config_name": magic$$visibility$$mnm_mnm_config_name,
+        "magic-visibility-mnm_mnm_config_router_ip": magic$$visibility$$mnm_mnm_config_router_ip,
+        "magic-visibility-mnm_mnm_config_router_ips": magic$$visibility$$mnm_mnm_config_router_ips,
+        "magic-visibility-mnm_mnm_config_single_response": magic$$visibility$$mnm_mnm_config_single_response,
+        "magic-visibility-mnm_mnm_config_warp_device": magic$$visibility$$mnm_mnm_config_warp_device,
+        "magic-visibility-mnm_mnm_config_warp_devices": magic$$visibility$$mnm_mnm_config_warp_devices,
       },
     },
     request: (args) => ({
@@ -428,15 +460,12 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "magic_network_monitoring_configs_update",
+    name: "magicNetworkMonitoring_configs_update",
     title: "Update an entire account configuration",
     description: "Update an existing network monitoring configuration, requires the entire configuration to be updated at once.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/magic-visibility-mnm_account_identifier"
-        },
         "body": {
           "properties": {
             "default_sampling": {
@@ -460,36 +489,47 @@ export const tools: readonly Tool[] = [
             "name"
           ],
           "type": "object"
+        },
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/magic-visibility-mnm_account_identifier"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
+        "path",
         "body"
       ],
       $defs: {
-        "magic-visibility-mnm_account_identifier": magic_visibility_mnm_account_identifier,
-        "magic-visibility-mnm_mnm_config_default_sampling": magic_visibility_mnm_mnm_config_default_sampling,
-        "magic-visibility-mnm_mnm_config_name": magic_visibility_mnm_mnm_config_name,
-        "magic-visibility-mnm_mnm_config_router_ip": magic_visibility_mnm_mnm_config_router_ip,
-        "magic-visibility-mnm_mnm_config_router_ips": magic_visibility_mnm_mnm_config_router_ips,
-        "magic-visibility-mnm_mnm_config_warp_device": magic_visibility_mnm_mnm_config_warp_device,
-        "magic-visibility-mnm_mnm_config_warp_devices": magic_visibility_mnm_mnm_config_warp_devices,
+        "magic-visibility-mnm_account_identifier": magic$$visibility$$mnm_account_identifier,
+        "magic-visibility-mnm_mnm_config_default_sampling": magic$$visibility$$mnm_mnm_config_default_sampling$,
+        "magic-visibility-mnm_mnm_config_name": magic$$visibility$$mnm_mnm_config_name$,
+        "magic-visibility-mnm_mnm_config_router_ip": magic$$visibility$$mnm_mnm_config_router_ip$,
+        "magic-visibility-mnm_mnm_config_router_ips": magic$$visibility$$mnm_mnm_config_router_ips$,
+        "magic-visibility-mnm_mnm_config_warp_device": magic$$visibility$$mnm_mnm_config_warp_device$,
+        "magic-visibility-mnm_mnm_config_warp_devices": magic$$visibility$$mnm_mnm_config_warp_devices$,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/magic-visibility-mnm_mnm_config_single_response",
       $defs: {
-        "magic-visibility-mnm_api-response-common": magic_visibility_mnm_api_response_common_output,
-        "magic-visibility-mnm_api-response-single": magic_visibility_mnm_api_response_single_output,
-        "magic-visibility-mnm_messages": magic_visibility_mnm_messages_output,
-        "magic-visibility-mnm_mnm_config": magic_visibility_mnm_mnm_config_output,
-        "magic-visibility-mnm_mnm_config_default_sampling": magic_visibility_mnm_mnm_config_default_sampling_output,
-        "magic-visibility-mnm_mnm_config_name": magic_visibility_mnm_mnm_config_name_output,
-        "magic-visibility-mnm_mnm_config_router_ip": magic_visibility_mnm_mnm_config_router_ip_output,
-        "magic-visibility-mnm_mnm_config_router_ips": magic_visibility_mnm_mnm_config_router_ips_output,
-        "magic-visibility-mnm_mnm_config_single_response": magic_visibility_mnm_mnm_config_single_response_output,
-        "magic-visibility-mnm_mnm_config_warp_device": magic_visibility_mnm_mnm_config_warp_device_output,
-        "magic-visibility-mnm_mnm_config_warp_devices": magic_visibility_mnm_mnm_config_warp_devices_output,
+        "magic-visibility-mnm_api-response-common": magic$$visibility$$mnm_api$$response$$common,
+        "magic-visibility-mnm_api-response-single": magic$$visibility$$mnm_api$$response$$single,
+        "magic-visibility-mnm_messages": magic$$visibility$$mnm_messages,
+        "magic-visibility-mnm_mnm_config": magic$$visibility$$mnm_mnm_config,
+        "magic-visibility-mnm_mnm_config_default_sampling": magic$$visibility$$mnm_mnm_config_default_sampling,
+        "magic-visibility-mnm_mnm_config_name": magic$$visibility$$mnm_mnm_config_name,
+        "magic-visibility-mnm_mnm_config_router_ip": magic$$visibility$$mnm_mnm_config_router_ip,
+        "magic-visibility-mnm_mnm_config_router_ips": magic$$visibility$$mnm_mnm_config_router_ips,
+        "magic-visibility-mnm_mnm_config_single_response": magic$$visibility$$mnm_mnm_config_single_response,
+        "magic-visibility-mnm_mnm_config_warp_device": magic$$visibility$$mnm_mnm_config_warp_device,
+        "magic-visibility-mnm_mnm_config_warp_devices": magic$$visibility$$mnm_mnm_config_warp_devices,
       },
     },
     annotations: {
@@ -524,18 +564,18 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "magic-visibility-mnm_api-response-common": magic_visibility_mnm_api_response_common_output,
-        "magic-visibility-mnm_api-response-common-failure": magic_visibility_mnm_api_response_common_failure_output,
-        "magic-visibility-mnm_api-response-single": magic_visibility_mnm_api_response_single_output,
-        "magic-visibility-mnm_messages": magic_visibility_mnm_messages_output,
-        "magic-visibility-mnm_mnm_config": magic_visibility_mnm_mnm_config_output,
-        "magic-visibility-mnm_mnm_config_default_sampling": magic_visibility_mnm_mnm_config_default_sampling_output,
-        "magic-visibility-mnm_mnm_config_name": magic_visibility_mnm_mnm_config_name_output,
-        "magic-visibility-mnm_mnm_config_router_ip": magic_visibility_mnm_mnm_config_router_ip_output,
-        "magic-visibility-mnm_mnm_config_router_ips": magic_visibility_mnm_mnm_config_router_ips_output,
-        "magic-visibility-mnm_mnm_config_single_response": magic_visibility_mnm_mnm_config_single_response_output,
-        "magic-visibility-mnm_mnm_config_warp_device": magic_visibility_mnm_mnm_config_warp_device_output,
-        "magic-visibility-mnm_mnm_config_warp_devices": magic_visibility_mnm_mnm_config_warp_devices_output,
+        "magic-visibility-mnm_api-response-common": magic$$visibility$$mnm_api$$response$$common,
+        "magic-visibility-mnm_api-response-common-failure": magic$$visibility$$mnm_api$$response$$common$$failure,
+        "magic-visibility-mnm_api-response-single": magic$$visibility$$mnm_api$$response$$single,
+        "magic-visibility-mnm_messages": magic$$visibility$$mnm_messages,
+        "magic-visibility-mnm_mnm_config": magic$$visibility$$mnm_mnm_config,
+        "magic-visibility-mnm_mnm_config_default_sampling": magic$$visibility$$mnm_mnm_config_default_sampling,
+        "magic-visibility-mnm_mnm_config_name": magic$$visibility$$mnm_mnm_config_name,
+        "magic-visibility-mnm_mnm_config_router_ip": magic$$visibility$$mnm_mnm_config_router_ip,
+        "magic-visibility-mnm_mnm_config_router_ips": magic$$visibility$$mnm_mnm_config_router_ips,
+        "magic-visibility-mnm_mnm_config_single_response": magic$$visibility$$mnm_mnm_config_single_response,
+        "magic-visibility-mnm_mnm_config_warp_device": magic$$visibility$$mnm_mnm_config_warp_device,
+        "magic-visibility-mnm_mnm_config_warp_devices": magic$$visibility$$mnm_mnm_config_warp_devices,
       },
     },
     request: (args) => ({

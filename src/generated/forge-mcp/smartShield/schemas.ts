@@ -6,7 +6,7 @@ import type { JsonSchema } from "../_/tool.js";
 /**
  * The schema of `smartshield_api-response-common`.
  */
-export const smartshield_api_response_common: JsonSchema = {
+export const smartshield_api$$response$$common: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/smartshield_messages"
@@ -37,7 +37,7 @@ export const smartshield_api_response_common: JsonSchema = {
 /**
  * The schema of `smartshield_api-response-result`.
  */
-export const smartshield_api_response_result: JsonSchema = {
+export const smartshield_api$$response$$result: JsonSchema = {
   "anyOf": [
     {
       "type": "object"

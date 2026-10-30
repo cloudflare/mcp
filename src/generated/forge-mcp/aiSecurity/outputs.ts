@@ -7,7 +7,7 @@ import type { JsonSchema } from "../_/tool.js";
  * The schema of `waf-product-api-bundle_api-response-common-failure-3` in
  * responses.
  */
-export const waf_product_api_bundle_api_response_common_failure_3_output: JsonSchema = {
+export const waf$$product$$api$$bundle_api$$response$$common$$failure$$3: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/waf-product-api-bundle_messages"
@@ -37,7 +37,7 @@ export const waf_product_api_bundle_api_response_common_failure_3_output: JsonSc
 /**
  * The schema of `waf-product-api-bundle_response-settings` in responses.
  */
-export const waf_product_api_bundle_response_settings_output: JsonSchema = {
+export const waf$$product$$api$$bundle_response$$settings: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/waf-product-api-bundle_api-response-single"
@@ -56,7 +56,7 @@ export const waf_product_api_bundle_response_settings_output: JsonSchema = {
 /**
  * The schema of `waf-product-api-bundle_settings` in responses.
  */
-export const waf_product_api_bundle_settings_output: JsonSchema = {
+export const waf$$product$$api$$bundle_settings: JsonSchema = {
   "properties": {
     "enabled": {
       "type": "boolean"

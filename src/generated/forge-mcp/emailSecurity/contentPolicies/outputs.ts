@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `email-security_ContentPolicy` in responses.
  */
-export const email_security_ContentPolicy_output: JsonSchema = {
+export const email$$security_ContentPolicy: JsonSchema = {
   "properties": {
     "created_at": {
       "$ref": "#/$defs/email-security_timestamp"
@@ -61,7 +61,7 @@ export const email_security_ContentPolicy_output: JsonSchema = {
 /**
  * The schema of `email-security_ContentPolicyId` in responses.
  */
-export const email_security_ContentPolicyId_output: JsonSchema = {
+export const email$$security_ContentPolicyId: JsonSchema = {
   "format": "uuid",
   "type": "string"
 };
@@ -69,7 +69,7 @@ export const email_security_ContentPolicyId_output: JsonSchema = {
 /**
  * The schema of `email-security_ContentPolicyList` in responses.
  */
-export const email_security_ContentPolicyList_output: JsonSchema = {
+export const email$$security_ContentPolicyList: JsonSchema = {
   "items": {
     "$ref": "#/$defs/email-security_ContentPolicy"
   },
@@ -79,7 +79,7 @@ export const email_security_ContentPolicyList_output: JsonSchema = {
 /**
  * The schema of `email-security_ContentPolicyTarget` in responses.
  */
-export const email_security_ContentPolicyTarget_output: JsonSchema = {
+export const email$$security_ContentPolicyTarget: JsonSchema = {
   "enum": [
     "SUBJECT",
     "BODY"
@@ -90,7 +90,7 @@ export const email_security_ContentPolicyTarget_output: JsonSchema = {
 /**
  * The schema of `email-security_DeletedContentPolicy` in responses.
  */
-export const email_security_DeletedContentPolicy_output: JsonSchema = {
+export const email$$security_DeletedContentPolicy: JsonSchema = {
   "properties": {
     "id": {
       "$ref": "#/$defs/email-security_ContentPolicyId"

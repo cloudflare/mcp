@@ -3,37 +3,45 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
-  magic_visibility_pcaps_api_response_common_failure_output,
-  magic_visibility_pcaps_messages_output,
+  magic$$visibility$$pcaps_api$$response$$common$$failure,
+  magic$$visibility$$pcaps_messages,
 } from "../outputs.js";
-import { magic_visibility_pcaps_identifier } from "../schemas.js";
+import { magic$$visibility$$pcaps_identifier } from "../schemas.js";
 
 /**
- * The tools of `magic_transit.pcaps.download`.
+ * The tools of `magicTransit.pcaps.download`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "magic_transit_pcaps_download_get",
+    name: "magicTransit_pcaps_download_get",
     title: "Download Simple PCAP",
     description: "Download PCAP information into a file. Response is a binary PCAP file.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/magic-visibility-pcaps_identifier",
-          "description": "Identifier."
-        },
-        "pcap_id": {
-          "$ref": "#/$defs/magic-visibility-pcaps_identifier",
-          "description": "Identifier."
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/magic-visibility-pcaps_identifier",
+              "description": "Identifier."
+            },
+            "pcap_id": {
+              "$ref": "#/$defs/magic-visibility-pcaps_identifier",
+              "description": "Identifier."
+            }
+          },
+          "required": [
+            "account_id",
+            "pcap_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "pcap_id"
+        "path"
       ],
       $defs: {
-        "magic-visibility-pcaps_identifier": magic_visibility_pcaps_identifier,
+        "magic-visibility-pcaps_identifier": magic$$visibility$$pcaps_identifier,
       },
     },
     annotations: {
@@ -68,8 +76,8 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "magic-visibility-pcaps_api-response-common-failure": magic_visibility_pcaps_api_response_common_failure_output,
-        "magic-visibility-pcaps_messages": magic_visibility_pcaps_messages_output,
+        "magic-visibility-pcaps_api-response-common-failure": magic$$visibility$$pcaps_api$$response$$common$$failure,
+        "magic-visibility-pcaps_messages": magic$$visibility$$pcaps_messages,
       },
     },
     request: (args) => ({

@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `stream_watermark_response_collection` in responses.
  */
-export const stream_watermark_response_collection_output: JsonSchema = {
+export const stream_watermark_response_collection: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/stream_api-response-common"
@@ -28,7 +28,7 @@ export const stream_watermark_response_collection_output: JsonSchema = {
 /**
  * The schema of `stream_watermark_response_single` in responses.
  */
-export const stream_watermark_response_single_output: JsonSchema = {
+export const stream_watermark_response_single: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/stream_api-response-single"

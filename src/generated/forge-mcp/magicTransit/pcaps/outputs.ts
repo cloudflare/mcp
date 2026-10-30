@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `magic-visibility-pcaps_api-response-collection` in responses.
  */
-export const magic_visibility_pcaps_api_response_collection_output: JsonSchema = {
+export const magic$$visibility$$pcaps_api$$response$$collection: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/magic-visibility-pcaps_api-response-common"
@@ -38,7 +38,7 @@ export const magic_visibility_pcaps_api_response_collection_output: JsonSchema =
 /**
  * The schema of `magic-visibility-pcaps_api-response-common` in responses.
  */
-export const magic_visibility_pcaps_api_response_common_output: JsonSchema = {
+export const magic$$visibility$$pcaps_api$$response$$common: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/magic-visibility-pcaps_messages"
@@ -82,7 +82,7 @@ export const magic_visibility_pcaps_api_response_common_output: JsonSchema = {
  * The schema of `magic-visibility-pcaps_api-response-common-failure` in
  * responses.
  */
-export const magic_visibility_pcaps_api_response_common_failure_output: JsonSchema = {
+export const magic$$visibility$$pcaps_api$$response$$common$$failure: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/magic-visibility-pcaps_messages"
@@ -111,7 +111,7 @@ export const magic_visibility_pcaps_api_response_common_failure_output: JsonSche
 /**
  * The schema of `magic-visibility-pcaps_api-response-single` in responses.
  */
-export const magic_visibility_pcaps_api_response_single_output: JsonSchema = {
+export const magic$$visibility$$pcaps_api$$response$$single: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/magic-visibility-pcaps_api-response-common"
@@ -137,7 +137,7 @@ export const magic_visibility_pcaps_api_response_single_output: JsonSchema = {
 /**
  * The schema of `magic-visibility-pcaps_messages` in responses.
  */
-export const magic_visibility_pcaps_messages_output: JsonSchema = {
+export const magic$$visibility$$pcaps_messages: JsonSchema = {
   "items": {
     "properties": {
       "code": {
@@ -159,7 +159,7 @@ export const magic_visibility_pcaps_messages_output: JsonSchema = {
 /**
  * The schema of `magic-visibility-pcaps_pcaps_byte_limit` in responses.
  */
-export const magic_visibility_pcaps_pcaps_byte_limit_output: JsonSchema = {
+export const magic$$visibility$$pcaps_pcaps_byte_limit: JsonSchema = {
   "type": "number"
 };
 
@@ -167,7 +167,7 @@ export const magic_visibility_pcaps_pcaps_byte_limit_output: JsonSchema = {
  * The schema of `magic-visibility-pcaps_pcaps_collection_response` in
  * responses.
  */
-export const magic_visibility_pcaps_pcaps_collection_response_output: JsonSchema = {
+export const magic$$visibility$$pcaps_pcaps_collection_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/magic-visibility-pcaps_api-response-collection"
@@ -196,28 +196,28 @@ export const magic_visibility_pcaps_pcaps_collection_response_output: JsonSchema
 /**
  * The schema of `magic-visibility-pcaps_pcaps_colo_name` in responses.
  */
-export const magic_visibility_pcaps_pcaps_colo_name_output: JsonSchema = {
+export const magic$$visibility$$pcaps_pcaps_colo_name: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `magic-visibility-pcaps_pcaps_destination_conf` in responses.
  */
-export const magic_visibility_pcaps_pcaps_destination_conf_output: JsonSchema = {
+export const magic$$visibility$$pcaps_pcaps_destination_conf: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `magic-visibility-pcaps_pcaps_error_message` in responses.
  */
-export const magic_visibility_pcaps_pcaps_error_message_output: JsonSchema = {
+export const magic$$visibility$$pcaps_pcaps_error_message: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `magic-visibility-pcaps_pcaps_filter_v1` in responses.
  */
-export const magic_visibility_pcaps_pcaps_filter_v1_output: JsonSchema = {
+export const magic$$visibility$$pcaps_pcaps_filter_v1: JsonSchema = {
   "properties": {
     "destination_address": {
       "type": "string"
@@ -241,14 +241,14 @@ export const magic_visibility_pcaps_pcaps_filter_v1_output: JsonSchema = {
 /**
  * The schema of `magic-visibility-pcaps_pcaps_id` in responses.
  */
-export const magic_visibility_pcaps_pcaps_id_output: JsonSchema = {
+export const magic$$visibility$$pcaps_pcaps_id: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `magic-visibility-pcaps_pcaps_offset_time` in responses.
  */
-export const magic_visibility_pcaps_pcaps_offset_time_output: JsonSchema = {
+export const magic$$visibility$$pcaps_pcaps_offset_time: JsonSchema = {
   "format": "date-time",
   "type": "string"
 };
@@ -256,14 +256,14 @@ export const magic_visibility_pcaps_pcaps_offset_time_output: JsonSchema = {
 /**
  * The schema of `magic-visibility-pcaps_pcaps_packets_captured` in responses.
  */
-export const magic_visibility_pcaps_pcaps_packets_captured_output: JsonSchema = {
+export const magic$$visibility$$pcaps_pcaps_packets_captured: JsonSchema = {
   "type": "integer"
 };
 
 /**
  * The schema of `magic-visibility-pcaps_pcaps_response_full` in responses.
  */
-export const magic_visibility_pcaps_pcaps_response_full_output: JsonSchema = {
+export const magic$$visibility$$pcaps_pcaps_response_full: JsonSchema = {
   "properties": {
     "byte_limit": {
       "$ref": "#/$defs/magic-visibility-pcaps_pcaps_byte_limit"
@@ -311,7 +311,7 @@ export const magic_visibility_pcaps_pcaps_response_full_output: JsonSchema = {
 /**
  * The schema of `magic-visibility-pcaps_pcaps_response_simple` in responses.
  */
-export const magic_visibility_pcaps_pcaps_response_simple_output: JsonSchema = {
+export const magic$$visibility$$pcaps_pcaps_response_simple: JsonSchema = {
   "properties": {
     "filter_v1": {
       "$ref": "#/$defs/magic-visibility-pcaps_pcaps_filter_v1"
@@ -344,7 +344,7 @@ export const magic_visibility_pcaps_pcaps_response_simple_output: JsonSchema = {
 /**
  * The schema of `magic-visibility-pcaps_pcaps_single_response` in responses.
  */
-export const magic_visibility_pcaps_pcaps_single_response_output: JsonSchema = {
+export const magic$$visibility$$pcaps_pcaps_single_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/magic-visibility-pcaps_api-response-single"
@@ -370,7 +370,7 @@ export const magic_visibility_pcaps_pcaps_single_response_output: JsonSchema = {
 /**
  * The schema of `magic-visibility-pcaps_pcaps_status` in responses.
  */
-export const magic_visibility_pcaps_pcaps_status_output: JsonSchema = {
+export const magic$$visibility$$pcaps_pcaps_status: JsonSchema = {
   "enum": [
     "unknown",
     "success",
@@ -387,7 +387,7 @@ export const magic_visibility_pcaps_pcaps_status_output: JsonSchema = {
 /**
  * The schema of `magic-visibility-pcaps_pcaps_stop_requested` in responses.
  */
-export const magic_visibility_pcaps_pcaps_stop_requested_output: JsonSchema = {
+export const magic$$visibility$$pcaps_pcaps_stop_requested: JsonSchema = {
   "format": "date-time",
   "type": "string"
 };
@@ -395,14 +395,14 @@ export const magic_visibility_pcaps_pcaps_stop_requested_output: JsonSchema = {
 /**
  * The schema of `magic-visibility-pcaps_pcaps_submitted` in responses.
  */
-export const magic_visibility_pcaps_pcaps_submitted_output: JsonSchema = {
+export const magic$$visibility$$pcaps_pcaps_submitted: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `magic-visibility-pcaps_pcaps_system` in responses.
  */
-export const magic_visibility_pcaps_pcaps_system_output: JsonSchema = {
+export const magic$$visibility$$pcaps_pcaps_system: JsonSchema = {
   "enum": [
     "magic-transit"
   ],
@@ -412,21 +412,21 @@ export const magic_visibility_pcaps_pcaps_system_output: JsonSchema = {
 /**
  * The schema of `magic-visibility-pcaps_pcaps_time_limit_full` in responses.
  */
-export const magic_visibility_pcaps_pcaps_time_limit_full_output: JsonSchema = {
+export const magic$$visibility$$pcaps_pcaps_time_limit_full: JsonSchema = {
   "type": "number"
 };
 
 /**
  * The schema of `magic-visibility-pcaps_pcaps_time_limit_sampled` in responses.
  */
-export const magic_visibility_pcaps_pcaps_time_limit_sampled_output: JsonSchema = {
+export const magic$$visibility$$pcaps_pcaps_time_limit_sampled: JsonSchema = {
   "type": "number"
 };
 
 /**
  * The schema of `magic-visibility-pcaps_pcaps_type` in responses.
  */
-export const magic_visibility_pcaps_pcaps_type_output: JsonSchema = {
+export const magic$$visibility$$pcaps_pcaps_type: JsonSchema = {
   "enum": [
     "simple",
     "full"
@@ -437,7 +437,7 @@ export const magic_visibility_pcaps_pcaps_type_output: JsonSchema = {
 /**
  * The schema of `magic-visibility-pcaps_result_info` in responses.
  */
-export const magic_visibility_pcaps_result_info_output: JsonSchema = {
+export const magic$$visibility$$pcaps_result_info: JsonSchema = {
   "properties": {
     "count": {
       "type": "number"

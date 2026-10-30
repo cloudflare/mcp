@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `email_sending_subdomain_dns_status_response` in responses.
  */
-export const email_sending_subdomain_dns_status_response_output: JsonSchema = {
+export const email_sending_subdomain_dns_status_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/email_api-response-single"

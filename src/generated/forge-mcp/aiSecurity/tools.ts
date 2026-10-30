@@ -3,51 +3,59 @@
 
 import { type Tool, pathParam } from "../_/tool.js";
 import {
-  waf_product_api_bundle_api_response_common_output,
-  waf_product_api_bundle_api_response_single_output,
-  waf_product_api_bundle_messages_output,
+  waf$$product$$api$$bundle_api$$response$$common,
+  waf$$product$$api$$bundle_api$$response$$single,
+  waf$$product$$api$$bundle_messages,
 } from "../outputs.js";
 import {
-  waf_product_api_bundle_api_response_common_failure_3_output,
-  waf_product_api_bundle_response_settings_output,
-  waf_product_api_bundle_settings_output,
+  waf$$product$$api$$bundle_api$$response$$common$$failure$$3,
+  waf$$product$$api$$bundle_response$$settings,
+  waf$$product$$api$$bundle_settings,
 } from "./outputs.js";
 import {
-  waf_product_api_bundle_settings,
-  waf_product_api_bundle_zone_id,
+  waf$$product$$api$$bundle_settings as waf$$product$$api$$bundle_settings$,
+  waf$$product$$api$$bundle_zone_id,
 } from "./schemas.js";
 
 /**
- * The tools of `ai_security`.
+ * The tools of `aiSecurity`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "ai_security_get",
+    name: "aiSecurity_get",
     title: "Get the AI Security for Apps status for a zone.",
     description: "Get the current AI Security for Apps status for the zone. While enabled, Cloudflare scans prompts sent to endpoints labeled `cf-llm` for personally identifiable information, unsafe topics, and prompt injection attempts.",
     inputSchema: {
       type: "object",
       properties: {
-        "zone_id": {
-          "$ref": "#/$defs/waf-product-api-bundle_zone_id",
-          "description": "Defines the zone."
+        "path": {
+          "properties": {
+            "zone_id": {
+              "$ref": "#/$defs/waf-product-api-bundle_zone_id",
+              "description": "Defines the zone."
+            }
+          },
+          "required": [
+            "zone_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "zone_id"
+        "path"
       ],
       $defs: {
-        "waf-product-api-bundle_zone_id": waf_product_api_bundle_zone_id,
+        "waf-product-api-bundle_zone_id": waf$$product$$api$$bundle_zone_id,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/waf-product-api-bundle_response-settings",
       $defs: {
-        "waf-product-api-bundle_api-response-common": waf_product_api_bundle_api_response_common_output,
-        "waf-product-api-bundle_api-response-single": waf_product_api_bundle_api_response_single_output,
-        "waf-product-api-bundle_messages": waf_product_api_bundle_messages_output,
-        "waf-product-api-bundle_response-settings": waf_product_api_bundle_response_settings_output,
-        "waf-product-api-bundle_settings": waf_product_api_bundle_settings_output,
+        "waf-product-api-bundle_api-response-common": waf$$product$$api$$bundle_api$$response$$common,
+        "waf-product-api-bundle_api-response-single": waf$$product$$api$$bundle_api$$response$$single,
+        "waf-product-api-bundle_messages": waf$$product$$api$$bundle_messages,
+        "waf-product-api-bundle_response-settings": waf$$product$$api$$bundle_response$$settings,
+        "waf-product-api-bundle_settings": waf$$product$$api$$bundle_settings,
       },
     },
     annotations: {
@@ -76,12 +84,12 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "waf-product-api-bundle_api-response-common": waf_product_api_bundle_api_response_common_output,
-        "waf-product-api-bundle_api-response-common-failure-3": waf_product_api_bundle_api_response_common_failure_3_output,
-        "waf-product-api-bundle_api-response-single": waf_product_api_bundle_api_response_single_output,
-        "waf-product-api-bundle_messages": waf_product_api_bundle_messages_output,
-        "waf-product-api-bundle_response-settings": waf_product_api_bundle_response_settings_output,
-        "waf-product-api-bundle_settings": waf_product_api_bundle_settings_output,
+        "waf-product-api-bundle_api-response-common": waf$$product$$api$$bundle_api$$response$$common,
+        "waf-product-api-bundle_api-response-common-failure-3": waf$$product$$api$$bundle_api$$response$$common$$failure$$3,
+        "waf-product-api-bundle_api-response-single": waf$$product$$api$$bundle_api$$response$$single,
+        "waf-product-api-bundle_messages": waf$$product$$api$$bundle_messages,
+        "waf-product-api-bundle_response-settings": waf$$product$$api$$bundle_response$$settings,
+        "waf-product-api-bundle_settings": waf$$product$$api$$bundle_settings,
       },
     },
     request: (args) => ({
@@ -89,7 +97,7 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "ai_security_update",
+    name: "aiSecurity_update",
     title: "Update the AI Security for Apps status for a zone.",
     description: "Update the AI Security for Apps status for the zone, enabling or disabling the detection. The detection results are exposed as `cf.llm.prompt.*` fields for use in custom rules and rate limiting rules; changes can take up to a minute to propagate.\n\nConfirm with the user before calling this tool. This operation toggles AI Security for Apps for a zone.",
     inputSchema: {
@@ -98,28 +106,36 @@ export const tools: readonly Tool[] = [
         "body": {
           "$ref": "#/$defs/waf-product-api-bundle_settings"
         },
-        "zone_id": {
-          "$ref": "#/$defs/waf-product-api-bundle_zone_id",
-          "description": "Defines the zone."
+        "path": {
+          "properties": {
+            "zone_id": {
+              "$ref": "#/$defs/waf-product-api-bundle_zone_id",
+              "description": "Defines the zone."
+            }
+          },
+          "required": [
+            "zone_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "zone_id",
+        "path",
         "body"
       ],
       $defs: {
-        "waf-product-api-bundle_settings": waf_product_api_bundle_settings,
-        "waf-product-api-bundle_zone_id": waf_product_api_bundle_zone_id,
+        "waf-product-api-bundle_settings": waf$$product$$api$$bundle_settings$,
+        "waf-product-api-bundle_zone_id": waf$$product$$api$$bundle_zone_id,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/waf-product-api-bundle_response-settings",
       $defs: {
-        "waf-product-api-bundle_api-response-common": waf_product_api_bundle_api_response_common_output,
-        "waf-product-api-bundle_api-response-single": waf_product_api_bundle_api_response_single_output,
-        "waf-product-api-bundle_messages": waf_product_api_bundle_messages_output,
-        "waf-product-api-bundle_response-settings": waf_product_api_bundle_response_settings_output,
-        "waf-product-api-bundle_settings": waf_product_api_bundle_settings_output,
+        "waf-product-api-bundle_api-response-common": waf$$product$$api$$bundle_api$$response$$common,
+        "waf-product-api-bundle_api-response-single": waf$$product$$api$$bundle_api$$response$$single,
+        "waf-product-api-bundle_messages": waf$$product$$api$$bundle_messages,
+        "waf-product-api-bundle_response-settings": waf$$product$$api$$bundle_response$$settings,
+        "waf-product-api-bundle_settings": waf$$product$$api$$bundle_settings,
       },
     },
     annotations: {
@@ -148,12 +164,12 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "waf-product-api-bundle_api-response-common": waf_product_api_bundle_api_response_common_output,
-        "waf-product-api-bundle_api-response-common-failure-3": waf_product_api_bundle_api_response_common_failure_3_output,
-        "waf-product-api-bundle_api-response-single": waf_product_api_bundle_api_response_single_output,
-        "waf-product-api-bundle_messages": waf_product_api_bundle_messages_output,
-        "waf-product-api-bundle_response-settings": waf_product_api_bundle_response_settings_output,
-        "waf-product-api-bundle_settings": waf_product_api_bundle_settings_output,
+        "waf-product-api-bundle_api-response-common": waf$$product$$api$$bundle_api$$response$$common,
+        "waf-product-api-bundle_api-response-common-failure-3": waf$$product$$api$$bundle_api$$response$$common$$failure$$3,
+        "waf-product-api-bundle_api-response-single": waf$$product$$api$$bundle_api$$response$$single,
+        "waf-product-api-bundle_messages": waf$$product$$api$$bundle_messages,
+        "waf-product-api-bundle_response-settings": waf$$product$$api$$bundle_response$$settings,
+        "waf-product-api-bundle_settings": waf$$product$$api$$bundle_settings,
       },
     },
     request: (args) => ({

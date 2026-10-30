@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../../_/tool.js";
 /**
  * The schema of `realtimekit_AudioConsumerStats` in responses.
  */
-export const realtimekit_AudioConsumerStats_output: JsonSchema = {
+export const realtimekit_AudioConsumerStats: JsonSchema = {
   "properties": {
     "bytes_received": {
       "type": "number"
@@ -57,7 +57,7 @@ export const realtimekit_AudioConsumerStats_output: JsonSchema = {
 /**
  * The schema of `realtimekit_AudioConsumerStatsCumulative` in responses.
  */
-export const realtimekit_AudioConsumerStatsCumulative_output: JsonSchema = {
+export const realtimekit_AudioConsumerStatsCumulative: JsonSchema = {
   "properties": {
     "jitter_buffer_delay": {
       "$ref": "#/$defs/realtimekit_LatencyCumulative"
@@ -75,7 +75,7 @@ export const realtimekit_AudioConsumerStatsCumulative_output: JsonSchema = {
 /**
  * The schema of `realtimekit_AudioProducerStats` in responses.
  */
-export const realtimekit_AudioProducerStats_output: JsonSchema = {
+export const realtimekit_AudioProducerStats: JsonSchema = {
   "properties": {
     "bytes_sent": {
       "type": "number"
@@ -114,7 +114,7 @@ export const realtimekit_AudioProducerStats_output: JsonSchema = {
 /**
  * The schema of `realtimekit_AudioProducerStatsCumulative` in responses.
  */
-export const realtimekit_AudioProducerStatsCumulative_output: JsonSchema = {
+export const realtimekit_AudioProducerStatsCumulative: JsonSchema = {
   "properties": {
     "packet_loss": {
       "$ref": "#/$defs/realtimekit_PacketLossCumulative"
@@ -132,7 +132,7 @@ export const realtimekit_AudioProducerStatsCumulative_output: JsonSchema = {
 /**
  * The schema of `realtimekit_CandidatePairStats` in responses.
  */
-export const realtimekit_CandidatePairStats_output: JsonSchema = {
+export const realtimekit_CandidatePairStats: JsonSchema = {
   "properties": {
     "available_incoming_bitrate": {
       "type": "number"
@@ -225,7 +225,7 @@ export const realtimekit_CandidatePairStats_output: JsonSchema = {
 /**
  * The schema of `realtimekit_LatencyCumulative` in responses.
  */
-export const realtimekit_LatencyCumulative_output: JsonSchema = {
+export const realtimekit_LatencyCumulative: JsonSchema = {
   "properties": {
     "100ms_or_greater_event_fraction": {
       "type": "number"
@@ -246,7 +246,7 @@ export const realtimekit_LatencyCumulative_output: JsonSchema = {
 /**
  * The schema of `realtimekit_PacketLossCumulative` in responses.
  */
-export const realtimekit_PacketLossCumulative_output: JsonSchema = {
+export const realtimekit_PacketLossCumulative: JsonSchema = {
   "properties": {
     "10_or_greater_event_fraction": {
       "type": "number"
@@ -270,7 +270,7 @@ export const realtimekit_PacketLossCumulative_output: JsonSchema = {
 /**
  * The schema of `realtimekit_PeerParticipantDetails` in responses.
  */
-export const realtimekit_PeerParticipantDetails_output: JsonSchema = {
+export const realtimekit_PeerParticipantDetails: JsonSchema = {
   "properties": {
     "created_at": {
       "type": "string"
@@ -323,7 +323,7 @@ export const realtimekit_PeerParticipantDetails_output: JsonSchema = {
 /**
  * The schema of `realtimekit_PeerReport` in responses.
  */
-export const realtimekit_PeerReport_output: JsonSchema = {
+export const realtimekit_PeerReport: JsonSchema = {
   "properties": {
     "metadata": {
       "$ref": "#/$defs/realtimekit_PeerReportMetadata"
@@ -338,7 +338,7 @@ export const realtimekit_PeerReport_output: JsonSchema = {
 /**
  * The schema of `realtimekit_PeerReportDevice` in responses.
  */
-export const realtimekit_PeerReportDevice_output: JsonSchema = {
+export const realtimekit_PeerReportDevice: JsonSchema = {
   "properties": {
     "device_id": {
       "type": "string"
@@ -356,7 +356,7 @@ export const realtimekit_PeerReportDevice_output: JsonSchema = {
 /**
  * The schema of `realtimekit_PeerReportDeviceUpdate` in responses.
  */
-export const realtimekit_PeerReportDeviceUpdate_output: JsonSchema = {
+export const realtimekit_PeerReportDeviceUpdate: JsonSchema = {
   "properties": {
     "added": {
       "items": {
@@ -380,7 +380,7 @@ export const realtimekit_PeerReportDeviceUpdate_output: JsonSchema = {
 /**
  * The schema of `realtimekit_PeerReportEvent` in responses.
  */
-export const realtimekit_PeerReportEvent_output: JsonSchema = {
+export const realtimekit_PeerReportEvent: JsonSchema = {
   "properties": {
     "metadata": {
       "additionalProperties": {
@@ -414,7 +414,7 @@ export const realtimekit_PeerReportEvent_output: JsonSchema = {
 /**
  * The schema of `realtimekit_PeerReportMetadata` in responses.
  */
-export const realtimekit_PeerReportMetadata_output: JsonSchema = {
+export const realtimekit_PeerReportMetadata: JsonSchema = {
   "properties": {
     "audio_devices_updates": {
       "items": {
@@ -617,7 +617,7 @@ export const realtimekit_PeerReportMetadata_output: JsonSchema = {
 /**
  * The schema of `realtimekit_PeerReportQuality` in responses.
  */
-export const realtimekit_PeerReportQuality_output: JsonSchema = {
+export const realtimekit_PeerReportQuality: JsonSchema = {
   "properties": {
     "audio_consumer": {
       "items": {
@@ -698,7 +698,7 @@ export const realtimekit_PeerReportQuality_output: JsonSchema = {
 /**
  * The schema of `realtimekit_PercentileStats` in responses.
  */
-export const realtimekit_PercentileStats_output: JsonSchema = {
+export const realtimekit_PercentileStats: JsonSchema = {
   "properties": {
     "avg": {
       "type": "number"
@@ -719,7 +719,7 @@ export const realtimekit_PercentileStats_output: JsonSchema = {
 /**
  * The schema of `realtimekit_VideoConsumerStats` in responses.
  */
-export const realtimekit_VideoConsumerStats_output: JsonSchema = {
+export const realtimekit_VideoConsumerStats: JsonSchema = {
   "properties": {
     "bytes_received": {
       "type": "number"
@@ -788,7 +788,7 @@ export const realtimekit_VideoConsumerStats_output: JsonSchema = {
 /**
  * The schema of `realtimekit_VideoConsumerStatsCumulative` in responses.
  */
-export const realtimekit_VideoConsumerStatsCumulative_output: JsonSchema = {
+export const realtimekit_VideoConsumerStatsCumulative: JsonSchema = {
   "properties": {
     "frame_per_second": {
       "$ref": "#/$defs/realtimekit_PercentileStats"
@@ -829,7 +829,7 @@ export const realtimekit_VideoConsumerStatsCumulative_output: JsonSchema = {
 /**
  * The schema of `realtimekit_VideoProducerStats` in responses.
  */
-export const realtimekit_VideoProducerStats_output: JsonSchema = {
+export const realtimekit_VideoProducerStats: JsonSchema = {
   "properties": {
     "bytes_sent": {
       "type": "number"
@@ -918,7 +918,7 @@ export const realtimekit_VideoProducerStats_output: JsonSchema = {
 /**
  * The schema of `realtimekit_VideoProducerStatsCumulative` in responses.
  */
-export const realtimekit_VideoProducerStatsCumulative_output: JsonSchema = {
+export const realtimekit_VideoProducerStatsCumulative: JsonSchema = {
   "properties": {
     "frame_per_second": {
       "$ref": "#/$defs/realtimekit_PercentileStats"

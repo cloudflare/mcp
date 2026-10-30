@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `dlp_DlpSettings` in responses.
  */
-export const dlp_DlpSettings_output: JsonSchema = {
+export const dlp_DlpSettings: JsonSchema = {
   "properties": {
     "ai_context_analysis": {
       "type": "boolean"
@@ -29,7 +29,7 @@ export const dlp_DlpSettings_output: JsonSchema = {
 /**
  * The schema of `dlp_PayloadLogMaskingLevel` in responses.
  */
-export const dlp_PayloadLogMaskingLevel_output: JsonSchema = {
+export const dlp_PayloadLogMaskingLevel: JsonSchema = {
   "enum": [
     "full",
     "partial",
@@ -42,7 +42,7 @@ export const dlp_PayloadLogMaskingLevel_output: JsonSchema = {
 /**
  * The schema of `dlp_PayloadLogSetting` in responses.
  */
-export const dlp_PayloadLogSetting_output: JsonSchema = {
+export const dlp_PayloadLogSetting: JsonSchema = {
   "properties": {
     "masking_level": {
       "$ref": "#/$defs/dlp_PayloadLogMaskingLevel"

@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `iam_api_access_enabled` in responses.
  */
-export const iam_api_access_enabled_output: JsonSchema = {
+export const iam_api_access_enabled: JsonSchema = {
   "oneOf": [
     {
       "type": "boolean"
@@ -20,7 +20,7 @@ export const iam_api_access_enabled_output: JsonSchema = {
 /**
  * The schema of `iam_collection_membership_response` in responses.
  */
-export const iam_collection_membership_response_output: JsonSchema = {
+export const iam_collection_membership_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/iam_api-response-collection"
@@ -43,7 +43,7 @@ export const iam_collection_membership_response_output: JsonSchema = {
  * The schema of `iam_collection_membership_response_with_policies` in
  * responses.
  */
-export const iam_collection_membership_response_with_policies_output: JsonSchema = {
+export const iam_collection_membership_response_with_policies: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/iam_api-response-collection"
@@ -65,7 +65,7 @@ export const iam_collection_membership_response_with_policies_output: JsonSchema
 /**
  * The schema of `iam_membership` in responses.
  */
-export const iam_membership_output: JsonSchema = {
+export const iam_membership: JsonSchema = {
   "properties": {
     "account": {
       "$ref": "#/$defs/iam_schemas-account"
@@ -92,7 +92,7 @@ export const iam_membership_output: JsonSchema = {
 /**
  * The schema of `iam_membership-with-policies` in responses.
  */
-export const iam_membership_with_policies_output: JsonSchema = {
+export const iam_membership$$with$$policies: JsonSchema = {
   "properties": {
     "account": {
       "$ref": "#/$defs/iam_schemas-account"
@@ -125,7 +125,7 @@ export const iam_membership_with_policies_output: JsonSchema = {
 /**
  * The schema of `iam_schemas-account` in responses.
  */
-export const iam_schemas_account_output: JsonSchema = {
+export const iam_schemas$$account: JsonSchema = {
   "properties": {
     "created_on": {
       "format": "date-time",
@@ -180,7 +180,7 @@ export const iam_schemas_account_output: JsonSchema = {
 /**
  * The schema of `iam_schemas-status` in responses.
  */
-export const iam_schemas_status_output: JsonSchema = {
+export const iam_schemas$$status: JsonSchema = {
   "enum": [
     "accepted",
     "pending",
@@ -192,7 +192,7 @@ export const iam_schemas_status_output: JsonSchema = {
 /**
  * The schema of `iam_single_membership_response_with_policies` in responses.
  */
-export const iam_single_membership_response_with_policies_output: JsonSchema = {
+export const iam_single_membership_response_with_policies: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/iam_api-response-single"

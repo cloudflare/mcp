@@ -436,7 +436,7 @@ export const access_domain_rule: JsonSchema = {
 /**
  * The schema of `access_email-2`.
  */
-export const access_email_2: JsonSchema = {
+export const access_email$$2: JsonSchema = {
   "description": "The email of the user.",
   "type": "string"
 };
@@ -511,7 +511,7 @@ export const access_everyone_rule: JsonSchema = {
 /**
  * The schema of `access_exclude-2`.
  */
-export const access_exclude_2: JsonSchema = {
+export const access_exclude$$2: JsonSchema = {
   "description": "Rules evaluated with a NOT logical operator. To match the policy, a user cannot meet any of the Exclude rules.",
   "items": {
     "$ref": "#/$defs/access_rule"
@@ -616,7 +616,7 @@ export const access_gsuite_group_rule: JsonSchema = {
 /**
  * The schema of `access_include-2`.
  */
-export const access_include_2: JsonSchema = {
+export const access_include$$2: JsonSchema = {
   "description": "Rules evaluated with an OR logical operator. A user needs to meet only one of the Include rules.",
   "items": {
     "$ref": "#/$defs/access_rule"
@@ -765,7 +765,7 @@ export const access_mfa_config: JsonSchema = {
 /**
  * The schema of `access_name-10`.
  */
-export const access_name_10: JsonSchema = {
+export const access_name$$10: JsonSchema = {
   "description": "The name of the user.",
   "type": "string"
 };
@@ -773,7 +773,7 @@ export const access_name_10: JsonSchema = {
 /**
  * The schema of `access_name-9`.
  */
-export const access_name_9: JsonSchema = {
+export const access_name$$9: JsonSchema = {
   "description": "The name of the Access policy.",
   "type": "string"
 };
@@ -930,7 +930,7 @@ export const access_rdp_clipboard_format: JsonSchema = {
 /**
  * The schema of `access_require-2`.
  */
-export const access_require_2: JsonSchema = {
+export const access_require$$2: JsonSchema = {
   "description": "Rules evaluated with an AND logical operator. To match the policy, a user must meet all of the Require rules.",
   "items": {
     "$ref": "#/$defs/access_rule"
@@ -1120,7 +1120,7 @@ export const access_service_token_tag_rule: JsonSchema = {
 /**
  * The schema of `access_session_duration-3`.
  */
-export const access_session_duration_3: JsonSchema = {
+export const access_session_duration$$3: JsonSchema = {
   "description": "The amount of time that tokens issued for the application will be valid. Must be in the format `300ms` or `2h45m`. Valid time units are: ns, us (or µs), ms, s, m, h.",
   "oneOf": [
     {
@@ -1170,7 +1170,7 @@ export const access_user_risk_score_rule: JsonSchema = {
 /**
  * The schema of `access_uuid-2`.
  */
-export const access_uuid_2: JsonSchema = {
+export const access_uuid$$2: JsonSchema = {
   "description": "The UUID of the policy",
   "type": "string"
 };

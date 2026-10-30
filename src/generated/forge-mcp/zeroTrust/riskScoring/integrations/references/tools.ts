@@ -3,36 +3,44 @@
 
 import { type Tool, pathParam } from "../../../../_/tool.js";
 import {
-  dlp_api_response_common_failure_output,
-  dlp_api_response_single_output,
-  dlp_messages_output,
+  dlp_api$$response$$common$$failure,
+  dlp_api$$response$$single,
+  dlp_messages,
 } from "../../../outputs.js";
 import {
-  dlp_RiskScoreIntegrationType_output,
-  dlp_RiskScoreIntegration_output,
+  dlp_RiskScoreIntegration,
+  dlp_RiskScoreIntegrationType,
 } from "../outputs.js";
 
 /**
- * The tools of `zero_trust.risk_scoring.integrations.references`.
+ * The tools of `zeroTrust.riskScoring.integrations.references`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "zero_trust_risk_scoring_integrations_references_get",
+    name: "zeroTrust_riskScoring_integrations_references_get",
     title: "Get risk score integration by reference id.",
     description: "Retrieves a Zero Trust risk score integration using its external reference ID.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "type": "string"
-        },
-        "reference_id": {
-          "type": "string"
+        "path": {
+          "properties": {
+            "account_id": {
+              "type": "string"
+            },
+            "reference_id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "reference_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "reference_id"
+        "path"
       ],
     },
     outputSchema: {
@@ -50,10 +58,10 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "dlp_RiskScoreIntegration": dlp_RiskScoreIntegration_output,
-        "dlp_RiskScoreIntegrationType": dlp_RiskScoreIntegrationType_output,
-        "dlp_api-response-single": dlp_api_response_single_output,
-        "dlp_messages": dlp_messages_output,
+        "dlp_RiskScoreIntegration": dlp_RiskScoreIntegration,
+        "dlp_RiskScoreIntegrationType": dlp_RiskScoreIntegrationType,
+        "dlp_api-response-single": dlp_api$$response$$single,
+        "dlp_messages": dlp_messages,
       },
     },
     annotations: {
@@ -93,11 +101,11 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "dlp_RiskScoreIntegration": dlp_RiskScoreIntegration_output,
-        "dlp_RiskScoreIntegrationType": dlp_RiskScoreIntegrationType_output,
-        "dlp_api-response-common-failure": dlp_api_response_common_failure_output,
-        "dlp_api-response-single": dlp_api_response_single_output,
-        "dlp_messages": dlp_messages_output,
+        "dlp_RiskScoreIntegration": dlp_RiskScoreIntegration,
+        "dlp_RiskScoreIntegrationType": dlp_RiskScoreIntegrationType,
+        "dlp_api-response-common-failure": dlp_api$$response$$common$$failure,
+        "dlp_api-response-single": dlp_api$$response$$single,
+        "dlp_messages": dlp_messages,
       },
     },
     request: (args) => ({

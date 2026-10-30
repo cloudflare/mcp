@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `firewall_configurations` in responses.
  */
-export const firewall_configurations_output: JsonSchema = {
+export const firewall_configurations: JsonSchema = {
   "items": {
     "anyOf": [
       {
@@ -23,7 +23,7 @@ export const firewall_configurations_output: JsonSchema = {
 /**
  * The schema of `firewall_created_on` in responses.
  */
-export const firewall_created_on_output: JsonSchema = {
+export const firewall_created_on: JsonSchema = {
   "format": "date-time",
   "type": "string"
 };
@@ -32,21 +32,21 @@ export const firewall_created_on_output: JsonSchema = {
  * The schema of `firewall_lockdowns_components-schemas-description` in
  * responses.
  */
-export const firewall_lockdowns_components_schemas_description_output: JsonSchema = {
+export const firewall_lockdowns_components$$schemas$$description: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `firewall_lockdowns_components-schemas-id` in responses.
  */
-export const firewall_lockdowns_components_schemas_id_output: JsonSchema = {
+export const firewall_lockdowns_components$$schemas$$id: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `firewall_modified_on` in responses.
  */
-export const firewall_modified_on_output: JsonSchema = {
+export const firewall_modified_on: JsonSchema = {
   "format": "date-time",
   "type": "string"
 };
@@ -54,7 +54,7 @@ export const firewall_modified_on_output: JsonSchema = {
 /**
  * The schema of `firewall_schemas-cidr_configuration` in responses.
  */
-export const firewall_schemas_cidr_configuration_output: JsonSchema = {
+export const firewall_schemas$$cidr_configuration: JsonSchema = {
   "properties": {
     "target": {
       "enum": [
@@ -72,7 +72,7 @@ export const firewall_schemas_cidr_configuration_output: JsonSchema = {
 /**
  * The schema of `firewall_schemas-ip_configuration` in responses.
  */
-export const firewall_schemas_ip_configuration_output: JsonSchema = {
+export const firewall_schemas$$ip_configuration: JsonSchema = {
   "properties": {
     "target": {
       "enum": [
@@ -90,7 +90,7 @@ export const firewall_schemas_ip_configuration_output: JsonSchema = {
 /**
  * The schema of `firewall_schemas-urls` in responses.
  */
-export const firewall_schemas_urls_output: JsonSchema = {
+export const firewall_schemas$$urls: JsonSchema = {
   "items": {
     "type": "string"
   },
@@ -100,7 +100,7 @@ export const firewall_schemas_urls_output: JsonSchema = {
 /**
  * The schema of `firewall_zonelockdown` in responses.
  */
-export const firewall_zonelockdown_output: JsonSchema = {
+export const firewall_zonelockdown: JsonSchema = {
   "properties": {
     "configurations": {
       "$ref": "#/$defs/firewall_configurations"
@@ -139,7 +139,7 @@ export const firewall_zonelockdown_output: JsonSchema = {
 /**
  * The schema of `firewall_zonelockdown_response_collection` in responses.
  */
-export const firewall_zonelockdown_response_collection_output: JsonSchema = {
+export const firewall_zonelockdown_response_collection: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/firewall_api-response-collection"
@@ -164,7 +164,7 @@ export const firewall_zonelockdown_response_collection_output: JsonSchema = {
 /**
  * The schema of `firewall_zonelockdown_response_single` in responses.
  */
-export const firewall_zonelockdown_response_single_output: JsonSchema = {
+export const firewall_zonelockdown_response_single: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/firewall_api-response-single"

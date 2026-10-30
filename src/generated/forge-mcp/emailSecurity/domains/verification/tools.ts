@@ -3,42 +3,50 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
-  email_security_api_response_common_failure_output,
-  email_security_api_response_single_output,
-  email_security_messages_output,
+  email$$security_api$$response$$common$$failure,
+  email$$security_api$$response$$single,
+  email$$security_messages,
 } from "../../outputs.js";
-import { email_security_identifier } from "../../schemas.js";
-import { email_security_DomainStatus_output } from "../outputs.js";
-import { email_security_DomainId } from "../schemas.js";
-import { email_security_DomainVerificationInfo_output } from "./outputs.js";
+import { email$$security_identifier } from "../../schemas.js";
+import { email$$security_DomainStatus } from "../outputs.js";
+import { email$$security_DomainId } from "../schemas.js";
+import { email$$security_DomainVerificationInfo } from "./outputs.js";
 
 /**
- * The tools of `email_security.domains.verification`.
+ * The tools of `emailSecurity.domains.verification`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "email_security_domains_verification_get",
+    name: "emailSecurity_domains_verification_get",
     title: "Get domain verification details",
     description: "Returns the DNS TXT record information when the domain ownership isn't\nverified through Cloudflare zone ownership or CASB integration.\n\nThis method is beta.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/email-security_identifier",
-          "description": "Account identifier tag."
-        },
-        "domain_id": {
-          "$ref": "#/$defs/email-security_DomainId",
-          "description": "Domain identifier."
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/email-security_identifier",
+              "description": "Account identifier tag."
+            },
+            "domain_id": {
+              "$ref": "#/$defs/email-security_DomainId",
+              "description": "Domain identifier."
+            }
+          },
+          "required": [
+            "account_id",
+            "domain_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "domain_id"
+        "path"
       ],
       $defs: {
-        "email-security_DomainId": email_security_DomainId,
-        "email-security_identifier": email_security_identifier,
+        "email-security_DomainId": email$$security_DomainId,
+        "email-security_identifier": email$$security_identifier,
       },
     },
     outputSchema: {
@@ -56,10 +64,10 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "email-security_DomainStatus": email_security_DomainStatus_output,
-        "email-security_DomainVerificationInfo": email_security_DomainVerificationInfo_output,
-        "email-security_api-response-single": email_security_api_response_single_output,
-        "email-security_messages": email_security_messages_output,
+        "email-security_DomainStatus": email$$security_DomainStatus,
+        "email-security_DomainVerificationInfo": email$$security_DomainVerificationInfo,
+        "email-security_api-response-single": email$$security_api$$response$$single,
+        "email-security_messages": email$$security_messages,
       },
     },
     annotations: {
@@ -100,11 +108,11 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "email-security_DomainStatus": email_security_DomainStatus_output,
-        "email-security_DomainVerificationInfo": email_security_DomainVerificationInfo_output,
-        "email-security_api-response-common-failure": email_security_api_response_common_failure_output,
-        "email-security_api-response-single": email_security_api_response_single_output,
-        "email-security_messages": email_security_messages_output,
+        "email-security_DomainStatus": email$$security_DomainStatus,
+        "email-security_DomainVerificationInfo": email$$security_DomainVerificationInfo,
+        "email-security_api-response-common-failure": email$$security_api$$response$$common$$failure,
+        "email-security_api-response-single": email$$security_api$$response$$single,
+        "email-security_messages": email$$security_messages,
       },
     },
     request: (args) => ({

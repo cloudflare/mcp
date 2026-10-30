@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `magic-transit_check_type`.
  */
-export const magic_transit_check_type: JsonSchema = {
+export const magic$$transit_check_type: JsonSchema = {
   "description": "type of check to perform",
   "enum": [
     "icmp"
@@ -17,7 +17,7 @@ export const magic_transit_check_type: JsonSchema = {
 /**
  * The schema of `magic-transit_endpoint_health_check`.
  */
-export const magic_transit_endpoint_health_check: JsonSchema = {
+export const magic$$transit_endpoint_health_check: JsonSchema = {
   "properties": {
     "check_type": {
       "$ref": "#/$defs/magic-transit_check_type",
@@ -43,7 +43,7 @@ export const magic_transit_endpoint_health_check: JsonSchema = {
 /**
  * The schema of `magic-transit_uuid`.
  */
-export const magic_transit_uuid: JsonSchema = {
+export const magic$$transit_uuid: JsonSchema = {
   "description": "UUID.",
   "type": "string"
 };

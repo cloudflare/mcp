@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `resource-sharing_create_share_excluded_recipient_request`.
  */
-export const resource_sharing_create_share_excluded_recipient_request: JsonSchema = {
+export const resource$$sharing_create_share_excluded_recipient_request: JsonSchema = {
   "properties": {
     "account_id": {
       "$ref": "#/$defs/resource-sharing_account_id",
@@ -22,7 +22,7 @@ export const resource_sharing_create_share_excluded_recipient_request: JsonSchem
 /**
  * The schema of `resource-sharing_excluded_recipient_id`.
  */
-export const resource_sharing_excluded_recipient_id: JsonSchema = {
+export const resource$$sharing_excluded_recipient_id: JsonSchema = {
   "description": "Share Excluded Recipient identifier tag.",
   "type": "string"
 };
@@ -30,7 +30,7 @@ export const resource_sharing_excluded_recipient_id: JsonSchema = {
 /**
  * The schema of `resource-sharing_update_share_excluded_recipients_request`.
  */
-export const resource_sharing_update_share_excluded_recipients_request: JsonSchema = {
+export const resource$$sharing_update_share_excluded_recipients_request: JsonSchema = {
   "items": {
     "$ref": "#/$defs/resource-sharing_create_share_excluded_recipient_request"
   },

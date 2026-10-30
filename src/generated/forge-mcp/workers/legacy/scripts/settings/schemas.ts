@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../../_/tool.js";
 /**
  * The schema of `workers_script-settings-item`.
  */
-export const workers_script_settings_item: JsonSchema = {
+export const workers_script$$settings$$item: JsonSchema = {
   "properties": {
     "logpush": {
       "$ref": "#/$defs/workers_logpush",

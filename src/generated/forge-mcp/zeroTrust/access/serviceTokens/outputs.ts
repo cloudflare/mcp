@@ -6,14 +6,14 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `access_client_secret` in responses.
  */
-export const access_client_secret_output: JsonSchema = {
+export const access_client_secret: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `access_create_response` in responses.
  */
-export const access_create_response_output: JsonSchema = {
+export const access_create_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/access_api-response-single"
@@ -61,7 +61,7 @@ export const access_create_response_output: JsonSchema = {
 /**
  * The schema of `access_response_collection-4` in responses.
  */
-export const access_response_collection_4_output: JsonSchema = {
+export const access_response_collection$$4: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/access_api-response-collection"

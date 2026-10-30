@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `magic_cf1_site` in responses.
  */
-export const magic_cf1_site_output: JsonSchema = {
+export const magic_cf1_site: JsonSchema = {
   "properties": {
     "created_on": {
       "format": "date-time",
@@ -38,7 +38,7 @@ export const magic_cf1_site_output: JsonSchema = {
 /**
  * The schema of `magic_cf1_site_location` in responses.
  */
-export const magic_cf1_site_location_output: JsonSchema = {
+export const magic_cf1_site_location: JsonSchema = {
   "properties": {
     "lat": {
       "type": "number"
@@ -56,7 +56,7 @@ export const magic_cf1_site_location_output: JsonSchema = {
 /**
  * The schema of `magic_cf1_site_single_response` in responses.
  */
-export const magic_cf1_site_single_response_output: JsonSchema = {
+export const magic_cf1_site_single_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/magic_api-response-single"
@@ -75,7 +75,7 @@ export const magic_cf1_site_single_response_output: JsonSchema = {
 /**
  * The schema of `magic_cf1_sites_collection_response` in responses.
  */
-export const magic_cf1_sites_collection_response_output: JsonSchema = {
+export const magic_cf1_sites_collection_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/magic_api-response-single"

@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `tls-certificates-and-hostnames_enabled-2` in responses.
  */
-export const tls_certificates_and_hostnames_enabled_2_output: JsonSchema = {
+export const tls$$certificates$$and$$hostnames_enabled$$2: JsonSchema = {
   "type": "boolean"
 };
 
@@ -15,7 +15,7 @@ export const tls_certificates_and_hostnames_enabled_2_output: JsonSchema = {
  * `tls-certificates-and-hostnames_ssl_universal_settings_response` in
  * responses.
  */
-export const tls_certificates_and_hostnames_ssl_universal_settings_response_output: JsonSchema = {
+export const tls$$certificates$$and$$hostnames_ssl_universal_settings_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/tls-certificates-and-hostnames_api-response-single"
@@ -34,7 +34,7 @@ export const tls_certificates_and_hostnames_ssl_universal_settings_response_outp
 /**
  * The schema of `tls-certificates-and-hostnames_universal` in responses.
  */
-export const tls_certificates_and_hostnames_universal_output: JsonSchema = {
+export const tls$$certificates$$and$$hostnames_universal: JsonSchema = {
   "properties": {
     "enabled": {
       "$ref": "#/$defs/tls-certificates-and-hostnames_enabled-2"

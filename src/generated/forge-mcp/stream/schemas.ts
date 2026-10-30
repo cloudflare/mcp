@@ -22,7 +22,7 @@ export const stream_creator: JsonSchema = {
 /**
  * The schema of `stream_identifier-2`.
  */
-export const stream_identifier_2: JsonSchema = {
+export const stream_identifier$$2: JsonSchema = {
   "description": "Identifier.",
   "type": "string"
 };

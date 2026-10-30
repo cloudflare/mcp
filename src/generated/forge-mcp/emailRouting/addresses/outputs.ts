@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `email_addresses` in responses.
  */
-export const email_addresses_output: JsonSchema = {
+export const email_addresses: JsonSchema = {
   "properties": {
     "created": {
       "$ref": "#/$defs/email_created"
@@ -33,14 +33,14 @@ export const email_addresses_output: JsonSchema = {
 /**
  * The schema of `email_destination_address_identifier` in responses.
  */
-export const email_destination_address_identifier_output: JsonSchema = {
+export const email_destination_address_identifier: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `email_destination_address_response_single` in responses.
  */
-export const email_destination_address_response_single_output: JsonSchema = {
+export const email_destination_address_response_single: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/email_api-response-single"
@@ -59,14 +59,14 @@ export const email_destination_address_response_single_output: JsonSchema = {
 /**
  * The schema of `email_destination_address_tag` in responses.
  */
-export const email_destination_address_tag_output: JsonSchema = {
+export const email_destination_address_tag: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `email_destination_addresses_response_collection` in responses.
  */
-export const email_destination_addresses_response_collection_output: JsonSchema = {
+export const email_destination_addresses_response_collection: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/email_api-response-collection"
@@ -105,14 +105,14 @@ export const email_destination_addresses_response_collection_output: JsonSchema 
 /**
  * The schema of `email_email` in responses.
  */
-export const email_email_output: JsonSchema = {
+export const email_email: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `email_verified` in responses.
  */
-export const email_verified_output: JsonSchema = {
+export const email_verified: JsonSchema = {
   "format": "date-time",
   "type": "string"
 };

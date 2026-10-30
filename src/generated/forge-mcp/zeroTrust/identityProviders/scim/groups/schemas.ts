@@ -30,7 +30,7 @@ export const access_idp_resource_id: JsonSchema = {
 /**
  * The schema of `access_name-4`.
  */
-export const access_name_4: JsonSchema = {
+export const access_name$$4: JsonSchema = {
   "description": "The display name of the SCIM Group resource.",
   "type": "string"
 };

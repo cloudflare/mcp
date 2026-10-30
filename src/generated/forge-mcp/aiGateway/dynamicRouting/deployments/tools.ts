@@ -4,19 +4,16 @@
 import { type Tool, pathParam } from "../../../_/tool.js";
 
 /**
- * The tools of `ai_gateway.dynamic_routing.deployments`.
+ * The tools of `aiGateway.dynamicRouting.deployments`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "ai_gateway_dynamic_routing_deployments_create",
+    name: "aiGateway_dynamicRouting_deployments_create",
     title: "Deploy a dynamic route version",
     description: "Deploys the specified version of a dynamic route so that it serves traffic. Deploy an earlier version to roll back.\n\nThis method is beta.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "type": "string"
-        },
         "body": {
           "properties": {
             "version_id": {
@@ -28,17 +25,28 @@ export const tools: readonly Tool[] = [
           ],
           "type": "object"
         },
-        "gateway_id": {
-          "type": "string"
-        },
-        "id": {
-          "type": "string"
+        "path": {
+          "properties": {
+            "account_id": {
+              "type": "string"
+            },
+            "gateway_id": {
+              "type": "string"
+            },
+            "id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "gateway_id",
+            "id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "gateway_id",
-        "id"
+        "path"
       ],
     },
     outputSchema: {
@@ -834,26 +842,34 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "ai_gateway_dynamic_routing_deployments_list",
+    name: "aiGateway_dynamicRouting_deployments_list",
     title: "List dynamic route deployments",
     description: "Lists the deployment history of a dynamic route.\n\nThis method is beta.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "type": "string"
-        },
-        "gateway_id": {
-          "type": "string"
-        },
-        "id": {
-          "type": "string"
+        "path": {
+          "properties": {
+            "account_id": {
+              "type": "string"
+            },
+            "gateway_id": {
+              "type": "string"
+            },
+            "id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "gateway_id",
+            "id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "gateway_id",
-        "id"
+        "path"
       ],
     },
     outputSchema: {

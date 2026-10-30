@@ -6,14 +6,14 @@ import type { JsonSchema } from "../_/tool.js";
 /**
  * The schema of `r2_bucket_name` in responses.
  */
-export const r2_bucket_name_output: JsonSchema = {
+export const r2_bucket_name: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `r2_errors` in responses.
  */
-export const r2_errors_output: JsonSchema = {
+export const r2_errors: JsonSchema = {
   "items": {
     "properties": {
       "code": {
@@ -35,7 +35,7 @@ export const r2_errors_output: JsonSchema = {
 /**
  * The schema of `r2_messages` in responses.
  */
-export const r2_messages_output: JsonSchema = {
+export const r2_messages: JsonSchema = {
   "items": {
     "type": "string"
   },
@@ -45,7 +45,7 @@ export const r2_messages_output: JsonSchema = {
 /**
  * The schema of `r2_prefix_delete_job` in responses.
  */
-export const r2_prefix_delete_job_output: JsonSchema = {
+export const r2_prefix_delete_job: JsonSchema = {
   "properties": {
     "endTime": {
       "format": "date-time",
@@ -99,7 +99,7 @@ export const r2_prefix_delete_job_output: JsonSchema = {
 /**
  * The schema of `r2_r2_bucket_job_status` in responses.
  */
-export const r2_r2_bucket_job_status_output: JsonSchema = {
+export const r2_r2_bucket_job_status: JsonSchema = {
   "enum": [
     "ENQUEUED",
     "RUNNING",
@@ -113,7 +113,7 @@ export const r2_r2_bucket_job_status_output: JsonSchema = {
 /**
  * The schema of `r2_storage_class` in responses.
  */
-export const r2_storage_class_output: JsonSchema = {
+export const r2_storage_class: JsonSchema = {
   "enum": [
     "Standard",
     "InfrequentAccess"
@@ -124,7 +124,7 @@ export const r2_storage_class_output: JsonSchema = {
 /**
  * The schema of `r2_v4_response` in responses.
  */
-export const r2_v4_response_output: JsonSchema = {
+export const r2_v4_response: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/r2_errors"
@@ -154,7 +154,7 @@ export const r2_v4_response_output: JsonSchema = {
 /**
  * The schema of `r2_v4_response_failure` in responses.
  */
-export const r2_v4_response_failure_output: JsonSchema = {
+export const r2_v4_response_failure: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/r2_errors"

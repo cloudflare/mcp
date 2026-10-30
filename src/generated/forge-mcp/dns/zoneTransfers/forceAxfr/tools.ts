@@ -3,45 +3,53 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
-  secondary_dns_api_response_common_failure_output,
-  secondary_dns_api_response_single_output,
-  secondary_dns_messages_output,
+  secondary$$dns_api$$response$$common$$failure,
+  secondary$$dns_api$$response$$single,
+  secondary$$dns_messages,
 } from "../outputs.js";
-import { secondary_dns_identifier } from "../schemas.js";
+import { secondary$$dns_identifier } from "../schemas.js";
 import {
-  secondary_dns_force_response_output,
-  secondary_dns_force_result_output,
+  secondary$$dns_force_response,
+  secondary$$dns_force_result,
 } from "./outputs.js";
 
 /**
- * The tools of `dns.zone_transfers.force_axfr`.
+ * The tools of `dns.zoneTransfers.forceAxfr`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "dns_zone_transfers_force_axfr_create",
+    name: "dns_zoneTransfers_forceAxfr_create",
     title: "Force AXFR",
     description: "Sends AXFR zone transfer request to primary nameserver(s).",
     inputSchema: {
       type: "object",
       properties: {
-        "zone_id": {
-          "$ref": "#/$defs/secondary-dns_identifier"
+        "path": {
+          "properties": {
+            "zone_id": {
+              "$ref": "#/$defs/secondary-dns_identifier"
+            }
+          },
+          "required": [
+            "zone_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "zone_id"
+        "path"
       ],
       $defs: {
-        "secondary-dns_identifier": secondary_dns_identifier,
+        "secondary-dns_identifier": secondary$$dns_identifier,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/secondary-dns_force_response",
       $defs: {
-        "secondary-dns_api-response-single": secondary_dns_api_response_single_output,
-        "secondary-dns_force_response": secondary_dns_force_response_output,
-        "secondary-dns_force_result": secondary_dns_force_result_output,
-        "secondary-dns_messages": secondary_dns_messages_output,
+        "secondary-dns_api-response-single": secondary$$dns_api$$response$$single,
+        "secondary-dns_force_response": secondary$$dns_force_response,
+        "secondary-dns_force_result": secondary$$dns_force_result,
+        "secondary-dns_messages": secondary$$dns_messages,
       },
     },
     annotations: {
@@ -83,11 +91,11 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "secondary-dns_api-response-common-failure": secondary_dns_api_response_common_failure_output,
-        "secondary-dns_api-response-single": secondary_dns_api_response_single_output,
-        "secondary-dns_force_response": secondary_dns_force_response_output,
-        "secondary-dns_force_result": secondary_dns_force_result_output,
-        "secondary-dns_messages": secondary_dns_messages_output,
+        "secondary-dns_api-response-common-failure": secondary$$dns_api$$response$$common$$failure,
+        "secondary-dns_api-response-single": secondary$$dns_api$$response$$single,
+        "secondary-dns_force_response": secondary$$dns_force_response,
+        "secondary-dns_force_result": secondary$$dns_force_result,
+        "secondary-dns_messages": secondary$$dns_messages,
       },
     },
     request: (args) => ({

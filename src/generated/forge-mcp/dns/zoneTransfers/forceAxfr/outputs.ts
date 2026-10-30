@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `secondary-dns_force_response` in responses.
  */
-export const secondary_dns_force_response_output: JsonSchema = {
+export const secondary$$dns_force_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/secondary-dns_api-response-single"
@@ -25,6 +25,6 @@ export const secondary_dns_force_response_output: JsonSchema = {
 /**
  * The schema of `secondary-dns_force_result` in responses.
  */
-export const secondary_dns_force_result_output: JsonSchema = {
+export const secondary$$dns_force_result: JsonSchema = {
   "type": "string"
 };

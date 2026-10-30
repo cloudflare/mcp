@@ -6,7 +6,7 @@ import type { JsonSchema } from "../_/tool.js";
 /**
  * The schema of `advanced-ddos-protection_identifier`.
  */
-export const advanced_ddos_protection_identifier: JsonSchema = {
+export const advanced$$ddos$$protection_identifier: JsonSchema = {
   "description": "Identifier.",
   "type": "string"
 };
@@ -14,7 +14,7 @@ export const advanced_ddos_protection_identifier: JsonSchema = {
 /**
  * The schema of `advanced-ddos-protection_uuid`.
  */
-export const advanced_ddos_protection_uuid: JsonSchema = {
+export const advanced$$ddos$$protection_uuid: JsonSchema = {
   "description": "UUID.",
   "type": "string"
 };

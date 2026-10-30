@@ -6,14 +6,14 @@ import type { JsonSchema } from "../_/tool.js";
 /**
  * The schema of `botnet-feed-api_asn`.
  */
-export const botnet_feed_api_asn: JsonSchema = {
+export const botnet$$feed$$api_asn: JsonSchema = {
   "type": "integer"
 };
 
 /**
  * The schema of `botnet-feed-api_identifier`.
  */
-export const botnet_feed_api_identifier: JsonSchema = {
+export const botnet$$feed$$api_identifier: JsonSchema = {
   "description": "Identifier.",
   "type": "string"
 };

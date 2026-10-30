@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `api-shield_Rule` in responses.
  */
-export const api_shield_Rule_output: JsonSchema = {
+export const api$$shield_Rule: JsonSchema = {
   "properties": {
     "action": {
       "$ref": "#/$defs/api-shield_action"
@@ -50,7 +50,7 @@ export const api_shield_Rule_output: JsonSchema = {
 /**
  * The schema of `api-shield_action` in responses.
  */
-export const api_shield_action_output: JsonSchema = {
+export const api$$shield_action: JsonSchema = {
   "enum": [
     "log",
     "block"
@@ -61,7 +61,7 @@ export const api_shield_action_output: JsonSchema = {
 /**
  * The schema of `api-shield_api-response-single-obj` in responses.
  */
-export const api_shield_api_response_single_obj_output: JsonSchema = {
+export const api$$shield_api$$response$$single$$obj: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/api-shield_api-response-common"
@@ -80,28 +80,28 @@ export const api_shield_api_response_single_obj_output: JsonSchema = {
 /**
  * The schema of `api-shield_description-2` in responses.
  */
-export const api_shield_description_2_output: JsonSchema = {
+export const api$$shield_description$$2: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `api-shield_enabled` in responses.
  */
-export const api_shield_enabled_output: JsonSchema = {
+export const api$$shield_enabled: JsonSchema = {
   "type": "boolean"
 };
 
 /**
  * The schema of `api-shield_expression` in responses.
  */
-export const api_shield_expression_output: JsonSchema = {
+export const api$$shield_expression: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `api-shield_selector` in responses.
  */
-export const api_shield_selector_output: JsonSchema = {
+export const api$$shield_selector: JsonSchema = {
   "properties": {
     "exclude": {
       "oneOf": [
@@ -136,7 +136,7 @@ export const api_shield_selector_output: JsonSchema = {
 /**
  * The schema of `api-shield_selector-exclude` in responses.
  */
-export const api_shield_selector_exclude_output: JsonSchema = {
+export const api$$shield_selector$$exclude: JsonSchema = {
   "properties": {
     "operation_ids": {
       "items": {
@@ -151,7 +151,7 @@ export const api_shield_selector_exclude_output: JsonSchema = {
 /**
  * The schema of `api-shield_selector-include` in responses.
  */
-export const api_shield_selector_include_output: JsonSchema = {
+export const api$$shield_selector$$include: JsonSchema = {
   "properties": {
     "host": {
       "items": {
@@ -166,6 +166,6 @@ export const api_shield_selector_include_output: JsonSchema = {
 /**
  * The schema of `api-shield_title-2` in responses.
  */
-export const api_shield_title_2_output: JsonSchema = {
+export const api$$shield_title$$2: JsonSchema = {
   "type": "string"
 };

@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `cloudforce-one_ExemptionUpdateEntry`.
  */
-export const cloudforce_one_ExemptionUpdateEntry: JsonSchema = {
+export const cloudforce$$one_ExemptionUpdateEntry: JsonSchema = {
   "properties": {
     "new_pattern": {
       "type": "string"
@@ -25,7 +25,7 @@ export const cloudforce_one_ExemptionUpdateEntry: JsonSchema = {
 /**
  * The schema of `cloudforce-one_PartialAccountExemptions`.
  */
-export const cloudforce_one_PartialAccountExemptions: JsonSchema = {
+export const cloudforce$$one_PartialAccountExemptions: JsonSchema = {
   "properties": {
     "namespace": {
       "items": {
@@ -52,7 +52,7 @@ export const cloudforce_one_PartialAccountExemptions: JsonSchema = {
 /**
  * The schema of `cloudforce-one_UpdateAccountExemptionsBody`.
  */
-export const cloudforce_one_UpdateAccountExemptionsBody: JsonSchema = {
+export const cloudforce$$one_UpdateAccountExemptionsBody: JsonSchema = {
   "properties": {
     "namespace": {
       "items": {

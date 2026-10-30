@@ -3,38 +3,46 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
-  dlp_api_response_common_failure_output,
-  dlp_api_response_single_output,
-  dlp_messages_output,
+  dlp_api$$response$$common$$failure,
+  dlp_api$$response$$single,
+  dlp_messages,
 } from "../../outputs.js";
 import {
-  dlp_DlpSettings_output,
-  dlp_PayloadLogMaskingLevel_output,
-  dlp_PayloadLogSetting_output,
+  dlp_DlpSettings,
+  dlp_PayloadLogMaskingLevel,
+  dlp_PayloadLogSetting,
 } from "./outputs.js";
 import {
   dlp_DlpSettingsUpdate,
-  dlp_PayloadLogMaskingLevel,
+  dlp_PayloadLogMaskingLevel as dlp_PayloadLogMaskingLevel$,
   dlp_PayloadLogSettingUpdate,
 } from "./schemas.js";
 
 /**
- * The tools of `zero_trust.dlp.settings`.
+ * The tools of `zeroTrust.dlp.settings`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "zero_trust_dlp_settings_delete",
+    name: "zeroTrust_dlp_settings_delete",
     title: "Delete (reset) DLP account-level settings to initial values.",
     description: "Deletes account-level DLP settings and returns the initial values.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "type": "string"
+        "path": {
+          "properties": {
+            "account_id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id"
+        "path"
       ],
     },
     outputSchema: {
@@ -52,11 +60,11 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "dlp_DlpSettings": dlp_DlpSettings_output,
-        "dlp_PayloadLogMaskingLevel": dlp_PayloadLogMaskingLevel_output,
-        "dlp_PayloadLogSetting": dlp_PayloadLogSetting_output,
-        "dlp_api-response-single": dlp_api_response_single_output,
-        "dlp_messages": dlp_messages_output,
+        "dlp_DlpSettings": dlp_DlpSettings,
+        "dlp_PayloadLogMaskingLevel": dlp_PayloadLogMaskingLevel,
+        "dlp_PayloadLogSetting": dlp_PayloadLogSetting,
+        "dlp_api-response-single": dlp_api$$response$$single,
+        "dlp_messages": dlp_messages,
       },
     },
     annotations: {
@@ -95,12 +103,12 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "dlp_DlpSettings": dlp_DlpSettings_output,
-        "dlp_PayloadLogMaskingLevel": dlp_PayloadLogMaskingLevel_output,
-        "dlp_PayloadLogSetting": dlp_PayloadLogSetting_output,
-        "dlp_api-response-common-failure": dlp_api_response_common_failure_output,
-        "dlp_api-response-single": dlp_api_response_single_output,
-        "dlp_messages": dlp_messages_output,
+        "dlp_DlpSettings": dlp_DlpSettings,
+        "dlp_PayloadLogMaskingLevel": dlp_PayloadLogMaskingLevel,
+        "dlp_PayloadLogSetting": dlp_PayloadLogSetting,
+        "dlp_api-response-common-failure": dlp_api$$response$$common$$failure,
+        "dlp_api-response-single": dlp_api$$response$$single,
+        "dlp_messages": dlp_messages,
       },
     },
     request: (args) => ({
@@ -108,27 +116,35 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "zero_trust_dlp_settings_edit",
+    name: "zeroTrust_dlp_settings_edit",
     title: "Partially update DLP account-level settings.",
     description: "Missing fields keep their existing values.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "type": "string"
-        },
         "body": {
           "$ref": "#/$defs/dlp_DlpSettingsUpdate",
           "description": "DLP settings fields to update."
+        },
+        "path": {
+          "properties": {
+            "account_id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
+        "path",
         "body"
       ],
       $defs: {
         "dlp_DlpSettingsUpdate": dlp_DlpSettingsUpdate,
-        "dlp_PayloadLogMaskingLevel": dlp_PayloadLogMaskingLevel,
+        "dlp_PayloadLogMaskingLevel": dlp_PayloadLogMaskingLevel$,
         "dlp_PayloadLogSettingUpdate": dlp_PayloadLogSettingUpdate,
       },
     },
@@ -147,11 +163,11 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "dlp_DlpSettings": dlp_DlpSettings_output,
-        "dlp_PayloadLogMaskingLevel": dlp_PayloadLogMaskingLevel_output,
-        "dlp_PayloadLogSetting": dlp_PayloadLogSetting_output,
-        "dlp_api-response-single": dlp_api_response_single_output,
-        "dlp_messages": dlp_messages_output,
+        "dlp_DlpSettings": dlp_DlpSettings,
+        "dlp_PayloadLogMaskingLevel": dlp_PayloadLogMaskingLevel,
+        "dlp_PayloadLogSetting": dlp_PayloadLogSetting,
+        "dlp_api-response-single": dlp_api$$response$$single,
+        "dlp_messages": dlp_messages,
       },
     },
     annotations: {
@@ -190,12 +206,12 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "dlp_DlpSettings": dlp_DlpSettings_output,
-        "dlp_PayloadLogMaskingLevel": dlp_PayloadLogMaskingLevel_output,
-        "dlp_PayloadLogSetting": dlp_PayloadLogSetting_output,
-        "dlp_api-response-common-failure": dlp_api_response_common_failure_output,
-        "dlp_api-response-single": dlp_api_response_single_output,
-        "dlp_messages": dlp_messages_output,
+        "dlp_DlpSettings": dlp_DlpSettings,
+        "dlp_PayloadLogMaskingLevel": dlp_PayloadLogMaskingLevel,
+        "dlp_PayloadLogSetting": dlp_PayloadLogSetting,
+        "dlp_api-response-common-failure": dlp_api$$response$$common$$failure,
+        "dlp_api-response-single": dlp_api$$response$$single,
+        "dlp_messages": dlp_messages,
       },
     },
     request: (args) => ({
@@ -204,18 +220,26 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "zero_trust_dlp_settings_get",
+    name: "zeroTrust_dlp_settings_get",
     title: "Get DLP account-level settings.",
     description: "Gets the account-level DLP settings.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "type": "string"
+        "path": {
+          "properties": {
+            "account_id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id"
+        "path"
       ],
     },
     outputSchema: {
@@ -233,11 +257,11 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "dlp_DlpSettings": dlp_DlpSettings_output,
-        "dlp_PayloadLogMaskingLevel": dlp_PayloadLogMaskingLevel_output,
-        "dlp_PayloadLogSetting": dlp_PayloadLogSetting_output,
-        "dlp_api-response-single": dlp_api_response_single_output,
-        "dlp_messages": dlp_messages_output,
+        "dlp_DlpSettings": dlp_DlpSettings,
+        "dlp_PayloadLogMaskingLevel": dlp_PayloadLogMaskingLevel,
+        "dlp_PayloadLogSetting": dlp_PayloadLogSetting,
+        "dlp_api-response-single": dlp_api$$response$$single,
+        "dlp_messages": dlp_messages,
       },
     },
     annotations: {
@@ -277,12 +301,12 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "dlp_DlpSettings": dlp_DlpSettings_output,
-        "dlp_PayloadLogMaskingLevel": dlp_PayloadLogMaskingLevel_output,
-        "dlp_PayloadLogSetting": dlp_PayloadLogSetting_output,
-        "dlp_api-response-common-failure": dlp_api_response_common_failure_output,
-        "dlp_api-response-single": dlp_api_response_single_output,
-        "dlp_messages": dlp_messages_output,
+        "dlp_DlpSettings": dlp_DlpSettings,
+        "dlp_PayloadLogMaskingLevel": dlp_PayloadLogMaskingLevel,
+        "dlp_PayloadLogSetting": dlp_PayloadLogSetting,
+        "dlp_api-response-common-failure": dlp_api$$response$$common$$failure,
+        "dlp_api-response-single": dlp_api$$response$$single,
+        "dlp_messages": dlp_messages,
       },
     },
     request: (args) => ({
@@ -290,27 +314,35 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "zero_trust_dlp_settings_update",
+    name: "zeroTrust_dlp_settings_update",
     title: "Update DLP account-level settings (full replacement).",
     description: "Missing fields are reset to initial (unconfigured) values.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "type": "string"
-        },
         "body": {
           "$ref": "#/$defs/dlp_DlpSettingsUpdate",
           "description": "New DLP settings."
+        },
+        "path": {
+          "properties": {
+            "account_id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
+        "path",
         "body"
       ],
       $defs: {
         "dlp_DlpSettingsUpdate": dlp_DlpSettingsUpdate,
-        "dlp_PayloadLogMaskingLevel": dlp_PayloadLogMaskingLevel,
+        "dlp_PayloadLogMaskingLevel": dlp_PayloadLogMaskingLevel$,
         "dlp_PayloadLogSettingUpdate": dlp_PayloadLogSettingUpdate,
       },
     },
@@ -329,11 +361,11 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "dlp_DlpSettings": dlp_DlpSettings_output,
-        "dlp_PayloadLogMaskingLevel": dlp_PayloadLogMaskingLevel_output,
-        "dlp_PayloadLogSetting": dlp_PayloadLogSetting_output,
-        "dlp_api-response-single": dlp_api_response_single_output,
-        "dlp_messages": dlp_messages_output,
+        "dlp_DlpSettings": dlp_DlpSettings,
+        "dlp_PayloadLogMaskingLevel": dlp_PayloadLogMaskingLevel,
+        "dlp_PayloadLogSetting": dlp_PayloadLogSetting,
+        "dlp_api-response-single": dlp_api$$response$$single,
+        "dlp_messages": dlp_messages,
       },
     },
     annotations: {
@@ -372,12 +404,12 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "dlp_DlpSettings": dlp_DlpSettings_output,
-        "dlp_PayloadLogMaskingLevel": dlp_PayloadLogMaskingLevel_output,
-        "dlp_PayloadLogSetting": dlp_PayloadLogSetting_output,
-        "dlp_api-response-common-failure": dlp_api_response_common_failure_output,
-        "dlp_api-response-single": dlp_api_response_single_output,
-        "dlp_messages": dlp_messages_output,
+        "dlp_DlpSettings": dlp_DlpSettings,
+        "dlp_PayloadLogMaskingLevel": dlp_PayloadLogMaskingLevel,
+        "dlp_PayloadLogSetting": dlp_PayloadLogSetting,
+        "dlp_api-response-common-failure": dlp_api$$response$$common$$failure,
+        "dlp_api-response-single": dlp_api$$response$$single,
+        "dlp_messages": dlp_messages,
       },
     },
     request: (args) => ({

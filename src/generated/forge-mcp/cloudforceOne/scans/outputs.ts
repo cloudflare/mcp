@@ -7,7 +7,7 @@ import type { JsonSchema } from "../../_/tool.js";
  * The schema of `cloudforce-one-port-scan-api_api-response-common` in
  * responses.
  */
-export const cloudforce_one_port_scan_api_api_response_common_output: JsonSchema = {
+export const cloudforce$$one$$port$$scan$$api_api$$response$$common: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/cloudforce-one-port-scan-api_messages"
@@ -34,7 +34,7 @@ export const cloudforce_one_port_scan_api_api_response_common_output: JsonSchema
  * The schema of `cloudforce-one-port-scan-api_api-response-common-failure` in
  * responses.
  */
-export const cloudforce_one_port_scan_api_api_response_common_failure_output: JsonSchema = {
+export const cloudforce$$one$$port$$scan$$api_api$$response$$common$$failure: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/cloudforce-one-port-scan-api_api-response-common"
@@ -56,7 +56,7 @@ export const cloudforce_one_port_scan_api_api_response_common_failure_output: Js
 /**
  * The schema of `cloudforce-one-port-scan-api_messages` in responses.
  */
-export const cloudforce_one_port_scan_api_messages_output: JsonSchema = {
+export const cloudforce$$one$$port$$scan$$api_messages: JsonSchema = {
   "items": {
     "properties": {
       "code": {

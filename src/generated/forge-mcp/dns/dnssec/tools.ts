@@ -3,31 +3,31 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
-  dnssec_algorithm_output,
-  dnssec_api_response_common_failure_output,
-  dnssec_api_response_single_output,
-  dnssec_delete_dnssec_response_single_output,
-  dnssec_digest_algorithm_output,
-  dnssec_digest_output,
-  dnssec_digest_type_output,
-  dnssec_dnssec_multi_signer_output,
-  dnssec_dnssec_output,
-  dnssec_dnssec_presigned_output,
-  dnssec_dnssec_response_single_output,
-  dnssec_dnssec_use_nsec3_output,
-  dnssec_ds_output,
-  dnssec_flags_output,
-  dnssec_key_tag_output,
-  dnssec_key_type_output,
-  dnssec_messages_output,
-  dnssec_modified_on_output,
-  dnssec_public_key_output,
-  dnssec_status_output,
-} from "./outputs.js";
-import {
+  dnssec_algorithm,
+  dnssec_api$$response$$common$$failure,
+  dnssec_api$$response$$single,
+  dnssec_delete_dnssec_response_single,
+  dnssec_digest,
+  dnssec_digest_algorithm,
+  dnssec_digest_type,
+  dnssec_dnssec,
   dnssec_dnssec_multi_signer,
   dnssec_dnssec_presigned,
+  dnssec_dnssec_response_single,
   dnssec_dnssec_use_nsec3,
+  dnssec_ds,
+  dnssec_flags,
+  dnssec_key_tag,
+  dnssec_key_type,
+  dnssec_messages,
+  dnssec_modified_on,
+  dnssec_public_key,
+  dnssec_status,
+} from "./outputs.js";
+import {
+  dnssec_dnssec_multi_signer as dnssec_dnssec_multi_signer$,
+  dnssec_dnssec_presigned as dnssec_dnssec_presigned$,
+  dnssec_dnssec_use_nsec3 as dnssec_dnssec_use_nsec3$,
   dnssec_identifier,
 } from "./schemas.js";
 
@@ -42,13 +42,21 @@ export const tools: readonly Tool[] = [
     inputSchema: {
       type: "object",
       properties: {
-        "zone_id": {
-          "$ref": "#/$defs/dnssec_identifier",
-          "description": "Identifier."
+        "path": {
+          "properties": {
+            "zone_id": {
+              "$ref": "#/$defs/dnssec_identifier",
+              "description": "Identifier."
+            }
+          },
+          "required": [
+            "zone_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "zone_id"
+        "path"
       ],
       $defs: {
         "dnssec_identifier": dnssec_identifier,
@@ -57,9 +65,9 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/dnssec_delete_dnssec_response_single",
       $defs: {
-        "dnssec_api-response-single": dnssec_api_response_single_output,
-        "dnssec_delete_dnssec_response_single": dnssec_delete_dnssec_response_single_output,
-        "dnssec_messages": dnssec_messages_output,
+        "dnssec_api-response-single": dnssec_api$$response$$single,
+        "dnssec_delete_dnssec_response_single": dnssec_delete_dnssec_response_single,
+        "dnssec_messages": dnssec_messages,
       },
     },
     annotations: {
@@ -97,10 +105,10 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "dnssec_api-response-common-failure": dnssec_api_response_common_failure_output,
-        "dnssec_api-response-single": dnssec_api_response_single_output,
-        "dnssec_delete_dnssec_response_single": dnssec_delete_dnssec_response_single_output,
-        "dnssec_messages": dnssec_messages_output,
+        "dnssec_api-response-common-failure": dnssec_api$$response$$common$$failure,
+        "dnssec_api-response-single": dnssec_api$$response$$single,
+        "dnssec_delete_dnssec_response_single": dnssec_delete_dnssec_response_single,
+        "dnssec_messages": dnssec_messages,
       },
     },
     request: (args) => ({
@@ -139,43 +147,51 @@ export const tools: readonly Tool[] = [
           },
           "type": "object"
         },
-        "zone_id": {
-          "$ref": "#/$defs/dnssec_identifier",
-          "description": "Identifier."
+        "path": {
+          "properties": {
+            "zone_id": {
+              "$ref": "#/$defs/dnssec_identifier",
+              "description": "Identifier."
+            }
+          },
+          "required": [
+            "zone_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "zone_id",
+        "path",
         "body"
       ],
       $defs: {
-        "dnssec_dnssec_multi_signer": dnssec_dnssec_multi_signer,
-        "dnssec_dnssec_presigned": dnssec_dnssec_presigned,
-        "dnssec_dnssec_use_nsec3": dnssec_dnssec_use_nsec3,
+        "dnssec_dnssec_multi_signer": dnssec_dnssec_multi_signer$,
+        "dnssec_dnssec_presigned": dnssec_dnssec_presigned$,
+        "dnssec_dnssec_use_nsec3": dnssec_dnssec_use_nsec3$,
         "dnssec_identifier": dnssec_identifier,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/dnssec_dnssec_response_single",
       $defs: {
-        "dnssec_algorithm": dnssec_algorithm_output,
-        "dnssec_api-response-single": dnssec_api_response_single_output,
-        "dnssec_digest": dnssec_digest_output,
-        "dnssec_digest_algorithm": dnssec_digest_algorithm_output,
-        "dnssec_digest_type": dnssec_digest_type_output,
-        "dnssec_dnssec": dnssec_dnssec_output,
-        "dnssec_dnssec_multi_signer": dnssec_dnssec_multi_signer_output,
-        "dnssec_dnssec_presigned": dnssec_dnssec_presigned_output,
-        "dnssec_dnssec_response_single": dnssec_dnssec_response_single_output,
-        "dnssec_dnssec_use_nsec3": dnssec_dnssec_use_nsec3_output,
-        "dnssec_ds": dnssec_ds_output,
-        "dnssec_flags": dnssec_flags_output,
-        "dnssec_key_tag": dnssec_key_tag_output,
-        "dnssec_key_type": dnssec_key_type_output,
-        "dnssec_messages": dnssec_messages_output,
-        "dnssec_modified_on": dnssec_modified_on_output,
-        "dnssec_public_key": dnssec_public_key_output,
-        "dnssec_status": dnssec_status_output,
+        "dnssec_algorithm": dnssec_algorithm,
+        "dnssec_api-response-single": dnssec_api$$response$$single,
+        "dnssec_digest": dnssec_digest,
+        "dnssec_digest_algorithm": dnssec_digest_algorithm,
+        "dnssec_digest_type": dnssec_digest_type,
+        "dnssec_dnssec": dnssec_dnssec,
+        "dnssec_dnssec_multi_signer": dnssec_dnssec_multi_signer,
+        "dnssec_dnssec_presigned": dnssec_dnssec_presigned,
+        "dnssec_dnssec_response_single": dnssec_dnssec_response_single,
+        "dnssec_dnssec_use_nsec3": dnssec_dnssec_use_nsec3,
+        "dnssec_ds": dnssec_ds,
+        "dnssec_flags": dnssec_flags,
+        "dnssec_key_tag": dnssec_key_tag,
+        "dnssec_key_type": dnssec_key_type,
+        "dnssec_messages": dnssec_messages,
+        "dnssec_modified_on": dnssec_modified_on,
+        "dnssec_public_key": dnssec_public_key,
+        "dnssec_status": dnssec_status,
       },
     },
     annotations: {
@@ -213,25 +229,25 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "dnssec_algorithm": dnssec_algorithm_output,
-        "dnssec_api-response-common-failure": dnssec_api_response_common_failure_output,
-        "dnssec_api-response-single": dnssec_api_response_single_output,
-        "dnssec_digest": dnssec_digest_output,
-        "dnssec_digest_algorithm": dnssec_digest_algorithm_output,
-        "dnssec_digest_type": dnssec_digest_type_output,
-        "dnssec_dnssec": dnssec_dnssec_output,
-        "dnssec_dnssec_multi_signer": dnssec_dnssec_multi_signer_output,
-        "dnssec_dnssec_presigned": dnssec_dnssec_presigned_output,
-        "dnssec_dnssec_response_single": dnssec_dnssec_response_single_output,
-        "dnssec_dnssec_use_nsec3": dnssec_dnssec_use_nsec3_output,
-        "dnssec_ds": dnssec_ds_output,
-        "dnssec_flags": dnssec_flags_output,
-        "dnssec_key_tag": dnssec_key_tag_output,
-        "dnssec_key_type": dnssec_key_type_output,
-        "dnssec_messages": dnssec_messages_output,
-        "dnssec_modified_on": dnssec_modified_on_output,
-        "dnssec_public_key": dnssec_public_key_output,
-        "dnssec_status": dnssec_status_output,
+        "dnssec_algorithm": dnssec_algorithm,
+        "dnssec_api-response-common-failure": dnssec_api$$response$$common$$failure,
+        "dnssec_api-response-single": dnssec_api$$response$$single,
+        "dnssec_digest": dnssec_digest,
+        "dnssec_digest_algorithm": dnssec_digest_algorithm,
+        "dnssec_digest_type": dnssec_digest_type,
+        "dnssec_dnssec": dnssec_dnssec,
+        "dnssec_dnssec_multi_signer": dnssec_dnssec_multi_signer,
+        "dnssec_dnssec_presigned": dnssec_dnssec_presigned,
+        "dnssec_dnssec_response_single": dnssec_dnssec_response_single,
+        "dnssec_dnssec_use_nsec3": dnssec_dnssec_use_nsec3,
+        "dnssec_ds": dnssec_ds,
+        "dnssec_flags": dnssec_flags,
+        "dnssec_key_tag": dnssec_key_tag,
+        "dnssec_key_type": dnssec_key_type,
+        "dnssec_messages": dnssec_messages,
+        "dnssec_modified_on": dnssec_modified_on,
+        "dnssec_public_key": dnssec_public_key,
+        "dnssec_status": dnssec_status,
       },
     },
     request: (args) => ({
@@ -246,13 +262,21 @@ export const tools: readonly Tool[] = [
     inputSchema: {
       type: "object",
       properties: {
-        "zone_id": {
-          "$ref": "#/$defs/dnssec_identifier",
-          "description": "Identifier."
+        "path": {
+          "properties": {
+            "zone_id": {
+              "$ref": "#/$defs/dnssec_identifier",
+              "description": "Identifier."
+            }
+          },
+          "required": [
+            "zone_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "zone_id"
+        "path"
       ],
       $defs: {
         "dnssec_identifier": dnssec_identifier,
@@ -261,24 +285,24 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/dnssec_dnssec_response_single",
       $defs: {
-        "dnssec_algorithm": dnssec_algorithm_output,
-        "dnssec_api-response-single": dnssec_api_response_single_output,
-        "dnssec_digest": dnssec_digest_output,
-        "dnssec_digest_algorithm": dnssec_digest_algorithm_output,
-        "dnssec_digest_type": dnssec_digest_type_output,
-        "dnssec_dnssec": dnssec_dnssec_output,
-        "dnssec_dnssec_multi_signer": dnssec_dnssec_multi_signer_output,
-        "dnssec_dnssec_presigned": dnssec_dnssec_presigned_output,
-        "dnssec_dnssec_response_single": dnssec_dnssec_response_single_output,
-        "dnssec_dnssec_use_nsec3": dnssec_dnssec_use_nsec3_output,
-        "dnssec_ds": dnssec_ds_output,
-        "dnssec_flags": dnssec_flags_output,
-        "dnssec_key_tag": dnssec_key_tag_output,
-        "dnssec_key_type": dnssec_key_type_output,
-        "dnssec_messages": dnssec_messages_output,
-        "dnssec_modified_on": dnssec_modified_on_output,
-        "dnssec_public_key": dnssec_public_key_output,
-        "dnssec_status": dnssec_status_output,
+        "dnssec_algorithm": dnssec_algorithm,
+        "dnssec_api-response-single": dnssec_api$$response$$single,
+        "dnssec_digest": dnssec_digest,
+        "dnssec_digest_algorithm": dnssec_digest_algorithm,
+        "dnssec_digest_type": dnssec_digest_type,
+        "dnssec_dnssec": dnssec_dnssec,
+        "dnssec_dnssec_multi_signer": dnssec_dnssec_multi_signer,
+        "dnssec_dnssec_presigned": dnssec_dnssec_presigned,
+        "dnssec_dnssec_response_single": dnssec_dnssec_response_single,
+        "dnssec_dnssec_use_nsec3": dnssec_dnssec_use_nsec3,
+        "dnssec_ds": dnssec_ds,
+        "dnssec_flags": dnssec_flags,
+        "dnssec_key_tag": dnssec_key_tag,
+        "dnssec_key_type": dnssec_key_type,
+        "dnssec_messages": dnssec_messages,
+        "dnssec_modified_on": dnssec_modified_on,
+        "dnssec_public_key": dnssec_public_key,
+        "dnssec_status": dnssec_status,
       },
     },
     annotations: {
@@ -317,25 +341,25 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "dnssec_algorithm": dnssec_algorithm_output,
-        "dnssec_api-response-common-failure": dnssec_api_response_common_failure_output,
-        "dnssec_api-response-single": dnssec_api_response_single_output,
-        "dnssec_digest": dnssec_digest_output,
-        "dnssec_digest_algorithm": dnssec_digest_algorithm_output,
-        "dnssec_digest_type": dnssec_digest_type_output,
-        "dnssec_dnssec": dnssec_dnssec_output,
-        "dnssec_dnssec_multi_signer": dnssec_dnssec_multi_signer_output,
-        "dnssec_dnssec_presigned": dnssec_dnssec_presigned_output,
-        "dnssec_dnssec_response_single": dnssec_dnssec_response_single_output,
-        "dnssec_dnssec_use_nsec3": dnssec_dnssec_use_nsec3_output,
-        "dnssec_ds": dnssec_ds_output,
-        "dnssec_flags": dnssec_flags_output,
-        "dnssec_key_tag": dnssec_key_tag_output,
-        "dnssec_key_type": dnssec_key_type_output,
-        "dnssec_messages": dnssec_messages_output,
-        "dnssec_modified_on": dnssec_modified_on_output,
-        "dnssec_public_key": dnssec_public_key_output,
-        "dnssec_status": dnssec_status_output,
+        "dnssec_algorithm": dnssec_algorithm,
+        "dnssec_api-response-common-failure": dnssec_api$$response$$common$$failure,
+        "dnssec_api-response-single": dnssec_api$$response$$single,
+        "dnssec_digest": dnssec_digest,
+        "dnssec_digest_algorithm": dnssec_digest_algorithm,
+        "dnssec_digest_type": dnssec_digest_type,
+        "dnssec_dnssec": dnssec_dnssec,
+        "dnssec_dnssec_multi_signer": dnssec_dnssec_multi_signer,
+        "dnssec_dnssec_presigned": dnssec_dnssec_presigned,
+        "dnssec_dnssec_response_single": dnssec_dnssec_response_single,
+        "dnssec_dnssec_use_nsec3": dnssec_dnssec_use_nsec3,
+        "dnssec_ds": dnssec_ds,
+        "dnssec_flags": dnssec_flags,
+        "dnssec_key_tag": dnssec_key_tag,
+        "dnssec_key_type": dnssec_key_type,
+        "dnssec_messages": dnssec_messages,
+        "dnssec_modified_on": dnssec_modified_on,
+        "dnssec_public_key": dnssec_public_key,
+        "dnssec_status": dnssec_status,
       },
     },
     request: (args) => ({

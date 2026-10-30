@@ -6,7 +6,7 @@ import type { JsonSchema } from "../_/tool.js";
 /**
  * The schema of `abuse-reports_AbuseReport` in responses.
  */
-export const abuse_reports_AbuseReport_output: JsonSchema = {
+export const abuse$$reports_AbuseReport: JsonSchema = {
   "properties": {
     "cdate": {
       "type": "string"
@@ -56,7 +56,7 @@ export const abuse_reports_AbuseReport_output: JsonSchema = {
 /**
  * The schema of `abuse-reports_AuthErrorResponse` in responses.
  */
-export const abuse_reports_AuthErrorResponse_output: JsonSchema = {
+export const abuse$$reports_AuthErrorResponse: JsonSchema = {
   "properties": {
     "err_code": {
       "type": "string"
@@ -83,98 +83,98 @@ export const abuse_reports_AuthErrorResponse_output: JsonSchema = {
 /**
  * The schema of `abuse-reports_BadActError` in responses.
  */
-export const abuse_reports_BadActError_output: JsonSchema = {
+export const abuse$$reports_BadActError: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `abuse-reports_BadAddressError` in responses.
  */
-export const abuse_reports_BadAddressError_output: JsonSchema = {
+export const abuse$$reports_BadAddressError: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `abuse-reports_BadAgentNameError` in responses.
  */
-export const abuse_reports_BadAgentNameError_output: JsonSchema = {
+export const abuse$$reports_BadAgentNameError: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `abuse-reports_BadCityError` in responses.
  */
-export const abuse_reports_BadCityError_output: JsonSchema = {
+export const abuse$$reports_BadCityError: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `abuse-reports_BadCommentsError` in responses.
  */
-export const abuse_reports_BadCommentsError_output: JsonSchema = {
+export const abuse$$reports_BadCommentsError: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `abuse-reports_BadCountryError` in responses.
  */
-export const abuse_reports_BadCountryError_output: JsonSchema = {
+export const abuse$$reports_BadCountryError: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `abuse-reports_BadEmailError` in responses.
  */
-export const abuse_reports_BadEmailError_output: JsonSchema = {
+export const abuse$$reports_BadEmailError: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `abuse-reports_BadIPError` in responses.
  */
-export const abuse_reports_BadIPError_output: JsonSchema = {
+export const abuse$$reports_BadIPError: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `abuse-reports_BadJustError` in responses.
  */
-export const abuse_reports_BadJustError_output: JsonSchema = {
+export const abuse$$reports_BadJustError: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `abuse-reports_BadNameError` in responses.
  */
-export const abuse_reports_BadNameError_output: JsonSchema = {
+export const abuse$$reports_BadNameError: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `abuse-reports_BadPortsProtocolError` in responses.
  */
-export const abuse_reports_BadPortsProtocolError_output: JsonSchema = {
+export const abuse$$reports_BadPortsProtocolError: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `abuse-reports_BadStateError` in responses.
  */
-export const abuse_reports_BadStateError_output: JsonSchema = {
+export const abuse$$reports_BadStateError: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `abuse-reports_BadUrlsError` in responses.
  */
-export const abuse_reports_BadUrlsError_output: JsonSchema = {
+export const abuse$$reports_BadUrlsError: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `abuse-reports_CloudflareAPIErrorResponse` in responses.
  */
-export const abuse_reports_CloudflareAPIErrorResponse_output: JsonSchema = {
+export const abuse$$reports_CloudflareAPIErrorResponse: JsonSchema = {
   "properties": {
     "errors": {
       "items": {
@@ -214,35 +214,35 @@ export const abuse_reports_CloudflareAPIErrorResponse_output: JsonSchema = {
 /**
  * The schema of `abuse-reports_DBError` in responses.
  */
-export const abuse_reports_DBError_output: JsonSchema = {
+export const abuse$$reports_DBError: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `abuse-reports_DedupeError` in responses.
  */
-export const abuse_reports_DedupeError_output: JsonSchema = {
+export const abuse$$reports_DedupeError: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `abuse-reports_DiffEmailError` in responses.
  */
-export const abuse_reports_DiffEmailError_output: JsonSchema = {
+export const abuse$$reports_DiffEmailError: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `abuse-reports_EmailError` in responses.
  */
-export const abuse_reports_EmailError_output: JsonSchema = {
+export const abuse$$reports_EmailError: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `abuse-reports_ErrorCode` in responses.
  */
-export const abuse_reports_ErrorCode_output: JsonSchema = {
+export const abuse$$reports_ErrorCode: JsonSchema = {
   "oneOf": [
     {
       "$ref": "#/$defs/abuse-reports_BadActError"
@@ -337,7 +337,7 @@ export const abuse_reports_ErrorCode_output: JsonSchema = {
 /**
  * The schema of `abuse-reports_ErrorMessage` in responses.
  */
-export const abuse_reports_ErrorMessage_output: JsonSchema = {
+export const abuse$$reports_ErrorMessage: JsonSchema = {
   "properties": {
     "code": {
       "oneOf": [
@@ -362,28 +362,28 @@ export const abuse_reports_ErrorMessage_output: JsonSchema = {
 /**
  * The schema of `abuse-reports_InternalError` in responses.
  */
-export const abuse_reports_InternalError_output: JsonSchema = {
+export const abuse$$reports_InternalError: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `abuse-reports_InvalidNotifyError` in responses.
  */
-export const abuse_reports_InvalidNotifyError_output: JsonSchema = {
+export const abuse$$reports_InvalidNotifyError: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `abuse-reports_MaxIPsError` in responses.
  */
-export const abuse_reports_MaxIPsError_output: JsonSchema = {
+export const abuse$$reports_MaxIPsError: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `abuse-reports_Message` in responses.
  */
-export const abuse_reports_Message_output: JsonSchema = {
+export const abuse$$reports_Message: JsonSchema = {
   "properties": {
     "message": {
       "type": "string"
@@ -398,7 +398,7 @@ export const abuse_reports_Message_output: JsonSchema = {
 /**
  * The schema of `abuse-reports_MitigationStatus` in responses.
  */
-export const abuse_reports_MitigationStatus_output: JsonSchema = {
+export const abuse$$reports_MitigationStatus: JsonSchema = {
   "enum": [
     "pending",
     "active",
@@ -412,7 +412,7 @@ export const abuse_reports_MitigationStatus_output: JsonSchema = {
 /**
  * The schema of `abuse-reports_MitigationSummary` in responses.
  */
-export const abuse_reports_MitigationSummary_output: JsonSchema = {
+export const abuse$$reports_MitigationSummary: JsonSchema = {
   "properties": {
     "accepted_url_count": {
       "type": "integer"
@@ -443,49 +443,49 @@ export const abuse_reports_MitigationSummary_output: JsonSchema = {
 /**
  * The schema of `abuse-reports_MustNotifyError` in responses.
  */
-export const abuse_reports_MustNotifyError_output: JsonSchema = {
+export const abuse$$reports_MustNotifyError: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `abuse-reports_NoAgreeError` in responses.
  */
-export const abuse_reports_NoAgreeError_output: JsonSchema = {
+export const abuse$$reports_NoAgreeError: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `abuse-reports_NoOriginalWorkError` in responses.
  */
-export const abuse_reports_NoOriginalWorkError_output: JsonSchema = {
+export const abuse$$reports_NoOriginalWorkError: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `abuse-reports_NoSigError` in responses.
  */
-export const abuse_reports_NoSigError_output: JsonSchema = {
+export const abuse$$reports_NoSigError: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `abuse-reports_PortsProtocolError` in responses.
  */
-export const abuse_reports_PortsProtocolError_output: JsonSchema = {
+export const abuse$$reports_PortsProtocolError: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `abuse-reports_RateLimitedError` in responses.
  */
-export const abuse_reports_RateLimitedError_output: JsonSchema = {
+export const abuse$$reports_RateLimitedError: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `abuse-reports_RateLimitedErrorResponse` in responses.
  */
-export const abuse_reports_RateLimitedErrorResponse_output: JsonSchema = {
+export const abuse$$reports_RateLimitedErrorResponse: JsonSchema = {
   "properties": {
     "err_code": {
       "$ref": "#/$defs/abuse-reports_RateLimitedError"
@@ -524,7 +524,7 @@ export const abuse_reports_RateLimitedErrorResponse_output: JsonSchema = {
 /**
  * The schema of `abuse-reports_RegistrarWhoIsFields` in responses.
  */
-export const abuse_reports_RegistrarWhoIsFields_output: JsonSchema = {
+export const abuse$$reports_RegistrarWhoIsFields: JsonSchema = {
   "properties": {
     "reg_who_authorization_statement": {
       "type": "string"
@@ -594,7 +594,7 @@ export const abuse_reports_RegistrarWhoIsFields_output: JsonSchema = {
 /**
  * The schema of `abuse-reports_ReportStatus` in responses.
  */
-export const abuse_reports_ReportStatus_output: JsonSchema = {
+export const abuse$$reports_ReportStatus: JsonSchema = {
   "enum": [
     "accepted",
     "in_review"
@@ -605,7 +605,7 @@ export const abuse_reports_ReportStatus_output: JsonSchema = {
 /**
  * The schema of `abuse-reports_ReportType` in responses.
  */
-export const abuse_reports_ReportType_output: JsonSchema = {
+export const abuse$$reports_ReportType: JsonSchema = {
   "enum": [
     "PHISH",
     "GEN",
@@ -623,7 +623,7 @@ export const abuse_reports_ReportType_output: JsonSchema = {
 /**
  * The schema of `abuse-reports_ResultInfo` in responses.
  */
-export const abuse_reports_ResultInfo_output: JsonSchema = {
+export const abuse$$reports_ResultInfo: JsonSchema = {
   "properties": {
     "count": {
       "type": "number"
@@ -654,14 +654,14 @@ export const abuse_reports_ResultInfo_output: JsonSchema = {
 /**
  * The schema of `abuse-reports_SubmissionReportType` in responses.
  */
-export const abuse_reports_SubmissionReportType_output: JsonSchema = {
+export const abuse$$reports_SubmissionReportType: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `abuse-reports_SubmitErrorResponse` in responses.
  */
-export const abuse_reports_SubmitErrorResponse_output: JsonSchema = {
+export const abuse$$reports_SubmitErrorResponse: JsonSchema = {
   "properties": {
     "err_code": {
       "$ref": "#/$defs/abuse-reports_ErrorCode"
@@ -700,7 +700,7 @@ export const abuse_reports_SubmitErrorResponse_output: JsonSchema = {
 /**
  * The schema of `abuse-reports_SubmitReportResponse` in responses.
  */
-export const abuse_reports_SubmitReportResponse_output: JsonSchema = {
+export const abuse$$reports_SubmitReportResponse: JsonSchema = {
   "properties": {
     "abuse_rand": {
       "type": "string"
@@ -731,7 +731,7 @@ export const abuse_reports_SubmitReportResponse_output: JsonSchema = {
 /**
  * The schema of `abuse-reports_SubmittedAbuseReportDenialReason` in responses.
  */
-export const abuse_reports_SubmittedAbuseReportDenialReason_output: JsonSchema = {
+export const abuse$$reports_SubmittedAbuseReportDenialReason: JsonSchema = {
   "enum": [
     "unable_to_confirm",
     "incomplete_report",
@@ -753,7 +753,7 @@ export const abuse_reports_SubmittedAbuseReportDenialReason_output: JsonSchema =
 /**
  * The schema of `abuse-reports_SubmittedAbuseReportDetail` in responses.
  */
-export const abuse_reports_SubmittedAbuseReportDetail_output: JsonSchema = {
+export const abuse$$reports_SubmittedAbuseReportDetail: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/abuse-reports_SubmittedAbuseReportListItem"
@@ -852,7 +852,7 @@ export const abuse_reports_SubmittedAbuseReportDetail_output: JsonSchema = {
  * The schema of `abuse-reports_SubmittedAbuseReportDetailResponse` in
  * responses.
  */
-export const abuse_reports_SubmittedAbuseReportDetailResponse_output: JsonSchema = {
+export const abuse$$reports_SubmittedAbuseReportDetailResponse: JsonSchema = {
   "properties": {
     "errors": {
       "items": {
@@ -883,7 +883,7 @@ export const abuse_reports_SubmittedAbuseReportDetailResponse_output: JsonSchema
 /**
  * The schema of `abuse-reports_SubmittedAbuseReportListItem` in responses.
  */
-export const abuse_reports_SubmittedAbuseReportListItem_output: JsonSchema = {
+export const abuse$$reports_SubmittedAbuseReportListItem: JsonSchema = {
   "properties": {
     "cdate": {
       "format": "date-time",
@@ -929,7 +929,7 @@ export const abuse_reports_SubmittedAbuseReportListItem_output: JsonSchema = {
 /**
  * The schema of `abuse-reports_SubmittedAbuseReportListResponse` in responses.
  */
-export const abuse_reports_SubmittedAbuseReportListResponse_output: JsonSchema = {
+export const abuse$$reports_SubmittedAbuseReportListResponse: JsonSchema = {
   "properties": {
     "errors": {
       "items": {
@@ -974,7 +974,7 @@ export const abuse_reports_SubmittedAbuseReportListResponse_output: JsonSchema =
 /**
  * The schema of `abuse-reports_SubmittedAbuseReportStatus` in responses.
  */
-export const abuse_reports_SubmittedAbuseReportStatus_output: JsonSchema = {
+export const abuse$$reports_SubmittedAbuseReportStatus: JsonSchema = {
   "enum": [
     "submitted",
     "accepted",
@@ -986,7 +986,7 @@ export const abuse_reports_SubmittedAbuseReportStatus_output: JsonSchema = {
 /**
  * The schema of `abuse-reports_SubmitterDetails` in responses.
  */
-export const abuse_reports_SubmitterDetails_output: JsonSchema = {
+export const abuse$$reports_SubmitterDetails: JsonSchema = {
   "properties": {
     "company": {
       "type": "string"
@@ -1007,7 +1007,7 @@ export const abuse_reports_SubmitterDetails_output: JsonSchema = {
 /**
  * The schema of `abuse-reports_UnauthorizedErrorResponse` in responses.
  */
-export const abuse_reports_UnauthorizedErrorResponse_output: JsonSchema = {
+export const abuse$$reports_UnauthorizedErrorResponse: JsonSchema = {
   "oneOf": [
     {
       "$ref": "#/$defs/abuse-reports_CloudflareAPIErrorResponse"
@@ -1021,27 +1021,27 @@ export const abuse_reports_UnauthorizedErrorResponse_output: JsonSchema = {
 /**
  * The schema of `abuse-reports_UnexpectedActError` in responses.
  */
-export const abuse_reports_UnexpectedActError_output: JsonSchema = {
+export const abuse$$reports_UnexpectedActError: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `abuse-reports_UnknownError` in responses.
  */
-export const abuse_reports_UnknownError_output: JsonSchema = {
+export const abuse$$reports_UnknownError: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `abuse-reports_UrlNotOrangeError` in responses.
  */
-export const abuse_reports_UrlNotOrangeError_output: JsonSchema = {
+export const abuse$$reports_UrlNotOrangeError: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `abuse-reports_UrlNotvalidError` in responses.
  */
-export const abuse_reports_UrlNotvalidError_output: JsonSchema = {
+export const abuse$$reports_UrlNotvalidError: JsonSchema = {
   "type": "string"
 };

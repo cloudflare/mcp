@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `firewall_components-ua-rule-id`.
  */
-export const firewall_components_ua_rule_id: JsonSchema = {
+export const firewall_components$$ua$$rule$$id: JsonSchema = {
   "description": "The unique identifier of the User Agent Blocking rule.",
   "type": "string"
 };

@@ -13,7 +13,7 @@ export const monetization_identifier: JsonSchema = {
 /**
  * The schema of `monetization_monetization-price`.
  */
-export const monetization_monetization_price: JsonSchema = {
+export const monetization_monetization$$price: JsonSchema = {
   "description": "Price in the smallest indivisible unit of the configured payment token, encoded as a decimal string. Must be a canonical decimal integer in [1000, 100000000]: no leading zeros, and a bare JSON number is rejected. The price is required for the fixed-price schemes (\"exact\" and \"upto\") and must be at least 1000, the smallest amount the payment facilitator can settle ($0.001 for a 6-decimal token such as USDC), and at most 100000000 ($100 for a 6-decimal token). When the scheme is \"origin_controlled\" the origin server sets pricing dynamically and the rule carries no price: the field must be omitted — any provided value, including \"0\", is rejected because it would not be enforced. Responses always encode this as a string and omit it for \"origin_controlled\" rules; the pattern matches exactly the set of values the server accepts.",
   "type": "string"
 };
@@ -21,7 +21,7 @@ export const monetization_monetization_price: JsonSchema = {
 /**
  * The schema of `monetization_monetization-rule-input`.
  */
-export const monetization_monetization_rule_input: JsonSchema = {
+export const monetization_monetization$$rule$$input: JsonSchema = {
   "oneOf": [
     {
       "$ref": "#/$defs/monetization_monetization-rule-input-fixed-price"
@@ -35,7 +35,7 @@ export const monetization_monetization_rule_input: JsonSchema = {
 /**
  * The schema of `monetization_monetization-rule-input-fixed-price`.
  */
-export const monetization_monetization_rule_input_fixed_price: JsonSchema = {
+export const monetization_monetization$$rule$$input$$fixed$$price: JsonSchema = {
   "description": "Payment rule with a fixed price set at configuration time.",
   "properties": {
     "address": {
@@ -82,7 +82,7 @@ export const monetization_monetization_rule_input_fixed_price: JsonSchema = {
 /**
  * The schema of `monetization_monetization-rule-input-origin-controlled`.
  */
-export const monetization_monetization_rule_input_origin_controlled: JsonSchema = {
+export const monetization_monetization$$rule$$input$$origin$$controlled: JsonSchema = {
   "description": "Payment rule whose price the origin server sets dynamically. The rule carries no price and the price field must be omitted — any provided value, including \"0\", is rejected because it would not be enforced.",
   "properties": {
     "address": {
@@ -123,7 +123,7 @@ export const monetization_monetization_rule_input_origin_controlled: JsonSchema 
 /**
  * The schema of `monetization_monetization-rule-patch`.
  */
-export const monetization_monetization_rule_patch: JsonSchema = {
+export const monetization_monetization$$rule$$patch: JsonSchema = {
   "description": "Partial update to a single payment rule. Only the fields present are modified; omitted fields keep their existing values.",
   "properties": {
     "address": {
@@ -155,7 +155,7 @@ export const monetization_monetization_rule_patch: JsonSchema = {
 /**
  * The schema of `monetization_monetization-ruleset-input`.
  */
-export const monetization_monetization_ruleset_input: JsonSchema = {
+export const monetization_monetization$$ruleset$$input: JsonSchema = {
   "properties": {
     "rules": {
       "description": "Full desired Payment Required ruleset. An empty array clears all payment rules. The ruleset may contain at most 40 unique wallet addresses; address comparison is case-insensitive. Every address must pass wallet screening before deployment.",
@@ -174,7 +174,7 @@ export const monetization_monetization_ruleset_input: JsonSchema = {
 /**
  * The schema of `monetization_monetization-scheme`.
  */
-export const monetization_monetization_scheme: JsonSchema = {
+export const monetization_monetization$$scheme: JsonSchema = {
   "description": "X402 payment scheme. \"exact\" requires the specified payment amount; \"upto\" permits a payment up to the specified amount; \"origin_controlled\" lets the origin server set pricing dynamically, in which case the rule carries no price and the price field must be omitted.",
   "enum": [
     "exact",
@@ -187,7 +187,7 @@ export const monetization_monetization_scheme: JsonSchema = {
 /**
  * The schema of `monetization_zone-identifier`.
  */
-export const monetization_zone_identifier: JsonSchema = {
+export const monetization_zone$$identifier: JsonSchema = {
   "description": "The unique ID of the zone.",
   "type": "string"
 };

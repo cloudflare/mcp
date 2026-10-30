@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `firewall_components-schemas-mode` in responses.
  */
-export const firewall_components_schemas_mode_output: JsonSchema = {
+export const firewall_components$$schemas$$mode: JsonSchema = {
   "enum": [
     "block",
     "challenge",
@@ -19,14 +19,14 @@ export const firewall_components_schemas_mode_output: JsonSchema = {
 /**
  * The schema of `firewall_components-ua-rule-id` in responses.
  */
-export const firewall_components_ua_rule_id_output: JsonSchema = {
+export const firewall_components$$ua$$rule$$id: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `firewall_firewalluablock` in responses.
  */
-export const firewall_firewalluablock_output: JsonSchema = {
+export const firewall_firewalluablock: JsonSchema = {
   "properties": {
     "configuration": {
       "$ref": "#/$defs/firewall_schemas-configuration"
@@ -51,14 +51,14 @@ export const firewall_firewalluablock_output: JsonSchema = {
  * The schema of `firewall_firewalluablock_components-schemas-description` in
  * responses.
  */
-export const firewall_firewalluablock_components_schemas_description_output: JsonSchema = {
+export const firewall_firewalluablock_components$$schemas$$description: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `firewall_firewalluablock_response_collection` in responses.
  */
-export const firewall_firewalluablock_response_collection_output: JsonSchema = {
+export const firewall_firewalluablock_response_collection: JsonSchema = {
   "allOf": [
     {
       "properties": {
@@ -80,7 +80,7 @@ export const firewall_firewalluablock_response_collection_output: JsonSchema = {
 /**
  * The schema of `firewall_firewalluablock_response_single` in responses.
  */
-export const firewall_firewalluablock_response_single_output: JsonSchema = {
+export const firewall_firewalluablock_response_single: JsonSchema = {
   "allOf": [
     {
       "properties": {
@@ -99,7 +99,7 @@ export const firewall_firewalluablock_response_single_output: JsonSchema = {
 /**
  * The schema of `firewall_schemas-configuration` in responses.
  */
-export const firewall_schemas_configuration_output: JsonSchema = {
+export const firewall_schemas$$configuration: JsonSchema = {
   "properties": {
     "target": {
       "type": "string"

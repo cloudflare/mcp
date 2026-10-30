@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `lex_AvailableDestination` in responses.
  */
-export const lex_AvailableDestination_output: JsonSchema = {
+export const lex_AvailableDestination: JsonSchema = {
   "properties": {
     "dataset": {
       "type": "string"
@@ -54,7 +54,7 @@ export const lex_AvailableDestination_output: JsonSchema = {
 /**
  * The schema of `lex_AvailableDestinationListResponse` in responses.
  */
-export const lex_AvailableDestinationListResponse_output: JsonSchema = {
+export const lex_AvailableDestinationListResponse: JsonSchema = {
   "properties": {
     "errors": {
       "items": {
@@ -96,7 +96,7 @@ export const lex_AvailableDestinationListResponse_output: JsonSchema = {
 /**
  * The schema of `lex_DatasetDetailResponse` in responses.
  */
-export const lex_DatasetDetailResponse_output: JsonSchema = {
+export const lex_DatasetDetailResponse: JsonSchema = {
   "properties": {
     "errors": {
       "items": {
@@ -128,7 +128,7 @@ export const lex_DatasetDetailResponse_output: JsonSchema = {
 /**
  * The schema of `lex_DatasetResponse` in responses.
  */
-export const lex_DatasetResponse_output: JsonSchema = {
+export const lex_DatasetResponse: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/lex_DatasetSummary"
@@ -159,7 +159,7 @@ export const lex_DatasetResponse_output: JsonSchema = {
 /**
  * The schema of `lex_DatasetSummary` in responses.
  */
-export const lex_DatasetSummary_output: JsonSchema = {
+export const lex_DatasetSummary: JsonSchema = {
   "properties": {
     "created_at": {
       "format": "date-time",
@@ -208,7 +208,7 @@ export const lex_DatasetSummary_output: JsonSchema = {
 /**
  * The schema of `lex_DatasetSummaryListResponse` in responses.
  */
-export const lex_DatasetSummaryListResponse_output: JsonSchema = {
+export const lex_DatasetSummaryListResponse: JsonSchema = {
   "properties": {
     "errors": {
       "items": {
@@ -250,7 +250,7 @@ export const lex_DatasetSummaryListResponse_output: JsonSchema = {
 /**
  * The schema of `lex_ErrorResponse-2` in responses.
  */
-export const lex_ErrorResponse_2_output: JsonSchema = {
+export const lex_ErrorResponse$$2: JsonSchema = {
   "properties": {
     "errors": {
       "items": {
@@ -293,7 +293,7 @@ export const lex_ErrorResponse_2_output: JsonSchema = {
 /**
  * The schema of `lex_LogField` in responses.
  */
-export const lex_LogField_output: JsonSchema = {
+export const lex_LogField: JsonSchema = {
   "properties": {
     "enabled": {
       "type": "boolean"
@@ -312,7 +312,7 @@ export const lex_LogField_output: JsonSchema = {
 /**
  * The schema of `lex_V4Error-2` in responses.
  */
-export const lex_V4Error_2_output: JsonSchema = {
+export const lex_V4Error$$2: JsonSchema = {
   "properties": {
     "code": {
       "type": "integer"

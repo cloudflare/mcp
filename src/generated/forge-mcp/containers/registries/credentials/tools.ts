@@ -3,12 +3,12 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
-  cc_AccountID_output,
-  cc_Messages_output,
-  cc_V4BaseErrorResponse_output,
-  cc_V4BaseResponse_output,
+  cc_AccountID,
+  cc_Messages,
+  cc_V4BaseErrorResponse,
+  cc_V4BaseResponse,
 } from "../../outputs.js";
-import { cc_ContainersAccountRegistryToken_output } from "./outputs.js";
+import { cc_ContainersAccountRegistryToken } from "./outputs.js";
 import {
   cc_ImageRegistryCredentialsConfiguration,
   cc_ImageRegistryPermissions,
@@ -25,21 +25,29 @@ export const tools: readonly Tool[] = [
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "description": "Account identifier.",
-          "type": "string"
-        },
         "body": {
           "$ref": "#/$defs/cc_ImageRegistryCredentialsConfiguration"
         },
-        "domain": {
-          "description": "The domain to get credentials for.",
-          "type": "string"
+        "path": {
+          "properties": {
+            "account_id": {
+              "description": "Account identifier.",
+              "type": "string"
+            },
+            "domain": {
+              "description": "The domain to get credentials for.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "domain"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "domain",
+        "path",
         "body"
       ],
       $defs: {
@@ -65,10 +73,10 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "cc_AccountID": cc_AccountID_output,
-        "cc_ContainersAccountRegistryToken": cc_ContainersAccountRegistryToken_output,
-        "cc_Messages": cc_Messages_output,
-        "cc_V4BaseResponse": cc_V4BaseResponse_output,
+        "cc_AccountID": cc_AccountID,
+        "cc_ContainersAccountRegistryToken": cc_ContainersAccountRegistryToken,
+        "cc_Messages": cc_Messages,
+        "cc_V4BaseResponse": cc_V4BaseResponse,
       },
     },
     annotations: {
@@ -117,11 +125,11 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "cc_AccountID": cc_AccountID_output,
-        "cc_ContainersAccountRegistryToken": cc_ContainersAccountRegistryToken_output,
-        "cc_Messages": cc_Messages_output,
-        "cc_V4BaseErrorResponse": cc_V4BaseErrorResponse_output,
-        "cc_V4BaseResponse": cc_V4BaseResponse_output,
+        "cc_AccountID": cc_AccountID,
+        "cc_ContainersAccountRegistryToken": cc_ContainersAccountRegistryToken,
+        "cc_Messages": cc_Messages,
+        "cc_V4BaseErrorResponse": cc_V4BaseErrorResponse,
+        "cc_V4BaseResponse": cc_V4BaseResponse,
       },
     },
     request: (args) => ({

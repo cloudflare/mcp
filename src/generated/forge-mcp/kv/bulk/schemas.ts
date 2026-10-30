@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `workers-kv_bulk_delete`.
  */
-export const workers_kv_bulk_delete: JsonSchema = {
+export const workers$$kv_bulk_delete: JsonSchema = {
   "items": {
     "$ref": "#/$defs/workers-kv_key_name_bulk"
   },
@@ -17,7 +17,7 @@ export const workers_kv_bulk_delete: JsonSchema = {
 /**
  * The schema of `workers-kv_bulk_write`.
  */
-export const workers_kv_bulk_write: JsonSchema = {
+export const workers$$kv_bulk_write: JsonSchema = {
   "items": {
     "properties": {
       "base64": {
@@ -59,7 +59,7 @@ export const workers_kv_bulk_write: JsonSchema = {
 /**
  * The schema of `workers-kv_key_name_bulk`.
  */
-export const workers_kv_key_name_bulk: JsonSchema = {
+export const workers$$kv_key_name_bulk: JsonSchema = {
   "description": "A key's name. The name may be at most 512 bytes. All printable, non-whitespace characters are valid.",
   "type": "string"
 };

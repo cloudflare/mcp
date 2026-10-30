@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `digital-experience-monitoring_percentiles` in responses.
  */
-export const digital_experience_monitoring_percentiles_output: JsonSchema = {
+export const digital$$experience$$monitoring_percentiles: JsonSchema = {
   "properties": {
     "p50": {
       "oneOf": [
@@ -56,7 +56,7 @@ export const digital_experience_monitoring_percentiles_output: JsonSchema = {
  * The schema of `digital-experience-monitoring_test_stat_over_time` in
  * responses.
  */
-export const digital_experience_monitoring_test_stat_over_time_output: JsonSchema = {
+export const digital$$experience$$monitoring_test_stat_over_time: JsonSchema = {
   "properties": {
     "avg": {
       "oneOf": [
@@ -117,7 +117,7 @@ export const digital_experience_monitoring_test_stat_over_time_output: JsonSchem
  * The schema of `digital-experience-monitoring_test_stat_pct_over_time` in
  * responses.
  */
-export const digital_experience_monitoring_test_stat_pct_over_time_output: JsonSchema = {
+export const digital$$experience$$monitoring_test_stat_pct_over_time: JsonSchema = {
   "properties": {
     "avg": {
       "oneOf": [

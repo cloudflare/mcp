@@ -6,28 +6,28 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `tunnel_ip_network` in responses.
  */
-export const tunnel_ip_network_output: JsonSchema = {
+export const tunnel_ip_network: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `tunnel_route_comment` in responses.
  */
-export const tunnel_route_comment_output: JsonSchema = {
+export const tunnel_route_comment: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `tunnel_route_id` in responses.
  */
-export const tunnel_route_id_output: JsonSchema = {
+export const tunnel_route_id: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `tunnel_teamnet` in responses.
  */
-export const tunnel_teamnet_output: JsonSchema = {
+export const tunnel_teamnet: JsonSchema = {
   "properties": {
     "comment": {
       "$ref": "#/$defs/tunnel_route_comment"
@@ -66,7 +66,7 @@ export const tunnel_teamnet_output: JsonSchema = {
 /**
  * The schema of `tunnel_teamnet_response_single` in responses.
  */
-export const tunnel_teamnet_response_single_output: JsonSchema = {
+export const tunnel_teamnet_response_single: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/tunnel_api-response-common"
@@ -85,7 +85,7 @@ export const tunnel_teamnet_response_single_output: JsonSchema = {
 /**
  * The schema of `tunnel_virtual_network_id_computed_optional` in responses.
  */
-export const tunnel_virtual_network_id_computed_optional_output: JsonSchema = {
+export const tunnel_virtual_network_id_computed_optional: JsonSchema = {
   "format": "uuid",
   "type": "string"
 };

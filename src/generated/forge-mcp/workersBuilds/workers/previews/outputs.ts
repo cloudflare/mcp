@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `builds_PreviewResponse` in responses.
  */
-export const builds_PreviewResponse_output: JsonSchema = {
+export const builds_PreviewResponse: JsonSchema = {
   "properties": {
     "auto_build": {
       "$ref": "#/$defs/builds_preview_auto_build"
@@ -30,7 +30,7 @@ export const builds_PreviewResponse_output: JsonSchema = {
 /**
  * The schema of `builds_PreviewSummary` in responses.
  */
-export const builds_PreviewSummary_output: JsonSchema = {
+export const builds_PreviewSummary: JsonSchema = {
   "properties": {
     "auto_build": {
       "$ref": "#/$defs/builds_preview_auto_build"
@@ -51,13 +51,13 @@ export const builds_PreviewSummary_output: JsonSchema = {
 /**
  * The schema of `builds_preview_auto_build` in responses.
  */
-export const builds_preview_auto_build_output: JsonSchema = {
+export const builds_preview_auto_build: JsonSchema = {
   "type": "boolean"
 };
 
 /**
  * The schema of `builds_preview_auto_delete` in responses.
  */
-export const builds_preview_auto_delete_output: JsonSchema = {
+export const builds_preview_auto_delete: JsonSchema = {
   "type": "boolean"
 };

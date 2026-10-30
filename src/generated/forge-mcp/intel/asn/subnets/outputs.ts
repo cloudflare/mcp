@@ -6,20 +6,20 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `intel_count` in responses.
  */
-export const intel_count_output: JsonSchema = {
+export const intel_count: JsonSchema = {
   "type": "number"
 };
 
 /**
  * The schema of `intel_page` in responses.
  */
-export const intel_page_output: JsonSchema = {
+export const intel_page: JsonSchema = {
   "type": "number"
 };
 
 /**
  * The schema of `intel_per_page` in responses.
  */
-export const intel_per_page_output: JsonSchema = {
+export const intel_per_page: JsonSchema = {
   "type": "number"
 };

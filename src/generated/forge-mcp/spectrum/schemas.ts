@@ -6,7 +6,7 @@ import type { JsonSchema } from "../_/tool.js";
 /**
  * The schema of `spectrum-config_identifier`.
  */
-export const spectrum_config_identifier: JsonSchema = {
+export const spectrum$$config_identifier: JsonSchema = {
   "description": "Identifier.",
   "type": "string"
 };
@@ -14,7 +14,7 @@ export const spectrum_config_identifier: JsonSchema = {
 /**
  * The schema of `spectrum-config_zone_identifier`.
  */
-export const spectrum_config_zone_identifier: JsonSchema = {
+export const spectrum$$config_zone_identifier: JsonSchema = {
   "$ref": "#/$defs/spectrum-config_identifier",
   "description": "Zone identifier."
 };

@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../../_/tool.js";
 /**
  * The schema of `r2_managed_domain_response` in responses.
  */
-export const r2_managed_domain_response_output: JsonSchema = {
+export const r2_managed_domain_response: JsonSchema = {
   "properties": {
     "bucketId": {
       "type": "string"

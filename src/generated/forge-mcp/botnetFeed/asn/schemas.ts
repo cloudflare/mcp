@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `botnet-feed-api_timestamp`.
  */
-export const botnet_feed_api_timestamp: JsonSchema = {
+export const botnet$$feed$$api_timestamp: JsonSchema = {
   "format": "date-time",
   "type": "string"
 };

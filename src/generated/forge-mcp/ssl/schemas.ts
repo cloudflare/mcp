@@ -13,7 +13,7 @@ export const cache_identifier: JsonSchema = {
 /**
  * The schema of `tls-certificates-and-hostnames_bundle_method`.
  */
-export const tls_certificates_and_hostnames_bundle_method: JsonSchema = {
+export const tls$$certificates$$and$$hostnames_bundle_method: JsonSchema = {
   "description": "A ubiquitous bundle has the highest probability of being verified everywhere, even by clients using outdated or unusual trust stores. An optimal bundle uses the shortest chain and newest intermediates. And the force bundle verifies the chain, but does not otherwise modify it.",
   "enum": [
     "ubiquitous",
@@ -26,7 +26,7 @@ export const tls_certificates_and_hostnames_bundle_method: JsonSchema = {
 /**
  * The schema of `tls-certificates-and-hostnames_certificate`.
  */
-export const tls_certificates_and_hostnames_certificate: JsonSchema = {
+export const tls$$certificates$$and$$hostnames_certificate: JsonSchema = {
   "description": "The zone's SSL certificate or certificate and the intermediate(s).",
   "type": "string"
 };
@@ -34,7 +34,7 @@ export const tls_certificates_and_hostnames_certificate: JsonSchema = {
 /**
  * The schema of `tls-certificates-and-hostnames_host`.
  */
-export const tls_certificates_and_hostnames_host: JsonSchema = {
+export const tls$$certificates$$and$$hostnames_host: JsonSchema = {
   "description": "The keyless SSL name.",
   "type": "string"
 };
@@ -43,7 +43,7 @@ export const tls_certificates_and_hostnames_host: JsonSchema = {
  * The schema of
  * `tls-certificates-and-hostnames_keyless_certificate_identifier`.
  */
-export const tls_certificates_and_hostnames_keyless_certificate_identifier: JsonSchema = {
+export const tls$$certificates$$and$$hostnames_keyless_certificate_identifier: JsonSchema = {
   "description": "Keyless certificate identifier tag.",
   "type": "string"
 };
@@ -51,7 +51,7 @@ export const tls_certificates_and_hostnames_keyless_certificate_identifier: Json
 /**
  * The schema of `tls-certificates-and-hostnames_keyless_private_ip`.
  */
-export const tls_certificates_and_hostnames_keyless_private_ip: JsonSchema = {
+export const tls$$certificates$$and$$hostnames_keyless_private_ip: JsonSchema = {
   "description": "Private IP of the Key Server Host.",
   "type": "string"
 };
@@ -59,7 +59,7 @@ export const tls_certificates_and_hostnames_keyless_private_ip: JsonSchema = {
 /**
  * The schema of `tls-certificates-and-hostnames_keyless_tunnel`.
  */
-export const tls_certificates_and_hostnames_keyless_tunnel: JsonSchema = {
+export const tls$$certificates$$and$$hostnames_keyless_tunnel: JsonSchema = {
   "description": "Configuration for using Keyless SSL through a Cloudflare Tunnel.",
   "properties": {
     "private_ip": {
@@ -81,7 +81,7 @@ export const tls_certificates_and_hostnames_keyless_tunnel: JsonSchema = {
 /**
  * The schema of `tls-certificates-and-hostnames_keyless_vnet_id`.
  */
-export const tls_certificates_and_hostnames_keyless_vnet_id: JsonSchema = {
+export const tls$$certificates$$and$$hostnames_keyless_vnet_id: JsonSchema = {
   "description": "Cloudflare Tunnel Virtual Network ID.",
   "type": "string"
 };
@@ -89,7 +89,7 @@ export const tls_certificates_and_hostnames_keyless_vnet_id: JsonSchema = {
 /**
  * The schema of `tls-certificates-and-hostnames_port`.
  */
-export const tls_certificates_and_hostnames_port: JsonSchema = {
+export const tls$$certificates$$and$$hostnames_port: JsonSchema = {
   "description": "The keyless SSL port used to communicate between Cloudflare and the client's Keyless SSL server.",
   "type": "number"
 };

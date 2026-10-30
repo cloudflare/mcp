@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `stream_output` in responses.
  */
-export const stream_output_output: JsonSchema = {
+export const stream_output: JsonSchema = {
   "properties": {
     "enabled": {
       "$ref": "#/$defs/stream_output_enabled"
@@ -27,21 +27,21 @@ export const stream_output_output: JsonSchema = {
 /**
  * The schema of `stream_output_enabled` in responses.
  */
-export const stream_output_enabled_output: JsonSchema = {
+export const stream_output_enabled: JsonSchema = {
   "type": "boolean"
 };
 
 /**
  * The schema of `stream_output_identifier` in responses.
  */
-export const stream_output_identifier_output: JsonSchema = {
+export const stream_output_identifier: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `stream_output_response_collection` in responses.
  */
-export const stream_output_response_collection_output: JsonSchema = {
+export const stream_output_response_collection: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/stream_api-response-common"
@@ -63,7 +63,7 @@ export const stream_output_response_collection_output: JsonSchema = {
 /**
  * The schema of `stream_output_response_single` in responses.
  */
-export const stream_output_response_single_output: JsonSchema = {
+export const stream_output_response_single: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/stream_api-response-single"
@@ -82,13 +82,13 @@ export const stream_output_response_single_output: JsonSchema = {
 /**
  * The schema of `stream_output_streamKey` in responses.
  */
-export const stream_output_streamKey_output: JsonSchema = {
+export const stream_output_streamKey: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `stream_output_url` in responses.
  */
-export const stream_output_url_output: JsonSchema = {
+export const stream_output_url: JsonSchema = {
   "type": "string"
 };

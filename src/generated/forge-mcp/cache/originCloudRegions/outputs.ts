@@ -7,7 +7,7 @@ import type { JsonSchema } from "../../_/tool.js";
  * The schema of `cache-settings_origin_cloud_region_v2_delete_result` in
  * responses.
  */
-export const cache_settings_origin_cloud_region_v2_delete_result_output: JsonSchema = {
+export const cache$$settings_origin_cloud_region_v2_delete_result: JsonSchema = {
   "properties": {
     "origin_ip": {
       "type": "string"
@@ -22,7 +22,7 @@ export const cache_settings_origin_cloud_region_v2_delete_result_output: JsonSch
 /**
  * The schema of `cache-settings_origin_cloud_region_v2_entry` in responses.
  */
-export const cache_settings_origin_cloud_region_v2_entry_output: JsonSchema = {
+export const cache$$settings_origin_cloud_region_v2_entry: JsonSchema = {
   "properties": {
     "modified_on": {
       "format": "date-time",
@@ -56,7 +56,7 @@ export const cache_settings_origin_cloud_region_v2_entry_output: JsonSchema = {
  * The schema of `cache-settings_origin_cloud_region_v2_result_info` in
  * responses.
  */
-export const cache_settings_origin_cloud_region_v2_result_info_output: JsonSchema = {
+export const cache$$settings_origin_cloud_region_v2_result_info: JsonSchema = {
   "properties": {
     "count": {
       "type": "integer"

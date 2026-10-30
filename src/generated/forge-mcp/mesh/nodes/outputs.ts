@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `tunnel_ha_status` in responses.
  */
-export const tunnel_ha_status_output: JsonSchema = {
+export const tunnel_ha_status: JsonSchema = {
   "enum": [
     "offline",
     "passive",
@@ -18,7 +18,7 @@ export const tunnel_ha_status_output: JsonSchema = {
 /**
  * The schema of `tunnel_schemas-warp-connector-connection` in responses.
  */
-export const tunnel_schemas_warp_connector_connection_output: JsonSchema = {
+export const tunnel_schemas$$warp$$connector$$connection: JsonSchema = {
   "properties": {
     "client_id": {
       "$ref": "#/$defs/tunnel_client_id"
@@ -46,7 +46,7 @@ export const tunnel_schemas_warp_connector_connection_output: JsonSchema = {
 /**
  * The schema of `tunnel_tunnel_warp_connector_client` in responses.
  */
-export const tunnel_tunnel_warp_connector_client_output: JsonSchema = {
+export const tunnel_tunnel_warp_connector_client: JsonSchema = {
   "properties": {
     "arch": {
       "$ref": "#/$defs/tunnel_arch"
@@ -76,7 +76,7 @@ export const tunnel_tunnel_warp_connector_client_output: JsonSchema = {
 /**
  * The schema of `tunnel_warp-connector-response-collection` in responses.
  */
-export const tunnel_warp_connector_response_collection_output: JsonSchema = {
+export const tunnel_warp$$connector$$response$$collection: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/tunnel_api-response-collection"
@@ -98,7 +98,7 @@ export const tunnel_warp_connector_response_collection_output: JsonSchema = {
 /**
  * The schema of `tunnel_warp-connector-response-single` in responses.
  */
-export const tunnel_warp_connector_response_single_output: JsonSchema = {
+export const tunnel_warp$$connector$$response$$single: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/tunnel_api-response-common"
@@ -117,7 +117,7 @@ export const tunnel_warp_connector_response_single_output: JsonSchema = {
 /**
  * The schema of `tunnel_warp_connector_connections` in responses.
  */
-export const tunnel_warp_connector_connections_output: JsonSchema = {
+export const tunnel_warp_connector_connections: JsonSchema = {
   "items": {
     "$ref": "#/$defs/tunnel_schemas-warp-connector-connection"
   },

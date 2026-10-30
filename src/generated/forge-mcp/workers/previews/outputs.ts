@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `workers_Preview` in responses.
  */
-export const workers_Preview_output: JsonSchema = {
+export const workers_Preview: JsonSchema = {
   "properties": {
     "created_on": {
       "format": "date-time",

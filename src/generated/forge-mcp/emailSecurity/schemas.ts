@@ -6,7 +6,7 @@ import type { JsonSchema } from "../_/tool.js";
 /**
  * The schema of `email-security_DispositionLabel`.
  */
-export const email_security_DispositionLabel: JsonSchema = {
+export const email$$security_DispositionLabel: JsonSchema = {
   "description": "The verdict Email Security assigns to a message.",
   "enum": [
     "MALICIOUS",
@@ -26,7 +26,7 @@ export const email_security_DispositionLabel: JsonSchema = {
 /**
  * The schema of `email-security_InvestigateId`.
  */
-export const email_security_InvestigateId: JsonSchema = {
+export const email$$security_InvestigateId: JsonSchema = {
   "description": "Unique identifier for a message retrieved from investigation.",
   "type": "string"
 };
@@ -34,7 +34,7 @@ export const email_security_InvestigateId: JsonSchema = {
 /**
  * The schema of `email-security_MailboxDestination`.
  */
-export const email_security_MailboxDestination: JsonSchema = {
+export const email$$security_MailboxDestination: JsonSchema = {
   "description": "The mailbox folder to move messages to.",
   "enum": [
     "Inbox",
@@ -49,7 +49,7 @@ export const email_security_MailboxDestination: JsonSchema = {
 /**
  * The schema of `email-security_MessageDeliveryStatus`.
  */
-export const email_security_MessageDeliveryStatus: JsonSchema = {
+export const email$$security_MessageDeliveryStatus: JsonSchema = {
   "description": "Delivery status of the message.",
   "enum": [
     "delivered",
@@ -67,7 +67,7 @@ export const email_security_MessageDeliveryStatus: JsonSchema = {
 /**
  * The schema of `email-security_PatternType`.
  */
-export const email_security_PatternType: JsonSchema = {
+export const email$$security_PatternType: JsonSchema = {
   "description": "Type of pattern matching.\n- EMAIL: matches a full email address (e.g. `user@example.com`)\n- DOMAIN: matches a domain name (e.g. `example.com`)\n- IP: matches a plain IPv4 or IPv6 address (e.g. `1.2.3.4` or `2606:4700:4700::1111`) or CIDR block (e.g. `1.2.3.0/24` or `2606:4700:4700::/48`). The API rejects private or unique-local, loopback, link-local, unspecified, and IPv4 broadcast addresses, including their IPv4-mapped IPv6 equivalents.\n- UNKNOWN: deprecated; you cannot use this when creating or updating policies, but it may appear on existing entries.\n",
   "enum": [
     "EMAIL",
@@ -81,7 +81,7 @@ export const email_security_PatternType: JsonSchema = {
 /**
  * The schema of `email-security_PostfixId`.
  */
-export const email_security_PostfixId: JsonSchema = {
+export const email$$security_PostfixId: JsonSchema = {
   "description": "The identifier of the message.",
   "type": "string"
 };
@@ -89,7 +89,7 @@ export const email_security_PostfixId: JsonSchema = {
 /**
  * The schema of `email-security_identifier`.
  */
-export const email_security_identifier: JsonSchema = {
+export const email$$security_identifier: JsonSchema = {
   "description": "Identifier.",
   "type": "string"
 };

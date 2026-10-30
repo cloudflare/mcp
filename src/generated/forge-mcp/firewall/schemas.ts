@@ -30,7 +30,7 @@ export const firewall_identifier: JsonSchema = {
 /**
  * The schema of `firewall_schemas-paused`.
  */
-export const firewall_schemas_paused: JsonSchema = {
+export const firewall_schemas$$paused: JsonSchema = {
   "description": "When true, indicates that the rule is currently paused.",
   "type": "boolean"
 };

@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `access_app_count-2`.
  */
-export const access_app_count_2: JsonSchema = {
+export const access_app_count$$2: JsonSchema = {
   "description": "Number of apps the custom page is assigned to.",
   "type": "integer"
 };
@@ -92,7 +92,7 @@ export const access_custom_page_validate: JsonSchema = {
 /**
  * The schema of `access_name-11`.
  */
-export const access_name_11: JsonSchema = {
+export const access_name$$11: JsonSchema = {
   "description": "Custom page name.",
   "type": "string"
 };
@@ -100,7 +100,7 @@ export const access_name_11: JsonSchema = {
 /**
  * The schema of `access_type-2`.
  */
-export const access_type_2: JsonSchema = {
+export const access_type$$2: JsonSchema = {
   "description": "Custom page type.",
   "enum": [
     "identity_denied",

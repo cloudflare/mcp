@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../../../../../_/tool.js";
 /**
  * The schema of `advanced-ddos-protection_TcpFlowProtectionRule` in responses.
  */
-export const advanced_ddos_protection_TcpFlowProtectionRule_output: JsonSchema = {
+export const advanced$$ddos$$protection_TcpFlowProtectionRule: JsonSchema = {
   "properties": {
     "burst_sensitivity": {
       "type": "string"
@@ -53,7 +53,7 @@ export const advanced_ddos_protection_TcpFlowProtectionRule_output: JsonSchema =
  * `advanced-ddos-protection_tcp-flow-protection-rule-list-response` in
  * responses.
  */
-export const advanced_ddos_protection_tcp_flow_protection_rule_list_response_output: JsonSchema = {
+export const advanced$$ddos$$protection_tcp$$flow$$protection$$rule$$list$$response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/advanced-ddos-protection_api-response-collection"
@@ -76,7 +76,7 @@ export const advanced_ddos_protection_tcp_flow_protection_rule_list_response_out
  * The schema of `advanced-ddos-protection_tcp-flow-protection-rule-response` in
  * responses.
  */
-export const advanced_ddos_protection_tcp_flow_protection_rule_response_output: JsonSchema = {
+export const advanced$$ddos$$protection_tcp$$flow$$protection$$rule$$response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/advanced-ddos-protection_api-response-common"

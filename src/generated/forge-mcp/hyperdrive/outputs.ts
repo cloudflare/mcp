@@ -6,7 +6,7 @@ import type { JsonSchema } from "../_/tool.js";
 /**
  * The schema of `hyperdrive_api-response-collection` in responses.
  */
-export const hyperdrive_api_response_collection_output: JsonSchema = {
+export const hyperdrive_api$$response$$collection: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/hyperdrive_api-response-common"
@@ -25,7 +25,7 @@ export const hyperdrive_api_response_collection_output: JsonSchema = {
 /**
  * The schema of `hyperdrive_api-response-common` in responses.
  */
-export const hyperdrive_api_response_common_output: JsonSchema = {
+export const hyperdrive_api$$response$$common: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/hyperdrive_messages"
@@ -51,7 +51,7 @@ export const hyperdrive_api_response_common_output: JsonSchema = {
 /**
  * The schema of `hyperdrive_api-response-common-failure` in responses.
  */
-export const hyperdrive_api_response_common_failure_output: JsonSchema = {
+export const hyperdrive_api$$response$$common$$failure: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/hyperdrive_messages"
@@ -81,7 +81,7 @@ export const hyperdrive_api_response_common_failure_output: JsonSchema = {
 /**
  * The schema of `hyperdrive_api-response-single` in responses.
  */
-export const hyperdrive_api_response_single_output: JsonSchema = {
+export const hyperdrive_api$$response$$single: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/hyperdrive_messages"
@@ -107,7 +107,7 @@ export const hyperdrive_api_response_single_output: JsonSchema = {
 /**
  * The schema of `hyperdrive_hyperdrive-caching-response` in responses.
  */
-export const hyperdrive_hyperdrive_caching_response_output: JsonSchema = {
+export const hyperdrive_hyperdrive$$caching$$response: JsonSchema = {
   "properties": {
     "disabled": {
       "type": "boolean"
@@ -128,7 +128,7 @@ export const hyperdrive_hyperdrive_caching_response_output: JsonSchema = {
 /**
  * The schema of `hyperdrive_hyperdrive-config-response` in responses.
  */
-export const hyperdrive_hyperdrive_config_response_output: JsonSchema = {
+export const hyperdrive_hyperdrive$$config$$response: JsonSchema = {
   "properties": {
     "caching": {
       "$ref": "#/$defs/hyperdrive_hyperdrive-caching-response"
@@ -183,7 +183,7 @@ export const hyperdrive_hyperdrive_config_response_output: JsonSchema = {
 /**
  * The schema of `hyperdrive_hyperdrive-database-full` in responses.
  */
-export const hyperdrive_hyperdrive_database_full_output: JsonSchema = {
+export const hyperdrive_hyperdrive$$database$$full: JsonSchema = {
   "properties": {
     "database": {
       "type": "string"
@@ -210,7 +210,7 @@ export const hyperdrive_hyperdrive_database_full_output: JsonSchema = {
 /**
  * The schema of `hyperdrive_hyperdrive-integration-provider` in responses.
  */
-export const hyperdrive_hyperdrive_integration_provider_output: JsonSchema = {
+export const hyperdrive_hyperdrive$$integration$$provider: JsonSchema = {
   "enum": [
     "planetscale"
   ],
@@ -220,7 +220,7 @@ export const hyperdrive_hyperdrive_integration_provider_output: JsonSchema = {
 /**
  * The schema of `hyperdrive_hyperdrive-mtls` in responses.
  */
-export const hyperdrive_hyperdrive_mtls_output: JsonSchema = {
+export const hyperdrive_hyperdrive$$mtls: JsonSchema = {
   "properties": {
     "ca_certificate_id": {
       "type": "string"
@@ -238,21 +238,21 @@ export const hyperdrive_hyperdrive_mtls_output: JsonSchema = {
 /**
  * The schema of `hyperdrive_hyperdrive-name` in responses.
  */
-export const hyperdrive_hyperdrive_name_output: JsonSchema = {
+export const hyperdrive_hyperdrive$$name: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `hyperdrive_hyperdrive-origin-connection-limit` in responses.
  */
-export const hyperdrive_hyperdrive_origin_connection_limit_output: JsonSchema = {
+export const hyperdrive_hyperdrive$$origin$$connection$$limit: JsonSchema = {
   "type": "integer"
 };
 
 /**
  * The schema of `hyperdrive_hyperdrive-origin-full` in responses.
  */
-export const hyperdrive_hyperdrive_origin_full_output: JsonSchema = {
+export const hyperdrive_hyperdrive$$origin$$full: JsonSchema = {
   "oneOf": [
     {
       "allOf": [
@@ -290,7 +290,7 @@ export const hyperdrive_hyperdrive_origin_full_output: JsonSchema = {
 /**
  * The schema of `hyperdrive_hyperdrive-planet-scale-integration` in responses.
  */
-export const hyperdrive_hyperdrive_planet_scale_integration_output: JsonSchema = {
+export const hyperdrive_hyperdrive$$planet$$scale$$integration: JsonSchema = {
   "properties": {
     "custom_database_name": {
       "type": "string"
@@ -324,7 +324,7 @@ export const hyperdrive_hyperdrive_planet_scale_integration_output: JsonSchema =
 /**
  * The schema of `hyperdrive_hyperdrive-scheme` in responses.
  */
-export const hyperdrive_hyperdrive_scheme_output: JsonSchema = {
+export const hyperdrive_hyperdrive$$scheme: JsonSchema = {
   "enum": [
     "postgres",
     "postgresql",
@@ -336,14 +336,14 @@ export const hyperdrive_hyperdrive_scheme_output: JsonSchema = {
 /**
  * The schema of `hyperdrive_identifier` in responses.
  */
-export const hyperdrive_identifier_output: JsonSchema = {
+export const hyperdrive_identifier: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `hyperdrive_internet-origin` in responses.
  */
-export const hyperdrive_internet_origin_output: JsonSchema = {
+export const hyperdrive_internet$$origin: JsonSchema = {
   "properties": {
     "host": {
       "type": "string"
@@ -362,7 +362,7 @@ export const hyperdrive_internet_origin_output: JsonSchema = {
 /**
  * The schema of `hyperdrive_messages` in responses.
  */
-export const hyperdrive_messages_output: JsonSchema = {
+export const hyperdrive_messages: JsonSchema = {
   "items": {
     "properties": {
       "code": {
@@ -384,7 +384,7 @@ export const hyperdrive_messages_output: JsonSchema = {
 /**
  * The schema of `hyperdrive_over-access-origin` in responses.
  */
-export const hyperdrive_over_access_origin_output: JsonSchema = {
+export const hyperdrive_over$$access$$origin: JsonSchema = {
   "properties": {
     "access_client_id": {
       "type": "string"
@@ -407,7 +407,7 @@ export const hyperdrive_over_access_origin_output: JsonSchema = {
 /**
  * The schema of `hyperdrive_result_info` in responses.
  */
-export const hyperdrive_result_info_output: JsonSchema = {
+export const hyperdrive_result_info: JsonSchema = {
   "properties": {
     "count": {
       "type": "number"
@@ -428,7 +428,7 @@ export const hyperdrive_result_info_output: JsonSchema = {
 /**
  * The schema of `hyperdrive_vpc-service-origin` in responses.
  */
-export const hyperdrive_vpc_service_origin_output: JsonSchema = {
+export const hyperdrive_vpc$$service$$origin: JsonSchema = {
   "properties": {
     "service_id": {
       "type": "string"

@@ -6,7 +6,7 @@ import type { JsonSchema } from "../_/tool.js";
 /**
  * The schema of `calls_api-response-common` in responses.
  */
-export const calls_api_response_common_output: JsonSchema = {
+export const calls_api$$response$$common: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/calls_messages"
@@ -32,7 +32,7 @@ export const calls_api_response_common_output: JsonSchema = {
 /**
  * The schema of `calls_api-response-common-failure` in responses.
  */
-export const calls_api_response_common_failure_output: JsonSchema = {
+export const calls_api$$response$$common$$failure: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/calls_messages"
@@ -62,7 +62,7 @@ export const calls_api_response_common_failure_output: JsonSchema = {
 /**
  * The schema of `calls_api-response-single` in responses.
  */
-export const calls_api_response_single_output: JsonSchema = {
+export const calls_api$$response$$single: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/calls_messages"
@@ -88,7 +88,7 @@ export const calls_api_response_single_output: JsonSchema = {
 /**
  * The schema of `calls_created` in responses.
  */
-export const calls_created_output: JsonSchema = {
+export const calls_created: JsonSchema = {
   "format": "date-time",
   "type": "string"
 };
@@ -96,14 +96,14 @@ export const calls_created_output: JsonSchema = {
 /**
  * The schema of `calls_identifier` in responses.
  */
-export const calls_identifier_output: JsonSchema = {
+export const calls_identifier: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `calls_messages` in responses.
  */
-export const calls_messages_output: JsonSchema = {
+export const calls_messages: JsonSchema = {
   "items": {
     "properties": {
       "code": {
@@ -136,7 +136,7 @@ export const calls_messages_output: JsonSchema = {
 /**
  * The schema of `calls_modified` in responses.
  */
-export const calls_modified_output: JsonSchema = {
+export const calls_modified: JsonSchema = {
   "format": "date-time",
   "type": "string"
 };
@@ -144,6 +144,6 @@ export const calls_modified_output: JsonSchema = {
 /**
  * The schema of `calls_name` in responses.
  */
-export const calls_name_output: JsonSchema = {
+export const calls_name: JsonSchema = {
   "type": "string"
 };

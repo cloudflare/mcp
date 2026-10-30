@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../../_/tool.js";
 /**
  * The schema of `access_aaguid` in responses.
  */
-export const access_aaguid_output: JsonSchema = {
+export const access_aaguid: JsonSchema = {
   "format": "uuid",
   "type": "string"
 };
@@ -14,7 +14,7 @@ export const access_aaguid_output: JsonSchema = {
 /**
  * The schema of `access_authenticator_device_aaguid` in responses.
  */
-export const access_authenticator_device_aaguid_output: JsonSchema = {
+export const access_authenticator_device_aaguid: JsonSchema = {
   "properties": {
     "aaguid": {
       "$ref": "#/$defs/access_aaguid"
@@ -33,14 +33,14 @@ export const access_authenticator_device_aaguid_output: JsonSchema = {
 /**
  * The schema of `access_name-14` in responses.
  */
-export const access_name_14_output: JsonSchema = {
+export const access_name$$14: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `access_response_collection-17` in responses.
  */
-export const access_response_collection_17_output: JsonSchema = {
+export const access_response_collection$$17: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/access_api-response-collection"

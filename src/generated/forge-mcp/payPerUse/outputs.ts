@@ -6,7 +6,7 @@ import type { JsonSchema } from "../_/tool.js";
 /**
  * The schema of `pay-per-crawl_PPUPrice` in responses.
  */
-export const pay_per_crawl_PPUPrice_output: JsonSchema = {
+export const pay$$per$$crawl_PPUPrice: JsonSchema = {
   "properties": {
     "created_at": {
       "format": "date-time",
@@ -57,7 +57,7 @@ export const pay_per_crawl_PPUPrice_output: JsonSchema = {
 /**
  * The schema of `pay-per-crawl_PPUPriceResponse` in responses.
  */
-export const pay_per_crawl_PPUPriceResponse_output: JsonSchema = {
+export const pay$$per$$crawl_PPUPriceResponse: JsonSchema = {
   "properties": {
     "errors": {
       "items": {

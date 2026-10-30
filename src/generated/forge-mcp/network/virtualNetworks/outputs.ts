@@ -6,14 +6,14 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `tunnel_is_default_network` in responses.
  */
-export const tunnel_is_default_network_output: JsonSchema = {
+export const tunnel_is_default_network: JsonSchema = {
   "type": "boolean"
 };
 
 /**
  * The schema of `tunnel_virtual-network` in responses.
  */
-export const tunnel_virtual_network_output: JsonSchema = {
+export const tunnel_virtual$$network: JsonSchema = {
   "properties": {
     "comment": {
       "$ref": "#/$defs/tunnel_virtual_network_comment"
@@ -47,14 +47,14 @@ export const tunnel_virtual_network_output: JsonSchema = {
 /**
  * The schema of `tunnel_virtual_network_comment` in responses.
  */
-export const tunnel_virtual_network_comment_output: JsonSchema = {
+export const tunnel_virtual_network_comment: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `tunnel_vnet_response_collection` in responses.
  */
-export const tunnel_vnet_response_collection_output: JsonSchema = {
+export const tunnel_vnet_response_collection: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/tunnel_api-response-collection"
@@ -76,7 +76,7 @@ export const tunnel_vnet_response_collection_output: JsonSchema = {
 /**
  * The schema of `tunnel_vnet_response_single` in responses.
  */
-export const tunnel_vnet_response_single_output: JsonSchema = {
+export const tunnel_vnet_response_single: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/tunnel_api-response-common"

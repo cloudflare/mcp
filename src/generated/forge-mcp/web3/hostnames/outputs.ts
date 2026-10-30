@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `web3_api-response-collection` in responses.
  */
-export const web3_api_response_collection_output: JsonSchema = {
+export const web3_api$$response$$collection: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/web3_api-response-common"
@@ -36,7 +36,7 @@ export const web3_api_response_collection_output: JsonSchema = {
 /**
  * The schema of `web3_api-response-common` in responses.
  */
-export const web3_api_response_common_output: JsonSchema = {
+export const web3_api$$response$$common: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/web3_messages"
@@ -77,7 +77,7 @@ export const web3_api_response_common_output: JsonSchema = {
 /**
  * The schema of `web3_api-response-common-failure` in responses.
  */
-export const web3_api_response_common_failure_output: JsonSchema = {
+export const web3_api$$response$$common$$failure: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/web3_messages"
@@ -107,7 +107,7 @@ export const web3_api_response_common_failure_output: JsonSchema = {
 /**
  * The schema of `web3_api-response-single` in responses.
  */
-export const web3_api_response_single_output: JsonSchema = {
+export const web3_api$$response$$single: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/web3_api-response-common"
@@ -136,7 +136,7 @@ export const web3_api_response_single_output: JsonSchema = {
 /**
  * The schema of `web3_api-response-single-id` in responses.
  */
-export const web3_api_response_single_id_output: JsonSchema = {
+export const web3_api$$response$$single$$id: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/web3_api-response-common"
@@ -170,7 +170,7 @@ export const web3_api_response_single_id_output: JsonSchema = {
 /**
  * The schema of `web3_collection_response` in responses.
  */
-export const web3_collection_response_output: JsonSchema = {
+export const web3_collection_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/web3_api-response-collection"
@@ -192,28 +192,28 @@ export const web3_collection_response_output: JsonSchema = {
 /**
  * The schema of `web3_description` in responses.
  */
-export const web3_description_output: JsonSchema = {
+export const web3_description: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `web3_dnslink` in responses.
  */
-export const web3_dnslink_output: JsonSchema = {
+export const web3_dnslink: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `web3_identifier` in responses.
  */
-export const web3_identifier_output: JsonSchema = {
+export const web3_identifier: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `web3_messages` in responses.
  */
-export const web3_messages_output: JsonSchema = {
+export const web3_messages: JsonSchema = {
   "items": {
     "properties": {
       "code": {
@@ -235,14 +235,14 @@ export const web3_messages_output: JsonSchema = {
 /**
  * The schema of `web3_name` in responses.
  */
-export const web3_name_output: JsonSchema = {
+export const web3_name: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `web3_result_info` in responses.
  */
-export const web3_result_info_output: JsonSchema = {
+export const web3_result_info: JsonSchema = {
   "properties": {
     "count": {
       "type": "number"
@@ -263,7 +263,7 @@ export const web3_result_info_output: JsonSchema = {
 /**
  * The schema of `web3_single_response` in responses.
  */
-export const web3_single_response_output: JsonSchema = {
+export const web3_single_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/web3_api-response-single"
@@ -282,7 +282,7 @@ export const web3_single_response_output: JsonSchema = {
 /**
  * The schema of `web3_status` in responses.
  */
-export const web3_status_output: JsonSchema = {
+export const web3_status: JsonSchema = {
   "enum": [
     "active",
     "pending",
@@ -295,7 +295,7 @@ export const web3_status_output: JsonSchema = {
 /**
  * The schema of `web3_target` in responses.
  */
-export const web3_target_output: JsonSchema = {
+export const web3_target: JsonSchema = {
   "enum": [
     "ethereum",
     "ipfs",
@@ -307,7 +307,7 @@ export const web3_target_output: JsonSchema = {
 /**
  * The schema of `web3_timestamp` in responses.
  */
-export const web3_timestamp_output: JsonSchema = {
+export const web3_timestamp: JsonSchema = {
   "format": "date-time",
   "type": "string"
 };
@@ -315,7 +315,7 @@ export const web3_timestamp_output: JsonSchema = {
 /**
  * The schema of `web3_web3-hostname` in responses.
  */
-export const web3_web3_hostname_output: JsonSchema = {
+export const web3_web3$$hostname: JsonSchema = {
   "properties": {
     "created_on": {
       "$ref": "#/$defs/web3_timestamp"

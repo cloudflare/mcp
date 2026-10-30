@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `snippets_SnippetRules` in responses.
  */
-export const snippets_SnippetRules_output: JsonSchema = {
+export const snippets_SnippetRules: JsonSchema = {
   "items": {
     "properties": {
       "description": {

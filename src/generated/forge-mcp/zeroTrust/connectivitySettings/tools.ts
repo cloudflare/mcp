@@ -3,36 +3,32 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
-  tunnel_api_response_common_failure_output,
-  tunnel_api_response_common_output,
-  tunnel_messages_output,
+  tunnel_api$$response$$common,
+  tunnel_api$$response$$common$$failure,
+  tunnel_messages,
 } from "../../outputs.js";
 import { tunnel_account_id } from "../../schemas.js";
 import {
-  tunnel_icmp_proxy_enabled_output,
-  tunnel_offramp_warp_enabled_output,
-  tunnel_zero_trust_connectivity_settings_response_output,
-} from "./outputs.js";
-import {
   tunnel_icmp_proxy_enabled,
   tunnel_offramp_warp_enabled,
+  tunnel_zero_trust_connectivity_settings_response,
+} from "./outputs.js";
+import {
+  tunnel_icmp_proxy_enabled as tunnel_icmp_proxy_enabled$,
+  tunnel_offramp_warp_enabled as tunnel_offramp_warp_enabled$,
 } from "./schemas.js";
 
 /**
- * The tools of `zero_trust.connectivity_settings`.
+ * The tools of `zeroTrust.connectivitySettings`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "zero_trust_connectivity_settings_edit",
+    name: "zeroTrust_connectivitySettings_edit",
     title: "Updates the Zero Trust Connectivity Settings",
     description: "Updates the Zero Trust Connectivity Settings for the given account.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/tunnel_account_id",
-          "description": "Cloudflare account ID"
-        },
         "body": {
           "properties": {
             "icmp_proxy_enabled": {
@@ -45,26 +41,38 @@ export const tools: readonly Tool[] = [
             }
           },
           "type": "object"
+        },
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/tunnel_account_id",
+              "description": "Cloudflare account ID"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
+        "path",
         "body"
       ],
       $defs: {
         "tunnel_account_id": tunnel_account_id,
-        "tunnel_icmp_proxy_enabled": tunnel_icmp_proxy_enabled,
-        "tunnel_offramp_warp_enabled": tunnel_offramp_warp_enabled,
+        "tunnel_icmp_proxy_enabled": tunnel_icmp_proxy_enabled$,
+        "tunnel_offramp_warp_enabled": tunnel_offramp_warp_enabled$,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/tunnel_zero_trust_connectivity_settings_response",
       $defs: {
-        "tunnel_api-response-common": tunnel_api_response_common_output,
-        "tunnel_icmp_proxy_enabled": tunnel_icmp_proxy_enabled_output,
-        "tunnel_messages": tunnel_messages_output,
-        "tunnel_offramp_warp_enabled": tunnel_offramp_warp_enabled_output,
-        "tunnel_zero_trust_connectivity_settings_response": tunnel_zero_trust_connectivity_settings_response_output,
+        "tunnel_api-response-common": tunnel_api$$response$$common,
+        "tunnel_icmp_proxy_enabled": tunnel_icmp_proxy_enabled,
+        "tunnel_messages": tunnel_messages,
+        "tunnel_offramp_warp_enabled": tunnel_offramp_warp_enabled,
+        "tunnel_zero_trust_connectivity_settings_response": tunnel_zero_trust_connectivity_settings_response,
       },
     },
     annotations: {
@@ -91,12 +99,12 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "tunnel_api-response-common": tunnel_api_response_common_output,
-        "tunnel_api-response-common-failure": tunnel_api_response_common_failure_output,
-        "tunnel_icmp_proxy_enabled": tunnel_icmp_proxy_enabled_output,
-        "tunnel_messages": tunnel_messages_output,
-        "tunnel_offramp_warp_enabled": tunnel_offramp_warp_enabled_output,
-        "tunnel_zero_trust_connectivity_settings_response": tunnel_zero_trust_connectivity_settings_response_output,
+        "tunnel_api-response-common": tunnel_api$$response$$common,
+        "tunnel_api-response-common-failure": tunnel_api$$response$$common$$failure,
+        "tunnel_icmp_proxy_enabled": tunnel_icmp_proxy_enabled,
+        "tunnel_messages": tunnel_messages,
+        "tunnel_offramp_warp_enabled": tunnel_offramp_warp_enabled,
+        "tunnel_zero_trust_connectivity_settings_response": tunnel_zero_trust_connectivity_settings_response,
       },
     },
     request: (args) => ({
@@ -105,19 +113,27 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "zero_trust_connectivity_settings_get",
+    name: "zeroTrust_connectivitySettings_get",
     title: "Get Zero Trust Connectivity Settings",
     description: "Gets the Zero Trust Connectivity Settings for the given account.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/tunnel_account_id",
-          "description": "Cloudflare account ID"
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/tunnel_account_id",
+              "description": "Cloudflare account ID"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id"
+        "path"
       ],
       $defs: {
         "tunnel_account_id": tunnel_account_id,
@@ -126,11 +142,11 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/tunnel_zero_trust_connectivity_settings_response",
       $defs: {
-        "tunnel_api-response-common": tunnel_api_response_common_output,
-        "tunnel_icmp_proxy_enabled": tunnel_icmp_proxy_enabled_output,
-        "tunnel_messages": tunnel_messages_output,
-        "tunnel_offramp_warp_enabled": tunnel_offramp_warp_enabled_output,
-        "tunnel_zero_trust_connectivity_settings_response": tunnel_zero_trust_connectivity_settings_response_output,
+        "tunnel_api-response-common": tunnel_api$$response$$common,
+        "tunnel_icmp_proxy_enabled": tunnel_icmp_proxy_enabled,
+        "tunnel_messages": tunnel_messages,
+        "tunnel_offramp_warp_enabled": tunnel_offramp_warp_enabled,
+        "tunnel_zero_trust_connectivity_settings_response": tunnel_zero_trust_connectivity_settings_response,
       },
     },
     annotations: {
@@ -159,12 +175,12 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "tunnel_api-response-common": tunnel_api_response_common_output,
-        "tunnel_api-response-common-failure": tunnel_api_response_common_failure_output,
-        "tunnel_icmp_proxy_enabled": tunnel_icmp_proxy_enabled_output,
-        "tunnel_messages": tunnel_messages_output,
-        "tunnel_offramp_warp_enabled": tunnel_offramp_warp_enabled_output,
-        "tunnel_zero_trust_connectivity_settings_response": tunnel_zero_trust_connectivity_settings_response_output,
+        "tunnel_api-response-common": tunnel_api$$response$$common,
+        "tunnel_api-response-common-failure": tunnel_api$$response$$common$$failure,
+        "tunnel_icmp_proxy_enabled": tunnel_icmp_proxy_enabled,
+        "tunnel_messages": tunnel_messages,
+        "tunnel_offramp_warp_enabled": tunnel_offramp_warp_enabled,
+        "tunnel_zero_trust_connectivity_settings_response": tunnel_zero_trust_connectivity_settings_response,
       },
     },
     request: (args) => ({

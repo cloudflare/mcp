@@ -3,27 +3,27 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
-  calls_api_response_common_failure_output,
-  calls_api_response_common_output,
-  calls_api_response_single_output,
-  calls_created_output,
-  calls_identifier_output,
-  calls_messages_output,
-  calls_modified_output,
-  calls_name_output,
+  calls_api$$response$$common,
+  calls_api$$response$$common$$failure,
+  calls_api$$response$$single,
+  calls_created,
+  calls_identifier,
+  calls_messages,
+  calls_modified,
+  calls_name,
 } from "../../outputs.js";
 import {
   calls_account_identifier,
-  calls_identifier,
-  calls_name,
+  calls_identifier as calls_identifier$,
+  calls_name as calls_name$,
 } from "../../schemas.js";
 import {
-  calls_app_output,
-  calls_app_response_collection_output,
-  calls_app_response_single_output,
-  calls_app_response_single_with_secret_output,
-  calls_app_with_secret_output,
-  calls_secret_output,
+  calls_app,
+  calls_app_response_collection,
+  calls_app_response_single,
+  calls_app_response_single_with_secret,
+  calls_app_with_secret,
+  calls_secret,
 } from "./outputs.js";
 import { calls_app_editable_fields } from "./schemas.js";
 
@@ -38,36 +38,44 @@ export const tools: readonly Tool[] = [
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/calls_account_identifier",
-          "description": "The account identifier tag."
-        },
         "body": {
           "$ref": "#/$defs/calls_app_editable_fields"
+        },
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/calls_account_identifier",
+              "description": "The account identifier tag."
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
+        "path",
         "body"
       ],
       $defs: {
         "calls_account_identifier": calls_account_identifier,
         "calls_app_editable_fields": calls_app_editable_fields,
-        "calls_name": calls_name,
+        "calls_name": calls_name$,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/calls_app_response_single_with_secret",
       $defs: {
-        "calls_api-response-single": calls_api_response_single_output,
-        "calls_app_response_single_with_secret": calls_app_response_single_with_secret_output,
-        "calls_app_with_secret": calls_app_with_secret_output,
-        "calls_created": calls_created_output,
-        "calls_identifier": calls_identifier_output,
-        "calls_messages": calls_messages_output,
-        "calls_modified": calls_modified_output,
-        "calls_name": calls_name_output,
-        "calls_secret": calls_secret_output,
+        "calls_api-response-single": calls_api$$response$$single,
+        "calls_app_response_single_with_secret": calls_app_response_single_with_secret,
+        "calls_app_with_secret": calls_app_with_secret,
+        "calls_created": calls_created,
+        "calls_identifier": calls_identifier,
+        "calls_messages": calls_messages,
+        "calls_modified": calls_modified,
+        "calls_name": calls_name,
+        "calls_secret": calls_secret,
       },
     },
     annotations: {
@@ -94,16 +102,16 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "calls_api-response-common-failure": calls_api_response_common_failure_output,
-        "calls_api-response-single": calls_api_response_single_output,
-        "calls_app_response_single_with_secret": calls_app_response_single_with_secret_output,
-        "calls_app_with_secret": calls_app_with_secret_output,
-        "calls_created": calls_created_output,
-        "calls_identifier": calls_identifier_output,
-        "calls_messages": calls_messages_output,
-        "calls_modified": calls_modified_output,
-        "calls_name": calls_name_output,
-        "calls_secret": calls_secret_output,
+        "calls_api-response-common-failure": calls_api$$response$$common$$failure,
+        "calls_api-response-single": calls_api$$response$$single,
+        "calls_app_response_single_with_secret": calls_app_response_single_with_secret,
+        "calls_app_with_secret": calls_app_with_secret,
+        "calls_created": calls_created,
+        "calls_identifier": calls_identifier,
+        "calls_messages": calls_messages,
+        "calls_modified": calls_modified,
+        "calls_name": calls_name,
+        "calls_secret": calls_secret,
       },
     },
     request: (args) => ({
@@ -118,35 +126,43 @@ export const tools: readonly Tool[] = [
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/calls_account_identifier",
-          "description": "The account identifier tag."
-        },
-        "app_id": {
-          "$ref": "#/$defs/calls_identifier",
-          "description": "A Cloudflare-generated unique identifier for a item."
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/calls_account_identifier",
+              "description": "The account identifier tag."
+            },
+            "app_id": {
+              "$ref": "#/$defs/calls_identifier",
+              "description": "A Cloudflare-generated unique identifier for a item."
+            }
+          },
+          "required": [
+            "account_id",
+            "app_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "app_id"
+        "path"
       ],
       $defs: {
         "calls_account_identifier": calls_account_identifier,
-        "calls_identifier": calls_identifier,
+        "calls_identifier": calls_identifier$,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/calls_app_response_single",
       $defs: {
-        "calls_api-response-single": calls_api_response_single_output,
-        "calls_app": calls_app_output,
-        "calls_app_response_single": calls_app_response_single_output,
-        "calls_created": calls_created_output,
-        "calls_identifier": calls_identifier_output,
-        "calls_messages": calls_messages_output,
-        "calls_modified": calls_modified_output,
-        "calls_name": calls_name_output,
+        "calls_api-response-single": calls_api$$response$$single,
+        "calls_app": calls_app,
+        "calls_app_response_single": calls_app_response_single,
+        "calls_created": calls_created,
+        "calls_identifier": calls_identifier,
+        "calls_messages": calls_messages,
+        "calls_modified": calls_modified,
+        "calls_name": calls_name,
       },
     },
     annotations: {
@@ -171,14 +187,14 @@ export const tools: readonly Tool[] = [
         "4XX": {}
       },
       $defs: {
-        "calls_api-response-single": calls_api_response_single_output,
-        "calls_app": calls_app_output,
-        "calls_app_response_single": calls_app_response_single_output,
-        "calls_created": calls_created_output,
-        "calls_identifier": calls_identifier_output,
-        "calls_messages": calls_messages_output,
-        "calls_modified": calls_modified_output,
-        "calls_name": calls_name_output,
+        "calls_api-response-single": calls_api$$response$$single,
+        "calls_app": calls_app,
+        "calls_app_response_single": calls_app_response_single,
+        "calls_created": calls_created,
+        "calls_identifier": calls_identifier,
+        "calls_messages": calls_messages,
+        "calls_modified": calls_modified,
+        "calls_name": calls_name,
       },
     },
     request: (args) => ({
@@ -192,35 +208,43 @@ export const tools: readonly Tool[] = [
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/calls_account_identifier",
-          "description": "The account identifier tag."
-        },
-        "app_id": {
-          "$ref": "#/$defs/calls_identifier",
-          "description": "A Cloudflare-generated unique identifier for a item."
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/calls_account_identifier",
+              "description": "The account identifier tag."
+            },
+            "app_id": {
+              "$ref": "#/$defs/calls_identifier",
+              "description": "A Cloudflare-generated unique identifier for a item."
+            }
+          },
+          "required": [
+            "account_id",
+            "app_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "app_id"
+        "path"
       ],
       $defs: {
         "calls_account_identifier": calls_account_identifier,
-        "calls_identifier": calls_identifier,
+        "calls_identifier": calls_identifier$,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/calls_app_response_single",
       $defs: {
-        "calls_api-response-single": calls_api_response_single_output,
-        "calls_app": calls_app_output,
-        "calls_app_response_single": calls_app_response_single_output,
-        "calls_created": calls_created_output,
-        "calls_identifier": calls_identifier_output,
-        "calls_messages": calls_messages_output,
-        "calls_modified": calls_modified_output,
-        "calls_name": calls_name_output,
+        "calls_api-response-single": calls_api$$response$$single,
+        "calls_app": calls_app,
+        "calls_app_response_single": calls_app_response_single,
+        "calls_created": calls_created,
+        "calls_identifier": calls_identifier,
+        "calls_messages": calls_messages,
+        "calls_modified": calls_modified,
+        "calls_name": calls_name,
       },
     },
     annotations: {
@@ -248,15 +272,15 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "calls_api-response-common-failure": calls_api_response_common_failure_output,
-        "calls_api-response-single": calls_api_response_single_output,
-        "calls_app": calls_app_output,
-        "calls_app_response_single": calls_app_response_single_output,
-        "calls_created": calls_created_output,
-        "calls_identifier": calls_identifier_output,
-        "calls_messages": calls_messages_output,
-        "calls_modified": calls_modified_output,
-        "calls_name": calls_name_output,
+        "calls_api-response-common-failure": calls_api$$response$$common$$failure,
+        "calls_api-response-single": calls_api$$response$$single,
+        "calls_app": calls_app,
+        "calls_app_response_single": calls_app_response_single,
+        "calls_created": calls_created,
+        "calls_identifier": calls_identifier,
+        "calls_messages": calls_messages,
+        "calls_modified": calls_modified,
+        "calls_name": calls_name,
       },
     },
     request: (args) => ({
@@ -270,13 +294,21 @@ export const tools: readonly Tool[] = [
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/calls_account_identifier",
-          "description": "The account identifier tag."
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/calls_account_identifier",
+              "description": "The account identifier tag."
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id"
+        "path"
       ],
       $defs: {
         "calls_account_identifier": calls_account_identifier,
@@ -285,14 +317,14 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/calls_app_response_collection",
       $defs: {
-        "calls_api-response-common": calls_api_response_common_output,
-        "calls_app": calls_app_output,
-        "calls_app_response_collection": calls_app_response_collection_output,
-        "calls_created": calls_created_output,
-        "calls_identifier": calls_identifier_output,
-        "calls_messages": calls_messages_output,
-        "calls_modified": calls_modified_output,
-        "calls_name": calls_name_output,
+        "calls_api-response-common": calls_api$$response$$common,
+        "calls_app": calls_app,
+        "calls_app_response_collection": calls_app_response_collection,
+        "calls_created": calls_created,
+        "calls_identifier": calls_identifier,
+        "calls_messages": calls_messages,
+        "calls_modified": calls_modified,
+        "calls_name": calls_name,
       },
     },
     annotations: {
@@ -320,15 +352,15 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "calls_api-response-common": calls_api_response_common_output,
-        "calls_api-response-common-failure": calls_api_response_common_failure_output,
-        "calls_app": calls_app_output,
-        "calls_app_response_collection": calls_app_response_collection_output,
-        "calls_created": calls_created_output,
-        "calls_identifier": calls_identifier_output,
-        "calls_messages": calls_messages_output,
-        "calls_modified": calls_modified_output,
-        "calls_name": calls_name_output,
+        "calls_api-response-common": calls_api$$response$$common,
+        "calls_api-response-common-failure": calls_api$$response$$common$$failure,
+        "calls_app": calls_app,
+        "calls_app_response_collection": calls_app_response_collection,
+        "calls_created": calls_created,
+        "calls_identifier": calls_identifier,
+        "calls_messages": calls_messages,
+        "calls_modified": calls_modified,
+        "calls_name": calls_name,
       },
     },
     request: (args) => ({
@@ -342,41 +374,49 @@ export const tools: readonly Tool[] = [
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/calls_account_identifier",
-          "description": "The account identifier tag."
-        },
-        "app_id": {
-          "$ref": "#/$defs/calls_identifier",
-          "description": "A Cloudflare-generated unique identifier for a item."
-        },
         "body": {
           "$ref": "#/$defs/calls_app_editable_fields"
+        },
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/calls_account_identifier",
+              "description": "The account identifier tag."
+            },
+            "app_id": {
+              "$ref": "#/$defs/calls_identifier",
+              "description": "A Cloudflare-generated unique identifier for a item."
+            }
+          },
+          "required": [
+            "account_id",
+            "app_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "app_id",
+        "path",
         "body"
       ],
       $defs: {
         "calls_account_identifier": calls_account_identifier,
         "calls_app_editable_fields": calls_app_editable_fields,
-        "calls_identifier": calls_identifier,
-        "calls_name": calls_name,
+        "calls_identifier": calls_identifier$,
+        "calls_name": calls_name$,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/calls_app_response_single",
       $defs: {
-        "calls_api-response-single": calls_api_response_single_output,
-        "calls_app": calls_app_output,
-        "calls_app_response_single": calls_app_response_single_output,
-        "calls_created": calls_created_output,
-        "calls_identifier": calls_identifier_output,
-        "calls_messages": calls_messages_output,
-        "calls_modified": calls_modified_output,
-        "calls_name": calls_name_output,
+        "calls_api-response-single": calls_api$$response$$single,
+        "calls_app": calls_app,
+        "calls_app_response_single": calls_app_response_single,
+        "calls_created": calls_created,
+        "calls_identifier": calls_identifier,
+        "calls_messages": calls_messages,
+        "calls_modified": calls_modified,
+        "calls_name": calls_name,
       },
     },
     annotations: {
@@ -403,15 +443,15 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "calls_api-response-common-failure": calls_api_response_common_failure_output,
-        "calls_api-response-single": calls_api_response_single_output,
-        "calls_app": calls_app_output,
-        "calls_app_response_single": calls_app_response_single_output,
-        "calls_created": calls_created_output,
-        "calls_identifier": calls_identifier_output,
-        "calls_messages": calls_messages_output,
-        "calls_modified": calls_modified_output,
-        "calls_name": calls_name_output,
+        "calls_api-response-common-failure": calls_api$$response$$common$$failure,
+        "calls_api-response-single": calls_api$$response$$single,
+        "calls_app": calls_app,
+        "calls_app_response_single": calls_app_response_single,
+        "calls_created": calls_created,
+        "calls_identifier": calls_identifier,
+        "calls_messages": calls_messages,
+        "calls_modified": calls_modified,
+        "calls_name": calls_name,
       },
     },
     request: (args) => ({

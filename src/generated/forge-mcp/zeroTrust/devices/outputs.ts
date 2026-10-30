@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `teams-devices_api-response-collection` in responses.
  */
-export const teams_devices_api_response_collection_output: JsonSchema = {
+export const teams$$devices_api$$response$$collection: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/teams-devices_api-response-common"
@@ -38,7 +38,7 @@ export const teams_devices_api_response_collection_output: JsonSchema = {
 /**
  * The schema of `teams-devices_api-response-common` in responses.
  */
-export const teams_devices_api_response_common_output: JsonSchema = {
+export const teams$$devices_api$$response$$common: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/teams-devices_messages"
@@ -81,7 +81,7 @@ export const teams_devices_api_response_common_output: JsonSchema = {
 /**
  * The schema of `teams-devices_api-response-common-failure` in responses.
  */
-export const teams_devices_api_response_common_failure_output: JsonSchema = {
+export const teams$$devices_api$$response$$common$$failure: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/teams-devices_messages"
@@ -111,7 +111,7 @@ export const teams_devices_api_response_common_failure_output: JsonSchema = {
 /**
  * The schema of `teams-devices_api-response-single` in responses.
  */
-export const teams_devices_api_response_single_output: JsonSchema = {
+export const teams$$devices_api$$response$$single: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/teams-devices_api-response-common"
@@ -140,14 +140,14 @@ export const teams_devices_api_response_single_output: JsonSchema = {
 /**
  * The schema of `teams-devices_components-schemas-uuid` in responses.
  */
-export const teams_devices_components_schemas_uuid_output: JsonSchema = {
+export const teams$$devices_components$$schemas$$uuid: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `teams-devices_cursor_result_info` in responses.
  */
-export const teams_devices_cursor_result_info_output: JsonSchema = {
+export const teams$$devices_cursor_result_info: JsonSchema = {
   "properties": {
     "count": {
       "type": "integer"
@@ -180,14 +180,14 @@ export const teams_devices_cursor_result_info_output: JsonSchema = {
 /**
  * The schema of `teams-devices_email` in responses.
  */
-export const teams_devices_email_output: JsonSchema = {
+export const teams$$devices_email: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `teams-devices_empty_body` in responses.
  */
-export const teams_devices_empty_body_output: JsonSchema = {
+export const teams$$devices_empty_body: JsonSchema = {
   "oneOf": [
     {
       "type": "object"
@@ -201,7 +201,7 @@ export const teams_devices_empty_body_output: JsonSchema = {
 /**
  * The schema of `teams-devices_messages` in responses.
  */
-export const teams_devices_messages_output: JsonSchema = {
+export const teams$$devices_messages: JsonSchema = {
   "items": {
     "properties": {
       "code": {
@@ -223,7 +223,7 @@ export const teams_devices_messages_output: JsonSchema = {
 /**
  * The schema of `teams-devices_pagination_info` in responses.
  */
-export const teams_devices_pagination_info_output: JsonSchema = {
+export const teams$$devices_pagination_info: JsonSchema = {
   "properties": {
     "count": {
       "type": "integer"
@@ -253,7 +253,7 @@ export const teams_devices_pagination_info_output: JsonSchema = {
 /**
  * The schema of `teams-devices_physical_device` in responses.
  */
-export const teams_devices_physical_device_output: JsonSchema = {
+export const teams$$devices_physical_device: JsonSchema = {
   "properties": {
     "active_registrations": {
       "type": "integer"
@@ -435,7 +435,7 @@ export const teams_devices_physical_device_output: JsonSchema = {
 /**
  * The schema of `teams-devices_policy_summary` in responses.
  */
-export const teams_devices_policy_summary_output: JsonSchema = {
+export const teams$$devices_policy_summary: JsonSchema = {
   "properties": {
     "default": {
       "type": "boolean"
@@ -466,7 +466,7 @@ export const teams_devices_policy_summary_output: JsonSchema = {
 /**
  * The schema of `teams-devices_registration_details` in responses.
  */
-export const teams_devices_registration_details_output: JsonSchema = {
+export const teams$$devices_registration_details: JsonSchema = {
   "properties": {
     "policy": {
       "oneOf": [
@@ -485,7 +485,7 @@ export const teams_devices_registration_details_output: JsonSchema = {
 /**
  * The schema of `teams-devices_registration_type` in responses.
  */
-export const teams_devices_registration_type_output: JsonSchema = {
+export const teams$$devices_registration_type: JsonSchema = {
   "enum": [
     "warp",
     "browser_extension"
@@ -496,7 +496,7 @@ export const teams_devices_registration_type_output: JsonSchema = {
 /**
  * The schema of `teams-devices_result_info` in responses.
  */
-export const teams_devices_result_info_output: JsonSchema = {
+export const teams$$devices_result_info: JsonSchema = {
   "properties": {
     "count": {
       "type": "number"
@@ -517,7 +517,7 @@ export const teams_devices_result_info_output: JsonSchema = {
 /**
  * The schema of `teams-devices_user` in responses.
  */
-export const teams_devices_user_output: JsonSchema = {
+export const teams$$devices_user: JsonSchema = {
   "properties": {
     "email": {
       "$ref": "#/$defs/teams-devices_email"
@@ -535,14 +535,14 @@ export const teams_devices_user_output: JsonSchema = {
 /**
  * The schema of `teams-devices_uuid` in responses.
  */
-export const teams_devices_uuid_output: JsonSchema = {
+export const teams$$devices_uuid: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `teams-devices_v4_error_response` in responses.
  */
-export const teams_devices_v4_error_response_output: JsonSchema = {
+export const teams$$devices_v4_error_response: JsonSchema = {
   "properties": {
     "errors": {
       "items": {
@@ -586,7 +586,7 @@ export const teams_devices_v4_error_response_output: JsonSchema = {
 /**
  * The schema of `teams-devices_v4_response_message` in responses.
  */
-export const teams_devices_v4_response_message_output: JsonSchema = {
+export const teams$$devices_v4_response_message: JsonSchema = {
   "properties": {
     "code": {
       "type": "integer"

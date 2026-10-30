@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `builds_TriggerResponse` in responses.
  */
-export const builds_TriggerResponse_output: JsonSchema = {
+export const builds_TriggerResponse: JsonSchema = {
   "properties": {
     "branch_excludes": {
       "$ref": "#/$defs/builds_branch_excludes"

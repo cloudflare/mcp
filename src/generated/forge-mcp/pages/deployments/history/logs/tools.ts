@@ -3,13 +3,13 @@
 
 import { type Tool, pathParam } from "../../../../_/tool.js";
 import {
-  pages_api_response_common_failure_output,
-  pages_api_response_common_output,
-  pages_messages_output,
+  pages_api$$response$$common,
+  pages_api$$response$$common$$failure,
+  pages_messages,
 } from "../../../outputs.js";
 import { pages_identifier, pages_project_name } from "../../../schemas.js";
 import { pages_deployment_id } from "../../schemas.js";
-import { pages_deployment_log_output } from "./outputs.js";
+import { pages_deployment_log } from "./outputs.js";
 
 /**
  * The tools of `pages.deployments.history.logs`.
@@ -22,23 +22,31 @@ export const tools: readonly Tool[] = [
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/pages_identifier",
-          "description": "Identifier."
-        },
-        "deployment_id": {
-          "$ref": "#/$defs/pages_deployment_id",
-          "description": "UUID of the Pages deployment, as returned by deployment list or create operations."
-        },
-        "project_name": {
-          "$ref": "#/$defs/pages_project_name",
-          "description": "Name of the Pages project. Must begin with a lowercase letter or digit and contain only lowercase letters, digits, and hyphens."
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/pages_identifier",
+              "description": "Identifier."
+            },
+            "deployment_id": {
+              "$ref": "#/$defs/pages_deployment_id",
+              "description": "UUID of the Pages deployment, as returned by deployment list or create operations."
+            },
+            "project_name": {
+              "$ref": "#/$defs/pages_project_name",
+              "description": "Name of the Pages project. Must begin with a lowercase letter or digit and contain only lowercase letters, digits, and hyphens."
+            }
+          },
+          "required": [
+            "account_id",
+            "project_name",
+            "deployment_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "project_name",
-        "deployment_id"
+        "path"
       ],
       $defs: {
         "pages_deployment_id": pages_deployment_id,
@@ -64,9 +72,9 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "pages_api-response-common": pages_api_response_common_output,
-        "pages_deployment_log": pages_deployment_log_output,
-        "pages_messages": pages_messages_output,
+        "pages_api-response-common": pages_api$$response$$common,
+        "pages_deployment_log": pages_deployment_log,
+        "pages_messages": pages_messages,
       },
     },
     annotations: {
@@ -109,10 +117,10 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "pages_api-response-common": pages_api_response_common_output,
-        "pages_api-response-common-failure": pages_api_response_common_failure_output,
-        "pages_deployment_log": pages_deployment_log_output,
-        "pages_messages": pages_messages_output,
+        "pages_api-response-common": pages_api$$response$$common,
+        "pages_api-response-common-failure": pages_api$$response$$common$$failure,
+        "pages_deployment_log": pages_deployment_log,
+        "pages_messages": pages_messages,
       },
     },
     request: (args) => ({

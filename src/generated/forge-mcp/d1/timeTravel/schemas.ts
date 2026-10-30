@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `d1_time-travel-bookmark`.
  */
-export const d1_time_travel_bookmark: JsonSchema = {
+export const d1_time$$travel$$bookmark: JsonSchema = {
   "description": "A bookmark representing a specific state of the database at a specific point in time.",
   "type": "string"
 };
@@ -14,7 +14,7 @@ export const d1_time_travel_bookmark: JsonSchema = {
 /**
  * The schema of `d1_time-travel-timestamp`.
  */
-export const d1_time_travel_timestamp: JsonSchema = {
+export const d1_time$$travel$$timestamp: JsonSchema = {
   "description": "An ISO 8601 timestamp used for time travel operations. The database will be restored to the nearest available bookmark at or before this timestamp.",
   "format": "date-time",
   "type": "string"

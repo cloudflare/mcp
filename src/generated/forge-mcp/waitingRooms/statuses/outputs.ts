@@ -6,28 +6,28 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `waitingroom_estimated_queued_users` in responses.
  */
-export const waitingroom_estimated_queued_users_output: JsonSchema = {
+export const waitingroom_estimated_queued_users: JsonSchema = {
   "type": "integer"
 };
 
 /**
  * The schema of `waitingroom_estimated_total_active_users` in responses.
  */
-export const waitingroom_estimated_total_active_users_output: JsonSchema = {
+export const waitingroom_estimated_total_active_users: JsonSchema = {
   "type": "integer"
 };
 
 /**
  * The schema of `waitingroom_max_estimated_time_minutes` in responses.
  */
-export const waitingroom_max_estimated_time_minutes_output: JsonSchema = {
+export const waitingroom_max_estimated_time_minutes: JsonSchema = {
   "type": "integer"
 };
 
 /**
  * The schema of `waitingroom_status` in responses.
  */
-export const waitingroom_status_output: JsonSchema = {
+export const waitingroom_status: JsonSchema = {
   "enum": [
     "event_prequeueing",
     "not_queueing",
@@ -40,14 +40,14 @@ export const waitingroom_status_output: JsonSchema = {
 /**
  * The schema of `waitingroom_status_event_id` in responses.
  */
-export const waitingroom_status_event_id_output: JsonSchema = {
+export const waitingroom_status_event_id: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `waitingroom_status_response` in responses.
  */
-export const waitingroom_status_response_output: JsonSchema = {
+export const waitingroom_status_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/waitingroom_api-response-single"

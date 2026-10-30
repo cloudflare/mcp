@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `iam_scim_resource_type` in responses.
  */
-export const iam_scim_resource_type_output: JsonSchema = {
+export const iam_scim_resource_type: JsonSchema = {
   "properties": {
     "description": {
       "type": "string"
@@ -52,7 +52,7 @@ export const iam_scim_resource_type_output: JsonSchema = {
 /**
  * The schema of `iam_scim_resource_type_list_response` in responses.
  */
-export const iam_scim_resource_type_list_response_output: JsonSchema = {
+export const iam_scim_resource_type_list_response: JsonSchema = {
   "properties": {
     "Resources": {
       "items": {
@@ -87,7 +87,7 @@ export const iam_scim_resource_type_list_response_output: JsonSchema = {
 /**
  * The schema of `iam_scim_resource_type_meta` in responses.
  */
-export const iam_scim_resource_type_meta_output: JsonSchema = {
+export const iam_scim_resource_type_meta: JsonSchema = {
   "properties": {
     "location": {
       "type": "string"
@@ -102,7 +102,7 @@ export const iam_scim_resource_type_meta_output: JsonSchema = {
 /**
  * The schema of `iam_scim_schema_extension` in responses.
  */
-export const iam_scim_schema_extension_output: JsonSchema = {
+export const iam_scim_schema_extension: JsonSchema = {
   "properties": {
     "required": {
       "type": "boolean"

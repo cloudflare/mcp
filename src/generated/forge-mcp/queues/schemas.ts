@@ -6,7 +6,7 @@ import type { JsonSchema } from "../_/tool.js";
 /**
  * The schema of `mq_batch-size`.
  */
-export const mq_batch_size: JsonSchema = {
+export const mq_batch$$size: JsonSchema = {
   "description": "The maximum number of messages to include in a batch.",
   "type": "number"
 };
@@ -34,7 +34,7 @@ export const mq_jurisdiction: JsonSchema = {
 /**
  * The schema of `mq_max-concurrency`.
  */
-export const mq_max_concurrency: JsonSchema = {
+export const mq_max$$concurrency: JsonSchema = {
   "description": "Maximum number of concurrent consumers that may consume from this Queue. Set to `null` to automatically opt in to the platform's maximum (recommended).",
   "type": "number"
 };
@@ -42,7 +42,7 @@ export const mq_max_concurrency: JsonSchema = {
 /**
  * The schema of `mq_max-retries`.
  */
-export const mq_max_retries: JsonSchema = {
+export const mq_max$$retries: JsonSchema = {
   "description": "The maximum number of retries",
   "type": "number"
 };
@@ -50,7 +50,7 @@ export const mq_max_retries: JsonSchema = {
 /**
  * The schema of `mq_max-wait-time`.
  */
-export const mq_max_wait_time: JsonSchema = {
+export const mq_max$$wait$$time: JsonSchema = {
   "description": "The number of milliseconds to wait for a batch to fill up before attempting to deliver it",
   "type": "number"
 };
@@ -76,14 +76,14 @@ export const mq_queue: JsonSchema = {
 /**
  * The schema of `mq_queue-name`.
  */
-export const mq_queue_name: JsonSchema = {
+export const mq_queue$$name: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `mq_queue-settings`.
  */
-export const mq_queue_settings: JsonSchema = {
+export const mq_queue$$settings: JsonSchema = {
   "properties": {
     "delivery_delay": {
       "description": "Number of seconds to delay delivery of all messages to consumers.",
@@ -104,7 +104,7 @@ export const mq_queue_settings: JsonSchema = {
 /**
  * The schema of `mq_retry-delay`.
  */
-export const mq_retry_delay: JsonSchema = {
+export const mq_retry$$delay: JsonSchema = {
   "description": "The number of seconds to delay before making the message available for another attempt.",
   "type": "number"
 };
@@ -112,7 +112,7 @@ export const mq_retry_delay: JsonSchema = {
 /**
  * The schema of `mq_script-name`.
  */
-export const mq_script_name: JsonSchema = {
+export const mq_script$$name: JsonSchema = {
   "description": "Name of a Worker",
   "type": "string"
 };
@@ -120,7 +120,7 @@ export const mq_script_name: JsonSchema = {
 /**
  * The schema of `mq_visibility-timeout`.
  */
-export const mq_visibility_timeout: JsonSchema = {
+export const mq_visibility$$timeout: JsonSchema = {
   "description": "The number of milliseconds that a message is exclusively leased. After the timeout, the message becomes available for another attempt.",
   "type": "number"
 };

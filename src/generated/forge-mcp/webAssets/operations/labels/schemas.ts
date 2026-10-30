@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `api-shield_bulk_delete_labels_on_operation_request`.
  */
-export const api_shield_bulk_delete_labels_on_operation_request: JsonSchema = {
+export const api$$shield_bulk_delete_labels_on_operation_request: JsonSchema = {
   "properties": {
     "managed": {
       "properties": {
@@ -46,7 +46,7 @@ export const api_shield_bulk_delete_labels_on_operation_request: JsonSchema = {
 /**
  * The schema of `api-shield_bulk_post_labels_on_operation_request`.
  */
-export const api_shield_bulk_post_labels_on_operation_request: JsonSchema = {
+export const api$$shield_bulk_post_labels_on_operation_request: JsonSchema = {
   "properties": {
     "managed": {
       "properties": {
@@ -88,7 +88,7 @@ export const api_shield_bulk_post_labels_on_operation_request: JsonSchema = {
 /**
  * The schema of `api-shield_bulk_put_labels_on_operation_request`.
  */
-export const api_shield_bulk_put_labels_on_operation_request: JsonSchema = {
+export const api$$shield_bulk_put_labels_on_operation_request: JsonSchema = {
   "properties": {
     "managed": {
       "description": "Managed labels to replace for all affected operations",
@@ -138,7 +138,7 @@ export const api_shield_bulk_put_labels_on_operation_request: JsonSchema = {
 /**
  * The schema of `api-shield_delete_labels_on_operation_request`.
  */
-export const api_shield_delete_labels_on_operation_request: JsonSchema = {
+export const api$$shield_delete_labels_on_operation_request: JsonSchema = {
   "properties": {
     "managed": {
       "description": "List of managed label names.",
@@ -161,7 +161,7 @@ export const api_shield_delete_labels_on_operation_request: JsonSchema = {
 /**
  * The schema of `api-shield_post_labels_on_operation_request`.
  */
-export const api_shield_post_labels_on_operation_request: JsonSchema = {
+export const api$$shield_post_labels_on_operation_request: JsonSchema = {
   "properties": {
     "managed": {
       "description": "List of managed label names.",
@@ -186,7 +186,7 @@ export const api_shield_post_labels_on_operation_request: JsonSchema = {
 /**
  * The schema of `api-shield_put_labels_on_operation_request`.
  */
-export const api_shield_put_labels_on_operation_request: JsonSchema = {
+export const api$$shield_put_labels_on_operation_request: JsonSchema = {
   "properties": {
     "managed": {
       "description": "List of managed label names. Omitting this property or passing an empty array will result in all managed labels being removed from the operation",

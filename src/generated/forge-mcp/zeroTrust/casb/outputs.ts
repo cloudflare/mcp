@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `posture-api_BaseFindingType` in responses.
  */
-export const posture_api_BaseFindingType_output: JsonSchema = {
+export const posture$$api_BaseFindingType: JsonSchema = {
   "properties": {
     "applies_to_all_integrations": {
       "type": "boolean"
@@ -105,7 +105,7 @@ export const posture_api_BaseFindingType_output: JsonSchema = {
 /**
  * The schema of `posture-api_CredentialHealthStatusEnum` in responses.
  */
-export const posture_api_CredentialHealthStatusEnum_output: JsonSchema = {
+export const posture$$api_CredentialHealthStatusEnum: JsonSchema = {
   "enum": [
     "Initializing",
     "Healthy",
@@ -117,7 +117,7 @@ export const posture_api_CredentialHealthStatusEnum_output: JsonSchema = {
 /**
  * The schema of `posture-api_DlpContext` in responses.
  */
-export const posture_api_DlpContext_output: JsonSchema = {
+export const posture$$api_DlpContext: JsonSchema = {
   "properties": {
     "created": {
       "format": "date-time",
@@ -196,7 +196,7 @@ export const posture_api_DlpContext_output: JsonSchema = {
 /**
  * The schema of `posture-api_ExportJob` in responses.
  */
-export const posture_api_ExportJob_output: JsonSchema = {
+export const posture$$api_ExportJob: JsonSchema = {
   "properties": {
     "download_url": {
       "oneOf": [
@@ -264,7 +264,7 @@ export const posture_api_ExportJob_output: JsonSchema = {
 /**
  * The schema of `posture-api_ExportJobTypeEnum` in responses.
  */
-export const posture_api_ExportJobTypeEnum_output: JsonSchema = {
+export const posture$$api_ExportJobTypeEnum: JsonSchema = {
   "enum": [
     "finding",
     "findingInstance",
@@ -277,7 +277,7 @@ export const posture_api_ExportJobTypeEnum_output: JsonSchema = {
 /**
  * The schema of `posture-api_FindingCategory` in responses.
  */
-export const posture_api_FindingCategory_output: JsonSchema = {
+export const posture$$api_FindingCategory: JsonSchema = {
   "properties": {
     "observation": {
       "$ref": "#/$defs/posture-api_ObservationEnum"
@@ -300,7 +300,7 @@ export const posture_api_FindingCategory_output: JsonSchema = {
 /**
  * The schema of `posture-api_FindingCategoryTypeEnum` in responses.
  */
-export const posture_api_FindingCategoryTypeEnum_output: JsonSchema = {
+export const posture$$api_FindingCategoryTypeEnum: JsonSchema = {
   "enum": [
     "Content",
     "Posture"
@@ -311,7 +311,7 @@ export const posture_api_FindingCategoryTypeEnum_output: JsonSchema = {
 /**
  * The schema of `posture-api_FindingTypeVendorsEnum` in responses.
  */
-export const posture_api_FindingTypeVendorsEnum_output: JsonSchema = {
+export const posture$$api_FindingTypeVendorsEnum: JsonSchema = {
   "enum": [
     "ANTHROPIC",
     "AWS",
@@ -336,7 +336,7 @@ export const posture_api_FindingTypeVendorsEnum_output: JsonSchema = {
 /**
  * The schema of `posture-api_IntegrationPolicy` in responses.
  */
-export const posture_api_IntegrationPolicy_output: JsonSchema = {
+export const posture$$api_IntegrationPolicy: JsonSchema = {
   "properties": {
     "client_id": {
       "oneOf": [
@@ -384,7 +384,7 @@ export const posture_api_IntegrationPolicy_output: JsonSchema = {
 /**
  * The schema of `posture-api_IntegrationSummary` in responses.
  */
-export const posture_api_IntegrationSummary_output: JsonSchema = {
+export const posture$$api_IntegrationSummary: JsonSchema = {
   "properties": {
     "created": {
       "format": "date-time",
@@ -468,7 +468,7 @@ export const posture_api_IntegrationSummary_output: JsonSchema = {
 /**
  * The schema of `posture-api_ObservationEnum` in responses.
  */
-export const posture_api_ObservationEnum_output: JsonSchema = {
+export const posture$$api_ObservationEnum: JsonSchema = {
   "enum": [
     "Issue",
     "Insight",
@@ -480,7 +480,7 @@ export const posture_api_ObservationEnum_output: JsonSchema = {
 /**
  * The schema of `posture-api_ProductEnum` in responses.
  */
-export const posture_api_ProductEnum_output: JsonSchema = {
+export const posture$$api_ProductEnum: JsonSchema = {
   "enum": [
     "SaaS",
     "Cloud"
@@ -491,7 +491,7 @@ export const posture_api_ProductEnum_output: JsonSchema = {
 /**
  * The schema of `posture-api_RemediationJobStatusEnum` in responses.
  */
-export const posture_api_RemediationJobStatusEnum_output: JsonSchema = {
+export const posture$$api_RemediationJobStatusEnum: JsonSchema = {
   "enum": [
     "pending",
     "processing",
@@ -505,7 +505,7 @@ export const posture_api_RemediationJobStatusEnum_output: JsonSchema = {
 /**
  * The schema of `posture-api_SeverityEnum` in responses.
  */
-export const posture_api_SeverityEnum_output: JsonSchema = {
+export const posture$$api_SeverityEnum: JsonSchema = {
   "enum": [
     "Critical",
     "High",
@@ -518,7 +518,7 @@ export const posture_api_SeverityEnum_output: JsonSchema = {
 /**
  * The schema of `posture-api_StatusEnum` in responses.
  */
-export const posture_api_StatusEnum_output: JsonSchema = {
+export const posture$$api_StatusEnum: JsonSchema = {
   "enum": [
     "Pending",
     "Success",
@@ -532,7 +532,7 @@ export const posture_api_StatusEnum_output: JsonSchema = {
 /**
  * The schema of `posture-api_Vendor` in responses.
  */
-export const posture_api_Vendor_output: JsonSchema = {
+export const posture$$api_Vendor: JsonSchema = {
   "properties": {
     "description": {
       "oneOf": [
@@ -587,7 +587,7 @@ export const posture_api_Vendor_output: JsonSchema = {
 /**
  * The schema of `posture-api_ZeroTrustProduct` in responses.
  */
-export const posture_api_ZeroTrustProduct_output: JsonSchema = {
+export const posture$$api_ZeroTrustProduct: JsonSchema = {
   "properties": {
     "description": {
       "type": "string"
@@ -608,7 +608,7 @@ export const posture_api_ZeroTrustProduct_output: JsonSchema = {
 /**
  * The schema of `posture-api_api-response-collection` in responses.
  */
-export const posture_api_api_response_collection_output: JsonSchema = {
+export const posture$$api_api$$response$$collection: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/posture-api_messages"
@@ -635,7 +635,7 @@ export const posture_api_api_response_collection_output: JsonSchema = {
 /**
  * The schema of `posture-api_api-response-common` in responses.
  */
-export const posture_api_api_response_common_output: JsonSchema = {
+export const posture$$api_api$$response$$common: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/posture-api_messages"
@@ -658,7 +658,7 @@ export const posture_api_api_response_common_output: JsonSchema = {
 /**
  * The schema of `posture-api_error-response` in responses.
  */
-export const posture_api_error_response_output: JsonSchema = {
+export const posture$$api_error$$response: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/posture-api_messages"
@@ -684,7 +684,7 @@ export const posture_api_error_response_output: JsonSchema = {
 /**
  * The schema of `posture-api_export-job-response` in responses.
  */
-export const posture_api_export_job_response_output: JsonSchema = {
+export const posture$$api_export$$job$$response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/posture-api_api-response-common"
@@ -703,7 +703,7 @@ export const posture_api_export_job_response_output: JsonSchema = {
 /**
  * The schema of `posture-api_messages` in responses.
  */
-export const posture_api_messages_output: JsonSchema = {
+export const posture$$api_messages: JsonSchema = {
   "items": {
     "properties": {
       "code": {
@@ -736,7 +736,7 @@ export const posture_api_messages_output: JsonSchema = {
 /**
  * The schema of `posture-api_result-info` in responses.
  */
-export const posture_api_result_info_output: JsonSchema = {
+export const posture$$api_result$$info: JsonSchema = {
   "properties": {
     "count": {
       "type": "integer"

@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `cache-settings_aegis` in responses.
  */
-export const cache_settings_aegis_output: JsonSchema = {
+export const cache$$settings_aegis: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/cache-settings_base"
@@ -31,7 +31,7 @@ export const cache_settings_aegis_output: JsonSchema = {
 /**
  * The schema of `cache-settings_aegis_response_value` in responses.
  */
-export const cache_settings_aegis_response_value_output: JsonSchema = {
+export const cache$$settings_aegis_response_value: JsonSchema = {
   "properties": {
     "result": {
       "$ref": "#/$defs/cache-settings_aegis"
@@ -43,7 +43,7 @@ export const cache_settings_aegis_response_value_output: JsonSchema = {
 /**
  * The schema of `cache-settings_aegis_value` in responses.
  */
-export const cache_settings_aegis_value_output: JsonSchema = {
+export const cache$$settings_aegis_value: JsonSchema = {
   "properties": {
     "enabled": {
       "type": "boolean"

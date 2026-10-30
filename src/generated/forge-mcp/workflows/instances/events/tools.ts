@@ -14,28 +14,36 @@ export const tools: readonly Tool[] = [
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "type": "string"
-        },
         "body": {
           "type": "object"
         },
-        "event_type": {
-          "type": "string"
-        },
-        "instance_id": {
-          "description": "Instance identifier. User-created instances match `^[a-zA-Z0-9_][a-zA-Z0-9-_]*$` (max 100 characters); cron-triggered instances can use a longer, system-generated id derived from the cron expression.",
-          "type": "string"
-        },
-        "workflow_name": {
-          "type": "string"
+        "path": {
+          "properties": {
+            "account_id": {
+              "type": "string"
+            },
+            "event_type": {
+              "type": "string"
+            },
+            "instance_id": {
+              "description": "Instance identifier. User-created instances match `^[a-zA-Z0-9_][a-zA-Z0-9-_]*$` (max 100 characters); cron-triggered instances can use a longer, system-generated id derived from the cron expression.",
+              "type": "string"
+            },
+            "workflow_name": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "workflow_name",
+            "instance_id",
+            "event_type"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "workflow_name",
-        "instance_id",
-        "event_type",
+        "path",
         "body"
       ],
     },

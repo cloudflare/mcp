@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `api-shield_auth_id_characteristic`.
  */
-export const api_shield_auth_id_characteristic: JsonSchema = {
+export const api$$shield_auth_id_characteristic: JsonSchema = {
   "description": "Auth ID Characteristic",
   "properties": {
     "name": {
@@ -32,7 +32,7 @@ export const api_shield_auth_id_characteristic: JsonSchema = {
 /**
  * The schema of `api-shield_auth_id_characteristic_jwt_claim`.
  */
-export const api_shield_auth_id_characteristic_jwt_claim: JsonSchema = {
+export const api$$shield_auth_id_characteristic_jwt_claim: JsonSchema = {
   "description": "Auth ID Characteristic extracted from JWT Token Claims",
   "properties": {
     "name": {
@@ -57,7 +57,7 @@ export const api_shield_auth_id_characteristic_jwt_claim: JsonSchema = {
 /**
  * The schema of `api-shield_auth_id_characteristics`.
  */
-export const api_shield_auth_id_characteristics: JsonSchema = {
+export const api$$shield_auth_id_characteristics: JsonSchema = {
   "items": {
     "anyOf": [
       {
@@ -75,7 +75,7 @@ export const api_shield_auth_id_characteristics: JsonSchema = {
 /**
  * The schema of `api-shield_configuration`.
  */
-export const api_shield_configuration: JsonSchema = {
+export const api$$shield_configuration: JsonSchema = {
   "properties": {
     "auth_id_characteristics": {
       "$ref": "#/$defs/api-shield_auth_id_characteristics"

@@ -7,7 +7,7 @@ import type { JsonSchema } from "../../../_/tool.js";
  * The schema of `hyperdrive_hyperdrive-database-signature-response` in
  * responses.
  */
-export const hyperdrive_hyperdrive_database_signature_response_output: JsonSchema = {
+export const hyperdrive_hyperdrive$$database$$signature$$response: JsonSchema = {
   "properties": {
     "account_id": {
       "type": "string"

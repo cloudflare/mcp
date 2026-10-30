@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `dlp_AttachedEntry` in responses.
  */
-export const dlp_AttachedEntry_output: JsonSchema = {
+export const dlp_AttachedEntry: JsonSchema = {
   "properties": {
     "id": {
       "format": "uuid",
@@ -30,7 +30,7 @@ export const dlp_AttachedEntry_output: JsonSchema = {
 /**
  * The schema of `dlp_EntryType` in responses.
  */
-export const dlp_EntryType_output: JsonSchema = {
+export const dlp_EntryType: JsonSchema = {
   "enum": [
     "custom",
     "custom_prompt_topic",
@@ -46,7 +46,7 @@ export const dlp_EntryType_output: JsonSchema = {
 /**
  * The schema of `dlp_ProximityWeight` in responses.
  */
-export const dlp_ProximityWeight_output: JsonSchema = {
+export const dlp_ProximityWeight: JsonSchema = {
   "enum": [
     "strong",
     "moderate",
@@ -58,7 +58,7 @@ export const dlp_ProximityWeight_output: JsonSchema = {
 /**
  * The schema of `dlp_ProximityWord` in responses.
  */
-export const dlp_ProximityWord_output: JsonSchema = {
+export const dlp_ProximityWord: JsonSchema = {
   "properties": {
     "weight": {
       "$ref": "#/$defs/dlp_ProximityWeight"
@@ -77,7 +77,7 @@ export const dlp_ProximityWord_output: JsonSchema = {
 /**
  * The schema of `dlp_ProximityWordValidator` in responses.
  */
-export const dlp_ProximityWordValidator_output: JsonSchema = {
+export const dlp_ProximityWordValidator: JsonSchema = {
   "properties": {
     "created_at": {
       "format": "date-time",
@@ -118,7 +118,7 @@ export const dlp_ProximityWordValidator_output: JsonSchema = {
 /**
  * The schema of `dlp_Validator` in responses.
  */
-export const dlp_Validator_output: JsonSchema = {
+export const dlp_Validator: JsonSchema = {
   "oneOf": [
     {
       "allOf": [
@@ -168,7 +168,7 @@ export const dlp_Validator_output: JsonSchema = {
 /**
  * The schema of `dlp_ValidatorArray` in responses.
  */
-export const dlp_ValidatorArray_output: JsonSchema = {
+export const dlp_ValidatorArray: JsonSchema = {
   "items": {
     "$ref": "#/$defs/dlp_Validator"
   },
@@ -178,7 +178,7 @@ export const dlp_ValidatorArray_output: JsonSchema = {
 /**
  * The schema of `dlp_ValidatorReferences` in responses.
  */
-export const dlp_ValidatorReferences_output: JsonSchema = {
+export const dlp_ValidatorReferences: JsonSchema = {
   "properties": {
     "entries": {
       "items": {
@@ -200,7 +200,7 @@ export const dlp_ValidatorReferences_output: JsonSchema = {
 /**
  * The schema of `dlp_WorkerDefault` in responses.
  */
-export const dlp_WorkerDefault_output: JsonSchema = {
+export const dlp_WorkerDefault: JsonSchema = {
   "oneOf": [
     {
       "type": "number"
@@ -217,7 +217,7 @@ export const dlp_WorkerDefault_output: JsonSchema = {
 /**
  * The schema of `dlp_WorkerValidator` in responses.
  */
-export const dlp_WorkerValidator_output: JsonSchema = {
+export const dlp_WorkerValidator: JsonSchema = {
   "properties": {
     "created_at": {
       "format": "date-time",

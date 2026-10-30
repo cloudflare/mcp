@@ -3,27 +3,30 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
-  magic_api_response_common_failure_output,
-  magic_api_response_common_output,
-  magic_api_response_single_output,
-  magic_cidr_output,
-  magic_identifier_output,
-  magic_messages_output,
+  magic_api$$response$$common,
+  magic_api$$response$$common$$failure,
+  magic_api$$response$$single,
+  magic_cidr,
+  magic_identifier,
+  magic_messages,
 } from "../../outputs.js";
-import { magic_cidr, magic_identifier } from "../../schemas.js";
 import {
-  magic_ip_address_output,
-  magic_port_output,
-  magic_vlan_tag_output,
-} from "../outputs.js";
-import { magic_ip_address, magic_port, magic_vlan_tag } from "../schemas.js";
+  magic_cidr as magic_cidr$,
+  magic_identifier as magic_identifier$,
+} from "../../schemas.js";
+import { magic_ip$$address, magic_port, magic_vlan_tag } from "../outputs.js";
 import {
-  magic_wan_deleted_response_output,
-  magic_wan_modified_response_output,
-  magic_wan_output,
-  magic_wan_single_response_output,
-  magic_wan_static_addressing_output,
-  magic_wans_collection_response_output,
+  magic_ip$$address as magic_ip$$address$,
+  magic_port as magic_port$,
+  magic_vlan_tag as magic_vlan_tag$,
+} from "../schemas.js";
+import {
+  magic_wan,
+  magic_wan_deleted_response,
+  magic_wan_modified_response,
+  magic_wan_single_response,
+  magic_wan_static_addressing,
+  magic_wans_collection_response,
 } from "./outputs.js";
 import {
   magic_wan_static_addressing_create_request,
@@ -33,39 +36,47 @@ import {
 } from "./schemas.js";
 
 /**
- * The tools of `magic_transit.sites.wans`.
+ * The tools of `magicTransit.sites.wans`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "magic_transit_sites_wans_create",
+    name: "magicTransit_sites_wans_create",
     title: "Create a new Site WAN",
     description: "Creates a new Site WAN.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/magic_identifier",
-          "description": "Identifier"
-        },
         "body": {
           "$ref": "#/$defs/magic_wans_add_single_request"
         },
-        "site_id": {
-          "$ref": "#/$defs/magic_identifier",
-          "description": "Identifier"
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/magic_identifier",
+              "description": "Identifier"
+            },
+            "site_id": {
+              "$ref": "#/$defs/magic_identifier",
+              "description": "Identifier"
+            }
+          },
+          "required": [
+            "account_id",
+            "site_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "site_id",
+        "path",
         "body"
       ],
       $defs: {
-        "magic_cidr": magic_cidr,
-        "magic_identifier": magic_identifier,
-        "magic_ip-address": magic_ip_address,
-        "magic_port": magic_port,
-        "magic_vlan_tag": magic_vlan_tag,
+        "magic_cidr": magic_cidr$,
+        "magic_identifier": magic_identifier$,
+        "magic_ip-address": magic_ip$$address$,
+        "magic_port": magic_port$,
+        "magic_vlan_tag": magic_vlan_tag$,
         "magic_wan_static_addressing_create_request": magic_wan_static_addressing_create_request,
         "magic_wans_add_single_request": magic_wans_add_single_request,
       },
@@ -73,17 +84,17 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/magic_wans_collection_response",
       $defs: {
-        "magic_api-response-common": magic_api_response_common_output,
-        "magic_api-response-single": magic_api_response_single_output,
-        "magic_cidr": magic_cidr_output,
-        "magic_identifier": magic_identifier_output,
-        "magic_ip-address": magic_ip_address_output,
-        "magic_messages": magic_messages_output,
-        "magic_port": magic_port_output,
-        "magic_vlan_tag": magic_vlan_tag_output,
-        "magic_wan": magic_wan_output,
-        "magic_wan_static_addressing": magic_wan_static_addressing_output,
-        "magic_wans_collection_response": magic_wans_collection_response_output,
+        "magic_api-response-common": magic_api$$response$$common,
+        "magic_api-response-single": magic_api$$response$$single,
+        "magic_cidr": magic_cidr,
+        "magic_identifier": magic_identifier,
+        "magic_ip-address": magic_ip$$address,
+        "magic_messages": magic_messages,
+        "magic_port": magic_port,
+        "magic_vlan_tag": magic_vlan_tag,
+        "magic_wan": magic_wan,
+        "magic_wan_static_addressing": magic_wan_static_addressing,
+        "magic_wans_collection_response": magic_wans_collection_response,
       },
     },
     annotations: {
@@ -117,18 +128,18 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "magic_api-response-common": magic_api_response_common_output,
-        "magic_api-response-common-failure": magic_api_response_common_failure_output,
-        "magic_api-response-single": magic_api_response_single_output,
-        "magic_cidr": magic_cidr_output,
-        "magic_identifier": magic_identifier_output,
-        "magic_ip-address": magic_ip_address_output,
-        "magic_messages": magic_messages_output,
-        "magic_port": magic_port_output,
-        "magic_vlan_tag": magic_vlan_tag_output,
-        "magic_wan": magic_wan_output,
-        "magic_wan_static_addressing": magic_wan_static_addressing_output,
-        "magic_wans_collection_response": magic_wans_collection_response_output,
+        "magic_api-response-common": magic_api$$response$$common,
+        "magic_api-response-common-failure": magic_api$$response$$common$$failure,
+        "magic_api-response-single": magic_api$$response$$single,
+        "magic_cidr": magic_cidr,
+        "magic_identifier": magic_identifier,
+        "magic_ip-address": magic_ip$$address,
+        "magic_messages": magic_messages,
+        "magic_port": magic_port,
+        "magic_vlan_tag": magic_vlan_tag,
+        "magic_wan": magic_wan,
+        "magic_wan_static_addressing": magic_wan_static_addressing,
+        "magic_wans_collection_response": magic_wans_collection_response,
       },
     },
     request: (args) => ({
@@ -137,48 +148,56 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "magic_transit_sites_wans_delete",
+    name: "magicTransit_sites_wans_delete",
     title: "Delete Site WAN",
     description: "Remove a specific Site WAN.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/magic_identifier",
-          "description": "Identifier"
-        },
-        "site_id": {
-          "$ref": "#/$defs/magic_identifier",
-          "description": "Identifier"
-        },
-        "wan_id": {
-          "$ref": "#/$defs/magic_identifier",
-          "description": "Identifier"
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/magic_identifier",
+              "description": "Identifier"
+            },
+            "site_id": {
+              "$ref": "#/$defs/magic_identifier",
+              "description": "Identifier"
+            },
+            "wan_id": {
+              "$ref": "#/$defs/magic_identifier",
+              "description": "Identifier"
+            }
+          },
+          "required": [
+            "account_id",
+            "site_id",
+            "wan_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "site_id",
-        "wan_id"
+        "path"
       ],
       $defs: {
-        "magic_identifier": magic_identifier,
+        "magic_identifier": magic_identifier$,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/magic_wan_deleted_response",
       $defs: {
-        "magic_api-response-common": magic_api_response_common_output,
-        "magic_api-response-single": magic_api_response_single_output,
-        "magic_cidr": magic_cidr_output,
-        "magic_identifier": magic_identifier_output,
-        "magic_ip-address": magic_ip_address_output,
-        "magic_messages": magic_messages_output,
-        "magic_port": magic_port_output,
-        "magic_vlan_tag": magic_vlan_tag_output,
-        "magic_wan": magic_wan_output,
-        "magic_wan_deleted_response": magic_wan_deleted_response_output,
-        "magic_wan_static_addressing": magic_wan_static_addressing_output,
+        "magic_api-response-common": magic_api$$response$$common,
+        "magic_api-response-single": magic_api$$response$$single,
+        "magic_cidr": magic_cidr,
+        "magic_identifier": magic_identifier,
+        "magic_ip-address": magic_ip$$address,
+        "magic_messages": magic_messages,
+        "magic_port": magic_port,
+        "magic_vlan_tag": magic_vlan_tag,
+        "magic_wan": magic_wan,
+        "magic_wan_deleted_response": magic_wan_deleted_response,
+        "magic_wan_static_addressing": magic_wan_static_addressing,
       },
     },
     annotations: {
@@ -217,18 +236,18 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "magic_api-response-common": magic_api_response_common_output,
-        "magic_api-response-common-failure": magic_api_response_common_failure_output,
-        "magic_api-response-single": magic_api_response_single_output,
-        "magic_cidr": magic_cidr_output,
-        "magic_identifier": magic_identifier_output,
-        "magic_ip-address": magic_ip_address_output,
-        "magic_messages": magic_messages_output,
-        "magic_port": magic_port_output,
-        "magic_vlan_tag": magic_vlan_tag_output,
-        "magic_wan": magic_wan_output,
-        "magic_wan_deleted_response": magic_wan_deleted_response_output,
-        "magic_wan_static_addressing": magic_wan_static_addressing_output,
+        "magic_api-response-common": magic_api$$response$$common,
+        "magic_api-response-common-failure": magic_api$$response$$common$$failure,
+        "magic_api-response-single": magic_api$$response$$single,
+        "magic_cidr": magic_cidr,
+        "magic_identifier": magic_identifier,
+        "magic_ip-address": magic_ip$$address,
+        "magic_messages": magic_messages,
+        "magic_port": magic_port,
+        "magic_vlan_tag": magic_vlan_tag,
+        "magic_wan": magic_wan,
+        "magic_wan_deleted_response": magic_wan_deleted_response,
+        "magic_wan_static_addressing": magic_wan_static_addressing,
       },
     },
     request: (args) => ({
@@ -236,40 +255,48 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "magic_transit_sites_wans_edit",
+    name: "magicTransit_sites_wans_edit",
     title: "Patch Site WAN",
     description: "Patch a specific Site WAN.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/magic_identifier",
-          "description": "Identifier"
-        },
         "body": {
           "$ref": "#/$defs/magic_wan_update_request"
         },
-        "site_id": {
-          "$ref": "#/$defs/magic_identifier",
-          "description": "Identifier"
-        },
-        "wan_id": {
-          "$ref": "#/$defs/magic_identifier",
-          "description": "Identifier"
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/magic_identifier",
+              "description": "Identifier"
+            },
+            "site_id": {
+              "$ref": "#/$defs/magic_identifier",
+              "description": "Identifier"
+            },
+            "wan_id": {
+              "$ref": "#/$defs/magic_identifier",
+              "description": "Identifier"
+            }
+          },
+          "required": [
+            "account_id",
+            "site_id",
+            "wan_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "site_id",
-        "wan_id",
+        "path",
         "body"
       ],
       $defs: {
-        "magic_cidr": magic_cidr,
-        "magic_identifier": magic_identifier,
-        "magic_ip-address": magic_ip_address,
-        "magic_port": magic_port,
-        "magic_vlan_tag": magic_vlan_tag,
+        "magic_cidr": magic_cidr$,
+        "magic_identifier": magic_identifier$,
+        "magic_ip-address": magic_ip$$address$,
+        "magic_port": magic_port$,
+        "magic_vlan_tag": magic_vlan_tag$,
         "magic_wan_static_addressing_update": magic_wan_static_addressing_update,
         "magic_wan_update_request": magic_wan_update_request,
       },
@@ -277,17 +304,17 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/magic_wan_modified_response",
       $defs: {
-        "magic_api-response-common": magic_api_response_common_output,
-        "magic_api-response-single": magic_api_response_single_output,
-        "magic_cidr": magic_cidr_output,
-        "magic_identifier": magic_identifier_output,
-        "magic_ip-address": magic_ip_address_output,
-        "magic_messages": magic_messages_output,
-        "magic_port": magic_port_output,
-        "magic_vlan_tag": magic_vlan_tag_output,
-        "magic_wan": magic_wan_output,
-        "magic_wan_modified_response": magic_wan_modified_response_output,
-        "magic_wan_static_addressing": magic_wan_static_addressing_output,
+        "magic_api-response-common": magic_api$$response$$common,
+        "magic_api-response-single": magic_api$$response$$single,
+        "magic_cidr": magic_cidr,
+        "magic_identifier": magic_identifier,
+        "magic_ip-address": magic_ip$$address,
+        "magic_messages": magic_messages,
+        "magic_port": magic_port,
+        "magic_vlan_tag": magic_vlan_tag,
+        "magic_wan": magic_wan,
+        "magic_wan_modified_response": magic_wan_modified_response,
+        "magic_wan_static_addressing": magic_wan_static_addressing,
       },
     },
     annotations: {
@@ -326,18 +353,18 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "magic_api-response-common": magic_api_response_common_output,
-        "magic_api-response-common-failure": magic_api_response_common_failure_output,
-        "magic_api-response-single": magic_api_response_single_output,
-        "magic_cidr": magic_cidr_output,
-        "magic_identifier": magic_identifier_output,
-        "magic_ip-address": magic_ip_address_output,
-        "magic_messages": magic_messages_output,
-        "magic_port": magic_port_output,
-        "magic_vlan_tag": magic_vlan_tag_output,
-        "magic_wan": magic_wan_output,
-        "magic_wan_modified_response": magic_wan_modified_response_output,
-        "magic_wan_static_addressing": magic_wan_static_addressing_output,
+        "magic_api-response-common": magic_api$$response$$common,
+        "magic_api-response-common-failure": magic_api$$response$$common$$failure,
+        "magic_api-response-single": magic_api$$response$$single,
+        "magic_cidr": magic_cidr,
+        "magic_identifier": magic_identifier,
+        "magic_ip-address": magic_ip$$address,
+        "magic_messages": magic_messages,
+        "magic_port": magic_port,
+        "magic_vlan_tag": magic_vlan_tag,
+        "magic_wan": magic_wan,
+        "magic_wan_modified_response": magic_wan_modified_response,
+        "magic_wan_static_addressing": magic_wan_static_addressing,
       },
     },
     request: (args) => ({
@@ -346,48 +373,56 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "magic_transit_sites_wans_get",
+    name: "magicTransit_sites_wans_get",
     title: "Site WAN Details",
     description: "Get a specific Site WAN.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/magic_identifier",
-          "description": "Identifier"
-        },
-        "site_id": {
-          "$ref": "#/$defs/magic_identifier",
-          "description": "Identifier"
-        },
-        "wan_id": {
-          "$ref": "#/$defs/magic_identifier",
-          "description": "Identifier"
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/magic_identifier",
+              "description": "Identifier"
+            },
+            "site_id": {
+              "$ref": "#/$defs/magic_identifier",
+              "description": "Identifier"
+            },
+            "wan_id": {
+              "$ref": "#/$defs/magic_identifier",
+              "description": "Identifier"
+            }
+          },
+          "required": [
+            "account_id",
+            "site_id",
+            "wan_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "site_id",
-        "wan_id"
+        "path"
       ],
       $defs: {
-        "magic_identifier": magic_identifier,
+        "magic_identifier": magic_identifier$,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/magic_wan_single_response",
       $defs: {
-        "magic_api-response-common": magic_api_response_common_output,
-        "magic_api-response-single": magic_api_response_single_output,
-        "magic_cidr": magic_cidr_output,
-        "magic_identifier": magic_identifier_output,
-        "magic_ip-address": magic_ip_address_output,
-        "magic_messages": magic_messages_output,
-        "magic_port": magic_port_output,
-        "magic_vlan_tag": magic_vlan_tag_output,
-        "magic_wan": magic_wan_output,
-        "magic_wan_single_response": magic_wan_single_response_output,
-        "magic_wan_static_addressing": magic_wan_static_addressing_output,
+        "magic_api-response-common": magic_api$$response$$common,
+        "magic_api-response-single": magic_api$$response$$single,
+        "magic_cidr": magic_cidr,
+        "magic_identifier": magic_identifier,
+        "magic_ip-address": magic_ip$$address,
+        "magic_messages": magic_messages,
+        "magic_port": magic_port,
+        "magic_vlan_tag": magic_vlan_tag,
+        "magic_wan": magic_wan,
+        "magic_wan_single_response": magic_wan_single_response,
+        "magic_wan_static_addressing": magic_wan_static_addressing,
       },
     },
     annotations: {
@@ -428,18 +463,18 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "magic_api-response-common": magic_api_response_common_output,
-        "magic_api-response-common-failure": magic_api_response_common_failure_output,
-        "magic_api-response-single": magic_api_response_single_output,
-        "magic_cidr": magic_cidr_output,
-        "magic_identifier": magic_identifier_output,
-        "magic_ip-address": magic_ip_address_output,
-        "magic_messages": magic_messages_output,
-        "magic_port": magic_port_output,
-        "magic_vlan_tag": magic_vlan_tag_output,
-        "magic_wan": magic_wan_output,
-        "magic_wan_single_response": magic_wan_single_response_output,
-        "magic_wan_static_addressing": magic_wan_static_addressing_output,
+        "magic_api-response-common": magic_api$$response$$common,
+        "magic_api-response-common-failure": magic_api$$response$$common$$failure,
+        "magic_api-response-single": magic_api$$response$$single,
+        "magic_cidr": magic_cidr,
+        "magic_identifier": magic_identifier,
+        "magic_ip-address": magic_ip$$address,
+        "magic_messages": magic_messages,
+        "magic_port": magic_port,
+        "magic_vlan_tag": magic_vlan_tag,
+        "magic_wan": magic_wan,
+        "magic_wan_single_response": magic_wan_single_response,
+        "magic_wan_static_addressing": magic_wan_static_addressing,
       },
     },
     request: (args) => ({
@@ -447,43 +482,51 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "magic_transit_sites_wans_list",
+    name: "magicTransit_sites_wans_list",
     title: "List Site WANs",
     description: "Lists Site WANs associated with an account.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/magic_identifier",
-          "description": "Identifier"
-        },
-        "site_id": {
-          "$ref": "#/$defs/magic_identifier",
-          "description": "Identifier"
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/magic_identifier",
+              "description": "Identifier"
+            },
+            "site_id": {
+              "$ref": "#/$defs/magic_identifier",
+              "description": "Identifier"
+            }
+          },
+          "required": [
+            "account_id",
+            "site_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "site_id"
+        "path"
       ],
       $defs: {
-        "magic_identifier": magic_identifier,
+        "magic_identifier": magic_identifier$,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/magic_wans_collection_response",
       $defs: {
-        "magic_api-response-common": magic_api_response_common_output,
-        "magic_api-response-single": magic_api_response_single_output,
-        "magic_cidr": magic_cidr_output,
-        "magic_identifier": magic_identifier_output,
-        "magic_ip-address": magic_ip_address_output,
-        "magic_messages": magic_messages_output,
-        "magic_port": magic_port_output,
-        "magic_vlan_tag": magic_vlan_tag_output,
-        "magic_wan": magic_wan_output,
-        "magic_wan_static_addressing": magic_wan_static_addressing_output,
-        "magic_wans_collection_response": magic_wans_collection_response_output,
+        "magic_api-response-common": magic_api$$response$$common,
+        "magic_api-response-single": magic_api$$response$$single,
+        "magic_cidr": magic_cidr,
+        "magic_identifier": magic_identifier,
+        "magic_ip-address": magic_ip$$address,
+        "magic_messages": magic_messages,
+        "magic_port": magic_port,
+        "magic_vlan_tag": magic_vlan_tag,
+        "magic_wan": magic_wan,
+        "magic_wan_static_addressing": magic_wan_static_addressing,
+        "magic_wans_collection_response": magic_wans_collection_response,
       },
     },
     annotations: {
@@ -519,18 +562,18 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "magic_api-response-common": magic_api_response_common_output,
-        "magic_api-response-common-failure": magic_api_response_common_failure_output,
-        "magic_api-response-single": magic_api_response_single_output,
-        "magic_cidr": magic_cidr_output,
-        "magic_identifier": magic_identifier_output,
-        "magic_ip-address": magic_ip_address_output,
-        "magic_messages": magic_messages_output,
-        "magic_port": magic_port_output,
-        "magic_vlan_tag": magic_vlan_tag_output,
-        "magic_wan": magic_wan_output,
-        "magic_wan_static_addressing": magic_wan_static_addressing_output,
-        "magic_wans_collection_response": magic_wans_collection_response_output,
+        "magic_api-response-common": magic_api$$response$$common,
+        "magic_api-response-common-failure": magic_api$$response$$common$$failure,
+        "magic_api-response-single": magic_api$$response$$single,
+        "magic_cidr": magic_cidr,
+        "magic_identifier": magic_identifier,
+        "magic_ip-address": magic_ip$$address,
+        "magic_messages": magic_messages,
+        "magic_port": magic_port,
+        "magic_vlan_tag": magic_vlan_tag,
+        "magic_wan": magic_wan,
+        "magic_wan_static_addressing": magic_wan_static_addressing,
+        "magic_wans_collection_response": magic_wans_collection_response,
       },
     },
     request: (args) => ({
@@ -538,40 +581,48 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "magic_transit_sites_wans_update",
+    name: "magicTransit_sites_wans_update",
     title: "Update Site WAN",
     description: "Update a specific Site WAN.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/magic_identifier",
-          "description": "Identifier"
-        },
         "body": {
           "$ref": "#/$defs/magic_wan_update_request"
         },
-        "site_id": {
-          "$ref": "#/$defs/magic_identifier",
-          "description": "Identifier"
-        },
-        "wan_id": {
-          "$ref": "#/$defs/magic_identifier",
-          "description": "Identifier"
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/magic_identifier",
+              "description": "Identifier"
+            },
+            "site_id": {
+              "$ref": "#/$defs/magic_identifier",
+              "description": "Identifier"
+            },
+            "wan_id": {
+              "$ref": "#/$defs/magic_identifier",
+              "description": "Identifier"
+            }
+          },
+          "required": [
+            "account_id",
+            "site_id",
+            "wan_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "site_id",
-        "wan_id",
+        "path",
         "body"
       ],
       $defs: {
-        "magic_cidr": magic_cidr,
-        "magic_identifier": magic_identifier,
-        "magic_ip-address": magic_ip_address,
-        "magic_port": magic_port,
-        "magic_vlan_tag": magic_vlan_tag,
+        "magic_cidr": magic_cidr$,
+        "magic_identifier": magic_identifier$,
+        "magic_ip-address": magic_ip$$address$,
+        "magic_port": magic_port$,
+        "magic_vlan_tag": magic_vlan_tag$,
         "magic_wan_static_addressing_update": magic_wan_static_addressing_update,
         "magic_wan_update_request": magic_wan_update_request,
       },
@@ -579,17 +630,17 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/magic_wan_modified_response",
       $defs: {
-        "magic_api-response-common": magic_api_response_common_output,
-        "magic_api-response-single": magic_api_response_single_output,
-        "magic_cidr": magic_cidr_output,
-        "magic_identifier": magic_identifier_output,
-        "magic_ip-address": magic_ip_address_output,
-        "magic_messages": magic_messages_output,
-        "magic_port": magic_port_output,
-        "magic_vlan_tag": magic_vlan_tag_output,
-        "magic_wan": magic_wan_output,
-        "magic_wan_modified_response": magic_wan_modified_response_output,
-        "magic_wan_static_addressing": magic_wan_static_addressing_output,
+        "magic_api-response-common": magic_api$$response$$common,
+        "magic_api-response-single": magic_api$$response$$single,
+        "magic_cidr": magic_cidr,
+        "magic_identifier": magic_identifier,
+        "magic_ip-address": magic_ip$$address,
+        "magic_messages": magic_messages,
+        "magic_port": magic_port,
+        "magic_vlan_tag": magic_vlan_tag,
+        "magic_wan": magic_wan,
+        "magic_wan_modified_response": magic_wan_modified_response,
+        "magic_wan_static_addressing": magic_wan_static_addressing,
       },
     },
     annotations: {
@@ -628,18 +679,18 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "magic_api-response-common": magic_api_response_common_output,
-        "magic_api-response-common-failure": magic_api_response_common_failure_output,
-        "magic_api-response-single": magic_api_response_single_output,
-        "magic_cidr": magic_cidr_output,
-        "magic_identifier": magic_identifier_output,
-        "magic_ip-address": magic_ip_address_output,
-        "magic_messages": magic_messages_output,
-        "magic_port": magic_port_output,
-        "magic_vlan_tag": magic_vlan_tag_output,
-        "magic_wan": magic_wan_output,
-        "magic_wan_modified_response": magic_wan_modified_response_output,
-        "magic_wan_static_addressing": magic_wan_static_addressing_output,
+        "magic_api-response-common": magic_api$$response$$common,
+        "magic_api-response-common-failure": magic_api$$response$$common$$failure,
+        "magic_api-response-single": magic_api$$response$$single,
+        "magic_cidr": magic_cidr,
+        "magic_identifier": magic_identifier,
+        "magic_ip-address": magic_ip$$address,
+        "magic_messages": magic_messages,
+        "magic_port": magic_port,
+        "magic_vlan_tag": magic_vlan_tag,
+        "magic_wan": magic_wan,
+        "magic_wan_modified_response": magic_wan_modified_response,
+        "magic_wan_static_addressing": magic_wan_static_addressing,
       },
     },
     request: (args) => ({

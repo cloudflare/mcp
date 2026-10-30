@@ -28,7 +28,7 @@ export const workers_query: JsonSchema = {
 /**
  * The schema of `workers_query-by-id`.
  */
-export const workers_query_by_id: JsonSchema = {
+export const workers_query$$by$$id: JsonSchema = {
   "properties": {
     "durable_object_id": {
       "type": "string"
@@ -50,7 +50,7 @@ export const workers_query_by_id: JsonSchema = {
 /**
  * The schema of `workers_query-by-name`.
  */
-export const workers_query_by_name: JsonSchema = {
+export const workers_query$$by$$name: JsonSchema = {
   "properties": {
     "durable_object_name": {
       "type": "string"
@@ -81,7 +81,7 @@ export const workers_query_by_name: JsonSchema = {
 /**
  * The schema of `workers_query-param`.
  */
-export const workers_query_param: JsonSchema = {
+export const workers_query$$param: JsonSchema = {
   "anyOf": [
     {
       "type": "string"
@@ -98,7 +98,7 @@ export const workers_query_param: JsonSchema = {
 /**
  * The schema of `workers_schemas-id`.
  */
-export const workers_schemas_id: JsonSchema = {
+export const workers_schemas$$id: JsonSchema = {
   "description": "ID of the namespace.",
   "type": "string"
 };

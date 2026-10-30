@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `secondary-dns_algo`.
  */
-export const secondary_dns_algo: JsonSchema = {
+export const secondary$$dns_algo: JsonSchema = {
   "description": "TSIG algorithm.",
   "type": "string"
 };
@@ -14,14 +14,14 @@ export const secondary_dns_algo: JsonSchema = {
 /**
  * The schema of `secondary-dns_identifier-2`.
  */
-export const secondary_dns_identifier_2: JsonSchema = {
+export const secondary$$dns_identifier$$2: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `secondary-dns_name-2`.
  */
-export const secondary_dns_name_2: JsonSchema = {
+export const secondary$$dns_name$$2: JsonSchema = {
   "description": "TSIG key name.",
   "type": "string"
 };
@@ -29,7 +29,7 @@ export const secondary_dns_name_2: JsonSchema = {
 /**
  * The schema of `secondary-dns_secret`.
  */
-export const secondary_dns_secret: JsonSchema = {
+export const secondary$$dns_secret: JsonSchema = {
   "description": "TSIG secret.",
   "type": "string"
 };
@@ -37,7 +37,7 @@ export const secondary_dns_secret: JsonSchema = {
 /**
  * The schema of `secondary-dns_tsig`.
  */
-export const secondary_dns_tsig: JsonSchema = {
+export const secondary$$dns_tsig: JsonSchema = {
   "properties": {
     "algo": {
       "$ref": "#/$defs/secondary-dns_algo",

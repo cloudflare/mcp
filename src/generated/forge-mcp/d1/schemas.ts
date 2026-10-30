@@ -6,7 +6,7 @@ import type { JsonSchema } from "../_/tool.js";
 /**
  * The schema of `d1_account-identifier`.
  */
-export const d1_account_identifier: JsonSchema = {
+export const d1_account$$identifier: JsonSchema = {
   "description": "Account identifier tag.",
   "type": "string"
 };
@@ -14,7 +14,7 @@ export const d1_account_identifier: JsonSchema = {
 /**
  * The schema of `d1_batch-query`.
  */
-export const d1_batch_query: JsonSchema = {
+export const d1_batch$$query: JsonSchema = {
   "description": "A single query object or a batch query object",
   "oneOf": [
     {
@@ -40,7 +40,7 @@ export const d1_batch_query: JsonSchema = {
 /**
  * The schema of `d1_database-identifier`.
  */
-export const d1_database_identifier: JsonSchema = {
+export const d1_database$$identifier: JsonSchema = {
   "description": "D1 database identifier (UUID).",
   "type": "string"
 };
@@ -48,7 +48,7 @@ export const d1_database_identifier: JsonSchema = {
 /**
  * The schema of `d1_database-name`.
  */
-export const d1_database_name: JsonSchema = {
+export const d1_database$$name: JsonSchema = {
   "description": "D1 database name.",
   "type": "string"
 };
@@ -56,7 +56,7 @@ export const d1_database_name: JsonSchema = {
 /**
  * The schema of `d1_database-update-partial-request-body`.
  */
-export const d1_database_update_partial_request_body: JsonSchema = {
+export const d1_database$$update$$partial$$request$$body: JsonSchema = {
   "properties": {
     "read_replication": {
       "$ref": "#/$defs/d1_read-replication-details-for-request",
@@ -69,7 +69,7 @@ export const d1_database_update_partial_request_body: JsonSchema = {
 /**
  * The schema of `d1_database-update-request-body`.
  */
-export const d1_database_update_request_body: JsonSchema = {
+export const d1_database$$update$$request$$body: JsonSchema = {
   "properties": {
     "read_replication": {
       "$ref": "#/$defs/d1_read-replication-details-for-request",
@@ -108,7 +108,7 @@ export const d1_params: JsonSchema = {
 /**
  * The schema of `d1_primary-location-hint`.
  */
-export const d1_primary_location_hint: JsonSchema = {
+export const d1_primary$$location$$hint: JsonSchema = {
   "description": "Specify the region to create the D1 primary, if available. If this option is omitted, the D1 will be created as close as possible to the current user.",
   "enum": [
     "wnam",
@@ -124,7 +124,7 @@ export const d1_primary_location_hint: JsonSchema = {
 /**
  * The schema of `d1_read-replication-details-for-request`.
  */
-export const d1_read_replication_details_for_request: JsonSchema = {
+export const d1_read$$replication$$details$$for$$request: JsonSchema = {
   "description": "Configuration for D1 read replication.",
   "properties": {
     "mode": {
@@ -145,7 +145,7 @@ export const d1_read_replication_details_for_request: JsonSchema = {
 /**
  * The schema of `d1_single-query`.
  */
-export const d1_single_query: JsonSchema = {
+export const d1_single$$query: JsonSchema = {
   "description": "A single query with or without parameters",
   "properties": {
     "params": {

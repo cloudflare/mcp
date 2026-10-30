@@ -7,7 +7,7 @@ import type { JsonSchema } from "../../../_/tool.js";
  * The schema of `digital-experience-monitoring_timestamp_datetime` in
  * responses.
  */
-export const digital_experience_monitoring_timestamp_datetime_output: JsonSchema = {
+export const digital$$experience$$monitoring_timestamp_datetime: JsonSchema = {
   "format": "date-time",
   "type": "string"
 };
@@ -16,7 +16,7 @@ export const digital_experience_monitoring_timestamp_datetime_output: JsonSchema
  * The schema of `digital-experience-monitoring_warp_config_change_event` in
  * responses.
  */
-export const digital_experience_monitoring_warp_config_change_event_output: JsonSchema = {
+export const digital$$experience$$monitoring_warp_config_change_event: JsonSchema = {
   "properties": {
     "device_id": {
       "$ref": "#/$defs/digital-experience-monitoring_uuid"
@@ -53,7 +53,7 @@ export const digital_experience_monitoring_warp_config_change_event_output: Json
  * The schema of `digital-experience-monitoring_warp_config_details` in
  * responses.
  */
-export const digital_experience_monitoring_warp_config_details_output: JsonSchema = {
+export const digital$$experience$$monitoring_warp_config_details: JsonSchema = {
   "properties": {
     "account_name": {
       "type": "string"
@@ -72,7 +72,7 @@ export const digital_experience_monitoring_warp_config_details_output: JsonSchem
  * The schema of `digital-experience-monitoring_warp_events_response` in
  * responses.
  */
-export const digital_experience_monitoring_warp_events_response_output: JsonSchema = {
+export const digital$$experience$$monitoring_warp_events_response: JsonSchema = {
   "items": {
     "oneOf": [
       {
@@ -90,7 +90,7 @@ export const digital_experience_monitoring_warp_events_response_output: JsonSche
  * The schema of `digital-experience-monitoring_warp_toggle_change_event` in
  * responses.
  */
-export const digital_experience_monitoring_warp_toggle_change_event_output: JsonSchema = {
+export const digital$$experience$$monitoring_warp_toggle_change_event: JsonSchema = {
   "properties": {
     "account_name": {
       "type": "string"

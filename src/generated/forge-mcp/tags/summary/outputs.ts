@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `resource-tagging_tag_key_summary` in responses.
  */
-export const resource_tagging_tag_key_summary_output: JsonSchema = {
+export const resource$$tagging_tag_key_summary: JsonSchema = {
   "properties": {
     "key": {
       "type": "string"
@@ -29,7 +29,7 @@ export const resource_tagging_tag_key_summary_output: JsonSchema = {
  * The schema of `resource-tagging_tag_key_summary_response_collection` in
  * responses.
  */
-export const resource_tagging_tag_key_summary_response_collection_output: JsonSchema = {
+export const resource$$tagging_tag_key_summary_response_collection: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/resource-tagging_api-response-common"

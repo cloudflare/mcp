@@ -3,39 +3,47 @@
 
 import { type Tool, pathParam } from "../_/tool.js";
 import {
-  email_sending_EmailApiError_output,
-  email_sending_EmailSendResponse_output,
+  email$$sending_EmailApiError,
+  email$$sending_EmailSendResponse,
 } from "./outputs.js";
 import {
-  email_sending_EmailAddressObject,
-  email_sending_EmailAddressString,
-  email_sending_EmailAttachment,
-  email_sending_EmailBuilder,
-  email_sending_EmailInlineAttachment,
-  email_sending_SendRawRequest,
+  email$$sending_EmailAddressObject,
+  email$$sending_EmailAddressString,
+  email$$sending_EmailAttachment,
+  email$$sending_EmailBuilder,
+  email$$sending_EmailInlineAttachment,
+  email$$sending_SendRawRequest,
 } from "./schemas.js";
 
 /**
- * The tools of `email_sending`.
+ * The tools of `emailSending`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "email_sending_get",
+    name: "emailSending_get",
     title: "Fetch an email message",
     description: "Returns the raw RFC 5322 MIME message for the given account and message id.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "type": "string"
-        },
-        "message_id": {
-          "type": "string"
+        "path": {
+          "properties": {
+            "account_id": {
+              "type": "string"
+            },
+            "message_id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "message_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "message_id"
+        "path"
       ],
     },
     annotations: {
@@ -71,7 +79,7 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "email-sending_EmailApiError": email_sending_EmailApiError_output,
+        "email-sending_EmailApiError": email$$sending_EmailApiError,
       },
     },
     request: (args) => ({
@@ -79,30 +87,38 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "email_sending_send",
+    name: "emailSending_send",
     title: "Send an email",
     description: "Send an email for the specified account using the structured builder. Provide the sender, recipients, subject, and at least one of text or html; attachments are optional.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "description": "Identifier of the account.",
-          "type": "string"
-        },
         "body": {
           "$ref": "#/$defs/email-sending_EmailBuilder"
+        },
+        "path": {
+          "properties": {
+            "account_id": {
+              "description": "Identifier of the account.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
+        "path",
         "body"
       ],
       $defs: {
-        "email-sending_EmailAddressObject": email_sending_EmailAddressObject,
-        "email-sending_EmailAddressString": email_sending_EmailAddressString,
-        "email-sending_EmailAttachment": email_sending_EmailAttachment,
-        "email-sending_EmailBuilder": email_sending_EmailBuilder,
-        "email-sending_EmailInlineAttachment": email_sending_EmailInlineAttachment,
+        "email-sending_EmailAddressObject": email$$sending_EmailAddressObject,
+        "email-sending_EmailAddressString": email$$sending_EmailAddressString,
+        "email-sending_EmailAttachment": email$$sending_EmailAttachment,
+        "email-sending_EmailBuilder": email$$sending_EmailBuilder,
+        "email-sending_EmailInlineAttachment": email$$sending_EmailInlineAttachment,
       },
     },
     outputSchema: {
@@ -186,7 +202,7 @@ export const tools: readonly Tool[] = [
       ],
       "type": "object",
       $defs: {
-        "email-sending_EmailSendResponse": email_sending_EmailSendResponse_output,
+        "email-sending_EmailSendResponse": email$$sending_EmailSendResponse,
       },
     },
     annotations: {
@@ -572,7 +588,7 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "email-sending_EmailSendResponse": email_sending_EmailSendResponse_output,
+        "email-sending_EmailSendResponse": email$$sending_EmailSendResponse,
       },
     },
     request: (args) => ({
@@ -581,26 +597,34 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "email_sending_send_raw",
+    name: "emailSending_sendRaw",
     title: "Send a raw MIME email",
     description: "Send a raw RFC 5322 (MIME) email for the specified account. Provide the full MIME message plus the SMTP envelope (from and recipients).",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "description": "Identifier of the account.",
-          "type": "string"
-        },
         "body": {
           "$ref": "#/$defs/email-sending_SendRawRequest"
+        },
+        "path": {
+          "properties": {
+            "account_id": {
+              "description": "Identifier of the account.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
+        "path",
         "body"
       ],
       $defs: {
-        "email-sending_SendRawRequest": email_sending_SendRawRequest,
+        "email-sending_SendRawRequest": email$$sending_SendRawRequest,
       },
     },
     outputSchema: {
@@ -684,7 +708,7 @@ export const tools: readonly Tool[] = [
       ],
       "type": "object",
       $defs: {
-        "email-sending_EmailSendResponse": email_sending_EmailSendResponse_output,
+        "email-sending_EmailSendResponse": email$$sending_EmailSendResponse,
       },
     },
     annotations: {
@@ -1070,7 +1094,7 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "email-sending_EmailSendResponse": email_sending_EmailSendResponse_output,
+        "email-sending_EmailSendResponse": email$$sending_EmailSendResponse,
       },
     },
     request: (args) => ({

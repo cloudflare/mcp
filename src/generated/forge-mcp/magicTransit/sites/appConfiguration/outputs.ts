@@ -6,14 +6,14 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `magic_app_breakout` in responses.
  */
-export const magic_app_breakout_output: JsonSchema = {
+export const magic_app_breakout: JsonSchema = {
   "type": "boolean"
 };
 
 /**
  * The schema of `magic_app_breakout_preferred_wans` in responses.
  */
-export const magic_app_breakout_preferred_wans_output: JsonSchema = {
+export const magic_app_breakout_preferred_wans: JsonSchema = {
   "items": {
     "$ref": "#/$defs/magic_identifier"
   },
@@ -23,7 +23,7 @@ export const magic_app_breakout_preferred_wans_output: JsonSchema = {
 /**
  * The schema of `magic_app_config` in responses.
  */
-export const magic_app_config_output: JsonSchema = {
+export const magic_app_config: JsonSchema = {
   "allOf": [
     {
       "properties": {
@@ -81,7 +81,7 @@ export const magic_app_config_output: JsonSchema = {
 /**
  * The schema of `magic_app_config_single_response` in responses.
  */
-export const magic_app_config_single_response_output: JsonSchema = {
+export const magic_app_config_single_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/magic_apps-response-object"
@@ -100,7 +100,7 @@ export const magic_app_config_single_response_output: JsonSchema = {
 /**
  * The schema of `magic_app_configs_collection_response` in responses.
  */
-export const magic_app_configs_collection_response_output: JsonSchema = {
+export const magic_app_configs_collection_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/magic_apps-response-array"
@@ -122,6 +122,6 @@ export const magic_app_configs_collection_response_output: JsonSchema = {
 /**
  * The schema of `magic_app_priority` in responses.
  */
-export const magic_app_priority_output: JsonSchema = {
+export const magic_app_priority: JsonSchema = {
   "type": "integer"
 };

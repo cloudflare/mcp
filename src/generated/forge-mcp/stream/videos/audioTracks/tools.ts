@@ -3,77 +3,85 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
-  stream_api_response_common_failure_output,
-  stream_api_response_common_output,
-  stream_api_response_single_output,
-  stream_deleted_response_output,
-  stream_messages_output,
+  stream_api$$response$$common,
+  stream_api$$response$$common$$failure,
+  stream_api$$response$$single,
+  stream_deleted_response,
+  stream_messages,
 } from "../../outputs.js";
 import { stream_account_identifier } from "../../schemas.js";
-import { stream_identifier_output } from "../outputs.js";
-import { stream_identifier } from "../schemas.js";
+import { stream_identifier } from "../outputs.js";
+import { stream_identifier as stream_identifier$ } from "../schemas.js";
 import {
-  stream_addAudioTrackResponse_output,
-  stream_additionalAudio_output,
-  stream_audio_default_output,
-  stream_audio_label_output,
-  stream_audio_state_output,
-  stream_listAudioTrackResponse_output,
+  stream_addAudioTrackResponse,
+  stream_additionalAudio,
+  stream_audio_default,
+  stream_audio_label,
+  stream_audio_state,
+  stream_listAudioTrackResponse,
 } from "./outputs.js";
 import {
-  stream_audio_default,
+  stream_audio_default as stream_audio_default$,
   stream_audio_identifier,
-  stream_audio_label,
+  stream_audio_label as stream_audio_label$,
   stream_copyAudioTrack,
   stream_editAudioTrack,
 } from "./schemas.js";
 
 /**
- * The tools of `stream.videos.audio_tracks`.
+ * The tools of `stream.videos.audioTracks`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "stream_videos_audio_tracks_copy",
+    name: "stream_videos_audioTracks_copy",
     title: "Add audio tracks to a video",
     description: "Adds an additional audio track to a video using the provided audio track URL.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/stream_account_identifier",
-          "description": "The account identifier tag."
-        },
         "body": {
           "$ref": "#/$defs/stream_copyAudioTrack"
         },
-        "identifier": {
-          "$ref": "#/$defs/stream_identifier",
-          "description": "A Cloudflare-generated unique identifier for a media item."
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/stream_account_identifier",
+              "description": "The account identifier tag."
+            },
+            "identifier": {
+              "$ref": "#/$defs/stream_identifier",
+              "description": "A Cloudflare-generated unique identifier for a media item."
+            }
+          },
+          "required": [
+            "account_id",
+            "identifier"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "identifier",
+        "path",
         "body"
       ],
       $defs: {
         "stream_account_identifier": stream_account_identifier,
-        "stream_audio_label": stream_audio_label,
+        "stream_audio_label": stream_audio_label$,
         "stream_copyAudioTrack": stream_copyAudioTrack,
-        "stream_identifier": stream_identifier,
+        "stream_identifier": stream_identifier$,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/stream_addAudioTrackResponse",
       $defs: {
-        "stream_addAudioTrackResponse": stream_addAudioTrackResponse_output,
-        "stream_additionalAudio": stream_additionalAudio_output,
-        "stream_api-response-common": stream_api_response_common_output,
-        "stream_audio_default": stream_audio_default_output,
-        "stream_audio_label": stream_audio_label_output,
-        "stream_audio_state": stream_audio_state_output,
-        "stream_identifier": stream_identifier_output,
-        "stream_messages": stream_messages_output,
+        "stream_addAudioTrackResponse": stream_addAudioTrackResponse,
+        "stream_additionalAudio": stream_additionalAudio,
+        "stream_api-response-common": stream_api$$response$$common,
+        "stream_audio_default": stream_audio_default,
+        "stream_audio_label": stream_audio_label,
+        "stream_audio_state": stream_audio_state,
+        "stream_identifier": stream_identifier,
+        "stream_messages": stream_messages,
       },
     },
     annotations: {
@@ -95,15 +103,15 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "stream_addAudioTrackResponse": stream_addAudioTrackResponse_output,
-        "stream_additionalAudio": stream_additionalAudio_output,
-        "stream_api-response-common": stream_api_response_common_output,
-        "stream_api-response-common-failure": stream_api_response_common_failure_output,
-        "stream_audio_default": stream_audio_default_output,
-        "stream_audio_label": stream_audio_label_output,
-        "stream_audio_state": stream_audio_state_output,
-        "stream_identifier": stream_identifier_output,
-        "stream_messages": stream_messages_output,
+        "stream_addAudioTrackResponse": stream_addAudioTrackResponse,
+        "stream_additionalAudio": stream_additionalAudio,
+        "stream_api-response-common": stream_api$$response$$common,
+        "stream_api-response-common-failure": stream_api$$response$$common$$failure,
+        "stream_audio_default": stream_audio_default,
+        "stream_audio_label": stream_audio_label,
+        "stream_audio_state": stream_audio_state,
+        "stream_identifier": stream_identifier,
+        "stream_messages": stream_messages,
       },
     },
     request: (args) => ({
@@ -112,42 +120,50 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "stream_videos_audio_tracks_delete",
+    name: "stream_videos_audioTracks_delete",
     title: "Delete additional audio tracks on a video",
     description: "Deletes additional audio tracks on a video. Deleting a default audio track is not allowed. You must assign another audio track as default prior to deletion.\n\nConfirm with the user before calling this tool. Permanently delete this audio track?",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/stream_account_identifier",
-          "description": "The account identifier tag."
-        },
-        "audio_identifier": {
-          "$ref": "#/$defs/stream_audio_identifier",
-          "description": "The unique identifier for an additional audio track."
-        },
-        "identifier": {
-          "$ref": "#/$defs/stream_identifier",
-          "description": "A Cloudflare-generated unique identifier for a media item."
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/stream_account_identifier",
+              "description": "The account identifier tag."
+            },
+            "audio_identifier": {
+              "$ref": "#/$defs/stream_audio_identifier",
+              "description": "The unique identifier for an additional audio track."
+            },
+            "identifier": {
+              "$ref": "#/$defs/stream_identifier",
+              "description": "A Cloudflare-generated unique identifier for a media item."
+            }
+          },
+          "required": [
+            "account_id",
+            "identifier",
+            "audio_identifier"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "identifier",
-        "audio_identifier"
+        "path"
       ],
       $defs: {
         "stream_account_identifier": stream_account_identifier,
         "stream_audio_identifier": stream_audio_identifier,
-        "stream_identifier": stream_identifier,
+        "stream_identifier": stream_identifier$,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/stream_deleted_response",
       $defs: {
-        "stream_api-response-single": stream_api_response_single_output,
-        "stream_deleted_response": stream_deleted_response_output,
-        "stream_messages": stream_messages_output,
+        "stream_api-response-single": stream_api$$response$$single,
+        "stream_deleted_response": stream_deleted_response,
+        "stream_messages": stream_messages,
       },
     },
     annotations: {
@@ -174,9 +190,9 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "stream_api-response-single": stream_api_response_single_output,
-        "stream_deleted_response": stream_deleted_response_output,
-        "stream_messages": stream_messages_output,
+        "stream_api-response-single": stream_api$$response$$single,
+        "stream_deleted_response": stream_deleted_response,
+        "stream_messages": stream_messages,
       },
     },
     request: (args) => ({
@@ -184,54 +200,62 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "stream_videos_audio_tracks_edit",
+    name: "stream_videos_audioTracks_edit",
     title: "Edit additional audio tracks on a video",
     description: "Edits additional audio tracks on a video. Editing the default status of an audio track to `true` will mark all other audio tracks on the video default status to `false`.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/stream_account_identifier",
-          "description": "The account identifier tag."
-        },
-        "audio_identifier": {
-          "$ref": "#/$defs/stream_audio_identifier",
-          "description": "The unique identifier for an additional audio track."
-        },
         "body": {
           "$ref": "#/$defs/stream_editAudioTrack"
         },
-        "identifier": {
-          "$ref": "#/$defs/stream_identifier",
-          "description": "A Cloudflare-generated unique identifier for a media item."
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/stream_account_identifier",
+              "description": "The account identifier tag."
+            },
+            "audio_identifier": {
+              "$ref": "#/$defs/stream_audio_identifier",
+              "description": "The unique identifier for an additional audio track."
+            },
+            "identifier": {
+              "$ref": "#/$defs/stream_identifier",
+              "description": "A Cloudflare-generated unique identifier for a media item."
+            }
+          },
+          "required": [
+            "account_id",
+            "identifier",
+            "audio_identifier"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "identifier",
-        "audio_identifier",
+        "path",
         "body"
       ],
       $defs: {
         "stream_account_identifier": stream_account_identifier,
-        "stream_audio_default": stream_audio_default,
+        "stream_audio_default": stream_audio_default$,
         "stream_audio_identifier": stream_audio_identifier,
-        "stream_audio_label": stream_audio_label,
+        "stream_audio_label": stream_audio_label$,
         "stream_editAudioTrack": stream_editAudioTrack,
-        "stream_identifier": stream_identifier,
+        "stream_identifier": stream_identifier$,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/stream_addAudioTrackResponse",
       $defs: {
-        "stream_addAudioTrackResponse": stream_addAudioTrackResponse_output,
-        "stream_additionalAudio": stream_additionalAudio_output,
-        "stream_api-response-common": stream_api_response_common_output,
-        "stream_audio_default": stream_audio_default_output,
-        "stream_audio_label": stream_audio_label_output,
-        "stream_audio_state": stream_audio_state_output,
-        "stream_identifier": stream_identifier_output,
-        "stream_messages": stream_messages_output,
+        "stream_addAudioTrackResponse": stream_addAudioTrackResponse,
+        "stream_additionalAudio": stream_additionalAudio,
+        "stream_api-response-common": stream_api$$response$$common,
+        "stream_audio_default": stream_audio_default,
+        "stream_audio_label": stream_audio_label,
+        "stream_audio_state": stream_audio_state,
+        "stream_identifier": stream_identifier,
+        "stream_messages": stream_messages,
       },
     },
     annotations: {
@@ -258,15 +282,15 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "stream_addAudioTrackResponse": stream_addAudioTrackResponse_output,
-        "stream_additionalAudio": stream_additionalAudio_output,
-        "stream_api-response-common": stream_api_response_common_output,
-        "stream_api-response-common-failure": stream_api_response_common_failure_output,
-        "stream_audio_default": stream_audio_default_output,
-        "stream_audio_label": stream_audio_label_output,
-        "stream_audio_state": stream_audio_state_output,
-        "stream_identifier": stream_identifier_output,
-        "stream_messages": stream_messages_output,
+        "stream_addAudioTrackResponse": stream_addAudioTrackResponse,
+        "stream_additionalAudio": stream_additionalAudio,
+        "stream_api-response-common": stream_api$$response$$common,
+        "stream_api-response-common-failure": stream_api$$response$$common$$failure,
+        "stream_audio_default": stream_audio_default,
+        "stream_audio_label": stream_audio_label,
+        "stream_audio_state": stream_audio_state,
+        "stream_identifier": stream_identifier,
+        "stream_messages": stream_messages,
       },
     },
     request: (args) => ({
@@ -275,41 +299,49 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "stream_videos_audio_tracks_list",
+    name: "stream_videos_audioTracks_list",
     title: "List additional audio tracks on a video",
     description: "Lists additional audio tracks on a video. Note this API will not return information for audio attached to the video upload.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/stream_account_identifier",
-          "description": "The account identifier tag."
-        },
-        "identifier": {
-          "$ref": "#/$defs/stream_identifier",
-          "description": "A Cloudflare-generated unique identifier for a media item."
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/stream_account_identifier",
+              "description": "The account identifier tag."
+            },
+            "identifier": {
+              "$ref": "#/$defs/stream_identifier",
+              "description": "A Cloudflare-generated unique identifier for a media item."
+            }
+          },
+          "required": [
+            "account_id",
+            "identifier"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "identifier"
+        "path"
       ],
       $defs: {
         "stream_account_identifier": stream_account_identifier,
-        "stream_identifier": stream_identifier,
+        "stream_identifier": stream_identifier$,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/stream_listAudioTrackResponse",
       $defs: {
-        "stream_additionalAudio": stream_additionalAudio_output,
-        "stream_api-response-common": stream_api_response_common_output,
-        "stream_audio_default": stream_audio_default_output,
-        "stream_audio_label": stream_audio_label_output,
-        "stream_audio_state": stream_audio_state_output,
-        "stream_identifier": stream_identifier_output,
-        "stream_listAudioTrackResponse": stream_listAudioTrackResponse_output,
-        "stream_messages": stream_messages_output,
+        "stream_additionalAudio": stream_additionalAudio,
+        "stream_api-response-common": stream_api$$response$$common,
+        "stream_audio_default": stream_audio_default,
+        "stream_audio_label": stream_audio_label,
+        "stream_audio_state": stream_audio_state,
+        "stream_identifier": stream_identifier,
+        "stream_listAudioTrackResponse": stream_listAudioTrackResponse,
+        "stream_messages": stream_messages,
       },
     },
     annotations: {
@@ -337,15 +369,15 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "stream_additionalAudio": stream_additionalAudio_output,
-        "stream_api-response-common": stream_api_response_common_output,
-        "stream_api-response-common-failure": stream_api_response_common_failure_output,
-        "stream_audio_default": stream_audio_default_output,
-        "stream_audio_label": stream_audio_label_output,
-        "stream_audio_state": stream_audio_state_output,
-        "stream_identifier": stream_identifier_output,
-        "stream_listAudioTrackResponse": stream_listAudioTrackResponse_output,
-        "stream_messages": stream_messages_output,
+        "stream_additionalAudio": stream_additionalAudio,
+        "stream_api-response-common": stream_api$$response$$common,
+        "stream_api-response-common-failure": stream_api$$response$$common$$failure,
+        "stream_audio_default": stream_audio_default,
+        "stream_audio_label": stream_audio_label,
+        "stream_audio_state": stream_audio_state,
+        "stream_identifier": stream_identifier,
+        "stream_listAudioTrackResponse": stream_listAudioTrackResponse,
+        "stream_messages": stream_messages,
       },
     },
     request: (args) => ({

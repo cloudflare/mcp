@@ -3,36 +3,24 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
-  logpush_api_response_common_failure_output,
-  logpush_api_response_common_output,
-  logpush_messages_output,
+  logpush_api$$response$$common,
+  logpush_api$$response$$common$$failure,
+  logpush_messages,
 } from "../../outputs.js";
 import { logpush_destination_conf, logpush_identifier } from "../../schemas.js";
-import { logpush_validate_response_output } from "../outputs.js";
+import { logpush_validate_response } from "../outputs.js";
 
 /**
- * The tools of `logpush.account_validate.destination`.
+ * The tools of `logpush.accountValidate.destination`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "logpush_account_validate_destination_delete",
+    name: "logpush_accountValidate_destination_delete",
     title: "Validate destination",
     description: "Validates destination.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_or_zone": {
-          "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
-          "enum": [
-            "accounts",
-            "zones"
-          ],
-          "type": "string"
-        },
-        "account_or_zone_id": {
-          "$ref": "#/$defs/logpush_identifier",
-          "description": "The account ID or zone ID, as selected by account_or_zone."
-        },
         "body": {
           "properties": {
             "destination_conf": {
@@ -44,11 +32,31 @@ export const tools: readonly Tool[] = [
             "destination_conf"
           ],
           "type": "object"
+        },
+        "path": {
+          "properties": {
+            "account_or_zone": {
+              "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
+              "enum": [
+                "accounts",
+                "zones"
+              ],
+              "type": "string"
+            },
+            "account_or_zone_id": {
+              "$ref": "#/$defs/logpush_identifier",
+              "description": "The account ID or zone ID, as selected by account_or_zone."
+            }
+          },
+          "required": [
+            "account_or_zone",
+            "account_or_zone_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_or_zone",
-        "account_or_zone_id",
+        "path",
         "body"
       ],
       $defs: {
@@ -59,9 +67,9 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/logpush_validate_response",
       $defs: {
-        "logpush_api-response-common": logpush_api_response_common_output,
-        "logpush_messages": logpush_messages_output,
-        "logpush_validate_response": logpush_validate_response_output,
+        "logpush_api-response-common": logpush_api$$response$$common,
+        "logpush_messages": logpush_messages,
+        "logpush_validate_response": logpush_validate_response,
       },
     },
     annotations: {
@@ -99,10 +107,10 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "logpush_api-response-common": logpush_api_response_common_output,
-        "logpush_api-response-common-failure": logpush_api_response_common_failure_output,
-        "logpush_messages": logpush_messages_output,
-        "logpush_validate_response": logpush_validate_response_output,
+        "logpush_api-response-common": logpush_api$$response$$common,
+        "logpush_api-response-common-failure": logpush_api$$response$$common$$failure,
+        "logpush_messages": logpush_messages,
+        "logpush_validate_response": logpush_validate_response,
       },
     },
     request: (args) => ({

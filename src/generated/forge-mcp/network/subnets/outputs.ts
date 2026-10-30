@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `tunnel_subnet` in responses.
  */
-export const tunnel_subnet_output: JsonSchema = {
+export const tunnel_subnet: JsonSchema = {
   "properties": {
     "capacity": {
       "$ref": "#/$defs/tunnel_subnet_capacity"
@@ -42,7 +42,7 @@ export const tunnel_subnet_output: JsonSchema = {
 /**
  * The schema of `tunnel_subnet_capacity` in responses.
  */
-export const tunnel_subnet_capacity_output: JsonSchema = {
+export const tunnel_subnet_capacity: JsonSchema = {
   "properties": {
     "total": {
       "type": "integer"
@@ -57,14 +57,14 @@ export const tunnel_subnet_capacity_output: JsonSchema = {
 /**
  * The schema of `tunnel_subnet_comment` in responses.
  */
-export const tunnel_subnet_comment_output: JsonSchema = {
+export const tunnel_subnet_comment: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `tunnel_subnet_id` in responses.
  */
-export const tunnel_subnet_id_output: JsonSchema = {
+export const tunnel_subnet_id: JsonSchema = {
   "format": "uuid",
   "type": "string"
 };
@@ -72,28 +72,28 @@ export const tunnel_subnet_id_output: JsonSchema = {
 /**
  * The schema of `tunnel_subnet_ip_network` in responses.
  */
-export const tunnel_subnet_ip_network_output: JsonSchema = {
+export const tunnel_subnet_ip_network: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `tunnel_subnet_is_default_network` in responses.
  */
-export const tunnel_subnet_is_default_network_output: JsonSchema = {
+export const tunnel_subnet_is_default_network: JsonSchema = {
   "type": "boolean"
 };
 
 /**
  * The schema of `tunnel_subnet_name` in responses.
  */
-export const tunnel_subnet_name_output: JsonSchema = {
+export const tunnel_subnet_name: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `tunnel_subnet_response_collection` in responses.
  */
-export const tunnel_subnet_response_collection_output: JsonSchema = {
+export const tunnel_subnet_response_collection: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/tunnel_api-response-collection"
@@ -115,7 +115,7 @@ export const tunnel_subnet_response_collection_output: JsonSchema = {
 /**
  * The schema of `tunnel_subnet_response_single` in responses.
  */
-export const tunnel_subnet_response_single_output: JsonSchema = {
+export const tunnel_subnet_response_single: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/tunnel_api-response-common"
@@ -134,7 +134,7 @@ export const tunnel_subnet_response_single_output: JsonSchema = {
 /**
  * The schema of `tunnel_subnet_type` in responses.
  */
-export const tunnel_subnet_type_output: JsonSchema = {
+export const tunnel_subnet_type: JsonSchema = {
   "enum": [
     "cloudflare_source",
     "initial_resolved_ip",

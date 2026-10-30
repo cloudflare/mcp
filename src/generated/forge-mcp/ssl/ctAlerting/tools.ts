@@ -3,55 +3,63 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
-  tls_certificates_and_hostnames_api_response_common_failure_output,
-  tls_certificates_and_hostnames_api_response_single_output,
-  tls_certificates_and_hostnames_messages_output,
+  tls$$certificates$$and$$hostnames_api$$response$$common$$failure,
+  tls$$certificates$$and$$hostnames_api$$response$$single,
+  tls$$certificates$$and$$hostnames_messages,
 } from "../../outputs.js";
-import { tls_certificates_and_hostnames_identifier } from "../../schemas.js";
+import { tls$$certificates$$and$$hostnames_identifier } from "../../schemas.js";
 import {
-  tls_certificates_and_hostnames_ct_alerting_emails_output,
-  tls_certificates_and_hostnames_ct_alerting_enabled_output,
-  tls_certificates_and_hostnames_ct_alerting_subscription_output,
-  tls_certificates_and_hostnames_ct_alerting_subscription_response_single_output,
+  tls$$certificates$$and$$hostnames_ct_alerting_emails,
+  tls$$certificates$$and$$hostnames_ct_alerting_enabled,
+  tls$$certificates$$and$$hostnames_ct_alerting_subscription,
+  tls$$certificates$$and$$hostnames_ct_alerting_subscription_response_single,
 } from "./outputs.js";
 import {
-  tls_certificates_and_hostnames_ct_alerting_emails,
-  tls_certificates_and_hostnames_ct_alerting_enabled,
-  tls_certificates_and_hostnames_ct_alerting_subscription_update,
+  tls$$certificates$$and$$hostnames_ct_alerting_emails as tls$$certificates$$and$$hostnames_ct_alerting_emails$,
+  tls$$certificates$$and$$hostnames_ct_alerting_enabled as tls$$certificates$$and$$hostnames_ct_alerting_enabled$,
+  tls$$certificates$$and$$hostnames_ct_alerting_subscription_update,
 } from "./schemas.js";
 
 /**
- * The tools of `ssl.ct_alerting`.
+ * The tools of `ssl.ctAlerting`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "ssl_ct_alerting_get",
+    name: "ssl_ctAlerting_get",
     title: "Get CT Alerting Subscription",
     description: "Retrieve the Certificate Transparency alerting subscription settings for a zone. Returns whether CT monitoring is enabled and the list of email addresses that receive alerts, if any have been configured.",
     inputSchema: {
       type: "object",
       properties: {
-        "zone_id": {
-          "$ref": "#/$defs/tls-certificates-and-hostnames_identifier",
-          "description": "Identifier."
+        "path": {
+          "properties": {
+            "zone_id": {
+              "$ref": "#/$defs/tls-certificates-and-hostnames_identifier",
+              "description": "Identifier."
+            }
+          },
+          "required": [
+            "zone_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "zone_id"
+        "path"
       ],
       $defs: {
-        "tls-certificates-and-hostnames_identifier": tls_certificates_and_hostnames_identifier,
+        "tls-certificates-and-hostnames_identifier": tls$$certificates$$and$$hostnames_identifier,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/tls-certificates-and-hostnames_ct_alerting_subscription_response_single",
       $defs: {
-        "tls-certificates-and-hostnames_api-response-single": tls_certificates_and_hostnames_api_response_single_output,
-        "tls-certificates-and-hostnames_ct_alerting_emails": tls_certificates_and_hostnames_ct_alerting_emails_output,
-        "tls-certificates-and-hostnames_ct_alerting_enabled": tls_certificates_and_hostnames_ct_alerting_enabled_output,
-        "tls-certificates-and-hostnames_ct_alerting_subscription": tls_certificates_and_hostnames_ct_alerting_subscription_output,
-        "tls-certificates-and-hostnames_ct_alerting_subscription_response_single": tls_certificates_and_hostnames_ct_alerting_subscription_response_single_output,
-        "tls-certificates-and-hostnames_messages": tls_certificates_and_hostnames_messages_output,
+        "tls-certificates-and-hostnames_api-response-single": tls$$certificates$$and$$hostnames_api$$response$$single,
+        "tls-certificates-and-hostnames_ct_alerting_emails": tls$$certificates$$and$$hostnames_ct_alerting_emails,
+        "tls-certificates-and-hostnames_ct_alerting_enabled": tls$$certificates$$and$$hostnames_ct_alerting_enabled,
+        "tls-certificates-and-hostnames_ct_alerting_subscription": tls$$certificates$$and$$hostnames_ct_alerting_subscription,
+        "tls-certificates-and-hostnames_ct_alerting_subscription_response_single": tls$$certificates$$and$$hostnames_ct_alerting_subscription_response_single,
+        "tls-certificates-and-hostnames_messages": tls$$certificates$$and$$hostnames_messages,
       },
     },
     annotations: {
@@ -92,13 +100,13 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "tls-certificates-and-hostnames_api-response-common-failure": tls_certificates_and_hostnames_api_response_common_failure_output,
-        "tls-certificates-and-hostnames_api-response-single": tls_certificates_and_hostnames_api_response_single_output,
-        "tls-certificates-and-hostnames_ct_alerting_emails": tls_certificates_and_hostnames_ct_alerting_emails_output,
-        "tls-certificates-and-hostnames_ct_alerting_enabled": tls_certificates_and_hostnames_ct_alerting_enabled_output,
-        "tls-certificates-and-hostnames_ct_alerting_subscription": tls_certificates_and_hostnames_ct_alerting_subscription_output,
-        "tls-certificates-and-hostnames_ct_alerting_subscription_response_single": tls_certificates_and_hostnames_ct_alerting_subscription_response_single_output,
-        "tls-certificates-and-hostnames_messages": tls_certificates_and_hostnames_messages_output,
+        "tls-certificates-and-hostnames_api-response-common-failure": tls$$certificates$$and$$hostnames_api$$response$$common$$failure,
+        "tls-certificates-and-hostnames_api-response-single": tls$$certificates$$and$$hostnames_api$$response$$single,
+        "tls-certificates-and-hostnames_ct_alerting_emails": tls$$certificates$$and$$hostnames_ct_alerting_emails,
+        "tls-certificates-and-hostnames_ct_alerting_enabled": tls$$certificates$$and$$hostnames_ct_alerting_enabled,
+        "tls-certificates-and-hostnames_ct_alerting_subscription": tls$$certificates$$and$$hostnames_ct_alerting_subscription,
+        "tls-certificates-and-hostnames_ct_alerting_subscription_response_single": tls$$certificates$$and$$hostnames_ct_alerting_subscription_response_single,
+        "tls-certificates-and-hostnames_messages": tls$$certificates$$and$$hostnames_messages,
       },
     },
     request: (args) => ({
@@ -106,7 +114,7 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "ssl_ct_alerting_update",
+    name: "ssl_ctAlerting_update",
     title: "Update CT Alerting Subscription",
     description: "Create or update the Certificate Transparency alerting subscription for a zone. Enables or disables email notifications when certificates are issued for the zone's domains.\nThe `enabled` field is required on every request and controls whether the subscription is active. The `emails` field is optional and, when provided, replaces the stored recipient list for the zone. When `emails` is omitted, the stored recipient list is preserved and only the enabled state is toggled. A maximum of 100 email addresses may be configured per zone.\nRequests that omit `enabled` are rejected with error code 1008.\nSubscribe and unsubscribe notification emails are only sent for recipients whose effective subscription state changes. Idempotent requests (no state change) send no notification email.",
     inputSchema: {
@@ -115,31 +123,39 @@ export const tools: readonly Tool[] = [
         "body": {
           "$ref": "#/$defs/tls-certificates-and-hostnames_ct_alerting_subscription_update"
         },
-        "zone_id": {
-          "$ref": "#/$defs/tls-certificates-and-hostnames_identifier",
-          "description": "Identifier."
+        "path": {
+          "properties": {
+            "zone_id": {
+              "$ref": "#/$defs/tls-certificates-and-hostnames_identifier",
+              "description": "Identifier."
+            }
+          },
+          "required": [
+            "zone_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "zone_id",
+        "path",
         "body"
       ],
       $defs: {
-        "tls-certificates-and-hostnames_ct_alerting_emails": tls_certificates_and_hostnames_ct_alerting_emails,
-        "tls-certificates-and-hostnames_ct_alerting_enabled": tls_certificates_and_hostnames_ct_alerting_enabled,
-        "tls-certificates-and-hostnames_ct_alerting_subscription_update": tls_certificates_and_hostnames_ct_alerting_subscription_update,
-        "tls-certificates-and-hostnames_identifier": tls_certificates_and_hostnames_identifier,
+        "tls-certificates-and-hostnames_ct_alerting_emails": tls$$certificates$$and$$hostnames_ct_alerting_emails$,
+        "tls-certificates-and-hostnames_ct_alerting_enabled": tls$$certificates$$and$$hostnames_ct_alerting_enabled$,
+        "tls-certificates-and-hostnames_ct_alerting_subscription_update": tls$$certificates$$and$$hostnames_ct_alerting_subscription_update,
+        "tls-certificates-and-hostnames_identifier": tls$$certificates$$and$$hostnames_identifier,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/tls-certificates-and-hostnames_ct_alerting_subscription_response_single",
       $defs: {
-        "tls-certificates-and-hostnames_api-response-single": tls_certificates_and_hostnames_api_response_single_output,
-        "tls-certificates-and-hostnames_ct_alerting_emails": tls_certificates_and_hostnames_ct_alerting_emails_output,
-        "tls-certificates-and-hostnames_ct_alerting_enabled": tls_certificates_and_hostnames_ct_alerting_enabled_output,
-        "tls-certificates-and-hostnames_ct_alerting_subscription": tls_certificates_and_hostnames_ct_alerting_subscription_output,
-        "tls-certificates-and-hostnames_ct_alerting_subscription_response_single": tls_certificates_and_hostnames_ct_alerting_subscription_response_single_output,
-        "tls-certificates-and-hostnames_messages": tls_certificates_and_hostnames_messages_output,
+        "tls-certificates-and-hostnames_api-response-single": tls$$certificates$$and$$hostnames_api$$response$$single,
+        "tls-certificates-and-hostnames_ct_alerting_emails": tls$$certificates$$and$$hostnames_ct_alerting_emails,
+        "tls-certificates-and-hostnames_ct_alerting_enabled": tls$$certificates$$and$$hostnames_ct_alerting_enabled,
+        "tls-certificates-and-hostnames_ct_alerting_subscription": tls$$certificates$$and$$hostnames_ct_alerting_subscription,
+        "tls-certificates-and-hostnames_ct_alerting_subscription_response_single": tls$$certificates$$and$$hostnames_ct_alerting_subscription_response_single,
+        "tls-certificates-and-hostnames_messages": tls$$certificates$$and$$hostnames_messages,
       },
     },
     annotations: {
@@ -179,13 +195,13 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "tls-certificates-and-hostnames_api-response-common-failure": tls_certificates_and_hostnames_api_response_common_failure_output,
-        "tls-certificates-and-hostnames_api-response-single": tls_certificates_and_hostnames_api_response_single_output,
-        "tls-certificates-and-hostnames_ct_alerting_emails": tls_certificates_and_hostnames_ct_alerting_emails_output,
-        "tls-certificates-and-hostnames_ct_alerting_enabled": tls_certificates_and_hostnames_ct_alerting_enabled_output,
-        "tls-certificates-and-hostnames_ct_alerting_subscription": tls_certificates_and_hostnames_ct_alerting_subscription_output,
-        "tls-certificates-and-hostnames_ct_alerting_subscription_response_single": tls_certificates_and_hostnames_ct_alerting_subscription_response_single_output,
-        "tls-certificates-and-hostnames_messages": tls_certificates_and_hostnames_messages_output,
+        "tls-certificates-and-hostnames_api-response-common-failure": tls$$certificates$$and$$hostnames_api$$response$$common$$failure,
+        "tls-certificates-and-hostnames_api-response-single": tls$$certificates$$and$$hostnames_api$$response$$single,
+        "tls-certificates-and-hostnames_ct_alerting_emails": tls$$certificates$$and$$hostnames_ct_alerting_emails,
+        "tls-certificates-and-hostnames_ct_alerting_enabled": tls$$certificates$$and$$hostnames_ct_alerting_enabled,
+        "tls-certificates-and-hostnames_ct_alerting_subscription": tls$$certificates$$and$$hostnames_ct_alerting_subscription,
+        "tls-certificates-and-hostnames_ct_alerting_subscription_response_single": tls$$certificates$$and$$hostnames_ct_alerting_subscription_response_single,
+        "tls-certificates-and-hostnames_messages": tls$$certificates$$and$$hostnames_messages,
       },
     },
     request: (args) => ({

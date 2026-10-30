@@ -3,27 +3,27 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
-  waitingroom_api_response_common_failure_output,
-  waitingroom_api_response_common_output,
-  waitingroom_api_response_single_output,
-  waitingroom_messages_output,
+  waitingroom_api$$response$$common,
+  waitingroom_api$$response$$common$$failure,
+  waitingroom_api$$response$$single,
+  waitingroom_messages,
 } from "../outputs.js";
 import {
   waitingroom_custom_page_html,
   waitingroom_identifier,
 } from "../schemas.js";
 import {
-  waitingroom_preview_response_output,
-  waitingroom_preview_url_output,
+  waitingroom_preview_response,
+  waitingroom_preview_url,
 } from "./outputs.js";
 import { waitingroom_query_preview } from "./schemas.js";
 
 /**
- * The tools of `waiting_rooms.page`.
+ * The tools of `waitingRooms.page`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "waiting_rooms_page_preview",
+    name: "waitingRooms_page_preview",
     title: "Create a custom waiting room page preview",
     description: "Creates a waiting room page preview. Upload a custom waiting room page for preview. You will receive a preview URL in the form `http://waitingrooms.dev/preview/<uuid>`. You can use the following query parameters to change the state of the preview:\n1. `force_queue`: Boolean indicating if all users will be queued in the waiting room and no one will be let into the origin website (also known as queueAll).\n2. `queue_is_full`: Boolean indicating if the waiting room's queue is currently full and not accepting new users at the moment.\n3. `queueing_method`: The queueing method currently used by the waiting room.\n\t- **fifo** indicates a FIFO queue.\n\t- **random** indicates a Random queue.\n\t- **passthrough** indicates a Passthrough queue. Keep in mind that the waiting room page will only be displayed if `force_queue=true` or `event=prequeueing` — for other cases the request will pass through to the origin. For our preview, this will be a fake origin website returning \\\"Welcome\\\". \n\t- **reject** indicates a Reject queue.\n4. `event`: Used to preview a waiting room event.\n\t- **none** indicates no event is occurring.\n\t- **prequeueing** indicates that an event is prequeueing (between `prequeue_start_time` and `event_start_time`).\n\t- **started** indicates that an event has started (between `event_start_time` and `event_end_time`).\n5. `shuffle_at_event_start`: Boolean indicating if the event will shuffle users in the prequeue when it starts. This can only be set to **true** if an event is active (`event` is not **none**).\n\nFor example, you can make a request to `http://waitingrooms.dev/preview/<uuid>?force_queue=false&queue_is_full=false&queueing_method=random&event=started&shuffle_at_event_start=true`\n6. `waitTime`: Non-zero, positive integer indicating the estimated wait time in minutes. The default value is 10 minutes.\n\nFor example, you can make a request to `http://waitingrooms.dev/preview/<uuid>?waitTime=50` to configure the estimated wait time as 50 minutes.",
     inputSchema: {
@@ -32,13 +32,21 @@ export const tools: readonly Tool[] = [
         "body": {
           "$ref": "#/$defs/waitingroom_query_preview"
         },
-        "zone_id": {
-          "$ref": "#/$defs/waitingroom_identifier",
-          "description": "Identifier."
+        "path": {
+          "properties": {
+            "zone_id": {
+              "$ref": "#/$defs/waitingroom_identifier",
+              "description": "Identifier."
+            }
+          },
+          "required": [
+            "zone_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "zone_id",
+        "path",
         "body"
       ],
       $defs: {
@@ -50,11 +58,11 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/waitingroom_preview_response",
       $defs: {
-        "waitingroom_api-response-common": waitingroom_api_response_common_output,
-        "waitingroom_api-response-single": waitingroom_api_response_single_output,
-        "waitingroom_messages": waitingroom_messages_output,
-        "waitingroom_preview_response": waitingroom_preview_response_output,
-        "waitingroom_preview_url": waitingroom_preview_url_output,
+        "waitingroom_api-response-common": waitingroom_api$$response$$common,
+        "waitingroom_api-response-single": waitingroom_api$$response$$single,
+        "waitingroom_messages": waitingroom_messages,
+        "waitingroom_preview_response": waitingroom_preview_response,
+        "waitingroom_preview_url": waitingroom_preview_url,
       },
     },
     annotations: {
@@ -94,12 +102,12 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "waitingroom_api-response-common": waitingroom_api_response_common_output,
-        "waitingroom_api-response-common-failure": waitingroom_api_response_common_failure_output,
-        "waitingroom_api-response-single": waitingroom_api_response_single_output,
-        "waitingroom_messages": waitingroom_messages_output,
-        "waitingroom_preview_response": waitingroom_preview_response_output,
-        "waitingroom_preview_url": waitingroom_preview_url_output,
+        "waitingroom_api-response-common": waitingroom_api$$response$$common,
+        "waitingroom_api-response-common-failure": waitingroom_api$$response$$common$$failure,
+        "waitingroom_api-response-single": waitingroom_api$$response$$single,
+        "waitingroom_messages": waitingroom_messages,
+        "waitingroom_preview_response": waitingroom_preview_response,
+        "waitingroom_preview_url": waitingroom_preview_url,
       },
     },
     request: (args) => ({

@@ -6,7 +6,7 @@ import type { JsonSchema } from "../_/tool.js";
 /**
  * The schema of `builds_CanceledBuildResponse` in responses.
  */
-export const builds_CanceledBuildResponse_output: JsonSchema = {
+export const builds_CanceledBuildResponse: JsonSchema = {
   "properties": {
     "build_outcome": {
       "$ref": "#/$defs/builds_BuildOutcome"

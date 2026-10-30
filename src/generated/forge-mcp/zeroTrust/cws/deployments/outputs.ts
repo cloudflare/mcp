@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `cws_Deployment` in responses.
  */
-export const cws_Deployment_output: JsonSchema = {
+export const cws_Deployment: JsonSchema = {
   "properties": {
     "basic_auth_credential_ids": {
       "oneOf": [
@@ -100,7 +100,7 @@ export const cws_Deployment_output: JsonSchema = {
 /**
  * The schema of `cws_PageResponseDeployment` in responses.
  */
-export const cws_PageResponseDeployment_output: JsonSchema = {
+export const cws_PageResponseDeployment: JsonSchema = {
   "properties": {
     "errors": {
       "oneOf": [
@@ -161,7 +161,7 @@ export const cws_PageResponseDeployment_output: JsonSchema = {
 /**
  * The schema of `cws_ResponseDeployment` in responses.
  */
-export const cws_ResponseDeployment_output: JsonSchema = {
+export const cws_ResponseDeployment: JsonSchema = {
   "properties": {
     "errors": {
       "oneOf": [

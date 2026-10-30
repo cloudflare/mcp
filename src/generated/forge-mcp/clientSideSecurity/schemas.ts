@@ -6,7 +6,7 @@ import type { JsonSchema } from "../_/tool.js";
 /**
  * The schema of `client-side-security_id`.
  */
-export const client_side_security_id: JsonSchema = {
+export const client$$side$$security_id: JsonSchema = {
   "description": "Identifier",
   "type": "string"
 };

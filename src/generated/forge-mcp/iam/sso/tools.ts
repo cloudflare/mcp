@@ -3,31 +3,31 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
-  iam_api_response_collection_output,
-  iam_api_response_common_failure_output,
-  iam_api_response_common_output,
-  iam_api_response_single_id_output,
-  iam_api_response_single_output,
-  iam_common_components_schemas_identifier_output,
-  iam_messages_2_output,
-  iam_result_info_output,
+  iam_api$$response$$collection,
+  iam_api$$response$$common,
+  iam_api$$response$$common$$failure,
+  iam_api$$response$$single,
+  iam_api$$response$$single$$id,
+  iam_common_components$$schemas$$identifier,
+  iam_messages$$2,
+  iam_result_info,
 } from "../../outputs.js";
 import {
   iam_account_identifier,
-  iam_common_components_schemas_identifier,
+  iam_common_components$$schemas$$identifier as iam_common_components$$schemas$$identifier$,
 } from "../../schemas.js";
 import {
-  iam_dns_verification_code_output,
-  iam_sso_connector_collection_response_output,
-  iam_sso_connector_identifier_output,
-  iam_sso_connector_output,
-  iam_sso_connector_response_output,
-  iam_sso_connector_verification_info_output,
-  iam_use_fedramp_language_output,
+  iam_dns_verification_code,
+  iam_sso_connector,
+  iam_sso_connector_collection_response,
+  iam_sso_connector_identifier,
+  iam_sso_connector_response,
+  iam_sso_connector_verification_info,
+  iam_use_fedramp_language,
 } from "./outputs.js";
 import {
-  iam_sso_connector_identifier,
-  iam_use_fedramp_language,
+  iam_sso_connector_identifier as iam_sso_connector_identifier$,
+  iam_use_fedramp_language as iam_use_fedramp_language$,
 } from "./schemas.js";
 
 /**
@@ -35,36 +35,44 @@ import {
  */
 export const tools: readonly Tool[] = [
   {
-    name: "iam_sso_begin_verification",
+    name: "iam_sso_beginVerification",
     title: "Begin SSO connector verification",
     description: "Validates the user has added the DNS TXT record required for validating ownership of the domain they are trying to set up a connector for.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/iam_account_identifier",
-          "description": "Account identifier tag."
-        },
-        "sso_connector_id": {
-          "$ref": "#/$defs/iam_sso_connector_identifier",
-          "description": "SSO Connector identifier tag."
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/iam_account_identifier",
+              "description": "Account identifier tag."
+            },
+            "sso_connector_id": {
+              "$ref": "#/$defs/iam_sso_connector_identifier",
+              "description": "SSO Connector identifier tag."
+            }
+          },
+          "required": [
+            "account_id",
+            "sso_connector_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "sso_connector_id"
+        "path"
       ],
       $defs: {
         "iam_account_identifier": iam_account_identifier,
-        "iam_common_components-schemas-identifier": iam_common_components_schemas_identifier,
-        "iam_sso_connector_identifier": iam_sso_connector_identifier,
+        "iam_common_components-schemas-identifier": iam_common_components$$schemas$$identifier$,
+        "iam_sso_connector_identifier": iam_sso_connector_identifier$,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/iam_api-response-single",
       $defs: {
-        "iam_api-response-single": iam_api_response_single_output,
-        "iam_messages-2": iam_messages_2_output,
+        "iam_api-response-single": iam_api$$response$$single,
+        "iam_messages-2": iam_messages$$2,
       },
     },
     annotations: {
@@ -97,9 +105,9 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "iam_api-response-common-failure": iam_api_response_common_failure_output,
-        "iam_api-response-single": iam_api_response_single_output,
-        "iam_messages-2": iam_messages_2_output,
+        "iam_api-response-common-failure": iam_api$$response$$common$$failure,
+        "iam_api-response-single": iam_api$$response$$single,
+        "iam_messages-2": iam_messages$$2,
       },
     },
     request: (args) => ({
@@ -113,10 +121,6 @@ export const tools: readonly Tool[] = [
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/iam_account_identifier",
-          "description": "Account identifier tag."
-        },
         "body": {
           "properties": {
             "begin_verification": {
@@ -138,29 +142,41 @@ export const tools: readonly Tool[] = [
             "email_domain"
           ],
           "type": "object"
+        },
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/iam_account_identifier",
+              "description": "Account identifier tag."
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id"
+        "path"
       ],
       $defs: {
         "iam_account_identifier": iam_account_identifier,
-        "iam_common_components-schemas-identifier": iam_common_components_schemas_identifier,
-        "iam_use_fedramp_language": iam_use_fedramp_language,
+        "iam_common_components-schemas-identifier": iam_common_components$$schemas$$identifier$,
+        "iam_use_fedramp_language": iam_use_fedramp_language$,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/iam_sso_connector_response",
       $defs: {
-        "iam_api-response-single": iam_api_response_single_output,
-        "iam_common_components-schemas-identifier": iam_common_components_schemas_identifier_output,
-        "iam_dns_verification_code": iam_dns_verification_code_output,
-        "iam_messages-2": iam_messages_2_output,
-        "iam_sso_connector": iam_sso_connector_output,
-        "iam_sso_connector_identifier": iam_sso_connector_identifier_output,
-        "iam_sso_connector_response": iam_sso_connector_response_output,
-        "iam_sso_connector_verification_info": iam_sso_connector_verification_info_output,
-        "iam_use_fedramp_language": iam_use_fedramp_language_output,
+        "iam_api-response-single": iam_api$$response$$single,
+        "iam_common_components-schemas-identifier": iam_common_components$$schemas$$identifier,
+        "iam_dns_verification_code": iam_dns_verification_code,
+        "iam_messages-2": iam_messages$$2,
+        "iam_sso_connector": iam_sso_connector,
+        "iam_sso_connector_identifier": iam_sso_connector_identifier,
+        "iam_sso_connector_response": iam_sso_connector_response,
+        "iam_sso_connector_verification_info": iam_sso_connector_verification_info,
+        "iam_use_fedramp_language": iam_use_fedramp_language,
       },
     },
     annotations: {
@@ -193,16 +209,16 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "iam_api-response-common-failure": iam_api_response_common_failure_output,
-        "iam_api-response-single": iam_api_response_single_output,
-        "iam_common_components-schemas-identifier": iam_common_components_schemas_identifier_output,
-        "iam_dns_verification_code": iam_dns_verification_code_output,
-        "iam_messages-2": iam_messages_2_output,
-        "iam_sso_connector": iam_sso_connector_output,
-        "iam_sso_connector_identifier": iam_sso_connector_identifier_output,
-        "iam_sso_connector_response": iam_sso_connector_response_output,
-        "iam_sso_connector_verification_info": iam_sso_connector_verification_info_output,
-        "iam_use_fedramp_language": iam_use_fedramp_language_output,
+        "iam_api-response-common-failure": iam_api$$response$$common$$failure,
+        "iam_api-response-single": iam_api$$response$$single,
+        "iam_common_components-schemas-identifier": iam_common_components$$schemas$$identifier,
+        "iam_dns_verification_code": iam_dns_verification_code,
+        "iam_messages-2": iam_messages$$2,
+        "iam_sso_connector": iam_sso_connector,
+        "iam_sso_connector_identifier": iam_sso_connector_identifier,
+        "iam_sso_connector_response": iam_sso_connector_response,
+        "iam_sso_connector_verification_info": iam_sso_connector_verification_info,
+        "iam_use_fedramp_language": iam_use_fedramp_language,
       },
     },
     request: (args) => ({
@@ -217,32 +233,40 @@ export const tools: readonly Tool[] = [
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/iam_account_identifier",
-          "description": "Account identifier tag."
-        },
-        "sso_connector_id": {
-          "$ref": "#/$defs/iam_sso_connector_identifier",
-          "description": "SSO Connector identifier tag."
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/iam_account_identifier",
+              "description": "Account identifier tag."
+            },
+            "sso_connector_id": {
+              "$ref": "#/$defs/iam_sso_connector_identifier",
+              "description": "SSO Connector identifier tag."
+            }
+          },
+          "required": [
+            "account_id",
+            "sso_connector_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "sso_connector_id"
+        "path"
       ],
       $defs: {
         "iam_account_identifier": iam_account_identifier,
-        "iam_common_components-schemas-identifier": iam_common_components_schemas_identifier,
-        "iam_sso_connector_identifier": iam_sso_connector_identifier,
+        "iam_common_components-schemas-identifier": iam_common_components$$schemas$$identifier$,
+        "iam_sso_connector_identifier": iam_sso_connector_identifier$,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/iam_api-response-single-id",
       $defs: {
-        "iam_api-response-common": iam_api_response_common_output,
-        "iam_api-response-single-id": iam_api_response_single_id_output,
-        "iam_common_components-schemas-identifier": iam_common_components_schemas_identifier_output,
-        "iam_messages-2": iam_messages_2_output,
+        "iam_api-response-common": iam_api$$response$$common,
+        "iam_api-response-single-id": iam_api$$response$$single$$id,
+        "iam_common_components-schemas-identifier": iam_common_components$$schemas$$identifier,
+        "iam_messages-2": iam_messages$$2,
       },
     },
     annotations: {
@@ -275,11 +299,11 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "iam_api-response-common": iam_api_response_common_output,
-        "iam_api-response-common-failure": iam_api_response_common_failure_output,
-        "iam_api-response-single-id": iam_api_response_single_id_output,
-        "iam_common_components-schemas-identifier": iam_common_components_schemas_identifier_output,
-        "iam_messages-2": iam_messages_2_output,
+        "iam_api-response-common": iam_api$$response$$common,
+        "iam_api-response-common-failure": iam_api$$response$$common$$failure,
+        "iam_api-response-single-id": iam_api$$response$$single$$id,
+        "iam_common_components-schemas-identifier": iam_common_components$$schemas$$identifier,
+        "iam_messages-2": iam_messages$$2,
       },
     },
     request: (args) => ({
@@ -293,37 +317,45 @@ export const tools: readonly Tool[] = [
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/iam_account_identifier",
-          "description": "Account identifier tag."
-        },
-        "sso_connector_id": {
-          "$ref": "#/$defs/iam_sso_connector_identifier",
-          "description": "SSO Connector identifier tag."
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/iam_account_identifier",
+              "description": "Account identifier tag."
+            },
+            "sso_connector_id": {
+              "$ref": "#/$defs/iam_sso_connector_identifier",
+              "description": "SSO Connector identifier tag."
+            }
+          },
+          "required": [
+            "account_id",
+            "sso_connector_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "sso_connector_id"
+        "path"
       ],
       $defs: {
         "iam_account_identifier": iam_account_identifier,
-        "iam_common_components-schemas-identifier": iam_common_components_schemas_identifier,
-        "iam_sso_connector_identifier": iam_sso_connector_identifier,
+        "iam_common_components-schemas-identifier": iam_common_components$$schemas$$identifier$,
+        "iam_sso_connector_identifier": iam_sso_connector_identifier$,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/iam_sso_connector_response",
       $defs: {
-        "iam_api-response-single": iam_api_response_single_output,
-        "iam_common_components-schemas-identifier": iam_common_components_schemas_identifier_output,
-        "iam_dns_verification_code": iam_dns_verification_code_output,
-        "iam_messages-2": iam_messages_2_output,
-        "iam_sso_connector": iam_sso_connector_output,
-        "iam_sso_connector_identifier": iam_sso_connector_identifier_output,
-        "iam_sso_connector_response": iam_sso_connector_response_output,
-        "iam_sso_connector_verification_info": iam_sso_connector_verification_info_output,
-        "iam_use_fedramp_language": iam_use_fedramp_language_output,
+        "iam_api-response-single": iam_api$$response$$single,
+        "iam_common_components-schemas-identifier": iam_common_components$$schemas$$identifier,
+        "iam_dns_verification_code": iam_dns_verification_code,
+        "iam_messages-2": iam_messages$$2,
+        "iam_sso_connector": iam_sso_connector,
+        "iam_sso_connector_identifier": iam_sso_connector_identifier,
+        "iam_sso_connector_response": iam_sso_connector_response,
+        "iam_sso_connector_verification_info": iam_sso_connector_verification_info,
+        "iam_use_fedramp_language": iam_use_fedramp_language,
       },
     },
     annotations: {
@@ -356,16 +388,16 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "iam_api-response-common-failure": iam_api_response_common_failure_output,
-        "iam_api-response-single": iam_api_response_single_output,
-        "iam_common_components-schemas-identifier": iam_common_components_schemas_identifier_output,
-        "iam_dns_verification_code": iam_dns_verification_code_output,
-        "iam_messages-2": iam_messages_2_output,
-        "iam_sso_connector": iam_sso_connector_output,
-        "iam_sso_connector_identifier": iam_sso_connector_identifier_output,
-        "iam_sso_connector_response": iam_sso_connector_response_output,
-        "iam_sso_connector_verification_info": iam_sso_connector_verification_info_output,
-        "iam_use_fedramp_language": iam_use_fedramp_language_output,
+        "iam_api-response-common-failure": iam_api$$response$$common$$failure,
+        "iam_api-response-single": iam_api$$response$$single,
+        "iam_common_components-schemas-identifier": iam_common_components$$schemas$$identifier,
+        "iam_dns_verification_code": iam_dns_verification_code,
+        "iam_messages-2": iam_messages$$2,
+        "iam_sso_connector": iam_sso_connector,
+        "iam_sso_connector_identifier": iam_sso_connector_identifier,
+        "iam_sso_connector_response": iam_sso_connector_response,
+        "iam_sso_connector_verification_info": iam_sso_connector_verification_info,
+        "iam_use_fedramp_language": iam_use_fedramp_language,
       },
     },
     request: (args) => ({
@@ -379,33 +411,41 @@ export const tools: readonly Tool[] = [
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/iam_account_identifier",
-          "description": "Account identifier tag."
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/iam_account_identifier",
+              "description": "Account identifier tag."
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id"
+        "path"
       ],
       $defs: {
         "iam_account_identifier": iam_account_identifier,
-        "iam_common_components-schemas-identifier": iam_common_components_schemas_identifier,
+        "iam_common_components-schemas-identifier": iam_common_components$$schemas$$identifier$,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/iam_sso_connector_collection_response",
       $defs: {
-        "iam_api-response-collection": iam_api_response_collection_output,
-        "iam_api-response-common": iam_api_response_common_output,
-        "iam_common_components-schemas-identifier": iam_common_components_schemas_identifier_output,
-        "iam_dns_verification_code": iam_dns_verification_code_output,
-        "iam_messages-2": iam_messages_2_output,
-        "iam_result_info": iam_result_info_output,
-        "iam_sso_connector": iam_sso_connector_output,
-        "iam_sso_connector_collection_response": iam_sso_connector_collection_response_output,
-        "iam_sso_connector_identifier": iam_sso_connector_identifier_output,
-        "iam_sso_connector_verification_info": iam_sso_connector_verification_info_output,
-        "iam_use_fedramp_language": iam_use_fedramp_language_output,
+        "iam_api-response-collection": iam_api$$response$$collection,
+        "iam_api-response-common": iam_api$$response$$common,
+        "iam_common_components-schemas-identifier": iam_common_components$$schemas$$identifier,
+        "iam_dns_verification_code": iam_dns_verification_code,
+        "iam_messages-2": iam_messages$$2,
+        "iam_result_info": iam_result_info,
+        "iam_sso_connector": iam_sso_connector,
+        "iam_sso_connector_collection_response": iam_sso_connector_collection_response,
+        "iam_sso_connector_identifier": iam_sso_connector_identifier,
+        "iam_sso_connector_verification_info": iam_sso_connector_verification_info,
+        "iam_use_fedramp_language": iam_use_fedramp_language,
       },
     },
     annotations: {
@@ -438,18 +478,18 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "iam_api-response-collection": iam_api_response_collection_output,
-        "iam_api-response-common": iam_api_response_common_output,
-        "iam_api-response-common-failure": iam_api_response_common_failure_output,
-        "iam_common_components-schemas-identifier": iam_common_components_schemas_identifier_output,
-        "iam_dns_verification_code": iam_dns_verification_code_output,
-        "iam_messages-2": iam_messages_2_output,
-        "iam_result_info": iam_result_info_output,
-        "iam_sso_connector": iam_sso_connector_output,
-        "iam_sso_connector_collection_response": iam_sso_connector_collection_response_output,
-        "iam_sso_connector_identifier": iam_sso_connector_identifier_output,
-        "iam_sso_connector_verification_info": iam_sso_connector_verification_info_output,
-        "iam_use_fedramp_language": iam_use_fedramp_language_output,
+        "iam_api-response-collection": iam_api$$response$$collection,
+        "iam_api-response-common": iam_api$$response$$common,
+        "iam_api-response-common-failure": iam_api$$response$$common$$failure,
+        "iam_common_components-schemas-identifier": iam_common_components$$schemas$$identifier,
+        "iam_dns_verification_code": iam_dns_verification_code,
+        "iam_messages-2": iam_messages$$2,
+        "iam_result_info": iam_result_info,
+        "iam_sso_connector": iam_sso_connector,
+        "iam_sso_connector_collection_response": iam_sso_connector_collection_response,
+        "iam_sso_connector_identifier": iam_sso_connector_identifier,
+        "iam_sso_connector_verification_info": iam_sso_connector_verification_info,
+        "iam_use_fedramp_language": iam_use_fedramp_language,
       },
     },
     request: (args) => ({
@@ -463,10 +503,6 @@ export const tools: readonly Tool[] = [
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/iam_account_identifier",
-          "description": "Account identifier tag."
-        },
         "body": {
           "properties": {
             "enabled": {
@@ -481,34 +517,46 @@ export const tools: readonly Tool[] = [
           },
           "type": "object"
         },
-        "sso_connector_id": {
-          "$ref": "#/$defs/iam_sso_connector_identifier",
-          "description": "SSO Connector identifier tag."
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/iam_account_identifier",
+              "description": "Account identifier tag."
+            },
+            "sso_connector_id": {
+              "$ref": "#/$defs/iam_sso_connector_identifier",
+              "description": "SSO Connector identifier tag."
+            }
+          },
+          "required": [
+            "account_id",
+            "sso_connector_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "sso_connector_id"
+        "path"
       ],
       $defs: {
         "iam_account_identifier": iam_account_identifier,
-        "iam_common_components-schemas-identifier": iam_common_components_schemas_identifier,
-        "iam_sso_connector_identifier": iam_sso_connector_identifier,
-        "iam_use_fedramp_language": iam_use_fedramp_language,
+        "iam_common_components-schemas-identifier": iam_common_components$$schemas$$identifier$,
+        "iam_sso_connector_identifier": iam_sso_connector_identifier$,
+        "iam_use_fedramp_language": iam_use_fedramp_language$,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/iam_sso_connector_response",
       $defs: {
-        "iam_api-response-single": iam_api_response_single_output,
-        "iam_common_components-schemas-identifier": iam_common_components_schemas_identifier_output,
-        "iam_dns_verification_code": iam_dns_verification_code_output,
-        "iam_messages-2": iam_messages_2_output,
-        "iam_sso_connector": iam_sso_connector_output,
-        "iam_sso_connector_identifier": iam_sso_connector_identifier_output,
-        "iam_sso_connector_response": iam_sso_connector_response_output,
-        "iam_sso_connector_verification_info": iam_sso_connector_verification_info_output,
-        "iam_use_fedramp_language": iam_use_fedramp_language_output,
+        "iam_api-response-single": iam_api$$response$$single,
+        "iam_common_components-schemas-identifier": iam_common_components$$schemas$$identifier,
+        "iam_dns_verification_code": iam_dns_verification_code,
+        "iam_messages-2": iam_messages$$2,
+        "iam_sso_connector": iam_sso_connector,
+        "iam_sso_connector_identifier": iam_sso_connector_identifier,
+        "iam_sso_connector_response": iam_sso_connector_response,
+        "iam_sso_connector_verification_info": iam_sso_connector_verification_info,
+        "iam_use_fedramp_language": iam_use_fedramp_language,
       },
     },
     annotations: {
@@ -541,16 +589,16 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "iam_api-response-common-failure": iam_api_response_common_failure_output,
-        "iam_api-response-single": iam_api_response_single_output,
-        "iam_common_components-schemas-identifier": iam_common_components_schemas_identifier_output,
-        "iam_dns_verification_code": iam_dns_verification_code_output,
-        "iam_messages-2": iam_messages_2_output,
-        "iam_sso_connector": iam_sso_connector_output,
-        "iam_sso_connector_identifier": iam_sso_connector_identifier_output,
-        "iam_sso_connector_response": iam_sso_connector_response_output,
-        "iam_sso_connector_verification_info": iam_sso_connector_verification_info_output,
-        "iam_use_fedramp_language": iam_use_fedramp_language_output,
+        "iam_api-response-common-failure": iam_api$$response$$common$$failure,
+        "iam_api-response-single": iam_api$$response$$single,
+        "iam_common_components-schemas-identifier": iam_common_components$$schemas$$identifier,
+        "iam_dns_verification_code": iam_dns_verification_code,
+        "iam_messages-2": iam_messages$$2,
+        "iam_sso_connector": iam_sso_connector,
+        "iam_sso_connector_identifier": iam_sso_connector_identifier,
+        "iam_sso_connector_response": iam_sso_connector_response,
+        "iam_sso_connector_verification_info": iam_sso_connector_verification_info,
+        "iam_use_fedramp_language": iam_use_fedramp_language,
       },
     },
     request: (args) => ({

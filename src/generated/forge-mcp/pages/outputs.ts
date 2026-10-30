@@ -6,7 +6,7 @@ import type { JsonSchema } from "../_/tool.js";
 /**
  * The schema of `pages_api-response-collection` in responses.
  */
-export const pages_api_response_collection_output: JsonSchema = {
+export const pages_api$$response$$collection: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/pages_api-response-common"
@@ -42,7 +42,7 @@ export const pages_api_response_collection_output: JsonSchema = {
 /**
  * The schema of `pages_api-response-common` in responses.
  */
-export const pages_api_response_common_output: JsonSchema = {
+export const pages_api$$response$$common: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/pages_messages"
@@ -68,7 +68,7 @@ export const pages_api_response_common_output: JsonSchema = {
 /**
  * The schema of `pages_api-response-common-failure` in responses.
  */
-export const pages_api_response_common_failure_output: JsonSchema = {
+export const pages_api$$response$$common$$failure: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/pages_messages"
@@ -98,7 +98,7 @@ export const pages_api_response_common_failure_output: JsonSchema = {
 /**
  * The schema of `pages_build_config` in responses.
  */
-export const pages_build_config_output: JsonSchema = {
+export const pages_build_config: JsonSchema = {
   "properties": {
     "build_caching": {
       "oneOf": [
@@ -171,7 +171,7 @@ export const pages_build_config_output: JsonSchema = {
 /**
  * The schema of `pages_deployment` in responses.
  */
-export const pages_deployment_output: JsonSchema = {
+export const pages_deployment: JsonSchema = {
   "properties": {
     "aliases": {
       "oneOf": [
@@ -331,7 +331,7 @@ export const pages_deployment_output: JsonSchema = {
 /**
  * The schema of `pages_deployment_config_values` in responses.
  */
-export const pages_deployment_config_values_output: JsonSchema = {
+export const pages_deployment_config_values: JsonSchema = {
   "properties": {
     "ai_bindings": {
       "additionalProperties": {
@@ -594,7 +594,7 @@ export const pages_deployment_config_values_output: JsonSchema = {
 /**
  * The schema of `pages_env_vars` in responses.
  */
-export const pages_env_vars_output: JsonSchema = {
+export const pages_env_vars: JsonSchema = {
   "oneOf": [
     {
       "additionalProperties": {
@@ -625,7 +625,7 @@ export const pages_env_vars_output: JsonSchema = {
 /**
  * The schema of `pages_messages` in responses.
  */
-export const pages_messages_output: JsonSchema = {
+export const pages_messages: JsonSchema = {
   "items": {
     "properties": {
       "code": {
@@ -658,7 +658,7 @@ export const pages_messages_output: JsonSchema = {
 /**
  * The schema of `pages_plain_text_env_var` in responses.
  */
-export const pages_plain_text_env_var_output: JsonSchema = {
+export const pages_plain_text_env_var: JsonSchema = {
   "oneOf": [
     {
       "properties": {
@@ -687,7 +687,7 @@ export const pages_plain_text_env_var_output: JsonSchema = {
 /**
  * The schema of `pages_project` in responses.
  */
-export const pages_project_output: JsonSchema = {
+export const pages_project: JsonSchema = {
   "properties": {
     "build_config": {
       "$ref": "#/$defs/pages_build_config"
@@ -796,14 +796,14 @@ export const pages_project_output: JsonSchema = {
 /**
  * The schema of `pages_project_name` in responses.
  */
-export const pages_project_name_output: JsonSchema = {
+export const pages_project_name: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `pages_secret_text_env_var` in responses.
  */
-export const pages_secret_text_env_var_output: JsonSchema = {
+export const pages_secret_text_env_var: JsonSchema = {
   "oneOf": [
     {
       "properties": {
@@ -832,7 +832,7 @@ export const pages_secret_text_env_var_output: JsonSchema = {
 /**
  * The schema of `pages_source` in responses.
  */
-export const pages_source_output: JsonSchema = {
+export const pages_source: JsonSchema = {
   "properties": {
     "config": {
       "$ref": "#/$defs/pages_source_config"
@@ -851,7 +851,7 @@ export const pages_source_output: JsonSchema = {
 /**
  * The schema of `pages_source_config` in responses.
  */
-export const pages_source_config_output: JsonSchema = {
+export const pages_source_config: JsonSchema = {
   "properties": {
     "deployments_enabled": {
       "type": "boolean"
@@ -931,7 +931,7 @@ export const pages_source_config_output: JsonSchema = {
 /**
  * The schema of `pages_source_type` in responses.
  */
-export const pages_source_type_output: JsonSchema = {
+export const pages_source_type: JsonSchema = {
   "enum": [
     "github",
     "gitlab"
@@ -942,7 +942,7 @@ export const pages_source_type_output: JsonSchema = {
 /**
  * The schema of `pages_stage` in responses.
  */
-export const pages_stage_output: JsonSchema = {
+export const pages_stage: JsonSchema = {
   "properties": {
     "ended_on": {
       "oneOf": [

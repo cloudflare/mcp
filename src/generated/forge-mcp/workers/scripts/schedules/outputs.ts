@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `workers_schedule` in responses.
  */
-export const workers_schedule_output: JsonSchema = {
+export const workers_schedule: JsonSchema = {
   "properties": {
     "created_on": {
       "type": "string"

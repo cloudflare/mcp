@@ -4,52 +4,60 @@
 import { type Tool, pathParam } from "../../../_/tool.js";
 
 /**
- * The tools of `cloudforce_one.requests.assets`.
+ * The tools of `cloudforceOne.requests.assets`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "cloudforce_one_requests_assets_download",
+    name: "cloudforceOne_requests_assets_download",
     title: "Download asset (Customer)",
     description: "Download a file asset from R2 storage. Customer can only download from their own account.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "description": "Account ID.",
-          "type": "string"
-        },
-        "asset_id": {
-          "description": "Asset UUID",
-          "type": "string"
-        },
-        "project_type": {
-          "description": "RFI project type. Valid values: threat-intelligence, incident-response, ir-emergency-response, table-top, pentest, irp, threat-hunting, cybersecurity-assessment, react-general, legal-response, soc-alerts, demo",
-          "enum": [
-            "threat-intelligence",
-            "incident-response",
-            "ir-emergency-response",
-            "table-top",
-            "pentest",
-            "irp",
-            "threat-hunting",
-            "cybersecurity-assessment",
-            "react-general",
-            "legal-response",
-            "soc-alerts",
-            "demo"
+        "path": {
+          "properties": {
+            "account_id": {
+              "description": "Account ID.",
+              "type": "string"
+            },
+            "asset_id": {
+              "description": "Asset UUID",
+              "type": "string"
+            },
+            "project_type": {
+              "description": "RFI project type. Valid values: threat-intelligence, incident-response, ir-emergency-response, table-top, pentest, irp, threat-hunting, cybersecurity-assessment, react-general, legal-response, soc-alerts, demo",
+              "enum": [
+                "threat-intelligence",
+                "incident-response",
+                "ir-emergency-response",
+                "table-top",
+                "pentest",
+                "irp",
+                "threat-hunting",
+                "cybersecurity-assessment",
+                "react-general",
+                "legal-response",
+                "soc-alerts",
+                "demo"
+              ],
+              "type": "string"
+            },
+            "request_id": {
+              "description": "RFI UUID",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "project_type",
+            "request_id",
+            "asset_id"
           ],
-          "type": "string"
-        },
-        "request_id": {
-          "description": "RFI UUID",
-          "type": "string"
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "project_type",
-        "request_id",
-        "asset_id"
+        "path"
       ],
     },
     annotations: {
@@ -79,43 +87,51 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "cloudforce_one_requests_assets_list",
+    name: "cloudforceOne_requests_assets_list",
     title: "List assets in request (Customer)",
     description: "List all file assets for a request. Customer can only list assets from their own account.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "description": "Account ID.",
-          "type": "string"
-        },
-        "project_type": {
-          "description": "RFI project type. Valid values: threat-intelligence, incident-response, ir-emergency-response, table-top, pentest, irp, threat-hunting, cybersecurity-assessment, react-general, legal-response, soc-alerts, demo",
-          "enum": [
-            "threat-intelligence",
-            "incident-response",
-            "ir-emergency-response",
-            "table-top",
-            "pentest",
-            "irp",
-            "threat-hunting",
-            "cybersecurity-assessment",
-            "react-general",
-            "legal-response",
-            "soc-alerts",
-            "demo"
+        "path": {
+          "properties": {
+            "account_id": {
+              "description": "Account ID.",
+              "type": "string"
+            },
+            "project_type": {
+              "description": "RFI project type. Valid values: threat-intelligence, incident-response, ir-emergency-response, table-top, pentest, irp, threat-hunting, cybersecurity-assessment, react-general, legal-response, soc-alerts, demo",
+              "enum": [
+                "threat-intelligence",
+                "incident-response",
+                "ir-emergency-response",
+                "table-top",
+                "pentest",
+                "irp",
+                "threat-hunting",
+                "cybersecurity-assessment",
+                "react-general",
+                "legal-response",
+                "soc-alerts",
+                "demo"
+              ],
+              "type": "string"
+            },
+            "request_id": {
+              "description": "RFI UUID",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "project_type",
+            "request_id"
           ],
-          "type": "string"
-        },
-        "request_id": {
-          "description": "RFI UUID",
-          "type": "string"
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "project_type",
-        "request_id"
+        "path"
       ],
     },
     outputSchema: {
@@ -683,43 +699,51 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "cloudforce_one_requests_assets_upload",
+    name: "cloudforceOne_requests_assets_upload",
     title: "Upload asset to request (Customer)",
     description: "Upload a file asset to R2 storage and associate it with a request. Customer can only upload to their own account.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "description": "Account ID.",
-          "type": "string"
-        },
-        "project_type": {
-          "description": "RFI project type. Valid values: threat-intelligence, incident-response, ir-emergency-response, table-top, pentest, irp, threat-hunting, cybersecurity-assessment, react-general, legal-response, soc-alerts, demo",
-          "enum": [
-            "threat-intelligence",
-            "incident-response",
-            "ir-emergency-response",
-            "table-top",
-            "pentest",
-            "irp",
-            "threat-hunting",
-            "cybersecurity-assessment",
-            "react-general",
-            "legal-response",
-            "soc-alerts",
-            "demo"
+        "path": {
+          "properties": {
+            "account_id": {
+              "description": "Account ID.",
+              "type": "string"
+            },
+            "project_type": {
+              "description": "RFI project type. Valid values: threat-intelligence, incident-response, ir-emergency-response, table-top, pentest, irp, threat-hunting, cybersecurity-assessment, react-general, legal-response, soc-alerts, demo",
+              "enum": [
+                "threat-intelligence",
+                "incident-response",
+                "ir-emergency-response",
+                "table-top",
+                "pentest",
+                "irp",
+                "threat-hunting",
+                "cybersecurity-assessment",
+                "react-general",
+                "legal-response",
+                "soc-alerts",
+                "demo"
+              ],
+              "type": "string"
+            },
+            "request_id": {
+              "description": "RFI UUID",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "project_type",
+            "request_id"
           ],
-          "type": "string"
-        },
-        "request_id": {
-          "description": "RFI UUID",
-          "type": "string"
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "project_type",
-        "request_id"
+        "path"
       ],
     },
     outputSchema: {

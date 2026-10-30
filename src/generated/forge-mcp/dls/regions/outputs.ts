@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `dls_FetchPublicRegionResponse` in responses.
  */
-export const dls_FetchPublicRegionResponse_output: JsonSchema = {
+export const dls_FetchPublicRegionResponse: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/dls_good_response"
@@ -28,7 +28,7 @@ export const dls_FetchPublicRegionResponse_output: JsonSchema = {
 /**
  * The schema of `dls_RegionPublic` in responses.
  */
-export const dls_RegionPublic_output: JsonSchema = {
+export const dls_RegionPublic: JsonSchema = {
   "properties": {
     "created_on": {
       "format": "date-time",
@@ -70,7 +70,7 @@ export const dls_RegionPublic_output: JsonSchema = {
 /**
  * The schema of `dls_RegionPublicPaginatedListResponse` in responses.
  */
-export const dls_RegionPublicPaginatedListResponse_output: JsonSchema = {
+export const dls_RegionPublicPaginatedListResponse: JsonSchema = {
   "properties": {
     "errors": {
       "items": {

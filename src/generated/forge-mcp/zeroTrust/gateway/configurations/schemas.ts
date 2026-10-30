@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `zero-trust-gateway_activity-log-settings`.
  */
-export const zero_trust_gateway_activity_log_settings: JsonSchema = {
+export const zero$$trust$$gateway_activity$$log$$settings: JsonSchema = {
   "description": "Specify activity log settings.",
   "oneOf": [
     {
@@ -34,7 +34,7 @@ export const zero_trust_gateway_activity_log_settings: JsonSchema = {
 /**
  * The schema of `zero-trust-gateway_anti-virus-settings`.
  */
-export const zero_trust_gateway_anti_virus_settings: JsonSchema = {
+export const zero$$trust$$gateway_anti$$virus$$settings: JsonSchema = {
   "description": "Specify anti-virus settings.",
   "oneOf": [
     {
@@ -67,7 +67,7 @@ export const zero_trust_gateway_anti_virus_settings: JsonSchema = {
 /**
  * The schema of `zero-trust-gateway_block-page-settings`.
  */
-export const zero_trust_gateway_block_page_settings: JsonSchema = {
+export const zero$$trust$$gateway_block$$page$$settings: JsonSchema = {
   "description": "Specify block page layout settings.",
   "oneOf": [
     {
@@ -145,7 +145,7 @@ export const zero_trust_gateway_block_page_settings: JsonSchema = {
 /**
  * The schema of `zero-trust-gateway_body-scanning-settings`.
  */
-export const zero_trust_gateway_body_scanning_settings: JsonSchema = {
+export const zero$$trust$$gateway_body$$scanning$$settings: JsonSchema = {
   "description": "Specify the DLP inspection mode.",
   "oneOf": [
     {
@@ -170,7 +170,7 @@ export const zero_trust_gateway_body_scanning_settings: JsonSchema = {
 /**
  * The schema of `zero-trust-gateway_browser-isolation-settings`.
  */
-export const zero_trust_gateway_browser_isolation_settings: JsonSchema = {
+export const zero$$trust$$gateway_browser$$isolation$$settings: JsonSchema = {
   "description": "Specify Clientless Browser Isolation settings.",
   "oneOf": [
     {
@@ -195,7 +195,7 @@ export const zero_trust_gateway_browser_isolation_settings: JsonSchema = {
 /**
  * The schema of `zero-trust-gateway_certificate-settings`.
  */
-export const zero_trust_gateway_certificate_settings: JsonSchema = {
+export const zero$$trust$$gateway_certificate$$settings: JsonSchema = {
   "description": "Specify certificate settings for Gateway TLS interception. If unset, the Cloudflare Root CA handles interception.",
   "oneOf": [
     {
@@ -219,7 +219,7 @@ export const zero_trust_gateway_certificate_settings: JsonSchema = {
 /**
  * The schema of `zero-trust-gateway_custom-certificate-settings`.
  */
-export const zero_trust_gateway_custom_certificate_settings: JsonSchema = {
+export const zero$$trust$$gateway_custom$$certificate$$settings: JsonSchema = {
   "deprecated": true,
   "description": "Specify custom certificate settings for BYO-PKI. This field is deprecated; use `certificate` instead.",
   "oneOf": [
@@ -255,7 +255,7 @@ export const zero_trust_gateway_custom_certificate_settings: JsonSchema = {
 /**
  * The schema of `zero-trust-gateway_enabled_download_phase`.
  */
-export const zero_trust_gateway_enabled_download_phase: JsonSchema = {
+export const zero$$trust$$gateway_enabled_download_phase: JsonSchema = {
   "description": "Specify whether to enable anti-virus scanning on downloads.",
   "oneOf": [
     {
@@ -270,7 +270,7 @@ export const zero_trust_gateway_enabled_download_phase: JsonSchema = {
 /**
  * The schema of `zero-trust-gateway_enabled_upload_phase`.
  */
-export const zero_trust_gateway_enabled_upload_phase: JsonSchema = {
+export const zero$$trust$$gateway_enabled_upload_phase: JsonSchema = {
   "description": "Specify whether to enable anti-virus scanning on uploads.",
   "oneOf": [
     {
@@ -285,7 +285,7 @@ export const zero_trust_gateway_enabled_upload_phase: JsonSchema = {
 /**
  * The schema of `zero-trust-gateway_extended-email-matching`.
  */
-export const zero_trust_gateway_extended_email_matching: JsonSchema = {
+export const zero$$trust$$gateway_extended$$email$$matching: JsonSchema = {
   "description": "Configures user email settings for firewall policies. When you enable this, the system standardizes email addresses in the identity portion of the rule to match extended email variants in firewall policies. When you disable this setting, the system matches email addresses exactly as you provide them. Enable this setting if your email uses `.` or `+` modifiers.",
   "oneOf": [
     {
@@ -313,7 +313,7 @@ export const zero_trust_gateway_extended_email_matching: JsonSchema = {
 /**
  * The schema of `zero-trust-gateway_fail_closed`.
  */
-export const zero_trust_gateway_fail_closed: JsonSchema = {
+export const zero$$trust$$gateway_fail_closed: JsonSchema = {
   "description": "Specify whether to block requests for unscannable files.",
   "oneOf": [
     {
@@ -328,7 +328,7 @@ export const zero_trust_gateway_fail_closed: JsonSchema = {
 /**
  * The schema of `zero-trust-gateway_fips-settings`.
  */
-export const zero_trust_gateway_fips_settings: JsonSchema = {
+export const zero$$trust$$gateway_fips$$settings: JsonSchema = {
   "description": "Specify FIPS settings.",
   "oneOf": [
     {
@@ -349,7 +349,7 @@ export const zero_trust_gateway_fips_settings: JsonSchema = {
 /**
  * The schema of `zero-trust-gateway_gateway-account-settings`.
  */
-export const zero_trust_gateway_gateway_account_settings: JsonSchema = {
+export const zero$$trust$$gateway_gateway$$account$$settings: JsonSchema = {
   "description": "Specify account settings.",
   "properties": {
     "settings": {
@@ -425,7 +425,7 @@ export const zero_trust_gateway_gateway_account_settings: JsonSchema = {
 /**
  * The schema of `zero-trust-gateway_host-selector-settings`.
  */
-export const zero_trust_gateway_host_selector_settings: JsonSchema = {
+export const zero$$trust$$gateway_host$$selector$$settings: JsonSchema = {
   "description": "Enable host selection in egress policies.",
   "oneOf": [
     {
@@ -453,7 +453,7 @@ export const zero_trust_gateway_host_selector_settings: JsonSchema = {
 /**
  * The schema of `zero-trust-gateway_inspection-settings`.
  */
-export const zero_trust_gateway_inspection_settings: JsonSchema = {
+export const zero$$trust$$gateway_inspection$$settings: JsonSchema = {
   "description": "Define the proxy inspection mode.",
   "oneOf": [
     {
@@ -478,7 +478,7 @@ export const zero_trust_gateway_inspection_settings: JsonSchema = {
 /**
  * The schema of `zero-trust-gateway_max-ttl-secs`.
  */
-export const zero_trust_gateway_max_ttl_secs: JsonSchema = {
+export const zero$$trust$$gateway_max$$ttl$$secs: JsonSchema = {
   "description": "Account-level cap on DNS response TTLs, in seconds. Gateway rewrites DNS responses so returned record TTLs do not exceed this value. Null means no cap. Each DNS location can inherit, override, or disable it through the location `max_ttl` setting.",
   "oneOf": [
     {
@@ -493,7 +493,7 @@ export const zero_trust_gateway_max_ttl_secs: JsonSchema = {
 /**
  * The schema of `zero-trust-gateway_notification_settings`.
  */
-export const zero_trust_gateway_notification_settings: JsonSchema = {
+export const zero$$trust$$gateway_notification_settings: JsonSchema = {
   "description": "Configure the message the user's device shows during an antivirus scan.",
   "oneOf": [
     {
@@ -526,7 +526,7 @@ export const zero_trust_gateway_notification_settings: JsonSchema = {
 /**
  * The schema of `zero-trust-gateway_protocol-detection`.
  */
-export const zero_trust_gateway_protocol_detection: JsonSchema = {
+export const zero$$trust$$gateway_protocol$$detection: JsonSchema = {
   "description": "Specify whether to detect protocols from the initial bytes of client traffic.",
   "oneOf": [
     {
@@ -554,7 +554,7 @@ export const zero_trust_gateway_protocol_detection: JsonSchema = {
 /**
  * The schema of `zero-trust-gateway_sandbox`.
  */
-export const zero_trust_gateway_sandbox: JsonSchema = {
+export const zero$$trust$$gateway_sandbox: JsonSchema = {
   "description": "Specify whether to enable the sandbox.",
   "oneOf": [
     {
@@ -590,7 +590,7 @@ export const zero_trust_gateway_sandbox: JsonSchema = {
 /**
  * The schema of `zero-trust-gateway_tls-settings`.
  */
-export const zero_trust_gateway_tls_settings: JsonSchema = {
+export const zero$$trust$$gateway_tls$$settings: JsonSchema = {
   "description": "Specify whether to inspect encrypted HTTP traffic.",
   "oneOf": [
     {

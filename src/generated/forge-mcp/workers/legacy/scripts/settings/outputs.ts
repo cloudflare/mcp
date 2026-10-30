@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../../_/tool.js";
 /**
  * The schema of `workers_script-settings-item` in responses.
  */
-export const workers_script_settings_item_output: JsonSchema = {
+export const workers_script$$settings$$item: JsonSchema = {
   "properties": {
     "logpush": {
       "$ref": "#/$defs/workers_logpush"
@@ -54,7 +54,7 @@ export const workers_script_settings_item_output: JsonSchema = {
 /**
  * The schema of `workers_script-settings-response` in responses.
  */
-export const workers_script_settings_response_output: JsonSchema = {
+export const workers_script$$settings$$response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/workers_api-response-common"

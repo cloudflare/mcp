@@ -3,38 +3,46 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
-  access_api_response_common_failure_output,
-  access_api_response_single_output,
-  access_messages_output,
+  access_api$$response$$common$$failure,
+  access_api$$response$$single,
+  access_messages,
 } from "../../outputs.js";
 import { access_identifier } from "../../schemas.js";
 import {
-  access_days_until_next_rotation_output,
-  access_key_config_output,
-  access_key_rotation_interval_days_output,
-  access_last_key_rotation_at_output,
-  access_single_response_13_output,
+  access_days_until_next_rotation,
+  access_key_config,
+  access_key_rotation_interval_days,
+  access_last_key_rotation_at,
+  access_single_response$$13,
 } from "./outputs.js";
-import { access_key_rotation_interval_days } from "./schemas.js";
+import { access_key_rotation_interval_days as access_key_rotation_interval_days$ } from "./schemas.js";
 
 /**
- * The tools of `zero_trust.access.signing_keys`.
+ * The tools of `zeroTrust.access.signingKeys`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "zero_trust_access_signing_keys_get",
+    name: "zeroTrust_access_signingKeys_get",
     title: "Get the Access key configuration",
     description: "Gets the Access key rotation settings for an account.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/access_identifier",
-          "description": "Identifier."
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/access_identifier",
+              "description": "Identifier."
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id"
+        "path"
       ],
       $defs: {
         "access_identifier": access_identifier,
@@ -43,13 +51,13 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/access_single_response-13",
       $defs: {
-        "access_api-response-single": access_api_response_single_output,
-        "access_days_until_next_rotation": access_days_until_next_rotation_output,
-        "access_key_config": access_key_config_output,
-        "access_key_rotation_interval_days": access_key_rotation_interval_days_output,
-        "access_last_key_rotation_at": access_last_key_rotation_at_output,
-        "access_messages": access_messages_output,
-        "access_single_response-13": access_single_response_13_output,
+        "access_api-response-single": access_api$$response$$single,
+        "access_days_until_next_rotation": access_days_until_next_rotation,
+        "access_key_config": access_key_config,
+        "access_key_rotation_interval_days": access_key_rotation_interval_days,
+        "access_last_key_rotation_at": access_last_key_rotation_at,
+        "access_messages": access_messages,
+        "access_single_response-13": access_single_response$$13,
       },
     },
     annotations: {
@@ -77,14 +85,14 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "access_api-response-common-failure": access_api_response_common_failure_output,
-        "access_api-response-single": access_api_response_single_output,
-        "access_days_until_next_rotation": access_days_until_next_rotation_output,
-        "access_key_config": access_key_config_output,
-        "access_key_rotation_interval_days": access_key_rotation_interval_days_output,
-        "access_last_key_rotation_at": access_last_key_rotation_at_output,
-        "access_messages": access_messages_output,
-        "access_single_response-13": access_single_response_13_output,
+        "access_api-response-common-failure": access_api$$response$$common$$failure,
+        "access_api-response-single": access_api$$response$$single,
+        "access_days_until_next_rotation": access_days_until_next_rotation,
+        "access_key_config": access_key_config,
+        "access_key_rotation_interval_days": access_key_rotation_interval_days,
+        "access_last_key_rotation_at": access_last_key_rotation_at,
+        "access_messages": access_messages,
+        "access_single_response-13": access_single_response$$13,
       },
     },
     request: (args) => ({
@@ -92,19 +100,27 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "zero_trust_access_signing_keys_rotate",
+    name: "zeroTrust_access_signingKeys_rotate",
     title: "Rotate Access keys",
     description: "Perfoms a key rotation for an account.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/access_identifier",
-          "description": "Identifier."
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/access_identifier",
+              "description": "Identifier."
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id"
+        "path"
       ],
       $defs: {
         "access_identifier": access_identifier,
@@ -113,13 +129,13 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/access_single_response-13",
       $defs: {
-        "access_api-response-single": access_api_response_single_output,
-        "access_days_until_next_rotation": access_days_until_next_rotation_output,
-        "access_key_config": access_key_config_output,
-        "access_key_rotation_interval_days": access_key_rotation_interval_days_output,
-        "access_last_key_rotation_at": access_last_key_rotation_at_output,
-        "access_messages": access_messages_output,
-        "access_single_response-13": access_single_response_13_output,
+        "access_api-response-single": access_api$$response$$single,
+        "access_days_until_next_rotation": access_days_until_next_rotation,
+        "access_key_config": access_key_config,
+        "access_key_rotation_interval_days": access_key_rotation_interval_days,
+        "access_last_key_rotation_at": access_last_key_rotation_at,
+        "access_messages": access_messages,
+        "access_single_response-13": access_single_response$$13,
       },
     },
     annotations: {
@@ -146,14 +162,14 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "access_api-response-common-failure": access_api_response_common_failure_output,
-        "access_api-response-single": access_api_response_single_output,
-        "access_days_until_next_rotation": access_days_until_next_rotation_output,
-        "access_key_config": access_key_config_output,
-        "access_key_rotation_interval_days": access_key_rotation_interval_days_output,
-        "access_last_key_rotation_at": access_last_key_rotation_at_output,
-        "access_messages": access_messages_output,
-        "access_single_response-13": access_single_response_13_output,
+        "access_api-response-common-failure": access_api$$response$$common$$failure,
+        "access_api-response-single": access_api$$response$$single,
+        "access_days_until_next_rotation": access_days_until_next_rotation,
+        "access_key_config": access_key_config,
+        "access_key_rotation_interval_days": access_key_rotation_interval_days,
+        "access_last_key_rotation_at": access_last_key_rotation_at,
+        "access_messages": access_messages,
+        "access_single_response-13": access_single_response$$13,
       },
     },
     request: (args) => ({
@@ -161,16 +177,12 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "zero_trust_access_signing_keys_update",
+    name: "zeroTrust_access_signingKeys_update",
     title: "Update the Access key configuration",
     description: "Updates the Access key rotation settings for an account.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/access_identifier",
-          "description": "Identifier."
-        },
         "body": {
           "properties": {
             "key_rotation_interval_days": {
@@ -182,27 +194,39 @@ export const tools: readonly Tool[] = [
             "key_rotation_interval_days"
           ],
           "type": "object"
+        },
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/access_identifier",
+              "description": "Identifier."
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
+        "path",
         "body"
       ],
       $defs: {
         "access_identifier": access_identifier,
-        "access_key_rotation_interval_days": access_key_rotation_interval_days,
+        "access_key_rotation_interval_days": access_key_rotation_interval_days$,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/access_single_response-13",
       $defs: {
-        "access_api-response-single": access_api_response_single_output,
-        "access_days_until_next_rotation": access_days_until_next_rotation_output,
-        "access_key_config": access_key_config_output,
-        "access_key_rotation_interval_days": access_key_rotation_interval_days_output,
-        "access_last_key_rotation_at": access_last_key_rotation_at_output,
-        "access_messages": access_messages_output,
-        "access_single_response-13": access_single_response_13_output,
+        "access_api-response-single": access_api$$response$$single,
+        "access_days_until_next_rotation": access_days_until_next_rotation,
+        "access_key_config": access_key_config,
+        "access_key_rotation_interval_days": access_key_rotation_interval_days,
+        "access_last_key_rotation_at": access_last_key_rotation_at,
+        "access_messages": access_messages,
+        "access_single_response-13": access_single_response$$13,
       },
     },
     annotations: {
@@ -229,14 +253,14 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "access_api-response-common-failure": access_api_response_common_failure_output,
-        "access_api-response-single": access_api_response_single_output,
-        "access_days_until_next_rotation": access_days_until_next_rotation_output,
-        "access_key_config": access_key_config_output,
-        "access_key_rotation_interval_days": access_key_rotation_interval_days_output,
-        "access_last_key_rotation_at": access_last_key_rotation_at_output,
-        "access_messages": access_messages_output,
-        "access_single_response-13": access_single_response_13_output,
+        "access_api-response-common-failure": access_api$$response$$common$$failure,
+        "access_api-response-single": access_api$$response$$single,
+        "access_days_until_next_rotation": access_days_until_next_rotation,
+        "access_key_config": access_key_config,
+        "access_key_rotation_interval_days": access_key_rotation_interval_days,
+        "access_last_key_rotation_at": access_last_key_rotation_at,
+        "access_messages": access_messages,
+        "access_single_response-13": access_single_response$$13,
       },
     },
     request: (args) => ({

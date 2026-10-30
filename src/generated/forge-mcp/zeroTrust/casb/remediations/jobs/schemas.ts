@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../../_/tool.js";
 /**
  * The schema of `posture-api_RemediationJobActorTypeEnum`.
  */
-export const posture_api_RemediationJobActorTypeEnum: JsonSchema = {
+export const posture$$api_RemediationJobActorTypeEnum: JsonSchema = {
   "description": "Type of actor that triggered the remediation job.",
   "enum": [
     "user",
@@ -18,7 +18,7 @@ export const posture_api_RemediationJobActorTypeEnum: JsonSchema = {
 /**
  * The schema of `posture-api_RemediationJobsCreateRequest`.
  */
-export const posture_api_RemediationJobsCreateRequest: JsonSchema = {
+export const posture$$api_RemediationJobsCreateRequest: JsonSchema = {
   "description": "Request body for creating remediation jobs.",
   "properties": {
     "finding_instance_ids": {
@@ -45,7 +45,7 @@ export const posture_api_RemediationJobsCreateRequest: JsonSchema = {
 /**
  * The schema of `posture-api_RemediationJobsExportFilterRequest`.
  */
-export const posture_api_RemediationJobsExportFilterRequest: JsonSchema = {
+export const posture$$api_RemediationJobsExportFilterRequest: JsonSchema = {
   "description": "Filter specification for remediation jobs export.",
   "properties": {
     "integration_id": {
@@ -92,7 +92,7 @@ export const posture_api_RemediationJobsExportFilterRequest: JsonSchema = {
 /**
  * The schema of `posture-api_RemediationJobsExportOrderFilterRequest`.
  */
-export const posture_api_RemediationJobsExportOrderFilterRequest: JsonSchema = {
+export const posture$$api_RemediationJobsExportOrderFilterRequest: JsonSchema = {
   "description": "Order specification for remediation jobs exports.",
   "properties": {
     "direction": {

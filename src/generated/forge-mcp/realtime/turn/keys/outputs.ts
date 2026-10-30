@@ -6,14 +6,14 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `calls_turn_key` in responses.
  */
-export const calls_turn_key_output: JsonSchema = {
+export const calls_turn_key: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `calls_turn_key_collection` in responses.
  */
-export const calls_turn_key_collection_output: JsonSchema = {
+export const calls_turn_key_collection: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/calls_api-response-common"
@@ -35,14 +35,14 @@ export const calls_turn_key_collection_output: JsonSchema = {
 /**
  * The schema of `calls_turn_key_name` in responses.
  */
-export const calls_turn_key_name_output: JsonSchema = {
+export const calls_turn_key_name: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `calls_turn_key_object` in responses.
  */
-export const calls_turn_key_object_output: JsonSchema = {
+export const calls_turn_key_object: JsonSchema = {
   "properties": {
     "created": {
       "$ref": "#/$defs/calls_created"
@@ -69,7 +69,7 @@ export const calls_turn_key_object_output: JsonSchema = {
 /**
  * The schema of `calls_turn_key_response_single` in responses.
  */
-export const calls_turn_key_response_single_output: JsonSchema = {
+export const calls_turn_key_response_single: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/calls_api-response-single"
@@ -88,7 +88,7 @@ export const calls_turn_key_response_single_output: JsonSchema = {
 /**
  * The schema of `calls_turn_key_single_with_secret` in responses.
  */
-export const calls_turn_key_single_with_secret_output: JsonSchema = {
+export const calls_turn_key_single_with_secret: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/calls_api-response-single"
@@ -107,7 +107,7 @@ export const calls_turn_key_single_with_secret_output: JsonSchema = {
 /**
  * The schema of `calls_turn_key_with_key` in responses.
  */
-export const calls_turn_key_with_key_output: JsonSchema = {
+export const calls_turn_key_with_key: JsonSchema = {
   "properties": {
     "created": {
       "$ref": "#/$defs/calls_created"

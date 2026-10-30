@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `workers_namespace` in responses.
  */
-export const workers_namespace_output: JsonSchema = {
+export const workers_namespace: JsonSchema = {
   "properties": {
     "class": {
       "type": "string"
@@ -30,7 +30,7 @@ export const workers_namespace_output: JsonSchema = {
 /**
  * The schema of `workers_query-result` in responses.
  */
-export const workers_query_result_output: JsonSchema = {
+export const workers_query$$result: JsonSchema = {
   "properties": {
     "error": {
       "type": "string"
@@ -84,7 +84,7 @@ export const workers_query_result_output: JsonSchema = {
 /**
  * The schema of `workers_query-value` in responses.
  */
-export const workers_query_value_output: JsonSchema = {
+export const workers_query$$value: JsonSchema = {
   "anyOf": [
     {
       "type": "string"

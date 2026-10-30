@@ -6,7 +6,7 @@ import type { JsonSchema } from "../_/tool.js";
 /**
  * The schema of `d1_api-response-common` in responses.
  */
-export const d1_api_response_common_output: JsonSchema = {
+export const d1_api$$response$$common: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/d1_messages"
@@ -32,7 +32,7 @@ export const d1_api_response_common_output: JsonSchema = {
 /**
  * The schema of `d1_api-response-common-failure` in responses.
  */
-export const d1_api_response_common_failure_output: JsonSchema = {
+export const d1_api$$response$$common$$failure: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/d1_messages"
@@ -62,7 +62,7 @@ export const d1_api_response_common_failure_output: JsonSchema = {
 /**
  * The schema of `d1_created-at` in responses.
  */
-export const d1_created_at_output: JsonSchema = {
+export const d1_created$$at: JsonSchema = {
   "format": "date-time",
   "type": "string"
 };
@@ -70,7 +70,7 @@ export const d1_created_at_output: JsonSchema = {
 /**
  * The schema of `d1_database-details-response` in responses.
  */
-export const d1_database_details_response_output: JsonSchema = {
+export const d1_database$$details$$response: JsonSchema = {
   "properties": {
     "created_at": {
       "$ref": "#/$defs/d1_created-at"
@@ -103,21 +103,21 @@ export const d1_database_details_response_output: JsonSchema = {
 /**
  * The schema of `d1_database-identifier` in responses.
  */
-export const d1_database_identifier_output: JsonSchema = {
+export const d1_database$$identifier: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `d1_database-name` in responses.
  */
-export const d1_database_name_output: JsonSchema = {
+export const d1_database$$name: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `d1_database-response` in responses.
  */
-export const d1_database_response_output: JsonSchema = {
+export const d1_database$$response: JsonSchema = {
   "properties": {
     "created_at": {
       "$ref": "#/$defs/d1_created-at"
@@ -141,21 +141,21 @@ export const d1_database_response_output: JsonSchema = {
 /**
  * The schema of `d1_database-version` in responses.
  */
-export const d1_database_version_output: JsonSchema = {
+export const d1_database$$version: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `d1_file-size` in responses.
  */
-export const d1_file_size_output: JsonSchema = {
+export const d1_file$$size: JsonSchema = {
   "type": "number"
 };
 
 /**
  * The schema of `d1_jurisdiction-nullable` in responses.
  */
-export const d1_jurisdiction_nullable_output: JsonSchema = {
+export const d1_jurisdiction$$nullable: JsonSchema = {
   "oneOf": [
     {
       "enum": [
@@ -174,7 +174,7 @@ export const d1_jurisdiction_nullable_output: JsonSchema = {
 /**
  * The schema of `d1_messages` in responses.
  */
-export const d1_messages_output: JsonSchema = {
+export const d1_messages: JsonSchema = {
   "items": {
     "properties": {
       "code": {
@@ -196,7 +196,7 @@ export const d1_messages_output: JsonSchema = {
 /**
  * The schema of `d1_query-meta` in responses.
  */
-export const d1_query_meta_output: JsonSchema = {
+export const d1_query$$meta: JsonSchema = {
   "properties": {
     "changed_db": {
       "type": "boolean"
@@ -243,7 +243,7 @@ export const d1_query_meta_output: JsonSchema = {
 /**
  * The schema of `d1_query-result-response` in responses.
  */
-export const d1_query_result_response_output: JsonSchema = {
+export const d1_query$$result$$response: JsonSchema = {
   "properties": {
     "meta": {
       "$ref": "#/$defs/d1_query-meta"
@@ -264,7 +264,7 @@ export const d1_query_result_response_output: JsonSchema = {
 /**
  * The schema of `d1_raw-result-response` in responses.
  */
-export const d1_raw_result_response_output: JsonSchema = {
+export const d1_raw$$result$$response: JsonSchema = {
   "properties": {
     "meta": {
       "$ref": "#/$defs/d1_query-meta"
@@ -309,7 +309,7 @@ export const d1_raw_result_response_output: JsonSchema = {
 /**
  * The schema of `d1_read-replication-details-for-response` in responses.
  */
-export const d1_read_replication_details_for_response_output: JsonSchema = {
+export const d1_read$$replication$$details$$for$$response: JsonSchema = {
   "properties": {
     "mode": {
       "enum": [
@@ -328,14 +328,14 @@ export const d1_read_replication_details_for_response_output: JsonSchema = {
 /**
  * The schema of `d1_served-by-colo` in responses.
  */
-export const d1_served_by_colo_output: JsonSchema = {
+export const d1_served$$by$$colo: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `d1_served-by-region` in responses.
  */
-export const d1_served_by_region_output: JsonSchema = {
+export const d1_served$$by$$region: JsonSchema = {
   "enum": [
     "WNAM",
     "ENAM",
@@ -350,6 +350,6 @@ export const d1_served_by_region_output: JsonSchema = {
 /**
  * The schema of `d1_table-count` in responses.
  */
-export const d1_table_count_output: JsonSchema = {
+export const d1_table$$count: JsonSchema = {
   "type": "number"
 };

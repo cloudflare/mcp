@@ -6,14 +6,14 @@ import type { JsonSchema } from "../../../../_/tool.js";
 /**
  * The schema of `access_externalId` in responses.
  */
-export const access_externalId_output: JsonSchema = {
+export const access_externalId: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `access_group_details` in responses.
  */
-export const access_group_details_output: JsonSchema = {
+export const access_group_details: JsonSchema = {
   "properties": {
     "displayName": {
       "type": "string"
@@ -67,7 +67,7 @@ export const access_group_details_output: JsonSchema = {
 /**
  * The schema of `access_groups` in responses.
  */
-export const access_groups_output: JsonSchema = {
+export const access_groups: JsonSchema = {
   "properties": {
     "displayName": {
       "type": "string"
@@ -94,7 +94,7 @@ export const access_groups_output: JsonSchema = {
 /**
  * The schema of `access_scim_group_response` in responses.
  */
-export const access_scim_group_response_output: JsonSchema = {
+export const access_scim_group_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/access_api-response-single"
@@ -113,7 +113,7 @@ export const access_scim_group_response_output: JsonSchema = {
 /**
  * The schema of `access_scim_groups_response` in responses.
  */
-export const access_scim_groups_response_output: JsonSchema = {
+export const access_scim_groups_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/access_api-response-collection"

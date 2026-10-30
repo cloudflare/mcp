@@ -6,14 +6,14 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `waitingroom_search_engine_crawler_bypass` in responses.
  */
-export const waitingroom_search_engine_crawler_bypass_output: JsonSchema = {
+export const waitingroom_search_engine_crawler_bypass: JsonSchema = {
   "type": "boolean"
 };
 
 /**
  * The schema of `waitingroom_zone_settings_response` in responses.
  */
-export const waitingroom_zone_settings_response_output: JsonSchema = {
+export const waitingroom_zone_settings_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/waitingroom_api-response-single"

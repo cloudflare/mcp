@@ -6,7 +6,7 @@ import type { JsonSchema } from "../_/tool.js";
 /**
  * The schema of `iam_components-schemas-status` in responses.
  */
-export const iam_components_schemas_status_output: JsonSchema = {
+export const iam_components$$schemas$$status: JsonSchema = {
   "enum": [
     "member",
     "invited"
@@ -17,7 +17,7 @@ export const iam_components_schemas_status_output: JsonSchema = {
 /**
  * The schema of `iam_country` in responses.
  */
-export const iam_country_output: JsonSchema = {
+export const iam_country: JsonSchema = {
   "oneOf": [
     {
       "type": "string"
@@ -31,7 +31,7 @@ export const iam_country_output: JsonSchema = {
 /**
  * The schema of `iam_organization` in responses.
  */
-export const iam_organization_output: JsonSchema = {
+export const iam_organization: JsonSchema = {
   "properties": {
     "id": {
       "$ref": "#/$defs/iam_common_components-schemas-identifier"
@@ -58,7 +58,7 @@ export const iam_organization_output: JsonSchema = {
 /**
  * The schema of `iam_role_names` in responses.
  */
-export const iam_role_names_output: JsonSchema = {
+export const iam_role_names: JsonSchema = {
   "items": {
     "type": "string"
   },
@@ -68,14 +68,14 @@ export const iam_role_names_output: JsonSchema = {
 /**
  * The schema of `iam_schemas-name` in responses.
  */
-export const iam_schemas_name_output: JsonSchema = {
+export const iam_schemas$$name: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `iam_schemas-permissions` in responses.
  */
-export const iam_schemas_permissions_output: JsonSchema = {
+export const iam_schemas$$permissions: JsonSchema = {
   "items": {
     "type": "string"
   },
@@ -85,7 +85,7 @@ export const iam_schemas_permissions_output: JsonSchema = {
 /**
  * The schema of `iam_single_user_response` in responses.
  */
-export const iam_single_user_response_output: JsonSchema = {
+export const iam_single_user_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/iam_api-response-single"
@@ -161,7 +161,7 @@ export const iam_single_user_response_output: JsonSchema = {
 /**
  * The schema of `iam_telephone` in responses.
  */
-export const iam_telephone_output: JsonSchema = {
+export const iam_telephone: JsonSchema = {
   "oneOf": [
     {
       "type": "string"
@@ -175,14 +175,14 @@ export const iam_telephone_output: JsonSchema = {
 /**
  * The schema of `iam_two_factor_authentication_locked` in responses.
  */
-export const iam_two_factor_authentication_locked_output: JsonSchema = {
+export const iam_two_factor_authentication_locked: JsonSchema = {
   "type": "boolean"
 };
 
 /**
  * The schema of `iam_zipcode` in responses.
  */
-export const iam_zipcode_output: JsonSchema = {
+export const iam_zipcode: JsonSchema = {
   "oneOf": [
     {
       "type": "string"

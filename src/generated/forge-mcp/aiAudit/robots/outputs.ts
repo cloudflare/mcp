@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `ai-audit_api-response-common` in responses.
  */
-export const ai_audit_api_response_common_output: JsonSchema = {
+export const ai$$audit_api$$response$$common: JsonSchema = {
   "properties": {
     "errors": {
       "items": {
@@ -36,7 +36,7 @@ export const ai_audit_api_response_common_output: JsonSchema = {
 /**
  * The schema of `ai-audit_api-response-common-failure` in responses.
  */
-export const ai_audit_api_response_common_failure_output: JsonSchema = {
+export const ai$$audit_api$$response$$common$$failure: JsonSchema = {
   "properties": {
     "errors": {
       "items": {
@@ -79,7 +79,7 @@ export const ai_audit_api_response_common_failure_output: JsonSchema = {
 /**
  * The schema of `ai-audit_api_message` in responses.
  */
-export const ai_audit_api_message_output: JsonSchema = {
+export const ai$$audit_api_message: JsonSchema = {
   "properties": {
     "code": {
       "type": "integer"
@@ -98,7 +98,7 @@ export const ai_audit_api_message_output: JsonSchema = {
 /**
  * The schema of `ai-audit_bulk_robots_rules` in responses.
  */
-export const ai_audit_bulk_robots_rules_output: JsonSchema = {
+export const ai$$audit_bulk_robots_rules: JsonSchema = {
   "additionalProperties": {
     "$ref": "#/$defs/ai-audit_robots_rules"
   },
@@ -108,7 +108,7 @@ export const ai_audit_bulk_robots_rules_output: JsonSchema = {
 /**
  * The schema of `ai-audit_content_signal` in responses.
  */
-export const ai_audit_content_signal_output: JsonSchema = {
+export const ai$$audit_content_signal: JsonSchema = {
   "properties": {
     "ai-input": {
       "enum": [
@@ -138,7 +138,7 @@ export const ai_audit_content_signal_output: JsonSchema = {
 /**
  * The schema of `ai-audit_robots_rules` in responses.
  */
-export const ai_audit_robots_rules_output: JsonSchema = {
+export const ai$$audit_robots_rules: JsonSchema = {
   "properties": {
     "sitemaps": {
       "items": {
@@ -165,7 +165,7 @@ export const ai_audit_robots_rules_output: JsonSchema = {
 /**
  * The schema of `ai-audit_user_agent_rules` in responses.
  */
-export const ai_audit_user_agent_rules_output: JsonSchema = {
+export const ai$$audit_user_agent_rules: JsonSchema = {
   "properties": {
     "allow": {
       "items": {

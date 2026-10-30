@@ -3,41 +3,49 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
-  dlp_Empty_output,
-  dlp_api_response_common_failure_output,
-  dlp_api_response_single_output,
-  dlp_messages_output,
+  dlp_Empty,
+  dlp_api$$response$$common$$failure,
+  dlp_api$$response$$single,
+  dlp_messages,
 } from "../outputs.js";
 import {
-  dlp_RiskEvent_output,
-  dlp_RiskEvents_output,
-  dlp_RiskLevel_output,
-  dlp_api_response_collection_output,
-  dlp_api_response_common_output,
+  dlp_RiskEvent,
+  dlp_RiskEvents,
+  dlp_RiskLevel,
+  dlp_api$$response$$collection,
+  dlp_api$$response$$common,
 } from "./outputs.js";
 
 /**
- * The tools of `zero_trust.risk_scoring`.
+ * The tools of `zeroTrust.riskScoring`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "zero_trust_risk_scoring_get",
+    name: "zeroTrust_riskScoring_get",
     title: "Get risk event/score information for a specific user",
     description: "Retrieves the detailed risk score breakdown for a specific user, including contributing factors.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "type": "string"
-        },
-        "user_id": {
-          "format": "uuid",
-          "type": "string"
+        "path": {
+          "properties": {
+            "account_id": {
+              "type": "string"
+            },
+            "user_id": {
+              "format": "uuid",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "user_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "user_id"
+        "path"
       ],
     },
     outputSchema: {
@@ -55,12 +63,12 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "dlp_RiskEvent": dlp_RiskEvent_output,
-        "dlp_RiskEvents": dlp_RiskEvents_output,
-        "dlp_RiskLevel": dlp_RiskLevel_output,
-        "dlp_api-response-collection": dlp_api_response_collection_output,
-        "dlp_api-response-common": dlp_api_response_common_output,
-        "dlp_messages": dlp_messages_output,
+        "dlp_RiskEvent": dlp_RiskEvent,
+        "dlp_RiskEvents": dlp_RiskEvents,
+        "dlp_RiskLevel": dlp_RiskLevel,
+        "dlp_api-response-collection": dlp_api$$response$$collection,
+        "dlp_api-response-common": dlp_api$$response$$common,
+        "dlp_messages": dlp_messages,
       },
     },
     annotations: {
@@ -99,13 +107,13 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "dlp_RiskEvent": dlp_RiskEvent_output,
-        "dlp_RiskEvents": dlp_RiskEvents_output,
-        "dlp_RiskLevel": dlp_RiskLevel_output,
-        "dlp_api-response-collection": dlp_api_response_collection_output,
-        "dlp_api-response-common": dlp_api_response_common_output,
-        "dlp_api-response-common-failure": dlp_api_response_common_failure_output,
-        "dlp_messages": dlp_messages_output,
+        "dlp_RiskEvent": dlp_RiskEvent,
+        "dlp_RiskEvents": dlp_RiskEvents,
+        "dlp_RiskLevel": dlp_RiskLevel,
+        "dlp_api-response-collection": dlp_api$$response$$collection,
+        "dlp_api-response-common": dlp_api$$response$$common,
+        "dlp_api-response-common-failure": dlp_api$$response$$common$$failure,
+        "dlp_messages": dlp_messages,
       },
     },
     request: (args) => ({
@@ -113,23 +121,31 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "zero_trust_risk_scoring_reset",
+    name: "zeroTrust_riskScoring_reset",
     title: "Clear the risk score for a particular user",
     description: "Resets risk scores for specified users, clearing their accumulated risk history.\n\nConfirm with the user before calling this tool. This operation wipes risk-scoring history.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "type": "string"
-        },
-        "user_id": {
-          "format": "uuid",
-          "type": "string"
+        "path": {
+          "properties": {
+            "account_id": {
+              "type": "string"
+            },
+            "user_id": {
+              "format": "uuid",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "user_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "user_id"
+        "path"
       ],
     },
     outputSchema: {
@@ -147,9 +163,9 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "dlp_Empty": dlp_Empty_output,
-        "dlp_api-response-single": dlp_api_response_single_output,
-        "dlp_messages": dlp_messages_output,
+        "dlp_Empty": dlp_Empty,
+        "dlp_api-response-single": dlp_api$$response$$single,
+        "dlp_messages": dlp_messages,
       },
     },
     annotations: {
@@ -188,10 +204,10 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "dlp_Empty": dlp_Empty_output,
-        "dlp_api-response-common-failure": dlp_api_response_common_failure_output,
-        "dlp_api-response-single": dlp_api_response_single_output,
-        "dlp_messages": dlp_messages_output,
+        "dlp_Empty": dlp_Empty,
+        "dlp_api-response-common-failure": dlp_api$$response$$common$$failure,
+        "dlp_api-response-single": dlp_api$$response$$single,
+        "dlp_messages": dlp_messages,
       },
     },
     request: (args) => ({

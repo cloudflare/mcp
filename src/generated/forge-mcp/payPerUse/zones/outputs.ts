@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `pay-per-crawl_PPUZoneCanBeEnabled` in responses.
  */
-export const pay_per_crawl_PPUZoneCanBeEnabled_output: JsonSchema = {
+export const pay$$per$$crawl_PPUZoneCanBeEnabled: JsonSchema = {
   "properties": {
     "can_be_enabled": {
       "type": "boolean"
@@ -65,7 +65,7 @@ export const pay_per_crawl_PPUZoneCanBeEnabled_output: JsonSchema = {
 /**
  * The schema of `pay-per-crawl_PPUZoneCanBeEnabledResponse` in responses.
  */
-export const pay_per_crawl_PPUZoneCanBeEnabledResponse_output: JsonSchema = {
+export const pay$$per$$crawl_PPUZoneCanBeEnabledResponse: JsonSchema = {
   "properties": {
     "errors": {
       "items": {
@@ -95,7 +95,7 @@ export const pay_per_crawl_PPUZoneCanBeEnabledResponse_output: JsonSchema = {
 /**
  * The schema of `pay-per-crawl_PPUZoneConfiguration` in responses.
  */
-export const pay_per_crawl_PPUZoneConfiguration_output: JsonSchema = {
+export const pay$$per$$crawl_PPUZoneConfiguration: JsonSchema = {
   "properties": {
     "can_be_enabled": {
       "type": "boolean"
@@ -138,7 +138,7 @@ export const pay_per_crawl_PPUZoneConfiguration_output: JsonSchema = {
 /**
  * The schema of `pay-per-crawl_PPUZoneConfigurationResponse` in responses.
  */
-export const pay_per_crawl_PPUZoneConfigurationResponse_output: JsonSchema = {
+export const pay$$per$$crawl_PPUZoneConfigurationResponse: JsonSchema = {
   "properties": {
     "errors": {
       "items": {
@@ -168,7 +168,7 @@ export const pay_per_crawl_PPUZoneConfigurationResponse_output: JsonSchema = {
 /**
  * The schema of `pay-per-crawl_PPUZoneConfigurationResult` in responses.
  */
-export const pay_per_crawl_PPUZoneConfigurationResult_output: JsonSchema = {
+export const pay$$per$$crawl_PPUZoneConfigurationResult: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/pay-per-crawl_PPUZoneConfiguration"
@@ -199,7 +199,7 @@ export const pay_per_crawl_PPUZoneConfigurationResult_output: JsonSchema = {
  * The schema of `pay-per-crawl_PPUZoneConfigurationResultResponse` in
  * responses.
  */
-export const pay_per_crawl_PPUZoneConfigurationResultResponse_output: JsonSchema = {
+export const pay$$per$$crawl_PPUZoneConfigurationResultResponse: JsonSchema = {
   "properties": {
     "errors": {
       "items": {

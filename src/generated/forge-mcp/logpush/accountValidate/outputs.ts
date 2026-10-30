@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `logpush_destination_exists_response` in responses.
  */
-export const logpush_destination_exists_response_output: JsonSchema = {
+export const logpush_destination_exists_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/logpush_api-response-common"
@@ -37,7 +37,7 @@ export const logpush_destination_exists_response_output: JsonSchema = {
 /**
  * The schema of `logpush_validate_response` in responses.
  */
-export const logpush_validate_response_output: JsonSchema = {
+export const logpush_validate_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/logpush_api-response-common"

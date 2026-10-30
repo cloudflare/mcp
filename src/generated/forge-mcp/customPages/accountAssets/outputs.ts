@@ -6,28 +6,28 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `custom-pages_asset_description` in responses.
  */
-export const custom_pages_asset_description_output: JsonSchema = {
+export const custom$$pages_asset_description: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `custom-pages_asset_name` in responses.
  */
-export const custom_pages_asset_name_output: JsonSchema = {
+export const custom$$pages_asset_name: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `custom-pages_asset_url` in responses.
  */
-export const custom_pages_asset_url_output: JsonSchema = {
+export const custom$$pages_asset_url: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `custom-pages_custom_asset` in responses.
  */
-export const custom_pages_custom_asset_output: JsonSchema = {
+export const custom$$pages_custom_asset: JsonSchema = {
   "properties": {
     "description": {
       "$ref": "#/$defs/custom-pages_asset_description"
@@ -51,7 +51,7 @@ export const custom_pages_custom_asset_output: JsonSchema = {
 /**
  * The schema of `custom-pages_custom_asset_result` in responses.
  */
-export const custom_pages_custom_asset_result_output: JsonSchema = {
+export const custom$$pages_custom_asset_result: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/custom-pages_api-response-single"
@@ -70,7 +70,7 @@ export const custom_pages_custom_asset_result_output: JsonSchema = {
 /**
  * The schema of `custom-pages_custom_asset_result_list` in responses.
  */
-export const custom_pages_custom_asset_result_list_output: JsonSchema = {
+export const custom$$pages_custom_asset_result_list: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/custom-pages_api-response-collection"

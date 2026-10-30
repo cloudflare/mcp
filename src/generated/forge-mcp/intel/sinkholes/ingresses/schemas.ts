@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `intel-sinkholes_ingress_create_params`.
  */
-export const intel_sinkholes_ingress_create_params: JsonSchema = {
+export const intel$$sinkholes_ingress_create_params: JsonSchema = {
   "properties": {
     "cidr": {
       "description": "The CIDR block for the ingress rule in IPv4 or IPv6 notation (e.g., 192.0.2.0/24). Provide a Cloudflare BYOIP CIDR that your account owns.",

@@ -39,7 +39,7 @@ export const tunnel_hostname_route_id: JsonSchema = {
 /**
  * The schema of `tunnel_tunnel_id-3`.
  */
-export const tunnel_tunnel_id_3: JsonSchema = {
+export const tunnel_tunnel_id$$3: JsonSchema = {
   "description": "UUID of the tunnel.",
   "format": "uuid",
   "type": "string"

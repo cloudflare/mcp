@@ -6,21 +6,21 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `tunnel_hostname` in responses.
  */
-export const tunnel_hostname_output: JsonSchema = {
+export const tunnel_hostname: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `tunnel_hostname_comment` in responses.
  */
-export const tunnel_hostname_comment_output: JsonSchema = {
+export const tunnel_hostname_comment: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `tunnel_hostname_route` in responses.
  */
-export const tunnel_hostname_route_output: JsonSchema = {
+export const tunnel_hostname_route: JsonSchema = {
   "properties": {
     "comment": {
       "$ref": "#/$defs/tunnel_hostname_comment"
@@ -64,7 +64,7 @@ export const tunnel_hostname_route_output: JsonSchema = {
 /**
  * The schema of `tunnel_hostname_route_id` in responses.
  */
-export const tunnel_hostname_route_id_output: JsonSchema = {
+export const tunnel_hostname_route_id: JsonSchema = {
   "format": "uuid",
   "type": "string"
 };
@@ -72,7 +72,7 @@ export const tunnel_hostname_route_id_output: JsonSchema = {
 /**
  * The schema of `tunnel_hostname_route_response_collection` in responses.
  */
-export const tunnel_hostname_route_response_collection_output: JsonSchema = {
+export const tunnel_hostname_route_response_collection: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/tunnel_api-response-collection"
@@ -94,7 +94,7 @@ export const tunnel_hostname_route_response_collection_output: JsonSchema = {
 /**
  * The schema of `tunnel_hostname_route_response_single` in responses.
  */
-export const tunnel_hostname_route_response_single_output: JsonSchema = {
+export const tunnel_hostname_route_response_single: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/tunnel_api-response-common"
@@ -113,7 +113,7 @@ export const tunnel_hostname_route_response_single_output: JsonSchema = {
 /**
  * The schema of `tunnel_tunnel_id-3` in responses.
  */
-export const tunnel_tunnel_id_3_output: JsonSchema = {
+export const tunnel_tunnel_id$$3: JsonSchema = {
   "format": "uuid",
   "type": "string"
 };
@@ -121,6 +121,6 @@ export const tunnel_tunnel_id_3_output: JsonSchema = {
 /**
  * The schema of `tunnel_tunnel_name-2` in responses.
  */
-export const tunnel_tunnel_name_2_output: JsonSchema = {
+export const tunnel_tunnel_name$$2: JsonSchema = {
   "type": "string"
 };

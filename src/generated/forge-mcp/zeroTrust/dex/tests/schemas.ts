@@ -7,7 +7,7 @@ import type { JsonSchema } from "../../../_/tool.js";
  * The schema of
  * `digital-experience-monitoring_device-dex-test-schemas-description`.
  */
-export const digital_experience_monitoring_device_dex_test_schemas_description: JsonSchema = {
+export const digital$$experience$$monitoring_device$$dex$$test$$schemas$$description: JsonSchema = {
   "description": "Additional details about the test.",
   "type": "string"
 };
@@ -16,7 +16,7 @@ export const digital_experience_monitoring_device_dex_test_schemas_description: 
  * The schema of
  * `digital-experience-monitoring_device-dex-test-schemas-enabled`.
  */
-export const digital_experience_monitoring_device_dex_test_schemas_enabled: JsonSchema = {
+export const digital$$experience$$monitoring_device$$dex$$test$$schemas$$enabled: JsonSchema = {
   "description": "Determines whether or not the test is active.",
   "type": "boolean"
 };
@@ -24,7 +24,7 @@ export const digital_experience_monitoring_device_dex_test_schemas_enabled: Json
 /**
  * The schema of `digital-experience-monitoring_device-dex-test-schemas-http`.
  */
-export const digital_experience_monitoring_device_dex_test_schemas_http: JsonSchema = {
+export const digital$$experience$$monitoring_device$$dex$$test$$schemas$$http: JsonSchema = {
   "properties": {
     "data": {
       "$ref": "#/$defs/digital-experience-monitoring_device-dex-test-schemas-data",
@@ -66,7 +66,7 @@ export const digital_experience_monitoring_device_dex_test_schemas_http: JsonSch
  * The schema of
  * `digital-experience-monitoring_device-dex-test-schemas-interval`.
  */
-export const digital_experience_monitoring_device_dex_test_schemas_interval: JsonSchema = {
+export const digital$$experience$$monitoring_device$$dex$$test$$schemas$$interval: JsonSchema = {
   "description": "How often the test will run.",
   "type": "string"
 };
@@ -74,7 +74,7 @@ export const digital_experience_monitoring_device_dex_test_schemas_interval: Jso
 /**
  * The schema of `digital-experience-monitoring_device-dex-test-schemas-name`.
  */
-export const digital_experience_monitoring_device_dex_test_schemas_name: JsonSchema = {
+export const digital$$experience$$monitoring_device$$dex$$test$$schemas$$name: JsonSchema = {
   "description": "The name of the DEX test. Must be unique.",
   "type": "string"
 };
@@ -83,7 +83,7 @@ export const digital_experience_monitoring_device_dex_test_schemas_name: JsonSch
  * The schema of
  * `digital-experience-monitoring_device-dex-test-target-policies`.
  */
-export const digital_experience_monitoring_device_dex_test_target_policies: JsonSchema = {
+export const digital$$experience$$monitoring_device$$dex$$test$$target$$policies: JsonSchema = {
   "description": "DEX rules targeted by this test",
   "items": {
     "$ref": "#/$defs/digital-experience-monitoring_dex_target_policy"
@@ -94,7 +94,7 @@ export const digital_experience_monitoring_device_dex_test_target_policies: Json
 /**
  * The schema of `digital-experience-monitoring_dex_target_policy`.
  */
-export const digital_experience_monitoring_dex_target_policy: JsonSchema = {
+export const digital$$experience$$monitoring_dex_target_policy: JsonSchema = {
   "properties": {
     "default": {
       "description": "Whether the DEX rule is the account default.",
@@ -118,7 +118,7 @@ export const digital_experience_monitoring_dex_target_policy: JsonSchema = {
 /**
  * The schema of `digital-experience-monitoring_schemas-test-id`.
  */
-export const digital_experience_monitoring_schemas_test_id: JsonSchema = {
+export const digital$$experience$$monitoring_schemas$$test$$id: JsonSchema = {
   "description": "The unique identifier for the test.",
   "type": "string"
 };

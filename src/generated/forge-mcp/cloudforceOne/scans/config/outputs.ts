@@ -6,14 +6,14 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `cloudforce-one-port-scan-api_frequency` in responses.
  */
-export const cloudforce_one_port_scan_api_frequency_output: JsonSchema = {
+export const cloudforce$$one$$port$$scan$$api_frequency: JsonSchema = {
   "type": "number"
 };
 
 /**
  * The schema of `cloudforce-one-port-scan-api_ips` in responses.
  */
-export const cloudforce_one_port_scan_api_ips_output: JsonSchema = {
+export const cloudforce$$one$$port$$scan$$api_ips: JsonSchema = {
   "items": {
     "type": "string"
   },
@@ -23,7 +23,7 @@ export const cloudforce_one_port_scan_api_ips_output: JsonSchema = {
 /**
  * The schema of `cloudforce-one-port-scan-api_ports` in responses.
  */
-export const cloudforce_one_port_scan_api_ports_output: JsonSchema = {
+export const cloudforce$$one$$port$$scan$$api_ports: JsonSchema = {
   "items": {
     "type": "string"
   },
@@ -33,7 +33,7 @@ export const cloudforce_one_port_scan_api_ports_output: JsonSchema = {
 /**
  * The schema of `cloudforce-one-port-scan-api_scan-config` in responses.
  */
-export const cloudforce_one_port_scan_api_scan_config_output: JsonSchema = {
+export const cloudforce$$one$$port$$scan$$api_scan$$config: JsonSchema = {
   "properties": {
     "account_id": {
       "type": "string"

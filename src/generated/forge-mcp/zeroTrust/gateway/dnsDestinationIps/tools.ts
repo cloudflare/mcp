@@ -3,52 +3,60 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
-  zero_trust_gateway_api_response_common_failure_output,
-  zero_trust_gateway_messages_output,
+  zero$$trust$$gateway_api$$response$$common$$failure,
+  zero$$trust$$gateway_messages,
 } from "../../outputs.js";
 import {
-  zero_trust_gateway_api_response_collection_output,
-  zero_trust_gateway_api_response_common_output,
-  zero_trust_gateway_result_info_output,
+  zero$$trust$$gateway_api$$response$$collection,
+  zero$$trust$$gateway_api$$response$$common,
+  zero$$trust$$gateway_result_info,
 } from "../outputs.js";
-import { zero_trust_gateway_identifier } from "../schemas.js";
+import { zero$$trust$$gateway_identifier } from "../schemas.js";
 import {
-  zero_trust_gateway_dns_destination_ip_pair_output,
-  zero_trust_gateway_response_collection_2_output,
+  zero$$trust$$gateway_dns_destination_ip_pair,
+  zero$$trust$$gateway_response_collection$$2,
 } from "./outputs.js";
 
 /**
- * The tools of `zero_trust.gateway.dns_destination_ips`.
+ * The tools of `zeroTrust.gateway.dnsDestinationIps`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "zero_trust_gateway_dns_destination_ips_list",
+    name: "zeroTrust_gateway_dnsDestinationIps_list",
     title: "List Zero Trust Gateway DNS destination IPv4 address pairs",
     description: "List Zero Trust Gateway IPv4 address pairs for an account.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/zero-trust-gateway_identifier",
-          "description": "Specify the Cloudflare account identifier."
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/zero-trust-gateway_identifier",
+              "description": "Specify the Cloudflare account identifier."
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id"
+        "path"
       ],
       $defs: {
-        "zero-trust-gateway_identifier": zero_trust_gateway_identifier,
+        "zero-trust-gateway_identifier": zero$$trust$$gateway_identifier,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/zero-trust-gateway_response_collection-2",
       $defs: {
-        "zero-trust-gateway_api-response-collection": zero_trust_gateway_api_response_collection_output,
-        "zero-trust-gateway_api-response-common": zero_trust_gateway_api_response_common_output,
-        "zero-trust-gateway_dns_destination_ip_pair": zero_trust_gateway_dns_destination_ip_pair_output,
-        "zero-trust-gateway_messages": zero_trust_gateway_messages_output,
-        "zero-trust-gateway_response_collection-2": zero_trust_gateway_response_collection_2_output,
-        "zero-trust-gateway_result_info": zero_trust_gateway_result_info_output,
+        "zero-trust-gateway_api-response-collection": zero$$trust$$gateway_api$$response$$collection,
+        "zero-trust-gateway_api-response-common": zero$$trust$$gateway_api$$response$$common,
+        "zero-trust-gateway_dns_destination_ip_pair": zero$$trust$$gateway_dns_destination_ip_pair,
+        "zero-trust-gateway_messages": zero$$trust$$gateway_messages,
+        "zero-trust-gateway_response_collection-2": zero$$trust$$gateway_response_collection$$2,
+        "zero-trust-gateway_result_info": zero$$trust$$gateway_result_info,
       },
     },
     annotations: {
@@ -84,13 +92,13 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "zero-trust-gateway_api-response-collection": zero_trust_gateway_api_response_collection_output,
-        "zero-trust-gateway_api-response-common": zero_trust_gateway_api_response_common_output,
-        "zero-trust-gateway_api-response-common-failure": zero_trust_gateway_api_response_common_failure_output,
-        "zero-trust-gateway_dns_destination_ip_pair": zero_trust_gateway_dns_destination_ip_pair_output,
-        "zero-trust-gateway_messages": zero_trust_gateway_messages_output,
-        "zero-trust-gateway_response_collection-2": zero_trust_gateway_response_collection_2_output,
-        "zero-trust-gateway_result_info": zero_trust_gateway_result_info_output,
+        "zero-trust-gateway_api-response-collection": zero$$trust$$gateway_api$$response$$collection,
+        "zero-trust-gateway_api-response-common": zero$$trust$$gateway_api$$response$$common,
+        "zero-trust-gateway_api-response-common-failure": zero$$trust$$gateway_api$$response$$common$$failure,
+        "zero-trust-gateway_dns_destination_ip_pair": zero$$trust$$gateway_dns_destination_ip_pair,
+        "zero-trust-gateway_messages": zero$$trust$$gateway_messages,
+        "zero-trust-gateway_response_collection-2": zero$$trust$$gateway_response_collection$$2,
+        "zero-trust-gateway_result_info": zero$$trust$$gateway_result_info,
       },
     },
     request: (args) => ({

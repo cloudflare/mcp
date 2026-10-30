@@ -6,28 +6,28 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `secondary-dns_ip` in responses.
  */
-export const secondary_dns_ip_output: JsonSchema = {
+export const secondary$$dns_ip: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `secondary-dns_ixfr_enable` in responses.
  */
-export const secondary_dns_ixfr_enable_output: JsonSchema = {
+export const secondary$$dns_ixfr_enable: JsonSchema = {
   "type": "boolean"
 };
 
 /**
  * The schema of `secondary-dns_name-3` in responses.
  */
-export const secondary_dns_name_3_output: JsonSchema = {
+export const secondary$$dns_name$$3: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `secondary-dns_peer` in responses.
  */
-export const secondary_dns_peer_output: JsonSchema = {
+export const secondary$$dns_peer: JsonSchema = {
   "properties": {
     "id": {
       "$ref": "#/$defs/secondary-dns_identifier-3"
@@ -58,14 +58,14 @@ export const secondary_dns_peer_output: JsonSchema = {
 /**
  * The schema of `secondary-dns_port` in responses.
  */
-export const secondary_dns_port_output: JsonSchema = {
+export const secondary$$dns_port: JsonSchema = {
   "type": "number"
 };
 
 /**
  * The schema of `secondary-dns_response_collection-2` in responses.
  */
-export const secondary_dns_response_collection_2_output: JsonSchema = {
+export const secondary$$dns_response_collection$$2: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/secondary-dns_api-response-collection"
@@ -87,7 +87,7 @@ export const secondary_dns_response_collection_2_output: JsonSchema = {
 /**
  * The schema of `secondary-dns_single_response-2` in responses.
  */
-export const secondary_dns_single_response_2_output: JsonSchema = {
+export const secondary$$dns_single_response$$2: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/secondary-dns_api-response-single"
@@ -106,6 +106,6 @@ export const secondary_dns_single_response_2_output: JsonSchema = {
 /**
  * The schema of `secondary-dns_tsig_id` in responses.
  */
-export const secondary_dns_tsig_id_output: JsonSchema = {
+export const secondary$$dns_tsig_id: JsonSchema = {
   "type": "string"
 };

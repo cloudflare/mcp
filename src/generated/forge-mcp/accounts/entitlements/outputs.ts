@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `entitlements_allocation` in responses.
  */
-export const entitlements_allocation_output: JsonSchema = {
+export const entitlements_allocation: JsonSchema = {
   "properties": {
     "type": {
       "enum": [
@@ -63,7 +63,7 @@ export const entitlements_allocation_output: JsonSchema = {
 /**
  * The schema of `entitlements_api_error` in responses.
  */
-export const entitlements_api_error_output: JsonSchema = {
+export const entitlements_api_error: JsonSchema = {
   "properties": {
     "code": {
       "type": "integer"
@@ -82,7 +82,7 @@ export const entitlements_api_error_output: JsonSchema = {
 /**
  * The schema of `entitlements_api_message` in responses.
  */
-export const entitlements_api_message_output: JsonSchema = {
+export const entitlements_api_message: JsonSchema = {
   "properties": {
     "code": {
       "type": "integer"
@@ -101,7 +101,7 @@ export const entitlements_api_message_output: JsonSchema = {
 /**
  * The schema of `entitlements_api_response_failure` in responses.
  */
-export const entitlements_api_response_failure_output: JsonSchema = {
+export const entitlements_api_response_failure: JsonSchema = {
   "properties": {
     "errors": {
       "items": {
@@ -141,7 +141,7 @@ export const entitlements_api_response_failure_output: JsonSchema = {
 /**
  * The schema of `entitlements_entitlement` in responses.
  */
-export const entitlements_entitlement_output: JsonSchema = {
+export const entitlements_entitlement: JsonSchema = {
   "properties": {
     "allocation": {
       "$ref": "#/$defs/entitlements_allocation"
@@ -176,7 +176,7 @@ export const entitlements_entitlement_output: JsonSchema = {
 /**
  * The schema of `entitlements_entitlements_response` in responses.
  */
-export const entitlements_entitlements_response_output: JsonSchema = {
+export const entitlements_entitlements_response: JsonSchema = {
   "properties": {
     "errors": {
       "items": {
@@ -212,7 +212,7 @@ export const entitlements_entitlements_response_output: JsonSchema = {
 /**
  * The schema of `entitlements_feature` in responses.
  */
-export const entitlements_feature_output: JsonSchema = {
+export const entitlements_feature: JsonSchema = {
   "properties": {
     "feature_set": {
       "type": "string"

@@ -3,61 +3,57 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
-  addressing_api_response_collection_output,
-  addressing_api_response_common_failure_output,
-  addressing_api_response_common_output,
-  addressing_api_response_single_output,
-  addressing_messages_output,
-  addressing_timestamp_output,
+  addressing_api$$response$$collection,
+  addressing_api$$response$$common,
+  addressing_api$$response$$common$$failure,
+  addressing_api$$response$$single,
+  addressing_messages,
+  addressing_timestamp,
 } from "../outputs.js";
 import { addressing_account_identifier } from "../schemas.js";
 import {
-  addressing_address_map_identifier_output,
-  addressing_address_maps_ip_output,
-  addressing_address_maps_membership_output,
-  addressing_address_maps_output,
-  addressing_can_delete_2_output,
-  addressing_can_delete_output,
-  addressing_can_modify_ips_output,
-  addressing_default_sni_output,
-  addressing_description_2_output,
-  addressing_enabled_output,
-  addressing_full_response_output,
-  addressing_identifier_output,
-  addressing_ip_output,
-  addressing_ips_output,
-  addressing_kind_output,
-  addressing_memberships_output,
-  addressing_response_collection_3_output,
-  addressing_single_response_3_output,
+  addressing_address$$maps,
+  addressing_address$$maps$$ip,
+  addressing_address$$maps$$membership,
+  addressing_address_map_identifier,
+  addressing_can_delete,
+  addressing_can_delete$$2,
+  addressing_can_modify_ips,
+  addressing_default_sni,
+  addressing_description$$2,
+  addressing_enabled,
+  addressing_full_response,
+  addressing_identifier,
+  addressing_ip,
+  addressing_ips,
+  addressing_kind,
+  addressing_memberships,
+  addressing_response_collection$$3,
+  addressing_single_response$$3,
 } from "./outputs.js";
 import {
-  addressing_address_map_identifier,
-  addressing_address_maps_membership_request,
-  addressing_default_sni,
-  addressing_description_2,
-  addressing_enabled,
-  addressing_identifier,
+  addressing_address$$maps$$membership$$request,
+  addressing_address_map_identifier as addressing_address_map_identifier$,
+  addressing_default_sni as addressing_default_sni$,
+  addressing_description$$2 as addressing_description$$2$,
+  addressing_enabled as addressing_enabled$,
+  addressing_identifier as addressing_identifier$,
   addressing_ip_address,
-  addressing_kind,
+  addressing_kind as addressing_kind$,
   addressing_membership_requests,
 } from "./schemas.js";
 
 /**
- * The tools of `addressing.address_maps`.
+ * The tools of `addressing.addressMaps`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "addressing_address_maps_create",
+    name: "addressing_addressMaps_create",
     title: "Create Address Map",
     description: "Create a new address map under the account.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/addressing_account_identifier",
-          "description": "Identifier of a Cloudflare account."
-        },
         "body": {
           "properties": {
             "description": {
@@ -81,45 +77,57 @@ export const tools: readonly Tool[] = [
             }
           },
           "type": "object"
+        },
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/addressing_account_identifier",
+              "description": "Identifier of a Cloudflare account."
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
+        "path",
         "body"
       ],
       $defs: {
         "addressing_account_identifier": addressing_account_identifier,
-        "addressing_address-maps-membership-request": addressing_address_maps_membership_request,
-        "addressing_description-2": addressing_description_2,
-        "addressing_enabled": addressing_enabled,
-        "addressing_identifier": addressing_identifier,
+        "addressing_address-maps-membership-request": addressing_address$$maps$$membership$$request,
+        "addressing_description-2": addressing_description$$2$,
+        "addressing_enabled": addressing_enabled$,
+        "addressing_identifier": addressing_identifier$,
         "addressing_ip_address": addressing_ip_address,
-        "addressing_kind": addressing_kind,
+        "addressing_kind": addressing_kind$,
         "addressing_membership_requests": addressing_membership_requests,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/addressing_full_response",
       $defs: {
-        "addressing_address-maps": addressing_address_maps_output,
-        "addressing_address-maps-ip": addressing_address_maps_ip_output,
-        "addressing_address-maps-membership": addressing_address_maps_membership_output,
-        "addressing_address_map_identifier": addressing_address_map_identifier_output,
-        "addressing_api-response-single": addressing_api_response_single_output,
-        "addressing_can_delete": addressing_can_delete_output,
-        "addressing_can_delete-2": addressing_can_delete_2_output,
-        "addressing_can_modify_ips": addressing_can_modify_ips_output,
-        "addressing_default_sni": addressing_default_sni_output,
-        "addressing_description-2": addressing_description_2_output,
-        "addressing_enabled": addressing_enabled_output,
-        "addressing_full_response": addressing_full_response_output,
-        "addressing_identifier": addressing_identifier_output,
-        "addressing_ip": addressing_ip_output,
-        "addressing_ips": addressing_ips_output,
-        "addressing_kind": addressing_kind_output,
-        "addressing_memberships": addressing_memberships_output,
-        "addressing_messages": addressing_messages_output,
-        "addressing_timestamp": addressing_timestamp_output,
+        "addressing_address-maps": addressing_address$$maps,
+        "addressing_address-maps-ip": addressing_address$$maps$$ip,
+        "addressing_address-maps-membership": addressing_address$$maps$$membership,
+        "addressing_address_map_identifier": addressing_address_map_identifier,
+        "addressing_api-response-single": addressing_api$$response$$single,
+        "addressing_can_delete": addressing_can_delete,
+        "addressing_can_delete-2": addressing_can_delete$$2,
+        "addressing_can_modify_ips": addressing_can_modify_ips,
+        "addressing_default_sni": addressing_default_sni,
+        "addressing_description-2": addressing_description$$2,
+        "addressing_enabled": addressing_enabled,
+        "addressing_full_response": addressing_full_response,
+        "addressing_identifier": addressing_identifier,
+        "addressing_ip": addressing_ip,
+        "addressing_ips": addressing_ips,
+        "addressing_kind": addressing_kind,
+        "addressing_memberships": addressing_memberships,
+        "addressing_messages": addressing_messages,
+        "addressing_timestamp": addressing_timestamp,
       },
     },
     annotations: {
@@ -153,26 +161,26 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "addressing_address-maps": addressing_address_maps_output,
-        "addressing_address-maps-ip": addressing_address_maps_ip_output,
-        "addressing_address-maps-membership": addressing_address_maps_membership_output,
-        "addressing_address_map_identifier": addressing_address_map_identifier_output,
-        "addressing_api-response-common-failure": addressing_api_response_common_failure_output,
-        "addressing_api-response-single": addressing_api_response_single_output,
-        "addressing_can_delete": addressing_can_delete_output,
-        "addressing_can_delete-2": addressing_can_delete_2_output,
-        "addressing_can_modify_ips": addressing_can_modify_ips_output,
-        "addressing_default_sni": addressing_default_sni_output,
-        "addressing_description-2": addressing_description_2_output,
-        "addressing_enabled": addressing_enabled_output,
-        "addressing_full_response": addressing_full_response_output,
-        "addressing_identifier": addressing_identifier_output,
-        "addressing_ip": addressing_ip_output,
-        "addressing_ips": addressing_ips_output,
-        "addressing_kind": addressing_kind_output,
-        "addressing_memberships": addressing_memberships_output,
-        "addressing_messages": addressing_messages_output,
-        "addressing_timestamp": addressing_timestamp_output,
+        "addressing_address-maps": addressing_address$$maps,
+        "addressing_address-maps-ip": addressing_address$$maps$$ip,
+        "addressing_address-maps-membership": addressing_address$$maps$$membership,
+        "addressing_address_map_identifier": addressing_address_map_identifier,
+        "addressing_api-response-common-failure": addressing_api$$response$$common$$failure,
+        "addressing_api-response-single": addressing_api$$response$$single,
+        "addressing_can_delete": addressing_can_delete,
+        "addressing_can_delete-2": addressing_can_delete$$2,
+        "addressing_can_modify_ips": addressing_can_modify_ips,
+        "addressing_default_sni": addressing_default_sni,
+        "addressing_description-2": addressing_description$$2,
+        "addressing_enabled": addressing_enabled,
+        "addressing_full_response": addressing_full_response,
+        "addressing_identifier": addressing_identifier,
+        "addressing_ip": addressing_ip,
+        "addressing_ips": addressing_ips,
+        "addressing_kind": addressing_kind,
+        "addressing_memberships": addressing_memberships,
+        "addressing_messages": addressing_messages,
+        "addressing_timestamp": addressing_timestamp,
       },
     },
     request: (args) => ({
@@ -181,36 +189,44 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "addressing_address_maps_delete",
+    name: "addressing_addressMaps_delete",
     title: "Delete Address Map",
     description: "Delete a particular address map owned by the account. An Address Map must be disabled before it can be deleted.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/addressing_account_identifier",
-          "description": "Identifier of a Cloudflare account."
-        },
-        "address_map_id": {
-          "$ref": "#/$defs/addressing_address_map_identifier",
-          "description": "Identifier of an Address Map."
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/addressing_account_identifier",
+              "description": "Identifier of a Cloudflare account."
+            },
+            "address_map_id": {
+              "$ref": "#/$defs/addressing_address_map_identifier",
+              "description": "Identifier of an Address Map."
+            }
+          },
+          "required": [
+            "account_id",
+            "address_map_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "address_map_id"
+        "path"
       ],
       $defs: {
         "addressing_account_identifier": addressing_account_identifier,
-        "addressing_address_map_identifier": addressing_address_map_identifier,
+        "addressing_address_map_identifier": addressing_address_map_identifier$,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/addressing_api-response-collection",
       $defs: {
-        "addressing_api-response-collection": addressing_api_response_collection_output,
-        "addressing_api-response-common": addressing_api_response_common_output,
-        "addressing_messages": addressing_messages_output,
+        "addressing_api-response-collection": addressing_api$$response$$collection,
+        "addressing_api-response-common": addressing_api$$response$$common,
+        "addressing_messages": addressing_messages,
       },
     },
     annotations: {
@@ -244,10 +260,10 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "addressing_api-response-collection": addressing_api_response_collection_output,
-        "addressing_api-response-common": addressing_api_response_common_output,
-        "addressing_api-response-common-failure": addressing_api_response_common_failure_output,
-        "addressing_messages": addressing_messages_output,
+        "addressing_api-response-collection": addressing_api$$response$$collection,
+        "addressing_api-response-common": addressing_api$$response$$common,
+        "addressing_api-response-common-failure": addressing_api$$response$$common$$failure,
+        "addressing_messages": addressing_messages,
       },
     },
     request: (args) => ({
@@ -255,20 +271,12 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "addressing_address_maps_edit",
+    name: "addressing_addressMaps_edit",
     title: "Update Address Map",
     description: "Modify properties of an address map owned by the account.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/addressing_account_identifier",
-          "description": "Identifier of a Cloudflare account."
-        },
-        "address_map_id": {
-          "$ref": "#/$defs/addressing_address_map_identifier",
-          "description": "Identifier of an Address Map."
-        },
         "body": {
           "properties": {
             "default_sni": {
@@ -286,35 +294,51 @@ export const tools: readonly Tool[] = [
             }
           },
           "type": "object"
+        },
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/addressing_account_identifier",
+              "description": "Identifier of a Cloudflare account."
+            },
+            "address_map_id": {
+              "$ref": "#/$defs/addressing_address_map_identifier",
+              "description": "Identifier of an Address Map."
+            }
+          },
+          "required": [
+            "account_id",
+            "address_map_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "address_map_id",
+        "path",
         "body"
       ],
       $defs: {
         "addressing_account_identifier": addressing_account_identifier,
-        "addressing_address_map_identifier": addressing_address_map_identifier,
-        "addressing_default_sni": addressing_default_sni,
-        "addressing_description-2": addressing_description_2,
-        "addressing_enabled": addressing_enabled,
+        "addressing_address_map_identifier": addressing_address_map_identifier$,
+        "addressing_default_sni": addressing_default_sni$,
+        "addressing_description-2": addressing_description$$2$,
+        "addressing_enabled": addressing_enabled$,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/addressing_single_response-3",
       $defs: {
-        "addressing_address-maps": addressing_address_maps_output,
-        "addressing_address_map_identifier": addressing_address_map_identifier_output,
-        "addressing_api-response-single": addressing_api_response_single_output,
-        "addressing_can_delete": addressing_can_delete_output,
-        "addressing_can_modify_ips": addressing_can_modify_ips_output,
-        "addressing_default_sni": addressing_default_sni_output,
-        "addressing_description-2": addressing_description_2_output,
-        "addressing_enabled": addressing_enabled_output,
-        "addressing_messages": addressing_messages_output,
-        "addressing_single_response-3": addressing_single_response_3_output,
-        "addressing_timestamp": addressing_timestamp_output,
+        "addressing_address-maps": addressing_address$$maps,
+        "addressing_address_map_identifier": addressing_address_map_identifier,
+        "addressing_api-response-single": addressing_api$$response$$single,
+        "addressing_can_delete": addressing_can_delete,
+        "addressing_can_modify_ips": addressing_can_modify_ips,
+        "addressing_default_sni": addressing_default_sni,
+        "addressing_description-2": addressing_description$$2,
+        "addressing_enabled": addressing_enabled,
+        "addressing_messages": addressing_messages,
+        "addressing_single_response-3": addressing_single_response$$3,
+        "addressing_timestamp": addressing_timestamp,
       },
     },
     annotations: {
@@ -348,18 +372,18 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "addressing_address-maps": addressing_address_maps_output,
-        "addressing_address_map_identifier": addressing_address_map_identifier_output,
-        "addressing_api-response-common-failure": addressing_api_response_common_failure_output,
-        "addressing_api-response-single": addressing_api_response_single_output,
-        "addressing_can_delete": addressing_can_delete_output,
-        "addressing_can_modify_ips": addressing_can_modify_ips_output,
-        "addressing_default_sni": addressing_default_sni_output,
-        "addressing_description-2": addressing_description_2_output,
-        "addressing_enabled": addressing_enabled_output,
-        "addressing_messages": addressing_messages_output,
-        "addressing_single_response-3": addressing_single_response_3_output,
-        "addressing_timestamp": addressing_timestamp_output,
+        "addressing_address-maps": addressing_address$$maps,
+        "addressing_address_map_identifier": addressing_address_map_identifier,
+        "addressing_api-response-common-failure": addressing_api$$response$$common$$failure,
+        "addressing_api-response-single": addressing_api$$response$$single,
+        "addressing_can_delete": addressing_can_delete,
+        "addressing_can_modify_ips": addressing_can_modify_ips,
+        "addressing_default_sni": addressing_default_sni,
+        "addressing_description-2": addressing_description$$2,
+        "addressing_enabled": addressing_enabled,
+        "addressing_messages": addressing_messages,
+        "addressing_single_response-3": addressing_single_response$$3,
+        "addressing_timestamp": addressing_timestamp,
       },
     },
     request: (args) => ({
@@ -368,52 +392,60 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "addressing_address_maps_get",
+    name: "addressing_addressMaps_get",
     title: "Address Map Details",
     description: "Show a particular address map owned by the account.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/addressing_account_identifier",
-          "description": "Identifier of a Cloudflare account."
-        },
-        "address_map_id": {
-          "$ref": "#/$defs/addressing_address_map_identifier",
-          "description": "Identifier of an Address Map."
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/addressing_account_identifier",
+              "description": "Identifier of a Cloudflare account."
+            },
+            "address_map_id": {
+              "$ref": "#/$defs/addressing_address_map_identifier",
+              "description": "Identifier of an Address Map."
+            }
+          },
+          "required": [
+            "account_id",
+            "address_map_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "address_map_id"
+        "path"
       ],
       $defs: {
         "addressing_account_identifier": addressing_account_identifier,
-        "addressing_address_map_identifier": addressing_address_map_identifier,
+        "addressing_address_map_identifier": addressing_address_map_identifier$,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/addressing_full_response",
       $defs: {
-        "addressing_address-maps": addressing_address_maps_output,
-        "addressing_address-maps-ip": addressing_address_maps_ip_output,
-        "addressing_address-maps-membership": addressing_address_maps_membership_output,
-        "addressing_address_map_identifier": addressing_address_map_identifier_output,
-        "addressing_api-response-single": addressing_api_response_single_output,
-        "addressing_can_delete": addressing_can_delete_output,
-        "addressing_can_delete-2": addressing_can_delete_2_output,
-        "addressing_can_modify_ips": addressing_can_modify_ips_output,
-        "addressing_default_sni": addressing_default_sni_output,
-        "addressing_description-2": addressing_description_2_output,
-        "addressing_enabled": addressing_enabled_output,
-        "addressing_full_response": addressing_full_response_output,
-        "addressing_identifier": addressing_identifier_output,
-        "addressing_ip": addressing_ip_output,
-        "addressing_ips": addressing_ips_output,
-        "addressing_kind": addressing_kind_output,
-        "addressing_memberships": addressing_memberships_output,
-        "addressing_messages": addressing_messages_output,
-        "addressing_timestamp": addressing_timestamp_output,
+        "addressing_address-maps": addressing_address$$maps,
+        "addressing_address-maps-ip": addressing_address$$maps$$ip,
+        "addressing_address-maps-membership": addressing_address$$maps$$membership,
+        "addressing_address_map_identifier": addressing_address_map_identifier,
+        "addressing_api-response-single": addressing_api$$response$$single,
+        "addressing_can_delete": addressing_can_delete,
+        "addressing_can_delete-2": addressing_can_delete$$2,
+        "addressing_can_modify_ips": addressing_can_modify_ips,
+        "addressing_default_sni": addressing_default_sni,
+        "addressing_description-2": addressing_description$$2,
+        "addressing_enabled": addressing_enabled,
+        "addressing_full_response": addressing_full_response,
+        "addressing_identifier": addressing_identifier,
+        "addressing_ip": addressing_ip,
+        "addressing_ips": addressing_ips,
+        "addressing_kind": addressing_kind,
+        "addressing_memberships": addressing_memberships,
+        "addressing_messages": addressing_messages,
+        "addressing_timestamp": addressing_timestamp,
       },
     },
     annotations: {
@@ -448,26 +480,26 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "addressing_address-maps": addressing_address_maps_output,
-        "addressing_address-maps-ip": addressing_address_maps_ip_output,
-        "addressing_address-maps-membership": addressing_address_maps_membership_output,
-        "addressing_address_map_identifier": addressing_address_map_identifier_output,
-        "addressing_api-response-common-failure": addressing_api_response_common_failure_output,
-        "addressing_api-response-single": addressing_api_response_single_output,
-        "addressing_can_delete": addressing_can_delete_output,
-        "addressing_can_delete-2": addressing_can_delete_2_output,
-        "addressing_can_modify_ips": addressing_can_modify_ips_output,
-        "addressing_default_sni": addressing_default_sni_output,
-        "addressing_description-2": addressing_description_2_output,
-        "addressing_enabled": addressing_enabled_output,
-        "addressing_full_response": addressing_full_response_output,
-        "addressing_identifier": addressing_identifier_output,
-        "addressing_ip": addressing_ip_output,
-        "addressing_ips": addressing_ips_output,
-        "addressing_kind": addressing_kind_output,
-        "addressing_memberships": addressing_memberships_output,
-        "addressing_messages": addressing_messages_output,
-        "addressing_timestamp": addressing_timestamp_output,
+        "addressing_address-maps": addressing_address$$maps,
+        "addressing_address-maps-ip": addressing_address$$maps$$ip,
+        "addressing_address-maps-membership": addressing_address$$maps$$membership,
+        "addressing_address_map_identifier": addressing_address_map_identifier,
+        "addressing_api-response-common-failure": addressing_api$$response$$common$$failure,
+        "addressing_api-response-single": addressing_api$$response$$single,
+        "addressing_can_delete": addressing_can_delete,
+        "addressing_can_delete-2": addressing_can_delete$$2,
+        "addressing_can_modify_ips": addressing_can_modify_ips,
+        "addressing_default_sni": addressing_default_sni,
+        "addressing_description-2": addressing_description$$2,
+        "addressing_enabled": addressing_enabled,
+        "addressing_full_response": addressing_full_response,
+        "addressing_identifier": addressing_identifier,
+        "addressing_ip": addressing_ip,
+        "addressing_ips": addressing_ips,
+        "addressing_kind": addressing_kind,
+        "addressing_memberships": addressing_memberships,
+        "addressing_messages": addressing_messages,
+        "addressing_timestamp": addressing_timestamp,
       },
     },
     request: (args) => ({
@@ -475,19 +507,27 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "addressing_address_maps_list",
+    name: "addressing_addressMaps_list",
     title: "List Address Maps",
     description: "List all address maps owned by the account.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/addressing_account_identifier",
-          "description": "Identifier of a Cloudflare account."
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/addressing_account_identifier",
+              "description": "Identifier of a Cloudflare account."
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id"
+        "path"
       ],
       $defs: {
         "addressing_account_identifier": addressing_account_identifier,
@@ -496,18 +536,18 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/addressing_response_collection-3",
       $defs: {
-        "addressing_address-maps": addressing_address_maps_output,
-        "addressing_address_map_identifier": addressing_address_map_identifier_output,
-        "addressing_api-response-collection": addressing_api_response_collection_output,
-        "addressing_api-response-common": addressing_api_response_common_output,
-        "addressing_can_delete": addressing_can_delete_output,
-        "addressing_can_modify_ips": addressing_can_modify_ips_output,
-        "addressing_default_sni": addressing_default_sni_output,
-        "addressing_description-2": addressing_description_2_output,
-        "addressing_enabled": addressing_enabled_output,
-        "addressing_messages": addressing_messages_output,
-        "addressing_response_collection-3": addressing_response_collection_3_output,
-        "addressing_timestamp": addressing_timestamp_output,
+        "addressing_address-maps": addressing_address$$maps,
+        "addressing_address_map_identifier": addressing_address_map_identifier,
+        "addressing_api-response-collection": addressing_api$$response$$collection,
+        "addressing_api-response-common": addressing_api$$response$$common,
+        "addressing_can_delete": addressing_can_delete,
+        "addressing_can_modify_ips": addressing_can_modify_ips,
+        "addressing_default_sni": addressing_default_sni,
+        "addressing_description-2": addressing_description$$2,
+        "addressing_enabled": addressing_enabled,
+        "addressing_messages": addressing_messages,
+        "addressing_response_collection-3": addressing_response_collection$$3,
+        "addressing_timestamp": addressing_timestamp,
       },
     },
     annotations: {
@@ -542,19 +582,19 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "addressing_address-maps": addressing_address_maps_output,
-        "addressing_address_map_identifier": addressing_address_map_identifier_output,
-        "addressing_api-response-collection": addressing_api_response_collection_output,
-        "addressing_api-response-common": addressing_api_response_common_output,
-        "addressing_api-response-common-failure": addressing_api_response_common_failure_output,
-        "addressing_can_delete": addressing_can_delete_output,
-        "addressing_can_modify_ips": addressing_can_modify_ips_output,
-        "addressing_default_sni": addressing_default_sni_output,
-        "addressing_description-2": addressing_description_2_output,
-        "addressing_enabled": addressing_enabled_output,
-        "addressing_messages": addressing_messages_output,
-        "addressing_response_collection-3": addressing_response_collection_3_output,
-        "addressing_timestamp": addressing_timestamp_output,
+        "addressing_address-maps": addressing_address$$maps,
+        "addressing_address_map_identifier": addressing_address_map_identifier,
+        "addressing_api-response-collection": addressing_api$$response$$collection,
+        "addressing_api-response-common": addressing_api$$response$$common,
+        "addressing_api-response-common-failure": addressing_api$$response$$common$$failure,
+        "addressing_can_delete": addressing_can_delete,
+        "addressing_can_modify_ips": addressing_can_modify_ips,
+        "addressing_default_sni": addressing_default_sni,
+        "addressing_description-2": addressing_description$$2,
+        "addressing_enabled": addressing_enabled,
+        "addressing_messages": addressing_messages,
+        "addressing_response_collection-3": addressing_response_collection$$3,
+        "addressing_timestamp": addressing_timestamp,
       },
     },
     request: (args) => ({

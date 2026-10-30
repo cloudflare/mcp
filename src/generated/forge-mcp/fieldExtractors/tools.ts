@@ -3,45 +3,53 @@
 
 import { type Tool, pathParam } from "../_/tool.js";
 import {
-  field_extractors_ApiError_output,
-  field_extractors_DeleteResponse_output,
-  field_extractors_ErrorResponse_output,
-  field_extractors_ExtractorResult_output,
-  field_extractors_FieldOutput_output,
-  field_extractors_RuleOutput_output,
-  field_extractors_SuccessResponse_output,
+  field$$extractors_ApiError,
+  field$$extractors_DeleteResponse,
+  field$$extractors_ErrorResponse,
+  field$$extractors_ExtractorResult,
+  field$$extractors_FieldOutput,
+  field$$extractors_RuleOutput,
+  field$$extractors_SuccessResponse,
 } from "./outputs.js";
 
 /**
- * The tools of `field_extractors`.
+ * The tools of `fieldExtractors`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "field_extractors_delete",
+    name: "fieldExtractors_delete",
     title: "Delete Field Extractor",
     description: "Deletes all custom extraction rules for an extractor type.\n\nThis method is alpha.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "description": "Cloudflare account ID.",
-          "type": "string"
-        },
-        "extractor": {
-          "description": "Extractor type.",
-          "type": "string"
+        "path": {
+          "properties": {
+            "account_id": {
+              "description": "Cloudflare account ID.",
+              "type": "string"
+            },
+            "extractor": {
+              "description": "Extractor type.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "extractor"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "extractor"
+        "path"
       ],
     },
     outputSchema: {
       "$ref": "#/$defs/field-extractors_DeleteResponse",
       $defs: {
-        "field-extractors_ApiError": field_extractors_ApiError_output,
-        "field-extractors_DeleteResponse": field_extractors_DeleteResponse_output,
+        "field-extractors_ApiError": field$$extractors_ApiError,
+        "field-extractors_DeleteResponse": field$$extractors_DeleteResponse,
       },
     },
     annotations: {
@@ -63,9 +71,9 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "field-extractors_ApiError": field_extractors_ApiError_output,
-        "field-extractors_DeleteResponse": field_extractors_DeleteResponse_output,
-        "field-extractors_ErrorResponse": field_extractors_ErrorResponse_output,
+        "field-extractors_ApiError": field$$extractors_ApiError,
+        "field-extractors_DeleteResponse": field$$extractors_DeleteResponse,
+        "field-extractors_ErrorResponse": field$$extractors_ErrorResponse,
       },
     },
     request: (args) => ({
@@ -73,34 +81,42 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "field_extractors_get",
+    name: "fieldExtractors_get",
     title: "Get Field Extractor",
     description: "Retrieves the custom extraction rules configured for a given extractor type.\n\nThis method is alpha.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "description": "Cloudflare account ID.",
-          "type": "string"
-        },
-        "extractor": {
-          "description": "Extractor type.",
-          "type": "string"
+        "path": {
+          "properties": {
+            "account_id": {
+              "description": "Cloudflare account ID.",
+              "type": "string"
+            },
+            "extractor": {
+              "description": "Extractor type.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "extractor"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "extractor"
+        "path"
       ],
     },
     outputSchema: {
       "$ref": "#/$defs/field-extractors_SuccessResponse",
       $defs: {
-        "field-extractors_ApiError": field_extractors_ApiError_output,
-        "field-extractors_ExtractorResult": field_extractors_ExtractorResult_output,
-        "field-extractors_FieldOutput": field_extractors_FieldOutput_output,
-        "field-extractors_RuleOutput": field_extractors_RuleOutput_output,
-        "field-extractors_SuccessResponse": field_extractors_SuccessResponse_output,
+        "field-extractors_ApiError": field$$extractors_ApiError,
+        "field-extractors_ExtractorResult": field$$extractors_ExtractorResult,
+        "field-extractors_FieldOutput": field$$extractors_FieldOutput,
+        "field-extractors_RuleOutput": field$$extractors_RuleOutput,
+        "field-extractors_SuccessResponse": field$$extractors_SuccessResponse,
       },
     },
     annotations: {
@@ -122,12 +138,12 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "field-extractors_ApiError": field_extractors_ApiError_output,
-        "field-extractors_ErrorResponse": field_extractors_ErrorResponse_output,
-        "field-extractors_ExtractorResult": field_extractors_ExtractorResult_output,
-        "field-extractors_FieldOutput": field_extractors_FieldOutput_output,
-        "field-extractors_RuleOutput": field_extractors_RuleOutput_output,
-        "field-extractors_SuccessResponse": field_extractors_SuccessResponse_output,
+        "field-extractors_ApiError": field$$extractors_ApiError,
+        "field-extractors_ErrorResponse": field$$extractors_ErrorResponse,
+        "field-extractors_ExtractorResult": field$$extractors_ExtractorResult,
+        "field-extractors_FieldOutput": field$$extractors_FieldOutput,
+        "field-extractors_RuleOutput": field$$extractors_RuleOutput,
+        "field-extractors_SuccessResponse": field$$extractors_SuccessResponse,
       },
     },
     request: (args) => ({
@@ -135,16 +151,12 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "field_extractors_update",
+    name: "fieldExtractors_update",
     title: "Update Field Extractor",
     description: "Replaces all custom extraction rules for an extractor type. Omitted rules are deleted.\n\nThis method is alpha.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "description": "Cloudflare account ID.",
-          "type": "string"
-        },
         "body": {
           "description": "Desired-state replacement of all rules for this extractor type.",
           "properties": {
@@ -193,24 +205,36 @@ export const tools: readonly Tool[] = [
           ],
           "type": "object"
         },
-        "extractor": {
-          "description": "Extractor type.",
-          "type": "string"
+        "path": {
+          "properties": {
+            "account_id": {
+              "description": "Cloudflare account ID.",
+              "type": "string"
+            },
+            "extractor": {
+              "description": "Extractor type.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "extractor"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "extractor"
+        "path"
       ],
     },
     outputSchema: {
       "$ref": "#/$defs/field-extractors_SuccessResponse",
       $defs: {
-        "field-extractors_ApiError": field_extractors_ApiError_output,
-        "field-extractors_ExtractorResult": field_extractors_ExtractorResult_output,
-        "field-extractors_FieldOutput": field_extractors_FieldOutput_output,
-        "field-extractors_RuleOutput": field_extractors_RuleOutput_output,
-        "field-extractors_SuccessResponse": field_extractors_SuccessResponse_output,
+        "field-extractors_ApiError": field$$extractors_ApiError,
+        "field-extractors_ExtractorResult": field$$extractors_ExtractorResult,
+        "field-extractors_FieldOutput": field$$extractors_FieldOutput,
+        "field-extractors_RuleOutput": field$$extractors_RuleOutput,
+        "field-extractors_SuccessResponse": field$$extractors_SuccessResponse,
       },
     },
     annotations: {
@@ -235,12 +259,12 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "field-extractors_ApiError": field_extractors_ApiError_output,
-        "field-extractors_ErrorResponse": field_extractors_ErrorResponse_output,
-        "field-extractors_ExtractorResult": field_extractors_ExtractorResult_output,
-        "field-extractors_FieldOutput": field_extractors_FieldOutput_output,
-        "field-extractors_RuleOutput": field_extractors_RuleOutput_output,
-        "field-extractors_SuccessResponse": field_extractors_SuccessResponse_output,
+        "field-extractors_ApiError": field$$extractors_ApiError,
+        "field-extractors_ErrorResponse": field$$extractors_ErrorResponse,
+        "field-extractors_ExtractorResult": field$$extractors_ExtractorResult,
+        "field-extractors_FieldOutput": field$$extractors_FieldOutput,
+        "field-extractors_RuleOutput": field$$extractors_RuleOutput,
+        "field-extractors_SuccessResponse": field$$extractors_SuccessResponse,
       },
     },
     request: (args) => ({

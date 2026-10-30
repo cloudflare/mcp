@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `abuse-reports_EmailListItem` in responses.
  */
-export const abuse_reports_EmailListItem_output: JsonSchema = {
+export const abuse$$reports_EmailListItem: JsonSchema = {
   "properties": {
     "body": {
       "type": "string"
@@ -37,7 +37,7 @@ export const abuse_reports_EmailListItem_output: JsonSchema = {
 /**
  * The schema of `abuse-reports_EmailListResponse` in responses.
  */
-export const abuse_reports_EmailListResponse_output: JsonSchema = {
+export const abuse$$reports_EmailListResponse: JsonSchema = {
   "properties": {
     "errors": {
       "items": {

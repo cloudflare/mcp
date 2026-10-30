@@ -3,10 +3,10 @@
 
 import { type Tool, pathParam } from "../../../../../_/tool.js";
 import {
-  stream_api_response_common_failure_output,
-  stream_messages_output,
+  stream_api$$response$$common$$failure,
+  stream_messages,
 } from "../../../../outputs.js";
-import { stream_identifier_2 } from "../../../../schemas.js";
+import { stream_identifier$$2 } from "../../../../schemas.js";
 import { stream_identifier } from "../../../schemas.js";
 import { stream_language } from "../../schemas.js";
 
@@ -21,27 +21,35 @@ export const tools: readonly Tool[] = [
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/stream_identifier-2",
-          "description": "Identifier."
-        },
-        "identifier": {
-          "$ref": "#/$defs/stream_identifier",
-          "description": "A Cloudflare-generated unique identifier for a media item."
-        },
-        "language": {
-          "$ref": "#/$defs/stream_language",
-          "description": "The language tag in BCP 47 format."
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/stream_identifier-2",
+              "description": "Identifier."
+            },
+            "identifier": {
+              "$ref": "#/$defs/stream_identifier",
+              "description": "A Cloudflare-generated unique identifier for a media item."
+            },
+            "language": {
+              "$ref": "#/$defs/stream_language",
+              "description": "The language tag in BCP 47 format."
+            }
+          },
+          "required": [
+            "account_id",
+            "identifier",
+            "language"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "identifier",
-        "language"
+        "path"
       ],
       $defs: {
         "stream_identifier": stream_identifier,
-        "stream_identifier-2": stream_identifier_2,
+        "stream_identifier-2": stream_identifier$$2,
         "stream_language": stream_language,
       },
     },
@@ -68,8 +76,8 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "stream_api-response-common-failure": stream_api_response_common_failure_output,
-        "stream_messages": stream_messages_output,
+        "stream_api-response-common-failure": stream_api$$response$$common$$failure,
+        "stream_messages": stream_messages,
       },
     },
     request: (args) => ({

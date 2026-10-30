@@ -3,53 +3,61 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
-  security_center_api_response_common_failure_output,
-  security_center_api_response_common_output,
-  security_center_messages_output,
+  security$$center_api$$response$$common,
+  security$$center_api$$response$$common$$failure,
+  security$$center_messages,
 } from "../../outputs.js";
 import {
-  security_center_identifier,
-  security_center_issueClass,
-  security_center_issueType,
+  security$$center_identifier,
+  security$$center_issueClass,
+  security$$center_issueType,
 } from "../../schemas.js";
 import {
-  security_center_newScanResponse_output,
-  security_center_scanQuota_output,
-  security_center_scanStatusResponse_output,
-  security_center_scansListResponse_output,
+  security$$center_newScanResponse,
+  security$$center_scanQuota,
+  security$$center_scanStatusResponse,
+  security$$center_scansListResponse,
 } from "./outputs.js";
-import { security_center_newScanRequest } from "./schemas.js";
+import { security$$center_newScanRequest } from "./schemas.js";
 
 /**
- * The tools of `security_insights.scans`.
+ * The tools of `securityInsights.scans`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "security_insights_scans_list",
+    name: "securityInsights_scans_list",
     title: "Get Recent account or zone Scans",
     description: "Returns the most recent on-demand scans for the account or zone, up to a maximum of 5. Each scan includes its ID, start time, and current status. This includes both account or zone-wide and zone-scoped scans. Also returns quota information showing how many scans have been used and how many remain in the current 24-hour window.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_or_zone": {
-          "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
-          "enum": [
-            "accounts",
-            "zones"
+        "path": {
+          "properties": {
+            "account_or_zone": {
+              "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
+              "enum": [
+                "accounts",
+                "zones"
+              ],
+              "type": "string"
+            },
+            "account_or_zone_id": {
+              "$ref": "#/$defs/security-center_identifier",
+              "description": "The account ID or zone ID, as selected by account_or_zone."
+            }
+          },
+          "required": [
+            "account_or_zone",
+            "account_or_zone_id"
           ],
-          "type": "string"
-        },
-        "account_or_zone_id": {
-          "$ref": "#/$defs/security-center_identifier",
-          "description": "The account ID or zone ID, as selected by account_or_zone."
+          "type": "object"
         }
       },
       required: [
-        "account_or_zone",
-        "account_or_zone_id"
+        "path"
       ],
       $defs: {
-        "security-center_identifier": security_center_identifier,
+        "security-center_identifier": security$$center_identifier,
       },
     },
     outputSchema: {
@@ -67,11 +75,11 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "security-center_api-response-common": security_center_api_response_common_output,
-        "security-center_messages": security_center_messages_output,
-        "security-center_scanQuota": security_center_scanQuota_output,
-        "security-center_scanStatusResponse": security_center_scanStatusResponse_output,
-        "security-center_scansListResponse": security_center_scansListResponse_output,
+        "security-center_api-response-common": security$$center_api$$response$$common,
+        "security-center_messages": security$$center_messages,
+        "security-center_scanQuota": security$$center_scanQuota,
+        "security-center_scanStatusResponse": security$$center_scanStatusResponse,
+        "security-center_scansListResponse": security$$center_scansListResponse,
       },
     },
     annotations: {
@@ -105,12 +113,12 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "security-center_api-response-common": security_center_api_response_common_output,
-        "security-center_api-response-common-failure": security_center_api_response_common_failure_output,
-        "security-center_messages": security_center_messages_output,
-        "security-center_scanQuota": security_center_scanQuota_output,
-        "security-center_scanStatusResponse": security_center_scanStatusResponse_output,
-        "security-center_scansListResponse": security_center_scansListResponse_output,
+        "security-center_api-response-common": security$$center_api$$response$$common,
+        "security-center_api-response-common-failure": security$$center_api$$response$$common$$failure,
+        "security-center_messages": security$$center_messages,
+        "security-center_scanQuota": security$$center_scanQuota,
+        "security-center_scanStatusResponse": security$$center_scanStatusResponse,
+        "security-center_scansListResponse": security$$center_scansListResponse,
       },
     },
     request: (args) => ({
@@ -118,38 +126,46 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "security_insights_scans_start",
+    name: "securityInsights_scans_start",
     title: "Start On-Demand account or zone Scan",
     description: "Initiates an on-demand security scan for the entire account or zone, scanning all zones associated with the account or zone. Rate limited to 5 scans per account or zone per 24-hour window.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_or_zone": {
-          "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
-          "enum": [
-            "accounts",
-            "zones"
-          ],
-          "type": "string"
-        },
-        "account_or_zone_id": {
-          "$ref": "#/$defs/security-center_identifier",
-          "description": "The account ID or zone ID, as selected by account_or_zone."
-        },
         "body": {
           "$ref": "#/$defs/security-center_newScanRequest"
+        },
+        "path": {
+          "properties": {
+            "account_or_zone": {
+              "description": "Whether account_or_zone_id is an account ID (`accounts`) or a zone ID (`zones`).",
+              "enum": [
+                "accounts",
+                "zones"
+              ],
+              "type": "string"
+            },
+            "account_or_zone_id": {
+              "$ref": "#/$defs/security-center_identifier",
+              "description": "The account ID or zone ID, as selected by account_or_zone."
+            }
+          },
+          "required": [
+            "account_or_zone",
+            "account_or_zone_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_or_zone",
-        "account_or_zone_id",
+        "path",
         "body"
       ],
       $defs: {
-        "security-center_identifier": security_center_identifier,
-        "security-center_issueClass": security_center_issueClass,
-        "security-center_issueType": security_center_issueType,
-        "security-center_newScanRequest": security_center_newScanRequest,
+        "security-center_identifier": security$$center_identifier,
+        "security-center_issueClass": security$$center_issueClass,
+        "security-center_issueType": security$$center_issueType,
+        "security-center_newScanRequest": security$$center_newScanRequest,
       },
     },
     outputSchema: {
@@ -167,9 +183,9 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "security-center_api-response-common": security_center_api_response_common_output,
-        "security-center_messages": security_center_messages_output,
-        "security-center_newScanResponse": security_center_newScanResponse_output,
+        "security-center_api-response-common": security$$center_api$$response$$common,
+        "security-center_messages": security$$center_messages,
+        "security-center_newScanResponse": security$$center_newScanResponse,
       },
     },
     annotations: {
@@ -203,10 +219,10 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "security-center_api-response-common": security_center_api_response_common_output,
-        "security-center_api-response-common-failure": security_center_api_response_common_failure_output,
-        "security-center_messages": security_center_messages_output,
-        "security-center_newScanResponse": security_center_newScanResponse_output,
+        "security-center_api-response-common": security$$center_api$$response$$common,
+        "security-center_api-response-common-failure": security$$center_api$$response$$common$$failure,
+        "security-center_messages": security$$center_messages,
+        "security-center_newScanResponse": security$$center_newScanResponse,
       },
     },
     request: (args) => ({

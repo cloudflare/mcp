@@ -6,14 +6,14 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `access_days_until_next_rotation` in responses.
  */
-export const access_days_until_next_rotation_output: JsonSchema = {
+export const access_days_until_next_rotation: JsonSchema = {
   "type": "number"
 };
 
 /**
  * The schema of `access_key_config` in responses.
  */
-export const access_key_config_output: JsonSchema = {
+export const access_key_config: JsonSchema = {
   "properties": {
     "days_until_next_rotation": {
       "$ref": "#/$defs/access_days_until_next_rotation"
@@ -31,14 +31,14 @@ export const access_key_config_output: JsonSchema = {
 /**
  * The schema of `access_key_rotation_interval_days` in responses.
  */
-export const access_key_rotation_interval_days_output: JsonSchema = {
+export const access_key_rotation_interval_days: JsonSchema = {
   "type": "number"
 };
 
 /**
  * The schema of `access_last_key_rotation_at` in responses.
  */
-export const access_last_key_rotation_at_output: JsonSchema = {
+export const access_last_key_rotation_at: JsonSchema = {
   "format": "date-time",
   "type": "string"
 };
@@ -46,7 +46,7 @@ export const access_last_key_rotation_at_output: JsonSchema = {
 /**
  * The schema of `access_single_response-13` in responses.
  */
-export const access_single_response_13_output: JsonSchema = {
+export const access_single_response$$13: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/access_api-response-single"

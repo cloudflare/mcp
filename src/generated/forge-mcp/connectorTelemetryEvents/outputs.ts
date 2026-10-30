@@ -6,7 +6,7 @@ import type { JsonSchema } from "../_/tool.js";
 /**
  * The schema of `mconn-telemetry_customer_events_get_success` in responses.
  */
-export const mconn_telemetry_customer_events_get_success_output: JsonSchema = {
+export const mconn$$telemetry_customer_events_get_success: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/mconn-telemetry_envelope"
@@ -28,7 +28,7 @@ export const mconn_telemetry_customer_events_get_success_output: JsonSchema = {
 /**
  * The schema of `mconn-telemetry_customer_events_list_result` in responses.
  */
-export const mconn_telemetry_customer_events_list_result_output: JsonSchema = {
+export const mconn$$telemetry_customer_events_list_result: JsonSchema = {
   "properties": {
     "count": {
       "type": "number"
@@ -53,7 +53,7 @@ export const mconn_telemetry_customer_events_list_result_output: JsonSchema = {
 /**
  * The schema of `mconn-telemetry_customer_events_list_success` in responses.
  */
-export const mconn_telemetry_customer_events_list_success_output: JsonSchema = {
+export const mconn$$telemetry_customer_events_list_success: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/mconn-telemetry_envelope"
@@ -75,7 +75,7 @@ export const mconn_telemetry_customer_events_list_success_output: JsonSchema = {
 /**
  * The schema of `mconn-telemetry_event` in responses.
  */
-export const mconn_telemetry_event_output: JsonSchema = {
+export const mconn$$telemetry_event: JsonSchema = {
   "properties": {
     "k": {
       "enum": [
@@ -121,7 +121,7 @@ export const mconn_telemetry_event_output: JsonSchema = {
 /**
  * The schema of `mconn-telemetry_event_metadata` in responses.
  */
-export const mconn_telemetry_event_metadata_output: JsonSchema = {
+export const mconn$$telemetry_event_metadata: JsonSchema = {
   "properties": {
     "a": {
       "type": "number"
@@ -148,7 +148,7 @@ export const mconn_telemetry_event_metadata_output: JsonSchema = {
 /**
  * The schema of `mconn-telemetry_recorded_event` in responses.
  */
-export const mconn_telemetry_recorded_event_output: JsonSchema = {
+export const mconn$$telemetry_recorded_event: JsonSchema = {
   "properties": {
     "e": {
       "$ref": "#/$defs/mconn-telemetry_event"

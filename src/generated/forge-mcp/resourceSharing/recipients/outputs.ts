@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `resource-sharing_recipient_association_status` in responses.
  */
-export const resource_sharing_recipient_association_status_output: JsonSchema = {
+export const resource$$sharing_recipient_association_status: JsonSchema = {
   "enum": [
     "associating",
     "associated",
@@ -19,14 +19,14 @@ export const resource_sharing_recipient_association_status_output: JsonSchema = 
 /**
  * The schema of `resource-sharing_recipient_id` in responses.
  */
-export const resource_sharing_recipient_id_output: JsonSchema = {
+export const resource$$sharing_recipient_id: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `resource-sharing_recipient_resource_error` in responses.
  */
-export const resource_sharing_recipient_resource_error_output: JsonSchema = {
+export const resource$$sharing_recipient_resource_error: JsonSchema = {
   "type": "string"
 };
 
@@ -34,14 +34,14 @@ export const resource_sharing_recipient_resource_error_output: JsonSchema = {
  * The schema of `resource-sharing_recipient_resource_error_terminal` in
  * responses.
  */
-export const resource_sharing_recipient_resource_error_terminal_output: JsonSchema = {
+export const resource$$sharing_recipient_resource_error_terminal: JsonSchema = {
   "type": "boolean"
 };
 
 /**
  * The schema of `resource-sharing_share_recipient_object` in responses.
  */
-export const resource_sharing_share_recipient_object_output: JsonSchema = {
+export const resource$$sharing_share_recipient_object: JsonSchema = {
   "properties": {
     "account_id": {
       "$ref": "#/$defs/resource-sharing_account_id"
@@ -79,7 +79,7 @@ export const resource_sharing_share_recipient_object_output: JsonSchema = {
  * The schema of `resource-sharing_share_recipient_resource_object` in
  * responses.
  */
-export const resource_sharing_share_recipient_resource_object_output: JsonSchema = {
+export const resource$$sharing_share_recipient_resource_object: JsonSchema = {
   "properties": {
     "error": {
       "$ref": "#/$defs/resource-sharing_recipient_resource_error"
@@ -107,7 +107,7 @@ export const resource_sharing_share_recipient_resource_object_output: JsonSchema
  * The schema of `resource-sharing_share_recipient_response_collection` in
  * responses.
  */
-export const resource_sharing_share_recipient_response_collection_output: JsonSchema = {
+export const resource$$sharing_share_recipient_response_collection: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/resource-sharing_api-response-collection"
@@ -122,7 +122,7 @@ export const resource_sharing_share_recipient_response_collection_output: JsonSc
  * The schema of `resource-sharing_share_recipient_response_collection_result`
  * in responses.
  */
-export const resource_sharing_share_recipient_response_collection_result_output: JsonSchema = {
+export const resource$$sharing_share_recipient_response_collection_result: JsonSchema = {
   "properties": {
     "result": {
       "items": {
@@ -138,7 +138,7 @@ export const resource_sharing_share_recipient_response_collection_result_output:
  * The schema of `resource-sharing_share_recipient_response_single` in
  * responses.
  */
-export const resource_sharing_share_recipient_response_single_output: JsonSchema = {
+export const resource$$sharing_share_recipient_response_single: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/resource-sharing_api-response-common"
@@ -153,7 +153,7 @@ export const resource_sharing_share_recipient_response_single_output: JsonSchema
  * The schema of `resource-sharing_share_recipient_response_single_result` in
  * responses.
  */
-export const resource_sharing_share_recipient_response_single_result_output: JsonSchema = {
+export const resource$$sharing_share_recipient_response_single_result: JsonSchema = {
   "properties": {
     "result": {
       "$ref": "#/$defs/resource-sharing_share_recipient_object"

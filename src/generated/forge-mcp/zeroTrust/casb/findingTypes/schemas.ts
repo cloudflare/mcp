@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `posture-api_FindingTypeOriginEnum`.
  */
-export const posture_api_FindingTypeOriginEnum: JsonSchema = {
+export const posture$$api_FindingTypeOriginEnum: JsonSchema = {
   "description": "Finding type origins for list filters.",
   "enum": [
     "custom",
@@ -18,7 +18,7 @@ export const posture_api_FindingTypeOriginEnum: JsonSchema = {
 /**
  * The schema of `posture-api_FindingTypeSeverityEnum`.
  */
-export const posture_api_FindingTypeSeverityEnum: JsonSchema = {
+export const posture$$api_FindingTypeSeverityEnum: JsonSchema = {
   "description": "Finding type severities for list filters.",
   "enum": [
     "critical",
@@ -32,7 +32,7 @@ export const posture_api_FindingTypeSeverityEnum: JsonSchema = {
 /**
  * The schema of `posture-api_create-finding-type-request`.
  */
-export const posture_api_create_finding_type_request: JsonSchema = {
+export const posture$$api_create$$finding$$type$$request: JsonSchema = {
   "properties": {
     "applies_to_all_integrations": {
       "description": "When true, this finding type applies to every current and future integration of the vendor.",
@@ -98,7 +98,7 @@ export const posture_api_create_finding_type_request: JsonSchema = {
 /**
  * The schema of `posture-api_update-finding-type-request`.
  */
-export const posture_api_update_finding_type_request: JsonSchema = {
+export const posture$$api_update$$finding$$type$$request: JsonSchema = {
   "properties": {
     "applies_to_all_integrations": {
       "description": "When true, this finding type applies to every current and future integration of the vendor.",

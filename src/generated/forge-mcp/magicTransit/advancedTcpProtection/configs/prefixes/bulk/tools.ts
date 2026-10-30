@@ -3,58 +3,66 @@
 
 import { type Tool, pathParam } from "../../../../../_/tool.js";
 import {
-  advanced_ddos_protection_api_response_collection_output,
-  advanced_ddos_protection_api_response_common_failure_output,
-  advanced_ddos_protection_api_response_common_output,
-  advanced_ddos_protection_messages_output,
+  advanced$$ddos$$protection_api$$response$$collection,
+  advanced$$ddos$$protection_api$$response$$common,
+  advanced$$ddos$$protection_api$$response$$common$$failure,
+  advanced$$ddos$$protection_messages,
 } from "../../../../outputs.js";
-import { advanced_ddos_protection_identifier } from "../../../../schemas.js";
+import { advanced$$ddos$$protection_identifier } from "../../../../schemas.js";
 import {
-  advanced_ddos_protection_Prefix_output,
-  advanced_ddos_protection_prefix_list_response_output,
+  advanced$$ddos$$protection_Prefix,
+  advanced$$ddos$$protection_prefix$$list$$response,
 } from "../outputs.js";
-import { advanced_ddos_protection_NewPrefix } from "../schemas.js";
+import { advanced$$ddos$$protection_NewPrefix } from "../schemas.js";
 
 /**
- * The tools of `magic_transit.advanced_tcp_protection.configs.prefixes.bulk`.
+ * The tools of `magicTransit.advancedTcpProtection.configs.prefixes.bulk`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "magic_transit_advanced_tcp_protection_configs_prefixes_bulk_create",
+    name: "magicTransit_advancedTcpProtection_configs_prefixes_bulk_create",
     title: "Create multiple prefixes.",
     description: "Create multiple prefixes for an account.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/advanced-ddos-protection_identifier",
-          "description": "The ID of the account."
-        },
         "body": {
           "description": "The list of new prefixes to create.",
           "items": {
             "$ref": "#/$defs/advanced-ddos-protection_NewPrefix"
           },
           "type": "array"
+        },
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/advanced-ddos-protection_identifier",
+              "description": "The ID of the account."
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
+        "path",
         "body"
       ],
       $defs: {
-        "advanced-ddos-protection_NewPrefix": advanced_ddos_protection_NewPrefix,
-        "advanced-ddos-protection_identifier": advanced_ddos_protection_identifier,
+        "advanced-ddos-protection_NewPrefix": advanced$$ddos$$protection_NewPrefix,
+        "advanced-ddos-protection_identifier": advanced$$ddos$$protection_identifier,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/advanced-ddos-protection_prefix-list-response",
       $defs: {
-        "advanced-ddos-protection_Prefix": advanced_ddos_protection_Prefix_output,
-        "advanced-ddos-protection_api-response-collection": advanced_ddos_protection_api_response_collection_output,
-        "advanced-ddos-protection_api-response-common": advanced_ddos_protection_api_response_common_output,
-        "advanced-ddos-protection_messages": advanced_ddos_protection_messages_output,
-        "advanced-ddos-protection_prefix-list-response": advanced_ddos_protection_prefix_list_response_output,
+        "advanced-ddos-protection_Prefix": advanced$$ddos$$protection_Prefix,
+        "advanced-ddos-protection_api-response-collection": advanced$$ddos$$protection_api$$response$$collection,
+        "advanced-ddos-protection_api-response-common": advanced$$ddos$$protection_api$$response$$common,
+        "advanced-ddos-protection_messages": advanced$$ddos$$protection_messages,
+        "advanced-ddos-protection_prefix-list-response": advanced$$ddos$$protection_prefix$$list$$response,
       },
     },
     annotations: {
@@ -81,12 +89,12 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "advanced-ddos-protection_Prefix": advanced_ddos_protection_Prefix_output,
-        "advanced-ddos-protection_api-response-collection": advanced_ddos_protection_api_response_collection_output,
-        "advanced-ddos-protection_api-response-common": advanced_ddos_protection_api_response_common_output,
-        "advanced-ddos-protection_api-response-common-failure": advanced_ddos_protection_api_response_common_failure_output,
-        "advanced-ddos-protection_messages": advanced_ddos_protection_messages_output,
-        "advanced-ddos-protection_prefix-list-response": advanced_ddos_protection_prefix_list_response_output,
+        "advanced-ddos-protection_Prefix": advanced$$ddos$$protection_Prefix,
+        "advanced-ddos-protection_api-response-collection": advanced$$ddos$$protection_api$$response$$collection,
+        "advanced-ddos-protection_api-response-common": advanced$$ddos$$protection_api$$response$$common,
+        "advanced-ddos-protection_api-response-common-failure": advanced$$ddos$$protection_api$$response$$common$$failure,
+        "advanced-ddos-protection_messages": advanced$$ddos$$protection_messages,
+        "advanced-ddos-protection_prefix-list-response": advanced$$ddos$$protection_prefix$$list$$response,
       },
     },
     request: (args) => ({

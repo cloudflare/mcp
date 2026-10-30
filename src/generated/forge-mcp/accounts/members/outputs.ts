@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `iam_collection_member_response_with_policies` in responses.
  */
-export const iam_collection_member_response_with_policies_output: JsonSchema = {
+export const iam_collection_member_response_with_policies: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/iam_api-response-collection"
@@ -28,7 +28,7 @@ export const iam_collection_member_response_with_policies_output: JsonSchema = {
 /**
  * The schema of `iam_member_with_policies` in responses.
  */
-export const iam_member_with_policies_output: JsonSchema = {
+export const iam_member_with_policies: JsonSchema = {
   "properties": {
     "email": {
       "$ref": "#/$defs/iam_email"
@@ -85,7 +85,7 @@ export const iam_member_with_policies_output: JsonSchema = {
 /**
  * The schema of `iam_single_member_response_with_policies` in responses.
  */
-export const iam_single_member_response_with_policies_output: JsonSchema = {
+export const iam_single_member_response_with_policies: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/iam_api-response-single"

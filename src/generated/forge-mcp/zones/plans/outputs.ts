@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `bill-subs-api_available-rate-plan` in responses.
  */
-export const bill_subs_api_available_rate_plan_output: JsonSchema = {
+export const bill$$subs$$api_available$$rate$$plan: JsonSchema = {
   "properties": {
     "can_subscribe": {
       "$ref": "#/$defs/bill-subs-api_can_subscribe"
@@ -42,34 +42,34 @@ export const bill_subs_api_available_rate_plan_output: JsonSchema = {
 /**
  * The schema of `bill-subs-api_can_subscribe` in responses.
  */
-export const bill_subs_api_can_subscribe_output: JsonSchema = {
+export const bill$$subs$$api_can_subscribe: JsonSchema = {
   "type": "boolean"
 };
 
 /**
  * The schema of `bill-subs-api_externally_managed` in responses.
  */
-export const bill_subs_api_externally_managed_output: JsonSchema = {
+export const bill$$subs$$api_externally_managed: JsonSchema = {
   "type": "boolean"
 };
 
 /**
  * The schema of `bill-subs-api_is_subscribed` in responses.
  */
-export const bill_subs_api_is_subscribed_output: JsonSchema = {
+export const bill$$subs$$api_is_subscribed: JsonSchema = {
   "type": "boolean"
 };
 
 /**
  * The schema of `bill-subs-api_legacy_id` in responses.
  */
-export const bill_subs_api_legacy_id_output: JsonSchema = {
+export const bill$$subs$$api_legacy_id: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `bill-subs-api_schemas-price` in responses.
  */
-export const bill_subs_api_schemas_price_output: JsonSchema = {
+export const bill$$subs$$api_schemas$$price: JsonSchema = {
   "type": "number"
 };

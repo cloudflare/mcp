@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `cloudforce-one_StatsResponse` in responses.
  */
-export const cloudforce_one_StatsResponse_output: JsonSchema = {
+export const cloudforce$$one_StatsResponse: JsonSchema = {
   "properties": {
     "pending_approvals": {
       "type": "number"

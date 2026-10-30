@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `email-security_AllowPolicyId`.
  */
-export const email_security_AllowPolicyId: JsonSchema = {
+export const email$$security_AllowPolicyId: JsonSchema = {
   "description": "Allow policy identifier.",
   "format": "uuid",
   "type": "string"
@@ -15,7 +15,7 @@ export const email_security_AllowPolicyId: JsonSchema = {
 /**
  * The schema of `email-security_CreateAllowPolicy`.
  */
-export const email_security_CreateAllowPolicy: JsonSchema = {
+export const email$$security_CreateAllowPolicy: JsonSchema = {
   "description": "Create an allow policy.",
   "properties": {
     "comments": {
@@ -98,7 +98,7 @@ export const email_security_CreateAllowPolicy: JsonSchema = {
 /**
  * The schema of `email-security_UpdateAllowPolicy`.
  */
-export const email_security_UpdateAllowPolicy: JsonSchema = {
+export const email$$security_UpdateAllowPolicy: JsonSchema = {
   "description": "Update an allow policy.",
   "properties": {
     "comments": {

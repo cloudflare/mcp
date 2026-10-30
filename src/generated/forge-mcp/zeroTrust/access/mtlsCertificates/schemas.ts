@@ -17,7 +17,7 @@ export const access_associated_hostnames: JsonSchema = {
 /**
  * The schema of `access_name-7`.
  */
-export const access_name_7: JsonSchema = {
+export const access_name$$7: JsonSchema = {
   "description": "The name of the certificate.",
   "type": "string"
 };

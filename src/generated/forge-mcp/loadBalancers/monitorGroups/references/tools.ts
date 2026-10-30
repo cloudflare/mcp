@@ -3,48 +3,56 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
-  load_balancing_api_response_common_failure_output,
-  load_balancing_api_response_common_output,
-  load_balancing_messages_output,
+  load$$balancing_api$$response$$common,
+  load$$balancing_api$$response$$common$$failure,
+  load$$balancing_messages,
 } from "../../../outputs.js";
-import { load_balancing_identifier } from "../../../schemas.js";
-import { load_balancing_components_schemas_identifier } from "../../schemas.js";
-import { load_balancing_monitor_group_references_response_output } from "./outputs.js";
+import { load$$balancing_identifier } from "../../../schemas.js";
+import { load$$balancing_components$$schemas$$identifier } from "../../schemas.js";
+import { load$$balancing_monitor$$group$$references$$response } from "./outputs.js";
 
 /**
- * The tools of `load_balancers.monitor_groups.references`.
+ * The tools of `loadBalancers.monitorGroups.references`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "load_balancers_monitor_groups_references_list",
+    name: "loadBalancers_monitorGroups_references_list",
     title: "List Monitor Group References",
     description: "Get the list of resources that reference the provided monitor group.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/load-balancing_components-schemas-identifier",
-          "description": "Identifier."
-        },
-        "monitor_group_id": {
-          "$ref": "#/$defs/load-balancing_identifier"
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/load-balancing_components-schemas-identifier",
+              "description": "Identifier."
+            },
+            "monitor_group_id": {
+              "$ref": "#/$defs/load-balancing_identifier"
+            }
+          },
+          "required": [
+            "account_id",
+            "monitor_group_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "monitor_group_id"
+        "path"
       ],
       $defs: {
-        "load-balancing_components-schemas-identifier": load_balancing_components_schemas_identifier,
-        "load-balancing_identifier": load_balancing_identifier,
+        "load-balancing_components-schemas-identifier": load$$balancing_components$$schemas$$identifier,
+        "load-balancing_identifier": load$$balancing_identifier,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/load-balancing_monitor-group-references-response",
       $defs: {
-        "load-balancing_api-response-common": load_balancing_api_response_common_output,
-        "load-balancing_messages": load_balancing_messages_output,
-        "load-balancing_monitor-group-references-response": load_balancing_monitor_group_references_response_output,
+        "load-balancing_api-response-common": load$$balancing_api$$response$$common,
+        "load-balancing_messages": load$$balancing_messages,
+        "load-balancing_monitor-group-references-response": load$$balancing_monitor$$group$$references$$response,
       },
     },
     annotations: {
@@ -66,10 +74,10 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "load-balancing_api-response-common": load_balancing_api_response_common_output,
-        "load-balancing_api-response-common-failure": load_balancing_api_response_common_failure_output,
-        "load-balancing_messages": load_balancing_messages_output,
-        "load-balancing_monitor-group-references-response": load_balancing_monitor_group_references_response_output,
+        "load-balancing_api-response-common": load$$balancing_api$$response$$common,
+        "load-balancing_api-response-common-failure": load$$balancing_api$$response$$common$$failure,
+        "load-balancing_messages": load$$balancing_messages,
+        "load-balancing_monitor-group-references-response": load$$balancing_monitor$$group$$references$$response,
       },
     },
     request: (args) => ({

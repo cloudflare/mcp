@@ -6,14 +6,14 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `logcontrol_flag` in responses.
  */
-export const logcontrol_flag_output: JsonSchema = {
+export const logcontrol_flag: JsonSchema = {
   "type": "boolean"
 };
 
 /**
  * The schema of `logcontrol_retention_flag` in responses.
  */
-export const logcontrol_retention_flag_output: JsonSchema = {
+export const logcontrol_retention_flag: JsonSchema = {
   "oneOf": [
     {
       "properties": {
@@ -32,7 +32,7 @@ export const logcontrol_retention_flag_output: JsonSchema = {
 /**
  * The schema of `logcontrol_retention_flag_response_single` in responses.
  */
-export const logcontrol_retention_flag_response_single_output: JsonSchema = {
+export const logcontrol_retention_flag_response_single: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/logcontrol_api-response-single"

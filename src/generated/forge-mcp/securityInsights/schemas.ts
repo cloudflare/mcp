@@ -6,7 +6,7 @@ import type { JsonSchema } from "../_/tool.js";
 /**
  * The schema of `security-center_userClassificationUpdate`.
  */
-export const security_center_userClassificationUpdate: JsonSchema = {
+export const security$$center_userClassificationUpdate: JsonSchema = {
   "properties": {
     "classification": {
       "$ref": "#/$defs/security-center_userClassification",

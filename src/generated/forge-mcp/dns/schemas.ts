@@ -6,7 +6,7 @@ import type { JsonSchema } from "../_/tool.js";
 /**
  * The schema of `dns-records_identifier`.
  */
-export const dns_records_identifier: JsonSchema = {
+export const dns$$records_identifier: JsonSchema = {
   "description": "Identifier.",
   "type": "string"
 };

@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `calls_app` in responses.
  */
-export const calls_app_output: JsonSchema = {
+export const calls_app: JsonSchema = {
   "properties": {
     "created": {
       "$ref": "#/$defs/calls_created"
@@ -33,7 +33,7 @@ export const calls_app_output: JsonSchema = {
 /**
  * The schema of `calls_app_response_collection` in responses.
  */
-export const calls_app_response_collection_output: JsonSchema = {
+export const calls_app_response_collection: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/calls_api-response-common"
@@ -55,7 +55,7 @@ export const calls_app_response_collection_output: JsonSchema = {
 /**
  * The schema of `calls_app_response_single` in responses.
  */
-export const calls_app_response_single_output: JsonSchema = {
+export const calls_app_response_single: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/calls_api-response-single"
@@ -74,7 +74,7 @@ export const calls_app_response_single_output: JsonSchema = {
 /**
  * The schema of `calls_app_response_single_with_secret` in responses.
  */
-export const calls_app_response_single_with_secret_output: JsonSchema = {
+export const calls_app_response_single_with_secret: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/calls_api-response-single"
@@ -93,7 +93,7 @@ export const calls_app_response_single_with_secret_output: JsonSchema = {
 /**
  * The schema of `calls_app_with_secret` in responses.
  */
-export const calls_app_with_secret_output: JsonSchema = {
+export const calls_app_with_secret: JsonSchema = {
   "properties": {
     "created": {
       "$ref": "#/$defs/calls_created"
@@ -124,6 +124,6 @@ export const calls_app_with_secret_output: JsonSchema = {
 /**
  * The schema of `calls_secret` in responses.
  */
-export const calls_secret_output: JsonSchema = {
+export const calls_secret: JsonSchema = {
   "type": "string"
 };

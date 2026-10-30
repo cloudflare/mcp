@@ -3,69 +3,77 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
-  load_balancing_api_response_common_failure_output,
-  load_balancing_api_response_common_output,
-  load_balancing_messages_output,
-  load_balancing_monitor_group_id_output,
-  load_balancing_monitor_id_output,
-  load_balancing_result_info_output,
+  load$$balancing_api$$response$$common,
+  load$$balancing_api$$response$$common$$failure,
+  load$$balancing_messages,
+  load$$balancing_monitor_group_id,
+  load$$balancing_monitor_id,
+  load$$balancing_result_info,
 } from "../../outputs.js";
 import {
-  load_balancing_monitor_id,
-  load_balancing_schemas_identifier,
+  load$$balancing_monitor_id as load$$balancing_monitor_id$,
+  load$$balancing_schemas$$identifier,
 } from "../../schemas.js";
-import { load_balancing_components_schemas_identifier } from "../schemas.js";
+import { load$$balancing_components$$schemas$$identifier } from "../schemas.js";
 import {
-  load_balancing_monitor_group_member_output,
-  load_balancing_monitor_group_output,
-  load_balancing_monitor_group_response_collection_output,
-  load_balancing_monitor_group_single_response_output,
+  load$$balancing_monitor$$group,
+  load$$balancing_monitor$$group$$member,
+  load$$balancing_monitor$$group$$response$$collection,
+  load$$balancing_monitor$$group$$single$$response,
 } from "./outputs.js";
 import {
-  load_balancing_monitor_group,
-  load_balancing_monitor_group_member,
+  load$$balancing_monitor$$group as load$$balancing_monitor$$group$,
+  load$$balancing_monitor$$group$$member as load$$balancing_monitor$$group$$member$,
 } from "./schemas.js";
 
 /**
- * The tools of `load_balancers.monitor_groups`.
+ * The tools of `loadBalancers.monitorGroups`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "load_balancers_monitor_groups_create",
+    name: "loadBalancers_monitorGroups_create",
     title: "Create Monitor Group",
     description: "Create a new monitor group.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/load-balancing_components-schemas-identifier",
-          "description": "Identifier."
-        },
         "body": {
           "$ref": "#/$defs/load-balancing_monitor-group"
+        },
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/load-balancing_components-schemas-identifier",
+              "description": "Identifier."
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
+        "path",
         "body"
       ],
       $defs: {
-        "load-balancing_components-schemas-identifier": load_balancing_components_schemas_identifier,
-        "load-balancing_monitor-group": load_balancing_monitor_group,
-        "load-balancing_monitor-group-member": load_balancing_monitor_group_member,
-        "load-balancing_monitor_id": load_balancing_monitor_id,
+        "load-balancing_components-schemas-identifier": load$$balancing_components$$schemas$$identifier,
+        "load-balancing_monitor-group": load$$balancing_monitor$$group$,
+        "load-balancing_monitor-group-member": load$$balancing_monitor$$group$$member$,
+        "load-balancing_monitor_id": load$$balancing_monitor_id$,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/load-balancing_monitor-group-single-response",
       $defs: {
-        "load-balancing_api-response-common": load_balancing_api_response_common_output,
-        "load-balancing_messages": load_balancing_messages_output,
-        "load-balancing_monitor-group": load_balancing_monitor_group_output,
-        "load-balancing_monitor-group-member": load_balancing_monitor_group_member_output,
-        "load-balancing_monitor-group-single-response": load_balancing_monitor_group_single_response_output,
-        "load-balancing_monitor_group_id": load_balancing_monitor_group_id_output,
-        "load-balancing_monitor_id": load_balancing_monitor_id_output,
+        "load-balancing_api-response-common": load$$balancing_api$$response$$common,
+        "load-balancing_messages": load$$balancing_messages,
+        "load-balancing_monitor-group": load$$balancing_monitor$$group,
+        "load-balancing_monitor-group-member": load$$balancing_monitor$$group$$member,
+        "load-balancing_monitor-group-single-response": load$$balancing_monitor$$group$$single$$response,
+        "load-balancing_monitor_group_id": load$$balancing_monitor_group_id,
+        "load-balancing_monitor_id": load$$balancing_monitor_id,
       },
     },
     annotations: {
@@ -90,14 +98,14 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "load-balancing_api-response-common": load_balancing_api_response_common_output,
-        "load-balancing_api-response-common-failure": load_balancing_api_response_common_failure_output,
-        "load-balancing_messages": load_balancing_messages_output,
-        "load-balancing_monitor-group": load_balancing_monitor_group_output,
-        "load-balancing_monitor-group-member": load_balancing_monitor_group_member_output,
-        "load-balancing_monitor-group-single-response": load_balancing_monitor_group_single_response_output,
-        "load-balancing_monitor_group_id": load_balancing_monitor_group_id_output,
-        "load-balancing_monitor_id": load_balancing_monitor_id_output,
+        "load-balancing_api-response-common": load$$balancing_api$$response$$common,
+        "load-balancing_api-response-common-failure": load$$balancing_api$$response$$common$$failure,
+        "load-balancing_messages": load$$balancing_messages,
+        "load-balancing_monitor-group": load$$balancing_monitor$$group,
+        "load-balancing_monitor-group-member": load$$balancing_monitor$$group$$member,
+        "load-balancing_monitor-group-single-response": load$$balancing_monitor$$group$$single$$response,
+        "load-balancing_monitor_group_id": load$$balancing_monitor_group_id,
+        "load-balancing_monitor_id": load$$balancing_monitor_id,
       },
     },
     request: (args) => ({
@@ -106,39 +114,47 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "load_balancers_monitor_groups_delete",
+    name: "loadBalancers_monitorGroups_delete",
     title: "Delete Monitor Group",
     description: "Delete a configured monitor group.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/load-balancing_components-schemas-identifier",
-          "description": "Identifier."
-        },
-        "monitor_group_id": {
-          "$ref": "#/$defs/load-balancing_schemas-identifier"
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/load-balancing_components-schemas-identifier",
+              "description": "Identifier."
+            },
+            "monitor_group_id": {
+              "$ref": "#/$defs/load-balancing_schemas-identifier"
+            }
+          },
+          "required": [
+            "account_id",
+            "monitor_group_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "monitor_group_id"
+        "path"
       ],
       $defs: {
-        "load-balancing_components-schemas-identifier": load_balancing_components_schemas_identifier,
-        "load-balancing_schemas-identifier": load_balancing_schemas_identifier,
+        "load-balancing_components-schemas-identifier": load$$balancing_components$$schemas$$identifier,
+        "load-balancing_schemas-identifier": load$$balancing_schemas$$identifier,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/load-balancing_monitor-group-single-response",
       $defs: {
-        "load-balancing_api-response-common": load_balancing_api_response_common_output,
-        "load-balancing_messages": load_balancing_messages_output,
-        "load-balancing_monitor-group": load_balancing_monitor_group_output,
-        "load-balancing_monitor-group-member": load_balancing_monitor_group_member_output,
-        "load-balancing_monitor-group-single-response": load_balancing_monitor_group_single_response_output,
-        "load-balancing_monitor_group_id": load_balancing_monitor_group_id_output,
-        "load-balancing_monitor_id": load_balancing_monitor_id_output,
+        "load-balancing_api-response-common": load$$balancing_api$$response$$common,
+        "load-balancing_messages": load$$balancing_messages,
+        "load-balancing_monitor-group": load$$balancing_monitor$$group,
+        "load-balancing_monitor-group-member": load$$balancing_monitor$$group$$member,
+        "load-balancing_monitor-group-single-response": load$$balancing_monitor$$group$$single$$response,
+        "load-balancing_monitor_group_id": load$$balancing_monitor_group_id,
+        "load-balancing_monitor_id": load$$balancing_monitor_id,
       },
     },
     annotations: {
@@ -163,14 +179,14 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "load-balancing_api-response-common": load_balancing_api_response_common_output,
-        "load-balancing_api-response-common-failure": load_balancing_api_response_common_failure_output,
-        "load-balancing_messages": load_balancing_messages_output,
-        "load-balancing_monitor-group": load_balancing_monitor_group_output,
-        "load-balancing_monitor-group-member": load_balancing_monitor_group_member_output,
-        "load-balancing_monitor-group-single-response": load_balancing_monitor_group_single_response_output,
-        "load-balancing_monitor_group_id": load_balancing_monitor_group_id_output,
-        "load-balancing_monitor_id": load_balancing_monitor_id_output,
+        "load-balancing_api-response-common": load$$balancing_api$$response$$common,
+        "load-balancing_api-response-common-failure": load$$balancing_api$$response$$common$$failure,
+        "load-balancing_messages": load$$balancing_messages,
+        "load-balancing_monitor-group": load$$balancing_monitor$$group,
+        "load-balancing_monitor-group-member": load$$balancing_monitor$$group$$member,
+        "load-balancing_monitor-group-single-response": load$$balancing_monitor$$group$$single$$response,
+        "load-balancing_monitor_group_id": load$$balancing_monitor_group_id,
+        "load-balancing_monitor_id": load$$balancing_monitor_id,
       },
     },
     request: (args) => ({
@@ -178,46 +194,54 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "load_balancers_monitor_groups_edit",
+    name: "loadBalancers_monitorGroups_edit",
     title: "Patch Monitor Group",
     description: "Apply changes to an existing monitor group, overwriting the supplied properties.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/load-balancing_components-schemas-identifier",
-          "description": "Identifier."
-        },
         "body": {
           "$ref": "#/$defs/load-balancing_monitor-group"
         },
-        "monitor_group_id": {
-          "$ref": "#/$defs/load-balancing_schemas-identifier"
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/load-balancing_components-schemas-identifier",
+              "description": "Identifier."
+            },
+            "monitor_group_id": {
+              "$ref": "#/$defs/load-balancing_schemas-identifier"
+            }
+          },
+          "required": [
+            "account_id",
+            "monitor_group_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "monitor_group_id",
+        "path",
         "body"
       ],
       $defs: {
-        "load-balancing_components-schemas-identifier": load_balancing_components_schemas_identifier,
-        "load-balancing_monitor-group": load_balancing_monitor_group,
-        "load-balancing_monitor-group-member": load_balancing_monitor_group_member,
-        "load-balancing_monitor_id": load_balancing_monitor_id,
-        "load-balancing_schemas-identifier": load_balancing_schemas_identifier,
+        "load-balancing_components-schemas-identifier": load$$balancing_components$$schemas$$identifier,
+        "load-balancing_monitor-group": load$$balancing_monitor$$group$,
+        "load-balancing_monitor-group-member": load$$balancing_monitor$$group$$member$,
+        "load-balancing_monitor_id": load$$balancing_monitor_id$,
+        "load-balancing_schemas-identifier": load$$balancing_schemas$$identifier,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/load-balancing_monitor-group-single-response",
       $defs: {
-        "load-balancing_api-response-common": load_balancing_api_response_common_output,
-        "load-balancing_messages": load_balancing_messages_output,
-        "load-balancing_monitor-group": load_balancing_monitor_group_output,
-        "load-balancing_monitor-group-member": load_balancing_monitor_group_member_output,
-        "load-balancing_monitor-group-single-response": load_balancing_monitor_group_single_response_output,
-        "load-balancing_monitor_group_id": load_balancing_monitor_group_id_output,
-        "load-balancing_monitor_id": load_balancing_monitor_id_output,
+        "load-balancing_api-response-common": load$$balancing_api$$response$$common,
+        "load-balancing_messages": load$$balancing_messages,
+        "load-balancing_monitor-group": load$$balancing_monitor$$group,
+        "load-balancing_monitor-group-member": load$$balancing_monitor$$group$$member,
+        "load-balancing_monitor-group-single-response": load$$balancing_monitor$$group$$single$$response,
+        "load-balancing_monitor_group_id": load$$balancing_monitor_group_id,
+        "load-balancing_monitor_id": load$$balancing_monitor_id,
       },
     },
     annotations: {
@@ -242,14 +266,14 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "load-balancing_api-response-common": load_balancing_api_response_common_output,
-        "load-balancing_api-response-common-failure": load_balancing_api_response_common_failure_output,
-        "load-balancing_messages": load_balancing_messages_output,
-        "load-balancing_monitor-group": load_balancing_monitor_group_output,
-        "load-balancing_monitor-group-member": load_balancing_monitor_group_member_output,
-        "load-balancing_monitor-group-single-response": load_balancing_monitor_group_single_response_output,
-        "load-balancing_monitor_group_id": load_balancing_monitor_group_id_output,
-        "load-balancing_monitor_id": load_balancing_monitor_id_output,
+        "load-balancing_api-response-common": load$$balancing_api$$response$$common,
+        "load-balancing_api-response-common-failure": load$$balancing_api$$response$$common$$failure,
+        "load-balancing_messages": load$$balancing_messages,
+        "load-balancing_monitor-group": load$$balancing_monitor$$group,
+        "load-balancing_monitor-group-member": load$$balancing_monitor$$group$$member,
+        "load-balancing_monitor-group-single-response": load$$balancing_monitor$$group$$single$$response,
+        "load-balancing_monitor_group_id": load$$balancing_monitor_group_id,
+        "load-balancing_monitor_id": load$$balancing_monitor_id,
       },
     },
     request: (args) => ({
@@ -258,39 +282,47 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "load_balancers_monitor_groups_get",
+    name: "loadBalancers_monitorGroups_get",
     title: "Monitor Group Details",
     description: "Fetch a single configured monitor group.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/load-balancing_components-schemas-identifier",
-          "description": "Identifier."
-        },
-        "monitor_group_id": {
-          "$ref": "#/$defs/load-balancing_schemas-identifier"
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/load-balancing_components-schemas-identifier",
+              "description": "Identifier."
+            },
+            "monitor_group_id": {
+              "$ref": "#/$defs/load-balancing_schemas-identifier"
+            }
+          },
+          "required": [
+            "account_id",
+            "monitor_group_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "monitor_group_id"
+        "path"
       ],
       $defs: {
-        "load-balancing_components-schemas-identifier": load_balancing_components_schemas_identifier,
-        "load-balancing_schemas-identifier": load_balancing_schemas_identifier,
+        "load-balancing_components-schemas-identifier": load$$balancing_components$$schemas$$identifier,
+        "load-balancing_schemas-identifier": load$$balancing_schemas$$identifier,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/load-balancing_monitor-group-single-response",
       $defs: {
-        "load-balancing_api-response-common": load_balancing_api_response_common_output,
-        "load-balancing_messages": load_balancing_messages_output,
-        "load-balancing_monitor-group": load_balancing_monitor_group_output,
-        "load-balancing_monitor-group-member": load_balancing_monitor_group_member_output,
-        "load-balancing_monitor-group-single-response": load_balancing_monitor_group_single_response_output,
-        "load-balancing_monitor_group_id": load_balancing_monitor_group_id_output,
-        "load-balancing_monitor_id": load_balancing_monitor_id_output,
+        "load-balancing_api-response-common": load$$balancing_api$$response$$common,
+        "load-balancing_messages": load$$balancing_messages,
+        "load-balancing_monitor-group": load$$balancing_monitor$$group,
+        "load-balancing_monitor-group-member": load$$balancing_monitor$$group$$member,
+        "load-balancing_monitor-group-single-response": load$$balancing_monitor$$group$$single$$response,
+        "load-balancing_monitor_group_id": load$$balancing_monitor_group_id,
+        "load-balancing_monitor_id": load$$balancing_monitor_id,
       },
     },
     annotations: {
@@ -312,14 +344,14 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "load-balancing_api-response-common": load_balancing_api_response_common_output,
-        "load-balancing_api-response-common-failure": load_balancing_api_response_common_failure_output,
-        "load-balancing_messages": load_balancing_messages_output,
-        "load-balancing_monitor-group": load_balancing_monitor_group_output,
-        "load-balancing_monitor-group-member": load_balancing_monitor_group_member_output,
-        "load-balancing_monitor-group-single-response": load_balancing_monitor_group_single_response_output,
-        "load-balancing_monitor_group_id": load_balancing_monitor_group_id_output,
-        "load-balancing_monitor_id": load_balancing_monitor_id_output,
+        "load-balancing_api-response-common": load$$balancing_api$$response$$common,
+        "load-balancing_api-response-common-failure": load$$balancing_api$$response$$common$$failure,
+        "load-balancing_messages": load$$balancing_messages,
+        "load-balancing_monitor-group": load$$balancing_monitor$$group,
+        "load-balancing_monitor-group-member": load$$balancing_monitor$$group$$member,
+        "load-balancing_monitor-group-single-response": load$$balancing_monitor$$group$$single$$response,
+        "load-balancing_monitor_group_id": load$$balancing_monitor_group_id,
+        "load-balancing_monitor_id": load$$balancing_monitor_id,
       },
     },
     request: (args) => ({
@@ -327,35 +359,43 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "load_balancers_monitor_groups_list",
+    name: "loadBalancers_monitorGroups_list",
     title: "List Monitor Groups",
     description: "List configured monitor groups.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/load-balancing_components-schemas-identifier",
-          "description": "Identifier."
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/load-balancing_components-schemas-identifier",
+              "description": "Identifier."
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id"
+        "path"
       ],
       $defs: {
-        "load-balancing_components-schemas-identifier": load_balancing_components_schemas_identifier,
+        "load-balancing_components-schemas-identifier": load$$balancing_components$$schemas$$identifier,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/load-balancing_monitor-group-response-collection",
       $defs: {
-        "load-balancing_api-response-common": load_balancing_api_response_common_output,
-        "load-balancing_messages": load_balancing_messages_output,
-        "load-balancing_monitor-group": load_balancing_monitor_group_output,
-        "load-balancing_monitor-group-member": load_balancing_monitor_group_member_output,
-        "load-balancing_monitor-group-response-collection": load_balancing_monitor_group_response_collection_output,
-        "load-balancing_monitor_group_id": load_balancing_monitor_group_id_output,
-        "load-balancing_monitor_id": load_balancing_monitor_id_output,
-        "load-balancing_result_info": load_balancing_result_info_output,
+        "load-balancing_api-response-common": load$$balancing_api$$response$$common,
+        "load-balancing_messages": load$$balancing_messages,
+        "load-balancing_monitor-group": load$$balancing_monitor$$group,
+        "load-balancing_monitor-group-member": load$$balancing_monitor$$group$$member,
+        "load-balancing_monitor-group-response-collection": load$$balancing_monitor$$group$$response$$collection,
+        "load-balancing_monitor_group_id": load$$balancing_monitor_group_id,
+        "load-balancing_monitor_id": load$$balancing_monitor_id,
+        "load-balancing_result_info": load$$balancing_result_info,
       },
     },
     annotations: {
@@ -377,15 +417,15 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "load-balancing_api-response-common": load_balancing_api_response_common_output,
-        "load-balancing_api-response-common-failure": load_balancing_api_response_common_failure_output,
-        "load-balancing_messages": load_balancing_messages_output,
-        "load-balancing_monitor-group": load_balancing_monitor_group_output,
-        "load-balancing_monitor-group-member": load_balancing_monitor_group_member_output,
-        "load-balancing_monitor-group-response-collection": load_balancing_monitor_group_response_collection_output,
-        "load-balancing_monitor_group_id": load_balancing_monitor_group_id_output,
-        "load-balancing_monitor_id": load_balancing_monitor_id_output,
-        "load-balancing_result_info": load_balancing_result_info_output,
+        "load-balancing_api-response-common": load$$balancing_api$$response$$common,
+        "load-balancing_api-response-common-failure": load$$balancing_api$$response$$common$$failure,
+        "load-balancing_messages": load$$balancing_messages,
+        "load-balancing_monitor-group": load$$balancing_monitor$$group,
+        "load-balancing_monitor-group-member": load$$balancing_monitor$$group$$member,
+        "load-balancing_monitor-group-response-collection": load$$balancing_monitor$$group$$response$$collection,
+        "load-balancing_monitor_group_id": load$$balancing_monitor_group_id,
+        "load-balancing_monitor_id": load$$balancing_monitor_id,
+        "load-balancing_result_info": load$$balancing_result_info,
       },
     },
     request: (args) => ({
@@ -393,46 +433,54 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "load_balancers_monitor_groups_update",
+    name: "loadBalancers_monitorGroups_update",
     title: "Update Monitor Group",
     description: "Modify a configured monitor group.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/load-balancing_components-schemas-identifier",
-          "description": "Identifier."
-        },
         "body": {
           "$ref": "#/$defs/load-balancing_monitor-group"
         },
-        "monitor_group_id": {
-          "$ref": "#/$defs/load-balancing_schemas-identifier"
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/load-balancing_components-schemas-identifier",
+              "description": "Identifier."
+            },
+            "monitor_group_id": {
+              "$ref": "#/$defs/load-balancing_schemas-identifier"
+            }
+          },
+          "required": [
+            "account_id",
+            "monitor_group_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "monitor_group_id",
+        "path",
         "body"
       ],
       $defs: {
-        "load-balancing_components-schemas-identifier": load_balancing_components_schemas_identifier,
-        "load-balancing_monitor-group": load_balancing_monitor_group,
-        "load-balancing_monitor-group-member": load_balancing_monitor_group_member,
-        "load-balancing_monitor_id": load_balancing_monitor_id,
-        "load-balancing_schemas-identifier": load_balancing_schemas_identifier,
+        "load-balancing_components-schemas-identifier": load$$balancing_components$$schemas$$identifier,
+        "load-balancing_monitor-group": load$$balancing_monitor$$group$,
+        "load-balancing_monitor-group-member": load$$balancing_monitor$$group$$member$,
+        "load-balancing_monitor_id": load$$balancing_monitor_id$,
+        "load-balancing_schemas-identifier": load$$balancing_schemas$$identifier,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/load-balancing_monitor-group-single-response",
       $defs: {
-        "load-balancing_api-response-common": load_balancing_api_response_common_output,
-        "load-balancing_messages": load_balancing_messages_output,
-        "load-balancing_monitor-group": load_balancing_monitor_group_output,
-        "load-balancing_monitor-group-member": load_balancing_monitor_group_member_output,
-        "load-balancing_monitor-group-single-response": load_balancing_monitor_group_single_response_output,
-        "load-balancing_monitor_group_id": load_balancing_monitor_group_id_output,
-        "load-balancing_monitor_id": load_balancing_monitor_id_output,
+        "load-balancing_api-response-common": load$$balancing_api$$response$$common,
+        "load-balancing_messages": load$$balancing_messages,
+        "load-balancing_monitor-group": load$$balancing_monitor$$group,
+        "load-balancing_monitor-group-member": load$$balancing_monitor$$group$$member,
+        "load-balancing_monitor-group-single-response": load$$balancing_monitor$$group$$single$$response,
+        "load-balancing_monitor_group_id": load$$balancing_monitor_group_id,
+        "load-balancing_monitor_id": load$$balancing_monitor_id,
       },
     },
     annotations: {
@@ -457,14 +505,14 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "load-balancing_api-response-common": load_balancing_api_response_common_output,
-        "load-balancing_api-response-common-failure": load_balancing_api_response_common_failure_output,
-        "load-balancing_messages": load_balancing_messages_output,
-        "load-balancing_monitor-group": load_balancing_monitor_group_output,
-        "load-balancing_monitor-group-member": load_balancing_monitor_group_member_output,
-        "load-balancing_monitor-group-single-response": load_balancing_monitor_group_single_response_output,
-        "load-balancing_monitor_group_id": load_balancing_monitor_group_id_output,
-        "load-balancing_monitor_id": load_balancing_monitor_id_output,
+        "load-balancing_api-response-common": load$$balancing_api$$response$$common,
+        "load-balancing_api-response-common-failure": load$$balancing_api$$response$$common$$failure,
+        "load-balancing_messages": load$$balancing_messages,
+        "load-balancing_monitor-group": load$$balancing_monitor$$group,
+        "load-balancing_monitor-group-member": load$$balancing_monitor$$group$$member,
+        "load-balancing_monitor-group-single-response": load$$balancing_monitor$$group$$single$$response,
+        "load-balancing_monitor_group_id": load$$balancing_monitor_group_id,
+        "load-balancing_monitor_id": load$$balancing_monitor_id,
       },
     },
     request: (args) => ({

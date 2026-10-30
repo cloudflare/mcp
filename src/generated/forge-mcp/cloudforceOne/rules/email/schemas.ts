@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `cloudforce-one_EmailRuleArrayCondition`.
  */
-export const cloudforce_one_EmailRuleArrayCondition: JsonSchema = {
+export const cloudforce$$one_EmailRuleArrayCondition: JsonSchema = {
   "properties": {
     "conditions": {
       "items": {
@@ -81,7 +81,7 @@ export const cloudforce_one_EmailRuleArrayCondition: JsonSchema = {
 /**
  * The schema of `cloudforce-one_EmailRuleCondition`.
  */
-export const cloudforce_one_EmailRuleCondition: JsonSchema = {
+export const cloudforce$$one_EmailRuleCondition: JsonSchema = {
   "oneOf": [
     {
       "$ref": "#/$defs/cloudforce-one_EmailRuleScalarCondition"
@@ -101,7 +101,7 @@ export const cloudforce_one_EmailRuleCondition: JsonSchema = {
 /**
  * The schema of `cloudforce-one_EmailRuleConditionGroup`.
  */
-export const cloudforce_one_EmailRuleConditionGroup: JsonSchema = {
+export const cloudforce$$one_EmailRuleConditionGroup: JsonSchema = {
   "description": "Nested condition groups support up to 10 levels of depth.",
   "properties": {
     "conditions": {
@@ -137,7 +137,7 @@ export const cloudforce_one_EmailRuleConditionGroup: JsonSchema = {
 /**
  * The schema of `cloudforce-one_EmailRuleHeaderCondition`.
  */
-export const cloudforce_one_EmailRuleHeaderCondition: JsonSchema = {
+export const cloudforce$$one_EmailRuleHeaderCondition: JsonSchema = {
   "properties": {
     "header_name": {
       "type": "string"
@@ -195,7 +195,7 @@ export const cloudforce_one_EmailRuleHeaderCondition: JsonSchema = {
 /**
  * The schema of `cloudforce-one_EmailRuleScalarCondition`.
  */
-export const cloudforce_one_EmailRuleScalarCondition: JsonSchema = {
+export const cloudforce$$one_EmailRuleScalarCondition: JsonSchema = {
   "properties": {
     "field": {
       "type": "string"

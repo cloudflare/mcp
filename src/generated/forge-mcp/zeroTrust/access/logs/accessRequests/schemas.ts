@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../../_/tool.js";
 /**
  * The schema of `access_email-3`.
  */
-export const access_email_3: JsonSchema = {
+export const access_email$$3: JsonSchema = {
   "description": "The email address of the authenticating user.",
   "type": "string"
 };

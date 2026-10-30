@@ -6,7 +6,7 @@ import type { JsonSchema } from "../_/tool.js";
 /**
  * The schema of `registrar-api-sandbox_identifier`.
  */
-export const registrar_api_sandbox_identifier: JsonSchema = {
+export const registrar$$api$$sandbox_identifier: JsonSchema = {
   "description": "Identifier.",
   "type": "string"
 };

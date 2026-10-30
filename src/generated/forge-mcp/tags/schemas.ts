@@ -6,14 +6,14 @@ import type { JsonSchema } from "../_/tool.js";
 /**
  * The schema of `resource-tagging_account_id`.
  */
-export const resource_tagging_account_id: JsonSchema = {
+export const resource$$tagging_account_id: JsonSchema = {
   "$ref": "#/$defs/resource-tagging_identifier"
 };
 
 /**
  * The schema of `resource-tagging_identifier`.
  */
-export const resource_tagging_identifier: JsonSchema = {
+export const resource$$tagging_identifier: JsonSchema = {
   "description": "Identifier.",
   "type": "string"
 };
@@ -21,7 +21,7 @@ export const resource_tagging_identifier: JsonSchema = {
 /**
  * The schema of `resource-tagging_resource_id`.
  */
-export const resource_tagging_resource_id: JsonSchema = {
+export const resource$$tagging_resource_id: JsonSchema = {
   "description": "Identifies the unique resource.",
   "type": "string"
 };
@@ -29,7 +29,7 @@ export const resource_tagging_resource_id: JsonSchema = {
 /**
  * The schema of `resource-tagging_resource_type`.
  */
-export const resource_tagging_resource_type: JsonSchema = {
+export const resource$$tagging_resource_type: JsonSchema = {
   "description": "Identifies the type of resource.",
   "enum": [
     "access_application",
@@ -85,7 +85,7 @@ export const resource_tagging_resource_type: JsonSchema = {
 /**
  * The schema of `resource-tagging_tags`.
  */
-export const resource_tagging_tags: JsonSchema = {
+export const resource$$tagging_tags: JsonSchema = {
   "additionalProperties": {
     "type": "string"
   },
@@ -96,7 +96,7 @@ export const resource_tagging_tags: JsonSchema = {
 /**
  * The schema of `resource-tagging_worker_id`.
  */
-export const resource_tagging_worker_id: JsonSchema = {
+export const resource$$tagging_worker_id: JsonSchema = {
   "description": "Worker ID is required only for worker_version resources",
   "type": "string"
 };

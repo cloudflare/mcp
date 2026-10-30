@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `iam_properties-name`.
  */
-export const iam_properties_name: JsonSchema = {
+export const iam_properties$$name: JsonSchema = {
   "description": "Account name",
   "type": "string"
 };

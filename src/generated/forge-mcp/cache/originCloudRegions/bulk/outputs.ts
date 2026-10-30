@@ -7,7 +7,7 @@ import type { JsonSchema } from "../../../_/tool.js";
  * The schema of `cache-settings_origin_cloud_region_v2_batch_item_result` in
  * responses.
  */
-export const cache_settings_origin_cloud_region_v2_batch_item_result_output: JsonSchema = {
+export const cache$$settings_origin_cloud_region_v2_batch_item_result: JsonSchema = {
   "properties": {
     "error": {
       "type": "string"
@@ -32,7 +32,7 @@ export const cache_settings_origin_cloud_region_v2_batch_item_result_output: Jso
  * The schema of `cache-settings_origin_cloud_region_v2_batch_result` in
  * responses.
  */
-export const cache_settings_origin_cloud_region_v2_batch_result_output: JsonSchema = {
+export const cache$$settings_origin_cloud_region_v2_batch_result: JsonSchema = {
   "properties": {
     "failed": {
       "items": {

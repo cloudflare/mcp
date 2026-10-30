@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `reports_PoliciesListResponse` in responses.
  */
-export const reports_PoliciesListResponse_output: JsonSchema = {
+export const reports_PoliciesListResponse: JsonSchema = {
   "properties": {
     "errors": {
       "items": {
@@ -101,7 +101,7 @@ export const reports_PoliciesListResponse_output: JsonSchema = {
 /**
  * The schema of `reports_PolicySingleResponse` in responses.
  */
-export const reports_PolicySingleResponse_output: JsonSchema = {
+export const reports_PolicySingleResponse: JsonSchema = {
   "properties": {
     "errors": {
       "items": {

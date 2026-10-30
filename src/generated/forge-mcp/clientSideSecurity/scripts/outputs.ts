@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `client-side-security_cryptomining_score` in responses.
  */
-export const client_side_security_cryptomining_score_output: JsonSchema = {
+export const client$$side$$security_cryptomining_score: JsonSchema = {
   "oneOf": [
     {
       "type": "integer"
@@ -20,7 +20,7 @@ export const client_side_security_cryptomining_score_output: JsonSchema = {
 /**
  * The schema of `client-side-security_dataflow_score` in responses.
  */
-export const client_side_security_dataflow_score_output: JsonSchema = {
+export const client$$side$$security_dataflow_score: JsonSchema = {
   "oneOf": [
     {
       "type": "integer"
@@ -34,7 +34,7 @@ export const client_side_security_dataflow_score_output: JsonSchema = {
 /**
  * The schema of `client-side-security_fetched_at` in responses.
  */
-export const client_side_security_fetched_at_output: JsonSchema = {
+export const client$$side$$security_fetched_at: JsonSchema = {
   "oneOf": [
     {
       "type": "string"
@@ -48,7 +48,7 @@ export const client_side_security_fetched_at_output: JsonSchema = {
 /**
  * The schema of `client-side-security_get-zone-script-response` in responses.
  */
-export const client_side_security_get_zone_script_response_output: JsonSchema = {
+export const client$$side$$security_get$$zone$$script$$response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/client-side-security_api-get-response-collection"
@@ -92,7 +92,7 @@ export const client_side_security_get_zone_script_response_output: JsonSchema = 
 /**
  * The schema of `client-side-security_hash` in responses.
  */
-export const client_side_security_hash_output: JsonSchema = {
+export const client$$side$$security_hash: JsonSchema = {
   "oneOf": [
     {
       "type": "string"
@@ -106,7 +106,7 @@ export const client_side_security_hash_output: JsonSchema = {
 /**
  * The schema of `client-side-security_js_integrity_score` in responses.
  */
-export const client_side_security_js_integrity_score_output: JsonSchema = {
+export const client$$side$$security_js_integrity_score: JsonSchema = {
   "oneOf": [
     {
       "type": "integer"
@@ -120,7 +120,7 @@ export const client_side_security_js_integrity_score_output: JsonSchema = {
 /**
  * The schema of `client-side-security_list-zone-scripts-response` in responses.
  */
-export const client_side_security_list_zone_scripts_response_output: JsonSchema = {
+export const client$$side$$security_list$$zone$$scripts$$response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/client-side-security_api-list-response-collection"
@@ -145,7 +145,7 @@ export const client_side_security_list_zone_scripts_response_output: JsonSchema 
 /**
  * The schema of `client-side-security_magecart_score` in responses.
  */
-export const client_side_security_magecart_score_output: JsonSchema = {
+export const client$$side$$security_magecart_score: JsonSchema = {
   "oneOf": [
     {
       "type": "integer"
@@ -159,7 +159,7 @@ export const client_side_security_magecart_score_output: JsonSchema = {
 /**
  * The schema of `client-side-security_malware_score` in responses.
  */
-export const client_side_security_malware_score_output: JsonSchema = {
+export const client$$side$$security_malware_score: JsonSchema = {
   "oneOf": [
     {
       "type": "integer"
@@ -173,7 +173,7 @@ export const client_side_security_malware_score_output: JsonSchema = {
 /**
  * The schema of `client-side-security_obfuscation_score` in responses.
  */
-export const client_side_security_obfuscation_score_output: JsonSchema = {
+export const client$$side$$security_obfuscation_score: JsonSchema = {
   "oneOf": [
     {
       "type": "integer"
@@ -187,7 +187,7 @@ export const client_side_security_obfuscation_score_output: JsonSchema = {
 /**
  * The schema of `client-side-security_script` in responses.
  */
-export const client_side_security_script_output: JsonSchema = {
+export const client$$side$$security_script: JsonSchema = {
   "properties": {
     "added_at": {
       "format": "date-time",
@@ -280,7 +280,7 @@ export const client_side_security_script_output: JsonSchema = {
 /**
  * The schema of `client-side-security_version` in responses.
  */
-export const client_side_security_version_output: JsonSchema = {
+export const client$$side$$security_version: JsonSchema = {
   "properties": {
     "cryptomining_score": {
       "$ref": "#/$defs/client-side-security_cryptomining_score"

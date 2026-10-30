@@ -14,16 +14,24 @@ export const tools: readonly Tool[] = [
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "type": "string"
-        },
-        "finetune_id": {
-          "type": "string"
+        "path": {
+          "properties": {
+            "account_id": {
+              "type": "string"
+            },
+            "finetune_id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "finetune_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "finetune_id"
+        "path"
       ],
     },
     outputSchema: {
@@ -106,20 +114,28 @@ export const tools: readonly Tool[] = [
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "type": "string"
-        },
-        "file_name": {
-          "type": "string"
-        },
-        "finetune_id": {
-          "type": "string"
+        "path": {
+          "properties": {
+            "account_id": {
+              "type": "string"
+            },
+            "file_name": {
+              "type": "string"
+            },
+            "finetune_id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "finetune_id",
+            "file_name"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "finetune_id",
-        "file_name"
+        "path"
       ],
     },
     outputSchema: {

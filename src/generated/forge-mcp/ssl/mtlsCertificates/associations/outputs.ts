@@ -7,7 +7,7 @@ import type { JsonSchema } from "../../../_/tool.js";
  * The schema of `tls-certificates-and-hostnames_associationObject` in
  * responses.
  */
-export const tls_certificates_and_hostnames_associationObject_output: JsonSchema = {
+export const tls$$certificates$$and$$hostnames_associationObject: JsonSchema = {
   "properties": {
     "service": {
       "$ref": "#/$defs/tls-certificates-and-hostnames_service"
@@ -24,7 +24,7 @@ export const tls_certificates_and_hostnames_associationObject_output: JsonSchema
  * `tls-certificates-and-hostnames_association_response_collection` in
  * responses.
  */
-export const tls_certificates_and_hostnames_association_response_collection_output: JsonSchema = {
+export const tls$$certificates$$and$$hostnames_association_response_collection: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/tls-certificates-and-hostnames_api-response-collection"
@@ -46,13 +46,13 @@ export const tls_certificates_and_hostnames_association_response_collection_outp
 /**
  * The schema of `tls-certificates-and-hostnames_service` in responses.
  */
-export const tls_certificates_and_hostnames_service_output: JsonSchema = {
+export const tls$$certificates$$and$$hostnames_service: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `tls-certificates-and-hostnames_status-10` in responses.
  */
-export const tls_certificates_and_hostnames_status_10_output: JsonSchema = {
+export const tls$$certificates$$and$$hostnames_status$$10: JsonSchema = {
   "type": "string"
 };

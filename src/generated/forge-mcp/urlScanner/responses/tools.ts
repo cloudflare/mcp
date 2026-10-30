@@ -4,28 +4,36 @@
 import { type Tool, pathParam } from "../../_/tool.js";
 
 /**
- * The tools of `url_scanner.responses`.
+ * The tools of `urlScanner.responses`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "url_scanner_responses_get",
+    name: "urlScanner_responses_get",
     title: "Get raw response",
     description: "Returns the raw response of the network request. Find the `response_id` in the `data.requests.response.hash`.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "description": "Account ID.",
-          "type": "string"
-        },
-        "response_id": {
-          "description": "Response hash.",
-          "type": "string"
+        "path": {
+          "properties": {
+            "account_id": {
+              "description": "Account ID.",
+              "type": "string"
+            },
+            "response_id": {
+              "description": "Response hash.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "response_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "response_id"
+        "path"
       ],
     },
     annotations: {

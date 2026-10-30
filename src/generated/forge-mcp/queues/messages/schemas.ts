@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `mq_lease-id`.
  */
-export const mq_lease_id: JsonSchema = {
+export const mq_lease$$id: JsonSchema = {
   "description": "An ID that represents an \"in-flight\" message that has been pulled from a Queue. You must hold on to this ID and use it to acknowledge this message.",
   "type": "string"
 };
@@ -14,7 +14,7 @@ export const mq_lease_id: JsonSchema = {
 /**
  * The schema of `mq_queue-batch`.
  */
-export const mq_queue_batch: JsonSchema = {
+export const mq_queue$$batch: JsonSchema = {
   "properties": {
     "delay_seconds": {
       "description": "The number of seconds to wait for attempting to deliver this batch to consumers",
@@ -33,7 +33,7 @@ export const mq_queue_batch: JsonSchema = {
 /**
  * The schema of `mq_queue-message`.
  */
-export const mq_queue_message: JsonSchema = {
+export const mq_queue$$message: JsonSchema = {
   "allOf": [
     {
       "properties": {
@@ -60,7 +60,7 @@ export const mq_queue_message: JsonSchema = {
 /**
  * The schema of `mq_queue-message-json`.
  */
-export const mq_queue_message_json: JsonSchema = {
+export const mq_queue$$message$$json: JsonSchema = {
   "properties": {
     "body": {
       "type": "object"
@@ -78,7 +78,7 @@ export const mq_queue_message_json: JsonSchema = {
 /**
  * The schema of `mq_queue-message-text`.
  */
-export const mq_queue_message_text: JsonSchema = {
+export const mq_queue$$message$$text: JsonSchema = {
   "properties": {
     "body": {
       "type": "string"

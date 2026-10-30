@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `email_sending_limits_properties` in responses.
  */
-export const email_sending_limits_properties_output: JsonSchema = {
+export const email_sending_limits_properties: JsonSchema = {
   "properties": {
     "quota": {
       "oneOf": [
@@ -66,7 +66,7 @@ export const email_sending_limits_properties_output: JsonSchema = {
 /**
  * The schema of `email_sending_limits_response_single` in responses.
  */
-export const email_sending_limits_response_single_output: JsonSchema = {
+export const email_sending_limits_response_single: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/email_api-response-single"

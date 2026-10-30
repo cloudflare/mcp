@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `tls-certificates-and-hostnames_ca`.
  */
-export const tls_certificates_and_hostnames_ca: JsonSchema = {
+export const tls$$certificates$$and$$hostnames_ca: JsonSchema = {
   "description": "Indicates whether the certificate is a CA or leaf certificate.",
   "type": "boolean"
 };
@@ -14,7 +14,7 @@ export const tls_certificates_and_hostnames_ca: JsonSchema = {
 /**
  * The schema of `tls-certificates-and-hostnames_certificates-2`.
  */
-export const tls_certificates_and_hostnames_certificates_2: JsonSchema = {
+export const tls$$certificates$$and$$hostnames_certificates$$2: JsonSchema = {
   "description": "The uploaded root CA certificate.",
   "type": "string"
 };
@@ -22,7 +22,7 @@ export const tls_certificates_and_hostnames_certificates_2: JsonSchema = {
 /**
  * The schema of `tls-certificates-and-hostnames_mtls_certificate_identifier`.
  */
-export const tls_certificates_and_hostnames_mtls_certificate_identifier: JsonSchema = {
+export const tls$$certificates$$and$$hostnames_mtls_certificate_identifier: JsonSchema = {
   "description": "Certificate identifier tag.",
   "type": "string"
 };
@@ -30,7 +30,7 @@ export const tls_certificates_and_hostnames_mtls_certificate_identifier: JsonSch
 /**
  * The schema of `tls-certificates-and-hostnames_name-2`.
  */
-export const tls_certificates_and_hostnames_name_2: JsonSchema = {
+export const tls$$certificates$$and$$hostnames_name$$2: JsonSchema = {
   "description": "Optional unique name for the certificate. Only used for human readability.",
   "type": "string"
 };
@@ -38,7 +38,7 @@ export const tls_certificates_and_hostnames_name_2: JsonSchema = {
 /**
  * The schema of `tls-certificates-and-hostnames_private_key-4`.
  */
-export const tls_certificates_and_hostnames_private_key_4: JsonSchema = {
+export const tls$$certificates$$and$$hostnames_private_key$$4: JsonSchema = {
   "description": "The private key for the certificate. This field is only needed for specific use cases such as using a custom certificate with Zero Trust's block page.",
   "type": "string"
 };

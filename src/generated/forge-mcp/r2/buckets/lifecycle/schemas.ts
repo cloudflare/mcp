@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `r2_lifecycle-age-condition`.
  */
-export const r2_lifecycle_age_condition: JsonSchema = {
+export const r2_lifecycle$$age$$condition: JsonSchema = {
   "description": "Condition for lifecycle transitions to apply after an object reaches an age in seconds.",
   "properties": {
     "maxAge": {
@@ -29,7 +29,7 @@ export const r2_lifecycle_age_condition: JsonSchema = {
 /**
  * The schema of `r2_lifecycle-date-condition`.
  */
-export const r2_lifecycle_date_condition: JsonSchema = {
+export const r2_lifecycle$$date$$condition: JsonSchema = {
   "description": "Condition for lifecycle transitions to apply on a specific date.",
   "properties": {
     "date": {
@@ -53,7 +53,7 @@ export const r2_lifecycle_date_condition: JsonSchema = {
 /**
  * The schema of `r2_lifecycle-rule`.
  */
-export const r2_lifecycle_rule: JsonSchema = {
+export const r2_lifecycle$$rule: JsonSchema = {
   "properties": {
     "abortMultipartUploadsTransition": {
       "description": "Transition to abort ongoing multipart uploads.",
@@ -120,7 +120,7 @@ export const r2_lifecycle_rule: JsonSchema = {
 /**
  * The schema of `r2_lifecycle-storage-transition`.
  */
-export const r2_lifecycle_storage_transition: JsonSchema = {
+export const r2_lifecycle$$storage$$transition: JsonSchema = {
   "properties": {
     "condition": {
       "oneOf": [

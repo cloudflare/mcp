@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../../_/tool.js";
 /**
  * The schema of `api-shield_per_operation_setting` in responses.
  */
-export const api_shield_per_operation_setting_output: JsonSchema = {
+export const api$$shield_per_operation_setting: JsonSchema = {
   "properties": {
     "mitigation_action": {
       "enum": [
@@ -30,7 +30,7 @@ export const api_shield_per_operation_setting_output: JsonSchema = {
 /**
  * The schema of `api-shield_per_operation_setting_change_base` in responses.
  */
-export const api_shield_per_operation_setting_change_base_output: JsonSchema = {
+export const api$$shield_per_operation_setting_change_base: JsonSchema = {
   "properties": {
     "mitigation_action": {
       "oneOf": [

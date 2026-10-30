@@ -14,9 +14,6 @@ export const tools: readonly Tool[] = [
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "type": "string"
-        },
         "body": {
           "items": {
             "properties": {
@@ -78,13 +75,24 @@ export const tools: readonly Tool[] = [
           "minItems": 1,
           "type": "array"
         },
-        "workflow_name": {
-          "type": "string"
+        "path": {
+          "properties": {
+            "account_id": {
+              "type": "string"
+            },
+            "workflow_name": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_id",
+            "workflow_name"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "workflow_name",
+        "path",
         "body"
       ],
     },

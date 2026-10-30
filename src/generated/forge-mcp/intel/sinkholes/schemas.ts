@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `intel-sinkholes_identifier`.
  */
-export const intel_sinkholes_identifier: JsonSchema = {
+export const intel$$sinkholes_identifier: JsonSchema = {
   "description": "An identifier for the resource.",
   "type": "string"
 };
@@ -14,7 +14,7 @@ export const intel_sinkholes_identifier: JsonSchema = {
 /**
  * The schema of `intel-sinkholes_sinkhole_create_params`.
  */
-export const intel_sinkholes_sinkhole_create_params: JsonSchema = {
+export const intel$$sinkholes_sinkhole_create_params: JsonSchema = {
   "properties": {
     "name": {
       "description": "The name of the sinkhole.",

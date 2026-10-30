@@ -6,14 +6,14 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `secrets-store_account_identifier` in responses.
  */
-export const secrets_store_account_identifier_output: JsonSchema = {
+export const secrets$$store_account_identifier: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `secrets-store_storeObject` in responses.
  */
-export const secrets_store_storeObject_output: JsonSchema = {
+export const secrets$$store_storeObject: JsonSchema = {
   "properties": {
     "account_id": {
       "$ref": "#/$defs/secrets-store_account_identifier"
@@ -43,14 +43,14 @@ export const secrets_store_storeObject_output: JsonSchema = {
 /**
  * The schema of `secrets-store_store_name` in responses.
  */
-export const secrets_store_store_name_output: JsonSchema = {
+export const secrets$$store_store_name: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `secrets-store_store_response` in responses.
  */
-export const secrets_store_store_response_output: JsonSchema = {
+export const secrets$$store_store_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/secrets-store_api-response-collection"
@@ -69,7 +69,7 @@ export const secrets_store_store_response_output: JsonSchema = {
 /**
  * The schema of `secrets-store_stores_response_collection` in responses.
  */
-export const secrets_store_stores_response_collection_output: JsonSchema = {
+export const secrets$$store_stores_response_collection: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/secrets-store_api-response-collection"

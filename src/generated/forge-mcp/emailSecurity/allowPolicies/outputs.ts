@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `email-security_AllowPolicy` in responses.
  */
-export const email_security_AllowPolicy_output: JsonSchema = {
+export const email$$security_AllowPolicy: JsonSchema = {
   "properties": {
     "comments": {
       "oneOf": [
@@ -83,7 +83,7 @@ export const email_security_AllowPolicy_output: JsonSchema = {
 /**
  * The schema of `email-security_AllowPolicyId` in responses.
  */
-export const email_security_AllowPolicyId_output: JsonSchema = {
+export const email$$security_AllowPolicyId: JsonSchema = {
   "format": "uuid",
   "type": "string"
 };
@@ -91,7 +91,7 @@ export const email_security_AllowPolicyId_output: JsonSchema = {
 /**
  * The schema of `email-security_AllowPolicyList` in responses.
  */
-export const email_security_AllowPolicyList_output: JsonSchema = {
+export const email$$security_AllowPolicyList: JsonSchema = {
   "items": {
     "$ref": "#/$defs/email-security_AllowPolicy"
   },
@@ -101,7 +101,7 @@ export const email_security_AllowPolicyList_output: JsonSchema = {
 /**
  * The schema of `email-security_DeletedAllowPolicy` in responses.
  */
-export const email_security_DeletedAllowPolicy_output: JsonSchema = {
+export const email$$security_DeletedAllowPolicy: JsonSchema = {
   "properties": {
     "id": {
       "$ref": "#/$defs/email-security_AllowPolicyId"

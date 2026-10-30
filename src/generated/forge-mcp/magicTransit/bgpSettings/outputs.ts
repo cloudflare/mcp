@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `magic_bgp_redistribute_sources` in responses.
  */
-export const magic_bgp_redistribute_sources_output: JsonSchema = {
+export const magic_bgp_redistribute_sources: JsonSchema = {
   "properties": {
     "static:wan": {
       "type": "boolean"
@@ -21,7 +21,7 @@ export const magic_bgp_redistribute_sources_output: JsonSchema = {
 /**
  * The schema of `magic_bgp_settings` in responses.
  */
-export const magic_bgp_settings_output: JsonSchema = {
+export const magic_bgp_settings: JsonSchema = {
   "properties": {
     "cloudflare_asn": {
       "type": "integer"
@@ -44,7 +44,7 @@ export const magic_bgp_settings_output: JsonSchema = {
 /**
  * The schema of `magic_magic_bgp_settings_response` in responses.
  */
-export const magic_magic_bgp_settings_response_output: JsonSchema = {
+export const magic_magic_bgp_settings_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/magic_api-response-single"

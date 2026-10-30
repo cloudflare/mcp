@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `billable-usage-api_v2_filter_by`.
  */
-export const billable_usage_api_v2_filter_by: JsonSchema = {
+export const billable$$usage$$api_v2_filter_by: JsonSchema = {
   "description": "Usage filters. Filters of different kinds are combined with AND, so a record must match every filter present to be returned.",
   "properties": {
     "BillableMetricIds": {
@@ -41,7 +41,7 @@ export const billable_usage_api_v2_filter_by: JsonSchema = {
 /**
  * The schema of `billable-usage-api_v2_group_by`.
  */
-export const billable_usage_api_v2_group_by: JsonSchema = {
+export const billable$$usage$$api_v2_group_by: JsonSchema = {
   "description": "A definition used to split result rows. TAG groups by a case-sensitive resource-tag key. DIMENSION groups by a usage dimension key — account_id, zone_id and region are the documented keys, and any other dimension key carried by the usage data is accepted and returned under that same key.",
   "properties": {
     "Key": {
@@ -67,7 +67,7 @@ export const billable_usage_api_v2_group_by: JsonSchema = {
 /**
  * The schema of `billable-usage-api_v2_tag_filter`.
  */
-export const billable_usage_api_v2_tag_filter: JsonSchema = {
+export const billable$$usage$$api_v2_tag_filter: JsonSchema = {
   "description": "Values accepted for one resource-tag key.",
   "properties": {
     "Key": {
@@ -94,7 +94,7 @@ export const billable_usage_api_v2_tag_filter: JsonSchema = {
 /**
  * The schema of `billable-usage-api_v2_time_period`.
  */
-export const billable_usage_api_v2_time_period: JsonSchema = {
+export const billable$$usage$$api_v2_time_period: JsonSchema = {
   "description": "Charge period to query, i.e. when consumption happened, not when it was billed. `From` is inclusive and `To` is exclusive. `From` and `To` must be supplied together; supplying one without the other is an error. When both are omitted the range defaults to the start of the current month through today.",
   "properties": {
     "From": {
@@ -114,7 +114,7 @@ export const billable_usage_api_v2_time_period: JsonSchema = {
 /**
  * The schema of `billable-usage-api_v2_usage_query`.
  */
-export const billable_usage_api_v2_usage_query: JsonSchema = {
+export const billable$$usage$$api_v2_usage_query: JsonSchema = {
   "description": "Filter criteria for a usage query. Every field is optional; an empty object is equivalent to omitting the body entirely. Unknown fields are rejected.",
   "properties": {
     "FilterBy": {

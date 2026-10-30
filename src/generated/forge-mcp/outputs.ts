@@ -6,7 +6,7 @@ import type { JsonSchema } from "./_/tool.js";
 /**
  * The schema of `aaa_api-response-common` in responses.
  */
-export const aaa_api_response_common_output: JsonSchema = {
+export const aaa_api$$response$$common: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/aaa_messages"
@@ -32,7 +32,7 @@ export const aaa_api_response_common_output: JsonSchema = {
 /**
  * The schema of `aaa_api-response-common-failure` in responses.
  */
-export const aaa_api_response_common_failure_output: JsonSchema = {
+export const aaa_api$$response$$common$$failure: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/aaa_messages"
@@ -58,7 +58,7 @@ export const aaa_api_response_common_failure_output: JsonSchema = {
 /**
  * The schema of `aaa_api-response-common-failure-2` in responses.
  */
-export const aaa_api_response_common_failure_2_output: JsonSchema = {
+export const aaa_api$$response$$common$$failure$$2: JsonSchema = {
   "properties": {
     "errors": {
       "items": {
@@ -102,7 +102,7 @@ export const aaa_api_response_common_failure_2_output: JsonSchema = {
 /**
  * The schema of `aaa_audit-log-action` in responses.
  */
-export const aaa_audit_log_action_output: JsonSchema = {
+export const aaa_audit$$log$$action: JsonSchema = {
   "properties": {
     "description": {
       "type": "string"
@@ -124,7 +124,7 @@ export const aaa_audit_log_action_output: JsonSchema = {
 /**
  * The schema of `aaa_audit-log-actor-base` in responses.
  */
-export const aaa_audit_log_actor_base_output: JsonSchema = {
+export const aaa_audit$$log$$actor$$base: JsonSchema = {
   "properties": {
     "context": {
       "enum": [
@@ -159,7 +159,7 @@ export const aaa_audit_log_actor_base_output: JsonSchema = {
 /**
  * The schema of `aaa_audit-log-raw` in responses.
  */
-export const aaa_audit_log_raw_output: JsonSchema = {
+export const aaa_audit$$log$$raw: JsonSchema = {
   "properties": {
     "cf_ray_id": {
       "type": "string"
@@ -183,7 +183,7 @@ export const aaa_audit_log_raw_output: JsonSchema = {
 /**
  * The schema of `aaa_audit-logs` in responses.
  */
-export const aaa_audit_logs_output: JsonSchema = {
+export const aaa_audit$$logs: JsonSchema = {
   "properties": {
     "action": {
       "properties": {
@@ -263,7 +263,7 @@ export const aaa_audit_logs_output: JsonSchema = {
 /**
  * The schema of `aaa_audit-logs-response-collection` in responses.
  */
-export const aaa_audit_logs_response_collection_output: JsonSchema = {
+export const aaa_audit$$logs$$response$$collection: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/aaa_messages-2"
@@ -284,7 +284,7 @@ export const aaa_audit_logs_response_collection_output: JsonSchema = {
 /**
  * The schema of `aaa_audit-logs-v2-history-not-found` in responses.
  */
-export const aaa_audit_logs_v2_history_not_found_output: JsonSchema = {
+export const aaa_audit$$logs$$v2$$history$$not$$found: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/aaa_messages-2"
@@ -320,7 +320,7 @@ export const aaa_audit_logs_v2_history_not_found_output: JsonSchema = {
 /**
  * The schema of `aaa_audit-logs-v2-history-result-info` in responses.
  */
-export const aaa_audit_logs_v2_history_result_info_output: JsonSchema = {
+export const aaa_audit$$logs$$v2$$history$$result$$info: JsonSchema = {
   "properties": {
     "count": {
       "type": "integer"
@@ -342,7 +342,7 @@ export const aaa_audit_logs_v2_history_result_info_output: JsonSchema = {
 /**
  * The schema of `aaa_audit_logs_response_collection` in responses.
  */
-export const aaa_audit_logs_response_collection_output$: JsonSchema = {
+export const aaa_audit_logs_response_collection: JsonSchema = {
   "oneOf": [
     {
       "properties": {
@@ -373,7 +373,7 @@ export const aaa_audit_logs_response_collection_output$: JsonSchema = {
 /**
  * The schema of `aaa_history-status` in responses.
  */
-export const aaa_history_status_output: JsonSchema = {
+export const aaa_history$$status: JsonSchema = {
   "enum": [
     "exact",
     "approximate",
@@ -385,21 +385,21 @@ export const aaa_history_status_output: JsonSchema = {
 /**
  * The schema of `aaa_identifier` in responses.
  */
-export const aaa_identifier_output: JsonSchema = {
+export const aaa_identifier: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `aaa_identifier-2` in responses.
  */
-export const aaa_identifier_2_output: JsonSchema = {
+export const aaa_identifier$$2: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `aaa_messages` in responses.
  */
-export const aaa_messages_output: JsonSchema = {
+export const aaa_messages: JsonSchema = {
   "items": {
     "properties": {
       "code": {
@@ -421,7 +421,7 @@ export const aaa_messages_output: JsonSchema = {
 /**
  * The schema of `aaa_messages-2` in responses.
  */
-export const aaa_messages_2_output: JsonSchema = {
+export const aaa_messages$$2: JsonSchema = {
   "items": {
     "properties": {
       "message": {
@@ -439,7 +439,7 @@ export const aaa_messages_2_output: JsonSchema = {
 /**
  * The schema of `aaa_result_info` in responses.
  */
-export const aaa_result_info_output: JsonSchema = {
+export const aaa_result_info: JsonSchema = {
   "properties": {
     "count": {
       "type": "string"
@@ -454,7 +454,7 @@ export const aaa_result_info_output: JsonSchema = {
 /**
  * The schema of `analytics-sql_ApiErrorResponse` in responses.
  */
-export const analytics_sql_ApiErrorResponse_output: JsonSchema = {
+export const analytics$$sql_ApiErrorResponse: JsonSchema = {
   "properties": {
     "code": {
       "type": "integer"
@@ -479,7 +479,7 @@ export const analytics_sql_ApiErrorResponse_output: JsonSchema = {
 /**
  * The schema of `analytics-sql_Attribute` in responses.
  */
-export const analytics_sql_Attribute_output: JsonSchema = {
+export const analytics$$sql_Attribute: JsonSchema = {
   "properties": {
     "data_type": {
       "type": "string"
@@ -498,7 +498,7 @@ export const analytics_sql_Attribute_output: JsonSchema = {
 /**
  * The schema of `analytics-sql_ClickHouseJsonQueryResponse` in responses.
  */
-export const analytics_sql_ClickHouseJsonQueryResponse_output: JsonSchema = {
+export const analytics$$sql_ClickHouseJsonQueryResponse: JsonSchema = {
   "properties": {
     "data": {
       "items": {
@@ -547,7 +547,7 @@ export const analytics_sql_ClickHouseJsonQueryResponse_output: JsonSchema = {
 /**
  * The schema of `analytics-sql_CustomAttribute` in responses.
  */
-export const analytics_sql_CustomAttribute_output: JsonSchema = {
+export const analytics$$sql_CustomAttribute: JsonSchema = {
   "properties": {
     "data_type": {
       "type": "string"
@@ -566,7 +566,7 @@ export const analytics_sql_CustomAttribute_output: JsonSchema = {
 /**
  * The schema of `analytics-sql_DatasetAvailability` in responses.
  */
-export const analytics_sql_DatasetAvailability_output: JsonSchema = {
+export const analytics$$sql_DatasetAvailability: JsonSchema = {
   "properties": {
     "scope": {
       "enum": [
@@ -588,7 +588,7 @@ export const analytics_sql_DatasetAvailability_output: JsonSchema = {
 /**
  * The schema of `analytics-sql_GatewayApiErrorResponse` in responses.
  */
-export const analytics_sql_GatewayApiErrorResponse_output: JsonSchema = {
+export const analytics$$sql_GatewayApiErrorResponse: JsonSchema = {
   "properties": {
     "errors": {
       "items": {
@@ -631,7 +631,7 @@ export const analytics_sql_GatewayApiErrorResponse_output: JsonSchema = {
 /**
  * The schema of `analytics-sql_IntrospectionColumn` in responses.
  */
-export const analytics_sql_IntrospectionColumn_output: JsonSchema = {
+export const analytics$$sql_IntrospectionColumn: JsonSchema = {
   "properties": {
     "data_type": {
       "type": "string"
@@ -658,7 +658,7 @@ export const analytics_sql_IntrospectionColumn_output: JsonSchema = {
 /**
  * The schema of `analytics-sql_IntrospectionDataset` in responses.
  */
-export const analytics_sql_IntrospectionDataset_output: JsonSchema = {
+export const analytics$$sql_IntrospectionDataset: JsonSchema = {
   "properties": {
     "attributes": {
       "items": {
@@ -711,7 +711,7 @@ export const analytics_sql_IntrospectionDataset_output: JsonSchema = {
 /**
  * The schema of `analytics-sql_IntrospectionDatasetKind` in responses.
  */
-export const analytics_sql_IntrospectionDatasetKind_output: JsonSchema = {
+export const analytics$$sql_IntrospectionDatasetKind: JsonSchema = {
   "properties": {
     "availability": {
       "items": {
@@ -766,7 +766,7 @@ export const analytics_sql_IntrospectionDatasetKind_output: JsonSchema = {
 /**
  * The schema of `analytics-sql_IntrospectionResponse` in responses.
  */
-export const analytics_sql_IntrospectionResponse_output: JsonSchema = {
+export const analytics$$sql_IntrospectionResponse: JsonSchema = {
   "properties": {
     "datasets": {
       "items": {
@@ -784,7 +784,7 @@ export const analytics_sql_IntrospectionResponse_output: JsonSchema = {
 /**
  * The schema of `analytics-sql_IntrospectionSampling` in responses.
  */
-export const analytics_sql_IntrospectionSampling_output: JsonSchema = {
+export const analytics$$sql_IntrospectionSampling: JsonSchema = {
   "enum": [
     "unsampled",
     "adaptive"
@@ -795,7 +795,7 @@ export const analytics_sql_IntrospectionSampling_output: JsonSchema = {
 /**
  * The schema of `analytics-sql_LogExplorerQueryResponse` in responses.
  */
-export const analytics_sql_LogExplorerQueryResponse_output: JsonSchema = {
+export const analytics$$sql_LogExplorerQueryResponse: JsonSchema = {
   "properties": {
     "data": {
       "items": {
@@ -817,7 +817,7 @@ export const analytics_sql_LogExplorerQueryResponse_output: JsonSchema = {
 /**
  * The schema of `analytics-sql_SqlQueryResponse` in responses.
  */
-export const analytics_sql_SqlQueryResponse_output: JsonSchema = {
+export const analytics$$sql_SqlQueryResponse: JsonSchema = {
   "properties": {
     "data": {
       "items": {
@@ -843,7 +843,7 @@ export const analytics_sql_SqlQueryResponse_output: JsonSchema = {
 /**
  * The schema of `analytics-sql_SqlQueryStatistics` in responses.
  */
-export const analytics_sql_SqlQueryStatistics_output: JsonSchema = {
+export const analytics$$sql_SqlQueryStatistics: JsonSchema = {
   "properties": {
     "bytes_read": {
       "type": "integer"
@@ -866,7 +866,7 @@ export const analytics_sql_SqlQueryStatistics_output: JsonSchema = {
 /**
  * The schema of `api-shield_api-response-collection` in responses.
  */
-export const api_shield_api_response_collection_output: JsonSchema = {
+export const api$$shield_api$$response$$collection: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/api-shield_api-response-common"
@@ -902,7 +902,7 @@ export const api_shield_api_response_collection_output: JsonSchema = {
 /**
  * The schema of `api-shield_api-response-common` in responses.
  */
-export const api_shield_api_response_common_output: JsonSchema = {
+export const api$$shield_api$$response$$common: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/api-shield_messages"
@@ -928,7 +928,7 @@ export const api_shield_api_response_common_output: JsonSchema = {
 /**
  * The schema of `api-shield_api-response-common-failure` in responses.
  */
-export const api_shield_api_response_common_failure_output: JsonSchema = {
+export const api$$shield_api$$response$$common$$failure: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/api-shield_messages"
@@ -958,14 +958,14 @@ export const api_shield_api_response_common_failure_output: JsonSchema = {
 /**
  * The schema of `api-shield_auth_id_tokens` in responses.
  */
-export const api_shield_auth_id_tokens_output: JsonSchema = {
+export const api$$shield_auth_id_tokens: JsonSchema = {
   "type": "integer"
 };
 
 /**
  * The schema of `api-shield_basic_operation` in responses.
  */
-export const api_shield_basic_operation_output: JsonSchema = {
+export const api$$shield_basic_operation: JsonSchema = {
   "properties": {
     "endpoint": {
       "$ref": "#/$defs/api-shield_endpoint"
@@ -988,7 +988,7 @@ export const api_shield_basic_operation_output: JsonSchema = {
 /**
  * The schema of `api-shield_confidence_intervals_bounds` in responses.
  */
-export const api_shield_confidence_intervals_bounds_output: JsonSchema = {
+export const api$$shield_confidence_intervals_bounds: JsonSchema = {
   "properties": {
     "lower": {
       "type": "number"
@@ -1003,28 +1003,28 @@ export const api_shield_confidence_intervals_bounds_output: JsonSchema = {
 /**
  * The schema of `api-shield_data_points` in responses.
  */
-export const api_shield_data_points_output: JsonSchema = {
+export const api$$shield_data_points: JsonSchema = {
   "type": "integer"
 };
 
 /**
  * The schema of `api-shield_endpoint` in responses.
  */
-export const api_shield_endpoint_output: JsonSchema = {
+export const api$$shield_endpoint: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `api-shield_host` in responses.
  */
-export const api_shield_host_output: JsonSchema = {
+export const api$$shield_host: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `api-shield_messages` in responses.
  */
-export const api_shield_messages_output: JsonSchema = {
+export const api$$shield_messages: JsonSchema = {
   "items": {
     "properties": {
       "code": {
@@ -1057,7 +1057,7 @@ export const api_shield_messages_output: JsonSchema = {
 /**
  * The schema of `api-shield_method` in responses.
  */
-export const api_shield_method_output: JsonSchema = {
+export const api$$shield_method: JsonSchema = {
   "enum": [
     "GET",
     "POST",
@@ -1075,7 +1075,7 @@ export const api_shield_method_output: JsonSchema = {
 /**
  * The schema of `api-shield_operation` in responses.
  */
-export const api_shield_operation_output: JsonSchema = {
+export const api$$shield_operation: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/api-shield_standard_operation"
@@ -1101,7 +1101,7 @@ export const api_shield_operation_output: JsonSchema = {
 /**
  * The schema of `api-shield_operation_feature_api_routing` in responses.
  */
-export const api_shield_operation_feature_api_routing_output: JsonSchema = {
+export const api$$shield_operation_feature_api_routing: JsonSchema = {
   "properties": {
     "api_routing": {
       "properties": {
@@ -1122,7 +1122,7 @@ export const api_shield_operation_feature_api_routing_output: JsonSchema = {
  * The schema of `api-shield_operation_feature_confidence_intervals` in
  * responses.
  */
-export const api_shield_operation_feature_confidence_intervals_output: JsonSchema = {
+export const api$$shield_operation_feature_confidence_intervals: JsonSchema = {
   "properties": {
     "confidence_intervals": {
       "properties": {
@@ -1161,7 +1161,7 @@ export const api_shield_operation_feature_confidence_intervals_output: JsonSchem
 /**
  * The schema of `api-shield_operation_feature_parameter_schemas` in responses.
  */
-export const api_shield_operation_feature_parameter_schemas_output: JsonSchema = {
+export const api$$shield_operation_feature_parameter_schemas: JsonSchema = {
   "properties": {
     "parameter_schemas": {
       "properties": {
@@ -1184,7 +1184,7 @@ export const api_shield_operation_feature_parameter_schemas_output: JsonSchema =
 /**
  * The schema of `api-shield_operation_feature_schema_info` in responses.
  */
-export const api_shield_operation_feature_schema_info_output: JsonSchema = {
+export const api$$shield_operation_feature_schema_info: JsonSchema = {
   "properties": {
     "schema_info": {
       "properties": {
@@ -1227,7 +1227,7 @@ export const api_shield_operation_feature_schema_info_output: JsonSchema = {
 /**
  * The schema of `api-shield_operation_feature_thresholds` in responses.
  */
-export const api_shield_operation_feature_thresholds_output: JsonSchema = {
+export const api$$shield_operation_feature_thresholds: JsonSchema = {
   "properties": {
     "thresholds": {
       "properties": {
@@ -1268,7 +1268,7 @@ export const api_shield_operation_feature_thresholds_output: JsonSchema = {
 /**
  * The schema of `api-shield_operation_features` in responses.
  */
-export const api_shield_operation_features_output: JsonSchema = {
+export const api$$shield_operation_features: JsonSchema = {
   "anyOf": [
     {
       "$ref": "#/$defs/api-shield_operation_feature_thresholds"
@@ -1291,28 +1291,28 @@ export const api_shield_operation_features_output: JsonSchema = {
 /**
  * The schema of `api-shield_p50` in responses.
  */
-export const api_shield_p50_output: JsonSchema = {
+export const api$$shield_p50: JsonSchema = {
   "type": "integer"
 };
 
 /**
  * The schema of `api-shield_p90` in responses.
  */
-export const api_shield_p90_output: JsonSchema = {
+export const api$$shield_p90: JsonSchema = {
   "type": "integer"
 };
 
 /**
  * The schema of `api-shield_p99` in responses.
  */
-export const api_shield_p99_output: JsonSchema = {
+export const api$$shield_p99: JsonSchema = {
   "type": "integer"
 };
 
 /**
  * The schema of `api-shield_parameter_schemas_definition` in responses.
  */
-export const api_shield_parameter_schemas_definition_output: JsonSchema = {
+export const api$$shield_parameter_schemas_definition: JsonSchema = {
   "properties": {
     "parameters": {
       "items": {
@@ -1337,21 +1337,21 @@ export const api_shield_parameter_schemas_definition_output: JsonSchema = {
 /**
  * The schema of `api-shield_period_seconds` in responses.
  */
-export const api_shield_period_seconds_output: JsonSchema = {
+export const api$$shield_period_seconds: JsonSchema = {
   "type": "integer"
 };
 
 /**
  * The schema of `api-shield_requests` in responses.
  */
-export const api_shield_requests_output: JsonSchema = {
+export const api$$shield_requests: JsonSchema = {
   "type": "integer"
 };
 
 /**
  * The schema of `api-shield_standard_operation` in responses.
  */
-export const api_shield_standard_operation_output: JsonSchema = {
+export const api$$shield_standard_operation: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/api-shield_basic_operation"
@@ -1377,14 +1377,14 @@ export const api_shield_standard_operation_output: JsonSchema = {
 /**
  * The schema of `api-shield_suggested_threshold` in responses.
  */
-export const api_shield_suggested_threshold_output: JsonSchema = {
+export const api$$shield_suggested_threshold: JsonSchema = {
   "type": "integer"
 };
 
 /**
  * The schema of `api-shield_timestamp` in responses.
  */
-export const api_shield_timestamp_output: JsonSchema = {
+export const api$$shield_timestamp: JsonSchema = {
   "format": "date-time",
   "type": "string"
 };
@@ -1392,7 +1392,7 @@ export const api_shield_timestamp_output: JsonSchema = {
 /**
  * The schema of `api-shield_timestamp-2` in responses.
  */
-export const api_shield_timestamp_2_output: JsonSchema = {
+export const api$$shield_timestamp$$2: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/api-shield_timestamp"
@@ -1406,14 +1406,14 @@ export const api_shield_timestamp_2_output: JsonSchema = {
 /**
  * The schema of `api-shield_uuid` in responses.
  */
-export const api_shield_uuid_output: JsonSchema = {
+export const api$$shield_uuid: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `api-shield_uuid-2` in responses.
  */
-export const api_shield_uuid_2_output: JsonSchema = {
+export const api$$shield_uuid$$2: JsonSchema = {
   "allOf": [
     {
       "type": "string"
@@ -1427,7 +1427,7 @@ export const api_shield_uuid_2_output: JsonSchema = {
 /**
  * The schema of `bill-subs-api_api-response-collection` in responses.
  */
-export const bill_subs_api_api_response_collection_output: JsonSchema = {
+export const bill$$subs$$api_api$$response$$collection: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/bill-subs-api_api-response-common"
@@ -1459,7 +1459,7 @@ export const bill_subs_api_api_response_collection_output: JsonSchema = {
 /**
  * The schema of `bill-subs-api_api-response-common` in responses.
  */
-export const bill_subs_api_api_response_common_output: JsonSchema = {
+export const bill$$subs$$api_api$$response$$common: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/bill-subs-api_messages"
@@ -1502,7 +1502,7 @@ export const bill_subs_api_api_response_common_output: JsonSchema = {
 /**
  * The schema of `bill-subs-api_api-response-common-failure` in responses.
  */
-export const bill_subs_api_api_response_common_failure_output: JsonSchema = {
+export const bill$$subs$$api_api$$response$$common$$failure: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/bill-subs-api_messages"
@@ -1532,7 +1532,7 @@ export const bill_subs_api_api_response_common_failure_output: JsonSchema = {
 /**
  * The schema of `bill-subs-api_api-response-single` in responses.
  */
-export const bill_subs_api_api_response_single_output: JsonSchema = {
+export const bill$$subs$$api_api$$response$$single: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/bill-subs-api_api-response-common"
@@ -1561,7 +1561,7 @@ export const bill_subs_api_api_response_single_output: JsonSchema = {
 /**
  * The schema of `bill-subs-api_billing_response_single` in responses.
  */
-export const bill_subs_api_billing_response_single_output: JsonSchema = {
+export const bill$$subs$$api_billing_response_single: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/bill-subs-api_api-response-single"
@@ -1699,7 +1699,7 @@ export const bill_subs_api_billing_response_single_output: JsonSchema = {
 /**
  * The schema of `bill-subs-api_component_value` in responses.
  */
-export const bill_subs_api_component_value_output: JsonSchema = {
+export const bill$$subs$$api_component_value: JsonSchema = {
   "properties": {
     "default": {
       "type": "number"
@@ -1731,7 +1731,7 @@ export const bill_subs_api_component_value_output: JsonSchema = {
 /**
  * The schema of `bill-subs-api_component_values` in responses.
  */
-export const bill_subs_api_component_values_output: JsonSchema = {
+export const bill$$subs$$api_component_values: JsonSchema = {
   "items": {
     "$ref": "#/$defs/bill-subs-api_component_value"
   },
@@ -1741,21 +1741,21 @@ export const bill_subs_api_component_values_output: JsonSchema = {
 /**
  * The schema of `bill-subs-api_components-schemas-identifier` in responses.
  */
-export const bill_subs_api_components_schemas_identifier_output: JsonSchema = {
+export const bill$$subs$$api_components$$schemas$$identifier: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `bill-subs-api_currency` in responses.
  */
-export const bill_subs_api_currency_output: JsonSchema = {
+export const bill$$subs$$api_currency: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `bill-subs-api_current_period_end` in responses.
  */
-export const bill_subs_api_current_period_end_output: JsonSchema = {
+export const bill$$subs$$api_current_period_end: JsonSchema = {
   "format": "date-time",
   "type": "string"
 };
@@ -1763,7 +1763,7 @@ export const bill_subs_api_current_period_end_output: JsonSchema = {
 /**
  * The schema of `bill-subs-api_current_period_start` in responses.
  */
-export const bill_subs_api_current_period_start_output: JsonSchema = {
+export const bill$$subs$$api_current_period_start: JsonSchema = {
   "format": "date-time",
   "type": "string"
 };
@@ -1771,7 +1771,7 @@ export const bill_subs_api_current_period_start_output: JsonSchema = {
 /**
  * The schema of `bill-subs-api_frequency` in responses.
  */
-export const bill_subs_api_frequency_output: JsonSchema = {
+export const bill$$subs$$api_frequency: JsonSchema = {
   "enum": [
     "weekly",
     "monthly",
@@ -1784,21 +1784,21 @@ export const bill_subs_api_frequency_output: JsonSchema = {
 /**
  * The schema of `bill-subs-api_identifier` in responses.
  */
-export const bill_subs_api_identifier_output: JsonSchema = {
+export const bill$$subs$$api_identifier: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `bill-subs-api_install_id` in responses.
  */
-export const bill_subs_api_install_id_output: JsonSchema = {
+export const bill$$subs$$api_install_id: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `bill-subs-api_messages` in responses.
  */
-export const bill_subs_api_messages_output: JsonSchema = {
+export const bill$$subs$$api_messages: JsonSchema = {
   "items": {
     "properties": {
       "code": {
@@ -1820,21 +1820,21 @@ export const bill_subs_api_messages_output: JsonSchema = {
 /**
  * The schema of `bill-subs-api_name` in responses.
  */
-export const bill_subs_api_name_output: JsonSchema = {
+export const bill$$subs$$api_name: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `bill-subs-api_price` in responses.
  */
-export const bill_subs_api_price_output: JsonSchema = {
+export const bill$$subs$$api_price: JsonSchema = {
   "type": "number"
 };
 
 /**
  * The schema of `bill-subs-api_rate_plan` in responses.
  */
-export const bill_subs_api_rate_plan_output: JsonSchema = {
+export const bill$$subs$$api_rate_plan: JsonSchema = {
   "properties": {
     "currency": {
       "type": "string"
@@ -1867,7 +1867,7 @@ export const bill_subs_api_rate_plan_output: JsonSchema = {
 /**
  * The schema of `bill-subs-api_result_info` in responses.
  */
-export const bill_subs_api_result_info_output: JsonSchema = {
+export const bill$$subs$$api_result_info: JsonSchema = {
   "properties": {
     "count": {
       "type": "number"
@@ -1888,14 +1888,14 @@ export const bill_subs_api_result_info_output: JsonSchema = {
 /**
  * The schema of `bill-subs-api_schemas-identifier` in responses.
  */
-export const bill_subs_api_schemas_identifier_output: JsonSchema = {
+export const bill$$subs$$api_schemas$$identifier: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `bill-subs-api_state` in responses.
  */
-export const bill_subs_api_state_output: JsonSchema = {
+export const bill$$subs$$api_state: JsonSchema = {
   "enum": [
     "Trial",
     "Provisioned",
@@ -1911,7 +1911,7 @@ export const bill_subs_api_state_output: JsonSchema = {
 /**
  * The schema of `bill-subs-api_subscription` in responses.
  */
-export const bill_subs_api_subscription_output: JsonSchema = {
+export const bill$$subs$$api_subscription: JsonSchema = {
   "properties": {
     "app": {
       "properties": {
@@ -1958,7 +1958,7 @@ export const bill_subs_api_subscription_output: JsonSchema = {
 /**
  * The schema of `bill-subs-api_subscription-v2` in responses.
  */
-export const bill_subs_api_subscription_v2_output: JsonSchema = {
+export const bill$$subs$$api_subscription$$v2: JsonSchema = {
   "properties": {
     "app": {
       "properties": {
@@ -2005,7 +2005,7 @@ export const bill_subs_api_subscription_v2_output: JsonSchema = {
 /**
  * The schema of `bill-subs-api_zone` in responses.
  */
-export const bill_subs_api_zone_output: JsonSchema = {
+export const bill$$subs$$api_zone: JsonSchema = {
   "properties": {
     "id": {
       "$ref": "#/$defs/bill-subs-api_identifier"
@@ -2020,7 +2020,7 @@ export const bill_subs_api_zone_output: JsonSchema = {
 /**
  * The schema of `billable-usage-api_api-response-common-failure` in responses.
  */
-export const billable_usage_api_api_response_common_failure_output: JsonSchema = {
+export const billable$$usage$$api_api$$response$$common$$failure: JsonSchema = {
   "properties": {
     "errors": {
       "items": {
@@ -2071,7 +2071,7 @@ export const billable_usage_api_api_response_common_failure_output: JsonSchema =
 /**
  * The schema of `billable-usage-api_cost_and_usage_data` in responses.
  */
-export const billable_usage_api_cost_and_usage_data_output: JsonSchema = {
+export const billable$$usage$$api_cost_and_usage_data: JsonSchema = {
   "properties": {
     "BilledCost": {
       "oneOf": [
@@ -2338,7 +2338,7 @@ export const billable_usage_api_cost_and_usage_data_output: JsonSchema = {
 /**
  * The schema of `billable-usage-api_message` in responses.
  */
-export const billable_usage_api_message_output: JsonSchema = {
+export const billable$$usage$$api_message: JsonSchema = {
   "properties": {
     "code": {
       "type": "integer"
@@ -2356,7 +2356,7 @@ export const billable_usage_api_message_output: JsonSchema = {
 /**
  * The schema of `billable-usage-api_v2_usage_response` in responses.
  */
-export const billable_usage_api_v2_usage_response_output: JsonSchema = {
+export const billable$$usage$$api_v2_usage_response: JsonSchema = {
   "properties": {
     "errors": {
       "oneOf": [
@@ -2409,7 +2409,7 @@ export const billable_usage_api_v2_usage_response_output: JsonSchema = {
 /**
  * The schema of `brand-protection-api_Error` in responses.
  */
-export const brand_protection_api_Error_output: JsonSchema = {
+export const brand$$protection$$api_Error: JsonSchema = {
   "properties": {
     "code": {
       "type": "integer"
@@ -2433,7 +2433,7 @@ export const brand_protection_api_Error_output: JsonSchema = {
 /**
  * The schema of `builds_APIResponse` in responses.
  */
-export const builds_APIResponse_output: JsonSchema = {
+export const builds_APIResponse: JsonSchema = {
   "properties": {
     "errors": {
       "items": {
@@ -2482,7 +2482,7 @@ export const builds_APIResponse_output: JsonSchema = {
 /**
  * The schema of `builds_ApiError` in responses.
  */
-export const builds_ApiError_output: JsonSchema = {
+export const builds_ApiError: JsonSchema = {
   "properties": {
     "code": {
       "type": "integer"
@@ -2500,7 +2500,7 @@ export const builds_ApiError_output: JsonSchema = {
 /**
  * The schema of `builds_BuildOutcome` in responses.
  */
-export const builds_BuildOutcome_output: JsonSchema = {
+export const builds_BuildOutcome: JsonSchema = {
   "enum": [
     "success",
     "fail",
@@ -2514,7 +2514,7 @@ export const builds_BuildOutcome_output: JsonSchema = {
 /**
  * The schema of `builds_BuildResponse` in responses.
  */
-export const builds_BuildResponse_output: JsonSchema = {
+export const builds_BuildResponse: JsonSchema = {
   "properties": {
     "build_outcome": {
       "oneOf": [
@@ -2670,7 +2670,7 @@ export const builds_BuildResponse_output: JsonSchema = {
 /**
  * The schema of `builds_BuildStatus` in responses.
  */
-export const builds_BuildStatus_output: JsonSchema = {
+export const builds_BuildStatus: JsonSchema = {
   "enum": [
     "queued",
     "initializing",
@@ -2683,7 +2683,7 @@ export const builds_BuildStatus_output: JsonSchema = {
 /**
  * The schema of `builds_BuildTriggerMetadataResponse` in responses.
  */
-export const builds_BuildTriggerMetadataResponse_output: JsonSchema = {
+export const builds_BuildTriggerMetadataResponse: JsonSchema = {
   "properties": {
     "author": {
       "type": "string"
@@ -2737,7 +2737,7 @@ export const builds_BuildTriggerMetadataResponse_output: JsonSchema = {
 /**
  * The schema of `builds_BuildTriggerSource` in responses.
  */
-export const builds_BuildTriggerSource_output: JsonSchema = {
+export const builds_BuildTriggerSource: JsonSchema = {
   "enum": [
     "push",
     "pull_request",
@@ -2750,7 +2750,7 @@ export const builds_BuildTriggerSource_output: JsonSchema = {
 /**
  * The schema of `builds_EnvironmentVariablesResponse` in responses.
  */
-export const builds_EnvironmentVariablesResponse_output: JsonSchema = {
+export const builds_EnvironmentVariablesResponse: JsonSchema = {
   "additionalProperties": {
     "properties": {
       "created_on": {
@@ -2782,7 +2782,7 @@ export const builds_EnvironmentVariablesResponse_output: JsonSchema = {
 /**
  * The schema of `builds_ErrorResponse` in responses.
  */
-export const builds_ErrorResponse_output: JsonSchema = {
+export const builds_ErrorResponse: JsonSchema = {
   "properties": {
     "errors": {
       "items": {
@@ -2822,7 +2822,7 @@ export const builds_ErrorResponse_output: JsonSchema = {
 /**
  * The schema of `builds_PaginationInfo` in responses.
  */
-export const builds_PaginationInfo_output: JsonSchema = {
+export const builds_PaginationInfo: JsonSchema = {
   "properties": {
     "count": {
       "type": "integer"
@@ -2846,7 +2846,7 @@ export const builds_PaginationInfo_output: JsonSchema = {
 /**
  * The schema of `builds_SCMProviderType` in responses.
  */
-export const builds_SCMProviderType_output: JsonSchema = {
+export const builds_SCMProviderType: JsonSchema = {
   "enum": [
     "github",
     "gitlab",
@@ -2859,7 +2859,7 @@ export const builds_SCMProviderType_output: JsonSchema = {
 /**
  * The schema of `builds_UpsertRepoConnectionResponse` in responses.
  */
-export const builds_UpsertRepoConnectionResponse_output: JsonSchema = {
+export const builds_UpsertRepoConnectionResponse: JsonSchema = {
   "properties": {
     "created_on": {
       "$ref": "#/$defs/builds_created_on"
@@ -2895,7 +2895,7 @@ export const builds_UpsertRepoConnectionResponse_output: JsonSchema = {
 /**
  * The schema of `builds_WorkerBuildSettings` in responses.
  */
-export const builds_WorkerBuildSettings_output: JsonSchema = {
+export const builds_WorkerBuildSettings: JsonSchema = {
   "properties": {
     "build_caching_enabled": {
       "$ref": "#/$defs/builds_build_caching_enabled"
@@ -2938,7 +2938,7 @@ export const builds_WorkerBuildSettings_output: JsonSchema = {
 /**
  * The schema of `builds_WorkerGitRepository` in responses.
  */
-export const builds_WorkerGitRepository_output: JsonSchema = {
+export const builds_WorkerGitRepository: JsonSchema = {
   "properties": {
     "branch": {
       "type": "string"
@@ -2975,7 +2975,7 @@ export const builds_WorkerGitRepository_output: JsonSchema = {
 /**
  * The schema of `builds_WorkerResponse` in responses.
  */
-export const builds_WorkerResponse_output: JsonSchema = {
+export const builds_WorkerResponse: JsonSchema = {
   "properties": {
     "git_repository": {
       "$ref": "#/$defs/builds_WorkerGitRepository"
@@ -2999,14 +2999,14 @@ export const builds_WorkerResponse_output: JsonSchema = {
 /**
  * The schema of `builds_branch` in responses.
  */
-export const builds_branch_output: JsonSchema = {
+export const builds_branch: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `builds_branch_excludes` in responses.
  */
-export const builds_branch_excludes_output: JsonSchema = {
+export const builds_branch_excludes: JsonSchema = {
   "items": {
     "type": "string"
   },
@@ -3016,7 +3016,7 @@ export const builds_branch_excludes_output: JsonSchema = {
 /**
  * The schema of `builds_branch_includes` in responses.
  */
-export const builds_branch_includes_output: JsonSchema = {
+export const builds_branch_includes: JsonSchema = {
   "items": {
     "type": "string"
   },
@@ -3026,28 +3026,28 @@ export const builds_branch_includes_output: JsonSchema = {
 /**
  * The schema of `builds_build_caching_enabled` in responses.
  */
-export const builds_build_caching_enabled_output: JsonSchema = {
+export const builds_build_caching_enabled: JsonSchema = {
   "type": "boolean"
 };
 
 /**
  * The schema of `builds_build_command` in responses.
  */
-export const builds_build_command_output: JsonSchema = {
+export const builds_build_command: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `builds_build_token_name` in responses.
  */
-export const builds_build_token_name_output: JsonSchema = {
+export const builds_build_token_name: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `builds_build_token_uuid` in responses.
  */
-export const builds_build_token_uuid_output: JsonSchema = {
+export const builds_build_token_uuid: JsonSchema = {
   "format": "uuid",
   "type": "string"
 };
@@ -3055,7 +3055,7 @@ export const builds_build_token_uuid_output: JsonSchema = {
 /**
  * The schema of `builds_build_uuid` in responses.
  */
-export const builds_build_uuid_output: JsonSchema = {
+export const builds_build_uuid: JsonSchema = {
   "format": "uuid",
   "type": "string"
 };
@@ -3063,14 +3063,14 @@ export const builds_build_uuid_output: JsonSchema = {
 /**
  * The schema of `builds_commit_hash` in responses.
  */
-export const builds_commit_hash_output: JsonSchema = {
+export const builds_commit_hash: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `builds_created_on` in responses.
  */
-export const builds_created_on_output: JsonSchema = {
+export const builds_created_on: JsonSchema = {
   "format": "date-time",
   "type": "string"
 };
@@ -3078,7 +3078,7 @@ export const builds_created_on_output: JsonSchema = {
 /**
  * The schema of `builds_deleted_on` in responses.
  */
-export const builds_deleted_on_output: JsonSchema = {
+export const builds_deleted_on: JsonSchema = {
   "oneOf": [
     {
       "format": "date-time",
@@ -3093,35 +3093,35 @@ export const builds_deleted_on_output: JsonSchema = {
 /**
  * The schema of `builds_deploy_command` in responses.
  */
-export const builds_deploy_command_output: JsonSchema = {
+export const builds_deploy_command: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `builds_deploy_hook_name` in responses.
  */
-export const builds_deploy_hook_name_output: JsonSchema = {
+export const builds_deploy_hook_name: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `builds_external_script_id` in responses.
  */
-export const builds_external_script_id_output: JsonSchema = {
+export const builds_external_script_id: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `builds_is_secret` in responses.
  */
-export const builds_is_secret_output: JsonSchema = {
+export const builds_is_secret: JsonSchema = {
   "type": "boolean"
 };
 
 /**
  * The schema of `builds_modified_on` in responses.
  */
-export const builds_modified_on_output: JsonSchema = {
+export const builds_modified_on: JsonSchema = {
   "format": "date-time",
   "type": "string"
 };
@@ -3129,7 +3129,7 @@ export const builds_modified_on_output: JsonSchema = {
 /**
  * The schema of `builds_path_excludes` in responses.
  */
-export const builds_path_excludes_output: JsonSchema = {
+export const builds_path_excludes: JsonSchema = {
   "items": {
     "type": "string"
   },
@@ -3139,7 +3139,7 @@ export const builds_path_excludes_output: JsonSchema = {
 /**
  * The schema of `builds_path_includes` in responses.
  */
-export const builds_path_includes_output: JsonSchema = {
+export const builds_path_includes: JsonSchema = {
   "items": {
     "type": "string"
   },
@@ -3149,21 +3149,21 @@ export const builds_path_includes_output: JsonSchema = {
 /**
  * The schema of `builds_provider_account_id` in responses.
  */
-export const builds_provider_account_id_output: JsonSchema = {
+export const builds_provider_account_id: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `builds_provider_account_name` in responses.
  */
-export const builds_provider_account_name_output: JsonSchema = {
+export const builds_provider_account_name: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `builds_repo_connection_uuid` in responses.
  */
-export const builds_repo_connection_uuid_output: JsonSchema = {
+export const builds_repo_connection_uuid: JsonSchema = {
   "format": "uuid",
   "type": "string"
 };
@@ -3171,28 +3171,28 @@ export const builds_repo_connection_uuid_output: JsonSchema = {
 /**
  * The schema of `builds_repo_id` in responses.
  */
-export const builds_repo_id_output: JsonSchema = {
+export const builds_repo_id: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `builds_repo_name` in responses.
  */
-export const builds_repo_name_output: JsonSchema = {
+export const builds_repo_name: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `builds_root_directory` in responses.
  */
-export const builds_root_directory_output: JsonSchema = {
+export const builds_root_directory: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `builds_stopped_on` in responses.
  */
-export const builds_stopped_on_output: JsonSchema = {
+export const builds_stopped_on: JsonSchema = {
   "oneOf": [
     {
       "format": "date-time",
@@ -3207,14 +3207,14 @@ export const builds_stopped_on_output: JsonSchema = {
 /**
  * The schema of `builds_trigger_name` in responses.
  */
-export const builds_trigger_name_output: JsonSchema = {
+export const builds_trigger_name: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `builds_trigger_uuid` in responses.
  */
-export const builds_trigger_uuid_output: JsonSchema = {
+export const builds_trigger_uuid: JsonSchema = {
   "format": "uuid",
   "type": "string"
 };
@@ -3222,7 +3222,7 @@ export const builds_trigger_uuid_output: JsonSchema = {
 /**
  * The schema of `cache-settings_api-response-common` in responses.
  */
-export const cache_settings_api_response_common_output: JsonSchema = {
+export const cache$$settings_api$$response$$common: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/cache-settings_messages"
@@ -3248,7 +3248,7 @@ export const cache_settings_api_response_common_output: JsonSchema = {
 /**
  * The schema of `cache-settings_api-response-common-failure` in responses.
  */
-export const cache_settings_api_response_common_failure_output: JsonSchema = {
+export const cache$$settings_api$$response$$common$$failure: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/cache-settings_messages"
@@ -3278,7 +3278,7 @@ export const cache_settings_api_response_common_failure_output: JsonSchema = {
 /**
  * The schema of `cache-settings_base` in responses.
  */
-export const cache_settings_base_output: JsonSchema = {
+export const cache$$settings_base: JsonSchema = {
   "properties": {
     "id": {
       "type": "string"
@@ -3304,14 +3304,14 @@ export const cache_settings_base_output: JsonSchema = {
 /**
  * The schema of `cache-settings_editable` in responses.
  */
-export const cache_settings_editable_output: JsonSchema = {
+export const cache$$settings_editable: JsonSchema = {
   "type": "boolean"
 };
 
 /**
  * The schema of `cache-settings_messages` in responses.
  */
-export const cache_settings_messages_output: JsonSchema = {
+export const cache$$settings_messages: JsonSchema = {
   "items": {
     "properties": {
       "code": {
@@ -3333,7 +3333,7 @@ export const cache_settings_messages_output: JsonSchema = {
 /**
  * The schema of `cache-settings_modified_on` in responses.
  */
-export const cache_settings_modified_on_output: JsonSchema = {
+export const cache$$settings_modified_on: JsonSchema = {
   "format": "date-time",
   "type": "string"
 };
@@ -3341,7 +3341,7 @@ export const cache_settings_modified_on_output: JsonSchema = {
 /**
  * The schema of `cache-settings_result-object` in responses.
  */
-export const cache_settings_result_object_output: JsonSchema = {
+export const cache$$settings_result$$object: JsonSchema = {
   "properties": {
     "editable": {
       "$ref": "#/$defs/cache-settings_editable"
@@ -3367,7 +3367,7 @@ export const cache_settings_result_object_output: JsonSchema = {
 /**
  * The schema of `cache-settings_result-object-delete` in responses.
  */
-export const cache_settings_result_object_delete_output: JsonSchema = {
+export const cache$$settings_result$$object$$delete: JsonSchema = {
   "properties": {
     "editable": {
       "$ref": "#/$defs/cache-settings_editable"
@@ -3389,14 +3389,14 @@ export const cache_settings_result_object_delete_output: JsonSchema = {
 /**
  * The schema of `cache-settings_setting_id` in responses.
  */
-export const cache_settings_setting_id_output: JsonSchema = {
+export const cache$$settings_setting_id: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `cache-settings_setting_value` in responses.
  */
-export const cache_settings_setting_value_output: JsonSchema = {
+export const cache$$settings_setting_value: JsonSchema = {
   "type": "string"
 };
 
@@ -3404,7 +3404,7 @@ export const cache_settings_setting_value_output: JsonSchema = {
  * The schema of `cache-settings_zone_cache_settings_delete_response_single` in
  * responses.
  */
-export const cache_settings_zone_cache_settings_delete_response_single_output: JsonSchema = {
+export const cache$$settings_zone_cache_settings_delete_response_single: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/cache-settings_api-response-common"
@@ -3424,7 +3424,7 @@ export const cache_settings_zone_cache_settings_delete_response_single_output: J
  * The schema of `cache-settings_zone_cache_settings_response_single` in
  * responses.
  */
-export const cache_settings_zone_cache_settings_response_single_output: JsonSchema = {
+export const cache$$settings_zone_cache_settings_response_single: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/cache-settings_api-response-common"
@@ -3443,7 +3443,7 @@ export const cache_settings_zone_cache_settings_response_single_output: JsonSche
 /**
  * The schema of `dns-custom-nameservers_api-response-collection` in responses.
  */
-export const dns_custom_nameservers_api_response_collection_output: JsonSchema = {
+export const dns$$custom$$nameservers_api$$response$$collection: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/dns-custom-nameservers_api-response-common"
@@ -3479,7 +3479,7 @@ export const dns_custom_nameservers_api_response_collection_output: JsonSchema =
 /**
  * The schema of `dns-custom-nameservers_api-response-common` in responses.
  */
-export const dns_custom_nameservers_api_response_common_output: JsonSchema = {
+export const dns$$custom$$nameservers_api$$response$$common: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/dns-custom-nameservers_messages"
@@ -3506,7 +3506,7 @@ export const dns_custom_nameservers_api_response_common_output: JsonSchema = {
  * The schema of `dns-custom-nameservers_api-response-common-failure` in
  * responses.
  */
-export const dns_custom_nameservers_api_response_common_failure_output: JsonSchema = {
+export const dns$$custom$$nameservers_api$$response$$common$$failure: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/dns-custom-nameservers_messages"
@@ -3536,7 +3536,7 @@ export const dns_custom_nameservers_api_response_common_failure_output: JsonSche
 /**
  * The schema of `dns-custom-nameservers_api-response-single` in responses.
  */
-export const dns_custom_nameservers_api_response_single_output: JsonSchema = {
+export const dns$$custom$$nameservers_api$$response$$single: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/dns-custom-nameservers_messages"
@@ -3562,14 +3562,14 @@ export const dns_custom_nameservers_api_response_single_output: JsonSchema = {
 /**
  * The schema of `dns-custom-nameservers_identifier-2` in responses.
  */
-export const dns_custom_nameservers_identifier_2_output: JsonSchema = {
+export const dns$$custom$$nameservers_identifier$$2: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `dns-custom-nameservers_messages` in responses.
  */
-export const dns_custom_nameservers_messages_output: JsonSchema = {
+export const dns$$custom$$nameservers_messages: JsonSchema = {
   "items": {
     "properties": {
       "code": {
@@ -3602,21 +3602,21 @@ export const dns_custom_nameservers_messages_output: JsonSchema = {
 /**
  * The schema of `dns-custom-nameservers_ns_name` in responses.
  */
-export const dns_custom_nameservers_ns_name_output: JsonSchema = {
+export const dns$$custom$$nameservers_ns_name: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `dns-custom-nameservers_ns_set` in responses.
  */
-export const dns_custom_nameservers_ns_set_output: JsonSchema = {
+export const dns$$custom$$nameservers_ns_set: JsonSchema = {
   "type": "number"
 };
 
 /**
  * The schema of `email_api-response-collection` in responses.
  */
-export const email_api_response_collection_output: JsonSchema = {
+export const email_api$$response$$collection: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/email_api-response-common"
@@ -3652,7 +3652,7 @@ export const email_api_response_collection_output: JsonSchema = {
 /**
  * The schema of `email_api-response-common` in responses.
  */
-export const email_api_response_common_output: JsonSchema = {
+export const email_api$$response$$common: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/email_messages"
@@ -3678,7 +3678,7 @@ export const email_api_response_common_output: JsonSchema = {
 /**
  * The schema of `email_api-response-single` in responses.
  */
-export const email_api_response_single_output: JsonSchema = {
+export const email_api$$response$$single: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/email_messages"
@@ -3704,7 +3704,7 @@ export const email_api_response_single_output: JsonSchema = {
 /**
  * The schema of `email_created` in responses.
  */
-export const email_created_output: JsonSchema = {
+export const email_created: JsonSchema = {
   "format": "date-time",
   "type": "string"
 };
@@ -3712,7 +3712,7 @@ export const email_created_output: JsonSchema = {
 /**
  * The schema of `email_dns_record` in responses.
  */
-export const email_dns_record_output: JsonSchema = {
+export const email_dns_record: JsonSchema = {
   "properties": {
     "content": {
       "type": "string"
@@ -3766,7 +3766,7 @@ export const email_dns_record_output: JsonSchema = {
 /**
  * The schema of `email_dns_settings_response_collection` in responses.
  */
-export const email_dns_settings_response_collection_output: JsonSchema = {
+export const email_dns_settings_response_collection: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/email_api-response-collection"
@@ -3788,14 +3788,14 @@ export const email_dns_settings_response_collection_output: JsonSchema = {
 /**
  * The schema of `email_identifier` in responses.
  */
-export const email_identifier_output: JsonSchema = {
+export const email_identifier: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `email_messages` in responses.
  */
-export const email_messages_output: JsonSchema = {
+export const email_messages: JsonSchema = {
   "items": {
     "properties": {
       "code": {
@@ -3828,7 +3828,7 @@ export const email_messages_output: JsonSchema = {
 /**
  * The schema of `email_modified` in responses.
  */
-export const email_modified_output: JsonSchema = {
+export const email_modified: JsonSchema = {
   "format": "date-time",
   "type": "string"
 };
@@ -3836,7 +3836,7 @@ export const email_modified_output: JsonSchema = {
 /**
  * The schema of `firewall_api-response-collection` in responses.
  */
-export const firewall_api_response_collection_output: JsonSchema = {
+export const firewall_api$$response$$collection: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/firewall_api-response-common"
@@ -3868,7 +3868,7 @@ export const firewall_api_response_collection_output: JsonSchema = {
 /**
  * The schema of `firewall_api-response-common` in responses.
  */
-export const firewall_api_response_common_output: JsonSchema = {
+export const firewall_api$$response$$common: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/firewall_messages"
@@ -3911,7 +3911,7 @@ export const firewall_api_response_common_output: JsonSchema = {
 /**
  * The schema of `firewall_api-response-common-failure` in responses.
  */
-export const firewall_api_response_common_failure_output: JsonSchema = {
+export const firewall_api$$response$$common$$failure: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/firewall_messages"
@@ -3941,7 +3941,7 @@ export const firewall_api_response_common_failure_output: JsonSchema = {
 /**
  * The schema of `firewall_api-response-single` in responses.
  */
-export const firewall_api_response_single_output: JsonSchema = {
+export const firewall_api$$response$$single: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/firewall_api-response-common"
@@ -3970,7 +3970,7 @@ export const firewall_api_response_single_output: JsonSchema = {
 /**
  * The schema of `firewall_asn_configuration` in responses.
  */
-export const firewall_asn_configuration_output: JsonSchema = {
+export const firewall_asn_configuration: JsonSchema = {
   "properties": {
     "target": {
       "enum": [
@@ -3988,7 +3988,7 @@ export const firewall_asn_configuration_output: JsonSchema = {
 /**
  * The schema of `firewall_cidr_configuration` in responses.
  */
-export const firewall_cidr_configuration_output: JsonSchema = {
+export const firewall_cidr_configuration: JsonSchema = {
   "properties": {
     "target": {
       "enum": [
@@ -4006,7 +4006,7 @@ export const firewall_cidr_configuration_output: JsonSchema = {
 /**
  * The schema of `firewall_configuration` in responses.
  */
-export const firewall_configuration_output: JsonSchema = {
+export const firewall_configuration: JsonSchema = {
   "oneOf": [
     {
       "$ref": "#/$defs/firewall_ip_configuration"
@@ -4029,7 +4029,7 @@ export const firewall_configuration_output: JsonSchema = {
 /**
  * The schema of `firewall_country_configuration` in responses.
  */
-export const firewall_country_configuration_output: JsonSchema = {
+export const firewall_country_configuration: JsonSchema = {
   "properties": {
     "target": {
       "enum": [
@@ -4047,7 +4047,7 @@ export const firewall_country_configuration_output: JsonSchema = {
 /**
  * The schema of `firewall_ip_configuration` in responses.
  */
-export const firewall_ip_configuration_output: JsonSchema = {
+export const firewall_ip_configuration: JsonSchema = {
   "properties": {
     "target": {
       "enum": [
@@ -4065,7 +4065,7 @@ export const firewall_ip_configuration_output: JsonSchema = {
 /**
  * The schema of `firewall_ipv6_configuration` in responses.
  */
-export const firewall_ipv6_configuration_output: JsonSchema = {
+export const firewall_ipv6_configuration: JsonSchema = {
   "properties": {
     "target": {
       "enum": [
@@ -4083,7 +4083,7 @@ export const firewall_ipv6_configuration_output: JsonSchema = {
 /**
  * The schema of `firewall_messages` in responses.
  */
-export const firewall_messages_output: JsonSchema = {
+export const firewall_messages: JsonSchema = {
   "items": {
     "properties": {
       "code": {
@@ -4105,14 +4105,14 @@ export const firewall_messages_output: JsonSchema = {
 /**
  * The schema of `firewall_notes` in responses.
  */
-export const firewall_notes_output: JsonSchema = {
+export const firewall_notes: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `firewall_result_info` in responses.
  */
-export const firewall_result_info_output: JsonSchema = {
+export const firewall_result_info: JsonSchema = {
   "properties": {
     "count": {
       "type": "number"
@@ -4133,7 +4133,7 @@ export const firewall_result_info_output: JsonSchema = {
 /**
  * The schema of `firewall_rule` in responses.
  */
-export const firewall_rule_output: JsonSchema = {
+export const firewall_rule: JsonSchema = {
   "properties": {
     "allowed_modes": {
       "items": {
@@ -4174,14 +4174,14 @@ export const firewall_rule_output: JsonSchema = {
 /**
  * The schema of `firewall_schemas-identifier` in responses.
  */
-export const firewall_schemas_identifier_output: JsonSchema = {
+export const firewall_schemas$$identifier: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `firewall_schemas-mode` in responses.
  */
-export const firewall_schemas_mode_output: JsonSchema = {
+export const firewall_schemas$$mode: JsonSchema = {
   "enum": [
     "block",
     "challenge",
@@ -4195,7 +4195,7 @@ export const firewall_schemas_mode_output: JsonSchema = {
 /**
  * The schema of `iam_access` in responses.
  */
-export const iam_access_output: JsonSchema = {
+export const iam_access: JsonSchema = {
   "enum": [
     "allow",
     "deny"
@@ -4206,7 +4206,7 @@ export const iam_access_output: JsonSchema = {
 /**
  * The schema of `iam_account-type` in responses.
  */
-export const iam_account_type_output: JsonSchema = {
+export const iam_account$$type: JsonSchema = {
   "enum": [
     "standard",
     "enterprise"
@@ -4217,7 +4217,7 @@ export const iam_account_type_output: JsonSchema = {
 /**
  * The schema of `iam_api-response-collection` in responses.
  */
-export const iam_api_response_collection_output: JsonSchema = {
+export const iam_api$$response$$collection: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/iam_api-response-common"
@@ -4236,7 +4236,7 @@ export const iam_api_response_collection_output: JsonSchema = {
 /**
  * The schema of `iam_api-response-common` in responses.
  */
-export const iam_api_response_common_output: JsonSchema = {
+export const iam_api$$response$$common: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/iam_messages-2"
@@ -4262,7 +4262,7 @@ export const iam_api_response_common_output: JsonSchema = {
 /**
  * The schema of `iam_api-response-common-failure` in responses.
  */
-export const iam_api_response_common_failure_output: JsonSchema = {
+export const iam_api$$response$$common$$failure: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/iam_messages-2"
@@ -4292,7 +4292,7 @@ export const iam_api_response_common_failure_output: JsonSchema = {
 /**
  * The schema of `iam_api-response-single` in responses.
  */
-export const iam_api_response_single_output: JsonSchema = {
+export const iam_api$$response$$single: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/iam_messages-2"
@@ -4318,7 +4318,7 @@ export const iam_api_response_single_output: JsonSchema = {
 /**
  * The schema of `iam_api-response-single-id` in responses.
  */
-export const iam_api_response_single_id_output: JsonSchema = {
+export const iam_api$$response$$single$$id: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/iam_api-response-common"
@@ -4352,7 +4352,7 @@ export const iam_api_response_single_id_output: JsonSchema = {
 /**
  * The schema of `iam_cidr_list` in responses.
  */
-export const iam_cidr_list_output: JsonSchema = {
+export const iam_cidr_list: JsonSchema = {
   "items": {
     "type": "string"
   },
@@ -4362,7 +4362,7 @@ export const iam_cidr_list_output: JsonSchema = {
 /**
  * The schema of `iam_collection_tokens_response` in responses.
  */
-export const iam_collection_tokens_response_output: JsonSchema = {
+export const iam_collection_tokens_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/iam_api-response-collection"
@@ -4384,14 +4384,14 @@ export const iam_collection_tokens_response_output: JsonSchema = {
 /**
  * The schema of `iam_common_components-schemas-identifier` in responses.
  */
-export const iam_common_components_schemas_identifier_output: JsonSchema = {
+export const iam_common_components$$schemas$$identifier: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `iam_condition` in responses.
  */
-export const iam_condition_output: JsonSchema = {
+export const iam_condition: JsonSchema = {
   "properties": {
     "request_ip": {
       "$ref": "#/$defs/iam_request_ip"
@@ -4403,14 +4403,14 @@ export const iam_condition_output: JsonSchema = {
 /**
  * The schema of `iam_creator_email_at_creation` in responses.
  */
-export const iam_creator_email_at_creation_output: JsonSchema = {
+export const iam_creator_email_at_creation: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `iam_effect` in responses.
  */
-export const iam_effect_output: JsonSchema = {
+export const iam_effect: JsonSchema = {
   "enum": [
     "allow",
     "deny"
@@ -4421,14 +4421,14 @@ export const iam_effect_output: JsonSchema = {
 /**
  * The schema of `iam_email` in responses.
  */
-export const iam_email_output: JsonSchema = {
+export const iam_email: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `iam_expires_on` in responses.
  */
-export const iam_expires_on_output: JsonSchema = {
+export const iam_expires_on: JsonSchema = {
   "format": "date-time",
   "type": "string"
 };
@@ -4436,7 +4436,7 @@ export const iam_expires_on_output: JsonSchema = {
 /**
  * The schema of `iam_first_name` in responses.
  */
-export const iam_first_name_output: JsonSchema = {
+export const iam_first_name: JsonSchema = {
   "oneOf": [
     {
       "type": "string"
@@ -4450,7 +4450,7 @@ export const iam_first_name_output: JsonSchema = {
 /**
  * The schema of `iam_grants` in responses.
  */
-export const iam_grants_output: JsonSchema = {
+export const iam_grants: JsonSchema = {
   "properties": {
     "read": {
       "type": "boolean"
@@ -4465,7 +4465,7 @@ export const iam_grants_output: JsonSchema = {
 /**
  * The schema of `iam_issued_on` in responses.
  */
-export const iam_issued_on_output: JsonSchema = {
+export const iam_issued_on: JsonSchema = {
   "format": "date-time",
   "type": "string"
 };
@@ -4473,7 +4473,7 @@ export const iam_issued_on_output: JsonSchema = {
 /**
  * The schema of `iam_last_name` in responses.
  */
-export const iam_last_name_output: JsonSchema = {
+export const iam_last_name: JsonSchema = {
   "oneOf": [
     {
       "type": "string"
@@ -4487,7 +4487,7 @@ export const iam_last_name_output: JsonSchema = {
 /**
  * The schema of `iam_last_used_on` in responses.
  */
-export const iam_last_used_on_output: JsonSchema = {
+export const iam_last_used_on: JsonSchema = {
   "format": "date-time",
   "type": "string"
 };
@@ -4495,7 +4495,7 @@ export const iam_last_used_on_output: JsonSchema = {
 /**
  * The schema of `iam_list_member_policy` in responses.
  */
-export const iam_list_member_policy_output: JsonSchema = {
+export const iam_list_member_policy: JsonSchema = {
   "properties": {
     "access": {
       "$ref": "#/$defs/iam_access"
@@ -4516,14 +4516,14 @@ export const iam_list_member_policy_output: JsonSchema = {
 /**
  * The schema of `iam_membership_components-schemas-identifier` in responses.
  */
-export const iam_membership_components_schemas_identifier_output: JsonSchema = {
+export const iam_membership_components$$schemas$$identifier: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `iam_messages-2` in responses.
  */
-export const iam_messages_2_output: JsonSchema = {
+export const iam_messages$$2: JsonSchema = {
   "items": {
     "properties": {
       "code": {
@@ -4556,7 +4556,7 @@ export const iam_messages_2_output: JsonSchema = {
 /**
  * The schema of `iam_modified_on` in responses.
  */
-export const iam_modified_on_output: JsonSchema = {
+export const iam_modified_on: JsonSchema = {
   "format": "date-time",
   "type": "string"
 };
@@ -4564,14 +4564,14 @@ export const iam_modified_on_output: JsonSchema = {
 /**
  * The schema of `iam_name` in responses.
  */
-export const iam_name_output: JsonSchema = {
+export const iam_name: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `iam_not_before` in responses.
  */
-export const iam_not_before_output: JsonSchema = {
+export const iam_not_before: JsonSchema = {
   "format": "date-time",
   "type": "string"
 };
@@ -4579,7 +4579,7 @@ export const iam_not_before_output: JsonSchema = {
 /**
  * The schema of `iam_permission_group` in responses.
  */
-export const iam_permission_group_output: JsonSchema = {
+export const iam_permission_group: JsonSchema = {
   "properties": {
     "id": {
       "type": "string"
@@ -4627,7 +4627,7 @@ export const iam_permission_group_output: JsonSchema = {
 /**
  * The schema of `iam_permission_groups` in responses.
  */
-export const iam_permission_groups_output: JsonSchema = {
+export const iam_permission_groups: JsonSchema = {
   "items": {
     "$ref": "#/$defs/iam_permission_group"
   },
@@ -4637,7 +4637,7 @@ export const iam_permission_groups_output: JsonSchema = {
 /**
  * The schema of `iam_permissions` in responses.
  */
-export const iam_permissions_output: JsonSchema = {
+export const iam_permissions: JsonSchema = {
   "properties": {
     "analytics": {
       "$ref": "#/$defs/iam_grants"
@@ -4682,7 +4682,7 @@ export const iam_permissions_output: JsonSchema = {
 /**
  * The schema of `iam_permissions_group_response_collection` in responses.
  */
-export const iam_permissions_group_response_collection_output: JsonSchema = {
+export const iam_permissions_group_response_collection: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/iam_api-response-collection"
@@ -4745,14 +4745,14 @@ export const iam_permissions_group_response_collection_output: JsonSchema = {
 /**
  * The schema of `iam_policy_identifier` in responses.
  */
-export const iam_policy_identifier_output: JsonSchema = {
+export const iam_policy_identifier: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `iam_policy_with_permission_groups_and_resources` in responses.
  */
-export const iam_policy_with_permission_groups_and_resources_output: JsonSchema = {
+export const iam_policy_with_permission_groups_and_resources: JsonSchema = {
   "properties": {
     "effect": {
       "$ref": "#/$defs/iam_effect"
@@ -4779,7 +4779,7 @@ export const iam_policy_with_permission_groups_and_resources_output: JsonSchema 
 /**
  * The schema of `iam_provisioner_id` in responses.
  */
-export const iam_provisioner_id_output: JsonSchema = {
+export const iam_provisioner_id: JsonSchema = {
   "oneOf": [
     {
       "type": "string"
@@ -4793,14 +4793,14 @@ export const iam_provisioner_id_output: JsonSchema = {
 /**
  * The schema of `iam_provisioner_type` in responses.
  */
-export const iam_provisioner_type_output: JsonSchema = {
+export const iam_provisioner_type: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `iam_request_ip` in responses.
  */
-export const iam_request_ip_output: JsonSchema = {
+export const iam_request_ip: JsonSchema = {
   "properties": {
     "in": {
       "$ref": "#/$defs/iam_cidr_list"
@@ -4815,7 +4815,7 @@ export const iam_request_ip_output: JsonSchema = {
 /**
  * The schema of `iam_resource_group` in responses.
  */
-export const iam_resource_group_output: JsonSchema = {
+export const iam_resource_group: JsonSchema = {
   "properties": {
     "id": {
       "type": "string"
@@ -4848,7 +4848,7 @@ export const iam_resource_group_output: JsonSchema = {
 /**
  * The schema of `iam_resource_groups` in responses.
  */
-export const iam_resource_groups_output: JsonSchema = {
+export const iam_resource_groups: JsonSchema = {
   "items": {
     "$ref": "#/$defs/iam_resource_group"
   },
@@ -4858,7 +4858,7 @@ export const iam_resource_groups_output: JsonSchema = {
 /**
  * The schema of `iam_resources` in responses.
  */
-export const iam_resources_output: JsonSchema = {
+export const iam_resources: JsonSchema = {
   "oneOf": [
     {
       "$ref": "#/$defs/iam_resources_type_object_string"
@@ -4872,7 +4872,7 @@ export const iam_resources_output: JsonSchema = {
 /**
  * The schema of `iam_resources_type_object_nested` in responses.
  */
-export const iam_resources_type_object_nested_output: JsonSchema = {
+export const iam_resources_type_object_nested: JsonSchema = {
   "additionalProperties": {
     "additionalProperties": {
       "type": "string"
@@ -4885,7 +4885,7 @@ export const iam_resources_type_object_nested_output: JsonSchema = {
 /**
  * The schema of `iam_resources_type_object_string` in responses.
  */
-export const iam_resources_type_object_string_output: JsonSchema = {
+export const iam_resources_type_object_string: JsonSchema = {
   "additionalProperties": {
     "type": "string"
   },
@@ -4895,7 +4895,7 @@ export const iam_resources_type_object_string_output: JsonSchema = {
 /**
  * The schema of `iam_response_single_value` in responses.
  */
-export const iam_response_single_value_output: JsonSchema = {
+export const iam_response_single_value: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/iam_api-response-single"
@@ -4914,7 +4914,7 @@ export const iam_response_single_value_output: JsonSchema = {
 /**
  * The schema of `iam_result_info` in responses.
  */
-export const iam_result_info_output: JsonSchema = {
+export const iam_result_info: JsonSchema = {
   "properties": {
     "count": {
       "type": "number"
@@ -4935,7 +4935,7 @@ export const iam_result_info_output: JsonSchema = {
 /**
  * The schema of `iam_scope` in responses.
  */
-export const iam_scope_output: JsonSchema = {
+export const iam_scope: JsonSchema = {
   "properties": {
     "key": {
       "$ref": "#/$defs/iam_scope_key"
@@ -4957,12 +4957,12 @@ export const iam_scope_output: JsonSchema = {
 /**
  * The schema of `iam_scope_key` in responses.
  */
-export const iam_scope_key_output: JsonSchema = {};
+export const iam_scope_key: JsonSchema = {};
 
 /**
  * The schema of `iam_scope_object` in responses.
  */
-export const iam_scope_object_output: JsonSchema = {
+export const iam_scope_object: JsonSchema = {
   "properties": {
     "key": {
       "$ref": "#/$defs/iam_scope_object_key"
@@ -4977,12 +4977,12 @@ export const iam_scope_object_output: JsonSchema = {
 /**
  * The schema of `iam_scope_object_key` in responses.
  */
-export const iam_scope_object_key_output: JsonSchema = {};
+export const iam_scope_object_key: JsonSchema = {};
 
 /**
  * The schema of `iam_single_token_create_response` in responses.
  */
-export const iam_single_token_create_response_output: JsonSchema = {
+export const iam_single_token_create_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/iam_api-response-single"
@@ -5001,7 +5001,7 @@ export const iam_single_token_create_response_output: JsonSchema = {
 /**
  * The schema of `iam_single_token_response` in responses.
  */
-export const iam_single_token_response_output: JsonSchema = {
+export const iam_single_token_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/iam_api-response-single"
@@ -5020,7 +5020,7 @@ export const iam_single_token_response_output: JsonSchema = {
 /**
  * The schema of `iam_token_base` in responses.
  */
-export const iam_token_base_output: JsonSchema = {
+export const iam_token_base: JsonSchema = {
   "properties": {
     "condition": {
       "$ref": "#/$defs/iam_condition"
@@ -5074,14 +5074,14 @@ export const iam_token_base_output: JsonSchema = {
 /**
  * The schema of `iam_token_identifier` in responses.
  */
-export const iam_token_identifier_output: JsonSchema = {
+export const iam_token_identifier: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `iam_token_policies` in responses.
  */
-export const iam_token_policies_output: JsonSchema = {
+export const iam_token_policies: JsonSchema = {
   "items": {
     "$ref": "#/$defs/iam_policy_with_permission_groups_and_resources"
   },
@@ -5091,14 +5091,14 @@ export const iam_token_policies_output: JsonSchema = {
 /**
  * The schema of `iam_token_prefix` in responses.
  */
-export const iam_token_prefix_output: JsonSchema = {
+export const iam_token_prefix: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `iam_token_status` in responses.
  */
-export const iam_token_status_output: JsonSchema = {
+export const iam_token_status: JsonSchema = {
   "enum": [
     "active",
     "disabled",
@@ -5110,14 +5110,14 @@ export const iam_token_status_output: JsonSchema = {
 /**
  * The schema of `iam_token_suffix` in responses.
  */
-export const iam_token_suffix_output: JsonSchema = {
+export const iam_token_suffix: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `iam_token_verify_response_single_segment` in responses.
  */
-export const iam_token_verify_response_single_segment_output: JsonSchema = {
+export const iam_token_verify_response_single_segment: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/iam_api-response-single"
@@ -5154,7 +5154,7 @@ export const iam_token_verify_response_single_segment_output: JsonSchema = {
 /**
  * The schema of `iam_token_with_value` in responses.
  */
-export const iam_token_with_value_output: JsonSchema = {
+export const iam_token_with_value: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/iam_token_base"
@@ -5173,21 +5173,21 @@ export const iam_token_with_value_output: JsonSchema = {
 /**
  * The schema of `iam_two_factor_authentication_enabled` in responses.
  */
-export const iam_two_factor_authentication_enabled_output: JsonSchema = {
+export const iam_two_factor_authentication_enabled: JsonSchema = {
   "type": "boolean"
 };
 
 /**
  * The schema of `iam_value` in responses.
  */
-export const iam_value_output: JsonSchema = {
+export const iam_value: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `infra_api-response-collection` in responses.
  */
-export const infra_api_response_collection_output: JsonSchema = {
+export const infra_api$$response$$collection: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/infra_api-response-common"
@@ -5223,7 +5223,7 @@ export const infra_api_response_collection_output: JsonSchema = {
 /**
  * The schema of `infra_api-response-common` in responses.
  */
-export const infra_api_response_common_output: JsonSchema = {
+export const infra_api$$response$$common: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/infra_messages"
@@ -5249,7 +5249,7 @@ export const infra_api_response_common_output: JsonSchema = {
 /**
  * The schema of `infra_api-response-common-failure` in responses.
  */
-export const infra_api_response_common_failure_output: JsonSchema = {
+export const infra_api$$response$$common$$failure: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/infra_messages"
@@ -5279,7 +5279,7 @@ export const infra_api_response_common_failure_output: JsonSchema = {
 /**
  * The schema of `infra_api-response-single` in responses.
  */
-export const infra_api_response_single_output: JsonSchema = {
+export const infra_api$$response$$single: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/infra_messages"
@@ -5305,7 +5305,7 @@ export const infra_api_response_single_output: JsonSchema = {
 /**
  * The schema of `infra_messages` in responses.
  */
-export const infra_messages_output: JsonSchema = {
+export const infra_messages: JsonSchema = {
   "items": {
     "properties": {
       "code": {
@@ -5338,7 +5338,7 @@ export const infra_messages_output: JsonSchema = {
 /**
  * The schema of `load-balancing_Host` in responses.
  */
-export const load_balancing_Host_output: JsonSchema = {
+export const load$$balancing_Host: JsonSchema = {
   "items": {
     "type": "string"
   },
@@ -5348,14 +5348,14 @@ export const load_balancing_Host_output: JsonSchema = {
 /**
  * The schema of `load-balancing_address` in responses.
  */
-export const load_balancing_address_output: JsonSchema = {
+export const load$$balancing_address: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `load-balancing_allow_insecure` in responses.
  */
-export const load_balancing_allow_insecure_output: JsonSchema = {
+export const load$$balancing_allow_insecure: JsonSchema = {
   "type": "boolean"
 };
 
@@ -5363,7 +5363,7 @@ export const load_balancing_allow_insecure_output: JsonSchema = {
  * The schema of `load-balancing_api-paginated-response-collection` in
  * responses.
  */
-export const load_balancing_api_paginated_response_collection_output: JsonSchema = {
+export const load$$balancing_api$$paginated$$response$$collection: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/load-balancing_api-response-common"
@@ -5382,7 +5382,7 @@ export const load_balancing_api_paginated_response_collection_output: JsonSchema
 /**
  * The schema of `load-balancing_api-response-common` in responses.
  */
-export const load_balancing_api_response_common_output: JsonSchema = {
+export const load$$balancing_api$$response$$common: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/load-balancing_messages"
@@ -5408,7 +5408,7 @@ export const load_balancing_api_response_common_output: JsonSchema = {
 /**
  * The schema of `load-balancing_api-response-common-failure` in responses.
  */
-export const load_balancing_api_response_common_failure_output: JsonSchema = {
+export const load$$balancing_api$$response$$common$$failure: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/load-balancing_messages"
@@ -5438,7 +5438,7 @@ export const load_balancing_api_response_common_failure_output: JsonSchema = {
 /**
  * The schema of `load-balancing_api-response-single` in responses.
  */
-export const load_balancing_api_response_single_output: JsonSchema = {
+export const load$$balancing_api$$response$$single: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/load-balancing_api-response-common"
@@ -5467,7 +5467,7 @@ export const load_balancing_api_response_single_output: JsonSchema = {
 /**
  * The schema of `load-balancing_check_regions` in responses.
  */
-export const load_balancing_check_regions_output: JsonSchema = {
+export const load$$balancing_check_regions: JsonSchema = {
   "oneOf": [
     {
       "items": {
@@ -5501,28 +5501,28 @@ export const load_balancing_check_regions_output: JsonSchema = {
 /**
  * The schema of `load-balancing_consecutive_down` in responses.
  */
-export const load_balancing_consecutive_down_output: JsonSchema = {
+export const load$$balancing_consecutive_down: JsonSchema = {
   "type": "integer"
 };
 
 /**
  * The schema of `load-balancing_consecutive_up` in responses.
  */
-export const load_balancing_consecutive_up_output: JsonSchema = {
+export const load$$balancing_consecutive_up: JsonSchema = {
   "type": "integer"
 };
 
 /**
  * The schema of `load-balancing_description` in responses.
  */
-export const load_balancing_description_output: JsonSchema = {
+export const load$$balancing_description: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `load-balancing_disabled_at` in responses.
  */
-export const load_balancing_disabled_at_output: JsonSchema = {
+export const load$$balancing_disabled_at: JsonSchema = {
   "format": "date-time",
   "type": "string"
 };
@@ -5530,28 +5530,28 @@ export const load_balancing_disabled_at_output: JsonSchema = {
 /**
  * The schema of `load-balancing_enabled` in responses.
  */
-export const load_balancing_enabled_output: JsonSchema = {
+export const load$$balancing_enabled: JsonSchema = {
   "type": "boolean"
 };
 
 /**
  * The schema of `load-balancing_expected_body` in responses.
  */
-export const load_balancing_expected_body_output: JsonSchema = {
+export const load$$balancing_expected_body: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `load-balancing_expected_codes` in responses.
  */
-export const load_balancing_expected_codes_output: JsonSchema = {
+export const load$$balancing_expected_codes: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `load-balancing_filter_options` in responses.
  */
-export const load_balancing_filter_options_output: JsonSchema = {
+export const load$$balancing_filter_options: JsonSchema = {
   "oneOf": [
     {
       "properties": {
@@ -5587,14 +5587,14 @@ export const load_balancing_filter_options_output: JsonSchema = {
 /**
  * The schema of `load-balancing_follow_redirects` in responses.
  */
-export const load_balancing_follow_redirects_output: JsonSchema = {
+export const load$$balancing_follow_redirects: JsonSchema = {
   "type": "boolean"
 };
 
 /**
  * The schema of `load-balancing_header` in responses.
  */
-export const load_balancing_header_output: JsonSchema = {
+export const load$$balancing_header: JsonSchema = {
   "additionalProperties": {
     "items": {
       "type": "string"
@@ -5607,7 +5607,7 @@ export const load_balancing_header_output: JsonSchema = {
 /**
  * The schema of `load-balancing_health_details` in responses.
  */
-export const load_balancing_health_details_output: JsonSchema = {
+export const load$$balancing_health_details: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/load-balancing_api-response-single"
@@ -5645,7 +5645,7 @@ export const load_balancing_health_details_output: JsonSchema = {
 /**
  * The schema of `load-balancing_health_sources` in responses.
  */
-export const load_balancing_health_sources_output: JsonSchema = {
+export const load$$balancing_health_sources: JsonSchema = {
   "oneOf": [
     {
       "items": {
@@ -5667,7 +5667,7 @@ export const load_balancing_health_sources_output: JsonSchema = {
 /**
  * The schema of `load-balancing_id_response` in responses.
  */
-export const load_balancing_id_response_output: JsonSchema = {
+export const load$$balancing_id_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/load-balancing_api-response-single"
@@ -5691,28 +5691,28 @@ export const load_balancing_id_response_output: JsonSchema = {
 /**
  * The schema of `load-balancing_identifier` in responses.
  */
-export const load_balancing_identifier_output: JsonSchema = {
+export const load$$balancing_identifier: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `load-balancing_interval` in responses.
  */
-export const load_balancing_interval_output: JsonSchema = {
+export const load$$balancing_interval: JsonSchema = {
   "type": "integer"
 };
 
 /**
  * The schema of `load-balancing_latitude` in responses.
  */
-export const load_balancing_latitude_output: JsonSchema = {
+export const load$$balancing_latitude: JsonSchema = {
   "type": "number"
 };
 
 /**
  * The schema of `load-balancing_load_shedding` in responses.
  */
-export const load_balancing_load_shedding_output: JsonSchema = {
+export const load$$balancing_load_shedding: JsonSchema = {
   "oneOf": [
     {
       "properties": {
@@ -5747,14 +5747,14 @@ export const load_balancing_load_shedding_output: JsonSchema = {
 /**
  * The schema of `load-balancing_longitude` in responses.
  */
-export const load_balancing_longitude_output: JsonSchema = {
+export const load$$balancing_longitude: JsonSchema = {
   "type": "number"
 };
 
 /**
  * The schema of `load-balancing_messages` in responses.
  */
-export const load_balancing_messages_output: JsonSchema = {
+export const load$$balancing_messages: JsonSchema = {
   "items": {
     "properties": {
       "code": {
@@ -5776,21 +5776,21 @@ export const load_balancing_messages_output: JsonSchema = {
 /**
  * The schema of `load-balancing_method` in responses.
  */
-export const load_balancing_method_output: JsonSchema = {
+export const load$$balancing_method: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `load-balancing_minimum_origins` in responses.
  */
-export const load_balancing_minimum_origins_output: JsonSchema = {
+export const load$$balancing_minimum_origins: JsonSchema = {
   "type": "integer"
 };
 
 /**
  * The schema of `load-balancing_monitor` in responses.
  */
-export const load_balancing_monitor_output: JsonSchema = {
+export const load$$balancing_monitor: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/load-balancing_monitor-editable"
@@ -5815,7 +5815,7 @@ export const load_balancing_monitor_output: JsonSchema = {
 /**
  * The schema of `load-balancing_monitor-editable` in responses.
  */
-export const load_balancing_monitor_editable_output: JsonSchema = {
+export const load$$balancing_monitor$$editable: JsonSchema = {
   "properties": {
     "allow_insecure": {
       "$ref": "#/$defs/load-balancing_allow_insecure"
@@ -5872,7 +5872,7 @@ export const load_balancing_monitor_editable_output: JsonSchema = {
 /**
  * The schema of `load-balancing_monitor-references-response` in responses.
  */
-export const load_balancing_monitor_references_response_output: JsonSchema = {
+export const load$$balancing_monitor$$references$$response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/load-balancing_api-response-common"
@@ -5913,7 +5913,7 @@ export const load_balancing_monitor_references_response_output: JsonSchema = {
 /**
  * The schema of `load-balancing_monitor-response-collection` in responses.
  */
-export const load_balancing_monitor_response_collection_output: JsonSchema = {
+export const load$$balancing_monitor$$response$$collection: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/load-balancing_api-paginated-response-collection"
@@ -5935,7 +5935,7 @@ export const load_balancing_monitor_response_collection_output: JsonSchema = {
 /**
  * The schema of `load-balancing_monitor-response-single` in responses.
  */
-export const load_balancing_monitor_response_single_output: JsonSchema = {
+export const load$$balancing_monitor$$response$$single: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/load-balancing_api-response-single"
@@ -5954,28 +5954,28 @@ export const load_balancing_monitor_response_single_output: JsonSchema = {
 /**
  * The schema of `load-balancing_monitor_group_id` in responses.
  */
-export const load_balancing_monitor_group_id_output: JsonSchema = {
+export const load$$balancing_monitor_group_id: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `load-balancing_monitor_id` in responses.
  */
-export const load_balancing_monitor_id_output: JsonSchema = {
+export const load$$balancing_monitor_id: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `load-balancing_name` in responses.
  */
-export const load_balancing_name_output: JsonSchema = {
+export const load$$balancing_name: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `load-balancing_networks` in responses.
  */
-export const load_balancing_networks_output: JsonSchema = {
+export const load$$balancing_networks: JsonSchema = {
   "items": {
     "type": "string"
   },
@@ -5985,14 +5985,14 @@ export const load_balancing_networks_output: JsonSchema = {
 /**
  * The schema of `load-balancing_notification_email` in responses.
  */
-export const load_balancing_notification_email_output: JsonSchema = {
+export const load$$balancing_notification_email: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `load-balancing_notification_filter` in responses.
  */
-export const load_balancing_notification_filter_output: JsonSchema = {
+export const load$$balancing_notification_filter: JsonSchema = {
   "oneOf": [
     {
       "properties": {
@@ -6014,7 +6014,7 @@ export const load_balancing_notification_filter_output: JsonSchema = {
 /**
  * The schema of `load-balancing_origin` in responses.
  */
-export const load_balancing_origin_output: JsonSchema = {
+export const load$$balancing_origin: JsonSchema = {
   "properties": {
     "address": {
       "$ref": "#/$defs/load-balancing_address"
@@ -6050,7 +6050,7 @@ export const load_balancing_origin_output: JsonSchema = {
 /**
  * The schema of `load-balancing_origin-health` in responses.
  */
-export const load_balancing_origin_health_output: JsonSchema = {
+export const load$$balancing_origin$$health: JsonSchema = {
   "properties": {
     "ip": {
       "properties": {
@@ -6076,14 +6076,14 @@ export const load_balancing_origin_health_output: JsonSchema = {
 /**
  * The schema of `load-balancing_origin_flatten_cname` in responses.
  */
-export const load_balancing_origin_flatten_cname_output: JsonSchema = {
+export const load$$balancing_origin_flatten_cname: JsonSchema = {
   "type": "boolean"
 };
 
 /**
  * The schema of `load-balancing_origin_health_data` in responses.
  */
-export const load_balancing_origin_health_data_output: JsonSchema = {
+export const load$$balancing_origin_health_data: JsonSchema = {
   "properties": {
     "failure_reason": {
       "type": "string"
@@ -6104,14 +6104,14 @@ export const load_balancing_origin_health_data_output: JsonSchema = {
 /**
  * The schema of `load-balancing_origin_port` in responses.
  */
-export const load_balancing_origin_port_output: JsonSchema = {
+export const load$$balancing_origin_port: JsonSchema = {
   "type": "integer"
 };
 
 /**
  * The schema of `load-balancing_origin_steering` in responses.
  */
-export const load_balancing_origin_steering_output: JsonSchema = {
+export const load$$balancing_origin_steering: JsonSchema = {
   "oneOf": [
     {
       "properties": {
@@ -6136,7 +6136,7 @@ export const load_balancing_origin_steering_output: JsonSchema = {
 /**
  * The schema of `load-balancing_origins` in responses.
  */
-export const load_balancing_origins_output: JsonSchema = {
+export const load$$balancing_origins: JsonSchema = {
   "items": {
     "$ref": "#/$defs/load-balancing_origin"
   },
@@ -6146,14 +6146,14 @@ export const load_balancing_origins_output: JsonSchema = {
 /**
  * The schema of `load-balancing_path` in responses.
  */
-export const load_balancing_path_output: JsonSchema = {
+export const load$$balancing_path: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `load-balancing_pool` in responses.
  */
-export const load_balancing_pool_output: JsonSchema = {
+export const load$$balancing_pool: JsonSchema = {
   "properties": {
     "check_regions": {
       "$ref": "#/$defs/load-balancing_check_regions"
@@ -6222,7 +6222,7 @@ export const load_balancing_pool_output: JsonSchema = {
 /**
  * The schema of `load-balancing_pools-references-response` in responses.
  */
-export const load_balancing_pools_references_response_output: JsonSchema = {
+export const load$$balancing_pools$$references$$response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/load-balancing_api-response-common"
@@ -6263,7 +6263,7 @@ export const load_balancing_pools_references_response_output: JsonSchema = {
 /**
  * The schema of `load-balancing_port` in responses.
  */
-export const load_balancing_port_output: JsonSchema = {
+export const load$$balancing_port: JsonSchema = {
   "oneOf": [
     {
       "type": "integer"
@@ -6277,7 +6277,7 @@ export const load_balancing_port_output: JsonSchema = {
 /**
  * The schema of `load-balancing_preview_response` in responses.
  */
-export const load_balancing_preview_response_output: JsonSchema = {
+export const load$$balancing_preview_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/load-balancing_api-response-single"
@@ -6307,7 +6307,7 @@ export const load_balancing_preview_response_output: JsonSchema = {
 /**
  * The schema of `load-balancing_preview_result` in responses.
  */
-export const load_balancing_preview_result_output: JsonSchema = {
+export const load$$balancing_preview_result: JsonSchema = {
   "additionalProperties": {
     "properties": {
       "healthy": {
@@ -6331,7 +6331,7 @@ export const load_balancing_preview_result_output: JsonSchema = {
 /**
  * The schema of `load-balancing_preview_result_response` in responses.
  */
-export const load_balancing_preview_result_response_output: JsonSchema = {
+export const load$$balancing_preview_result_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/load-balancing_api-response-single"
@@ -6350,7 +6350,7 @@ export const load_balancing_preview_result_response_output: JsonSchema = {
 /**
  * The schema of `load-balancing_probe_zone` in responses.
  */
-export const load_balancing_probe_zone_output: JsonSchema = {
+export const load$$balancing_probe_zone: JsonSchema = {
   "type": "string"
 };
 
@@ -6358,7 +6358,7 @@ export const load_balancing_probe_zone_output: JsonSchema = {
  * The schema of `load-balancing_region_components-schemas-response_collection`
  * in responses.
  */
-export const load_balancing_region_components_schemas_response_collection_output: JsonSchema = {
+export const load$$balancing_region_components$$schemas$$response_collection: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/load-balancing_api-response-single"
@@ -6377,7 +6377,7 @@ export const load_balancing_region_components_schemas_response_collection_output
 /**
  * The schema of `load-balancing_result_info` in responses.
  */
-export const load_balancing_result_info_output: JsonSchema = {
+export const load$$balancing_result_info: JsonSchema = {
   "properties": {
     "count": {
       "type": "number"
@@ -6401,21 +6401,21 @@ export const load_balancing_result_info_output: JsonSchema = {
 /**
  * The schema of `load-balancing_retries` in responses.
  */
-export const load_balancing_retries_output: JsonSchema = {
+export const load$$balancing_retries: JsonSchema = {
   "type": "integer"
 };
 
 /**
  * The schema of `load-balancing_schemas-description` in responses.
  */
-export const load_balancing_schemas_description_output: JsonSchema = {
+export const load$$balancing_schemas$$description: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `load-balancing_schemas-disabled_at` in responses.
  */
-export const load_balancing_schemas_disabled_at_output: JsonSchema = {
+export const load$$balancing_schemas$$disabled_at: JsonSchema = {
   "format": "date-time",
   "type": "string"
 };
@@ -6423,14 +6423,14 @@ export const load_balancing_schemas_disabled_at_output: JsonSchema = {
 /**
  * The schema of `load-balancing_schemas-enabled` in responses.
  */
-export const load_balancing_schemas_enabled_output: JsonSchema = {
+export const load$$balancing_schemas$$enabled: JsonSchema = {
   "type": "boolean"
 };
 
 /**
  * The schema of `load-balancing_schemas-header` in responses.
  */
-export const load_balancing_schemas_header_output: JsonSchema = {
+export const load$$balancing_schemas$$header: JsonSchema = {
   "properties": {
     "Host": {
       "$ref": "#/$defs/load-balancing_Host"
@@ -6442,7 +6442,7 @@ export const load_balancing_schemas_header_output: JsonSchema = {
 /**
  * The schema of `load-balancing_schemas-id_response` in responses.
  */
-export const load_balancing_schemas_id_response_output: JsonSchema = {
+export const load$$balancing_schemas$$id_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/load-balancing_api-response-single"
@@ -6466,21 +6466,21 @@ export const load_balancing_schemas_id_response_output: JsonSchema = {
 /**
  * The schema of `load-balancing_schemas-identifier` in responses.
  */
-export const load_balancing_schemas_identifier_output: JsonSchema = {
+export const load$$balancing_schemas$$identifier: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `load-balancing_schemas-name` in responses.
  */
-export const load_balancing_schemas_name_output: JsonSchema = {
+export const load$$balancing_schemas$$name: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `load-balancing_schemas-response_collection` in responses.
  */
-export const load_balancing_schemas_response_collection_output: JsonSchema = {
+export const load$$balancing_schemas$$response_collection: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/load-balancing_api-paginated-response-collection"
@@ -6502,7 +6502,7 @@ export const load_balancing_schemas_response_collection_output: JsonSchema = {
 /**
  * The schema of `load-balancing_schemas-single_response` in responses.
  */
-export const load_balancing_schemas_single_response_output: JsonSchema = {
+export const load$$balancing_schemas$$single_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/load-balancing_api-response-single"
@@ -6521,14 +6521,14 @@ export const load_balancing_schemas_single_response_output: JsonSchema = {
 /**
  * The schema of `load-balancing_timeout` in responses.
  */
-export const load_balancing_timeout_output: JsonSchema = {
+export const load$$balancing_timeout: JsonSchema = {
   "type": "integer"
 };
 
 /**
  * The schema of `load-balancing_timestamp` in responses.
  */
-export const load_balancing_timestamp_output: JsonSchema = {
+export const load$$balancing_timestamp: JsonSchema = {
   "format": "date-time",
   "type": "string"
 };
@@ -6536,7 +6536,7 @@ export const load_balancing_timestamp_output: JsonSchema = {
 /**
  * The schema of `load-balancing_type` in responses.
  */
-export const load_balancing_type_output: JsonSchema = {
+export const load$$balancing_type: JsonSchema = {
   "enum": [
     "http",
     "https",
@@ -6551,21 +6551,21 @@ export const load_balancing_type_output: JsonSchema = {
 /**
  * The schema of `load-balancing_virtual_network_id` in responses.
  */
-export const load_balancing_virtual_network_id_output: JsonSchema = {
+export const load$$balancing_virtual_network_id: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `load-balancing_weight` in responses.
  */
-export const load_balancing_weight_output: JsonSchema = {
+export const load$$balancing_weight: JsonSchema = {
   "type": "number"
 };
 
 /**
  * The schema of `mconn-telemetry_coded_message` in responses.
  */
-export const mconn_telemetry_coded_message_output: JsonSchema = {
+export const mconn$$telemetry_coded_message: JsonSchema = {
   "properties": {
     "code": {
       "type": "number"
@@ -6584,7 +6584,7 @@ export const mconn_telemetry_coded_message_output: JsonSchema = {
 /**
  * The schema of `mconn-telemetry_envelope` in responses.
  */
-export const mconn_telemetry_envelope_output: JsonSchema = {
+export const mconn$$telemetry_envelope: JsonSchema = {
   "properties": {
     "errors": {
       "items": {
@@ -6611,7 +6611,7 @@ export const mconn_telemetry_envelope_output: JsonSchema = {
 /**
  * The schema of `mconn_bad_response` in responses.
  */
-export const mconn_bad_response_output: JsonSchema = {
+export const mconn_bad_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/mconn_response"
@@ -6636,7 +6636,7 @@ export const mconn_bad_response_output: JsonSchema = {
 /**
  * The schema of `mconn_coded_message` in responses.
  */
-export const mconn_coded_message_output: JsonSchema = {
+export const mconn_coded_message: JsonSchema = {
   "properties": {
     "code": {
       "type": "integer"
@@ -6655,7 +6655,7 @@ export const mconn_coded_message_output: JsonSchema = {
 /**
  * The schema of `mconn_good_response` in responses.
  */
-export const mconn_good_response_output: JsonSchema = {
+export const mconn_good_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/mconn_response"
@@ -6677,7 +6677,7 @@ export const mconn_good_response_output: JsonSchema = {
 /**
  * The schema of `mconn_none` in responses.
  */
-export const mconn_none_output: JsonSchema = {
+export const mconn_none: JsonSchema = {
   "oneOf": [
     {
       "type": "object"
@@ -6691,7 +6691,7 @@ export const mconn_none_output: JsonSchema = {
 /**
  * The schema of `mconn_response` in responses.
  */
-export const mconn_response_output: JsonSchema = {
+export const mconn_response: JsonSchema = {
   "properties": {
     "messages": {
       "items": {
@@ -6713,14 +6713,14 @@ export const mconn_response_output: JsonSchema = {
 /**
  * The schema of `mconn_uuid` in responses.
  */
-export const mconn_uuid_output: JsonSchema = {
+export const mconn_uuid: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `organizations-api_Organization` in responses.
  */
-export const organizations_api_Organization_output: JsonSchema = {
+export const organizations$$api_Organization: JsonSchema = {
   "properties": {
     "create_time": {
       "format": "date-time",
@@ -6789,7 +6789,7 @@ export const organizations_api_Organization_output: JsonSchema = {
 /**
  * The schema of `organizations-api_OrganizationFlags` in responses.
  */
-export const organizations_api_OrganizationFlags_output: JsonSchema = {
+export const organizations$$api_OrganizationFlags: JsonSchema = {
   "properties": {
     "account_creation": {
       "type": "string"
@@ -6832,14 +6832,14 @@ export const organizations_api_OrganizationFlags_output: JsonSchema = {
 /**
  * The schema of `organizations-api_OrganizationID` in responses.
  */
-export const organizations_api_OrganizationID_output: JsonSchema = {
+export const organizations$$api_OrganizationID: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `organizations-api_Profile` in responses.
  */
-export const organizations_api_Profile_output: JsonSchema = {
+export const organizations$$api_Profile: JsonSchema = {
   "properties": {
     "business_address": {
       "type": "string"
@@ -6870,7 +6870,7 @@ export const organizations_api_Profile_output: JsonSchema = {
 /**
  * The schema of `organizations-api_V4ErrorResponse` in responses.
  */
-export const organizations_api_V4ErrorResponse_output: JsonSchema = {
+export const organizations$$api_V4ErrorResponse: JsonSchema = {
   "properties": {
     "errors": {
       "items": {
@@ -6912,7 +6912,7 @@ export const organizations_api_V4ErrorResponse_output: JsonSchema = {
 /**
  * The schema of `organizations-api_V4Message` in responses.
  */
-export const organizations_api_V4Message_output: JsonSchema = {
+export const organizations$$api_V4Message: JsonSchema = {
   "properties": {
     "code": {
       "type": "integer"
@@ -6931,7 +6931,7 @@ export const organizations_api_V4Message_output: JsonSchema = {
 /**
  * The schema of `pay-per-crawl_ErrorSource` in responses.
  */
-export const pay_per_crawl_ErrorSource_output: JsonSchema = {
+export const pay$$per$$crawl_ErrorSource: JsonSchema = {
   "properties": {
     "pointer": {
       "type": "string"
@@ -6943,7 +6943,7 @@ export const pay_per_crawl_ErrorSource_output: JsonSchema = {
 /**
  * The schema of `pay-per-crawl_Msg` in responses.
  */
-export const pay_per_crawl_Msg_output: JsonSchema = {
+export const pay$$per$$crawl_Msg: JsonSchema = {
   "properties": {
     "code": {
       "type": "integer"
@@ -6980,7 +6980,7 @@ export const pay_per_crawl_Msg_output: JsonSchema = {
 /**
  * The schema of `pay-per-crawl_RESTError` in responses.
  */
-export const pay_per_crawl_RESTError_output: JsonSchema = {
+export const pay$$per$$crawl_RESTError: JsonSchema = {
   "properties": {
     "code": {
       "type": "integer"
@@ -7001,7 +7001,7 @@ export const pay_per_crawl_RESTError_output: JsonSchema = {
 /**
  * The schema of `pay-per-crawl_ResultInfo` in responses.
  */
-export const pay_per_crawl_ResultInfo_output: JsonSchema = {
+export const pay$$per$$crawl_ResultInfo: JsonSchema = {
   "properties": {
     "count": {
       "type": "integer"
@@ -7025,7 +7025,7 @@ export const pay_per_crawl_ResultInfo_output: JsonSchema = {
 /**
  * The schema of `pay-per-crawl_Source` in responses.
  */
-export const pay_per_crawl_Source_output: JsonSchema = {
+export const pay$$per$$crawl_Source: JsonSchema = {
   "properties": {
     "parameter": {
       "type": "string"
@@ -7046,7 +7046,7 @@ export const pay_per_crawl_Source_output: JsonSchema = {
 /**
  * The schema of `pay-per-crawl_apiErrorResponse` in responses.
  */
-export const pay_per_crawl_apiErrorResponse_output: JsonSchema = {
+export const pay$$per$$crawl_apiErrorResponse: JsonSchema = {
   "properties": {
     "errors": {
       "items": {
@@ -7074,7 +7074,7 @@ export const pay_per_crawl_apiErrorResponse_output: JsonSchema = {
 /**
  * The schema of `pay-per-crawl_apiNoResultResponse` in responses.
  */
-export const pay_per_crawl_apiNoResultResponse_output: JsonSchema = {
+export const pay$$per$$crawl_apiNoResultResponse: JsonSchema = {
   "properties": {
     "errors": {
       "items": {
@@ -7101,7 +7101,7 @@ export const pay_per_crawl_apiNoResultResponse_output: JsonSchema = {
 /**
  * The schema of `r2-data-catalog_api-response-common-failure` in responses.
  */
-export const r2_data_catalog_api_response_common_failure_output: JsonSchema = {
+export const r2$$data$$catalog_api$$response$$common$$failure: JsonSchema = {
   "properties": {
     "errors": {
       "items": {
@@ -7137,7 +7137,7 @@ export const r2_data_catalog_api_response_common_failure_output: JsonSchema = {
 /**
  * The schema of `r2-data-catalog_api-response-errors` in responses.
  */
-export const r2_data_catalog_api_response_errors_output: JsonSchema = {
+export const r2$$data$$catalog_api$$response$$errors: JsonSchema = {
   "items": {
     "properties": {
       "code": {
@@ -7159,7 +7159,7 @@ export const r2_data_catalog_api_response_errors_output: JsonSchema = {
 /**
  * The schema of `r2-data-catalog_api-response-messages` in responses.
  */
-export const r2_data_catalog_api_response_messages_output: JsonSchema = {
+export const r2$$data$$catalog_api$$response$$messages: JsonSchema = {
   "items": {
     "properties": {
       "code": {
@@ -7181,7 +7181,7 @@ export const r2_data_catalog_api_response_messages_output: JsonSchema = {
 /**
  * The schema of `r2-data-catalog_api-response-single` in responses.
  */
-export const r2_data_catalog_api_response_single_output: JsonSchema = {
+export const r2$$data$$catalog_api$$response$$single: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/r2-data-catalog_api-response-errors"
@@ -7204,14 +7204,14 @@ export const r2_data_catalog_api_response_single_output: JsonSchema = {
 /**
  * The schema of `r2-data-catalog_api-response-success` in responses.
  */
-export const r2_data_catalog_api_response_success_output: JsonSchema = {
+export const r2$$data$$catalog_api$$response$$success: JsonSchema = {
   "type": "boolean"
 };
 
 /**
  * The schema of `r2-data-catalog_catalog` in responses.
  */
-export const r2_data_catalog_catalog_output: JsonSchema = {
+export const r2$$data$$catalog_catalog: JsonSchema = {
   "properties": {
     "bucket": {
       "type": "string"
@@ -7262,7 +7262,7 @@ export const r2_data_catalog_catalog_output: JsonSchema = {
 /**
  * The schema of `r2-data-catalog_catalog-activation-response` in responses.
  */
-export const r2_data_catalog_catalog_activation_response_output: JsonSchema = {
+export const r2$$data$$catalog_catalog$$activation$$response: JsonSchema = {
   "properties": {
     "id": {
       "format": "uuid",
@@ -7282,7 +7282,7 @@ export const r2_data_catalog_catalog_activation_response_output: JsonSchema = {
 /**
  * The schema of `r2-data-catalog_catalog-compaction-config` in responses.
  */
-export const r2_data_catalog_catalog_compaction_config_output: JsonSchema = {
+export const r2$$data$$catalog_catalog$$compaction$$config: JsonSchema = {
   "properties": {
     "state": {
       "$ref": "#/$defs/r2-data-catalog_catalog-maintenance-state"
@@ -7301,7 +7301,7 @@ export const r2_data_catalog_catalog_compaction_config_output: JsonSchema = {
 /**
  * The schema of `r2-data-catalog_catalog-list` in responses.
  */
-export const r2_data_catalog_catalog_list_output: JsonSchema = {
+export const r2$$data$$catalog_catalog$$list: JsonSchema = {
   "properties": {
     "warehouses": {
       "items": {
@@ -7319,7 +7319,7 @@ export const r2_data_catalog_catalog_list_output: JsonSchema = {
 /**
  * The schema of `r2-data-catalog_catalog-maintenance-config` in responses.
  */
-export const r2_data_catalog_catalog_maintenance_config_output: JsonSchema = {
+export const r2$$data$$catalog_catalog$$maintenance$$config: JsonSchema = {
   "properties": {
     "compaction": {
       "$ref": "#/$defs/r2-data-catalog_catalog-compaction-config"
@@ -7338,7 +7338,7 @@ export const r2_data_catalog_catalog_maintenance_config_output: JsonSchema = {
  * The schema of `r2-data-catalog_catalog-maintenance-config-response` in
  * responses.
  */
-export const r2_data_catalog_catalog_maintenance_config_response_output: JsonSchema = {
+export const r2$$data$$catalog_catalog$$maintenance$$config$$response: JsonSchema = {
   "properties": {
     "credential_status": {
       "$ref": "#/$defs/r2-data-catalog_credential-status"
@@ -7357,7 +7357,7 @@ export const r2_data_catalog_catalog_maintenance_config_response_output: JsonSch
 /**
  * The schema of `r2-data-catalog_catalog-maintenance-state` in responses.
  */
-export const r2_data_catalog_catalog_maintenance_state_output: JsonSchema = {
+export const r2$$data$$catalog_catalog$$maintenance$$state: JsonSchema = {
   "enum": [
     "enabled",
     "disabled"
@@ -7368,7 +7368,7 @@ export const r2_data_catalog_catalog_maintenance_state_output: JsonSchema = {
 /**
  * The schema of `r2-data-catalog_catalog-status` in responses.
  */
-export const r2_data_catalog_catalog_status_output: JsonSchema = {
+export const r2$$data$$catalog_catalog$$status: JsonSchema = {
   "enum": [
     "active",
     "inactive"
@@ -7379,7 +7379,7 @@ export const r2_data_catalog_catalog_status_output: JsonSchema = {
 /**
  * The schema of `r2-data-catalog_catalog-target-file-size` in responses.
  */
-export const r2_data_catalog_catalog_target_file_size_output: JsonSchema = {
+export const r2$$data$$catalog_catalog$$target$$file$$size: JsonSchema = {
   "enum": [
     "64",
     "128",
@@ -7392,7 +7392,7 @@ export const r2_data_catalog_catalog_target_file_size_output: JsonSchema = {
 /**
  * The schema of `r2-data-catalog_credential-probe-status` in responses.
  */
-export const r2_data_catalog_credential_probe_status_output: JsonSchema = {
+export const r2$$data$$catalog_credential$$probe$$status: JsonSchema = {
   "enum": [
     "valid",
     "invalid",
@@ -7404,7 +7404,7 @@ export const r2_data_catalog_credential_probe_status_output: JsonSchema = {
 /**
  * The schema of `r2-data-catalog_credential-status` in responses.
  */
-export const r2_data_catalog_credential_status_output: JsonSchema = {
+export const r2$$data$$catalog_credential$$status: JsonSchema = {
   "enum": [
     "present",
     "absent"
@@ -7415,7 +7415,7 @@ export const r2_data_catalog_credential_status_output: JsonSchema = {
 /**
  * The schema of `r2-data-catalog_get-table-response` in responses.
  */
-export const r2_data_catalog_get_table_response_output: JsonSchema = {
+export const r2$$data$$catalog_get$$table$$response: JsonSchema = {
   "properties": {
     "identifier": {
       "$ref": "#/$defs/r2-data-catalog_table-identifier"
@@ -7450,14 +7450,14 @@ export const r2_data_catalog_get_table_response_output: JsonSchema = {
 /**
  * The schema of `r2-data-catalog_maintenance-interval` in responses.
  */
-export const r2_data_catalog_maintenance_interval_output: JsonSchema = {
+export const r2$$data$$catalog_maintenance$$interval: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `r2-data-catalog_maintenance-run-operation` in responses.
  */
-export const r2_data_catalog_maintenance_run_operation_output: JsonSchema = {
+export const r2$$data$$catalog_maintenance$$run$$operation: JsonSchema = {
   "properties": {
     "duration_ms": {
       "type": "integer"
@@ -7511,7 +7511,7 @@ export const r2_data_catalog_maintenance_run_operation_output: JsonSchema = {
 /**
  * The schema of `r2-data-catalog_maintenance-run-record` in responses.
  */
-export const r2_data_catalog_maintenance_run_record_output: JsonSchema = {
+export const r2$$data$$catalog_maintenance$$run$$record: JsonSchema = {
   "properties": {
     "completed_at": {
       "oneOf": [
@@ -7620,7 +7620,7 @@ export const r2_data_catalog_maintenance_run_record_output: JsonSchema = {
 /**
  * The schema of `r2-data-catalog_maintenance-runs-response` in responses.
  */
-export const r2_data_catalog_maintenance_runs_response_output: JsonSchema = {
+export const r2$$data$$catalog_maintenance$$runs$$response: JsonSchema = {
   "properties": {
     "next_page_token": {
       "oneOf": [
@@ -7649,7 +7649,7 @@ export const r2_data_catalog_maintenance_runs_response_output: JsonSchema = {
 /**
  * The schema of `r2-data-catalog_namespace-details` in responses.
  */
-export const r2_data_catalog_namespace_details_output: JsonSchema = {
+export const r2$$data$$catalog_namespace$$details: JsonSchema = {
   "properties": {
     "created_at": {
       "oneOf": [
@@ -7691,7 +7691,7 @@ export const r2_data_catalog_namespace_details_output: JsonSchema = {
 /**
  * The schema of `r2-data-catalog_namespace-identifier` in responses.
  */
-export const r2_data_catalog_namespace_identifier_output: JsonSchema = {
+export const r2$$data$$catalog_namespace$$identifier: JsonSchema = {
   "items": {
     "type": "string"
   },
@@ -7703,7 +7703,7 @@ export const r2_data_catalog_namespace_identifier_output: JsonSchema = {
 /**
  * The schema of `r2-data-catalog_namespace-list-response` in responses.
  */
-export const r2_data_catalog_namespace_list_response_output: JsonSchema = {
+export const r2$$data$$catalog_namespace$$list$$response: JsonSchema = {
   "properties": {
     "details": {
       "oneOf": [
@@ -7758,7 +7758,7 @@ export const r2_data_catalog_namespace_list_response_output: JsonSchema = {
 /**
  * The schema of `r2-data-catalog_queue-maintenance-response` in responses.
  */
-export const r2_data_catalog_queue_maintenance_response_output: JsonSchema = {
+export const r2$$data$$catalog_queue$$maintenance$$response: JsonSchema = {
   "properties": {
     "message": {
       "type": "string"
@@ -7788,7 +7788,7 @@ export const r2_data_catalog_queue_maintenance_response_output: JsonSchema = {
 /**
  * The schema of `r2-data-catalog_snapshot-expiration-config` in responses.
  */
-export const r2_data_catalog_snapshot_expiration_config_output: JsonSchema = {
+export const r2$$data$$catalog_snapshot$$expiration$$config: JsonSchema = {
   "properties": {
     "max_snapshot_age": {
       "type": "string"
@@ -7811,7 +7811,7 @@ export const r2_data_catalog_snapshot_expiration_config_output: JsonSchema = {
 /**
  * The schema of `r2-data-catalog_table-compaction-config` in responses.
  */
-export const r2_data_catalog_table_compaction_config_output: JsonSchema = {
+export const r2$$data$$catalog_table$$compaction$$config: JsonSchema = {
   "properties": {
     "next_eligible_at": {
       "oneOf": [
@@ -7841,7 +7841,7 @@ export const r2_data_catalog_table_compaction_config_output: JsonSchema = {
 /**
  * The schema of `r2-data-catalog_table-details` in responses.
  */
-export const r2_data_catalog_table_details_output: JsonSchema = {
+export const r2$$data$$catalog_table$$details: JsonSchema = {
   "properties": {
     "created_at": {
       "oneOf": [
@@ -7903,7 +7903,7 @@ export const r2_data_catalog_table_details_output: JsonSchema = {
 /**
  * The schema of `r2-data-catalog_table-identifier` in responses.
  */
-export const r2_data_catalog_table_identifier_output: JsonSchema = {
+export const r2$$data$$catalog_table$$identifier: JsonSchema = {
   "properties": {
     "name": {
       "type": "string"
@@ -7922,7 +7922,7 @@ export const r2_data_catalog_table_identifier_output: JsonSchema = {
 /**
  * The schema of `r2-data-catalog_table-list-response` in responses.
  */
-export const r2_data_catalog_table_list_response_output: JsonSchema = {
+export const r2$$data$$catalog_table$$list$$response: JsonSchema = {
   "properties": {
     "details": {
       "oneOf": [
@@ -7977,7 +7977,7 @@ export const r2_data_catalog_table_list_response_output: JsonSchema = {
 /**
  * The schema of `r2-data-catalog_table-maintenance-config` in responses.
  */
-export const r2_data_catalog_table_maintenance_config_output: JsonSchema = {
+export const r2$$data$$catalog_table$$maintenance$$config: JsonSchema = {
   "properties": {
     "compaction": {
       "$ref": "#/$defs/r2-data-catalog_table-compaction-config"
@@ -7996,7 +7996,7 @@ export const r2_data_catalog_table_maintenance_config_output: JsonSchema = {
  * The schema of `r2-data-catalog_table-maintenance-config-response` in
  * responses.
  */
-export const r2_data_catalog_table_maintenance_config_response_output: JsonSchema = {
+export const r2$$data$$catalog_table$$maintenance$$config$$response: JsonSchema = {
   "properties": {
     "maintenance_config": {
       "$ref": "#/$defs/r2-data-catalog_table-maintenance-config"
@@ -8011,7 +8011,7 @@ export const r2_data_catalog_table_maintenance_config_response_output: JsonSchem
 /**
  * The schema of `r2-data-catalog_table-metadata` in responses.
  */
-export const r2_data_catalog_table_metadata_output: JsonSchema = {
+export const r2$$data$$catalog_table$$metadata: JsonSchema = {
   "type": "object"
 };
 
@@ -8019,7 +8019,7 @@ export const r2_data_catalog_table_metadata_output: JsonSchema = {
  * The schema of `r2-data-catalog_table-snapshot-expiration-config` in
  * responses.
  */
-export const r2_data_catalog_table_snapshot_expiration_config_output: JsonSchema = {
+export const r2$$data$$catalog_table$$snapshot$$expiration$$config: JsonSchema = {
   "properties": {
     "max_snapshot_age": {
       "type": "string"
@@ -8053,21 +8053,21 @@ export const r2_data_catalog_table_snapshot_expiration_config_output: JsonSchema
 /**
  * The schema of `resource-sharing_account_id` in responses.
  */
-export const resource_sharing_account_id_output: JsonSchema = {
+export const resource$$sharing_account_id: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `resource-sharing_account_name` in responses.
  */
-export const resource_sharing_account_name_output: JsonSchema = {
+export const resource$$sharing_account_name: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `resource-sharing_api-response-collection` in responses.
  */
-export const resource_sharing_api_response_collection_output: JsonSchema = {
+export const resource$$sharing_api$$response$$collection: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/resource-sharing_api-response-common"
@@ -8081,7 +8081,7 @@ export const resource_sharing_api_response_collection_output: JsonSchema = {
 /**
  * The schema of `resource-sharing_api-response-collection-info` in responses.
  */
-export const resource_sharing_api_response_collection_info_output: JsonSchema = {
+export const resource$$sharing_api$$response$$collection$$info: JsonSchema = {
   "properties": {
     "result_info": {
       "$ref": "#/$defs/resource-sharing_result_info"
@@ -8093,7 +8093,7 @@ export const resource_sharing_api_response_collection_info_output: JsonSchema = 
 /**
  * The schema of `resource-sharing_api-response-common` in responses.
  */
-export const resource_sharing_api_response_common_output: JsonSchema = {
+export const resource$$sharing_api$$response$$common: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/resource-sharing_v4errors"
@@ -8112,7 +8112,7 @@ export const resource_sharing_api_response_common_output: JsonSchema = {
 /**
  * The schema of `resource-sharing_api-response-common-failure` in responses.
  */
-export const resource_sharing_api_response_common_failure_output: JsonSchema = {
+export const resource$$sharing_api$$response$$common$$failure: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/resource-sharing_v4errors"
@@ -8135,7 +8135,7 @@ export const resource_sharing_api_response_common_failure_output: JsonSchema = {
 /**
  * The schema of `resource-sharing_created` in responses.
  */
-export const resource_sharing_created_output: JsonSchema = {
+export const resource$$sharing_created: JsonSchema = {
   "format": "date-time",
   "type": "string"
 };
@@ -8143,7 +8143,7 @@ export const resource_sharing_created_output: JsonSchema = {
 /**
  * The schema of `resource-sharing_modified` in responses.
  */
-export const resource_sharing_modified_output: JsonSchema = {
+export const resource$$sharing_modified: JsonSchema = {
   "format": "date-time",
   "type": "string"
 };
@@ -8151,35 +8151,35 @@ export const resource_sharing_modified_output: JsonSchema = {
 /**
  * The schema of `resource-sharing_organization_id` in responses.
  */
-export const resource_sharing_organization_id_output: JsonSchema = {
+export const resource$$sharing_organization_id: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `resource-sharing_resource_id` in responses.
  */
-export const resource_sharing_resource_id_output: JsonSchema = {
+export const resource$$sharing_resource_id: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `resource-sharing_resource_meta` in responses.
  */
-export const resource_sharing_resource_meta_output: JsonSchema = {
+export const resource$$sharing_resource_meta: JsonSchema = {
   "type": "object"
 };
 
 /**
  * The schema of `resource-sharing_resource_resource_id` in responses.
  */
-export const resource_sharing_resource_resource_id_output: JsonSchema = {
+export const resource$$sharing_resource_resource_id: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `resource-sharing_resource_status` in responses.
  */
-export const resource_sharing_resource_status_output: JsonSchema = {
+export const resource$$sharing_resource_status: JsonSchema = {
   "enum": [
     "active",
     "deleting",
@@ -8191,7 +8191,7 @@ export const resource_sharing_resource_status_output: JsonSchema = {
 /**
  * The schema of `resource-sharing_resource_type` in responses.
  */
-export const resource_sharing_resource_type_output: JsonSchema = {
+export const resource$$sharing_resource_type: JsonSchema = {
   "enum": [
     "custom-ruleset",
     "gateway-policy",
@@ -8207,14 +8207,14 @@ export const resource_sharing_resource_type_output: JsonSchema = {
 /**
  * The schema of `resource-sharing_resource_version` in responses.
  */
-export const resource_sharing_resource_version_output: JsonSchema = {
+export const resource$$sharing_resource_version: JsonSchema = {
   "type": "integer"
 };
 
 /**
  * The schema of `resource-sharing_result_info` in responses.
  */
-export const resource_sharing_result_info_output: JsonSchema = {
+export const resource$$sharing_result_info: JsonSchema = {
   "properties": {
     "count": {
       "type": "number"
@@ -8238,14 +8238,14 @@ export const resource_sharing_result_info_output: JsonSchema = {
 /**
  * The schema of `resource-sharing_share_id` in responses.
  */
-export const resource_sharing_share_id_output: JsonSchema = {
+export const resource$$sharing_share_id: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `resource-sharing_share_kind` in responses.
  */
-export const resource_sharing_share_kind_output: JsonSchema = {
+export const resource$$sharing_share_kind: JsonSchema = {
   "enum": [
     "sent",
     "received"
@@ -8256,14 +8256,14 @@ export const resource_sharing_share_kind_output: JsonSchema = {
 /**
  * The schema of `resource-sharing_share_name` in responses.
  */
-export const resource_sharing_share_name_output: JsonSchema = {
+export const resource$$sharing_share_name: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `resource-sharing_share_object` in responses.
  */
-export const resource_sharing_share_object_output: JsonSchema = {
+export const resource$$sharing_share_object: JsonSchema = {
   "properties": {
     "account_id": {
       "$ref": "#/$defs/resource-sharing_account_id"
@@ -8331,7 +8331,7 @@ export const resource_sharing_share_object_output: JsonSchema = {
 /**
  * The schema of `resource-sharing_share_resource_object` in responses.
  */
-export const resource_sharing_share_resource_object_output: JsonSchema = {
+export const resource$$sharing_share_resource_object: JsonSchema = {
   "properties": {
     "created": {
       "$ref": "#/$defs/resource-sharing_created"
@@ -8378,7 +8378,7 @@ export const resource_sharing_share_resource_object_output: JsonSchema = {
 /**
  * The schema of `resource-sharing_share_response_collection` in responses.
  */
-export const resource_sharing_share_response_collection_output: JsonSchema = {
+export const resource$$sharing_share_response_collection: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/resource-sharing_api-response-collection"
@@ -8393,7 +8393,7 @@ export const resource_sharing_share_response_collection_output: JsonSchema = {
  * The schema of `resource-sharing_share_response_collection_result` in
  * responses.
  */
-export const resource_sharing_share_response_collection_result_output: JsonSchema = {
+export const resource$$sharing_share_response_collection_result: JsonSchema = {
   "properties": {
     "result": {
       "items": {
@@ -8408,7 +8408,7 @@ export const resource_sharing_share_response_collection_result_output: JsonSchem
 /**
  * The schema of `resource-sharing_share_status` in responses.
  */
-export const resource_sharing_share_status_output: JsonSchema = {
+export const resource$$sharing_share_status: JsonSchema = {
   "enum": [
     "active",
     "deleting",
@@ -8420,7 +8420,7 @@ export const resource_sharing_share_status_output: JsonSchema = {
 /**
  * The schema of `resource-sharing_share_target_type` in responses.
  */
-export const resource_sharing_share_target_type_output: JsonSchema = {
+export const resource$$sharing_share_target_type: JsonSchema = {
   "enum": [
     "account",
     "organization"
@@ -8431,7 +8431,7 @@ export const resource_sharing_share_target_type_output: JsonSchema = {
 /**
  * The schema of `resource-sharing_v4error` in responses.
  */
-export const resource_sharing_v4error_output: JsonSchema = {
+export const resource$$sharing_v4error: JsonSchema = {
   "properties": {
     "code": {
       "type": "integer"
@@ -8450,7 +8450,7 @@ export const resource_sharing_v4error_output: JsonSchema = {
 /**
  * The schema of `resource-sharing_v4errors` in responses.
  */
-export const resource_sharing_v4errors_output: JsonSchema = {
+export const resource$$sharing_v4errors: JsonSchema = {
   "items": {
     "$ref": "#/$defs/resource-sharing_v4error"
   },
@@ -8460,7 +8460,7 @@ export const resource_sharing_v4errors_output: JsonSchema = {
 /**
  * The schema of `rulesets_Errors` in responses.
  */
-export const rulesets_Errors_output: JsonSchema = {
+export const rulesets_Errors: JsonSchema = {
   "items": {
     "$ref": "#/$defs/rulesets_Message"
   },
@@ -8470,7 +8470,7 @@ export const rulesets_Errors_output: JsonSchema = {
 /**
  * The schema of `rulesets_Message` in responses.
  */
-export const rulesets_Message_output: JsonSchema = {
+export const rulesets_Message: JsonSchema = {
   "properties": {
     "code": {
       "type": "integer"
@@ -8499,7 +8499,7 @@ export const rulesets_Message_output: JsonSchema = {
 /**
  * The schema of `rulesets_Messages` in responses.
  */
-export const rulesets_Messages_output: JsonSchema = {
+export const rulesets_Messages: JsonSchema = {
   "items": {
     "$ref": "#/$defs/rulesets_Message"
   },
@@ -8509,7 +8509,7 @@ export const rulesets_Messages_output: JsonSchema = {
 /**
  * The schema of `rulesets_Response` in responses.
  */
-export const rulesets_Response_output: JsonSchema = {
+export const rulesets_Response: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/rulesets_Errors"
@@ -8558,7 +8558,7 @@ export const rulesets_Response_output: JsonSchema = {
 /**
  * The schema of `rum_api-response-common` in responses.
  */
-export const rum_api_response_common_output: JsonSchema = {
+export const rum_api$$response$$common: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/rum_messages"
@@ -8581,7 +8581,7 @@ export const rum_api_response_common_output: JsonSchema = {
 /**
  * The schema of `rum_api-response-common-failure` in responses.
  */
-export const rum_api_response_common_failure_output: JsonSchema = {
+export const rum_api$$response$$common$$failure: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/rum_messages-2"
@@ -8611,7 +8611,7 @@ export const rum_api_response_common_failure_output: JsonSchema = {
 /**
  * The schema of `rum_messages` in responses.
  */
-export const rum_messages_output: JsonSchema = {
+export const rum_messages: JsonSchema = {
   "items": {
     "properties": {
       "code": {
@@ -8633,7 +8633,7 @@ export const rum_messages_output: JsonSchema = {
 /**
  * The schema of `rum_messages-2` in responses.
  */
-export const rum_messages_2_output: JsonSchema = {
+export const rum_messages$$2: JsonSchema = {
   "items": {
     "properties": {
       "code": {
@@ -8666,7 +8666,7 @@ export const rum_messages_2_output: JsonSchema = {
 /**
  * The schema of `security-center_api-response-common` in responses.
  */
-export const security_center_api_response_common_output: JsonSchema = {
+export const security$$center_api$$response$$common: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/security-center_messages"
@@ -8692,7 +8692,7 @@ export const security_center_api_response_common_output: JsonSchema = {
 /**
  * The schema of `security-center_api-response-common-failure` in responses.
  */
-export const security_center_api_response_common_failure_output: JsonSchema = {
+export const security$$center_api$$response$$common$$failure: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/security-center_messages"
@@ -8722,7 +8722,7 @@ export const security_center_api_response_common_failure_output: JsonSchema = {
 /**
  * The schema of `security-center_api-response-single` in responses.
  */
-export const security_center_api_response_single_output: JsonSchema = {
+export const security$$center_api$$response$$single: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/security-center_messages"
@@ -8748,14 +8748,14 @@ export const security_center_api_response_single_output: JsonSchema = {
 /**
  * The schema of `security-center_count` in responses.
  */
-export const security_center_count_output: JsonSchema = {
+export const security$$center_count: JsonSchema = {
   "type": "integer"
 };
 
 /**
  * The schema of `security-center_issue` in responses.
  */
-export const security_center_issue_output: JsonSchema = {
+export const security$$center_issue: JsonSchema = {
   "properties": {
     "dismissed": {
       "type": "boolean"
@@ -8828,14 +8828,14 @@ export const security_center_issue_output: JsonSchema = {
 /**
  * The schema of `security-center_issueClass` in responses.
  */
-export const security_center_issueClass_output: JsonSchema = {
+export const security$$center_issueClass: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `security-center_issueType` in responses.
  */
-export const security_center_issueType_output: JsonSchema = {
+export const security$$center_issueType: JsonSchema = {
   "enum": [
     "compliance_violation",
     "email_security",
@@ -8850,7 +8850,7 @@ export const security_center_issueType_output: JsonSchema = {
 /**
  * The schema of `security-center_messages` in responses.
  */
-export const security_center_messages_output: JsonSchema = {
+export const security$$center_messages: JsonSchema = {
   "items": {
     "properties": {
       "code": {
@@ -8883,21 +8883,21 @@ export const security_center_messages_output: JsonSchema = {
 /**
  * The schema of `security-center_page` in responses.
  */
-export const security_center_page_output: JsonSchema = {
+export const security$$center_page: JsonSchema = {
   "type": "integer"
 };
 
 /**
  * The schema of `security-center_perPage` in responses.
  */
-export const security_center_perPage_output: JsonSchema = {
+export const security$$center_perPage: JsonSchema = {
   "type": "integer"
 };
 
 /**
  * The schema of `security-center_source` in responses.
  */
-export const security_center_source_output: JsonSchema = {
+export const security$$center_source: JsonSchema = {
   "enum": [
     "cloudflare",
     "riskrecon"
@@ -8908,14 +8908,14 @@ export const security_center_source_output: JsonSchema = {
 /**
  * The schema of `security-center_subject` in responses.
  */
-export const security_center_subject_output: JsonSchema = {
+export const security$$center_subject: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `security-center_userClassification` in responses.
  */
-export const security_center_userClassification_output: JsonSchema = {
+export const security$$center_userClassification: JsonSchema = {
   "oneOf": [
     {
       "enum": [
@@ -8934,7 +8934,7 @@ export const security_center_userClassification_output: JsonSchema = {
 /**
  * The schema of `security-center_valueCountsResponse` in responses.
  */
-export const security_center_valueCountsResponse_output: JsonSchema = {
+export const security$$center_valueCountsResponse: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/security-center_api-response-common"
@@ -8964,7 +8964,7 @@ export const security_center_valueCountsResponse_output: JsonSchema = {
 /**
  * The schema of `speed_api-response-common` in responses.
  */
-export const speed_api_response_common_output: JsonSchema = {
+export const speed_api$$response$$common: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/speed_messages"
@@ -8987,7 +8987,7 @@ export const speed_api_response_common_output: JsonSchema = {
 /**
  * The schema of `speed_api-response-common-failure` in responses.
  */
-export const speed_api_response_common_failure_output: JsonSchema = {
+export const speed_api$$response$$common$$failure: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/speed_messages"
@@ -9021,7 +9021,7 @@ export const speed_api_response_common_failure_output: JsonSchema = {
 /**
  * The schema of `speed_base` in responses.
  */
-export const speed_base_output: JsonSchema = {
+export const speed_base: JsonSchema = {
   "properties": {
     "editable": {
       "enum": [
@@ -9058,7 +9058,7 @@ export const speed_base_output: JsonSchema = {
 /**
  * The schema of `speed_messages` in responses.
  */
-export const speed_messages_output: JsonSchema = {
+export const speed_messages: JsonSchema = {
   "items": {
     "properties": {
       "code": {
@@ -9081,7 +9081,7 @@ export const speed_messages_output: JsonSchema = {
  * The schema of `tls-certificates-and-hostnames_api-response-collection` in
  * responses.
  */
-export const tls_certificates_and_hostnames_api_response_collection_output: JsonSchema = {
+export const tls$$certificates$$and$$hostnames_api$$response$$collection: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/tls-certificates-and-hostnames_api-response-common"
@@ -9118,7 +9118,7 @@ export const tls_certificates_and_hostnames_api_response_collection_output: Json
  * The schema of `tls-certificates-and-hostnames_api-response-common` in
  * responses.
  */
-export const tls_certificates_and_hostnames_api_response_common_output: JsonSchema = {
+export const tls$$certificates$$and$$hostnames_api$$response$$common: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/tls-certificates-and-hostnames_messages"
@@ -9145,7 +9145,7 @@ export const tls_certificates_and_hostnames_api_response_common_output: JsonSche
  * The schema of `tls-certificates-and-hostnames_api-response-common-failure` in
  * responses.
  */
-export const tls_certificates_and_hostnames_api_response_common_failure_output: JsonSchema = {
+export const tls$$certificates$$and$$hostnames_api$$response$$common$$failure: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/tls-certificates-and-hostnames_messages"
@@ -9176,7 +9176,7 @@ export const tls_certificates_and_hostnames_api_response_common_failure_output: 
  * The schema of `tls-certificates-and-hostnames_api-response-single` in
  * responses.
  */
-export const tls_certificates_and_hostnames_api_response_single_output: JsonSchema = {
+export const tls$$certificates$$and$$hostnames_api$$response$$single: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/tls-certificates-and-hostnames_messages"
@@ -9202,7 +9202,7 @@ export const tls_certificates_and_hostnames_api_response_single_output: JsonSche
 /**
  * The schema of `tls-certificates-and-hostnames_expires_on-2` in responses.
  */
-export const tls_certificates_and_hostnames_expires_on_2_output: JsonSchema = {
+export const tls$$certificates$$and$$hostnames_expires_on$$2: JsonSchema = {
   "format": "date-time",
   "type": "string"
 };
@@ -9210,21 +9210,21 @@ export const tls_certificates_and_hostnames_expires_on_2_output: JsonSchema = {
 /**
  * The schema of `tls-certificates-and-hostnames_identifier` in responses.
  */
-export const tls_certificates_and_hostnames_identifier_output: JsonSchema = {
+export const tls$$certificates$$and$$hostnames_identifier: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `tls-certificates-and-hostnames_issuer` in responses.
  */
-export const tls_certificates_and_hostnames_issuer_output: JsonSchema = {
+export const tls$$certificates$$and$$hostnames_issuer: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `tls-certificates-and-hostnames_messages` in responses.
  */
-export const tls_certificates_and_hostnames_messages_output: JsonSchema = {
+export const tls$$certificates$$and$$hostnames_messages: JsonSchema = {
   "items": {
     "properties": {
       "code": {
@@ -9257,14 +9257,14 @@ export const tls_certificates_and_hostnames_messages_output: JsonSchema = {
 /**
  * The schema of `tls-certificates-and-hostnames_signature` in responses.
  */
-export const tls_certificates_and_hostnames_signature_output: JsonSchema = {
+export const tls$$certificates$$and$$hostnames_signature: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `tls-certificates-and-hostnames_uploaded_on` in responses.
  */
-export const tls_certificates_and_hostnames_uploaded_on_output: JsonSchema = {
+export const tls$$certificates$$and$$hostnames_uploaded_on: JsonSchema = {
   "format": "date-time",
   "type": "string"
 };
@@ -9273,7 +9273,7 @@ export const tls_certificates_and_hostnames_uploaded_on_output: JsonSchema = {
  * The schema of `tls-certificates-and-hostnames_validation_record` in
  * responses.
  */
-export const tls_certificates_and_hostnames_validation_record_output: JsonSchema = {
+export const tls$$certificates$$and$$hostnames_validation_record: JsonSchema = {
   "properties": {
     "cname": {
       "type": "string"
@@ -9309,14 +9309,14 @@ export const tls_certificates_and_hostnames_validation_record_output: JsonSchema
 /**
  * The schema of `tunnel_account_id` in responses.
  */
-export const tunnel_account_id_output: JsonSchema = {
+export const tunnel_account_id: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `tunnel_api-response-collection` in responses.
  */
-export const tunnel_api_response_collection_output: JsonSchema = {
+export const tunnel_api$$response$$collection: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/tunnel_api-response-common"
@@ -9348,7 +9348,7 @@ export const tunnel_api_response_collection_output: JsonSchema = {
 /**
  * The schema of `tunnel_api-response-common` in responses.
  */
-export const tunnel_api_response_common_output: JsonSchema = {
+export const tunnel_api$$response$$common: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/tunnel_messages"
@@ -9391,7 +9391,7 @@ export const tunnel_api_response_common_output: JsonSchema = {
 /**
  * The schema of `tunnel_api-response-common-failure` in responses.
  */
-export const tunnel_api_response_common_failure_output: JsonSchema = {
+export const tunnel_api$$response$$common$$failure: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/tunnel_messages"
@@ -9421,7 +9421,7 @@ export const tunnel_api_response_common_failure_output: JsonSchema = {
 /**
  * The schema of `tunnel_api-response-common-failure-2` in responses.
  */
-export const tunnel_api_response_common_failure_2_output: JsonSchema = {
+export const tunnel_api$$response$$common$$failure$$2: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/tunnel_messages-2"
@@ -9451,7 +9451,7 @@ export const tunnel_api_response_common_failure_2_output: JsonSchema = {
 /**
  * The schema of `tunnel_api-response-single-2` in responses.
  */
-export const tunnel_api_response_single_2_output: JsonSchema = {
+export const tunnel_api$$response$$single$$2: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/tunnel_messages-2"
@@ -9477,14 +9477,14 @@ export const tunnel_api_response_single_2_output: JsonSchema = {
 /**
  * The schema of `tunnel_arch` in responses.
  */
-export const tunnel_arch_output: JsonSchema = {
+export const tunnel_arch: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `tunnel_cfd_tunnel` in responses.
  */
-export const tunnel_cfd_tunnel_output: JsonSchema = {
+export const tunnel_cfd_tunnel: JsonSchema = {
   "properties": {
     "account_tag": {
       "$ref": "#/$defs/tunnel_account_id"
@@ -9532,7 +9532,7 @@ export const tunnel_cfd_tunnel_output: JsonSchema = {
 /**
  * The schema of `tunnel_client_id` in responses.
  */
-export const tunnel_client_id_output: JsonSchema = {
+export const tunnel_client_id: JsonSchema = {
   "format": "uuid",
   "type": "string"
 };
@@ -9540,14 +9540,14 @@ export const tunnel_client_id_output: JsonSchema = {
 /**
  * The schema of `tunnel_colo_name` in responses.
  */
-export const tunnel_colo_name_output: JsonSchema = {
+export const tunnel_colo_name: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `tunnel_config_src` in responses.
  */
-export const tunnel_config_src_output: JsonSchema = {
+export const tunnel_config_src: JsonSchema = {
   "enum": [
     "local",
     "cloudflare"
@@ -9558,7 +9558,7 @@ export const tunnel_config_src_output: JsonSchema = {
 /**
  * The schema of `tunnel_connection_id` in responses.
  */
-export const tunnel_connection_id_output: JsonSchema = {
+export const tunnel_connection_id: JsonSchema = {
   "format": "uuid",
   "type": "string"
 };
@@ -9566,7 +9566,7 @@ export const tunnel_connection_id_output: JsonSchema = {
 /**
  * The schema of `tunnel_connections_deprecated` in responses.
  */
-export const tunnel_connections_deprecated_output: JsonSchema = {
+export const tunnel_connections_deprecated: JsonSchema = {
   "items": {
     "$ref": "#/$defs/tunnel_schemas-connection"
   },
@@ -9576,7 +9576,7 @@ export const tunnel_connections_deprecated_output: JsonSchema = {
 /**
  * The schema of `tunnel_conns_active_at` in responses.
  */
-export const tunnel_conns_active_at_output: JsonSchema = {
+export const tunnel_conns_active_at: JsonSchema = {
   "format": "date-time",
   "type": "string"
 };
@@ -9584,7 +9584,7 @@ export const tunnel_conns_active_at_output: JsonSchema = {
 /**
  * The schema of `tunnel_conns_inactive_at` in responses.
  */
-export const tunnel_conns_inactive_at_output: JsonSchema = {
+export const tunnel_conns_inactive_at: JsonSchema = {
   "format": "date-time",
   "type": "string"
 };
@@ -9592,7 +9592,7 @@ export const tunnel_conns_inactive_at_output: JsonSchema = {
 /**
  * The schema of `tunnel_created_at` in responses.
  */
-export const tunnel_created_at_output: JsonSchema = {
+export const tunnel_created_at: JsonSchema = {
   "format": "date-time",
   "type": "string"
 };
@@ -9600,7 +9600,7 @@ export const tunnel_created_at_output: JsonSchema = {
 /**
  * The schema of `tunnel_deleted_at` in responses.
  */
-export const tunnel_deleted_at_output: JsonSchema = {
+export const tunnel_deleted_at: JsonSchema = {
   "format": "date-time",
   "type": "string"
 };
@@ -9608,7 +9608,7 @@ export const tunnel_deleted_at_output: JsonSchema = {
 /**
  * The schema of `tunnel_empty_response` in responses.
  */
-export const tunnel_empty_response_output: JsonSchema = {
+export const tunnel_empty_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/tunnel_api-response-common"
@@ -9627,7 +9627,7 @@ export const tunnel_empty_response_output: JsonSchema = {
 /**
  * The schema of `tunnel_features` in responses.
  */
-export const tunnel_features_output: JsonSchema = {
+export const tunnel_features: JsonSchema = {
   "items": {
     "type": "string"
   },
@@ -9637,28 +9637,28 @@ export const tunnel_features_output: JsonSchema = {
 /**
  * The schema of `tunnel_identifier` in responses.
  */
-export const tunnel_identifier_output: JsonSchema = {
+export const tunnel_identifier: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `tunnel_ip` in responses.
  */
-export const tunnel_ip_output: JsonSchema = {
+export const tunnel_ip: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `tunnel_is_pending_reconnect` in responses.
  */
-export const tunnel_is_pending_reconnect_output: JsonSchema = {
+export const tunnel_is_pending_reconnect: JsonSchema = {
   "type": "boolean"
 };
 
 /**
  * The schema of `tunnel_messages` in responses.
  */
-export const tunnel_messages_output: JsonSchema = {
+export const tunnel_messages: JsonSchema = {
   "items": {
     "properties": {
       "code": {
@@ -9683,7 +9683,7 @@ export const tunnel_messages_output: JsonSchema = {
 /**
  * The schema of `tunnel_messages-2` in responses.
  */
-export const tunnel_messages_2_output: JsonSchema = {
+export const tunnel_messages$$2: JsonSchema = {
   "items": {
     "properties": {
       "code": {
@@ -9716,21 +9716,21 @@ export const tunnel_messages_2_output: JsonSchema = {
 /**
  * The schema of `tunnel_metadata` in responses.
  */
-export const tunnel_metadata_output: JsonSchema = {
+export const tunnel_metadata: JsonSchema = {
   "type": "object"
 };
 
 /**
  * The schema of `tunnel_remote_config` in responses.
  */
-export const tunnel_remote_config_output: JsonSchema = {
+export const tunnel_remote_config: JsonSchema = {
   "type": "boolean"
 };
 
 /**
  * The schema of `tunnel_result_info` in responses.
  */
-export const tunnel_result_info_output: JsonSchema = {
+export const tunnel_result_info: JsonSchema = {
   "properties": {
     "count": {
       "type": "number"
@@ -9751,7 +9751,7 @@ export const tunnel_result_info_output: JsonSchema = {
 /**
  * The schema of `tunnel_run_at` in responses.
  */
-export const tunnel_run_at_output: JsonSchema = {
+export const tunnel_run_at: JsonSchema = {
   "format": "date-time",
   "type": "string"
 };
@@ -9759,7 +9759,7 @@ export const tunnel_run_at_output: JsonSchema = {
 /**
  * The schema of `tunnel_schemas-connection` in responses.
  */
-export const tunnel_schemas_connection_output: JsonSchema = {
+export const tunnel_schemas$$connection: JsonSchema = {
   "properties": {
     "client_id": {
       "$ref": "#/$defs/tunnel_client_id"
@@ -9793,7 +9793,7 @@ export const tunnel_schemas_connection_output: JsonSchema = {
 /**
  * The schema of `tunnel_status` in responses.
  */
-export const tunnel_status_output: JsonSchema = {
+export const tunnel_status: JsonSchema = {
   "enum": [
     "inactive",
     "degraded",
@@ -9806,7 +9806,7 @@ export const tunnel_status_output: JsonSchema = {
 /**
  * The schema of `tunnel_tunnel_id` in responses.
  */
-export const tunnel_tunnel_id_output: JsonSchema = {
+export const tunnel_tunnel_id: JsonSchema = {
   "format": "uuid",
   "type": "string"
 };
@@ -9814,7 +9814,7 @@ export const tunnel_tunnel_id_output: JsonSchema = {
 /**
  * The schema of `tunnel_tunnel_id-2` in responses.
  */
-export const tunnel_tunnel_id_2_output: JsonSchema = {
+export const tunnel_tunnel_id$$2: JsonSchema = {
   "format": "uuid",
   "type": "string"
 };
@@ -9822,14 +9822,14 @@ export const tunnel_tunnel_id_2_output: JsonSchema = {
 /**
  * The schema of `tunnel_tunnel_name` in responses.
  */
-export const tunnel_tunnel_name_output: JsonSchema = {
+export const tunnel_tunnel_name: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `tunnel_tunnel_response_token` in responses.
  */
-export const tunnel_tunnel_response_token_output: JsonSchema = {
+export const tunnel_tunnel_response_token: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/tunnel_api-response-common"
@@ -9848,14 +9848,14 @@ export const tunnel_tunnel_response_token_output: JsonSchema = {
 /**
  * The schema of `tunnel_tunnel_token` in responses.
  */
-export const tunnel_tunnel_token_output: JsonSchema = {
+export const tunnel_tunnel_token: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `tunnel_tunnel_type` in responses.
  */
-export const tunnel_tunnel_type_output: JsonSchema = {
+export const tunnel_tunnel_type: JsonSchema = {
   "enum": [
     "cfd_tunnel",
     "warp_connector",
@@ -9871,14 +9871,14 @@ export const tunnel_tunnel_type_output: JsonSchema = {
 /**
  * The schema of `tunnel_version` in responses.
  */
-export const tunnel_version_output: JsonSchema = {
+export const tunnel_version: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `tunnel_warp_connector_tunnel` in responses.
  */
-export const tunnel_warp_connector_tunnel_output: JsonSchema = {
+export const tunnel_warp_connector_tunnel: JsonSchema = {
   "properties": {
     "account_tag": {
       "$ref": "#/$defs/tunnel_account_id"
@@ -9920,7 +9920,7 @@ export const tunnel_warp_connector_tunnel_output: JsonSchema = {
 /**
  * The schema of `usage-analytics_api_error` in responses.
  */
-export const usage_analytics_api_error_output: JsonSchema = {
+export const usage$$analytics_api_error: JsonSchema = {
   "properties": {
     "code": {
       "type": "integer"
@@ -9939,7 +9939,7 @@ export const usage_analytics_api_error_output: JsonSchema = {
 /**
  * The schema of `usage-analytics_api_message` in responses.
  */
-export const usage_analytics_api_message_output: JsonSchema = {
+export const usage$$analytics_api_message: JsonSchema = {
   "properties": {
     "code": {
       "type": "integer"
@@ -9958,7 +9958,7 @@ export const usage_analytics_api_message_output: JsonSchema = {
 /**
  * The schema of `usage-analytics_error_response` in responses.
  */
-export const usage_analytics_error_response_output: JsonSchema = {
+export const usage$$analytics_error_response: JsonSchema = {
   "properties": {
     "errors": {
       "items": {
@@ -9999,7 +9999,7 @@ export const usage_analytics_error_response_output: JsonSchema = {
 /**
  * The schema of `usage-analytics_stream_usage_data_point` in responses.
  */
-export const usage_analytics_stream_usage_data_point_output: JsonSchema = {
+export const usage$$analytics_stream_usage_data_point: JsonSchema = {
   "properties": {
     "streamMinutesViewed": {
       "type": "integer"
@@ -10014,7 +10014,7 @@ export const usage_analytics_stream_usage_data_point_output: JsonSchema = {
 /**
  * The schema of `usage-analytics_stream_usage_response` in responses.
  */
-export const usage_analytics_stream_usage_response_output: JsonSchema = {
+export const usage$$analytics_stream_usage_response: JsonSchema = {
   "properties": {
     "errors": {
       "items": {
@@ -10049,7 +10049,7 @@ export const usage_analytics_stream_usage_response_output: JsonSchema = {
 /**
  * The schema of `waf-product-api-bundle_api-response-common` in responses.
  */
-export const waf_product_api_bundle_api_response_common_output: JsonSchema = {
+export const waf$$product$$api$$bundle_api$$response$$common: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/waf-product-api-bundle_messages"
@@ -10092,7 +10092,7 @@ export const waf_product_api_bundle_api_response_common_output: JsonSchema = {
 /**
  * The schema of `waf-product-api-bundle_api-response-single` in responses.
  */
-export const waf_product_api_bundle_api_response_single_output: JsonSchema = {
+export const waf$$product$$api$$bundle_api$$response$$single: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/waf-product-api-bundle_api-response-common"
@@ -10121,14 +10121,14 @@ export const waf_product_api_bundle_api_response_single_output: JsonSchema = {
 /**
  * The schema of `waf-product-api-bundle_identifier` in responses.
  */
-export const waf_product_api_bundle_identifier_output: JsonSchema = {
+export const waf$$product$$api$$bundle_identifier: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `waf-product-api-bundle_messages` in responses.
  */
-export const waf_product_api_bundle_messages_output: JsonSchema = {
+export const waf$$product$$api$$bundle_messages: JsonSchema = {
   "items": {
     "properties": {
       "code": {
@@ -10150,7 +10150,7 @@ export const waf_product_api_bundle_messages_output: JsonSchema = {
 /**
  * The schema of `workers_api-response-collection` in responses.
  */
-export const workers_api_response_collection_output: JsonSchema = {
+export const workers_api$$response$$collection: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/workers_api-response-common"
@@ -10186,7 +10186,7 @@ export const workers_api_response_collection_output: JsonSchema = {
 /**
  * The schema of `workers_api-response-common` in responses.
  */
-export const workers_api_response_common_output: JsonSchema = {
+export const workers_api$$response$$common: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/workers_messages"
@@ -10212,7 +10212,7 @@ export const workers_api_response_common_output: JsonSchema = {
 /**
  * The schema of `workers_api-response-common-failure` in responses.
  */
-export const workers_api_response_common_failure_output: JsonSchema = {
+export const workers_api$$response$$common$$failure: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/workers_messages"
@@ -10242,7 +10242,7 @@ export const workers_api_response_common_failure_output: JsonSchema = {
 /**
  * The schema of `workers_api-response-null-result` in responses.
  */
-export const workers_api_response_null_result_output: JsonSchema = {
+export const workers_api$$response$$null$$result: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/workers_api-response-common"
@@ -10261,7 +10261,7 @@ export const workers_api_response_null_result_output: JsonSchema = {
 /**
  * The schema of `workers_binding_item` in responses.
  */
-export const workers_binding_item_output: JsonSchema = {
+export const workers_binding_item: JsonSchema = {
   "oneOf": [
     {
       "$ref": "#/$defs/workers_binding_kind_ai"
@@ -10383,7 +10383,7 @@ export const workers_binding_item_output: JsonSchema = {
 /**
  * The schema of `workers_binding_kind_ai` in responses.
  */
-export const workers_binding_kind_ai_output: JsonSchema = {
+export const workers_binding_kind_ai: JsonSchema = {
   "properties": {
     "name": {
       "$ref": "#/$defs/workers_binding_name"
@@ -10405,7 +10405,7 @@ export const workers_binding_kind_ai_output: JsonSchema = {
 /**
  * The schema of `workers_binding_kind_ai_search` in responses.
  */
-export const workers_binding_kind_ai_search_output: JsonSchema = {
+export const workers_binding_kind_ai_search: JsonSchema = {
   "properties": {
     "instance_name": {
       "type": "string"
@@ -10434,7 +10434,7 @@ export const workers_binding_kind_ai_search_output: JsonSchema = {
 /**
  * The schema of `workers_binding_kind_ai_search_namespace` in responses.
  */
-export const workers_binding_kind_ai_search_namespace_output: JsonSchema = {
+export const workers_binding_kind_ai_search_namespace: JsonSchema = {
   "properties": {
     "name": {
       "$ref": "#/$defs/workers_binding_name"
@@ -10460,7 +10460,7 @@ export const workers_binding_kind_ai_search_namespace_output: JsonSchema = {
 /**
  * The schema of `workers_binding_kind_analytics_engine` in responses.
  */
-export const workers_binding_kind_analytics_engine_output: JsonSchema = {
+export const workers_binding_kind_analytics_engine: JsonSchema = {
   "properties": {
     "dataset": {
       "type": "string"
@@ -10486,7 +10486,7 @@ export const workers_binding_kind_analytics_engine_output: JsonSchema = {
 /**
  * The schema of `workers_binding_kind_artifacts` in responses.
  */
-export const workers_binding_kind_artifacts_output: JsonSchema = {
+export const workers_binding_kind_artifacts: JsonSchema = {
   "properties": {
     "name": {
       "$ref": "#/$defs/workers_binding_name"
@@ -10512,7 +10512,7 @@ export const workers_binding_kind_artifacts_output: JsonSchema = {
 /**
  * The schema of `workers_binding_kind_assets` in responses.
  */
-export const workers_binding_kind_assets_output: JsonSchema = {
+export const workers_binding_kind_assets: JsonSchema = {
   "properties": {
     "name": {
       "$ref": "#/$defs/workers_binding_name"
@@ -10534,7 +10534,7 @@ export const workers_binding_kind_assets_output: JsonSchema = {
 /**
  * The schema of `workers_binding_kind_browser` in responses.
  */
-export const workers_binding_kind_browser_output: JsonSchema = {
+export const workers_binding_kind_browser: JsonSchema = {
   "properties": {
     "name": {
       "$ref": "#/$defs/workers_binding_name"
@@ -10556,7 +10556,7 @@ export const workers_binding_kind_browser_output: JsonSchema = {
 /**
  * The schema of `workers_binding_kind_d1` in responses.
  */
-export const workers_binding_kind_d1_output: JsonSchema = {
+export const workers_binding_kind_d1: JsonSchema = {
   "properties": {
     "database_id": {
       "type": "string"
@@ -10585,7 +10585,7 @@ export const workers_binding_kind_d1_output: JsonSchema = {
 /**
  * The schema of `workers_binding_kind_data_blob` in responses.
  */
-export const workers_binding_kind_data_blob_output: JsonSchema = {
+export const workers_binding_kind_data_blob: JsonSchema = {
   "properties": {
     "name": {
       "$ref": "#/$defs/workers_binding_name"
@@ -10611,7 +10611,7 @@ export const workers_binding_kind_data_blob_output: JsonSchema = {
 /**
  * The schema of `workers_binding_kind_dispatch_namespace` in responses.
  */
-export const workers_binding_kind_dispatch_namespace_output: JsonSchema = {
+export const workers_binding_kind_dispatch_namespace: JsonSchema = {
   "properties": {
     "name": {
       "$ref": "#/$defs/workers_binding_name"
@@ -10670,7 +10670,7 @@ export const workers_binding_kind_dispatch_namespace_output: JsonSchema = {
 /**
  * The schema of `workers_binding_kind_durable_object_namespace` in responses.
  */
-export const workers_binding_kind_durable_object_namespace_output: JsonSchema = {
+export const workers_binding_kind_durable_object_namespace: JsonSchema = {
   "properties": {
     "class_name": {
       "type": "string"
@@ -10714,7 +10714,7 @@ export const workers_binding_kind_durable_object_namespace_output: JsonSchema = 
 /**
  * The schema of `workers_binding_kind_flagship` in responses.
  */
-export const workers_binding_kind_flagship_output: JsonSchema = {
+export const workers_binding_kind_flagship: JsonSchema = {
   "properties": {
     "app_id": {
       "type": "string"
@@ -10740,7 +10740,7 @@ export const workers_binding_kind_flagship_output: JsonSchema = {
 /**
  * The schema of `workers_binding_kind_hyperdrive` in responses.
  */
-export const workers_binding_kind_hyperdrive_output: JsonSchema = {
+export const workers_binding_kind_hyperdrive: JsonSchema = {
   "properties": {
     "id": {
       "type": "string"
@@ -10766,7 +10766,7 @@ export const workers_binding_kind_hyperdrive_output: JsonSchema = {
 /**
  * The schema of `workers_binding_kind_images` in responses.
  */
-export const workers_binding_kind_images_output: JsonSchema = {
+export const workers_binding_kind_images: JsonSchema = {
   "properties": {
     "name": {
       "$ref": "#/$defs/workers_binding_name"
@@ -10788,7 +10788,7 @@ export const workers_binding_kind_images_output: JsonSchema = {
 /**
  * The schema of `workers_binding_kind_inherit` in responses.
  */
-export const workers_binding_kind_inherit_output: JsonSchema = {
+export const workers_binding_kind_inherit: JsonSchema = {
   "properties": {
     "name": {
       "type": "string"
@@ -10816,7 +10816,7 @@ export const workers_binding_kind_inherit_output: JsonSchema = {
 /**
  * The schema of `workers_binding_kind_json` in responses.
  */
-export const workers_binding_kind_json_output: JsonSchema = {
+export const workers_binding_kind_json: JsonSchema = {
   "properties": {
     "json": {
       "type": "object"
@@ -10842,7 +10842,7 @@ export const workers_binding_kind_json_output: JsonSchema = {
 /**
  * The schema of `workers_binding_kind_k2` in responses.
  */
-export const workers_binding_kind_k2_output: JsonSchema = {
+export const workers_binding_kind_k2: JsonSchema = {
   "properties": {
     "name": {
       "$ref": "#/$defs/workers_binding_name"
@@ -10868,7 +10868,7 @@ export const workers_binding_kind_k2_output: JsonSchema = {
 /**
  * The schema of `workers_binding_kind_kv_namespace` in responses.
  */
-export const workers_binding_kind_kv_namespace_output: JsonSchema = {
+export const workers_binding_kind_kv_namespace: JsonSchema = {
   "properties": {
     "name": {
       "$ref": "#/$defs/workers_binding_name"
@@ -10894,7 +10894,7 @@ export const workers_binding_kind_kv_namespace_output: JsonSchema = {
 /**
  * The schema of `workers_binding_kind_media` in responses.
  */
-export const workers_binding_kind_media_output: JsonSchema = {
+export const workers_binding_kind_media: JsonSchema = {
   "properties": {
     "name": {
       "$ref": "#/$defs/workers_binding_name"
@@ -10916,7 +10916,7 @@ export const workers_binding_kind_media_output: JsonSchema = {
 /**
  * The schema of `workers_binding_kind_messaging` in responses.
  */
-export const workers_binding_kind_messaging_output: JsonSchema = {
+export const workers_binding_kind_messaging: JsonSchema = {
   "properties": {
     "name": {
       "$ref": "#/$defs/workers_binding_name"
@@ -10942,7 +10942,7 @@ export const workers_binding_kind_messaging_output: JsonSchema = {
 /**
  * The schema of `workers_binding_kind_mtls_certificate` in responses.
  */
-export const workers_binding_kind_mtls_certificate_output: JsonSchema = {
+export const workers_binding_kind_mtls_certificate: JsonSchema = {
   "properties": {
     "certificate_id": {
       "type": "string"
@@ -10968,7 +10968,7 @@ export const workers_binding_kind_mtls_certificate_output: JsonSchema = {
 /**
  * The schema of `workers_binding_kind_pipelines` in responses.
  */
-export const workers_binding_kind_pipelines_output: JsonSchema = {
+export const workers_binding_kind_pipelines: JsonSchema = {
   "properties": {
     "name": {
       "$ref": "#/$defs/workers_binding_name"
@@ -10994,7 +10994,7 @@ export const workers_binding_kind_pipelines_output: JsonSchema = {
 /**
  * The schema of `workers_binding_kind_plain_text` in responses.
  */
-export const workers_binding_kind_plain_text_output: JsonSchema = {
+export const workers_binding_kind_plain_text: JsonSchema = {
   "properties": {
     "name": {
       "$ref": "#/$defs/workers_binding_name"
@@ -11020,7 +11020,7 @@ export const workers_binding_kind_plain_text_output: JsonSchema = {
 /**
  * The schema of `workers_binding_kind_queue` in responses.
  */
-export const workers_binding_kind_queue_output: JsonSchema = {
+export const workers_binding_kind_queue: JsonSchema = {
   "properties": {
     "name": {
       "$ref": "#/$defs/workers_binding_name"
@@ -11046,7 +11046,7 @@ export const workers_binding_kind_queue_output: JsonSchema = {
 /**
  * The schema of `workers_binding_kind_r2_bucket` in responses.
  */
-export const workers_binding_kind_r2_bucket_output: JsonSchema = {
+export const workers_binding_kind_r2_bucket: JsonSchema = {
   "properties": {
     "bucket_name": {
       "type": "string"
@@ -11081,7 +11081,7 @@ export const workers_binding_kind_r2_bucket_output: JsonSchema = {
 /**
  * The schema of `workers_binding_kind_ratelimit` in responses.
  */
-export const workers_binding_kind_ratelimit_output: JsonSchema = {
+export const workers_binding_kind_ratelimit: JsonSchema = {
   "properties": {
     "name": {
       "$ref": "#/$defs/workers_binding_name"
@@ -11126,7 +11126,7 @@ export const workers_binding_kind_ratelimit_output: JsonSchema = {
 /**
  * The schema of `workers_binding_kind_secret_key` in responses.
  */
-export const workers_binding_kind_secret_key_output: JsonSchema = {
+export const workers_binding_kind_secret_key: JsonSchema = {
   "properties": {
     "algorithm": {
       "type": "object"
@@ -11185,7 +11185,7 @@ export const workers_binding_kind_secret_key_output: JsonSchema = {
 /**
  * The schema of `workers_binding_kind_secret_text` in responses.
  */
-export const workers_binding_kind_secret_text_output: JsonSchema = {
+export const workers_binding_kind_secret_text: JsonSchema = {
   "properties": {
     "name": {
       "$ref": "#/$defs/workers_binding_name"
@@ -11211,7 +11211,7 @@ export const workers_binding_kind_secret_text_output: JsonSchema = {
 /**
  * The schema of `workers_binding_kind_secrets_store_secret` in responses.
  */
-export const workers_binding_kind_secrets_store_secret_output: JsonSchema = {
+export const workers_binding_kind_secrets_store_secret: JsonSchema = {
   "properties": {
     "name": {
       "$ref": "#/$defs/workers_binding_name"
@@ -11241,7 +11241,7 @@ export const workers_binding_kind_secrets_store_secret_output: JsonSchema = {
 /**
  * The schema of `workers_binding_kind_send_email` in responses.
  */
-export const workers_binding_kind_send_email_output: JsonSchema = {
+export const workers_binding_kind_send_email: JsonSchema = {
   "properties": {
     "allowed_destination_addresses": {
       "items": {
@@ -11278,7 +11278,7 @@ export const workers_binding_kind_send_email_output: JsonSchema = {
 /**
  * The schema of `workers_binding_kind_service` in responses.
  */
-export const workers_binding_kind_service_output: JsonSchema = {
+export const workers_binding_kind_service: JsonSchema = {
   "properties": {
     "entrypoint": {
       "type": "string"
@@ -11310,7 +11310,7 @@ export const workers_binding_kind_service_output: JsonSchema = {
 /**
  * The schema of `workers_binding_kind_text_blob` in responses.
  */
-export const workers_binding_kind_text_blob_output: JsonSchema = {
+export const workers_binding_kind_text_blob: JsonSchema = {
   "properties": {
     "name": {
       "$ref": "#/$defs/workers_binding_name"
@@ -11336,7 +11336,7 @@ export const workers_binding_kind_text_blob_output: JsonSchema = {
 /**
  * The schema of `workers_binding_kind_vectorize` in responses.
  */
-export const workers_binding_kind_vectorize_output: JsonSchema = {
+export const workers_binding_kind_vectorize: JsonSchema = {
   "properties": {
     "index_name": {
       "type": "string"
@@ -11362,7 +11362,7 @@ export const workers_binding_kind_vectorize_output: JsonSchema = {
 /**
  * The schema of `workers_binding_kind_version_metadata` in responses.
  */
-export const workers_binding_kind_version_metadata_output: JsonSchema = {
+export const workers_binding_kind_version_metadata: JsonSchema = {
   "properties": {
     "name": {
       "$ref": "#/$defs/workers_binding_name"
@@ -11384,7 +11384,7 @@ export const workers_binding_kind_version_metadata_output: JsonSchema = {
 /**
  * The schema of `workers_binding_kind_vpc_network` in responses.
  */
-export const workers_binding_kind_vpc_network_output: JsonSchema = {
+export const workers_binding_kind_vpc_network: JsonSchema = {
   "properties": {
     "identity": {
       "enum": [
@@ -11418,7 +11418,7 @@ export const workers_binding_kind_vpc_network_output: JsonSchema = {
 /**
  * The schema of `workers_binding_kind_vpc_service` in responses.
  */
-export const workers_binding_kind_vpc_service_output: JsonSchema = {
+export const workers_binding_kind_vpc_service: JsonSchema = {
   "properties": {
     "name": {
       "$ref": "#/$defs/workers_binding_name"
@@ -11444,7 +11444,7 @@ export const workers_binding_kind_vpc_service_output: JsonSchema = {
 /**
  * The schema of `workers_binding_kind_wasm_module` in responses.
  */
-export const workers_binding_kind_wasm_module_output: JsonSchema = {
+export const workers_binding_kind_wasm_module: JsonSchema = {
   "properties": {
     "name": {
       "$ref": "#/$defs/workers_binding_name"
@@ -11470,7 +11470,7 @@ export const workers_binding_kind_wasm_module_output: JsonSchema = {
 /**
  * The schema of `workers_binding_kind_workflow` in responses.
  */
-export const workers_binding_kind_workflow_output: JsonSchema = {
+export const workers_binding_kind_workflow: JsonSchema = {
   "properties": {
     "class_name": {
       "type": "string"
@@ -11502,14 +11502,14 @@ export const workers_binding_kind_workflow_output: JsonSchema = {
 /**
  * The schema of `workers_binding_name` in responses.
  */
-export const workers_binding_name_output: JsonSchema = {
+export const workers_binding_name: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `workers_bindings` in responses.
  */
-export const workers_bindings_output: JsonSchema = {
+export const workers_bindings: JsonSchema = {
   "items": {
     "$ref": "#/$defs/workers_binding_item"
   },
@@ -11519,7 +11519,7 @@ export const workers_bindings_output: JsonSchema = {
 /**
  * The schema of `workers_cache_options` in responses.
  */
-export const workers_cache_options_output: JsonSchema = {
+export const workers_cache_options: JsonSchema = {
   "properties": {
     "cross_version_cache": {
       "type": "boolean"
@@ -11537,7 +11537,7 @@ export const workers_cache_options_output: JsonSchema = {
 /**
  * The schema of `workers_code_update_strategy` in responses.
  */
-export const workers_code_update_strategy_output: JsonSchema = {
+export const workers_code_update_strategy: JsonSchema = {
   "oneOf": [
     {
       "properties": {
@@ -11583,21 +11583,21 @@ export const workers_code_update_strategy_output: JsonSchema = {
 /**
  * The schema of `workers_compatibility_date` in responses.
  */
-export const workers_compatibility_date_output: JsonSchema = {
+export const workers_compatibility_date: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `workers_compatibility_flag` in responses.
  */
-export const workers_compatibility_flag_output: JsonSchema = {
+export const workers_compatibility_flag: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `workers_compatibility_flags` in responses.
  */
-export const workers_compatibility_flags_output: JsonSchema = {
+export const workers_compatibility_flags: JsonSchema = {
   "items": {
     "$ref": "#/$defs/workers_compatibility_flag"
   },
@@ -11607,7 +11607,7 @@ export const workers_compatibility_flags_output: JsonSchema = {
 /**
  * The schema of `workers_create-assets-upload-session-response` in responses.
  */
-export const workers_create_assets_upload_session_response_output: JsonSchema = {
+export const workers_create$$assets$$upload$$session$$response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/workers_api-response-common"
@@ -11640,7 +11640,7 @@ export const workers_create_assets_upload_session_response_output: JsonSchema = 
 /**
  * The schema of `workers_created_on` in responses.
  */
-export const workers_created_on_output: JsonSchema = {
+export const workers_created_on: JsonSchema = {
   "format": "date-time",
   "type": "string"
 };
@@ -11648,7 +11648,7 @@ export const workers_created_on_output: JsonSchema = {
 /**
  * The schema of `workers_durable_object_deleted_export` in responses.
  */
-export const workers_durable_object_deleted_export_output: JsonSchema = {
+export const workers_durable_object_deleted_export: JsonSchema = {
   "properties": {
     "state": {
       "enum": [
@@ -11674,7 +11674,7 @@ export const workers_durable_object_deleted_export_output: JsonSchema = {
  * The schema of `workers_durable_object_expecting_transfer_export` in
  * responses.
  */
-export const workers_durable_object_expecting_transfer_export_output: JsonSchema = {
+export const workers_durable_object_expecting_transfer_export: JsonSchema = {
   "properties": {
     "container": {
       "type": "string"
@@ -11710,7 +11710,7 @@ export const workers_durable_object_expecting_transfer_export_output: JsonSchema
 /**
  * The schema of `workers_durable_object_export` in responses.
  */
-export const workers_durable_object_export_output: JsonSchema = {
+export const workers_durable_object_export: JsonSchema = {
   "properties": {
     "container": {
       "type": "string"
@@ -11741,7 +11741,7 @@ export const workers_durable_object_export_output: JsonSchema = {
 /**
  * The schema of `workers_durable_object_export_variants` in responses.
  */
-export const workers_durable_object_export_variants_output: JsonSchema = {
+export const workers_durable_object_export_variants: JsonSchema = {
   "oneOf": [
     {
       "$ref": "#/$defs/workers_durable_object_export"
@@ -11764,7 +11764,7 @@ export const workers_durable_object_export_variants_output: JsonSchema = {
 /**
  * The schema of `workers_durable_object_renamed_export` in responses.
  */
-export const workers_durable_object_renamed_export_output: JsonSchema = {
+export const workers_durable_object_renamed_export: JsonSchema = {
   "properties": {
     "renamed_to": {
       "type": "string"
@@ -11793,7 +11793,7 @@ export const workers_durable_object_renamed_export_output: JsonSchema = {
 /**
  * The schema of `workers_durable_object_transferred_export` in responses.
  */
-export const workers_durable_object_transferred_export_output: JsonSchema = {
+export const workers_durable_object_transferred_export: JsonSchema = {
   "properties": {
     "state": {
       "enum": [
@@ -11822,7 +11822,7 @@ export const workers_durable_object_transferred_export_output: JsonSchema = {
 /**
  * The schema of `workers_entrypoint_cache_options` in responses.
  */
-export const workers_entrypoint_cache_options_output: JsonSchema = {
+export const workers_entrypoint_cache_options: JsonSchema = {
   "properties": {
     "enabled": {
       "type": "boolean"
@@ -11837,14 +11837,14 @@ export const workers_entrypoint_cache_options_output: JsonSchema = {
 /**
  * The schema of `workers_etag` in responses.
  */
-export const workers_etag_output: JsonSchema = {
+export const workers_etag: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `workers_export_config` in responses.
  */
-export const workers_export_config_output: JsonSchema = {
+export const workers_export_config: JsonSchema = {
   "oneOf": [
     {
       "$ref": "#/$defs/workers_worker_export"
@@ -11858,7 +11858,7 @@ export const workers_export_config_output: JsonSchema = {
 /**
  * The schema of `workers_export_storage` in responses.
  */
-export const workers_export_storage_output: JsonSchema = {
+export const workers_export_storage: JsonSchema = {
   "enum": [
     "sqlite",
     "legacy-kv"
@@ -11869,7 +11869,7 @@ export const workers_export_storage_output: JsonSchema = {
 /**
  * The schema of `workers_exports_config_map` in responses.
  */
-export const workers_exports_config_map_output: JsonSchema = {
+export const workers_exports_config_map: JsonSchema = {
   "additionalProperties": {
     "$ref": "#/$defs/workers_export_config"
   },
@@ -11879,7 +11879,7 @@ export const workers_exports_config_map_output: JsonSchema = {
 /**
  * The schema of `workers_exports_reconciliation_error` in responses.
  */
-export const workers_exports_reconciliation_error_output: JsonSchema = {
+export const workers_exports_reconciliation_error: JsonSchema = {
   "properties": {
     "class": {
       "type": "string"
@@ -11915,7 +11915,7 @@ export const workers_exports_reconciliation_error_output: JsonSchema = {
 /**
  * The schema of `workers_exports_reconciliation_error_response` in responses.
  */
-export const workers_exports_reconciliation_error_response_output: JsonSchema = {
+export const workers_exports_reconciliation_error_response: JsonSchema = {
   "properties": {
     "errors": {
       "items": {
@@ -11978,7 +11978,7 @@ export const workers_exports_reconciliation_error_response_output: JsonSchema = 
 /**
  * The schema of `workers_exports_reconciliation_info` in responses.
  */
-export const workers_exports_reconciliation_info_output: JsonSchema = {
+export const workers_exports_reconciliation_info: JsonSchema = {
   "properties": {
     "class": {
       "type": "string"
@@ -12011,7 +12011,7 @@ export const workers_exports_reconciliation_info_output: JsonSchema = {
 /**
  * The schema of `workers_exports_reconciliation_rename` in responses.
  */
-export const workers_exports_reconciliation_rename_output: JsonSchema = {
+export const workers_exports_reconciliation_rename: JsonSchema = {
   "properties": {
     "from": {
       "type": "string"
@@ -12030,7 +12030,7 @@ export const workers_exports_reconciliation_rename_output: JsonSchema = {
 /**
  * The schema of `workers_exports_reconciliation_result` in responses.
  */
-export const workers_exports_reconciliation_result_output: JsonSchema = {
+export const workers_exports_reconciliation_result: JsonSchema = {
   "properties": {
     "created": {
       "items": {
@@ -12104,7 +12104,7 @@ export const workers_exports_reconciliation_result_output: JsonSchema = {
 /**
  * The schema of `workers_exports_reconciliation_scenario` in responses.
  */
-export const workers_exports_reconciliation_scenario_output: JsonSchema = {
+export const workers_exports_reconciliation_scenario: JsonSchema = {
   "enum": [
     "code_class_not_in_exports",
     "provisioned_class_missing_from_config",
@@ -12146,7 +12146,7 @@ export const workers_exports_reconciliation_scenario_output: JsonSchema = {
 /**
  * The schema of `workers_exports_reconciliation_transfer` in responses.
  */
-export const workers_exports_reconciliation_transfer_output: JsonSchema = {
+export const workers_exports_reconciliation_transfer: JsonSchema = {
   "properties": {
     "class": {
       "type": "string"
@@ -12172,7 +12172,7 @@ export const workers_exports_reconciliation_transfer_output: JsonSchema = {
 /**
  * The schema of `workers_exports_reconciliation_transfer_pending` in responses.
  */
-export const workers_exports_reconciliation_transfer_pending_output: JsonSchema = {
+export const workers_exports_reconciliation_transfer_pending: JsonSchema = {
   "properties": {
     "class": {
       "type": "string"
@@ -12191,7 +12191,7 @@ export const workers_exports_reconciliation_transfer_pending_output: JsonSchema 
 /**
  * The schema of `workers_exports_reconciliation_warning` in responses.
  */
-export const workers_exports_reconciliation_warning_output: JsonSchema = {
+export const workers_exports_reconciliation_warning: JsonSchema = {
   "properties": {
     "class": {
       "type": "string"
@@ -12218,28 +12218,28 @@ export const workers_exports_reconciliation_warning_output: JsonSchema = {
 /**
  * The schema of `workers_has_assets` in responses.
  */
-export const workers_has_assets_output: JsonSchema = {
+export const workers_has_assets: JsonSchema = {
   "type": "boolean"
 };
 
 /**
  * The schema of `workers_has_modules` in responses.
  */
-export const workers_has_modules_output: JsonSchema = {
+export const workers_has_modules: JsonSchema = {
   "type": "boolean"
 };
 
 /**
  * The schema of `workers_identifier` in responses.
  */
-export const workers_identifier_output: JsonSchema = {
+export const workers_identifier: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `workers_limits` in responses.
  */
-export const workers_limits_output: JsonSchema = {
+export const workers_limits: JsonSchema = {
   "properties": {
     "cpu_ms": {
       "type": "integer"
@@ -12254,14 +12254,14 @@ export const workers_limits_output: JsonSchema = {
 /**
  * The schema of `workers_logpush` in responses.
  */
-export const workers_logpush_output: JsonSchema = {
+export const workers_logpush: JsonSchema = {
   "type": "boolean"
 };
 
 /**
  * The schema of `workers_messages` in responses.
  */
-export const workers_messages_output: JsonSchema = {
+export const workers_messages: JsonSchema = {
   "items": {
     "properties": {
       "code": {
@@ -12294,7 +12294,7 @@ export const workers_messages_output: JsonSchema = {
 /**
  * The schema of `workers_migration_step` in responses.
  */
-export const workers_migration_step_output: JsonSchema = {
+export const workers_migration_step: JsonSchema = {
   "properties": {
     "deleted_classes": {
       "items": {
@@ -12352,7 +12352,7 @@ export const workers_migration_step_output: JsonSchema = {
 /**
  * The schema of `workers_migration_tag_conditions` in responses.
  */
-export const workers_migration_tag_conditions_output: JsonSchema = {
+export const workers_migration_tag_conditions: JsonSchema = {
   "properties": {
     "new_tag": {
       "type": "string"
@@ -12367,7 +12367,7 @@ export const workers_migration_tag_conditions_output: JsonSchema = {
 /**
  * The schema of `workers_modified_on` in responses.
  */
-export const workers_modified_on_output: JsonSchema = {
+export const workers_modified_on: JsonSchema = {
   "format": "date-time",
   "type": "string"
 };
@@ -12375,7 +12375,7 @@ export const workers_modified_on_output: JsonSchema = {
 /**
  * The schema of `workers_multiple_step_migrations` in responses.
  */
-export const workers_multiple_step_migrations_output: JsonSchema = {
+export const workers_multiple_step_migrations: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/workers_migration_tag_conditions"
@@ -12397,14 +12397,14 @@ export const workers_multiple_step_migrations_output: JsonSchema = {
 /**
  * The schema of `workers_namespace_identifier` in responses.
  */
-export const workers_namespace_identifier_output: JsonSchema = {
+export const workers_namespace_identifier: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `workers_observability-2` in responses.
  */
-export const workers_observability_2_output: JsonSchema = {
+export const workers_observability$$2: JsonSchema = {
   "properties": {
     "enabled": {
       "type": "boolean"
@@ -12536,7 +12536,7 @@ export const workers_observability_2_output: JsonSchema = {
 /**
  * The schema of `workers_placement_info` in responses.
  */
-export const workers_placement_info_output: JsonSchema = {
+export const workers_placement_info: JsonSchema = {
   "allOf": [
     {
       "oneOf": [
@@ -12684,7 +12684,7 @@ export const workers_placement_info_output: JsonSchema = {
 /**
  * The schema of `workers_placement_info_no_status` in responses.
  */
-export const workers_placement_info_no_status_output: JsonSchema = {
+export const workers_placement_info_no_status: JsonSchema = {
   "oneOf": [
     {
       "properties": {
@@ -12816,7 +12816,7 @@ export const workers_placement_info_no_status_output: JsonSchema = {
 /**
  * The schema of `workers_placement_mode` in responses.
  */
-export const workers_placement_mode_output: JsonSchema = {
+export const workers_placement_mode: JsonSchema = {
   "enum": [
     "smart",
     "targeted"
@@ -12827,7 +12827,7 @@ export const workers_placement_mode_output: JsonSchema = {
 /**
  * The schema of `workers_placement_status` in responses.
  */
-export const workers_placement_status_output: JsonSchema = {
+export const workers_placement_status: JsonSchema = {
   "enum": [
     "SUCCESS",
     "UNSUPPORTED_APPLICATION",
@@ -12839,7 +12839,7 @@ export const workers_placement_status_output: JsonSchema = {
 /**
  * The schema of `workers_placement_target` in responses.
  */
-export const workers_placement_target_output: JsonSchema = {
+export const workers_placement_target: JsonSchema = {
   "oneOf": [
     {
       "properties": {
@@ -12880,7 +12880,7 @@ export const workers_placement_target_output: JsonSchema = {
 /**
  * The schema of `workers_script-response` in responses.
  */
-export const workers_script_response_output: JsonSchema = {
+export const workers_script$$response: JsonSchema = {
   "properties": {
     "cache_options": {
       "$ref": "#/$defs/workers_cache_options"
@@ -12989,14 +12989,14 @@ export const workers_script_response_output: JsonSchema = {
 /**
  * The schema of `workers_script_name` in responses.
  */
-export const workers_script_name_output: JsonSchema = {
+export const workers_script_name: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `workers_secret` in responses.
  */
-export const workers_secret_output: JsonSchema = {
+export const workers_secret: JsonSchema = {
   "oneOf": [
     {
       "$ref": "#/$defs/workers_binding_kind_secret_text"
@@ -13010,7 +13010,7 @@ export const workers_secret_output: JsonSchema = {
 /**
  * The schema of `workers_secret-patch-response` in responses.
  */
-export const workers_secret_patch_response_output: JsonSchema = {
+export const workers_secret$$patch$$response: JsonSchema = {
   "additionalProperties": {
     "$ref": "#/$defs/workers_secret"
   },
@@ -13020,7 +13020,7 @@ export const workers_secret_patch_response_output: JsonSchema = {
 /**
  * The schema of `workers_single_step_migrations` in responses.
  */
-export const workers_single_step_migrations_output: JsonSchema = {
+export const workers_single_step_migrations: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/workers_migration_tag_conditions"
@@ -13034,14 +13034,14 @@ export const workers_single_step_migrations_output: JsonSchema = {
 /**
  * The schema of `workers_tag` in responses.
  */
-export const workers_tag_output: JsonSchema = {
+export const workers_tag: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `workers_tags` in responses.
  */
-export const workers_tags_output: JsonSchema = {
+export const workers_tags: JsonSchema = {
   "oneOf": [
     {
       "items": {
@@ -13059,7 +13059,7 @@ export const workers_tags_output: JsonSchema = {
 /**
  * The schema of `workers_tail_consumers` in responses.
  */
-export const workers_tail_consumers_output: JsonSchema = {
+export const workers_tail_consumers: JsonSchema = {
   "oneOf": [
     {
       "items": {
@@ -13076,7 +13076,7 @@ export const workers_tail_consumers_output: JsonSchema = {
 /**
  * The schema of `workers_tail_consumers_script` in responses.
  */
-export const workers_tail_consumers_script_output: JsonSchema = {
+export const workers_tail_consumers_script: JsonSchema = {
   "properties": {
     "environment": {
       "type": "string"
@@ -13097,7 +13097,7 @@ export const workers_tail_consumers_script_output: JsonSchema = {
 /**
  * The schema of `workers_usage_model` in responses.
  */
-export const workers_usage_model_output: JsonSchema = {
+export const workers_usage_model: JsonSchema = {
   "enum": [
     "standard",
     "bundled",
@@ -13109,7 +13109,7 @@ export const workers_usage_model_output: JsonSchema = {
 /**
  * The schema of `workers_worker_export` in responses.
  */
-export const workers_worker_export_output: JsonSchema = {
+export const workers_worker_export: JsonSchema = {
   "properties": {
     "cache": {
       "$ref": "#/$defs/workers_entrypoint_cache_options"
@@ -13136,7 +13136,7 @@ export const workers_worker_export_output: JsonSchema = {
 /**
  * The schema of `zones_api-response-common-failure-2` in responses.
  */
-export const zones_api_response_common_failure_2_output: JsonSchema = {
+export const zones_api$$response$$common$$failure$$2: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/zones_messages-2"
@@ -13166,14 +13166,14 @@ export const zones_api_response_common_failure_2_output: JsonSchema = {
 /**
  * The schema of `zones_identifier-2` in responses.
  */
-export const zones_identifier_2_output: JsonSchema = {
+export const zones_identifier$$2: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `zones_messages-2` in responses.
  */
-export const zones_messages_2_output: JsonSchema = {
+export const zones_messages$$2: JsonSchema = {
   "items": {
     "properties": {
       "code": {

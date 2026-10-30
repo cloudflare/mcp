@@ -3,26 +3,26 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
-  cache_settings_api_response_common_failure_output,
-  cache_settings_api_response_common_output,
-  cache_settings_base_output,
-  cache_settings_editable_output,
-  cache_settings_messages_output,
-  cache_settings_modified_on_output,
-  cache_settings_result_object_delete_output,
-  cache_settings_result_object_output,
-  cache_settings_setting_id_output,
-  cache_settings_setting_value_output,
-  cache_settings_zone_cache_settings_delete_response_single_output,
-  cache_settings_zone_cache_settings_response_single_output,
+  cache$$settings_api$$response$$common,
+  cache$$settings_api$$response$$common$$failure,
+  cache$$settings_base,
+  cache$$settings_editable,
+  cache$$settings_messages,
+  cache$$settings_modified_on,
+  cache$$settings_result$$object,
+  cache$$settings_result$$object$$delete,
+  cache$$settings_setting_id,
+  cache$$settings_setting_value,
+  cache$$settings_zone_cache_settings_delete_response_single,
+  cache$$settings_zone_cache_settings_response_single,
 } from "../../../outputs.js";
-import { cache_settings_identifier } from "../../../schemas.js";
+import { cache$$settings_identifier } from "../../../schemas.js";
 import {
-  cache_settings_variants_output,
-  cache_settings_variants_response_value_output,
-  cache_settings_variants_value_output,
+  cache$$settings_variants,
+  cache$$settings_variants_response_value,
+  cache$$settings_variants_value,
 } from "./outputs.js";
-import { cache_settings_variants_value } from "./schemas.js";
+import { cache$$settings_variants_value as cache$$settings_variants_value$ } from "./schemas.js";
 
 /**
  * The tools of `cache.settings.variants`.
@@ -35,16 +35,24 @@ export const tools: readonly Tool[] = [
     inputSchema: {
       type: "object",
       properties: {
-        "zone_id": {
-          "$ref": "#/$defs/cache-settings_identifier",
-          "description": "Identifier."
+        "path": {
+          "properties": {
+            "zone_id": {
+              "$ref": "#/$defs/cache-settings_identifier",
+              "description": "Identifier."
+            }
+          },
+          "required": [
+            "zone_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "zone_id"
+        "path"
       ],
       $defs: {
-        "cache-settings_identifier": cache_settings_identifier,
+        "cache-settings_identifier": cache$$settings_identifier,
       },
     },
     outputSchema: {
@@ -62,15 +70,15 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "cache-settings_api-response-common": cache_settings_api_response_common_output,
-        "cache-settings_base": cache_settings_base_output,
-        "cache-settings_editable": cache_settings_editable_output,
-        "cache-settings_messages": cache_settings_messages_output,
-        "cache-settings_modified_on": cache_settings_modified_on_output,
-        "cache-settings_result-object-delete": cache_settings_result_object_delete_output,
-        "cache-settings_setting_id": cache_settings_setting_id_output,
-        "cache-settings_variants": cache_settings_variants_output,
-        "cache-settings_zone_cache_settings_delete_response_single": cache_settings_zone_cache_settings_delete_response_single_output,
+        "cache-settings_api-response-common": cache$$settings_api$$response$$common,
+        "cache-settings_base": cache$$settings_base,
+        "cache-settings_editable": cache$$settings_editable,
+        "cache-settings_messages": cache$$settings_messages,
+        "cache-settings_modified_on": cache$$settings_modified_on,
+        "cache-settings_result-object-delete": cache$$settings_result$$object$$delete,
+        "cache-settings_setting_id": cache$$settings_setting_id,
+        "cache-settings_variants": cache$$settings_variants,
+        "cache-settings_zone_cache_settings_delete_response_single": cache$$settings_zone_cache_settings_delete_response_single,
       },
     },
     annotations: {
@@ -121,16 +129,16 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "cache-settings_api-response-common": cache_settings_api_response_common_output,
-        "cache-settings_api-response-common-failure": cache_settings_api_response_common_failure_output,
-        "cache-settings_base": cache_settings_base_output,
-        "cache-settings_editable": cache_settings_editable_output,
-        "cache-settings_messages": cache_settings_messages_output,
-        "cache-settings_modified_on": cache_settings_modified_on_output,
-        "cache-settings_result-object-delete": cache_settings_result_object_delete_output,
-        "cache-settings_setting_id": cache_settings_setting_id_output,
-        "cache-settings_variants": cache_settings_variants_output,
-        "cache-settings_zone_cache_settings_delete_response_single": cache_settings_zone_cache_settings_delete_response_single_output,
+        "cache-settings_api-response-common": cache$$settings_api$$response$$common,
+        "cache-settings_api-response-common-failure": cache$$settings_api$$response$$common$$failure,
+        "cache-settings_base": cache$$settings_base,
+        "cache-settings_editable": cache$$settings_editable,
+        "cache-settings_messages": cache$$settings_messages,
+        "cache-settings_modified_on": cache$$settings_modified_on,
+        "cache-settings_result-object-delete": cache$$settings_result$$object$$delete,
+        "cache-settings_setting_id": cache$$settings_setting_id,
+        "cache-settings_variants": cache$$settings_variants,
+        "cache-settings_zone_cache_settings_delete_response_single": cache$$settings_zone_cache_settings_delete_response_single,
       },
     },
     request: (args) => ({
@@ -156,18 +164,26 @@ export const tools: readonly Tool[] = [
           ],
           "type": "object"
         },
-        "zone_id": {
-          "$ref": "#/$defs/cache-settings_identifier",
-          "description": "Identifier."
+        "path": {
+          "properties": {
+            "zone_id": {
+              "$ref": "#/$defs/cache-settings_identifier",
+              "description": "Identifier."
+            }
+          },
+          "required": [
+            "zone_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "zone_id",
+        "path",
         "body"
       ],
       $defs: {
-        "cache-settings_identifier": cache_settings_identifier,
-        "cache-settings_variants_value": cache_settings_variants_value,
+        "cache-settings_identifier": cache$$settings_identifier,
+        "cache-settings_variants_value": cache$$settings_variants_value$,
       },
     },
     outputSchema: {
@@ -180,18 +196,18 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "cache-settings_api-response-common": cache_settings_api_response_common_output,
-        "cache-settings_base": cache_settings_base_output,
-        "cache-settings_editable": cache_settings_editable_output,
-        "cache-settings_messages": cache_settings_messages_output,
-        "cache-settings_modified_on": cache_settings_modified_on_output,
-        "cache-settings_result-object": cache_settings_result_object_output,
-        "cache-settings_setting_id": cache_settings_setting_id_output,
-        "cache-settings_setting_value": cache_settings_setting_value_output,
-        "cache-settings_variants": cache_settings_variants_output,
-        "cache-settings_variants_response_value": cache_settings_variants_response_value_output,
-        "cache-settings_variants_value": cache_settings_variants_value_output,
-        "cache-settings_zone_cache_settings_response_single": cache_settings_zone_cache_settings_response_single_output,
+        "cache-settings_api-response-common": cache$$settings_api$$response$$common,
+        "cache-settings_base": cache$$settings_base,
+        "cache-settings_editable": cache$$settings_editable,
+        "cache-settings_messages": cache$$settings_messages,
+        "cache-settings_modified_on": cache$$settings_modified_on,
+        "cache-settings_result-object": cache$$settings_result$$object,
+        "cache-settings_setting_id": cache$$settings_setting_id,
+        "cache-settings_setting_value": cache$$settings_setting_value,
+        "cache-settings_variants": cache$$settings_variants,
+        "cache-settings_variants_response_value": cache$$settings_variants_response_value,
+        "cache-settings_variants_value": cache$$settings_variants_value,
+        "cache-settings_zone_cache_settings_response_single": cache$$settings_zone_cache_settings_response_single,
       },
     },
     annotations: {
@@ -237,19 +253,19 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "cache-settings_api-response-common": cache_settings_api_response_common_output,
-        "cache-settings_api-response-common-failure": cache_settings_api_response_common_failure_output,
-        "cache-settings_base": cache_settings_base_output,
-        "cache-settings_editable": cache_settings_editable_output,
-        "cache-settings_messages": cache_settings_messages_output,
-        "cache-settings_modified_on": cache_settings_modified_on_output,
-        "cache-settings_result-object": cache_settings_result_object_output,
-        "cache-settings_setting_id": cache_settings_setting_id_output,
-        "cache-settings_setting_value": cache_settings_setting_value_output,
-        "cache-settings_variants": cache_settings_variants_output,
-        "cache-settings_variants_response_value": cache_settings_variants_response_value_output,
-        "cache-settings_variants_value": cache_settings_variants_value_output,
-        "cache-settings_zone_cache_settings_response_single": cache_settings_zone_cache_settings_response_single_output,
+        "cache-settings_api-response-common": cache$$settings_api$$response$$common,
+        "cache-settings_api-response-common-failure": cache$$settings_api$$response$$common$$failure,
+        "cache-settings_base": cache$$settings_base,
+        "cache-settings_editable": cache$$settings_editable,
+        "cache-settings_messages": cache$$settings_messages,
+        "cache-settings_modified_on": cache$$settings_modified_on,
+        "cache-settings_result-object": cache$$settings_result$$object,
+        "cache-settings_setting_id": cache$$settings_setting_id,
+        "cache-settings_setting_value": cache$$settings_setting_value,
+        "cache-settings_variants": cache$$settings_variants,
+        "cache-settings_variants_response_value": cache$$settings_variants_response_value,
+        "cache-settings_variants_value": cache$$settings_variants_value,
+        "cache-settings_zone_cache_settings_response_single": cache$$settings_zone_cache_settings_response_single,
       },
     },
     request: (args) => ({
@@ -264,16 +280,24 @@ export const tools: readonly Tool[] = [
     inputSchema: {
       type: "object",
       properties: {
-        "zone_id": {
-          "$ref": "#/$defs/cache-settings_identifier",
-          "description": "Identifier."
+        "path": {
+          "properties": {
+            "zone_id": {
+              "$ref": "#/$defs/cache-settings_identifier",
+              "description": "Identifier."
+            }
+          },
+          "required": [
+            "zone_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "zone_id"
+        "path"
       ],
       $defs: {
-        "cache-settings_identifier": cache_settings_identifier,
+        "cache-settings_identifier": cache$$settings_identifier,
       },
     },
     outputSchema: {
@@ -286,18 +310,18 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
-        "cache-settings_api-response-common": cache_settings_api_response_common_output,
-        "cache-settings_base": cache_settings_base_output,
-        "cache-settings_editable": cache_settings_editable_output,
-        "cache-settings_messages": cache_settings_messages_output,
-        "cache-settings_modified_on": cache_settings_modified_on_output,
-        "cache-settings_result-object": cache_settings_result_object_output,
-        "cache-settings_setting_id": cache_settings_setting_id_output,
-        "cache-settings_setting_value": cache_settings_setting_value_output,
-        "cache-settings_variants": cache_settings_variants_output,
-        "cache-settings_variants_response_value": cache_settings_variants_response_value_output,
-        "cache-settings_variants_value": cache_settings_variants_value_output,
-        "cache-settings_zone_cache_settings_response_single": cache_settings_zone_cache_settings_response_single_output,
+        "cache-settings_api-response-common": cache$$settings_api$$response$$common,
+        "cache-settings_base": cache$$settings_base,
+        "cache-settings_editable": cache$$settings_editable,
+        "cache-settings_messages": cache$$settings_messages,
+        "cache-settings_modified_on": cache$$settings_modified_on,
+        "cache-settings_result-object": cache$$settings_result$$object,
+        "cache-settings_setting_id": cache$$settings_setting_id,
+        "cache-settings_setting_value": cache$$settings_setting_value,
+        "cache-settings_variants": cache$$settings_variants,
+        "cache-settings_variants_response_value": cache$$settings_variants_response_value,
+        "cache-settings_variants_value": cache$$settings_variants_value,
+        "cache-settings_zone_cache_settings_response_single": cache$$settings_zone_cache_settings_response_single,
       },
     },
     annotations: {
@@ -345,19 +369,19 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "cache-settings_api-response-common": cache_settings_api_response_common_output,
-        "cache-settings_api-response-common-failure": cache_settings_api_response_common_failure_output,
-        "cache-settings_base": cache_settings_base_output,
-        "cache-settings_editable": cache_settings_editable_output,
-        "cache-settings_messages": cache_settings_messages_output,
-        "cache-settings_modified_on": cache_settings_modified_on_output,
-        "cache-settings_result-object": cache_settings_result_object_output,
-        "cache-settings_setting_id": cache_settings_setting_id_output,
-        "cache-settings_setting_value": cache_settings_setting_value_output,
-        "cache-settings_variants": cache_settings_variants_output,
-        "cache-settings_variants_response_value": cache_settings_variants_response_value_output,
-        "cache-settings_variants_value": cache_settings_variants_value_output,
-        "cache-settings_zone_cache_settings_response_single": cache_settings_zone_cache_settings_response_single_output,
+        "cache-settings_api-response-common": cache$$settings_api$$response$$common,
+        "cache-settings_api-response-common-failure": cache$$settings_api$$response$$common$$failure,
+        "cache-settings_base": cache$$settings_base,
+        "cache-settings_editable": cache$$settings_editable,
+        "cache-settings_messages": cache$$settings_messages,
+        "cache-settings_modified_on": cache$$settings_modified_on,
+        "cache-settings_result-object": cache$$settings_result$$object,
+        "cache-settings_setting_id": cache$$settings_setting_id,
+        "cache-settings_setting_value": cache$$settings_setting_value,
+        "cache-settings_variants": cache$$settings_variants,
+        "cache-settings_variants_response_value": cache$$settings_variants_response_value,
+        "cache-settings_variants_value": cache$$settings_variants_value,
+        "cache-settings_zone_cache_settings_response_single": cache$$settings_zone_cache_settings_response_single,
       },
     },
     request: (args) => ({

@@ -3,67 +3,75 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
-  magic_visibility_pcaps_api_response_collection_output,
-  magic_visibility_pcaps_api_response_common_failure_output,
-  magic_visibility_pcaps_api_response_common_output,
-  magic_visibility_pcaps_messages_output,
-  magic_visibility_pcaps_pcaps_destination_conf_output,
-  magic_visibility_pcaps_result_info_output,
+  magic$$visibility$$pcaps_api$$response$$collection,
+  magic$$visibility$$pcaps_api$$response$$common,
+  magic$$visibility$$pcaps_api$$response$$common$$failure,
+  magic$$visibility$$pcaps_messages,
+  magic$$visibility$$pcaps_pcaps_destination_conf,
+  magic$$visibility$$pcaps_result_info,
 } from "../outputs.js";
 import {
-  magic_visibility_pcaps_identifier,
-  magic_visibility_pcaps_pcaps_destination_conf,
+  magic$$visibility$$pcaps_identifier,
+  magic$$visibility$$pcaps_pcaps_destination_conf as magic$$visibility$$pcaps_pcaps_destination_conf$,
 } from "../schemas.js";
 import {
-  magic_visibility_pcaps_pcaps_ownership_challenge_output,
-  magic_visibility_pcaps_pcaps_ownership_collection_output,
-  magic_visibility_pcaps_pcaps_ownership_response_output,
-  magic_visibility_pcaps_pcaps_ownership_single_response_output,
+  magic$$visibility$$pcaps_pcaps_ownership_challenge,
+  magic$$visibility$$pcaps_pcaps_ownership_collection,
+  magic$$visibility$$pcaps_pcaps_ownership_response,
+  magic$$visibility$$pcaps_pcaps_ownership_single_response,
 } from "./outputs.js";
 import {
-  magic_visibility_pcaps_pcaps_ownership_challenge,
-  magic_visibility_pcaps_pcaps_ownership_request,
-  magic_visibility_pcaps_pcaps_ownership_validate_request,
+  magic$$visibility$$pcaps_pcaps_ownership_challenge as magic$$visibility$$pcaps_pcaps_ownership_challenge$,
+  magic$$visibility$$pcaps_pcaps_ownership_request,
+  magic$$visibility$$pcaps_pcaps_ownership_validate_request,
 } from "./schemas.js";
 
 /**
- * The tools of `magic_transit.pcaps.ownership`.
+ * The tools of `magicTransit.pcaps.ownership`.
  */
 export const tools: readonly Tool[] = [
   {
-    name: "magic_transit_pcaps_ownership_create",
+    name: "magicTransit_pcaps_ownership_create",
     title: "Add buckets for full packet captures",
     description: "Adds an AWS or GCP bucket to use with full packet captures.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/magic-visibility-pcaps_identifier",
-          "description": "Identifier."
-        },
         "body": {
           "$ref": "#/$defs/magic-visibility-pcaps_pcaps_ownership_request"
+        },
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/magic-visibility-pcaps_identifier",
+              "description": "Identifier."
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
+        "path",
         "body"
       ],
       $defs: {
-        "magic-visibility-pcaps_identifier": magic_visibility_pcaps_identifier,
-        "magic-visibility-pcaps_pcaps_destination_conf": magic_visibility_pcaps_pcaps_destination_conf,
-        "magic-visibility-pcaps_pcaps_ownership_request": magic_visibility_pcaps_pcaps_ownership_request,
+        "magic-visibility-pcaps_identifier": magic$$visibility$$pcaps_identifier,
+        "magic-visibility-pcaps_pcaps_destination_conf": magic$$visibility$$pcaps_pcaps_destination_conf$,
+        "magic-visibility-pcaps_pcaps_ownership_request": magic$$visibility$$pcaps_pcaps_ownership_request,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/magic-visibility-pcaps_pcaps_ownership_single_response",
       $defs: {
-        "magic-visibility-pcaps_api-response-common": magic_visibility_pcaps_api_response_common_output,
-        "magic-visibility-pcaps_messages": magic_visibility_pcaps_messages_output,
-        "magic-visibility-pcaps_pcaps_destination_conf": magic_visibility_pcaps_pcaps_destination_conf_output,
-        "magic-visibility-pcaps_pcaps_ownership_challenge": magic_visibility_pcaps_pcaps_ownership_challenge_output,
-        "magic-visibility-pcaps_pcaps_ownership_response": magic_visibility_pcaps_pcaps_ownership_response_output,
-        "magic-visibility-pcaps_pcaps_ownership_single_response": magic_visibility_pcaps_pcaps_ownership_single_response_output,
+        "magic-visibility-pcaps_api-response-common": magic$$visibility$$pcaps_api$$response$$common,
+        "magic-visibility-pcaps_messages": magic$$visibility$$pcaps_messages,
+        "magic-visibility-pcaps_pcaps_destination_conf": magic$$visibility$$pcaps_pcaps_destination_conf,
+        "magic-visibility-pcaps_pcaps_ownership_challenge": magic$$visibility$$pcaps_pcaps_ownership_challenge,
+        "magic-visibility-pcaps_pcaps_ownership_response": magic$$visibility$$pcaps_pcaps_ownership_response,
+        "magic-visibility-pcaps_pcaps_ownership_single_response": magic$$visibility$$pcaps_pcaps_ownership_single_response,
       },
     },
     annotations: {
@@ -99,13 +107,13 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "magic-visibility-pcaps_api-response-common": magic_visibility_pcaps_api_response_common_output,
-        "magic-visibility-pcaps_api-response-common-failure": magic_visibility_pcaps_api_response_common_failure_output,
-        "magic-visibility-pcaps_messages": magic_visibility_pcaps_messages_output,
-        "magic-visibility-pcaps_pcaps_destination_conf": magic_visibility_pcaps_pcaps_destination_conf_output,
-        "magic-visibility-pcaps_pcaps_ownership_challenge": magic_visibility_pcaps_pcaps_ownership_challenge_output,
-        "magic-visibility-pcaps_pcaps_ownership_response": magic_visibility_pcaps_pcaps_ownership_response_output,
-        "magic-visibility-pcaps_pcaps_ownership_single_response": magic_visibility_pcaps_pcaps_ownership_single_response_output,
+        "magic-visibility-pcaps_api-response-common": magic$$visibility$$pcaps_api$$response$$common,
+        "magic-visibility-pcaps_api-response-common-failure": magic$$visibility$$pcaps_api$$response$$common$$failure,
+        "magic-visibility-pcaps_messages": magic$$visibility$$pcaps_messages,
+        "magic-visibility-pcaps_pcaps_destination_conf": magic$$visibility$$pcaps_pcaps_destination_conf,
+        "magic-visibility-pcaps_pcaps_ownership_challenge": magic$$visibility$$pcaps_pcaps_ownership_challenge,
+        "magic-visibility-pcaps_pcaps_ownership_response": magic$$visibility$$pcaps_pcaps_ownership_response,
+        "magic-visibility-pcaps_pcaps_ownership_single_response": magic$$visibility$$pcaps_pcaps_ownership_single_response,
       },
     },
     request: (args) => ({
@@ -114,27 +122,35 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "magic_transit_pcaps_ownership_delete",
+    name: "magicTransit_pcaps_ownership_delete",
     title: "Delete buckets for full packet captures",
     description: "Deletes buckets added to the packet captures API.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/magic-visibility-pcaps_identifier",
-          "description": "Identifier."
-        },
-        "ownership_id": {
-          "$ref": "#/$defs/magic-visibility-pcaps_identifier",
-          "description": "Identifier."
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/magic-visibility-pcaps_identifier",
+              "description": "Identifier."
+            },
+            "ownership_id": {
+              "$ref": "#/$defs/magic-visibility-pcaps_identifier",
+              "description": "Identifier."
+            }
+          },
+          "required": [
+            "account_id",
+            "ownership_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
-        "ownership_id"
+        "path"
       ],
       $defs: {
-        "magic-visibility-pcaps_identifier": magic_visibility_pcaps_identifier,
+        "magic-visibility-pcaps_identifier": magic$$visibility$$pcaps_identifier,
       },
     },
     annotations: {
@@ -168,8 +184,8 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "magic-visibility-pcaps_api-response-common-failure": magic_visibility_pcaps_api_response_common_failure_output,
-        "magic-visibility-pcaps_messages": magic_visibility_pcaps_messages_output,
+        "magic-visibility-pcaps_api-response-common-failure": magic$$visibility$$pcaps_api$$response$$common$$failure,
+        "magic-visibility-pcaps_messages": magic$$visibility$$pcaps_messages,
       },
     },
     request: (args) => ({
@@ -177,35 +193,43 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "magic_transit_pcaps_ownership_get",
+    name: "magicTransit_pcaps_ownership_get",
     title: "List PCAPs Bucket Ownership",
     description: "List all buckets configured for use with PCAPs API.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/magic-visibility-pcaps_identifier",
-          "description": "Identifier."
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/magic-visibility-pcaps_identifier",
+              "description": "Identifier."
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id"
+        "path"
       ],
       $defs: {
-        "magic-visibility-pcaps_identifier": magic_visibility_pcaps_identifier,
+        "magic-visibility-pcaps_identifier": magic$$visibility$$pcaps_identifier,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/magic-visibility-pcaps_pcaps_ownership_collection",
       $defs: {
-        "magic-visibility-pcaps_api-response-collection": magic_visibility_pcaps_api_response_collection_output,
-        "magic-visibility-pcaps_api-response-common": magic_visibility_pcaps_api_response_common_output,
-        "magic-visibility-pcaps_messages": magic_visibility_pcaps_messages_output,
-        "magic-visibility-pcaps_pcaps_destination_conf": magic_visibility_pcaps_pcaps_destination_conf_output,
-        "magic-visibility-pcaps_pcaps_ownership_challenge": magic_visibility_pcaps_pcaps_ownership_challenge_output,
-        "magic-visibility-pcaps_pcaps_ownership_collection": magic_visibility_pcaps_pcaps_ownership_collection_output,
-        "magic-visibility-pcaps_pcaps_ownership_response": magic_visibility_pcaps_pcaps_ownership_response_output,
-        "magic-visibility-pcaps_result_info": magic_visibility_pcaps_result_info_output,
+        "magic-visibility-pcaps_api-response-collection": magic$$visibility$$pcaps_api$$response$$collection,
+        "magic-visibility-pcaps_api-response-common": magic$$visibility$$pcaps_api$$response$$common,
+        "magic-visibility-pcaps_messages": magic$$visibility$$pcaps_messages,
+        "magic-visibility-pcaps_pcaps_destination_conf": magic$$visibility$$pcaps_pcaps_destination_conf,
+        "magic-visibility-pcaps_pcaps_ownership_challenge": magic$$visibility$$pcaps_pcaps_ownership_challenge,
+        "magic-visibility-pcaps_pcaps_ownership_collection": magic$$visibility$$pcaps_pcaps_ownership_collection,
+        "magic-visibility-pcaps_pcaps_ownership_response": magic$$visibility$$pcaps_pcaps_ownership_response,
+        "magic-visibility-pcaps_result_info": magic$$visibility$$pcaps_result_info,
       },
     },
     annotations: {
@@ -242,15 +266,15 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "magic-visibility-pcaps_api-response-collection": magic_visibility_pcaps_api_response_collection_output,
-        "magic-visibility-pcaps_api-response-common": magic_visibility_pcaps_api_response_common_output,
-        "magic-visibility-pcaps_api-response-common-failure": magic_visibility_pcaps_api_response_common_failure_output,
-        "magic-visibility-pcaps_messages": magic_visibility_pcaps_messages_output,
-        "magic-visibility-pcaps_pcaps_destination_conf": magic_visibility_pcaps_pcaps_destination_conf_output,
-        "magic-visibility-pcaps_pcaps_ownership_challenge": magic_visibility_pcaps_pcaps_ownership_challenge_output,
-        "magic-visibility-pcaps_pcaps_ownership_collection": magic_visibility_pcaps_pcaps_ownership_collection_output,
-        "magic-visibility-pcaps_pcaps_ownership_response": magic_visibility_pcaps_pcaps_ownership_response_output,
-        "magic-visibility-pcaps_result_info": magic_visibility_pcaps_result_info_output,
+        "magic-visibility-pcaps_api-response-collection": magic$$visibility$$pcaps_api$$response$$collection,
+        "magic-visibility-pcaps_api-response-common": magic$$visibility$$pcaps_api$$response$$common,
+        "magic-visibility-pcaps_api-response-common-failure": magic$$visibility$$pcaps_api$$response$$common$$failure,
+        "magic-visibility-pcaps_messages": magic$$visibility$$pcaps_messages,
+        "magic-visibility-pcaps_pcaps_destination_conf": magic$$visibility$$pcaps_pcaps_destination_conf,
+        "magic-visibility-pcaps_pcaps_ownership_challenge": magic$$visibility$$pcaps_pcaps_ownership_challenge,
+        "magic-visibility-pcaps_pcaps_ownership_collection": magic$$visibility$$pcaps_pcaps_ownership_collection,
+        "magic-visibility-pcaps_pcaps_ownership_response": magic$$visibility$$pcaps_pcaps_ownership_response,
+        "magic-visibility-pcaps_result_info": magic$$visibility$$pcaps_result_info,
       },
     },
     request: (args) => ({
@@ -258,40 +282,48 @@ export const tools: readonly Tool[] = [
     }),
   },
   {
-    name: "magic_transit_pcaps_ownership_validate",
+    name: "magicTransit_pcaps_ownership_validate",
     title: "Validate buckets for full packet captures",
     description: "Validates buckets added to the packet captures API.",
     inputSchema: {
       type: "object",
       properties: {
-        "account_id": {
-          "$ref": "#/$defs/magic-visibility-pcaps_identifier",
-          "description": "Identifier."
-        },
         "body": {
           "$ref": "#/$defs/magic-visibility-pcaps_pcaps_ownership_validate_request"
+        },
+        "path": {
+          "properties": {
+            "account_id": {
+              "$ref": "#/$defs/magic-visibility-pcaps_identifier",
+              "description": "Identifier."
+            }
+          },
+          "required": [
+            "account_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "account_id",
+        "path",
         "body"
       ],
       $defs: {
-        "magic-visibility-pcaps_identifier": magic_visibility_pcaps_identifier,
-        "magic-visibility-pcaps_pcaps_destination_conf": magic_visibility_pcaps_pcaps_destination_conf,
-        "magic-visibility-pcaps_pcaps_ownership_challenge": magic_visibility_pcaps_pcaps_ownership_challenge,
-        "magic-visibility-pcaps_pcaps_ownership_validate_request": magic_visibility_pcaps_pcaps_ownership_validate_request,
+        "magic-visibility-pcaps_identifier": magic$$visibility$$pcaps_identifier,
+        "magic-visibility-pcaps_pcaps_destination_conf": magic$$visibility$$pcaps_pcaps_destination_conf$,
+        "magic-visibility-pcaps_pcaps_ownership_challenge": magic$$visibility$$pcaps_pcaps_ownership_challenge$,
+        "magic-visibility-pcaps_pcaps_ownership_validate_request": magic$$visibility$$pcaps_pcaps_ownership_validate_request,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/magic-visibility-pcaps_pcaps_ownership_single_response",
       $defs: {
-        "magic-visibility-pcaps_api-response-common": magic_visibility_pcaps_api_response_common_output,
-        "magic-visibility-pcaps_messages": magic_visibility_pcaps_messages_output,
-        "magic-visibility-pcaps_pcaps_destination_conf": magic_visibility_pcaps_pcaps_destination_conf_output,
-        "magic-visibility-pcaps_pcaps_ownership_challenge": magic_visibility_pcaps_pcaps_ownership_challenge_output,
-        "magic-visibility-pcaps_pcaps_ownership_response": magic_visibility_pcaps_pcaps_ownership_response_output,
-        "magic-visibility-pcaps_pcaps_ownership_single_response": magic_visibility_pcaps_pcaps_ownership_single_response_output,
+        "magic-visibility-pcaps_api-response-common": magic$$visibility$$pcaps_api$$response$$common,
+        "magic-visibility-pcaps_messages": magic$$visibility$$pcaps_messages,
+        "magic-visibility-pcaps_pcaps_destination_conf": magic$$visibility$$pcaps_pcaps_destination_conf,
+        "magic-visibility-pcaps_pcaps_ownership_challenge": magic$$visibility$$pcaps_pcaps_ownership_challenge,
+        "magic-visibility-pcaps_pcaps_ownership_response": magic$$visibility$$pcaps_pcaps_ownership_response,
+        "magic-visibility-pcaps_pcaps_ownership_single_response": magic$$visibility$$pcaps_pcaps_ownership_single_response,
       },
     },
     annotations: {
@@ -327,13 +359,13 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "magic-visibility-pcaps_api-response-common": magic_visibility_pcaps_api_response_common_output,
-        "magic-visibility-pcaps_api-response-common-failure": magic_visibility_pcaps_api_response_common_failure_output,
-        "magic-visibility-pcaps_messages": magic_visibility_pcaps_messages_output,
-        "magic-visibility-pcaps_pcaps_destination_conf": magic_visibility_pcaps_pcaps_destination_conf_output,
-        "magic-visibility-pcaps_pcaps_ownership_challenge": magic_visibility_pcaps_pcaps_ownership_challenge_output,
-        "magic-visibility-pcaps_pcaps_ownership_response": magic_visibility_pcaps_pcaps_ownership_response_output,
-        "magic-visibility-pcaps_pcaps_ownership_single_response": magic_visibility_pcaps_pcaps_ownership_single_response_output,
+        "magic-visibility-pcaps_api-response-common": magic$$visibility$$pcaps_api$$response$$common,
+        "magic-visibility-pcaps_api-response-common-failure": magic$$visibility$$pcaps_api$$response$$common$$failure,
+        "magic-visibility-pcaps_messages": magic$$visibility$$pcaps_messages,
+        "magic-visibility-pcaps_pcaps_destination_conf": magic$$visibility$$pcaps_pcaps_destination_conf,
+        "magic-visibility-pcaps_pcaps_ownership_challenge": magic$$visibility$$pcaps_pcaps_ownership_challenge,
+        "magic-visibility-pcaps_pcaps_ownership_response": magic$$visibility$$pcaps_pcaps_ownership_response,
+        "magic-visibility-pcaps_pcaps_ownership_single_response": magic$$visibility$$pcaps_pcaps_ownership_single_response,
       },
     },
     request: (args) => ({

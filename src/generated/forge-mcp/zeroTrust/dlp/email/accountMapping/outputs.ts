@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../../_/tool.js";
 /**
  * The schema of `dlp_AddinAccountMapping` in responses.
  */
-export const dlp_AddinAccountMapping_output: JsonSchema = {
+export const dlp_AddinAccountMapping: JsonSchema = {
   "properties": {
     "addin_identifier_token": {
       "format": "uuid",
@@ -26,7 +26,7 @@ export const dlp_AddinAccountMapping_output: JsonSchema = {
 /**
  * The schema of `dlp_AddinAuth` in responses.
  */
-export const dlp_AddinAuth_output: JsonSchema = {
+export const dlp_AddinAuth: JsonSchema = {
   "oneOf": [
     {
       "properties": {

@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../../_/tool.js";
 /**
  * The schema of `access_access-requests` in responses.
  */
-export const access_access_requests_output: JsonSchema = {
+export const access_access$$requests: JsonSchema = {
   "properties": {
     "action": {
       "$ref": "#/$defs/access_action"
@@ -42,63 +42,63 @@ export const access_access_requests_output: JsonSchema = {
 /**
  * The schema of `access_action` in responses.
  */
-export const access_action_output: JsonSchema = {
+export const access_action: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `access_allowed` in responses.
  */
-export const access_allowed_output: JsonSchema = {
+export const access_allowed: JsonSchema = {
   "type": "boolean"
 };
 
 /**
  * The schema of `access_app_domain` in responses.
  */
-export const access_app_domain_output: JsonSchema = {
+export const access_app_domain: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `access_app_uid` in responses.
  */
-export const access_app_uid_output: JsonSchema = {
+export const access_app_uid: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `access_connection` in responses.
  */
-export const access_connection_output: JsonSchema = {
+export const access_connection: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `access_email-3` in responses.
  */
-export const access_email_3_output: JsonSchema = {
+export const access_email$$3: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `access_ip` in responses.
  */
-export const access_ip_output: JsonSchema = {
+export const access_ip: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `access_ray_id` in responses.
  */
-export const access_ray_id_output: JsonSchema = {
+export const access_ray_id: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `access_response_collection-12` in responses.
  */
-export const access_response_collection_12_output: JsonSchema = {
+export const access_response_collection$$12: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/access_api-response-common"

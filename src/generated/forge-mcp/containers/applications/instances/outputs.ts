@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `cc_ContainerInstance` in responses.
  */
-export const cc_ContainerInstance_output: JsonSchema = {
+export const cc_ContainerInstance: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/cc_ContainerInstanceBase"
@@ -32,7 +32,7 @@ export const cc_ContainerInstance_output: JsonSchema = {
 /**
  * The schema of `cc_ContainerInstanceBase` in responses.
  */
-export const cc_ContainerInstanceBase_output: JsonSchema = {
+export const cc_ContainerInstanceBase: JsonSchema = {
   "properties": {
     "application_id": {
       "$ref": "#/$defs/cc_ApplicationID"
@@ -69,7 +69,7 @@ export const cc_ContainerInstanceBase_output: JsonSchema = {
 /**
  * The schema of `cc_ContainerInstanceConfiguration` in responses.
  */
-export const cc_ContainerInstanceConfiguration_output: JsonSchema = {
+export const cc_ContainerInstanceConfiguration: JsonSchema = {
   "properties": {
     "disk": {
       "type": "integer"
@@ -92,14 +92,14 @@ export const cc_ContainerInstanceConfiguration_output: JsonSchema = {
 /**
  * The schema of `cc_ContainerInstanceID` in responses.
  */
-export const cc_ContainerInstanceID_output: JsonSchema = {
+export const cc_ContainerInstanceID: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `cc_ContainerInstanceLocation` in responses.
  */
-export const cc_ContainerInstanceLocation_output: JsonSchema = {
+export const cc_ContainerInstanceLocation: JsonSchema = {
   "properties": {
     "name": {
       "$ref": "#/$defs/cc_LocationID"
@@ -118,7 +118,7 @@ export const cc_ContainerInstanceLocation_output: JsonSchema = {
 /**
  * The schema of `cc_ContainerInstanceStatus` in responses.
  */
-export const cc_ContainerInstanceStatus_output: JsonSchema = {
+export const cc_ContainerInstanceStatus: JsonSchema = {
   "properties": {
     "exit_code": {
       "type": "integer"
@@ -140,7 +140,7 @@ export const cc_ContainerInstanceStatus_output: JsonSchema = {
 /**
  * The schema of `cc_ContainerInstanceStatusState` in responses.
  */
-export const cc_ContainerInstanceStatusState_output: JsonSchema = {
+export const cc_ContainerInstanceStatusState: JsonSchema = {
   "enum": [
     "provisioning",
     "running",
@@ -157,7 +157,7 @@ export const cc_ContainerInstanceStatusState_output: JsonSchema = {
 /**
  * The schema of `cc_ContainersListContainerInstancesV2` in responses.
  */
-export const cc_ContainersListContainerInstancesV2_output: JsonSchema = {
+export const cc_ContainersListContainerInstancesV2: JsonSchema = {
   "items": {
     "$ref": "#/$defs/cc_ContainerInstance"
   },
@@ -167,6 +167,6 @@ export const cc_ContainersListContainerInstancesV2_output: JsonSchema = {
 /**
  * The schema of `cc_LocationID` in responses.
  */
-export const cc_LocationID_output: JsonSchema = {
+export const cc_LocationID: JsonSchema = {
   "type": "string"
 };

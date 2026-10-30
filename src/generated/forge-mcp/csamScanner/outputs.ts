@@ -6,7 +6,7 @@ import type { JsonSchema } from "../_/tool.js";
 /**
  * The schema of `csam-config-service_api_response_common_failure` in responses.
  */
-export const csam_config_service_api_response_common_failure_output: JsonSchema = {
+export const csam$$config$$service_api_response_common_failure: JsonSchema = {
   "properties": {
     "errors": {
       "items": {
@@ -45,7 +45,7 @@ export const csam_config_service_api_response_common_failure_output: JsonSchema 
 /**
  * The schema of `csam-config-service_api_response_message` in responses.
  */
-export const csam_config_service_api_response_message_output: JsonSchema = {
+export const csam$$config$$service_api_response_message: JsonSchema = {
   "properties": {
     "code": {
       "type": "integer"
@@ -64,7 +64,7 @@ export const csam_config_service_api_response_message_output: JsonSchema = {
 /**
  * The schema of `csam-config-service_api_response_single` in responses.
  */
-export const csam_config_service_api_response_single_output: JsonSchema = {
+export const csam$$config$$service_api_response_single: JsonSchema = {
   "properties": {
     "errors": {
       "items": {
@@ -96,7 +96,7 @@ export const csam_config_service_api_response_single_output: JsonSchema = {
 /**
  * The schema of `csam-config-service_csam_scanner_setting` in responses.
  */
-export const csam_config_service_csam_scanner_setting_output: JsonSchema = {
+export const csam$$config$$service_csam_scanner_setting: JsonSchema = {
   "properties": {
     "editable": {
       "type": "boolean"
@@ -129,7 +129,7 @@ export const csam_config_service_csam_scanner_setting_output: JsonSchema = {
  * The schema of `csam-config-service_csam_scanner_single_response` in
  * responses.
  */
-export const csam_config_service_csam_scanner_single_response_output: JsonSchema = {
+export const csam$$config$$service_csam_scanner_single_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/csam-config-service_api_response_single"
@@ -148,7 +148,7 @@ export const csam_config_service_csam_scanner_single_response_output: JsonSchema
 /**
  * The schema of `csam-config-service_csam_scanner_value` in responses.
  */
-export const csam_config_service_csam_scanner_value_output: JsonSchema = {
+export const csam$$config$$service_csam_scanner_value: JsonSchema = {
   "properties": {
     "email": {
       "type": "string"

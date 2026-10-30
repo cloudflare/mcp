@@ -6,14 +6,14 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `aaa_components-schemas-name` in responses.
  */
-export const aaa_components_schemas_name_output: JsonSchema = {
+export const aaa_components$$schemas$$name: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `aaa_components-schemas-type` in responses.
  */
-export const aaa_components_schemas_type_output: JsonSchema = {
+export const aaa_components$$schemas$$type: JsonSchema = {
   "enum": [
     "datadog",
     "discord",
@@ -30,7 +30,7 @@ export const aaa_components_schemas_type_output: JsonSchema = {
 /**
  * The schema of `aaa_created_at` in responses.
  */
-export const aaa_created_at_output: JsonSchema = {
+export const aaa_created_at: JsonSchema = {
   "format": "date-time",
   "type": "string"
 };
@@ -38,7 +38,7 @@ export const aaa_created_at_output: JsonSchema = {
 /**
  * The schema of `aaa_last_failure` in responses.
  */
-export const aaa_last_failure_output: JsonSchema = {
+export const aaa_last_failure: JsonSchema = {
   "format": "date-time",
   "type": "string"
 };
@@ -46,7 +46,7 @@ export const aaa_last_failure_output: JsonSchema = {
 /**
  * The schema of `aaa_last_success` in responses.
  */
-export const aaa_last_success_output: JsonSchema = {
+export const aaa_last_success: JsonSchema = {
   "format": "date-time",
   "type": "string"
 };
@@ -54,7 +54,7 @@ export const aaa_last_success_output: JsonSchema = {
 /**
  * The schema of `aaa_schemas-single_response` in responses.
  */
-export const aaa_schemas_single_response_output: JsonSchema = {
+export const aaa_schemas$$single_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/aaa_api-response-single"
@@ -73,28 +73,28 @@ export const aaa_schemas_single_response_output: JsonSchema = {
 /**
  * The schema of `aaa_secret` in responses.
  */
-export const aaa_secret_output: JsonSchema = {
+export const aaa_secret: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `aaa_url` in responses.
  */
-export const aaa_url_output: JsonSchema = {
+export const aaa_url: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `aaa_webhook-id` in responses.
  */
-export const aaa_webhook_id_output: JsonSchema = {
+export const aaa_webhook$$id: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `aaa_webhooks` in responses.
  */
-export const aaa_webhooks_output: JsonSchema = {
+export const aaa_webhooks: JsonSchema = {
   "properties": {
     "created_at": {
       "$ref": "#/$defs/aaa_created_at"
@@ -128,7 +128,7 @@ export const aaa_webhooks_output: JsonSchema = {
  * The schema of `aaa_webhooks_components-schemas-response_collection` in
  * responses.
  */
-export const aaa_webhooks_components_schemas_response_collection_output: JsonSchema = {
+export const aaa_webhooks_components$$schemas$$response_collection: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/aaa_api-response-common-2"

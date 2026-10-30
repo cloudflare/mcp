@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `stream_allowedOrigins` in responses.
  */
-export const stream_allowedOrigins_output: JsonSchema = {
+export const stream_allowedOrigins: JsonSchema = {
   "items": {
     "type": "string"
   },
@@ -16,7 +16,7 @@ export const stream_allowedOrigins_output: JsonSchema = {
 /**
  * The schema of `stream_clipResponseSingle` in responses.
  */
-export const stream_clipResponseSingle_output: JsonSchema = {
+export const stream_clipResponseSingle: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/stream_api-response-single"
@@ -35,7 +35,7 @@ export const stream_clipResponseSingle_output: JsonSchema = {
 /**
  * The schema of `stream_created` in responses.
  */
-export const stream_created_output: JsonSchema = {
+export const stream_created: JsonSchema = {
   "format": "date-time",
   "type": "string"
 };
@@ -43,14 +43,14 @@ export const stream_created_output: JsonSchema = {
 /**
  * The schema of `stream_download_percent_complete` in responses.
  */
-export const stream_download_percent_complete_output: JsonSchema = {
+export const stream_download_percent_complete: JsonSchema = {
   "type": "number"
 };
 
 /**
  * The schema of `stream_download_status` in responses.
  */
-export const stream_download_status_output: JsonSchema = {
+export const stream_download_status: JsonSchema = {
   "enum": [
     "ready",
     "inprogress",
@@ -62,14 +62,14 @@ export const stream_download_status_output: JsonSchema = {
 /**
  * The schema of `stream_download_url` in responses.
  */
-export const stream_download_url_output: JsonSchema = {
+export const stream_download_url: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `stream_downloads` in responses.
  */
-export const stream_downloads_output: JsonSchema = {
+export const stream_downloads: JsonSchema = {
   "properties": {
     "percentComplete": {
       "$ref": "#/$defs/stream_download_percent_complete"
@@ -91,7 +91,7 @@ export const stream_downloads_output: JsonSchema = {
 /**
  * The schema of `stream_downloads_response` in responses.
  */
-export const stream_downloads_response_output: JsonSchema = {
+export const stream_downloads_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/stream_api-response-single"
@@ -118,35 +118,35 @@ export const stream_downloads_response_output: JsonSchema = {
 /**
  * The schema of `stream_duration` in responses.
  */
-export const stream_duration_output: JsonSchema = {
+export const stream_duration: JsonSchema = {
   "type": "number"
 };
 
 /**
  * The schema of `stream_errorReasonCode` in responses.
  */
-export const stream_errorReasonCode_output: JsonSchema = {
+export const stream_errorReasonCode: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `stream_errorReasonText` in responses.
  */
-export const stream_errorReasonText_output: JsonSchema = {
+export const stream_errorReasonText: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `stream_identifier` in responses.
  */
-export const stream_identifier_output: JsonSchema = {
+export const stream_identifier: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `stream_input` in responses.
  */
-export const stream_input_output: JsonSchema = {
+export const stream_input: JsonSchema = {
   "properties": {
     "height": {
       "type": "integer"
@@ -161,28 +161,28 @@ export const stream_input_output: JsonSchema = {
 /**
  * The schema of `stream_liveInput` in responses.
  */
-export const stream_liveInput_output: JsonSchema = {
+export const stream_liveInput: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `stream_maxDurationSeconds` in responses.
  */
-export const stream_maxDurationSeconds_output: JsonSchema = {
+export const stream_maxDurationSeconds: JsonSchema = {
   "type": "integer"
 };
 
 /**
  * The schema of `stream_media_metadata` in responses.
  */
-export const stream_media_metadata_output: JsonSchema = {
+export const stream_media_metadata: JsonSchema = {
   "type": "object"
 };
 
 /**
  * The schema of `stream_media_state` in responses.
  */
-export const stream_media_state_output: JsonSchema = {
+export const stream_media_state: JsonSchema = {
   "enum": [
     "pendingupload",
     "downloading",
@@ -198,7 +198,7 @@ export const stream_media_state_output: JsonSchema = {
 /**
  * The schema of `stream_media_status` in responses.
  */
-export const stream_media_status_output: JsonSchema = {
+export const stream_media_status: JsonSchema = {
   "properties": {
     "errorReasonCode": {
       "$ref": "#/$defs/stream_errorReasonCode"
@@ -219,7 +219,7 @@ export const stream_media_status_output: JsonSchema = {
 /**
  * The schema of `stream_modified` in responses.
  */
-export const stream_modified_output: JsonSchema = {
+export const stream_modified: JsonSchema = {
   "format": "date-time",
   "type": "string"
 };
@@ -227,7 +227,7 @@ export const stream_modified_output: JsonSchema = {
 /**
  * The schema of `stream_oneTimeUploadExpiry` in responses.
  */
-export const stream_oneTimeUploadExpiry_output: JsonSchema = {
+export const stream_oneTimeUploadExpiry: JsonSchema = {
   "format": "date-time",
   "type": "string"
 };
@@ -235,14 +235,14 @@ export const stream_oneTimeUploadExpiry_output: JsonSchema = {
 /**
  * The schema of `stream_pctComplete` in responses.
  */
-export const stream_pctComplete_output: JsonSchema = {
+export const stream_pctComplete: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `stream_playback` in responses.
  */
-export const stream_playback_output: JsonSchema = {
+export const stream_playback: JsonSchema = {
   "properties": {
     "dash": {
       "type": "string"
@@ -257,21 +257,21 @@ export const stream_playback_output: JsonSchema = {
 /**
  * The schema of `stream_preview` in responses.
  */
-export const stream_preview_output: JsonSchema = {
+export const stream_preview: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `stream_readyToStream` in responses.
  */
-export const stream_readyToStream_output: JsonSchema = {
+export const stream_readyToStream: JsonSchema = {
   "type": "boolean"
 };
 
 /**
  * The schema of `stream_readyToStreamAt` in responses.
  */
-export const stream_readyToStreamAt_output: JsonSchema = {
+export const stream_readyToStreamAt: JsonSchema = {
   "format": "date-time",
   "type": "string"
 };
@@ -279,14 +279,14 @@ export const stream_readyToStreamAt_output: JsonSchema = {
 /**
  * The schema of `stream_requireSignedURLs` in responses.
  */
-export const stream_requireSignedURLs_output: JsonSchema = {
+export const stream_requireSignedURLs: JsonSchema = {
   "type": "boolean"
 };
 
 /**
  * The schema of `stream_scheduledDeletion` in responses.
  */
-export const stream_scheduledDeletion_output: JsonSchema = {
+export const stream_scheduledDeletion: JsonSchema = {
   "format": "date-time",
   "type": "string"
 };
@@ -294,28 +294,28 @@ export const stream_scheduledDeletion_output: JsonSchema = {
 /**
  * The schema of `stream_size` in responses.
  */
-export const stream_size_output: JsonSchema = {
+export const stream_size: JsonSchema = {
   "type": "number"
 };
 
 /**
  * The schema of `stream_thumbnailTimestampPct` in responses.
  */
-export const stream_thumbnailTimestampPct_output: JsonSchema = {
+export const stream_thumbnailTimestampPct: JsonSchema = {
   "type": "number"
 };
 
 /**
  * The schema of `stream_thumbnail_url` in responses.
  */
-export const stream_thumbnail_url_output: JsonSchema = {
+export const stream_thumbnail_url: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `stream_uploaded` in responses.
  */
-export const stream_uploaded_output: JsonSchema = {
+export const stream_uploaded: JsonSchema = {
   "format": "date-time",
   "type": "string"
 };
@@ -323,7 +323,7 @@ export const stream_uploaded_output: JsonSchema = {
 /**
  * The schema of `stream_video_response_collection` in responses.
  */
-export const stream_video_response_collection_output: JsonSchema = {
+export const stream_video_response_collection: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/stream_api-response-common"
@@ -356,7 +356,7 @@ export const stream_video_response_collection_output: JsonSchema = {
 /**
  * The schema of `stream_video_response_single` in responses.
  */
-export const stream_video_response_single_output: JsonSchema = {
+export const stream_video_response_single: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/stream_api-response-single"
@@ -375,7 +375,7 @@ export const stream_video_response_single_output: JsonSchema = {
 /**
  * The schema of `stream_videos` in responses.
  */
-export const stream_videos_output: JsonSchema = {
+export const stream_videos: JsonSchema = {
   "properties": {
     "allowedOrigins": {
       "$ref": "#/$defs/stream_allowedOrigins"

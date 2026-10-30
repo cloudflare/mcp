@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../../_/tool.js";
 /**
  * The schema of `email-security_MessageRaw` in responses.
  */
-export const email_security_MessageRaw_output: JsonSchema = {
+export const email$$security_MessageRaw: JsonSchema = {
   "properties": {
     "raw": {
       "type": "string"

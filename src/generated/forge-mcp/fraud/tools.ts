@@ -3,23 +3,23 @@
 
 import { type Tool, pathParam } from "../_/tool.js";
 import {
-  fraud_api_response_common_failure_output,
-  fraud_api_response_single_output,
-  fraud_auth_criteria_output,
-  fraud_authentication_settings_output,
-  fraud_fraud_settings_output,
-  fraud_fraud_settings_response_body_output,
-  fraud_messages_output,
-  fraud_user_profiles_status_output,
-  fraud_username_expressions_output,
-} from "./outputs.js";
-import {
+  fraud_api$$response$$common$$failure,
+  fraud_api$$response$$single,
   fraud_auth_criteria,
   fraud_authentication_settings,
   fraud_fraud_settings,
-  fraud_identifier,
+  fraud_fraud_settings_response_body,
+  fraud_messages,
   fraud_user_profiles_status,
   fraud_username_expressions,
+} from "./outputs.js";
+import {
+  fraud_auth_criteria as fraud_auth_criteria$,
+  fraud_authentication_settings as fraud_authentication_settings$,
+  fraud_fraud_settings as fraud_fraud_settings$,
+  fraud_identifier,
+  fraud_user_profiles_status as fraud_user_profiles_status$,
+  fraud_username_expressions as fraud_username_expressions$,
 } from "./schemas.js";
 
 /**
@@ -33,13 +33,21 @@ export const tools: readonly Tool[] = [
     inputSchema: {
       type: "object",
       properties: {
-        "zone_id": {
-          "$ref": "#/$defs/fraud_identifier",
-          "description": "Identifier."
+        "path": {
+          "properties": {
+            "zone_id": {
+              "$ref": "#/$defs/fraud_identifier",
+              "description": "Identifier."
+            }
+          },
+          "required": [
+            "zone_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "zone_id"
+        "path"
       ],
       $defs: {
         "fraud_identifier": fraud_identifier,
@@ -48,14 +56,14 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/fraud_fraud_settings_response_body",
       $defs: {
-        "fraud_api-response-single": fraud_api_response_single_output,
-        "fraud_auth_criteria": fraud_auth_criteria_output,
-        "fraud_authentication_settings": fraud_authentication_settings_output,
-        "fraud_fraud_settings": fraud_fraud_settings_output,
-        "fraud_fraud_settings_response_body": fraud_fraud_settings_response_body_output,
-        "fraud_messages": fraud_messages_output,
-        "fraud_user_profiles_status": fraud_user_profiles_status_output,
-        "fraud_username_expressions": fraud_username_expressions_output,
+        "fraud_api-response-single": fraud_api$$response$$single,
+        "fraud_auth_criteria": fraud_auth_criteria,
+        "fraud_authentication_settings": fraud_authentication_settings,
+        "fraud_fraud_settings": fraud_fraud_settings,
+        "fraud_fraud_settings_response_body": fraud_fraud_settings_response_body,
+        "fraud_messages": fraud_messages,
+        "fraud_user_profiles_status": fraud_user_profiles_status,
+        "fraud_username_expressions": fraud_username_expressions,
       },
     },
     annotations: {
@@ -83,15 +91,15 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "fraud_api-response-common-failure": fraud_api_response_common_failure_output,
-        "fraud_api-response-single": fraud_api_response_single_output,
-        "fraud_auth_criteria": fraud_auth_criteria_output,
-        "fraud_authentication_settings": fraud_authentication_settings_output,
-        "fraud_fraud_settings": fraud_fraud_settings_output,
-        "fraud_fraud_settings_response_body": fraud_fraud_settings_response_body_output,
-        "fraud_messages": fraud_messages_output,
-        "fraud_user_profiles_status": fraud_user_profiles_status_output,
-        "fraud_username_expressions": fraud_username_expressions_output,
+        "fraud_api-response-common-failure": fraud_api$$response$$common$$failure,
+        "fraud_api-response-single": fraud_api$$response$$single,
+        "fraud_auth_criteria": fraud_auth_criteria,
+        "fraud_authentication_settings": fraud_authentication_settings,
+        "fraud_fraud_settings": fraud_fraud_settings,
+        "fraud_fraud_settings_response_body": fraud_fraud_settings_response_body,
+        "fraud_messages": fraud_messages,
+        "fraud_user_profiles_status": fraud_user_profiles_status,
+        "fraud_username_expressions": fraud_username_expressions,
       },
     },
     request: (args) => ({
@@ -108,35 +116,43 @@ export const tools: readonly Tool[] = [
         "body": {
           "$ref": "#/$defs/fraud_fraud_settings"
         },
-        "zone_id": {
-          "$ref": "#/$defs/fraud_identifier",
-          "description": "Identifier."
+        "path": {
+          "properties": {
+            "zone_id": {
+              "$ref": "#/$defs/fraud_identifier",
+              "description": "Identifier."
+            }
+          },
+          "required": [
+            "zone_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "zone_id",
+        "path",
         "body"
       ],
       $defs: {
-        "fraud_auth_criteria": fraud_auth_criteria,
-        "fraud_authentication_settings": fraud_authentication_settings,
-        "fraud_fraud_settings": fraud_fraud_settings,
+        "fraud_auth_criteria": fraud_auth_criteria$,
+        "fraud_authentication_settings": fraud_authentication_settings$,
+        "fraud_fraud_settings": fraud_fraud_settings$,
         "fraud_identifier": fraud_identifier,
-        "fraud_user_profiles_status": fraud_user_profiles_status,
-        "fraud_username_expressions": fraud_username_expressions,
+        "fraud_user_profiles_status": fraud_user_profiles_status$,
+        "fraud_username_expressions": fraud_username_expressions$,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/fraud_fraud_settings_response_body",
       $defs: {
-        "fraud_api-response-single": fraud_api_response_single_output,
-        "fraud_auth_criteria": fraud_auth_criteria_output,
-        "fraud_authentication_settings": fraud_authentication_settings_output,
-        "fraud_fraud_settings": fraud_fraud_settings_output,
-        "fraud_fraud_settings_response_body": fraud_fraud_settings_response_body_output,
-        "fraud_messages": fraud_messages_output,
-        "fraud_user_profiles_status": fraud_user_profiles_status_output,
-        "fraud_username_expressions": fraud_username_expressions_output,
+        "fraud_api-response-single": fraud_api$$response$$single,
+        "fraud_auth_criteria": fraud_auth_criteria,
+        "fraud_authentication_settings": fraud_authentication_settings,
+        "fraud_fraud_settings": fraud_fraud_settings,
+        "fraud_fraud_settings_response_body": fraud_fraud_settings_response_body,
+        "fraud_messages": fraud_messages,
+        "fraud_user_profiles_status": fraud_user_profiles_status,
+        "fraud_username_expressions": fraud_username_expressions,
       },
     },
     annotations: {
@@ -163,15 +179,15 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "fraud_api-response-common-failure": fraud_api_response_common_failure_output,
-        "fraud_api-response-single": fraud_api_response_single_output,
-        "fraud_auth_criteria": fraud_auth_criteria_output,
-        "fraud_authentication_settings": fraud_authentication_settings_output,
-        "fraud_fraud_settings": fraud_fraud_settings_output,
-        "fraud_fraud_settings_response_body": fraud_fraud_settings_response_body_output,
-        "fraud_messages": fraud_messages_output,
-        "fraud_user_profiles_status": fraud_user_profiles_status_output,
-        "fraud_username_expressions": fraud_username_expressions_output,
+        "fraud_api-response-common-failure": fraud_api$$response$$common$$failure,
+        "fraud_api-response-single": fraud_api$$response$$single,
+        "fraud_auth_criteria": fraud_auth_criteria,
+        "fraud_authentication_settings": fraud_authentication_settings,
+        "fraud_fraud_settings": fraud_fraud_settings,
+        "fraud_fraud_settings_response_body": fraud_fraud_settings_response_body,
+        "fraud_messages": fraud_messages,
+        "fraud_user_profiles_status": fraud_user_profiles_status,
+        "fraud_username_expressions": fraud_username_expressions,
       },
     },
     request: (args) => ({

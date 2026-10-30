@@ -6,7 +6,7 @@ import type { JsonSchema } from "../_/tool.js";
 /**
  * The schema of `dns-firewall_attack_mitigation`.
  */
-export const dns_firewall_attack_mitigation: JsonSchema = {
+export const dns$$firewall_attack_mitigation: JsonSchema = {
   "description": "Attack mitigation settings",
   "oneOf": [
     {
@@ -32,7 +32,7 @@ export const dns_firewall_attack_mitigation: JsonSchema = {
 /**
  * The schema of `dns-firewall_deprecate_any_requests`.
  */
-export const dns_firewall_deprecate_any_requests: JsonSchema = {
+export const dns$$firewall_deprecate_any_requests: JsonSchema = {
   "description": "Whether to refuse to answer queries for the ANY type",
   "type": "boolean"
 };
@@ -40,7 +40,7 @@ export const dns_firewall_deprecate_any_requests: JsonSchema = {
 /**
  * The schema of `dns-firewall_dns-firewall-cluster`.
  */
-export const dns_firewall_dns_firewall_cluster: JsonSchema = {
+export const dns$$firewall_dns$$firewall$$cluster: JsonSchema = {
   "properties": {
     "attack_mitigation": {
       "$ref": "#/$defs/dns-firewall_attack_mitigation",
@@ -91,7 +91,7 @@ export const dns_firewall_dns_firewall_cluster: JsonSchema = {
 /**
  * The schema of `dns-firewall_dns-firewall-cluster-patch`.
  */
-export const dns_firewall_dns_firewall_cluster_patch: JsonSchema = {
+export const dns$$firewall_dns$$firewall$$cluster$$patch: JsonSchema = {
   "properties": {
     "attack_mitigation": {
       "$ref": "#/$defs/dns-firewall_attack_mitigation",
@@ -142,7 +142,7 @@ export const dns_firewall_dns_firewall_cluster_patch: JsonSchema = {
 /**
  * The schema of `dns-firewall_dns-firewall-cluster-post`.
  */
-export const dns_firewall_dns_firewall_cluster_post: JsonSchema = {
+export const dns$$firewall_dns$$firewall$$cluster$$post: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/dns-firewall_dns-firewall-cluster"
@@ -163,7 +163,7 @@ export const dns_firewall_dns_firewall_cluster_post: JsonSchema = {
 /**
  * The schema of `dns-firewall_dns_firewall_ip_count`.
  */
-export const dns_firewall_dns_firewall_ip_count: JsonSchema = {
+export const dns$$firewall_dns_firewall_ip_count: JsonSchema = {
   "description": "Number of IPv4 addresses to assign to the DNS Firewall cluster. Only used during cluster creation and cannot be changed later.",
   "type": "integer"
 };
@@ -171,7 +171,7 @@ export const dns_firewall_dns_firewall_ip_count: JsonSchema = {
 /**
  * The schema of `dns-firewall_ecs_fallback`.
  */
-export const dns_firewall_ecs_fallback: JsonSchema = {
+export const dns$$firewall_ecs_fallback: JsonSchema = {
   "description": "Whether to forward client IP (resolver) subnet if no EDNS Client Subnet is sent",
   "type": "boolean"
 };
@@ -179,7 +179,7 @@ export const dns_firewall_ecs_fallback: JsonSchema = {
 /**
  * The schema of `dns-firewall_identifier`.
  */
-export const dns_firewall_identifier: JsonSchema = {
+export const dns$$firewall_identifier: JsonSchema = {
   "description": "Identifier.",
   "type": "string"
 };
@@ -187,7 +187,7 @@ export const dns_firewall_identifier: JsonSchema = {
 /**
  * The schema of `dns-firewall_maximum_cache_ttl`.
  */
-export const dns_firewall_maximum_cache_ttl: JsonSchema = {
+export const dns$$firewall_maximum_cache_ttl: JsonSchema = {
   "description": "By default, Cloudflare attempts to cache responses for as long as\nindicated by the TTL received from upstream nameservers. This setting\nsets an upper bound on this duration. For caching purposes, higher TTLs\nwill be decreased to the maximum value defined by this setting.\n\nThis setting does not affect the TTL value in the DNS response\nCloudflare returns to clients. Cloudflare will always forward the TTL\nvalue received from upstream nameservers.\n",
   "type": "number"
 };
@@ -195,7 +195,7 @@ export const dns_firewall_maximum_cache_ttl: JsonSchema = {
 /**
  * The schema of `dns-firewall_minimum_cache_ttl`.
  */
-export const dns_firewall_minimum_cache_ttl: JsonSchema = {
+export const dns$$firewall_minimum_cache_ttl: JsonSchema = {
   "description": "By default, Cloudflare attempts to cache responses for as long as\nindicated by the TTL received from upstream nameservers. This setting\nsets a lower bound on this duration. For caching purposes, lower TTLs\nwill be increased to the minimum value defined by this setting.\n\nThis setting does not affect the TTL value in the DNS response\nCloudflare returns to clients. Cloudflare will always forward the TTL\nvalue received from upstream nameservers.\n\nNote that, even with this setting, there is no guarantee that a\nresponse will be cached for at least the specified duration. Cached\nresponses may be removed earlier for capacity or other operational\nreasons.\n",
   "type": "number"
 };
@@ -203,7 +203,7 @@ export const dns_firewall_minimum_cache_ttl: JsonSchema = {
 /**
  * The schema of `dns-firewall_name`.
  */
-export const dns_firewall_name: JsonSchema = {
+export const dns$$firewall_name: JsonSchema = {
   "description": "DNS Firewall cluster name",
   "type": "string"
 };
@@ -211,7 +211,7 @@ export const dns_firewall_name: JsonSchema = {
 /**
  * The schema of `dns-firewall_negative_cache_ttl`.
  */
-export const dns_firewall_negative_cache_ttl: JsonSchema = {
+export const dns$$firewall_negative_cache_ttl: JsonSchema = {
   "description": "This setting controls how long DNS Firewall should cache negative\nresponses (e.g., NXDOMAIN) from the upstream servers.\n\nThis setting does not affect the TTL value in the DNS response\nCloudflare returns to clients. Cloudflare will always forward the TTL\nvalue received from upstream nameservers.\n",
   "oneOf": [
     {
@@ -226,7 +226,7 @@ export const dns_firewall_negative_cache_ttl: JsonSchema = {
 /**
  * The schema of `dns-firewall_ratelimit`.
  */
-export const dns_firewall_ratelimit: JsonSchema = {
+export const dns$$firewall_ratelimit: JsonSchema = {
   "description": "Maximum number of DNS queries per second that will be forwarded to your upstream nameservers. The limit is enforced per server, where each server receives a fraction of the configured value. The actual aggregate rate for a data center may vary depending on how many servers are present. Responses served from cache do not count toward this limit. Set to null to disable rate limiting.",
   "oneOf": [
     {
@@ -241,7 +241,7 @@ export const dns_firewall_ratelimit: JsonSchema = {
 /**
  * The schema of `dns-firewall_retries`.
  */
-export const dns_firewall_retries: JsonSchema = {
+export const dns$$firewall_retries: JsonSchema = {
   "description": "Number of retries for fetching DNS responses from upstream nameservers (not counting the initial attempt)",
   "type": "number"
 };
@@ -249,7 +249,7 @@ export const dns_firewall_retries: JsonSchema = {
 /**
  * The schema of `dns-firewall_upstream_ips`.
  */
-export const dns_firewall_upstream_ips: JsonSchema = {
+export const dns$$firewall_upstream_ips: JsonSchema = {
   "items": {
     "type": "string"
   },

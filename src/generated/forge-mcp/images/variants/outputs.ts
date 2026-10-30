@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `images_image_variant_definition` in responses.
  */
-export const images_image_variant_definition_output: JsonSchema = {
+export const images_image_variant_definition: JsonSchema = {
   "properties": {
     "id": {
       "$ref": "#/$defs/images_image_variant_identifier"
@@ -28,7 +28,7 @@ export const images_image_variant_definition_output: JsonSchema = {
 /**
  * The schema of `images_image_variant_fit` in responses.
  */
-export const images_image_variant_fit_output: JsonSchema = {
+export const images_image_variant_fit: JsonSchema = {
   "enum": [
     "scale-down",
     "contain",
@@ -42,21 +42,21 @@ export const images_image_variant_fit_output: JsonSchema = {
 /**
  * The schema of `images_image_variant_height` in responses.
  */
-export const images_image_variant_height_output: JsonSchema = {
+export const images_image_variant_height: JsonSchema = {
   "type": "number"
 };
 
 /**
  * The schema of `images_image_variant_identifier` in responses.
  */
-export const images_image_variant_identifier_output: JsonSchema = {
+export const images_image_variant_identifier: JsonSchema = {
   "type": "string"
 };
 
 /**
  * The schema of `images_image_variant_list_response` in responses.
  */
-export const images_image_variant_list_response_output: JsonSchema = {
+export const images_image_variant_list_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/images_api-response-common"
@@ -75,14 +75,14 @@ export const images_image_variant_list_response_output: JsonSchema = {
 /**
  * The schema of `images_image_variant_neverRequireSignedURLs` in responses.
  */
-export const images_image_variant_neverRequireSignedURLs_output: JsonSchema = {
+export const images_image_variant_neverRequireSignedURLs: JsonSchema = {
   "type": "boolean"
 };
 
 /**
  * The schema of `images_image_variant_options` in responses.
  */
-export const images_image_variant_options_output: JsonSchema = {
+export const images_image_variant_options: JsonSchema = {
   "properties": {
     "fit": {
       "$ref": "#/$defs/images_image_variant_fit"
@@ -109,7 +109,7 @@ export const images_image_variant_options_output: JsonSchema = {
 /**
  * The schema of `images_image_variant_public_request` in responses.
  */
-export const images_image_variant_public_request_output: JsonSchema = {
+export const images_image_variant_public_request: JsonSchema = {
   "properties": {
     "hero": {
       "properties": {
@@ -136,7 +136,7 @@ export const images_image_variant_public_request_output: JsonSchema = {
 /**
  * The schema of `images_image_variant_response` in responses.
  */
-export const images_image_variant_response_output: JsonSchema = {
+export const images_image_variant_response: JsonSchema = {
   "properties": {
     "variant": {
       "$ref": "#/$defs/images_image_variant_definition"
@@ -148,7 +148,7 @@ export const images_image_variant_response_output: JsonSchema = {
 /**
  * The schema of `images_image_variant_schemas_metadata` in responses.
  */
-export const images_image_variant_schemas_metadata_output: JsonSchema = {
+export const images_image_variant_schemas_metadata: JsonSchema = {
   "enum": [
     "keep",
     "copyright",
@@ -160,7 +160,7 @@ export const images_image_variant_schemas_metadata_output: JsonSchema = {
 /**
  * The schema of `images_image_variant_simple_response` in responses.
  */
-export const images_image_variant_simple_response_output: JsonSchema = {
+export const images_image_variant_simple_response: JsonSchema = {
   "allOf": [
     {
       "$ref": "#/$defs/images_api-response-single"
@@ -179,14 +179,14 @@ export const images_image_variant_simple_response_output: JsonSchema = {
 /**
  * The schema of `images_image_variant_width` in responses.
  */
-export const images_image_variant_width_output: JsonSchema = {
+export const images_image_variant_width: JsonSchema = {
   "type": "number"
 };
 
 /**
  * The schema of `images_image_variants_response` in responses.
  */
-export const images_image_variants_response_output: JsonSchema = {
+export const images_image_variants_response: JsonSchema = {
   "properties": {
     "variants": {
       "$ref": "#/$defs/images_image_variant_public_request"

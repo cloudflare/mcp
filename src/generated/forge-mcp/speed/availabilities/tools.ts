@@ -3,17 +3,17 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
-  observatory_api_response_common_failure_output,
-  observatory_api_response_single_output,
-  observatory_labeled_region_output,
-  observatory_messages_output,
-  observatory_region_output,
+  observatory_api$$response$$common$$failure,
+  observatory_api$$response$$single,
+  observatory_labeled_region,
+  observatory_messages,
+  observatory_region,
 } from "../outputs.js";
 import { observatory_identifier } from "../schemas.js";
 import {
-  observatory_availabilities_output,
-  observatory_availabilities_response_output,
-  observatory_plan_properties_info_output,
+  observatory_availabilities,
+  observatory_availabilities$$response,
+  observatory_plan$$properties$$info,
 } from "./outputs.js";
 
 /**
@@ -27,13 +27,21 @@ export const tools: readonly Tool[] = [
     inputSchema: {
       type: "object",
       properties: {
-        "zone_id": {
-          "$ref": "#/$defs/observatory_identifier",
-          "description": "Identifier."
+        "path": {
+          "properties": {
+            "zone_id": {
+              "$ref": "#/$defs/observatory_identifier",
+              "description": "Identifier."
+            }
+          },
+          "required": [
+            "zone_id"
+          ],
+          "type": "object"
         }
       },
       required: [
-        "zone_id"
+        "path"
       ],
       $defs: {
         "observatory_identifier": observatory_identifier,
@@ -42,13 +50,13 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/observatory_availabilities-response",
       $defs: {
-        "observatory_api-response-single": observatory_api_response_single_output,
-        "observatory_availabilities": observatory_availabilities_output,
-        "observatory_availabilities-response": observatory_availabilities_response_output,
-        "observatory_labeled_region": observatory_labeled_region_output,
-        "observatory_messages": observatory_messages_output,
-        "observatory_plan-properties-info": observatory_plan_properties_info_output,
-        "observatory_region": observatory_region_output,
+        "observatory_api-response-single": observatory_api$$response$$single,
+        "observatory_availabilities": observatory_availabilities,
+        "observatory_availabilities-response": observatory_availabilities$$response,
+        "observatory_labeled_region": observatory_labeled_region,
+        "observatory_messages": observatory_messages,
+        "observatory_plan-properties-info": observatory_plan$$properties$$info,
+        "observatory_region": observatory_region,
       },
     },
     annotations: {
@@ -82,14 +90,14 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "observatory_api-response-common-failure": observatory_api_response_common_failure_output,
-        "observatory_api-response-single": observatory_api_response_single_output,
-        "observatory_availabilities": observatory_availabilities_output,
-        "observatory_availabilities-response": observatory_availabilities_response_output,
-        "observatory_labeled_region": observatory_labeled_region_output,
-        "observatory_messages": observatory_messages_output,
-        "observatory_plan-properties-info": observatory_plan_properties_info_output,
-        "observatory_region": observatory_region_output,
+        "observatory_api-response-common-failure": observatory_api$$response$$common$$failure,
+        "observatory_api-response-single": observatory_api$$response$$single,
+        "observatory_availabilities": observatory_availabilities,
+        "observatory_availabilities-response": observatory_availabilities$$response,
+        "observatory_labeled_region": observatory_labeled_region,
+        "observatory_messages": observatory_messages,
+        "observatory_plan-properties-info": observatory_plan$$properties$$info,
+        "observatory_region": observatory_region,
       },
     },
     request: (args) => ({

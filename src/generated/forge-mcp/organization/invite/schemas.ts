@@ -6,7 +6,7 @@ import type { JsonSchema } from "../../_/tool.js";
 /**
  * The schema of `organizations-api_HandleOrganizationInviteRequest`.
  */
-export const organizations_api_HandleOrganizationInviteRequest: JsonSchema = {
+export const organizations$$api_HandleOrganizationInviteRequest: JsonSchema = {
   "properties": {
     "status": {
       "enum": [
