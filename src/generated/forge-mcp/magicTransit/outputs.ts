@@ -4,15 +4,15 @@
 import type { JsonSchema } from "../_/tool.js";
 
 /**
- * The schema of `dos_api-response-common` in responses.
+ * The schema of `advanced-ddos-protection_api-response-common` in responses.
  */
-export const dos_api_response_common_output: JsonSchema = {
+export const advanced_ddos_protection_api_response_common_output: JsonSchema = {
   "properties": {
     "errors": {
-      "$ref": "#/$defs/dos_messages"
+      "$ref": "#/$defs/advanced-ddos-protection_messages"
     },
     "messages": {
-      "$ref": "#/$defs/dos_messages"
+      "$ref": "#/$defs/advanced-ddos-protection_messages"
     },
     "success": {
       "enum": [
@@ -27,6 +27,70 @@ export const dos_api_response_common_output: JsonSchema = {
     "success"
   ],
   "type": "object"
+};
+
+/**
+ * The schema of `advanced-ddos-protection_api-response-common-failure` in
+ * responses.
+ */
+export const advanced_ddos_protection_api_response_common_failure_output: JsonSchema = {
+  "properties": {
+    "errors": {
+      "$ref": "#/$defs/advanced-ddos-protection_messages"
+    },
+    "messages": {
+      "$ref": "#/$defs/advanced-ddos-protection_messages"
+    },
+    "result": {
+      "type": "null"
+    },
+    "success": {
+      "enum": [
+        false
+      ],
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "errors",
+    "messages",
+    "result",
+    "success"
+  ],
+  "type": "object"
+};
+
+/**
+ * The schema of `advanced-ddos-protection_messages` in responses.
+ */
+export const advanced_ddos_protection_messages_output: JsonSchema = {
+  "items": {
+    "properties": {
+      "code": {
+        "type": "integer"
+      },
+      "documentation_url": {
+        "type": "string"
+      },
+      "message": {
+        "type": "string"
+      },
+      "source": {
+        "properties": {
+          "pointer": {
+            "type": "string"
+          }
+        },
+        "type": "object"
+      }
+    },
+    "required": [
+      "code",
+      "message"
+    ],
+    "type": "object"
+  },
+  "type": "array"
 };
 
 /**

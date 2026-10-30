@@ -12,9 +12,9 @@ export const alexandria_category_id: JsonSchema = {
 };
 
 /**
- * The schema of `iam_account`.
+ * The schema of `iam_components-schemas-account`.
  */
-export const iam_account: JsonSchema = {
+export const iam_components_schemas_account: JsonSchema = {
   "properties": {
     "id": {
       "$ref": "#/$defs/iam_common_components-schemas-identifier",
@@ -25,7 +25,6 @@ export const iam_account: JsonSchema = {
       "description": "Parent container details"
     },
     "name": {
-      "description": "Account name",
       "type": "string"
     },
     "settings": {

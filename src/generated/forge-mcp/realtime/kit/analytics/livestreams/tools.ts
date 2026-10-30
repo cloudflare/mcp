@@ -2,6 +2,12 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../../../_/tool.js";
+import {
+  realtimekit_GenericErrorResponse_error_details_output,
+  realtimekit_GenericErrorResponse_error_output,
+  realtimekit_GenericErrorResponse_output,
+  realtimekit_ValidationIssue_output,
+} from "../../outputs.js";
 
 /**
  * The tools of `realtime.kit.analytics.livestreams`.
@@ -48,10 +54,10 @@ export const tools: readonly Tool[] = [
               "type": "integer"
             },
             "total_ingest_seconds": {
-              "type": "integer"
+              "type": "number"
             },
             "total_viewer_seconds": {
-              "type": "integer"
+              "type": "number"
             }
           },
           "type": "object"
@@ -87,10 +93,10 @@ export const tools: readonly Tool[] = [
                   "type": "integer"
                 },
                 "total_ingest_seconds": {
-                  "type": "integer"
+                  "type": "number"
                 },
                 "total_viewer_seconds": {
-                  "type": "integer"
+                  "type": "number"
                 }
               },
               "type": "object"
@@ -100,7 +106,16 @@ export const tools: readonly Tool[] = [
             }
           },
           "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/realtimekit_GenericErrorResponse"
         }
+      },
+      $defs: {
+        "realtimekit_GenericErrorResponse": realtimekit_GenericErrorResponse_output,
+        "realtimekit_GenericErrorResponse_error": realtimekit_GenericErrorResponse_error_output,
+        "realtimekit_GenericErrorResponse_error_details": realtimekit_GenericErrorResponse_error_details_output,
+        "realtimekit_ValidationIssue": realtimekit_ValidationIssue_output,
       },
     },
     request: (args) => ({

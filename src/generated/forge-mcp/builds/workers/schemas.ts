@@ -10,8 +10,9 @@ export const builds_CreateWorkerBuildSettingsInput: JsonSchema = {
   "description": "Build and deploy settings when creating a Worker build configuration",
   "properties": {
     "build_caching_enabled": {
-      "$ref": "#/$defs/builds_build_caching_enabled",
-      "default": true
+      "default": true,
+      "description": "Whether builds reuse cached dependencies and build artifacts.",
+      "type": "boolean"
     },
     "build_command": {
       "$ref": "#/$defs/builds_build_command",

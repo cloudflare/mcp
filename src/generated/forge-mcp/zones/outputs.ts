@@ -224,39 +224,7 @@ export const zones_zone_output: JsonSchema = {
       "type": "array"
     },
     "plan": {
-      "properties": {
-        "can_subscribe": {
-          "type": "boolean"
-        },
-        "currency": {
-          "type": "string"
-        },
-        "externally_managed": {
-          "type": "boolean"
-        },
-        "frequency": {
-          "type": "string"
-        },
-        "id": {
-          "$ref": "#/$defs/zones_identifier"
-        },
-        "is_subscribed": {
-          "type": "boolean"
-        },
-        "legacy_discount": {
-          "type": "boolean"
-        },
-        "legacy_id": {
-          "type": "string"
-        },
-        "name": {
-          "type": "string"
-        },
-        "price": {
-          "type": "number"
-        }
-      },
-      "type": "object"
+      "$ref": "#/$defs/zones_zone_plan"
     },
     "status": {
       "enum": [
@@ -268,23 +236,10 @@ export const zones_zone_output: JsonSchema = {
       "type": "string"
     },
     "tenant": {
-      "properties": {
-        "id": {
-          "$ref": "#/$defs/zones_identifier"
-        },
-        "name": {
-          "type": "string"
-        }
-      },
-      "type": "object"
+      "$ref": "#/$defs/zones_zone_tenant"
     },
     "tenant_unit": {
-      "properties": {
-        "id": {
-          "$ref": "#/$defs/zones_identifier"
-        }
-      },
-      "type": "object"
+      "$ref": "#/$defs/zones_zone_tenant_unit"
     },
     "type": {
       "$ref": "#/$defs/zones_type"
@@ -376,6 +331,72 @@ export const zones_zone_owner_output: JsonSchema = {
     },
     "type": {
       "type": "string"
+    }
+  },
+  "type": "object"
+};
+
+/**
+ * The schema of `zones_zone_plan` in responses.
+ */
+export const zones_zone_plan_output: JsonSchema = {
+  "properties": {
+    "can_subscribe": {
+      "type": "boolean"
+    },
+    "currency": {
+      "type": "string"
+    },
+    "externally_managed": {
+      "type": "boolean"
+    },
+    "frequency": {
+      "type": "string"
+    },
+    "id": {
+      "$ref": "#/$defs/zones_identifier"
+    },
+    "is_subscribed": {
+      "type": "boolean"
+    },
+    "legacy_discount": {
+      "type": "boolean"
+    },
+    "legacy_id": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "price": {
+      "type": "number"
+    }
+  },
+  "type": "object"
+};
+
+/**
+ * The schema of `zones_zone_tenant` in responses.
+ */
+export const zones_zone_tenant_output: JsonSchema = {
+  "properties": {
+    "id": {
+      "$ref": "#/$defs/zones_identifier"
+    },
+    "name": {
+      "type": "string"
+    }
+  },
+  "type": "object"
+};
+
+/**
+ * The schema of `zones_zone_tenant_unit` in responses.
+ */
+export const zones_zone_tenant_unit_output: JsonSchema = {
+  "properties": {
+    "id": {
+      "$ref": "#/$defs/zones_identifier"
     }
   },
   "type": "object"

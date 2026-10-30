@@ -4,9 +4,9 @@
 import type { JsonSchema } from "../../../../../../../_/tool.js";
 
 /**
- * The schema of `dos_TcpFlowProtectionRule` in responses.
+ * The schema of `advanced-ddos-protection_TcpFlowProtectionRule` in responses.
  */
-export const dos_TcpFlowProtectionRule_output: JsonSchema = {
+export const advanced_ddos_protection_TcpFlowProtectionRule_output: JsonSchema = {
   "properties": {
     "burst_sensitivity": {
       "type": "string"

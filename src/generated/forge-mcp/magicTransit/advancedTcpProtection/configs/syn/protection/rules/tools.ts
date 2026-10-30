@@ -3,14 +3,14 @@
 
 import { type Tool, pathParam } from "../../../../../../_/tool.js";
 import {
-  dos_api_response_common_failure_output,
-  dos_messages_output,
-} from "../../../../../../outputs.js";
-import { dos_api_response_common_output } from "../../../../../outputs.js";
-import { dos_SynProtectionRule_output } from "./outputs.js";
+  advanced_ddos_protection_api_response_common_failure_output,
+  advanced_ddos_protection_api_response_common_output,
+  advanced_ddos_protection_messages_output,
+} from "../../../../../outputs.js";
+import { advanced_ddos_protection_SynProtectionRule_output } from "./outputs.js";
 import {
-  dos_NewSynProtectionRule,
-  dos_SynProtectionRuleUpdate,
+  advanced_ddos_protection_NewSynProtectionRule,
+  advanced_ddos_protection_SynProtectionRuleUpdate,
 } from "./schemas.js";
 
 /**
@@ -35,10 +35,10 @@ export const tools: readonly Tool[] = [
       ],
     },
     outputSchema: {
-      "$ref": "#/$defs/dos_api-response-common",
+      "$ref": "#/$defs/advanced-ddos-protection_api-response-common",
       $defs: {
-        "dos_api-response-common": dos_api_response_common_output,
-        "dos_messages": dos_messages_output,
+        "advanced-ddos-protection_api-response-common": advanced_ddos_protection_api_response_common_output,
+        "advanced-ddos-protection_messages": advanced_ddos_protection_messages_output,
       },
     },
     annotations: {
@@ -58,16 +58,16 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/dos_api-response-common"
+          "$ref": "#/$defs/advanced-ddos-protection_api-response-common"
         },
         "4XX": {
-          "$ref": "#/$defs/dos_api-response-common-failure"
+          "$ref": "#/$defs/advanced-ddos-protection_api-response-common-failure"
         }
       },
       $defs: {
-        "dos_api-response-common": dos_api_response_common_output,
-        "dos_api-response-common-failure": dos_api_response_common_failure_output,
-        "dos_messages": dos_messages_output,
+        "advanced-ddos-protection_api-response-common": advanced_ddos_protection_api_response_common_output,
+        "advanced-ddos-protection_api-response-common-failure": advanced_ddos_protection_api_response_common_failure_output,
+        "advanced-ddos-protection_messages": advanced_ddos_protection_messages_output,
       },
     },
     request: (args) => ({
@@ -86,7 +86,7 @@ export const tools: readonly Tool[] = [
           "type": "string"
         },
         "body": {
-          "$ref": "#/$defs/dos_NewSynProtectionRule",
+          "$ref": "#/$defs/advanced-ddos-protection_NewSynProtectionRule",
           "description": "The new SYN Protection rule to add."
         }
       },
@@ -95,13 +95,13 @@ export const tools: readonly Tool[] = [
         "body"
       ],
       $defs: {
-        "dos_NewSynProtectionRule": dos_NewSynProtectionRule,
+        "advanced-ddos-protection_NewSynProtectionRule": advanced_ddos_protection_NewSynProtectionRule,
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/dos_SynProtectionRule",
+      "$ref": "#/$defs/advanced-ddos-protection_SynProtectionRule",
       $defs: {
-        "dos_SynProtectionRule": dos_SynProtectionRule_output,
+        "advanced-ddos-protection_SynProtectionRule": advanced_ddos_protection_SynProtectionRule_output,
       },
     },
     annotations: {
@@ -116,26 +116,21 @@ export const tools: readonly Tool[] = [
     extensions: {
       "x-api-token-group": [
         "DDoS Protection Write"
-      ],
-      "x-forge-params": {
-        "mode": {
-          "flagName": "protection-mode"
-        }
-      }
+      ]
     },
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/dos_SynProtectionRule"
+          "$ref": "#/$defs/advanced-ddos-protection_SynProtectionRule"
         },
         "4XX": {
-          "$ref": "#/$defs/dos_api-response-common-failure"
+          "$ref": "#/$defs/advanced-ddos-protection_api-response-common-failure"
         }
       },
       $defs: {
-        "dos_SynProtectionRule": dos_SynProtectionRule_output,
-        "dos_api-response-common-failure": dos_api_response_common_failure_output,
-        "dos_messages": dos_messages_output,
+        "advanced-ddos-protection_SynProtectionRule": advanced_ddos_protection_SynProtectionRule_output,
+        "advanced-ddos-protection_api-response-common-failure": advanced_ddos_protection_api_response_common_failure_output,
+        "advanced-ddos-protection_messages": advanced_ddos_protection_messages_output,
       },
     },
     request: (args) => ({
@@ -165,10 +160,10 @@ export const tools: readonly Tool[] = [
       ],
     },
     outputSchema: {
-      "$ref": "#/$defs/dos_api-response-common",
+      "$ref": "#/$defs/advanced-ddos-protection_api-response-common",
       $defs: {
-        "dos_api-response-common": dos_api_response_common_output,
-        "dos_messages": dos_messages_output,
+        "advanced-ddos-protection_api-response-common": advanced_ddos_protection_api_response_common_output,
+        "advanced-ddos-protection_messages": advanced_ddos_protection_messages_output,
       },
     },
     annotations: {
@@ -188,16 +183,16 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/dos_api-response-common"
+          "$ref": "#/$defs/advanced-ddos-protection_api-response-common"
         },
         "4XX": {
-          "$ref": "#/$defs/dos_api-response-common-failure"
+          "$ref": "#/$defs/advanced-ddos-protection_api-response-common-failure"
         }
       },
       $defs: {
-        "dos_api-response-common": dos_api_response_common_output,
-        "dos_api-response-common-failure": dos_api_response_common_failure_output,
-        "dos_messages": dos_messages_output,
+        "advanced-ddos-protection_api-response-common": advanced_ddos_protection_api_response_common_output,
+        "advanced-ddos-protection_api-response-common-failure": advanced_ddos_protection_api_response_common_failure_output,
+        "advanced-ddos-protection_messages": advanced_ddos_protection_messages_output,
       },
     },
     request: (args) => ({
@@ -226,9 +221,9 @@ export const tools: readonly Tool[] = [
       ],
     },
     outputSchema: {
-      "$ref": "#/$defs/dos_SynProtectionRule",
+      "$ref": "#/$defs/advanced-ddos-protection_SynProtectionRule",
       $defs: {
-        "dos_SynProtectionRule": dos_SynProtectionRule_output,
+        "advanced-ddos-protection_SynProtectionRule": advanced_ddos_protection_SynProtectionRule_output,
       },
     },
     annotations: {
@@ -249,16 +244,16 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/dos_SynProtectionRule"
+          "$ref": "#/$defs/advanced-ddos-protection_SynProtectionRule"
         },
         "4XX": {
-          "$ref": "#/$defs/dos_api-response-common-failure"
+          "$ref": "#/$defs/advanced-ddos-protection_api-response-common-failure"
         }
       },
       $defs: {
-        "dos_SynProtectionRule": dos_SynProtectionRule_output,
-        "dos_api-response-common-failure": dos_api_response_common_failure_output,
-        "dos_messages": dos_messages_output,
+        "advanced-ddos-protection_SynProtectionRule": advanced_ddos_protection_SynProtectionRule_output,
+        "advanced-ddos-protection_api-response-common-failure": advanced_ddos_protection_api_response_common_failure_output,
+        "advanced-ddos-protection_messages": advanced_ddos_protection_messages_output,
       },
     },
     request: (args) => ({
@@ -301,7 +296,7 @@ export const tools: readonly Tool[] = [
       "properties": {
         "result": {
           "items": {
-            "$ref": "#/$defs/dos_SynProtectionRule"
+            "$ref": "#/$defs/advanced-ddos-protection_SynProtectionRule"
           },
           "type": "array"
         },
@@ -331,7 +326,7 @@ export const tools: readonly Tool[] = [
       ],
       "type": "object",
       $defs: {
-        "dos_SynProtectionRule": dos_SynProtectionRule_output,
+        "advanced-ddos-protection_SynProtectionRule": advanced_ddos_protection_SynProtectionRule_output,
       },
     },
     annotations: {
@@ -355,7 +350,7 @@ export const tools: readonly Tool[] = [
           "properties": {
             "result": {
               "items": {
-                "$ref": "#/$defs/dos_SynProtectionRule"
+                "$ref": "#/$defs/advanced-ddos-protection_SynProtectionRule"
               },
               "type": "array"
             },
@@ -386,13 +381,13 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "4XX": {
-          "$ref": "#/$defs/dos_api-response-common-failure"
+          "$ref": "#/$defs/advanced-ddos-protection_api-response-common-failure"
         }
       },
       $defs: {
-        "dos_SynProtectionRule": dos_SynProtectionRule_output,
-        "dos_api-response-common-failure": dos_api_response_common_failure_output,
-        "dos_messages": dos_messages_output,
+        "advanced-ddos-protection_SynProtectionRule": advanced_ddos_protection_SynProtectionRule_output,
+        "advanced-ddos-protection_api-response-common-failure": advanced_ddos_protection_api_response_common_failure_output,
+        "advanced-ddos-protection_messages": advanced_ddos_protection_messages_output,
       },
     },
     request: (args) => ({
@@ -417,7 +412,7 @@ export const tools: readonly Tool[] = [
           "type": "string"
         },
         "body": {
-          "$ref": "#/$defs/dos_SynProtectionRuleUpdate",
+          "$ref": "#/$defs/advanced-ddos-protection_SynProtectionRuleUpdate",
           "description": "The fields to update on the SYN Protection rule."
         },
         "rule_id": {
@@ -431,13 +426,13 @@ export const tools: readonly Tool[] = [
         "body"
       ],
       $defs: {
-        "dos_SynProtectionRuleUpdate": dos_SynProtectionRuleUpdate,
+        "advanced-ddos-protection_SynProtectionRuleUpdate": advanced_ddos_protection_SynProtectionRuleUpdate,
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/dos_SynProtectionRule",
+      "$ref": "#/$defs/advanced-ddos-protection_SynProtectionRule",
       $defs: {
-        "dos_SynProtectionRule": dos_SynProtectionRule_output,
+        "advanced-ddos-protection_SynProtectionRule": advanced_ddos_protection_SynProtectionRule_output,
       },
     },
     annotations: {
@@ -452,26 +447,21 @@ export const tools: readonly Tool[] = [
     extensions: {
       "x-api-token-group": [
         "DDoS Protection Write"
-      ],
-      "x-forge-params": {
-        "mode": {
-          "flagName": "protection-mode"
-        }
-      }
+      ]
     },
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/dos_SynProtectionRule"
+          "$ref": "#/$defs/advanced-ddos-protection_SynProtectionRule"
         },
         "4XX": {
-          "$ref": "#/$defs/dos_api-response-common-failure"
+          "$ref": "#/$defs/advanced-ddos-protection_api-response-common-failure"
         }
       },
       $defs: {
-        "dos_SynProtectionRule": dos_SynProtectionRule_output,
-        "dos_api-response-common-failure": dos_api_response_common_failure_output,
-        "dos_messages": dos_messages_output,
+        "advanced-ddos-protection_SynProtectionRule": advanced_ddos_protection_SynProtectionRule_output,
+        "advanced-ddos-protection_api-response-common-failure": advanced_ddos_protection_api_response_common_failure_output,
+        "advanced-ddos-protection_messages": advanced_ddos_protection_messages_output,
       },
     },
     request: (args) => ({

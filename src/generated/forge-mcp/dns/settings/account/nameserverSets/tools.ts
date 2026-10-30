@@ -38,7 +38,7 @@ export const tools: readonly Tool[] = [
   {
     name: "dns_settings_account_nameserver_sets_create",
     title: "Create Custom Nameserver Set",
-    description: "Creates a named Custom Nameserver Set. Only the customer-defined name can be changed later. To change nameservers or addresses, create a new set, move any zone assignments, and delete the old set.\n\nThis method is beta.",
+    description: "Creates a named Custom Nameserver Set. Only the customer-defined name can be changed later. To change nameservers or addresses, create a new set, move any zone assignments, and delete the old set. For details, refer to [Nameserver sets](https://developers.cloudflare.com/dns/nameservers/custom-nameservers/nameserver-sets/).\n\nThis method is beta.",
     inputSchema: {
       type: "object",
       properties: {
@@ -136,7 +136,7 @@ export const tools: readonly Tool[] = [
   {
     name: "dns_settings_account_nameserver_sets_delete",
     title: "Delete Custom Nameserver Set",
-    description: "Deletes an unassigned Custom Nameserver Set.\n\nThis method is beta.",
+    description: "Deletes an unassigned Custom Nameserver Set. For details, refer to [Nameserver sets](https://developers.cloudflare.com/dns/nameservers/custom-nameservers/nameserver-sets/).\n\nThis method is beta.",
     inputSchema: {
       type: "object",
       properties: {
@@ -322,7 +322,7 @@ export const tools: readonly Tool[] = [
   {
     name: "dns_settings_account_nameserver_sets_get",
     title: "Get Custom Nameserver Set",
-    description: "Gets a Custom Nameserver Set owned by an account.\n\nThis method is beta.",
+    description: "Gets a Custom Nameserver Set owned by an account. For details, refer to [Nameserver sets](https://developers.cloudflare.com/dns/nameservers/custom-nameservers/nameserver-sets/).\n\nThis method is beta.",
     inputSchema: {
       type: "object",
       properties: {
@@ -416,7 +416,7 @@ export const tools: readonly Tool[] = [
   {
     name: "dns_settings_account_nameserver_sets_list",
     title: "List Custom Nameserver Sets",
-    description: "Lists an account's Custom Nameserver Sets.\n\nThis method is beta.",
+    description: "Lists an account's Custom Nameserver Sets. For details, refer to [Nameserver sets](https://developers.cloudflare.com/dns/nameservers/custom-nameservers/nameserver-sets/).\n\nThis method is beta.",
     inputSchema: {
       type: "object",
       properties: {

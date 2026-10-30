@@ -2,6 +2,12 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../../../_/tool.js";
+import {
+  realtimekit_GenericErrorResponse_error_details_output,
+  realtimekit_GenericErrorResponse_error_output,
+  realtimekit_GenericErrorResponse_output,
+  realtimekit_ValidationIssue_output,
+} from "../../outputs.js";
 import { realtimekit_PeerEvent_output } from "../outputs.js";
 import {
   realtimekit_AudioConsumerStatsCumulative_output,
@@ -164,6 +170,9 @@ export const tools: readonly Tool[] = [
             }
           },
           "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/realtimekit_GenericErrorResponse"
         }
       },
       $defs: {
@@ -172,6 +181,9 @@ export const tools: readonly Tool[] = [
         "realtimekit_AudioProducerStats": realtimekit_AudioProducerStats_output,
         "realtimekit_AudioProducerStatsCumulative": realtimekit_AudioProducerStatsCumulative_output,
         "realtimekit_CandidatePairStats": realtimekit_CandidatePairStats_output,
+        "realtimekit_GenericErrorResponse": realtimekit_GenericErrorResponse_output,
+        "realtimekit_GenericErrorResponse_error": realtimekit_GenericErrorResponse_error_output,
+        "realtimekit_GenericErrorResponse_error_details": realtimekit_GenericErrorResponse_error_details_output,
         "realtimekit_LatencyCumulative": realtimekit_LatencyCumulative_output,
         "realtimekit_PacketLossCumulative": realtimekit_PacketLossCumulative_output,
         "realtimekit_PeerEvent": realtimekit_PeerEvent_output,
@@ -191,6 +203,7 @@ export const tools: readonly Tool[] = [
         "realtimekit_PeerReportMetadata_selected_device_updatesItem": realtimekit_PeerReportMetadata_selected_device_updatesItem_output,
         "realtimekit_PeerReportQuality": realtimekit_PeerReportQuality_output,
         "realtimekit_PercentileStats": realtimekit_PercentileStats_output,
+        "realtimekit_ValidationIssue": realtimekit_ValidationIssue_output,
         "realtimekit_VideoConsumerStats": realtimekit_VideoConsumerStats_output,
         "realtimekit_VideoConsumerStatsCumulative": realtimekit_VideoConsumerStatsCumulative_output,
         "realtimekit_VideoConsumerStatsCumulative_issues": realtimekit_VideoConsumerStatsCumulative_issues_output,

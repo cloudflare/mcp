@@ -4,9 +4,9 @@
 import type { JsonSchema } from "../../../../../../_/tool.js";
 
 /**
- * The schema of `dos_SynProtectionRule` in responses.
+ * The schema of `advanced-ddos-protection_SynProtectionRule` in responses.
  */
-export const dos_SynProtectionRule_output: JsonSchema = {
+export const advanced_ddos_protection_SynProtectionRule_output: JsonSchema = {
   "properties": {
     "burst_sensitivity": {
       "type": "string"

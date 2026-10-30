@@ -47,7 +47,14 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/logcontrol_cmb_config",
+      "oneOf": [
+        {
+          "$ref": "#/$defs/logcontrol_cmb_config"
+        },
+        {
+          "type": "null"
+        }
+      ],
       $defs: {
         "logcontrol_allow_out_of_region_access": logcontrol_allow_out_of_region_access_output,
         "logcontrol_cmb_config": logcontrol_cmb_config_output,
@@ -81,7 +88,14 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/logcontrol_cmb_config"
+          "oneOf": [
+            {
+              "$ref": "#/$defs/logcontrol_cmb_config"
+            },
+            {
+              "type": "null"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/logcontrol_api-response-common-failure"
@@ -178,7 +192,14 @@ export const tools: readonly Tool[] = [
       ],
     },
     outputSchema: {
-      "$ref": "#/$defs/logcontrol_cmb_config",
+      "oneOf": [
+        {
+          "$ref": "#/$defs/logcontrol_cmb_config"
+        },
+        {
+          "type": "null"
+        }
+      ],
       $defs: {
         "logcontrol_allow_out_of_region_access": logcontrol_allow_out_of_region_access_output,
         "logcontrol_cmb_config": logcontrol_cmb_config_output,
@@ -217,7 +238,14 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/logcontrol_cmb_config"
+          "oneOf": [
+            {
+              "$ref": "#/$defs/logcontrol_cmb_config"
+            },
+            {
+              "type": "null"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/logcontrol_api-response-common-failure"

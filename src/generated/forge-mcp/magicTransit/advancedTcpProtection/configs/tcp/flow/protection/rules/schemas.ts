@@ -4,9 +4,9 @@
 import type { JsonSchema } from "../../../../../../../_/tool.js";
 
 /**
- * The schema of `dos_NewTcpFlowProtectionRule`.
+ * The schema of `advanced-ddos-protection_NewTcpFlowProtectionRule`.
  */
-export const dos_NewTcpFlowProtectionRule: JsonSchema = {
+export const advanced_ddos_protection_NewTcpFlowProtectionRule: JsonSchema = {
   "properties": {
     "burst_sensitivity": {
       "description": "The burst sensitivity. Must be one of 'low', 'medium', 'high'.",
@@ -40,9 +40,9 @@ export const dos_NewTcpFlowProtectionRule: JsonSchema = {
 };
 
 /**
- * The schema of `dos_TcpFlowProtectionRuleUpdate`.
+ * The schema of `advanced-ddos-protection_TcpFlowProtectionRuleUpdate`.
  */
-export const dos_TcpFlowProtectionRuleUpdate: JsonSchema = {
+export const advanced_ddos_protection_TcpFlowProtectionRuleUpdate: JsonSchema = {
   "properties": {
     "burst_sensitivity": {
       "description": "The new burst sensitivity. Optional. Must be one of 'low', 'medium', 'high'.",

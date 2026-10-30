@@ -3,9 +3,13 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
+  realtimekit_GenericErrorResponse_error_details_output,
+  realtimekit_GenericErrorResponse_error_output,
+  realtimekit_GenericErrorResponse_output,
   realtimekit_GenericSuccessResponse_output,
   realtimekit_PagingInfo_output,
   realtimekit_PagingResponse_output,
+  realtimekit_ValidationIssue_output,
 } from "../outputs.js";
 import {
   realtimekit_PresetListItem_output,
@@ -270,9 +274,15 @@ export const tools: readonly Tool[] = [
               "type": "object"
             }
           ]
+        },
+        "4XX": {
+          "$ref": "#/$defs/realtimekit_GenericErrorResponse"
         }
       },
       $defs: {
+        "realtimekit_GenericErrorResponse": realtimekit_GenericErrorResponse_output,
+        "realtimekit_GenericErrorResponse_error": realtimekit_GenericErrorResponse_error_output,
+        "realtimekit_GenericErrorResponse_error_details": realtimekit_GenericErrorResponse_error_details_output,
         "realtimekit_GenericSuccessResponse": realtimekit_GenericSuccessResponse_output,
         "realtimekit_Preset": realtimekit_Preset_output,
         "realtimekit_PresetPluginConfig": realtimekit_PresetPluginConfig_output,
@@ -298,6 +308,7 @@ export const tools: readonly Tool[] = [
         "realtimekit_Preset_ui_design_tokens_colors": realtimekit_Preset_ui_design_tokens_colors_output,
         "realtimekit_Preset_ui_design_tokens_colors_background": realtimekit_Preset_ui_design_tokens_colors_background_output,
         "realtimekit_Preset_ui_design_tokens_colors_brand": realtimekit_Preset_ui_design_tokens_colors_brand_output,
+        "realtimekit_ValidationIssue": realtimekit_ValidationIssue_output,
       },
     },
     request: (args) => ({
@@ -463,9 +474,15 @@ export const tools: readonly Tool[] = [
               "type": "object"
             }
           ]
+        },
+        "4XX": {
+          "$ref": "#/$defs/realtimekit_GenericErrorResponse"
         }
       },
       $defs: {
+        "realtimekit_GenericErrorResponse": realtimekit_GenericErrorResponse_output,
+        "realtimekit_GenericErrorResponse_error": realtimekit_GenericErrorResponse_error_output,
+        "realtimekit_GenericErrorResponse_error_details": realtimekit_GenericErrorResponse_error_details_output,
         "realtimekit_GenericSuccessResponse": realtimekit_GenericSuccessResponse_output,
         "realtimekit_Preset": realtimekit_Preset_output,
         "realtimekit_PresetPluginConfig": realtimekit_PresetPluginConfig_output,
@@ -491,6 +508,7 @@ export const tools: readonly Tool[] = [
         "realtimekit_Preset_ui_design_tokens_colors": realtimekit_Preset_ui_design_tokens_colors_output,
         "realtimekit_Preset_ui_design_tokens_colors_background": realtimekit_Preset_ui_design_tokens_colors_background_output,
         "realtimekit_Preset_ui_design_tokens_colors_brand": realtimekit_Preset_ui_design_tokens_colors_brand_output,
+        "realtimekit_ValidationIssue": realtimekit_ValidationIssue_output,
       },
     },
     request: (args) => ({
@@ -655,9 +673,15 @@ export const tools: readonly Tool[] = [
               "type": "object"
             }
           ]
+        },
+        "4XX": {
+          "$ref": "#/$defs/realtimekit_GenericErrorResponse"
         }
       },
       $defs: {
+        "realtimekit_GenericErrorResponse": realtimekit_GenericErrorResponse_output,
+        "realtimekit_GenericErrorResponse_error": realtimekit_GenericErrorResponse_error_output,
+        "realtimekit_GenericErrorResponse_error_details": realtimekit_GenericErrorResponse_error_details_output,
         "realtimekit_GenericSuccessResponse": realtimekit_GenericSuccessResponse_output,
         "realtimekit_Preset": realtimekit_Preset_output,
         "realtimekit_PresetPluginConfig": realtimekit_PresetPluginConfig_output,
@@ -683,6 +707,7 @@ export const tools: readonly Tool[] = [
         "realtimekit_Preset_ui_design_tokens_colors": realtimekit_Preset_ui_design_tokens_colors_output,
         "realtimekit_Preset_ui_design_tokens_colors_background": realtimekit_Preset_ui_design_tokens_colors_background_output,
         "realtimekit_Preset_ui_design_tokens_colors_brand": realtimekit_Preset_ui_design_tokens_colors_brand_output,
+        "realtimekit_ValidationIssue": realtimekit_ValidationIssue_output,
       },
     },
     request: (args) => ({
@@ -779,12 +804,19 @@ export const tools: readonly Tool[] = [
               "type": "object"
             }
           ]
+        },
+        "4XX": {
+          "$ref": "#/$defs/realtimekit_GenericErrorResponse"
         }
       },
       $defs: {
+        "realtimekit_GenericErrorResponse": realtimekit_GenericErrorResponse_output,
+        "realtimekit_GenericErrorResponse_error": realtimekit_GenericErrorResponse_error_output,
+        "realtimekit_GenericErrorResponse_error_details": realtimekit_GenericErrorResponse_error_details_output,
         "realtimekit_PagingInfo": realtimekit_PagingInfo_output,
         "realtimekit_PagingResponse": realtimekit_PagingResponse_output,
         "realtimekit_PresetListItem": realtimekit_PresetListItem_output,
+        "realtimekit_ValidationIssue": realtimekit_ValidationIssue_output,
       },
     },
     request: (args) => ({
@@ -984,9 +1016,15 @@ export const tools: readonly Tool[] = [
               "type": "object"
             }
           ]
+        },
+        "4XX": {
+          "$ref": "#/$defs/realtimekit_GenericErrorResponse"
         }
       },
       $defs: {
+        "realtimekit_GenericErrorResponse": realtimekit_GenericErrorResponse_output,
+        "realtimekit_GenericErrorResponse_error": realtimekit_GenericErrorResponse_error_output,
+        "realtimekit_GenericErrorResponse_error_details": realtimekit_GenericErrorResponse_error_details_output,
         "realtimekit_GenericSuccessResponse": realtimekit_GenericSuccessResponse_output,
         "realtimekit_Preset": realtimekit_Preset_output,
         "realtimekit_PresetPluginConfig": realtimekit_PresetPluginConfig_output,
@@ -1012,6 +1050,7 @@ export const tools: readonly Tool[] = [
         "realtimekit_Preset_ui_design_tokens_colors": realtimekit_Preset_ui_design_tokens_colors_output,
         "realtimekit_Preset_ui_design_tokens_colors_background": realtimekit_Preset_ui_design_tokens_colors_background_output,
         "realtimekit_Preset_ui_design_tokens_colors_brand": realtimekit_Preset_ui_design_tokens_colors_brand_output,
+        "realtimekit_ValidationIssue": realtimekit_ValidationIssue_output,
       },
     },
     request: (args) => ({
@@ -1207,9 +1246,15 @@ export const tools: readonly Tool[] = [
               "type": "object"
             }
           ]
+        },
+        "4XX": {
+          "$ref": "#/$defs/realtimekit_GenericErrorResponse"
         }
       },
       $defs: {
+        "realtimekit_GenericErrorResponse": realtimekit_GenericErrorResponse_output,
+        "realtimekit_GenericErrorResponse_error": realtimekit_GenericErrorResponse_error_output,
+        "realtimekit_GenericErrorResponse_error_details": realtimekit_GenericErrorResponse_error_details_output,
         "realtimekit_GenericSuccessResponse": realtimekit_GenericSuccessResponse_output,
         "realtimekit_Preset": realtimekit_Preset_output,
         "realtimekit_PresetPluginConfig": realtimekit_PresetPluginConfig_output,
@@ -1235,6 +1280,7 @@ export const tools: readonly Tool[] = [
         "realtimekit_Preset_ui_design_tokens_colors": realtimekit_Preset_ui_design_tokens_colors_output,
         "realtimekit_Preset_ui_design_tokens_colors_background": realtimekit_Preset_ui_design_tokens_colors_background_output,
         "realtimekit_Preset_ui_design_tokens_colors_brand": realtimekit_Preset_ui_design_tokens_colors_brand_output,
+        "realtimekit_ValidationIssue": realtimekit_ValidationIssue_output,
       },
     },
     request: (args) => ({

@@ -23,7 +23,8 @@ export const zero_trust_gateway_action_output: JsonSchema = {
     "egress",
     "resolve",
     "quarantine",
-    "redirect"
+    "redirect",
+    "forward"
   ],
   "type": "string"
 };
@@ -314,6 +315,9 @@ export const zero_trust_gateway_rule_settings_output: JsonSchema = {
     "forensic_copy": {
       "$ref": "#/$defs/zero-trust-gateway_rule-settings_forensic_copy"
     },
+    "forward": {
+      "$ref": "#/$defs/zero-trust-gateway_rule-settings_forward"
+    },
     "ignore_cname_category_matches": {
       "type": "boolean"
     },
@@ -433,7 +437,8 @@ export const zero_trust_gateway_rule_settings_biso_admin_controls_output: JsonSc
     "keyboard": {
       "enum": [
         "enabled",
-        "disabled"
+        "disabled",
+        "enable_read_only_actions"
       ],
       "type": "string"
     },
@@ -585,6 +590,28 @@ export const zero_trust_gateway_rule_settings_forensic_copy_output: JsonSchema =
           "type": "boolean"
         }
       },
+      "type": "object"
+    },
+    {
+      "type": "null"
+    }
+  ]
+};
+
+/**
+ * The schema of `zero-trust-gateway_rule-settings_forward` in responses.
+ */
+export const zero_trust_gateway_rule_settings_forward_output: JsonSchema = {
+  "oneOf": [
+    {
+      "properties": {
+        "worker_id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "worker_id"
+      ],
       "type": "object"
     },
     {

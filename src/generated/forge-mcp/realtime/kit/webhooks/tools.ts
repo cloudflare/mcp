@@ -5,6 +5,8 @@ import { type Tool, pathParam } from "../../../_/tool.js";
 import {
   realtimekit_ErrorResponse_error_output,
   realtimekit_ErrorResponse_output,
+} from "../outputs.js";
+import {
   realtimekit_WebhookSuccessResponse_output,
   realtimekit_Webhook_output,
   realtimekit_WebhooksListSuccessResponse_output,

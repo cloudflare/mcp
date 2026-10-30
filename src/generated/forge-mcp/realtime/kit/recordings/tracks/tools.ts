@@ -2,7 +2,13 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../../../_/tool.js";
-import { realtimekit_GenericSuccessResponse_output } from "../../outputs.js";
+import {
+  realtimekit_GenericErrorResponse_error_details_output,
+  realtimekit_GenericErrorResponse_error_output,
+  realtimekit_GenericErrorResponse_output,
+  realtimekit_GenericSuccessResponse_output,
+  realtimekit_ValidationIssue_output,
+} from "../../outputs.js";
 import { realtimekit_Recording_output } from "../outputs.js";
 import { realtimekit_TrackConfigLayer } from "./schemas.js";
 
@@ -131,11 +137,18 @@ export const tools: readonly Tool[] = [
               "type": "object"
             }
           ]
+        },
+        "4XX": {
+          "$ref": "#/$defs/realtimekit_GenericErrorResponse"
         }
       },
       $defs: {
+        "realtimekit_GenericErrorResponse": realtimekit_GenericErrorResponse_output,
+        "realtimekit_GenericErrorResponse_error": realtimekit_GenericErrorResponse_error_output,
+        "realtimekit_GenericErrorResponse_error_details": realtimekit_GenericErrorResponse_error_details_output,
         "realtimekit_GenericSuccessResponse": realtimekit_GenericSuccessResponse_output,
         "realtimekit_Recording": realtimekit_Recording_output,
+        "realtimekit_ValidationIssue": realtimekit_ValidationIssue_output,
       },
     },
     request: (args) => ({

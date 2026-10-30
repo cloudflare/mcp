@@ -53,7 +53,22 @@ export const analytics_sql_SqlQueryRequest_params: JsonSchema = {
   "description": "Positional array values for `$1`, `$2`, and similar placeholders, or named object values for placeholders such as `$status`.\n",
   "oneOf": [
     {
-      "items": {},
+      "items": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "number"
+          },
+          {
+            "type": "boolean"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
       "type": "array"
     },
     {
@@ -4019,7 +4034,7 @@ export const workers_binding_kind_version_metadata: JsonSchema = {
 export const workers_binding_kind_vpc_network: JsonSchema = {
   "properties": {
     "identity": {
-      "description": "Enables Gateway identity for the binding. Requires network_id to be \"cf1:network\" and cannot be combined with tunnel_id.\n",
+      "description": "Enables Gateway identity for the binding. Requires network_id to be \"cf1:network\" and cannot be combined with tunnel_id or an explicit \"cf1:vnet:<UUID>\" network_id.\n",
       "enum": [
         "runtime-email-alpha"
       ],
@@ -4030,7 +4045,7 @@ export const workers_binding_kind_vpc_network: JsonSchema = {
       "description": "A JavaScript variable name for the binding."
     },
     "network_id": {
-      "description": "Identifier of the network to bind to. Only \"cf1:network\" is currently supported. Mutually exclusive with tunnel_id.\n",
+      "description": "Identifier of the network to bind to. Use \"cf1:network\" to select the account's default virtual network at runtime, or \"cf1:vnet:<UUID>\" to select an explicit virtual network in the Worker's account. Mutually exclusive with tunnel_id.\n",
       "type": "string"
     },
     "tunnel_id": {
@@ -4188,6 +4203,55 @@ export const workers_cache_options: JsonSchema = {
     "enabled"
   ],
   "type": "object"
+};
+
+/**
+ * The schema of `workers_code_update_strategy`.
+ */
+export const workers_code_update_strategy: JsonSchema = {
+  "oneOf": [
+    {
+      "properties": {
+        "mode": {
+          "description": "Apply Durable Object code updates immediately.",
+          "enum": [
+            "immediate"
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "mode"
+      ],
+      "type": "object"
+    },
+    {
+      "properties": {
+        "max_delay": {
+          "description": "Set the maximum number of seconds to wait before forcing the update. When omitted, the default maximum delay applies.",
+          "oneOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "mode": {
+          "description": "Allow active Durable Objects to hibernate before updating their code.",
+          "enum": [
+            "deferred"
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "mode"
+      ],
+      "type": "object"
+    }
+  ]
 };
 
 /**

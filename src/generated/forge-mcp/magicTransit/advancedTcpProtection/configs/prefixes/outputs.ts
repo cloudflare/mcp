@@ -4,9 +4,9 @@
 import type { JsonSchema } from "../../../../_/tool.js";
 
 /**
- * The schema of `dos_Prefix` in responses.
+ * The schema of `advanced-ddos-protection_Prefix` in responses.
  */
-export const dos_Prefix_output: JsonSchema = {
+export const advanced_ddos_protection_Prefix_output: JsonSchema = {
   "properties": {
     "comment": {
       "type": "string"

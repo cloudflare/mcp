@@ -1548,6 +1548,17 @@ export const workers_observability_telemetry_event__metadata_output: JsonSchema 
     "spanName": {
       "type": "string"
     },
+    "spanStatus": {
+      "enum": [
+        "unset",
+        "ok",
+        "error"
+      ],
+      "type": "string"
+    },
+    "spanStatusMessage": {
+      "type": "string"
+    },
     "stackId": {
       "type": "string"
     },

@@ -3059,69 +3059,6 @@ export const dns_custom_nameservers_ns_set_output: JsonSchema = {
 };
 
 /**
- * The schema of `dos_api-response-common-failure` in responses.
- */
-export const dos_api_response_common_failure_output: JsonSchema = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/dos_messages"
-    },
-    "messages": {
-      "$ref": "#/$defs/dos_messages"
-    },
-    "result": {
-      "type": "null"
-    },
-    "success": {
-      "enum": [
-        false
-      ],
-      "type": "boolean"
-    }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "result",
-    "success"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `dos_messages` in responses.
- */
-export const dos_messages_output: JsonSchema = {
-  "items": {
-    "properties": {
-      "code": {
-        "type": "integer"
-      },
-      "documentation_url": {
-        "type": "string"
-      },
-      "message": {
-        "type": "string"
-      },
-      "source": {
-        "properties": {
-          "pointer": {
-            "type": "string"
-          }
-        },
-        "type": "object"
-      }
-    },
-    "required": [
-      "code",
-      "message"
-    ],
-    "type": "object"
-  },
-  "type": "array"
-};
-
-/**
  * The schema of `email_created` in responses.
  */
 export const email_created_output: JsonSchema = {
@@ -3451,6 +3388,12 @@ export const iam_account_managed_by_output: JsonSchema = {
     },
     "parent_org_name": {
       "type": "string"
+    },
+    "root_org_id": {
+      "type": "string"
+    },
+    "should_display_parent_orgs": {
+      "type": "boolean"
     }
   },
   "type": "object"
@@ -4084,6 +4027,12 @@ export const iam_token_base_output: JsonSchema = {
     },
     "status": {
       "$ref": "#/$defs/iam_token_status"
+    },
+    "token_prefix": {
+      "$ref": "#/$defs/iam_token_prefix"
+    },
+    "token_suffix": {
+      "$ref": "#/$defs/iam_token_suffix"
     }
   },
   "type": "object"
@@ -4107,6 +4056,13 @@ export const iam_token_policies_output: JsonSchema = {
 };
 
 /**
+ * The schema of `iam_token_prefix` in responses.
+ */
+export const iam_token_prefix_output: JsonSchema = {
+  "type": "string"
+};
+
+/**
  * The schema of `iam_token_status` in responses.
  */
 export const iam_token_status_output: JsonSchema = {
@@ -4115,6 +4071,13 @@ export const iam_token_status_output: JsonSchema = {
     "disabled",
     "expired"
   ],
+  "type": "string"
+};
+
+/**
+ * The schema of `iam_token_suffix` in responses.
+ */
+export const iam_token_suffix_output: JsonSchema = {
   "type": "string"
 };
 
@@ -4161,6 +4124,12 @@ export const iam_token_with_value_output: JsonSchema = {
     },
     "status": {
       "$ref": "#/$defs/iam_token_status"
+    },
+    "token_prefix": {
+      "$ref": "#/$defs/iam_token_prefix"
+    },
+    "token_suffix": {
+      "$ref": "#/$defs/iam_token_suffix"
     },
     "value": {
       "$ref": "#/$defs/iam_value"
@@ -9567,6 +9536,52 @@ export const workers_cache_options_output: JsonSchema = {
     "enabled"
   ],
   "type": "object"
+};
+
+/**
+ * The schema of `workers_code_update_strategy` in responses.
+ */
+export const workers_code_update_strategy_output: JsonSchema = {
+  "oneOf": [
+    {
+      "properties": {
+        "mode": {
+          "enum": [
+            "immediate"
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "mode"
+      ],
+      "type": "object"
+    },
+    {
+      "properties": {
+        "max_delay": {
+          "oneOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "mode": {
+          "enum": [
+            "deferred"
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "mode"
+      ],
+      "type": "object"
+    }
+  ]
 };
 
 /**

@@ -21,14 +21,7 @@ export const builds_APIResponse_output: JsonSchema = {
       "type": "array"
     },
     "result": {
-      "oneOf": [
-        {
-          "type": "object"
-        },
-        {
-          "type": "null"
-        }
-      ]
+      "$ref": "#/$defs/builds_APIResponse_result"
     },
     "result_info": {
       "$ref": "#/$defs/builds_PaginationInfo"
@@ -44,6 +37,26 @@ export const builds_APIResponse_output: JsonSchema = {
     "success"
   ],
   "type": "object"
+};
+
+/**
+ * The schema of `builds_APIResponse_result` in responses.
+ */
+export const builds_APIResponse_result_output: JsonSchema = {
+  "oneOf": [
+    {
+      "type": "object"
+    },
+    {
+      "items": {
+        "type": "object"
+      },
+      "type": "array"
+    },
+    {
+      "type": "null"
+    }
+  ]
 };
 
 /**

@@ -59,6 +59,14 @@ export const tools: readonly Tool[] = [
     },
     method: "GET",
     path: "/accounts/{account_id}/resource-library/categories/{id}",
+    extensions: {
+      "x-api-token-group": [
+        "Zero Trust Read",
+        "Zero Trust Write",
+        "Resource Library Read",
+        "Resource Library Write"
+      ]
+    },
     responses: {
       schemas: {
         "200": {
@@ -163,6 +171,14 @@ export const tools: readonly Tool[] = [
     },
     method: "GET",
     path: "/accounts/{account_id}/resource-library/categories",
+    extensions: {
+      "x-api-token-group": [
+        "Zero Trust Read",
+        "Zero Trust Write",
+        "Resource Library Read",
+        "Resource Library Write"
+      ]
+    },
     responses: {
       schemas: {
         "200": {

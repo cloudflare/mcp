@@ -3,14 +3,14 @@
 
 import { type Tool, pathParam } from "../../../../../../../_/tool.js";
 import {
-  dos_api_response_common_failure_output,
-  dos_messages_output,
-} from "../../../../../../../outputs.js";
-import { dos_api_response_common_output } from "../../../../../../outputs.js";
-import { dos_ExpressionFilter_output } from "../../../../outputs.js";
+  advanced_ddos_protection_api_response_common_failure_output,
+  advanced_ddos_protection_api_response_common_output,
+  advanced_ddos_protection_messages_output,
+} from "../../../../../../outputs.js";
+import { advanced_ddos_protection_ExpressionFilter_output } from "../../../../outputs.js";
 import {
-  dos_ExpressionFilterUpdate,
-  dos_NewExpressionFilter,
+  advanced_ddos_protection_ExpressionFilterUpdate,
+  advanced_ddos_protection_NewExpressionFilter,
 } from "../../../../schemas.js";
 
 /**
@@ -35,10 +35,10 @@ export const tools: readonly Tool[] = [
       ],
     },
     outputSchema: {
-      "$ref": "#/$defs/dos_api-response-common",
+      "$ref": "#/$defs/advanced-ddos-protection_api-response-common",
       $defs: {
-        "dos_api-response-common": dos_api_response_common_output,
-        "dos_messages": dos_messages_output,
+        "advanced-ddos-protection_api-response-common": advanced_ddos_protection_api_response_common_output,
+        "advanced-ddos-protection_messages": advanced_ddos_protection_messages_output,
       },
     },
     annotations: {
@@ -58,16 +58,16 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/dos_api-response-common"
+          "$ref": "#/$defs/advanced-ddos-protection_api-response-common"
         },
         "4XX": {
-          "$ref": "#/$defs/dos_api-response-common-failure"
+          "$ref": "#/$defs/advanced-ddos-protection_api-response-common-failure"
         }
       },
       $defs: {
-        "dos_api-response-common": dos_api_response_common_output,
-        "dos_api-response-common-failure": dos_api_response_common_failure_output,
-        "dos_messages": dos_messages_output,
+        "advanced-ddos-protection_api-response-common": advanced_ddos_protection_api_response_common_output,
+        "advanced-ddos-protection_api-response-common-failure": advanced_ddos_protection_api_response_common_failure_output,
+        "advanced-ddos-protection_messages": advanced_ddos_protection_messages_output,
       },
     },
     request: (args) => ({
@@ -86,7 +86,7 @@ export const tools: readonly Tool[] = [
           "type": "string"
         },
         "body": {
-          "$ref": "#/$defs/dos_NewExpressionFilter",
+          "$ref": "#/$defs/advanced-ddos-protection_NewExpressionFilter",
           "description": "The new filter to create."
         }
       },
@@ -95,13 +95,13 @@ export const tools: readonly Tool[] = [
         "body"
       ],
       $defs: {
-        "dos_NewExpressionFilter": dos_NewExpressionFilter,
+        "advanced-ddos-protection_NewExpressionFilter": advanced_ddos_protection_NewExpressionFilter,
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/dos_ExpressionFilter",
+      "$ref": "#/$defs/advanced-ddos-protection_ExpressionFilter",
       $defs: {
-        "dos_ExpressionFilter": dos_ExpressionFilter_output,
+        "advanced-ddos-protection_ExpressionFilter": advanced_ddos_protection_ExpressionFilter_output,
       },
     },
     annotations: {
@@ -116,26 +116,21 @@ export const tools: readonly Tool[] = [
     extensions: {
       "x-api-token-group": [
         "DDoS Protection Write"
-      ],
-      "x-forge-params": {
-        "mode": {
-          "flagName": "filter-mode"
-        }
-      }
+      ]
     },
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/dos_ExpressionFilter"
+          "$ref": "#/$defs/advanced-ddos-protection_ExpressionFilter"
         },
         "4XX": {
-          "$ref": "#/$defs/dos_api-response-common-failure"
+          "$ref": "#/$defs/advanced-ddos-protection_api-response-common-failure"
         }
       },
       $defs: {
-        "dos_ExpressionFilter": dos_ExpressionFilter_output,
-        "dos_api-response-common-failure": dos_api_response_common_failure_output,
-        "dos_messages": dos_messages_output,
+        "advanced-ddos-protection_ExpressionFilter": advanced_ddos_protection_ExpressionFilter_output,
+        "advanced-ddos-protection_api-response-common-failure": advanced_ddos_protection_api_response_common_failure_output,
+        "advanced-ddos-protection_messages": advanced_ddos_protection_messages_output,
       },
     },
     request: (args) => ({
@@ -165,10 +160,10 @@ export const tools: readonly Tool[] = [
       ],
     },
     outputSchema: {
-      "$ref": "#/$defs/dos_api-response-common",
+      "$ref": "#/$defs/advanced-ddos-protection_api-response-common",
       $defs: {
-        "dos_api-response-common": dos_api_response_common_output,
-        "dos_messages": dos_messages_output,
+        "advanced-ddos-protection_api-response-common": advanced_ddos_protection_api_response_common_output,
+        "advanced-ddos-protection_messages": advanced_ddos_protection_messages_output,
       },
     },
     annotations: {
@@ -188,16 +183,16 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/dos_api-response-common"
+          "$ref": "#/$defs/advanced-ddos-protection_api-response-common"
         },
         "4XX": {
-          "$ref": "#/$defs/dos_api-response-common-failure"
+          "$ref": "#/$defs/advanced-ddos-protection_api-response-common-failure"
         }
       },
       $defs: {
-        "dos_api-response-common": dos_api_response_common_output,
-        "dos_api-response-common-failure": dos_api_response_common_failure_output,
-        "dos_messages": dos_messages_output,
+        "advanced-ddos-protection_api-response-common": advanced_ddos_protection_api_response_common_output,
+        "advanced-ddos-protection_api-response-common-failure": advanced_ddos_protection_api_response_common_failure_output,
+        "advanced-ddos-protection_messages": advanced_ddos_protection_messages_output,
       },
     },
     request: (args) => ({
@@ -226,9 +221,9 @@ export const tools: readonly Tool[] = [
       ],
     },
     outputSchema: {
-      "$ref": "#/$defs/dos_ExpressionFilter",
+      "$ref": "#/$defs/advanced-ddos-protection_ExpressionFilter",
       $defs: {
-        "dos_ExpressionFilter": dos_ExpressionFilter_output,
+        "advanced-ddos-protection_ExpressionFilter": advanced_ddos_protection_ExpressionFilter_output,
       },
     },
     annotations: {
@@ -249,16 +244,16 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/dos_ExpressionFilter"
+          "$ref": "#/$defs/advanced-ddos-protection_ExpressionFilter"
         },
         "4XX": {
-          "$ref": "#/$defs/dos_api-response-common-failure"
+          "$ref": "#/$defs/advanced-ddos-protection_api-response-common-failure"
         }
       },
       $defs: {
-        "dos_ExpressionFilter": dos_ExpressionFilter_output,
-        "dos_api-response-common-failure": dos_api_response_common_failure_output,
-        "dos_messages": dos_messages_output,
+        "advanced-ddos-protection_ExpressionFilter": advanced_ddos_protection_ExpressionFilter_output,
+        "advanced-ddos-protection_api-response-common-failure": advanced_ddos_protection_api_response_common_failure_output,
+        "advanced-ddos-protection_messages": advanced_ddos_protection_messages_output,
       },
     },
     request: (args) => ({
@@ -305,7 +300,7 @@ export const tools: readonly Tool[] = [
       "properties": {
         "result": {
           "items": {
-            "$ref": "#/$defs/dos_ExpressionFilter"
+            "$ref": "#/$defs/advanced-ddos-protection_ExpressionFilter"
           },
           "type": "array"
         },
@@ -335,7 +330,7 @@ export const tools: readonly Tool[] = [
       ],
       "type": "object",
       $defs: {
-        "dos_ExpressionFilter": dos_ExpressionFilter_output,
+        "advanced-ddos-protection_ExpressionFilter": advanced_ddos_protection_ExpressionFilter_output,
       },
     },
     annotations: {
@@ -359,7 +354,7 @@ export const tools: readonly Tool[] = [
           "properties": {
             "result": {
               "items": {
-                "$ref": "#/$defs/dos_ExpressionFilter"
+                "$ref": "#/$defs/advanced-ddos-protection_ExpressionFilter"
               },
               "type": "array"
             },
@@ -390,13 +385,13 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "4XX": {
-          "$ref": "#/$defs/dos_api-response-common-failure"
+          "$ref": "#/$defs/advanced-ddos-protection_api-response-common-failure"
         }
       },
       $defs: {
-        "dos_ExpressionFilter": dos_ExpressionFilter_output,
-        "dos_api-response-common-failure": dos_api_response_common_failure_output,
-        "dos_messages": dos_messages_output,
+        "advanced-ddos-protection_ExpressionFilter": advanced_ddos_protection_ExpressionFilter_output,
+        "advanced-ddos-protection_api-response-common-failure": advanced_ddos_protection_api_response_common_failure_output,
+        "advanced-ddos-protection_messages": advanced_ddos_protection_messages_output,
       },
     },
     request: (args) => ({
@@ -422,7 +417,7 @@ export const tools: readonly Tool[] = [
           "type": "string"
         },
         "body": {
-          "$ref": "#/$defs/dos_ExpressionFilterUpdate",
+          "$ref": "#/$defs/advanced-ddos-protection_ExpressionFilterUpdate",
           "description": "The updates to apply to the filter."
         },
         "filter_id": {
@@ -436,13 +431,13 @@ export const tools: readonly Tool[] = [
         "body"
       ],
       $defs: {
-        "dos_ExpressionFilterUpdate": dos_ExpressionFilterUpdate,
+        "advanced-ddos-protection_ExpressionFilterUpdate": advanced_ddos_protection_ExpressionFilterUpdate,
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/dos_ExpressionFilter",
+      "$ref": "#/$defs/advanced-ddos-protection_ExpressionFilter",
       $defs: {
-        "dos_ExpressionFilter": dos_ExpressionFilter_output,
+        "advanced-ddos-protection_ExpressionFilter": advanced_ddos_protection_ExpressionFilter_output,
       },
     },
     annotations: {
@@ -457,26 +452,21 @@ export const tools: readonly Tool[] = [
     extensions: {
       "x-api-token-group": [
         "DDoS Protection Write"
-      ],
-      "x-forge-params": {
-        "mode": {
-          "flagName": "filter-mode"
-        }
-      }
+      ]
     },
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/dos_ExpressionFilter"
+          "$ref": "#/$defs/advanced-ddos-protection_ExpressionFilter"
         },
         "4XX": {
-          "$ref": "#/$defs/dos_api-response-common-failure"
+          "$ref": "#/$defs/advanced-ddos-protection_api-response-common-failure"
         }
       },
       $defs: {
-        "dos_ExpressionFilter": dos_ExpressionFilter_output,
-        "dos_api-response-common-failure": dos_api_response_common_failure_output,
-        "dos_messages": dos_messages_output,
+        "advanced-ddos-protection_ExpressionFilter": advanced_ddos_protection_ExpressionFilter_output,
+        "advanced-ddos-protection_api-response-common-failure": advanced_ddos_protection_api_response_common_failure_output,
+        "advanced-ddos-protection_messages": advanced_ddos_protection_messages_output,
       },
     },
     request: (args) => ({

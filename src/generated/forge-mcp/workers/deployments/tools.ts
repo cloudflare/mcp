@@ -5,16 +5,20 @@ import { type Tool, pathParam } from "../../_/tool.js";
 import {
   workers_api_response_common_failure_output,
   workers_api_response_common_output,
+  workers_code_update_strategy_output,
   workers_messages_output,
 } from "../../outputs.js";
+import { workers_code_update_strategy } from "../../schemas.js";
 import {
   workers_deployment_annotations_output,
+  workers_deployment_code_update_strategy_output,
   workers_deployment_output,
   workers_deployment_versionsItem_output,
 } from "./outputs.js";
 import {
   workers_deployment,
   workers_deployment_annotations,
+  workers_deployment_code_update_strategy,
   workers_deployment_versionsItem,
 } from "./schemas.js";
 
@@ -51,16 +55,20 @@ export const tools: readonly Tool[] = [
         "body"
       ],
       $defs: {
+        "workers_code_update_strategy": workers_code_update_strategy,
         "workers_deployment": workers_deployment,
         "workers_deployment_annotations": workers_deployment_annotations,
+        "workers_deployment_code_update_strategy": workers_deployment_code_update_strategy,
         "workers_deployment_versionsItem": workers_deployment_versionsItem,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/workers_deployment",
       $defs: {
+        "workers_code_update_strategy": workers_code_update_strategy_output,
         "workers_deployment": workers_deployment_output,
         "workers_deployment_annotations": workers_deployment_annotations_output,
+        "workers_deployment_code_update_strategy": workers_deployment_code_update_strategy_output,
         "workers_deployment_versionsItem": workers_deployment_versionsItem_output,
       },
     },
@@ -93,8 +101,10 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "workers_api-response-common-failure": workers_api_response_common_failure_output,
+        "workers_code_update_strategy": workers_code_update_strategy_output,
         "workers_deployment": workers_deployment_output,
         "workers_deployment_annotations": workers_deployment_annotations_output,
+        "workers_deployment_code_update_strategy": workers_deployment_code_update_strategy_output,
         "workers_deployment_versionsItem": workers_deployment_versionsItem_output,
         "workers_messages": workers_messages_output,
       },
@@ -205,8 +215,10 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "$ref": "#/$defs/workers_deployment",
       $defs: {
+        "workers_code_update_strategy": workers_code_update_strategy_output,
         "workers_deployment": workers_deployment_output,
         "workers_deployment_annotations": workers_deployment_annotations_output,
+        "workers_deployment_code_update_strategy": workers_deployment_code_update_strategy_output,
         "workers_deployment_versionsItem": workers_deployment_versionsItem_output,
       },
     },
@@ -245,8 +257,10 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "workers_api-response-common-failure": workers_api_response_common_failure_output,
+        "workers_code_update_strategy": workers_code_update_strategy_output,
         "workers_deployment": workers_deployment_output,
         "workers_deployment_annotations": workers_deployment_annotations_output,
+        "workers_deployment_code_update_strategy": workers_deployment_code_update_strategy_output,
         "workers_deployment_versionsItem": workers_deployment_versionsItem_output,
         "workers_messages": workers_messages_output,
       },
@@ -310,8 +324,10 @@ export const tools: readonly Tool[] = [
       ],
       "type": "object",
       $defs: {
+        "workers_code_update_strategy": workers_code_update_strategy_output,
         "workers_deployment": workers_deployment_output,
         "workers_deployment_annotations": workers_deployment_annotations_output,
+        "workers_deployment_code_update_strategy": workers_deployment_code_update_strategy_output,
         "workers_deployment_versionsItem": workers_deployment_versionsItem_output,
       },
     },
@@ -361,8 +377,10 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "workers_api-response-common-failure": workers_api_response_common_failure_output,
+        "workers_code_update_strategy": workers_code_update_strategy_output,
         "workers_deployment": workers_deployment_output,
         "workers_deployment_annotations": workers_deployment_annotations_output,
+        "workers_deployment_code_update_strategy": workers_deployment_code_update_strategy_output,
         "workers_deployment_versionsItem": workers_deployment_versionsItem_output,
         "workers_messages": workers_messages_output,
       },

@@ -41,7 +41,14 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/logcontrol_retention_flag",
+      "oneOf": [
+        {
+          "$ref": "#/$defs/logcontrol_retention_flag"
+        },
+        {
+          "type": "null"
+        }
+      ],
       $defs: {
         "logcontrol_flag": logcontrol_flag_output,
         "logcontrol_retention_flag": logcontrol_retention_flag_output,
@@ -80,7 +87,14 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/logcontrol_retention_flag"
+          "oneOf": [
+            {
+              "$ref": "#/$defs/logcontrol_retention_flag"
+            },
+            {
+              "type": "null"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/logcontrol_api-response-common-failure"
@@ -115,7 +129,14 @@ export const tools: readonly Tool[] = [
       ],
     },
     outputSchema: {
-      "$ref": "#/$defs/logcontrol_retention_flag",
+      "oneOf": [
+        {
+          "$ref": "#/$defs/logcontrol_retention_flag"
+        },
+        {
+          "type": "null"
+        }
+      ],
       $defs: {
         "logcontrol_flag": logcontrol_flag_output,
         "logcontrol_retention_flag": logcontrol_retention_flag_output,
@@ -159,7 +180,14 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/logcontrol_retention_flag"
+          "oneOf": [
+            {
+              "$ref": "#/$defs/logcontrol_retention_flag"
+            },
+            {
+              "type": "null"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/logcontrol_api-response-common-failure"

@@ -2,7 +2,7 @@
 
 # MCP tools
 
-3041 tools in 1035 groups. `index.ts` exports them as `tools`, with the runtime in `_/tool.ts` that lists them and builds their requests.
+3013 tools in 1030 groups. `index.ts` exports them as `tools`, with the runtime in `_/tool.ts` that lists them and builds their requests.
 
 ## Methods without a tool
 

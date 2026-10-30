@@ -24,7 +24,8 @@ export const zero_trust_gateway_action: JsonSchema = {
     "egress",
     "resolve",
     "quarantine",
-    "redirect"
+    "redirect",
+    "forward"
   ],
   "type": "string"
 };
@@ -285,6 +286,10 @@ export const zero_trust_gateway_rule_settings: JsonSchema = {
       "$ref": "#/$defs/zero-trust-gateway_rule-settings_forensic_copy",
       "description": "Configure whether a copy of the HTTP request will be sent to storage when the rule matches."
     },
+    "forward": {
+      "$ref": "#/$defs/zero-trust-gateway_rule-settings_forward",
+      "description": "Forward matching HTTP requests to a Worker. Required for `http` rules with the action set to `forward`."
+    },
     "ignore_cname_category_matches": {
       "description": "Ignore category matches at CNAME domains in a response. When off, evaluate categories in this rule against all CNAME domain categories in the response. Settable only for `dns` and `dns_resolver` rules.",
       "type": "boolean"
@@ -424,10 +429,11 @@ export const zero_trust_gateway_rule_settings_biso_admin_controls: JsonSchema = 
       "type": "boolean"
     },
     "keyboard": {
-      "description": "Configure keyboard usage behavior. If this field is absent, keyboard usage remains enabled. Applies only when version == \"v2\".",
+      "description": "Configure keyboard usage behavior. When set to enable_read_only_actions, only approved browser commands (find, copy, print, zoom, and select-all) may execute; other keyboard input is blocked from reaching the page. Copy and print remain subject to their independent controls. If this field is absent, keyboard usage remains enabled. Applies only when version == \"v2\". The enable_read_only_actions value requires an explicit version of \"v2\".",
       "enum": [
         "enabled",
-        "disabled"
+        "disabled",
+        "enable_read_only_actions"
       ],
       "type": "string"
     },
@@ -598,6 +604,30 @@ export const zero_trust_gateway_rule_settings_forensic_copy: JsonSchema = {
           "type": "boolean"
         }
       },
+      "type": "object"
+    },
+    {
+      "type": "null"
+    }
+  ]
+};
+
+/**
+ * The schema of `zero-trust-gateway_rule-settings_forward`.
+ */
+export const zero_trust_gateway_rule_settings_forward: JsonSchema = {
+  "description": "Forward matching HTTP requests to a Worker. Required for `http` rules with the action set to `forward`.",
+  "oneOf": [
+    {
+      "properties": {
+        "worker_id": {
+          "description": "Specify the public Worker ID of the target Worker.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "worker_id"
+      ],
       "type": "object"
     },
     {

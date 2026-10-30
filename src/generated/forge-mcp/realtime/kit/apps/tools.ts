@@ -2,6 +2,14 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../../_/tool.js";
+import {
+  realtimekit_ErrorResponse_error_output,
+  realtimekit_ErrorResponse_output,
+  realtimekit_GenericErrorResponse_error_details_output,
+  realtimekit_GenericErrorResponse_error_output,
+  realtimekit_GenericErrorResponse_output,
+  realtimekit_ValidationIssue_output,
+} from "../outputs.js";
 import { realtimekit_account_identifier } from "../schemas.js";
 
 /**
@@ -113,7 +121,16 @@ export const tools: readonly Tool[] = [
             }
           },
           "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/realtimekit_GenericErrorResponse"
         }
+      },
+      $defs: {
+        "realtimekit_GenericErrorResponse": realtimekit_GenericErrorResponse_output,
+        "realtimekit_GenericErrorResponse_error": realtimekit_GenericErrorResponse_error_output,
+        "realtimekit_GenericErrorResponse_error_details": realtimekit_GenericErrorResponse_error_details_output,
+        "realtimekit_ValidationIssue": realtimekit_ValidationIssue_output,
       },
     },
     request: (args) => ({
@@ -220,7 +237,16 @@ export const tools: readonly Tool[] = [
             }
           },
           "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/realtimekit_GenericErrorResponse"
         }
+      },
+      $defs: {
+        "realtimekit_GenericErrorResponse": realtimekit_GenericErrorResponse_output,
+        "realtimekit_GenericErrorResponse_error": realtimekit_GenericErrorResponse_error_output,
+        "realtimekit_GenericErrorResponse_error_details": realtimekit_GenericErrorResponse_error_details_output,
+        "realtimekit_ValidationIssue": realtimekit_ValidationIssue_output,
       },
     },
     request: (args) => ({
@@ -367,7 +393,16 @@ export const tools: readonly Tool[] = [
             }
           },
           "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/realtimekit_GenericErrorResponse"
         }
+      },
+      $defs: {
+        "realtimekit_GenericErrorResponse": realtimekit_GenericErrorResponse_output,
+        "realtimekit_GenericErrorResponse_error": realtimekit_GenericErrorResponse_error_output,
+        "realtimekit_GenericErrorResponse_error_details": realtimekit_GenericErrorResponse_error_details_output,
+        "realtimekit_ValidationIssue": realtimekit_ValidationIssue_output,
       },
     },
     request: (args) => ({
@@ -378,6 +413,179 @@ export const tools: readonly Tool[] = [
         ["search", args["search"], true],
         ["sort_order", args["sort_order"], true],
       ],
+    }),
+  },
+  {
+    name: "realtime_kit_apps_update",
+    title: "Update an app",
+    description: "Update the name of an app in your account.\n\nThis method is beta.",
+    inputSchema: {
+      type: "object",
+      properties: {
+        "account_id": {
+          "description": "The account identifier tag.",
+          "type": "string"
+        },
+        "app_id": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "body": {
+          "properties": {
+            "name": {
+              "description": "The app name. Leading and trailing whitespace is removed, and the name must contain at least one non-whitespace character.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "name"
+          ],
+          "type": "object"
+        }
+      },
+      required: [
+        "account_id",
+        "app_id",
+        "body"
+      ],
+    },
+    outputSchema: {
+      "properties": {
+        "data": {
+          "properties": {
+            "cf_account_tag": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "created_at": {
+              "format": "date-time",
+              "type": "string"
+            },
+            "id": {
+              "format": "uuid",
+              "type": "string"
+            },
+            "is_org_on_kv": {
+              "type": "boolean"
+            },
+            "name": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            }
+          },
+          "type": "object"
+        },
+        "success": {
+          "enum": [
+            true
+          ],
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "data",
+        "success"
+      ],
+      "type": "object",
+    },
+    annotations: {
+      "destructiveHint": false,
+      "idempotentHint": false,
+      "openWorldHint": true,
+      "readOnlyHint": false,
+      "title": "Update an app"
+    },
+    method: "PATCH",
+    path: "/accounts/{account_id}/realtime/kit/apps/{app_id}",
+    extensions: {
+      "x-api-token-group": [
+        "Realtime Admin",
+        "Realtime"
+      ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "data": {
+              "properties": {
+                "cf_account_tag": {
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "created_at": {
+                  "format": "date-time",
+                  "type": "string"
+                },
+                "id": {
+                  "format": "uuid",
+                  "type": "string"
+                },
+                "is_org_on_kv": {
+                  "type": "boolean"
+                },
+                "name": {
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                }
+              },
+              "type": "object"
+            },
+            "success": {
+              "enum": [
+                true
+              ],
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "data",
+            "success"
+          ],
+          "type": "object"
+        },
+        "400": {
+          "$ref": "#/$defs/realtimekit_ErrorResponse"
+        },
+        "401": {
+          "$ref": "#/$defs/realtimekit_ErrorResponse"
+        },
+        "404": {
+          "$ref": "#/$defs/realtimekit_ErrorResponse"
+        }
+      },
+      $defs: {
+        "realtimekit_ErrorResponse": realtimekit_ErrorResponse_output,
+        "realtimekit_ErrorResponse_error": realtimekit_ErrorResponse_error_output,
+      },
+    },
+    request: (args) => ({
+      path: `/accounts/${pathParam(args, "account_id")}/realtime/kit/apps/${pathParam(args, "app_id")}`,
+      body: { value: args["body"], mediaType: "application/json" },
     }),
   },
 ];

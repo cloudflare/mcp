@@ -113,6 +113,12 @@ export const tools: readonly Tool[] = [
     },
     method: "POST",
     path: "/accounts/{account_id}/resource-library/applications",
+    extensions: {
+      "x-api-token-group": [
+        "Zero Trust Write",
+        "Resource Library Write"
+      ]
+    },
     responses: {
       schemas: {
         "201": {
@@ -184,6 +190,12 @@ export const tools: readonly Tool[] = [
     },
     method: "DELETE",
     path: "/accounts/{account_id}/resource-library/applications/{id}",
+    extensions: {
+      "x-api-token-group": [
+        "Zero Trust Write",
+        "Resource Library Write"
+      ]
+    },
     responses: {
       schemas: {
         "200": {
@@ -266,6 +278,14 @@ export const tools: readonly Tool[] = [
     },
     method: "GET",
     path: "/accounts/{account_id}/resource-library/applications/{id}",
+    extensions: {
+      "x-api-token-group": [
+        "Zero Trust Read",
+        "Zero Trust Write",
+        "Resource Library Read",
+        "Resource Library Write"
+      ]
+    },
     responses: {
       schemas: {
         "200": {
@@ -418,6 +438,14 @@ export const tools: readonly Tool[] = [
     },
     method: "GET",
     path: "/accounts/{account_id}/resource-library/applications",
+    extensions: {
+      "x-api-token-group": [
+        "Zero Trust Read",
+        "Zero Trust Write",
+        "Resource Library Read",
+        "Resource Library Write"
+      ]
+    },
     responses: {
       schemas: {
         "200": {
@@ -607,6 +635,14 @@ export const tools: readonly Tool[] = [
     },
     method: "POST",
     path: "/accounts/{account_id}/resource-library/applications/lookup",
+    extensions: {
+      "x-api-token-group": [
+        "Zero Trust Read",
+        "Zero Trust Write",
+        "Resource Library Read",
+        "Resource Library Write"
+      ]
+    },
     responses: {
       schemas: {
         "200": {
@@ -756,6 +792,12 @@ export const tools: readonly Tool[] = [
     },
     method: "PATCH",
     path: "/accounts/{account_id}/resource-library/applications/{id}",
+    extensions: {
+      "x-api-token-group": [
+        "Zero Trust Write",
+        "Resource Library Write"
+      ]
+    },
     responses: {
       schemas: {
         "200": {

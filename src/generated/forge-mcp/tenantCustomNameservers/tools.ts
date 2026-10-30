@@ -38,13 +38,13 @@ export const tools: readonly Tool[] = [
         "body": {
           "$ref": "#/$defs/dns-custom-nameservers_CustomNSInput"
         },
-        "tenant_tag": {
+        "tenant_id": {
           "description": "Tenant identifier tag.",
           "type": "string"
         }
       },
       required: [
-        "tenant_tag",
+        "tenant_id",
         "body"
       ],
       $defs: {
@@ -71,7 +71,7 @@ export const tools: readonly Tool[] = [
       "title": "Add Tenant Custom Nameserver"
     },
     method: "POST",
-    path: "/tenants/{tenant_tag}/custom_ns",
+    path: "/tenants/{tenant_id}/custom_ns",
     extensions: {
       "x-cfPlanAvailability": {
         "business": true,
@@ -108,7 +108,7 @@ export const tools: readonly Tool[] = [
       },
     },
     request: (args) => ({
-      path: `/tenants/${pathParam(args, "tenant_tag")}/custom_ns`,
+      path: `/tenants/${pathParam(args, "tenant_id")}/custom_ns`,
       body: { value: args["body"], mediaType: "application/json" },
     }),
   },
@@ -123,13 +123,13 @@ export const tools: readonly Tool[] = [
           "description": "The FQDN of the name server.",
           "type": "string"
         },
-        "tenant_tag": {
+        "tenant_id": {
           "description": "Tenant identifier tag.",
           "type": "string"
         }
       },
       required: [
-        "tenant_tag",
+        "tenant_id",
         "custom_ns_id"
       ],
     },
@@ -176,7 +176,7 @@ export const tools: readonly Tool[] = [
       "title": "Delete Tenant Custom Nameserver"
     },
     method: "DELETE",
-    path: "/tenants/{tenant_tag}/custom_ns/{custom_ns_id}",
+    path: "/tenants/{tenant_id}/custom_ns/{custom_ns_id}",
     extensions: {
       "x-cfPlanAvailability": {
         "business": true,
@@ -241,7 +241,7 @@ export const tools: readonly Tool[] = [
       },
     },
     request: (args) => ({
-      path: `/tenants/${pathParam(args, "tenant_tag")}/custom_ns/${pathParam(args, "custom_ns_id")}`,
+      path: `/tenants/${pathParam(args, "tenant_id")}/custom_ns/${pathParam(args, "custom_ns_id")}`,
     }),
   },
   {
@@ -251,13 +251,13 @@ export const tools: readonly Tool[] = [
     inputSchema: {
       type: "object",
       properties: {
-        "tenant_tag": {
+        "tenant_id": {
           "description": "Tenant identifier tag.",
           "type": "string"
         }
       },
       required: [
-        "tenant_tag"
+        "tenant_id"
       ],
     },
     outputSchema: {
@@ -309,7 +309,7 @@ export const tools: readonly Tool[] = [
       "title": "List Tenant Custom Nameservers"
     },
     method: "GET",
-    path: "/tenants/{tenant_tag}/custom_ns",
+    path: "/tenants/{tenant_id}/custom_ns",
     extensions: {
       "x-cfPlanAvailability": {
         "business": true,
@@ -378,7 +378,7 @@ export const tools: readonly Tool[] = [
       },
     },
     request: (args) => ({
-      path: `/tenants/${pathParam(args, "tenant_tag")}/custom_ns`,
+      path: `/tenants/${pathParam(args, "tenant_id")}/custom_ns`,
     }),
   },
 ];

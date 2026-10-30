@@ -11,6 +11,7 @@ import { tools as accounts_billing_historyTools } from "./accounts/billing/histo
 import { tools as accounts_billing_paymentMethodsTools } from "./accounts/billing/paymentMethods/tools.js";
 import { tools as accounts_billingTools } from "./accounts/billing/tools.js";
 import { tools as accounts_categoriesTools } from "./accounts/categories/tools.js";
+import { tools as accounts_entitlementsTools } from "./accounts/entitlements/tools.js";
 import { tools as accounts_logs_auditTools } from "./accounts/logs/audit/tools.js";
 import { tools as accounts_membersTools } from "./accounts/members/tools.js";
 import { tools as accounts_organizationTools } from "./accounts/organization/tools.js";
@@ -116,6 +117,9 @@ import { tools as basinCatalogTools } from "./basinCatalog/tools.js";
 import { tools as billing_addressesTools } from "./billing/addresses/tools.js";
 import { tools as billing_profilesTools } from "./billing/profiles/tools.js";
 import { tools as billing_ratePlansTools } from "./billing/ratePlans/tools.js";
+import { tools as billing_spendPolicies_activityTools } from "./billing/spendPolicies/activity/tools.js";
+import { tools as billing_spendPolicies_auditTools } from "./billing/spendPolicies/audit/tools.js";
+import { tools as billing_spendPoliciesTools } from "./billing/spendPolicies/tools.js";
 import { tools as billing_usageTools } from "./billing/usage/tools.js";
 import { tools as botManagement_feedbackTools } from "./botManagement/feedback/tools.js";
 import { tools as botManagementTools } from "./botManagement/tools.js";
@@ -408,12 +412,6 @@ import { tools as logs_rayidTools } from "./logs/rayid/tools.js";
 import { tools as logs_received_fieldsTools } from "./logs/received/fields/tools.js";
 import { tools as logs_receivedTools } from "./logs/received/tools.js";
 import { tools as logs_retrieveTools } from "./logs/retrieve/tools.js";
-import { tools as magicCloudNetworking_catalogSyncs_prebuiltPoliciesTools } from "./magicCloudNetworking/catalogSyncs/prebuiltPolicies/tools.js";
-import { tools as magicCloudNetworking_catalogSyncsTools } from "./magicCloudNetworking/catalogSyncs/tools.js";
-import { tools as magicCloudNetworking_cloudIntegrationsTools } from "./magicCloudNetworking/cloudIntegrations/tools.js";
-import { tools as magicCloudNetworking_onRamps_addressSpacesTools } from "./magicCloudNetworking/onRamps/addressSpaces/tools.js";
-import { tools as magicCloudNetworking_onRampsTools } from "./magicCloudNetworking/onRamps/tools.js";
-import { tools as magicCloudNetworking_resourcesTools } from "./magicCloudNetworking/resources/tools.js";
 import { tools as magicNetworkMonitoring_configs_fullTools } from "./magicNetworkMonitoring/configs/full/tools.js";
 import { tools as magicNetworkMonitoring_configsTools } from "./magicNetworkMonitoring/configs/tools.js";
 import { tools as magicNetworkMonitoring_rules_advertisementsTools } from "./magicNetworkMonitoring/rules/advertisements/tools.js";
@@ -675,11 +673,8 @@ import { tools as rules_lists_bulkOperationsTools } from "./rules/lists/bulkOper
 import { tools as rules_lists_itemsTools } from "./rules/lists/items/tools.js";
 import { tools as rules_listsTools } from "./rules/lists/tools.js";
 import { tools as rulesets_entrypointTools } from "./rulesets/entrypoint/tools.js";
-import { tools as rulesets_entrypoint_versionsTools } from "./rulesets/entrypoint/versions/tools.js";
 import { tools as rulesets_rulesTools } from "./rulesets/rules/tools.js";
 import { tools as rulesetsTools } from "./rulesets/tools.js";
-import { tools as rulesets_versions_byTagTools } from "./rulesets/versions/byTag/tools.js";
-import { tools as rulesets_versionsTools } from "./rulesets/versions/tools.js";
 import { tools as rum_rulesTools } from "./rum/rules/tools.js";
 import { tools as rum_siteInfoTools } from "./rum/siteInfo/tools.js";
 import { tools as scim_groupsTools } from "./scim/groups/tools.js";
@@ -1063,6 +1058,7 @@ export const tools: readonly Tool[] = [
   ...accounts_billing_historyTools,
   ...accounts_billing_paymentMethodsTools,
   ...accounts_categoriesTools,
+  ...accounts_entitlementsTools,
   ...accounts_logs_auditTools,
   ...accounts_membersTools,
   ...accounts_organizationTools,
@@ -1167,6 +1163,9 @@ export const tools: readonly Tool[] = [
   ...billing_addressesTools,
   ...billing_profilesTools,
   ...billing_ratePlansTools,
+  ...billing_spendPoliciesTools,
+  ...billing_spendPolicies_activityTools,
+  ...billing_spendPolicies_auditTools,
   ...billing_usageTools,
   ...botManagementTools,
   ...botManagement_feedbackTools,
@@ -1459,12 +1458,6 @@ export const tools: readonly Tool[] = [
   ...logs_receivedTools,
   ...logs_received_fieldsTools,
   ...logs_retrieveTools,
-  ...magicCloudNetworking_catalogSyncsTools,
-  ...magicCloudNetworking_catalogSyncs_prebuiltPoliciesTools,
-  ...magicCloudNetworking_cloudIntegrationsTools,
-  ...magicCloudNetworking_onRampsTools,
-  ...magicCloudNetworking_onRamps_addressSpacesTools,
-  ...magicCloudNetworking_resourcesTools,
   ...magicNetworkMonitoring_configsTools,
   ...magicNetworkMonitoring_configs_fullTools,
   ...magicNetworkMonitoring_rulesTools,
@@ -1727,10 +1720,7 @@ export const tools: readonly Tool[] = [
   ...rules_lists_itemsTools,
   ...rulesetsTools,
   ...rulesets_entrypointTools,
-  ...rulesets_entrypoint_versionsTools,
   ...rulesets_rulesTools,
-  ...rulesets_versionsTools,
-  ...rulesets_versions_byTagTools,
   ...rum_rulesTools,
   ...rum_siteInfoTools,
   ...scim_groupsTools,

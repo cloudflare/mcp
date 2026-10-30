@@ -20,6 +20,7 @@ export const tools: readonly Tool[] = [
         "body": {
           "properties": {
             "authentication": {
+              "description": "Require authentication for gateway access. New gateways must have authentication enabled. Once enabled, authentication cannot be disabled.",
               "type": "boolean"
             },
             "byok_only": {
@@ -176,6 +177,13 @@ export const tools: readonly Tool[] = [
                           ],
                           "type": "string"
                         },
+                        "S14": {
+                          "enum": [
+                            "FLAG",
+                            "BLOCK"
+                          ],
+                          "type": "string"
+                        },
                         "S2": {
                           "enum": [
                             "FLAG",
@@ -273,6 +281,13 @@ export const tools: readonly Tool[] = [
                           "type": "string"
                         },
                         "S13": {
+                          "enum": [
+                            "FLAG",
+                            "BLOCK"
+                          ],
+                          "type": "string"
+                        },
+                        "S14": {
                           "enum": [
                             "FLAG",
                             "BLOCK"
@@ -911,6 +926,13 @@ export const tools: readonly Tool[] = [
                       ],
                       "type": "string"
                     },
+                    "S14": {
+                      "enum": [
+                        "FLAG",
+                        "BLOCK"
+                      ],
+                      "type": "string"
+                    },
                     "S2": {
                       "enum": [
                         "FLAG",
@@ -1008,6 +1030,13 @@ export const tools: readonly Tool[] = [
                       "type": "string"
                     },
                     "S13": {
+                      "enum": [
+                        "FLAG",
+                        "BLOCK"
+                      ],
+                      "type": "string"
+                    },
+                    "S14": {
                       "enum": [
                         "FLAG",
                         "BLOCK"
@@ -1669,6 +1698,13 @@ export const tools: readonly Tool[] = [
                           ],
                           "type": "string"
                         },
+                        "S14": {
+                          "enum": [
+                            "FLAG",
+                            "BLOCK"
+                          ],
+                          "type": "string"
+                        },
                         "S2": {
                           "enum": [
                             "FLAG",
@@ -1766,6 +1802,13 @@ export const tools: readonly Tool[] = [
                           "type": "string"
                         },
                         "S13": {
+                          "enum": [
+                            "FLAG",
+                            "BLOCK"
+                          ],
+                          "type": "string"
+                        },
+                        "S14": {
                           "enum": [
                             "FLAG",
                             "BLOCK"
@@ -2459,6 +2502,13 @@ export const tools: readonly Tool[] = [
                       ],
                       "type": "string"
                     },
+                    "S14": {
+                      "enum": [
+                        "FLAG",
+                        "BLOCK"
+                      ],
+                      "type": "string"
+                    },
                     "S2": {
                       "enum": [
                         "FLAG",
@@ -2556,6 +2606,13 @@ export const tools: readonly Tool[] = [
                       "type": "string"
                     },
                     "S13": {
+                      "enum": [
+                        "FLAG",
+                        "BLOCK"
+                      ],
+                      "type": "string"
+                    },
+                    "S14": {
                       "enum": [
                         "FLAG",
                         "BLOCK"
@@ -3217,6 +3274,13 @@ export const tools: readonly Tool[] = [
                           ],
                           "type": "string"
                         },
+                        "S14": {
+                          "enum": [
+                            "FLAG",
+                            "BLOCK"
+                          ],
+                          "type": "string"
+                        },
                         "S2": {
                           "enum": [
                             "FLAG",
@@ -3314,6 +3378,13 @@ export const tools: readonly Tool[] = [
                           "type": "string"
                         },
                         "S13": {
+                          "enum": [
+                            "FLAG",
+                            "BLOCK"
+                          ],
+                          "type": "string"
+                        },
+                        "S14": {
                           "enum": [
                             "FLAG",
                             "BLOCK"
@@ -4036,6 +4107,13 @@ export const tools: readonly Tool[] = [
                       ],
                       "type": "string"
                     },
+                    "S14": {
+                      "enum": [
+                        "FLAG",
+                        "BLOCK"
+                      ],
+                      "type": "string"
+                    },
                     "S2": {
                       "enum": [
                         "FLAG",
@@ -4133,6 +4211,13 @@ export const tools: readonly Tool[] = [
                       "type": "string"
                     },
                     "S13": {
+                      "enum": [
+                        "FLAG",
+                        "BLOCK"
+                      ],
+                      "type": "string"
+                    },
+                    "S14": {
                       "enum": [
                         "FLAG",
                         "BLOCK"
@@ -4795,6 +4880,13 @@ export const tools: readonly Tool[] = [
                           ],
                           "type": "string"
                         },
+                        "S14": {
+                          "enum": [
+                            "FLAG",
+                            "BLOCK"
+                          ],
+                          "type": "string"
+                        },
                         "S2": {
                           "enum": [
                             "FLAG",
@@ -4892,6 +4984,13 @@ export const tools: readonly Tool[] = [
                           "type": "string"
                         },
                         "S13": {
+                          "enum": [
+                            "FLAG",
+                            "BLOCK"
+                          ],
+                          "type": "string"
+                        },
+                        "S14": {
                           "enum": [
                             "FLAG",
                             "BLOCK"
@@ -5723,6 +5822,13 @@ export const tools: readonly Tool[] = [
                             ],
                             "type": "string"
                           },
+                          "S14": {
+                            "enum": [
+                              "FLAG",
+                              "BLOCK"
+                            ],
+                            "type": "string"
+                          },
                           "S2": {
                             "enum": [
                               "FLAG",
@@ -5820,6 +5926,13 @@ export const tools: readonly Tool[] = [
                             "type": "string"
                           },
                           "S13": {
+                            "enum": [
+                              "FLAG",
+                              "BLOCK"
+                            ],
+                            "type": "string"
+                          },
+                          "S14": {
                             "enum": [
                               "FLAG",
                               "BLOCK"
@@ -6496,6 +6609,13 @@ export const tools: readonly Tool[] = [
                                 ],
                                 "type": "string"
                               },
+                              "S14": {
+                                "enum": [
+                                  "FLAG",
+                                  "BLOCK"
+                                ],
+                                "type": "string"
+                              },
                               "S2": {
                                 "enum": [
                                   "FLAG",
@@ -6593,6 +6713,13 @@ export const tools: readonly Tool[] = [
                                 "type": "string"
                               },
                               "S13": {
+                                "enum": [
+                                  "FLAG",
+                                  "BLOCK"
+                                ],
+                                "type": "string"
+                              },
+                              "S14": {
                                 "enum": [
                                   "FLAG",
                                   "BLOCK"
@@ -7104,6 +7231,7 @@ export const tools: readonly Tool[] = [
         "body": {
           "properties": {
             "authentication": {
+              "description": "Require authentication for gateway access. New gateways must have authentication enabled. Once enabled, authentication cannot be disabled.",
               "type": "boolean"
             },
             "byok_only": {
@@ -7260,6 +7388,13 @@ export const tools: readonly Tool[] = [
                           ],
                           "type": "string"
                         },
+                        "S14": {
+                          "enum": [
+                            "FLAG",
+                            "BLOCK"
+                          ],
+                          "type": "string"
+                        },
                         "S2": {
                           "enum": [
                             "FLAG",
@@ -7357,6 +7492,13 @@ export const tools: readonly Tool[] = [
                           "type": "string"
                         },
                         "S13": {
+                          "enum": [
+                            "FLAG",
+                            "BLOCK"
+                          ],
+                          "type": "string"
+                        },
+                        "S14": {
                           "enum": [
                             "FLAG",
                             "BLOCK"
@@ -7995,6 +8137,13 @@ export const tools: readonly Tool[] = [
                       ],
                       "type": "string"
                     },
+                    "S14": {
+                      "enum": [
+                        "FLAG",
+                        "BLOCK"
+                      ],
+                      "type": "string"
+                    },
                     "S2": {
                       "enum": [
                         "FLAG",
@@ -8092,6 +8241,13 @@ export const tools: readonly Tool[] = [
                       "type": "string"
                     },
                     "S13": {
+                      "enum": [
+                        "FLAG",
+                        "BLOCK"
+                      ],
+                      "type": "string"
+                    },
+                    "S14": {
                       "enum": [
                         "FLAG",
                         "BLOCK"
@@ -8753,6 +8909,13 @@ export const tools: readonly Tool[] = [
                           ],
                           "type": "string"
                         },
+                        "S14": {
+                          "enum": [
+                            "FLAG",
+                            "BLOCK"
+                          ],
+                          "type": "string"
+                        },
                         "S2": {
                           "enum": [
                             "FLAG",
@@ -8850,6 +9013,13 @@ export const tools: readonly Tool[] = [
                           "type": "string"
                         },
                         "S13": {
+                          "enum": [
+                            "FLAG",
+                            "BLOCK"
+                          ],
+                          "type": "string"
+                        },
+                        "S14": {
                           "enum": [
                             "FLAG",
                             "BLOCK"

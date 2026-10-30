@@ -2,6 +2,14 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../../../_/tool.js";
+import {
+  realtimekit_GenericErrorResponse_error_details_output,
+  realtimekit_GenericErrorResponse_error_output,
+  realtimekit_GenericErrorResponse_output,
+  realtimekit_LivestreamSession_output,
+  realtimekit_Livestream_output,
+  realtimekit_ValidationIssue_output,
+} from "../../outputs.js";
 
 /**
  * The tools of `realtime.kit.livestreams.sessions`.
@@ -35,43 +43,20 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "properties": {
         "data": {
-          "properties": {
-            "created_at": {
-              "format": "date-time",
-              "type": "string"
-            },
-            "err_message": {
-              "type": "string"
-            },
-            "id": {
-              "type": "string"
-            },
-            "ingest_seconds": {
-              "type": "integer"
-            },
-            "livestream_id": {
-              "type": "string"
-            },
-            "started_time": {
-              "type": "string"
-            },
-            "stopped_time": {
-              "type": "string"
-            },
-            "updated_at": {
-              "type": "string"
-            },
-            "viewer_seconds": {
-              "type": "integer"
-            }
-          },
-          "type": "object"
+          "$ref": "#/$defs/realtimekit_LivestreamSession"
         },
         "success": {
           "type": "boolean"
         }
       },
+      "required": [
+        "data",
+        "success"
+      ],
       "type": "object",
+      $defs: {
+        "realtimekit_LivestreamSession": realtimekit_LivestreamSession_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -93,44 +78,28 @@ export const tools: readonly Tool[] = [
         "200": {
           "properties": {
             "data": {
-              "properties": {
-                "created_at": {
-                  "format": "date-time",
-                  "type": "string"
-                },
-                "err_message": {
-                  "type": "string"
-                },
-                "id": {
-                  "type": "string"
-                },
-                "ingest_seconds": {
-                  "type": "integer"
-                },
-                "livestream_id": {
-                  "type": "string"
-                },
-                "started_time": {
-                  "type": "string"
-                },
-                "stopped_time": {
-                  "type": "string"
-                },
-                "updated_at": {
-                  "type": "string"
-                },
-                "viewer_seconds": {
-                  "type": "integer"
-                }
-              },
-              "type": "object"
+              "$ref": "#/$defs/realtimekit_LivestreamSession"
             },
             "success": {
               "type": "boolean"
             }
           },
+          "required": [
+            "data",
+            "success"
+          ],
           "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/realtimekit_GenericErrorResponse"
         }
+      },
+      $defs: {
+        "realtimekit_GenericErrorResponse": realtimekit_GenericErrorResponse_output,
+        "realtimekit_GenericErrorResponse_error": realtimekit_GenericErrorResponse_error_output,
+        "realtimekit_GenericErrorResponse_error_details": realtimekit_GenericErrorResponse_error_details_output,
+        "realtimekit_LivestreamSession": realtimekit_LivestreamSession_output,
+        "realtimekit_ValidationIssue": realtimekit_ValidationIssue_output,
       },
     },
     request: (args) => ({
@@ -167,96 +136,31 @@ export const tools: readonly Tool[] = [
         "data": {
           "properties": {
             "livestream": {
-              "properties": {
-                "created_at": {
-                  "format": "date-time",
-                  "type": "string"
-                },
-                "disabled": {
-                  "type": "string"
-                },
-                "id": {
-                  "type": "string"
-                },
-                "ingest_server": {
-                  "type": "string"
-                },
-                "meeting_id": {
-                  "type": "string"
-                },
-                "name": {
-                  "type": "string"
-                },
-                "playback_url": {
-                  "type": "string"
-                },
-                "status": {
-                  "enum": [
-                    "LIVE",
-                    "IDLE",
-                    "ERRORED",
-                    "INVOKED"
-                  ],
-                  "type": "string"
-                },
-                "stream_key": {
-                  "type": "string"
-                },
-                "updated_at": {
-                  "format": "date-time",
-                  "type": "string"
-                }
-              },
-              "type": "object"
+              "$ref": "#/$defs/realtimekit_Livestream"
             },
             "session": {
-              "properties": {
-                "created_at": {
-                  "format": "date-time",
-                  "type": "string"
-                },
-                "err_message": {
-                  "type": "string"
-                },
-                "id": {
-                  "type": "string"
-                },
-                "ingest_seconds": {
-                  "type": "string"
-                },
-                "invoked_time": {
-                  "format": "date-time",
-                  "type": "string"
-                },
-                "livestream_id": {
-                  "type": "string"
-                },
-                "started_time": {
-                  "format": "date-time",
-                  "type": "string"
-                },
-                "stopped_time": {
-                  "format": "date-time",
-                  "type": "string"
-                },
-                "updated_at": {
-                  "format": "date-time",
-                  "type": "string"
-                },
-                "viewer_seconds": {
-                  "type": "string"
-                }
-              },
-              "type": "object"
+              "$ref": "#/$defs/realtimekit_LivestreamSession"
             }
           },
+          "required": [
+            "livestream",
+            "session"
+          ],
           "type": "object"
         },
         "success": {
           "type": "boolean"
         }
       },
+      "required": [
+        "data",
+        "success"
+      ],
       "type": "object",
+      $defs: {
+        "realtimekit_Livestream": realtimekit_Livestream_output,
+        "realtimekit_LivestreamSession": realtimekit_LivestreamSession_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -280,97 +184,39 @@ export const tools: readonly Tool[] = [
             "data": {
               "properties": {
                 "livestream": {
-                  "properties": {
-                    "created_at": {
-                      "format": "date-time",
-                      "type": "string"
-                    },
-                    "disabled": {
-                      "type": "string"
-                    },
-                    "id": {
-                      "type": "string"
-                    },
-                    "ingest_server": {
-                      "type": "string"
-                    },
-                    "meeting_id": {
-                      "type": "string"
-                    },
-                    "name": {
-                      "type": "string"
-                    },
-                    "playback_url": {
-                      "type": "string"
-                    },
-                    "status": {
-                      "enum": [
-                        "LIVE",
-                        "IDLE",
-                        "ERRORED",
-                        "INVOKED"
-                      ],
-                      "type": "string"
-                    },
-                    "stream_key": {
-                      "type": "string"
-                    },
-                    "updated_at": {
-                      "format": "date-time",
-                      "type": "string"
-                    }
-                  },
-                  "type": "object"
+                  "$ref": "#/$defs/realtimekit_Livestream"
                 },
                 "session": {
-                  "properties": {
-                    "created_at": {
-                      "format": "date-time",
-                      "type": "string"
-                    },
-                    "err_message": {
-                      "type": "string"
-                    },
-                    "id": {
-                      "type": "string"
-                    },
-                    "ingest_seconds": {
-                      "type": "string"
-                    },
-                    "invoked_time": {
-                      "format": "date-time",
-                      "type": "string"
-                    },
-                    "livestream_id": {
-                      "type": "string"
-                    },
-                    "started_time": {
-                      "format": "date-time",
-                      "type": "string"
-                    },
-                    "stopped_time": {
-                      "format": "date-time",
-                      "type": "string"
-                    },
-                    "updated_at": {
-                      "format": "date-time",
-                      "type": "string"
-                    },
-                    "viewer_seconds": {
-                      "type": "string"
-                    }
-                  },
-                  "type": "object"
+                  "$ref": "#/$defs/realtimekit_LivestreamSession"
                 }
               },
+              "required": [
+                "livestream",
+                "session"
+              ],
               "type": "object"
             },
             "success": {
               "type": "boolean"
             }
           },
+          "required": [
+            "data",
+            "success"
+          ],
           "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/realtimekit_GenericErrorResponse"
         }
+      },
+      $defs: {
+        "realtimekit_GenericErrorResponse": realtimekit_GenericErrorResponse_output,
+        "realtimekit_GenericErrorResponse_error": realtimekit_GenericErrorResponse_error_output,
+        "realtimekit_GenericErrorResponse_error_details": realtimekit_GenericErrorResponse_error_details_output,
+        "realtimekit_Livestream": realtimekit_Livestream_output,
+        "realtimekit_LivestreamSession": realtimekit_LivestreamSession_output,
+        "realtimekit_ValidationIssue": realtimekit_ValidationIssue_output,
       },
     },
     request: (args) => ({

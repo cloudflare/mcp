@@ -7,11 +7,33 @@ import type { JsonSchema } from "../../_/tool.js";
  * The schema of `infra_ApiTlsSettings`.
  */
 export const infra_ApiTlsSettings: JsonSchema = {
-  "description": "TLS settings for a connectivity service.\n\nIf omitted, the default mode (`verify_full`) is used.",
+  "description": "TLS settings for a connectivity service.",
   "properties": {
     "cert_verification_mode": {
-      "description": "TLS certificate verification mode for the connection to the origin.\n\n- `\"verify_full\"` — verify certificate chain and hostname (default)\n- `\"verify_ca\"` — verify certificate chain only, skip hostname check\n- `\"disabled\"` — do not verify the server certificate at all",
+      "description": "TLS certificate verification mode for the connection to the origin.\n\n- `\"verify_full\"` — verify certificate chain and hostname (default)\n- `\"verify_ca\"` — verify certificate chain only, skip hostname check\n- `\"disabled\"` — do not verify the server certificate at all\n\n`disabled` cannot be combined with `certificate_authority`: a custom CA is\nonly used to verify the server certificate.",
       "type": "string"
+    },
+    "certificate_authority": {
+      "description": "UUID of the custom CA certificate or chain.",
+      "oneOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "client_certificate": {
+      "description": "UUID of the mTLS client certificate and private key.",
+      "oneOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
     }
   },
   "required": [

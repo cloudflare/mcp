@@ -4,6 +4,9 @@
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
   realtimekit_AudioConfig_output,
+  realtimekit_GenericErrorResponse_error_details_output,
+  realtimekit_GenericErrorResponse_error_output,
+  realtimekit_GenericErrorResponse_output,
   realtimekit_GenericSuccessResponse_output,
   realtimekit_LivestreamingConfig_output,
   realtimekit_Meeting_output,
@@ -13,6 +16,7 @@ import {
   realtimekit_StorageConfig_auth_method_output,
   realtimekit_StorageConfig_output,
   realtimekit_StorageConfig_type_output,
+  realtimekit_ValidationIssue_output,
   realtimekit_VideoConfig_output,
   realtimekit_VideoConfig_watermark_output,
   realtimekit_VideoConfig_watermark_size_output,
@@ -180,14 +184,21 @@ export const tools: readonly Tool[] = [
               "type": "object"
             }
           ]
+        },
+        "4XX": {
+          "$ref": "#/$defs/realtimekit_GenericErrorResponse"
         }
       },
       $defs: {
+        "realtimekit_GenericErrorResponse": realtimekit_GenericErrorResponse_output,
+        "realtimekit_GenericErrorResponse_error": realtimekit_GenericErrorResponse_error_output,
+        "realtimekit_GenericErrorResponse_error_details": realtimekit_GenericErrorResponse_error_details_output,
         "realtimekit_GenericSuccessResponse": realtimekit_GenericSuccessResponse_output,
         "realtimekit_Recording": realtimekit_Recording_output,
         "realtimekit_StorageConfig": realtimekit_StorageConfig_output,
         "realtimekit_StorageConfig_auth_method": realtimekit_StorageConfig_auth_method_output,
         "realtimekit_StorageConfig_type": realtimekit_StorageConfig_type_output,
+        "realtimekit_ValidationIssue": realtimekit_ValidationIssue_output,
         "realtimekit_startReason": realtimekit_startReason_output,
         "realtimekit_startReason_caller": realtimekit_startReason_caller_output,
         "realtimekit_stopReason": realtimekit_stopReason_output,
@@ -320,14 +331,21 @@ export const tools: readonly Tool[] = [
               "type": "object"
             }
           ]
+        },
+        "4XX": {
+          "$ref": "#/$defs/realtimekit_GenericErrorResponse"
         }
       },
       $defs: {
+        "realtimekit_GenericErrorResponse": realtimekit_GenericErrorResponse_output,
+        "realtimekit_GenericErrorResponse_error": realtimekit_GenericErrorResponse_error_output,
+        "realtimekit_GenericErrorResponse_error_details": realtimekit_GenericErrorResponse_error_details_output,
         "realtimekit_GenericSuccessResponse": realtimekit_GenericSuccessResponse_output,
         "realtimekit_Recording": realtimekit_Recording_output,
         "realtimekit_StorageConfig": realtimekit_StorageConfig_output,
         "realtimekit_StorageConfig_auth_method": realtimekit_StorageConfig_auth_method_output,
         "realtimekit_StorageConfig_type": realtimekit_StorageConfig_type_output,
+        "realtimekit_ValidationIssue": realtimekit_ValidationIssue_output,
         "realtimekit_startReason": realtimekit_startReason_output,
         "realtimekit_startReason_caller": realtimekit_startReason_caller_output,
         "realtimekit_stopReason": realtimekit_stopReason_output,
@@ -526,10 +544,16 @@ export const tools: readonly Tool[] = [
               "type": "object"
             }
           ]
+        },
+        "4XX": {
+          "$ref": "#/$defs/realtimekit_GenericErrorResponse"
         }
       },
       $defs: {
         "realtimekit_AudioConfig": realtimekit_AudioConfig_output,
+        "realtimekit_GenericErrorResponse": realtimekit_GenericErrorResponse_output,
+        "realtimekit_GenericErrorResponse_error": realtimekit_GenericErrorResponse_error_output,
+        "realtimekit_GenericErrorResponse_error_details": realtimekit_GenericErrorResponse_error_details_output,
         "realtimekit_LivestreamingConfig": realtimekit_LivestreamingConfig_output,
         "realtimekit_Meeting": realtimekit_Meeting_output,
         "realtimekit_PagingInfo": realtimekit_PagingInfo_output,
@@ -539,6 +563,7 @@ export const tools: readonly Tool[] = [
         "realtimekit_StorageConfig": realtimekit_StorageConfig_output,
         "realtimekit_StorageConfig_auth_method": realtimekit_StorageConfig_auth_method_output,
         "realtimekit_StorageConfig_type": realtimekit_StorageConfig_type_output,
+        "realtimekit_ValidationIssue": realtimekit_ValidationIssue_output,
         "realtimekit_VideoConfig": realtimekit_VideoConfig_output,
         "realtimekit_VideoConfig_watermark": realtimekit_VideoConfig_watermark_output,
         "realtimekit_VideoConfig_watermark_size": realtimekit_VideoConfig_watermark_size_output,
@@ -739,14 +764,21 @@ export const tools: readonly Tool[] = [
               "type": "object"
             }
           ]
+        },
+        "4XX": {
+          "$ref": "#/$defs/realtimekit_GenericErrorResponse"
         }
       },
       $defs: {
+        "realtimekit_GenericErrorResponse": realtimekit_GenericErrorResponse_output,
+        "realtimekit_GenericErrorResponse_error": realtimekit_GenericErrorResponse_error_output,
+        "realtimekit_GenericErrorResponse_error_details": realtimekit_GenericErrorResponse_error_details_output,
         "realtimekit_GenericSuccessResponse": realtimekit_GenericSuccessResponse_output,
         "realtimekit_Recording": realtimekit_Recording_output,
         "realtimekit_StorageConfig": realtimekit_StorageConfig_output,
         "realtimekit_StorageConfig_auth_method": realtimekit_StorageConfig_auth_method_output,
         "realtimekit_StorageConfig_type": realtimekit_StorageConfig_type_output,
+        "realtimekit_ValidationIssue": realtimekit_ValidationIssue_output,
         "realtimekit_startReason": realtimekit_startReason_output,
         "realtimekit_startReason_caller": realtimekit_startReason_caller_output,
         "realtimekit_stopReason": realtimekit_stopReason_output,

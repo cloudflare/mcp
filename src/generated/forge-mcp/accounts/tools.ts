@@ -24,7 +24,7 @@ import {
   organizations_api_MoveAccountResult_output,
 } from "./outputs.js";
 import {
-  iam_account,
+  iam_components_schemas_account,
   iam_create_account,
   iam_create_account_unit,
 } from "./schemas.js";
@@ -517,7 +517,7 @@ export const tools: readonly Tool[] = [
           "type": "string"
         },
         "body": {
-          "$ref": "#/$defs/iam_account"
+          "$ref": "#/$defs/iam_components-schemas-account"
         }
       },
       required: [
@@ -525,11 +525,11 @@ export const tools: readonly Tool[] = [
         "body"
       ],
       $defs: {
-        "iam_account": iam_account,
         "iam_account-type": iam_account_type,
         "iam_account_managed_by": iam_account_managed_by,
         "iam_account_settings": iam_account_settings,
         "iam_common_components-schemas-identifier": iam_common_components_schemas_identifier,
+        "iam_components-schemas-account": iam_components_schemas_account,
       },
     },
     outputSchema: {

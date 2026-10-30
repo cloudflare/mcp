@@ -31,7 +31,7 @@ export const tools: readonly Tool[] = [
     inputSchema: {
       type: "object",
       properties: {
-        "account_tag": {
+        "account_id": {
           "description": "Account that authorizes and scopes the request.",
           "type": "string"
         },
@@ -41,7 +41,7 @@ export const tools: readonly Tool[] = [
         }
       },
       required: [
-        "account_tag",
+        "account_id",
         "query"
       ],
     },
@@ -73,7 +73,7 @@ export const tools: readonly Tool[] = [
       "title": "Query analytics datasets"
     },
     method: "GET",
-    path: "/accounts/{account_tag}/analytics/sql",
+    path: "/accounts/{account_id}/analytics/sql",
     extensions: {
       "x-api-token-group": [
         "Account Analytics Read"
@@ -126,7 +126,7 @@ export const tools: readonly Tool[] = [
       },
     },
     request: (args) => ({
-      path: `/accounts/${pathParam(args, "account_tag")}/analytics/sql`,
+      path: `/accounts/${pathParam(args, "account_id")}/analytics/sql`,
       query: [
         ["query", args["query"], true],
       ],
@@ -139,7 +139,7 @@ export const tools: readonly Tool[] = [
     inputSchema: {
       type: "object",
       properties: {
-        "account_tag": {
+        "account_id": {
           "description": "Account that authorizes and scopes the request.",
           "type": "string"
         },
@@ -148,7 +148,7 @@ export const tools: readonly Tool[] = [
         }
       },
       required: [
-        "account_tag",
+        "account_id",
         "body"
       ],
       $defs: {
@@ -188,7 +188,7 @@ export const tools: readonly Tool[] = [
       "title": "Query analytics datasets"
     },
     method: "POST",
-    path: "/accounts/{account_tag}/analytics/sql",
+    path: "/accounts/{account_id}/analytics/sql",
     extensions: {
       "x-api-token-group": [
         "Account Analytics Read"
@@ -241,7 +241,7 @@ export const tools: readonly Tool[] = [
       },
     },
     request: (args) => ({
-      path: `/accounts/${pathParam(args, "account_tag")}/analytics/sql`,
+      path: `/accounts/${pathParam(args, "account_id")}/analytics/sql`,
       body: { value: args["body"], mediaType: "application/json" },
     }),
   },

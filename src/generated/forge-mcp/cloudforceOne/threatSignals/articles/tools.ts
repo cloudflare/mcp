@@ -1308,6 +1308,22 @@ export const tools: readonly Tool[] = [
           "description": "NFC-normalized, trimmed literal substring filter on article titles; ASCII case-insensitive, from 1 to 500 characters.",
           "type": "string"
         },
+        "severity": {
+          "description": "Beta. Repeatable intrinsic severity band filter. An article matches any selected band, the band reported as its severity. Excludes articles without a severity. Like the severity field, severity is reported only while the account has an active Priority Intelligence Requirement; otherwise no articles match.",
+          "items": {
+            "enum": [
+              "informational",
+              "low",
+              "medium",
+              "high",
+              "critical"
+            ],
+            "type": "string"
+          },
+          "maxItems": 5,
+          "minItems": 1,
+          "type": "array"
+        },
         "sort": {
           "default": "-fetched_at",
           "description": "Sort by fetched_at, published_at, title, or relevance (beta). Prefix the field with - for descending order; defaults to -fetched_at. -relevance lists the most relevant articles first, by pir_id or by each article's most relevant active PIR, with unscored articles last.",
@@ -1938,6 +1954,7 @@ export const tools: readonly Tool[] = [
         ["tag_applied_by", args["tag_applied_by"], true],
         ["pir_id", args["pir_id"], true],
         ["min_relevance", args["min_relevance"], true],
+        ["severity", args["severity"], true],
         ["sort", args["sort"], true],
       ],
     }),
@@ -2484,6 +2501,195 @@ export const tools: readonly Tool[] = [
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/cloudforce-one/v2/threat-signals/articles/${pathParam(args, "article_id")}`,
+      body: { value: args["body"], mediaType: "application/json" },
+    }),
+  },
+  {
+    name: "cloudforce_one_threat_signals_articles_reprocess",
+    title: "Reprocess a Threat Signals article",
+    description: "Synchronously re-runs every processing step for a Threat Signals article: content acquisition, summary, indicator extraction, CVE tags, IOC context, and default tags. Replaces the article's summary, AI tags, and indicators; indicators no longer found are removed. Creates a Threat Event only when the article has none; an existing Event is never updated. Takes over the article from any queued processing. Requires a paid Threat Signals subscription and the Cloudforce One Write permission.",
+    inputSchema: {
+      type: "object",
+      properties: {
+        "account_id": {
+          "type": "string"
+        },
+        "article_id": {
+          "description": "Threat Signals article UUID",
+          "format": "uuid",
+          "type": "string"
+        },
+        "body": {
+          "type": "object"
+        }
+      },
+      required: [
+        "account_id",
+        "article_id"
+      ],
+    },
+    outputSchema: {
+      "properties": {
+        "article_id": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "event_id": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "outcome": {
+          "enum": [
+            "completed",
+            "failed",
+            "superseded"
+          ],
+          "type": "string"
+        },
+        "pending_retry": {
+          "type": "boolean"
+        },
+        "steps": {
+          "items": {
+            "properties": {
+              "outcome": {
+                "enum": [
+                  "completed",
+                  "noop",
+                  "failed",
+                  "skipped"
+                ],
+                "type": "string"
+              },
+              "step": {
+                "enum": [
+                  "content",
+                  "summary",
+                  "indicators",
+                  "cves",
+                  "ioc_context",
+                  "tags",
+                  "event"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "outcome",
+              "step"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "article_id",
+        "event_id",
+        "outcome",
+        "pending_retry",
+        "steps"
+      ],
+      "type": "object",
+    },
+    annotations: {
+      "destructiveHint": false,
+      "idempotentHint": false,
+      "openWorldHint": true,
+      "readOnlyHint": false,
+      "title": "Reprocess a Threat Signals article"
+    },
+    method: "POST",
+    path: "/accounts/{account_id}/cloudforce-one/v2/threat-signals/articles/{article_id}/reprocess",
+    extensions: {
+      "x-api-token-group": [
+        "Cloudforce One Write"
+      ],
+      "x-stability": "beta"
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "article_id": {
+              "format": "uuid",
+              "type": "string"
+            },
+            "event_id": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "outcome": {
+              "enum": [
+                "completed",
+                "failed",
+                "superseded"
+              ],
+              "type": "string"
+            },
+            "pending_retry": {
+              "type": "boolean"
+            },
+            "steps": {
+              "items": {
+                "properties": {
+                  "outcome": {
+                    "enum": [
+                      "completed",
+                      "noop",
+                      "failed",
+                      "skipped"
+                    ],
+                    "type": "string"
+                  },
+                  "step": {
+                    "enum": [
+                      "content",
+                      "summary",
+                      "indicators",
+                      "cves",
+                      "ioc_context",
+                      "tags",
+                      "event"
+                    ],
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "outcome",
+                  "step"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            }
+          },
+          "required": [
+            "article_id",
+            "event_id",
+            "outcome",
+            "pending_retry",
+            "steps"
+          ],
+          "type": "object"
+        },
+        "4XX": null
+      },
+    },
+    request: (args) => ({
+      path: `/accounts/${pathParam(args, "account_id")}/cloudforce-one/v2/threat-signals/articles/${pathParam(args, "article_id")}/reprocess`,
       body: { value: args["body"], mediaType: "application/json" },
     }),
   },

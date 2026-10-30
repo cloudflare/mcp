@@ -10,6 +10,26 @@ export const infra_ApiTlsSettings_output: JsonSchema = {
   "properties": {
     "cert_verification_mode": {
       "type": "string"
+    },
+    "certificate_authority": {
+      "oneOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "client_certificate": {
+      "oneOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
     }
   },
   "required": [

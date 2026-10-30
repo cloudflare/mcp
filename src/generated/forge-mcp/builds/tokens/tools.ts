@@ -10,7 +10,10 @@ import {
   builds_build_token_uuid_output,
 } from "../../outputs.js";
 import { builds_account_id, builds_build_token_name } from "../../schemas.js";
-import { builds_APIResponse_output } from "../outputs.js";
+import {
+  builds_APIResponse_output,
+  builds_APIResponse_result_output,
+} from "../outputs.js";
 import {
   builds_CreateBuildTokenResponse_output,
   builds_ListTokensResponse_output,
@@ -128,6 +131,7 @@ export const tools: readonly Tool[] = [
       "$ref": "#/$defs/builds_APIResponse",
       $defs: {
         "builds_APIResponse": builds_APIResponse_output,
+        "builds_APIResponse_result": builds_APIResponse_result_output,
         "builds_ApiError": builds_ApiError_output,
         "builds_PaginationInfo": builds_PaginationInfo_output,
       },
@@ -160,6 +164,7 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "builds_APIResponse": builds_APIResponse_output,
+        "builds_APIResponse_result": builds_APIResponse_result_output,
         "builds_ApiError": builds_ApiError_output,
         "builds_ErrorResponse": builds_ErrorResponse_output,
         "builds_PaginationInfo": builds_PaginationInfo_output,

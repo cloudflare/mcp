@@ -29,7 +29,7 @@ export const tools: readonly Tool[] = [
     inputSchema: {
       type: "object",
       properties: {
-        "account_tag": {
+        "account_id": {
           "description": "Account that authorizes and scopes the request.",
           "type": "string"
         },
@@ -64,7 +64,7 @@ export const tools: readonly Tool[] = [
         }
       },
       required: [
-        "account_tag"
+        "account_id"
       ],
     },
     outputSchema: {
@@ -91,7 +91,7 @@ export const tools: readonly Tool[] = [
       "title": "List available analytics datasets"
     },
     method: "GET",
-    path: "/accounts/{account_tag}/analytics/sql/introspection",
+    path: "/accounts/{account_id}/analytics/sql/introspection",
     extensions: {
       "x-api-token-group": [
         "Account Analytics Read"
@@ -137,7 +137,7 @@ export const tools: readonly Tool[] = [
       },
     },
     request: (args) => ({
-      path: `/accounts/${pathParam(args, "account_tag")}/analytics/sql/introspection`,
+      path: `/accounts/${pathParam(args, "account_id")}/analytics/sql/introspection`,
       query: [
         ["include_columns", args["include_columns"], true],
         ["include_custom_attributes", args["include_custom_attributes"], true],

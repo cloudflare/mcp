@@ -14,6 +14,9 @@ export const workers_deployment_output: JsonSchema = {
     "author_email": {
       "type": "string"
     },
+    "code_update_strategy": {
+      "$ref": "#/$defs/workers_deployment_code_update_strategy"
+    },
     "created_on": {
       "format": "date-time",
       "type": "string"
@@ -61,6 +64,20 @@ export const workers_deployment_annotations_output: JsonSchema = {
     }
   },
   "type": "object"
+};
+
+/**
+ * The schema of `workers_deployment_code_update_strategy` in responses.
+ */
+export const workers_deployment_code_update_strategy_output: JsonSchema = {
+  "oneOf": [
+    {
+      "$ref": "#/$defs/workers_code_update_strategy"
+    },
+    {
+      "type": "null"
+    }
+  ]
 };
 
 /**

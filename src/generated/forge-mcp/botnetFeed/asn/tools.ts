@@ -5,7 +5,7 @@ import { type Tool, pathParam } from "../../_/tool.js";
 import {
   dos_api_response_common_failure_output,
   dos_messages_output,
-} from "../../outputs.js";
+} from "../outputs.js";
 import { dos_timestamp } from "./schemas.js";
 
 /**

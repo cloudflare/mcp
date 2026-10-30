@@ -3,12 +3,12 @@
 
 import { type Tool, pathParam } from "../../../../../_/tool.js";
 import {
-  dos_api_response_common_failure_output,
-  dos_messages_output,
-} from "../../../../../outputs.js";
-import { dos_api_response_common_output } from "../../../../outputs.js";
-import { dos_InfraPrefix_output } from "../outputs.js";
-import { dos_InfraPrefixUpdate } from "./schemas.js";
+  advanced_ddos_protection_api_response_common_failure_output,
+  advanced_ddos_protection_api_response_common_output,
+  advanced_ddos_protection_messages_output,
+} from "../../../../outputs.js";
+import { advanced_ddos_protection_InfraPrefix_output } from "../outputs.js";
+import { advanced_ddos_protection_InfraPrefixUpdate } from "./schemas.js";
 
 /**
  * The tools of
@@ -37,10 +37,10 @@ export const tools: readonly Tool[] = [
       ],
     },
     outputSchema: {
-      "$ref": "#/$defs/dos_api-response-common",
+      "$ref": "#/$defs/advanced-ddos-protection_api-response-common",
       $defs: {
-        "dos_api-response-common": dos_api_response_common_output,
-        "dos_messages": dos_messages_output,
+        "advanced-ddos-protection_api-response-common": advanced_ddos_protection_api_response_common_output,
+        "advanced-ddos-protection_messages": advanced_ddos_protection_messages_output,
       },
     },
     annotations: {
@@ -60,16 +60,16 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/dos_api-response-common"
+          "$ref": "#/$defs/advanced-ddos-protection_api-response-common"
         },
         "4XX": {
-          "$ref": "#/$defs/dos_api-response-common-failure"
+          "$ref": "#/$defs/advanced-ddos-protection_api-response-common-failure"
         }
       },
       $defs: {
-        "dos_api-response-common": dos_api_response_common_output,
-        "dos_api-response-common-failure": dos_api_response_common_failure_output,
-        "dos_messages": dos_messages_output,
+        "advanced-ddos-protection_api-response-common": advanced_ddos_protection_api_response_common_output,
+        "advanced-ddos-protection_api-response-common-failure": advanced_ddos_protection_api_response_common_failure_output,
+        "advanced-ddos-protection_messages": advanced_ddos_protection_messages_output,
       },
     },
     request: (args) => ({
@@ -98,9 +98,9 @@ export const tools: readonly Tool[] = [
       ],
     },
     outputSchema: {
-      "$ref": "#/$defs/dos_InfraPrefix",
+      "$ref": "#/$defs/advanced-ddos-protection_InfraPrefix",
       $defs: {
-        "dos_InfraPrefix": dos_InfraPrefix_output,
+        "advanced-ddos-protection_InfraPrefix": advanced_ddos_protection_InfraPrefix_output,
       },
     },
     annotations: {
@@ -121,16 +121,16 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/dos_InfraPrefix"
+          "$ref": "#/$defs/advanced-ddos-protection_InfraPrefix"
         },
         "4XX": {
-          "$ref": "#/$defs/dos_api-response-common-failure"
+          "$ref": "#/$defs/advanced-ddos-protection_api-response-common-failure"
         }
       },
       $defs: {
-        "dos_InfraPrefix": dos_InfraPrefix_output,
-        "dos_api-response-common-failure": dos_api_response_common_failure_output,
-        "dos_messages": dos_messages_output,
+        "advanced-ddos-protection_InfraPrefix": advanced_ddos_protection_InfraPrefix_output,
+        "advanced-ddos-protection_api-response-common-failure": advanced_ddos_protection_api_response_common_failure_output,
+        "advanced-ddos-protection_messages": advanced_ddos_protection_messages_output,
       },
     },
     request: (args) => ({
@@ -149,7 +149,7 @@ export const tools: readonly Tool[] = [
           "type": "string"
         },
         "body": {
-          "$ref": "#/$defs/dos_InfraPrefixUpdate",
+          "$ref": "#/$defs/advanced-ddos-protection_InfraPrefixUpdate",
           "description": "The updates to apply to the allowlist prefix."
         },
         "prefix_id": {
@@ -163,13 +163,13 @@ export const tools: readonly Tool[] = [
         "body"
       ],
       $defs: {
-        "dos_InfraPrefixUpdate": dos_InfraPrefixUpdate,
+        "advanced-ddos-protection_InfraPrefixUpdate": advanced_ddos_protection_InfraPrefixUpdate,
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/dos_InfraPrefix",
+      "$ref": "#/$defs/advanced-ddos-protection_InfraPrefix",
       $defs: {
-        "dos_InfraPrefix": dos_InfraPrefix_output,
+        "advanced-ddos-protection_InfraPrefix": advanced_ddos_protection_InfraPrefix_output,
       },
     },
     annotations: {
@@ -189,16 +189,16 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/dos_InfraPrefix"
+          "$ref": "#/$defs/advanced-ddos-protection_InfraPrefix"
         },
         "4XX": {
-          "$ref": "#/$defs/dos_api-response-common-failure"
+          "$ref": "#/$defs/advanced-ddos-protection_api-response-common-failure"
         }
       },
       $defs: {
-        "dos_InfraPrefix": dos_InfraPrefix_output,
-        "dos_api-response-common-failure": dos_api_response_common_failure_output,
-        "dos_messages": dos_messages_output,
+        "advanced-ddos-protection_InfraPrefix": advanced_ddos_protection_InfraPrefix_output,
+        "advanced-ddos-protection_api-response-common-failure": advanced_ddos_protection_api_response_common_failure_output,
+        "advanced-ddos-protection_messages": advanced_ddos_protection_messages_output,
       },
     },
     request: (args) => ({

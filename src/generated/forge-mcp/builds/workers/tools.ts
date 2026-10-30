@@ -84,7 +84,6 @@ export const tools: readonly Tool[] = [
         "builds_CreateWorkerRequest": builds_CreateWorkerRequest,
         "builds_EnvironmentVariablesRequest": builds_EnvironmentVariablesRequest,
         "builds_account_id": builds_account_id,
-        "builds_build_caching_enabled": builds_build_caching_enabled,
         "builds_build_command": builds_build_command,
         "builds_build_token_uuid": builds_build_token_uuid,
         "builds_deploy_command": builds_deploy_command,

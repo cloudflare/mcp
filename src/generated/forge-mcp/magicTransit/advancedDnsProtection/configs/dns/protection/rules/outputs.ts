@@ -4,9 +4,9 @@
 import type { JsonSchema } from "../../../../../../_/tool.js";
 
 /**
- * The schema of `dos_DnsProtectionRule` in responses.
+ * The schema of `advanced-ddos-protection_DnsProtectionRule` in responses.
  */
-export const dos_DnsProtectionRule_output: JsonSchema = {
+export const advanced_ddos_protection_DnsProtectionRule_output: JsonSchema = {
   "properties": {
     "block_any_queries": {
       "type": "boolean"

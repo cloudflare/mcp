@@ -361,7 +361,14 @@ export const tools: readonly Tool[] = [
           "type": "string"
         },
         "investigation_id": {
-          "type": "string"
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
         },
         "is_free_request": {
           "type": "boolean"
@@ -566,7 +573,14 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "investigation_id": {
-              "type": "string"
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
             },
             "is_free_request": {
               "type": "boolean"
@@ -932,7 +946,14 @@ export const tools: readonly Tool[] = [
           "type": "string"
         },
         "investigation_id": {
-          "type": "string"
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
         },
         "is_free_request": {
           "type": "boolean"
@@ -1136,7 +1157,14 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "investigation_id": {
-              "type": "string"
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
             },
             "is_free_request": {
               "type": "boolean"
@@ -1487,7 +1515,14 @@ export const tools: readonly Tool[] = [
           "type": "string"
         },
         "investigation_id": {
-          "type": "string"
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
         },
         "is_free_request": {
           "type": "boolean"
@@ -1691,7 +1726,14 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "investigation_id": {
-              "type": "string"
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
             },
             "is_free_request": {
               "type": "boolean"

@@ -42,7 +42,9 @@ export const aaa_display_name_output: JsonSchema = {
  * The schema of `aaa_filter_options` in responses.
  */
 export const aaa_filter_options_output: JsonSchema = {
-  "items": {},
+  "items": {
+    "type": "object"
+  },
   "type": "array"
 };
 

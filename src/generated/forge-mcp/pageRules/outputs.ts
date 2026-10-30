@@ -663,19 +663,26 @@ export const zones_forwarding_url_output: JsonSchema = {
       "type": "string"
     },
     "value": {
-      "properties": {
-        "status_code": {
-          "enum": [
-            301,
-            302
-          ],
-          "type": "integer"
-        },
-        "url": {
-          "type": "string"
-        }
-      },
-      "type": "object"
+      "$ref": "#/$defs/zones_forwarding_url_value"
+    }
+  },
+  "type": "object"
+};
+
+/**
+ * The schema of `zones_forwarding_url_value` in responses.
+ */
+export const zones_forwarding_url_value_output: JsonSchema = {
+  "properties": {
+    "status_code": {
+      "enum": [
+        301,
+        302
+      ],
+      "type": "integer"
+    },
+    "url": {
+      "type": "string"
     }
   },
   "type": "object"

@@ -21,7 +21,7 @@ export const tools: readonly Tool[] = [
   {
     name: "csam_scanner_edit",
     title: "Update CSAM Scanner setting",
-    description: "Update the CSAM Scanner configuration for a zone. Allows enabling or\ndisabling CSAM scanning, updating the notification email, and\nconfiguring scanning sources.\n\nWhen a new email is provided, email verification is triggered\nautomatically. The `enabled` field is a toggle; the server may\nadjust it based on whether the notification email is verified.\n\nReturns 403 if the zone or account is locked by Trust & Safety.",
+    description: "Update the CSAM Scanner configuration for a zone. Allows enabling or\ndisabling CSAM scanning, updating the notification email, and\nconfiguring scanning sources.\n\nThis is a partial update: fields omitted from `value` keep their\ncurrent setting, and `sources` is merged per source (`null` clears\nall sources). Send an empty `email` to clear the notification\naddress.\n\nWhen a new email is provided, email verification is triggered\nautomatically. The `enabled` field is a toggle; the server may\nadjust it based on whether the notification email is verified.\n\nReturns 403 if the zone or account is locked by Trust & Safety.",
     inputSchema: {
       type: "object",
       properties: {

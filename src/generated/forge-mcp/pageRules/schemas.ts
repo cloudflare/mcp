@@ -722,21 +722,28 @@ export const zones_forwarding_url: JsonSchema = {
       "type": "string"
     },
     "value": {
-      "properties": {
-        "status_code": {
-          "description": "The status code to use for the URL redirect. 301 is a permanent\nredirect. 302 is a temporary redirect.\n",
-          "enum": [
-            301,
-            302
-          ],
-          "type": "integer"
-        },
-        "url": {
-          "description": "The URL to redirect the request to.\nNotes: ${num} refers to the position of '*' in the constraint value.",
-          "type": "string"
-        }
-      },
-      "type": "object"
+      "$ref": "#/$defs/zones_forwarding_url_value"
+    }
+  },
+  "type": "object"
+};
+
+/**
+ * The schema of `zones_forwarding_url_value`.
+ */
+export const zones_forwarding_url_value: JsonSchema = {
+  "properties": {
+    "status_code": {
+      "description": "The status code to use for the URL redirect. 301 is a permanent\nredirect. 302 is a temporary redirect.\n",
+      "enum": [
+        301,
+        302
+      ],
+      "type": "integer"
+    },
+    "url": {
+      "description": "The URL to redirect the request to.\nNotes: ${num} refers to the position of '*' in the constraint value.",
+      "type": "string"
     }
   },
   "type": "object"

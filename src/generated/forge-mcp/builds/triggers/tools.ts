@@ -46,7 +46,10 @@ import {
   builds_trigger_name,
   builds_trigger_uuid,
 } from "../../schemas.js";
-import { builds_APIResponse_output } from "../outputs.js";
+import {
+  builds_APIResponse_output,
+  builds_APIResponse_result_output,
+} from "../outputs.js";
 import { builds_TriggerResponse_output } from "./outputs.js";
 import {
   builds_CreateTriggerRequest,
@@ -208,6 +211,7 @@ export const tools: readonly Tool[] = [
       "$ref": "#/$defs/builds_APIResponse",
       $defs: {
         "builds_APIResponse": builds_APIResponse_output,
+        "builds_APIResponse_result": builds_APIResponse_result_output,
         "builds_ApiError": builds_ApiError_output,
         "builds_PaginationInfo": builds_PaginationInfo_output,
       },
@@ -240,6 +244,7 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "builds_APIResponse": builds_APIResponse_output,
+        "builds_APIResponse_result": builds_APIResponse_result_output,
         "builds_ApiError": builds_ApiError_output,
         "builds_ErrorResponse": builds_ErrorResponse_output,
         "builds_PaginationInfo": builds_PaginationInfo_output,

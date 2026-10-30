@@ -3,11 +3,11 @@
 
 import { type Tool, pathParam } from "../../../../../_/tool.js";
 import {
-  dos_api_response_common_failure_output,
-  dos_messages_output,
-} from "../../../../../outputs.js";
-import { dos_Prefix_output } from "../outputs.js";
-import { dos_NewPrefix } from "../schemas.js";
+  advanced_ddos_protection_api_response_common_failure_output,
+  advanced_ddos_protection_messages_output,
+} from "../../../../outputs.js";
+import { advanced_ddos_protection_Prefix_output } from "../outputs.js";
+import { advanced_ddos_protection_NewPrefix } from "../schemas.js";
 
 /**
  * The tools of `magic_transit.advanced_tcp_protection.configs.prefixes.bulk`.
@@ -27,7 +27,7 @@ export const tools: readonly Tool[] = [
         "body": {
           "description": "The list of new prefixes to create.",
           "items": {
-            "$ref": "#/$defs/dos_NewPrefix"
+            "$ref": "#/$defs/advanced-ddos-protection_NewPrefix"
           },
           "type": "array"
         }
@@ -37,14 +37,14 @@ export const tools: readonly Tool[] = [
         "body"
       ],
       $defs: {
-        "dos_NewPrefix": dos_NewPrefix,
+        "advanced-ddos-protection_NewPrefix": advanced_ddos_protection_NewPrefix,
       },
     },
     outputSchema: {
       "properties": {
         "result": {
           "items": {
-            "$ref": "#/$defs/dos_Prefix"
+            "$ref": "#/$defs/advanced-ddos-protection_Prefix"
           },
           "type": "array"
         },
@@ -74,7 +74,7 @@ export const tools: readonly Tool[] = [
       ],
       "type": "object",
       $defs: {
-        "dos_Prefix": dos_Prefix_output,
+        "advanced-ddos-protection_Prefix": advanced_ddos_protection_Prefix_output,
       },
     },
     annotations: {
@@ -97,7 +97,7 @@ export const tools: readonly Tool[] = [
           "properties": {
             "result": {
               "items": {
-                "$ref": "#/$defs/dos_Prefix"
+                "$ref": "#/$defs/advanced-ddos-protection_Prefix"
               },
               "type": "array"
             },
@@ -128,13 +128,13 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "4XX": {
-          "$ref": "#/$defs/dos_api-response-common-failure"
+          "$ref": "#/$defs/advanced-ddos-protection_api-response-common-failure"
         }
       },
       $defs: {
-        "dos_Prefix": dos_Prefix_output,
-        "dos_api-response-common-failure": dos_api_response_common_failure_output,
-        "dos_messages": dos_messages_output,
+        "advanced-ddos-protection_Prefix": advanced_ddos_protection_Prefix_output,
+        "advanced-ddos-protection_api-response-common-failure": advanced_ddos_protection_api_response_common_failure_output,
+        "advanced-ddos-protection_messages": advanced_ddos_protection_messages_output,
       },
     },
     request: (args) => ({

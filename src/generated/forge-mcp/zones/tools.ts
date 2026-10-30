@@ -13,6 +13,9 @@ import {
   zones_zone_meta_output,
   zones_zone_output,
   zones_zone_owner_output,
+  zones_zone_plan_output,
+  zones_zone_tenant_output,
+  zones_zone_tenant_unit_output,
 } from "./outputs.js";
 import {
   zones_identifier,
@@ -80,6 +83,9 @@ export const tools: readonly Tool[] = [
         "zones_zone_account": zones_zone_account_output,
         "zones_zone_meta": zones_zone_meta_output,
         "zones_zone_owner": zones_zone_owner_output,
+        "zones_zone_plan": zones_zone_plan_output,
+        "zones_zone_tenant": zones_zone_tenant_output,
+        "zones_zone_tenant_unit": zones_zone_tenant_unit_output,
       },
     },
     annotations: {
@@ -116,6 +122,9 @@ export const tools: readonly Tool[] = [
         "zones_zone_account": zones_zone_account_output,
         "zones_zone_meta": zones_zone_meta_output,
         "zones_zone_owner": zones_zone_owner_output,
+        "zones_zone_plan": zones_zone_plan_output,
+        "zones_zone_tenant": zones_zone_tenant_output,
+        "zones_zone_tenant_unit": zones_zone_tenant_unit_output,
       },
     },
     request: (args) => ({
@@ -291,6 +300,9 @@ export const tools: readonly Tool[] = [
         "zones_zone_account": zones_zone_account_output,
         "zones_zone_meta": zones_zone_meta_output,
         "zones_zone_owner": zones_zone_owner_output,
+        "zones_zone_plan": zones_zone_plan_output,
+        "zones_zone_tenant": zones_zone_tenant_output,
+        "zones_zone_tenant_unit": zones_zone_tenant_unit_output,
       },
     },
     annotations: {
@@ -332,6 +344,9 @@ export const tools: readonly Tool[] = [
         "zones_zone_account": zones_zone_account_output,
         "zones_zone_meta": zones_zone_meta_output,
         "zones_zone_owner": zones_zone_owner_output,
+        "zones_zone_plan": zones_zone_plan_output,
+        "zones_zone_tenant": zones_zone_tenant_output,
+        "zones_zone_tenant_unit": zones_zone_tenant_unit_output,
       },
     },
     request: (args) => ({
@@ -365,6 +380,9 @@ export const tools: readonly Tool[] = [
         "zones_zone_account": zones_zone_account_output,
         "zones_zone_meta": zones_zone_meta_output,
         "zones_zone_owner": zones_zone_owner_output,
+        "zones_zone_plan": zones_zone_plan_output,
+        "zones_zone_tenant": zones_zone_tenant_output,
+        "zones_zone_tenant_unit": zones_zone_tenant_unit_output,
       },
     },
     annotations: {
@@ -454,6 +472,9 @@ export const tools: readonly Tool[] = [
         "zones_zone_account": zones_zone_account_output,
         "zones_zone_meta": zones_zone_meta_output,
         "zones_zone_owner": zones_zone_owner_output,
+        "zones_zone_plan": zones_zone_plan_output,
+        "zones_zone_tenant": zones_zone_tenant_output,
+        "zones_zone_tenant_unit": zones_zone_tenant_unit_output,
       },
     },
     request: (args) => ({
@@ -567,6 +588,9 @@ export const tools: readonly Tool[] = [
         "zones_zone_account": zones_zone_account_output,
         "zones_zone_meta": zones_zone_meta_output,
         "zones_zone_owner": zones_zone_owner_output,
+        "zones_zone_plan": zones_zone_plan_output,
+        "zones_zone_tenant": zones_zone_tenant_output,
+        "zones_zone_tenant_unit": zones_zone_tenant_unit_output,
       },
     },
     annotations: {
@@ -617,6 +641,9 @@ export const tools: readonly Tool[] = [
         "zones_zone_account": zones_zone_account_output,
         "zones_zone_meta": zones_zone_meta_output,
         "zones_zone_owner": zones_zone_owner_output,
+        "zones_zone_plan": zones_zone_plan_output,
+        "zones_zone_tenant": zones_zone_tenant_output,
+        "zones_zone_tenant_unit": zones_zone_tenant_unit_output,
       },
     },
     request: (args) => ({

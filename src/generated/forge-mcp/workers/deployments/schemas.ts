@@ -11,6 +11,10 @@ export const workers_deployment: JsonSchema = {
     "annotations": {
       "$ref": "#/$defs/workers_deployment_annotations"
     },
+    "code_update_strategy": {
+      "$ref": "#/$defs/workers_deployment_code_update_strategy",
+      "description": "Choose whether to apply Durable Object code updates immediately or defer them. When omitted, the default strategy applies."
+    },
     "strategy": {
       "enum": [
         "percentage"
@@ -43,6 +47,21 @@ export const workers_deployment_annotations: JsonSchema = {
     }
   },
   "type": "object"
+};
+
+/**
+ * The schema of `workers_deployment_code_update_strategy`.
+ */
+export const workers_deployment_code_update_strategy: JsonSchema = {
+  "description": "Choose whether to apply Durable Object code updates immediately or defer them. When omitted, the default strategy applies.",
+  "oneOf": [
+    {
+      "$ref": "#/$defs/workers_code_update_strategy"
+    },
+    {
+      "type": "null"
+    }
+  ]
 };
 
 /**
