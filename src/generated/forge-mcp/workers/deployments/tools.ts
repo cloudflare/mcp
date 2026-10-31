@@ -3,20 +3,19 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
+  workers_api_response_collection_output,
   workers_api_response_common_failure_output,
   workers_api_response_common_output,
+  workers_code_update_strategy_output,
   workers_messages_output,
 } from "../../outputs.js";
 import {
-  workers_deployment_annotations_output,
-  workers_deployment_output,
-  workers_deployment_versionsItem_output,
-} from "./outputs.js";
-import {
-  workers_deployment,
-  workers_deployment_annotations,
-  workers_deployment_versionsItem,
-} from "./schemas.js";
+  workers_code_update_strategy,
+  workers_identifier,
+  workers_script_name,
+} from "../../schemas.js";
+import { workers_deployment_output } from "./outputs.js";
+import { workers_deployment } from "./schemas.js";
 
 /**
  * The tools of `workers.deployments`.
@@ -30,8 +29,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/workers_identifier",
+          "description": "Identifier."
         },
         "body": {
           "$ref": "#/$defs/workers_deployment"
@@ -41,8 +40,8 @@ export const tools: readonly Tool[] = [
           "type": "boolean"
         },
         "script_name": {
-          "description": "Name of the script.",
-          "type": "string"
+          "$ref": "#/$defs/workers_script_name",
+          "description": "Name of the script."
         }
       },
       required: [
@@ -51,17 +50,34 @@ export const tools: readonly Tool[] = [
         "body"
       ],
       $defs: {
+        "workers_code_update_strategy": workers_code_update_strategy,
         "workers_deployment": workers_deployment,
-        "workers_deployment_annotations": workers_deployment_annotations,
-        "workers_deployment_versionsItem": workers_deployment_versionsItem,
+        "workers_identifier": workers_identifier,
+        "workers_script_name": workers_script_name,
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/workers_deployment",
+      "allOf": [
+        {
+          "$ref": "#/$defs/workers_api-response-common"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/workers_deployment"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        }
+      ],
       $defs: {
+        "workers_api-response-common": workers_api_response_common_output,
+        "workers_code_update_strategy": workers_code_update_strategy_output,
         "workers_deployment": workers_deployment_output,
-        "workers_deployment_annotations": workers_deployment_annotations_output,
-        "workers_deployment_versionsItem": workers_deployment_versionsItem_output,
+        "workers_messages": workers_messages_output,
       },
     },
     annotations: {
@@ -85,17 +101,32 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/workers_deployment"
+          "allOf": [
+            {
+              "$ref": "#/$defs/workers_api-response-common"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/workers_deployment"
+                }
+              },
+              "required": [
+                "result"
+              ],
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/workers_api-response-common-failure"
         }
       },
       $defs: {
+        "workers_api-response-common": workers_api_response_common_output,
         "workers_api-response-common-failure": workers_api_response_common_failure_output,
+        "workers_code_update_strategy": workers_code_update_strategy_output,
         "workers_deployment": workers_deployment_output,
-        "workers_deployment_annotations": workers_deployment_annotations_output,
-        "workers_deployment_versionsItem": workers_deployment_versionsItem_output,
         "workers_messages": workers_messages_output,
       },
     },
@@ -115,16 +146,16 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/workers_identifier",
+          "description": "Identifier."
         },
         "deployment_id": {
           "format": "uuid",
           "type": "string"
         },
         "script_name": {
-          "description": "Name of the script.",
-          "type": "string"
+          "$ref": "#/$defs/workers_script_name",
+          "description": "Name of the script."
         }
       },
       required: [
@@ -132,6 +163,10 @@ export const tools: readonly Tool[] = [
         "script_name",
         "deployment_id"
       ],
+      $defs: {
+        "workers_identifier": workers_identifier,
+        "workers_script_name": workers_script_name,
+      },
     },
     outputSchema: {
       "$ref": "#/$defs/workers_api-response-common",
@@ -184,16 +219,16 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/workers_identifier",
+          "description": "Identifier."
         },
         "deployment_id": {
           "format": "uuid",
           "type": "string"
         },
         "script_name": {
-          "description": "Name of the script.",
-          "type": "string"
+          "$ref": "#/$defs/workers_script_name",
+          "description": "Name of the script."
         }
       },
       required: [
@@ -201,13 +236,33 @@ export const tools: readonly Tool[] = [
         "script_name",
         "deployment_id"
       ],
+      $defs: {
+        "workers_identifier": workers_identifier,
+        "workers_script_name": workers_script_name,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/workers_deployment",
+      "allOf": [
+        {
+          "$ref": "#/$defs/workers_api-response-common"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/workers_deployment"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        }
+      ],
       $defs: {
+        "workers_api-response-common": workers_api_response_common_output,
+        "workers_code_update_strategy": workers_code_update_strategy_output,
         "workers_deployment": workers_deployment_output,
-        "workers_deployment_annotations": workers_deployment_annotations_output,
-        "workers_deployment_versionsItem": workers_deployment_versionsItem_output,
+        "workers_messages": workers_messages_output,
       },
     },
     annotations: {
@@ -237,17 +292,32 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/workers_deployment"
+          "allOf": [
+            {
+              "$ref": "#/$defs/workers_api-response-common"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/workers_deployment"
+                }
+              },
+              "required": [
+                "result"
+              ],
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/workers_api-response-common-failure"
         }
       },
       $defs: {
+        "workers_api-response-common": workers_api_response_common_output,
         "workers_api-response-common-failure": workers_api_response_common_failure_output,
+        "workers_code_update_strategy": workers_code_update_strategy_output,
         "workers_deployment": workers_deployment_output,
-        "workers_deployment_annotations": workers_deployment_annotations_output,
-        "workers_deployment_versionsItem": workers_deployment_versionsItem_output,
         "workers_messages": workers_messages_output,
       },
     },
@@ -263,8 +333,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/workers_identifier",
+          "description": "Identifier."
         },
         "page": {
           "default": 1,
@@ -277,8 +347,8 @@ export const tools: readonly Tool[] = [
           "type": "integer"
         },
         "script_name": {
-          "description": "Name of the script.",
-          "type": "string"
+          "$ref": "#/$defs/workers_script_name",
+          "description": "Name of the script."
         },
         "since": {
           "description": "Start of the deployment creation time range, inclusive.",
@@ -295,24 +365,45 @@ export const tools: readonly Tool[] = [
         "account_id",
         "script_name"
       ],
+      $defs: {
+        "workers_identifier": workers_identifier,
+        "workers_script_name": workers_script_name,
+      },
     },
     outputSchema: {
-      "properties": {
-        "deployments": {
-          "items": {
-            "$ref": "#/$defs/workers_deployment"
+      "allOf": [
+        {
+          "$ref": "#/$defs/workers_api-response-collection"
+        },
+        {
+          "properties": {
+            "result": {
+              "properties": {
+                "deployments": {
+                  "items": {
+                    "$ref": "#/$defs/workers_deployment"
+                  },
+                  "type": "array"
+                }
+              },
+              "required": [
+                "deployments"
+              ],
+              "type": "object"
+            }
           },
-          "type": "array"
+          "required": [
+            "result"
+          ],
+          "type": "object"
         }
-      },
-      "required": [
-        "deployments"
       ],
-      "type": "object",
       $defs: {
+        "workers_api-response-collection": workers_api_response_collection_output,
+        "workers_api-response-common": workers_api_response_common_output,
+        "workers_code_update_strategy": workers_code_update_strategy_output,
         "workers_deployment": workers_deployment_output,
-        "workers_deployment_annotations": workers_deployment_annotations_output,
-        "workers_deployment_versionsItem": workers_deployment_versionsItem_output,
+        "workers_messages": workers_messages_output,
       },
     },
     annotations: {
@@ -342,28 +433,44 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "deployments": {
-              "items": {
-                "$ref": "#/$defs/workers_deployment"
+          "allOf": [
+            {
+              "$ref": "#/$defs/workers_api-response-collection"
+            },
+            {
+              "properties": {
+                "result": {
+                  "properties": {
+                    "deployments": {
+                      "items": {
+                        "$ref": "#/$defs/workers_deployment"
+                      },
+                      "type": "array"
+                    }
+                  },
+                  "required": [
+                    "deployments"
+                  ],
+                  "type": "object"
+                }
               },
-              "type": "array"
+              "required": [
+                "result"
+              ],
+              "type": "object"
             }
-          },
-          "required": [
-            "deployments"
-          ],
-          "type": "object"
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/workers_api-response-common-failure"
         }
       },
       $defs: {
+        "workers_api-response-collection": workers_api_response_collection_output,
+        "workers_api-response-common": workers_api_response_common_output,
         "workers_api-response-common-failure": workers_api_response_common_failure_output,
+        "workers_code_update_strategy": workers_code_update_strategy_output,
         "workers_deployment": workers_deployment_output,
-        "workers_deployment_annotations": workers_deployment_annotations_output,
-        "workers_deployment_versionsItem": workers_deployment_versionsItem_output,
         "workers_messages": workers_messages_output,
       },
     },

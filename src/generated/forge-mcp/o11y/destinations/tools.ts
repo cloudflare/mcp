@@ -78,104 +78,38 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
-        "configuration": {
-          "properties": {
-            "headers": {
-              "additionalProperties": {
-                "oneOf": [
-                  {
-                    "type": "string"
-                  },
-                  {
-                    "type": "null"
-                  }
-                ]
-              },
-              "type": "object"
-            },
-            "jobStatus": {
-              "properties": {
-                "error_message": {
-                  "type": "string"
-                },
-                "last_complete": {
-                  "type": "string"
-                },
-                "last_error": {
-                  "type": "string"
-                }
-              },
-              "required": [
-                "error_message",
-                "last_complete",
-                "last_error"
-              ],
-              "type": "object"
-            },
-            "logpushDataset": {
-              "enum": [
-                "opentelemetry-traces",
-                "opentelemetry-logs",
-                "opentelemetry-metrics"
-              ],
-              "type": "string"
-            },
-            "type": {
-              "enum": [
-                "logpush"
-              ],
-              "type": "string"
-            },
-            "url": {
-              "type": "string"
-            }
-          },
-          "required": [
-            "headers",
-            "jobStatus",
-            "logpushDataset",
-            "type",
-            "url"
-          ],
-          "type": "object"
-        },
-        "enabled": {
-          "type": "boolean"
-        },
-        "name": {
-          "type": "string"
-        },
-        "scripts": {
+        "errors": {
           "items": {
-            "type": "string"
+            "properties": {
+              "message": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "message"
+            ],
+            "type": "object"
           },
           "type": "array"
         },
-        "slug": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "configuration",
-        "enabled",
-        "name",
-        "scripts",
-        "slug"
-      ],
-      "type": "object",
-    },
-    annotations: {
-      "destructiveHint": false,
-      "idempotentHint": false,
-      "openWorldHint": true,
-      "readOnlyHint": false,
-      "title": "Create Destination"
-    },
-    method: "POST",
-    path: "/accounts/{account_id}/workers/observability/destinations",
-    responses: {
-      schemas: {
-        "201": {
+        "messages": {
+          "items": {
+            "properties": {
+              "message": {
+                "enum": [
+                  "Resource created"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "message"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "result": {
           "properties": {
             "configuration": {
               "properties": {
@@ -260,6 +194,168 @@ export const tools: readonly Tool[] = [
             "name",
             "scripts",
             "slug"
+          ],
+          "type": "object"
+        },
+        "success": {
+          "enum": [
+            true
+          ],
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "errors",
+        "messages",
+        "result",
+        "success"
+      ],
+      "type": "object",
+    },
+    annotations: {
+      "destructiveHint": false,
+      "idempotentHint": false,
+      "openWorldHint": true,
+      "readOnlyHint": false,
+      "title": "Create Destination"
+    },
+    method: "POST",
+    path: "/accounts/{account_id}/workers/observability/destinations",
+    responses: {
+      schemas: {
+        "201": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "messages": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "enum": [
+                      "Resource created"
+                    ],
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result": {
+              "properties": {
+                "configuration": {
+                  "properties": {
+                    "headers": {
+                      "additionalProperties": {
+                        "oneOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "type": "object"
+                    },
+                    "jobStatus": {
+                      "properties": {
+                        "error_message": {
+                          "type": "string"
+                        },
+                        "last_complete": {
+                          "type": "string"
+                        },
+                        "last_error": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "error_message",
+                        "last_complete",
+                        "last_error"
+                      ],
+                      "type": "object"
+                    },
+                    "logpushDataset": {
+                      "enum": [
+                        "opentelemetry-traces",
+                        "opentelemetry-logs",
+                        "opentelemetry-metrics"
+                      ],
+                      "type": "string"
+                    },
+                    "type": {
+                      "enum": [
+                        "logpush"
+                      ],
+                      "type": "string"
+                    },
+                    "url": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "headers",
+                    "jobStatus",
+                    "logpushDataset",
+                    "type",
+                    "url"
+                  ],
+                  "type": "object"
+                },
+                "enabled": {
+                  "type": "boolean"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "scripts": {
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                "slug": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "configuration",
+                "enabled",
+                "name",
+                "scripts",
+                "slug"
+              ],
+              "type": "object"
+            },
+            "success": {
+              "enum": [
+                true
+              ],
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "messages",
+            "result",
+            "success"
           ],
           "type": "object"
         },
@@ -492,104 +588,38 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
-        "configuration": {
-          "properties": {
-            "headers": {
-              "additionalProperties": {
-                "oneOf": [
-                  {
-                    "type": "string"
-                  },
-                  {
-                    "type": "null"
-                  }
-                ]
-              },
-              "type": "object"
-            },
-            "jobStatus": {
-              "properties": {
-                "error_message": {
-                  "type": "string"
-                },
-                "last_complete": {
-                  "type": "string"
-                },
-                "last_error": {
-                  "type": "string"
-                }
-              },
-              "required": [
-                "error_message",
-                "last_complete",
-                "last_error"
-              ],
-              "type": "object"
-            },
-            "logpushDataset": {
-              "enum": [
-                "opentelemetry-traces",
-                "opentelemetry-logs",
-                "opentelemetry-metrics"
-              ],
-              "type": "string"
-            },
-            "type": {
-              "enum": [
-                "logpush"
-              ],
-              "type": "string"
-            },
-            "url": {
-              "type": "string"
-            }
-          },
-          "required": [
-            "headers",
-            "jobStatus",
-            "logpushDataset",
-            "type",
-            "url"
-          ],
-          "type": "object"
-        },
-        "enabled": {
-          "type": "boolean"
-        },
-        "name": {
-          "type": "string"
-        },
-        "scripts": {
+        "errors": {
           "items": {
-            "type": "string"
+            "properties": {
+              "message": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "message"
+            ],
+            "type": "object"
           },
           "type": "array"
         },
-        "slug": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "configuration",
-        "enabled",
-        "name",
-        "scripts",
-        "slug"
-      ],
-      "type": "object",
-    },
-    annotations: {
-      "destructiveHint": true,
-      "idempotentHint": true,
-      "openWorldHint": true,
-      "readOnlyHint": false,
-      "title": "Delete Destination"
-    },
-    method: "DELETE",
-    path: "/accounts/{account_id}/workers/observability/destinations/{slug}",
-    responses: {
-      schemas: {
-        "200": {
+        "messages": {
+          "items": {
+            "properties": {
+              "message": {
+                "enum": [
+                  "Successful request"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "message"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "result": {
           "properties": {
             "configuration": {
               "properties": {
@@ -674,6 +704,166 @@ export const tools: readonly Tool[] = [
             "name",
             "scripts",
             "slug"
+          ],
+          "type": "object"
+        },
+        "success": {
+          "enum": [
+            true
+          ],
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "errors",
+        "messages",
+        "success"
+      ],
+      "type": "object",
+    },
+    annotations: {
+      "destructiveHint": true,
+      "idempotentHint": true,
+      "openWorldHint": true,
+      "readOnlyHint": false,
+      "title": "Delete Destination"
+    },
+    method: "DELETE",
+    path: "/accounts/{account_id}/workers/observability/destinations/{slug}",
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "messages": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "enum": [
+                      "Successful request"
+                    ],
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result": {
+              "properties": {
+                "configuration": {
+                  "properties": {
+                    "headers": {
+                      "additionalProperties": {
+                        "oneOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "type": "object"
+                    },
+                    "jobStatus": {
+                      "properties": {
+                        "error_message": {
+                          "type": "string"
+                        },
+                        "last_complete": {
+                          "type": "string"
+                        },
+                        "last_error": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "error_message",
+                        "last_complete",
+                        "last_error"
+                      ],
+                      "type": "object"
+                    },
+                    "logpushDataset": {
+                      "enum": [
+                        "opentelemetry-traces",
+                        "opentelemetry-logs",
+                        "opentelemetry-metrics"
+                      ],
+                      "type": "string"
+                    },
+                    "type": {
+                      "enum": [
+                        "logpush"
+                      ],
+                      "type": "string"
+                    },
+                    "url": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "headers",
+                    "jobStatus",
+                    "logpushDataset",
+                    "type",
+                    "url"
+                  ],
+                  "type": "object"
+                },
+                "enabled": {
+                  "type": "boolean"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "scripts": {
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                "slug": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "configuration",
+                "enabled",
+                "name",
+                "scripts",
+                "slug"
+              ],
+              "type": "object"
+            },
+            "success": {
+              "enum": [
+                true
+              ],
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "messages",
+            "success"
           ],
           "type": "object"
         },
@@ -925,6 +1115,37 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
+        "errors": {
+          "items": {
+            "properties": {
+              "message": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "message"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "messages": {
+          "items": {
+            "properties": {
+              "message": {
+                "enum": [
+                  "Successful request"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "message"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
         "result": {
           "items": {
             "properties": {
@@ -1016,12 +1237,18 @@ export const tools: readonly Tool[] = [
           },
           "type": "array"
         },
-        "result_info": {
-          "type": "object"
+        "success": {
+          "enum": [
+            true
+          ],
+          "type": "boolean"
         }
       },
       "required": [
-        "result"
+        "errors",
+        "messages",
+        "result",
+        "success"
       ],
       "type": "object",
     },
@@ -1038,6 +1265,37 @@ export const tools: readonly Tool[] = [
       schemas: {
         "200": {
           "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "messages": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "enum": [
+                      "Successful request"
+                    ],
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
             "result": {
               "items": {
                 "properties": {
@@ -1129,12 +1387,18 @@ export const tools: readonly Tool[] = [
               },
               "type": "array"
             },
-            "result_info": {
-              "type": "object"
+            "success": {
+              "enum": [
+                true
+              ],
+              "type": "boolean"
             }
           },
           "required": [
-            "result"
+            "errors",
+            "messages",
+            "result",
+            "success"
           ],
           "type": "object"
         },
@@ -1368,104 +1632,38 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
-        "configuration": {
-          "properties": {
-            "headers": {
-              "additionalProperties": {
-                "oneOf": [
-                  {
-                    "type": "string"
-                  },
-                  {
-                    "type": "null"
-                  }
-                ]
-              },
-              "type": "object"
-            },
-            "jobStatus": {
-              "properties": {
-                "error_message": {
-                  "type": "string"
-                },
-                "last_complete": {
-                  "type": "string"
-                },
-                "last_error": {
-                  "type": "string"
-                }
-              },
-              "required": [
-                "error_message",
-                "last_complete",
-                "last_error"
-              ],
-              "type": "object"
-            },
-            "logpushDataset": {
-              "enum": [
-                "opentelemetry-traces",
-                "opentelemetry-logs",
-                "opentelemetry-metrics"
-              ],
-              "type": "string"
-            },
-            "type": {
-              "enum": [
-                "logpush"
-              ],
-              "type": "string"
-            },
-            "url": {
-              "type": "string"
-            }
-          },
-          "required": [
-            "headers",
-            "jobStatus",
-            "logpushDataset",
-            "type",
-            "url"
-          ],
-          "type": "object"
-        },
-        "enabled": {
-          "type": "boolean"
-        },
-        "name": {
-          "type": "string"
-        },
-        "scripts": {
+        "errors": {
           "items": {
-            "type": "string"
+            "properties": {
+              "message": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "message"
+            ],
+            "type": "object"
           },
           "type": "array"
         },
-        "slug": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "configuration",
-        "enabled",
-        "name",
-        "scripts",
-        "slug"
-      ],
-      "type": "object",
-    },
-    annotations: {
-      "destructiveHint": false,
-      "idempotentHint": false,
-      "openWorldHint": true,
-      "readOnlyHint": false,
-      "title": "Update Destination"
-    },
-    method: "PATCH",
-    path: "/accounts/{account_id}/workers/observability/destinations/{slug}",
-    responses: {
-      schemas: {
-        "200": {
+        "messages": {
+          "items": {
+            "properties": {
+              "message": {
+                "enum": [
+                  "Successful request"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "message"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "result": {
           "properties": {
             "configuration": {
               "properties": {
@@ -1550,6 +1748,168 @@ export const tools: readonly Tool[] = [
             "name",
             "scripts",
             "slug"
+          ],
+          "type": "object"
+        },
+        "success": {
+          "enum": [
+            true
+          ],
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "errors",
+        "messages",
+        "result",
+        "success"
+      ],
+      "type": "object",
+    },
+    annotations: {
+      "destructiveHint": false,
+      "idempotentHint": false,
+      "openWorldHint": true,
+      "readOnlyHint": false,
+      "title": "Update Destination"
+    },
+    method: "PATCH",
+    path: "/accounts/{account_id}/workers/observability/destinations/{slug}",
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "messages": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "enum": [
+                      "Successful request"
+                    ],
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result": {
+              "properties": {
+                "configuration": {
+                  "properties": {
+                    "headers": {
+                      "additionalProperties": {
+                        "oneOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "type": "object"
+                    },
+                    "jobStatus": {
+                      "properties": {
+                        "error_message": {
+                          "type": "string"
+                        },
+                        "last_complete": {
+                          "type": "string"
+                        },
+                        "last_error": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "error_message",
+                        "last_complete",
+                        "last_error"
+                      ],
+                      "type": "object"
+                    },
+                    "logpushDataset": {
+                      "enum": [
+                        "opentelemetry-traces",
+                        "opentelemetry-logs",
+                        "opentelemetry-metrics"
+                      ],
+                      "type": "string"
+                    },
+                    "type": {
+                      "enum": [
+                        "logpush"
+                      ],
+                      "type": "string"
+                    },
+                    "url": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "headers",
+                    "jobStatus",
+                    "logpushDataset",
+                    "type",
+                    "url"
+                  ],
+                  "type": "object"
+                },
+                "enabled": {
+                  "type": "boolean"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "scripts": {
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                "slug": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "configuration",
+                "enabled",
+                "name",
+                "scripts",
+                "slug"
+              ],
+              "type": "object"
+            },
+            "success": {
+              "enum": [
+                true
+              ],
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "messages",
+            "result",
+            "success"
           ],
           "type": "object"
         },

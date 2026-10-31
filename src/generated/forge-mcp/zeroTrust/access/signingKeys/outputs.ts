@@ -42,3 +42,22 @@ export const access_last_key_rotation_at_output: JsonSchema = {
   "format": "date-time",
   "type": "string"
 };
+
+/**
+ * The schema of `access_single_response-13` in responses.
+ */
+export const access_single_response_13_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/access_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/access_key_config"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};

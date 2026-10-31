@@ -60,3 +60,41 @@ export const alexandria_category_description_output: JsonSchema = {
 export const alexandria_category_name_output: JsonSchema = {
   "type": "string"
 };
+
+/**
+ * The schema of `alexandria_get_categories_response` in responses.
+ */
+export const alexandria_get_categories_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/alexandria_api-response-collection"
+    },
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/alexandria_categories"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `alexandria_get_category_response` in responses.
+ */
+export const alexandria_get_category_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/alexandria_api-response-common"
+    },
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/alexandria_category"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};

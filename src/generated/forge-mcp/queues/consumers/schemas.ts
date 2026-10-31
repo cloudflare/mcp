@@ -27,7 +27,25 @@ export const mq_http_consumer_request: JsonSchema = {
       "$ref": "#/$defs/mq_queue-name"
     },
     "settings": {
-      "$ref": "#/$defs/mq_http-consumer-request_settings"
+      "properties": {
+        "batch_size": {
+          "$ref": "#/$defs/mq_batch-size",
+          "description": "The maximum number of messages to include in a batch."
+        },
+        "max_retries": {
+          "$ref": "#/$defs/mq_max-retries",
+          "description": "The maximum number of retries"
+        },
+        "retry_delay": {
+          "$ref": "#/$defs/mq_retry-delay",
+          "description": "The number of seconds to delay before making the message available for another attempt."
+        },
+        "visibility_timeout_ms": {
+          "$ref": "#/$defs/mq_visibility-timeout",
+          "description": "The number of milliseconds that a message is exclusively leased. After the timeout, the message becomes available for another attempt."
+        }
+      },
+      "type": "object"
     },
     "type": {
       "enum": [
@@ -39,31 +57,6 @@ export const mq_http_consumer_request: JsonSchema = {
   "required": [
     "type"
   ],
-  "type": "object"
-};
-
-/**
- * The schema of `mq_http-consumer-request_settings`.
- */
-export const mq_http_consumer_request_settings: JsonSchema = {
-  "properties": {
-    "batch_size": {
-      "$ref": "#/$defs/mq_batch-size",
-      "description": "The maximum number of messages to include in a batch."
-    },
-    "max_retries": {
-      "$ref": "#/$defs/mq_max-retries",
-      "description": "The maximum number of retries"
-    },
-    "retry_delay": {
-      "$ref": "#/$defs/mq_retry-delay",
-      "description": "The number of seconds to delay before making the message available for another attempt."
-    },
-    "visibility_timeout_ms": {
-      "$ref": "#/$defs/mq_visibility-timeout",
-      "description": "The number of milliseconds that a message is exclusively leased. After the timeout, the message becomes available for another attempt."
-    }
-  },
   "type": "object"
 };
 
@@ -80,7 +73,29 @@ export const mq_worker_consumer_request: JsonSchema = {
       "description": "Name of a Worker"
     },
     "settings": {
-      "$ref": "#/$defs/mq_worker-consumer-request_settings"
+      "properties": {
+        "batch_size": {
+          "$ref": "#/$defs/mq_batch-size",
+          "description": "The maximum number of messages to include in a batch."
+        },
+        "max_concurrency": {
+          "$ref": "#/$defs/mq_max-concurrency",
+          "description": "Maximum number of concurrent consumers that may consume from this Queue. Set to `null` to automatically opt in to the platform's maximum (recommended)."
+        },
+        "max_retries": {
+          "$ref": "#/$defs/mq_max-retries",
+          "description": "The maximum number of retries"
+        },
+        "max_wait_time_ms": {
+          "$ref": "#/$defs/mq_max-wait-time",
+          "description": "The number of milliseconds to wait for a batch to fill up before attempting to deliver it"
+        },
+        "retry_delay": {
+          "$ref": "#/$defs/mq_retry-delay",
+          "description": "The number of seconds to delay before making the message available for another attempt."
+        }
+      },
+      "type": "object"
     },
     "type": {
       "enum": [
@@ -93,34 +108,5 @@ export const mq_worker_consumer_request: JsonSchema = {
     "script_name",
     "type"
   ],
-  "type": "object"
-};
-
-/**
- * The schema of `mq_worker-consumer-request_settings`.
- */
-export const mq_worker_consumer_request_settings: JsonSchema = {
-  "properties": {
-    "batch_size": {
-      "$ref": "#/$defs/mq_batch-size",
-      "description": "The maximum number of messages to include in a batch."
-    },
-    "max_concurrency": {
-      "$ref": "#/$defs/mq_max-concurrency",
-      "description": "Maximum number of concurrent consumers that may consume from this Queue. Set to `null` to automatically opt in to the platform's maximum (recommended)."
-    },
-    "max_retries": {
-      "$ref": "#/$defs/mq_max-retries",
-      "description": "The maximum number of retries"
-    },
-    "max_wait_time_ms": {
-      "$ref": "#/$defs/mq_max-wait-time",
-      "description": "The number of milliseconds to wait for a batch to fill up before attempting to deliver it"
-    },
-    "retry_delay": {
-      "$ref": "#/$defs/mq_retry-delay",
-      "description": "The number of seconds to delay before making the message available for another attempt."
-    }
-  },
   "type": "object"
 };

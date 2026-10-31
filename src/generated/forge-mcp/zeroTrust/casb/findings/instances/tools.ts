@@ -8,7 +8,9 @@ import {
   posture_api_ExportJob_output,
   posture_api_RemediationJobStatusEnum_output,
   posture_api_StatusEnum_output,
+  posture_api_api_response_collection_output,
   posture_api_api_response_common_output,
+  posture_api_export_job_response_output,
   posture_api_messages_output,
   posture_api_result_info_output,
 } from "../../outputs.js";
@@ -19,8 +21,9 @@ import {
   posture_api_Asset_output,
   posture_api_FindingInstance_output,
   posture_api_RemediationJobSummary_output,
-  posture_api_WebhookInvocationSummary_latest_job_output,
   posture_api_WebhookInvocationSummary_output,
+  posture_api_finding_instance_response_output,
+  posture_api_paginated_finding_instance_list_output,
 } from "./outputs.js";
 import {
   posture_api_FindingInstanceBulkActionRequest,
@@ -61,7 +64,7 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/posture-api_FindingInstance",
+      "$ref": "#/$defs/posture-api_finding-instance-response",
       $defs: {
         "posture-api_Asset": posture_api_Asset_output,
         "posture-api_AssetCategory": posture_api_AssetCategory_output,
@@ -71,7 +74,9 @@ export const tools: readonly Tool[] = [
         "posture-api_RemediationJobStatusEnum": posture_api_RemediationJobStatusEnum_output,
         "posture-api_RemediationJobSummary": posture_api_RemediationJobSummary_output,
         "posture-api_WebhookInvocationSummary": posture_api_WebhookInvocationSummary_output,
-        "posture-api_WebhookInvocationSummary_latest_job": posture_api_WebhookInvocationSummary_latest_job_output,
+        "posture-api_api-response-common": posture_api_api_response_common_output,
+        "posture-api_finding-instance-response": posture_api_finding_instance_response_output,
+        "posture-api_messages": posture_api_messages_output,
       },
     },
     annotations: {
@@ -91,7 +96,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/posture-api_FindingInstance"
+          "$ref": "#/$defs/posture-api_finding-instance-response"
         },
         "400": null,
         "404": null,
@@ -108,8 +113,8 @@ export const tools: readonly Tool[] = [
         "posture-api_RemediationJobStatusEnum": posture_api_RemediationJobStatusEnum_output,
         "posture-api_RemediationJobSummary": posture_api_RemediationJobSummary_output,
         "posture-api_WebhookInvocationSummary": posture_api_WebhookInvocationSummary_output,
-        "posture-api_WebhookInvocationSummary_latest_job": posture_api_WebhookInvocationSummary_latest_job_output,
         "posture-api_api-response-common": posture_api_api_response_common_output,
+        "posture-api_finding-instance-response": posture_api_finding_instance_response_output,
         "posture-api_messages": posture_api_messages_output,
       },
     },
@@ -148,11 +153,14 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/posture-api_ExportJob",
+      "$ref": "#/$defs/posture-api_export-job-response",
       $defs: {
         "posture-api_ExportJob": posture_api_ExportJob_output,
         "posture-api_ExportJobTypeEnum": posture_api_ExportJobTypeEnum_output,
         "posture-api_StatusEnum": posture_api_StatusEnum_output,
+        "posture-api_api-response-common": posture_api_api_response_common_output,
+        "posture-api_export-job-response": posture_api_export_job_response_output,
+        "posture-api_messages": posture_api_messages_output,
       },
     },
     annotations: {
@@ -173,7 +181,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/posture-api_ExportJob"
+          "$ref": "#/$defs/posture-api_export-job-response"
         },
         "400": null,
         "404": null,
@@ -186,6 +194,7 @@ export const tools: readonly Tool[] = [
         "posture-api_ExportJobTypeEnum": posture_api_ExportJobTypeEnum_output,
         "posture-api_StatusEnum": posture_api_StatusEnum_output,
         "posture-api_api-response-common": posture_api_api_response_common_output,
+        "posture-api_export-job-response": posture_api_export_job_response_output,
         "posture-api_messages": posture_api_messages_output,
       },
     },
@@ -223,7 +232,7 @@ export const tools: readonly Tool[] = [
       ],
     },
     outputSchema: {
-      "$ref": "#/$defs/posture-api_FindingInstance",
+      "$ref": "#/$defs/posture-api_finding-instance-response",
       $defs: {
         "posture-api_Asset": posture_api_Asset_output,
         "posture-api_AssetCategory": posture_api_AssetCategory_output,
@@ -233,7 +242,9 @@ export const tools: readonly Tool[] = [
         "posture-api_RemediationJobStatusEnum": posture_api_RemediationJobStatusEnum_output,
         "posture-api_RemediationJobSummary": posture_api_RemediationJobSummary_output,
         "posture-api_WebhookInvocationSummary": posture_api_WebhookInvocationSummary_output,
-        "posture-api_WebhookInvocationSummary_latest_job": posture_api_WebhookInvocationSummary_latest_job_output,
+        "posture-api_api-response-common": posture_api_api_response_common_output,
+        "posture-api_finding-instance-response": posture_api_finding_instance_response_output,
+        "posture-api_messages": posture_api_messages_output,
       },
     },
     annotations: {
@@ -254,7 +265,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/posture-api_FindingInstance"
+          "$ref": "#/$defs/posture-api_finding-instance-response"
         },
         "400": null,
         "404": null,
@@ -271,8 +282,8 @@ export const tools: readonly Tool[] = [
         "posture-api_RemediationJobStatusEnum": posture_api_RemediationJobStatusEnum_output,
         "posture-api_RemediationJobSummary": posture_api_RemediationJobSummary_output,
         "posture-api_WebhookInvocationSummary": posture_api_WebhookInvocationSummary_output,
-        "posture-api_WebhookInvocationSummary_latest_job": posture_api_WebhookInvocationSummary_latest_job_output,
         "posture-api_api-response-common": posture_api_api_response_common_output,
+        "posture-api_finding-instance-response": posture_api_finding_instance_response_output,
         "posture-api_messages": posture_api_messages_output,
       },
     },
@@ -381,21 +392,7 @@ export const tools: readonly Tool[] = [
       ],
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "$ref": "#/$defs/posture-api_FindingInstance"
-          },
-          "type": "array"
-        },
-        "result_info": {
-          "$ref": "#/$defs/posture-api_result-info"
-        }
-      },
-      "required": [
-        "result"
-      ],
-      "type": "object",
+      "$ref": "#/$defs/posture-api_paginated-finding-instance-list",
       $defs: {
         "posture-api_Asset": posture_api_Asset_output,
         "posture-api_AssetCategory": posture_api_AssetCategory_output,
@@ -405,7 +402,9 @@ export const tools: readonly Tool[] = [
         "posture-api_RemediationJobStatusEnum": posture_api_RemediationJobStatusEnum_output,
         "posture-api_RemediationJobSummary": posture_api_RemediationJobSummary_output,
         "posture-api_WebhookInvocationSummary": posture_api_WebhookInvocationSummary_output,
-        "posture-api_WebhookInvocationSummary_latest_job": posture_api_WebhookInvocationSummary_latest_job_output,
+        "posture-api_api-response-collection": posture_api_api_response_collection_output,
+        "posture-api_messages": posture_api_messages_output,
+        "posture-api_paginated-finding-instance-list": posture_api_paginated_finding_instance_list_output,
         "posture-api_result-info": posture_api_result_info_output,
       },
     },
@@ -427,21 +426,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "items": {
-                "$ref": "#/$defs/posture-api_FindingInstance"
-              },
-              "type": "array"
-            },
-            "result_info": {
-              "$ref": "#/$defs/posture-api_result-info"
-            }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/posture-api_paginated-finding-instance-list"
         },
         "400": null,
         "404": null,
@@ -458,9 +443,10 @@ export const tools: readonly Tool[] = [
         "posture-api_RemediationJobStatusEnum": posture_api_RemediationJobStatusEnum_output,
         "posture-api_RemediationJobSummary": posture_api_RemediationJobSummary_output,
         "posture-api_WebhookInvocationSummary": posture_api_WebhookInvocationSummary_output,
-        "posture-api_WebhookInvocationSummary_latest_job": posture_api_WebhookInvocationSummary_latest_job_output,
+        "posture-api_api-response-collection": posture_api_api_response_collection_output,
         "posture-api_api-response-common": posture_api_api_response_common_output,
         "posture-api_messages": posture_api_messages_output,
+        "posture-api_paginated-finding-instance-list": posture_api_paginated_finding_instance_list_output,
         "posture-api_result-info": posture_api_result_info_output,
       },
     },
@@ -511,7 +497,7 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/posture-api_FindingInstance",
+      "$ref": "#/$defs/posture-api_finding-instance-response",
       $defs: {
         "posture-api_Asset": posture_api_Asset_output,
         "posture-api_AssetCategory": posture_api_AssetCategory_output,
@@ -521,7 +507,9 @@ export const tools: readonly Tool[] = [
         "posture-api_RemediationJobStatusEnum": posture_api_RemediationJobStatusEnum_output,
         "posture-api_RemediationJobSummary": posture_api_RemediationJobSummary_output,
         "posture-api_WebhookInvocationSummary": posture_api_WebhookInvocationSummary_output,
-        "posture-api_WebhookInvocationSummary_latest_job": posture_api_WebhookInvocationSummary_latest_job_output,
+        "posture-api_api-response-common": posture_api_api_response_common_output,
+        "posture-api_finding-instance-response": posture_api_finding_instance_response_output,
+        "posture-api_messages": posture_api_messages_output,
       },
     },
     annotations: {
@@ -541,7 +529,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/posture-api_FindingInstance"
+          "$ref": "#/$defs/posture-api_finding-instance-response"
         },
         "400": null,
         "404": null,
@@ -558,8 +546,8 @@ export const tools: readonly Tool[] = [
         "posture-api_RemediationJobStatusEnum": posture_api_RemediationJobStatusEnum_output,
         "posture-api_RemediationJobSummary": posture_api_RemediationJobSummary_output,
         "posture-api_WebhookInvocationSummary": posture_api_WebhookInvocationSummary_output,
-        "posture-api_WebhookInvocationSummary_latest_job": posture_api_WebhookInvocationSummary_latest_job_output,
         "posture-api_api-response-common": posture_api_api_response_common_output,
+        "posture-api_finding-instance-response": posture_api_finding_instance_response_output,
         "posture-api_messages": posture_api_messages_output,
       },
     },

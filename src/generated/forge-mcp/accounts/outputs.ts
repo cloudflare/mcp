@@ -4,6 +4,71 @@
 import type { JsonSchema } from "../_/tool.js";
 
 /**
+ * The schema of `alexandria_api-response-collection` in responses.
+ */
+export const alexandria_api_response_collection_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/alexandria_api-response-common"
+    },
+    {
+      "properties": {
+        "result_info": {
+          "properties": {
+            "count": {
+              "type": "number"
+            },
+            "cursor": {
+              "type": "string"
+            },
+            "page": {
+              "type": "number"
+            },
+            "per_page": {
+              "type": "number"
+            },
+            "total_count": {
+              "type": "number"
+            },
+            "total_pages": {
+              "type": "number"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `alexandria_api-response-common` in responses.
+ */
+export const alexandria_api_response_common_output: JsonSchema = {
+  "properties": {
+    "errors": {
+      "$ref": "#/$defs/alexandria_messages"
+    },
+    "messages": {
+      "$ref": "#/$defs/alexandria_messages"
+    },
+    "success": {
+      "enum": [
+        true
+      ],
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "errors",
+    "messages",
+    "success"
+  ],
+  "type": "object"
+};
+
+/**
  * The schema of `alexandria_api_response_common_failure` in responses.
  */
 export const alexandria_api_response_common_failure_output: JsonSchema = {
@@ -86,13 +151,35 @@ export const iam_account_output: JsonSchema = {
       "$ref": "#/$defs/iam_common_components-schemas-identifier"
     },
     "managed_by": {
-      "$ref": "#/$defs/iam_account_managed_by"
+      "properties": {
+        "parent_org_id": {
+          "type": "string"
+        },
+        "parent_org_name": {
+          "type": "string"
+        },
+        "root_org_id": {
+          "type": "string"
+        },
+        "should_display_parent_orgs": {
+          "type": "boolean"
+        }
+      },
+      "type": "object"
     },
     "name": {
       "type": "string"
     },
     "settings": {
-      "$ref": "#/$defs/iam_account_settings"
+      "properties": {
+        "abuse_contact_email": {
+          "type": "string"
+        },
+        "enforce_twofactor": {
+          "type": "boolean"
+        }
+      },
+      "type": "object"
     },
     "type": {
       "$ref": "#/$defs/iam_account-type"
@@ -104,6 +191,47 @@ export const iam_account_output: JsonSchema = {
     "type"
   ],
   "type": "object"
+};
+
+/**
+ * The schema of `iam_response_collection_accounts` in responses.
+ */
+export const iam_response_collection_accounts_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/iam_api-response-collection"
+    },
+    {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/iam_account"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `iam_response_single_account` in responses.
+ */
+export const iam_response_single_account_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/iam_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/iam_account"
+        }
+      },
+      "type": "object"
+    }
+  ]
 };
 
 /**

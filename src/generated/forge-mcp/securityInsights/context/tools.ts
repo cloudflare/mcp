@@ -4,8 +4,10 @@
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
   security_center_api_response_common_failure_output,
+  security_center_api_response_common_output,
   security_center_messages_output,
 } from "../../outputs.js";
+import { security_center_identifier } from "../../schemas.js";
 
 /**
  * The tools of `security_insights.context`.
@@ -19,8 +21,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/security-center_identifier",
+          "description": "Identifier."
         },
         "issue_id": {
           "type": "string"
@@ -30,9 +32,28 @@ export const tools: readonly Tool[] = [
         "account_id",
         "issue_id"
       ],
+      $defs: {
+        "security-center_identifier": security_center_identifier,
+      },
     },
     outputSchema: {
-      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/$defs/security-center_api-response-common"
+        },
+        {
+          "properties": {
+            "result": {
+              "type": "object"
+            }
+          },
+          "type": "object"
+        }
+      ],
+      $defs: {
+        "security-center_api-response-common": security_center_api_response_common_output,
+        "security-center_messages": security_center_messages_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -46,13 +67,26 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "type": "object"
+          "allOf": [
+            {
+              "$ref": "#/$defs/security-center_api-response-common"
+            },
+            {
+              "properties": {
+                "result": {
+                  "type": "object"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/security-center_api-response-common-failure"
         }
       },
       $defs: {
+        "security-center_api-response-common": security_center_api_response_common_output,
         "security-center_api-response-common-failure": security_center_api_response_common_failure_output,
         "security-center_messages": security_center_messages_output,
       },

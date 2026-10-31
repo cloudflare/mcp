@@ -113,3 +113,22 @@ export const email_sending_reputation_properties_output: JsonSchema = {
   ],
   "type": "object"
 };
+
+/**
+ * The schema of `email_sending_reputation_response_single` in responses.
+ */
+export const email_sending_reputation_response_single_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/email_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/email_sending_reputation_properties"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};

@@ -6,7 +6,9 @@ import {
   r2_errors_output,
   r2_messages_output,
   r2_v4_response_failure_output,
+  r2_v4_response_output,
 } from "../outputs.js";
+import { r2_account_identifier } from "../schemas.js";
 import { r2_temp_access_creds_response_output } from "./outputs.js";
 import { r2_temp_access_creds_request } from "./schemas.js";
 
@@ -22,8 +24,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Cloudflare account ID that owns the R2 resource.",
-          "type": "string"
+          "$ref": "#/$defs/r2_account_identifier",
+          "description": "Cloudflare account ID that owns the R2 resource."
         },
         "body": {
           "$ref": "#/$defs/r2_temp_access_creds_request"
@@ -34,13 +36,29 @@ export const tools: readonly Tool[] = [
         "body"
       ],
       $defs: {
+        "r2_account_identifier": r2_account_identifier,
         "r2_temp_access_creds_request": r2_temp_access_creds_request,
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/r2_temp_access_creds_response",
+      "allOf": [
+        {
+          "$ref": "#/$defs/r2_v4_response"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/r2_temp_access_creds_response"
+            }
+          },
+          "type": "object"
+        }
+      ],
       $defs: {
+        "r2_errors": r2_errors_output,
+        "r2_messages": r2_messages_output,
         "r2_temp_access_creds_response": r2_temp_access_creds_response_output,
+        "r2_v4_response": r2_v4_response_output,
       },
     },
     annotations: {
@@ -55,7 +73,19 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/r2_temp_access_creds_response"
+          "allOf": [
+            {
+              "$ref": "#/$defs/r2_v4_response"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/r2_temp_access_creds_response"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/r2_v4_response_failure"
@@ -65,6 +95,7 @@ export const tools: readonly Tool[] = [
         "r2_errors": r2_errors_output,
         "r2_messages": r2_messages_output,
         "r2_temp_access_creds_response": r2_temp_access_creds_response_output,
+        "r2_v4_response": r2_v4_response_output,
         "r2_v4_response_failure": r2_v4_response_failure_output,
       },
     },

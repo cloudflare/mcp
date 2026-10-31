@@ -4,22 +4,26 @@
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
   addressing_api_response_common_failure_output,
+  addressing_api_response_common_output,
   addressing_messages_output,
   addressing_service_identifier_output,
   addressing_service_name_output,
 } from "../../outputs.js";
-import { addressing_service_identifier } from "../../schemas.js";
 import {
-  addressing_api_response_common_output,
-  addressing_cidr_output,
-} from "../outputs.js";
-import { addressing_cidr } from "../schemas.js";
+  addressing_account_identifier,
+  addressing_service_identifier,
+} from "../../schemas.js";
+import { addressing_cidr_output } from "../outputs.js";
+import { addressing_cidr, addressing_prefix_identifier } from "../schemas.js";
 import {
   addressing_provisioning_output,
   addressing_service_binding_identifier_output,
   addressing_service_binding_output,
 } from "./outputs.js";
-import { addressing_create_binding_request } from "./schemas.js";
+import {
+  addressing_create_binding_request,
+  addressing_service_binding_identifier,
+} from "./schemas.js";
 
 /**
  * The tools of `addressing.prefixes.service_bindings`.
@@ -33,15 +37,15 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier of a Cloudflare account.",
-          "type": "string"
+          "$ref": "#/$defs/addressing_account_identifier",
+          "description": "Identifier of a Cloudflare account."
         },
         "body": {
           "$ref": "#/$defs/addressing_create_binding_request"
         },
         "prefix_id": {
-          "description": "Identifier of an IP Prefix.",
-          "type": "string"
+          "$ref": "#/$defs/addressing_prefix_identifier",
+          "description": "Identifier of an IP Prefix."
         }
       },
       required: [
@@ -49,15 +53,31 @@ export const tools: readonly Tool[] = [
         "prefix_id"
       ],
       $defs: {
+        "addressing_account_identifier": addressing_account_identifier,
         "addressing_cidr": addressing_cidr,
         "addressing_create_binding_request": addressing_create_binding_request,
+        "addressing_prefix_identifier": addressing_prefix_identifier,
         "addressing_service_identifier": addressing_service_identifier,
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/addressing_service_binding",
+      "allOf": [
+        {
+          "$ref": "#/$defs/addressing_api-response-common"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/addressing_service_binding"
+            }
+          },
+          "type": "object"
+        }
+      ],
       $defs: {
+        "addressing_api-response-common": addressing_api_response_common_output,
         "addressing_cidr": addressing_cidr_output,
+        "addressing_messages": addressing_messages_output,
         "addressing_provisioning": addressing_provisioning_output,
         "addressing_service_binding": addressing_service_binding_output,
         "addressing_service_binding_identifier": addressing_service_binding_identifier_output,
@@ -82,13 +102,26 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "201": {
-          "$ref": "#/$defs/addressing_service_binding"
+          "allOf": [
+            {
+              "$ref": "#/$defs/addressing_api-response-common"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/addressing_service_binding"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/addressing_api-response-common-failure"
         }
       },
       $defs: {
+        "addressing_api-response-common": addressing_api_response_common_output,
         "addressing_api-response-common-failure": addressing_api_response_common_failure_output,
         "addressing_cidr": addressing_cidr_output,
         "addressing_messages": addressing_messages_output,
@@ -112,16 +145,16 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier of a Cloudflare account.",
-          "type": "string"
+          "$ref": "#/$defs/addressing_account_identifier",
+          "description": "Identifier of a Cloudflare account."
         },
         "binding_id": {
-          "description": "Identifier of a Service Binding.",
-          "type": "string"
+          "$ref": "#/$defs/addressing_service_binding_identifier",
+          "description": "Identifier of a Service Binding."
         },
         "prefix_id": {
-          "description": "Identifier of an IP Prefix.",
-          "type": "string"
+          "$ref": "#/$defs/addressing_prefix_identifier",
+          "description": "Identifier of an IP Prefix."
         }
       },
       required: [
@@ -129,6 +162,11 @@ export const tools: readonly Tool[] = [
         "prefix_id",
         "binding_id"
       ],
+      $defs: {
+        "addressing_account_identifier": addressing_account_identifier,
+        "addressing_prefix_identifier": addressing_prefix_identifier,
+        "addressing_service_binding_identifier": addressing_service_binding_identifier,
+      },
     },
     outputSchema: {
       "$ref": "#/$defs/addressing_api-response-common",
@@ -178,16 +216,16 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier of a Cloudflare account.",
-          "type": "string"
+          "$ref": "#/$defs/addressing_account_identifier",
+          "description": "Identifier of a Cloudflare account."
         },
         "binding_id": {
-          "description": "Identifier of a Service Binding.",
-          "type": "string"
+          "$ref": "#/$defs/addressing_service_binding_identifier",
+          "description": "Identifier of a Service Binding."
         },
         "prefix_id": {
-          "description": "Identifier of an IP Prefix.",
-          "type": "string"
+          "$ref": "#/$defs/addressing_prefix_identifier",
+          "description": "Identifier of an IP Prefix."
         }
       },
       required: [
@@ -195,11 +233,30 @@ export const tools: readonly Tool[] = [
         "prefix_id",
         "binding_id"
       ],
+      $defs: {
+        "addressing_account_identifier": addressing_account_identifier,
+        "addressing_prefix_identifier": addressing_prefix_identifier,
+        "addressing_service_binding_identifier": addressing_service_binding_identifier,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/addressing_service_binding",
+      "allOf": [
+        {
+          "$ref": "#/$defs/addressing_api-response-common"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/addressing_service_binding"
+            }
+          },
+          "type": "object"
+        }
+      ],
       $defs: {
+        "addressing_api-response-common": addressing_api_response_common_output,
         "addressing_cidr": addressing_cidr_output,
+        "addressing_messages": addressing_messages_output,
         "addressing_provisioning": addressing_provisioning_output,
         "addressing_service_binding": addressing_service_binding_output,
         "addressing_service_binding_identifier": addressing_service_binding_identifier_output,
@@ -225,13 +282,26 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/addressing_service_binding"
+          "allOf": [
+            {
+              "$ref": "#/$defs/addressing_api-response-common"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/addressing_service_binding"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/addressing_api-response-common-failure"
         }
       },
       $defs: {
+        "addressing_api-response-common": addressing_api_response_common_output,
         "addressing_api-response-common-failure": addressing_api_response_common_failure_output,
         "addressing_cidr": addressing_cidr_output,
         "addressing_messages": addressing_messages_output,
@@ -254,37 +324,44 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier of a Cloudflare account.",
-          "type": "string"
+          "$ref": "#/$defs/addressing_account_identifier",
+          "description": "Identifier of a Cloudflare account."
         },
         "prefix_id": {
-          "description": "Identifier of an IP Prefix.",
-          "type": "string"
+          "$ref": "#/$defs/addressing_prefix_identifier",
+          "description": "Identifier of an IP Prefix."
         }
       },
       required: [
         "account_id",
         "prefix_id"
       ],
+      $defs: {
+        "addressing_account_identifier": addressing_account_identifier,
+        "addressing_prefix_identifier": addressing_prefix_identifier,
+      },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "$ref": "#/$defs/addressing_service_binding"
-          },
-          "type": "array"
+      "allOf": [
+        {
+          "$ref": "#/$defs/addressing_api-response-common"
         },
-        "result_info": {
+        {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/addressing_service_binding"
+              },
+              "type": "array"
+            }
+          },
           "type": "object"
         }
-      },
-      "required": [
-        "result"
       ],
-      "type": "object",
       $defs: {
+        "addressing_api-response-common": addressing_api_response_common_output,
         "addressing_cidr": addressing_cidr_output,
+        "addressing_messages": addressing_messages_output,
         "addressing_provisioning": addressing_provisioning_output,
         "addressing_service_binding": addressing_service_binding_output,
         "addressing_service_binding_identifier": addressing_service_binding_identifier_output,
@@ -310,27 +387,29 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "items": {
-                "$ref": "#/$defs/addressing_service_binding"
-              },
-              "type": "array"
+          "allOf": [
+            {
+              "$ref": "#/$defs/addressing_api-response-common"
             },
-            "result_info": {
+            {
+              "properties": {
+                "result": {
+                  "items": {
+                    "$ref": "#/$defs/addressing_service_binding"
+                  },
+                  "type": "array"
+                }
+              },
               "type": "object"
             }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/addressing_api-response-common-failure"
         }
       },
       $defs: {
+        "addressing_api-response-common": addressing_api_response_common_output,
         "addressing_api-response-common-failure": addressing_api_response_common_failure_output,
         "addressing_cidr": addressing_cidr_output,
         "addressing_messages": addressing_messages_output,

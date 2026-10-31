@@ -89,11 +89,190 @@ export const digital_experience_monitoring_aggregate_time_slot_output: JsonSchem
 export const digital_experience_monitoring_tests_response_output: JsonSchema = {
   "properties": {
     "overviewMetrics": {
-      "$ref": "#/$defs/digital-experience-monitoring_tests_response_overviewMetrics"
+      "properties": {
+        "avgHttpAvailabilityPct": {
+          "oneOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "avgTracerouteAvailabilityPct": {
+          "oneOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "testsTotal": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "testsTotal"
+      ],
+      "type": "object"
     },
     "tests": {
       "items": {
-        "$ref": "#/$defs/digital-experience-monitoring_tests_response_testsItem"
+        "properties": {
+          "created": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "enabled": {
+            "type": "boolean"
+          },
+          "host": {
+            "type": "string"
+          },
+          "httpResults": {
+            "oneOf": [
+              {
+                "properties": {
+                  "resourceFetchTime": {
+                    "$ref": "#/$defs/digital-experience-monitoring_timing_aggregates"
+                  }
+                },
+                "required": [
+                  "resourceFetchTime"
+                ],
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "httpResultsByColo": {
+            "items": {
+              "properties": {
+                "colo": {
+                  "type": "string"
+                },
+                "resourceFetchTime": {
+                  "$ref": "#/$defs/digital-experience-monitoring_timing_aggregates"
+                }
+              },
+              "required": [
+                "colo",
+                "resourceFetchTime"
+              ],
+              "type": "object"
+            },
+            "type": "array"
+          },
+          "id": {
+            "$ref": "#/$defs/digital-experience-monitoring_uuid"
+          },
+          "interval": {
+            "type": "string"
+          },
+          "kind": {
+            "enum": [
+              "http",
+              "traceroute"
+            ],
+            "type": "string"
+          },
+          "method": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "target_policies": {
+            "oneOf": [
+              {
+                "items": {
+                  "properties": {
+                    "default": {
+                      "type": "boolean"
+                    },
+                    "id": {
+                      "$ref": "#/$defs/digital-experience-monitoring_uuid"
+                    },
+                    "name": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "default",
+                    "id",
+                    "name"
+                  ],
+                  "type": "object"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "targeted": {
+            "type": "boolean"
+          },
+          "tracerouteResults": {
+            "oneOf": [
+              {
+                "properties": {
+                  "roundTripTime": {
+                    "$ref": "#/$defs/digital-experience-monitoring_timing_aggregates"
+                  }
+                },
+                "required": [
+                  "roundTripTime"
+                ],
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "tracerouteResultsByColo": {
+            "items": {
+              "properties": {
+                "colo": {
+                  "type": "string"
+                },
+                "roundTripTime": {
+                  "$ref": "#/$defs/digital-experience-monitoring_timing_aggregates"
+                }
+              },
+              "required": [
+                "colo",
+                "roundTripTime"
+              ],
+              "type": "object"
+            },
+            "type": "array"
+          },
+          "updated": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "created",
+          "description",
+          "enabled",
+          "host",
+          "id",
+          "interval",
+          "kind",
+          "name",
+          "updated"
+        ],
+        "type": "object"
       },
       "type": "array"
     }
@@ -101,246 +280,6 @@ export const digital_experience_monitoring_tests_response_output: JsonSchema = {
   "required": [
     "overviewMetrics",
     "tests"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `digital-experience-monitoring_tests_response_overviewMetrics`
- * in responses.
- */
-export const digital_experience_monitoring_tests_response_overviewMetrics_output: JsonSchema = {
-  "properties": {
-    "avgHttpAvailabilityPct": {
-      "oneOf": [
-        {
-          "type": "number"
-        },
-        {
-          "type": "null"
-        }
-      ]
-    },
-    "avgTracerouteAvailabilityPct": {
-      "oneOf": [
-        {
-          "type": "number"
-        },
-        {
-          "type": "null"
-        }
-      ]
-    },
-    "testsTotal": {
-      "type": "integer"
-    }
-  },
-  "required": [
-    "testsTotal"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `digital-experience-monitoring_tests_response_testsItem` in
- * responses.
- */
-export const digital_experience_monitoring_tests_response_testsItem_output: JsonSchema = {
-  "properties": {
-    "created": {
-      "type": "string"
-    },
-    "description": {
-      "type": "string"
-    },
-    "enabled": {
-      "type": "boolean"
-    },
-    "host": {
-      "type": "string"
-    },
-    "httpResults": {
-      "$ref": "#/$defs/digital-experience-monitoring_tests_response_testsItem_httpResults"
-    },
-    "httpResultsByColo": {
-      "items": {
-        "$ref": "#/$defs/digital-experience-monitoring_tests_response_testsItem_httpResultsByColoItem"
-      },
-      "type": "array"
-    },
-    "id": {
-      "$ref": "#/$defs/digital-experience-monitoring_uuid"
-    },
-    "interval": {
-      "type": "string"
-    },
-    "kind": {
-      "enum": [
-        "http",
-        "traceroute"
-      ],
-      "type": "string"
-    },
-    "method": {
-      "type": "string"
-    },
-    "name": {
-      "type": "string"
-    },
-    "target_policies": {
-      "oneOf": [
-        {
-          "items": {
-            "$ref": "#/$defs/digital-experience-monitoring_tests_response_testsItem_target_policiesItem"
-          },
-          "type": "array"
-        },
-        {
-          "type": "null"
-        }
-      ]
-    },
-    "targeted": {
-      "type": "boolean"
-    },
-    "tracerouteResults": {
-      "$ref": "#/$defs/digital-experience-monitoring_tests_response_testsItem_tracerouteResults"
-    },
-    "tracerouteResultsByColo": {
-      "items": {
-        "$ref": "#/$defs/digital-experience-monitoring_tests_response_testsItem_tracerouteResultsByColoItem"
-      },
-      "type": "array"
-    },
-    "updated": {
-      "type": "string"
-    }
-  },
-  "required": [
-    "created",
-    "description",
-    "enabled",
-    "host",
-    "id",
-    "interval",
-    "kind",
-    "name",
-    "updated"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of
- * `digital-experience-monitoring_tests_response_testsItem_httpResults` in
- * responses.
- */
-export const digital_experience_monitoring_tests_response_testsItem_httpResults_output: JsonSchema = {
-  "oneOf": [
-    {
-      "properties": {
-        "resourceFetchTime": {
-          "$ref": "#/$defs/digital-experience-monitoring_timing_aggregates"
-        }
-      },
-      "required": [
-        "resourceFetchTime"
-      ],
-      "type": "object"
-    },
-    {
-      "type": "null"
-    }
-  ]
-};
-
-/**
- * The schema of
- * `digital-experience-monitoring_tests_response_testsItem_httpResultsByColoItem`
- * in responses.
- */
-export const digital_experience_monitoring_tests_response_testsItem_httpResultsByColoItem_output: JsonSchema = {
-  "properties": {
-    "colo": {
-      "type": "string"
-    },
-    "resourceFetchTime": {
-      "$ref": "#/$defs/digital-experience-monitoring_timing_aggregates"
-    }
-  },
-  "required": [
-    "colo",
-    "resourceFetchTime"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of
- * `digital-experience-monitoring_tests_response_testsItem_target_policiesItem`
- * in responses.
- */
-export const digital_experience_monitoring_tests_response_testsItem_target_policiesItem_output: JsonSchema = {
-  "properties": {
-    "default": {
-      "type": "boolean"
-    },
-    "id": {
-      "$ref": "#/$defs/digital-experience-monitoring_uuid"
-    },
-    "name": {
-      "type": "string"
-    }
-  },
-  "required": [
-    "default",
-    "id",
-    "name"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of
- * `digital-experience-monitoring_tests_response_testsItem_tracerouteResults` in
- * responses.
- */
-export const digital_experience_monitoring_tests_response_testsItem_tracerouteResults_output: JsonSchema = {
-  "oneOf": [
-    {
-      "properties": {
-        "roundTripTime": {
-          "$ref": "#/$defs/digital-experience-monitoring_timing_aggregates"
-        }
-      },
-      "required": [
-        "roundTripTime"
-      ],
-      "type": "object"
-    },
-    {
-      "type": "null"
-    }
-  ]
-};
-
-/**
- * The schema of
- * `digital-experience-monitoring_tests_response_testsItem_tracerouteResultsByColoItem`
- * in responses.
- */
-export const digital_experience_monitoring_tests_response_testsItem_tracerouteResultsByColoItem_output: JsonSchema = {
-  "properties": {
-    "colo": {
-      "type": "string"
-    },
-    "roundTripTime": {
-      "$ref": "#/$defs/digital-experience-monitoring_timing_aggregates"
-    }
-  },
-  "required": [
-    "colo",
-    "roundTripTime"
   ],
   "type": "object"
 };
@@ -367,41 +306,33 @@ export const digital_experience_monitoring_timing_aggregates_output: JsonSchema 
       "type": "array"
     },
     "overTime": {
-      "$ref": "#/$defs/digital-experience-monitoring_timing_aggregates_overTime"
+      "oneOf": [
+        {
+          "properties": {
+            "timePeriod": {
+              "$ref": "#/$defs/digital-experience-monitoring_aggregate_time_period"
+            },
+            "values": {
+              "items": {
+                "$ref": "#/$defs/digital-experience-monitoring_aggregate_time_slot"
+              },
+              "type": "array"
+            }
+          },
+          "required": [
+            "timePeriod",
+            "values"
+          ],
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ]
     }
   },
   "required": [
     "history"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `digital-experience-monitoring_timing_aggregates_overTime` in
- * responses.
- */
-export const digital_experience_monitoring_timing_aggregates_overTime_output: JsonSchema = {
-  "oneOf": [
-    {
-      "properties": {
-        "timePeriod": {
-          "$ref": "#/$defs/digital-experience-monitoring_aggregate_time_period"
-        },
-        "values": {
-          "items": {
-            "$ref": "#/$defs/digital-experience-monitoring_aggregate_time_slot"
-          },
-          "type": "array"
-        }
-      },
-      "required": [
-        "timePeriod",
-        "values"
-      ],
-      "type": "object"
-    },
-    {
-      "type": "null"
-    }
-  ]
 };

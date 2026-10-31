@@ -4,9 +4,11 @@
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
   intel_api_response_common_failure_output,
+  intel_api_response_single_output,
   intel_messages_output,
   intel_schemas_messages_output,
 } from "../outputs.js";
+import { intel_identifier } from "../schemas.js";
 import {
   intel_url_intelligence_category_with_source_output,
   intel_url_intelligence_output,
@@ -25,8 +27,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/intel_identifier",
+          "description": "Identifier."
         },
         "url": {
           "description": "The URL to look up.",
@@ -37,12 +39,18 @@ export const tools: readonly Tool[] = [
         "account_id",
         "url"
       ],
+      $defs: {
+        "intel_identifier": intel_identifier,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/intel_url_intelligence",
+      "$ref": "#/$defs/intel_url_intelligence_single_response",
       $defs: {
+        "intel_api-response-single": intel_api_response_single_output,
+        "intel_schemas-messages": intel_schemas_messages_output,
         "intel_url_intelligence": intel_url_intelligence_output,
         "intel_url_intelligence_category_with_source": intel_url_intelligence_category_with_source_output,
+        "intel_url_intelligence_single_response": intel_url_intelligence_single_response_output,
       },
     },
     annotations: {
@@ -63,7 +71,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/intel_url_intelligence"
+          "$ref": "#/$defs/intel_url_intelligence_single_response"
         },
         "4XX": {
           "allOf": [
@@ -78,6 +86,7 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "intel_api-response-common-failure": intel_api_response_common_failure_output,
+        "intel_api-response-single": intel_api_response_single_output,
         "intel_messages": intel_messages_output,
         "intel_schemas-messages": intel_schemas_messages_output,
         "intel_url_intelligence": intel_url_intelligence_output,

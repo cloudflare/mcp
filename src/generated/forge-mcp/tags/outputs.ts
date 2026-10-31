@@ -12,6 +12,32 @@ export const resource_tagging_access_application_id_output: JsonSchema = {
 };
 
 /**
+ * The schema of `resource-tagging_api-response-common` in responses.
+ */
+export const resource_tagging_api_response_common_output: JsonSchema = {
+  "properties": {
+    "errors": {
+      "$ref": "#/$defs/resource-tagging_messages"
+    },
+    "messages": {
+      "$ref": "#/$defs/resource-tagging_messages"
+    },
+    "success": {
+      "enum": [
+        true
+      ],
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "errors",
+    "messages",
+    "success"
+  ],
+  "type": "object"
+};
+
+/**
  * The schema of `resource-tagging_api-response-common-failure` in responses.
  */
 export const resource_tagging_api_response_common_failure_output: JsonSchema = {

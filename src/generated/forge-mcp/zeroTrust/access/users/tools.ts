@@ -3,19 +3,27 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
+  access_api_response_collection_output,
   access_api_response_common_failure_output,
+  access_api_response_common_output,
+  access_api_response_single_output,
   access_messages_output,
   access_timestamp_output,
   access_uuid_output,
 } from "../../outputs.js";
+import { access_identifier, access_uuid } from "../../schemas.js";
 import { access_email_2_output, access_name_10_output } from "../outputs.js";
 import { access_email_2, access_name_10 } from "../schemas.js";
 import {
   access_access_seat_2_output,
   access_active_device_count_output,
+  access_delete_user_response_output,
+  access_empty_response_output,
   access_gateway_seat_2_output,
   access_last_successful_login_output,
+  access_response_collection_25_output,
   access_seat_uid_2_output,
+  access_single_user_response_output,
   access_uid_output,
   access_users_2_output,
 } from "./outputs.js";
@@ -32,8 +40,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/access_identifier",
+          "description": "Identifier."
         },
         "body": {
           "properties": {
@@ -58,19 +66,23 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "access_email-2": access_email_2,
+        "access_identifier": access_identifier,
         "access_name-10": access_name_10,
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/access_users-2",
+      "$ref": "#/$defs/access_single_user_response",
       $defs: {
         "access_access_seat-2": access_access_seat_2_output,
         "access_active_device_count": access_active_device_count_output,
+        "access_api-response-single": access_api_response_single_output,
         "access_email-2": access_email_2_output,
         "access_gateway_seat-2": access_gateway_seat_2_output,
         "access_last_successful_login": access_last_successful_login_output,
+        "access_messages": access_messages_output,
         "access_name-10": access_name_10_output,
         "access_seat_uid-2": access_seat_uid_2_output,
+        "access_single_user_response": access_single_user_response_output,
         "access_timestamp": access_timestamp_output,
         "access_uid": access_uid_output,
         "access_users-2": access_users_2_output,
@@ -92,7 +104,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "201": {
-          "$ref": "#/$defs/access_users-2"
+          "$ref": "#/$defs/access_single_user_response"
         },
         "4XX": {
           "$ref": "#/$defs/access_api-response-common-failure"
@@ -102,12 +114,14 @@ export const tools: readonly Tool[] = [
         "access_access_seat-2": access_access_seat_2_output,
         "access_active_device_count": access_active_device_count_output,
         "access_api-response-common-failure": access_api_response_common_failure_output,
+        "access_api-response-single": access_api_response_single_output,
         "access_email-2": access_email_2_output,
         "access_gateway_seat-2": access_gateway_seat_2_output,
         "access_last_successful_login": access_last_successful_login_output,
         "access_messages": access_messages_output,
         "access_name-10": access_name_10_output,
         "access_seat_uid-2": access_seat_uid_2_output,
+        "access_single_user_response": access_single_user_response_output,
         "access_timestamp": access_timestamp_output,
         "access_uid": access_uid_output,
         "access_users-2": access_users_2_output,
@@ -127,28 +141,30 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/access_identifier",
+          "description": "Identifier."
         },
         "user_id": {
-          "description": "UUID.",
-          "type": "string"
+          "$ref": "#/$defs/access_uuid",
+          "description": "UUID."
         }
       },
       required: [
         "account_id",
         "user_id"
       ],
+      $defs: {
+        "access_identifier": access_identifier,
+        "access_uuid": access_uuid,
+      },
     },
     outputSchema: {
-      "oneOf": [
-        {
-          "type": "object"
-        },
-        {
-          "type": "null"
-        }
-      ],
+      "$ref": "#/$defs/access_delete_user_response",
+      $defs: {
+        "access_api-response-single": access_api_response_single_output,
+        "access_delete_user_response": access_delete_user_response_output,
+        "access_messages": access_messages_output,
+      },
     },
     annotations: {
       "destructiveHint": true,
@@ -165,14 +181,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "202": {
-          "oneOf": [
-            {
-              "type": "object"
-            },
-            {
-              "type": "null"
-            }
-          ]
+          "$ref": "#/$defs/access_delete_user_response"
         },
         "4XX": {
           "$ref": "#/$defs/access_api-response-common-failure"
@@ -180,6 +189,8 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "access_api-response-common-failure": access_api_response_common_failure_output,
+        "access_api-response-single": access_api_response_single_output,
+        "access_delete_user_response": access_delete_user_response_output,
         "access_messages": access_messages_output,
       },
     },
@@ -195,29 +206,36 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/access_identifier",
+          "description": "Identifier."
         },
         "user_id": {
-          "description": "UUID.",
-          "type": "string"
+          "$ref": "#/$defs/access_uuid",
+          "description": "UUID."
         }
       },
       required: [
         "account_id",
         "user_id"
       ],
+      $defs: {
+        "access_identifier": access_identifier,
+        "access_uuid": access_uuid,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/access_users-2",
+      "$ref": "#/$defs/access_single_user_response",
       $defs: {
         "access_access_seat-2": access_access_seat_2_output,
         "access_active_device_count": access_active_device_count_output,
+        "access_api-response-single": access_api_response_single_output,
         "access_email-2": access_email_2_output,
         "access_gateway_seat-2": access_gateway_seat_2_output,
         "access_last_successful_login": access_last_successful_login_output,
+        "access_messages": access_messages_output,
         "access_name-10": access_name_10_output,
         "access_seat_uid-2": access_seat_uid_2_output,
+        "access_single_user_response": access_single_user_response_output,
         "access_timestamp": access_timestamp_output,
         "access_uid": access_uid_output,
         "access_users-2": access_users_2_output,
@@ -241,7 +259,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/access_users-2"
+          "$ref": "#/$defs/access_single_user_response"
         },
         "4XX": {
           "$ref": "#/$defs/access_api-response-common-failure"
@@ -251,12 +269,14 @@ export const tools: readonly Tool[] = [
         "access_access_seat-2": access_access_seat_2_output,
         "access_active_device_count": access_active_device_count_output,
         "access_api-response-common-failure": access_api_response_common_failure_output,
+        "access_api-response-single": access_api_response_single_output,
         "access_email-2": access_email_2_output,
         "access_gateway_seat-2": access_gateway_seat_2_output,
         "access_last_successful_login": access_last_successful_login_output,
         "access_messages": access_messages_output,
         "access_name-10": access_name_10_output,
         "access_seat_uid-2": access_seat_uid_2_output,
+        "access_single_user_response": access_single_user_response_output,
         "access_timestamp": access_timestamp_output,
         "access_uid": access_uid_output,
         "access_users-2": access_users_2_output,
@@ -275,8 +295,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/access_identifier",
+          "description": "Identifier."
         },
         "email": {
           "description": "The email of the user.",
@@ -304,44 +324,23 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+      $defs: {
+        "access_identifier": access_identifier,
+      },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "$ref": "#/$defs/access_users-2"
-          },
-          "type": "array"
-        },
-        "result_info": {
-          "properties": {
-            "count": {
-              "type": "integer"
-            },
-            "page": {
-              "type": "integer"
-            },
-            "per_page": {
-              "type": "integer"
-            },
-            "total_count": {
-              "type": "integer"
-            }
-          },
-          "type": "object"
-        }
-      },
-      "required": [
-        "result"
-      ],
-      "type": "object",
+      "$ref": "#/$defs/access_response_collection-25",
       $defs: {
         "access_access_seat-2": access_access_seat_2_output,
         "access_active_device_count": access_active_device_count_output,
+        "access_api-response-collection": access_api_response_collection_output,
+        "access_api-response-common": access_api_response_common_output,
         "access_email-2": access_email_2_output,
         "access_gateway_seat-2": access_gateway_seat_2_output,
         "access_last_successful_login": access_last_successful_login_output,
+        "access_messages": access_messages_output,
         "access_name-10": access_name_10_output,
+        "access_response_collection-25": access_response_collection_25_output,
         "access_seat_uid-2": access_seat_uid_2_output,
         "access_timestamp": access_timestamp_output,
         "access_uid": access_uid_output,
@@ -366,35 +365,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "items": {
-                "$ref": "#/$defs/access_users-2"
-              },
-              "type": "array"
-            },
-            "result_info": {
-              "properties": {
-                "count": {
-                  "type": "integer"
-                },
-                "page": {
-                  "type": "integer"
-                },
-                "per_page": {
-                  "type": "integer"
-                },
-                "total_count": {
-                  "type": "integer"
-                }
-              },
-              "type": "object"
-            }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/access_response_collection-25"
         },
         "4XX": {
           "$ref": "#/$defs/access_api-response-common-failure"
@@ -403,12 +374,15 @@ export const tools: readonly Tool[] = [
       $defs: {
         "access_access_seat-2": access_access_seat_2_output,
         "access_active_device_count": access_active_device_count_output,
+        "access_api-response-collection": access_api_response_collection_output,
+        "access_api-response-common": access_api_response_common_output,
         "access_api-response-common-failure": access_api_response_common_failure_output,
         "access_email-2": access_email_2_output,
         "access_gateway_seat-2": access_gateway_seat_2_output,
         "access_last_successful_login": access_last_successful_login_output,
         "access_messages": access_messages_output,
         "access_name-10": access_name_10_output,
+        "access_response_collection-25": access_response_collection_25_output,
         "access_seat_uid-2": access_seat_uid_2_output,
         "access_timestamp": access_timestamp_output,
         "access_uid": access_uid_output,
@@ -443,8 +417,8 @@ export const tools: readonly Tool[] = [
           "type": "string"
         },
         "account_or_zone_id": {
-          "description": "The account ID or zone ID, as selected by account_or_zone.",
-          "type": "string"
+          "$ref": "#/$defs/access_identifier",
+          "description": "The account ID or zone ID, as selected by account_or_zone."
         },
         "body": {
           "properties": {
@@ -469,6 +443,10 @@ export const tools: readonly Tool[] = [
             "email"
           ],
           "type": "object"
+        },
+        "devices": {
+          "description": "When set to `true`, all devices associated with the user will be revoked.",
+          "type": "boolean"
         }
       },
       required: [
@@ -476,13 +454,15 @@ export const tools: readonly Tool[] = [
         "account_or_zone_id",
         "body"
       ],
+      $defs: {
+        "access_identifier": access_identifier,
+      },
     },
     outputSchema: {
-      "enum": [
-        true,
-        false
-      ],
-      "type": "boolean",
+      "$ref": "#/$defs/access_empty_response",
+      $defs: {
+        "access_empty_response": access_empty_response_output,
+      },
     },
     annotations: {
       "destructiveHint": true,
@@ -501,11 +481,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "enum": [
-            true,
-            false
-          ],
-          "type": "boolean"
+          "$ref": "#/$defs/access_empty_response"
         },
         "4XX": {
           "$ref": "#/$defs/access_api-response-common-failure"
@@ -513,11 +489,15 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "access_api-response-common-failure": access_api_response_common_failure_output,
+        "access_empty_response": access_empty_response_output,
         "access_messages": access_messages_output,
       },
     },
     request: (args) => ({
       path: `/${pathParam(args, "account_or_zone")}/${pathParam(args, "account_or_zone_id")}/access/organizations/revoke_user`,
+      query: [
+        ["devices", args["devices"], true],
+      ],
       body: { value: args["body"], mediaType: "application/json" },
     }),
   },
@@ -529,8 +509,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/access_identifier",
+          "description": "Identifier."
         },
         "body": {
           "properties": {
@@ -550,8 +530,8 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "user_id": {
-          "description": "UUID.",
-          "type": "string"
+          "$ref": "#/$defs/access_uuid",
+          "description": "UUID."
         }
       },
       required: [
@@ -561,19 +541,24 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "access_email-2": access_email_2,
+        "access_identifier": access_identifier,
         "access_name-10": access_name_10,
+        "access_uuid": access_uuid,
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/access_users-2",
+      "$ref": "#/$defs/access_single_user_response",
       $defs: {
         "access_access_seat-2": access_access_seat_2_output,
         "access_active_device_count": access_active_device_count_output,
+        "access_api-response-single": access_api_response_single_output,
         "access_email-2": access_email_2_output,
         "access_gateway_seat-2": access_gateway_seat_2_output,
         "access_last_successful_login": access_last_successful_login_output,
+        "access_messages": access_messages_output,
         "access_name-10": access_name_10_output,
         "access_seat_uid-2": access_seat_uid_2_output,
+        "access_single_user_response": access_single_user_response_output,
         "access_timestamp": access_timestamp_output,
         "access_uid": access_uid_output,
         "access_users-2": access_users_2_output,
@@ -597,7 +582,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/access_users-2"
+          "$ref": "#/$defs/access_single_user_response"
         },
         "4XX": {
           "$ref": "#/$defs/access_api-response-common-failure"
@@ -607,12 +592,14 @@ export const tools: readonly Tool[] = [
         "access_access_seat-2": access_access_seat_2_output,
         "access_active_device_count": access_active_device_count_output,
         "access_api-response-common-failure": access_api_response_common_failure_output,
+        "access_api-response-single": access_api_response_single_output,
         "access_email-2": access_email_2_output,
         "access_gateway_seat-2": access_gateway_seat_2_output,
         "access_last_successful_login": access_last_successful_login_output,
         "access_messages": access_messages_output,
         "access_name-10": access_name_10_output,
         "access_seat_uid-2": access_seat_uid_2_output,
+        "access_single_user_response": access_single_user_response_output,
         "access_timestamp": access_timestamp_output,
         "access_uid": access_uid_output,
         "access_users-2": access_users_2_output,

@@ -4,8 +4,12 @@
 import { type Tool, pathParam } from "../../../../_/tool.js";
 import {
   stream_api_response_common_failure_output,
+  stream_api_response_common_output,
+  stream_api_response_single_output,
   stream_messages_output,
 } from "../../../outputs.js";
+import { stream_identifier_2 } from "../../../schemas.js";
+import { stream_identifier } from "../../schemas.js";
 import {
   stream_caption_status_output,
   stream_captions_output,
@@ -13,6 +17,8 @@ import {
   stream_label_output,
   stream_language_output,
 } from "../outputs.js";
+import { stream_language } from "../schemas.js";
+import { stream_language_response_single_output } from "./outputs.js";
 
 /**
  * The tools of `stream.videos.captions.language`.
@@ -26,16 +32,16 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/stream_identifier-2",
+          "description": "Identifier."
         },
         "identifier": {
-          "description": "A Cloudflare-generated unique identifier for a media item.",
-          "type": "string"
+          "$ref": "#/$defs/stream_identifier",
+          "description": "A Cloudflare-generated unique identifier for a media item."
         },
         "language": {
-          "description": "The language tag in BCP 47 format.",
-          "type": "string"
+          "$ref": "#/$defs/stream_language",
+          "description": "The language tag in BCP 47 format."
         }
       },
       required: [
@@ -43,9 +49,30 @@ export const tools: readonly Tool[] = [
         "identifier",
         "language"
       ],
+      $defs: {
+        "stream_identifier": stream_identifier,
+        "stream_identifier-2": stream_identifier_2,
+        "stream_language": stream_language,
+      },
     },
     outputSchema: {
-      "type": "string",
+      "allOf": [
+        {
+          "$ref": "#/$defs/stream_api-response-common"
+        },
+        {
+          "properties": {
+            "result": {
+              "type": "string"
+            }
+          },
+          "type": "object"
+        }
+      ],
+      $defs: {
+        "stream_api-response-common": stream_api_response_common_output,
+        "stream_messages": stream_messages_output,
+      },
     },
     annotations: {
       "destructiveHint": true,
@@ -64,13 +91,26 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "type": "string"
+          "allOf": [
+            {
+              "$ref": "#/$defs/stream_api-response-common"
+            },
+            {
+              "properties": {
+                "result": {
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/stream_api-response-common-failure"
         }
       },
       $defs: {
+        "stream_api-response-common": stream_api_response_common_output,
         "stream_api-response-common-failure": stream_api_response_common_failure_output,
         "stream_messages": stream_messages_output,
       },
@@ -87,16 +127,16 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/stream_identifier-2",
+          "description": "Identifier."
         },
         "identifier": {
-          "description": "A Cloudflare-generated unique identifier for a media item.",
-          "type": "string"
+          "$ref": "#/$defs/stream_identifier",
+          "description": "A Cloudflare-generated unique identifier for a media item."
         },
         "language": {
-          "description": "The language tag in BCP 47 format.",
-          "type": "string"
+          "$ref": "#/$defs/stream_language",
+          "description": "The language tag in BCP 47 format."
         }
       },
       required: [
@@ -104,15 +144,23 @@ export const tools: readonly Tool[] = [
         "identifier",
         "language"
       ],
+      $defs: {
+        "stream_identifier": stream_identifier,
+        "stream_identifier-2": stream_identifier_2,
+        "stream_language": stream_language,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/stream_captions",
+      "$ref": "#/$defs/stream_language_response_single",
       $defs: {
+        "stream_api-response-single": stream_api_response_single_output,
         "stream_caption_status": stream_caption_status_output,
         "stream_captions": stream_captions_output,
         "stream_generated_caption": stream_generated_caption_output,
         "stream_label": stream_label_output,
         "stream_language": stream_language_output,
+        "stream_language_response_single": stream_language_response_single_output,
+        "stream_messages": stream_messages_output,
       },
     },
     annotations: {
@@ -127,7 +175,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/stream_captions"
+          "$ref": "#/$defs/stream_language_response_single"
         },
         "4XX": {
           "$ref": "#/$defs/stream_api-response-common-failure"
@@ -135,11 +183,13 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "stream_api-response-common-failure": stream_api_response_common_failure_output,
+        "stream_api-response-single": stream_api_response_single_output,
         "stream_caption_status": stream_caption_status_output,
         "stream_captions": stream_captions_output,
         "stream_generated_caption": stream_generated_caption_output,
         "stream_label": stream_label_output,
         "stream_language": stream_language_output,
+        "stream_language_response_single": stream_language_response_single_output,
         "stream_messages": stream_messages_output,
       },
     },
@@ -155,16 +205,16 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/stream_identifier-2",
+          "description": "Identifier."
         },
         "identifier": {
-          "description": "A Cloudflare-generated unique identifier for a media item.",
-          "type": "string"
+          "$ref": "#/$defs/stream_identifier",
+          "description": "A Cloudflare-generated unique identifier for a media item."
         },
         "language": {
-          "description": "The language tag in BCP 47 format.",
-          "type": "string"
+          "$ref": "#/$defs/stream_language",
+          "description": "The language tag in BCP 47 format."
         }
       },
       required: [
@@ -172,15 +222,23 @@ export const tools: readonly Tool[] = [
         "identifier",
         "language"
       ],
+      $defs: {
+        "stream_identifier": stream_identifier,
+        "stream_identifier-2": stream_identifier_2,
+        "stream_language": stream_language,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/stream_captions",
+      "$ref": "#/$defs/stream_language_response_single",
       $defs: {
+        "stream_api-response-single": stream_api_response_single_output,
         "stream_caption_status": stream_caption_status_output,
         "stream_captions": stream_captions_output,
         "stream_generated_caption": stream_generated_caption_output,
         "stream_label": stream_label_output,
         "stream_language": stream_language_output,
+        "stream_language_response_single": stream_language_response_single_output,
+        "stream_messages": stream_messages_output,
       },
     },
     annotations: {
@@ -201,7 +259,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/stream_captions"
+          "$ref": "#/$defs/stream_language_response_single"
         },
         "4XX": {
           "$ref": "#/$defs/stream_api-response-common-failure"
@@ -209,11 +267,13 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "stream_api-response-common-failure": stream_api_response_common_failure_output,
+        "stream_api-response-single": stream_api_response_single_output,
         "stream_caption_status": stream_caption_status_output,
         "stream_captions": stream_captions_output,
         "stream_generated_caption": stream_generated_caption_output,
         "stream_label": stream_label_output,
         "stream_language": stream_language_output,
+        "stream_language_response_single": stream_language_response_single_output,
         "stream_messages": stream_messages_output,
       },
     },

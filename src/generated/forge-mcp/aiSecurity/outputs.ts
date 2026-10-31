@@ -38,30 +38,19 @@ export const waf_product_api_bundle_api_response_common_failure_3_output: JsonSc
  * The schema of `waf-product-api-bundle_response-settings` in responses.
  */
 export const waf_product_api_bundle_response_settings_output: JsonSchema = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/waf-product-api-bundle_messages"
+  "allOf": [
+    {
+      "$ref": "#/$defs/waf-product-api-bundle_api-response-single"
     },
-    "messages": {
-      "$ref": "#/$defs/waf-product-api-bundle_messages"
-    },
-    "result": {
-      "$ref": "#/$defs/waf-product-api-bundle_settings"
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/waf-product-api-bundle_settings"
+        }
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "result",
-    "success"
-  ],
-  "type": "object"
+  ]
 };
 
 /**

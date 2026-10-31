@@ -4,6 +4,7 @@
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
   email_security_api_response_common_failure_output,
+  email_security_api_response_common_output,
   email_security_messages_output,
 } from "../../outputs.js";
 import {
@@ -11,8 +12,6 @@ import {
   email_security_identifier,
 } from "../../schemas.js";
 import {
-  email_security_MessageTrace_inbound_output,
-  email_security_MessageTrace_outbound_output,
   email_security_MessageTrace_output,
   email_security_TraceLine_output,
 } from "./outputs.js";
@@ -47,12 +46,27 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/email-security_MessageTrace",
+      "allOf": [
+        {
+          "$ref": "#/$defs/email-security_api-response-common"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/email-security_MessageTrace"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        }
+      ],
       $defs: {
         "email-security_MessageTrace": email_security_MessageTrace_output,
-        "email-security_MessageTrace_inbound": email_security_MessageTrace_inbound_output,
-        "email-security_MessageTrace_outbound": email_security_MessageTrace_outbound_output,
         "email-security_TraceLine": email_security_TraceLine_output,
+        "email-security_api-response-common": email_security_api_response_common_output,
+        "email-security_messages": email_security_messages_output,
       },
     },
     annotations: {
@@ -74,7 +88,22 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/email-security_MessageTrace"
+          "allOf": [
+            {
+              "$ref": "#/$defs/email-security_api-response-common"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/email-security_MessageTrace"
+                }
+              },
+              "required": [
+                "result"
+              ],
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/email-security_api-response-common-failure"
@@ -82,9 +111,8 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "email-security_MessageTrace": email_security_MessageTrace_output,
-        "email-security_MessageTrace_inbound": email_security_MessageTrace_inbound_output,
-        "email-security_MessageTrace_outbound": email_security_MessageTrace_outbound_output,
         "email-security_TraceLine": email_security_TraceLine_output,
+        "email-security_api-response-common": email_security_api_response_common_output,
         "email-security_api-response-common-failure": email_security_api_response_common_failure_output,
         "email-security_messages": email_security_messages_output,
       },

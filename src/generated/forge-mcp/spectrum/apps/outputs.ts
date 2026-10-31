@@ -4,68 +4,181 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
- * The schema of `spectrum-config_app_config` in responses.
+ * The schema of `spectrum-config_api-response-single` in responses.
  */
-export const spectrum_config_app_config_output: JsonSchema = {
+export const spectrum_config_api_response_single_output: JsonSchema = {
   "properties": {
-    "argo_smart_routing": {
-      "$ref": "#/$defs/spectrum-config_argo_smart_routing"
+    "errors": {
+      "$ref": "#/$defs/spectrum-config_messages"
     },
-    "created_on": {
-      "$ref": "#/$defs/spectrum-config_created"
+    "messages": {
+      "$ref": "#/$defs/spectrum-config_messages"
     },
-    "dns": {
-      "$ref": "#/$defs/spectrum-config_dns"
-    },
-    "edge_ips": {
-      "$ref": "#/$defs/spectrum-config_edge_ips"
-    },
-    "id": {
-      "$ref": "#/$defs/spectrum-config_app_identifier"
-    },
-    "ip_firewall": {
-      "$ref": "#/$defs/spectrum-config_ip_firewall"
-    },
-    "modified_on": {
-      "$ref": "#/$defs/spectrum-config_modified"
-    },
-    "origin_direct": {
-      "$ref": "#/$defs/spectrum-config_origin_direct"
-    },
-    "origin_dns": {
-      "$ref": "#/$defs/spectrum-config_origin_dns"
-    },
-    "origin_port": {
-      "$ref": "#/$defs/spectrum-config_origin_port"
-    },
-    "origin_worker_id": {
-      "$ref": "#/$defs/spectrum-config_origin_worker_id"
-    },
-    "protocol": {
-      "$ref": "#/$defs/spectrum-config_protocol"
-    },
-    "proxy_protocol": {
-      "$ref": "#/$defs/spectrum-config_proxy_protocol"
-    },
-    "tls": {
-      "$ref": "#/$defs/spectrum-config_tls"
-    },
-    "traffic_type": {
-      "$ref": "#/$defs/spectrum-config_traffic_type"
-    },
-    "virtual_network_id": {
-      "$ref": "#/$defs/spectrum-config_virtual_network_id"
+    "success": {
+      "enum": [
+        true
+      ],
+      "type": "boolean"
     }
   },
   "required": [
-    "created_on",
-    "id",
-    "modified_on",
-    "dns",
-    "protocol",
-    "traffic_type"
+    "errors",
+    "messages",
+    "success"
   ],
   "type": "object"
+};
+
+/**
+ * The schema of `spectrum-config_api-response-single-id` in responses.
+ */
+export const spectrum_config_api_response_single_id_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/spectrum-config_api-response-common"
+    },
+    {
+      "properties": {
+        "result": {
+          "oneOf": [
+            {
+              "properties": {
+                "id": {
+                  "$ref": "#/$defs/spectrum-config_identifier"
+                }
+              },
+              "required": [
+                "id"
+              ],
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `spectrum-config_app_config` in responses.
+ */
+export const spectrum_config_app_config_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/spectrum-config_base_app_config"
+    },
+    {
+      "properties": {
+        "argo_smart_routing": {
+          "$ref": "#/$defs/spectrum-config_argo_smart_routing"
+        },
+        "dns": {
+          "$ref": "#/$defs/spectrum-config_dns"
+        },
+        "edge_ips": {
+          "$ref": "#/$defs/spectrum-config_edge_ips"
+        },
+        "ip_firewall": {
+          "$ref": "#/$defs/spectrum-config_ip_firewall"
+        },
+        "origin_direct": {
+          "$ref": "#/$defs/spectrum-config_origin_direct"
+        },
+        "origin_dns": {
+          "$ref": "#/$defs/spectrum-config_origin_dns"
+        },
+        "origin_port": {
+          "$ref": "#/$defs/spectrum-config_origin_port"
+        },
+        "origin_worker_id": {
+          "$ref": "#/$defs/spectrum-config_origin_worker_id"
+        },
+        "protocol": {
+          "$ref": "#/$defs/spectrum-config_protocol"
+        },
+        "proxy_protocol": {
+          "$ref": "#/$defs/spectrum-config_proxy_protocol"
+        },
+        "tls": {
+          "$ref": "#/$defs/spectrum-config_tls"
+        },
+        "traffic_type": {
+          "$ref": "#/$defs/spectrum-config_traffic_type"
+        },
+        "virtual_network_id": {
+          "$ref": "#/$defs/spectrum-config_virtual_network_id"
+        }
+      },
+      "required": [
+        "dns",
+        "protocol",
+        "traffic_type"
+      ],
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `spectrum-config_app_config_collection` in responses.
+ */
+export const spectrum_config_app_config_collection_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/spectrum-config_api-response-collection"
+    },
+    {
+      "properties": {
+        "result": {
+          "oneOf": [
+            {
+              "items": {
+                "$ref": "#/$defs/spectrum-config_app_config"
+              },
+              "type": "array"
+            },
+            {
+              "items": {
+                "$ref": "#/$defs/spectrum-config_paygo_app_config"
+              },
+              "type": "array"
+            }
+          ]
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `spectrum-config_app_config_single` in responses.
+ */
+export const spectrum_config_app_config_single_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/spectrum-config_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/spectrum-config_app_config"
+            },
+            {
+              "$ref": "#/$defs/spectrum-config_paygo_app_config"
+            }
+          ]
+        }
+      },
+      "type": "object"
+    }
+  ]
 };
 
 /**
@@ -80,6 +193,29 @@ export const spectrum_config_app_identifier_output: JsonSchema = {
  */
 export const spectrum_config_argo_smart_routing_output: JsonSchema = {
   "type": "boolean"
+};
+
+/**
+ * The schema of `spectrum-config_base_app_config` in responses.
+ */
+export const spectrum_config_base_app_config_output: JsonSchema = {
+  "properties": {
+    "created_on": {
+      "$ref": "#/$defs/spectrum-config_created"
+    },
+    "id": {
+      "$ref": "#/$defs/spectrum-config_app_identifier"
+    },
+    "modified_on": {
+      "$ref": "#/$defs/spectrum-config_modified"
+    }
+  },
+  "required": [
+    "created_on",
+    "id",
+    "modified_on"
+  ],
+  "type": "object"
 };
 
 /**
@@ -174,13 +310,6 @@ export const spectrum_config_edge_ips_output: JsonSchema = {
 };
 
 /**
- * The schema of `spectrum-config_identifier` in responses.
- */
-export const spectrum_config_identifier_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `spectrum-config_ip_firewall` in responses.
  */
 export const spectrum_config_ip_firewall_output: JsonSchema = {
@@ -267,34 +396,29 @@ export const spectrum_config_origin_worker_id_output: JsonSchema = {
  * The schema of `spectrum-config_paygo_app_config` in responses.
  */
 export const spectrum_config_paygo_app_config_output: JsonSchema = {
-  "properties": {
-    "created_on": {
-      "$ref": "#/$defs/spectrum-config_created"
+  "allOf": [
+    {
+      "$ref": "#/$defs/spectrum-config_base_app_config"
     },
-    "dns": {
-      "$ref": "#/$defs/spectrum-config_dns"
-    },
-    "id": {
-      "$ref": "#/$defs/spectrum-config_app_identifier"
-    },
-    "modified_on": {
-      "$ref": "#/$defs/spectrum-config_modified"
-    },
-    "origin_direct": {
-      "$ref": "#/$defs/spectrum-config_origin_direct"
-    },
-    "protocol": {
-      "$ref": "#/$defs/spectrum-config_protocol"
+    {
+      "properties": {
+        "dns": {
+          "$ref": "#/$defs/spectrum-config_dns"
+        },
+        "origin_direct": {
+          "$ref": "#/$defs/spectrum-config_origin_direct"
+        },
+        "protocol": {
+          "$ref": "#/$defs/spectrum-config_protocol"
+        }
+      },
+      "required": [
+        "dns",
+        "protocol"
+      ],
+      "type": "object"
     }
-  },
-  "required": [
-    "created_on",
-    "id",
-    "modified_on",
-    "dns",
-    "protocol"
-  ],
-  "type": "object"
+  ]
 };
 
 /**

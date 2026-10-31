@@ -4,65 +4,81 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
- * The schema of `tls-certificates-and-hostnames_keyless_response_collection` in
- * responses.
+ * The schema of `tls-certificates-and-hostnames_base` in responses.
  */
-export const tls_certificates_and_hostnames_keyless_response_collection_output: JsonSchema = {
+export const tls_certificates_and_hostnames_base_output: JsonSchema = {
   "properties": {
-    "errors": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_messages"
+    "created_on": {
+      "format": "date-time",
+      "type": "string"
     },
-    "messages": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_messages"
+    "enabled": {
+      "$ref": "#/$defs/tls-certificates-and-hostnames_enabled"
     },
-    "result": {
+    "host": {
+      "$ref": "#/$defs/tls-certificates-and-hostnames_host"
+    },
+    "id": {
+      "$ref": "#/$defs/tls-certificates-and-hostnames_keyless_certificate_identifier"
+    },
+    "modified_on": {
+      "format": "date-time",
+      "type": "string"
+    },
+    "name": {
+      "$ref": "#/$defs/tls-certificates-and-hostnames_name"
+    },
+    "permissions": {
       "items": {
-        "$ref": "#/$defs/tls-certificates-and-hostnames_base"
+        "type": "string"
       },
       "type": "array"
     },
-    "result_info": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_keyless_response_collection_result_info"
+    "port": {
+      "$ref": "#/$defs/tls-certificates-and-hostnames_port"
     },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
+    "status": {
+      "$ref": "#/$defs/tls-certificates-and-hostnames_status-2"
+    },
+    "tunnel": {
+      "$ref": "#/$defs/tls-certificates-and-hostnames_keyless_tunnel"
     }
   },
   "required": [
-    "errors",
-    "messages",
-    "success"
+    "created_on",
+    "enabled",
+    "host",
+    "id",
+    "modified_on",
+    "name",
+    "permissions",
+    "port",
+    "status"
   ],
   "type": "object"
 };
 
 /**
- * The schema of
- * `tls-certificates-and-hostnames_keyless_response_collection_result_info` in
+ * The schema of `tls-certificates-and-hostnames_keyless_response_collection` in
  * responses.
  */
-export const tls_certificates_and_hostnames_keyless_response_collection_result_info_output: JsonSchema = {
-  "properties": {
-    "count": {
-      "type": "number"
+export const tls_certificates_and_hostnames_keyless_response_collection_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/tls-certificates-and-hostnames_api-response-collection"
     },
-    "page": {
-      "type": "number"
-    },
-    "per_page": {
-      "type": "number"
-    },
-    "total_count": {
-      "type": "number"
-    },
-    "total_pages": {
-      "type": "number"
+    {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/tls-certificates-and-hostnames_keyless-certificate"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
     }
-  },
-  "type": "object"
+  ]
 };
 
 /**
@@ -70,29 +86,19 @@ export const tls_certificates_and_hostnames_keyless_response_collection_result_i
  * responses.
  */
 export const tls_certificates_and_hostnames_keyless_response_single_output: JsonSchema = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_messages"
+  "allOf": [
+    {
+      "$ref": "#/$defs/tls-certificates-and-hostnames_api-response-single"
     },
-    "messages": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_messages"
-    },
-    "result": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_base"
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/tls-certificates-and-hostnames_base"
+        }
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "success"
-  ],
-  "type": "object"
+  ]
 };
 
 /**
@@ -100,41 +106,22 @@ export const tls_certificates_and_hostnames_keyless_response_single_output: Json
  * responses.
  */
 export const tls_certificates_and_hostnames_keyless_response_single_id_output: JsonSchema = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_messages"
+  "allOf": [
+    {
+      "$ref": "#/$defs/tls-certificates-and-hostnames_api-response-single"
     },
-    "messages": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_messages"
-    },
-    "result": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_keyless_response_single_id_result"
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
+    {
+      "properties": {
+        "result": {
+          "properties": {
+            "id": {
+              "$ref": "#/$defs/tls-certificates-and-hostnames_keyless_certificate_identifier"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "success"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of
- * `tls-certificates-and-hostnames_keyless_response_single_id_result` in
- * responses.
- */
-export const tls_certificates_and_hostnames_keyless_response_single_id_result_output: JsonSchema = {
-  "properties": {
-    "id": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_keyless_certificate_identifier"
-    }
-  },
-  "type": "object"
+  ]
 };

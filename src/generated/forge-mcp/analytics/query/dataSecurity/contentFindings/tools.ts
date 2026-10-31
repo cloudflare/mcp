@@ -7,6 +7,7 @@ import {
   art_APIMessage_output,
   art_ErrorResponse_output,
   art_ResultValues_output,
+  art_TopNResponse_output,
 } from "../../outputs.js";
 import { art_Filter } from "../../schemas.js";
 import { art_DataSecurityContentFindingsTopNQuery } from "./schemas.js";
@@ -40,23 +41,12 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "$ref": "#/$defs/art_ResultValues"
-          },
-          "type": "array"
-        },
-        "result_info": {
-          "type": "object"
-        }
-      },
-      "required": [
-        "result"
-      ],
-      "type": "object",
+      "$ref": "#/$defs/art_TopNResponse",
       $defs: {
+        "art_APIError": art_APIError_output,
+        "art_APIMessage": art_APIMessage_output,
         "art_ResultValues": art_ResultValues_output,
+        "art_TopNResponse": art_TopNResponse_output,
       },
     },
     annotations: {
@@ -77,21 +67,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "items": {
-                "$ref": "#/$defs/art_ResultValues"
-              },
-              "type": "array"
-            },
-            "result_info": {
-              "type": "object"
-            }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/art_TopNResponse"
         },
         "400": {
           "$ref": "#/$defs/art_ErrorResponse"
@@ -108,6 +84,7 @@ export const tools: readonly Tool[] = [
         "art_APIMessage": art_APIMessage_output,
         "art_ErrorResponse": art_ErrorResponse_output,
         "art_ResultValues": art_ResultValues_output,
+        "art_TopNResponse": art_TopNResponse_output,
       },
     },
     request: (args) => ({

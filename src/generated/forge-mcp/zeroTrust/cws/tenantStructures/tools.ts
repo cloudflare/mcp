@@ -6,10 +6,15 @@ import {
   cws_DeletedResult_output,
   cws_ErrorResponse_output,
   cws_MessageSource_output,
+  cws_ResponseDeletedResult_output,
   cws_ResponseMessage_output,
   cws_ResultInfo_output,
 } from "../outputs.js";
-import { cws_TenantStructure_output } from "./outputs.js";
+import {
+  cws_PageResponseTenantStructure_output,
+  cws_ResponseTenantStructure_output,
+  cws_TenantStructure_output,
+} from "./outputs.js";
 import {
   cws_CreateTenantStructureInputBody,
   cws_UpdateTenantStructureInputBody,
@@ -43,8 +48,11 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/cws_TenantStructure",
+      "$ref": "#/$defs/cws_ResponseTenantStructure",
       $defs: {
+        "cws_MessageSource": cws_MessageSource_output,
+        "cws_ResponseMessage": cws_ResponseMessage_output,
+        "cws_ResponseTenantStructure": cws_ResponseTenantStructure_output,
         "cws_TenantStructure": cws_TenantStructure_output,
       },
     },
@@ -63,7 +71,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "201": {
-          "$ref": "#/$defs/cws_TenantStructure"
+          "$ref": "#/$defs/cws_ResponseTenantStructure"
         },
         "4XX": {
           "$ref": "#/$defs/cws_ErrorResponse"
@@ -76,6 +84,7 @@ export const tools: readonly Tool[] = [
         "cws_ErrorResponse": cws_ErrorResponse_output,
         "cws_MessageSource": cws_MessageSource_output,
         "cws_ResponseMessage": cws_ResponseMessage_output,
+        "cws_ResponseTenantStructure": cws_ResponseTenantStructure_output,
         "cws_TenantStructure": cws_TenantStructure_output,
       },
     },
@@ -107,9 +116,12 @@ export const tools: readonly Tool[] = [
       ],
     },
     outputSchema: {
-      "$ref": "#/$defs/cws_DeletedResult",
+      "$ref": "#/$defs/cws_ResponseDeletedResult",
       $defs: {
         "cws_DeletedResult": cws_DeletedResult_output,
+        "cws_MessageSource": cws_MessageSource_output,
+        "cws_ResponseDeletedResult": cws_ResponseDeletedResult_output,
+        "cws_ResponseMessage": cws_ResponseMessage_output,
       },
     },
     annotations: {
@@ -127,7 +139,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/cws_DeletedResult"
+          "$ref": "#/$defs/cws_ResponseDeletedResult"
         },
         "4XX": {
           "$ref": "#/$defs/cws_ErrorResponse"
@@ -140,6 +152,7 @@ export const tools: readonly Tool[] = [
         "cws_DeletedResult": cws_DeletedResult_output,
         "cws_ErrorResponse": cws_ErrorResponse_output,
         "cws_MessageSource": cws_MessageSource_output,
+        "cws_ResponseDeletedResult": cws_ResponseDeletedResult_output,
         "cws_ResponseMessage": cws_ResponseMessage_output,
       },
     },
@@ -170,8 +183,11 @@ export const tools: readonly Tool[] = [
       ],
     },
     outputSchema: {
-      "$ref": "#/$defs/cws_TenantStructure",
+      "$ref": "#/$defs/cws_ResponseTenantStructure",
       $defs: {
+        "cws_MessageSource": cws_MessageSource_output,
+        "cws_ResponseMessage": cws_ResponseMessage_output,
+        "cws_ResponseTenantStructure": cws_ResponseTenantStructure_output,
         "cws_TenantStructure": cws_TenantStructure_output,
       },
     },
@@ -190,7 +206,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/cws_TenantStructure"
+          "$ref": "#/$defs/cws_ResponseTenantStructure"
         },
         "4XX": {
           "$ref": "#/$defs/cws_ErrorResponse"
@@ -203,6 +219,7 @@ export const tools: readonly Tool[] = [
         "cws_ErrorResponse": cws_ErrorResponse_output,
         "cws_MessageSource": cws_MessageSource_output,
         "cws_ResponseMessage": cws_ResponseMessage_output,
+        "cws_ResponseTenantStructure": cws_ResponseTenantStructure_output,
         "cws_TenantStructure": cws_TenantStructure_output,
       },
     },
@@ -263,29 +280,11 @@ export const tools: readonly Tool[] = [
       ],
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "oneOf": [
-            {
-              "items": {
-                "$ref": "#/$defs/cws_TenantStructure"
-              },
-              "type": "array"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "result_info": {
-          "$ref": "#/$defs/cws_ResultInfo"
-        }
-      },
-      "required": [
-        "result"
-      ],
-      "type": "object",
+      "$ref": "#/$defs/cws_PageResponseTenantStructure",
       $defs: {
+        "cws_MessageSource": cws_MessageSource_output,
+        "cws_PageResponseTenantStructure": cws_PageResponseTenantStructure_output,
+        "cws_ResponseMessage": cws_ResponseMessage_output,
         "cws_ResultInfo": cws_ResultInfo_output,
         "cws_TenantStructure": cws_TenantStructure_output,
       },
@@ -305,28 +304,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "oneOf": [
-                {
-                  "items": {
-                    "$ref": "#/$defs/cws_TenantStructure"
-                  },
-                  "type": "array"
-                },
-                {
-                  "type": "null"
-                }
-              ]
-            },
-            "result_info": {
-              "$ref": "#/$defs/cws_ResultInfo"
-            }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/cws_PageResponseTenantStructure"
         },
         "4XX": {
           "$ref": "#/$defs/cws_ErrorResponse"
@@ -338,6 +316,7 @@ export const tools: readonly Tool[] = [
       $defs: {
         "cws_ErrorResponse": cws_ErrorResponse_output,
         "cws_MessageSource": cws_MessageSource_output,
+        "cws_PageResponseTenantStructure": cws_PageResponseTenantStructure_output,
         "cws_ResponseMessage": cws_ResponseMessage_output,
         "cws_ResultInfo": cws_ResultInfo_output,
         "cws_TenantStructure": cws_TenantStructure_output,
@@ -385,8 +364,11 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/cws_TenantStructure",
+      "$ref": "#/$defs/cws_ResponseTenantStructure",
       $defs: {
+        "cws_MessageSource": cws_MessageSource_output,
+        "cws_ResponseMessage": cws_ResponseMessage_output,
+        "cws_ResponseTenantStructure": cws_ResponseTenantStructure_output,
         "cws_TenantStructure": cws_TenantStructure_output,
       },
     },
@@ -405,7 +387,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/cws_TenantStructure"
+          "$ref": "#/$defs/cws_ResponseTenantStructure"
         },
         "4XX": {
           "$ref": "#/$defs/cws_ErrorResponse"
@@ -418,6 +400,7 @@ export const tools: readonly Tool[] = [
         "cws_ErrorResponse": cws_ErrorResponse_output,
         "cws_MessageSource": cws_MessageSource_output,
         "cws_ResponseMessage": cws_ResponseMessage_output,
+        "cws_ResponseTenantStructure": cws_ResponseTenantStructure_output,
         "cws_TenantStructure": cws_TenantStructure_output,
       },
     },

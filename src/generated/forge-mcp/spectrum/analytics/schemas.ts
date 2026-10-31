@@ -4,6 +4,14 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
+ * The schema of `spectrum-analytics_identifier`.
+ */
+export const spectrum_analytics_identifier: JsonSchema = {
+  "description": "Identifier.",
+  "type": "string"
+};
+
+/**
  * The schema of `spectrum-analytics_since`.
  */
 export const spectrum_analytics_since: JsonSchema = {

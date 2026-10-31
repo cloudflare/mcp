@@ -4,12 +4,17 @@
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
   magic_api_response_common_failure_output,
+  magic_api_response_common_output,
+  magic_api_response_single_output,
   magic_messages_output,
   magic_schemas_identifier_output,
 } from "../outputs.js";
+import { magic_identifier } from "../schemas.js";
 import {
   magic_bgp_filter_match_action_output,
   magic_bgp_filter_profile_output,
+  magic_magic_bgp_filter_profile_response_output,
+  magic_magic_bgp_filter_profiles_list_response_output,
 } from "./outputs.js";
 import {
   magic_bgp_filter_match_action,
@@ -29,8 +34,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier",
-          "type": "string"
+          "$ref": "#/$defs/magic_identifier",
+          "description": "Identifier"
         },
         "body": {
           "$ref": "#/$defs/magic_create_bgp_filter_profile_request"
@@ -43,13 +48,18 @@ export const tools: readonly Tool[] = [
       $defs: {
         "magic_bgp_filter_match_action": magic_bgp_filter_match_action,
         "magic_create_bgp_filter_profile_request": magic_create_bgp_filter_profile_request,
+        "magic_identifier": magic_identifier,
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/magic_bgp_filter_profile",
+      "$ref": "#/$defs/magic_magic_bgp_filter_profile_response",
       $defs: {
+        "magic_api-response-common": magic_api_response_common_output,
+        "magic_api-response-single": magic_api_response_single_output,
         "magic_bgp_filter_match_action": magic_bgp_filter_match_action_output,
         "magic_bgp_filter_profile": magic_bgp_filter_profile_output,
+        "magic_magic_bgp_filter_profile_response": magic_magic_bgp_filter_profile_response_output,
+        "magic_messages": magic_messages_output,
         "magic_schemas-identifier": magic_schemas_identifier_output,
       },
     },
@@ -74,16 +84,19 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/magic_bgp_filter_profile"
+          "$ref": "#/$defs/magic_magic_bgp_filter_profile_response"
         },
         "4XX": {
           "$ref": "#/$defs/magic_api-response-common-failure"
         }
       },
       $defs: {
+        "magic_api-response-common": magic_api_response_common_output,
         "magic_api-response-common-failure": magic_api_response_common_failure_output,
+        "magic_api-response-single": magic_api_response_single_output,
         "magic_bgp_filter_match_action": magic_bgp_filter_match_action_output,
         "magic_bgp_filter_profile": magic_bgp_filter_profile_output,
+        "magic_magic_bgp_filter_profile_response": magic_magic_bgp_filter_profile_response_output,
         "magic_messages": magic_messages_output,
         "magic_schemas-identifier": magic_schemas_identifier_output,
       },
@@ -101,24 +114,31 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier",
-          "type": "string"
+          "$ref": "#/$defs/magic_identifier",
+          "description": "Identifier"
         },
         "profile_id": {
-          "description": "Identifier",
-          "type": "string"
+          "$ref": "#/$defs/magic_identifier",
+          "description": "Identifier"
         }
       },
       required: [
         "account_id",
         "profile_id"
       ],
+      $defs: {
+        "magic_identifier": magic_identifier,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/magic_bgp_filter_profile",
+      "$ref": "#/$defs/magic_magic_bgp_filter_profile_response",
       $defs: {
+        "magic_api-response-common": magic_api_response_common_output,
+        "magic_api-response-single": magic_api_response_single_output,
         "magic_bgp_filter_match_action": magic_bgp_filter_match_action_output,
         "magic_bgp_filter_profile": magic_bgp_filter_profile_output,
+        "magic_magic_bgp_filter_profile_response": magic_magic_bgp_filter_profile_response_output,
+        "magic_messages": magic_messages_output,
         "magic_schemas-identifier": magic_schemas_identifier_output,
       },
     },
@@ -143,16 +163,19 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/magic_bgp_filter_profile"
+          "$ref": "#/$defs/magic_magic_bgp_filter_profile_response"
         },
         "4XX": {
           "$ref": "#/$defs/magic_api-response-common-failure"
         }
       },
       $defs: {
+        "magic_api-response-common": magic_api_response_common_output,
         "magic_api-response-common-failure": magic_api_response_common_failure_output,
+        "magic_api-response-single": magic_api_response_single_output,
         "magic_bgp_filter_match_action": magic_bgp_filter_match_action_output,
         "magic_bgp_filter_profile": magic_bgp_filter_profile_output,
+        "magic_magic_bgp_filter_profile_response": magic_magic_bgp_filter_profile_response_output,
         "magic_messages": magic_messages_output,
         "magic_schemas-identifier": magic_schemas_identifier_output,
       },
@@ -169,24 +192,31 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier",
-          "type": "string"
+          "$ref": "#/$defs/magic_identifier",
+          "description": "Identifier"
         },
         "profile_id": {
-          "description": "Identifier",
-          "type": "string"
+          "$ref": "#/$defs/magic_identifier",
+          "description": "Identifier"
         }
       },
       required: [
         "account_id",
         "profile_id"
       ],
+      $defs: {
+        "magic_identifier": magic_identifier,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/magic_bgp_filter_profile",
+      "$ref": "#/$defs/magic_magic_bgp_filter_profile_response",
       $defs: {
+        "magic_api-response-common": magic_api_response_common_output,
+        "magic_api-response-single": magic_api_response_single_output,
         "magic_bgp_filter_match_action": magic_bgp_filter_match_action_output,
         "magic_bgp_filter_profile": magic_bgp_filter_profile_output,
+        "magic_magic_bgp_filter_profile_response": magic_magic_bgp_filter_profile_response_output,
+        "magic_messages": magic_messages_output,
         "magic_schemas-identifier": magic_schemas_identifier_output,
       },
     },
@@ -211,16 +241,19 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/magic_bgp_filter_profile"
+          "$ref": "#/$defs/magic_magic_bgp_filter_profile_response"
         },
         "4XX": {
           "$ref": "#/$defs/magic_api-response-common-failure"
         }
       },
       $defs: {
+        "magic_api-response-common": magic_api_response_common_output,
         "magic_api-response-common-failure": magic_api_response_common_failure_output,
+        "magic_api-response-single": magic_api_response_single_output,
         "magic_bgp_filter_match_action": magic_bgp_filter_match_action_output,
         "magic_bgp_filter_profile": magic_bgp_filter_profile_output,
+        "magic_magic_bgp_filter_profile_response": magic_magic_bgp_filter_profile_response_output,
         "magic_messages": magic_messages_output,
         "magic_schemas-identifier": magic_schemas_identifier_output,
       },
@@ -237,33 +270,25 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier",
-          "type": "string"
+          "$ref": "#/$defs/magic_identifier",
+          "description": "Identifier"
         }
       },
       required: [
         "account_id"
       ],
+      $defs: {
+        "magic_identifier": magic_identifier,
+      },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "$ref": "#/$defs/magic_bgp_filter_profile"
-          },
-          "type": "array"
-        },
-        "result_info": {
-          "type": "object"
-        }
-      },
-      "required": [
-        "result"
-      ],
-      "type": "object",
+      "$ref": "#/$defs/magic_magic_bgp_filter_profiles_list_response",
       $defs: {
+        "magic_api-response-common": magic_api_response_common_output,
         "magic_bgp_filter_match_action": magic_bgp_filter_match_action_output,
         "magic_bgp_filter_profile": magic_bgp_filter_profile_output,
+        "magic_magic_bgp_filter_profiles_list_response": magic_magic_bgp_filter_profiles_list_response_output,
+        "magic_messages": magic_messages_output,
         "magic_schemas-identifier": magic_schemas_identifier_output,
       },
     },
@@ -288,30 +313,18 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "items": {
-                "$ref": "#/$defs/magic_bgp_filter_profile"
-              },
-              "type": "array"
-            },
-            "result_info": {
-              "type": "object"
-            }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/magic_magic_bgp_filter_profiles_list_response"
         },
         "4XX": {
           "$ref": "#/$defs/magic_api-response-common-failure"
         }
       },
       $defs: {
+        "magic_api-response-common": magic_api_response_common_output,
         "magic_api-response-common-failure": magic_api_response_common_failure_output,
         "magic_bgp_filter_match_action": magic_bgp_filter_match_action_output,
         "magic_bgp_filter_profile": magic_bgp_filter_profile_output,
+        "magic_magic_bgp_filter_profiles_list_response": magic_magic_bgp_filter_profiles_list_response_output,
         "magic_messages": magic_messages_output,
         "magic_schemas-identifier": magic_schemas_identifier_output,
       },
@@ -328,15 +341,15 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier",
-          "type": "string"
+          "$ref": "#/$defs/magic_identifier",
+          "description": "Identifier"
         },
         "body": {
           "$ref": "#/$defs/magic_update_bgp_filter_profile_request"
         },
         "profile_id": {
-          "description": "Identifier",
-          "type": "string"
+          "$ref": "#/$defs/magic_identifier",
+          "description": "Identifier"
         }
       },
       required: [
@@ -346,14 +359,19 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "magic_bgp_filter_match_action": magic_bgp_filter_match_action,
+        "magic_identifier": magic_identifier,
         "magic_update_bgp_filter_profile_request": magic_update_bgp_filter_profile_request,
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/magic_bgp_filter_profile",
+      "$ref": "#/$defs/magic_magic_bgp_filter_profile_response",
       $defs: {
+        "magic_api-response-common": magic_api_response_common_output,
+        "magic_api-response-single": magic_api_response_single_output,
         "magic_bgp_filter_match_action": magic_bgp_filter_match_action_output,
         "magic_bgp_filter_profile": magic_bgp_filter_profile_output,
+        "magic_magic_bgp_filter_profile_response": magic_magic_bgp_filter_profile_response_output,
+        "magic_messages": magic_messages_output,
         "magic_schemas-identifier": magic_schemas_identifier_output,
       },
     },
@@ -378,16 +396,19 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/magic_bgp_filter_profile"
+          "$ref": "#/$defs/magic_magic_bgp_filter_profile_response"
         },
         "4XX": {
           "$ref": "#/$defs/magic_api-response-common-failure"
         }
       },
       $defs: {
+        "magic_api-response-common": magic_api_response_common_output,
         "magic_api-response-common-failure": magic_api_response_common_failure_output,
+        "magic_api-response-single": magic_api_response_single_output,
         "magic_bgp_filter_match_action": magic_bgp_filter_match_action_output,
         "magic_bgp_filter_profile": magic_bgp_filter_profile_output,
+        "magic_magic_bgp_filter_profile_response": magic_magic_bgp_filter_profile_response_output,
         "magic_messages": magic_messages_output,
         "magic_schemas-identifier": magic_schemas_identifier_output,
       },

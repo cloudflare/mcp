@@ -4,6 +4,52 @@
 import type { JsonSchema } from "../_/tool.js";
 
 /**
+ * The schema of `waf-product-api-bundle_api-response-common-2` in responses.
+ */
+export const waf_product_api_bundle_api_response_common_2_output: JsonSchema = {
+  "properties": {
+    "errors": {
+      "$ref": "#/$defs/waf-product-api-bundle_messages"
+    },
+    "messages": {
+      "$ref": "#/$defs/waf-product-api-bundle_messages"
+    },
+    "result": {
+      "anyOf": [
+        {
+          "type": "object"
+        },
+        {
+          "items": {
+            "type": "object"
+          },
+          "type": "array"
+        },
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "success": {
+      "enum": [
+        true
+      ],
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "errors",
+    "messages",
+    "result",
+    "success"
+  ],
+  "type": "object"
+};
+
+/**
  * The schema of `waf-product-api-bundle_api-response-common-failure-2` in
  * responses.
  */
@@ -32,6 +78,54 @@ export const waf_product_api_bundle_api_response_common_failure_2_output: JsonSc
     "success"
   ],
   "type": "object"
+};
+
+/**
+ * The schema of `waf-product-api-bundle_api-response-single-2` in responses.
+ */
+export const waf_product_api_bundle_api_response_single_2_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/waf-product-api-bundle_api-response-common-2"
+    },
+    {
+      "properties": {
+        "result": {
+          "anyOf": [
+            {
+              "type": "object"
+            },
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `waf-product-api-bundle_response-status-2` in responses.
+ */
+export const waf_product_api_bundle_response_status_2_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/waf-product-api-bundle_api-response-single-2"
+    },
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/waf-product-api-bundle_status-2"
+        }
+      },
+      "type": "object"
+    }
+  ]
 };
 
 /**

@@ -3,9 +3,13 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
+  email_api_response_single_output,
+  email_messages_output,
+} from "../../outputs.js";
+import { email_identifier } from "../../schemas.js";
+import {
   email_sending_limits_properties_output,
-  email_sending_limits_properties_quota_output,
-  email_sending_limits_properties_usage_output,
+  email_sending_limits_response_single_output,
 } from "./outputs.js";
 
 /**
@@ -20,20 +24,24 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/email_identifier",
+          "description": "Identifier."
         }
       },
       required: [
         "account_id"
       ],
+      $defs: {
+        "email_identifier": email_identifier,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/email_sending_limits_properties",
+      "$ref": "#/$defs/email_sending_limits_response_single",
       $defs: {
+        "email_api-response-single": email_api_response_single_output,
+        "email_messages": email_messages_output,
         "email_sending_limits_properties": email_sending_limits_properties_output,
-        "email_sending_limits_properties_quota": email_sending_limits_properties_quota_output,
-        "email_sending_limits_properties_usage": email_sending_limits_properties_usage_output,
+        "email_sending_limits_response_single": email_sending_limits_response_single_output,
       },
     },
     annotations: {
@@ -49,12 +57,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "com.cloudflare.api.account.email.sending.read"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.api.account.email.sending.read": {
-            "name": "com_cloudflare_api_account_email_sending_read"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": true,
@@ -66,14 +69,15 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/email_sending_limits_properties"
+          "$ref": "#/$defs/email_sending_limits_response_single"
         },
         "403": null
       },
       $defs: {
+        "email_api-response-single": email_api_response_single_output,
+        "email_messages": email_messages_output,
         "email_sending_limits_properties": email_sending_limits_properties_output,
-        "email_sending_limits_properties_quota": email_sending_limits_properties_quota_output,
-        "email_sending_limits_properties_usage": email_sending_limits_properties_usage_output,
+        "email_sending_limits_response_single": email_sending_limits_response_single_output,
       },
     },
     request: (args) => ({

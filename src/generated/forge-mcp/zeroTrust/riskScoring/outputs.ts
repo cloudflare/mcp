@@ -85,3 +85,65 @@ export const dlp_RiskLevel_output: JsonSchema = {
   ],
   "type": "string"
 };
+
+/**
+ * The schema of `dlp_api-response-collection` in responses.
+ */
+export const dlp_api_response_collection_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/dlp_api-response-common"
+    },
+    {
+      "properties": {
+        "result_info": {
+          "properties": {
+            "count": {
+              "type": "number"
+            },
+            "page": {
+              "type": "number"
+            },
+            "per_page": {
+              "type": "number"
+            },
+            "total_count": {
+              "type": "number"
+            },
+            "total_pages": {
+              "type": "number"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `dlp_api-response-common` in responses.
+ */
+export const dlp_api_response_common_output: JsonSchema = {
+  "properties": {
+    "errors": {
+      "$ref": "#/$defs/dlp_messages"
+    },
+    "messages": {
+      "$ref": "#/$defs/dlp_messages"
+    },
+    "success": {
+      "enum": [
+        true
+      ],
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "errors",
+    "messages",
+    "success"
+  ],
+  "type": "object"
+};

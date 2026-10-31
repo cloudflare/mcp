@@ -5,12 +5,15 @@ import { type Tool, pathParam } from "../../../_/tool.js";
 import {
   dlp_Empty_output,
   dlp_api_response_common_failure_output,
+  dlp_api_response_single_output,
   dlp_messages_output,
 } from "../../outputs.js";
 import { dlp_SensitivityLevel_output } from "../outputs.js";
-import { dlp_NewSensitivityLevel } from "../schemas.js";
+import {
+  dlp_NewSensitivityLevel,
+  dlp_SensitivityLevelUpdate,
+} from "../schemas.js";
 import { dlp_SensitivityLevelArray_output } from "./outputs.js";
-import { dlp_SensitivityLevelUpdate } from "./schemas.js";
 
 /**
  * The tools of `zero_trust.dlp.sensitivity_levels`.
@@ -45,9 +48,23 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/dlp_SensitivityLevel",
+      "allOf": [
+        {
+          "$ref": "#/$defs/dlp_api-response-single"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/dlp_SensitivityLevel"
+            }
+          },
+          "type": "object"
+        }
+      ],
       $defs: {
         "dlp_SensitivityLevel": dlp_SensitivityLevel_output,
+        "dlp_api-response-single": dlp_api_response_single_output,
+        "dlp_messages": dlp_messages_output,
       },
     },
     annotations: {
@@ -67,7 +84,19 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/dlp_SensitivityLevel"
+          "allOf": [
+            {
+              "$ref": "#/$defs/dlp_api-response-single"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/dlp_SensitivityLevel"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/dlp_api-response-common-failure"
@@ -76,6 +105,7 @@ export const tools: readonly Tool[] = [
       $defs: {
         "dlp_SensitivityLevel": dlp_SensitivityLevel_output,
         "dlp_api-response-common-failure": dlp_api_response_common_failure_output,
+        "dlp_api-response-single": dlp_api_response_single_output,
         "dlp_messages": dlp_messages_output,
       },
     },
@@ -110,9 +140,23 @@ export const tools: readonly Tool[] = [
       ],
     },
     outputSchema: {
-      "$ref": "#/$defs/dlp_Empty",
+      "allOf": [
+        {
+          "$ref": "#/$defs/dlp_api-response-single"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/dlp_Empty"
+            }
+          },
+          "type": "object"
+        }
+      ],
       $defs: {
         "dlp_Empty": dlp_Empty_output,
+        "dlp_api-response-single": dlp_api_response_single_output,
+        "dlp_messages": dlp_messages_output,
       },
     },
     annotations: {
@@ -132,7 +176,19 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/dlp_Empty"
+          "allOf": [
+            {
+              "$ref": "#/$defs/dlp_api-response-single"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/dlp_Empty"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/dlp_api-response-common-failure"
@@ -141,6 +197,7 @@ export const tools: readonly Tool[] = [
       $defs: {
         "dlp_Empty": dlp_Empty_output,
         "dlp_api-response-common-failure": dlp_api_response_common_failure_output,
+        "dlp_api-response-single": dlp_api_response_single_output,
         "dlp_messages": dlp_messages_output,
       },
     },
@@ -174,9 +231,23 @@ export const tools: readonly Tool[] = [
       ],
     },
     outputSchema: {
-      "$ref": "#/$defs/dlp_SensitivityLevel",
+      "allOf": [
+        {
+          "$ref": "#/$defs/dlp_api-response-single"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/dlp_SensitivityLevel"
+            }
+          },
+          "type": "object"
+        }
+      ],
       $defs: {
         "dlp_SensitivityLevel": dlp_SensitivityLevel_output,
+        "dlp_api-response-single": dlp_api_response_single_output,
+        "dlp_messages": dlp_messages_output,
       },
     },
     annotations: {
@@ -197,7 +268,19 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/dlp_SensitivityLevel"
+          "allOf": [
+            {
+              "$ref": "#/$defs/dlp_api-response-single"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/dlp_SensitivityLevel"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/dlp_api-response-common-failure"
@@ -206,6 +289,7 @@ export const tools: readonly Tool[] = [
       $defs: {
         "dlp_SensitivityLevel": dlp_SensitivityLevel_output,
         "dlp_api-response-common-failure": dlp_api_response_common_failure_output,
+        "dlp_api-response-single": dlp_api_response_single_output,
         "dlp_messages": dlp_messages_output,
       },
     },
@@ -234,21 +318,24 @@ export const tools: readonly Tool[] = [
       ],
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "$ref": "#/$defs/dlp_SensitivityLevelArray"
+      "allOf": [
+        {
+          "$ref": "#/$defs/dlp_api-response-single"
         },
-        "result_info": {
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/dlp_SensitivityLevelArray"
+            }
+          },
           "type": "object"
         }
-      },
-      "required": [
-        "result"
       ],
-      "type": "object",
       $defs: {
         "dlp_SensitivityLevel": dlp_SensitivityLevel_output,
         "dlp_SensitivityLevelArray": dlp_SensitivityLevelArray_output,
+        "dlp_api-response-single": dlp_api_response_single_output,
+        "dlp_messages": dlp_messages_output,
       },
     },
     annotations: {
@@ -269,18 +356,19 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "$ref": "#/$defs/dlp_SensitivityLevelArray"
+          "allOf": [
+            {
+              "$ref": "#/$defs/dlp_api-response-single"
             },
-            "result_info": {
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/dlp_SensitivityLevelArray"
+                }
+              },
               "type": "object"
             }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/dlp_api-response-common-failure"
@@ -290,6 +378,7 @@ export const tools: readonly Tool[] = [
         "dlp_SensitivityLevel": dlp_SensitivityLevel_output,
         "dlp_SensitivityLevelArray": dlp_SensitivityLevelArray_output,
         "dlp_api-response-common-failure": dlp_api_response_common_failure_output,
+        "dlp_api-response-single": dlp_api_response_single_output,
         "dlp_messages": dlp_messages_output,
       },
     },
@@ -331,9 +420,23 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/dlp_SensitivityLevel",
+      "allOf": [
+        {
+          "$ref": "#/$defs/dlp_api-response-single"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/dlp_SensitivityLevel"
+            }
+          },
+          "type": "object"
+        }
+      ],
       $defs: {
         "dlp_SensitivityLevel": dlp_SensitivityLevel_output,
+        "dlp_api-response-single": dlp_api_response_single_output,
+        "dlp_messages": dlp_messages_output,
       },
     },
     annotations: {
@@ -353,7 +456,19 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/dlp_SensitivityLevel"
+          "allOf": [
+            {
+              "$ref": "#/$defs/dlp_api-response-single"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/dlp_SensitivityLevel"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/dlp_api-response-common-failure"
@@ -362,6 +477,7 @@ export const tools: readonly Tool[] = [
       $defs: {
         "dlp_SensitivityLevel": dlp_SensitivityLevel_output,
         "dlp_api-response-common-failure": dlp_api_response_common_failure_output,
+        "dlp_api-response-single": dlp_api_response_single_output,
         "dlp_messages": dlp_messages_output,
       },
     },

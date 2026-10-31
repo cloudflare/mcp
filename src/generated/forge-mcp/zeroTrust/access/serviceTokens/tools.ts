@@ -3,29 +3,41 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
+  access_api_response_collection_output,
   access_api_response_common_failure_output,
-  access_created_at_output,
-  access_messages_output,
-  access_timestamp_output,
-  access_updated_at_output,
-  access_uuid_output,
-} from "../../outputs.js";
-import {
+  access_api_response_common_output,
+  access_api_response_single_output,
   access_client_id_output,
-  access_client_secret_output,
+  access_created_at_output,
   access_duration_output,
   access_enabled_output,
   access_leak_report_url_output,
   access_leak_reported_at_output,
   access_leak_reporter_output,
+  access_messages_output,
   access_name_2_output,
   access_service_tokens_output,
+  access_single_response_2_output,
+  access_tags_output,
+  access_timestamp_output,
+  access_updated_at_output,
+  access_uuid_output,
+} from "../../outputs.js";
+import {
+  access_duration,
+  access_enabled,
+  access_identifier,
+  access_name_2,
+  access_tags,
+  access_uuid,
+} from "../../schemas.js";
+import {
+  access_client_secret_output,
+  access_create_response_output,
+  access_response_collection_4_output,
 } from "./outputs.js";
 import {
   access_client_secret_version,
-  access_duration,
-  access_enabled,
-  access_name_2,
   access_previous_client_secret_expires_at,
 } from "./schemas.js";
 
@@ -49,8 +61,8 @@ export const tools: readonly Tool[] = [
           "type": "string"
         },
         "account_or_zone_id": {
-          "description": "The account ID or zone ID, as selected by account_or_zone.",
-          "type": "string"
+          "$ref": "#/$defs/access_identifier",
+          "description": "The account ID or zone ID, as selected by account_or_zone."
         },
         "body": {
           "properties": {
@@ -75,6 +87,10 @@ export const tools: readonly Tool[] = [
             "previous_client_secret_expires_at": {
               "$ref": "#/$defs/access_previous_client_secret_expires_at",
               "description": "The expiration of the previous `client_secret`. This can be modified at any point after a rotation. For example, you may extend it further into the future if you need more time to update services with the new secret; or move it into the past to immediately invalidate the previous token in case of compromise. Rotating a service token that was reported as leaked discards the previous secret entirely, so no grace period can be set."
+            },
+            "tags": {
+              "$ref": "#/$defs/access_tags",
+              "description": "Tags associated with the service token, as key-value pairs. On update, replaces all existing tags."
             }
           },
           "required": [
@@ -92,45 +108,25 @@ export const tools: readonly Tool[] = [
         "access_client_secret_version": access_client_secret_version,
         "access_duration": access_duration,
         "access_enabled": access_enabled,
+        "access_identifier": access_identifier,
         "access_name-2": access_name_2,
         "access_previous_client_secret_expires_at": access_previous_client_secret_expires_at,
+        "access_tags": access_tags,
       },
     },
     outputSchema: {
-      "properties": {
-        "client_id": {
-          "$ref": "#/$defs/access_client_id"
-        },
-        "client_secret": {
-          "$ref": "#/$defs/access_client_secret"
-        },
-        "created_at": {
-          "$ref": "#/$defs/access_created_at"
-        },
-        "duration": {
-          "$ref": "#/$defs/access_duration"
-        },
-        "enabled": {
-          "$ref": "#/$defs/access_enabled"
-        },
-        "id": {
-          "type": "string"
-        },
-        "name": {
-          "$ref": "#/$defs/access_name-2"
-        },
-        "updated_at": {
-          "$ref": "#/$defs/access_updated_at"
-        }
-      },
-      "type": "object",
+      "$ref": "#/$defs/access_create_response",
       $defs: {
+        "access_api-response-single": access_api_response_single_output,
         "access_client_id": access_client_id_output,
         "access_client_secret": access_client_secret_output,
+        "access_create_response": access_create_response_output,
         "access_created_at": access_created_at_output,
         "access_duration": access_duration_output,
         "access_enabled": access_enabled_output,
+        "access_messages": access_messages_output,
         "access_name-2": access_name_2_output,
+        "access_tags": access_tags_output,
         "access_timestamp": access_timestamp_output,
         "access_updated_at": access_updated_at_output,
       },
@@ -152,33 +148,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "201": {
-          "properties": {
-            "client_id": {
-              "$ref": "#/$defs/access_client_id"
-            },
-            "client_secret": {
-              "$ref": "#/$defs/access_client_secret"
-            },
-            "created_at": {
-              "$ref": "#/$defs/access_created_at"
-            },
-            "duration": {
-              "$ref": "#/$defs/access_duration"
-            },
-            "enabled": {
-              "$ref": "#/$defs/access_enabled"
-            },
-            "id": {
-              "type": "string"
-            },
-            "name": {
-              "$ref": "#/$defs/access_name-2"
-            },
-            "updated_at": {
-              "$ref": "#/$defs/access_updated_at"
-            }
-          },
-          "type": "object"
+          "$ref": "#/$defs/access_create_response"
         },
         "4XX": {
           "$ref": "#/$defs/access_api-response-common-failure"
@@ -186,13 +156,16 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "access_api-response-common-failure": access_api_response_common_failure_output,
+        "access_api-response-single": access_api_response_single_output,
         "access_client_id": access_client_id_output,
         "access_client_secret": access_client_secret_output,
+        "access_create_response": access_create_response_output,
         "access_created_at": access_created_at_output,
         "access_duration": access_duration_output,
         "access_enabled": access_enabled_output,
         "access_messages": access_messages_output,
         "access_name-2": access_name_2_output,
+        "access_tags": access_tags_output,
         "access_timestamp": access_timestamp_output,
         "access_updated_at": access_updated_at_output,
       },
@@ -218,12 +191,12 @@ export const tools: readonly Tool[] = [
           "type": "string"
         },
         "account_or_zone_id": {
-          "description": "The account ID or zone ID, as selected by account_or_zone.",
-          "type": "string"
+          "$ref": "#/$defs/access_identifier",
+          "description": "The account ID or zone ID, as selected by account_or_zone."
         },
         "service_token_id": {
-          "description": "UUID.",
-          "type": "string"
+          "$ref": "#/$defs/access_uuid",
+          "description": "UUID."
         }
       },
       required: [
@@ -231,10 +204,15 @@ export const tools: readonly Tool[] = [
         "account_or_zone_id",
         "service_token_id"
       ],
+      $defs: {
+        "access_identifier": access_identifier,
+        "access_uuid": access_uuid,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/access_service-tokens",
+      "$ref": "#/$defs/access_single_response-2",
       $defs: {
+        "access_api-response-single": access_api_response_single_output,
         "access_client_id": access_client_id_output,
         "access_created_at": access_created_at_output,
         "access_duration": access_duration_output,
@@ -242,8 +220,11 @@ export const tools: readonly Tool[] = [
         "access_leak_report_url": access_leak_report_url_output,
         "access_leak_reported_at": access_leak_reported_at_output,
         "access_leak_reporter": access_leak_reporter_output,
+        "access_messages": access_messages_output,
         "access_name-2": access_name_2_output,
         "access_service-tokens": access_service_tokens_output,
+        "access_single_response-2": access_single_response_2_output,
+        "access_tags": access_tags_output,
         "access_timestamp": access_timestamp_output,
         "access_updated_at": access_updated_at_output,
         "access_uuid": access_uuid_output,
@@ -266,7 +247,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/access_service-tokens"
+          "$ref": "#/$defs/access_single_response-2"
         },
         "4XX": {
           "$ref": "#/$defs/access_api-response-common-failure"
@@ -274,6 +255,7 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "access_api-response-common-failure": access_api_response_common_failure_output,
+        "access_api-response-single": access_api_response_single_output,
         "access_client_id": access_client_id_output,
         "access_created_at": access_created_at_output,
         "access_duration": access_duration_output,
@@ -284,6 +266,8 @@ export const tools: readonly Tool[] = [
         "access_messages": access_messages_output,
         "access_name-2": access_name_2_output,
         "access_service-tokens": access_service_tokens_output,
+        "access_single_response-2": access_single_response_2_output,
+        "access_tags": access_tags_output,
         "access_timestamp": access_timestamp_output,
         "access_updated_at": access_updated_at_output,
         "access_uuid": access_uuid_output,
@@ -309,12 +293,12 @@ export const tools: readonly Tool[] = [
           "type": "string"
         },
         "account_or_zone_id": {
-          "description": "The account ID or zone ID, as selected by account_or_zone.",
-          "type": "string"
+          "$ref": "#/$defs/access_identifier",
+          "description": "The account ID or zone ID, as selected by account_or_zone."
         },
         "service_token_id": {
-          "description": "UUID.",
-          "type": "string"
+          "$ref": "#/$defs/access_uuid",
+          "description": "UUID."
         }
       },
       required: [
@@ -322,10 +306,15 @@ export const tools: readonly Tool[] = [
         "account_or_zone_id",
         "service_token_id"
       ],
+      $defs: {
+        "access_identifier": access_identifier,
+        "access_uuid": access_uuid,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/access_service-tokens",
+      "$ref": "#/$defs/access_single_response-2",
       $defs: {
+        "access_api-response-single": access_api_response_single_output,
         "access_client_id": access_client_id_output,
         "access_created_at": access_created_at_output,
         "access_duration": access_duration_output,
@@ -333,8 +322,11 @@ export const tools: readonly Tool[] = [
         "access_leak_report_url": access_leak_report_url_output,
         "access_leak_reported_at": access_leak_reported_at_output,
         "access_leak_reporter": access_leak_reporter_output,
+        "access_messages": access_messages_output,
         "access_name-2": access_name_2_output,
         "access_service-tokens": access_service_tokens_output,
+        "access_single_response-2": access_single_response_2_output,
+        "access_tags": access_tags_output,
         "access_timestamp": access_timestamp_output,
         "access_updated_at": access_updated_at_output,
         "access_uuid": access_uuid_output,
@@ -358,7 +350,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/access_service-tokens"
+          "$ref": "#/$defs/access_single_response-2"
         },
         "4XX": {
           "$ref": "#/$defs/access_api-response-common-failure"
@@ -366,6 +358,7 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "access_api-response-common-failure": access_api_response_common_failure_output,
+        "access_api-response-single": access_api_response_single_output,
         "access_client_id": access_client_id_output,
         "access_created_at": access_created_at_output,
         "access_duration": access_duration_output,
@@ -376,6 +369,8 @@ export const tools: readonly Tool[] = [
         "access_messages": access_messages_output,
         "access_name-2": access_name_2_output,
         "access_service-tokens": access_service_tokens_output,
+        "access_single_response-2": access_single_response_2_output,
+        "access_tags": access_tags_output,
         "access_timestamp": access_timestamp_output,
         "access_updated_at": access_updated_at_output,
         "access_uuid": access_uuid_output,
@@ -401,8 +396,8 @@ export const tools: readonly Tool[] = [
           "type": "string"
         },
         "account_or_zone_id": {
-          "description": "The account ID or zone ID, as selected by account_or_zone.",
-          "type": "string"
+          "$ref": "#/$defs/access_identifier",
+          "description": "The account ID or zone ID, as selected by account_or_zone."
         },
         "name": {
           "description": "The name of the service token.",
@@ -427,41 +422,15 @@ export const tools: readonly Tool[] = [
         "account_or_zone",
         "account_or_zone_id"
       ],
+      $defs: {
+        "access_identifier": access_identifier,
+      },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "$ref": "#/$defs/access_service-tokens"
-          },
-          "type": "array"
-        },
-        "result_info": {
-          "properties": {
-            "count": {
-              "type": "number"
-            },
-            "page": {
-              "type": "number"
-            },
-            "per_page": {
-              "type": "number"
-            },
-            "total_count": {
-              "type": "number"
-            },
-            "total_pages": {
-              "type": "number"
-            }
-          },
-          "type": "object"
-        }
-      },
-      "required": [
-        "result"
-      ],
-      "type": "object",
+      "$ref": "#/$defs/access_response_collection-4",
       $defs: {
+        "access_api-response-collection": access_api_response_collection_output,
+        "access_api-response-common": access_api_response_common_output,
         "access_client_id": access_client_id_output,
         "access_created_at": access_created_at_output,
         "access_duration": access_duration_output,
@@ -469,8 +438,11 @@ export const tools: readonly Tool[] = [
         "access_leak_report_url": access_leak_report_url_output,
         "access_leak_reported_at": access_leak_reported_at_output,
         "access_leak_reporter": access_leak_reporter_output,
+        "access_messages": access_messages_output,
         "access_name-2": access_name_2_output,
+        "access_response_collection-4": access_response_collection_4_output,
         "access_service-tokens": access_service_tokens_output,
+        "access_tags": access_tags_output,
         "access_timestamp": access_timestamp_output,
         "access_updated_at": access_updated_at_output,
         "access_uuid": access_uuid_output,
@@ -494,44 +466,15 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "items": {
-                "$ref": "#/$defs/access_service-tokens"
-              },
-              "type": "array"
-            },
-            "result_info": {
-              "properties": {
-                "count": {
-                  "type": "number"
-                },
-                "page": {
-                  "type": "number"
-                },
-                "per_page": {
-                  "type": "number"
-                },
-                "total_count": {
-                  "type": "number"
-                },
-                "total_pages": {
-                  "type": "number"
-                }
-              },
-              "type": "object"
-            }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/access_response_collection-4"
         },
         "4XX": {
           "$ref": "#/$defs/access_api-response-common-failure"
         }
       },
       $defs: {
+        "access_api-response-collection": access_api_response_collection_output,
+        "access_api-response-common": access_api_response_common_output,
         "access_api-response-common-failure": access_api_response_common_failure_output,
         "access_client_id": access_client_id_output,
         "access_created_at": access_created_at_output,
@@ -542,7 +485,9 @@ export const tools: readonly Tool[] = [
         "access_leak_reporter": access_leak_reporter_output,
         "access_messages": access_messages_output,
         "access_name-2": access_name_2_output,
+        "access_response_collection-4": access_response_collection_4_output,
         "access_service-tokens": access_service_tokens_output,
+        "access_tags": access_tags_output,
         "access_timestamp": access_timestamp_output,
         "access_updated_at": access_updated_at_output,
         "access_uuid": access_uuid_output,
@@ -566,22 +511,27 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/access_identifier",
+          "description": "Identifier."
         },
         "service_token_id": {
-          "description": "UUID.",
-          "type": "string"
+          "$ref": "#/$defs/access_uuid",
+          "description": "UUID."
         }
       },
       required: [
         "account_id",
         "service_token_id"
       ],
+      $defs: {
+        "access_identifier": access_identifier,
+        "access_uuid": access_uuid,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/access_service-tokens",
+      "$ref": "#/$defs/access_single_response-2",
       $defs: {
+        "access_api-response-single": access_api_response_single_output,
         "access_client_id": access_client_id_output,
         "access_created_at": access_created_at_output,
         "access_duration": access_duration_output,
@@ -589,8 +539,11 @@ export const tools: readonly Tool[] = [
         "access_leak_report_url": access_leak_report_url_output,
         "access_leak_reported_at": access_leak_reported_at_output,
         "access_leak_reporter": access_leak_reporter_output,
+        "access_messages": access_messages_output,
         "access_name-2": access_name_2_output,
         "access_service-tokens": access_service_tokens_output,
+        "access_single_response-2": access_single_response_2_output,
+        "access_tags": access_tags_output,
         "access_timestamp": access_timestamp_output,
         "access_updated_at": access_updated_at_output,
         "access_uuid": access_uuid_output,
@@ -613,7 +566,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/access_service-tokens"
+          "$ref": "#/$defs/access_single_response-2"
         },
         "4XX": {
           "$ref": "#/$defs/access_api-response-common-failure"
@@ -621,6 +574,7 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "access_api-response-common-failure": access_api_response_common_failure_output,
+        "access_api-response-single": access_api_response_single_output,
         "access_client_id": access_client_id_output,
         "access_created_at": access_created_at_output,
         "access_duration": access_duration_output,
@@ -631,6 +585,8 @@ export const tools: readonly Tool[] = [
         "access_messages": access_messages_output,
         "access_name-2": access_name_2_output,
         "access_service-tokens": access_service_tokens_output,
+        "access_single_response-2": access_single_response_2_output,
+        "access_tags": access_tags_output,
         "access_timestamp": access_timestamp_output,
         "access_updated_at": access_updated_at_output,
         "access_uuid": access_uuid_output,
@@ -648,8 +604,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/access_identifier",
+          "description": "Identifier."
         },
         "body": {
           "properties": {
@@ -662,50 +618,32 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "service_token_id": {
-          "description": "UUID.",
-          "type": "string"
+          "$ref": "#/$defs/access_uuid",
+          "description": "UUID."
         }
       },
       required: [
         "account_id",
         "service_token_id"
       ],
+      $defs: {
+        "access_identifier": access_identifier,
+        "access_uuid": access_uuid,
+      },
     },
     outputSchema: {
-      "properties": {
-        "client_id": {
-          "$ref": "#/$defs/access_client_id"
-        },
-        "client_secret": {
-          "$ref": "#/$defs/access_client_secret"
-        },
-        "created_at": {
-          "$ref": "#/$defs/access_created_at"
-        },
-        "duration": {
-          "$ref": "#/$defs/access_duration"
-        },
-        "enabled": {
-          "$ref": "#/$defs/access_enabled"
-        },
-        "id": {
-          "type": "string"
-        },
-        "name": {
-          "$ref": "#/$defs/access_name-2"
-        },
-        "updated_at": {
-          "$ref": "#/$defs/access_updated_at"
-        }
-      },
-      "type": "object",
+      "$ref": "#/$defs/access_create_response",
       $defs: {
+        "access_api-response-single": access_api_response_single_output,
         "access_client_id": access_client_id_output,
         "access_client_secret": access_client_secret_output,
+        "access_create_response": access_create_response_output,
         "access_created_at": access_created_at_output,
         "access_duration": access_duration_output,
         "access_enabled": access_enabled_output,
+        "access_messages": access_messages_output,
         "access_name-2": access_name_2_output,
+        "access_tags": access_tags_output,
         "access_timestamp": access_timestamp_output,
         "access_updated_at": access_updated_at_output,
       },
@@ -722,33 +660,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "client_id": {
-              "$ref": "#/$defs/access_client_id"
-            },
-            "client_secret": {
-              "$ref": "#/$defs/access_client_secret"
-            },
-            "created_at": {
-              "$ref": "#/$defs/access_created_at"
-            },
-            "duration": {
-              "$ref": "#/$defs/access_duration"
-            },
-            "enabled": {
-              "$ref": "#/$defs/access_enabled"
-            },
-            "id": {
-              "type": "string"
-            },
-            "name": {
-              "$ref": "#/$defs/access_name-2"
-            },
-            "updated_at": {
-              "$ref": "#/$defs/access_updated_at"
-            }
-          },
-          "type": "object"
+          "$ref": "#/$defs/access_create_response"
         },
         "4XX": {
           "$ref": "#/$defs/access_api-response-common-failure"
@@ -756,13 +668,16 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "access_api-response-common-failure": access_api_response_common_failure_output,
+        "access_api-response-single": access_api_response_single_output,
         "access_client_id": access_client_id_output,
         "access_client_secret": access_client_secret_output,
+        "access_create_response": access_create_response_output,
         "access_created_at": access_created_at_output,
         "access_duration": access_duration_output,
         "access_enabled": access_enabled_output,
         "access_messages": access_messages_output,
         "access_name-2": access_name_2_output,
+        "access_tags": access_tags_output,
         "access_timestamp": access_timestamp_output,
         "access_updated_at": access_updated_at_output,
       },
@@ -788,8 +703,8 @@ export const tools: readonly Tool[] = [
           "type": "string"
         },
         "account_or_zone_id": {
-          "description": "The account ID or zone ID, as selected by account_or_zone.",
-          "type": "string"
+          "$ref": "#/$defs/access_identifier",
+          "description": "The account ID or zone ID, as selected by account_or_zone."
         },
         "body": {
           "properties": {
@@ -814,13 +729,17 @@ export const tools: readonly Tool[] = [
             "previous_client_secret_expires_at": {
               "$ref": "#/$defs/access_previous_client_secret_expires_at",
               "description": "The expiration of the previous `client_secret`. This can be modified at any point after a rotation. For example, you may extend it further into the future if you need more time to update services with the new secret; or move it into the past to immediately invalidate the previous token in case of compromise. Rotating a service token that was reported as leaked discards the previous secret entirely, so no grace period can be set."
+            },
+            "tags": {
+              "$ref": "#/$defs/access_tags",
+              "description": "Tags associated with the service token, as key-value pairs. On update, replaces all existing tags."
             }
           },
           "type": "object"
         },
         "service_token_id": {
-          "description": "UUID.",
-          "type": "string"
+          "$ref": "#/$defs/access_uuid",
+          "description": "UUID."
         }
       },
       required: [
@@ -833,13 +752,17 @@ export const tools: readonly Tool[] = [
         "access_client_secret_version": access_client_secret_version,
         "access_duration": access_duration,
         "access_enabled": access_enabled,
+        "access_identifier": access_identifier,
         "access_name-2": access_name_2,
         "access_previous_client_secret_expires_at": access_previous_client_secret_expires_at,
+        "access_tags": access_tags,
+        "access_uuid": access_uuid,
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/access_service-tokens",
+      "$ref": "#/$defs/access_single_response-2",
       $defs: {
+        "access_api-response-single": access_api_response_single_output,
         "access_client_id": access_client_id_output,
         "access_created_at": access_created_at_output,
         "access_duration": access_duration_output,
@@ -847,8 +770,11 @@ export const tools: readonly Tool[] = [
         "access_leak_report_url": access_leak_report_url_output,
         "access_leak_reported_at": access_leak_reported_at_output,
         "access_leak_reporter": access_leak_reporter_output,
+        "access_messages": access_messages_output,
         "access_name-2": access_name_2_output,
         "access_service-tokens": access_service_tokens_output,
+        "access_single_response-2": access_single_response_2_output,
+        "access_tags": access_tags_output,
         "access_timestamp": access_timestamp_output,
         "access_updated_at": access_updated_at_output,
         "access_uuid": access_uuid_output,
@@ -871,7 +797,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/access_service-tokens"
+          "$ref": "#/$defs/access_single_response-2"
         },
         "4XX": {
           "$ref": "#/$defs/access_api-response-common-failure"
@@ -879,6 +805,7 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "access_api-response-common-failure": access_api_response_common_failure_output,
+        "access_api-response-single": access_api_response_single_output,
         "access_client_id": access_client_id_output,
         "access_created_at": access_created_at_output,
         "access_duration": access_duration_output,
@@ -889,6 +816,8 @@ export const tools: readonly Tool[] = [
         "access_messages": access_messages_output,
         "access_name-2": access_name_2_output,
         "access_service-tokens": access_service_tokens_output,
+        "access_single_response-2": access_single_response_2_output,
+        "access_tags": access_tags_output,
         "access_timestamp": access_timestamp_output,
         "access_updated_at": access_updated_at_output,
         "access_uuid": access_uuid_output,

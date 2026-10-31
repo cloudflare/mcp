@@ -94,3 +94,45 @@ export const bill_subs_api_payment_method_output: JsonSchema = {
   },
   "type": "object"
 };
+
+/**
+ * The schema of `bill-subs-api_payment_method_response_collection` in
+ * responses.
+ */
+export const bill_subs_api_payment_method_response_collection_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/bill-subs-api_api-response-collection"
+    },
+    {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/bill-subs-api_payment_method"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `bill-subs-api_payment_method_response_single` in responses.
+ */
+export const bill_subs_api_payment_method_response_single_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/bill-subs-api_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/bill-subs-api_payment_method"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};

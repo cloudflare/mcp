@@ -4,6 +4,13 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
+ * The schema of `teams-devices_identifier`.
+ */
+export const teams_devices_identifier: JsonSchema = {
+  "type": "string"
+};
+
+/**
  * The schema of `teams-devices_physical_device_update_request`.
  */
 export const teams_devices_physical_device_update_request: JsonSchema = {
@@ -28,5 +35,13 @@ export const teams_devices_registration_type: JsonSchema = {
     "warp",
     "browser_extension"
   ],
+  "type": "string"
+};
+
+/**
+ * The schema of `teams-devices_uuid`.
+ */
+export const teams_devices_uuid: JsonSchema = {
+  "description": "API UUID.",
   "type": "string"
 };

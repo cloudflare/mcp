@@ -4,8 +4,10 @@
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
   workers_api_response_common_failure_output,
+  workers_api_response_common_output,
   workers_messages_output,
 } from "../../../outputs.js";
+import { workers_identifier } from "../../../schemas.js";
 import {
   workers_placement_provider_output,
   workers_placement_region_output,
@@ -24,17 +26,37 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/workers_identifier",
+          "description": "Identifier."
         }
       },
       required: [
         "account_id"
       ],
+      $defs: {
+        "workers_identifier": workers_identifier,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/workers_placement-regions-response",
+      "allOf": [
+        {
+          "$ref": "#/$defs/workers_api-response-common"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/workers_placement-regions-response"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        }
+      ],
       $defs: {
+        "workers_api-response-common": workers_api_response_common_output,
+        "workers_messages": workers_messages_output,
         "workers_placement-provider": workers_placement_provider_output,
         "workers_placement-region": workers_placement_region_output,
         "workers_placement-regions-response": workers_placement_regions_response_output,
@@ -62,13 +84,29 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/workers_placement-regions-response"
+          "allOf": [
+            {
+              "$ref": "#/$defs/workers_api-response-common"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/workers_placement-regions-response"
+                }
+              },
+              "required": [
+                "result"
+              ],
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/workers_api-response-common-failure"
         }
       },
       $defs: {
+        "workers_api-response-common": workers_api_response_common_output,
         "workers_api-response-common-failure": workers_api_response_common_failure_output,
         "workers_messages": workers_messages_output,
         "workers_placement-provider": workers_placement_provider_output,

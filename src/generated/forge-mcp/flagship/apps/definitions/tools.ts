@@ -18,7 +18,6 @@ import {
 } from "../outputs.js";
 import {
   flagship_EvaluationRule_output,
-  flagship_EvaluationRule_rollout_output,
   flagship_FlagDefinitions_output,
 } from "./outputs.js";
 
@@ -61,7 +60,6 @@ export const tools: readonly Tool[] = [
         "flagship_Condition3": flagship_Condition3_output,
         "flagship_Condition4": flagship_Condition4_output,
         "flagship_EvaluationRule": flagship_EvaluationRule_output,
-        "flagship_EvaluationRule_rollout": flagship_EvaluationRule_rollout_output,
         "flagship_FlagDefinitions": flagship_FlagDefinitions_output,
         "flagship_JsonValue": flagship_JsonValue_output,
         "flagship_LogicalCondition": flagship_LogicalCondition_output,
@@ -88,12 +86,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "com.cloudflare.api.account.flagship.app.read"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.api.account.flagship.app.read": {
-            "name": "com_cloudflare_api_account_flagship_app_read"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": true,
@@ -207,7 +200,6 @@ export const tools: readonly Tool[] = [
         "flagship_Condition3": flagship_Condition3_output,
         "flagship_Condition4": flagship_Condition4_output,
         "flagship_EvaluationRule": flagship_EvaluationRule_output,
-        "flagship_EvaluationRule_rollout": flagship_EvaluationRule_rollout_output,
         "flagship_FlagDefinitions": flagship_FlagDefinitions_output,
         "flagship_JsonValue": flagship_JsonValue_output,
         "flagship_LogicalCondition": flagship_LogicalCondition_output,

@@ -5,23 +5,21 @@ import { type Tool, pathParam } from "../_/tool.js";
 import {
   organizations_api_OrganizationFlags_output,
   organizations_api_OrganizationID_output,
-  organizations_api_Organization_meta_output,
   organizations_api_Organization_output,
-  organizations_api_Organization_parent_output,
   organizations_api_Profile_output,
   organizations_api_V4ErrorResponse_output,
   organizations_api_V4Message_output,
 } from "../outputs.js";
-import {
-  organizations_api_Organization,
-  organizations_api_OrganizationID,
-  organizations_api_Organization_parent,
-  organizations_api_Profile,
-} from "../schemas.js";
+import { organizations_api_OrganizationID } from "../schemas.js";
 import {
   organizations_api_DeleteOrganizationResult_output,
   organizations_api_PageTokenResultInfo_output,
 } from "./outputs.js";
+import {
+  organizations_api_CreateOrganizationProfileRequest,
+  organizations_api_CreateOrganizationRequest,
+  organizations_api_ModifyOrganizationRequest,
+} from "./schemas.js";
 
 /**
  * The tools of `organization`.
@@ -30,33 +28,61 @@ export const tools: readonly Tool[] = [
   {
     name: "organization_create",
     title: "Create organization",
-    description: "Create a new organization for a user. Sub-organization creation availability depends on\nthe organization's capabilities.",
+    description: "Create a new organization for a user. Sub-organization creation availability depends on\nthe organization's capabilities. The optional `profile` object accepts partial profile\ndetails; its individual fields are not required. Organization names are limited to 65\nUTF-8 bytes. Each profile field is limited to 1,000 UTF-8 bytes, and a non-empty business\nemail must be valid. At least one of business name, address, phone, or email must be\nnon-empty to persist a profile.",
     inputSchema: {
       type: "object",
       properties: {
         "body": {
-          "$ref": "#/$defs/organizations-api_Organization"
+          "$ref": "#/$defs/organizations-api_CreateOrganizationRequest"
         }
       },
       required: [
         "body"
       ],
       $defs: {
-        "organizations-api_Organization": organizations_api_Organization,
+        "organizations-api_CreateOrganizationProfileRequest": organizations_api_CreateOrganizationProfileRequest,
+        "organizations-api_CreateOrganizationRequest": organizations_api_CreateOrganizationRequest,
         "organizations-api_OrganizationID": organizations_api_OrganizationID,
-        "organizations-api_Organization_parent": organizations_api_Organization_parent,
-        "organizations-api_Profile": organizations_api_Profile,
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/organizations-api_Organization",
+      "properties": {
+        "errors": {
+          "items": {
+            "type": "object"
+          },
+          "maxItems": 0,
+          "type": "array"
+        },
+        "messages": {
+          "items": {
+            "$ref": "#/$defs/organizations-api_V4Message"
+          },
+          "type": "array"
+        },
+        "result": {
+          "$ref": "#/$defs/organizations-api_Organization"
+        },
+        "success": {
+          "enum": [
+            true
+          ],
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "errors",
+        "messages",
+        "result",
+        "success"
+      ],
+      "type": "object",
       $defs: {
         "organizations-api_Organization": organizations_api_Organization_output,
         "organizations-api_OrganizationFlags": organizations_api_OrganizationFlags_output,
         "organizations-api_OrganizationID": organizations_api_OrganizationID_output,
-        "organizations-api_Organization_meta": organizations_api_Organization_meta_output,
-        "organizations-api_Organization_parent": organizations_api_Organization_parent_output,
         "organizations-api_Profile": organizations_api_Profile_output,
+        "organizations-api_V4Message": organizations_api_V4Message_output,
       },
     },
     annotations: {
@@ -76,9 +102,42 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/organizations-api_Organization"
+          "properties": {
+            "errors": {
+              "items": {
+                "type": "object"
+              },
+              "maxItems": 0,
+              "type": "array"
+            },
+            "messages": {
+              "items": {
+                "$ref": "#/$defs/organizations-api_V4Message"
+              },
+              "type": "array"
+            },
+            "result": {
+              "$ref": "#/$defs/organizations-api_Organization"
+            },
+            "success": {
+              "enum": [
+                true
+              ],
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "messages",
+            "result",
+            "success"
+          ],
+          "type": "object"
         },
         "4XX": {
+          "$ref": "#/$defs/organizations-api_V4ErrorResponse"
+        },
+        "5XX": {
           "$ref": "#/$defs/organizations-api_V4ErrorResponse"
         }
       },
@@ -86,8 +145,6 @@ export const tools: readonly Tool[] = [
         "organizations-api_Organization": organizations_api_Organization_output,
         "organizations-api_OrganizationFlags": organizations_api_OrganizationFlags_output,
         "organizations-api_OrganizationID": organizations_api_OrganizationID_output,
-        "organizations-api_Organization_meta": organizations_api_Organization_meta_output,
-        "organizations-api_Organization_parent": organizations_api_Organization_parent_output,
         "organizations-api_Profile": organizations_api_Profile_output,
         "organizations-api_V4ErrorResponse": organizations_api_V4ErrorResponse_output,
         "organizations-api_V4Message": organizations_api_V4Message_output,
@@ -101,23 +158,57 @@ export const tools: readonly Tool[] = [
   {
     name: "organization_delete",
     title: "Delete organization",
-    description: "Delete an organization. The organization MUST be empty before deleting.\nIt must not contain any sub-organizations, accounts, members or users. Sub-organization\ndeletion availability depends on the organization's capabilities.\n\n**Access Control:** Restricted to enterprise organizations.\n\nConfirm with the user before calling this tool. Delete this empty organization? This action cannot be undone.",
+    description: "Delete an organization. It must not contain active sub-organizations or accounts. A root\norganization must also have no active managed users. Sub-organization deletion availability\ndepends on the organization's capabilities.\n\n**Access Control:** Root deletion is restricted to enterprise organizations.\n\nConfirm with the user before calling this tool. Delete this empty organization? This action cannot be undone.",
     inputSchema: {
       type: "object",
       properties: {
         "organization_id": {
-          "description": "The ID of the organization to delete.",
-          "type": "string"
+          "$ref": "#/$defs/organizations-api_OrganizationID",
+          "description": "The ID of the organization to delete."
         }
       },
       required: [
         "organization_id"
       ],
+      $defs: {
+        "organizations-api_OrganizationID": organizations_api_OrganizationID,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/organizations-api_DeleteOrganizationResult",
+      "properties": {
+        "errors": {
+          "items": {
+            "type": "object"
+          },
+          "maxItems": 0,
+          "type": "array"
+        },
+        "messages": {
+          "items": {
+            "$ref": "#/$defs/organizations-api_V4Message"
+          },
+          "type": "array"
+        },
+        "result": {
+          "$ref": "#/$defs/organizations-api_DeleteOrganizationResult"
+        },
+        "success": {
+          "enum": [
+            true
+          ],
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "errors",
+        "messages",
+        "result",
+        "success"
+      ],
+      "type": "object",
       $defs: {
         "organizations-api_DeleteOrganizationResult": organizations_api_DeleteOrganizationResult_output,
+        "organizations-api_V4Message": organizations_api_V4Message_output,
       },
     },
     annotations: {
@@ -132,9 +223,42 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/organizations-api_DeleteOrganizationResult"
+          "properties": {
+            "errors": {
+              "items": {
+                "type": "object"
+              },
+              "maxItems": 0,
+              "type": "array"
+            },
+            "messages": {
+              "items": {
+                "$ref": "#/$defs/organizations-api_V4Message"
+              },
+              "type": "array"
+            },
+            "result": {
+              "$ref": "#/$defs/organizations-api_DeleteOrganizationResult"
+            },
+            "success": {
+              "enum": [
+                true
+              ],
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "messages",
+            "result",
+            "success"
+          ],
+          "type": "object"
         },
         "4XX": {
+          "$ref": "#/$defs/organizations-api_V4ErrorResponse"
+        },
+        "5XX": {
           "$ref": "#/$defs/organizations-api_V4ErrorResponse"
         }
       },
@@ -156,23 +280,55 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "organization_id": {
-          "description": "The ID of the organization to retrieve.",
-          "type": "string"
+          "$ref": "#/$defs/organizations-api_OrganizationID",
+          "description": "The ID of the organization to retrieve."
         }
       },
       required: [
         "organization_id"
       ],
+      $defs: {
+        "organizations-api_OrganizationID": organizations_api_OrganizationID,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/organizations-api_Organization",
+      "properties": {
+        "errors": {
+          "items": {
+            "type": "object"
+          },
+          "maxItems": 0,
+          "type": "array"
+        },
+        "messages": {
+          "items": {
+            "$ref": "#/$defs/organizations-api_V4Message"
+          },
+          "type": "array"
+        },
+        "result": {
+          "$ref": "#/$defs/organizations-api_Organization"
+        },
+        "success": {
+          "enum": [
+            true
+          ],
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "errors",
+        "messages",
+        "result",
+        "success"
+      ],
+      "type": "object",
       $defs: {
         "organizations-api_Organization": organizations_api_Organization_output,
         "organizations-api_OrganizationFlags": organizations_api_OrganizationFlags_output,
         "organizations-api_OrganizationID": organizations_api_OrganizationID_output,
-        "organizations-api_Organization_meta": organizations_api_Organization_meta_output,
-        "organizations-api_Organization_parent": organizations_api_Organization_parent_output,
         "organizations-api_Profile": organizations_api_Profile_output,
+        "organizations-api_V4Message": organizations_api_V4Message_output,
       },
     },
     annotations: {
@@ -187,9 +343,42 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/organizations-api_Organization"
+          "properties": {
+            "errors": {
+              "items": {
+                "type": "object"
+              },
+              "maxItems": 0,
+              "type": "array"
+            },
+            "messages": {
+              "items": {
+                "$ref": "#/$defs/organizations-api_V4Message"
+              },
+              "type": "array"
+            },
+            "result": {
+              "$ref": "#/$defs/organizations-api_Organization"
+            },
+            "success": {
+              "enum": [
+                true
+              ],
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "messages",
+            "result",
+            "success"
+          ],
+          "type": "object"
         },
         "4XX": {
+          "$ref": "#/$defs/organizations-api_V4ErrorResponse"
+        },
+        "5XX": {
           "$ref": "#/$defs/organizations-api_V4ErrorResponse"
         }
       },
@@ -197,8 +386,6 @@ export const tools: readonly Tool[] = [
         "organizations-api_Organization": organizations_api_Organization_output,
         "organizations-api_OrganizationFlags": organizations_api_OrganizationFlags_output,
         "organizations-api_OrganizationID": organizations_api_OrganizationID_output,
-        "organizations-api_Organization_meta": organizations_api_Organization_meta_output,
-        "organizations-api_Organization_parent": organizations_api_Organization_parent_output,
         "organizations-api_Profile": organizations_api_Profile_output,
         "organizations-api_V4ErrorResponse": organizations_api_V4ErrorResponse_output,
         "organizations-api_V4Message": organizations_api_V4Message_output,
@@ -211,7 +398,7 @@ export const tools: readonly Tool[] = [
   {
     name: "organization_list",
     title: "List organizations the user has access to",
-    description: "Retrieve a list of organizations a particular user has access to.",
+    description: "Retrieve a list of organizations a particular user has access to. At most one of\n`containing.account`, `containing.user`, or `containing.organization` may be provided.",
     inputSchema: {
       type: "object",
       properties: {
@@ -227,12 +414,24 @@ export const tools: readonly Tool[] = [
           "description": "Filter the list of organizations to the ones that contain this particular\nuser.\n\nIMPORTANT: Just because an organization \"contains\" a user is not a\nrepresentation of any authorization or privilege to manage any resources\ntherein. An organization \"containing\" a user simply means the user is managed by\nthat organization.",
           "type": "string"
         },
+        "direction": {
+          "description": "Sort direction for the `order_by` field. Defaults to `asc` when `order_by` is\nspecified.",
+          "enum": [
+            "asc",
+            "desc"
+          ],
+          "type": "string"
+        },
         "id": {
           "description": "Only return organizations with the specified IDs (ex. id=foo&id=bar). Send multiple elements\nby repeating the query value.",
           "items": {
             "$ref": "#/$defs/organizations-api_OrganizationID"
           },
           "type": "array"
+        },
+        "member_email": {
+          "description": "Filter organizations to those where the given user, by email, is an active member of\nthat exact organization. This does not include hierarchy-derived access.",
+          "type": "string"
         },
         "name": {
           "description": "(case-sensitive) Filter the list of organizations to where the name is equal to a\nparticular string.",
@@ -248,6 +447,13 @@ export const tools: readonly Tool[] = [
         },
         "name_starts_with": {
           "description": "(case-insensitive) Filter the list of organizations to where the name starts with a\nparticular string.",
+          "type": "string"
+        },
+        "order_by": {
+          "description": "Field to order results by. Currently supported values: `name`.\nWhen not specified, results are ordered by hierarchy.",
+          "enum": [
+            "name"
+          ],
           "type": "string"
         },
         "page_size": {
@@ -279,6 +485,19 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
+        "errors": {
+          "items": {
+            "type": "object"
+          },
+          "maxItems": 0,
+          "type": "array"
+        },
+        "messages": {
+          "items": {
+            "$ref": "#/$defs/organizations-api_V4Message"
+          },
+          "type": "array"
+        },
         "result": {
           "items": {
             "$ref": "#/$defs/organizations-api_Organization"
@@ -287,20 +506,29 @@ export const tools: readonly Tool[] = [
         },
         "result_info": {
           "$ref": "#/$defs/organizations-api_PageTokenResultInfo"
+        },
+        "success": {
+          "enum": [
+            true
+          ],
+          "type": "boolean"
         }
       },
       "required": [
-        "result"
+        "errors",
+        "messages",
+        "result",
+        "result_info",
+        "success"
       ],
       "type": "object",
       $defs: {
         "organizations-api_Organization": organizations_api_Organization_output,
         "organizations-api_OrganizationFlags": organizations_api_OrganizationFlags_output,
         "organizations-api_OrganizationID": organizations_api_OrganizationID_output,
-        "organizations-api_Organization_meta": organizations_api_Organization_meta_output,
-        "organizations-api_Organization_parent": organizations_api_Organization_parent_output,
         "organizations-api_PageTokenResultInfo": organizations_api_PageTokenResultInfo_output,
         "organizations-api_Profile": organizations_api_Profile_output,
+        "organizations-api_V4Message": organizations_api_V4Message_output,
       },
     },
     annotations: {
@@ -322,6 +550,19 @@ export const tools: readonly Tool[] = [
       schemas: {
         "200": {
           "properties": {
+            "errors": {
+              "items": {
+                "type": "object"
+              },
+              "maxItems": 0,
+              "type": "array"
+            },
+            "messages": {
+              "items": {
+                "$ref": "#/$defs/organizations-api_V4Message"
+              },
+              "type": "array"
+            },
             "result": {
               "items": {
                 "$ref": "#/$defs/organizations-api_Organization"
@@ -330,14 +571,27 @@ export const tools: readonly Tool[] = [
             },
             "result_info": {
               "$ref": "#/$defs/organizations-api_PageTokenResultInfo"
+            },
+            "success": {
+              "enum": [
+                true
+              ],
+              "type": "boolean"
             }
           },
           "required": [
-            "result"
+            "errors",
+            "messages",
+            "result",
+            "result_info",
+            "success"
           ],
           "type": "object"
         },
         "4XX": {
+          "$ref": "#/$defs/organizations-api_V4ErrorResponse"
+        },
+        "5XX": {
           "$ref": "#/$defs/organizations-api_V4ErrorResponse"
         }
       },
@@ -345,8 +599,6 @@ export const tools: readonly Tool[] = [
         "organizations-api_Organization": organizations_api_Organization_output,
         "organizations-api_OrganizationFlags": organizations_api_OrganizationFlags_output,
         "organizations-api_OrganizationID": organizations_api_OrganizationID_output,
-        "organizations-api_Organization_meta": organizations_api_Organization_meta_output,
-        "organizations-api_Organization_parent": organizations_api_Organization_parent_output,
         "organizations-api_PageTokenResultInfo": organizations_api_PageTokenResultInfo_output,
         "organizations-api_Profile": organizations_api_Profile_output,
         "organizations-api_V4ErrorResponse": organizations_api_V4ErrorResponse_output,
@@ -356,7 +608,7 @@ export const tools: readonly Tool[] = [
     request: (args) => ({
       path: `/organizations`,
       query: [
-        ["id", args["id"], false],
+        ["id", args["id"], true],
         ["name", args["name"], false],
         ["name.startsWith", args["name_starts_with"], false],
         ["name.endsWith", args["name_ends_with"], false],
@@ -365,6 +617,9 @@ export const tools: readonly Tool[] = [
         ["containing.user", args["containing_user"], false],
         ["containing.organization", args["containing_organization"], false],
         ["parent.id", args["parent_id"], false],
+        ["member.email", args["member_email"], true],
+        ["order_by", args["order_by"], false],
+        ["direction", args["direction"], false],
         ["page_token", args["page_token"], false],
         ["page_size", args["page_size"], false],
       ],
@@ -373,17 +628,17 @@ export const tools: readonly Tool[] = [
   {
     name: "organization_update",
     title: "Update organization",
-    description: "Update an organization's name.",
+    description: "Update an organization's name. Supplying `parent_id` verifies the current parent; this\nendpoint cannot move an organization. Organization names are limited to 65 UTF-8 bytes.",
     inputSchema: {
       type: "object",
       properties: {
         "body": {
-          "$ref": "#/$defs/organizations-api_Organization",
-          "description": "The new details of the organization. Only accepts updates\nto \"name\" currently."
+          "$ref": "#/$defs/organizations-api_ModifyOrganizationRequest",
+          "description": "The Organization fields to update or verify."
         },
         "organization_id": {
-          "description": "The ID of the organization to modify.",
-          "type": "string"
+          "$ref": "#/$defs/organizations-api_OrganizationID",
+          "description": "The ID of the organization to modify."
         }
       },
       required: [
@@ -391,21 +646,48 @@ export const tools: readonly Tool[] = [
         "body"
       ],
       $defs: {
-        "organizations-api_Organization": organizations_api_Organization,
+        "organizations-api_ModifyOrganizationRequest": organizations_api_ModifyOrganizationRequest,
         "organizations-api_OrganizationID": organizations_api_OrganizationID,
-        "organizations-api_Organization_parent": organizations_api_Organization_parent,
-        "organizations-api_Profile": organizations_api_Profile,
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/organizations-api_Organization",
+      "properties": {
+        "errors": {
+          "items": {
+            "type": "object"
+          },
+          "maxItems": 0,
+          "type": "array"
+        },
+        "messages": {
+          "items": {
+            "$ref": "#/$defs/organizations-api_V4Message"
+          },
+          "type": "array"
+        },
+        "result": {
+          "$ref": "#/$defs/organizations-api_Organization"
+        },
+        "success": {
+          "enum": [
+            true
+          ],
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "errors",
+        "messages",
+        "result",
+        "success"
+      ],
+      "type": "object",
       $defs: {
         "organizations-api_Organization": organizations_api_Organization_output,
         "organizations-api_OrganizationFlags": organizations_api_OrganizationFlags_output,
         "organizations-api_OrganizationID": organizations_api_OrganizationID_output,
-        "organizations-api_Organization_meta": organizations_api_Organization_meta_output,
-        "organizations-api_Organization_parent": organizations_api_Organization_parent_output,
         "organizations-api_Profile": organizations_api_Profile_output,
+        "organizations-api_V4Message": organizations_api_V4Message_output,
       },
     },
     annotations: {
@@ -420,9 +702,42 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/organizations-api_Organization"
+          "properties": {
+            "errors": {
+              "items": {
+                "type": "object"
+              },
+              "maxItems": 0,
+              "type": "array"
+            },
+            "messages": {
+              "items": {
+                "$ref": "#/$defs/organizations-api_V4Message"
+              },
+              "type": "array"
+            },
+            "result": {
+              "$ref": "#/$defs/organizations-api_Organization"
+            },
+            "success": {
+              "enum": [
+                true
+              ],
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "messages",
+            "result",
+            "success"
+          ],
+          "type": "object"
         },
         "4XX": {
+          "$ref": "#/$defs/organizations-api_V4ErrorResponse"
+        },
+        "5XX": {
           "$ref": "#/$defs/organizations-api_V4ErrorResponse"
         }
       },
@@ -430,8 +745,6 @@ export const tools: readonly Tool[] = [
         "organizations-api_Organization": organizations_api_Organization_output,
         "organizations-api_OrganizationFlags": organizations_api_OrganizationFlags_output,
         "organizations-api_OrganizationID": organizations_api_OrganizationID_output,
-        "organizations-api_Organization_meta": organizations_api_Organization_meta_output,
-        "organizations-api_Organization_parent": organizations_api_Organization_parent_output,
         "organizations-api_Profile": organizations_api_Profile_output,
         "organizations-api_V4ErrorResponse": organizations_api_V4ErrorResponse_output,
         "organizations-api_V4Message": organizations_api_V4Message_output,

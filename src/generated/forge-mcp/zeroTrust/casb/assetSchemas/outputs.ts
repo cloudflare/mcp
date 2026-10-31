@@ -23,6 +23,47 @@ export const posture_api_AssetSchemaDetail_output: JsonSchema = {
 };
 
 /**
+ * The schema of `posture-api_AssetSchemaListResponse` in responses.
+ */
+export const posture_api_AssetSchemaListResponse_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/posture-api_api-response-common"
+    },
+    {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/posture-api_AssetSchemaVendorGroup"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `posture-api_AssetSchemaResponse` in responses.
+ */
+export const posture_api_AssetSchemaResponse_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/posture-api_api-response-common"
+    },
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/posture-api_AssetSchemaDetail"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
  * The schema of `posture-api_AssetSchemaSummary` in responses.
  */
 export const posture_api_AssetSchemaSummary_output: JsonSchema = {

@@ -72,3 +72,44 @@ export const access_require_output: JsonSchema = {
   },
   "type": "array"
 };
+
+/**
+ * The schema of `access_response_collection-2` in responses.
+ */
+export const access_response_collection_2_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/access_api-response-collection"
+    },
+    {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/access_groups-2"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `access_single_response-4` in responses.
+ */
+export const access_single_response_4_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/access_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/access_groups-2"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};

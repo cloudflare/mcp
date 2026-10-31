@@ -7,67 +7,48 @@ import type { JsonSchema } from "../../../_/tool.js";
  * The schema of `images_sourcingkit_connectivity_check_response` in responses.
  */
 export const images_sourcingkit_connectivity_check_response_output: JsonSchema = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/images_messages"
+  "allOf": [
+    {
+      "$ref": "#/$defs/images_api-response-single"
     },
-    "messages": {
-      "$ref": "#/$defs/images_messages"
-    },
-    "result": {
-      "$ref": "#/$defs/images_sourcingkit_connectivity_check_response_result"
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
-    }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "result",
-    "success"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `images_sourcingkit_connectivity_check_response_result` in
- * responses.
- */
-export const images_sourcingkit_connectivity_check_response_result_output: JsonSchema = {
-  "properties": {
-    "code": {
-      "oneOf": [
-        {
-          "type": "string"
-        },
-        {
-          "type": "null"
+    {
+      "properties": {
+        "result": {
+          "properties": {
+            "code": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "connectivityStatus": {
+              "enum": [
+                "ok",
+                "error"
+              ],
+              "type": "string"
+            },
+            "reason": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            }
+          },
+          "type": "object"
         }
-      ]
-    },
-    "connectivityStatus": {
-      "enum": [
-        "ok",
-        "error"
-      ],
-      "type": "string"
-    },
-    "reason": {
-      "oneOf": [
-        {
-          "type": "string"
-        },
-        {
-          "type": "null"
-        }
-      ]
+      },
+      "type": "object"
     }
-  },
-  "type": "object"
+  ]
 };
 
 /**
@@ -114,135 +95,84 @@ export const images_sourcingkit_source_output: JsonSchema = {
  * The schema of `images_sourcingkit_source_create_response` in responses.
  */
 export const images_sourcingkit_source_create_response_output: JsonSchema = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/images_messages"
+  "allOf": [
+    {
+      "$ref": "#/$defs/images_api-response-single"
     },
-    "messages": {
-      "$ref": "#/$defs/images_messages"
-    },
-    "result": {
-      "$ref": "#/$defs/images_sourcingkit_source"
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/images_sourcingkit_source"
+        }
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "result",
-    "success"
-  ],
-  "type": "object"
+  ]
 };
 
 /**
  * The schema of `images_sourcingkit_source_list_response` in responses.
  */
 export const images_sourcingkit_source_list_response_output: JsonSchema = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/images_messages"
+  "allOf": [
+    {
+      "$ref": "#/$defs/images_api-response-common"
     },
-    "messages": {
-      "$ref": "#/$defs/images_messages"
-    },
-    "result": {
-      "$ref": "#/$defs/images_sourcingkit_source_list_response_result"
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
-    }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "result",
-    "success"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `images_sourcingkit_source_list_response_result` in responses.
- */
-export const images_sourcingkit_source_list_response_result_output: JsonSchema = {
-  "properties": {
-    "sources": {
-      "items": {
-        "$ref": "#/$defs/images_sourcingkit_source"
+    {
+      "properties": {
+        "result": {
+          "properties": {
+            "sources": {
+              "items": {
+                "$ref": "#/$defs/images_sourcingkit_source"
+              },
+              "type": "array"
+            }
+          },
+          "type": "object"
+        }
       },
-      "type": "array"
+      "type": "object"
     }
-  },
-  "type": "object"
+  ]
 };
 
 /**
  * The schema of `images_sourcingkit_source_single_response` in responses.
  */
 export const images_sourcingkit_source_single_response_output: JsonSchema = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/images_messages"
+  "allOf": [
+    {
+      "$ref": "#/$defs/images_api-response-single"
     },
-    "messages": {
-      "$ref": "#/$defs/images_messages"
-    },
-    "result": {
-      "$ref": "#/$defs/images_sourcingkit_source"
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/images_sourcingkit_source"
+        }
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "result",
-    "success"
-  ],
-  "type": "object"
+  ]
 };
 
 /**
  * The schema of `images_sourcingkit_source_update_response` in responses.
  */
 export const images_sourcingkit_source_update_response_output: JsonSchema = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/images_messages"
+  "allOf": [
+    {
+      "$ref": "#/$defs/images_api-response-single"
     },
-    "messages": {
-      "$ref": "#/$defs/images_messages"
-    },
-    "result": {
-      "$ref": "#/$defs/images_sourcingkit_source"
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/images_sourcingkit_source"
+        }
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "result",
-    "success"
-  ],
-  "type": "object"
+  ]
 };
 
 /**

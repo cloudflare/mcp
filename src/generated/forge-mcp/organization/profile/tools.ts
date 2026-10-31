@@ -7,7 +7,11 @@ import {
   organizations_api_V4ErrorResponse_output,
   organizations_api_V4Message_output,
 } from "../../outputs.js";
-import { organizations_api_ModifyOrganizationProfileRequest } from "./schemas.js";
+import {
+  organizations_api_ModifyProfileRequest,
+  organizations_api_OrganizationID,
+} from "../../schemas.js";
+import { organizations_api_ProfileResponse_output } from "./outputs.js";
 
 /**
  * The tools of `organization.profile`.
@@ -16,23 +20,28 @@ export const tools: readonly Tool[] = [
   {
     name: "organization_profile_get",
     title: "Get organization profile",
-    description: "Get an organizations profile if it exists.",
+    description: "Retrieves the business profile (name, email, phone, address, and external metadata)\nassociated with this organization's customer record. Profiles can be shared across\naccounts and organizations. Only available to members of the organization.",
     inputSchema: {
       type: "object",
       properties: {
         "organization_id": {
-          "description": "The ID of the organization to retrieve a profile for.",
-          "type": "string"
+          "$ref": "#/$defs/organizations-api_OrganizationID",
+          "description": "The ID of the organization to retrieve a profile for."
         }
       },
       required: [
         "organization_id"
       ],
+      $defs: {
+        "organizations-api_OrganizationID": organizations_api_OrganizationID,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/organizations-api_Profile",
+      "$ref": "#/$defs/organizations-api_ProfileResponse",
       $defs: {
         "organizations-api_Profile": organizations_api_Profile_output,
+        "organizations-api_ProfileResponse": organizations_api_ProfileResponse_output,
+        "organizations-api_V4Message": organizations_api_V4Message_output,
       },
     },
     annotations: {
@@ -47,14 +56,18 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/organizations-api_Profile"
+          "$ref": "#/$defs/organizations-api_ProfileResponse"
         },
         "4XX": {
+          "$ref": "#/$defs/organizations-api_V4ErrorResponse"
+        },
+        "5XX": {
           "$ref": "#/$defs/organizations-api_V4ErrorResponse"
         }
       },
       $defs: {
         "organizations-api_Profile": organizations_api_Profile_output,
+        "organizations-api_ProfileResponse": organizations_api_ProfileResponse_output,
         "organizations-api_V4ErrorResponse": organizations_api_V4ErrorResponse_output,
         "organizations-api_V4Message": organizations_api_V4Message_output,
       },
@@ -66,15 +79,15 @@ export const tools: readonly Tool[] = [
   {
     name: "organization_profile_update",
     title: "Modify organization profile.",
-    description: "Modify organization profile.",
+    description: "Partially updates the business profile (name, email, phone, address, and external metadata)\nassociated with this organization's customer record, creating the profile if it does not\nexist. Changes apply to every account and organization sharing that profile. Omitted,\nempty, or null fields are left unchanged. Each profile field is limited to 1,000 UTF-8\nbytes. Only available to members of the organization.",
     inputSchema: {
       type: "object",
       properties: {
         "body": {
-          "$ref": "#/$defs/organizations-api_ModifyOrganizationProfileRequest"
+          "$ref": "#/$defs/organizations-api_ModifyProfileRequest"
         },
         "organization_id": {
-          "type": "string"
+          "$ref": "#/$defs/organizations-api_OrganizationID"
         }
       },
       required: [
@@ -82,7 +95,8 @@ export const tools: readonly Tool[] = [
         "body"
       ],
       $defs: {
-        "organizations-api_ModifyOrganizationProfileRequest": organizations_api_ModifyOrganizationProfileRequest,
+        "organizations-api_ModifyProfileRequest": organizations_api_ModifyProfileRequest,
+        "organizations-api_OrganizationID": organizations_api_OrganizationID,
       },
     },
     annotations: {
@@ -98,6 +112,9 @@ export const tools: readonly Tool[] = [
       schemas: {
         "204": null,
         "4XX": {
+          "$ref": "#/$defs/organizations-api_V4ErrorResponse"
+        },
+        "5XX": {
           "$ref": "#/$defs/organizations-api_V4ErrorResponse"
         }
       },

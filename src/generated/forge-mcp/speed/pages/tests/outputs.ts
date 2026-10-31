@@ -4,6 +4,55 @@
 import type { JsonSchema } from "../../../_/tool.js";
 
 /**
+ * The schema of `observatory_page-test-response-collection` in responses.
+ */
+export const observatory_page_test_response_collection_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/observatory_api-response-collection"
+    },
+    {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/observatory_page_test"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    {
+      "properties": {
+        "result_info": {
+          "$ref": "#/$defs/observatory_result_info"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `observatory_page-test-response-single` in responses.
+ */
+export const observatory_page_test_response_single_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/observatory_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/observatory_page_test"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
  * The schema of `observatory_result_info` in responses.
  */
 export const observatory_result_info_output: JsonSchema = {

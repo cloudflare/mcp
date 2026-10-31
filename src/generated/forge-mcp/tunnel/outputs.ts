@@ -7,34 +7,20 @@ import type { JsonSchema } from "../_/tool.js";
  * The schema of `tunnel_cfd-tunnel-response-collection` in responses.
  */
 export const tunnel_cfd_tunnel_response_collection_output: JsonSchema = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/tunnel_messages"
+  "allOf": [
+    {
+      "$ref": "#/$defs/tunnel_api-response-collection"
     },
-    "messages": {
-      "$ref": "#/$defs/tunnel_messages"
-    },
-    "result": {
-      "items": {
-        "$ref": "#/$defs/tunnel_cfd_tunnel"
+    {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/tunnel_cfd_tunnel"
+          },
+          "type": "array"
+        }
       },
-      "type": "array"
-    },
-    "result_info": {
-      "$ref": "#/$defs/tunnel_result_info"
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
+      "type": "object"
     }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "result",
-    "success"
-  ],
-  "type": "object"
+  ]
 };

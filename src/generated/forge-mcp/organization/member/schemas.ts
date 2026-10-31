@@ -23,34 +23,20 @@ export const organizations_api_CreateMemberRequest: JsonSchema = {
  */
 export const organizations_api_CreateSingleMember: JsonSchema = {
   "properties": {
-    "status": {
-      "enum": [
-        "active",
-        "canceled"
-      ],
-      "type": "string"
-    },
     "user": {
-      "$ref": "#/$defs/organizations-api_CreateSingleMember_user"
+      "properties": {
+        "email": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "email"
+      ],
+      "type": "object"
     }
   },
   "required": [
     "user"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `organizations-api_CreateSingleMember_user`.
- */
-export const organizations_api_CreateSingleMember_user: JsonSchema = {
-  "properties": {
-    "email": {
-      "type": "string"
-    }
-  },
-  "required": [
-    "email"
   ],
   "type": "object"
 };

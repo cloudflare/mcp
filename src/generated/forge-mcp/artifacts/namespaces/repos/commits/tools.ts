@@ -40,88 +40,65 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
-        "author": {
-          "properties": {
-            "email": {
-              "type": "string"
-            },
-            "name": {
-              "type": "string"
-            }
-          },
-          "required": [
-            "email",
-            "name"
-          ],
-          "type": "object"
-        },
-        "authoredAt": {
-          "type": "integer"
-        },
-        "committedAt": {
-          "type": "integer"
-        },
-        "committer": {
-          "properties": {
-            "email": {
-              "type": "string"
-            },
-            "name": {
-              "type": "string"
-            }
-          },
-          "required": [
-            "email",
-            "name"
-          ],
-          "type": "object"
-        },
-        "hash": {
-          "type": "string"
-        },
-        "message": {
-          "type": "string"
-        },
-        "parents": {
+        "errors": {
           "items": {
-            "type": "string"
+            "properties": {
+              "code": {
+                "type": "integer"
+              },
+              "documentation_url": {
+                "type": "string"
+              },
+              "message": {
+                "type": "string"
+              },
+              "source": {
+                "properties": {
+                  "pointer": {
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              }
+            },
+            "required": [
+              "code",
+              "message"
+            ],
+            "type": "object"
           },
           "type": "array"
         },
-        "treeHash": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "author",
-        "authoredAt",
-        "committedAt",
-        "committer",
-        "hash",
-        "message",
-        "parents",
-        "treeHash"
-      ],
-      "type": "object",
-    },
-    annotations: {
-      "destructiveHint": false,
-      "idempotentHint": true,
-      "openWorldHint": true,
-      "readOnlyHint": true,
-      "title": "Read a Git commit"
-    },
-    method: "GET",
-    path: "/accounts/{account_id}/artifacts/namespaces/{namespace}/repos/{name}/commit/{hash}",
-    extensions: {
-      "x-api-token-group": [
-        "Artifacts Read"
-      ],
-      "x-stability": "beta"
-    },
-    responses: {
-      schemas: {
-        "200": {
+        "messages": {
+          "items": {
+            "properties": {
+              "code": {
+                "type": "integer"
+              },
+              "documentation_url": {
+                "type": "string"
+              },
+              "message": {
+                "type": "string"
+              },
+              "source": {
+                "properties": {
+                  "pointer": {
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              }
+            },
+            "required": [
+              "code",
+              "message"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "result": {
           "properties": {
             "author": {
               "properties": {
@@ -184,6 +161,279 @@ export const tools: readonly Tool[] = [
             "message",
             "parents",
             "treeHash"
+          ],
+          "type": "object"
+        },
+        "result_info": {
+          "anyOf": [
+            {
+              "properties": {
+                "count": {
+                  "type": "integer"
+                },
+                "cursor": {
+                  "type": "string"
+                },
+                "per_page": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "count",
+                "cursor",
+                "per_page"
+              ],
+              "type": "object"
+            },
+            {
+              "properties": {
+                "count": {
+                  "type": "integer"
+                },
+                "page": {
+                  "type": "integer"
+                },
+                "per_page": {
+                  "type": "integer"
+                },
+                "total_count": {
+                  "type": "integer"
+                },
+                "total_pages": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "count",
+                "page",
+                "per_page",
+                "total_count",
+                "total_pages"
+              ],
+              "type": "object"
+            }
+          ]
+        },
+        "success": {
+          "enum": [
+            true
+          ],
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "errors",
+        "messages",
+        "result",
+        "success"
+      ],
+      "type": "object",
+    },
+    annotations: {
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": true,
+      "readOnlyHint": true,
+      "title": "Read a Git commit"
+    },
+    method: "GET",
+    path: "/accounts/{account_id}/artifacts/namespaces/{namespace}/repos/{name}/commit/{hash}",
+    extensions: {
+      "x-api-token-group": [
+        "Artifacts Read"
+      ],
+      "x-stability": "beta"
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "code": {
+                    "type": "integer"
+                  },
+                  "documentation_url": {
+                    "type": "string"
+                  },
+                  "message": {
+                    "type": "string"
+                  },
+                  "source": {
+                    "properties": {
+                      "pointer": {
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "messages": {
+              "items": {
+                "properties": {
+                  "code": {
+                    "type": "integer"
+                  },
+                  "documentation_url": {
+                    "type": "string"
+                  },
+                  "message": {
+                    "type": "string"
+                  },
+                  "source": {
+                    "properties": {
+                      "pointer": {
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result": {
+              "properties": {
+                "author": {
+                  "properties": {
+                    "email": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "email",
+                    "name"
+                  ],
+                  "type": "object"
+                },
+                "authoredAt": {
+                  "type": "integer"
+                },
+                "committedAt": {
+                  "type": "integer"
+                },
+                "committer": {
+                  "properties": {
+                    "email": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "email",
+                    "name"
+                  ],
+                  "type": "object"
+                },
+                "hash": {
+                  "type": "string"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "parents": {
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                "treeHash": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "author",
+                "authoredAt",
+                "committedAt",
+                "committer",
+                "hash",
+                "message",
+                "parents",
+                "treeHash"
+              ],
+              "type": "object"
+            },
+            "result_info": {
+              "anyOf": [
+                {
+                  "properties": {
+                    "count": {
+                      "type": "integer"
+                    },
+                    "cursor": {
+                      "type": "string"
+                    },
+                    "per_page": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "count",
+                    "cursor",
+                    "per_page"
+                  ],
+                  "type": "object"
+                },
+                {
+                  "properties": {
+                    "count": {
+                      "type": "integer"
+                    },
+                    "page": {
+                      "type": "integer"
+                    },
+                    "per_page": {
+                      "type": "integer"
+                    },
+                    "total_count": {
+                      "type": "integer"
+                    },
+                    "total_pages": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "count",
+                    "page",
+                    "per_page",
+                    "total_count",
+                    "total_pages"
+                  ],
+                  "type": "object"
+                }
+              ]
+            },
+            "success": {
+              "enum": [
+                true
+              ],
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "messages",
+            "result",
+            "success"
           ],
           "type": "object"
         },

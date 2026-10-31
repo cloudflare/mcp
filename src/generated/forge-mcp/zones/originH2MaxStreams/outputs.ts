@@ -7,32 +7,45 @@ import type { JsonSchema } from "../../_/tool.js";
  * The schema of `cache-settings_origin_h2_max_streams` in responses.
  */
 export const cache_settings_origin_h2_max_streams_output: JsonSchema = {
-  "properties": {
-    "id": {
-      "enum": [
-        "origin_h2_max_streams"
-      ],
-      "type": "string"
+  "allOf": [
+    {
+      "$ref": "#/$defs/cache-settings_base"
     },
-    "modified_on": {
-      "oneOf": [
-        {
-          "format": "date-time",
+    {
+      "properties": {
+        "id": {
+          "enum": [
+            "origin_h2_max_streams"
+          ],
           "type": "string"
         },
-        {
-          "type": "null"
+        "value": {
+          "$ref": "#/$defs/cache-settings_origin_h2_max_streams_value"
         }
-      ]
-    },
-    "value": {
-      "$ref": "#/$defs/cache-settings_origin_h2_max_streams_value"
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "id"
-  ],
-  "type": "object"
+  ]
+};
+
+/**
+ * The schema of `cache-settings_origin_h2_max_streams_response_value` in
+ * responses.
+ */
+export const cache_settings_origin_h2_max_streams_response_value_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/cache-settings_api-response-common"
+    },
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/cache-settings_origin_h2_max_streams"
+        }
+      },
+      "type": "object"
+    }
+  ]
 };
 
 /**

@@ -7,18 +7,97 @@ import type { JsonSchema } from "../../../_/tool.js";
  * The schema of `workers_PreviewDeployment` in responses.
  */
 export const workers_PreviewDeployment_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/workers_PreviewDeploymentRequest"
+    },
+    {
+      "properties": {
+        "author_email": {
+          "type": "string"
+        },
+        "author_id": {
+          "type": "string"
+        },
+        "created_on": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "exports_reconciliation": {
+          "$ref": "#/$defs/workers_exports_reconciliation_result"
+        },
+        "id": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "migration_tag": {
+          "type": "string"
+        },
+        "number": {
+          "type": "integer"
+        },
+        "source": {
+          "type": "string"
+        },
+        "startup_time_ms": {
+          "type": "integer"
+        },
+        "urls": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "author_email",
+        "author_id",
+        "created_on",
+        "id",
+        "number",
+        "urls"
+      ],
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `workers_PreviewDeploymentConfig` in responses.
+ */
+export const workers_PreviewDeploymentConfig_output: JsonSchema = {
   "properties": {
     "annotations": {
-      "$ref": "#/$defs/workers_PreviewDeploymentConfig_annotations"
+      "properties": {
+        "workers/commit_sha": {
+          "type": "string"
+        },
+        "workers/message": {
+          "type": "string"
+        },
+        "workers/pull_request_number": {
+          "type": "string"
+        },
+        "workers/pull_request_title": {
+          "type": "string"
+        },
+        "workers/pull_request_url": {
+          "type": "string"
+        },
+        "workers/repository_url": {
+          "type": "string"
+        },
+        "workers/tag": {
+          "type": "string"
+        },
+        "workers/triggered_by": {
+          "type": "string"
+        }
+      },
+      "type": "object"
     },
     "assets": {
       "$ref": "#/$defs/workers_assets"
-    },
-    "author_email": {
-      "type": "string"
-    },
-    "author_id": {
-      "type": "string"
     },
     "bindings": {
       "$ref": "#/$defs/workers_bindings"
@@ -35,58 +114,38 @@ export const workers_PreviewDeployment_output: JsonSchema = {
     "containers": {
       "$ref": "#/$defs/workers_containers"
     },
-    "created_on": {
-      "format": "date-time",
-      "type": "string"
-    },
     "env": {
       "$ref": "#/$defs/workers_env"
     },
     "exports": {
       "$ref": "#/$defs/workers_exports_config_map"
     },
-    "exports_reconciliation": {
-      "$ref": "#/$defs/workers_exports_reconciliation_result"
-    },
-    "id": {
-      "format": "uuid",
-      "type": "string"
-    },
     "limits": {
-      "$ref": "#/$defs/workers_PreviewDeploymentConfig_limits"
+      "properties": {
+        "cpu_ms": {
+          "type": "integer"
+        },
+        "subrequests": {
+          "type": "integer"
+        }
+      },
+      "type": "object"
     },
     "main_module": {
       "type": "string"
     },
-    "migration_tag": {
-      "type": "string"
-    },
     "migrations": {
-      "$ref": "#/$defs/workers_PreviewDeploymentConfig_migrations"
-    },
-    "modules": {
-      "items": {
-        "$ref": "#/$defs/workers_PreviewDeploymentRequest_modulesItem"
-      },
-      "type": "array"
-    },
-    "number": {
-      "type": "integer"
+      "oneOf": [
+        {
+          "$ref": "#/$defs/workers_single_step_migrations"
+        },
+        {
+          "$ref": "#/$defs/workers_multiple_step_migrations"
+        }
+      ]
     },
     "placement": {
       "$ref": "#/$defs/workers_placement_info_no_status"
-    },
-    "source": {
-      "type": "string"
-    },
-    "startup_time_ms": {
-      "type": "integer"
-    },
-    "urls": {
-      "items": {
-        "type": "string"
-      },
-      "type": "array"
     },
     "usage_model": {
       "enum": [
@@ -97,101 +156,46 @@ export const workers_PreviewDeployment_output: JsonSchema = {
       "type": "string"
     }
   },
-  "required": [
-    "author_email",
-    "author_id",
-    "created_on",
-    "id",
-    "number",
-    "urls"
-  ],
   "type": "object"
 };
 
 /**
- * The schema of `workers_PreviewDeploymentConfig_annotations` in responses.
+ * The schema of `workers_PreviewDeploymentRequest` in responses.
  */
-export const workers_PreviewDeploymentConfig_annotations_output: JsonSchema = {
-  "properties": {
-    "workers/commit_sha": {
-      "type": "string"
-    },
-    "workers/message": {
-      "type": "string"
-    },
-    "workers/pull_request_number": {
-      "type": "string"
-    },
-    "workers/pull_request_title": {
-      "type": "string"
-    },
-    "workers/pull_request_url": {
-      "type": "string"
-    },
-    "workers/repository_url": {
-      "type": "string"
-    },
-    "workers/tag": {
-      "type": "string"
-    },
-    "workers/triggered_by": {
-      "type": "string"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `workers_PreviewDeploymentConfig_limits` in responses.
- */
-export const workers_PreviewDeploymentConfig_limits_output: JsonSchema = {
-  "properties": {
-    "cpu_ms": {
-      "type": "integer"
-    },
-    "subrequests": {
-      "type": "integer"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `workers_PreviewDeploymentConfig_migrations` in responses.
- */
-export const workers_PreviewDeploymentConfig_migrations_output: JsonSchema = {
-  "oneOf": [
+export const workers_PreviewDeploymentRequest_output: JsonSchema = {
+  "allOf": [
     {
-      "$ref": "#/$defs/workers_single_step_migrations"
+      "$ref": "#/$defs/workers_PreviewDeploymentConfig"
     },
     {
-      "$ref": "#/$defs/workers_multiple_step_migrations"
+      "properties": {
+        "modules": {
+          "items": {
+            "properties": {
+              "content_base64": {
+                "contentEncoding": "base64",
+                "type": "string"
+              },
+              "content_type": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "content_base64",
+              "content_type",
+              "name"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
     }
   ]
-};
-
-/**
- * The schema of `workers_PreviewDeploymentRequest_modulesItem` in responses.
- */
-export const workers_PreviewDeploymentRequest_modulesItem_output: JsonSchema = {
-  "properties": {
-    "content_base64": {
-      "contentEncoding": "base64",
-      "type": "string"
-    },
-    "content_type": {
-      "type": "string"
-    },
-    "name": {
-      "type": "string"
-    }
-  },
-  "required": [
-    "content_base64",
-    "content_type",
-    "name"
-  ],
-  "type": "object"
 };
 
 /**
@@ -200,67 +204,53 @@ export const workers_PreviewDeploymentRequest_modulesItem_output: JsonSchema = {
 export const workers_assets_output: JsonSchema = {
   "properties": {
     "config": {
-      "$ref": "#/$defs/workers_assets_config"
+      "properties": {
+        "base_path": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "html_handling": {
+          "enum": [
+            "auto-trailing-slash",
+            "force-trailing-slash",
+            "drop-trailing-slash",
+            "none"
+          ],
+          "type": "string"
+        },
+        "not_found_handling": {
+          "enum": [
+            "none",
+            "404-page",
+            "single-page-application"
+          ],
+          "type": "string"
+        },
+        "run_worker_first": {
+          "oneOf": [
+            {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            {
+              "type": "boolean"
+            }
+          ]
+        }
+      },
+      "type": "object"
     },
     "jwt": {
       "type": "string"
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `workers_assets_config` in responses.
- */
-export const workers_assets_config_output: JsonSchema = {
-  "properties": {
-    "base_path": {
-      "oneOf": [
-        {
-          "type": "string"
-        },
-        {
-          "type": "null"
-        }
-      ]
-    },
-    "html_handling": {
-      "enum": [
-        "auto-trailing-slash",
-        "force-trailing-slash",
-        "drop-trailing-slash",
-        "none"
-      ],
-      "type": "string"
-    },
-    "not_found_handling": {
-      "enum": [
-        "none",
-        "404-page",
-        "single-page-application"
-      ],
-      "type": "string"
-    },
-    "run_worker_first": {
-      "$ref": "#/$defs/workers_assets_config_run_worker_first"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `workers_assets_config_run_worker_first` in responses.
- */
-export const workers_assets_config_run_worker_first_output: JsonSchema = {
-  "oneOf": [
-    {
-      "items": {
-        "type": "string"
-      },
-      "type": "array"
-    },
-    {
-      "type": "boolean"
-    }
-  ]
 };

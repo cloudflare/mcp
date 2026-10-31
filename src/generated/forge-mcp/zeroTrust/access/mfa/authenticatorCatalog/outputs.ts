@@ -36,3 +36,25 @@ export const access_authenticator_device_aaguid_output: JsonSchema = {
 export const access_name_14_output: JsonSchema = {
   "type": "string"
 };
+
+/**
+ * The schema of `access_response_collection-17` in responses.
+ */
+export const access_response_collection_17_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/access_api-response-collection"
+    },
+    {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/access_authenticator_device_aaguid"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};

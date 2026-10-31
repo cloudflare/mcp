@@ -4,42 +4,6 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
- * The schema of `workers-kv_api-response-common-no-result` in responses.
- */
-export const workers_kv_api_response_common_no_result_output: JsonSchema = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/workers-kv_messages"
-    },
-    "messages": {
-      "$ref": "#/$defs/workers-kv_messages"
-    },
-    "result": {
-      "oneOf": [
-        {
-          "type": "object"
-        },
-        {
-          "type": "null"
-        }
-      ]
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
-    }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "success"
-  ],
-  "type": "object"
-};
-
-/**
  * The schema of `workers-kv_bulk-get-result` in responses.
  */
 export const workers_kv_bulk_get_result_output: JsonSchema = {

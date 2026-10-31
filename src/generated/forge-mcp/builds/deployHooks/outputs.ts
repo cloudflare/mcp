@@ -51,32 +51,25 @@ export const builds_DetailedDeployHookResponse_output: JsonSchema = {
       "$ref": "#/$defs/builds_external_script_id"
     },
     "latest_build": {
-      "$ref": "#/$defs/builds_DetailedDeployHookResponse_latest_build"
+      "oneOf": [
+        {
+          "properties": {
+            "created_on": {
+              "$ref": "#/$defs/builds_created_on"
+            }
+          },
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
     "modified_on": {
       "$ref": "#/$defs/builds_modified_on"
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `builds_DetailedDeployHookResponse_latest_build` in responses.
- */
-export const builds_DetailedDeployHookResponse_latest_build_output: JsonSchema = {
-  "oneOf": [
-    {
-      "properties": {
-        "created_on": {
-          "$ref": "#/$defs/builds_created_on"
-        }
-      },
-      "type": "object"
-    },
-    {
-      "type": "null"
-    }
-  ]
 };
 
 /**

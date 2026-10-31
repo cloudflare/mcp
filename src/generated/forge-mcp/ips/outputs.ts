@@ -4,32 +4,6 @@
 import type { JsonSchema } from "../_/tool.js";
 
 /**
- * The schema of `public-ip_api-response-common` in responses.
- */
-export const public_ip_api_response_common_output: JsonSchema = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/public-ip_messages"
-    },
-    "messages": {
-      "$ref": "#/$defs/public-ip_messages"
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
-    }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "success"
-  ],
-  "type": "object"
-};
-
-/**
  * The schema of `public-ip_api-response-common-failure` in responses.
  */
 export const public_ip_api_response_common_failure_output: JsonSchema = {
@@ -54,6 +28,32 @@ export const public_ip_api_response_common_failure_output: JsonSchema = {
     "errors",
     "messages",
     "result",
+    "success"
+  ],
+  "type": "object"
+};
+
+/**
+ * The schema of `public-ip_api-response-single` in responses.
+ */
+export const public_ip_api_response_single_output: JsonSchema = {
+  "properties": {
+    "errors": {
+      "$ref": "#/$defs/public-ip_messages"
+    },
+    "messages": {
+      "$ref": "#/$defs/public-ip_messages"
+    },
+    "success": {
+      "enum": [
+        true
+      ],
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "errors",
+    "messages",
     "success"
   ],
   "type": "object"

@@ -33,28 +33,40 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
-        "tld": {
+        "result": {
           "properties": {
-            "manager": {
-              "type": "string"
-            },
             "tld": {
-              "type": "string"
-            },
-            "type": {
-              "type": "string"
+              "properties": {
+                "manager": {
+                  "type": "string"
+                },
+                "tld": {
+                  "type": "string"
+                },
+                "type": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "manager",
+                "tld",
+                "type"
+              ],
+              "type": "object"
             }
           },
           "required": [
-            "manager",
-            "tld",
-            "type"
+            "tld"
           ],
           "type": "object"
+        },
+        "success": {
+          "type": "boolean"
         }
       },
       "required": [
-        "tld"
+        "result",
+        "success"
       ],
       "type": "object",
     },
@@ -83,28 +95,40 @@ export const tools: readonly Tool[] = [
       schemas: {
         "200": {
           "properties": {
-            "tld": {
+            "result": {
               "properties": {
-                "manager": {
-                  "type": "string"
-                },
                 "tld": {
-                  "type": "string"
-                },
-                "type": {
-                  "type": "string"
+                  "properties": {
+                    "manager": {
+                      "type": "string"
+                    },
+                    "tld": {
+                      "type": "string"
+                    },
+                    "type": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "manager",
+                    "tld",
+                    "type"
+                  ],
+                  "type": "object"
                 }
               },
               "required": [
-                "manager",
-                "tld",
-                "type"
+                "tld"
               ],
               "type": "object"
+            },
+            "success": {
+              "type": "boolean"
             }
           },
           "required": [
-            "tld"
+            "result",
+            "success"
           ],
           "type": "object"
         },
@@ -175,31 +199,43 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
-        "tlds": {
-          "items": {
-            "properties": {
-              "manager": {
-                "type": "string"
+        "result": {
+          "properties": {
+            "tlds": {
+              "items": {
+                "properties": {
+                  "manager": {
+                    "type": "string"
+                  },
+                  "tld": {
+                    "type": "string"
+                  },
+                  "type": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "manager",
+                  "tld",
+                  "type"
+                ],
+                "type": "object"
               },
-              "tld": {
-                "type": "string"
-              },
-              "type": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "manager",
-              "tld",
-              "type"
-            ],
-            "type": "object"
+              "type": "array"
+            }
           },
-          "type": "array"
+          "required": [
+            "tlds"
+          ],
+          "type": "object"
+        },
+        "success": {
+          "type": "boolean"
         }
       },
       "required": [
-        "tlds"
+        "result",
+        "success"
       ],
       "type": "object",
     },
@@ -228,31 +264,43 @@ export const tools: readonly Tool[] = [
       schemas: {
         "200": {
           "properties": {
-            "tlds": {
-              "items": {
-                "properties": {
-                  "manager": {
-                    "type": "string"
+            "result": {
+              "properties": {
+                "tlds": {
+                  "items": {
+                    "properties": {
+                      "manager": {
+                        "type": "string"
+                      },
+                      "tld": {
+                        "type": "string"
+                      },
+                      "type": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "manager",
+                      "tld",
+                      "type"
+                    ],
+                    "type": "object"
                   },
-                  "tld": {
-                    "type": "string"
-                  },
-                  "type": {
-                    "type": "string"
-                  }
-                },
-                "required": [
-                  "manager",
-                  "tld",
-                  "type"
-                ],
-                "type": "object"
+                  "type": "array"
+                }
               },
-              "type": "array"
+              "required": [
+                "tlds"
+              ],
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
             }
           },
           "required": [
-            "tlds"
+            "result",
+            "success"
           ],
           "type": "object"
         },

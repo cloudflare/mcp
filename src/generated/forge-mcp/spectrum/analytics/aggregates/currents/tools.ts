@@ -4,9 +4,12 @@
 import { type Tool, pathParam } from "../../../../_/tool.js";
 import {
   spectrum_analytics_api_response_common_failure_output,
+  spectrum_analytics_api_response_single_output,
   spectrum_analytics_identifier_output,
   spectrum_analytics_messages_output,
 } from "../../outputs.js";
+import { spectrum_analytics_identifier } from "../../schemas.js";
+import { spectrum_analytics_query_response_aggregate_output } from "./outputs.js";
 import { spectrum_analytics_app_id_param } from "./schemas.js";
 
 /**
@@ -29,8 +32,8 @@ export const tools: readonly Tool[] = [
           "type": "string"
         },
         "zone_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/spectrum-analytics_identifier",
+          "description": "Identifier."
         }
       },
       required: [
@@ -38,57 +41,16 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "spectrum-analytics_app_id_param": spectrum_analytics_app_id_param,
+        "spectrum-analytics_identifier": spectrum_analytics_identifier,
       },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "properties": {
-              "appID": {
-                "allOf": [
-                  {
-                    "type": "string"
-                  },
-                  {
-                    "$ref": "#/$defs/spectrum-analytics_identifier"
-                  }
-                ]
-              },
-              "bytesEgress": {
-                "type": "number"
-              },
-              "bytesIngress": {
-                "type": "number"
-              },
-              "connections": {
-                "type": "number"
-              },
-              "durationAvg": {
-                "type": "number"
-              }
-            },
-            "required": [
-              "appID",
-              "bytesEgress",
-              "bytesIngress",
-              "connections",
-              "durationAvg"
-            ],
-            "type": "object"
-          },
-          "type": "array"
-        },
-        "result_info": {
-          "type": "object"
-        }
-      },
-      "required": [
-        "result"
-      ],
-      "type": "object",
+      "$ref": "#/$defs/spectrum-analytics_query-response-aggregate",
       $defs: {
+        "spectrum-analytics_api-response-single": spectrum_analytics_api_response_single_output,
         "spectrum-analytics_identifier": spectrum_analytics_identifier_output,
+        "spectrum-analytics_messages": spectrum_analytics_messages_output,
+        "spectrum-analytics_query-response-aggregate": spectrum_analytics_query_response_aggregate_output,
       },
     },
     annotations: {
@@ -108,52 +70,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "items": {
-                "properties": {
-                  "appID": {
-                    "allOf": [
-                      {
-                        "type": "string"
-                      },
-                      {
-                        "$ref": "#/$defs/spectrum-analytics_identifier"
-                      }
-                    ]
-                  },
-                  "bytesEgress": {
-                    "type": "number"
-                  },
-                  "bytesIngress": {
-                    "type": "number"
-                  },
-                  "connections": {
-                    "type": "number"
-                  },
-                  "durationAvg": {
-                    "type": "number"
-                  }
-                },
-                "required": [
-                  "appID",
-                  "bytesEgress",
-                  "bytesIngress",
-                  "connections",
-                  "durationAvg"
-                ],
-                "type": "object"
-              },
-              "type": "array"
-            },
-            "result_info": {
-              "type": "object"
-            }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/spectrum-analytics_query-response-aggregate"
         },
         "4XX": {
           "$ref": "#/$defs/spectrum-analytics_api-response-common-failure"
@@ -161,8 +78,10 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "spectrum-analytics_api-response-common-failure": spectrum_analytics_api_response_common_failure_output,
+        "spectrum-analytics_api-response-single": spectrum_analytics_api_response_single_output,
         "spectrum-analytics_identifier": spectrum_analytics_identifier_output,
         "spectrum-analytics_messages": spectrum_analytics_messages_output,
+        "spectrum-analytics_query-response-aggregate": spectrum_analytics_query_response_aggregate_output,
       },
     },
     request: (args) => ({

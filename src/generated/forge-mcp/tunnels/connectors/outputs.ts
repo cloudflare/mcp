@@ -7,28 +7,17 @@ import type { JsonSchema } from "../../_/tool.js";
  * The schema of `tunnel_tunnel_client_response` in responses.
  */
 export const tunnel_tunnel_client_response_output: JsonSchema = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/tunnel_messages"
+  "allOf": [
+    {
+      "$ref": "#/$defs/tunnel_api-response-common"
     },
-    "messages": {
-      "$ref": "#/$defs/tunnel_messages"
-    },
-    "result": {
-      "$ref": "#/$defs/tunnel_tunnel_client"
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/tunnel_tunnel_client"
+        }
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "result",
-    "success"
-  ],
-  "type": "object"
+  ]
 };

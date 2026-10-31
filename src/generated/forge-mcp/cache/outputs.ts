@@ -49,7 +49,22 @@ export const cache_purge_api_response_single_id_output: JsonSchema = {
       "$ref": "#/$defs/cache-purge_messages"
     },
     "result": {
-      "$ref": "#/$defs/cache-purge_api-response-single-id_result"
+      "oneOf": [
+        {
+          "properties": {
+            "id": {
+              "$ref": "#/$defs/cache-purge_identifier"
+            }
+          },
+          "required": [
+            "id"
+          ],
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
     "success": {
       "type": "boolean"
@@ -61,28 +76,6 @@ export const cache_purge_api_response_single_id_output: JsonSchema = {
     "success"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `cache-purge_api-response-single-id_result` in responses.
- */
-export const cache_purge_api_response_single_id_result_output: JsonSchema = {
-  "oneOf": [
-    {
-      "properties": {
-        "id": {
-          "$ref": "#/$defs/cache-purge_identifier"
-        }
-      },
-      "required": [
-        "id"
-      ],
-      "type": "object"
-    },
-    {
-      "type": "null"
-    }
-  ]
 };
 
 /**

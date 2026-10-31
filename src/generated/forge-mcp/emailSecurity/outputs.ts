@@ -27,7 +27,15 @@ export const email_security_ActionLogEntry_output: JsonSchema = {
       "type": "string"
     },
     "properties": {
-      "$ref": "#/$defs/email-security_ActionLogEntry_properties"
+      "properties": {
+        "folder": {
+          "type": "string"
+        },
+        "requested_by": {
+          "type": "string"
+        }
+      },
+      "type": "object"
     },
     "status": {
       "oneOf": [
@@ -44,21 +52,6 @@ export const email_security_ActionLogEntry_output: JsonSchema = {
     "completed_at",
     "operation"
   ],
-  "type": "object"
-};
-
-/**
- * The schema of `email-security_ActionLogEntry_properties` in responses.
- */
-export const email_security_ActionLogEntry_properties_output: JsonSchema = {
-  "properties": {
-    "folder": {
-      "type": "string"
-    },
-    "requested_by": {
-      "type": "string"
-    }
-  },
   "type": "object"
 };
 
@@ -295,7 +288,99 @@ export const email_security_MessageDetails_output: JsonSchema = {
       "oneOf": [
         {
           "items": {
-            "$ref": "#/$defs/email-security_MessageDetails_findingsItem"
+            "properties": {
+              "attachment": {
+                "oneOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "detail": {
+                "oneOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "detection": {
+                "oneOf": [
+                  {
+                    "$ref": "#/$defs/email-security_DispositionLabel"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "field": {
+                "oneOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "name": {
+                "oneOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "portion": {
+                "oneOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "reason": {
+                "oneOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "score": {
+                "oneOf": [
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "value": {
+                "oneOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              }
+            },
+            "type": "object"
           },
           "type": "array"
         },
@@ -386,7 +471,79 @@ export const email_security_MessageDetails_output: JsonSchema = {
       ]
     },
     "properties": {
-      "$ref": "#/$defs/email-security_MessageDetails_properties"
+      "properties": {
+        "allowlisted_pattern": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "allowlisted_pattern_type": {
+          "oneOf": [
+            {
+              "enum": [
+                "quarantine_release",
+                "acceptable_sender",
+                "allowed_sender",
+                "allowed_recipient",
+                "domain_similarity",
+                "domain_recency",
+                "managed_acceptable_sender",
+                "outbound_ndr"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "blocklisted_message": {
+          "oneOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "blocklisted_pattern": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "whitelisted_pattern_type": {
+          "oneOf": [
+            {
+              "enum": [
+                "quarantine_release",
+                "acceptable_sender",
+                "allowed_sender",
+                "allowed_recipient",
+                "domain_similarity",
+                "domain_recency",
+                "managed_acceptable_sender",
+                "outbound_ndr"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "type": "object"
     },
     "replyto": {
       "oneOf": [
@@ -503,7 +660,14 @@ export const email_security_MessageDetails_output: JsonSchema = {
       "type": "string"
     },
     "validation": {
-      "$ref": "#/$defs/email-security_MessageDetails_validation"
+      "oneOf": [
+        {
+          "$ref": "#/$defs/email-security_Validation"
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
     "x_originating_ip": {
       "oneOf": [
@@ -528,198 +692,6 @@ export const email_security_MessageDetails_output: JsonSchema = {
     "ts"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `email-security_MessageDetails_findingsItem` in responses.
- */
-export const email_security_MessageDetails_findingsItem_output: JsonSchema = {
-  "properties": {
-    "attachment": {
-      "oneOf": [
-        {
-          "type": "string"
-        },
-        {
-          "type": "null"
-        }
-      ]
-    },
-    "detail": {
-      "oneOf": [
-        {
-          "type": "string"
-        },
-        {
-          "type": "null"
-        }
-      ]
-    },
-    "detection": {
-      "oneOf": [
-        {
-          "$ref": "#/$defs/email-security_DispositionLabel"
-        },
-        {
-          "type": "null"
-        }
-      ]
-    },
-    "field": {
-      "oneOf": [
-        {
-          "type": "string"
-        },
-        {
-          "type": "null"
-        }
-      ]
-    },
-    "name": {
-      "oneOf": [
-        {
-          "type": "string"
-        },
-        {
-          "type": "null"
-        }
-      ]
-    },
-    "portion": {
-      "oneOf": [
-        {
-          "type": "string"
-        },
-        {
-          "type": "null"
-        }
-      ]
-    },
-    "reason": {
-      "oneOf": [
-        {
-          "type": "string"
-        },
-        {
-          "type": "null"
-        }
-      ]
-    },
-    "score": {
-      "oneOf": [
-        {
-          "type": "number"
-        },
-        {
-          "type": "null"
-        }
-      ]
-    },
-    "value": {
-      "oneOf": [
-        {
-          "type": "string"
-        },
-        {
-          "type": "null"
-        }
-      ]
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `email-security_MessageDetails_properties` in responses.
- */
-export const email_security_MessageDetails_properties_output: JsonSchema = {
-  "properties": {
-    "allowlisted_pattern": {
-      "oneOf": [
-        {
-          "type": "string"
-        },
-        {
-          "type": "null"
-        }
-      ]
-    },
-    "allowlisted_pattern_type": {
-      "oneOf": [
-        {
-          "enum": [
-            "quarantine_release",
-            "acceptable_sender",
-            "allowed_sender",
-            "allowed_recipient",
-            "domain_similarity",
-            "domain_recency",
-            "managed_acceptable_sender",
-            "outbound_ndr"
-          ],
-          "type": "string"
-        },
-        {
-          "type": "null"
-        }
-      ]
-    },
-    "blocklisted_message": {
-      "oneOf": [
-        {
-          "type": "boolean"
-        },
-        {
-          "type": "null"
-        }
-      ]
-    },
-    "blocklisted_pattern": {
-      "oneOf": [
-        {
-          "type": "string"
-        },
-        {
-          "type": "null"
-        }
-      ]
-    },
-    "whitelisted_pattern_type": {
-      "oneOf": [
-        {
-          "enum": [
-            "quarantine_release",
-            "acceptable_sender",
-            "allowed_sender",
-            "allowed_recipient",
-            "domain_similarity",
-            "domain_recency",
-            "managed_acceptable_sender",
-            "outbound_ndr"
-          ],
-          "type": "string"
-        },
-        {
-          "type": "null"
-        }
-      ]
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `email-security_MessageDetails_validation` in responses.
- */
-export const email_security_MessageDetails_validation_output: JsonSchema = {
-  "oneOf": [
-    {
-      "$ref": "#/$defs/email-security_Validation"
-    },
-    {
-      "type": "null"
-    }
-  ]
 };
 
 /**
@@ -813,6 +785,65 @@ export const email_security_ValidationStatus_output: JsonSchema = {
 };
 
 /**
+ * The schema of `email-security_api-response-collection` in responses.
+ */
+export const email_security_api_response_collection_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/email-security_api-response-common"
+    },
+    {
+      "properties": {
+        "result_info": {
+          "properties": {
+            "count": {
+              "type": "number"
+            },
+            "page": {
+              "type": "number"
+            },
+            "per_page": {
+              "type": "number"
+            },
+            "total_count": {
+              "type": "number"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `email-security_api-response-common` in responses.
+ */
+export const email_security_api_response_common_output: JsonSchema = {
+  "properties": {
+    "errors": {
+      "$ref": "#/$defs/email-security_messages"
+    },
+    "messages": {
+      "$ref": "#/$defs/email-security_messages"
+    },
+    "success": {
+      "enum": [
+        true
+      ],
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "errors",
+    "messages",
+    "success"
+  ],
+  "type": "object"
+};
+
+/**
  * The schema of `email-security_api-response-common-failure` in responses.
  */
 export const email_security_api_response_common_failure_output: JsonSchema = {
@@ -837,6 +868,32 @@ export const email_security_api_response_common_failure_output: JsonSchema = {
     "errors",
     "messages",
     "result",
+    "success"
+  ],
+  "type": "object"
+};
+
+/**
+ * The schema of `email-security_api-response-single` in responses.
+ */
+export const email_security_api_response_single_output: JsonSchema = {
+  "properties": {
+    "errors": {
+      "$ref": "#/$defs/email-security_messages"
+    },
+    "messages": {
+      "$ref": "#/$defs/email-security_messages"
+    },
+    "success": {
+      "enum": [
+        true
+      ],
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "errors",
+    "messages",
     "success"
   ],
   "type": "object"

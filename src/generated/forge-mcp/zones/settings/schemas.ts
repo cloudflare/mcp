@@ -682,38 +682,30 @@ export const zones_search_for_agents_value: JsonSchema = {
 export const zones_security_header_value: JsonSchema = {
   "properties": {
     "strict_transport_security": {
-      "$ref": "#/$defs/zones_security_header_value_strict_transport_security",
-      "description": "Strict Transport Security."
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `zones_security_header_value_strict_transport_security`.
- */
-export const zones_security_header_value_strict_transport_security: JsonSchema = {
-  "description": "Strict Transport Security.",
-  "properties": {
-    "enabled": {
-      "description": "Whether or not strict transport security is enabled.",
-      "type": "boolean"
-    },
-    "include_subdomains": {
-      "description": "Include all subdomains for strict transport security.",
-      "type": "boolean"
-    },
-    "max_age": {
-      "description": "Max age in seconds of the strict transport security.",
-      "type": "number"
-    },
-    "nosniff": {
-      "description": "Whether or not to include 'X-Content-Type-Options: nosniff' header.",
-      "type": "boolean"
-    },
-    "preload": {
-      "description": "Enable automatic preload of the HSTS configuration.",
-      "type": "boolean"
+      "description": "Strict Transport Security.",
+      "properties": {
+        "enabled": {
+          "description": "Whether or not strict transport security is enabled.",
+          "type": "boolean"
+        },
+        "include_subdomains": {
+          "description": "Include all subdomains for strict transport security.",
+          "type": "boolean"
+        },
+        "max_age": {
+          "description": "Max age in seconds of the strict transport security.",
+          "type": "number"
+        },
+        "nosniff": {
+          "description": "Whether or not to include 'X-Content-Type-Options: nosniff' header.",
+          "type": "boolean"
+        },
+        "preload": {
+          "description": "Enable automatic preload of the HSTS configuration.",
+          "type": "boolean"
+        }
+      },
+      "type": "object"
     }
   },
   "type": "object"
@@ -744,6 +736,14 @@ export const zones_server_side_exclude_value: JsonSchema = {
     "on",
     "off"
   ],
+  "type": "string"
+};
+
+/**
+ * The schema of `zones_setting_name`.
+ */
+export const zones_setting_name: JsonSchema = {
+  "description": "Setting name",
   "type": "string"
 };
 

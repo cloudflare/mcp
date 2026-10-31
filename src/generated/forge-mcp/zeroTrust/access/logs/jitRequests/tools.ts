@@ -3,16 +3,22 @@
 
 import { type Tool, pathParam } from "../../../../_/tool.js";
 import {
+  access_api_response_collection_output,
   access_api_response_common_failure_output,
+  access_api_response_common_output,
+  access_api_response_single_output,
   access_messages_output,
   access_timestamp_output,
 } from "../../../outputs.js";
+import { access_identifier } from "../../../schemas.js";
 import {
   access_jit_request_event_output,
   access_jit_request_event_type_output,
   access_jit_request_log_detail_output,
   access_jit_request_log_output,
   access_jit_request_status_output,
+  access_response_collection_13_output,
+  access_response_single_output,
 } from "./outputs.js";
 import { access_jit_request_status } from "./schemas.js";
 
@@ -28,8 +34,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/access_identifier",
+          "description": "Identifier."
         },
         "knock_request_id": {
           "format": "uuid",
@@ -40,14 +46,21 @@ export const tools: readonly Tool[] = [
         "account_id",
         "knock_request_id"
       ],
+      $defs: {
+        "access_identifier": access_identifier,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/access_jit_request_log_detail",
+      "$ref": "#/$defs/access_response_single",
       $defs: {
+        "access_api-response-single": access_api_response_single_output,
         "access_jit_request_event": access_jit_request_event_output,
         "access_jit_request_event_type": access_jit_request_event_type_output,
+        "access_jit_request_log": access_jit_request_log_output,
         "access_jit_request_log_detail": access_jit_request_log_detail_output,
         "access_jit_request_status": access_jit_request_status_output,
+        "access_messages": access_messages_output,
+        "access_response_single": access_response_single_output,
         "access_timestamp": access_timestamp_output,
       },
     },
@@ -63,7 +76,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/access_jit_request_log_detail"
+          "$ref": "#/$defs/access_response_single"
         },
         "404": {
           "$ref": "#/$defs/access_api-response-common-failure"
@@ -74,11 +87,14 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "access_api-response-common-failure": access_api_response_common_failure_output,
+        "access_api-response-single": access_api_response_single_output,
         "access_jit_request_event": access_jit_request_event_output,
         "access_jit_request_event_type": access_jit_request_event_type_output,
+        "access_jit_request_log": access_jit_request_log_output,
         "access_jit_request_log_detail": access_jit_request_log_detail_output,
         "access_jit_request_status": access_jit_request_status_output,
         "access_messages": access_messages_output,
+        "access_response_single": access_response_single_output,
         "access_timestamp": access_timestamp_output,
       },
     },
@@ -94,8 +110,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/access_identifier",
+          "description": "Identifier."
         },
         "page": {
           "default": 1,
@@ -130,45 +146,19 @@ export const tools: readonly Tool[] = [
         "account_id"
       ],
       $defs: {
+        "access_identifier": access_identifier,
         "access_jit_request_status": access_jit_request_status,
       },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "$ref": "#/$defs/access_jit_request_log"
-          },
-          "type": "array"
-        },
-        "result_info": {
-          "properties": {
-            "count": {
-              "type": "number"
-            },
-            "page": {
-              "type": "number"
-            },
-            "per_page": {
-              "type": "number"
-            },
-            "total_count": {
-              "type": "number"
-            },
-            "total_pages": {
-              "type": "number"
-            }
-          },
-          "type": "object"
-        }
-      },
-      "required": [
-        "result"
-      ],
-      "type": "object",
+      "$ref": "#/$defs/access_response_collection-13",
       $defs: {
+        "access_api-response-collection": access_api_response_collection_output,
+        "access_api-response-common": access_api_response_common_output,
         "access_jit_request_log": access_jit_request_log_output,
         "access_jit_request_status": access_jit_request_status_output,
+        "access_messages": access_messages_output,
+        "access_response_collection-13": access_response_collection_13_output,
         "access_timestamp": access_timestamp_output,
       },
     },
@@ -184,48 +174,20 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "items": {
-                "$ref": "#/$defs/access_jit_request_log"
-              },
-              "type": "array"
-            },
-            "result_info": {
-              "properties": {
-                "count": {
-                  "type": "number"
-                },
-                "page": {
-                  "type": "number"
-                },
-                "per_page": {
-                  "type": "number"
-                },
-                "total_count": {
-                  "type": "number"
-                },
-                "total_pages": {
-                  "type": "number"
-                }
-              },
-              "type": "object"
-            }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/access_response_collection-13"
         },
         "4XX": {
           "$ref": "#/$defs/access_api-response-common-failure"
         }
       },
       $defs: {
+        "access_api-response-collection": access_api_response_collection_output,
+        "access_api-response-common": access_api_response_common_output,
         "access_api-response-common-failure": access_api_response_common_failure_output,
         "access_jit_request_log": access_jit_request_log_output,
         "access_jit_request_status": access_jit_request_status_output,
         "access_messages": access_messages_output,
+        "access_response_collection-13": access_response_collection_13_output,
         "access_timestamp": access_timestamp_output,
       },
     },

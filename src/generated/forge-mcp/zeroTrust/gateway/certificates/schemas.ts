@@ -15,3 +15,11 @@ export const zero_trust_gateway_generate_cert_request: JsonSchema = {
   },
   "type": "object"
 };
+
+/**
+ * The schema of `zero-trust-gateway_uuid`.
+ */
+export const zero_trust_gateway_uuid: JsonSchema = {
+  "description": "Identify the certificate with a UUID.",
+  "type": "string"
+};

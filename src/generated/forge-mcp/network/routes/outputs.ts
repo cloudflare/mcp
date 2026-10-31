@@ -67,30 +67,19 @@ export const tunnel_teamnet_output: JsonSchema = {
  * The schema of `tunnel_teamnet_response_single` in responses.
  */
 export const tunnel_teamnet_response_single_output: JsonSchema = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/tunnel_messages"
+  "allOf": [
+    {
+      "$ref": "#/$defs/tunnel_api-response-common"
     },
-    "messages": {
-      "$ref": "#/$defs/tunnel_messages"
-    },
-    "result": {
-      "$ref": "#/$defs/tunnel_teamnet"
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/tunnel_teamnet"
+        }
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "result",
-    "success"
-  ],
-  "type": "object"
+  ]
 };
 
 /**

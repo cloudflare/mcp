@@ -3,11 +3,18 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
+  digital_experience_monitoring_api_response_collection_output,
   digital_experience_monitoring_api_response_common_failure_output,
+  digital_experience_monitoring_api_response_common_output,
+  digital_experience_monitoring_api_response_single_output,
   digital_experience_monitoring_device_dex_test_schemas_data_output,
   digital_experience_monitoring_messages_output,
   digital_experience_monitoring_uuid_output,
 } from "../outputs.js";
+import {
+  digital_experience_monitoring_account_identifier,
+  digital_experience_monitoring_uuid,
+} from "../schemas.js";
 import {
   digital_experience_monitoring_dex_rule_output,
   digital_experience_monitoring_dex_targeted_test_output,
@@ -30,8 +37,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Unique Cloudflare account ID.",
-          "type": "string"
+          "$ref": "#/$defs/digital-experience-monitoring_account_identifier",
+          "description": "Unique Cloudflare account ID."
         },
         "body": {
           "$ref": "#/$defs/digital-experience-monitoring_create_rule_body"
@@ -42,15 +49,30 @@ export const tools: readonly Tool[] = [
         "body"
       ],
       $defs: {
+        "digital-experience-monitoring_account_identifier": digital_experience_monitoring_account_identifier,
         "digital-experience-monitoring_create_rule_body": digital_experience_monitoring_create_rule_body,
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/digital-experience-monitoring_dex-rule",
+      "allOf": [
+        {
+          "$ref": "#/$defs/digital-experience-monitoring_api-response-single"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/digital-experience-monitoring_dex-rule"
+            }
+          },
+          "type": "object"
+        }
+      ],
       $defs: {
+        "digital-experience-monitoring_api-response-single": digital_experience_monitoring_api_response_single_output,
         "digital-experience-monitoring_device-dex-test-schemas-data": digital_experience_monitoring_device_dex_test_schemas_data_output,
         "digital-experience-monitoring_dex-rule": digital_experience_monitoring_dex_rule_output,
         "digital-experience-monitoring_dex-targeted-test": digital_experience_monitoring_dex_targeted_test_output,
+        "digital-experience-monitoring_messages": digital_experience_monitoring_messages_output,
         "digital-experience-monitoring_uuid": digital_experience_monitoring_uuid_output,
       },
     },
@@ -71,7 +93,19 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/digital-experience-monitoring_dex-rule"
+          "allOf": [
+            {
+              "$ref": "#/$defs/digital-experience-monitoring_api-response-single"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/digital-experience-monitoring_dex-rule"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/digital-experience-monitoring_api-response-common-failure"
@@ -79,6 +113,7 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "digital-experience-monitoring_api-response-common-failure": digital_experience_monitoring_api_response_common_failure_output,
+        "digital-experience-monitoring_api-response-single": digital_experience_monitoring_api_response_single_output,
         "digital-experience-monitoring_device-dex-test-schemas-data": digital_experience_monitoring_device_dex_test_schemas_data_output,
         "digital-experience-monitoring_dex-rule": digital_experience_monitoring_dex_rule_output,
         "digital-experience-monitoring_dex-targeted-test": digital_experience_monitoring_dex_targeted_test_output,
@@ -99,28 +134,48 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Unique Cloudflare account ID.",
-          "type": "string"
+          "$ref": "#/$defs/digital-experience-monitoring_account_identifier",
+          "description": "Unique Cloudflare account ID."
         },
         "rule_id": {
-          "description": "Unique identifier of the rule.",
-          "type": "string"
+          "$ref": "#/$defs/digital-experience-monitoring_uuid",
+          "description": "Unique identifier of the rule."
         }
       },
       required: [
         "account_id",
         "rule_id"
       ],
+      $defs: {
+        "digital-experience-monitoring_account_identifier": digital_experience_monitoring_account_identifier,
+        "digital-experience-monitoring_uuid": digital_experience_monitoring_uuid,
+      },
     },
     outputSchema: {
-      "oneOf": [
+      "allOf": [
         {
-          "type": "boolean"
+          "$ref": "#/$defs/digital-experience-monitoring_api-response-single"
         },
         {
-          "type": "null"
+          "properties": {
+            "result": {
+              "oneOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            }
+          },
+          "type": "object"
         }
       ],
+      $defs: {
+        "digital-experience-monitoring_api-response-single": digital_experience_monitoring_api_response_single_output,
+        "digital-experience-monitoring_messages": digital_experience_monitoring_messages_output,
+      },
     },
     annotations: {
       "destructiveHint": true,
@@ -139,12 +194,24 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "oneOf": [
+          "allOf": [
             {
-              "type": "boolean"
+              "$ref": "#/$defs/digital-experience-monitoring_api-response-single"
             },
             {
-              "type": "null"
+              "properties": {
+                "result": {
+                  "oneOf": [
+                    {
+                      "type": "boolean"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                }
+              },
+              "type": "object"
             }
           ]
         },
@@ -154,6 +221,7 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "digital-experience-monitoring_api-response-common-failure": digital_experience_monitoring_api_response_common_failure_output,
+        "digital-experience-monitoring_api-response-single": digital_experience_monitoring_api_response_single_output,
         "digital-experience-monitoring_messages": digital_experience_monitoring_messages_output,
       },
     },
@@ -169,25 +237,43 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Unique Cloudflare account ID.",
-          "type": "string"
+          "$ref": "#/$defs/digital-experience-monitoring_account_identifier",
+          "description": "Unique Cloudflare account ID."
         },
         "rule_id": {
-          "description": "Unique identifier of the rule.",
-          "type": "string"
+          "$ref": "#/$defs/digital-experience-monitoring_uuid",
+          "description": "Unique identifier of the rule."
         }
       },
       required: [
         "account_id",
         "rule_id"
       ],
+      $defs: {
+        "digital-experience-monitoring_account_identifier": digital_experience_monitoring_account_identifier,
+        "digital-experience-monitoring_uuid": digital_experience_monitoring_uuid,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/digital-experience-monitoring_dex-rule",
+      "allOf": [
+        {
+          "$ref": "#/$defs/digital-experience-monitoring_api-response-single"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/digital-experience-monitoring_dex-rule"
+            }
+          },
+          "type": "object"
+        }
+      ],
       $defs: {
+        "digital-experience-monitoring_api-response-single": digital_experience_monitoring_api_response_single_output,
         "digital-experience-monitoring_device-dex-test-schemas-data": digital_experience_monitoring_device_dex_test_schemas_data_output,
         "digital-experience-monitoring_dex-rule": digital_experience_monitoring_dex_rule_output,
         "digital-experience-monitoring_dex-targeted-test": digital_experience_monitoring_dex_targeted_test_output,
+        "digital-experience-monitoring_messages": digital_experience_monitoring_messages_output,
         "digital-experience-monitoring_uuid": digital_experience_monitoring_uuid_output,
       },
     },
@@ -211,7 +297,19 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/digital-experience-monitoring_dex-rule"
+          "allOf": [
+            {
+              "$ref": "#/$defs/digital-experience-monitoring_api-response-single"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/digital-experience-monitoring_dex-rule"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/digital-experience-monitoring_api-response-common-failure"
@@ -219,6 +317,7 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "digital-experience-monitoring_api-response-common-failure": digital_experience_monitoring_api_response_common_failure_output,
+        "digital-experience-monitoring_api-response-single": digital_experience_monitoring_api_response_single_output,
         "digital-experience-monitoring_device-dex-test-schemas-data": digital_experience_monitoring_device_dex_test_schemas_data_output,
         "digital-experience-monitoring_dex-rule": digital_experience_monitoring_dex_rule_output,
         "digital-experience-monitoring_dex-targeted-test": digital_experience_monitoring_dex_targeted_test_output,
@@ -238,8 +337,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Unique Cloudflare account ID.",
-          "type": "string"
+          "$ref": "#/$defs/digital-experience-monitoring_account_identifier",
+          "description": "Unique Cloudflare account ID."
         },
         "name": {
           "description": "Filter results by rule name.",
@@ -279,14 +378,32 @@ export const tools: readonly Tool[] = [
         "page",
         "per_page"
       ],
+      $defs: {
+        "digital-experience-monitoring_account_identifier": digital_experience_monitoring_account_identifier,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/digital-experience-monitoring_list_rules_response",
+      "allOf": [
+        {
+          "$ref": "#/$defs/digital-experience-monitoring_api-response-collection"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/digital-experience-monitoring_list_rules_response"
+            }
+          },
+          "type": "object"
+        }
+      ],
       $defs: {
+        "digital-experience-monitoring_api-response-collection": digital_experience_monitoring_api_response_collection_output,
+        "digital-experience-monitoring_api-response-common": digital_experience_monitoring_api_response_common_output,
         "digital-experience-monitoring_device-dex-test-schemas-data": digital_experience_monitoring_device_dex_test_schemas_data_output,
         "digital-experience-monitoring_dex-rule": digital_experience_monitoring_dex_rule_output,
         "digital-experience-monitoring_dex-targeted-test": digital_experience_monitoring_dex_targeted_test_output,
         "digital-experience-monitoring_list_rules_response": digital_experience_monitoring_list_rules_response_output,
+        "digital-experience-monitoring_messages": digital_experience_monitoring_messages_output,
         "digital-experience-monitoring_uuid": digital_experience_monitoring_uuid_output,
       },
     },
@@ -310,13 +427,27 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/digital-experience-monitoring_list_rules_response"
+          "allOf": [
+            {
+              "$ref": "#/$defs/digital-experience-monitoring_api-response-collection"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/digital-experience-monitoring_list_rules_response"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/digital-experience-monitoring_api-response-common-failure"
         }
       },
       $defs: {
+        "digital-experience-monitoring_api-response-collection": digital_experience_monitoring_api_response_collection_output,
+        "digital-experience-monitoring_api-response-common": digital_experience_monitoring_api_response_common_output,
         "digital-experience-monitoring_api-response-common-failure": digital_experience_monitoring_api_response_common_failure_output,
         "digital-experience-monitoring_device-dex-test-schemas-data": digital_experience_monitoring_device_dex_test_schemas_data_output,
         "digital-experience-monitoring_dex-rule": digital_experience_monitoring_dex_rule_output,
@@ -345,15 +476,15 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Unique Cloudflare account ID.",
-          "type": "string"
+          "$ref": "#/$defs/digital-experience-monitoring_account_identifier",
+          "description": "Unique Cloudflare account ID."
         },
         "body": {
           "$ref": "#/$defs/digital-experience-monitoring_patch_rule_body"
         },
         "rule_id": {
-          "description": "Unique identifier of the rule.",
-          "type": "string"
+          "$ref": "#/$defs/digital-experience-monitoring_uuid",
+          "description": "Unique identifier of the rule."
         }
       },
       required: [
@@ -362,15 +493,31 @@ export const tools: readonly Tool[] = [
         "body"
       ],
       $defs: {
+        "digital-experience-monitoring_account_identifier": digital_experience_monitoring_account_identifier,
         "digital-experience-monitoring_patch_rule_body": digital_experience_monitoring_patch_rule_body,
+        "digital-experience-monitoring_uuid": digital_experience_monitoring_uuid,
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/digital-experience-monitoring_dex-rule",
+      "allOf": [
+        {
+          "$ref": "#/$defs/digital-experience-monitoring_api-response-single"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/digital-experience-monitoring_dex-rule"
+            }
+          },
+          "type": "object"
+        }
+      ],
       $defs: {
+        "digital-experience-monitoring_api-response-single": digital_experience_monitoring_api_response_single_output,
         "digital-experience-monitoring_device-dex-test-schemas-data": digital_experience_monitoring_device_dex_test_schemas_data_output,
         "digital-experience-monitoring_dex-rule": digital_experience_monitoring_dex_rule_output,
         "digital-experience-monitoring_dex-targeted-test": digital_experience_monitoring_dex_targeted_test_output,
+        "digital-experience-monitoring_messages": digital_experience_monitoring_messages_output,
         "digital-experience-monitoring_uuid": digital_experience_monitoring_uuid_output,
       },
     },
@@ -391,7 +538,19 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/digital-experience-monitoring_dex-rule"
+          "allOf": [
+            {
+              "$ref": "#/$defs/digital-experience-monitoring_api-response-single"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/digital-experience-monitoring_dex-rule"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/digital-experience-monitoring_api-response-common-failure"
@@ -399,6 +558,7 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "digital-experience-monitoring_api-response-common-failure": digital_experience_monitoring_api_response_common_failure_output,
+        "digital-experience-monitoring_api-response-single": digital_experience_monitoring_api_response_single_output,
         "digital-experience-monitoring_device-dex-test-schemas-data": digital_experience_monitoring_device_dex_test_schemas_data_output,
         "digital-experience-monitoring_dex-rule": digital_experience_monitoring_dex_rule_output,
         "digital-experience-monitoring_dex-targeted-test": digital_experience_monitoring_dex_targeted_test_output,

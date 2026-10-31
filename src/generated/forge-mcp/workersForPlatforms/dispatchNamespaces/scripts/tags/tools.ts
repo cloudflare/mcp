@@ -4,16 +4,23 @@
 import { type Tool, pathParam } from "../../../../_/tool.js";
 import {
   workers_api_response_common_failure_output,
+  workers_api_response_common_output,
+  workers_api_response_null_result_output,
   workers_messages_output,
   workers_tag_output,
 } from "../../../../outputs.js";
-import { workers_tag, workers_tags } from "../../../../schemas.js";
 import {
-  workers_api_response_null_result_output,
+  workers_identifier,
+  workers_script_name,
+  workers_tag,
+  workers_tags,
+} from "../../../../schemas.js";
+import { workers_dispatch_namespace_name } from "../../schemas.js";
+import {
   workers_tags_kv_output,
   workers_tags_kv_response_output,
 } from "./outputs.js";
-import { workers_tag_patch } from "./schemas.js";
+import { workers_tag_patch, workers_typed_tag_key } from "./schemas.js";
 
 /**
  * The tools of `workers_for_platforms.dispatch_namespaces.scripts.tags`.
@@ -27,19 +34,19 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/workers_identifier",
+          "description": "Identifier."
         },
         "dispatch_namespace": {
-          "description": "Name of the Workers for Platforms dispatch namespace.",
-          "type": "string"
+          "$ref": "#/$defs/workers_dispatch_namespace_name",
+          "description": "Name of the Workers for Platforms dispatch namespace."
         },
         "script_name": {
-          "description": "Name of the script.",
-          "type": "string"
+          "$ref": "#/$defs/workers_script_name",
+          "description": "Name of the script."
         },
         "tag": {
-          "type": "string"
+          "$ref": "#/$defs/workers_tag"
         }
       },
       required: [
@@ -48,9 +55,20 @@ export const tools: readonly Tool[] = [
         "script_name",
         "tag"
       ],
+      $defs: {
+        "workers_dispatch_namespace_name": workers_dispatch_namespace_name,
+        "workers_identifier": workers_identifier,
+        "workers_script_name": workers_script_name,
+        "workers_tag": workers_tag,
+      },
     },
     outputSchema: {
-      "type": "null",
+      "$ref": "#/$defs/workers_api-response-null-result",
+      $defs: {
+        "workers_api-response-common": workers_api_response_common_output,
+        "workers_api-response-null-result": workers_api_response_null_result_output,
+        "workers_messages": workers_messages_output,
+      },
     },
     annotations: {
       "destructiveHint": true,
@@ -72,14 +90,16 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "type": "null"
+          "$ref": "#/$defs/workers_api-response-null-result"
         },
         "4XX": {
           "$ref": "#/$defs/workers_api-response-common-failure"
         }
       },
       $defs: {
+        "workers_api-response-common": workers_api_response_common_output,
         "workers_api-response-common-failure": workers_api_response_common_failure_output,
+        "workers_api-response-null-result": workers_api_response_null_result_output,
         "workers_messages": workers_messages_output,
       },
     },
@@ -95,23 +115,30 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/workers_identifier",
+          "description": "Identifier."
         },
         "api_version": {
           "description": "Requested API compatibility date in `YYYY-MM-DD[.release]` format (UTC). The optional release suffix contains lowercase letters; for example, `2026-10-01.epoch`.\n\nTyped Worker tag operations require a date on or after `2026-10-01`.\n",
           "type": "string"
         },
         "dispatch_namespace": {
-          "description": "Name of the Workers for Platforms dispatch namespace.",
-          "type": "string"
+          "$ref": "#/$defs/workers_dispatch_namespace_name",
+          "description": "Name of the Workers for Platforms dispatch namespace."
         },
         "script_name": {
-          "description": "Name of the script.",
-          "type": "string"
+          "$ref": "#/$defs/workers_script_name",
+          "description": "Name of the script."
         },
         "tag": {
-          "type": "string"
+          "oneOf": [
+            {
+              "$ref": "#/$defs/workers_typed_tag_key"
+            },
+            {
+              "$ref": "#/$defs/workers_tag"
+            }
+          ]
         }
       },
       required: [
@@ -120,6 +147,13 @@ export const tools: readonly Tool[] = [
         "script_name",
         "tag"
       ],
+      $defs: {
+        "workers_dispatch_namespace_name": workers_dispatch_namespace_name,
+        "workers_identifier": workers_identifier,
+        "workers_script_name": workers_script_name,
+        "workers_tag": workers_tag,
+        "workers_typed_tag_key": workers_typed_tag_key,
+      },
     },
     outputSchema: {
       "oneOf": [
@@ -131,6 +165,7 @@ export const tools: readonly Tool[] = [
         }
       ],
       $defs: {
+        "workers_api-response-common": workers_api_response_common_output,
         "workers_api-response-null-result": workers_api_response_null_result_output,
         "workers_messages": workers_messages_output,
         "workers_tags-kv-response": workers_tags_kv_response_output,
@@ -168,6 +203,7 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
+        "workers_api-response-common": workers_api_response_common_output,
         "workers_api-response-common-failure": workers_api_response_common_failure_output,
         "workers_api-response-null-result": workers_api_response_null_result_output,
         "workers_messages": workers_messages_output,
@@ -190,8 +226,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/workers_identifier",
+          "description": "Identifier."
         },
         "api_version": {
           "description": "Requested API compatibility date in `YYYY-MM-DD[.release]` format (UTC). The optional release suffix contains lowercase letters; for example, `2026-10-01.epoch`.\n\nTyped Worker tag operations require a date on or after `2026-10-01`.\n",
@@ -201,16 +237,16 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/workers_tag_patch"
         },
         "dispatch_namespace": {
-          "description": "Name of the Workers for Platforms dispatch namespace.",
-          "type": "string"
+          "$ref": "#/$defs/workers_dispatch_namespace_name",
+          "description": "Name of the Workers for Platforms dispatch namespace."
         },
         "script_name": {
-          "description": "Name of the script.",
-          "type": "string"
+          "$ref": "#/$defs/workers_script_name",
+          "description": "Name of the script."
         },
         "tag": {
-          "description": "Tag key. Cloudflare-reserved prefixes are not accepted.",
-          "type": "string"
+          "$ref": "#/$defs/workers_typed_tag_key",
+          "description": "Tag key. Cloudflare-reserved prefixes are not accepted."
         }
       },
       required: [
@@ -221,12 +257,19 @@ export const tools: readonly Tool[] = [
         "body"
       ],
       $defs: {
+        "workers_dispatch_namespace_name": workers_dispatch_namespace_name,
+        "workers_identifier": workers_identifier,
+        "workers_script_name": workers_script_name,
         "workers_tag_patch": workers_tag_patch,
+        "workers_typed_tag_key": workers_typed_tag_key,
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/workers_tags_kv",
+      "$ref": "#/$defs/workers_tags-kv-response",
       $defs: {
+        "workers_api-response-common": workers_api_response_common_output,
+        "workers_messages": workers_messages_output,
+        "workers_tags-kv-response": workers_tags_kv_response_output,
         "workers_tags_kv": workers_tags_kv_output,
       },
     },
@@ -247,15 +290,17 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/workers_tags_kv"
+          "$ref": "#/$defs/workers_tags-kv-response"
         },
         "4XX": {
           "$ref": "#/$defs/workers_api-response-common-failure"
         }
       },
       $defs: {
+        "workers_api-response-common": workers_api_response_common_output,
         "workers_api-response-common-failure": workers_api_response_common_failure_output,
         "workers_messages": workers_messages_output,
+        "workers_tags-kv-response": workers_tags_kv_response_output,
         "workers_tags_kv": workers_tags_kv_output,
       },
     },
@@ -275,16 +320,16 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/workers_identifier",
+          "description": "Identifier."
         },
         "dispatch_namespace": {
-          "description": "Name of the Workers for Platforms dispatch namespace.",
-          "type": "string"
+          "$ref": "#/$defs/workers_dispatch_namespace_name",
+          "description": "Name of the Workers for Platforms dispatch namespace."
         },
         "script_name": {
-          "description": "Name of the script.",
-          "type": "string"
+          "$ref": "#/$defs/workers_script_name",
+          "description": "Name of the script."
         }
       },
       required: [
@@ -292,24 +337,32 @@ export const tools: readonly Tool[] = [
         "dispatch_namespace",
         "script_name"
       ],
+      $defs: {
+        "workers_dispatch_namespace_name": workers_dispatch_namespace_name,
+        "workers_identifier": workers_identifier,
+        "workers_script_name": workers_script_name,
+      },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "$ref": "#/$defs/workers_tag"
-          },
-          "type": "array"
+      "allOf": [
+        {
+          "$ref": "#/$defs/workers_api-response-common"
         },
-        "result_info": {
+        {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/workers_tag"
+              },
+              "type": "array"
+            }
+          },
           "type": "object"
         }
-      },
-      "required": [
-        "result"
       ],
-      "type": "object",
       $defs: {
+        "workers_api-response-common": workers_api_response_common_output,
+        "workers_messages": workers_messages_output,
         "workers_tag": workers_tag_output,
       },
     },
@@ -332,27 +385,29 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "items": {
-                "$ref": "#/$defs/workers_tag"
-              },
-              "type": "array"
+          "allOf": [
+            {
+              "$ref": "#/$defs/workers_api-response-common"
             },
-            "result_info": {
+            {
+              "properties": {
+                "result": {
+                  "items": {
+                    "$ref": "#/$defs/workers_tag"
+                  },
+                  "type": "array"
+                }
+              },
               "type": "object"
             }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/workers_api-response-common-failure"
         }
       },
       $defs: {
+        "workers_api-response-common": workers_api_response_common_output,
         "workers_api-response-common-failure": workers_api_response_common_failure_output,
         "workers_messages": workers_messages_output,
         "workers_tag": workers_tag_output,
@@ -370,19 +425,19 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/workers_identifier",
+          "description": "Identifier."
         },
         "body": {
           "$ref": "#/$defs/workers_tags"
         },
         "dispatch_namespace": {
-          "description": "Name of the Workers for Platforms dispatch namespace.",
-          "type": "string"
+          "$ref": "#/$defs/workers_dispatch_namespace_name",
+          "description": "Name of the Workers for Platforms dispatch namespace."
         },
         "script_name": {
-          "description": "Name of the script.",
-          "type": "string"
+          "$ref": "#/$defs/workers_script_name",
+          "description": "Name of the script."
         }
       },
       required: [
@@ -392,27 +447,36 @@ export const tools: readonly Tool[] = [
         "body"
       ],
       $defs: {
+        "workers_dispatch_namespace_name": workers_dispatch_namespace_name,
+        "workers_identifier": workers_identifier,
+        "workers_script_name": workers_script_name,
         "workers_tag": workers_tag,
         "workers_tags": workers_tags,
       },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "$ref": "#/$defs/workers_tag"
-          },
-          "type": "array"
+      "allOf": [
+        {
+          "$ref": "#/$defs/workers_api-response-common"
         },
-        "result_info": {
+        {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/workers_tag"
+              },
+              "type": "array"
+            }
+          },
+          "required": [
+            "result"
+          ],
           "type": "object"
         }
-      },
-      "required": [
-        "result"
       ],
-      "type": "object",
       $defs: {
+        "workers_api-response-common": workers_api_response_common_output,
+        "workers_messages": workers_messages_output,
         "workers_tag": workers_tag_output,
       },
     },
@@ -433,27 +497,32 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "items": {
-                "$ref": "#/$defs/workers_tag"
-              },
-              "type": "array"
+          "allOf": [
+            {
+              "$ref": "#/$defs/workers_api-response-common"
             },
-            "result_info": {
+            {
+              "properties": {
+                "result": {
+                  "items": {
+                    "$ref": "#/$defs/workers_tag"
+                  },
+                  "type": "array"
+                }
+              },
+              "required": [
+                "result"
+              ],
               "type": "object"
             }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/workers_api-response-common-failure"
         }
       },
       $defs: {
+        "workers_api-response-common": workers_api_response_common_output,
         "workers_api-response-common-failure": workers_api_response_common_failure_output,
         "workers_messages": workers_messages_output,
         "workers_tag": workers_tag_output,

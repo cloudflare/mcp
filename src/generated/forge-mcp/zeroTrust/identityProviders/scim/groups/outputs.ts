@@ -26,7 +26,28 @@ export const access_group_details_output: JsonSchema = {
     },
     "members": {
       "items": {
-        "$ref": "#/$defs/access_group_details_membersItem"
+        "properties": {
+          "$ref": {
+            "type": "string"
+          },
+          "display": {
+            "type": "string"
+          },
+          "type": {
+            "enum": [
+              "User",
+              "Group"
+            ],
+            "type": "string"
+          },
+          "value": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "value"
+        ],
+        "type": "object"
       },
       "type": "array"
     },
@@ -40,34 +61,6 @@ export const access_group_details_output: JsonSchema = {
       "type": "array"
     }
   },
-  "type": "object"
-};
-
-/**
- * The schema of `access_group_details_membersItem` in responses.
- */
-export const access_group_details_membersItem_output: JsonSchema = {
-  "properties": {
-    "$ref": {
-      "type": "string"
-    },
-    "display": {
-      "type": "string"
-    },
-    "type": {
-      "enum": [
-        "User",
-        "Group"
-      ],
-      "type": "string"
-    },
-    "value": {
-      "type": "string"
-    }
-  },
-  "required": [
-    "value"
-  ],
   "type": "object"
 };
 
@@ -96,4 +89,45 @@ export const access_groups_output: JsonSchema = {
     }
   },
   "type": "object"
+};
+
+/**
+ * The schema of `access_scim_group_response` in responses.
+ */
+export const access_scim_group_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/access_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/access_group_details"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `access_scim_groups_response` in responses.
+ */
+export const access_scim_groups_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/access_api-response-collection"
+    },
+    {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/access_groups"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    }
+  ]
 };

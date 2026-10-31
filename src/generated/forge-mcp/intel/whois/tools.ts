@@ -4,12 +4,14 @@
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
   cloudforce_one_whois_api_response_common_failure_output,
+  cloudforce_one_whois_api_response_single_output,
   cloudforce_one_whois_domain_name_output,
   cloudforce_one_whois_messages_output,
   cloudforce_one_whois_schemas_messages_output,
   cloudforce_one_whois_schemas_single_response_output,
   cloudforce_one_whois_whois_output,
 } from "./outputs.js";
+import { cloudforce_one_whois_identifier } from "./schemas.js";
 
 /**
  * The tools of `intel.whois`.
@@ -23,8 +25,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Use to uniquely identify or reference the resource.",
-          "type": "string"
+          "$ref": "#/$defs/cloudforce-one-whois_identifier",
+          "description": "Use to uniquely identify or reference the resource."
         },
         "domain": {
           "type": "string"
@@ -33,11 +35,17 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+      $defs: {
+        "cloudforce-one-whois_identifier": cloudforce_one_whois_identifier,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/cloudforce-one-whois_whois",
+      "$ref": "#/$defs/cloudforce-one-whois_schemas-single_response",
       $defs: {
+        "cloudforce-one-whois_api-response-single": cloudforce_one_whois_api_response_single_output,
         "cloudforce-one-whois_domain_name": cloudforce_one_whois_domain_name_output,
+        "cloudforce-one-whois_schemas-messages": cloudforce_one_whois_schemas_messages_output,
+        "cloudforce-one-whois_schemas-single_response": cloudforce_one_whois_schemas_single_response_output,
         "cloudforce-one-whois_whois": cloudforce_one_whois_whois_output,
       },
     },
@@ -59,21 +67,15 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/cloudforce-one-whois_whois"
+          "$ref": "#/$defs/cloudforce-one-whois_schemas-single_response"
         },
         "4XX": {
-          "allOf": [
-            {
-              "$ref": "#/$defs/cloudforce-one-whois_schemas-single_response"
-            },
-            {
-              "$ref": "#/$defs/cloudforce-one-whois_api-response-common-failure"
-            }
-          ]
+          "$ref": "#/$defs/cloudforce-one-whois_api-response-common-failure"
         }
       },
       $defs: {
         "cloudforce-one-whois_api-response-common-failure": cloudforce_one_whois_api_response_common_failure_output,
+        "cloudforce-one-whois_api-response-single": cloudforce_one_whois_api_response_single_output,
         "cloudforce-one-whois_domain_name": cloudforce_one_whois_domain_name_output,
         "cloudforce-one-whois_messages": cloudforce_one_whois_messages_output,
         "cloudforce-one-whois_schemas-messages": cloudforce_one_whois_schemas_messages_output,

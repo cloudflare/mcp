@@ -67,6 +67,25 @@ export const magic_cf1_site_ramp_output: JsonSchema = {
 };
 
 /**
+ * The schema of `magic_cf1_site_ramp_single_response` in responses.
+ */
+export const magic_cf1_site_ramp_single_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/magic_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/magic_cf1_site_ramp"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
  * The schema of `magic_cf1_site_ramp_type` in responses.
  */
 export const magic_cf1_site_ramp_type_output: JsonSchema = {
@@ -78,4 +97,26 @@ export const magic_cf1_site_ramp_type_output: JsonSchema = {
     "ipsec"
   ],
   "type": "string"
+};
+
+/**
+ * The schema of `magic_cf1_site_ramps_collection_response` in responses.
+ */
+export const magic_cf1_site_ramps_collection_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/magic_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/magic_cf1_site_ramp"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    }
+  ]
 };

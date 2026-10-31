@@ -434,60 +434,39 @@ export const aaa_mechanisms: JsonSchema = {
   "properties": {
     "email": {
       "items": {
-        "$ref": "#/$defs/aaa_mechanisms_emailItem"
+        "properties": {
+          "id": {
+            "description": "The email address",
+            "type": "string"
+          }
+        },
+        "type": "object"
       },
       "type": "array"
     },
     "pagerduty": {
       "items": {
-        "$ref": "#/$defs/aaa_mechanisms_pagerdutyItem"
+        "properties": {
+          "id": {
+            "$ref": "#/$defs/aaa_uuid",
+            "description": "UUID"
+          }
+        },
+        "type": "object"
       },
       "type": "array"
     },
     "webhooks": {
       "items": {
-        "$ref": "#/$defs/aaa_mechanisms_webhooksItem"
+        "properties": {
+          "id": {
+            "$ref": "#/$defs/aaa_uuid",
+            "description": "UUID"
+          }
+        },
+        "type": "object"
       },
       "type": "array"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `aaa_mechanisms_emailItem`.
- */
-export const aaa_mechanisms_emailItem: JsonSchema = {
-  "properties": {
-    "id": {
-      "description": "The email address",
-      "type": "string"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `aaa_mechanisms_pagerdutyItem`.
- */
-export const aaa_mechanisms_pagerdutyItem: JsonSchema = {
-  "properties": {
-    "id": {
-      "$ref": "#/$defs/aaa_uuid",
-      "description": "UUID"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `aaa_mechanisms_webhooksItem`.
- */
-export const aaa_mechanisms_webhooksItem: JsonSchema = {
-  "properties": {
-    "id": {
-      "$ref": "#/$defs/aaa_uuid",
-      "description": "UUID"
     }
   },
   "type": "object"

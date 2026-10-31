@@ -4,8 +4,11 @@
 import { type Tool, pathParam } from "../../../../_/tool.js";
 import {
   load_balancing_api_response_common_failure_output,
+  load_balancing_api_response_common_output,
+  load_balancing_api_response_single_output,
   load_balancing_identifier_output,
   load_balancing_messages_output,
+  load_balancing_preview_response_output,
 } from "../../../../outputs.js";
 import {
   load_balancing_allow_insecure,
@@ -16,6 +19,7 @@ import {
   load_balancing_expected_codes,
   load_balancing_follow_redirects,
   load_balancing_header,
+  load_balancing_identifier,
   load_balancing_interval,
   load_balancing_method,
   load_balancing_monitor_editable,
@@ -42,7 +46,7 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/load-balancing_monitor-editable"
         },
         "monitor_id": {
-          "type": "string"
+          "$ref": "#/$defs/load-balancing_identifier"
         }
       },
       required: [
@@ -58,6 +62,7 @@ export const tools: readonly Tool[] = [
         "load-balancing_expected_codes": load_balancing_expected_codes,
         "load-balancing_follow_redirects": load_balancing_follow_redirects,
         "load-balancing_header": load_balancing_header,
+        "load-balancing_identifier": load_balancing_identifier,
         "load-balancing_interval": load_balancing_interval,
         "load-balancing_method": load_balancing_method,
         "load-balancing_monitor-editable": load_balancing_monitor_editable,
@@ -70,20 +75,13 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "properties": {
-        "pools": {
-          "additionalProperties": {
-            "type": "string"
-          },
-          "type": "object"
-        },
-        "preview_id": {
-          "$ref": "#/$defs/load-balancing_identifier"
-        }
-      },
-      "type": "object",
+      "$ref": "#/$defs/load-balancing_preview_response",
       $defs: {
+        "load-balancing_api-response-common": load_balancing_api_response_common_output,
+        "load-balancing_api-response-single": load_balancing_api_response_single_output,
         "load-balancing_identifier": load_balancing_identifier_output,
+        "load-balancing_messages": load_balancing_messages_output,
+        "load-balancing_preview_response": load_balancing_preview_response_output,
       },
     },
     annotations: {
@@ -98,27 +96,19 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "pools": {
-              "additionalProperties": {
-                "type": "string"
-              },
-              "type": "object"
-            },
-            "preview_id": {
-              "$ref": "#/$defs/load-balancing_identifier"
-            }
-          },
-          "type": "object"
+          "$ref": "#/$defs/load-balancing_preview_response"
         },
         "4XX": {
           "$ref": "#/$defs/load-balancing_api-response-common-failure"
         }
       },
       $defs: {
+        "load-balancing_api-response-common": load_balancing_api_response_common_output,
         "load-balancing_api-response-common-failure": load_balancing_api_response_common_failure_output,
+        "load-balancing_api-response-single": load_balancing_api_response_single_output,
         "load-balancing_identifier": load_balancing_identifier_output,
         "load-balancing_messages": load_balancing_messages_output,
+        "load-balancing_preview_response": load_balancing_preview_response_output,
       },
     },
     request: (args) => ({

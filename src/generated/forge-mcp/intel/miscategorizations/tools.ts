@@ -4,10 +4,11 @@
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
   intel_api_response_common_failure_output,
+  intel_api_response_single_output,
   intel_messages_output,
   intel_schemas_messages_output,
 } from "../outputs.js";
-import { intel_schemas_api_response_common_output } from "./outputs.js";
+import { intel_identifier } from "../schemas.js";
 import { intel_miscategorization } from "./schemas.js";
 
 /**
@@ -22,8 +23,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/intel_identifier",
+          "description": "Identifier."
         },
         "body": {
           "$ref": "#/$defs/intel_miscategorization"
@@ -34,13 +35,14 @@ export const tools: readonly Tool[] = [
         "body"
       ],
       $defs: {
+        "intel_identifier": intel_identifier,
         "intel_miscategorization": intel_miscategorization,
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/intel_schemas-api-response-common",
+      "$ref": "#/$defs/intel_api-response-single",
       $defs: {
-        "intel_schemas-api-response-common": intel_schemas_api_response_common_output,
+        "intel_api-response-single": intel_api_response_single_output,
         "intel_schemas-messages": intel_schemas_messages_output,
       },
     },
@@ -56,12 +58,12 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/intel_schemas-api-response-common"
+          "$ref": "#/$defs/intel_api-response-single"
         },
         "4XX": {
           "allOf": [
             {
-              "$ref": "#/$defs/intel_schemas-api-response-common"
+              "$ref": "#/$defs/intel_api-response-single"
             },
             {
               "$ref": "#/$defs/intel_api-response-common-failure"
@@ -71,8 +73,8 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "intel_api-response-common-failure": intel_api_response_common_failure_output,
+        "intel_api-response-single": intel_api_response_single_output,
         "intel_messages": intel_messages_output,
-        "intel_schemas-api-response-common": intel_schemas_api_response_common_output,
         "intel_schemas-messages": intel_schemas_messages_output,
       },
     },

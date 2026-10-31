@@ -2,20 +2,23 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../_/tool.js";
+import {
+  iam_account_identifier,
+  iam_common_components_schemas_identifier,
+} from "../../schemas.js";
 import { iam_scim_error_response_output } from "../outputs.js";
 import {
   iam_scim_group_list_response_output,
-  iam_scim_group_membersItem_output,
   iam_scim_group_meta_output,
   iam_scim_group_output,
   iam_scim_group_summary_output,
 } from "./outputs.js";
 import {
   iam_scim_group_create_request,
+  iam_scim_group_identifier,
   iam_scim_group_patch_member_value,
   iam_scim_group_patch_op_request,
   iam_scim_group_patch_operation,
-  iam_scim_group_patch_operation_value,
   iam_scim_group_replace_request,
 } from "./schemas.js";
 
@@ -31,8 +34,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Account identifier tag.",
-          "type": "string"
+          "$ref": "#/$defs/iam_account_identifier",
+          "description": "Account identifier tag."
         },
         "body": {
           "$ref": "#/$defs/iam_scim_group_create_request"
@@ -43,6 +46,8 @@ export const tools: readonly Tool[] = [
         "body"
       ],
       $defs: {
+        "iam_account_identifier": iam_account_identifier,
+        "iam_common_components-schemas-identifier": iam_common_components_schemas_identifier,
         "iam_scim_group_create_request": iam_scim_group_create_request,
       },
     },
@@ -50,7 +55,6 @@ export const tools: readonly Tool[] = [
       "$ref": "#/$defs/iam_scim_group",
       $defs: {
         "iam_scim_group": iam_scim_group_output,
-        "iam_scim_group_membersItem": iam_scim_group_membersItem_output,
         "iam_scim_group_meta": iam_scim_group_meta_output,
       },
     },
@@ -71,12 +75,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "com.cloudflare.api.account.member.create"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.api.account.member.create": {
-            "name": "com_cloudflare_api_account_member_create"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": false,
@@ -97,7 +96,6 @@ export const tools: readonly Tool[] = [
       $defs: {
         "iam_scim_error_response": iam_scim_error_response_output,
         "iam_scim_group": iam_scim_group_output,
-        "iam_scim_group_membersItem": iam_scim_group_membersItem_output,
         "iam_scim_group_meta": iam_scim_group_meta_output,
       },
     },
@@ -114,18 +112,23 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Account identifier tag.",
-          "type": "string"
+          "$ref": "#/$defs/iam_account_identifier",
+          "description": "Account identifier tag."
         },
         "group_id": {
-          "description": "The group identifier for a SCIM Group resource. For system groups this is prefixed `cloudflare-v1-<permissionGroupTag>`; for custom user groups this is a UUID-style tag.\n",
-          "type": "string"
+          "$ref": "#/$defs/iam_scim_group_identifier",
+          "description": "The group identifier for a SCIM Group resource. For system groups this is prefixed `cloudflare-v1-<permissionGroupTag>`; for custom user groups this is a UUID-style tag.\n"
         }
       },
       required: [
         "account_id",
         "group_id"
       ],
+      $defs: {
+        "iam_account_identifier": iam_account_identifier,
+        "iam_common_components-schemas-identifier": iam_common_components_schemas_identifier,
+        "iam_scim_group_identifier": iam_scim_group_identifier,
+      },
     },
     annotations: {
       "destructiveHint": true,
@@ -144,12 +147,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "com.cloudflare.api.account.member.delete"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.api.account.member.delete": {
-            "name": "com_cloudflare_api_account_member_delete"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": false,
@@ -181,15 +179,15 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Account identifier tag.",
-          "type": "string"
+          "$ref": "#/$defs/iam_account_identifier",
+          "description": "Account identifier tag."
         },
         "body": {
           "$ref": "#/$defs/iam_scim_group_patch_op_request"
         },
         "group_id": {
-          "description": "The group identifier for a SCIM Group resource. For system groups this is prefixed `cloudflare-v1-<permissionGroupTag>`; for custom user groups this is a UUID-style tag.\n",
-          "type": "string"
+          "$ref": "#/$defs/iam_scim_group_identifier",
+          "description": "The group identifier for a SCIM Group resource. For system groups this is prefixed `cloudflare-v1-<permissionGroupTag>`; for custom user groups this is a UUID-style tag.\n"
         }
       },
       required: [
@@ -198,17 +196,18 @@ export const tools: readonly Tool[] = [
         "body"
       ],
       $defs: {
+        "iam_account_identifier": iam_account_identifier,
+        "iam_common_components-schemas-identifier": iam_common_components_schemas_identifier,
+        "iam_scim_group_identifier": iam_scim_group_identifier,
         "iam_scim_group_patch_member_value": iam_scim_group_patch_member_value,
         "iam_scim_group_patch_op_request": iam_scim_group_patch_op_request,
         "iam_scim_group_patch_operation": iam_scim_group_patch_operation,
-        "iam_scim_group_patch_operation_value": iam_scim_group_patch_operation_value,
       },
     },
     outputSchema: {
       "$ref": "#/$defs/iam_scim_group",
       $defs: {
         "iam_scim_group": iam_scim_group_output,
-        "iam_scim_group_membersItem": iam_scim_group_membersItem_output,
         "iam_scim_group_meta": iam_scim_group_meta_output,
       },
     },
@@ -229,12 +228,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "com.cloudflare.api.account.member.update"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.api.account.member.update": {
-            "name": "com_cloudflare_api_account_member_update"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": false,
@@ -255,7 +249,6 @@ export const tools: readonly Tool[] = [
       $defs: {
         "iam_scim_error_response": iam_scim_error_response_output,
         "iam_scim_group": iam_scim_group_output,
-        "iam_scim_group_membersItem": iam_scim_group_membersItem_output,
         "iam_scim_group_meta": iam_scim_group_meta_output,
       },
     },
@@ -272,24 +265,28 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Account identifier tag.",
-          "type": "string"
+          "$ref": "#/$defs/iam_account_identifier",
+          "description": "Account identifier tag."
         },
         "group_id": {
-          "description": "The group identifier for a SCIM Group resource. For system groups this is prefixed `cloudflare-v1-<permissionGroupTag>`; for custom user groups this is a UUID-style tag.\n",
-          "type": "string"
+          "$ref": "#/$defs/iam_scim_group_identifier",
+          "description": "The group identifier for a SCIM Group resource. For system groups this is prefixed `cloudflare-v1-<permissionGroupTag>`; for custom user groups this is a UUID-style tag.\n"
         }
       },
       required: [
         "account_id",
         "group_id"
       ],
+      $defs: {
+        "iam_account_identifier": iam_account_identifier,
+        "iam_common_components-schemas-identifier": iam_common_components_schemas_identifier,
+        "iam_scim_group_identifier": iam_scim_group_identifier,
+      },
     },
     outputSchema: {
       "$ref": "#/$defs/iam_scim_group",
       $defs: {
         "iam_scim_group": iam_scim_group_output,
-        "iam_scim_group_membersItem": iam_scim_group_membersItem_output,
         "iam_scim_group_meta": iam_scim_group_meta_output,
       },
     },
@@ -311,12 +308,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "com.cloudflare.api.account.member.list"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.api.account.member.list": {
-            "name": "com_cloudflare_api_account_member_list"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": true,
@@ -337,7 +329,6 @@ export const tools: readonly Tool[] = [
       $defs: {
         "iam_scim_error_response": iam_scim_error_response_output,
         "iam_scim_group": iam_scim_group_output,
-        "iam_scim_group_membersItem": iam_scim_group_membersItem_output,
         "iam_scim_group_meta": iam_scim_group_meta_output,
       },
     },
@@ -353,8 +344,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Account identifier tag.",
-          "type": "string"
+          "$ref": "#/$defs/iam_account_identifier",
+          "description": "Account identifier tag."
         },
         "count": {
           "description": "Specifies the desired maximum number of query results per page.\n",
@@ -373,6 +364,10 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+      $defs: {
+        "iam_account_identifier": iam_account_identifier,
+        "iam_common_components-schemas-identifier": iam_common_components_schemas_identifier,
+      },
     },
     outputSchema: {
       "$ref": "#/$defs/iam_scim_group_list_response",
@@ -400,12 +395,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "com.cloudflare.api.account.member.list"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.api.account.member.list": {
-            "name": "com_cloudflare_api_account_member_list"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": true,
@@ -447,15 +437,15 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Account identifier tag.",
-          "type": "string"
+          "$ref": "#/$defs/iam_account_identifier",
+          "description": "Account identifier tag."
         },
         "body": {
           "$ref": "#/$defs/iam_scim_group_replace_request"
         },
         "group_id": {
-          "description": "The group identifier for a SCIM Group resource. For system groups this is prefixed `cloudflare-v1-<permissionGroupTag>`; for custom user groups this is a UUID-style tag.\n",
-          "type": "string"
+          "$ref": "#/$defs/iam_scim_group_identifier",
+          "description": "The group identifier for a SCIM Group resource. For system groups this is prefixed `cloudflare-v1-<permissionGroupTag>`; for custom user groups this is a UUID-style tag.\n"
         }
       },
       required: [
@@ -464,6 +454,9 @@ export const tools: readonly Tool[] = [
         "body"
       ],
       $defs: {
+        "iam_account_identifier": iam_account_identifier,
+        "iam_common_components-schemas-identifier": iam_common_components_schemas_identifier,
+        "iam_scim_group_identifier": iam_scim_group_identifier,
         "iam_scim_group_patch_member_value": iam_scim_group_patch_member_value,
         "iam_scim_group_replace_request": iam_scim_group_replace_request,
       },
@@ -472,7 +465,6 @@ export const tools: readonly Tool[] = [
       "$ref": "#/$defs/iam_scim_group",
       $defs: {
         "iam_scim_group": iam_scim_group_output,
-        "iam_scim_group_membersItem": iam_scim_group_membersItem_output,
         "iam_scim_group_meta": iam_scim_group_meta_output,
       },
     },
@@ -493,12 +485,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "com.cloudflare.api.account.member.update"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.api.account.member.update": {
-            "name": "com_cloudflare_api_account_member_update"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": false,
@@ -519,7 +506,6 @@ export const tools: readonly Tool[] = [
       $defs: {
         "iam_scim_error_response": iam_scim_error_response_output,
         "iam_scim_group": iam_scim_group_output,
-        "iam_scim_group_membersItem": iam_scim_group_membersItem_output,
         "iam_scim_group_meta": iam_scim_group_meta_output,
       },
     },

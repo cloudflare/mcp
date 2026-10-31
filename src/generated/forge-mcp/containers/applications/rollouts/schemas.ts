@@ -77,28 +77,21 @@ export const cc_RolloutStepRequest: JsonSchema = {
       "type": "string"
     },
     "step_size": {
-      "$ref": "#/$defs/cc_RolloutStepRequest_step_size"
+      "properties": {
+        "percentage": {
+          "description": "Percentage of instances affected in this step. Min 10% and Max 100%.",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "percentage"
+      ],
+      "type": "object"
     }
   },
   "required": [
     "description",
     "step_size"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `cc_RolloutStepRequest_step_size`.
- */
-export const cc_RolloutStepRequest_step_size: JsonSchema = {
-  "properties": {
-    "percentage": {
-      "description": "Percentage of instances affected in this step. Min 10% and Max 100%.",
-      "type": "integer"
-    }
-  },
-  "required": [
-    "percentage"
   ],
   "type": "object"
 };

@@ -8,8 +8,8 @@ import {
   reports_PolicyErrorResponse_output,
 } from "../outputs.js";
 import {
-  reports_PoliciesListResponse_resultItem_output,
-  reports_PolicySingleResponse_result_output,
+  reports_PoliciesListResponse_output,
+  reports_PolicySingleResponse_output,
 } from "./outputs.js";
 
 /**
@@ -39,9 +39,11 @@ export const tools: readonly Tool[] = [
       ],
     },
     outputSchema: {
-      "$ref": "#/$defs/reports_PolicySingleResponse_result",
+      "$ref": "#/$defs/reports_PolicySingleResponse",
       $defs: {
-        "reports_PolicySingleResponse_result": reports_PolicySingleResponse_result_output,
+        "reports_Error": reports_Error_output,
+        "reports_Message": reports_Message_output,
+        "reports_PolicySingleResponse": reports_PolicySingleResponse_output,
       },
     },
     annotations: {
@@ -61,7 +63,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/reports_PolicySingleResponse_result"
+          "$ref": "#/$defs/reports_PolicySingleResponse"
         },
         "404": {
           "$ref": "#/$defs/reports_PolicyErrorResponse"
@@ -71,7 +73,7 @@ export const tools: readonly Tool[] = [
         "reports_Error": reports_Error_output,
         "reports_Message": reports_Message_output,
         "reports_PolicyErrorResponse": reports_PolicyErrorResponse_output,
-        "reports_PolicySingleResponse_result": reports_PolicySingleResponse_result_output,
+        "reports_PolicySingleResponse": reports_PolicySingleResponse_output,
       },
     },
     request: (args) => ({
@@ -95,30 +97,11 @@ export const tools: readonly Tool[] = [
       ],
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "oneOf": [
-            {
-              "items": {
-                "$ref": "#/$defs/reports_PoliciesListResponse_resultItem"
-              },
-              "type": "array"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "result_info": {
-          "type": "object"
-        }
-      },
-      "required": [
-        "result"
-      ],
-      "type": "object",
+      "$ref": "#/$defs/reports_PoliciesListResponse",
       $defs: {
-        "reports_PoliciesListResponse_resultItem": reports_PoliciesListResponse_resultItem_output,
+        "reports_Error": reports_Error_output,
+        "reports_Message": reports_Message_output,
+        "reports_PoliciesListResponse": reports_PoliciesListResponse_output,
       },
     },
     annotations: {
@@ -138,28 +121,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "oneOf": [
-                {
-                  "items": {
-                    "$ref": "#/$defs/reports_PoliciesListResponse_resultItem"
-                  },
-                  "type": "array"
-                },
-                {
-                  "type": "null"
-                }
-              ]
-            },
-            "result_info": {
-              "type": "object"
-            }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/reports_PoliciesListResponse"
         },
         "400": {
           "$ref": "#/$defs/reports_PolicyErrorResponse"
@@ -168,7 +130,7 @@ export const tools: readonly Tool[] = [
       $defs: {
         "reports_Error": reports_Error_output,
         "reports_Message": reports_Message_output,
-        "reports_PoliciesListResponse_resultItem": reports_PoliciesListResponse_resultItem_output,
+        "reports_PoliciesListResponse": reports_PoliciesListResponse_output,
         "reports_PolicyErrorResponse": reports_PolicyErrorResponse_output,
       },
     },

@@ -7,13 +7,16 @@ import {
   cc_Image_output,
   cc_Messages_output,
   cc_V4BaseErrorResponse_output,
+  cc_V4BaseResponse_output,
 } from "../../outputs.js";
 import {
   cc_ApplicationID_output,
   cc_Region_output,
   cc_V4PaginatedResultInfo_output,
 } from "../outputs.js";
+import { cc_ApplicationID } from "../schemas.js";
 import {
+  cc_ContainerInstanceBase_output,
   cc_ContainerInstanceConfiguration_output,
   cc_ContainerInstanceID_output,
   cc_ContainerInstanceLocation_output,
@@ -23,6 +26,7 @@ import {
   cc_ContainersListContainerInstancesV2_output,
   cc_LocationID_output,
 } from "./outputs.js";
+import { cc_ContainerInstanceID } from "./schemas.js";
 
 /**
  * The tools of `containers.applications.instances`.
@@ -40,12 +44,12 @@ export const tools: readonly Tool[] = [
           "type": "string"
         },
         "application_id": {
-          "description": "An Application ID represents an identifier of an application.",
-          "type": "string"
+          "$ref": "#/$defs/cc_ApplicationID",
+          "description": "An Application ID represents an identifier of an application."
         },
         "instance_id": {
-          "description": "A container instance ID (64-character hex Durable Object actor ID).",
-          "type": "string"
+          "$ref": "#/$defs/cc_ContainerInstanceID",
+          "description": "A container instance ID (64-character hex Durable Object actor ID)."
         }
       },
       required: [
@@ -53,12 +57,32 @@ export const tools: readonly Tool[] = [
         "application_id",
         "instance_id"
       ],
+      $defs: {
+        "cc_ApplicationID": cc_ApplicationID,
+        "cc_ContainerInstanceID": cc_ContainerInstanceID,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/cc_ContainerInstance",
+      "allOf": [
+        {
+          "$ref": "#/$defs/cc_V4BaseResponse"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/cc_ContainerInstance"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        }
+      ],
       $defs: {
         "cc_ApplicationID": cc_ApplicationID_output,
         "cc_ContainerInstance": cc_ContainerInstance_output,
+        "cc_ContainerInstanceBase": cc_ContainerInstanceBase_output,
         "cc_ContainerInstanceConfiguration": cc_ContainerInstanceConfiguration_output,
         "cc_ContainerInstanceID": cc_ContainerInstanceID_output,
         "cc_ContainerInstanceLocation": cc_ContainerInstanceLocation_output,
@@ -67,7 +91,9 @@ export const tools: readonly Tool[] = [
         "cc_ISO8601Timestamp": cc_ISO8601Timestamp_output,
         "cc_Image": cc_Image_output,
         "cc_LocationID": cc_LocationID_output,
+        "cc_Messages": cc_Messages_output,
         "cc_Region": cc_Region_output,
+        "cc_V4BaseResponse": cc_V4BaseResponse_output,
       },
     },
     annotations: {
@@ -88,7 +114,22 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/cc_ContainerInstance"
+          "allOf": [
+            {
+              "$ref": "#/$defs/cc_V4BaseResponse"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/cc_ContainerInstance"
+                }
+              },
+              "required": [
+                "result"
+              ],
+              "type": "object"
+            }
+          ]
         },
         "400": {
           "$ref": "#/$defs/cc_V4BaseErrorResponse"
@@ -106,6 +147,7 @@ export const tools: readonly Tool[] = [
       $defs: {
         "cc_ApplicationID": cc_ApplicationID_output,
         "cc_ContainerInstance": cc_ContainerInstance_output,
+        "cc_ContainerInstanceBase": cc_ContainerInstanceBase_output,
         "cc_ContainerInstanceConfiguration": cc_ContainerInstanceConfiguration_output,
         "cc_ContainerInstanceID": cc_ContainerInstanceID_output,
         "cc_ContainerInstanceLocation": cc_ContainerInstanceLocation_output,
@@ -117,6 +159,7 @@ export const tools: readonly Tool[] = [
         "cc_Messages": cc_Messages_output,
         "cc_Region": cc_Region_output,
         "cc_V4BaseErrorResponse": cc_V4BaseErrorResponse_output,
+        "cc_V4BaseResponse": cc_V4BaseResponse_output,
       },
     },
     request: (args) => ({
@@ -135,8 +178,8 @@ export const tools: readonly Tool[] = [
           "type": "string"
         },
         "application_id": {
-          "description": "An Application ID represents an identifier of an application.",
-          "type": "string"
+          "$ref": "#/$defs/cc_ApplicationID",
+          "description": "An Application ID represents an identifier of an application."
         },
         "name_prefix": {
           "description": "Filter instances by a case-sensitive name prefix, falling back to the actor ID when no name is known. Keep the same prefix when using a page token.\n",
@@ -163,23 +206,35 @@ export const tools: readonly Tool[] = [
         "account_id",
         "application_id"
       ],
+      $defs: {
+        "cc_ApplicationID": cc_ApplicationID,
+      },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "$ref": "#/$defs/cc_ContainersListContainerInstancesV2"
+      "allOf": [
+        {
+          "$ref": "#/$defs/cc_V4BaseResponse"
         },
-        "result_info": {
-          "$ref": "#/$defs/cc_V4PaginatedResultInfo"
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/cc_ContainersListContainerInstancesV2"
+            },
+            "result_info": {
+              "$ref": "#/$defs/cc_V4PaginatedResultInfo"
+            }
+          },
+          "required": [
+            "result",
+            "result_info"
+          ],
+          "type": "object"
         }
-      },
-      "required": [
-        "result"
       ],
-      "type": "object",
       $defs: {
         "cc_ApplicationID": cc_ApplicationID_output,
         "cc_ContainerInstance": cc_ContainerInstance_output,
+        "cc_ContainerInstanceBase": cc_ContainerInstanceBase_output,
         "cc_ContainerInstanceConfiguration": cc_ContainerInstanceConfiguration_output,
         "cc_ContainerInstanceID": cc_ContainerInstanceID_output,
         "cc_ContainerInstanceLocation": cc_ContainerInstanceLocation_output,
@@ -189,7 +244,9 @@ export const tools: readonly Tool[] = [
         "cc_ISO8601Timestamp": cc_ISO8601Timestamp_output,
         "cc_Image": cc_Image_output,
         "cc_LocationID": cc_LocationID_output,
+        "cc_Messages": cc_Messages_output,
         "cc_Region": cc_Region_output,
+        "cc_V4BaseResponse": cc_V4BaseResponse_output,
         "cc_V4PaginatedResultInfo": cc_V4PaginatedResultInfo_output,
       },
     },
@@ -216,18 +273,26 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "$ref": "#/$defs/cc_ContainersListContainerInstancesV2"
+          "allOf": [
+            {
+              "$ref": "#/$defs/cc_V4BaseResponse"
             },
-            "result_info": {
-              "$ref": "#/$defs/cc_V4PaginatedResultInfo"
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/cc_ContainersListContainerInstancesV2"
+                },
+                "result_info": {
+                  "$ref": "#/$defs/cc_V4PaginatedResultInfo"
+                }
+              },
+              "required": [
+                "result",
+                "result_info"
+              ],
+              "type": "object"
             }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          ]
         },
         "400": {
           "$ref": "#/$defs/cc_V4BaseErrorResponse"
@@ -245,6 +310,7 @@ export const tools: readonly Tool[] = [
       $defs: {
         "cc_ApplicationID": cc_ApplicationID_output,
         "cc_ContainerInstance": cc_ContainerInstance_output,
+        "cc_ContainerInstanceBase": cc_ContainerInstanceBase_output,
         "cc_ContainerInstanceConfiguration": cc_ContainerInstanceConfiguration_output,
         "cc_ContainerInstanceID": cc_ContainerInstanceID_output,
         "cc_ContainerInstanceLocation": cc_ContainerInstanceLocation_output,
@@ -257,6 +323,7 @@ export const tools: readonly Tool[] = [
         "cc_Messages": cc_Messages_output,
         "cc_Region": cc_Region_output,
         "cc_V4BaseErrorResponse": cc_V4BaseErrorResponse_output,
+        "cc_V4BaseResponse": cc_V4BaseResponse_output,
         "cc_V4PaginatedResultInfo": cc_V4PaginatedResultInfo_output,
       },
     },

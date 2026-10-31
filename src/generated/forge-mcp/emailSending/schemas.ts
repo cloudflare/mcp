@@ -94,16 +94,63 @@ export const email_sending_EmailBuilder: JsonSchema = {
           "type": "array"
         },
         "bcc": {
-          "$ref": "#/$defs/email-sending_EmailBuilder_bcc",
-          "description": "Blind carbon copy recipient(s). Optional. A single email string, a named address object, or an array of either."
+          "description": "Blind carbon copy recipient(s). Optional. A single email string, a named address object, or an array of either.",
+          "oneOf": [
+            {
+              "$ref": "#/$defs/email-sending_EmailAddressString"
+            },
+            {
+              "$ref": "#/$defs/email-sending_EmailAddressObject"
+            },
+            {
+              "items": {
+                "oneOf": [
+                  {
+                    "$ref": "#/$defs/email-sending_EmailAddressString"
+                  },
+                  {
+                    "$ref": "#/$defs/email-sending_EmailAddressObject"
+                  }
+                ]
+              },
+              "type": "array"
+            }
+          ]
         },
         "cc": {
-          "$ref": "#/$defs/email-sending_EmailBuilder_cc",
-          "description": "Carbon copy recipient(s). Optional. A single email string, a named address object, or an array of either."
+          "description": "Carbon copy recipient(s). Optional. A single email string, a named address object, or an array of either.",
+          "oneOf": [
+            {
+              "$ref": "#/$defs/email-sending_EmailAddressString"
+            },
+            {
+              "$ref": "#/$defs/email-sending_EmailAddressObject"
+            },
+            {
+              "items": {
+                "oneOf": [
+                  {
+                    "$ref": "#/$defs/email-sending_EmailAddressString"
+                  },
+                  {
+                    "$ref": "#/$defs/email-sending_EmailAddressObject"
+                  }
+                ]
+              },
+              "type": "array"
+            }
+          ]
         },
         "from": {
-          "$ref": "#/$defs/email-sending_EmailBuilder_from",
-          "description": "Sender email address. Either a plain string or an object with address and name."
+          "description": "Sender email address. Either a plain string or an object with address and name.",
+          "oneOf": [
+            {
+              "$ref": "#/$defs/email-sending_EmailAddressString"
+            },
+            {
+              "$ref": "#/$defs/email-sending_EmailAddressObject"
+            }
+          ]
         },
         "headers": {
           "additionalProperties": {
@@ -117,8 +164,15 @@ export const email_sending_EmailBuilder: JsonSchema = {
           "type": "string"
         },
         "reply_to": {
-          "$ref": "#/$defs/email-sending_EmailBuilder_reply_to",
-          "description": "Reply-to address. Either a plain string or an object with address and name."
+          "description": "Reply-to address. Either a plain string or an object with address and name.",
+          "oneOf": [
+            {
+              "$ref": "#/$defs/email-sending_EmailAddressString"
+            },
+            {
+              "$ref": "#/$defs/email-sending_EmailAddressObject"
+            }
+          ]
         },
         "subject": {
           "description": "Email subject line.",
@@ -129,8 +183,28 @@ export const email_sending_EmailBuilder: JsonSchema = {
           "type": "string"
         },
         "to": {
-          "$ref": "#/$defs/email-sending_EmailBuilder_to",
-          "description": "Recipient(s). Optional if cc or bcc is provided. A single email string, a named address object, or an array of either."
+          "description": "Recipient(s). Optional if cc or bcc is provided. A single email string, a named address object, or an array of either.",
+          "oneOf": [
+            {
+              "$ref": "#/$defs/email-sending_EmailAddressString"
+            },
+            {
+              "$ref": "#/$defs/email-sending_EmailAddressObject"
+            },
+            {
+              "items": {
+                "oneOf": [
+                  {
+                    "$ref": "#/$defs/email-sending_EmailAddressString"
+                  },
+                  {
+                    "$ref": "#/$defs/email-sending_EmailAddressObject"
+                  }
+                ]
+              },
+              "type": "array"
+            }
+          ]
         }
       },
       "required": [
@@ -141,120 +215,6 @@ export const email_sending_EmailBuilder: JsonSchema = {
     },
     {},
     {}
-  ]
-};
-
-/**
- * The schema of `email-sending_EmailBuilder_bcc`.
- */
-export const email_sending_EmailBuilder_bcc: JsonSchema = {
-  "description": "Blind carbon copy recipient(s). Optional. A single email string, a named address object, or an array of either.",
-  "oneOf": [
-    {
-      "$ref": "#/$defs/email-sending_EmailAddressString"
-    },
-    {
-      "$ref": "#/$defs/email-sending_EmailAddressObject"
-    },
-    {
-      "items": {
-        "oneOf": [
-          {
-            "$ref": "#/$defs/email-sending_EmailAddressString"
-          },
-          {
-            "$ref": "#/$defs/email-sending_EmailAddressObject"
-          }
-        ]
-      },
-      "type": "array"
-    }
-  ]
-};
-
-/**
- * The schema of `email-sending_EmailBuilder_cc`.
- */
-export const email_sending_EmailBuilder_cc: JsonSchema = {
-  "description": "Carbon copy recipient(s). Optional. A single email string, a named address object, or an array of either.",
-  "oneOf": [
-    {
-      "$ref": "#/$defs/email-sending_EmailAddressString"
-    },
-    {
-      "$ref": "#/$defs/email-sending_EmailAddressObject"
-    },
-    {
-      "items": {
-        "oneOf": [
-          {
-            "$ref": "#/$defs/email-sending_EmailAddressString"
-          },
-          {
-            "$ref": "#/$defs/email-sending_EmailAddressObject"
-          }
-        ]
-      },
-      "type": "array"
-    }
-  ]
-};
-
-/**
- * The schema of `email-sending_EmailBuilder_from`.
- */
-export const email_sending_EmailBuilder_from: JsonSchema = {
-  "description": "Sender email address. Either a plain string or an object with address and name.",
-  "oneOf": [
-    {
-      "$ref": "#/$defs/email-sending_EmailAddressString"
-    },
-    {
-      "$ref": "#/$defs/email-sending_EmailAddressObject"
-    }
-  ]
-};
-
-/**
- * The schema of `email-sending_EmailBuilder_reply_to`.
- */
-export const email_sending_EmailBuilder_reply_to: JsonSchema = {
-  "description": "Reply-to address. Either a plain string or an object with address and name.",
-  "oneOf": [
-    {
-      "$ref": "#/$defs/email-sending_EmailAddressString"
-    },
-    {
-      "$ref": "#/$defs/email-sending_EmailAddressObject"
-    }
-  ]
-};
-
-/**
- * The schema of `email-sending_EmailBuilder_to`.
- */
-export const email_sending_EmailBuilder_to: JsonSchema = {
-  "description": "Recipient(s). Optional if cc or bcc is provided. A single email string, a named address object, or an array of either.",
-  "oneOf": [
-    {
-      "$ref": "#/$defs/email-sending_EmailAddressString"
-    },
-    {
-      "$ref": "#/$defs/email-sending_EmailAddressObject"
-    },
-    {
-      "items": {
-        "oneOf": [
-          {
-            "$ref": "#/$defs/email-sending_EmailAddressString"
-          },
-          {
-            "$ref": "#/$defs/email-sending_EmailAddressObject"
-          }
-        ]
-      },
-      "type": "array"
-    }
   ]
 };
 

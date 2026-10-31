@@ -3,7 +3,10 @@
 
 import { type Tool, pathParam } from "../_/tool.js";
 import {
+  images_api_response_collection_v2_output,
   images_api_response_common_failure_output,
+  images_api_response_common_output,
+  images_api_response_single_output,
   images_deleted_response_output,
   images_image_creator_output,
   images_image_filename_output,
@@ -18,6 +21,8 @@ import {
   images_image_thumbnail_url_output,
   images_image_uploaded_output,
   images_image_variants_output,
+  images_images_list_continuation_token_output,
+  images_images_list_response_v2_output,
   images_images_stats_allowed_output,
   images_images_stats_count_output,
   images_images_stats_current_output,
@@ -26,6 +31,8 @@ import {
   images_messages_output,
 } from "./outputs.js";
 import {
+  images_account_identifier,
+  images_image_identifier,
   images_image_patch_request,
   images_images_list_continuation_token,
 } from "./schemas.js";
@@ -42,21 +49,31 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Account identifier tag.",
-          "type": "string"
+          "$ref": "#/$defs/images_account_identifier",
+          "description": "Account identifier tag."
         },
         "image_id": {
-          "description": "Image unique identifier.",
-          "type": "string"
+          "$ref": "#/$defs/images_image_identifier",
+          "description": "Image unique identifier."
         }
       },
       required: [
         "account_id",
         "image_id"
       ],
+      $defs: {
+        "images_account_identifier": images_account_identifier,
+        "images_image_identifier": images_image_identifier,
+      },
     },
     outputSchema: {
-      "type": "object",
+      "$ref": "#/$defs/images_deleted_response",
+      $defs: {
+        "images_api-response-common": images_api_response_common_output,
+        "images_api-response-single": images_api_response_single_output,
+        "images_deleted_response": images_deleted_response_output,
+        "images_messages": images_messages_output,
+      },
     },
     annotations: {
       "destructiveHint": true,
@@ -75,7 +92,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "type": "object"
+          "$ref": "#/$defs/images_deleted_response"
         },
         "4XX": {
           "anyOf": [
@@ -89,7 +106,9 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
+        "images_api-response-common": images_api_response_common_output,
         "images_api-response-common-failure": images_api_response_common_failure_output,
+        "images_api-response-single": images_api_response_single_output,
         "images_deleted_response": images_deleted_response_output,
         "images_messages": images_messages_output,
       },
@@ -106,15 +125,15 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Account identifier tag.",
-          "type": "string"
+          "$ref": "#/$defs/images_account_identifier",
+          "description": "Account identifier tag."
         },
         "body": {
           "$ref": "#/$defs/images_image_patch_request"
         },
         "image_id": {
-          "description": "Image unique identifier.",
-          "type": "string"
+          "$ref": "#/$defs/images_image_identifier",
+          "description": "Image unique identifier."
         }
       },
       required: [
@@ -123,12 +142,16 @@ export const tools: readonly Tool[] = [
         "body"
       ],
       $defs: {
+        "images_account_identifier": images_account_identifier,
+        "images_image_identifier": images_image_identifier,
         "images_image_patch_request": images_image_patch_request,
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/images_image",
+      "$ref": "#/$defs/images_image_response_single",
       $defs: {
+        "images_api-response-common": images_api_response_common_output,
+        "images_api-response-single": images_api_response_single_output,
         "images_image": images_image_output,
         "images_image_creator": images_image_creator_output,
         "images_image_filename": images_image_filename_output,
@@ -137,9 +160,11 @@ export const tools: readonly Tool[] = [
         "images_image_metadata": images_image_metadata_output,
         "images_image_original_url": images_image_original_url_output,
         "images_image_requireSignedURLs": images_image_requireSignedURLs_output,
+        "images_image_response_single": images_image_response_single_output,
         "images_image_thumbnail_url": images_image_thumbnail_url_output,
         "images_image_uploaded": images_image_uploaded_output,
         "images_image_variants": images_image_variants_output,
+        "images_messages": images_messages_output,
       },
     },
     annotations: {
@@ -159,7 +184,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/images_image"
+          "$ref": "#/$defs/images_image_response_single"
         },
         "4XX": {
           "anyOf": [
@@ -173,7 +198,9 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
+        "images_api-response-common": images_api_response_common_output,
         "images_api-response-common-failure": images_api_response_common_failure_output,
+        "images_api-response-single": images_api_response_single_output,
         "images_image": images_image_output,
         "images_image_creator": images_image_creator_output,
         "images_image_filename": images_image_filename_output,
@@ -202,22 +229,28 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Account identifier tag.",
-          "type": "string"
+          "$ref": "#/$defs/images_account_identifier",
+          "description": "Account identifier tag."
         },
         "image_id": {
-          "description": "Image unique identifier.",
-          "type": "string"
+          "$ref": "#/$defs/images_image_identifier",
+          "description": "Image unique identifier."
         }
       },
       required: [
         "account_id",
         "image_id"
       ],
+      $defs: {
+        "images_account_identifier": images_account_identifier,
+        "images_image_identifier": images_image_identifier,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/images_image",
+      "$ref": "#/$defs/images_image_response_single",
       $defs: {
+        "images_api-response-common": images_api_response_common_output,
+        "images_api-response-single": images_api_response_single_output,
         "images_image": images_image_output,
         "images_image_creator": images_image_creator_output,
         "images_image_filename": images_image_filename_output,
@@ -226,9 +259,11 @@ export const tools: readonly Tool[] = [
         "images_image_metadata": images_image_metadata_output,
         "images_image_original_url": images_image_original_url_output,
         "images_image_requireSignedURLs": images_image_requireSignedURLs_output,
+        "images_image_response_single": images_image_response_single_output,
         "images_image_thumbnail_url": images_image_thumbnail_url_output,
         "images_image_uploaded": images_image_uploaded_output,
         "images_image_variants": images_image_variants_output,
+        "images_messages": images_messages_output,
       },
     },
     annotations: {
@@ -249,7 +284,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/images_image"
+          "$ref": "#/$defs/images_image_response_single"
         },
         "4XX": {
           "anyOf": [
@@ -263,7 +298,9 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
+        "images_api-response-common": images_api_response_common_output,
         "images_api-response-common-failure": images_api_response_common_failure_output,
+        "images_api-response-single": images_api_response_single_output,
         "images_image": images_image_output,
         "images_image_creator": images_image_creator_output,
         "images_image_filename": images_image_filename_output,
@@ -291,18 +328,22 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Account identifier tag.",
-          "type": "string"
+          "$ref": "#/$defs/images_account_identifier",
+          "description": "Account identifier tag."
         },
         "image_id": {
-          "description": "Image unique identifier.",
-          "type": "string"
+          "$ref": "#/$defs/images_image_identifier",
+          "description": "Image unique identifier."
         }
       },
       required: [
         "account_id",
         "image_id"
       ],
+      $defs: {
+        "images_account_identifier": images_account_identifier,
+        "images_image_identifier": images_image_identifier,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -351,8 +392,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Account identifier tag.",
-          "type": "string"
+          "$ref": "#/$defs/images_account_identifier",
+          "description": "Account identifier tag."
         },
         "continuation_token": {
           "$ref": "#/$defs/images_images_list_continuation_token",
@@ -392,20 +433,15 @@ export const tools: readonly Tool[] = [
         "account_id"
       ],
       $defs: {
+        "images_account_identifier": images_account_identifier,
         "images_images_list_continuation_token": images_images_list_continuation_token,
       },
     },
     outputSchema: {
-      "properties": {
-        "images": {
-          "items": {
-            "$ref": "#/$defs/images_image"
-          },
-          "type": "array"
-        }
-      },
-      "type": "object",
+      "$ref": "#/$defs/images_images_list_response_v2",
       $defs: {
+        "images_api-response-collection-v2": images_api_response_collection_v2_output,
+        "images_api-response-common": images_api_response_common_output,
         "images_image": images_image_output,
         "images_image_creator": images_image_creator_output,
         "images_image_filename": images_image_filename_output,
@@ -417,6 +453,9 @@ export const tools: readonly Tool[] = [
         "images_image_thumbnail_url": images_image_thumbnail_url_output,
         "images_image_uploaded": images_image_uploaded_output,
         "images_image_variants": images_image_variants_output,
+        "images_images_list_continuation_token": images_images_list_continuation_token_output,
+        "images_images_list_response_v2": images_images_list_response_v2_output,
+        "images_messages": images_messages_output,
       },
     },
     annotations: {
@@ -437,15 +476,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "images": {
-              "items": {
-                "$ref": "#/$defs/images_image"
-              },
-              "type": "array"
-            }
-          },
-          "type": "object"
+          "$ref": "#/$defs/images_images_list_response_v2"
         },
         "400": {
           "$ref": "#/$defs/images_api-response-common-failure"
@@ -455,6 +486,8 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
+        "images_api-response-collection-v2": images_api_response_collection_v2_output,
+        "images_api-response-common": images_api_response_common_output,
         "images_api-response-common-failure": images_api_response_common_failure_output,
         "images_image": images_image_output,
         "images_image_creator": images_image_creator_output,
@@ -467,6 +500,8 @@ export const tools: readonly Tool[] = [
         "images_image_thumbnail_url": images_image_thumbnail_url_output,
         "images_image_uploaded": images_image_uploaded_output,
         "images_image_variants": images_image_variants_output,
+        "images_images_list_continuation_token": images_images_list_continuation_token_output,
+        "images_images_list_response_v2": images_images_list_response_v2_output,
         "images_messages": images_messages_output,
       },
     },
@@ -489,21 +524,28 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Account identifier tag.",
-          "type": "string"
+          "$ref": "#/$defs/images_account_identifier",
+          "description": "Account identifier tag."
         }
       },
       required: [
         "account_id"
       ],
+      $defs: {
+        "images_account_identifier": images_account_identifier,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/images_images_stats",
+      "$ref": "#/$defs/images_images_stats_response",
       $defs: {
+        "images_api-response-common": images_api_response_common_output,
+        "images_api-response-single": images_api_response_single_output,
         "images_images_stats": images_images_stats_output,
         "images_images_stats_allowed": images_images_stats_allowed_output,
         "images_images_stats_count": images_images_stats_count_output,
         "images_images_stats_current": images_images_stats_current_output,
+        "images_images_stats_response": images_images_stats_response_output,
+        "images_messages": images_messages_output,
       },
     },
     annotations: {
@@ -524,7 +566,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/images_images_stats"
+          "$ref": "#/$defs/images_images_stats_response"
         },
         "4XX": {
           "anyOf": [
@@ -538,7 +580,9 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
+        "images_api-response-common": images_api_response_common_output,
         "images_api-response-common-failure": images_api_response_common_failure_output,
+        "images_api-response-single": images_api_response_single_output,
         "images_images_stats": images_images_stats_output,
         "images_images_stats_allowed": images_images_stats_allowed_output,
         "images_images_stats_count": images_images_stats_count_output,

@@ -5,6 +5,7 @@ import { type Tool, pathParam } from "../../../_/tool.js";
 import {
   dlp_Empty_output,
   dlp_api_response_common_failure_output,
+  dlp_api_response_single_output,
   dlp_messages_output,
 } from "../../outputs.js";
 import { dlp_SensitivityLevelRef_output } from "../outputs.js";
@@ -41,10 +42,24 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/dlp_DataClass",
+      "allOf": [
+        {
+          "$ref": "#/$defs/dlp_api-response-single"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/dlp_DataClass"
+            }
+          },
+          "type": "object"
+        }
+      ],
       $defs: {
         "dlp_DataClass": dlp_DataClass_output,
         "dlp_SensitivityLevelRef": dlp_SensitivityLevelRef_output,
+        "dlp_api-response-single": dlp_api_response_single_output,
+        "dlp_messages": dlp_messages_output,
       },
     },
     annotations: {
@@ -64,7 +79,19 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/dlp_DataClass"
+          "allOf": [
+            {
+              "$ref": "#/$defs/dlp_api-response-single"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/dlp_DataClass"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/dlp_api-response-common-failure"
@@ -74,6 +101,7 @@ export const tools: readonly Tool[] = [
         "dlp_DataClass": dlp_DataClass_output,
         "dlp_SensitivityLevelRef": dlp_SensitivityLevelRef_output,
         "dlp_api-response-common-failure": dlp_api_response_common_failure_output,
+        "dlp_api-response-single": dlp_api_response_single_output,
         "dlp_messages": dlp_messages_output,
       },
     },
@@ -103,9 +131,23 @@ export const tools: readonly Tool[] = [
       ],
     },
     outputSchema: {
-      "$ref": "#/$defs/dlp_Empty",
+      "allOf": [
+        {
+          "$ref": "#/$defs/dlp_api-response-single"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/dlp_Empty"
+            }
+          },
+          "type": "object"
+        }
+      ],
       $defs: {
         "dlp_Empty": dlp_Empty_output,
+        "dlp_api-response-single": dlp_api_response_single_output,
+        "dlp_messages": dlp_messages_output,
       },
     },
     annotations: {
@@ -125,7 +167,19 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/dlp_Empty"
+          "allOf": [
+            {
+              "$ref": "#/$defs/dlp_api-response-single"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/dlp_Empty"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/dlp_api-response-common-failure"
@@ -134,6 +188,7 @@ export const tools: readonly Tool[] = [
       $defs: {
         "dlp_Empty": dlp_Empty_output,
         "dlp_api-response-common-failure": dlp_api_response_common_failure_output,
+        "dlp_api-response-single": dlp_api_response_single_output,
         "dlp_messages": dlp_messages_output,
       },
     },
@@ -162,10 +217,24 @@ export const tools: readonly Tool[] = [
       ],
     },
     outputSchema: {
-      "$ref": "#/$defs/dlp_DataClass",
+      "allOf": [
+        {
+          "$ref": "#/$defs/dlp_api-response-single"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/dlp_DataClass"
+            }
+          },
+          "type": "object"
+        }
+      ],
       $defs: {
         "dlp_DataClass": dlp_DataClass_output,
         "dlp_SensitivityLevelRef": dlp_SensitivityLevelRef_output,
+        "dlp_api-response-single": dlp_api_response_single_output,
+        "dlp_messages": dlp_messages_output,
       },
     },
     annotations: {
@@ -186,7 +255,19 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/dlp_DataClass"
+          "allOf": [
+            {
+              "$ref": "#/$defs/dlp_api-response-single"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/dlp_DataClass"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/dlp_api-response-common-failure"
@@ -196,6 +277,7 @@ export const tools: readonly Tool[] = [
         "dlp_DataClass": dlp_DataClass_output,
         "dlp_SensitivityLevelRef": dlp_SensitivityLevelRef_output,
         "dlp_api-response-common-failure": dlp_api_response_common_failure_output,
+        "dlp_api-response-single": dlp_api_response_single_output,
         "dlp_messages": dlp_messages_output,
       },
     },
@@ -219,22 +301,25 @@ export const tools: readonly Tool[] = [
       ],
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "$ref": "#/$defs/dlp_DataClassArray"
+      "allOf": [
+        {
+          "$ref": "#/$defs/dlp_api-response-single"
         },
-        "result_info": {
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/dlp_DataClassArray"
+            }
+          },
           "type": "object"
         }
-      },
-      "required": [
-        "result"
       ],
-      "type": "object",
       $defs: {
         "dlp_DataClass": dlp_DataClass_output,
         "dlp_DataClassArray": dlp_DataClassArray_output,
         "dlp_SensitivityLevelRef": dlp_SensitivityLevelRef_output,
+        "dlp_api-response-single": dlp_api_response_single_output,
+        "dlp_messages": dlp_messages_output,
       },
     },
     annotations: {
@@ -255,18 +340,19 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "$ref": "#/$defs/dlp_DataClassArray"
+          "allOf": [
+            {
+              "$ref": "#/$defs/dlp_api-response-single"
             },
-            "result_info": {
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/dlp_DataClassArray"
+                }
+              },
               "type": "object"
             }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/dlp_api-response-common-failure"
@@ -277,6 +363,7 @@ export const tools: readonly Tool[] = [
         "dlp_DataClassArray": dlp_DataClassArray_output,
         "dlp_SensitivityLevelRef": dlp_SensitivityLevelRef_output,
         "dlp_api-response-common-failure": dlp_api_response_common_failure_output,
+        "dlp_api-response-single": dlp_api_response_single_output,
         "dlp_messages": dlp_messages_output,
       },
     },
@@ -314,10 +401,24 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/dlp_DataClass",
+      "allOf": [
+        {
+          "$ref": "#/$defs/dlp_api-response-single"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/dlp_DataClass"
+            }
+          },
+          "type": "object"
+        }
+      ],
       $defs: {
         "dlp_DataClass": dlp_DataClass_output,
         "dlp_SensitivityLevelRef": dlp_SensitivityLevelRef_output,
+        "dlp_api-response-single": dlp_api_response_single_output,
+        "dlp_messages": dlp_messages_output,
       },
     },
     annotations: {
@@ -337,7 +438,19 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/dlp_DataClass"
+          "allOf": [
+            {
+              "$ref": "#/$defs/dlp_api-response-single"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/dlp_DataClass"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/dlp_api-response-common-failure"
@@ -347,6 +460,7 @@ export const tools: readonly Tool[] = [
         "dlp_DataClass": dlp_DataClass_output,
         "dlp_SensitivityLevelRef": dlp_SensitivityLevelRef_output,
         "dlp_api-response-common-failure": dlp_api_response_common_failure_output,
+        "dlp_api-response-single": dlp_api_response_single_output,
         "dlp_messages": dlp_messages_output,
       },
     },

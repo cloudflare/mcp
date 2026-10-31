@@ -7,6 +7,32 @@ import type { JsonSchema } from "../../../_/tool.js";
  * The schema of `cc_ContainerInstance` in responses.
  */
 export const cc_ContainerInstance_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/cc_ContainerInstanceBase"
+    },
+    {
+      "properties": {
+        "application_id": {
+          "$ref": "#/$defs/cc_ApplicationID"
+        },
+        "image": {
+          "$ref": "#/$defs/cc_Image"
+        }
+      },
+      "required": [
+        "application_id",
+        "image"
+      ],
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `cc_ContainerInstanceBase` in responses.
+ */
+export const cc_ContainerInstanceBase_output: JsonSchema = {
   "properties": {
     "application_id": {
       "$ref": "#/$defs/cc_ApplicationID"
@@ -34,9 +60,7 @@ export const cc_ContainerInstance_output: JsonSchema = {
     }
   },
   "required": [
-    "application_id",
     "id",
-    "image",
     "status"
   ],
   "type": "object"

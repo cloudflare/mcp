@@ -3,6 +3,11 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
+  email_api_response_single_output,
+  email_messages_output,
+} from "../../../outputs.js";
+import { email_identifier } from "../../../schemas.js";
+import {
   email_rule_catchall_action_output,
   email_rule_catchall_actions_output,
   email_rule_catchall_matcher_output,
@@ -23,7 +28,10 @@ import {
   email_rule_owner_worker_tag,
   email_rule_source,
 } from "../schemas.js";
-import { email_catch_all_rule_output } from "./outputs.js";
+import {
+  email_catch_all_rule_output,
+  email_catch_all_rule_response_single_output,
+} from "./outputs.js";
 import { email_update_catch_all_rule_properties } from "./schemas.js";
 
 /**
@@ -38,18 +46,24 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "zone_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/email_identifier",
+          "description": "Identifier."
         }
       },
       required: [
         "zone_id"
       ],
+      $defs: {
+        "email_identifier": email_identifier,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/email_catch_all_rule",
+      "$ref": "#/$defs/email_catch_all_rule_response_single",
       $defs: {
+        "email_api-response-single": email_api_response_single_output,
         "email_catch_all_rule": email_catch_all_rule_output,
+        "email_catch_all_rule_response_single": email_catch_all_rule_response_single_output,
+        "email_messages": email_messages_output,
         "email_rule_catchall-action": email_rule_catchall_action_output,
         "email_rule_catchall-actions": email_rule_catchall_actions_output,
         "email_rule_catchall-matcher": email_rule_catchall_matcher_output,
@@ -78,12 +92,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "com.cloudflare.api.account.zone.email.routing.rule.read"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.api.account.zone.email.routing.rule.read": {
-            "name": "com_cloudflare_api_account_zone_email_routing_rule_read"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": true,
@@ -95,12 +104,15 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/email_catch_all_rule"
+          "$ref": "#/$defs/email_catch_all_rule_response_single"
         },
         "403": null
       },
       $defs: {
+        "email_api-response-single": email_api_response_single_output,
         "email_catch_all_rule": email_catch_all_rule_output,
+        "email_catch_all_rule_response_single": email_catch_all_rule_response_single_output,
+        "email_messages": email_messages_output,
         "email_rule_catchall-action": email_rule_catchall_action_output,
         "email_rule_catchall-actions": email_rule_catchall_actions_output,
         "email_rule_catchall-matcher": email_rule_catchall_matcher_output,
@@ -127,8 +139,8 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/email_update_catch_all_rule_properties"
         },
         "zone_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/email_identifier",
+          "description": "Identifier."
         }
       },
       required: [
@@ -136,6 +148,7 @@ export const tools: readonly Tool[] = [
         "body"
       ],
       $defs: {
+        "email_identifier": email_identifier,
         "email_rule_catchall-action": email_rule_catchall_action,
         "email_rule_catchall-actions": email_rule_catchall_actions,
         "email_rule_catchall-matcher": email_rule_catchall_matcher,
@@ -148,9 +161,12 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/email_catch_all_rule",
+      "$ref": "#/$defs/email_catch_all_rule_response_single",
       $defs: {
+        "email_api-response-single": email_api_response_single_output,
         "email_catch_all_rule": email_catch_all_rule_output,
+        "email_catch_all_rule_response_single": email_catch_all_rule_response_single_output,
+        "email_messages": email_messages_output,
         "email_rule_catchall-action": email_rule_catchall_action_output,
         "email_rule_catchall-actions": email_rule_catchall_actions_output,
         "email_rule_catchall-matcher": email_rule_catchall_matcher_output,
@@ -178,12 +194,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "com.cloudflare.api.account.zone.email.routing.rule.update"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.api.account.zone.email.routing.rule.update": {
-            "name": "com_cloudflare_api_account_zone_email_routing_rule_update"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": true,
@@ -195,13 +206,16 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/email_catch_all_rule"
+          "$ref": "#/$defs/email_catch_all_rule_response_single"
         },
         "400": null,
         "422": null
       },
       $defs: {
+        "email_api-response-single": email_api_response_single_output,
         "email_catch_all_rule": email_catch_all_rule_output,
+        "email_catch_all_rule_response_single": email_catch_all_rule_response_single_output,
+        "email_messages": email_messages_output,
         "email_rule_catchall-action": email_rule_catchall_action_output,
         "email_rule_catchall-actions": email_rule_catchall_actions_output,
         "email_rule_catchall-matcher": email_rule_catchall_matcher_output,

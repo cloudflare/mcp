@@ -28,40 +28,36 @@ export const bill_subs_api_frequency_response_output: JsonSchema = {
  * The schema of `bill-subs-api_subscription_response` in responses.
  */
 export const bill_subs_api_subscription_response_output: JsonSchema = {
-  "properties": {
-    "app": {
-      "$ref": "#/$defs/bill-subs-api_subscription-v2_app"
+  "allOf": [
+    {
+      "$ref": "#/$defs/bill-subs-api_subscription-v2"
     },
-    "component_values": {
-      "$ref": "#/$defs/bill-subs-api_component_values"
-    },
-    "currency": {
-      "$ref": "#/$defs/bill-subs-api_currency"
-    },
-    "current_period_end": {
-      "$ref": "#/$defs/bill-subs-api_current_period_end"
-    },
-    "current_period_start": {
-      "$ref": "#/$defs/bill-subs-api_current_period_start"
-    },
-    "frequency": {
-      "$ref": "#/$defs/bill-subs-api_frequency_response"
-    },
-    "id": {
-      "$ref": "#/$defs/bill-subs-api_schemas-identifier"
-    },
-    "price": {
-      "$ref": "#/$defs/bill-subs-api_price"
-    },
-    "rate_plan": {
-      "$ref": "#/$defs/bill-subs-api_rate_plan"
-    },
-    "state": {
-      "$ref": "#/$defs/bill-subs-api_state"
-    },
-    "zone": {
-      "$ref": "#/$defs/bill-subs-api_zone"
+    {
+      "properties": {
+        "frequency": {
+          "$ref": "#/$defs/bill-subs-api_frequency_response"
+        }
+      },
+      "type": "object"
     }
-  },
-  "type": "object"
+  ]
+};
+
+/**
+ * The schema of `bill-subs-api_zone_subscription_response_single` in responses.
+ */
+export const bill_subs_api_zone_subscription_response_single_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/bill-subs-api_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/bill-subs-api_subscription_response"
+        }
+      },
+      "type": "object"
+    }
+  ]
 };

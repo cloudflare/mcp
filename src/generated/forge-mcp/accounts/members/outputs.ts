@@ -4,6 +4,28 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
+ * The schema of `iam_collection_member_response_with_policies` in responses.
+ */
+export const iam_collection_member_response_with_policies_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/iam_api-response-collection"
+    },
+    {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/iam_member_with_policies"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
  * The schema of `iam_member_with_policies` in responses.
  */
 export const iam_member_with_policies_output: JsonSchema = {
@@ -34,35 +56,47 @@ export const iam_member_with_policies_output: JsonSchema = {
       "type": "string"
     },
     "user": {
-      "$ref": "#/$defs/iam_member_with_policies_user"
+      "properties": {
+        "email": {
+          "$ref": "#/$defs/iam_email"
+        },
+        "first_name": {
+          "$ref": "#/$defs/iam_first_name"
+        },
+        "id": {
+          "$ref": "#/$defs/iam_common_components-schemas-identifier"
+        },
+        "last_name": {
+          "$ref": "#/$defs/iam_last_name"
+        },
+        "two_factor_authentication_enabled": {
+          "$ref": "#/$defs/iam_two_factor_authentication_enabled"
+        }
+      },
+      "required": [
+        "email"
+      ],
+      "type": "object"
     }
   },
   "type": "object"
 };
 
 /**
- * The schema of `iam_member_with_policies_user` in responses.
+ * The schema of `iam_single_member_response_with_policies` in responses.
  */
-export const iam_member_with_policies_user_output: JsonSchema = {
-  "properties": {
-    "email": {
-      "$ref": "#/$defs/iam_email"
+export const iam_single_member_response_with_policies_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/iam_api-response-single"
     },
-    "first_name": {
-      "$ref": "#/$defs/iam_first_name"
-    },
-    "id": {
-      "$ref": "#/$defs/iam_common_components-schemas-identifier"
-    },
-    "last_name": {
-      "$ref": "#/$defs/iam_last_name"
-    },
-    "two_factor_authentication_enabled": {
-      "$ref": "#/$defs/iam_two_factor_authentication_enabled"
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/iam_member_with_policies"
+        }
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "email"
-  ],
-  "type": "object"
+  ]
 };

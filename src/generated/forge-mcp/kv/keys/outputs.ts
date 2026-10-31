@@ -45,10 +45,3 @@ export const workers_kv_key_output: JsonSchema = {
   ],
   "type": "object"
 };
-
-/**
- * The schema of `workers-kv_key_name` in responses.
- */
-export const workers_kv_key_name_output: JsonSchema = {
-  "type": "string"
-};

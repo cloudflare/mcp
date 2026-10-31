@@ -3,25 +3,14 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
+  workers_api_response_collection_output,
   workers_api_response_common_failure_output,
+  workers_api_response_common_output,
   workers_messages_output,
 } from "../../outputs.js";
-import {
-  workers_Preview_observability_issues_output,
-  workers_Preview_observability_logs_output,
-  workers_Preview_observability_output,
-  workers_Preview_observability_traces_output,
-  workers_Preview_output,
-  workers_Preview_tail_consumersItem_output,
-} from "./outputs.js";
-import {
-  workers_Preview,
-  workers_Preview_observability,
-  workers_Preview_observability_issues,
-  workers_Preview_observability_logs,
-  workers_Preview_observability_traces,
-  workers_Preview_tail_consumersItem,
-} from "./schemas.js";
+import { workers_identifier } from "../../schemas.js";
+import { workers_Preview_output } from "./outputs.js";
+import { workers_Preview } from "./schemas.js";
 
 /**
  * The tools of `workers.previews`.
@@ -35,8 +24,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/workers_identifier",
+          "description": "Identifier."
         },
         "body": {
           "description": "Preview creation parameters.",
@@ -51,8 +40,106 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "observability": {
-              "$ref": "#/$defs/workers_Preview_observability",
-              "description": "Observability settings for the Preview."
+              "description": "Observability settings for the Preview.",
+              "properties": {
+                "enabled": {
+                  "default": false,
+                  "description": "Whether observability is enabled for the Preview.",
+                  "type": "boolean"
+                },
+                "head_sampling_rate": {
+                  "default": 1,
+                  "description": "The sampling rate for observability. From 0 to 1 (1 = 100%, 0.1 = 10%).",
+                  "type": "number"
+                },
+                "issues": {
+                  "description": "Real-time Issues settings for the Preview.",
+                  "oneOf": [
+                    {
+                      "properties": {
+                        "enabled": {
+                          "default": false,
+                          "description": "Whether real-time Issues are enabled for the Preview.",
+                          "type": "boolean"
+                        }
+                      },
+                      "type": "object"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "logs": {
+                  "description": "Log settings for the Preview.",
+                  "properties": {
+                    "destinations": {
+                      "default": [],
+                      "description": "A list of destinations where logs will be exported to.",
+                      "items": {
+                        "type": "string"
+                      },
+                      "type": "array"
+                    },
+                    "enabled": {
+                      "default": false,
+                      "description": "Whether logs are enabled for the Preview.",
+                      "type": "boolean"
+                    },
+                    "head_sampling_rate": {
+                      "default": 1,
+                      "description": "The sampling rate for logs. From 0 to 1 (1 = 100%, 0.1 = 10%).",
+                      "type": "number"
+                    },
+                    "invocation_logs": {
+                      "default": true,
+                      "description": "Whether invocation logs are enabled for the Preview.",
+                      "type": "boolean"
+                    },
+                    "persist": {
+                      "default": true,
+                      "description": "Whether log persistence is enabled for the Preview.",
+                      "type": "boolean"
+                    }
+                  },
+                  "type": "object"
+                },
+                "redact_query_string": {
+                  "default": false,
+                  "description": "Whether query strings are removed from request URLs in logs and traces.",
+                  "type": "boolean"
+                },
+                "traces": {
+                  "description": "Trace settings for the Preview.",
+                  "properties": {
+                    "destinations": {
+                      "default": [],
+                      "description": "A list of destinations where traces will be exported to.",
+                      "items": {
+                        "type": "string"
+                      },
+                      "type": "array"
+                    },
+                    "enabled": {
+                      "default": false,
+                      "description": "Whether traces are enabled for the Preview.",
+                      "type": "boolean"
+                    },
+                    "head_sampling_rate": {
+                      "default": 1,
+                      "description": "The sampling rate for traces. From 0 to 1 (1 = 100%, 0.1 = 10%).",
+                      "type": "number"
+                    },
+                    "persist": {
+                      "default": true,
+                      "description": "Whether trace persistence is enabled for the Preview.",
+                      "type": "boolean"
+                    }
+                  },
+                  "type": "object"
+                }
+              },
+              "type": "object"
             },
             "tags": {
               "default": [],
@@ -67,7 +154,16 @@ export const tools: readonly Tool[] = [
               "default": [],
               "description": "Other Workers that should consume logs from the Preview.",
               "items": {
-                "$ref": "#/$defs/workers_Preview_tail_consumersItem"
+                "properties": {
+                  "name": {
+                    "description": "Name of the consumer Worker.",
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "name"
+                ],
+                "type": "object"
               },
               "type": "array"
             }
@@ -100,22 +196,30 @@ export const tools: readonly Tool[] = [
         "body"
       ],
       $defs: {
-        "workers_Preview_observability": workers_Preview_observability,
-        "workers_Preview_observability_issues": workers_Preview_observability_issues,
-        "workers_Preview_observability_logs": workers_Preview_observability_logs,
-        "workers_Preview_observability_traces": workers_Preview_observability_traces,
-        "workers_Preview_tail_consumersItem": workers_Preview_tail_consumersItem,
+        "workers_identifier": workers_identifier,
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/workers_Preview",
+      "allOf": [
+        {
+          "$ref": "#/$defs/workers_api-response-common"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/workers_Preview"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        }
+      ],
       $defs: {
         "workers_Preview": workers_Preview_output,
-        "workers_Preview_observability": workers_Preview_observability_output,
-        "workers_Preview_observability_issues": workers_Preview_observability_issues_output,
-        "workers_Preview_observability_logs": workers_Preview_observability_logs_output,
-        "workers_Preview_observability_traces": workers_Preview_observability_traces_output,
-        "workers_Preview_tail_consumersItem": workers_Preview_tail_consumersItem_output,
+        "workers_api-response-common": workers_api_response_common_output,
+        "workers_messages": workers_messages_output,
       },
     },
     annotations: {
@@ -135,7 +239,22 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/workers_Preview"
+          "allOf": [
+            {
+              "$ref": "#/$defs/workers_api-response-common"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/workers_Preview"
+                }
+              },
+              "required": [
+                "result"
+              ],
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/workers_api-response-common-failure"
@@ -143,11 +262,7 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "workers_Preview": workers_Preview_output,
-        "workers_Preview_observability": workers_Preview_observability_output,
-        "workers_Preview_observability_issues": workers_Preview_observability_issues_output,
-        "workers_Preview_observability_logs": workers_Preview_observability_logs_output,
-        "workers_Preview_observability_traces": workers_Preview_observability_traces_output,
-        "workers_Preview_tail_consumersItem": workers_Preview_tail_consumersItem_output,
+        "workers_api-response-common": workers_api_response_common_output,
         "workers_api-response-common-failure": workers_api_response_common_failure_output,
         "workers_messages": workers_messages_output,
       },
@@ -169,8 +284,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/workers_identifier",
+          "description": "Identifier."
         },
         "body": {
           "$ref": "#/$defs/workers_Preview",
@@ -193,22 +308,30 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "workers_Preview": workers_Preview,
-        "workers_Preview_observability": workers_Preview_observability,
-        "workers_Preview_observability_issues": workers_Preview_observability_issues,
-        "workers_Preview_observability_logs": workers_Preview_observability_logs,
-        "workers_Preview_observability_traces": workers_Preview_observability_traces,
-        "workers_Preview_tail_consumersItem": workers_Preview_tail_consumersItem,
+        "workers_identifier": workers_identifier,
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/workers_Preview",
+      "allOf": [
+        {
+          "$ref": "#/$defs/workers_api-response-common"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/workers_Preview"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        }
+      ],
       $defs: {
         "workers_Preview": workers_Preview_output,
-        "workers_Preview_observability": workers_Preview_observability_output,
-        "workers_Preview_observability_issues": workers_Preview_observability_issues_output,
-        "workers_Preview_observability_logs": workers_Preview_observability_logs_output,
-        "workers_Preview_observability_traces": workers_Preview_observability_traces_output,
-        "workers_Preview_tail_consumersItem": workers_Preview_tail_consumersItem_output,
+        "workers_api-response-common": workers_api_response_common_output,
+        "workers_messages": workers_messages_output,
       },
     },
     annotations: {
@@ -228,7 +351,22 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/workers_Preview"
+          "allOf": [
+            {
+              "$ref": "#/$defs/workers_api-response-common"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/workers_Preview"
+                }
+              },
+              "required": [
+                "result"
+              ],
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/workers_api-response-common-failure"
@@ -236,11 +374,7 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "workers_Preview": workers_Preview_output,
-        "workers_Preview_observability": workers_Preview_observability_output,
-        "workers_Preview_observability_issues": workers_Preview_observability_issues_output,
-        "workers_Preview_observability_logs": workers_Preview_observability_logs_output,
-        "workers_Preview_observability_traces": workers_Preview_observability_traces_output,
-        "workers_Preview_tail_consumersItem": workers_Preview_tail_consumersItem_output,
+        "workers_api-response-common": workers_api_response_common_output,
         "workers_api-response-common-failure": workers_api_response_common_failure_output,
         "workers_messages": workers_messages_output,
       },
@@ -258,8 +392,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/workers_identifier",
+          "description": "Identifier."
         },
         "preview_id": {
           "description": "Identifier for the Preview, which can be ID, slug, or URL-encoded name.",
@@ -275,16 +409,31 @@ export const tools: readonly Tool[] = [
         "worker_id",
         "preview_id"
       ],
+      $defs: {
+        "workers_identifier": workers_identifier,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/workers_Preview",
+      "allOf": [
+        {
+          "$ref": "#/$defs/workers_api-response-common"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/workers_Preview"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        }
+      ],
       $defs: {
         "workers_Preview": workers_Preview_output,
-        "workers_Preview_observability": workers_Preview_observability_output,
-        "workers_Preview_observability_issues": workers_Preview_observability_issues_output,
-        "workers_Preview_observability_logs": workers_Preview_observability_logs_output,
-        "workers_Preview_observability_traces": workers_Preview_observability_traces_output,
-        "workers_Preview_tail_consumersItem": workers_Preview_tail_consumersItem_output,
+        "workers_api-response-common": workers_api_response_common_output,
+        "workers_messages": workers_messages_output,
       },
     },
     annotations: {
@@ -309,7 +458,22 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/workers_Preview"
+          "allOf": [
+            {
+              "$ref": "#/$defs/workers_api-response-common"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/workers_Preview"
+                }
+              },
+              "required": [
+                "result"
+              ],
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/workers_api-response-common-failure"
@@ -317,11 +481,7 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "workers_Preview": workers_Preview_output,
-        "workers_Preview_observability": workers_Preview_observability_output,
-        "workers_Preview_observability_issues": workers_Preview_observability_issues_output,
-        "workers_Preview_observability_logs": workers_Preview_observability_logs_output,
-        "workers_Preview_observability_traces": workers_Preview_observability_traces_output,
-        "workers_Preview_tail_consumersItem": workers_Preview_tail_consumersItem_output,
+        "workers_api-response-common": workers_api_response_common_output,
         "workers_api-response-common-failure": workers_api_response_common_failure_output,
         "workers_messages": workers_messages_output,
       },
@@ -338,8 +498,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/workers_identifier",
+          "description": "Identifier."
         },
         "name": {
           "description": "Partial-match filter on preview name.",
@@ -389,47 +549,35 @@ export const tools: readonly Tool[] = [
         "account_id",
         "worker_id"
       ],
+      $defs: {
+        "workers_identifier": workers_identifier,
+      },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "$ref": "#/$defs/workers_Preview"
-          },
-          "type": "array"
+      "allOf": [
+        {
+          "$ref": "#/$defs/workers_api-response-collection"
         },
-        "result_info": {
+        {
           "properties": {
-            "count": {
-              "type": "number"
-            },
-            "page": {
-              "type": "number"
-            },
-            "per_page": {
-              "type": "number"
-            },
-            "total_count": {
-              "type": "number"
-            },
-            "total_pages": {
-              "type": "number"
+            "result": {
+              "items": {
+                "$ref": "#/$defs/workers_Preview"
+              },
+              "type": "array"
             }
           },
+          "required": [
+            "result"
+          ],
           "type": "object"
         }
-      },
-      "required": [
-        "result"
       ],
-      "type": "object",
       $defs: {
         "workers_Preview": workers_Preview_output,
-        "workers_Preview_observability": workers_Preview_observability_output,
-        "workers_Preview_observability_issues": workers_Preview_observability_issues_output,
-        "workers_Preview_observability_logs": workers_Preview_observability_logs_output,
-        "workers_Preview_observability_traces": workers_Preview_observability_traces_output,
-        "workers_Preview_tail_consumersItem": workers_Preview_tail_consumersItem_output,
+        "workers_api-response-collection": workers_api_response_collection_output,
+        "workers_api-response-common": workers_api_response_common_output,
+        "workers_messages": workers_messages_output,
       },
     },
     annotations: {
@@ -454,38 +602,25 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "items": {
-                "$ref": "#/$defs/workers_Preview"
-              },
-              "type": "array"
+          "allOf": [
+            {
+              "$ref": "#/$defs/workers_api-response-collection"
             },
-            "result_info": {
+            {
               "properties": {
-                "count": {
-                  "type": "number"
-                },
-                "page": {
-                  "type": "number"
-                },
-                "per_page": {
-                  "type": "number"
-                },
-                "total_count": {
-                  "type": "number"
-                },
-                "total_pages": {
-                  "type": "number"
+                "result": {
+                  "items": {
+                    "$ref": "#/$defs/workers_Preview"
+                  },
+                  "type": "array"
                 }
               },
+              "required": [
+                "result"
+              ],
               "type": "object"
             }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/workers_api-response-common-failure"
@@ -493,11 +628,8 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "workers_Preview": workers_Preview_output,
-        "workers_Preview_observability": workers_Preview_observability_output,
-        "workers_Preview_observability_issues": workers_Preview_observability_issues_output,
-        "workers_Preview_observability_logs": workers_Preview_observability_logs_output,
-        "workers_Preview_observability_traces": workers_Preview_observability_traces_output,
-        "workers_Preview_tail_consumersItem": workers_Preview_tail_consumersItem_output,
+        "workers_api-response-collection": workers_api_response_collection_output,
+        "workers_api-response-common": workers_api_response_common_output,
         "workers_api-response-common-failure": workers_api_response_common_failure_output,
         "workers_messages": workers_messages_output,
       },
@@ -522,8 +654,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/workers_identifier",
+          "description": "Identifier."
         },
         "body": {
           "description": "Preview update parameters.",
@@ -538,8 +670,106 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "observability": {
-              "$ref": "#/$defs/workers_Preview_observability",
-              "description": "Observability settings for the Preview."
+              "description": "Observability settings for the Preview.",
+              "properties": {
+                "enabled": {
+                  "default": false,
+                  "description": "Whether observability is enabled for the Preview.",
+                  "type": "boolean"
+                },
+                "head_sampling_rate": {
+                  "default": 1,
+                  "description": "The sampling rate for observability. From 0 to 1 (1 = 100%, 0.1 = 10%).",
+                  "type": "number"
+                },
+                "issues": {
+                  "description": "Real-time Issues settings for the Preview.",
+                  "oneOf": [
+                    {
+                      "properties": {
+                        "enabled": {
+                          "default": false,
+                          "description": "Whether real-time Issues are enabled for the Preview.",
+                          "type": "boolean"
+                        }
+                      },
+                      "type": "object"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "logs": {
+                  "description": "Log settings for the Preview.",
+                  "properties": {
+                    "destinations": {
+                      "default": [],
+                      "description": "A list of destinations where logs will be exported to.",
+                      "items": {
+                        "type": "string"
+                      },
+                      "type": "array"
+                    },
+                    "enabled": {
+                      "default": false,
+                      "description": "Whether logs are enabled for the Preview.",
+                      "type": "boolean"
+                    },
+                    "head_sampling_rate": {
+                      "default": 1,
+                      "description": "The sampling rate for logs. From 0 to 1 (1 = 100%, 0.1 = 10%).",
+                      "type": "number"
+                    },
+                    "invocation_logs": {
+                      "default": true,
+                      "description": "Whether invocation logs are enabled for the Preview.",
+                      "type": "boolean"
+                    },
+                    "persist": {
+                      "default": true,
+                      "description": "Whether log persistence is enabled for the Preview.",
+                      "type": "boolean"
+                    }
+                  },
+                  "type": "object"
+                },
+                "redact_query_string": {
+                  "default": false,
+                  "description": "Whether query strings are removed from request URLs in logs and traces.",
+                  "type": "boolean"
+                },
+                "traces": {
+                  "description": "Trace settings for the Preview.",
+                  "properties": {
+                    "destinations": {
+                      "default": [],
+                      "description": "A list of destinations where traces will be exported to.",
+                      "items": {
+                        "type": "string"
+                      },
+                      "type": "array"
+                    },
+                    "enabled": {
+                      "default": false,
+                      "description": "Whether traces are enabled for the Preview.",
+                      "type": "boolean"
+                    },
+                    "head_sampling_rate": {
+                      "default": 1,
+                      "description": "The sampling rate for traces. From 0 to 1 (1 = 100%, 0.1 = 10%).",
+                      "type": "number"
+                    },
+                    "persist": {
+                      "default": true,
+                      "description": "Whether trace persistence is enabled for the Preview.",
+                      "type": "boolean"
+                    }
+                  },
+                  "type": "object"
+                }
+              },
+              "type": "object"
             },
             "tags": {
               "default": [],
@@ -554,7 +784,16 @@ export const tools: readonly Tool[] = [
               "default": [],
               "description": "Other Workers that should consume logs from the Preview.",
               "items": {
-                "$ref": "#/$defs/workers_Preview_tail_consumersItem"
+                "properties": {
+                  "name": {
+                    "description": "Name of the consumer Worker.",
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "name"
+                ],
+                "type": "object"
               },
               "type": "array"
             }
@@ -592,22 +831,30 @@ export const tools: readonly Tool[] = [
         "body"
       ],
       $defs: {
-        "workers_Preview_observability": workers_Preview_observability,
-        "workers_Preview_observability_issues": workers_Preview_observability_issues,
-        "workers_Preview_observability_logs": workers_Preview_observability_logs,
-        "workers_Preview_observability_traces": workers_Preview_observability_traces,
-        "workers_Preview_tail_consumersItem": workers_Preview_tail_consumersItem,
+        "workers_identifier": workers_identifier,
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/workers_Preview",
+      "allOf": [
+        {
+          "$ref": "#/$defs/workers_api-response-common"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/workers_Preview"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        }
+      ],
       $defs: {
         "workers_Preview": workers_Preview_output,
-        "workers_Preview_observability": workers_Preview_observability_output,
-        "workers_Preview_observability_issues": workers_Preview_observability_issues_output,
-        "workers_Preview_observability_logs": workers_Preview_observability_logs_output,
-        "workers_Preview_observability_traces": workers_Preview_observability_traces_output,
-        "workers_Preview_tail_consumersItem": workers_Preview_tail_consumersItem_output,
+        "workers_api-response-common": workers_api_response_common_output,
+        "workers_messages": workers_messages_output,
       },
     },
     annotations: {
@@ -630,7 +877,22 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/workers_Preview"
+          "allOf": [
+            {
+              "$ref": "#/$defs/workers_api-response-common"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/workers_Preview"
+                }
+              },
+              "required": [
+                "result"
+              ],
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/workers_api-response-common-failure"
@@ -638,11 +900,7 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "workers_Preview": workers_Preview_output,
-        "workers_Preview_observability": workers_Preview_observability_output,
-        "workers_Preview_observability_issues": workers_Preview_observability_issues_output,
-        "workers_Preview_observability_logs": workers_Preview_observability_logs_output,
-        "workers_Preview_observability_traces": workers_Preview_observability_traces_output,
-        "workers_Preview_tail_consumersItem": workers_Preview_tail_consumersItem_output,
+        "workers_api-response-common": workers_api_response_common_output,
         "workers_api-response-common-failure": workers_api_response_common_failure_output,
         "workers_messages": workers_messages_output,
       },

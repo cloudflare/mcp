@@ -7,32 +7,19 @@ import type { JsonSchema } from "../../_/tool.js";
  * The schema of `intel_components-schemas-single_response` in responses.
  */
 export const intel_components_schemas_single_response_output: JsonSchema = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/intel_schemas-messages"
+  "allOf": [
+    {
+      "$ref": "#/$defs/intel_schemas-api-response-collection"
     },
-    "messages": {
-      "$ref": "#/$defs/intel_schemas-messages"
-    },
-    "result": {
-      "$ref": "#/$defs/intel_passive-dns-by-ip"
-    },
-    "result_info": {
-      "$ref": "#/$defs/intel_schemas-result_info"
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/intel_passive-dns-by-ip"
+        }
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "success"
-  ],
-  "type": "object"
+  ]
 };
 
 /**
@@ -51,7 +38,20 @@ export const intel_passive_dns_by_ip_output: JsonSchema = {
     },
     "reverse_records": {
       "items": {
-        "$ref": "#/$defs/intel_passive-dns-by-ip_reverse_recordsItem"
+        "properties": {
+          "first_seen": {
+            "format": "date",
+            "type": "string"
+          },
+          "hostname": {
+            "type": "string"
+          },
+          "last_seen": {
+            "format": "date",
+            "type": "string"
+          }
+        },
+        "type": "object"
       },
       "type": "array"
     }
@@ -60,22 +60,47 @@ export const intel_passive_dns_by_ip_output: JsonSchema = {
 };
 
 /**
- * The schema of `intel_passive-dns-by-ip_reverse_recordsItem` in responses.
+ * The schema of `intel_schemas-api-response-collection` in responses.
  */
-export const intel_passive_dns_by_ip_reverse_recordsItem_output: JsonSchema = {
+export const intel_schemas_api_response_collection_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/intel_schemas-api-response-common"
+    },
+    {
+      "properties": {
+        "result_info": {
+          "$ref": "#/$defs/intel_schemas-result_info"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `intel_schemas-api-response-common` in responses.
+ */
+export const intel_schemas_api_response_common_output: JsonSchema = {
   "properties": {
-    "first_seen": {
-      "format": "date",
-      "type": "string"
+    "errors": {
+      "$ref": "#/$defs/intel_schemas-messages"
     },
-    "hostname": {
-      "type": "string"
+    "messages": {
+      "$ref": "#/$defs/intel_schemas-messages"
     },
-    "last_seen": {
-      "format": "date",
-      "type": "string"
+    "success": {
+      "enum": [
+        true
+      ],
+      "type": "boolean"
     }
   },
+  "required": [
+    "errors",
+    "messages",
+    "success"
+  ],
   "type": "object"
 };
 

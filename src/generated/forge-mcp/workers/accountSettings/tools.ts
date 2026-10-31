@@ -4,8 +4,10 @@
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
   workers_api_response_common_failure_output,
+  workers_api_response_common_output,
   workers_messages_output,
 } from "../../outputs.js";
+import { workers_identifier } from "../../schemas.js";
 import { workers_account_settings_output } from "./outputs.js";
 import { workers_account_settings } from "./schemas.js";
 
@@ -21,18 +23,38 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/workers_identifier",
+          "description": "Identifier."
         }
       },
       required: [
         "account_id"
       ],
+      $defs: {
+        "workers_identifier": workers_identifier,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/workers_account-settings",
+      "allOf": [
+        {
+          "$ref": "#/$defs/workers_api-response-common"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/workers_account-settings"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        }
+      ],
       $defs: {
         "workers_account-settings": workers_account_settings_output,
+        "workers_api-response-common": workers_api_response_common_output,
+        "workers_messages": workers_messages_output,
       },
     },
     annotations: {
@@ -83,7 +105,22 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/workers_account-settings"
+          "allOf": [
+            {
+              "$ref": "#/$defs/workers_api-response-common"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/workers_account-settings"
+                }
+              },
+              "required": [
+                "result"
+              ],
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/workers_api-response-common-failure"
@@ -91,6 +128,7 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "workers_account-settings": workers_account_settings_output,
+        "workers_api-response-common": workers_api_response_common_output,
         "workers_api-response-common-failure": workers_api_response_common_failure_output,
         "workers_messages": workers_messages_output,
       },
@@ -107,8 +145,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/workers_identifier",
+          "description": "Identifier."
         },
         "body": {
           "$ref": "#/$defs/workers_account-settings"
@@ -120,12 +158,30 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "workers_account-settings": workers_account_settings,
+        "workers_identifier": workers_identifier,
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/workers_account-settings",
+      "allOf": [
+        {
+          "$ref": "#/$defs/workers_api-response-common"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/workers_account-settings"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        }
+      ],
       $defs: {
         "workers_account-settings": workers_account_settings_output,
+        "workers_api-response-common": workers_api_response_common_output,
+        "workers_messages": workers_messages_output,
       },
     },
     annotations: {
@@ -148,7 +204,22 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/workers_account-settings"
+          "allOf": [
+            {
+              "$ref": "#/$defs/workers_api-response-common"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/workers_account-settings"
+                }
+              },
+              "required": [
+                "result"
+              ],
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/workers_api-response-common-failure"
@@ -156,6 +227,7 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "workers_account-settings": workers_account_settings_output,
+        "workers_api-response-common": workers_api_response_common_output,
         "workers_api-response-common-failure": workers_api_response_common_failure_output,
         "workers_messages": workers_messages_output,
       },

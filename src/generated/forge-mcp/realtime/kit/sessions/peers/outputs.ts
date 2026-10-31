@@ -423,13 +423,65 @@ export const realtimekit_PeerReportMetadata_output: JsonSchema = {
       "type": "array"
     },
     "browser_metadata": {
-      "$ref": "#/$defs/realtimekit_PeerReportMetadata_browser_metadata"
+      "properties": {
+        "browser": {
+          "type": "string"
+        },
+        "browser_version": {
+          "type": "string"
+        },
+        "engine": {
+          "type": "string"
+        },
+        "user_agent": {
+          "type": "string"
+        },
+        "webgl_support": {
+          "oneOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "type": "object"
     },
     "candidate_pairs": {
-      "$ref": "#/$defs/realtimekit_PeerReportMetadata_candidate_pairs"
+      "properties": {
+        "consuming_transport": {
+          "items": {
+            "$ref": "#/$defs/realtimekit_CandidatePairStats"
+          },
+          "type": "array"
+        },
+        "producing_transport": {
+          "items": {
+            "$ref": "#/$defs/realtimekit_CandidatePairStats"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
     },
     "device_info": {
-      "$ref": "#/$defs/realtimekit_PeerReportMetadata_device_info"
+      "properties": {
+        "cpus": {
+          "type": "number"
+        },
+        "is_mobile": {
+          "type": "boolean"
+        },
+        "os": {
+          "type": "string"
+        },
+        "os_version": {
+          "type": "string"
+        }
+      },
+      "type": "object"
     },
     "events": {
       "items": {
@@ -438,14 +490,85 @@ export const realtimekit_PeerReportMetadata_output: JsonSchema = {
       "type": "array"
     },
     "ip_information": {
-      "$ref": "#/$defs/realtimekit_PeerReportMetadata_ip_information"
+      "properties": {
+        "asn": {
+          "properties": {
+            "asn": {
+              "type": "string"
+            },
+            "domain": {
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            },
+            "route": {
+              "type": "string"
+            },
+            "type": {
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        "city": {
+          "type": "string"
+        },
+        "country": {
+          "type": "string"
+        },
+        "ipv4": {
+          "type": "string"
+        },
+        "org": {
+          "type": "string"
+        },
+        "region": {
+          "type": "string"
+        },
+        "timezone": {
+          "type": "string"
+        }
+      },
+      "type": "object"
     },
     "native_metadata": {
-      "$ref": "#/$defs/realtimekit_PeerReportMetadata_native_metadata"
+      "properties": {
+        "audio_encoder": {
+          "type": "string"
+        },
+        "video_encoder": {
+          "type": "string"
+        }
+      },
+      "type": "object"
     },
     "pc_metadata": {
       "items": {
-        "$ref": "#/$defs/realtimekit_PeerReportMetadata_pc_metadataItem"
+        "properties": {
+          "effective_network_type": {
+            "type": "string"
+          },
+          "reflexive_connectivity": {
+            "type": "boolean"
+          },
+          "relay_connectivity": {
+            "type": "boolean"
+          },
+          "sdp": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "timestamp": {
+            "type": "string"
+          },
+          "turn_connectivity": {
+            "type": "boolean"
+          }
+        },
+        "type": "object"
       },
       "type": "array"
     },
@@ -463,7 +586,15 @@ export const realtimekit_PeerReportMetadata_output: JsonSchema = {
     },
     "selected_device_updates": {
       "items": {
-        "$ref": "#/$defs/realtimekit_PeerReportMetadata_selected_device_updatesItem"
+        "properties": {
+          "device": {
+            "$ref": "#/$defs/realtimekit_PeerReportDevice"
+          },
+          "timestamp": {
+            "type": "string"
+          }
+        },
+        "type": "object"
       },
       "type": "array"
     },
@@ -478,195 +609,6 @@ export const realtimekit_PeerReportMetadata_output: JsonSchema = {
         "$ref": "#/$defs/realtimekit_PeerReportDeviceUpdate"
       },
       "type": "array"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `realtimekit_PeerReportMetadata_browser_metadata` in responses.
- */
-export const realtimekit_PeerReportMetadata_browser_metadata_output: JsonSchema = {
-  "properties": {
-    "browser": {
-      "type": "string"
-    },
-    "browser_version": {
-      "type": "string"
-    },
-    "engine": {
-      "type": "string"
-    },
-    "user_agent": {
-      "type": "string"
-    },
-    "webgl_support": {
-      "oneOf": [
-        {
-          "type": "boolean"
-        },
-        {
-          "type": "null"
-        }
-      ]
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `realtimekit_PeerReportMetadata_candidate_pairs` in responses.
- */
-export const realtimekit_PeerReportMetadata_candidate_pairs_output: JsonSchema = {
-  "properties": {
-    "consuming_transport": {
-      "items": {
-        "$ref": "#/$defs/realtimekit_CandidatePairStats"
-      },
-      "type": "array"
-    },
-    "producing_transport": {
-      "items": {
-        "$ref": "#/$defs/realtimekit_CandidatePairStats"
-      },
-      "type": "array"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `realtimekit_PeerReportMetadata_device_info` in responses.
- */
-export const realtimekit_PeerReportMetadata_device_info_output: JsonSchema = {
-  "properties": {
-    "cpus": {
-      "type": "number"
-    },
-    "is_mobile": {
-      "type": "boolean"
-    },
-    "os": {
-      "type": "string"
-    },
-    "os_version": {
-      "type": "string"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `realtimekit_PeerReportMetadata_ip_information` in responses.
- */
-export const realtimekit_PeerReportMetadata_ip_information_output: JsonSchema = {
-  "properties": {
-    "asn": {
-      "$ref": "#/$defs/realtimekit_PeerReportMetadata_ip_information_asn"
-    },
-    "city": {
-      "type": "string"
-    },
-    "country": {
-      "type": "string"
-    },
-    "ipv4": {
-      "type": "string"
-    },
-    "org": {
-      "type": "string"
-    },
-    "region": {
-      "type": "string"
-    },
-    "timezone": {
-      "type": "string"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `realtimekit_PeerReportMetadata_ip_information_asn` in
- * responses.
- */
-export const realtimekit_PeerReportMetadata_ip_information_asn_output: JsonSchema = {
-  "properties": {
-    "asn": {
-      "type": "string"
-    },
-    "domain": {
-      "type": "string"
-    },
-    "name": {
-      "type": "string"
-    },
-    "route": {
-      "type": "string"
-    },
-    "type": {
-      "type": "string"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `realtimekit_PeerReportMetadata_native_metadata` in responses.
- */
-export const realtimekit_PeerReportMetadata_native_metadata_output: JsonSchema = {
-  "properties": {
-    "audio_encoder": {
-      "type": "string"
-    },
-    "video_encoder": {
-      "type": "string"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `realtimekit_PeerReportMetadata_pc_metadataItem` in responses.
- */
-export const realtimekit_PeerReportMetadata_pc_metadataItem_output: JsonSchema = {
-  "properties": {
-    "effective_network_type": {
-      "type": "string"
-    },
-    "reflexive_connectivity": {
-      "type": "boolean"
-    },
-    "relay_connectivity": {
-      "type": "boolean"
-    },
-    "sdp": {
-      "items": {
-        "type": "string"
-      },
-      "type": "array"
-    },
-    "timestamp": {
-      "type": "string"
-    },
-    "turn_connectivity": {
-      "type": "boolean"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `realtimekit_PeerReportMetadata_selected_device_updatesItem` in
- * responses.
- */
-export const realtimekit_PeerReportMetadata_selected_device_updatesItem_output: JsonSchema = {
-  "properties": {
-    "device": {
-      "$ref": "#/$defs/realtimekit_PeerReportDevice"
-    },
-    "timestamp": {
-      "type": "string"
     }
   },
   "type": "object"
@@ -855,7 +797,18 @@ export const realtimekit_VideoConsumerStatsCumulative_output: JsonSchema = {
       "$ref": "#/$defs/realtimekit_PercentileStats"
     },
     "issues": {
-      "$ref": "#/$defs/realtimekit_VideoConsumerStatsCumulative_issues"
+      "properties": {
+        "lag_fraction": {
+          "type": "number"
+        },
+        "no_video_fraction": {
+          "type": "number"
+        },
+        "poor_resolution_fraction": {
+          "type": "number"
+        }
+      },
+      "type": "object"
     },
     "jitter_buffer_delay": {
       "$ref": "#/$defs/realtimekit_LatencyCumulative"
@@ -868,24 +821,6 @@ export const realtimekit_VideoConsumerStatsCumulative_output: JsonSchema = {
     },
     "quality_mos": {
       "$ref": "#/$defs/realtimekit_PercentileStats"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `realtimekit_VideoConsumerStatsCumulative_issues` in responses.
- */
-export const realtimekit_VideoConsumerStatsCumulative_issues_output: JsonSchema = {
-  "properties": {
-    "lag_fraction": {
-      "type": "number"
-    },
-    "no_video_fraction": {
-      "type": "number"
-    },
-    "poor_resolution_fraction": {
-      "type": "number"
     }
   },
   "type": "object"
@@ -939,7 +874,21 @@ export const realtimekit_VideoProducerStats_output: JsonSchema = {
       "type": "string"
     },
     "quality_limitation_durations": {
-      "$ref": "#/$defs/realtimekit_VideoProducerStats_quality_limitation_durations"
+      "properties": {
+        "bandwidth": {
+          "type": "number"
+        },
+        "cpu": {
+          "type": "number"
+        },
+        "none": {
+          "type": "number"
+        },
+        "other": {
+          "type": "number"
+        }
+      },
+      "type": "object"
     },
     "quality_limitation_reason": {
       "enum": [
@@ -981,7 +930,24 @@ export const realtimekit_VideoProducerStatsCumulative_output: JsonSchema = {
       "type": "number"
     },
     "issues": {
-      "$ref": "#/$defs/realtimekit_VideoProducerStatsCumulative_issues"
+      "properties": {
+        "bandwidth_quality_limitation_fraction": {
+          "type": "number"
+        },
+        "cpu_quality_limitation_fraction": {
+          "type": "number"
+        },
+        "no_video_fraction": {
+          "type": "number"
+        },
+        "poor_resolution_fraction": {
+          "type": "number"
+        },
+        "quality_limitation_fraction": {
+          "type": "number"
+        }
+      },
+      "type": "object"
     },
     "key_frames_encoded_fraction": {
       "type": "number"
@@ -994,52 +960,6 @@ export const realtimekit_VideoProducerStatsCumulative_output: JsonSchema = {
     },
     "rtt": {
       "$ref": "#/$defs/realtimekit_LatencyCumulative"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `realtimekit_VideoProducerStatsCumulative_issues` in responses.
- */
-export const realtimekit_VideoProducerStatsCumulative_issues_output: JsonSchema = {
-  "properties": {
-    "bandwidth_quality_limitation_fraction": {
-      "type": "number"
-    },
-    "cpu_quality_limitation_fraction": {
-      "type": "number"
-    },
-    "no_video_fraction": {
-      "type": "number"
-    },
-    "poor_resolution_fraction": {
-      "type": "number"
-    },
-    "quality_limitation_fraction": {
-      "type": "number"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `realtimekit_VideoProducerStats_quality_limitation_durations`
- * in responses.
- */
-export const realtimekit_VideoProducerStats_quality_limitation_durations_output: JsonSchema = {
-  "properties": {
-    "bandwidth": {
-      "type": "number"
-    },
-    "cpu": {
-      "type": "number"
-    },
-    "none": {
-      "type": "number"
-    },
-    "other": {
-      "type": "number"
     }
   },
   "type": "object"

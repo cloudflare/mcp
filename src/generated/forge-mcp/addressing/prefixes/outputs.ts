@@ -33,32 +33,6 @@ export const addressing_advertised_modified_at_nullable_output: JsonSchema = {
 };
 
 /**
- * The schema of `addressing_api-response-common` in responses.
- */
-export const addressing_api_response_common_output: JsonSchema = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/addressing_messages"
-    },
-    "messages": {
-      "$ref": "#/$defs/addressing_messages"
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
-    }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "success"
-  ],
-  "type": "object"
-};
-
-/**
  * The schema of `addressing_approved` in responses.
  */
 export const addressing_approved_output: JsonSchema = {
@@ -203,61 +177,41 @@ export const addressing_prefix_identifier_output: JsonSchema = {
  * The schema of `addressing_response_collection` in responses.
  */
 export const addressing_response_collection_output: JsonSchema = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/addressing_messages"
+  "allOf": [
+    {
+      "$ref": "#/$defs/addressing_api-response-single"
     },
-    "messages": {
-      "$ref": "#/$defs/addressing_messages"
-    },
-    "result": {
-      "items": {
-        "$ref": "#/$defs/addressing_ipam-prefixes"
+    {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/addressing_ipam-prefixes"
+          },
+          "type": "array"
+        }
       },
-      "type": "array"
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
+      "type": "object"
     }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "success"
-  ],
-  "type": "object"
+  ]
 };
 
 /**
  * The schema of `addressing_single_response` in responses.
  */
 export const addressing_single_response_output: JsonSchema = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/addressing_messages"
+  "allOf": [
+    {
+      "$ref": "#/$defs/addressing_api-response-single"
     },
-    "messages": {
-      "$ref": "#/$defs/addressing_messages"
-    },
-    "result": {
-      "$ref": "#/$defs/addressing_ipam-prefixes"
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/addressing_ipam-prefixes"
+        }
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "success"
-  ],
-  "type": "object"
+  ]
 };
 
 /**

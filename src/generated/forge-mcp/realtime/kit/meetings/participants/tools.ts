@@ -3,11 +3,11 @@
 
 import { type Tool, pathParam } from "../../../../_/tool.js";
 import {
-  realtimekit_GenericErrorResponse_error_output,
   realtimekit_GenericErrorResponse_output,
   realtimekit_GenericSuccessResponse_output,
   realtimekit_PagingInfo_output,
   realtimekit_PagingResponse_output,
+  realtimekit_ValidationIssue_output,
 } from "../../outputs.js";
 import {
   realtimekit_account_identifier,
@@ -28,12 +28,12 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "The account identifier tag.",
-          "type": "string"
+          "$ref": "#/$defs/realtimekit_account_identifier",
+          "description": "The account identifier tag."
         },
         "app_id": {
-          "description": "The app identifier tag.",
-          "type": "string"
+          "$ref": "#/$defs/realtimekit_app_id",
+          "description": "The app identifier tag."
         },
         "body": {
           "properties": {
@@ -93,6 +93,8 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "realtimekit_ParticipantTokenValidity": realtimekit_ParticipantTokenValidity,
+        "realtimekit_account_identifier": realtimekit_account_identifier,
+        "realtimekit_app_id": realtimekit_app_id,
       },
     },
     outputSchema: {
@@ -201,9 +203,9 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "realtimekit_GenericErrorResponse": realtimekit_GenericErrorResponse_output,
-        "realtimekit_GenericErrorResponse_error": realtimekit_GenericErrorResponse_error_output,
         "realtimekit_GenericSuccessResponse": realtimekit_GenericSuccessResponse_output,
         "realtimekit_Participant": realtimekit_Participant_output,
+        "realtimekit_ValidationIssue": realtimekit_ValidationIssue_output,
       },
     },
     request: (args) => ({
@@ -343,14 +345,17 @@ export const tools: readonly Tool[] = [
             }
           ]
         },
+        "4XX": {
+          "$ref": "#/$defs/realtimekit_GenericErrorResponse"
+        },
         "500": {
           "$ref": "#/$defs/realtimekit_GenericErrorResponse"
         }
       },
       $defs: {
         "realtimekit_GenericErrorResponse": realtimekit_GenericErrorResponse_output,
-        "realtimekit_GenericErrorResponse_error": realtimekit_GenericErrorResponse_error_output,
         "realtimekit_GenericSuccessResponse": realtimekit_GenericSuccessResponse_output,
+        "realtimekit_ValidationIssue": realtimekit_ValidationIssue_output,
       },
     },
     request: (args) => ({
@@ -450,15 +455,18 @@ export const tools: readonly Tool[] = [
             }
           ]
         },
+        "4XX": {
+          "$ref": "#/$defs/realtimekit_GenericErrorResponse"
+        },
         "500": {
           "$ref": "#/$defs/realtimekit_GenericErrorResponse"
         }
       },
       $defs: {
         "realtimekit_GenericErrorResponse": realtimekit_GenericErrorResponse_output,
-        "realtimekit_GenericErrorResponse_error": realtimekit_GenericErrorResponse_error_output,
         "realtimekit_GenericSuccessResponse": realtimekit_GenericSuccessResponse_output,
         "realtimekit_Participant": realtimekit_Participant_output,
+        "realtimekit_ValidationIssue": realtimekit_ValidationIssue_output,
       },
     },
     request: (args) => ({
@@ -473,12 +481,12 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "The account identifier tag.",
-          "type": "string"
+          "$ref": "#/$defs/realtimekit_account_identifier",
+          "description": "The account identifier tag."
         },
         "app_id": {
-          "description": "The app identifier tag.",
-          "type": "string"
+          "$ref": "#/$defs/realtimekit_app_id",
+          "description": "The app identifier tag."
         },
         "meeting_id": {
           "description": "ID of the meeting. Fetch the meeting ID using the create a meeting API.",
@@ -499,6 +507,10 @@ export const tools: readonly Tool[] = [
         "app_id",
         "meeting_id"
       ],
+      $defs: {
+        "realtimekit_account_identifier": realtimekit_account_identifier,
+        "realtimekit_app_id": realtimekit_app_id,
+      },
     },
     outputSchema: {
       "allOf": [
@@ -558,16 +570,19 @@ export const tools: readonly Tool[] = [
             }
           ]
         },
+        "4XX": {
+          "$ref": "#/$defs/realtimekit_GenericErrorResponse"
+        },
         "500": {
           "$ref": "#/$defs/realtimekit_GenericErrorResponse"
         }
       },
       $defs: {
         "realtimekit_GenericErrorResponse": realtimekit_GenericErrorResponse_output,
-        "realtimekit_GenericErrorResponse_error": realtimekit_GenericErrorResponse_error_output,
         "realtimekit_PagingInfo": realtimekit_PagingInfo_output,
         "realtimekit_PagingResponse": realtimekit_PagingResponse_output,
         "realtimekit_Participant": realtimekit_Participant_output,
+        "realtimekit_ValidationIssue": realtimekit_ValidationIssue_output,
       },
     },
     request: (args) => ({
@@ -751,15 +766,18 @@ export const tools: readonly Tool[] = [
             }
           ]
         },
+        "4XX": {
+          "$ref": "#/$defs/realtimekit_GenericErrorResponse"
+        },
         "500": {
           "$ref": "#/$defs/realtimekit_GenericErrorResponse"
         }
       },
       $defs: {
         "realtimekit_GenericErrorResponse": realtimekit_GenericErrorResponse_output,
-        "realtimekit_GenericErrorResponse_error": realtimekit_GenericErrorResponse_error_output,
         "realtimekit_GenericSuccessResponse": realtimekit_GenericSuccessResponse_output,
         "realtimekit_Participant": realtimekit_Participant_output,
+        "realtimekit_ValidationIssue": realtimekit_ValidationIssue_output,
       },
     },
     request: (args) => ({
@@ -939,15 +957,18 @@ export const tools: readonly Tool[] = [
             }
           ]
         },
+        "4XX": {
+          "$ref": "#/$defs/realtimekit_GenericErrorResponse"
+        },
         "500": {
           "$ref": "#/$defs/realtimekit_GenericErrorResponse"
         }
       },
       $defs: {
         "realtimekit_GenericErrorResponse": realtimekit_GenericErrorResponse_output,
-        "realtimekit_GenericErrorResponse_error": realtimekit_GenericErrorResponse_error_output,
         "realtimekit_GenericSuccessResponse": realtimekit_GenericSuccessResponse_output,
         "realtimekit_Participant": realtimekit_Participant_output,
+        "realtimekit_ValidationIssue": realtimekit_ValidationIssue_output,
       },
     },
     request: (args) => ({

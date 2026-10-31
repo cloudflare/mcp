@@ -4,9 +4,11 @@
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
   zero_trust_gateway_api_response_common_failure_output,
+  zero_trust_gateway_api_response_single_output,
   zero_trust_gateway_messages_output,
   zero_trust_gateway_read_only_timestamp_output,
 } from "../../outputs.js";
+import { zero_trust_gateway_identifier } from "../schemas.js";
 import {
   zero_trust_gateway_activity_log_settings_output,
   zero_trust_gateway_anti_virus_settings_output,
@@ -22,7 +24,6 @@ import {
   zero_trust_gateway_fips_settings_output,
   zero_trust_gateway_gateway_account_config_output,
   zero_trust_gateway_gateway_account_settings_output,
-  zero_trust_gateway_gateway_account_settings_settings_output,
   zero_trust_gateway_host_selector_settings_output,
   zero_trust_gateway_inspection_settings_output,
   zero_trust_gateway_max_ttl_secs_output,
@@ -45,7 +46,6 @@ import {
   zero_trust_gateway_fail_closed,
   zero_trust_gateway_fips_settings,
   zero_trust_gateway_gateway_account_settings,
-  zero_trust_gateway_gateway_account_settings_settings,
   zero_trust_gateway_host_selector_settings,
   zero_trust_gateway_inspection_settings,
   zero_trust_gateway_max_ttl_secs,
@@ -67,8 +67,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Specify the Cloudflare account identifier.",
-          "type": "string"
+          "$ref": "#/$defs/zero-trust-gateway_identifier",
+          "description": "Specify the Cloudflare account identifier."
         },
         "body": {
           "$ref": "#/$defs/zero-trust-gateway_gateway-account-settings"
@@ -92,8 +92,8 @@ export const tools: readonly Tool[] = [
         "zero-trust-gateway_fail_closed": zero_trust_gateway_fail_closed,
         "zero-trust-gateway_fips-settings": zero_trust_gateway_fips_settings,
         "zero-trust-gateway_gateway-account-settings": zero_trust_gateway_gateway_account_settings,
-        "zero-trust-gateway_gateway-account-settings_settings": zero_trust_gateway_gateway_account_settings_settings,
         "zero-trust-gateway_host-selector-settings": zero_trust_gateway_host_selector_settings,
+        "zero-trust-gateway_identifier": zero_trust_gateway_identifier,
         "zero-trust-gateway_inspection-settings": zero_trust_gateway_inspection_settings,
         "zero-trust-gateway_max-ttl-secs": zero_trust_gateway_max_ttl_secs,
         "zero-trust-gateway_notification_settings": zero_trust_gateway_notification_settings,
@@ -103,25 +103,11 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "allOf": [
-        {
-          "$ref": "#/$defs/zero-trust-gateway_gateway-account-settings"
-        },
-        {
-          "properties": {
-            "created_at": {
-              "$ref": "#/$defs/zero-trust-gateway_read_only_timestamp"
-            },
-            "updated_at": {
-              "$ref": "#/$defs/zero-trust-gateway_read_only_timestamp"
-            }
-          },
-          "type": "object"
-        }
-      ],
+      "$ref": "#/$defs/zero-trust-gateway_gateway_account_config",
       $defs: {
         "zero-trust-gateway_activity-log-settings": zero_trust_gateway_activity_log_settings_output,
         "zero-trust-gateway_anti-virus-settings": zero_trust_gateway_anti_virus_settings_output,
+        "zero-trust-gateway_api-response-single": zero_trust_gateway_api_response_single_output,
         "zero-trust-gateway_block-page-settings": zero_trust_gateway_block_page_settings_output,
         "zero-trust-gateway_body-scanning-settings": zero_trust_gateway_body_scanning_settings_output,
         "zero-trust-gateway_browser-isolation-settings": zero_trust_gateway_browser_isolation_settings_output,
@@ -133,10 +119,11 @@ export const tools: readonly Tool[] = [
         "zero-trust-gateway_fail_closed": zero_trust_gateway_fail_closed_output,
         "zero-trust-gateway_fips-settings": zero_trust_gateway_fips_settings_output,
         "zero-trust-gateway_gateway-account-settings": zero_trust_gateway_gateway_account_settings_output,
-        "zero-trust-gateway_gateway-account-settings_settings": zero_trust_gateway_gateway_account_settings_settings_output,
+        "zero-trust-gateway_gateway_account_config": zero_trust_gateway_gateway_account_config_output,
         "zero-trust-gateway_host-selector-settings": zero_trust_gateway_host_selector_settings_output,
         "zero-trust-gateway_inspection-settings": zero_trust_gateway_inspection_settings_output,
         "zero-trust-gateway_max-ttl-secs": zero_trust_gateway_max_ttl_secs_output,
+        "zero-trust-gateway_messages": zero_trust_gateway_messages_output,
         "zero-trust-gateway_notification_settings": zero_trust_gateway_notification_settings_output,
         "zero-trust-gateway_protocol-detection": zero_trust_gateway_protocol_detection_output,
         "zero-trust-gateway_read_only_timestamp": zero_trust_gateway_read_only_timestamp_output,
@@ -156,22 +143,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "allOf": [
-            {
-              "$ref": "#/$defs/zero-trust-gateway_gateway-account-settings"
-            },
-            {
-              "properties": {
-                "created_at": {
-                  "$ref": "#/$defs/zero-trust-gateway_read_only_timestamp"
-                },
-                "updated_at": {
-                  "$ref": "#/$defs/zero-trust-gateway_read_only_timestamp"
-                }
-              },
-              "type": "object"
-            }
-          ]
+          "$ref": "#/$defs/zero-trust-gateway_gateway_account_config"
         },
         "4XX": {
           "allOf": [
@@ -188,6 +160,7 @@ export const tools: readonly Tool[] = [
         "zero-trust-gateway_activity-log-settings": zero_trust_gateway_activity_log_settings_output,
         "zero-trust-gateway_anti-virus-settings": zero_trust_gateway_anti_virus_settings_output,
         "zero-trust-gateway_api-response-common-failure": zero_trust_gateway_api_response_common_failure_output,
+        "zero-trust-gateway_api-response-single": zero_trust_gateway_api_response_single_output,
         "zero-trust-gateway_block-page-settings": zero_trust_gateway_block_page_settings_output,
         "zero-trust-gateway_body-scanning-settings": zero_trust_gateway_body_scanning_settings_output,
         "zero-trust-gateway_browser-isolation-settings": zero_trust_gateway_browser_isolation_settings_output,
@@ -199,7 +172,6 @@ export const tools: readonly Tool[] = [
         "zero-trust-gateway_fail_closed": zero_trust_gateway_fail_closed_output,
         "zero-trust-gateway_fips-settings": zero_trust_gateway_fips_settings_output,
         "zero-trust-gateway_gateway-account-settings": zero_trust_gateway_gateway_account_settings_output,
-        "zero-trust-gateway_gateway-account-settings_settings": zero_trust_gateway_gateway_account_settings_settings_output,
         "zero-trust-gateway_gateway_account_config": zero_trust_gateway_gateway_account_config_output,
         "zero-trust-gateway_host-selector-settings": zero_trust_gateway_host_selector_settings_output,
         "zero-trust-gateway_inspection-settings": zero_trust_gateway_inspection_settings_output,
@@ -225,34 +197,23 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Specify the Cloudflare account identifier.",
-          "type": "string"
+          "$ref": "#/$defs/zero-trust-gateway_identifier",
+          "description": "Specify the Cloudflare account identifier."
         }
       },
       required: [
         "account_id"
       ],
+      $defs: {
+        "zero-trust-gateway_identifier": zero_trust_gateway_identifier,
+      },
     },
     outputSchema: {
-      "allOf": [
-        {
-          "$ref": "#/$defs/zero-trust-gateway_gateway-account-settings"
-        },
-        {
-          "properties": {
-            "created_at": {
-              "$ref": "#/$defs/zero-trust-gateway_read_only_timestamp"
-            },
-            "updated_at": {
-              "$ref": "#/$defs/zero-trust-gateway_read_only_timestamp"
-            }
-          },
-          "type": "object"
-        }
-      ],
+      "$ref": "#/$defs/zero-trust-gateway_gateway_account_config",
       $defs: {
         "zero-trust-gateway_activity-log-settings": zero_trust_gateway_activity_log_settings_output,
         "zero-trust-gateway_anti-virus-settings": zero_trust_gateway_anti_virus_settings_output,
+        "zero-trust-gateway_api-response-single": zero_trust_gateway_api_response_single_output,
         "zero-trust-gateway_block-page-settings": zero_trust_gateway_block_page_settings_output,
         "zero-trust-gateway_body-scanning-settings": zero_trust_gateway_body_scanning_settings_output,
         "zero-trust-gateway_browser-isolation-settings": zero_trust_gateway_browser_isolation_settings_output,
@@ -264,10 +225,11 @@ export const tools: readonly Tool[] = [
         "zero-trust-gateway_fail_closed": zero_trust_gateway_fail_closed_output,
         "zero-trust-gateway_fips-settings": zero_trust_gateway_fips_settings_output,
         "zero-trust-gateway_gateway-account-settings": zero_trust_gateway_gateway_account_settings_output,
-        "zero-trust-gateway_gateway-account-settings_settings": zero_trust_gateway_gateway_account_settings_settings_output,
+        "zero-trust-gateway_gateway_account_config": zero_trust_gateway_gateway_account_config_output,
         "zero-trust-gateway_host-selector-settings": zero_trust_gateway_host_selector_settings_output,
         "zero-trust-gateway_inspection-settings": zero_trust_gateway_inspection_settings_output,
         "zero-trust-gateway_max-ttl-secs": zero_trust_gateway_max_ttl_secs_output,
+        "zero-trust-gateway_messages": zero_trust_gateway_messages_output,
         "zero-trust-gateway_notification_settings": zero_trust_gateway_notification_settings_output,
         "zero-trust-gateway_protocol-detection": zero_trust_gateway_protocol_detection_output,
         "zero-trust-gateway_read_only_timestamp": zero_trust_gateway_read_only_timestamp_output,
@@ -287,22 +249,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "allOf": [
-            {
-              "$ref": "#/$defs/zero-trust-gateway_gateway-account-settings"
-            },
-            {
-              "properties": {
-                "created_at": {
-                  "$ref": "#/$defs/zero-trust-gateway_read_only_timestamp"
-                },
-                "updated_at": {
-                  "$ref": "#/$defs/zero-trust-gateway_read_only_timestamp"
-                }
-              },
-              "type": "object"
-            }
-          ]
+          "$ref": "#/$defs/zero-trust-gateway_gateway_account_config"
         },
         "4XX": {
           "allOf": [
@@ -319,6 +266,7 @@ export const tools: readonly Tool[] = [
         "zero-trust-gateway_activity-log-settings": zero_trust_gateway_activity_log_settings_output,
         "zero-trust-gateway_anti-virus-settings": zero_trust_gateway_anti_virus_settings_output,
         "zero-trust-gateway_api-response-common-failure": zero_trust_gateway_api_response_common_failure_output,
+        "zero-trust-gateway_api-response-single": zero_trust_gateway_api_response_single_output,
         "zero-trust-gateway_block-page-settings": zero_trust_gateway_block_page_settings_output,
         "zero-trust-gateway_body-scanning-settings": zero_trust_gateway_body_scanning_settings_output,
         "zero-trust-gateway_browser-isolation-settings": zero_trust_gateway_browser_isolation_settings_output,
@@ -330,7 +278,6 @@ export const tools: readonly Tool[] = [
         "zero-trust-gateway_fail_closed": zero_trust_gateway_fail_closed_output,
         "zero-trust-gateway_fips-settings": zero_trust_gateway_fips_settings_output,
         "zero-trust-gateway_gateway-account-settings": zero_trust_gateway_gateway_account_settings_output,
-        "zero-trust-gateway_gateway-account-settings_settings": zero_trust_gateway_gateway_account_settings_settings_output,
         "zero-trust-gateway_gateway_account_config": zero_trust_gateway_gateway_account_config_output,
         "zero-trust-gateway_host-selector-settings": zero_trust_gateway_host_selector_settings_output,
         "zero-trust-gateway_inspection-settings": zero_trust_gateway_inspection_settings_output,
@@ -355,8 +302,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Specify the Cloudflare account identifier.",
-          "type": "string"
+          "$ref": "#/$defs/zero-trust-gateway_identifier",
+          "description": "Specify the Cloudflare account identifier."
         },
         "body": {
           "$ref": "#/$defs/zero-trust-gateway_gateway-account-settings"
@@ -380,8 +327,8 @@ export const tools: readonly Tool[] = [
         "zero-trust-gateway_fail_closed": zero_trust_gateway_fail_closed,
         "zero-trust-gateway_fips-settings": zero_trust_gateway_fips_settings,
         "zero-trust-gateway_gateway-account-settings": zero_trust_gateway_gateway_account_settings,
-        "zero-trust-gateway_gateway-account-settings_settings": zero_trust_gateway_gateway_account_settings_settings,
         "zero-trust-gateway_host-selector-settings": zero_trust_gateway_host_selector_settings,
+        "zero-trust-gateway_identifier": zero_trust_gateway_identifier,
         "zero-trust-gateway_inspection-settings": zero_trust_gateway_inspection_settings,
         "zero-trust-gateway_max-ttl-secs": zero_trust_gateway_max_ttl_secs,
         "zero-trust-gateway_notification_settings": zero_trust_gateway_notification_settings,
@@ -391,25 +338,11 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "allOf": [
-        {
-          "$ref": "#/$defs/zero-trust-gateway_gateway-account-settings"
-        },
-        {
-          "properties": {
-            "created_at": {
-              "$ref": "#/$defs/zero-trust-gateway_read_only_timestamp"
-            },
-            "updated_at": {
-              "$ref": "#/$defs/zero-trust-gateway_read_only_timestamp"
-            }
-          },
-          "type": "object"
-        }
-      ],
+      "$ref": "#/$defs/zero-trust-gateway_gateway_account_config",
       $defs: {
         "zero-trust-gateway_activity-log-settings": zero_trust_gateway_activity_log_settings_output,
         "zero-trust-gateway_anti-virus-settings": zero_trust_gateway_anti_virus_settings_output,
+        "zero-trust-gateway_api-response-single": zero_trust_gateway_api_response_single_output,
         "zero-trust-gateway_block-page-settings": zero_trust_gateway_block_page_settings_output,
         "zero-trust-gateway_body-scanning-settings": zero_trust_gateway_body_scanning_settings_output,
         "zero-trust-gateway_browser-isolation-settings": zero_trust_gateway_browser_isolation_settings_output,
@@ -421,10 +354,11 @@ export const tools: readonly Tool[] = [
         "zero-trust-gateway_fail_closed": zero_trust_gateway_fail_closed_output,
         "zero-trust-gateway_fips-settings": zero_trust_gateway_fips_settings_output,
         "zero-trust-gateway_gateway-account-settings": zero_trust_gateway_gateway_account_settings_output,
-        "zero-trust-gateway_gateway-account-settings_settings": zero_trust_gateway_gateway_account_settings_settings_output,
+        "zero-trust-gateway_gateway_account_config": zero_trust_gateway_gateway_account_config_output,
         "zero-trust-gateway_host-selector-settings": zero_trust_gateway_host_selector_settings_output,
         "zero-trust-gateway_inspection-settings": zero_trust_gateway_inspection_settings_output,
         "zero-trust-gateway_max-ttl-secs": zero_trust_gateway_max_ttl_secs_output,
+        "zero-trust-gateway_messages": zero_trust_gateway_messages_output,
         "zero-trust-gateway_notification_settings": zero_trust_gateway_notification_settings_output,
         "zero-trust-gateway_protocol-detection": zero_trust_gateway_protocol_detection_output,
         "zero-trust-gateway_read_only_timestamp": zero_trust_gateway_read_only_timestamp_output,
@@ -444,22 +378,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "allOf": [
-            {
-              "$ref": "#/$defs/zero-trust-gateway_gateway-account-settings"
-            },
-            {
-              "properties": {
-                "created_at": {
-                  "$ref": "#/$defs/zero-trust-gateway_read_only_timestamp"
-                },
-                "updated_at": {
-                  "$ref": "#/$defs/zero-trust-gateway_read_only_timestamp"
-                }
-              },
-              "type": "object"
-            }
-          ]
+          "$ref": "#/$defs/zero-trust-gateway_gateway_account_config"
         },
         "4XX": {
           "allOf": [
@@ -476,6 +395,7 @@ export const tools: readonly Tool[] = [
         "zero-trust-gateway_activity-log-settings": zero_trust_gateway_activity_log_settings_output,
         "zero-trust-gateway_anti-virus-settings": zero_trust_gateway_anti_virus_settings_output,
         "zero-trust-gateway_api-response-common-failure": zero_trust_gateway_api_response_common_failure_output,
+        "zero-trust-gateway_api-response-single": zero_trust_gateway_api_response_single_output,
         "zero-trust-gateway_block-page-settings": zero_trust_gateway_block_page_settings_output,
         "zero-trust-gateway_body-scanning-settings": zero_trust_gateway_body_scanning_settings_output,
         "zero-trust-gateway_browser-isolation-settings": zero_trust_gateway_browser_isolation_settings_output,
@@ -487,7 +407,6 @@ export const tools: readonly Tool[] = [
         "zero-trust-gateway_fail_closed": zero_trust_gateway_fail_closed_output,
         "zero-trust-gateway_fips-settings": zero_trust_gateway_fips_settings_output,
         "zero-trust-gateway_gateway-account-settings": zero_trust_gateway_gateway_account_settings_output,
-        "zero-trust-gateway_gateway-account-settings_settings": zero_trust_gateway_gateway_account_settings_settings_output,
         "zero-trust-gateway_gateway_account_config": zero_trust_gateway_gateway_account_config_output,
         "zero-trust-gateway_host-selector-settings": zero_trust_gateway_host_selector_settings_output,
         "zero-trust-gateway_inspection-settings": zero_trust_gateway_inspection_settings_output,

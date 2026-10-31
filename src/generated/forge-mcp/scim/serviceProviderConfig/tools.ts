@@ -2,6 +2,10 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../_/tool.js";
+import {
+  iam_account_identifier,
+  iam_common_components_schemas_identifier,
+} from "../../schemas.js";
 import { iam_scim_error_response_output } from "../outputs.js";
 import {
   iam_scim_authentication_scheme_output,
@@ -23,13 +27,17 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Account identifier tag.",
-          "type": "string"
+          "$ref": "#/$defs/iam_account_identifier",
+          "description": "Account identifier tag."
         }
       },
       required: [
         "account_id"
       ],
+      $defs: {
+        "iam_account_identifier": iam_account_identifier,
+        "iam_common_components-schemas-identifier": iam_common_components_schemas_identifier,
+      },
     },
     outputSchema: {
       "$ref": "#/$defs/iam_scim_service_provider_config",
@@ -59,12 +67,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "com.cloudflare.api.account.member.list"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.api.account.member.list": {
-            "name": "com_cloudflare_api_account_member_list"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": true,

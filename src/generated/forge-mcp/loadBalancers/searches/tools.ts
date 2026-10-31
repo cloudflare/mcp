@@ -3,12 +3,17 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
+  load_balancing_api_paginated_response_collection_output,
   load_balancing_api_response_common_failure_output,
+  load_balancing_api_response_common_output,
   load_balancing_messages_output,
+  load_balancing_result_info_output,
 } from "../../outputs.js";
+import { load_balancing_components_schemas_identifier } from "../schemas.js";
 import {
   load_balancing_resource_reference_output,
   load_balancing_search_output,
+  load_balancing_search_result_output,
 } from "./outputs.js";
 
 /**
@@ -23,8 +28,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/load-balancing_components-schemas-identifier",
+          "description": "Identifier."
         },
         "page": {
           "type": "number"
@@ -53,12 +58,27 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+      $defs: {
+        "load-balancing_components-schemas-identifier": load_balancing_components_schemas_identifier,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/load-balancing_search",
+      "allOf": [
+        {
+          "$ref": "#/$defs/load-balancing_api-paginated-response-collection"
+        },
+        {
+          "$ref": "#/$defs/load-balancing_search_result"
+        }
+      ],
       $defs: {
+        "load-balancing_api-paginated-response-collection": load_balancing_api_paginated_response_collection_output,
+        "load-balancing_api-response-common": load_balancing_api_response_common_output,
+        "load-balancing_messages": load_balancing_messages_output,
         "load-balancing_resource_reference": load_balancing_resource_reference_output,
+        "load-balancing_result_info": load_balancing_result_info_output,
         "load-balancing_search": load_balancing_search_output,
+        "load-balancing_search_result": load_balancing_search_result_output,
       },
     },
     annotations: {
@@ -79,17 +99,28 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/load-balancing_search"
+          "allOf": [
+            {
+              "$ref": "#/$defs/load-balancing_api-paginated-response-collection"
+            },
+            {
+              "$ref": "#/$defs/load-balancing_search_result"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/load-balancing_api-response-common-failure"
         }
       },
       $defs: {
+        "load-balancing_api-paginated-response-collection": load_balancing_api_paginated_response_collection_output,
+        "load-balancing_api-response-common": load_balancing_api_response_common_output,
         "load-balancing_api-response-common-failure": load_balancing_api_response_common_failure_output,
         "load-balancing_messages": load_balancing_messages_output,
         "load-balancing_resource_reference": load_balancing_resource_reference_output,
+        "load-balancing_result_info": load_balancing_result_info_output,
         "load-balancing_search": load_balancing_search_output,
+        "load-balancing_search_result": load_balancing_search_result_output,
       },
     },
     request: (args) => ({

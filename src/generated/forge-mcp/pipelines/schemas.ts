@@ -42,6 +42,207 @@ export const cloudflare_pipelines_DecimalEncoding: JsonSchema = {
 };
 
 /**
+ * The schema of `cloudflare-pipelines_FieldType`.
+ */
+export const cloudflare_pipelines_FieldType: JsonSchema = {
+  "oneOf": [
+    {
+      "properties": {
+        "type": {
+          "enum": [
+            "int32"
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "type"
+      ],
+      "type": "object"
+    },
+    {
+      "properties": {
+        "type": {
+          "enum": [
+            "int64"
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "type"
+      ],
+      "type": "object"
+    },
+    {
+      "properties": {
+        "type": {
+          "enum": [
+            "float32"
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "type"
+      ],
+      "type": "object"
+    },
+    {
+      "properties": {
+        "type": {
+          "enum": [
+            "float64"
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "type"
+      ],
+      "type": "object"
+    },
+    {
+      "properties": {
+        "type": {
+          "enum": [
+            "bool"
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "type"
+      ],
+      "type": "object"
+    },
+    {
+      "properties": {
+        "type": {
+          "enum": [
+            "string"
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "type"
+      ],
+      "type": "object"
+    },
+    {
+      "properties": {
+        "type": {
+          "enum": [
+            "binary"
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "type"
+      ],
+      "type": "object"
+    },
+    {
+      "allOf": [
+        {
+          "$ref": "#/$defs/cloudflare-pipelines_TimestampField"
+        },
+        {
+          "properties": {
+            "type": {
+              "enum": [
+                "timestamp"
+              ],
+              "type": "string"
+            }
+          },
+          "required": [
+            "type"
+          ],
+          "type": "object"
+        }
+      ]
+    },
+    {
+      "properties": {
+        "type": {
+          "enum": [
+            "json"
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "type"
+      ],
+      "type": "object"
+    },
+    {
+      "allOf": [
+        {
+          "$ref": "#/$defs/cloudflare-pipelines_StructField"
+        },
+        {
+          "properties": {
+            "type": {
+              "enum": [
+                "struct"
+              ],
+              "type": "string"
+            }
+          },
+          "required": [
+            "type"
+          ],
+          "type": "object"
+        }
+      ]
+    },
+    {
+      "allOf": [
+        {
+          "$ref": "#/$defs/cloudflare-pipelines_ListField"
+        },
+        {
+          "properties": {
+            "type": {
+              "enum": [
+                "list"
+              ],
+              "type": "string"
+            }
+          },
+          "required": [
+            "type"
+          ],
+          "type": "object"
+        }
+      ]
+    }
+  ]
+};
+
+/**
+ * The schema of `cloudflare-pipelines_JsonFormat`.
+ */
+export const cloudflare_pipelines_JsonFormat: JsonSchema = {
+  "properties": {
+    "decimal_encoding": {
+      "$ref": "#/$defs/cloudflare-pipelines_DecimalEncoding"
+    },
+    "timestamp_format": {
+      "$ref": "#/$defs/cloudflare-pipelines_TimestampFormat"
+    },
+    "unstructured": {
+      "type": "boolean"
+    }
+  },
+  "type": "object"
+};
+
+/**
  * The schema of `cloudflare-pipelines_ListField`.
  */
 export const cloudflare_pipelines_ListField: JsonSchema = {
@@ -71,513 +272,61 @@ export const cloudflare_pipelines_ParquetCompression: JsonSchema = {
 };
 
 /**
+ * The schema of `cloudflare-pipelines_ParquetFormat`.
+ */
+export const cloudflare_pipelines_ParquetFormat: JsonSchema = {
+  "properties": {
+    "compression": {
+      "$ref": "#/$defs/cloudflare-pipelines_ParquetCompression"
+    },
+    "row_group_bytes": {
+      "oneOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  },
+  "type": "object"
+};
+
+/**
  * The schema of `cloudflare-pipelines_SourceField`.
  */
 export const cloudflare_pipelines_SourceField: JsonSchema = {
-  "oneOf": [
+  "allOf": [
     {
-      "allOf": [
-        {
-          "properties": {
-            "type": {
-              "enum": [
-                "int32"
-              ],
-              "type": "string"
-            }
-          },
-          "required": [
-            "type"
-          ],
-          "type": "object"
-        },
-        {
-          "properties": {
-            "metadata_key": {
-              "oneOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ]
-            },
-            "name": {
-              "type": "string"
-            },
-            "required": {
-              "type": "boolean"
-            },
-            "sql_name": {
-              "type": "string"
-            }
-          },
-          "required": [
-            "name"
-          ],
-          "type": "object"
-        }
-      ]
+      "$ref": "#/$defs/cloudflare-pipelines_FieldType"
     },
     {
-      "allOf": [
-        {
-          "properties": {
-            "type": {
-              "enum": [
-                "int64"
-              ],
+      "properties": {
+        "metadata_key": {
+          "oneOf": [
+            {
               "type": "string"
+            },
+            {
+              "type": "null"
             }
-          },
-          "required": [
-            "type"
-          ],
-          "type": "object"
+          ]
         },
-        {
-          "properties": {
-            "metadata_key": {
-              "oneOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ]
-            },
-            "name": {
-              "type": "string"
-            },
-            "required": {
-              "type": "boolean"
-            },
-            "sql_name": {
-              "type": "string"
-            }
-          },
-          "required": [
-            "name"
-          ],
-          "type": "object"
+        "name": {
+          "type": "string"
+        },
+        "required": {
+          "type": "boolean"
+        },
+        "sql_name": {
+          "type": "string"
         }
-      ]
-    },
-    {
-      "allOf": [
-        {
-          "properties": {
-            "type": {
-              "enum": [
-                "float32"
-              ],
-              "type": "string"
-            }
-          },
-          "required": [
-            "type"
-          ],
-          "type": "object"
-        },
-        {
-          "properties": {
-            "metadata_key": {
-              "oneOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ]
-            },
-            "name": {
-              "type": "string"
-            },
-            "required": {
-              "type": "boolean"
-            },
-            "sql_name": {
-              "type": "string"
-            }
-          },
-          "required": [
-            "name"
-          ],
-          "type": "object"
-        }
-      ]
-    },
-    {
-      "allOf": [
-        {
-          "properties": {
-            "type": {
-              "enum": [
-                "float64"
-              ],
-              "type": "string"
-            }
-          },
-          "required": [
-            "type"
-          ],
-          "type": "object"
-        },
-        {
-          "properties": {
-            "metadata_key": {
-              "oneOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ]
-            },
-            "name": {
-              "type": "string"
-            },
-            "required": {
-              "type": "boolean"
-            },
-            "sql_name": {
-              "type": "string"
-            }
-          },
-          "required": [
-            "name"
-          ],
-          "type": "object"
-        }
-      ]
-    },
-    {
-      "allOf": [
-        {
-          "properties": {
-            "type": {
-              "enum": [
-                "bool"
-              ],
-              "type": "string"
-            }
-          },
-          "required": [
-            "type"
-          ],
-          "type": "object"
-        },
-        {
-          "properties": {
-            "metadata_key": {
-              "oneOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ]
-            },
-            "name": {
-              "type": "string"
-            },
-            "required": {
-              "type": "boolean"
-            },
-            "sql_name": {
-              "type": "string"
-            }
-          },
-          "required": [
-            "name"
-          ],
-          "type": "object"
-        }
-      ]
-    },
-    {
-      "allOf": [
-        {
-          "properties": {
-            "type": {
-              "enum": [
-                "string"
-              ],
-              "type": "string"
-            }
-          },
-          "required": [
-            "type"
-          ],
-          "type": "object"
-        },
-        {
-          "properties": {
-            "metadata_key": {
-              "oneOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ]
-            },
-            "name": {
-              "type": "string"
-            },
-            "required": {
-              "type": "boolean"
-            },
-            "sql_name": {
-              "type": "string"
-            }
-          },
-          "required": [
-            "name"
-          ],
-          "type": "object"
-        }
-      ]
-    },
-    {
-      "allOf": [
-        {
-          "properties": {
-            "type": {
-              "enum": [
-                "binary"
-              ],
-              "type": "string"
-            }
-          },
-          "required": [
-            "type"
-          ],
-          "type": "object"
-        },
-        {
-          "properties": {
-            "metadata_key": {
-              "oneOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ]
-            },
-            "name": {
-              "type": "string"
-            },
-            "required": {
-              "type": "boolean"
-            },
-            "sql_name": {
-              "type": "string"
-            }
-          },
-          "required": [
-            "name"
-          ],
-          "type": "object"
-        }
-      ]
-    },
-    {
-      "allOf": [
-        {
-          "$ref": "#/$defs/cloudflare-pipelines_TimestampField"
-        },
-        {
-          "properties": {
-            "type": {
-              "enum": [
-                "timestamp"
-              ],
-              "type": "string"
-            }
-          },
-          "required": [
-            "type"
-          ],
-          "type": "object"
-        },
-        {
-          "properties": {
-            "metadata_key": {
-              "oneOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ]
-            },
-            "name": {
-              "type": "string"
-            },
-            "required": {
-              "type": "boolean"
-            },
-            "sql_name": {
-              "type": "string"
-            }
-          },
-          "required": [
-            "name"
-          ],
-          "type": "object"
-        }
-      ]
-    },
-    {
-      "allOf": [
-        {
-          "properties": {
-            "type": {
-              "enum": [
-                "json"
-              ],
-              "type": "string"
-            }
-          },
-          "required": [
-            "type"
-          ],
-          "type": "object"
-        },
-        {
-          "properties": {
-            "metadata_key": {
-              "oneOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ]
-            },
-            "name": {
-              "type": "string"
-            },
-            "required": {
-              "type": "boolean"
-            },
-            "sql_name": {
-              "type": "string"
-            }
-          },
-          "required": [
-            "name"
-          ],
-          "type": "object"
-        }
-      ]
-    },
-    {
-      "allOf": [
-        {
-          "$ref": "#/$defs/cloudflare-pipelines_StructField"
-        },
-        {
-          "properties": {
-            "type": {
-              "enum": [
-                "struct"
-              ],
-              "type": "string"
-            }
-          },
-          "required": [
-            "type"
-          ],
-          "type": "object"
-        },
-        {
-          "properties": {
-            "metadata_key": {
-              "oneOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ]
-            },
-            "name": {
-              "type": "string"
-            },
-            "required": {
-              "type": "boolean"
-            },
-            "sql_name": {
-              "type": "string"
-            }
-          },
-          "required": [
-            "name"
-          ],
-          "type": "object"
-        }
-      ]
-    },
-    {
-      "allOf": [
-        {
-          "$ref": "#/$defs/cloudflare-pipelines_ListField"
-        },
-        {
-          "properties": {
-            "type": {
-              "enum": [
-                "list"
-              ],
-              "type": "string"
-            }
-          },
-          "required": [
-            "type"
-          ],
-          "type": "object"
-        },
-        {
-          "properties": {
-            "metadata_key": {
-              "oneOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ]
-            },
-            "name": {
-              "type": "string"
-            },
-            "required": {
-              "type": "boolean"
-            },
-            "sql_name": {
-              "type": "string"
-            }
-          },
-          "required": [
-            "name"
-          ],
-          "type": "object"
-        }
-      ]
+      },
+      "required": [
+        "name"
+      ],
+      "type": "object"
     }
   ]
 };
@@ -643,5 +392,21 @@ export const cloudflare_pipelines_TimestampUnit: JsonSchema = {
     "microsecond",
     "nanosecond"
   ],
+  "type": "string"
+};
+
+/**
+ * The schema of `cloudflare-pipelines_workers-pipelines-account-id`.
+ */
+export const cloudflare_pipelines_workers_pipelines_account_id: JsonSchema = {
+  "description": "Specifies the public ID of the account.",
+  "type": "string"
+};
+
+/**
+ * The schema of `cloudflare-pipelines_workers-pipelines-pipeline-id`.
+ */
+export const cloudflare_pipelines_workers_pipelines_pipeline_id: JsonSchema = {
+  "description": "Specifies the public ID of the pipeline.",
   "type": "string"
 };

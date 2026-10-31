@@ -15,7 +15,18 @@ export const flagship_EvaluationRule_output: JsonSchema = {
       "type": "array"
     },
     "rollout": {
-      "$ref": "#/$defs/flagship_EvaluationRule_rollout"
+      "properties": {
+        "attribute": {
+          "type": "string"
+        },
+        "percentage": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "percentage"
+      ],
+      "type": "object"
     },
     "serve_variation": {
       "type": "string"
@@ -24,24 +35,6 @@ export const flagship_EvaluationRule_output: JsonSchema = {
   "required": [
     "conditions",
     "serve_variation"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `flagship_EvaluationRule_rollout` in responses.
- */
-export const flagship_EvaluationRule_rollout_output: JsonSchema = {
-  "properties": {
-    "attribute": {
-      "type": "string"
-    },
-    "percentage": {
-      "type": "number"
-    }
-  },
-  "required": [
-    "percentage"
   ],
   "type": "object"
 };

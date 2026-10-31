@@ -4,6 +4,68 @@
 import type { JsonSchema } from "../_/tool.js";
 
 /**
+ * The schema of `dns-firewall_api-response-collection` in responses.
+ */
+export const dns_firewall_api_response_collection_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/dns-firewall_api-response-common"
+    },
+    {
+      "properties": {
+        "result_info": {
+          "properties": {
+            "count": {
+              "type": "number"
+            },
+            "page": {
+              "type": "number"
+            },
+            "per_page": {
+              "type": "number"
+            },
+            "total_count": {
+              "type": "number"
+            },
+            "total_pages": {
+              "type": "number"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `dns-firewall_api-response-common` in responses.
+ */
+export const dns_firewall_api_response_common_output: JsonSchema = {
+  "properties": {
+    "errors": {
+      "$ref": "#/$defs/dns-firewall_messages"
+    },
+    "messages": {
+      "$ref": "#/$defs/dns-firewall_messages"
+    },
+    "success": {
+      "enum": [
+        true
+      ],
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "errors",
+    "messages",
+    "success"
+  ],
+  "type": "object"
+};
+
+/**
  * The schema of `dns-firewall_api-response-common-failure` in responses.
  */
 export const dns_firewall_api_response_common_failure_output: JsonSchema = {
@@ -28,6 +90,32 @@ export const dns_firewall_api_response_common_failure_output: JsonSchema = {
     "errors",
     "messages",
     "result",
+    "success"
+  ],
+  "type": "object"
+};
+
+/**
+ * The schema of `dns-firewall_api-response-single` in responses.
+ */
+export const dns_firewall_api_response_single_output: JsonSchema = {
+  "properties": {
+    "errors": {
+      "$ref": "#/$defs/dns-firewall_messages"
+    },
+    "messages": {
+      "$ref": "#/$defs/dns-firewall_messages"
+    },
+    "success": {
+      "enum": [
+        true
+      ],
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "errors",
+    "messages",
     "success"
   ],
   "type": "object"
@@ -63,9 +151,9 @@ export const dns_firewall_deprecate_any_requests_output: JsonSchema = {
 };
 
 /**
- * The schema of `dns-firewall_dns-firewall-cluster-response` in responses.
+ * The schema of `dns-firewall_dns-firewall-cluster` in responses.
  */
-export const dns_firewall_dns_firewall_cluster_response_output: JsonSchema = {
+export const dns_firewall_dns_firewall_cluster_output: JsonSchema = {
   "properties": {
     "attack_mitigation": {
       "$ref": "#/$defs/dns-firewall_attack_mitigation"
@@ -73,23 +161,14 @@ export const dns_firewall_dns_firewall_cluster_response_output: JsonSchema = {
     "deprecate_any_requests": {
       "$ref": "#/$defs/dns-firewall_deprecate_any_requests"
     },
-    "dns_firewall_ips": {
-      "$ref": "#/$defs/dns-firewall_dns_firewall_ips"
-    },
     "ecs_fallback": {
       "$ref": "#/$defs/dns-firewall_ecs_fallback"
-    },
-    "id": {
-      "$ref": "#/$defs/dns-firewall_identifier"
     },
     "maximum_cache_ttl": {
       "$ref": "#/$defs/dns-firewall_maximum_cache_ttl"
     },
     "minimum_cache_ttl": {
       "$ref": "#/$defs/dns-firewall_minimum_cache_ttl"
-    },
-    "modified_on": {
-      "$ref": "#/$defs/dns-firewall_modified_on"
     },
     "name": {
       "$ref": "#/$defs/dns-firewall_name"
@@ -107,21 +186,37 @@ export const dns_firewall_dns_firewall_cluster_response_output: JsonSchema = {
       "$ref": "#/$defs/dns-firewall_upstream_ips"
     }
   },
-  "required": [
-    "deprecate_any_requests",
-    "ecs_fallback",
-    "maximum_cache_ttl",
-    "minimum_cache_ttl",
-    "name",
-    "negative_cache_ttl",
-    "ratelimit",
-    "retries",
-    "upstream_ips",
-    "dns_firewall_ips",
-    "id",
-    "modified_on"
-  ],
   "type": "object"
+};
+
+/**
+ * The schema of `dns-firewall_dns-firewall-cluster-response` in responses.
+ */
+export const dns_firewall_dns_firewall_cluster_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/dns-firewall_dns-firewall-cluster"
+    },
+    {
+      "properties": {
+        "dns_firewall_ips": {
+          "$ref": "#/$defs/dns-firewall_dns_firewall_ips"
+        },
+        "id": {
+          "$ref": "#/$defs/dns-firewall_identifier"
+        },
+        "modified_on": {
+          "$ref": "#/$defs/dns-firewall_modified_on"
+        }
+      },
+      "required": [
+        "dns_firewall_ips",
+        "id",
+        "modified_on"
+      ],
+      "type": "object"
+    }
+  ]
 };
 
 /**
@@ -132,6 +227,47 @@ export const dns_firewall_dns_firewall_ips_output: JsonSchema = {
     "type": "string"
   },
   "type": "array"
+};
+
+/**
+ * The schema of `dns-firewall_dns_firewall_response_collection` in responses.
+ */
+export const dns_firewall_dns_firewall_response_collection_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/dns-firewall_api-response-collection"
+    },
+    {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/dns-firewall_dns-firewall-cluster-response"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `dns-firewall_dns_firewall_single_response` in responses.
+ */
+export const dns_firewall_dns_firewall_single_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/dns-firewall_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/dns-firewall_dns-firewall-cluster-response"
+        }
+      },
+      "type": "object"
+    }
+  ]
 };
 
 /**

@@ -9,26 +9,19 @@ import type { JsonSchema } from "../../_/tool.js";
 export const access_access_group_rule_output: JsonSchema = {
   "properties": {
     "group": {
-      "$ref": "#/$defs/access_access_group_rule_group"
+      "properties": {
+        "id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id"
+      ],
+      "type": "object"
     }
   },
   "required": [
     "group"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `access_access_group_rule_group` in responses.
- */
-export const access_access_group_rule_group_output: JsonSchema = {
-  "properties": {
-    "id": {
-      "type": "string"
-    }
-  },
-  "required": [
-    "id"
   ],
   "type": "object"
 };
@@ -117,34 +110,27 @@ export const access_approval_required_output: JsonSchema = {
 export const access_auth_context_rule_output: JsonSchema = {
   "properties": {
     "auth_context": {
-      "$ref": "#/$defs/access_auth_context_rule_auth_context"
+      "properties": {
+        "ac_id": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "identity_provider_id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "ac_id",
+        "id",
+        "identity_provider_id"
+      ],
+      "type": "object"
     }
   },
   "required": [
     "auth_context"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `access_auth_context_rule_auth_context` in responses.
- */
-export const access_auth_context_rule_auth_context_output: JsonSchema = {
-  "properties": {
-    "ac_id": {
-      "type": "string"
-    },
-    "id": {
-      "type": "string"
-    },
-    "identity_provider_id": {
-      "type": "string"
-    }
-  },
-  "required": [
-    "ac_id",
-    "id",
-    "identity_provider_id"
   ],
   "type": "object"
 };
@@ -155,22 +141,15 @@ export const access_auth_context_rule_auth_context_output: JsonSchema = {
 export const access_authentication_method_rule_output: JsonSchema = {
   "properties": {
     "auth_method": {
-      "$ref": "#/$defs/access_authentication_method_rule_auth_method"
-    }
-  },
-  "required": [
-    "auth_method"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `access_authentication_method_rule_auth_method` in responses.
- */
-export const access_authentication_method_rule_auth_method_output: JsonSchema = {
-  "properties": {
-    "auth_method": {
-      "type": "string"
+      "properties": {
+        "auth_method": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "auth_method"
+      ],
+      "type": "object"
     }
   },
   "required": [
@@ -185,7 +164,19 @@ export const access_authentication_method_rule_auth_method_output: JsonSchema = 
 export const access_azure_group_rule_output: JsonSchema = {
   "properties": {
     "azureAD": {
-      "$ref": "#/$defs/access_azure_group_rule_azureAD"
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "identity_provider_id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "identity_provider_id"
+      ],
+      "type": "object"
     }
   },
   "required": [
@@ -195,21 +186,38 @@ export const access_azure_group_rule_output: JsonSchema = {
 };
 
 /**
- * The schema of `access_azure_group_rule_azureAD` in responses.
+ * The schema of `access_base_policy_resp` in responses.
  */
-export const access_azure_group_rule_azureAD_output: JsonSchema = {
+export const access_base_policy_resp_output: JsonSchema = {
   "properties": {
-    "id": {
-      "type": "string"
+    "created_at": {
+      "$ref": "#/$defs/access_timestamp"
     },
-    "identity_provider_id": {
-      "type": "string"
+    "decision": {
+      "$ref": "#/$defs/access_decision"
+    },
+    "exclude": {
+      "$ref": "#/$defs/access_exclude-2"
+    },
+    "id": {
+      "$ref": "#/$defs/access_uuid-2"
+    },
+    "include": {
+      "$ref": "#/$defs/access_include-2"
+    },
+    "name": {
+      "$ref": "#/$defs/access_name-9"
+    },
+    "policy_resolution_account_id": {
+      "$ref": "#/$defs/access_policy_resolution_account_id"
+    },
+    "require": {
+      "$ref": "#/$defs/access_require-2"
+    },
+    "updated_at": {
+      "$ref": "#/$defs/access_timestamp"
     }
   },
-  "required": [
-    "id",
-    "identity_provider_id"
-  ],
   "type": "object"
 };
 
@@ -234,7 +242,12 @@ export const access_certificate_rule_output: JsonSchema = {
 export const access_cloudflare_account_member_rule_output: JsonSchema = {
   "properties": {
     "cloudflare_account_member": {
-      "$ref": "#/$defs/access_cloudflare_account_member_rule_cloudflare_account_member"
+      "properties": {
+        "account_id": {
+          "$ref": "#/$defs/access_identifier"
+        }
+      },
+      "type": "object"
     }
   },
   "required": [
@@ -244,41 +257,20 @@ export const access_cloudflare_account_member_rule_output: JsonSchema = {
 };
 
 /**
- * The schema of
- * `access_cloudflare_account_member_rule_cloudflare_account_member` in
- * responses.
- */
-export const access_cloudflare_account_member_rule_cloudflare_account_member_output: JsonSchema = {
-  "properties": {
-    "account_id": {
-      "$ref": "#/$defs/access_identifier"
-    }
-  },
-  "type": "object"
-};
-
-/**
  * The schema of `access_common_name_rule` in responses.
  */
 export const access_common_name_rule_output: JsonSchema = {
   "properties": {
     "common_name": {
-      "$ref": "#/$defs/access_common_name_rule_common_name"
-    }
-  },
-  "required": [
-    "common_name"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `access_common_name_rule_common_name` in responses.
- */
-export const access_common_name_rule_common_name_output: JsonSchema = {
-  "properties": {
-    "common_name": {
-      "type": "string"
+      "properties": {
+        "common_name": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "common_name"
+      ],
+      "type": "object"
     }
   },
   "required": [
@@ -320,26 +312,19 @@ export const access_connection_rules_rdp_output: JsonSchema = {
 export const access_country_rule_output: JsonSchema = {
   "properties": {
     "geo": {
-      "$ref": "#/$defs/access_country_rule_geo"
+      "properties": {
+        "country_code": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "country_code"
+      ],
+      "type": "object"
     }
   },
   "required": [
     "geo"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `access_country_rule_geo` in responses.
- */
-export const access_country_rule_geo_output: JsonSchema = {
-  "properties": {
-    "country_code": {
-      "type": "string"
-    }
-  },
-  "required": [
-    "country_code"
   ],
   "type": "object"
 };
@@ -363,29 +348,22 @@ export const access_decision_output: JsonSchema = {
 export const access_device_posture_rule_output: JsonSchema = {
   "properties": {
     "device_posture": {
-      "$ref": "#/$defs/access_device_posture_rule_device_posture"
+      "properties": {
+        "account_id": {
+          "$ref": "#/$defs/access_identifier"
+        },
+        "integration_uid": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "integration_uid"
+      ],
+      "type": "object"
     }
   },
   "required": [
     "device_posture"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `access_device_posture_rule_device_posture` in responses.
- */
-export const access_device_posture_rule_device_posture_output: JsonSchema = {
-  "properties": {
-    "account_id": {
-      "$ref": "#/$defs/access_identifier"
-    },
-    "integration_uid": {
-      "type": "string"
-    }
-  },
-  "required": [
-    "integration_uid"
   ],
   "type": "object"
 };
@@ -396,26 +374,19 @@ export const access_device_posture_rule_device_posture_output: JsonSchema = {
 export const access_domain_rule_output: JsonSchema = {
   "properties": {
     "email_domain": {
-      "$ref": "#/$defs/access_domain_rule_email_domain"
+      "properties": {
+        "domain": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "domain"
+      ],
+      "type": "object"
     }
   },
   "required": [
     "email_domain"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `access_domain_rule_email_domain` in responses.
- */
-export const access_domain_rule_email_domain_output: JsonSchema = {
-  "properties": {
-    "domain": {
-      "type": "string"
-    }
-  },
-  "required": [
-    "domain"
   ],
   "type": "object"
 };
@@ -433,26 +404,19 @@ export const access_email_2_output: JsonSchema = {
 export const access_email_list_rule_output: JsonSchema = {
   "properties": {
     "email_list": {
-      "$ref": "#/$defs/access_email_list_rule_email_list"
+      "properties": {
+        "id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id"
+      ],
+      "type": "object"
     }
   },
   "required": [
     "email_list"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `access_email_list_rule_email_list` in responses.
- */
-export const access_email_list_rule_email_list_output: JsonSchema = {
-  "properties": {
-    "id": {
-      "type": "string"
-    }
-  },
-  "required": [
-    "id"
   ],
   "type": "object"
 };
@@ -463,22 +427,15 @@ export const access_email_list_rule_email_list_output: JsonSchema = {
 export const access_email_rule_output: JsonSchema = {
   "properties": {
     "email": {
-      "$ref": "#/$defs/access_email_rule_email"
-    }
-  },
-  "required": [
-    "email"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `access_email_rule_email` in responses.
- */
-export const access_email_rule_email_output: JsonSchema = {
-  "properties": {
-    "email": {
-      "type": "string"
+      "properties": {
+        "email": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "email"
+      ],
+      "type": "object"
     }
   },
   "required": [
@@ -518,31 +475,23 @@ export const access_exclude_2_output: JsonSchema = {
 export const access_external_evaluation_rule_output: JsonSchema = {
   "properties": {
     "external_evaluation": {
-      "$ref": "#/$defs/access_external_evaluation_rule_external_evaluation"
+      "properties": {
+        "evaluate_url": {
+          "type": "string"
+        },
+        "keys_url": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "evaluate_url",
+        "keys_url"
+      ],
+      "type": "object"
     }
   },
   "required": [
     "external_evaluation"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `access_external_evaluation_rule_external_evaluation` in
- * responses.
- */
-export const access_external_evaluation_rule_external_evaluation_output: JsonSchema = {
-  "properties": {
-    "evaluate_url": {
-      "type": "string"
-    },
-    "keys_url": {
-      "type": "string"
-    }
-  },
-  "required": [
-    "evaluate_url",
-    "keys_url"
   ],
   "type": "object"
 };
@@ -553,34 +502,26 @@ export const access_external_evaluation_rule_external_evaluation_output: JsonSch
 export const access_github_organization_rule_output: JsonSchema = {
   "properties": {
     "github-organization": {
-      "$ref": "#/$defs/access_github_organization_rule_github-organization"
+      "properties": {
+        "identity_provider_id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "team": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "identity_provider_id",
+        "name"
+      ],
+      "type": "object"
     }
   },
   "required": [
     "github-organization"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `access_github_organization_rule_github-organization` in
- * responses.
- */
-export const access_github_organization_rule_github_organization_output: JsonSchema = {
-  "properties": {
-    "identity_provider_id": {
-      "type": "string"
-    },
-    "name": {
-      "type": "string"
-    },
-    "team": {
-      "type": "string"
-    }
-  },
-  "required": [
-    "identity_provider_id",
-    "name"
   ],
   "type": "object"
 };
@@ -591,7 +532,19 @@ export const access_github_organization_rule_github_organization_output: JsonSch
 export const access_gsuite_group_rule_output: JsonSchema = {
   "properties": {
     "gsuite": {
-      "$ref": "#/$defs/access_gsuite_group_rule_gsuite"
+      "properties": {
+        "email": {
+          "type": "string"
+        },
+        "identity_provider_id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "email",
+        "identity_provider_id"
+      ],
+      "type": "object"
     }
   },
   "required": [
@@ -601,22 +554,27 @@ export const access_gsuite_group_rule_output: JsonSchema = {
 };
 
 /**
- * The schema of `access_gsuite_group_rule_gsuite` in responses.
+ * The schema of `access_id_response-3` in responses.
  */
-export const access_gsuite_group_rule_gsuite_output: JsonSchema = {
-  "properties": {
-    "email": {
-      "type": "string"
+export const access_id_response_3_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/access_api-response-common"
     },
-    "identity_provider_id": {
-      "type": "string"
+    {
+      "properties": {
+        "result": {
+          "properties": {
+            "id": {
+              "$ref": "#/$defs/access_uuid"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "email",
-    "identity_provider_id"
-  ],
-  "type": "object"
+  ]
 };
 
 /**
@@ -635,26 +593,19 @@ export const access_include_2_output: JsonSchema = {
 export const access_ip_list_rule_output: JsonSchema = {
   "properties": {
     "ip_list": {
-      "$ref": "#/$defs/access_ip_list_rule_ip_list"
+      "properties": {
+        "id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id"
+      ],
+      "type": "object"
     }
   },
   "required": [
     "ip_list"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `access_ip_list_rule_ip_list` in responses.
- */
-export const access_ip_list_rule_ip_list_output: JsonSchema = {
-  "properties": {
-    "id": {
-      "type": "string"
-    }
-  },
-  "required": [
-    "id"
   ],
   "type": "object"
 };
@@ -665,22 +616,15 @@ export const access_ip_list_rule_ip_list_output: JsonSchema = {
 export const access_ip_rule_output: JsonSchema = {
   "properties": {
     "ip": {
-      "$ref": "#/$defs/access_ip_rule_ip"
-    }
-  },
-  "required": [
-    "ip"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `access_ip_rule_ip` in responses.
- */
-export const access_ip_rule_ip_output: JsonSchema = {
-  "properties": {
-    "ip": {
-      "type": "string"
+      "properties": {
+        "ip": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "ip"
+      ],
+      "type": "object"
     }
   },
   "required": [
@@ -702,26 +646,19 @@ export const access_isolation_required_output: JsonSchema = {
 export const access_linked_app_token_rule_output: JsonSchema = {
   "properties": {
     "linked_app_token": {
-      "$ref": "#/$defs/access_linked_app_token_rule_linked_app_token"
+      "properties": {
+        "app_uid": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "app_uid"
+      ],
+      "type": "object"
     }
   },
   "required": [
     "linked_app_token"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `access_linked_app_token_rule_linked_app_token` in responses.
- */
-export const access_linked_app_token_rule_linked_app_token_output: JsonSchema = {
-  "properties": {
-    "app_uid": {
-      "type": "string"
-    }
-  },
-  "required": [
-    "app_uid"
   ],
   "type": "object"
 };
@@ -732,26 +669,19 @@ export const access_linked_app_token_rule_linked_app_token_output: JsonSchema = 
 export const access_login_method_rule_output: JsonSchema = {
   "properties": {
     "login_method": {
-      "$ref": "#/$defs/access_login_method_rule_login_method"
+      "properties": {
+        "id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id"
+      ],
+      "type": "object"
     }
   },
   "required": [
     "login_method"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `access_login_method_rule_login_method` in responses.
- */
-export const access_login_method_rule_login_method_output: JsonSchema = {
-  "properties": {
-    "id": {
-      "type": "string"
-    }
-  },
-  "required": [
-    "id"
   ],
   "type": "object"
 };
@@ -802,34 +732,27 @@ export const access_name_9_output: JsonSchema = {
 export const access_oidc_claim_rule_output: JsonSchema = {
   "properties": {
     "oidc": {
-      "$ref": "#/$defs/access_oidc_claim_rule_oidc"
+      "properties": {
+        "claim_name": {
+          "type": "string"
+        },
+        "claim_value": {
+          "type": "string"
+        },
+        "identity_provider_id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "claim_name",
+        "claim_value",
+        "identity_provider_id"
+      ],
+      "type": "object"
     }
   },
   "required": [
     "oidc"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `access_oidc_claim_rule_oidc` in responses.
- */
-export const access_oidc_claim_rule_oidc_output: JsonSchema = {
-  "properties": {
-    "claim_name": {
-      "type": "string"
-    },
-    "claim_value": {
-      "type": "string"
-    },
-    "identity_provider_id": {
-      "type": "string"
-    }
-  },
-  "required": [
-    "claim_name",
-    "claim_value",
-    "identity_provider_id"
   ],
   "type": "object"
 };
@@ -840,7 +763,19 @@ export const access_oidc_claim_rule_oidc_output: JsonSchema = {
 export const access_okta_group_rule_output: JsonSchema = {
   "properties": {
     "okta": {
-      "$ref": "#/$defs/access_okta_group_rule_okta"
+      "properties": {
+        "identity_provider_id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "identity_provider_id",
+        "name"
+      ],
+      "type": "object"
     }
   },
   "required": [
@@ -850,29 +785,50 @@ export const access_okta_group_rule_output: JsonSchema = {
 };
 
 /**
- * The schema of `access_okta_group_rule_okta` in responses.
- */
-export const access_okta_group_rule_okta_output: JsonSchema = {
-  "properties": {
-    "identity_provider_id": {
-      "type": "string"
-    },
-    "name": {
-      "type": "string"
-    }
-  },
-  "required": [
-    "identity_provider_id",
-    "name"
-  ],
-  "type": "object"
-};
-
-/**
  * The schema of `access_policy_resolution_account_id` in responses.
  */
 export const access_policy_resolution_account_id_output: JsonSchema = {
   "type": "string"
+};
+
+/**
+ * The schema of `access_policy_resp` in responses.
+ */
+export const access_policy_resp_output: JsonSchema = {
+  "allOf": [
+    {
+      "properties": {
+        "approval_groups": {
+          "$ref": "#/$defs/access_approval_groups"
+        },
+        "approval_required": {
+          "$ref": "#/$defs/access_approval_required"
+        },
+        "connection_rules": {
+          "$ref": "#/$defs/access_connection_rules"
+        },
+        "isolation_required": {
+          "$ref": "#/$defs/access_isolation_required"
+        },
+        "mfa_config": {
+          "$ref": "#/$defs/access_mfa_config"
+        },
+        "purpose_justification_prompt": {
+          "$ref": "#/$defs/access_purpose_justification_prompt"
+        },
+        "purpose_justification_required": {
+          "$ref": "#/$defs/access_purpose_justification_required"
+        },
+        "session_duration": {
+          "$ref": "#/$defs/access_session_duration-3"
+        }
+      },
+      "type": "object"
+    },
+    {
+      "$ref": "#/$defs/access_base_policy_resp"
+    }
+  ]
 };
 
 /**
@@ -985,6 +941,9 @@ export const access_rule_output: JsonSchema = {
       "$ref": "#/$defs/access_service_token_rule"
     },
     {
+      "$ref": "#/$defs/access_service_token_tag_rule"
+    },
+    {
       "$ref": "#/$defs/access_linked_app_token_rule"
     },
     {
@@ -1002,34 +961,27 @@ export const access_rule_output: JsonSchema = {
 export const access_saml_group_rule_output: JsonSchema = {
   "properties": {
     "saml": {
-      "$ref": "#/$defs/access_saml_group_rule_saml"
+      "properties": {
+        "attribute_name": {
+          "type": "string"
+        },
+        "attribute_value": {
+          "type": "string"
+        },
+        "identity_provider_id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "attribute_name",
+        "attribute_value",
+        "identity_provider_id"
+      ],
+      "type": "object"
     }
   },
   "required": [
     "saml"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `access_saml_group_rule_saml` in responses.
- */
-export const access_saml_group_rule_saml_output: JsonSchema = {
-  "properties": {
-    "attribute_name": {
-      "type": "string"
-    },
-    "attribute_value": {
-      "type": "string"
-    },
-    "identity_provider_id": {
-      "type": "string"
-    }
-  },
-  "required": [
-    "attribute_name",
-    "attribute_value",
-    "identity_provider_id"
   ],
   "type": "object"
 };
@@ -1040,7 +992,15 @@ export const access_saml_group_rule_saml_output: JsonSchema = {
 export const access_service_token_rule_output: JsonSchema = {
   "properties": {
     "service_token": {
-      "$ref": "#/$defs/access_service_token_rule_service_token"
+      "properties": {
+        "token_id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "token_id"
+      ],
+      "type": "object"
     }
   },
   "required": [
@@ -1050,16 +1010,28 @@ export const access_service_token_rule_output: JsonSchema = {
 };
 
 /**
- * The schema of `access_service_token_rule_service_token` in responses.
+ * The schema of `access_service_token_tag_rule` in responses.
  */
-export const access_service_token_rule_service_token_output: JsonSchema = {
+export const access_service_token_tag_rule_output: JsonSchema = {
   "properties": {
-    "token_id": {
-      "type": "string"
+    "service_token_tag": {
+      "properties": {
+        "key": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "key",
+        "value"
+      ],
+      "type": "object"
     }
   },
   "required": [
-    "token_id"
+    "service_token_tag"
   ],
   "type": "object"
 };
@@ -1084,32 +1056,25 @@ export const access_session_duration_3_output: JsonSchema = {
 export const access_user_risk_score_rule_output: JsonSchema = {
   "properties": {
     "user_risk_score": {
-      "$ref": "#/$defs/access_user_risk_score_rule_user_risk_score"
-    }
-  },
-  "required": [
-    "user_risk_score"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `access_user_risk_score_rule_user_risk_score` in responses.
- */
-export const access_user_risk_score_rule_user_risk_score_output: JsonSchema = {
-  "properties": {
-    "user_risk_score": {
-      "items": {
-        "enum": [
-          "low",
-          "medium",
-          "high",
-          "unscored"
-        ],
-        "type": "string"
+      "properties": {
+        "user_risk_score": {
+          "items": {
+            "enum": [
+              "low",
+              "medium",
+              "high",
+              "unscored"
+            ],
+            "type": "string"
+          },
+          "minItems": 1,
+          "type": "array"
+        }
       },
-      "minItems": 1,
-      "type": "array"
+      "required": [
+        "user_risk_score"
+      ],
+      "type": "object"
     }
   },
   "required": [

@@ -4,8 +4,10 @@
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
   cache_settings_api_response_common_failure_output,
+  cache_settings_api_response_common_output,
   cache_settings_messages_output,
 } from "../../../outputs.js";
+import { cache_settings_identifier } from "../../../schemas.js";
 import { cache_settings_origin_cloud_region_v2_request } from "../schemas.js";
 import {
   cache_settings_origin_cloud_region_v2_batch_item_result_output,
@@ -31,18 +33,35 @@ export const tools: readonly Tool[] = [
           "type": "array"
         },
         "zone_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/cache-settings_identifier",
+          "description": "Identifier."
         }
       },
       required: [
         "zone_id",
         "body"
       ],
+      $defs: {
+        "cache-settings_identifier": cache_settings_identifier,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/cache-settings_origin_cloud_region_v2_batch_result",
+      "allOf": [
+        {
+          "$ref": "#/$defs/cache-settings_api-response-common"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/cache-settings_origin_cloud_region_v2_batch_result"
+            }
+          },
+          "type": "object"
+        }
+      ],
       $defs: {
+        "cache-settings_api-response-common": cache_settings_api_response_common_output,
+        "cache-settings_messages": cache_settings_messages_output,
         "cache-settings_origin_cloud_region_v2_batch_item_result": cache_settings_origin_cloud_region_v2_batch_item_result_output,
         "cache-settings_origin_cloud_region_v2_batch_result": cache_settings_origin_cloud_region_v2_batch_result_output,
       },
@@ -67,13 +86,26 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/cache-settings_origin_cloud_region_v2_batch_result"
+          "allOf": [
+            {
+              "$ref": "#/$defs/cache-settings_api-response-common"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/cache-settings_origin_cloud_region_v2_batch_result"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/cache-settings_api-response-common-failure"
         }
       },
       $defs: {
+        "cache-settings_api-response-common": cache_settings_api_response_common_output,
         "cache-settings_api-response-common-failure": cache_settings_api_response_common_failure_output,
         "cache-settings_messages": cache_settings_messages_output,
         "cache-settings_origin_cloud_region_v2_batch_item_result": cache_settings_origin_cloud_region_v2_batch_item_result_output,
@@ -100,8 +132,8 @@ export const tools: readonly Tool[] = [
           "type": "array"
         },
         "zone_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/cache-settings_identifier",
+          "description": "Identifier."
         }
       },
       required: [
@@ -109,12 +141,27 @@ export const tools: readonly Tool[] = [
         "body"
       ],
       $defs: {
+        "cache-settings_identifier": cache_settings_identifier,
         "cache-settings_origin_cloud_region_v2_request": cache_settings_origin_cloud_region_v2_request,
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/cache-settings_origin_cloud_region_v2_batch_result",
+      "allOf": [
+        {
+          "$ref": "#/$defs/cache-settings_api-response-common"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/cache-settings_origin_cloud_region_v2_batch_result"
+            }
+          },
+          "type": "object"
+        }
+      ],
       $defs: {
+        "cache-settings_api-response-common": cache_settings_api_response_common_output,
+        "cache-settings_messages": cache_settings_messages_output,
         "cache-settings_origin_cloud_region_v2_batch_item_result": cache_settings_origin_cloud_region_v2_batch_item_result_output,
         "cache-settings_origin_cloud_region_v2_batch_result": cache_settings_origin_cloud_region_v2_batch_result_output,
       },
@@ -139,13 +186,26 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/cache-settings_origin_cloud_region_v2_batch_result"
+          "allOf": [
+            {
+              "$ref": "#/$defs/cache-settings_api-response-common"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/cache-settings_origin_cloud_region_v2_batch_result"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/cache-settings_api-response-common-failure"
         }
       },
       $defs: {
+        "cache-settings_api-response-common": cache_settings_api_response_common_output,
         "cache-settings_api-response-common-failure": cache_settings_api_response_common_failure_output,
         "cache-settings_messages": cache_settings_messages_output,
         "cache-settings_origin_cloud_region_v2_batch_item_result": cache_settings_origin_cloud_region_v2_batch_item_result_output,

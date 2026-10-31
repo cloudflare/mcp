@@ -4,6 +4,14 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
+ * The schema of `tls-certificates-and-hostnames_client_certificate_identifier`.
+ */
+export const tls_certificates_and_hostnames_client_certificate_identifier: JsonSchema = {
+  "description": "Client Certificate Tag",
+  "type": "string"
+};
+
+/**
  * The schema of `tls-certificates-and-hostnames_csr-2`.
  */
 export const tls_certificates_and_hostnames_csr_2: JsonSchema = {

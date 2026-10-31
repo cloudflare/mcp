@@ -7,10 +7,12 @@ import {
   intel_messages_output,
   intel_schemas_messages_output,
 } from "../outputs.js";
+import { intel_identifier } from "../schemas.js";
 import {
   intel_components_schemas_single_response_output,
   intel_passive_dns_by_ip_output,
-  intel_passive_dns_by_ip_reverse_recordsItem_output,
+  intel_schemas_api_response_collection_output,
+  intel_schemas_api_response_common_output,
   intel_schemas_result_info_output,
 } from "./outputs.js";
 import { intel_start_end_params } from "./schemas.js";
@@ -27,8 +29,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/intel_identifier",
+          "description": "Identifier."
         },
         "ipv4": {
           "type": "string"
@@ -49,14 +51,19 @@ export const tools: readonly Tool[] = [
         "account_id"
       ],
       $defs: {
+        "intel_identifier": intel_identifier,
         "intel_start_end_params": intel_start_end_params,
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/intel_passive-dns-by-ip",
+      "$ref": "#/$defs/intel_components-schemas-single_response",
       $defs: {
+        "intel_components-schemas-single_response": intel_components_schemas_single_response_output,
         "intel_passive-dns-by-ip": intel_passive_dns_by_ip_output,
-        "intel_passive-dns-by-ip_reverse_recordsItem": intel_passive_dns_by_ip_reverse_recordsItem_output,
+        "intel_schemas-api-response-collection": intel_schemas_api_response_collection_output,
+        "intel_schemas-api-response-common": intel_schemas_api_response_common_output,
+        "intel_schemas-messages": intel_schemas_messages_output,
+        "intel_schemas-result_info": intel_schemas_result_info_output,
       },
     },
     annotations: {
@@ -77,7 +84,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/intel_passive-dns-by-ip"
+          "$ref": "#/$defs/intel_components-schemas-single_response"
         },
         "4XX": {
           "allOf": [
@@ -95,7 +102,8 @@ export const tools: readonly Tool[] = [
         "intel_components-schemas-single_response": intel_components_schemas_single_response_output,
         "intel_messages": intel_messages_output,
         "intel_passive-dns-by-ip": intel_passive_dns_by_ip_output,
-        "intel_passive-dns-by-ip_reverse_recordsItem": intel_passive_dns_by_ip_reverse_recordsItem_output,
+        "intel_schemas-api-response-collection": intel_schemas_api_response_collection_output,
+        "intel_schemas-api-response-common": intel_schemas_api_response_common_output,
         "intel_schemas-messages": intel_schemas_messages_output,
         "intel_schemas-result_info": intel_schemas_result_info_output,
       },

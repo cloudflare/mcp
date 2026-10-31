@@ -98,37 +98,20 @@ export const api_shield_description_2: JsonSchema = {
  * The schema of `api-shield_edit-single-rule-request`.
  */
 export const api_shield_edit_single_rule_request: JsonSchema = {
-  "properties": {
-    "action": {
-      "$ref": "#/$defs/api-shield_action",
-      "description": "Action to take on requests that match operations included in `selector` and fail `expression`."
+  "allOf": [
+    {
+      "$ref": "#/$defs/api-shield_rule-properties"
     },
-    "description": {
-      "$ref": "#/$defs/api-shield_description-2",
-      "description": "A human-readable description that gives more details than `title`."
-    },
-    "enabled": {
-      "$ref": "#/$defs/api-shield_enabled",
-      "description": "Toggle rule on or off."
-    },
-    "expression": {
-      "$ref": "#/$defs/api-shield_expression",
-      "description": "Rule expression. Requests that fail to match this expression will be subject to `action`.\n\nFor details on expressions, see the [Cloudflare Docs](https://developers.cloudflare.com/api-shield/security/jwt-validation/).\n"
-    },
-    "position": {
-      "$ref": "#/$defs/api-shield_position",
-      "description": "Update rule order among zone rules."
-    },
-    "selector": {
-      "$ref": "#/$defs/api-shield_selector",
-      "description": "Select operations covered by this rule.\n\nFor details on selectors, see the [Cloudflare Docs](https://developers.cloudflare.com/api-shield/security/jwt-validation/).\n"
-    },
-    "title": {
-      "$ref": "#/$defs/api-shield_title-2",
-      "description": "A human-readable name for the rule."
+    {
+      "properties": {
+        "position": {
+          "$ref": "#/$defs/api-shield_position",
+          "description": "Update rule order among zone rules."
+        }
+      },
+      "type": "object"
     }
-  },
-  "type": "object"
+  ]
 };
 
 /**
@@ -179,6 +162,39 @@ export const api_shield_position: JsonSchema = {
       "$ref": "#/$defs/api-shield_after"
     }
   ]
+};
+
+/**
+ * The schema of `api-shield_rule-properties`.
+ */
+export const api_shield_rule_properties: JsonSchema = {
+  "properties": {
+    "action": {
+      "$ref": "#/$defs/api-shield_action",
+      "description": "Action to take on requests that match operations included in `selector` and fail `expression`."
+    },
+    "description": {
+      "$ref": "#/$defs/api-shield_description-2",
+      "description": "A human-readable description that gives more details than `title`."
+    },
+    "enabled": {
+      "$ref": "#/$defs/api-shield_enabled",
+      "description": "Toggle rule on or off."
+    },
+    "expression": {
+      "$ref": "#/$defs/api-shield_expression",
+      "description": "Rule expression. Requests that fail to match this expression will be subject to `action`.\n\nFor details on expressions, see the [Cloudflare Docs](https://developers.cloudflare.com/api-shield/security/jwt-validation/).\n"
+    },
+    "selector": {
+      "$ref": "#/$defs/api-shield_selector",
+      "description": "Select operations covered by this rule.\n\nFor details on selectors, see the [Cloudflare Docs](https://developers.cloudflare.com/api-shield/security/jwt-validation/).\n"
+    },
+    "title": {
+      "$ref": "#/$defs/api-shield_title-2",
+      "description": "A human-readable name for the rule."
+    }
+  },
+  "type": "object"
 };
 
 /**

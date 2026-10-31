@@ -4,23 +4,25 @@
 import { type Tool, pathParam } from "../../../../_/tool.js";
 import {
   spectrum_analytics_api_response_common_failure_output,
+  spectrum_analytics_api_response_single_output,
   spectrum_analytics_messages_output,
   spectrum_analytics_since_output,
   spectrum_analytics_timestamp_output,
   spectrum_analytics_until_output,
 } from "../../outputs.js";
 import {
+  spectrum_analytics_identifier,
   spectrum_analytics_since,
   spectrum_analytics_timestamp,
   spectrum_analytics_until,
 } from "../../schemas.js";
 import {
-  spectrum_analytics_column_metrics_output,
   spectrum_analytics_column_output,
   spectrum_analytics_dimensions_output,
   spectrum_analytics_filters_output,
   spectrum_analytics_metrics_output,
   spectrum_analytics_query_output,
+  spectrum_analytics_query_response_single_output,
   spectrum_analytics_sort_output,
   spectrum_analytics_stat_output,
 } from "../outputs.js";
@@ -65,8 +67,8 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/spectrum-analytics_until"
         },
         "zone_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/spectrum-analytics_identifier",
+          "description": "Identifier."
         }
       },
       required: [
@@ -75,6 +77,7 @@ export const tools: readonly Tool[] = [
       $defs: {
         "spectrum-analytics_dimensions": spectrum_analytics_dimensions,
         "spectrum-analytics_filters": spectrum_analytics_filters,
+        "spectrum-analytics_identifier": spectrum_analytics_identifier,
         "spectrum-analytics_metrics": spectrum_analytics_metrics,
         "spectrum-analytics_since": spectrum_analytics_since,
         "spectrum-analytics_sort": spectrum_analytics_sort,
@@ -83,58 +86,16 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "properties": {
-        "data": {
-          "items": {
-            "$ref": "#/$defs/spectrum-analytics_column"
-          },
-          "type": "array"
-        },
-        "data_lag": {
-          "type": "number"
-        },
-        "max": {
-          "$ref": "#/$defs/spectrum-analytics_stat"
-        },
-        "min": {
-          "$ref": "#/$defs/spectrum-analytics_stat"
-        },
-        "query": {
-          "$ref": "#/$defs/spectrum-analytics_query"
-        },
-        "rows": {
-          "type": "number"
-        },
-        "time_intervals": {
-          "items": {
-            "items": {
-              "$ref": "#/$defs/spectrum-analytics_timestamp"
-            },
-            "type": "array"
-          },
-          "type": "array"
-        },
-        "totals": {
-          "$ref": "#/$defs/spectrum-analytics_stat"
-        }
-      },
-      "required": [
-        "data",
-        "data_lag",
-        "max",
-        "min",
-        "query",
-        "rows",
-        "totals"
-      ],
-      "type": "object",
+      "$ref": "#/$defs/spectrum-analytics_query-response-single",
       $defs: {
+        "spectrum-analytics_api-response-single": spectrum_analytics_api_response_single_output,
         "spectrum-analytics_column": spectrum_analytics_column_output,
-        "spectrum-analytics_column_metrics": spectrum_analytics_column_metrics_output,
         "spectrum-analytics_dimensions": spectrum_analytics_dimensions_output,
         "spectrum-analytics_filters": spectrum_analytics_filters_output,
+        "spectrum-analytics_messages": spectrum_analytics_messages_output,
         "spectrum-analytics_metrics": spectrum_analytics_metrics_output,
         "spectrum-analytics_query": spectrum_analytics_query_output,
+        "spectrum-analytics_query-response-single": spectrum_analytics_query_response_single_output,
         "spectrum-analytics_since": spectrum_analytics_since_output,
         "spectrum-analytics_sort": spectrum_analytics_sort_output,
         "spectrum-analytics_stat": spectrum_analytics_stat_output,
@@ -159,51 +120,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "data": {
-              "items": {
-                "$ref": "#/$defs/spectrum-analytics_column"
-              },
-              "type": "array"
-            },
-            "data_lag": {
-              "type": "number"
-            },
-            "max": {
-              "$ref": "#/$defs/spectrum-analytics_stat"
-            },
-            "min": {
-              "$ref": "#/$defs/spectrum-analytics_stat"
-            },
-            "query": {
-              "$ref": "#/$defs/spectrum-analytics_query"
-            },
-            "rows": {
-              "type": "number"
-            },
-            "time_intervals": {
-              "items": {
-                "items": {
-                  "$ref": "#/$defs/spectrum-analytics_timestamp"
-                },
-                "type": "array"
-              },
-              "type": "array"
-            },
-            "totals": {
-              "$ref": "#/$defs/spectrum-analytics_stat"
-            }
-          },
-          "required": [
-            "data",
-            "data_lag",
-            "max",
-            "min",
-            "query",
-            "rows",
-            "totals"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/spectrum-analytics_query-response-single"
         },
         "4XX": {
           "$ref": "#/$defs/spectrum-analytics_api-response-common-failure"
@@ -211,13 +128,14 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "spectrum-analytics_api-response-common-failure": spectrum_analytics_api_response_common_failure_output,
+        "spectrum-analytics_api-response-single": spectrum_analytics_api_response_single_output,
         "spectrum-analytics_column": spectrum_analytics_column_output,
-        "spectrum-analytics_column_metrics": spectrum_analytics_column_metrics_output,
         "spectrum-analytics_dimensions": spectrum_analytics_dimensions_output,
         "spectrum-analytics_filters": spectrum_analytics_filters_output,
         "spectrum-analytics_messages": spectrum_analytics_messages_output,
         "spectrum-analytics_metrics": spectrum_analytics_metrics_output,
         "spectrum-analytics_query": spectrum_analytics_query_output,
+        "spectrum-analytics_query-response-single": spectrum_analytics_query_response_single_output,
         "spectrum-analytics_since": spectrum_analytics_since_output,
         "spectrum-analytics_sort": spectrum_analytics_sort_output,
         "spectrum-analytics_stat": spectrum_analytics_stat_output,

@@ -4,6 +4,33 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
+ * The schema of `observatory_create-schedule-response` in responses.
+ */
+export const observatory_create_schedule_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/observatory_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "properties": {
+            "schedule": {
+              "$ref": "#/$defs/observatory_schedule"
+            },
+            "test": {
+              "$ref": "#/$defs/observatory_page_test"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
  * The schema of `observatory_schedule` in responses.
  */
 export const observatory_schedule_output: JsonSchema = {
@@ -19,4 +46,23 @@ export const observatory_schedule_output: JsonSchema = {
     }
   },
   "type": "object"
+};
+
+/**
+ * The schema of `observatory_schedule-response-single` in responses.
+ */
+export const observatory_schedule_response_single_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/observatory_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/observatory_schedule"
+        }
+      },
+      "type": "object"
+    }
+  ]
 };

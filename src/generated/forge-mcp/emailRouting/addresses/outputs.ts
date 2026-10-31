@@ -4,16 +4,9 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
- * The schema of `email_destination_address_identifier` in responses.
+ * The schema of `email_addresses` in responses.
  */
-export const email_destination_address_identifier_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `email_destination_address_properties` in responses.
- */
-export const email_destination_address_properties_output: JsonSchema = {
+export const email_addresses_output: JsonSchema = {
   "properties": {
     "created": {
       "$ref": "#/$defs/email_created"
@@ -38,10 +31,75 @@ export const email_destination_address_properties_output: JsonSchema = {
 };
 
 /**
+ * The schema of `email_destination_address_identifier` in responses.
+ */
+export const email_destination_address_identifier_output: JsonSchema = {
+  "type": "string"
+};
+
+/**
+ * The schema of `email_destination_address_response_single` in responses.
+ */
+export const email_destination_address_response_single_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/email_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/email_addresses"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
  * The schema of `email_destination_address_tag` in responses.
  */
 export const email_destination_address_tag_output: JsonSchema = {
   "type": "string"
+};
+
+/**
+ * The schema of `email_destination_addresses_response_collection` in responses.
+ */
+export const email_destination_addresses_response_collection_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/email_api-response-collection"
+    },
+    {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/email_addresses"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "properties": {
+            "count": {
+              "type": "number"
+            },
+            "page": {
+              "type": "number"
+            },
+            "per_page": {
+              "type": "number"
+            },
+            "total_count": {
+              "type": "number"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
+    }
+  ]
 };
 
 /**

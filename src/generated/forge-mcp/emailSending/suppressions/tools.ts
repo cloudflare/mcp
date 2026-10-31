@@ -93,64 +93,19 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
-        "id": {
-          "format": "uuid",
-          "type": "string"
+        "errors": {
+          "items": {
+            "type": "object"
+          },
+          "type": "array"
         },
-        "scope": {
-          "oneOf": [
-            {
-              "properties": {
-                "type": {
-                  "enum": [
-                    "account"
-                  ],
-                  "type": "string"
-                }
-              },
-              "required": [
-                "type"
-              ],
-              "type": "object"
-            },
-            {
-              "properties": {
-                "type": {
-                  "enum": [
-                    "sending_domain"
-                  ],
-                  "type": "string"
-                },
-                "value": {
-                  "type": "string"
-                }
-              },
-              "required": [
-                "type",
-                "value"
-              ],
-              "type": "object"
-            }
-          ]
-        }
-      },
-      "required": [
-        "id"
-      ],
-      "type": "object",
-    },
-    annotations: {
-      "destructiveHint": false,
-      "idempotentHint": false,
-      "openWorldHint": true,
-      "readOnlyHint": false,
-      "title": "Create account Email Sending suppression"
-    },
-    method: "POST",
-    path: "/accounts/{account_id}/email/sending/suppressions",
-    responses: {
-      schemas: {
-        "200": {
+        "messages": {
+          "items": {
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "result": {
           "properties": {
             "id": {
               "format": "uuid",
@@ -195,6 +150,103 @@ export const tools: readonly Tool[] = [
           },
           "required": [
             "id"
+          ],
+          "type": "object"
+        },
+        "success": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "errors",
+        "messages",
+        "result",
+        "success"
+      ],
+      "type": "object",
+    },
+    annotations: {
+      "destructiveHint": false,
+      "idempotentHint": false,
+      "openWorldHint": true,
+      "readOnlyHint": false,
+      "title": "Create account Email Sending suppression"
+    },
+    method: "POST",
+    path: "/accounts/{account_id}/email/sending/suppressions",
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "errors": {
+              "items": {
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "messages": {
+              "items": {
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result": {
+              "properties": {
+                "id": {
+                  "format": "uuid",
+                  "type": "string"
+                },
+                "scope": {
+                  "oneOf": [
+                    {
+                      "properties": {
+                        "type": {
+                          "enum": [
+                            "account"
+                          ],
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "type"
+                      ],
+                      "type": "object"
+                    },
+                    {
+                      "properties": {
+                        "type": {
+                          "enum": [
+                            "sending_domain"
+                          ],
+                          "type": "string"
+                        },
+                        "value": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "type",
+                        "value"
+                      ],
+                      "type": "object"
+                    }
+                  ]
+                }
+              },
+              "required": [
+                "id"
+              ],
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "messages",
+            "result",
+            "success"
           ],
           "type": "object"
         },
@@ -409,64 +461,19 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
-        "id": {
-          "format": "uuid",
-          "type": "string"
+        "errors": {
+          "items": {
+            "type": "object"
+          },
+          "type": "array"
         },
-        "scope": {
-          "oneOf": [
-            {
-              "properties": {
-                "type": {
-                  "enum": [
-                    "account"
-                  ],
-                  "type": "string"
-                }
-              },
-              "required": [
-                "type"
-              ],
-              "type": "object"
-            },
-            {
-              "properties": {
-                "type": {
-                  "enum": [
-                    "sending_domain"
-                  ],
-                  "type": "string"
-                },
-                "value": {
-                  "type": "string"
-                }
-              },
-              "required": [
-                "type",
-                "value"
-              ],
-              "type": "object"
-            }
-          ]
-        }
-      },
-      "required": [
-        "id"
-      ],
-      "type": "object",
-    },
-    annotations: {
-      "destructiveHint": true,
-      "idempotentHint": true,
-      "openWorldHint": true,
-      "readOnlyHint": false,
-      "title": "Delete account Email Sending suppression"
-    },
-    method: "DELETE",
-    path: "/accounts/{account_id}/email/sending/suppressions/{suppression_id}",
-    responses: {
-      schemas: {
-        "200": {
+        "messages": {
+          "items": {
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "result": {
           "properties": {
             "id": {
               "format": "uuid",
@@ -511,6 +518,103 @@ export const tools: readonly Tool[] = [
           },
           "required": [
             "id"
+          ],
+          "type": "object"
+        },
+        "success": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "errors",
+        "messages",
+        "result",
+        "success"
+      ],
+      "type": "object",
+    },
+    annotations: {
+      "destructiveHint": true,
+      "idempotentHint": true,
+      "openWorldHint": true,
+      "readOnlyHint": false,
+      "title": "Delete account Email Sending suppression"
+    },
+    method: "DELETE",
+    path: "/accounts/{account_id}/email/sending/suppressions/{suppression_id}",
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "errors": {
+              "items": {
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "messages": {
+              "items": {
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result": {
+              "properties": {
+                "id": {
+                  "format": "uuid",
+                  "type": "string"
+                },
+                "scope": {
+                  "oneOf": [
+                    {
+                      "properties": {
+                        "type": {
+                          "enum": [
+                            "account"
+                          ],
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "type"
+                      ],
+                      "type": "object"
+                    },
+                    {
+                      "properties": {
+                        "type": {
+                          "enum": [
+                            "sending_domain"
+                          ],
+                          "type": "string"
+                        },
+                        "value": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "type",
+                        "value"
+                      ],
+                      "type": "object"
+                    }
+                  ]
+                }
+              },
+              "required": [
+                "id"
+              ],
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "messages",
+            "result",
+            "success"
           ],
           "type": "object"
         },
@@ -749,103 +853,19 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
-        "created_at": {
-          "format": "date-time",
-          "type": "string"
+        "errors": {
+          "items": {
+            "type": "object"
+          },
+          "type": "array"
         },
-        "email": {
-          "type": "string"
+        "messages": {
+          "items": {
+            "type": "object"
+          },
+          "type": "array"
         },
-        "expires_at": {
-          "oneOf": [
-            {
-              "format": "date-time",
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "id": {
-          "format": "uuid",
-          "type": "string"
-        },
-        "note": {
-          "oneOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "read_only": {
-          "type": "boolean"
-        },
-        "reason": {
-          "type": "string"
-        },
-        "scope": {
-          "oneOf": [
-            {
-              "properties": {
-                "type": {
-                  "enum": [
-                    "account"
-                  ],
-                  "type": "string"
-                }
-              },
-              "required": [
-                "type"
-              ],
-              "type": "object"
-            },
-            {
-              "properties": {
-                "type": {
-                  "enum": [
-                    "sending_domain"
-                  ],
-                  "type": "string"
-                },
-                "value": {
-                  "type": "string"
-                }
-              },
-              "required": [
-                "type",
-                "value"
-              ],
-              "type": "object"
-            }
-          ]
-        }
-      },
-      "required": [
-        "created_at",
-        "email",
-        "expires_at",
-        "id",
-        "read_only",
-        "reason"
-      ],
-      "type": "object",
-    },
-    annotations: {
-      "destructiveHint": false,
-      "idempotentHint": false,
-      "openWorldHint": true,
-      "readOnlyHint": false,
-      "title": "Update account Email Sending suppression"
-    },
-    method: "PATCH",
-    path: "/accounts/{account_id}/email/sending/suppressions/{suppression_id}",
-    responses: {
-      schemas: {
-        "200": {
+        "result": {
           "properties": {
             "created_at": {
               "format": "date-time",
@@ -929,6 +949,142 @@ export const tools: readonly Tool[] = [
             "id",
             "read_only",
             "reason"
+          ],
+          "type": "object"
+        },
+        "success": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "errors",
+        "messages",
+        "result",
+        "success"
+      ],
+      "type": "object",
+    },
+    annotations: {
+      "destructiveHint": false,
+      "idempotentHint": false,
+      "openWorldHint": true,
+      "readOnlyHint": false,
+      "title": "Update account Email Sending suppression"
+    },
+    method: "PATCH",
+    path: "/accounts/{account_id}/email/sending/suppressions/{suppression_id}",
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "errors": {
+              "items": {
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "messages": {
+              "items": {
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result": {
+              "properties": {
+                "created_at": {
+                  "format": "date-time",
+                  "type": "string"
+                },
+                "email": {
+                  "type": "string"
+                },
+                "expires_at": {
+                  "oneOf": [
+                    {
+                      "format": "date-time",
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "id": {
+                  "format": "uuid",
+                  "type": "string"
+                },
+                "note": {
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "read_only": {
+                  "type": "boolean"
+                },
+                "reason": {
+                  "type": "string"
+                },
+                "scope": {
+                  "oneOf": [
+                    {
+                      "properties": {
+                        "type": {
+                          "enum": [
+                            "account"
+                          ],
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "type"
+                      ],
+                      "type": "object"
+                    },
+                    {
+                      "properties": {
+                        "type": {
+                          "enum": [
+                            "sending_domain"
+                          ],
+                          "type": "string"
+                        },
+                        "value": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "type",
+                        "value"
+                      ],
+                      "type": "object"
+                    }
+                  ]
+                }
+              },
+              "required": [
+                "created_at",
+                "email",
+                "expires_at",
+                "id",
+                "read_only",
+                "reason"
+              ],
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "messages",
+            "result",
+            "success"
           ],
           "type": "object"
         },
@@ -1098,103 +1254,19 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
-        "created_at": {
-          "format": "date-time",
-          "type": "string"
+        "errors": {
+          "items": {
+            "type": "object"
+          },
+          "type": "array"
         },
-        "email": {
-          "type": "string"
+        "messages": {
+          "items": {
+            "type": "object"
+          },
+          "type": "array"
         },
-        "expires_at": {
-          "oneOf": [
-            {
-              "format": "date-time",
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "id": {
-          "format": "uuid",
-          "type": "string"
-        },
-        "note": {
-          "oneOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "read_only": {
-          "type": "boolean"
-        },
-        "reason": {
-          "type": "string"
-        },
-        "scope": {
-          "oneOf": [
-            {
-              "properties": {
-                "type": {
-                  "enum": [
-                    "account"
-                  ],
-                  "type": "string"
-                }
-              },
-              "required": [
-                "type"
-              ],
-              "type": "object"
-            },
-            {
-              "properties": {
-                "type": {
-                  "enum": [
-                    "sending_domain"
-                  ],
-                  "type": "string"
-                },
-                "value": {
-                  "type": "string"
-                }
-              },
-              "required": [
-                "type",
-                "value"
-              ],
-              "type": "object"
-            }
-          ]
-        }
-      },
-      "required": [
-        "created_at",
-        "email",
-        "expires_at",
-        "id",
-        "read_only",
-        "reason"
-      ],
-      "type": "object",
-    },
-    annotations: {
-      "destructiveHint": false,
-      "idempotentHint": true,
-      "openWorldHint": true,
-      "readOnlyHint": true,
-      "title": "Get account Email Sending suppression"
-    },
-    method: "GET",
-    path: "/accounts/{account_id}/email/sending/suppressions/{suppression_id}",
-    responses: {
-      schemas: {
-        "200": {
+        "result": {
           "properties": {
             "created_at": {
               "format": "date-time",
@@ -1278,6 +1350,142 @@ export const tools: readonly Tool[] = [
             "id",
             "read_only",
             "reason"
+          ],
+          "type": "object"
+        },
+        "success": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "errors",
+        "messages",
+        "result",
+        "success"
+      ],
+      "type": "object",
+    },
+    annotations: {
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": true,
+      "readOnlyHint": true,
+      "title": "Get account Email Sending suppression"
+    },
+    method: "GET",
+    path: "/accounts/{account_id}/email/sending/suppressions/{suppression_id}",
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "errors": {
+              "items": {
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "messages": {
+              "items": {
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result": {
+              "properties": {
+                "created_at": {
+                  "format": "date-time",
+                  "type": "string"
+                },
+                "email": {
+                  "type": "string"
+                },
+                "expires_at": {
+                  "oneOf": [
+                    {
+                      "format": "date-time",
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "id": {
+                  "format": "uuid",
+                  "type": "string"
+                },
+                "note": {
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "read_only": {
+                  "type": "boolean"
+                },
+                "reason": {
+                  "type": "string"
+                },
+                "scope": {
+                  "oneOf": [
+                    {
+                      "properties": {
+                        "type": {
+                          "enum": [
+                            "account"
+                          ],
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "type"
+                      ],
+                      "type": "object"
+                    },
+                    {
+                      "properties": {
+                        "type": {
+                          "enum": [
+                            "sending_domain"
+                          ],
+                          "type": "string"
+                        },
+                        "value": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "type",
+                        "value"
+                      ],
+                      "type": "object"
+                    }
+                  ]
+                }
+              },
+              "required": [
+                "created_at",
+                "email",
+                "expires_at",
+                "id",
+                "read_only",
+                "reason"
+              ],
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "messages",
+            "result",
+            "success"
           ],
           "type": "object"
         },
@@ -1431,118 +1639,19 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
-        "deduplicated": {
-          "type": "integer"
-        },
         "errors": {
-          "type": "integer"
-        },
-        "invalid": {
-          "type": "integer"
-        },
-        "items": {
           "items": {
-            "properties": {
-              "email": {
-                "type": "string"
-              },
-              "error": {
-                "type": "string"
-              },
-              "id": {
-                "format": "uuid",
-                "type": "string"
-              },
-              "index": {
-                "type": "integer"
-              },
-              "scope": {
-                "oneOf": [
-                  {
-                    "properties": {
-                      "type": {
-                        "enum": [
-                          "account"
-                        ],
-                        "type": "string"
-                      }
-                    },
-                    "required": [
-                      "type"
-                    ],
-                    "type": "object"
-                  },
-                  {
-                    "properties": {
-                      "type": {
-                        "enum": [
-                          "sending_domain"
-                        ],
-                        "type": "string"
-                      },
-                      "value": {
-                        "type": "string"
-                      }
-                    },
-                    "required": [
-                      "type",
-                      "value"
-                    ],
-                    "type": "object"
-                  }
-                ]
-              },
-              "status": {
-                "enum": [
-                  "processed",
-                  "invalid",
-                  "error",
-                  "skipped"
-                ],
-                "type": "string"
-              }
-            },
-            "required": [
-              "index",
-              "status"
-            ],
             "type": "object"
           },
           "type": "array"
         },
-        "processed": {
-          "type": "integer"
+        "messages": {
+          "items": {
+            "type": "object"
+          },
+          "type": "array"
         },
-        "skipped": {
-          "type": "integer"
-        },
-        "total": {
-          "type": "integer"
-        }
-      },
-      "required": [
-        "deduplicated",
-        "errors",
-        "invalid",
-        "items",
-        "processed",
-        "skipped",
-        "total"
-      ],
-      "type": "object",
-    },
-    annotations: {
-      "destructiveHint": false,
-      "idempotentHint": false,
-      "openWorldHint": true,
-      "readOnlyHint": false,
-      "title": "Bulk import account Email Sending suppressions"
-    },
-    method: "POST",
-    path: "/accounts/{account_id}/email/sending/suppressions/bulk",
-    responses: {
-      schemas: {
-        "200": {
+        "result": {
           "properties": {
             "deduplicated": {
               "type": "integer"
@@ -1641,6 +1750,157 @@ export const tools: readonly Tool[] = [
             "processed",
             "skipped",
             "total"
+          ],
+          "type": "object"
+        },
+        "success": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "errors",
+        "messages",
+        "result",
+        "success"
+      ],
+      "type": "object",
+    },
+    annotations: {
+      "destructiveHint": false,
+      "idempotentHint": false,
+      "openWorldHint": true,
+      "readOnlyHint": false,
+      "title": "Bulk import account Email Sending suppressions"
+    },
+    method: "POST",
+    path: "/accounts/{account_id}/email/sending/suppressions/bulk",
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "errors": {
+              "items": {
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "messages": {
+              "items": {
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result": {
+              "properties": {
+                "deduplicated": {
+                  "type": "integer"
+                },
+                "errors": {
+                  "type": "integer"
+                },
+                "invalid": {
+                  "type": "integer"
+                },
+                "items": {
+                  "items": {
+                    "properties": {
+                      "email": {
+                        "type": "string"
+                      },
+                      "error": {
+                        "type": "string"
+                      },
+                      "id": {
+                        "format": "uuid",
+                        "type": "string"
+                      },
+                      "index": {
+                        "type": "integer"
+                      },
+                      "scope": {
+                        "oneOf": [
+                          {
+                            "properties": {
+                              "type": {
+                                "enum": [
+                                  "account"
+                                ],
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "type"
+                            ],
+                            "type": "object"
+                          },
+                          {
+                            "properties": {
+                              "type": {
+                                "enum": [
+                                  "sending_domain"
+                                ],
+                                "type": "string"
+                              },
+                              "value": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "type",
+                              "value"
+                            ],
+                            "type": "object"
+                          }
+                        ]
+                      },
+                      "status": {
+                        "enum": [
+                          "processed",
+                          "invalid",
+                          "error",
+                          "skipped"
+                        ],
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "index",
+                      "status"
+                    ],
+                    "type": "object"
+                  },
+                  "type": "array"
+                },
+                "processed": {
+                  "type": "integer"
+                },
+                "skipped": {
+                  "type": "integer"
+                },
+                "total": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "deduplicated",
+                "errors",
+                "invalid",
+                "items",
+                "processed",
+                "skipped",
+                "total"
+              ],
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "messages",
+            "result",
+            "success"
           ],
           "type": "object"
         },
@@ -1754,6 +2014,18 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
+        "errors": {
+          "items": {
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "messages": {
+          "items": {
+            "type": "object"
+          },
+          "type": "array"
+        },
         "result": {
           "items": {
             "properties": {
@@ -1869,10 +2141,17 @@ export const tools: readonly Tool[] = [
             "per_page"
           ],
           "type": "object"
+        },
+        "success": {
+          "type": "boolean"
         }
       },
       "required": [
-        "result"
+        "errors",
+        "messages",
+        "result",
+        "result_info",
+        "success"
       ],
       "type": "object",
     },
@@ -1889,6 +2168,18 @@ export const tools: readonly Tool[] = [
       schemas: {
         "200": {
           "properties": {
+            "errors": {
+              "items": {
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "messages": {
+              "items": {
+                "type": "object"
+              },
+              "type": "array"
+            },
             "result": {
               "items": {
                 "properties": {
@@ -2004,10 +2295,17 @@ export const tools: readonly Tool[] = [
                 "per_page"
               ],
               "type": "object"
+            },
+            "success": {
+              "type": "boolean"
             }
           },
           "required": [
-            "result"
+            "errors",
+            "messages",
+            "result",
+            "result_info",
+            "success"
           ],
           "type": "object"
         },

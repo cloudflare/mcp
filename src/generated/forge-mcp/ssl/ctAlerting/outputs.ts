@@ -48,27 +48,17 @@ export const tls_certificates_and_hostnames_ct_alerting_subscription_output: Jso
  * responses.
  */
 export const tls_certificates_and_hostnames_ct_alerting_subscription_response_single_output: JsonSchema = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_messages"
+  "allOf": [
+    {
+      "$ref": "#/$defs/tls-certificates-and-hostnames_api-response-single"
     },
-    "messages": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_messages"
-    },
-    "result": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_ct_alerting_subscription"
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/tls-certificates-and-hostnames_ct_alerting_subscription"
+        }
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "success"
-  ],
-  "type": "object"
+  ]
 };

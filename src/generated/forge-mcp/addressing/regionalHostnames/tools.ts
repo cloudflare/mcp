@@ -3,6 +3,7 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
+  dls_api_response_collection_output,
   dls_api_response_common_failure_output,
   dls_api_response_common_output,
   dls_hostname_output,
@@ -68,9 +69,23 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/dls_regional_hostname_response",
+      "allOf": [
+        {
+          "$ref": "#/$defs/dls_api-response-common"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/dls_regional_hostname_response"
+            }
+          },
+          "type": "object"
+        }
+      ],
       $defs: {
+        "dls_api-response-common": dls_api_response_common_output,
         "dls_hostname": dls_hostname_output,
+        "dls_messages": dls_messages_output,
         "dls_region_key": dls_region_key_output,
         "dls_regional_hostname_response": dls_regional_hostname_response_output,
         "dls_routing": dls_routing_output,
@@ -94,13 +109,26 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/dls_regional_hostname_response"
+          "allOf": [
+            {
+              "$ref": "#/$defs/dls_api-response-common"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/dls_regional_hostname_response"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/dls_api-response-common-failure"
         }
       },
       $defs: {
+        "dls_api-response-common": dls_api_response_common_output,
         "dls_api-response-common-failure": dls_api_response_common_failure_output,
         "dls_hostname": dls_hostname_output,
         "dls_messages": dls_messages_output,
@@ -219,9 +247,23 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/dls_regional_hostname_response",
+      "allOf": [
+        {
+          "$ref": "#/$defs/dls_api-response-common"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/dls_regional_hostname_response"
+            }
+          },
+          "type": "object"
+        }
+      ],
       $defs: {
+        "dls_api-response-common": dls_api_response_common_output,
         "dls_hostname": dls_hostname_output,
+        "dls_messages": dls_messages_output,
         "dls_region_key": dls_region_key_output,
         "dls_regional_hostname_response": dls_regional_hostname_response_output,
         "dls_routing": dls_routing_output,
@@ -245,13 +287,26 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/dls_regional_hostname_response"
+          "allOf": [
+            {
+              "$ref": "#/$defs/dls_api-response-common"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/dls_regional_hostname_response"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/dls_api-response-common-failure"
         }
       },
       $defs: {
+        "dls_api-response-common": dls_api_response_common_output,
         "dls_api-response-common-failure": dls_api_response_common_failure_output,
         "dls_hostname": dls_hostname_output,
         "dls_messages": dls_messages_output,
@@ -292,9 +347,23 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/dls_regional_hostname_response",
+      "allOf": [
+        {
+          "$ref": "#/$defs/dls_api-response-common"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/dls_regional_hostname_response"
+            }
+          },
+          "type": "object"
+        }
+      ],
       $defs: {
+        "dls_api-response-common": dls_api_response_common_output,
         "dls_hostname": dls_hostname_output,
+        "dls_messages": dls_messages_output,
         "dls_region_key": dls_region_key_output,
         "dls_regional_hostname_response": dls_regional_hostname_response_output,
         "dls_routing": dls_routing_output,
@@ -319,13 +388,26 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/dls_regional_hostname_response"
+          "allOf": [
+            {
+              "$ref": "#/$defs/dls_api-response-common"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/dls_regional_hostname_response"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/dls_api-response-common-failure"
         }
       },
       $defs: {
+        "dls_api-response-common": dls_api_response_common_output,
         "dls_api-response-common-failure": dls_api_response_common_failure_output,
         "dls_hostname": dls_hostname_output,
         "dls_messages": dls_messages_output,
@@ -359,40 +441,27 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "$ref": "#/$defs/dls_regional_hostname_response"
-          },
-          "type": "array"
+      "allOf": [
+        {
+          "$ref": "#/$defs/dls_api-response-collection"
         },
-        "result_info": {
+        {
           "properties": {
-            "count": {
-              "type": "number"
-            },
-            "page": {
-              "type": "number"
-            },
-            "per_page": {
-              "type": "number"
-            },
-            "total_count": {
-              "type": "number"
-            },
-            "total_pages": {
-              "type": "number"
+            "result": {
+              "items": {
+                "$ref": "#/$defs/dls_regional_hostname_response"
+              },
+              "type": "array"
             }
           },
           "type": "object"
         }
-      },
-      "required": [
-        "result"
       ],
-      "type": "object",
       $defs: {
+        "dls_api-response-collection": dls_api_response_collection_output,
+        "dls_api-response-common": dls_api_response_common_output,
         "dls_hostname": dls_hostname_output,
+        "dls_messages": dls_messages_output,
         "dls_region_key": dls_region_key_output,
         "dls_regional_hostname_response": dls_regional_hostname_response_output,
         "dls_routing": dls_routing_output,
@@ -417,44 +486,30 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "items": {
-                "$ref": "#/$defs/dls_regional_hostname_response"
-              },
-              "type": "array"
+          "allOf": [
+            {
+              "$ref": "#/$defs/dls_api-response-collection"
             },
-            "result_info": {
+            {
               "properties": {
-                "count": {
-                  "type": "number"
-                },
-                "page": {
-                  "type": "number"
-                },
-                "per_page": {
-                  "type": "number"
-                },
-                "total_count": {
-                  "type": "number"
-                },
-                "total_pages": {
-                  "type": "number"
+                "result": {
+                  "items": {
+                    "$ref": "#/$defs/dls_regional_hostname_response"
+                  },
+                  "type": "array"
                 }
               },
               "type": "object"
             }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/dls_api-response-common-failure"
         }
       },
       $defs: {
+        "dls_api-response-collection": dls_api_response_collection_output,
+        "dls_api-response-common": dls_api_response_common_output,
         "dls_api-response-common-failure": dls_api_response_common_failure_output,
         "dls_hostname": dls_hostname_output,
         "dls_messages": dls_messages_output,

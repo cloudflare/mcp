@@ -4,9 +4,15 @@
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
   waitingroom_api_response_common_failure_output,
+  waitingroom_api_response_common_output,
+  waitingroom_api_response_single_output,
   waitingroom_messages_output,
   waitingroom_timestamp_output,
 } from "../../outputs.js";
+import {
+  waitingroom_identifier,
+  waitingroom_waiting_room_id,
+} from "../../schemas.js";
 import {
   waitingroom_event_description_output,
   waitingroom_event_end_time_output,
@@ -17,6 +23,7 @@ import {
   waitingroom_event_start_time_output,
   waitingroom_event_suspended_output,
 } from "../outputs.js";
+import { waitingroom_event_id } from "../schemas.js";
 import {
   waitingroom_event_details_custom_page_html_output,
   waitingroom_event_details_disable_session_renewal_output,
@@ -40,14 +47,14 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "event_id": {
-          "type": "string"
+          "$ref": "#/$defs/waitingroom_event_id"
         },
         "waiting_room_id": {
-          "type": "string"
+          "$ref": "#/$defs/waitingroom_waiting_room_id"
         },
         "zone_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/waitingroom_identifier",
+          "description": "Identifier."
         }
       },
       required: [
@@ -55,15 +62,23 @@ export const tools: readonly Tool[] = [
         "waiting_room_id",
         "event_id"
       ],
+      $defs: {
+        "waitingroom_event_id": waitingroom_event_id,
+        "waitingroom_identifier": waitingroom_identifier,
+        "waitingroom_waiting_room_id": waitingroom_waiting_room_id,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/waitingroom_event_details_result",
+      "$ref": "#/$defs/waitingroom_event_details_response",
       $defs: {
+        "waitingroom_api-response-common": waitingroom_api_response_common_output,
+        "waitingroom_api-response-single": waitingroom_api_response_single_output,
         "waitingroom_event_description": waitingroom_event_description_output,
         "waitingroom_event_details_custom_page_html": waitingroom_event_details_custom_page_html_output,
         "waitingroom_event_details_disable_session_renewal": waitingroom_event_details_disable_session_renewal_output,
         "waitingroom_event_details_new_users_per_minute": waitingroom_event_details_new_users_per_minute_output,
         "waitingroom_event_details_queueing_method": waitingroom_event_details_queueing_method_output,
+        "waitingroom_event_details_response": waitingroom_event_details_response_output,
         "waitingroom_event_details_result": waitingroom_event_details_result_output,
         "waitingroom_event_details_session_duration": waitingroom_event_details_session_duration_output,
         "waitingroom_event_details_total_active_users": waitingroom_event_details_total_active_users_output,
@@ -74,6 +89,7 @@ export const tools: readonly Tool[] = [
         "waitingroom_event_shuffle_at_event_start": waitingroom_event_shuffle_at_event_start_output,
         "waitingroom_event_start_time": waitingroom_event_start_time_output,
         "waitingroom_event_suspended": waitingroom_event_suspended_output,
+        "waitingroom_messages": waitingroom_messages_output,
         "waitingroom_timestamp": waitingroom_timestamp_output,
       },
     },
@@ -101,7 +117,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/waitingroom_event_details_result"
+          "$ref": "#/$defs/waitingroom_event_details_response"
         },
         "4XX": {
           "allOf": [
@@ -115,7 +131,9 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
+        "waitingroom_api-response-common": waitingroom_api_response_common_output,
         "waitingroom_api-response-common-failure": waitingroom_api_response_common_failure_output,
+        "waitingroom_api-response-single": waitingroom_api_response_single_output,
         "waitingroom_event_description": waitingroom_event_description_output,
         "waitingroom_event_details_custom_page_html": waitingroom_event_details_custom_page_html_output,
         "waitingroom_event_details_disable_session_renewal": waitingroom_event_details_disable_session_renewal_output,

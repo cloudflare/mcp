@@ -7,7 +7,12 @@ import {
   logshare_logs_response_json_lines_output,
   logshare_messages_output,
 } from "../outputs.js";
-import { logshare_fields, logshare_timestamps } from "../schemas.js";
+import {
+  logshare_fields,
+  logshare_timestamps,
+  logshare_zone_identifier,
+} from "../schemas.js";
+import { logshare_ray_identifier } from "./schemas.js";
 
 /**
  * The tools of `logs.rayid`.
@@ -25,8 +30,8 @@ export const tools: readonly Tool[] = [
           "description": "The `/received` route by default returns a limited set of fields, and allows customers to override the default field set by specifying individual fields. The reasons for this are: 1. Most customers require only a small subset of fields, but that subset varies from customer to customer; 2. Flat schema is much easier to work with downstream (importing into BigTable etc); 3. Performance (time to process, file size). If `?fields=` is not specified, default field set is returned. This default field set may change at any time. When `?fields=` is provided, each record is returned with the specified fields. `fields` must be specified as a comma separated list without any whitespaces, and all fields must exist. The order in which fields are specified does not matter, and the order of fields in the response is not specified."
         },
         "ray_id": {
-          "description": "Ray identifier.",
-          "type": "string"
+          "$ref": "#/$defs/logshare_ray_identifier",
+          "description": "Ray identifier."
         },
         "timestamps": {
           "$ref": "#/$defs/logshare_timestamps",
@@ -34,8 +39,8 @@ export const tools: readonly Tool[] = [
           "description": "By default, timestamps in responses are returned as Unix nanosecond integers. The `?timestamps=` argument can be set to change the format in which response timestamps are returned. Possible values are: `unix`, `unixnano`, `rfc3339`. Note that `unix` and `unixnano` return timestamps as integers; `rfc3339` returns timestamps as strings."
         },
         "zone_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/logshare_zone_identifier",
+          "description": "Identifier."
         }
       },
       required: [
@@ -44,7 +49,9 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "logshare_fields": logshare_fields,
+        "logshare_ray_identifier": logshare_ray_identifier,
         "logshare_timestamps": logshare_timestamps,
+        "logshare_zone_identifier": logshare_zone_identifier,
       },
     },
     outputSchema: {

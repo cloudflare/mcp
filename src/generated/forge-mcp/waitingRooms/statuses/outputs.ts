@@ -48,49 +48,34 @@ export const waitingroom_status_event_id_output: JsonSchema = {
  * The schema of `waitingroom_status_response` in responses.
  */
 export const waitingroom_status_response_output: JsonSchema = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/waitingroom_messages"
+  "allOf": [
+    {
+      "$ref": "#/$defs/waitingroom_api-response-single"
     },
-    "messages": {
-      "$ref": "#/$defs/waitingroom_messages"
-    },
-    "result": {
-      "$ref": "#/$defs/waitingroom_status_response_result"
-    },
-    "success": {
-      "type": "boolean"
+    {
+      "properties": {
+        "result": {
+          "properties": {
+            "estimated_queued_users": {
+              "$ref": "#/$defs/waitingroom_estimated_queued_users"
+            },
+            "estimated_total_active_users": {
+              "$ref": "#/$defs/waitingroom_estimated_total_active_users"
+            },
+            "event_id": {
+              "$ref": "#/$defs/waitingroom_status_event_id"
+            },
+            "max_estimated_time_minutes": {
+              "$ref": "#/$defs/waitingroom_max_estimated_time_minutes"
+            },
+            "status": {
+              "$ref": "#/$defs/waitingroom_status"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "result",
-    "success"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `waitingroom_status_response_result` in responses.
- */
-export const waitingroom_status_response_result_output: JsonSchema = {
-  "properties": {
-    "estimated_queued_users": {
-      "$ref": "#/$defs/waitingroom_estimated_queued_users"
-    },
-    "estimated_total_active_users": {
-      "$ref": "#/$defs/waitingroom_estimated_total_active_users"
-    },
-    "event_id": {
-      "$ref": "#/$defs/waitingroom_status_event_id"
-    },
-    "max_estimated_time_minutes": {
-      "$ref": "#/$defs/waitingroom_max_estimated_time_minutes"
-    },
-    "status": {
-      "$ref": "#/$defs/waitingroom_status"
-    }
-  },
-  "type": "object"
+  ]
 };

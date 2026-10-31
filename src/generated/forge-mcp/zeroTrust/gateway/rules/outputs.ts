@@ -23,7 +23,8 @@ export const zero_trust_gateway_action_output: JsonSchema = {
     "egress",
     "resolve",
     "quarantine",
-    "redirect"
+    "redirect",
+    "forward"
   ],
   "type": "string"
 };
@@ -198,35 +199,22 @@ export const zero_trust_gateway_read_only_output: JsonSchema = {
  * The schema of `zero-trust-gateway_response_collection-6` in responses.
  */
 export const zero_trust_gateway_response_collection_6_output: JsonSchema = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/zero-trust-gateway_messages"
+  "allOf": [
+    {
+      "$ref": "#/$defs/zero-trust-gateway_api-response-collection"
     },
-    "messages": {
-      "$ref": "#/$defs/zero-trust-gateway_messages"
-    },
-    "result": {
-      "items": {
-        "$ref": "#/$defs/zero-trust-gateway_rules"
+    {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/zero-trust-gateway_rules"
+          },
+          "type": "array"
+        }
       },
-      "type": "array"
-    },
-    "result_info": {
-      "$ref": "#/$defs/zero-trust-gateway_result_info"
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
+      "type": "object"
     }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "success"
-  ],
-  "type": "object"
+  ]
 };
 
 /**
@@ -261,10 +249,102 @@ export const zero_trust_gateway_rule_settings_output: JsonSchema = {
       ]
     },
     "biso_admin_controls": {
-      "$ref": "#/$defs/zero-trust-gateway_rule-settings_biso_admin_controls"
+      "properties": {
+        "copy": {
+          "enum": [
+            "enabled",
+            "disabled",
+            "remote_only"
+          ],
+          "type": "string"
+        },
+        "dcp": {
+          "type": "boolean"
+        },
+        "dd": {
+          "type": "boolean"
+        },
+        "dk": {
+          "type": "boolean"
+        },
+        "download": {
+          "enum": [
+            "enabled",
+            "disabled",
+            "remote_only"
+          ],
+          "type": "string"
+        },
+        "dp": {
+          "type": "boolean"
+        },
+        "du": {
+          "type": "boolean"
+        },
+        "keyboard": {
+          "enum": [
+            "enabled",
+            "disabled",
+            "enable_read_only_actions"
+          ],
+          "type": "string"
+        },
+        "paste": {
+          "enum": [
+            "enabled",
+            "disabled",
+            "remote_only"
+          ],
+          "type": "string"
+        },
+        "printing": {
+          "enum": [
+            "enabled",
+            "disabled"
+          ],
+          "type": "string"
+        },
+        "upload": {
+          "enum": [
+            "enabled",
+            "disabled"
+          ],
+          "type": "string"
+        },
+        "version": {
+          "enum": [
+            "v1",
+            "v2"
+          ],
+          "type": "string"
+        },
+        "wm_id": {
+          "format": "uuid",
+          "type": "string"
+        }
+      },
+      "type": "object"
     },
     "block_page": {
-      "$ref": "#/$defs/zero-trust-gateway_rule-settings_block_page"
+      "oneOf": [
+        {
+          "properties": {
+            "include_context": {
+              "type": "boolean"
+            },
+            "target_uri": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "target_uri"
+          ],
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
     "block_page_enabled": {
       "type": "boolean"
@@ -290,7 +370,22 @@ export const zero_trust_gateway_rule_settings_output: JsonSchema = {
       ]
     },
     "check_session": {
-      "$ref": "#/$defs/zero-trust-gateway_rule-settings_check_session"
+      "oneOf": [
+        {
+          "properties": {
+            "duration": {
+              "type": "string"
+            },
+            "enforce": {
+              "type": "boolean"
+            }
+          },
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
     "delete_headers": {
       "oneOf": [
@@ -306,13 +401,82 @@ export const zero_trust_gateway_rule_settings_output: JsonSchema = {
       ]
     },
     "dns_resolvers": {
-      "$ref": "#/$defs/zero-trust-gateway_rule-settings_dns_resolvers"
+      "oneOf": [
+        {
+          "properties": {
+            "ipv4": {
+              "items": {
+                "$ref": "#/$defs/zero-trust-gateway_dns_resolver_settings_v4"
+              },
+              "type": "array"
+            },
+            "ipv6": {
+              "items": {
+                "$ref": "#/$defs/zero-trust-gateway_dns_resolver_settings_v6"
+              },
+              "type": "array"
+            }
+          },
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
     "egress": {
-      "$ref": "#/$defs/zero-trust-gateway_rule-settings_egress"
+      "oneOf": [
+        {
+          "properties": {
+            "ipv4": {
+              "type": "string"
+            },
+            "ipv4_fallback": {
+              "type": "string"
+            },
+            "ipv6": {
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
     "forensic_copy": {
-      "$ref": "#/$defs/zero-trust-gateway_rule-settings_forensic_copy"
+      "oneOf": [
+        {
+          "properties": {
+            "enabled": {
+              "type": "boolean"
+            }
+          },
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "forward": {
+      "oneOf": [
+        {
+          "properties": {
+            "worker_id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "worker_id"
+          ],
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
     "ignore_cname_category_matches": {
       "type": "boolean"
@@ -327,10 +491,46 @@ export const zero_trust_gateway_rule_settings_output: JsonSchema = {
       "type": "boolean"
     },
     "l4override": {
-      "$ref": "#/$defs/zero-trust-gateway_rule-settings_l4override"
+      "oneOf": [
+        {
+          "properties": {
+            "ip": {
+              "type": "string"
+            },
+            "port": {
+              "type": "integer"
+            }
+          },
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
     "notification_settings": {
-      "$ref": "#/$defs/zero-trust-gateway_rule-settings_notification_settings"
+      "oneOf": [
+        {
+          "properties": {
+            "enabled": {
+              "type": "boolean"
+            },
+            "include_context": {
+              "type": "boolean"
+            },
+            "msg": {
+              "type": "string"
+            },
+            "support_url": {
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
     "override_host": {
       "type": "string"
@@ -349,16 +549,98 @@ export const zero_trust_gateway_rule_settings_output: JsonSchema = {
       ]
     },
     "payload_log": {
-      "$ref": "#/$defs/zero-trust-gateway_rule-settings_payload_log"
+      "oneOf": [
+        {
+          "properties": {
+            "enabled": {
+              "type": "boolean"
+            }
+          },
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
     "quarantine": {
-      "$ref": "#/$defs/zero-trust-gateway_rule-settings_quarantine"
+      "oneOf": [
+        {
+          "properties": {
+            "file_types": {
+              "items": {
+                "enum": [
+                  "exe",
+                  "pdf",
+                  "doc",
+                  "docm",
+                  "docx",
+                  "rtf",
+                  "ppt",
+                  "pptx",
+                  "xls",
+                  "xlsm",
+                  "xlsx",
+                  "zip",
+                  "rar"
+                ],
+                "type": "string"
+              },
+              "type": "array"
+            }
+          },
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
     "redirect": {
-      "$ref": "#/$defs/zero-trust-gateway_rule-settings_redirect"
+      "oneOf": [
+        {
+          "properties": {
+            "include_context": {
+              "type": "boolean"
+            },
+            "preserve_path_and_query": {
+              "type": "boolean"
+            },
+            "target_uri": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "target_uri"
+          ],
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
     "resolve_dns_internally": {
-      "$ref": "#/$defs/zero-trust-gateway_rule-settings_resolve_dns_internally"
+      "oneOf": [
+        {
+          "properties": {
+            "fallback": {
+              "enum": [
+                "none",
+                "public_dns"
+              ],
+              "type": "string"
+            },
+            "view_id": {
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
     "resolve_dns_through_cloudflare": {
       "oneOf": [
@@ -387,396 +669,27 @@ export const zero_trust_gateway_rule_settings_output: JsonSchema = {
       ]
     },
     "untrusted_cert": {
-      "$ref": "#/$defs/zero-trust-gateway_rule-settings_untrusted_cert"
+      "oneOf": [
+        {
+          "properties": {
+            "action": {
+              "enum": [
+                "pass_through",
+                "block",
+                "error"
+              ],
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ]
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `zero-trust-gateway_rule-settings_biso_admin_controls` in
- * responses.
- */
-export const zero_trust_gateway_rule_settings_biso_admin_controls_output: JsonSchema = {
-  "properties": {
-    "copy": {
-      "enum": [
-        "enabled",
-        "disabled",
-        "remote_only"
-      ],
-      "type": "string"
-    },
-    "dcp": {
-      "type": "boolean"
-    },
-    "dd": {
-      "type": "boolean"
-    },
-    "dk": {
-      "type": "boolean"
-    },
-    "download": {
-      "enum": [
-        "enabled",
-        "disabled",
-        "remote_only"
-      ],
-      "type": "string"
-    },
-    "dp": {
-      "type": "boolean"
-    },
-    "du": {
-      "type": "boolean"
-    },
-    "keyboard": {
-      "enum": [
-        "enabled",
-        "disabled"
-      ],
-      "type": "string"
-    },
-    "paste": {
-      "enum": [
-        "enabled",
-        "disabled",
-        "remote_only"
-      ],
-      "type": "string"
-    },
-    "printing": {
-      "enum": [
-        "enabled",
-        "disabled"
-      ],
-      "type": "string"
-    },
-    "upload": {
-      "enum": [
-        "enabled",
-        "disabled"
-      ],
-      "type": "string"
-    },
-    "version": {
-      "enum": [
-        "v1",
-        "v2"
-      ],
-      "type": "string"
-    },
-    "wm_id": {
-      "format": "uuid",
-      "type": "string"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `zero-trust-gateway_rule-settings_block_page` in responses.
- */
-export const zero_trust_gateway_rule_settings_block_page_output: JsonSchema = {
-  "oneOf": [
-    {
-      "properties": {
-        "include_context": {
-          "type": "boolean"
-        },
-        "target_uri": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "target_uri"
-      ],
-      "type": "object"
-    },
-    {
-      "type": "null"
-    }
-  ]
-};
-
-/**
- * The schema of `zero-trust-gateway_rule-settings_check_session` in responses.
- */
-export const zero_trust_gateway_rule_settings_check_session_output: JsonSchema = {
-  "oneOf": [
-    {
-      "properties": {
-        "duration": {
-          "type": "string"
-        },
-        "enforce": {
-          "type": "boolean"
-        }
-      },
-      "type": "object"
-    },
-    {
-      "type": "null"
-    }
-  ]
-};
-
-/**
- * The schema of `zero-trust-gateway_rule-settings_dns_resolvers` in responses.
- */
-export const zero_trust_gateway_rule_settings_dns_resolvers_output: JsonSchema = {
-  "oneOf": [
-    {
-      "properties": {
-        "ipv4": {
-          "items": {
-            "$ref": "#/$defs/zero-trust-gateway_dns_resolver_settings_v4"
-          },
-          "type": "array"
-        },
-        "ipv6": {
-          "items": {
-            "$ref": "#/$defs/zero-trust-gateway_dns_resolver_settings_v6"
-          },
-          "type": "array"
-        }
-      },
-      "type": "object"
-    },
-    {
-      "type": "null"
-    }
-  ]
-};
-
-/**
- * The schema of `zero-trust-gateway_rule-settings_egress` in responses.
- */
-export const zero_trust_gateway_rule_settings_egress_output: JsonSchema = {
-  "oneOf": [
-    {
-      "properties": {
-        "ipv4": {
-          "type": "string"
-        },
-        "ipv4_fallback": {
-          "type": "string"
-        },
-        "ipv6": {
-          "type": "string"
-        }
-      },
-      "type": "object"
-    },
-    {
-      "type": "null"
-    }
-  ]
-};
-
-/**
- * The schema of `zero-trust-gateway_rule-settings_forensic_copy` in responses.
- */
-export const zero_trust_gateway_rule_settings_forensic_copy_output: JsonSchema = {
-  "oneOf": [
-    {
-      "properties": {
-        "enabled": {
-          "type": "boolean"
-        }
-      },
-      "type": "object"
-    },
-    {
-      "type": "null"
-    }
-  ]
-};
-
-/**
- * The schema of `zero-trust-gateway_rule-settings_l4override` in responses.
- */
-export const zero_trust_gateway_rule_settings_l4override_output: JsonSchema = {
-  "oneOf": [
-    {
-      "properties": {
-        "ip": {
-          "type": "string"
-        },
-        "port": {
-          "type": "integer"
-        }
-      },
-      "type": "object"
-    },
-    {
-      "type": "null"
-    }
-  ]
-};
-
-/**
- * The schema of `zero-trust-gateway_rule-settings_notification_settings` in
- * responses.
- */
-export const zero_trust_gateway_rule_settings_notification_settings_output: JsonSchema = {
-  "oneOf": [
-    {
-      "properties": {
-        "enabled": {
-          "type": "boolean"
-        },
-        "include_context": {
-          "type": "boolean"
-        },
-        "msg": {
-          "type": "string"
-        },
-        "support_url": {
-          "type": "string"
-        }
-      },
-      "type": "object"
-    },
-    {
-      "type": "null"
-    }
-  ]
-};
-
-/**
- * The schema of `zero-trust-gateway_rule-settings_payload_log` in responses.
- */
-export const zero_trust_gateway_rule_settings_payload_log_output: JsonSchema = {
-  "oneOf": [
-    {
-      "properties": {
-        "enabled": {
-          "type": "boolean"
-        }
-      },
-      "type": "object"
-    },
-    {
-      "type": "null"
-    }
-  ]
-};
-
-/**
- * The schema of `zero-trust-gateway_rule-settings_quarantine` in responses.
- */
-export const zero_trust_gateway_rule_settings_quarantine_output: JsonSchema = {
-  "oneOf": [
-    {
-      "properties": {
-        "file_types": {
-          "items": {
-            "enum": [
-              "exe",
-              "pdf",
-              "doc",
-              "docm",
-              "docx",
-              "rtf",
-              "ppt",
-              "pptx",
-              "xls",
-              "xlsm",
-              "xlsx",
-              "zip",
-              "rar"
-            ],
-            "type": "string"
-          },
-          "type": "array"
-        }
-      },
-      "type": "object"
-    },
-    {
-      "type": "null"
-    }
-  ]
-};
-
-/**
- * The schema of `zero-trust-gateway_rule-settings_redirect` in responses.
- */
-export const zero_trust_gateway_rule_settings_redirect_output: JsonSchema = {
-  "oneOf": [
-    {
-      "properties": {
-        "include_context": {
-          "type": "boolean"
-        },
-        "preserve_path_and_query": {
-          "type": "boolean"
-        },
-        "target_uri": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "target_uri"
-      ],
-      "type": "object"
-    },
-    {
-      "type": "null"
-    }
-  ]
-};
-
-/**
- * The schema of `zero-trust-gateway_rule-settings_resolve_dns_internally` in
- * responses.
- */
-export const zero_trust_gateway_rule_settings_resolve_dns_internally_output: JsonSchema = {
-  "oneOf": [
-    {
-      "properties": {
-        "fallback": {
-          "enum": [
-            "none",
-            "public_dns"
-          ],
-          "type": "string"
-        },
-        "view_id": {
-          "type": "string"
-        }
-      },
-      "type": "object"
-    },
-    {
-      "type": "null"
-    }
-  ]
-};
-
-/**
- * The schema of `zero-trust-gateway_rule-settings_untrusted_cert` in responses.
- */
-export const zero_trust_gateway_rule_settings_untrusted_cert_output: JsonSchema = {
-  "oneOf": [
-    {
-      "properties": {
-        "action": {
-          "enum": [
-            "pass_through",
-            "block",
-            "error"
-          ],
-          "type": "string"
-        }
-      },
-      "type": "object"
-    },
-    {
-      "type": "null"
-    }
-  ]
 };
 
 /**
@@ -910,29 +823,19 @@ export const zero_trust_gateway_sharable_output: JsonSchema = {
  * The schema of `zero-trust-gateway_single_response-4` in responses.
  */
 export const zero_trust_gateway_single_response_4_output: JsonSchema = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/zero-trust-gateway_messages"
+  "allOf": [
+    {
+      "$ref": "#/$defs/zero-trust-gateway_api-response-single"
     },
-    "messages": {
-      "$ref": "#/$defs/zero-trust-gateway_messages"
-    },
-    "result": {
-      "$ref": "#/$defs/zero-trust-gateway_rules"
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/zero-trust-gateway_rules"
+        }
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "success"
-  ],
-  "type": "object"
+  ]
 };
 
 /**

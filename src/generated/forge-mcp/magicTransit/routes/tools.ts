@@ -4,21 +4,31 @@
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
   magic_api_response_common_failure_output,
+  magic_api_response_common_output,
+  magic_api_response_single_output,
   magic_identifier_output,
   magic_messages_output,
 } from "../outputs.js";
+import { magic_identifier } from "../schemas.js";
 import {
   magic_colo_name_output,
   magic_colo_names_output,
   magic_colo_region_output,
   magic_colo_regions_output,
+  magic_create_route_response_output,
   magic_created_on_output,
   magic_description_output,
   magic_modified_on_output,
+  magic_multiple_route_delete_response_output,
+  magic_multiple_route_modified_response_output,
   magic_nexthop_output,
   magic_prefix_output,
   magic_priority_output,
+  magic_route_deleted_response_output,
+  magic_route_modified_response_output,
   magic_route_output,
+  magic_route_single_response_output,
+  magic_routes_collection_response_output,
   magic_scope_output,
   magic_weight_output,
 } from "./outputs.js";
@@ -36,6 +46,7 @@ import {
   magic_route_delete_id,
   magic_route_delete_many_request,
   magic_route_update_many_request,
+  magic_route_update_request,
   magic_route_update_single_request,
   magic_scope,
   magic_weight,
@@ -53,8 +64,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier",
-          "type": "string"
+          "$ref": "#/$defs/magic_identifier",
+          "description": "Identifier"
         },
         "body": {
           "$ref": "#/$defs/magic_route_update_many_request"
@@ -70,6 +81,7 @@ export const tools: readonly Tool[] = [
         "magic_colo_region": magic_colo_region,
         "magic_colo_regions": magic_colo_regions,
         "magic_description": magic_description,
+        "magic_identifier": magic_identifier,
         "magic_nexthop": magic_nexthop,
         "magic_prefix": magic_prefix,
         "magic_priority": magic_priority,
@@ -81,19 +93,10 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "properties": {
-        "modified": {
-          "type": "boolean"
-        },
-        "modified_routes": {
-          "items": {
-            "$ref": "#/$defs/magic_route"
-          },
-          "type": "array"
-        }
-      },
-      "type": "object",
+      "$ref": "#/$defs/magic_multiple_route_modified_response",
       $defs: {
+        "magic_api-response-common": magic_api_response_common_output,
+        "magic_api-response-single": magic_api_response_single_output,
         "magic_colo_name": magic_colo_name_output,
         "magic_colo_names": magic_colo_names_output,
         "magic_colo_region": magic_colo_region_output,
@@ -101,7 +104,9 @@ export const tools: readonly Tool[] = [
         "magic_created_on": magic_created_on_output,
         "magic_description": magic_description_output,
         "magic_identifier": magic_identifier_output,
+        "magic_messages": magic_messages_output,
         "magic_modified_on": magic_modified_on_output,
+        "magic_multiple_route_modified_response": magic_multiple_route_modified_response_output,
         "magic_nexthop": magic_nexthop_output,
         "magic_prefix": magic_prefix_output,
         "magic_priority": magic_priority_output,
@@ -127,12 +132,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "#organization:edit"
-        ],
-        "x-fern-enum": {
-          "#organization:edit": {
-            "name": "organization_edit"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": false,
@@ -144,25 +144,16 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "modified": {
-              "type": "boolean"
-            },
-            "modified_routes": {
-              "items": {
-                "$ref": "#/$defs/magic_route"
-              },
-              "type": "array"
-            }
-          },
-          "type": "object"
+          "$ref": "#/$defs/magic_multiple_route_modified_response"
         },
         "4XX": {
           "$ref": "#/$defs/magic_api-response-common-failure"
         }
       },
       $defs: {
+        "magic_api-response-common": magic_api_response_common_output,
         "magic_api-response-common-failure": magic_api_response_common_failure_output,
+        "magic_api-response-single": magic_api_response_single_output,
         "magic_colo_name": magic_colo_name_output,
         "magic_colo_names": magic_colo_names_output,
         "magic_colo_region": magic_colo_region_output,
@@ -172,6 +163,7 @@ export const tools: readonly Tool[] = [
         "magic_identifier": magic_identifier_output,
         "magic_messages": magic_messages_output,
         "magic_modified_on": magic_modified_on_output,
+        "magic_multiple_route_modified_response": magic_multiple_route_modified_response_output,
         "magic_nexthop": magic_nexthop_output,
         "magic_prefix": magic_prefix_output,
         "magic_priority": magic_priority_output,
@@ -193,8 +185,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier",
-          "type": "string"
+          "$ref": "#/$defs/magic_identifier",
+          "description": "Identifier"
         },
         "body": {
           "$ref": "#/$defs/magic_create_route_request"
@@ -211,6 +203,7 @@ export const tools: readonly Tool[] = [
         "magic_colo_regions": magic_colo_regions,
         "magic_create_route_request": magic_create_route_request,
         "magic_description": magic_description,
+        "magic_identifier": magic_identifier,
         "magic_nexthop": magic_nexthop,
         "magic_prefix": magic_prefix,
         "magic_priority": magic_priority,
@@ -219,15 +212,19 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/magic_route",
+      "$ref": "#/$defs/magic_create_route_response",
       $defs: {
+        "magic_api-response-common": magic_api_response_common_output,
+        "magic_api-response-single": magic_api_response_single_output,
         "magic_colo_name": magic_colo_name_output,
         "magic_colo_names": magic_colo_names_output,
         "magic_colo_region": magic_colo_region_output,
         "magic_colo_regions": magic_colo_regions_output,
+        "magic_create_route_response": magic_create_route_response_output,
         "magic_created_on": magic_created_on_output,
         "magic_description": magic_description_output,
         "magic_identifier": magic_identifier_output,
+        "magic_messages": magic_messages_output,
         "magic_modified_on": magic_modified_on_output,
         "magic_nexthop": magic_nexthop_output,
         "magic_prefix": magic_prefix_output,
@@ -254,12 +251,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "#organization:edit"
-        ],
-        "x-fern-enum": {
-          "#organization:edit": {
-            "name": "organization_edit"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": false,
@@ -271,18 +263,21 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/magic_route"
+          "$ref": "#/$defs/magic_create_route_response"
         },
         "4XX": {
           "$ref": "#/$defs/magic_api-response-common-failure"
         }
       },
       $defs: {
+        "magic_api-response-common": magic_api_response_common_output,
         "magic_api-response-common-failure": magic_api_response_common_failure_output,
+        "magic_api-response-single": magic_api_response_single_output,
         "magic_colo_name": magic_colo_name_output,
         "magic_colo_names": magic_colo_names_output,
         "magic_colo_region": magic_colo_region_output,
         "magic_colo_regions": magic_colo_regions_output,
+        "magic_create_route_response": magic_create_route_response_output,
         "magic_created_on": magic_created_on_output,
         "magic_description": magic_description_output,
         "magic_identifier": magic_identifier_output,
@@ -309,30 +304,27 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier",
-          "type": "string"
+          "$ref": "#/$defs/magic_identifier",
+          "description": "Identifier"
         },
         "route_id": {
-          "description": "Identifier",
-          "type": "string"
+          "$ref": "#/$defs/magic_identifier",
+          "description": "Identifier"
         }
       },
       required: [
         "account_id",
         "route_id"
       ],
+      $defs: {
+        "magic_identifier": magic_identifier,
+      },
     },
     outputSchema: {
-      "properties": {
-        "deleted": {
-          "type": "boolean"
-        },
-        "deleted_route": {
-          "$ref": "#/$defs/magic_route"
-        }
-      },
-      "type": "object",
+      "$ref": "#/$defs/magic_route_deleted_response",
       $defs: {
+        "magic_api-response-common": magic_api_response_common_output,
+        "magic_api-response-single": magic_api_response_single_output,
         "magic_colo_name": magic_colo_name_output,
         "magic_colo_names": magic_colo_names_output,
         "magic_colo_region": magic_colo_region_output,
@@ -340,11 +332,13 @@ export const tools: readonly Tool[] = [
         "magic_created_on": magic_created_on_output,
         "magic_description": magic_description_output,
         "magic_identifier": magic_identifier_output,
+        "magic_messages": magic_messages_output,
         "magic_modified_on": magic_modified_on_output,
         "magic_nexthop": magic_nexthop_output,
         "magic_prefix": magic_prefix_output,
         "magic_priority": magic_priority_output,
         "magic_route": magic_route_output,
+        "magic_route_deleted_response": magic_route_deleted_response_output,
         "magic_scope": magic_scope_output,
         "magic_weight": magic_weight_output,
       },
@@ -366,12 +360,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "#organization:edit"
-        ],
-        "x-fern-enum": {
-          "#organization:edit": {
-            "name": "organization_edit"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": false,
@@ -383,22 +372,16 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "deleted": {
-              "type": "boolean"
-            },
-            "deleted_route": {
-              "$ref": "#/$defs/magic_route"
-            }
-          },
-          "type": "object"
+          "$ref": "#/$defs/magic_route_deleted_response"
         },
         "4XX": {
           "$ref": "#/$defs/magic_api-response-common-failure"
         }
       },
       $defs: {
+        "magic_api-response-common": magic_api_response_common_output,
         "magic_api-response-common-failure": magic_api_response_common_failure_output,
+        "magic_api-response-single": magic_api_response_single_output,
         "magic_colo_name": magic_colo_name_output,
         "magic_colo_names": magic_colo_names_output,
         "magic_colo_region": magic_colo_region_output,
@@ -412,6 +395,7 @@ export const tools: readonly Tool[] = [
         "magic_prefix": magic_prefix_output,
         "magic_priority": magic_priority_output,
         "magic_route": magic_route_output,
+        "magic_route_deleted_response": magic_route_deleted_response_output,
         "magic_scope": magic_scope_output,
         "magic_weight": magic_weight_output,
       },
@@ -428,8 +412,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier",
-          "type": "string"
+          "$ref": "#/$defs/magic_identifier",
+          "description": "Identifier"
         },
         "body": {
           "$ref": "#/$defs/magic_route_delete_many_request"
@@ -440,24 +424,16 @@ export const tools: readonly Tool[] = [
         "body"
       ],
       $defs: {
+        "magic_identifier": magic_identifier,
         "magic_route_delete_id": magic_route_delete_id,
         "magic_route_delete_many_request": magic_route_delete_many_request,
       },
     },
     outputSchema: {
-      "properties": {
-        "deleted": {
-          "type": "boolean"
-        },
-        "deleted_routes": {
-          "items": {
-            "$ref": "#/$defs/magic_route"
-          },
-          "type": "array"
-        }
-      },
-      "type": "object",
+      "$ref": "#/$defs/magic_multiple_route_delete_response",
       $defs: {
+        "magic_api-response-common": magic_api_response_common_output,
+        "magic_api-response-single": magic_api_response_single_output,
         "magic_colo_name": magic_colo_name_output,
         "magic_colo_names": magic_colo_names_output,
         "magic_colo_region": magic_colo_region_output,
@@ -465,7 +441,9 @@ export const tools: readonly Tool[] = [
         "magic_created_on": magic_created_on_output,
         "magic_description": magic_description_output,
         "magic_identifier": magic_identifier_output,
+        "magic_messages": magic_messages_output,
         "magic_modified_on": magic_modified_on_output,
+        "magic_multiple_route_delete_response": magic_multiple_route_delete_response_output,
         "magic_nexthop": magic_nexthop_output,
         "magic_prefix": magic_prefix_output,
         "magic_priority": magic_priority_output,
@@ -491,12 +469,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "#organization:edit"
-        ],
-        "x-fern-enum": {
-          "#organization:edit": {
-            "name": "organization_edit"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": false,
@@ -508,25 +481,16 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "deleted": {
-              "type": "boolean"
-            },
-            "deleted_routes": {
-              "items": {
-                "$ref": "#/$defs/magic_route"
-              },
-              "type": "array"
-            }
-          },
-          "type": "object"
+          "$ref": "#/$defs/magic_multiple_route_delete_response"
         },
         "4XX": {
           "$ref": "#/$defs/magic_api-response-common-failure"
         }
       },
       $defs: {
+        "magic_api-response-common": magic_api_response_common_output,
         "magic_api-response-common-failure": magic_api_response_common_failure_output,
+        "magic_api-response-single": magic_api_response_single_output,
         "magic_colo_name": magic_colo_name_output,
         "magic_colo_names": magic_colo_names_output,
         "magic_colo_region": magic_colo_region_output,
@@ -536,6 +500,7 @@ export const tools: readonly Tool[] = [
         "magic_identifier": magic_identifier_output,
         "magic_messages": magic_messages_output,
         "magic_modified_on": magic_modified_on_output,
+        "magic_multiple_route_delete_response": magic_multiple_route_delete_response_output,
         "magic_nexthop": magic_nexthop_output,
         "magic_prefix": magic_prefix_output,
         "magic_priority": magic_priority_output,
@@ -557,27 +522,27 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier",
-          "type": "string"
+          "$ref": "#/$defs/magic_identifier",
+          "description": "Identifier"
         },
         "route_id": {
-          "description": "Identifier",
-          "type": "string"
+          "$ref": "#/$defs/magic_identifier",
+          "description": "Identifier"
         }
       },
       required: [
         "account_id",
         "route_id"
       ],
+      $defs: {
+        "magic_identifier": magic_identifier,
+      },
     },
     outputSchema: {
-      "properties": {
-        "route": {
-          "$ref": "#/$defs/magic_route"
-        }
-      },
-      "type": "object",
+      "$ref": "#/$defs/magic_route_single_response",
       $defs: {
+        "magic_api-response-common": magic_api_response_common_output,
+        "magic_api-response-single": magic_api_response_single_output,
         "magic_colo_name": magic_colo_name_output,
         "magic_colo_names": magic_colo_names_output,
         "magic_colo_region": magic_colo_region_output,
@@ -585,11 +550,13 @@ export const tools: readonly Tool[] = [
         "magic_created_on": magic_created_on_output,
         "magic_description": magic_description_output,
         "magic_identifier": magic_identifier_output,
+        "magic_messages": magic_messages_output,
         "magic_modified_on": magic_modified_on_output,
         "magic_nexthop": magic_nexthop_output,
         "magic_prefix": magic_prefix_output,
         "magic_priority": magic_priority_output,
         "magic_route": magic_route_output,
+        "magic_route_single_response": magic_route_single_response_output,
         "magic_scope": magic_scope_output,
         "magic_weight": magic_weight_output,
       },
@@ -613,12 +580,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "#organization:read"
-        ],
-        "x-fern-enum": {
-          "#organization:read": {
-            "name": "organization_read"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": false,
@@ -630,19 +592,16 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "route": {
-              "$ref": "#/$defs/magic_route"
-            }
-          },
-          "type": "object"
+          "$ref": "#/$defs/magic_route_single_response"
         },
         "4XX": {
           "$ref": "#/$defs/magic_api-response-common-failure"
         }
       },
       $defs: {
+        "magic_api-response-common": magic_api_response_common_output,
         "magic_api-response-common-failure": magic_api_response_common_failure_output,
+        "magic_api-response-single": magic_api_response_single_output,
         "magic_colo_name": magic_colo_name_output,
         "magic_colo_names": magic_colo_names_output,
         "magic_colo_region": magic_colo_region_output,
@@ -656,6 +615,7 @@ export const tools: readonly Tool[] = [
         "magic_prefix": magic_prefix_output,
         "magic_priority": magic_priority_output,
         "magic_route": magic_route_output,
+        "magic_route_single_response": magic_route_single_response_output,
         "magic_scope": magic_scope_output,
         "magic_weight": magic_weight_output,
       },
@@ -672,25 +632,22 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier",
-          "type": "string"
+          "$ref": "#/$defs/magic_identifier",
+          "description": "Identifier"
         }
       },
       required: [
         "account_id"
       ],
+      $defs: {
+        "magic_identifier": magic_identifier,
+      },
     },
     outputSchema: {
-      "properties": {
-        "routes": {
-          "items": {
-            "$ref": "#/$defs/magic_route"
-          },
-          "type": "array"
-        }
-      },
-      "type": "object",
+      "$ref": "#/$defs/magic_routes_collection_response",
       $defs: {
+        "magic_api-response-common": magic_api_response_common_output,
+        "magic_api-response-single": magic_api_response_single_output,
         "magic_colo_name": magic_colo_name_output,
         "magic_colo_names": magic_colo_names_output,
         "magic_colo_region": magic_colo_region_output,
@@ -698,11 +655,13 @@ export const tools: readonly Tool[] = [
         "magic_created_on": magic_created_on_output,
         "magic_description": magic_description_output,
         "magic_identifier": magic_identifier_output,
+        "magic_messages": magic_messages_output,
         "magic_modified_on": magic_modified_on_output,
         "magic_nexthop": magic_nexthop_output,
         "magic_prefix": magic_prefix_output,
         "magic_priority": magic_priority_output,
         "magic_route": magic_route_output,
+        "magic_routes_collection_response": magic_routes_collection_response_output,
         "magic_scope": magic_scope_output,
         "magic_weight": magic_weight_output,
       },
@@ -733,22 +692,16 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "routes": {
-              "items": {
-                "$ref": "#/$defs/magic_route"
-              },
-              "type": "array"
-            }
-          },
-          "type": "object"
+          "$ref": "#/$defs/magic_routes_collection_response"
         },
         "4XX": {
           "$ref": "#/$defs/magic_api-response-common-failure"
         }
       },
       $defs: {
+        "magic_api-response-common": magic_api_response_common_output,
         "magic_api-response-common-failure": magic_api_response_common_failure_output,
+        "magic_api-response-single": magic_api_response_single_output,
         "magic_colo_name": magic_colo_name_output,
         "magic_colo_names": magic_colo_names_output,
         "magic_colo_region": magic_colo_region_output,
@@ -762,6 +715,7 @@ export const tools: readonly Tool[] = [
         "magic_prefix": magic_prefix_output,
         "magic_priority": magic_priority_output,
         "magic_route": magic_route_output,
+        "magic_routes_collection_response": magic_routes_collection_response_output,
         "magic_scope": magic_scope_output,
         "magic_weight": magic_weight_output,
       },
@@ -778,15 +732,15 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier",
-          "type": "string"
+          "$ref": "#/$defs/magic_identifier",
+          "description": "Identifier"
         },
         "body": {
-          "$ref": "#/$defs/magic_route_add_single_request"
+          "$ref": "#/$defs/magic_route_update_request"
         },
         "route_id": {
-          "description": "Identifier",
-          "type": "string"
+          "$ref": "#/$defs/magic_identifier",
+          "description": "Identifier"
         }
       },
       required: [
@@ -800,25 +754,20 @@ export const tools: readonly Tool[] = [
         "magic_colo_region": magic_colo_region,
         "magic_colo_regions": magic_colo_regions,
         "magic_description": magic_description,
+        "magic_identifier": magic_identifier,
         "magic_nexthop": magic_nexthop,
         "magic_prefix": magic_prefix,
         "magic_priority": magic_priority,
-        "magic_route_add_single_request": magic_route_add_single_request,
+        "magic_route_update_request": magic_route_update_request,
         "magic_scope": magic_scope,
         "magic_weight": magic_weight,
       },
     },
     outputSchema: {
-      "properties": {
-        "modified": {
-          "type": "boolean"
-        },
-        "modified_route": {
-          "$ref": "#/$defs/magic_route"
-        }
-      },
-      "type": "object",
+      "$ref": "#/$defs/magic_route_modified_response",
       $defs: {
+        "magic_api-response-common": magic_api_response_common_output,
+        "magic_api-response-single": magic_api_response_single_output,
         "magic_colo_name": magic_colo_name_output,
         "magic_colo_names": magic_colo_names_output,
         "magic_colo_region": magic_colo_region_output,
@@ -826,11 +775,13 @@ export const tools: readonly Tool[] = [
         "magic_created_on": magic_created_on_output,
         "magic_description": magic_description_output,
         "magic_identifier": magic_identifier_output,
+        "magic_messages": magic_messages_output,
         "magic_modified_on": magic_modified_on_output,
         "magic_nexthop": magic_nexthop_output,
         "magic_prefix": magic_prefix_output,
         "magic_priority": magic_priority_output,
         "magic_route": magic_route_output,
+        "magic_route_modified_response": magic_route_modified_response_output,
         "magic_scope": magic_scope_output,
         "magic_weight": magic_weight_output,
       },
@@ -852,12 +803,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "#organization:edit"
-        ],
-        "x-fern-enum": {
-          "#organization:edit": {
-            "name": "organization_edit"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": false,
@@ -869,22 +815,16 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "modified": {
-              "type": "boolean"
-            },
-            "modified_route": {
-              "$ref": "#/$defs/magic_route"
-            }
-          },
-          "type": "object"
+          "$ref": "#/$defs/magic_route_modified_response"
         },
         "4XX": {
           "$ref": "#/$defs/magic_api-response-common-failure"
         }
       },
       $defs: {
+        "magic_api-response-common": magic_api_response_common_output,
         "magic_api-response-common-failure": magic_api_response_common_failure_output,
+        "magic_api-response-single": magic_api_response_single_output,
         "magic_colo_name": magic_colo_name_output,
         "magic_colo_names": magic_colo_names_output,
         "magic_colo_region": magic_colo_region_output,
@@ -898,6 +838,7 @@ export const tools: readonly Tool[] = [
         "magic_prefix": magic_prefix_output,
         "magic_priority": magic_priority_output,
         "magic_route": magic_route_output,
+        "magic_route_modified_response": magic_route_modified_response_output,
         "magic_scope": magic_scope_output,
         "magic_weight": magic_weight_output,
       },

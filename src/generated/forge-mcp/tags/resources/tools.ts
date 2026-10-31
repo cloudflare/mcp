@@ -5,6 +5,7 @@ import { type Tool, pathParam } from "../../_/tool.js";
 import {
   resource_tagging_access_application_id_output,
   resource_tagging_api_response_common_failure_output,
+  resource_tagging_api_response_common_output,
   resource_tagging_cursor_result_info_output,
   resource_tagging_etag_output,
   resource_tagging_identifier_output,
@@ -69,9 +70,12 @@ import {
   resource_tagging_zone_id_output,
 } from "../outputs.js";
 import {
+  resource_tagging_account_id,
+  resource_tagging_identifier,
   resource_tagging_resource_id,
   resource_tagging_resource_type,
 } from "../schemas.js";
+import { resource_tagging_tagged_resource_response_collection_output } from "./outputs.js";
 
 /**
  * The tools of `tags.resources`.
@@ -85,7 +89,7 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "type": "string"
+          "$ref": "#/$defs/resource-tagging_account_id"
         },
         "case_insensitive": {
           "default": false,
@@ -132,31 +136,21 @@ export const tools: readonly Tool[] = [
         "account_id"
       ],
       $defs: {
+        "resource-tagging_account_id": resource_tagging_account_id,
+        "resource-tagging_identifier": resource_tagging_identifier,
         "resource-tagging_resource_id": resource_tagging_resource_id,
         "resource-tagging_resource_type": resource_tagging_resource_type,
       },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "$ref": "#/$defs/resource-tagging_tagged_resource_object"
-          },
-          "type": "array"
-        },
-        "result_info": {
-          "$ref": "#/$defs/resource-tagging_cursor_result_info"
-        }
-      },
-      "required": [
-        "result"
-      ],
-      "type": "object",
+      "$ref": "#/$defs/resource-tagging_tagged_resource_response_collection",
       $defs: {
         "resource-tagging_access_application_id": resource_tagging_access_application_id_output,
+        "resource-tagging_api-response-common": resource_tagging_api_response_common_output,
         "resource-tagging_cursor_result_info": resource_tagging_cursor_result_info_output,
         "resource-tagging_etag": resource_tagging_etag_output,
         "resource-tagging_identifier": resource_tagging_identifier_output,
+        "resource-tagging_messages": resource_tagging_messages_output,
         "resource-tagging_namespace_worker_navigation": resource_tagging_namespace_worker_navigation_output,
         "resource-tagging_resource_id": resource_tagging_resource_id_output,
         "resource-tagging_resource_name": resource_tagging_resource_name_output,
@@ -211,6 +205,7 @@ export const tools: readonly Tool[] = [
         "resource-tagging_tagged_resource_object_zone": resource_tagging_tagged_resource_object_zone_output,
         "resource-tagging_tagged_resource_object_zone_level_base": resource_tagging_tagged_resource_object_zone_level_base_output,
         "resource-tagging_tagged_resource_object_zone_ruleset": resource_tagging_tagged_resource_object_zone_ruleset_output,
+        "resource-tagging_tagged_resource_response_collection": resource_tagging_tagged_resource_response_collection_output,
         "resource-tagging_tags": resource_tagging_tags_output,
         "resource-tagging_tags_updated_at": resource_tagging_tags_updated_at_output,
         "resource-tagging_worker_id": resource_tagging_worker_id_output,
@@ -238,21 +233,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "items": {
-                "$ref": "#/$defs/resource-tagging_tagged_resource_object"
-              },
-              "type": "array"
-            },
-            "result_info": {
-              "$ref": "#/$defs/resource-tagging_cursor_result_info"
-            }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/resource-tagging_tagged_resource_response_collection"
         },
         "4XX": {
           "$ref": "#/$defs/resource-tagging_api-response-common-failure"
@@ -263,6 +244,7 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "resource-tagging_access_application_id": resource_tagging_access_application_id_output,
+        "resource-tagging_api-response-common": resource_tagging_api_response_common_output,
         "resource-tagging_api-response-common-failure": resource_tagging_api_response_common_failure_output,
         "resource-tagging_cursor_result_info": resource_tagging_cursor_result_info_output,
         "resource-tagging_etag": resource_tagging_etag_output,
@@ -322,6 +304,7 @@ export const tools: readonly Tool[] = [
         "resource-tagging_tagged_resource_object_zone": resource_tagging_tagged_resource_object_zone_output,
         "resource-tagging_tagged_resource_object_zone_level_base": resource_tagging_tagged_resource_object_zone_level_base_output,
         "resource-tagging_tagged_resource_object_zone_ruleset": resource_tagging_tagged_resource_object_zone_ruleset_output,
+        "resource-tagging_tagged_resource_response_collection": resource_tagging_tagged_resource_response_collection_output,
         "resource-tagging_tags": resource_tagging_tags_output,
         "resource-tagging_tags_updated_at": resource_tagging_tags_updated_at_output,
         "resource-tagging_worker_id": resource_tagging_worker_id_output,

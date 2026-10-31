@@ -4,7 +4,7 @@
 import type { Tool } from "../_/tool.js";
 import {
   public_ip_api_response_common_failure_output,
-  public_ip_api_response_common_output,
+  public_ip_api_response_single_output,
   public_ip_etag_output,
   public_ip_ips_jdcloud_output,
   public_ip_ips_output,
@@ -32,21 +32,35 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "oneOf": [
+      "allOf": [
         {
-          "$ref": "#/$defs/public-ip_ips"
+          "$ref": "#/$defs/public-ip_api-response-single"
         },
         {
-          "$ref": "#/$defs/public-ip_ips_jdcloud"
+          "properties": {
+            "result": {
+              "oneOf": [
+                {
+                  "$ref": "#/$defs/public-ip_ips"
+                },
+                {
+                  "$ref": "#/$defs/public-ip_ips_jdcloud"
+                }
+              ]
+            }
+          },
+          "type": "object"
         }
       ],
       $defs: {
+        "public-ip_api-response-single": public_ip_api_response_single_output,
         "public-ip_etag": public_ip_etag_output,
         "public-ip_ips": public_ip_ips_output,
         "public-ip_ips_jdcloud": public_ip_ips_jdcloud_output,
         "public-ip_ipv4_cidrs": public_ip_ipv4_cidrs_output,
         "public-ip_ipv6_cidrs": public_ip_ipv6_cidrs_output,
         "public-ip_jdcloud_cidrs": public_ip_jdcloud_cidrs_output,
+        "public-ip_messages": public_ip_messages_output,
       },
     },
     annotations: {
@@ -61,19 +75,31 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "oneOf": [
+          "allOf": [
             {
-              "$ref": "#/$defs/public-ip_ips"
+              "$ref": "#/$defs/public-ip_api-response-single"
             },
             {
-              "$ref": "#/$defs/public-ip_ips_jdcloud"
+              "properties": {
+                "result": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/$defs/public-ip_ips"
+                    },
+                    {
+                      "$ref": "#/$defs/public-ip_ips_jdcloud"
+                    }
+                  ]
+                }
+              },
+              "type": "object"
             }
           ]
         },
         "4XX": {
           "allOf": [
             {
-              "$ref": "#/$defs/public-ip_api-response-common"
+              "$ref": "#/$defs/public-ip_api-response-single"
             },
             {
               "properties": {
@@ -97,8 +123,8 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "public-ip_api-response-common": public_ip_api_response_common_output,
         "public-ip_api-response-common-failure": public_ip_api_response_common_failure_output,
+        "public-ip_api-response-single": public_ip_api_response_single_output,
         "public-ip_etag": public_ip_etag_output,
         "public-ip_ips": public_ip_ips_output,
         "public-ip_ips_jdcloud": public_ip_ips_jdcloud_output,

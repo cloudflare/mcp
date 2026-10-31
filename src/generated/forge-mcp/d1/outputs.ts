@@ -4,6 +4,32 @@
 import type { JsonSchema } from "../_/tool.js";
 
 /**
+ * The schema of `d1_api-response-common` in responses.
+ */
+export const d1_api_response_common_output: JsonSchema = {
+  "properties": {
+    "errors": {
+      "$ref": "#/$defs/d1_messages"
+    },
+    "messages": {
+      "$ref": "#/$defs/d1_messages"
+    },
+    "success": {
+      "enum": [
+        true
+      ],
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "errors",
+    "messages",
+    "success"
+  ],
+  "type": "object"
+};
+
+/**
  * The schema of `d1_api-response-common-failure` in responses.
  */
 export const d1_api_response_common_failure_output: JsonSchema = {
@@ -203,19 +229,12 @@ export const d1_query_meta_output: JsonSchema = {
       "type": "number"
     },
     "timings": {
-      "$ref": "#/$defs/d1_query-meta_timings"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `d1_query-meta_timings` in responses.
- */
-export const d1_query_meta_timings_output: JsonSchema = {
-  "properties": {
-    "sql_duration_ms": {
-      "type": "number"
+      "properties": {
+        "sql_duration_ms": {
+          "type": "number"
+        }
+      },
+      "type": "object"
     }
   },
   "type": "object"
@@ -251,44 +270,37 @@ export const d1_raw_result_response_output: JsonSchema = {
       "$ref": "#/$defs/d1_query-meta"
     },
     "results": {
-      "$ref": "#/$defs/d1_raw-result-response_results"
+      "properties": {
+        "columns": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "rows": {
+          "items": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "object"
+                }
+              ]
+            },
+            "type": "array"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
     },
     "success": {
       "type": "boolean"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `d1_raw-result-response_results` in responses.
- */
-export const d1_raw_result_response_results_output: JsonSchema = {
-  "properties": {
-    "columns": {
-      "items": {
-        "type": "string"
-      },
-      "type": "array"
-    },
-    "rows": {
-      "items": {
-        "items": {
-          "anyOf": [
-            {
-              "type": "number"
-            },
-            {
-              "type": "string"
-            },
-            {
-              "type": "object"
-            }
-          ]
-        },
-        "type": "array"
-      },
-      "type": "array"
     }
   },
   "type": "object"

@@ -14,6 +14,25 @@ export const stream_allowedOrigins_output: JsonSchema = {
 };
 
 /**
+ * The schema of `stream_clipResponseSingle` in responses.
+ */
+export const stream_clipResponseSingle_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/stream_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/stream_videos"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
  * The schema of `stream_created` in responses.
  */
 export const stream_created_output: JsonSchema = {
@@ -67,6 +86,33 @@ export const stream_downloads_output: JsonSchema = {
     "status"
   ],
   "type": "object"
+};
+
+/**
+ * The schema of `stream_downloads_response` in responses.
+ */
+export const stream_downloads_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/stream_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "properties": {
+            "audio": {
+              "$ref": "#/$defs/stream_downloads"
+            },
+            "default": {
+              "$ref": "#/$defs/stream_downloads"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
+    }
+  ]
 };
 
 /**
@@ -275,6 +321,58 @@ export const stream_uploaded_output: JsonSchema = {
 };
 
 /**
+ * The schema of `stream_video_response_collection` in responses.
+ */
+export const stream_video_response_collection_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/stream_api-response-common"
+    },
+    {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/stream_videos"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    {
+      "properties": {
+        "range": {
+          "type": "integer"
+        },
+        "total": {
+          "type": "integer"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `stream_video_response_single` in responses.
+ */
+export const stream_video_response_single_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/stream_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/stream_videos"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
  * The schema of `stream_videos` in responses.
  */
 export const stream_videos_output: JsonSchema = {
@@ -319,7 +417,52 @@ export const stream_videos_output: JsonSchema = {
       "$ref": "#/$defs/stream_preview"
     },
     "publicDetails": {
-      "$ref": "#/$defs/stream_videos_publicDetails"
+      "properties": {
+        "channel_link": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "logo": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "media_id": {
+          "type": "integer"
+        },
+        "share_link": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "title": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "type": "object"
     },
     "readyToStream": {
       "$ref": "#/$defs/stream_readyToStream"
@@ -356,58 +499,6 @@ export const stream_videos_output: JsonSchema = {
     },
     "watermark": {
       "$ref": "#/$defs/stream_watermarks"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `stream_videos_publicDetails` in responses.
- */
-export const stream_videos_publicDetails_output: JsonSchema = {
-  "properties": {
-    "channel_link": {
-      "oneOf": [
-        {
-          "type": "string"
-        },
-        {
-          "type": "null"
-        }
-      ]
-    },
-    "logo": {
-      "oneOf": [
-        {
-          "type": "string"
-        },
-        {
-          "type": "null"
-        }
-      ]
-    },
-    "media_id": {
-      "type": "integer"
-    },
-    "share_link": {
-      "oneOf": [
-        {
-          "type": "string"
-        },
-        {
-          "type": "null"
-        }
-      ]
-    },
-    "title": {
-      "oneOf": [
-        {
-          "type": "string"
-        },
-        {
-          "type": "null"
-        }
-      ]
     }
   },
   "type": "object"

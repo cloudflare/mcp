@@ -19,7 +19,15 @@ export const iam_scim_group_output: JsonSchema = {
     },
     "members": {
       "items": {
-        "$ref": "#/$defs/iam_scim_group_membersItem"
+        "properties": {
+          "display": {
+            "type": "string"
+          },
+          "value": {
+            "type": "string"
+          }
+        },
+        "type": "object"
       },
       "type": "array"
     },
@@ -73,21 +81,6 @@ export const iam_scim_group_list_response_output: JsonSchema = {
     "schemas",
     "totalResults"
   ],
-  "type": "object"
-};
-
-/**
- * The schema of `iam_scim_group_membersItem` in responses.
- */
-export const iam_scim_group_membersItem_output: JsonSchema = {
-  "properties": {
-    "display": {
-      "type": "string"
-    },
-    "value": {
-      "type": "string"
-    }
-  },
   "type": "object"
 };
 

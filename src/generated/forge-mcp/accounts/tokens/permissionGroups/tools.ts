@@ -3,10 +3,17 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
+  iam_api_response_collection_output,
   iam_api_response_common_failure_output,
+  iam_api_response_common_output,
   iam_messages_2_output,
+  iam_permissions_group_response_collection_output,
   iam_result_info_output,
 } from "../../../outputs.js";
+import {
+  iam_account_identifier,
+  iam_common_components_schemas_identifier,
+} from "../../../schemas.js";
 
 /**
  * The tools of `accounts.tokens.permission_groups`.
@@ -20,8 +27,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Account identifier tag.",
-          "type": "string"
+          "$ref": "#/$defs/iam_account_identifier",
+          "description": "Account identifier tag."
         },
         "name": {
           "description": "Filter by the name of the permission group.\nThe value must be URL-encoded.",
@@ -35,65 +42,18 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+      $defs: {
+        "iam_account_identifier": iam_account_identifier,
+        "iam_common_components-schemas-identifier": iam_common_components_schemas_identifier,
+      },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "properties": {
-              "category": {
-                "enum": [
-                  "developer_platform",
-                  "ai_and_machine_learning",
-                  "dns_and_zones",
-                  "app_security",
-                  "rules_and_configuration",
-                  "cloudflare_one_and_zero_trust",
-                  "analytics_and_logs",
-                  "network_services",
-                  "media",
-                  "email_and_messaging",
-                  "cache_and_performance",
-                  "account_and_billing",
-                  "other"
-                ],
-                "type": "string"
-              },
-              "id": {
-                "type": "string"
-              },
-              "is_selectable": {
-                "type": "boolean"
-              },
-              "name": {
-                "type": "string"
-              },
-              "scopes": {
-                "items": {
-                  "enum": [
-                    "com.cloudflare.api.account",
-                    "com.cloudflare.api.account.zone",
-                    "com.cloudflare.api.user",
-                    "com.cloudflare.edge.r2.bucket"
-                  ],
-                  "type": "string"
-                },
-                "type": "array"
-              }
-            },
-            "type": "object"
-          },
-          "type": "array"
-        },
-        "result_info": {
-          "$ref": "#/$defs/iam_result_info"
-        }
-      },
-      "required": [
-        "result"
-      ],
-      "type": "object",
+      "$ref": "#/$defs/iam_permissions_group_response_collection",
       $defs: {
+        "iam_api-response-collection": iam_api_response_collection_output,
+        "iam_api-response-common": iam_api_response_common_output,
+        "iam_messages-2": iam_messages_2_output,
+        "iam_permissions_group_response_collection": iam_permissions_group_response_collection_output,
         "iam_result_info": iam_result_info_output,
       },
     },
@@ -114,12 +74,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "com.cloudflare.api.account.token.read"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.api.account.token.read": {
-            "name": "com_cloudflare_api_account_token_read"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": true,
@@ -131,70 +86,18 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "items": {
-                "properties": {
-                  "category": {
-                    "enum": [
-                      "developer_platform",
-                      "ai_and_machine_learning",
-                      "dns_and_zones",
-                      "app_security",
-                      "rules_and_configuration",
-                      "cloudflare_one_and_zero_trust",
-                      "analytics_and_logs",
-                      "network_services",
-                      "media",
-                      "email_and_messaging",
-                      "cache_and_performance",
-                      "account_and_billing",
-                      "other"
-                    ],
-                    "type": "string"
-                  },
-                  "id": {
-                    "type": "string"
-                  },
-                  "is_selectable": {
-                    "type": "boolean"
-                  },
-                  "name": {
-                    "type": "string"
-                  },
-                  "scopes": {
-                    "items": {
-                      "enum": [
-                        "com.cloudflare.api.account",
-                        "com.cloudflare.api.account.zone",
-                        "com.cloudflare.api.user",
-                        "com.cloudflare.edge.r2.bucket"
-                      ],
-                      "type": "string"
-                    },
-                    "type": "array"
-                  }
-                },
-                "type": "object"
-              },
-              "type": "array"
-            },
-            "result_info": {
-              "$ref": "#/$defs/iam_result_info"
-            }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/iam_permissions_group_response_collection"
         },
         "4XX": {
           "$ref": "#/$defs/iam_api-response-common-failure"
         }
       },
       $defs: {
+        "iam_api-response-collection": iam_api_response_collection_output,
+        "iam_api-response-common": iam_api_response_common_output,
         "iam_api-response-common-failure": iam_api_response_common_failure_output,
         "iam_messages-2": iam_messages_2_output,
+        "iam_permissions_group_response_collection": iam_permissions_group_response_collection_output,
         "iam_result_info": iam_result_info_output,
       },
     },

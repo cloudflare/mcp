@@ -4,6 +4,14 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
+ * The schema of `lists_account_id`.
+ */
+export const lists_account_id: JsonSchema = {
+  "description": "The Account ID for this resource.",
+  "type": "string"
+};
+
+/**
  * The schema of `lists_description`.
  */
 export const lists_description: JsonSchema = {
@@ -26,9 +34,25 @@ export const lists_kind: JsonSchema = {
 };
 
 /**
+ * The schema of `lists_list_id`.
+ */
+export const lists_list_id: JsonSchema = {
+  "description": "The unique ID of the list.",
+  "type": "string"
+};
+
+/**
  * The schema of `lists_name`.
  */
 export const lists_name: JsonSchema = {
   "description": "An informative name for the list. Use this name in filter and rule expressions.",
+  "type": "string"
+};
+
+/**
+ * The schema of `lists_operation_id`.
+ */
+export const lists_operation_id: JsonSchema = {
+  "description": "The unique operation ID of the asynchronous action.",
   "type": "string"
 };

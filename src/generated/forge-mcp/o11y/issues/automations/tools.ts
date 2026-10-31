@@ -52,141 +52,38 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
-        "automation": {
-          "properties": {
-            "ansPolicyId": {
-              "type": "string"
+        "errors": {
+          "items": {
+            "properties": {
+              "message": {
+                "type": "string"
+              }
             },
-            "created": {
-              "type": "number"
-            },
-            "createdByUserId": {
-              "oneOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ]
-            },
-            "enabled": {
-              "type": "boolean"
-            },
-            "id": {
-              "type": "string"
-            },
-            "inactivitySeconds": {
-              "oneOf": [
-                {
-                  "type": "number"
-                },
-                {
-                  "type": "null"
-                }
-              ]
-            },
-            "name": {
-              "type": "string"
-            },
-            "revision": {
-              "type": "number"
-            },
-            "scope": {
-              "enum": [
-                "account",
-                "service"
-              ],
-              "type": "string"
-            },
-            "service": {
-              "oneOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ]
-            },
-            "serviceType": {
-              "oneOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ]
-            },
-            "threshold": {
-              "oneOf": [
-                {
-                  "type": "number"
-                },
-                {
-                  "type": "null"
-                }
-              ]
-            },
-            "triggerType": {
-              "enum": [
-                "occurrence_threshold",
-                "recurrence_after_inactivity"
-              ],
-              "type": "string"
-            },
-            "updated": {
-              "type": "number"
-            },
-            "updatedByUserId": {
-              "oneOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ]
-            }
+            "required": [
+              "message"
+            ],
+            "type": "object"
           },
-          "required": [
-            "ansPolicyId",
-            "created",
-            "createdByUserId",
-            "enabled",
-            "id",
-            "inactivitySeconds",
-            "name",
-            "revision",
-            "scope",
-            "service",
-            "serviceType",
-            "threshold",
-            "triggerType",
-            "updated",
-            "updatedByUserId"
-          ],
-          "type": "object"
-        }
-      },
-      "required": [
-        "automation"
-      ],
-      "type": "object",
-    },
-    annotations: {
-      "destructiveHint": false,
-      "idempotentHint": false,
-      "openWorldHint": true,
-      "readOnlyHint": false,
-      "title": "Create an issue automation"
-    },
-    method: "POST",
-    path: "/accounts/{account_id}/workers/observability/issues/automations",
-    responses: {
-      schemas: {
-        "200": {
+          "type": "array"
+        },
+        "messages": {
+          "items": {
+            "properties": {
+              "message": {
+                "enum": [
+                  "Successful request"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "message"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "result": {
           "properties": {
             "automation": {
               "properties": {
@@ -308,6 +205,205 @@ export const tools: readonly Tool[] = [
           },
           "required": [
             "automation"
+          ],
+          "type": "object"
+        },
+        "success": {
+          "enum": [
+            true
+          ],
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "errors",
+        "messages",
+        "result",
+        "success"
+      ],
+      "type": "object",
+    },
+    annotations: {
+      "destructiveHint": false,
+      "idempotentHint": false,
+      "openWorldHint": true,
+      "readOnlyHint": false,
+      "title": "Create an issue automation"
+    },
+    method: "POST",
+    path: "/accounts/{account_id}/workers/observability/issues/automations",
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "messages": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "enum": [
+                      "Successful request"
+                    ],
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result": {
+              "properties": {
+                "automation": {
+                  "properties": {
+                    "ansPolicyId": {
+                      "type": "string"
+                    },
+                    "created": {
+                      "type": "number"
+                    },
+                    "createdByUserId": {
+                      "oneOf": [
+                        {
+                          "type": "string"
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    },
+                    "enabled": {
+                      "type": "boolean"
+                    },
+                    "id": {
+                      "type": "string"
+                    },
+                    "inactivitySeconds": {
+                      "oneOf": [
+                        {
+                          "type": "number"
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "revision": {
+                      "type": "number"
+                    },
+                    "scope": {
+                      "enum": [
+                        "account",
+                        "service"
+                      ],
+                      "type": "string"
+                    },
+                    "service": {
+                      "oneOf": [
+                        {
+                          "type": "string"
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    },
+                    "serviceType": {
+                      "oneOf": [
+                        {
+                          "type": "string"
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    },
+                    "threshold": {
+                      "oneOf": [
+                        {
+                          "type": "number"
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    },
+                    "triggerType": {
+                      "enum": [
+                        "occurrence_threshold",
+                        "recurrence_after_inactivity"
+                      ],
+                      "type": "string"
+                    },
+                    "updated": {
+                      "type": "number"
+                    },
+                    "updatedByUserId": {
+                      "oneOf": [
+                        {
+                          "type": "string"
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    }
+                  },
+                  "required": [
+                    "ansPolicyId",
+                    "created",
+                    "createdByUserId",
+                    "enabled",
+                    "id",
+                    "inactivitySeconds",
+                    "name",
+                    "revision",
+                    "scope",
+                    "service",
+                    "serviceType",
+                    "threshold",
+                    "triggerType",
+                    "updated",
+                    "updatedByUserId"
+                  ],
+                  "type": "object"
+                }
+              },
+              "required": [
+                "automation"
+              ],
+              "type": "object"
+            },
+            "success": {
+              "enum": [
+                true
+              ],
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "messages",
+            "result",
+            "success"
           ],
           "type": "object"
         },
@@ -540,141 +636,38 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
-        "automation": {
-          "properties": {
-            "ansPolicyId": {
-              "type": "string"
+        "errors": {
+          "items": {
+            "properties": {
+              "message": {
+                "type": "string"
+              }
             },
-            "created": {
-              "type": "number"
-            },
-            "createdByUserId": {
-              "oneOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ]
-            },
-            "enabled": {
-              "type": "boolean"
-            },
-            "id": {
-              "type": "string"
-            },
-            "inactivitySeconds": {
-              "oneOf": [
-                {
-                  "type": "number"
-                },
-                {
-                  "type": "null"
-                }
-              ]
-            },
-            "name": {
-              "type": "string"
-            },
-            "revision": {
-              "type": "number"
-            },
-            "scope": {
-              "enum": [
-                "account",
-                "service"
-              ],
-              "type": "string"
-            },
-            "service": {
-              "oneOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ]
-            },
-            "serviceType": {
-              "oneOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ]
-            },
-            "threshold": {
-              "oneOf": [
-                {
-                  "type": "number"
-                },
-                {
-                  "type": "null"
-                }
-              ]
-            },
-            "triggerType": {
-              "enum": [
-                "occurrence_threshold",
-                "recurrence_after_inactivity"
-              ],
-              "type": "string"
-            },
-            "updated": {
-              "type": "number"
-            },
-            "updatedByUserId": {
-              "oneOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ]
-            }
+            "required": [
+              "message"
+            ],
+            "type": "object"
           },
-          "required": [
-            "ansPolicyId",
-            "created",
-            "createdByUserId",
-            "enabled",
-            "id",
-            "inactivitySeconds",
-            "name",
-            "revision",
-            "scope",
-            "service",
-            "serviceType",
-            "threshold",
-            "triggerType",
-            "updated",
-            "updatedByUserId"
-          ],
-          "type": "object"
-        }
-      },
-      "required": [
-        "automation"
-      ],
-      "type": "object",
-    },
-    annotations: {
-      "destructiveHint": true,
-      "idempotentHint": true,
-      "openWorldHint": true,
-      "readOnlyHint": false,
-      "title": "Delete an issue automation"
-    },
-    method: "DELETE",
-    path: "/accounts/{account_id}/workers/observability/issues/automations/{automationId}",
-    responses: {
-      schemas: {
-        "200": {
+          "type": "array"
+        },
+        "messages": {
+          "items": {
+            "properties": {
+              "message": {
+                "enum": [
+                  "Successful request"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "message"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "result": {
           "properties": {
             "automation": {
               "properties": {
@@ -796,6 +789,205 @@ export const tools: readonly Tool[] = [
           },
           "required": [
             "automation"
+          ],
+          "type": "object"
+        },
+        "success": {
+          "enum": [
+            true
+          ],
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "errors",
+        "messages",
+        "result",
+        "success"
+      ],
+      "type": "object",
+    },
+    annotations: {
+      "destructiveHint": true,
+      "idempotentHint": true,
+      "openWorldHint": true,
+      "readOnlyHint": false,
+      "title": "Delete an issue automation"
+    },
+    method: "DELETE",
+    path: "/accounts/{account_id}/workers/observability/issues/automations/{automationId}",
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "messages": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "enum": [
+                      "Successful request"
+                    ],
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result": {
+              "properties": {
+                "automation": {
+                  "properties": {
+                    "ansPolicyId": {
+                      "type": "string"
+                    },
+                    "created": {
+                      "type": "number"
+                    },
+                    "createdByUserId": {
+                      "oneOf": [
+                        {
+                          "type": "string"
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    },
+                    "enabled": {
+                      "type": "boolean"
+                    },
+                    "id": {
+                      "type": "string"
+                    },
+                    "inactivitySeconds": {
+                      "oneOf": [
+                        {
+                          "type": "number"
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "revision": {
+                      "type": "number"
+                    },
+                    "scope": {
+                      "enum": [
+                        "account",
+                        "service"
+                      ],
+                      "type": "string"
+                    },
+                    "service": {
+                      "oneOf": [
+                        {
+                          "type": "string"
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    },
+                    "serviceType": {
+                      "oneOf": [
+                        {
+                          "type": "string"
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    },
+                    "threshold": {
+                      "oneOf": [
+                        {
+                          "type": "number"
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    },
+                    "triggerType": {
+                      "enum": [
+                        "occurrence_threshold",
+                        "recurrence_after_inactivity"
+                      ],
+                      "type": "string"
+                    },
+                    "updated": {
+                      "type": "number"
+                    },
+                    "updatedByUserId": {
+                      "oneOf": [
+                        {
+                          "type": "string"
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    }
+                  },
+                  "required": [
+                    "ansPolicyId",
+                    "created",
+                    "createdByUserId",
+                    "enabled",
+                    "id",
+                    "inactivitySeconds",
+                    "name",
+                    "revision",
+                    "scope",
+                    "service",
+                    "serviceType",
+                    "threshold",
+                    "triggerType",
+                    "updated",
+                    "updatedByUserId"
+                  ],
+                  "type": "object"
+                }
+              },
+              "required": [
+                "automation"
+              ],
+              "type": "object"
+            },
+            "success": {
+              "enum": [
+                true
+              ],
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "messages",
+            "result",
+            "success"
           ],
           "type": "object"
         },
@@ -1027,141 +1219,38 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
-        "automation": {
-          "properties": {
-            "ansPolicyId": {
-              "type": "string"
+        "errors": {
+          "items": {
+            "properties": {
+              "message": {
+                "type": "string"
+              }
             },
-            "created": {
-              "type": "number"
-            },
-            "createdByUserId": {
-              "oneOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ]
-            },
-            "enabled": {
-              "type": "boolean"
-            },
-            "id": {
-              "type": "string"
-            },
-            "inactivitySeconds": {
-              "oneOf": [
-                {
-                  "type": "number"
-                },
-                {
-                  "type": "null"
-                }
-              ]
-            },
-            "name": {
-              "type": "string"
-            },
-            "revision": {
-              "type": "number"
-            },
-            "scope": {
-              "enum": [
-                "account",
-                "service"
-              ],
-              "type": "string"
-            },
-            "service": {
-              "oneOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ]
-            },
-            "serviceType": {
-              "oneOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ]
-            },
-            "threshold": {
-              "oneOf": [
-                {
-                  "type": "number"
-                },
-                {
-                  "type": "null"
-                }
-              ]
-            },
-            "triggerType": {
-              "enum": [
-                "occurrence_threshold",
-                "recurrence_after_inactivity"
-              ],
-              "type": "string"
-            },
-            "updated": {
-              "type": "number"
-            },
-            "updatedByUserId": {
-              "oneOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ]
-            }
+            "required": [
+              "message"
+            ],
+            "type": "object"
           },
-          "required": [
-            "ansPolicyId",
-            "created",
-            "createdByUserId",
-            "enabled",
-            "id",
-            "inactivitySeconds",
-            "name",
-            "revision",
-            "scope",
-            "service",
-            "serviceType",
-            "threshold",
-            "triggerType",
-            "updated",
-            "updatedByUserId"
-          ],
-          "type": "object"
-        }
-      },
-      "required": [
-        "automation"
-      ],
-      "type": "object",
-    },
-    annotations: {
-      "destructiveHint": false,
-      "idempotentHint": true,
-      "openWorldHint": true,
-      "readOnlyHint": true,
-      "title": "Get an issue automation"
-    },
-    method: "GET",
-    path: "/accounts/{account_id}/workers/observability/issues/automations/{automationId}",
-    responses: {
-      schemas: {
-        "200": {
+          "type": "array"
+        },
+        "messages": {
+          "items": {
+            "properties": {
+              "message": {
+                "enum": [
+                  "Successful request"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "message"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "result": {
           "properties": {
             "automation": {
               "properties": {
@@ -1283,6 +1372,205 @@ export const tools: readonly Tool[] = [
           },
           "required": [
             "automation"
+          ],
+          "type": "object"
+        },
+        "success": {
+          "enum": [
+            true
+          ],
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "errors",
+        "messages",
+        "result",
+        "success"
+      ],
+      "type": "object",
+    },
+    annotations: {
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": true,
+      "readOnlyHint": true,
+      "title": "Get an issue automation"
+    },
+    method: "GET",
+    path: "/accounts/{account_id}/workers/observability/issues/automations/{automationId}",
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "messages": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "enum": [
+                      "Successful request"
+                    ],
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result": {
+              "properties": {
+                "automation": {
+                  "properties": {
+                    "ansPolicyId": {
+                      "type": "string"
+                    },
+                    "created": {
+                      "type": "number"
+                    },
+                    "createdByUserId": {
+                      "oneOf": [
+                        {
+                          "type": "string"
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    },
+                    "enabled": {
+                      "type": "boolean"
+                    },
+                    "id": {
+                      "type": "string"
+                    },
+                    "inactivitySeconds": {
+                      "oneOf": [
+                        {
+                          "type": "number"
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "revision": {
+                      "type": "number"
+                    },
+                    "scope": {
+                      "enum": [
+                        "account",
+                        "service"
+                      ],
+                      "type": "string"
+                    },
+                    "service": {
+                      "oneOf": [
+                        {
+                          "type": "string"
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    },
+                    "serviceType": {
+                      "oneOf": [
+                        {
+                          "type": "string"
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    },
+                    "threshold": {
+                      "oneOf": [
+                        {
+                          "type": "number"
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    },
+                    "triggerType": {
+                      "enum": [
+                        "occurrence_threshold",
+                        "recurrence_after_inactivity"
+                      ],
+                      "type": "string"
+                    },
+                    "updated": {
+                      "type": "number"
+                    },
+                    "updatedByUserId": {
+                      "oneOf": [
+                        {
+                          "type": "string"
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    }
+                  },
+                  "required": [
+                    "ansPolicyId",
+                    "created",
+                    "createdByUserId",
+                    "enabled",
+                    "id",
+                    "inactivitySeconds",
+                    "name",
+                    "revision",
+                    "scope",
+                    "service",
+                    "serviceType",
+                    "threshold",
+                    "triggerType",
+                    "updated",
+                    "updatedByUserId"
+                  ],
+                  "type": "object"
+                }
+              },
+              "required": [
+                "automation"
+              ],
+              "type": "object"
+            },
+            "success": {
+              "enum": [
+                true
+              ],
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "messages",
+            "result",
+            "success"
           ],
           "type": "object"
         },
@@ -1513,144 +1801,38 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
-        "automations": {
+        "errors": {
           "items": {
             "properties": {
-              "ansPolicyId": {
+              "message": {
                 "type": "string"
-              },
-              "created": {
-                "type": "number"
-              },
-              "createdByUserId": {
-                "oneOf": [
-                  {
-                    "type": "string"
-                  },
-                  {
-                    "type": "null"
-                  }
-                ]
-              },
-              "enabled": {
-                "type": "boolean"
-              },
-              "id": {
-                "type": "string"
-              },
-              "inactivitySeconds": {
-                "oneOf": [
-                  {
-                    "type": "number"
-                  },
-                  {
-                    "type": "null"
-                  }
-                ]
-              },
-              "name": {
-                "type": "string"
-              },
-              "revision": {
-                "type": "number"
-              },
-              "scope": {
-                "enum": [
-                  "account",
-                  "service"
-                ],
-                "type": "string"
-              },
-              "service": {
-                "oneOf": [
-                  {
-                    "type": "string"
-                  },
-                  {
-                    "type": "null"
-                  }
-                ]
-              },
-              "serviceType": {
-                "oneOf": [
-                  {
-                    "type": "string"
-                  },
-                  {
-                    "type": "null"
-                  }
-                ]
-              },
-              "threshold": {
-                "oneOf": [
-                  {
-                    "type": "number"
-                  },
-                  {
-                    "type": "null"
-                  }
-                ]
-              },
-              "triggerType": {
-                "enum": [
-                  "occurrence_threshold",
-                  "recurrence_after_inactivity"
-                ],
-                "type": "string"
-              },
-              "updated": {
-                "type": "number"
-              },
-              "updatedByUserId": {
-                "oneOf": [
-                  {
-                    "type": "string"
-                  },
-                  {
-                    "type": "null"
-                  }
-                ]
               }
             },
             "required": [
-              "ansPolicyId",
-              "created",
-              "createdByUserId",
-              "enabled",
-              "id",
-              "inactivitySeconds",
-              "name",
-              "revision",
-              "scope",
-              "service",
-              "serviceType",
-              "threshold",
-              "triggerType",
-              "updated",
-              "updatedByUserId"
+              "message"
             ],
             "type": "object"
           },
           "type": "array"
-        }
-      },
-      "required": [
-        "automations"
-      ],
-      "type": "object",
-    },
-    annotations: {
-      "destructiveHint": false,
-      "idempotentHint": true,
-      "openWorldHint": true,
-      "readOnlyHint": true,
-      "title": "List issue automations"
-    },
-    method: "GET",
-    path: "/accounts/{account_id}/workers/observability/issues/automations",
-    responses: {
-      schemas: {
-        "200": {
+        },
+        "messages": {
+          "items": {
+            "properties": {
+              "message": {
+                "enum": [
+                  "Successful request"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "message"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "result": {
           "properties": {
             "automations": {
               "items": {
@@ -1775,6 +1957,208 @@ export const tools: readonly Tool[] = [
           },
           "required": [
             "automations"
+          ],
+          "type": "object"
+        },
+        "success": {
+          "enum": [
+            true
+          ],
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "errors",
+        "messages",
+        "result",
+        "success"
+      ],
+      "type": "object",
+    },
+    annotations: {
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": true,
+      "readOnlyHint": true,
+      "title": "List issue automations"
+    },
+    method: "GET",
+    path: "/accounts/{account_id}/workers/observability/issues/automations",
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "messages": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "enum": [
+                      "Successful request"
+                    ],
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result": {
+              "properties": {
+                "automations": {
+                  "items": {
+                    "properties": {
+                      "ansPolicyId": {
+                        "type": "string"
+                      },
+                      "created": {
+                        "type": "number"
+                      },
+                      "createdByUserId": {
+                        "oneOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "enabled": {
+                        "type": "boolean"
+                      },
+                      "id": {
+                        "type": "string"
+                      },
+                      "inactivitySeconds": {
+                        "oneOf": [
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "revision": {
+                        "type": "number"
+                      },
+                      "scope": {
+                        "enum": [
+                          "account",
+                          "service"
+                        ],
+                        "type": "string"
+                      },
+                      "service": {
+                        "oneOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "serviceType": {
+                        "oneOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "threshold": {
+                        "oneOf": [
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "triggerType": {
+                        "enum": [
+                          "occurrence_threshold",
+                          "recurrence_after_inactivity"
+                        ],
+                        "type": "string"
+                      },
+                      "updated": {
+                        "type": "number"
+                      },
+                      "updatedByUserId": {
+                        "oneOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      }
+                    },
+                    "required": [
+                      "ansPolicyId",
+                      "created",
+                      "createdByUserId",
+                      "enabled",
+                      "id",
+                      "inactivitySeconds",
+                      "name",
+                      "revision",
+                      "scope",
+                      "service",
+                      "serviceType",
+                      "threshold",
+                      "triggerType",
+                      "updated",
+                      "updatedByUserId"
+                    ],
+                    "type": "object"
+                  },
+                  "type": "array"
+                }
+              },
+              "required": [
+                "automations"
+              ],
+              "type": "object"
+            },
+            "success": {
+              "enum": [
+                true
+              ],
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "messages",
+            "result",
+            "success"
           ],
           "type": "object"
         },
@@ -2036,141 +2420,38 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
-        "automation": {
-          "properties": {
-            "ansPolicyId": {
-              "type": "string"
+        "errors": {
+          "items": {
+            "properties": {
+              "message": {
+                "type": "string"
+              }
             },
-            "created": {
-              "type": "number"
-            },
-            "createdByUserId": {
-              "oneOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ]
-            },
-            "enabled": {
-              "type": "boolean"
-            },
-            "id": {
-              "type": "string"
-            },
-            "inactivitySeconds": {
-              "oneOf": [
-                {
-                  "type": "number"
-                },
-                {
-                  "type": "null"
-                }
-              ]
-            },
-            "name": {
-              "type": "string"
-            },
-            "revision": {
-              "type": "number"
-            },
-            "scope": {
-              "enum": [
-                "account",
-                "service"
-              ],
-              "type": "string"
-            },
-            "service": {
-              "oneOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ]
-            },
-            "serviceType": {
-              "oneOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ]
-            },
-            "threshold": {
-              "oneOf": [
-                {
-                  "type": "number"
-                },
-                {
-                  "type": "null"
-                }
-              ]
-            },
-            "triggerType": {
-              "enum": [
-                "occurrence_threshold",
-                "recurrence_after_inactivity"
-              ],
-              "type": "string"
-            },
-            "updated": {
-              "type": "number"
-            },
-            "updatedByUserId": {
-              "oneOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ]
-            }
+            "required": [
+              "message"
+            ],
+            "type": "object"
           },
-          "required": [
-            "ansPolicyId",
-            "created",
-            "createdByUserId",
-            "enabled",
-            "id",
-            "inactivitySeconds",
-            "name",
-            "revision",
-            "scope",
-            "service",
-            "serviceType",
-            "threshold",
-            "triggerType",
-            "updated",
-            "updatedByUserId"
-          ],
-          "type": "object"
-        }
-      },
-      "required": [
-        "automation"
-      ],
-      "type": "object",
-    },
-    annotations: {
-      "destructiveHint": true,
-      "idempotentHint": true,
-      "openWorldHint": true,
-      "readOnlyHint": false,
-      "title": "Update an issue automation"
-    },
-    method: "PUT",
-    path: "/accounts/{account_id}/workers/observability/issues/automations/{automationId}",
-    responses: {
-      schemas: {
-        "200": {
+          "type": "array"
+        },
+        "messages": {
+          "items": {
+            "properties": {
+              "message": {
+                "enum": [
+                  "Successful request"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "message"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "result": {
           "properties": {
             "automation": {
               "properties": {
@@ -2292,6 +2573,205 @@ export const tools: readonly Tool[] = [
           },
           "required": [
             "automation"
+          ],
+          "type": "object"
+        },
+        "success": {
+          "enum": [
+            true
+          ],
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "errors",
+        "messages",
+        "result",
+        "success"
+      ],
+      "type": "object",
+    },
+    annotations: {
+      "destructiveHint": true,
+      "idempotentHint": true,
+      "openWorldHint": true,
+      "readOnlyHint": false,
+      "title": "Update an issue automation"
+    },
+    method: "PUT",
+    path: "/accounts/{account_id}/workers/observability/issues/automations/{automationId}",
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "messages": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "enum": [
+                      "Successful request"
+                    ],
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result": {
+              "properties": {
+                "automation": {
+                  "properties": {
+                    "ansPolicyId": {
+                      "type": "string"
+                    },
+                    "created": {
+                      "type": "number"
+                    },
+                    "createdByUserId": {
+                      "oneOf": [
+                        {
+                          "type": "string"
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    },
+                    "enabled": {
+                      "type": "boolean"
+                    },
+                    "id": {
+                      "type": "string"
+                    },
+                    "inactivitySeconds": {
+                      "oneOf": [
+                        {
+                          "type": "number"
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "revision": {
+                      "type": "number"
+                    },
+                    "scope": {
+                      "enum": [
+                        "account",
+                        "service"
+                      ],
+                      "type": "string"
+                    },
+                    "service": {
+                      "oneOf": [
+                        {
+                          "type": "string"
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    },
+                    "serviceType": {
+                      "oneOf": [
+                        {
+                          "type": "string"
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    },
+                    "threshold": {
+                      "oneOf": [
+                        {
+                          "type": "number"
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    },
+                    "triggerType": {
+                      "enum": [
+                        "occurrence_threshold",
+                        "recurrence_after_inactivity"
+                      ],
+                      "type": "string"
+                    },
+                    "updated": {
+                      "type": "number"
+                    },
+                    "updatedByUserId": {
+                      "oneOf": [
+                        {
+                          "type": "string"
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    }
+                  },
+                  "required": [
+                    "ansPolicyId",
+                    "created",
+                    "createdByUserId",
+                    "enabled",
+                    "id",
+                    "inactivitySeconds",
+                    "name",
+                    "revision",
+                    "scope",
+                    "service",
+                    "serviceType",
+                    "threshold",
+                    "triggerType",
+                    "updated",
+                    "updatedByUserId"
+                  ],
+                  "type": "object"
+                }
+              },
+              "required": [
+                "automation"
+              ],
+              "type": "object"
+            },
+            "success": {
+              "enum": [
+                true
+              ],
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "messages",
+            "result",
+            "success"
           ],
           "type": "object"
         },

@@ -4,8 +4,10 @@
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
   secondary_dns_api_response_common_failure_output,
+  secondary_dns_api_response_single_output,
   secondary_dns_messages_output,
 } from "../outputs.js";
+import { secondary_dns_identifier } from "../schemas.js";
 import {
   secondary_dns_force_response_output,
   secondary_dns_force_result_output,
@@ -23,17 +25,23 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "zone_id": {
-          "type": "string"
+          "$ref": "#/$defs/secondary-dns_identifier"
         }
       },
       required: [
         "zone_id"
       ],
+      $defs: {
+        "secondary-dns_identifier": secondary_dns_identifier,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/secondary-dns_force_result",
+      "$ref": "#/$defs/secondary-dns_force_response",
       $defs: {
+        "secondary-dns_api-response-single": secondary_dns_api_response_single_output,
+        "secondary-dns_force_response": secondary_dns_force_response_output,
         "secondary-dns_force_result": secondary_dns_force_result_output,
+        "secondary-dns_messages": secondary_dns_messages_output,
       },
     },
     annotations: {
@@ -61,7 +69,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/secondary-dns_force_result"
+          "$ref": "#/$defs/secondary-dns_force_response"
         },
         "4XX": {
           "allOf": [
@@ -76,6 +84,7 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "secondary-dns_api-response-common-failure": secondary_dns_api_response_common_failure_output,
+        "secondary-dns_api-response-single": secondary_dns_api_response_single_output,
         "secondary-dns_force_response": secondary_dns_force_response_output,
         "secondary-dns_force_result": secondary_dns_force_result_output,
         "secondary-dns_messages": secondary_dns_messages_output,

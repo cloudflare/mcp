@@ -65,27 +65,17 @@ export const intel_url_intelligence_category_with_source_output: JsonSchema = {
  * The schema of `intel_url_intelligence_single_response` in responses.
  */
 export const intel_url_intelligence_single_response_output: JsonSchema = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/intel_schemas-messages"
+  "allOf": [
+    {
+      "$ref": "#/$defs/intel_api-response-single"
     },
-    "messages": {
-      "$ref": "#/$defs/intel_schemas-messages"
-    },
-    "result": {
-      "$ref": "#/$defs/intel_url_intelligence"
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/intel_url_intelligence"
+        }
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "success"
-  ],
-  "type": "object"
+  ]
 };

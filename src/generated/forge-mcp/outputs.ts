@@ -62,13 +62,26 @@ export const aaa_api_response_common_failure_2_output: JsonSchema = {
   "properties": {
     "errors": {
       "items": {
-        "$ref": "#/$defs/aaa_api-response-common-failure-2_errorsItem"
+        "properties": {
+          "message": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "message"
+        ],
+        "type": "object"
       },
       "type": "array"
     },
     "messages": {
       "items": {
-        "$ref": "#/$defs/aaa_api-response-common-failure-2_messagesItem"
+        "properties": {
+          "message": {
+            "type": "string"
+          }
+        },
+        "type": "object"
       },
       "type": "array"
     },
@@ -83,33 +96,6 @@ export const aaa_api_response_common_failure_2_output: JsonSchema = {
     "errors",
     "success"
   ],
-  "type": "object"
-};
-
-/**
- * The schema of `aaa_api-response-common-failure-2_errorsItem` in responses.
- */
-export const aaa_api_response_common_failure_2_errorsItem_output: JsonSchema = {
-  "properties": {
-    "message": {
-      "type": "string"
-    }
-  },
-  "required": [
-    "message"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `aaa_api-response-common-failure-2_messagesItem` in responses.
- */
-export const aaa_api_response_common_failure_2_messagesItem_output: JsonSchema = {
-  "properties": {
-    "message": {
-      "type": "string"
-    }
-  },
   "type": "object"
 };
 
@@ -200,10 +186,37 @@ export const aaa_audit_log_raw_output: JsonSchema = {
 export const aaa_audit_logs_output: JsonSchema = {
   "properties": {
     "action": {
-      "$ref": "#/$defs/aaa_audit-logs_action"
+      "properties": {
+        "result": {
+          "type": "boolean"
+        },
+        "type": {
+          "type": "string"
+        }
+      },
+      "type": "object"
     },
     "actor": {
-      "$ref": "#/$defs/aaa_audit-logs_actor"
+      "properties": {
+        "email": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "ip": {
+          "type": "string"
+        },
+        "type": {
+          "enum": [
+            "user",
+            "admin",
+            "Cloudflare"
+          ],
+          "type": "string"
+        }
+      },
+      "type": "object"
     },
     "id": {
       "type": "string"
@@ -221,14 +234,48 @@ export const aaa_audit_logs_output: JsonSchema = {
       "type": "string"
     },
     "owner": {
-      "$ref": "#/$defs/aaa_audit-logs_owner"
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/aaa_identifier"
+        }
+      },
+      "type": "object"
     },
     "resource": {
-      "$ref": "#/$defs/aaa_audit-logs_resource"
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        }
+      },
+      "type": "object"
     },
     "when": {
       "format": "date-time",
       "type": "string"
+    }
+  },
+  "type": "object"
+};
+
+/**
+ * The schema of `aaa_audit-logs-response-collection` in responses.
+ */
+export const aaa_audit_logs_response_collection_output: JsonSchema = {
+  "properties": {
+    "errors": {
+      "$ref": "#/$defs/aaa_messages-2"
+    },
+    "result_info": {
+      "$ref": "#/$defs/aaa_result_info"
+    },
+    "success": {
+      "enum": [
+        true
+      ],
+      "type": "boolean"
     }
   },
   "type": "object"
@@ -293,77 +340,9 @@ export const aaa_audit_logs_v2_history_result_info_output: JsonSchema = {
 };
 
 /**
- * The schema of `aaa_audit-logs_action` in responses.
+ * The schema of `aaa_audit_logs_response_collection` in responses.
  */
-export const aaa_audit_logs_action_output: JsonSchema = {
-  "properties": {
-    "result": {
-      "type": "boolean"
-    },
-    "type": {
-      "type": "string"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `aaa_audit-logs_actor` in responses.
- */
-export const aaa_audit_logs_actor_output: JsonSchema = {
-  "properties": {
-    "email": {
-      "type": "string"
-    },
-    "id": {
-      "type": "string"
-    },
-    "ip": {
-      "type": "string"
-    },
-    "type": {
-      "enum": [
-        "user",
-        "admin",
-        "Cloudflare"
-      ],
-      "type": "string"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `aaa_audit-logs_owner` in responses.
- */
-export const aaa_audit_logs_owner_output: JsonSchema = {
-  "properties": {
-    "id": {
-      "$ref": "#/$defs/aaa_identifier"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `aaa_audit-logs_resource` in responses.
- */
-export const aaa_audit_logs_resource_output: JsonSchema = {
-  "properties": {
-    "id": {
-      "type": "string"
-    },
-    "type": {
-      "type": "string"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `aaa_audit_logs_response_collection_alt` in responses.
- */
-export const aaa_audit_logs_response_collection_alt_output: JsonSchema = {
+export const aaa_audit_logs_response_collection_output$: JsonSchema = {
   "oneOf": [
     {
       "properties": {
@@ -529,7 +508,19 @@ export const analytics_sql_ClickHouseJsonQueryResponse_output: JsonSchema = {
     },
     "meta": {
       "items": {
-        "$ref": "#/$defs/analytics-sql_ClickHouseJsonQueryResponse_metaItem"
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "name",
+          "type"
+        ],
+        "type": "object"
       },
       "type": "array"
     },
@@ -549,26 +540,6 @@ export const analytics_sql_ClickHouseJsonQueryResponse_output: JsonSchema = {
     "rows",
     "rows_before_limit_at_least",
     "statistics"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `analytics-sql_ClickHouseJsonQueryResponse_metaItem` in
- * responses.
- */
-export const analytics_sql_ClickHouseJsonQueryResponse_metaItem_output: JsonSchema = {
-  "properties": {
-    "name": {
-      "type": "string"
-    },
-    "type": {
-      "type": "string"
-    }
-  },
-  "required": [
-    "name",
-    "type"
   ],
   "type": "object"
 };
@@ -749,67 +720,46 @@ export const analytics_sql_IntrospectionDatasetKind_output: JsonSchema = {
       "type": "array"
     },
     "events": {
-      "$ref": "#/$defs/analytics-sql_IntrospectionDatasetKind_events"
+      "properties": {
+        "sampling": {
+          "$ref": "#/$defs/analytics-sql_IntrospectionSampling"
+        }
+      },
+      "required": [
+        "sampling"
+      ],
+      "type": "object"
     },
     "logs": {
-      "$ref": "#/$defs/analytics-sql_IntrospectionDatasetKind_logs"
+      "properties": {
+        "sampling": {
+          "$ref": "#/$defs/analytics-sql_IntrospectionSampling"
+        }
+      },
+      "required": [
+        "sampling"
+      ],
+      "type": "object"
     },
     "states": {
-      "$ref": "#/$defs/analytics-sql_IntrospectionDatasetKind_states"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `analytics-sql_IntrospectionDatasetKind_events` in responses.
- */
-export const analytics_sql_IntrospectionDatasetKind_events_output: JsonSchema = {
-  "properties": {
-    "sampling": {
-      "$ref": "#/$defs/analytics-sql_IntrospectionSampling"
-    }
-  },
-  "required": [
-    "sampling"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `analytics-sql_IntrospectionDatasetKind_logs` in responses.
- */
-export const analytics_sql_IntrospectionDatasetKind_logs_output: JsonSchema = {
-  "properties": {
-    "sampling": {
-      "$ref": "#/$defs/analytics-sql_IntrospectionSampling"
-    }
-  },
-  "required": [
-    "sampling"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `analytics-sql_IntrospectionDatasetKind_states` in responses.
- */
-export const analytics_sql_IntrospectionDatasetKind_states_output: JsonSchema = {
-  "properties": {
-    "sampling": {
-      "$ref": "#/$defs/analytics-sql_IntrospectionSampling"
-    },
-    "valid_aggregations": {
-      "items": {
-        "type": "string"
+      "properties": {
+        "sampling": {
+          "$ref": "#/$defs/analytics-sql_IntrospectionSampling"
+        },
+        "valid_aggregations": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        }
       },
-      "type": "array"
+      "required": [
+        "sampling",
+        "valid_aggregations"
+      ],
+      "type": "object"
     }
   },
-  "required": [
-    "sampling",
-    "valid_aggregations"
-  ],
   "type": "object"
 };
 
@@ -911,6 +861,42 @@ export const analytics_sql_SqlQueryStatistics_output: JsonSchema = {
     "rows_read"
   ],
   "type": "object"
+};
+
+/**
+ * The schema of `api-shield_api-response-collection` in responses.
+ */
+export const api_shield_api_response_collection_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/api-shield_api-response-common"
+    },
+    {
+      "properties": {
+        "result_info": {
+          "properties": {
+            "count": {
+              "type": "number"
+            },
+            "page": {
+              "type": "number"
+            },
+            "per_page": {
+              "type": "number"
+            },
+            "total_count": {
+              "type": "number"
+            },
+            "total_pages": {
+              "type": "number"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
+    }
+  ]
 };
 
 /**
@@ -1090,34 +1076,26 @@ export const api_shield_method_output: JsonSchema = {
  * The schema of `api-shield_operation` in responses.
  */
 export const api_shield_operation_output: JsonSchema = {
-  "properties": {
-    "endpoint": {
-      "$ref": "#/$defs/api-shield_endpoint"
+  "allOf": [
+    {
+      "$ref": "#/$defs/api-shield_standard_operation"
     },
-    "features": {
-      "$ref": "#/$defs/api-shield_operation_features"
-    },
-    "host": {
-      "$ref": "#/$defs/api-shield_host"
-    },
-    "last_updated": {
-      "$ref": "#/$defs/api-shield_timestamp-2"
-    },
-    "method": {
-      "$ref": "#/$defs/api-shield_method"
-    },
-    "operation_id": {
-      "$ref": "#/$defs/api-shield_uuid-2"
+    {
+      "oneOf": [
+        {
+          "properties": {
+            "features": {
+              "$ref": "#/$defs/api-shield_operation_features"
+            }
+          },
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ]
     }
-  },
-  "required": [
-    "endpoint",
-    "host",
-    "method",
-    "last_updated",
-    "operation_id"
-  ],
-  "type": "object"
+  ]
 };
 
 /**
@@ -1126,23 +1104,15 @@ export const api_shield_operation_output: JsonSchema = {
 export const api_shield_operation_feature_api_routing_output: JsonSchema = {
   "properties": {
     "api_routing": {
-      "$ref": "#/$defs/api-shield_operation_feature_api_routing_api_routing"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `api-shield_operation_feature_api_routing_api_routing` in
- * responses.
- */
-export const api_shield_operation_feature_api_routing_api_routing_output: JsonSchema = {
-  "properties": {
-    "last_updated": {
-      "$ref": "#/$defs/api-shield_timestamp"
-    },
-    "route": {
-      "type": "string"
+      "properties": {
+        "last_updated": {
+          "$ref": "#/$defs/api-shield_timestamp"
+        },
+        "route": {
+          "type": "string"
+        }
+      },
+      "type": "object"
     }
   },
   "type": "object"
@@ -1155,61 +1125,34 @@ export const api_shield_operation_feature_api_routing_api_routing_output: JsonSc
 export const api_shield_operation_feature_confidence_intervals_output: JsonSchema = {
   "properties": {
     "confidence_intervals": {
-      "$ref": "#/$defs/api-shield_operation_feature_confidence_intervals_confidence_intervals"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of
- * `api-shield_operation_feature_confidence_intervals_confidence_intervals` in
- * responses.
- */
-export const api_shield_operation_feature_confidence_intervals_confidence_intervals_output: JsonSchema = {
-  "properties": {
-    "last_updated": {
-      "$ref": "#/$defs/api-shield_timestamp"
-    },
-    "suggested_threshold": {
-      "$ref": "#/$defs/api-shield_operation_feature_confidence_intervals_confidence_intervals_suggested_threshold"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of
- * `api-shield_operation_feature_confidence_intervals_confidence_intervals_suggested_threshold`
- * in responses.
- */
-export const api_shield_operation_feature_confidence_intervals_confidence_intervals_suggested_threshold_output: JsonSchema = {
-  "properties": {
-    "confidence_intervals": {
-      "$ref": "#/$defs/api-shield_operation_feature_confidence_intervals_confidence_intervals_suggested_threshold_confidence_intervals"
-    },
-    "mean": {
-      "type": "number"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of
- * `api-shield_operation_feature_confidence_intervals_confidence_intervals_suggested_threshold_confidence_intervals`
- * in responses.
- */
-export const api_shield_operation_feature_confidence_intervals_confidence_intervals_suggested_threshold_confidence_intervals_output: JsonSchema = {
-  "properties": {
-    "p90": {
-      "$ref": "#/$defs/api-shield_confidence_intervals_bounds"
-    },
-    "p95": {
-      "$ref": "#/$defs/api-shield_confidence_intervals_bounds"
-    },
-    "p99": {
-      "$ref": "#/$defs/api-shield_confidence_intervals_bounds"
+      "properties": {
+        "last_updated": {
+          "$ref": "#/$defs/api-shield_timestamp"
+        },
+        "suggested_threshold": {
+          "properties": {
+            "confidence_intervals": {
+              "properties": {
+                "p90": {
+                  "$ref": "#/$defs/api-shield_confidence_intervals_bounds"
+                },
+                "p95": {
+                  "$ref": "#/$defs/api-shield_confidence_intervals_bounds"
+                },
+                "p99": {
+                  "$ref": "#/$defs/api-shield_confidence_intervals_bounds"
+                }
+              },
+              "type": "object"
+            },
+            "mean": {
+              "type": "number"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
     }
   },
   "type": "object"
@@ -1221,7 +1164,15 @@ export const api_shield_operation_feature_confidence_intervals_confidence_interv
 export const api_shield_operation_feature_parameter_schemas_output: JsonSchema = {
   "properties": {
     "parameter_schemas": {
-      "$ref": "#/$defs/api-shield_operation_feature_parameter_schemas_parameter_schemas"
+      "properties": {
+        "last_updated": {
+          "$ref": "#/$defs/api-shield_timestamp"
+        },
+        "parameter_schemas": {
+          "$ref": "#/$defs/api-shield_parameter_schemas_definition"
+        }
+      },
+      "type": "object"
     }
   },
   "required": [
@@ -1231,77 +1182,43 @@ export const api_shield_operation_feature_parameter_schemas_output: JsonSchema =
 };
 
 /**
- * The schema of
- * `api-shield_operation_feature_parameter_schemas_parameter_schemas` in
- * responses.
- */
-export const api_shield_operation_feature_parameter_schemas_parameter_schemas_output: JsonSchema = {
-  "properties": {
-    "last_updated": {
-      "$ref": "#/$defs/api-shield_timestamp"
-    },
-    "parameter_schemas": {
-      "$ref": "#/$defs/api-shield_parameter_schemas_definition"
-    }
-  },
-  "type": "object"
-};
-
-/**
  * The schema of `api-shield_operation_feature_schema_info` in responses.
  */
 export const api_shield_operation_feature_schema_info_output: JsonSchema = {
   "properties": {
     "schema_info": {
-      "$ref": "#/$defs/api-shield_operation_feature_schema_info_schema_info"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `api-shield_operation_feature_schema_info_schema_info` in
- * responses.
- */
-export const api_shield_operation_feature_schema_info_schema_info_output: JsonSchema = {
-  "properties": {
-    "active_schema": {
-      "$ref": "#/$defs/api-shield_operation_feature_schema_info_schema_info_active_schema"
-    },
-    "mitigation_action": {
-      "oneOf": [
-        {
-          "enum": [
-            "none",
-            "log",
-            "block"
-          ],
-          "type": "string"
+      "properties": {
+        "active_schema": {
+          "properties": {
+            "created_at": {
+              "$ref": "#/$defs/api-shield_timestamp"
+            },
+            "id": {
+              "$ref": "#/$defs/api-shield_uuid-2"
+            },
+            "name": {
+              "type": "string"
+            }
+          },
+          "type": "object"
         },
-        {
-          "type": "null"
+        "mitigation_action": {
+          "oneOf": [
+            {
+              "enum": [
+                "none",
+                "log",
+                "block"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
         }
-      ]
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of
- * `api-shield_operation_feature_schema_info_schema_info_active_schema` in
- * responses.
- */
-export const api_shield_operation_feature_schema_info_schema_info_active_schema_output: JsonSchema = {
-  "properties": {
-    "created_at": {
-      "$ref": "#/$defs/api-shield_timestamp"
-    },
-    "id": {
-      "$ref": "#/$defs/api-shield_uuid-2"
-    },
-    "name": {
-      "type": "string"
+      },
+      "type": "object"
     }
   },
   "type": "object"
@@ -1313,44 +1230,36 @@ export const api_shield_operation_feature_schema_info_schema_info_active_schema_
 export const api_shield_operation_feature_thresholds_output: JsonSchema = {
   "properties": {
     "thresholds": {
-      "$ref": "#/$defs/api-shield_operation_feature_thresholds_thresholds"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `api-shield_operation_feature_thresholds_thresholds` in
- * responses.
- */
-export const api_shield_operation_feature_thresholds_thresholds_output: JsonSchema = {
-  "properties": {
-    "auth_id_tokens": {
-      "$ref": "#/$defs/api-shield_auth_id_tokens"
-    },
-    "data_points": {
-      "$ref": "#/$defs/api-shield_data_points"
-    },
-    "last_updated": {
-      "$ref": "#/$defs/api-shield_timestamp"
-    },
-    "p50": {
-      "$ref": "#/$defs/api-shield_p50"
-    },
-    "p90": {
-      "$ref": "#/$defs/api-shield_p90"
-    },
-    "p99": {
-      "$ref": "#/$defs/api-shield_p99"
-    },
-    "period_seconds": {
-      "$ref": "#/$defs/api-shield_period_seconds"
-    },
-    "requests": {
-      "$ref": "#/$defs/api-shield_requests"
-    },
-    "suggested_threshold": {
-      "$ref": "#/$defs/api-shield_suggested_threshold"
+      "properties": {
+        "auth_id_tokens": {
+          "$ref": "#/$defs/api-shield_auth_id_tokens"
+        },
+        "data_points": {
+          "$ref": "#/$defs/api-shield_data_points"
+        },
+        "last_updated": {
+          "$ref": "#/$defs/api-shield_timestamp"
+        },
+        "p50": {
+          "$ref": "#/$defs/api-shield_p50"
+        },
+        "p90": {
+          "$ref": "#/$defs/api-shield_p90"
+        },
+        "p99": {
+          "$ref": "#/$defs/api-shield_p99"
+        },
+        "period_seconds": {
+          "$ref": "#/$defs/api-shield_period_seconds"
+        },
+        "requests": {
+          "$ref": "#/$defs/api-shield_requests"
+        },
+        "suggested_threshold": {
+          "$ref": "#/$defs/api-shield_suggested_threshold"
+        }
+      },
+      "type": "object"
     }
   },
   "type": "object"
@@ -1440,6 +1349,32 @@ export const api_shield_requests_output: JsonSchema = {
 };
 
 /**
+ * The schema of `api-shield_standard_operation` in responses.
+ */
+export const api_shield_standard_operation_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/api-shield_basic_operation"
+    },
+    {
+      "properties": {
+        "last_updated": {
+          "$ref": "#/$defs/api-shield_timestamp-2"
+        },
+        "operation_id": {
+          "$ref": "#/$defs/api-shield_uuid-2"
+        }
+      },
+      "required": [
+        "last_updated",
+        "operation_id"
+      ],
+      "type": "object"
+    }
+  ]
+};
+
+/**
  * The schema of `api-shield_suggested_threshold` in responses.
  */
 export const api_shield_suggested_threshold_output: JsonSchema = {
@@ -1490,6 +1425,81 @@ export const api_shield_uuid_2_output: JsonSchema = {
 };
 
 /**
+ * The schema of `bill-subs-api_api-response-collection` in responses.
+ */
+export const bill_subs_api_api_response_collection_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/bill-subs-api_api-response-common"
+    },
+    {
+      "properties": {
+        "result": {
+          "oneOf": [
+            {
+              "items": {
+                "type": "object"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "result_info": {
+          "$ref": "#/$defs/bill-subs-api_result_info"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `bill-subs-api_api-response-common` in responses.
+ */
+export const bill_subs_api_api_response_common_output: JsonSchema = {
+  "properties": {
+    "errors": {
+      "$ref": "#/$defs/bill-subs-api_messages"
+    },
+    "messages": {
+      "$ref": "#/$defs/bill-subs-api_messages"
+    },
+    "result": {
+      "anyOf": [
+        {
+          "type": "object"
+        },
+        {
+          "items": {
+            "type": "object"
+          },
+          "type": "array"
+        },
+        {
+          "type": "string"
+        }
+      ]
+    },
+    "success": {
+      "enum": [
+        true
+      ],
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "errors",
+    "messages",
+    "result",
+    "success"
+  ],
+  "type": "object"
+};
+
+/**
  * The schema of `bill-subs-api_api-response-common-failure` in responses.
  */
 export const bill_subs_api_api_response_common_failure_output: JsonSchema = {
@@ -1517,6 +1527,173 @@ export const bill_subs_api_api_response_common_failure_output: JsonSchema = {
     "success"
   ],
   "type": "object"
+};
+
+/**
+ * The schema of `bill-subs-api_api-response-single` in responses.
+ */
+export const bill_subs_api_api_response_single_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/bill-subs-api_api-response-common"
+    },
+    {
+      "properties": {
+        "result": {
+          "anyOf": [
+            {
+              "type": "object"
+            },
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `bill-subs-api_billing_response_single` in responses.
+ */
+export const bill_subs_api_billing_response_single_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/bill-subs-api_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "properties": {
+            "account_type": {
+              "type": "string"
+            },
+            "address": {
+              "type": "string"
+            },
+            "address2": {
+              "type": "string"
+            },
+            "balance": {
+              "type": "string"
+            },
+            "card_expiry_month": {
+              "type": "integer"
+            },
+            "card_expiry_year": {
+              "type": "integer"
+            },
+            "card_number": {
+              "type": "string"
+            },
+            "city": {
+              "type": "string"
+            },
+            "company": {
+              "type": "string"
+            },
+            "country": {
+              "type": "string"
+            },
+            "created_on": {
+              "format": "date-time",
+              "type": "string"
+            },
+            "device_data": {
+              "type": "string"
+            },
+            "edited_on": {
+              "format": "date-time",
+              "type": "string"
+            },
+            "enterprise_billing_email": {
+              "type": "string"
+            },
+            "enterprise_primary_email": {
+              "type": "string"
+            },
+            "first_name": {
+              "type": "string"
+            },
+            "id": {
+              "$ref": "#/$defs/bill-subs-api_components-schemas-identifier"
+            },
+            "is_partner": {
+              "type": "boolean"
+            },
+            "last_name": {
+              "type": "string"
+            },
+            "next_bill_date": {
+              "format": "date-time",
+              "type": "string"
+            },
+            "payment_address": {
+              "type": "string"
+            },
+            "payment_address2": {
+              "type": "string"
+            },
+            "payment_city": {
+              "type": "string"
+            },
+            "payment_country": {
+              "type": "string"
+            },
+            "payment_email": {
+              "type": "string"
+            },
+            "payment_first_name": {
+              "type": "string"
+            },
+            "payment_gateway": {
+              "type": "string"
+            },
+            "payment_last_name": {
+              "type": "string"
+            },
+            "payment_nonce": {
+              "type": "string"
+            },
+            "payment_state": {
+              "type": "string"
+            },
+            "payment_zipcode": {
+              "type": "string"
+            },
+            "primary_email": {
+              "type": "string"
+            },
+            "state": {
+              "type": "string"
+            },
+            "tax_id_type": {
+              "type": "string"
+            },
+            "telephone": {
+              "type": "string"
+            },
+            "validation_code": {
+              "type": "string"
+            },
+            "vat": {
+              "type": "string"
+            },
+            "zipcode": {
+              "type": "string"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
+    }
+  ]
 };
 
 /**
@@ -1732,12 +1909,17 @@ export const bill_subs_api_state_output: JsonSchema = {
 };
 
 /**
- * The schema of `bill-subs-api_subscription-v2` in responses.
+ * The schema of `bill-subs-api_subscription` in responses.
  */
-export const bill_subs_api_subscription_v2_output: JsonSchema = {
+export const bill_subs_api_subscription_output: JsonSchema = {
   "properties": {
     "app": {
-      "$ref": "#/$defs/bill-subs-api_subscription-v2_app"
+      "properties": {
+        "install_id": {
+          "$ref": "#/$defs/bill-subs-api_install_id"
+        }
+      },
+      "type": "object"
     },
     "component_values": {
       "$ref": "#/$defs/bill-subs-api_component_values"
@@ -1774,12 +1956,47 @@ export const bill_subs_api_subscription_v2_output: JsonSchema = {
 };
 
 /**
- * The schema of `bill-subs-api_subscription-v2_app` in responses.
+ * The schema of `bill-subs-api_subscription-v2` in responses.
  */
-export const bill_subs_api_subscription_v2_app_output: JsonSchema = {
+export const bill_subs_api_subscription_v2_output: JsonSchema = {
   "properties": {
-    "install_id": {
-      "$ref": "#/$defs/bill-subs-api_install_id"
+    "app": {
+      "properties": {
+        "install_id": {
+          "$ref": "#/$defs/bill-subs-api_install_id"
+        }
+      },
+      "type": "object"
+    },
+    "component_values": {
+      "$ref": "#/$defs/bill-subs-api_component_values"
+    },
+    "currency": {
+      "$ref": "#/$defs/bill-subs-api_currency"
+    },
+    "current_period_end": {
+      "$ref": "#/$defs/bill-subs-api_current_period_end"
+    },
+    "current_period_start": {
+      "$ref": "#/$defs/bill-subs-api_current_period_start"
+    },
+    "frequency": {
+      "$ref": "#/$defs/bill-subs-api_frequency"
+    },
+    "id": {
+      "$ref": "#/$defs/bill-subs-api_schemas-identifier"
+    },
+    "price": {
+      "$ref": "#/$defs/bill-subs-api_price"
+    },
+    "rate_plan": {
+      "$ref": "#/$defs/bill-subs-api_rate_plan"
+    },
+    "state": {
+      "$ref": "#/$defs/bill-subs-api_state"
+    },
+    "zone": {
+      "$ref": "#/$defs/bill-subs-api_zone"
     }
   },
   "type": "object"
@@ -2137,6 +2354,59 @@ export const billable_usage_api_message_output: JsonSchema = {
 };
 
 /**
+ * The schema of `billable-usage-api_v2_usage_response` in responses.
+ */
+export const billable_usage_api_v2_usage_response_output: JsonSchema = {
+  "properties": {
+    "errors": {
+      "oneOf": [
+        {
+          "items": {
+            "$ref": "#/$defs/billable-usage-api_message"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "messages": {
+      "oneOf": [
+        {
+          "items": {
+            "$ref": "#/$defs/billable-usage-api_message"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "result": {
+      "items": {
+        "$ref": "#/$defs/billable-usage-api_cost_and_usage_data"
+      },
+      "type": "array"
+    },
+    "success": {
+      "enum": [
+        true
+      ],
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "errors",
+    "messages",
+    "result",
+    "success"
+  ],
+  "type": "object"
+};
+
+/**
  * The schema of `brand-protection-api_Error` in responses.
  */
 export const brand_protection_api_Error_output: JsonSchema = {
@@ -2157,6 +2427,55 @@ export const brand_protection_api_Error_output: JsonSchema = {
       "type": "string"
     }
   },
+  "type": "object"
+};
+
+/**
+ * The schema of `builds_APIResponse` in responses.
+ */
+export const builds_APIResponse_output: JsonSchema = {
+  "properties": {
+    "errors": {
+      "items": {
+        "$ref": "#/$defs/builds_ApiError"
+      },
+      "type": "array"
+    },
+    "messages": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "result": {
+      "oneOf": [
+        {
+          "type": "object"
+        },
+        {
+          "items": {
+            "type": "object"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "result_info": {
+      "$ref": "#/$defs/builds_PaginationInfo"
+    },
+    "success": {
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "errors",
+    "messages",
+    "result",
+    "success"
+  ],
   "type": "object"
 };
 
@@ -2217,7 +2536,19 @@ export const builds_BuildResponse_output: JsonSchema = {
       "$ref": "#/$defs/builds_created_on"
     },
     "deploy_hook": {
-      "$ref": "#/$defs/builds_BuildResponse_deploy_hook"
+      "oneOf": [
+        {
+          "properties": {
+            "deploy_hook_name": {
+              "$ref": "#/$defs/builds_deploy_hook_name"
+            }
+          },
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
     "initializing_on": {
       "oneOf": [
@@ -2237,7 +2568,33 @@ export const builds_BuildResponse_output: JsonSchema = {
       "type": "string"
     },
     "pull_request": {
-      "$ref": "#/$defs/builds_BuildResponse_pull_request"
+      "oneOf": [
+        {
+          "properties": {
+            "closed_on": {
+              "oneOf": [
+                {
+                  "format": "date-time",
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "created_on": {
+              "$ref": "#/$defs/builds_created_on"
+            },
+            "pull_request_url": {
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
     "running_on": {
       "oneOf": [
@@ -2257,113 +2614,54 @@ export const builds_BuildResponse_output: JsonSchema = {
       "$ref": "#/$defs/builds_stopped_on"
     },
     "trigger": {
-      "$ref": "#/$defs/builds_BuildResponse_trigger"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `builds_BuildResponse_deploy_hook` in responses.
- */
-export const builds_BuildResponse_deploy_hook_output: JsonSchema = {
-  "oneOf": [
-    {
       "properties": {
-        "deploy_hook_name": {
-          "$ref": "#/$defs/builds_deploy_hook_name"
-        }
-      },
-      "type": "object"
-    },
-    {
-      "type": "null"
-    }
-  ]
-};
-
-/**
- * The schema of `builds_BuildResponse_pull_request` in responses.
- */
-export const builds_BuildResponse_pull_request_output: JsonSchema = {
-  "oneOf": [
-    {
-      "properties": {
-        "closed_on": {
-          "oneOf": [
-            {
-              "format": "date-time",
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ]
+        "branch_excludes": {
+          "$ref": "#/$defs/builds_branch_excludes"
+        },
+        "branch_includes": {
+          "$ref": "#/$defs/builds_branch_includes"
+        },
+        "build_caching_enabled": {
+          "$ref": "#/$defs/builds_build_caching_enabled"
+        },
+        "build_command": {
+          "$ref": "#/$defs/builds_build_command"
         },
         "created_on": {
           "$ref": "#/$defs/builds_created_on"
         },
-        "pull_request_url": {
-          "type": "string"
+        "deleted_on": {
+          "$ref": "#/$defs/builds_deleted_on"
+        },
+        "deploy_command": {
+          "$ref": "#/$defs/builds_deploy_command"
+        },
+        "external_script_id": {
+          "$ref": "#/$defs/builds_external_script_id"
+        },
+        "modified_on": {
+          "$ref": "#/$defs/builds_modified_on"
+        },
+        "path_excludes": {
+          "$ref": "#/$defs/builds_path_excludes"
+        },
+        "path_includes": {
+          "$ref": "#/$defs/builds_path_includes"
+        },
+        "repo_connection": {
+          "$ref": "#/$defs/builds_UpsertRepoConnectionResponse"
+        },
+        "root_directory": {
+          "$ref": "#/$defs/builds_root_directory"
+        },
+        "trigger_name": {
+          "$ref": "#/$defs/builds_trigger_name"
+        },
+        "trigger_uuid": {
+          "$ref": "#/$defs/builds_trigger_uuid"
         }
       },
       "type": "object"
-    },
-    {
-      "type": "null"
-    }
-  ]
-};
-
-/**
- * The schema of `builds_BuildResponse_trigger` in responses.
- */
-export const builds_BuildResponse_trigger_output: JsonSchema = {
-  "properties": {
-    "branch_excludes": {
-      "$ref": "#/$defs/builds_branch_excludes"
-    },
-    "branch_includes": {
-      "$ref": "#/$defs/builds_branch_includes"
-    },
-    "build_caching_enabled": {
-      "$ref": "#/$defs/builds_build_caching_enabled"
-    },
-    "build_command": {
-      "$ref": "#/$defs/builds_build_command"
-    },
-    "created_on": {
-      "$ref": "#/$defs/builds_created_on"
-    },
-    "deleted_on": {
-      "$ref": "#/$defs/builds_deleted_on"
-    },
-    "deploy_command": {
-      "$ref": "#/$defs/builds_deploy_command"
-    },
-    "external_script_id": {
-      "$ref": "#/$defs/builds_external_script_id"
-    },
-    "modified_on": {
-      "$ref": "#/$defs/builds_modified_on"
-    },
-    "path_excludes": {
-      "$ref": "#/$defs/builds_path_excludes"
-    },
-    "path_includes": {
-      "$ref": "#/$defs/builds_path_includes"
-    },
-    "repo_connection": {
-      "$ref": "#/$defs/builds_UpsertRepoConnectionResponse"
-    },
-    "root_directory": {
-      "$ref": "#/$defs/builds_root_directory"
-    },
-    "trigger_name": {
-      "$ref": "#/$defs/builds_trigger_name"
-    },
-    "trigger_uuid": {
-      "$ref": "#/$defs/builds_trigger_uuid"
     }
   },
   "type": "object"
@@ -2922,6 +3220,32 @@ export const builds_trigger_uuid_output: JsonSchema = {
 };
 
 /**
+ * The schema of `cache-settings_api-response-common` in responses.
+ */
+export const cache_settings_api_response_common_output: JsonSchema = {
+  "properties": {
+    "errors": {
+      "$ref": "#/$defs/cache-settings_messages"
+    },
+    "messages": {
+      "$ref": "#/$defs/cache-settings_messages"
+    },
+    "success": {
+      "enum": [
+        true
+      ],
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "errors",
+    "messages",
+    "success"
+  ],
+  "type": "object"
+};
+
+/**
  * The schema of `cache-settings_api-response-common-failure` in responses.
  */
 export const cache_settings_api_response_common_failure_output: JsonSchema = {
@@ -2952,6 +3276,39 @@ export const cache_settings_api_response_common_failure_output: JsonSchema = {
 };
 
 /**
+ * The schema of `cache-settings_base` in responses.
+ */
+export const cache_settings_base_output: JsonSchema = {
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "modified_on": {
+      "oneOf": [
+        {
+          "format": "date-time",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  },
+  "required": [
+    "id"
+  ],
+  "type": "object"
+};
+
+/**
+ * The schema of `cache-settings_editable` in responses.
+ */
+export const cache_settings_editable_output: JsonSchema = {
+  "type": "boolean"
+};
+
+/**
  * The schema of `cache-settings_messages` in responses.
  */
 export const cache_settings_messages_output: JsonSchema = {
@@ -2971,6 +3328,178 @@ export const cache_settings_messages_output: JsonSchema = {
     "type": "object"
   },
   "type": "array"
+};
+
+/**
+ * The schema of `cache-settings_modified_on` in responses.
+ */
+export const cache_settings_modified_on_output: JsonSchema = {
+  "format": "date-time",
+  "type": "string"
+};
+
+/**
+ * The schema of `cache-settings_result-object` in responses.
+ */
+export const cache_settings_result_object_output: JsonSchema = {
+  "properties": {
+    "editable": {
+      "$ref": "#/$defs/cache-settings_editable"
+    },
+    "id": {
+      "$ref": "#/$defs/cache-settings_setting_id"
+    },
+    "modified_on": {
+      "$ref": "#/$defs/cache-settings_modified_on"
+    },
+    "value": {
+      "$ref": "#/$defs/cache-settings_setting_value"
+    }
+  },
+  "required": [
+    "editable",
+    "id",
+    "value"
+  ],
+  "type": "object"
+};
+
+/**
+ * The schema of `cache-settings_result-object-delete` in responses.
+ */
+export const cache_settings_result_object_delete_output: JsonSchema = {
+  "properties": {
+    "editable": {
+      "$ref": "#/$defs/cache-settings_editable"
+    },
+    "id": {
+      "$ref": "#/$defs/cache-settings_setting_id"
+    },
+    "modified_on": {
+      "$ref": "#/$defs/cache-settings_modified_on"
+    }
+  },
+  "required": [
+    "editable",
+    "id"
+  ],
+  "type": "object"
+};
+
+/**
+ * The schema of `cache-settings_setting_id` in responses.
+ */
+export const cache_settings_setting_id_output: JsonSchema = {
+  "type": "string"
+};
+
+/**
+ * The schema of `cache-settings_setting_value` in responses.
+ */
+export const cache_settings_setting_value_output: JsonSchema = {
+  "type": "string"
+};
+
+/**
+ * The schema of `cache-settings_zone_cache_settings_delete_response_single` in
+ * responses.
+ */
+export const cache_settings_zone_cache_settings_delete_response_single_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/cache-settings_api-response-common"
+    },
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/cache-settings_result-object-delete"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `cache-settings_zone_cache_settings_response_single` in
+ * responses.
+ */
+export const cache_settings_zone_cache_settings_response_single_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/cache-settings_api-response-common"
+    },
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/cache-settings_result-object"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `dns-custom-nameservers_api-response-collection` in responses.
+ */
+export const dns_custom_nameservers_api_response_collection_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/dns-custom-nameservers_api-response-common"
+    },
+    {
+      "properties": {
+        "result_info": {
+          "properties": {
+            "count": {
+              "type": "number"
+            },
+            "page": {
+              "type": "number"
+            },
+            "per_page": {
+              "type": "number"
+            },
+            "total_count": {
+              "type": "number"
+            },
+            "total_pages": {
+              "type": "number"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `dns-custom-nameservers_api-response-common` in responses.
+ */
+export const dns_custom_nameservers_api_response_common_output: JsonSchema = {
+  "properties": {
+    "errors": {
+      "$ref": "#/$defs/dns-custom-nameservers_messages"
+    },
+    "messages": {
+      "$ref": "#/$defs/dns-custom-nameservers_messages"
+    },
+    "success": {
+      "enum": [
+        true
+      ],
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "errors",
+    "messages",
+    "success"
+  ],
+  "type": "object"
 };
 
 /**
@@ -2999,6 +3528,32 @@ export const dns_custom_nameservers_api_response_common_failure_output: JsonSche
     "errors",
     "messages",
     "result",
+    "success"
+  ],
+  "type": "object"
+};
+
+/**
+ * The schema of `dns-custom-nameservers_api-response-single` in responses.
+ */
+export const dns_custom_nameservers_api_response_single_output: JsonSchema = {
+  "properties": {
+    "errors": {
+      "$ref": "#/$defs/dns-custom-nameservers_messages"
+    },
+    "messages": {
+      "$ref": "#/$defs/dns-custom-nameservers_messages"
+    },
+    "success": {
+      "enum": [
+        true
+      ],
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "errors",
+    "messages",
     "success"
   ],
   "type": "object"
@@ -3059,22 +3614,55 @@ export const dns_custom_nameservers_ns_set_output: JsonSchema = {
 };
 
 /**
- * The schema of `dos_api-response-common-failure` in responses.
+ * The schema of `email_api-response-collection` in responses.
  */
-export const dos_api_response_common_failure_output: JsonSchema = {
+export const email_api_response_collection_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/email_api-response-common"
+    },
+    {
+      "properties": {
+        "result_info": {
+          "properties": {
+            "count": {
+              "type": "number"
+            },
+            "page": {
+              "type": "number"
+            },
+            "per_page": {
+              "type": "number"
+            },
+            "total_count": {
+              "type": "number"
+            },
+            "total_pages": {
+              "type": "number"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `email_api-response-common` in responses.
+ */
+export const email_api_response_common_output: JsonSchema = {
   "properties": {
     "errors": {
-      "$ref": "#/$defs/dos_messages"
+      "$ref": "#/$defs/email_messages"
     },
     "messages": {
-      "$ref": "#/$defs/dos_messages"
-    },
-    "result": {
-      "type": "null"
+      "$ref": "#/$defs/email_messages"
     },
     "success": {
       "enum": [
-        false
+        true
       ],
       "type": "boolean"
     }
@@ -3082,16 +3670,132 @@ export const dos_api_response_common_failure_output: JsonSchema = {
   "required": [
     "errors",
     "messages",
-    "result",
     "success"
   ],
   "type": "object"
 };
 
 /**
- * The schema of `dos_messages` in responses.
+ * The schema of `email_api-response-single` in responses.
  */
-export const dos_messages_output: JsonSchema = {
+export const email_api_response_single_output: JsonSchema = {
+  "properties": {
+    "errors": {
+      "$ref": "#/$defs/email_messages"
+    },
+    "messages": {
+      "$ref": "#/$defs/email_messages"
+    },
+    "success": {
+      "enum": [
+        true
+      ],
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "errors",
+    "messages",
+    "success"
+  ],
+  "type": "object"
+};
+
+/**
+ * The schema of `email_created` in responses.
+ */
+export const email_created_output: JsonSchema = {
+  "format": "date-time",
+  "type": "string"
+};
+
+/**
+ * The schema of `email_dns_record` in responses.
+ */
+export const email_dns_record_output: JsonSchema = {
+  "properties": {
+    "content": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "priority": {
+      "type": "number"
+    },
+    "ttl": {
+      "anyOf": [
+        {
+          "type": "number"
+        },
+        {
+          "enum": [
+            1
+          ],
+          "type": "integer"
+        }
+      ]
+    },
+    "type": {
+      "enum": [
+        "A",
+        "AAAA",
+        "CNAME",
+        "HTTPS",
+        "TXT",
+        "SRV",
+        "LOC",
+        "MX",
+        "NS",
+        "CERT",
+        "DNSKEY",
+        "DS",
+        "NAPTR",
+        "SMIMEA",
+        "SSHFP",
+        "SVCB",
+        "TLSA",
+        "URI"
+      ],
+      "type": "string"
+    }
+  },
+  "type": "object"
+};
+
+/**
+ * The schema of `email_dns_settings_response_collection` in responses.
+ */
+export const email_dns_settings_response_collection_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/email_api-response-collection"
+    },
+    {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/email_dns_record"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `email_identifier` in responses.
+ */
+export const email_identifier_output: JsonSchema = {
+  "type": "string"
+};
+
+/**
+ * The schema of `email_messages` in responses.
+ */
+export const email_messages_output: JsonSchema = {
   "items": {
     "properties": {
       "code": {
@@ -3122,87 +3826,86 @@ export const dos_messages_output: JsonSchema = {
 };
 
 /**
- * The schema of `email_created` in responses.
- */
-export const email_created_output: JsonSchema = {
-  "format": "date-time",
-  "type": "string"
-};
-
-/**
- * The schema of `email_dns_record` in responses.
- */
-export const email_dns_record_output: JsonSchema = {
-  "properties": {
-    "content": {
-      "type": "string"
-    },
-    "name": {
-      "type": "string"
-    },
-    "priority": {
-      "type": "number"
-    },
-    "ttl": {
-      "$ref": "#/$defs/email_dns_record_ttl"
-    },
-    "type": {
-      "enum": [
-        "A",
-        "AAAA",
-        "CNAME",
-        "HTTPS",
-        "TXT",
-        "SRV",
-        "LOC",
-        "MX",
-        "NS",
-        "CERT",
-        "DNSKEY",
-        "DS",
-        "NAPTR",
-        "SMIMEA",
-        "SSHFP",
-        "SVCB",
-        "TLSA",
-        "URI"
-      ],
-      "type": "string"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `email_dns_record_ttl` in responses.
- */
-export const email_dns_record_ttl_output: JsonSchema = {
-  "anyOf": [
-    {
-      "type": "number"
-    },
-    {
-      "enum": [
-        1
-      ],
-      "type": "integer"
-    }
-  ]
-};
-
-/**
- * The schema of `email_identifier` in responses.
- */
-export const email_identifier_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `email_modified` in responses.
  */
 export const email_modified_output: JsonSchema = {
   "format": "date-time",
   "type": "string"
+};
+
+/**
+ * The schema of `firewall_api-response-collection` in responses.
+ */
+export const firewall_api_response_collection_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/firewall_api-response-common"
+    },
+    {
+      "properties": {
+        "result": {
+          "oneOf": [
+            {
+              "items": {
+                "type": "object"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "result_info": {
+          "$ref": "#/$defs/firewall_result_info"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `firewall_api-response-common` in responses.
+ */
+export const firewall_api_response_common_output: JsonSchema = {
+  "properties": {
+    "errors": {
+      "$ref": "#/$defs/firewall_messages"
+    },
+    "messages": {
+      "$ref": "#/$defs/firewall_messages"
+    },
+    "result": {
+      "anyOf": [
+        {
+          "type": "object"
+        },
+        {
+          "items": {
+            "type": "object"
+          },
+          "type": "array"
+        },
+        {
+          "type": "string"
+        }
+      ]
+    },
+    "success": {
+      "enum": [
+        true
+      ],
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "errors",
+    "messages",
+    "result",
+    "success"
+  ],
+  "type": "object"
 };
 
 /**
@@ -3233,6 +3936,35 @@ export const firewall_api_response_common_failure_output: JsonSchema = {
     "success"
   ],
   "type": "object"
+};
+
+/**
+ * The schema of `firewall_api-response-single` in responses.
+ */
+export const firewall_api_response_single_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/firewall_api-response-common"
+    },
+    {
+      "properties": {
+        "result": {
+          "anyOf": [
+            {
+              "type": "object"
+            },
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "type": "object"
+    }
+  ]
 };
 
 /**
@@ -3399,6 +4131,47 @@ export const firewall_result_info_output: JsonSchema = {
 };
 
 /**
+ * The schema of `firewall_rule` in responses.
+ */
+export const firewall_rule_output: JsonSchema = {
+  "properties": {
+    "allowed_modes": {
+      "items": {
+        "$ref": "#/$defs/firewall_schemas-mode"
+      },
+      "type": "array"
+    },
+    "configuration": {
+      "$ref": "#/$defs/firewall_configuration"
+    },
+    "created_on": {
+      "format": "date-time",
+      "type": "string"
+    },
+    "id": {
+      "$ref": "#/$defs/firewall_schemas-identifier"
+    },
+    "mode": {
+      "$ref": "#/$defs/firewall_schemas-mode"
+    },
+    "modified_on": {
+      "format": "date-time",
+      "type": "string"
+    },
+    "notes": {
+      "$ref": "#/$defs/firewall_notes"
+    }
+  },
+  "required": [
+    "allowed_modes",
+    "configuration",
+    "id",
+    "mode"
+  ],
+  "type": "object"
+};
+
+/**
  * The schema of `firewall_schemas-identifier` in responses.
  */
 export const firewall_schemas_identifier_output: JsonSchema = {
@@ -3442,32 +4215,47 @@ export const iam_account_type_output: JsonSchema = {
 };
 
 /**
- * The schema of `iam_account_managed_by` in responses.
+ * The schema of `iam_api-response-collection` in responses.
  */
-export const iam_account_managed_by_output: JsonSchema = {
-  "properties": {
-    "parent_org_id": {
-      "type": "string"
+export const iam_api_response_collection_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/iam_api-response-common"
     },
-    "parent_org_name": {
-      "type": "string"
+    {
+      "properties": {
+        "result_info": {
+          "$ref": "#/$defs/iam_result_info"
+        }
+      },
+      "type": "object"
     }
-  },
-  "type": "object"
+  ]
 };
 
 /**
- * The schema of `iam_account_settings` in responses.
+ * The schema of `iam_api-response-common` in responses.
  */
-export const iam_account_settings_output: JsonSchema = {
+export const iam_api_response_common_output: JsonSchema = {
   "properties": {
-    "abuse_contact_email": {
-      "type": "string"
+    "errors": {
+      "$ref": "#/$defs/iam_messages-2"
     },
-    "enforce_twofactor": {
+    "messages": {
+      "$ref": "#/$defs/iam_messages-2"
+    },
+    "success": {
+      "enum": [
+        true
+      ],
       "type": "boolean"
     }
   },
+  "required": [
+    "errors",
+    "messages",
+    "success"
+  ],
   "type": "object"
 };
 
@@ -3502,6 +4290,66 @@ export const iam_api_response_common_failure_output: JsonSchema = {
 };
 
 /**
+ * The schema of `iam_api-response-single` in responses.
+ */
+export const iam_api_response_single_output: JsonSchema = {
+  "properties": {
+    "errors": {
+      "$ref": "#/$defs/iam_messages-2"
+    },
+    "messages": {
+      "$ref": "#/$defs/iam_messages-2"
+    },
+    "success": {
+      "enum": [
+        true
+      ],
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "errors",
+    "messages",
+    "success"
+  ],
+  "type": "object"
+};
+
+/**
+ * The schema of `iam_api-response-single-id` in responses.
+ */
+export const iam_api_response_single_id_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/iam_api-response-common"
+    },
+    {
+      "properties": {
+        "result": {
+          "oneOf": [
+            {
+              "properties": {
+                "id": {
+                  "$ref": "#/$defs/iam_common_components-schemas-identifier"
+                }
+              },
+              "required": [
+                "id"
+              ],
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
  * The schema of `iam_cidr_list` in responses.
  */
 export const iam_cidr_list_output: JsonSchema = {
@@ -3509,6 +4357,28 @@ export const iam_cidr_list_output: JsonSchema = {
     "type": "string"
   },
   "type": "array"
+};
+
+/**
+ * The schema of `iam_collection_tokens_response` in responses.
+ */
+export const iam_collection_tokens_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/iam_api-response-collection"
+    },
+    {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/iam_token_base"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    }
+  ]
 };
 
 /**
@@ -3715,7 +4585,34 @@ export const iam_permission_group_output: JsonSchema = {
       "type": "string"
     },
     "meta": {
-      "$ref": "#/$defs/iam_permission_group_meta"
+      "properties": {
+        "category": {
+          "type": "string"
+        },
+        "deprecated": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "editable": {
+          "type": "string"
+        },
+        "eol_at": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "label": {
+          "type": "string"
+        },
+        "scopes": {
+          "type": "string"
+        },
+        "visibility": {
+          "type": "string"
+        }
+      },
+      "type": "object"
     },
     "name": {
       "type": "string"
@@ -3724,40 +4621,6 @@ export const iam_permission_group_output: JsonSchema = {
   "required": [
     "id"
   ],
-  "type": "object"
-};
-
-/**
- * The schema of `iam_permission_group_meta` in responses.
- */
-export const iam_permission_group_meta_output: JsonSchema = {
-  "properties": {
-    "category": {
-      "type": "string"
-    },
-    "deprecated": {
-      "type": "string"
-    },
-    "description": {
-      "type": "string"
-    },
-    "editable": {
-      "type": "string"
-    },
-    "eol_at": {
-      "format": "date-time",
-      "type": "string"
-    },
-    "label": {
-      "type": "string"
-    },
-    "scopes": {
-      "type": "string"
-    },
-    "visibility": {
-      "type": "string"
-    }
-  },
   "type": "object"
 };
 
@@ -3814,6 +4677,69 @@ export const iam_permissions_output: JsonSchema = {
     }
   },
   "type": "object"
+};
+
+/**
+ * The schema of `iam_permissions_group_response_collection` in responses.
+ */
+export const iam_permissions_group_response_collection_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/iam_api-response-collection"
+    },
+    {
+      "properties": {
+        "result": {
+          "items": {
+            "properties": {
+              "category": {
+                "enum": [
+                  "developer_platform",
+                  "ai_and_machine_learning",
+                  "dns_and_zones",
+                  "app_security",
+                  "rules_and_configuration",
+                  "cloudflare_one_and_zero_trust",
+                  "analytics_and_logs",
+                  "network_services",
+                  "media",
+                  "email_and_messaging",
+                  "cache_and_performance",
+                  "account_and_billing",
+                  "other"
+                ],
+                "type": "string"
+              },
+              "id": {
+                "type": "string"
+              },
+              "is_selectable": {
+                "type": "boolean"
+              },
+              "name": {
+                "type": "string"
+              },
+              "scopes": {
+                "items": {
+                  "enum": [
+                    "com.cloudflare.api.account",
+                    "com.cloudflare.api.account.zone",
+                    "com.cloudflare.api.user",
+                    "com.cloudflare.edge.r2.bucket"
+                  ],
+                  "type": "string"
+                },
+                "type": "array"
+              }
+            },
+            "type": "object"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    }
+  ]
 };
 
 /**
@@ -3895,7 +4821,15 @@ export const iam_resource_group_output: JsonSchema = {
       "type": "string"
     },
     "meta": {
-      "$ref": "#/$defs/iam_resource_group_meta"
+      "properties": {
+        "key": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        }
+      },
+      "type": "object"
     },
     "name": {
       "type": "string"
@@ -3908,21 +4842,6 @@ export const iam_resource_group_output: JsonSchema = {
     "id",
     "scope"
   ],
-  "type": "object"
-};
-
-/**
- * The schema of `iam_resource_group_meta` in responses.
- */
-export const iam_resource_group_meta_output: JsonSchema = {
-  "properties": {
-    "key": {
-      "type": "string"
-    },
-    "value": {
-      "type": "string"
-    }
-  },
   "type": "object"
 };
 
@@ -3971,6 +4890,25 @@ export const iam_resources_type_object_string_output: JsonSchema = {
     "type": "string"
   },
   "type": "object"
+};
+
+/**
+ * The schema of `iam_response_single_value` in responses.
+ */
+export const iam_response_single_value_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/iam_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/iam_value"
+        }
+      },
+      "type": "object"
+    }
+  ]
 };
 
 /**
@@ -4042,6 +4980,44 @@ export const iam_scope_object_output: JsonSchema = {
 export const iam_scope_object_key_output: JsonSchema = {};
 
 /**
+ * The schema of `iam_single_token_create_response` in responses.
+ */
+export const iam_single_token_create_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/iam_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/iam_token_with_value"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `iam_single_token_response` in responses.
+ */
+export const iam_single_token_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/iam_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/iam_token_base"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
  * The schema of `iam_token_base` in responses.
  */
 export const iam_token_base_output: JsonSchema = {
@@ -4084,6 +5060,12 @@ export const iam_token_base_output: JsonSchema = {
     },
     "status": {
       "$ref": "#/$defs/iam_token_status"
+    },
+    "token_prefix": {
+      "$ref": "#/$defs/iam_token_prefix"
+    },
+    "token_suffix": {
+      "$ref": "#/$defs/iam_token_suffix"
     }
   },
   "type": "object"
@@ -4107,6 +5089,13 @@ export const iam_token_policies_output: JsonSchema = {
 };
 
 /**
+ * The schema of `iam_token_prefix` in responses.
+ */
+export const iam_token_prefix_output: JsonSchema = {
+  "type": "string"
+};
+
+/**
  * The schema of `iam_token_status` in responses.
  */
 export const iam_token_status_output: JsonSchema = {
@@ -4119,54 +5108,66 @@ export const iam_token_status_output: JsonSchema = {
 };
 
 /**
+ * The schema of `iam_token_suffix` in responses.
+ */
+export const iam_token_suffix_output: JsonSchema = {
+  "type": "string"
+};
+
+/**
+ * The schema of `iam_token_verify_response_single_segment` in responses.
+ */
+export const iam_token_verify_response_single_segment_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/iam_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "properties": {
+            "expires_on": {
+              "$ref": "#/$defs/iam_expires_on"
+            },
+            "id": {
+              "$ref": "#/$defs/iam_token_identifier"
+            },
+            "not_before": {
+              "$ref": "#/$defs/iam_not_before"
+            },
+            "status": {
+              "$ref": "#/$defs/iam_token_status"
+            }
+          },
+          "required": [
+            "id",
+            "status"
+          ],
+          "type": "object"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
  * The schema of `iam_token_with_value` in responses.
  */
 export const iam_token_with_value_output: JsonSchema = {
-  "properties": {
-    "condition": {
-      "$ref": "#/$defs/iam_condition"
+  "allOf": [
+    {
+      "$ref": "#/$defs/iam_token_base"
     },
-    "creator_email_at_creation": {
-      "$ref": "#/$defs/iam_creator_email_at_creation"
-    },
-    "expires_on": {
-      "$ref": "#/$defs/iam_expires_on"
-    },
-    "id": {
-      "$ref": "#/$defs/iam_token_identifier"
-    },
-    "issued_on": {
-      "$ref": "#/$defs/iam_issued_on"
-    },
-    "last_used_on": {
-      "$ref": "#/$defs/iam_last_used_on"
-    },
-    "modified_on": {
-      "$ref": "#/$defs/iam_modified_on"
-    },
-    "name": {
-      "$ref": "#/$defs/iam_name"
-    },
-    "not_before": {
-      "$ref": "#/$defs/iam_not_before"
-    },
-    "policies": {
-      "$ref": "#/$defs/iam_token_policies"
-    },
-    "provisioner_id": {
-      "$ref": "#/$defs/iam_provisioner_id"
-    },
-    "provisioner_type": {
-      "$ref": "#/$defs/iam_provisioner_type"
-    },
-    "status": {
-      "$ref": "#/$defs/iam_token_status"
-    },
-    "value": {
-      "$ref": "#/$defs/iam_value"
+    {
+      "properties": {
+        "value": {
+          "$ref": "#/$defs/iam_value"
+        }
+      },
+      "type": "object"
     }
-  },
-  "type": "object"
+  ]
 };
 
 /**
@@ -4181,6 +5182,68 @@ export const iam_two_factor_authentication_enabled_output: JsonSchema = {
  */
 export const iam_value_output: JsonSchema = {
   "type": "string"
+};
+
+/**
+ * The schema of `infra_api-response-collection` in responses.
+ */
+export const infra_api_response_collection_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/infra_api-response-common"
+    },
+    {
+      "properties": {
+        "result_info": {
+          "properties": {
+            "count": {
+              "type": "number"
+            },
+            "page": {
+              "type": "number"
+            },
+            "per_page": {
+              "type": "number"
+            },
+            "total_count": {
+              "type": "number"
+            },
+            "total_pages": {
+              "type": "number"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `infra_api-response-common` in responses.
+ */
+export const infra_api_response_common_output: JsonSchema = {
+  "properties": {
+    "errors": {
+      "$ref": "#/$defs/infra_messages"
+    },
+    "messages": {
+      "$ref": "#/$defs/infra_messages"
+    },
+    "success": {
+      "enum": [
+        true
+      ],
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "errors",
+    "messages",
+    "success"
+  ],
+  "type": "object"
 };
 
 /**
@@ -4208,6 +5271,32 @@ export const infra_api_response_common_failure_output: JsonSchema = {
     "errors",
     "messages",
     "result",
+    "success"
+  ],
+  "type": "object"
+};
+
+/**
+ * The schema of `infra_api-response-single` in responses.
+ */
+export const infra_api_response_single_output: JsonSchema = {
+  "properties": {
+    "errors": {
+      "$ref": "#/$defs/infra_messages"
+    },
+    "messages": {
+      "$ref": "#/$defs/infra_messages"
+    },
+    "success": {
+      "enum": [
+        true
+      ],
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "errors",
+    "messages",
     "success"
   ],
   "type": "object"
@@ -4271,6 +5360,52 @@ export const load_balancing_allow_insecure_output: JsonSchema = {
 };
 
 /**
+ * The schema of `load-balancing_api-paginated-response-collection` in
+ * responses.
+ */
+export const load_balancing_api_paginated_response_collection_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/load-balancing_api-response-common"
+    },
+    {
+      "properties": {
+        "result_info": {
+          "$ref": "#/$defs/load-balancing_result_info"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `load-balancing_api-response-common` in responses.
+ */
+export const load_balancing_api_response_common_output: JsonSchema = {
+  "properties": {
+    "errors": {
+      "$ref": "#/$defs/load-balancing_messages"
+    },
+    "messages": {
+      "$ref": "#/$defs/load-balancing_messages"
+    },
+    "success": {
+      "enum": [
+        true
+      ],
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "errors",
+    "messages",
+    "success"
+  ],
+  "type": "object"
+};
+
+/**
  * The schema of `load-balancing_api-response-common-failure` in responses.
  */
 export const load_balancing_api_response_common_failure_output: JsonSchema = {
@@ -4298,6 +5433,35 @@ export const load_balancing_api_response_common_failure_output: JsonSchema = {
     "success"
   ],
   "type": "object"
+};
+
+/**
+ * The schema of `load-balancing_api-response-single` in responses.
+ */
+export const load_balancing_api_response_single_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/load-balancing_api-response-common"
+    },
+    {
+      "properties": {
+        "result": {
+          "anyOf": [
+            {
+              "type": "object"
+            },
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "type": "object"
+    }
+  ]
 };
 
 /**
@@ -4441,6 +5605,44 @@ export const load_balancing_header_output: JsonSchema = {
 };
 
 /**
+ * The schema of `load-balancing_health_details` in responses.
+ */
+export const load_balancing_health_details_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/load-balancing_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "properties": {
+            "pool_id": {
+              "type": "string"
+            },
+            "pop_health": {
+              "properties": {
+                "healthy": {
+                  "type": "boolean"
+                },
+                "origins": {
+                  "items": {
+                    "$ref": "#/$defs/load-balancing_origin-health"
+                  },
+                  "type": "array"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
  * The schema of `load-balancing_health_sources` in responses.
  */
 export const load_balancing_health_sources_output: JsonSchema = {
@@ -4458,6 +5660,30 @@ export const load_balancing_health_sources_output: JsonSchema = {
     },
     {
       "type": "null"
+    }
+  ]
+};
+
+/**
+ * The schema of `load-balancing_id_response` in responses.
+ */
+export const load_balancing_id_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/load-balancing_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "properties": {
+            "id": {
+              "$ref": "#/$defs/load-balancing_identifier"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
     }
   ]
 };
@@ -4565,6 +5791,31 @@ export const load_balancing_minimum_origins_output: JsonSchema = {
  * The schema of `load-balancing_monitor` in responses.
  */
 export const load_balancing_monitor_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/load-balancing_monitor-editable"
+    },
+    {
+      "properties": {
+        "created_on": {
+          "$ref": "#/$defs/load-balancing_timestamp"
+        },
+        "id": {
+          "$ref": "#/$defs/load-balancing_identifier"
+        },
+        "modified_on": {
+          "$ref": "#/$defs/load-balancing_timestamp"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `load-balancing_monitor-editable` in responses.
+ */
+export const load_balancing_monitor_editable_output: JsonSchema = {
   "properties": {
     "allow_insecure": {
       "$ref": "#/$defs/load-balancing_allow_insecure"
@@ -4574,9 +5825,6 @@ export const load_balancing_monitor_output: JsonSchema = {
     },
     "consecutive_up": {
       "$ref": "#/$defs/load-balancing_consecutive_up"
-    },
-    "created_on": {
-      "$ref": "#/$defs/load-balancing_timestamp"
     },
     "description": {
       "$ref": "#/$defs/load-balancing_description"
@@ -4593,17 +5841,11 @@ export const load_balancing_monitor_output: JsonSchema = {
     "header": {
       "$ref": "#/$defs/load-balancing_header"
     },
-    "id": {
-      "$ref": "#/$defs/load-balancing_identifier"
-    },
     "interval": {
       "$ref": "#/$defs/load-balancing_interval"
     },
     "method": {
       "$ref": "#/$defs/load-balancing_method"
-    },
-    "modified_on": {
-      "$ref": "#/$defs/load-balancing_timestamp"
     },
     "path": {
       "$ref": "#/$defs/load-balancing_path"
@@ -4625,6 +5867,88 @@ export const load_balancing_monitor_output: JsonSchema = {
     }
   },
   "type": "object"
+};
+
+/**
+ * The schema of `load-balancing_monitor-references-response` in responses.
+ */
+export const load_balancing_monitor_references_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/load-balancing_api-response-common"
+    },
+    {
+      "properties": {
+        "result": {
+          "items": {
+            "properties": {
+              "reference_type": {
+                "enum": [
+                  "*",
+                  "referral",
+                  "referrer"
+                ],
+                "type": "string"
+              },
+              "resource_id": {
+                "type": "string"
+              },
+              "resource_name": {
+                "type": "string"
+              },
+              "resource_type": {
+                "type": "string"
+              }
+            },
+            "type": "object"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `load-balancing_monitor-response-collection` in responses.
+ */
+export const load_balancing_monitor_response_collection_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/load-balancing_api-paginated-response-collection"
+    },
+    {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/load-balancing_monitor"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `load-balancing_monitor-response-single` in responses.
+ */
+export const load_balancing_monitor_response_single_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/load-balancing_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/load-balancing_monitor"
+        }
+      },
+      "type": "object"
+    }
+  ]
 };
 
 /**
@@ -4729,28 +6053,21 @@ export const load_balancing_origin_output: JsonSchema = {
 export const load_balancing_origin_health_output: JsonSchema = {
   "properties": {
     "ip": {
-      "$ref": "#/$defs/load-balancing_origin-health_ip"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `load-balancing_origin-health_ip` in responses.
- */
-export const load_balancing_origin_health_ip_output: JsonSchema = {
-  "properties": {
-    "failure_reason": {
-      "type": "string"
-    },
-    "healthy": {
-      "type": "boolean"
-    },
-    "response_code": {
-      "type": "number"
-    },
-    "rtt": {
-      "type": "string"
+      "properties": {
+        "failure_reason": {
+          "type": "string"
+        },
+        "healthy": {
+          "type": "boolean"
+        },
+        "response_code": {
+          "type": "number"
+        },
+        "rtt": {
+          "type": "string"
+        }
+      },
+      "type": "object"
     }
   },
   "type": "object"
@@ -4903,6 +6220,47 @@ export const load_balancing_pool_output: JsonSchema = {
 };
 
 /**
+ * The schema of `load-balancing_pools-references-response` in responses.
+ */
+export const load_balancing_pools_references_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/load-balancing_api-response-common"
+    },
+    {
+      "properties": {
+        "result": {
+          "items": {
+            "properties": {
+              "reference_type": {
+                "enum": [
+                  "*",
+                  "referral",
+                  "referrer"
+                ],
+                "type": "string"
+              },
+              "resource_id": {
+                "type": "string"
+              },
+              "resource_name": {
+                "type": "string"
+              },
+              "resource_type": {
+                "type": "string"
+              }
+            },
+            "type": "object"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
  * The schema of `load-balancing_port` in responses.
  */
 export const load_balancing_port_output: JsonSchema = {
@@ -4912,6 +6270,36 @@ export const load_balancing_port_output: JsonSchema = {
     },
     {
       "type": "null"
+    }
+  ]
+};
+
+/**
+ * The schema of `load-balancing_preview_response` in responses.
+ */
+export const load_balancing_preview_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/load-balancing_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "properties": {
+            "pools": {
+              "additionalProperties": {
+                "type": "string"
+              },
+              "type": "object"
+            },
+            "preview_id": {
+              "$ref": "#/$defs/load-balancing_identifier"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
     }
   ]
 };
@@ -4941,10 +6329,49 @@ export const load_balancing_preview_result_output: JsonSchema = {
 };
 
 /**
+ * The schema of `load-balancing_preview_result_response` in responses.
+ */
+export const load_balancing_preview_result_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/load-balancing_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/load-balancing_preview_result"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
  * The schema of `load-balancing_probe_zone` in responses.
  */
 export const load_balancing_probe_zone_output: JsonSchema = {
   "type": "string"
+};
+
+/**
+ * The schema of `load-balancing_region_components-schemas-response_collection`
+ * in responses.
+ */
+export const load_balancing_region_components_schemas_response_collection_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/load-balancing_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "type": "object"
+        }
+      },
+      "type": "object"
+    }
+  ]
 };
 
 /**
@@ -5013,6 +6440,30 @@ export const load_balancing_schemas_header_output: JsonSchema = {
 };
 
 /**
+ * The schema of `load-balancing_schemas-id_response` in responses.
+ */
+export const load_balancing_schemas_id_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/load-balancing_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "properties": {
+            "id": {
+              "$ref": "#/$defs/load-balancing_schemas-identifier"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
  * The schema of `load-balancing_schemas-identifier` in responses.
  */
 export const load_balancing_schemas_identifier_output: JsonSchema = {
@@ -5024,6 +6475,47 @@ export const load_balancing_schemas_identifier_output: JsonSchema = {
  */
 export const load_balancing_schemas_name_output: JsonSchema = {
   "type": "string"
+};
+
+/**
+ * The schema of `load-balancing_schemas-response_collection` in responses.
+ */
+export const load_balancing_schemas_response_collection_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/load-balancing_api-paginated-response-collection"
+    },
+    {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/load-balancing_pool"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `load-balancing_schemas-single_response` in responses.
+ */
+export const load_balancing_schemas_single_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/load-balancing_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/load-balancing_pool"
+        }
+      },
+      "type": "object"
+    }
+  ]
 };
 
 /**
@@ -5120,33 +6612,25 @@ export const mconn_telemetry_envelope_output: JsonSchema = {
  * The schema of `mconn_bad_response` in responses.
  */
 export const mconn_bad_response_output: JsonSchema = {
-  "properties": {
-    "errors": {
-      "items": {
-        "$ref": "#/$defs/mconn_coded_message"
+  "allOf": [
+    {
+      "$ref": "#/$defs/mconn_response"
+    },
+    {
+      "properties": {
+        "errors": {
+          "items": {
+            "$ref": "#/$defs/mconn_coded_message"
+          },
+          "type": "array"
+        },
+        "result": {
+          "$ref": "#/$defs/mconn_none"
+        }
       },
-      "type": "array"
-    },
-    "messages": {
-      "items": {
-        "$ref": "#/$defs/mconn_coded_message"
-      },
-      "type": "array"
-    },
-    "result": {
-      "$ref": "#/$defs/mconn_none"
-    },
-    "success": {
-      "type": "boolean"
+      "type": "object"
     }
-  },
-  "required": [
-    "messages",
-    "success",
-    "errors",
-    "result"
-  ],
-  "type": "object"
+  ]
 };
 
 /**
@@ -5169,6 +6653,28 @@ export const mconn_coded_message_output: JsonSchema = {
 };
 
 /**
+ * The schema of `mconn_good_response` in responses.
+ */
+export const mconn_good_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/mconn_response"
+    },
+    {
+      "properties": {
+        "errors": {
+          "items": {
+            "$ref": "#/$defs/mconn_coded_message"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
  * The schema of `mconn_none` in responses.
  */
 export const mconn_none_output: JsonSchema = {
@@ -5183,130 +6689,32 @@ export const mconn_none_output: JsonSchema = {
 };
 
 /**
- * The schema of `organizations-api_Account` in responses.
+ * The schema of `mconn_response` in responses.
  */
-export const organizations_api_Account_output: JsonSchema = {
+export const mconn_response_output: JsonSchema = {
   "properties": {
-    "created_on": {
-      "format": "date-time",
-      "type": "string"
-    },
-    "id": {
-      "type": "string"
-    },
-    "name": {
-      "oneOf": [
-        {
-          "type": "string"
-        },
-        {
-          "type": "null"
-        }
-      ]
-    },
-    "settings": {
-      "$ref": "#/$defs/organizations-api_Account_settings"
-    },
-    "tags": {
-      "additionalProperties": {
-        "type": "string"
+    "messages": {
+      "items": {
+        "$ref": "#/$defs/mconn_coded_message"
       },
-      "type": "object"
+      "type": "array"
     },
-    "type": {
-      "enum": [
-        "standard",
-        "enterprise"
-      ],
-      "type": "string"
+    "success": {
+      "type": "boolean"
     }
   },
   "required": [
-    "created_on",
-    "id",
-    "name",
-    "settings",
-    "type"
+    "messages",
+    "success"
   ],
   "type": "object"
 };
 
 /**
- * The schema of `organizations-api_Account_settings` in responses.
+ * The schema of `mconn_uuid` in responses.
  */
-export const organizations_api_Account_settings_output: JsonSchema = {
-  "properties": {
-    "abuse_contact_email": {
-      "oneOf": [
-        {
-          "type": "string"
-        },
-        {
-          "type": "null"
-        }
-      ]
-    },
-    "access_approval_expiry": {
-      "oneOf": [
-        {
-          "format": "date-time",
-          "type": "string"
-        },
-        {
-          "type": "null"
-        }
-      ]
-    },
-    "api_access_enabled": {
-      "oneOf": [
-        {
-          "type": "boolean"
-        },
-        {
-          "type": "null"
-        }
-      ]
-    },
-    "default_nameservers": {
-      "oneOf": [
-        {
-          "type": "string"
-        },
-        {
-          "type": "null"
-        }
-      ]
-    },
-    "enforce_twofactor": {
-      "oneOf": [
-        {
-          "type": "boolean"
-        },
-        {
-          "type": "null"
-        }
-      ]
-    },
-    "use_account_custom_ns_by_default": {
-      "oneOf": [
-        {
-          "type": "boolean"
-        },
-        {
-          "type": "null"
-        }
-      ]
-    }
-  },
-  "required": [
-    "abuse_contact_email",
-    "access_approval_expiry",
-    "api_access_enabled",
-    "default_nameservers",
-    "enforce_twofactor",
-    "use_account_custom_ns_by_default"
-  ],
-  "type": "object"
+export const mconn_uuid_output: JsonSchema = {
+  "type": "string"
 };
 
 /**
@@ -5322,13 +6730,48 @@ export const organizations_api_Organization_output: JsonSchema = {
       "$ref": "#/$defs/organizations-api_OrganizationID"
     },
     "meta": {
-      "$ref": "#/$defs/organizations-api_Organization_meta"
+      "additionalProperties": {
+        "type": "object"
+      },
+      "properties": {
+        "are_child_accounts_accessible_by_org_members": {
+          "type": "boolean"
+        },
+        "hierarchy_tags": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "managed_by": {
+          "type": "string"
+        },
+        "tenant_flags": {
+          "$ref": "#/$defs/organizations-api_OrganizationFlags"
+        },
+        "tenant_type": {
+          "type": "string"
+        }
+      },
+      "type": "object"
     },
     "name": {
       "type": "string"
     },
     "parent": {
-      "$ref": "#/$defs/organizations-api_Organization_parent"
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/organizations-api_OrganizationID"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "name"
+      ],
+      "type": "object"
     },
     "profile": {
       "$ref": "#/$defs/organizations-api_Profile"
@@ -5394,49 +6837,6 @@ export const organizations_api_OrganizationID_output: JsonSchema = {
 };
 
 /**
- * The schema of `organizations-api_Organization_meta` in responses.
- */
-export const organizations_api_Organization_meta_output: JsonSchema = {
-  "additionalProperties": {
-    "type": "object"
-  },
-  "properties": {
-    "hierarchy_tags": {
-      "items": {
-        "type": "string"
-      },
-      "type": "array"
-    },
-    "managed_by": {
-      "type": "string"
-    },
-    "tenant_flags": {
-      "$ref": "#/$defs/organizations-api_OrganizationFlags"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `organizations-api_Organization_parent` in responses.
- */
-export const organizations_api_Organization_parent_output: JsonSchema = {
-  "properties": {
-    "id": {
-      "$ref": "#/$defs/organizations-api_OrganizationID"
-    },
-    "name": {
-      "type": "string"
-    }
-  },
-  "required": [
-    "id",
-    "name"
-  ],
-  "type": "object"
-};
-
-/**
  * The schema of `organizations-api_Profile` in responses.
  */
 export const organizations_api_Profile_output: JsonSchema = {
@@ -5485,7 +6885,14 @@ export const organizations_api_V4ErrorResponse_output: JsonSchema = {
       "type": "array"
     },
     "result": {
-      "type": "object"
+      "oneOf": [
+        {
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
     "success": {
       "enum": [
@@ -5553,7 +6960,16 @@ export const pay_per_crawl_Msg_output: JsonSchema = {
     "message": {
       "type": "string"
     },
-    "meta": {},
+    "meta": {
+      "oneOf": [
+        {
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
     "source": {
       "$ref": "#/$defs/pay-per-crawl_Source"
     }
@@ -5638,7 +7054,16 @@ export const pay_per_crawl_apiErrorResponse_output: JsonSchema = {
       },
       "type": "array"
     },
-    "result": {},
+    "result": {
+      "oneOf": [
+        {
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
     "success": {
       "type": "boolean"
     }
@@ -5680,7 +7105,15 @@ export const r2_data_catalog_api_response_common_failure_output: JsonSchema = {
   "properties": {
     "errors": {
       "items": {
-        "$ref": "#/$defs/r2-data-catalog_api-response-common-failure_errorsItem"
+        "properties": {
+          "code": {
+            "type": "integer"
+          },
+          "message": {
+            "type": "string"
+          }
+        },
+        "type": "object"
       },
       "minItems": 1,
       "type": "array"
@@ -5702,19 +7135,77 @@ export const r2_data_catalog_api_response_common_failure_output: JsonSchema = {
 };
 
 /**
- * The schema of `r2-data-catalog_api-response-common-failure_errorsItem` in
- * responses.
+ * The schema of `r2-data-catalog_api-response-errors` in responses.
  */
-export const r2_data_catalog_api_response_common_failure_errorsItem_output: JsonSchema = {
-  "properties": {
-    "code": {
-      "type": "integer"
+export const r2_data_catalog_api_response_errors_output: JsonSchema = {
+  "items": {
+    "properties": {
+      "code": {
+        "type": "integer"
+      },
+      "message": {
+        "type": "string"
+      }
     },
-    "message": {
-      "type": "string"
+    "required": [
+      "code",
+      "message"
+    ],
+    "type": "object"
+  },
+  "type": "array"
+};
+
+/**
+ * The schema of `r2-data-catalog_api-response-messages` in responses.
+ */
+export const r2_data_catalog_api_response_messages_output: JsonSchema = {
+  "items": {
+    "properties": {
+      "code": {
+        "type": "integer"
+      },
+      "message": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "code",
+      "message"
+    ],
+    "type": "object"
+  },
+  "type": "array"
+};
+
+/**
+ * The schema of `r2-data-catalog_api-response-single` in responses.
+ */
+export const r2_data_catalog_api_response_single_output: JsonSchema = {
+  "properties": {
+    "errors": {
+      "$ref": "#/$defs/r2-data-catalog_api-response-errors"
+    },
+    "messages": {
+      "$ref": "#/$defs/r2-data-catalog_api-response-messages"
+    },
+    "success": {
+      "$ref": "#/$defs/r2-data-catalog_api-response-success"
     }
   },
+  "required": [
+    "errors",
+    "messages",
+    "success"
+  ],
   "type": "object"
+};
+
+/**
+ * The schema of `r2-data-catalog_api-response-success` in responses.
+ */
+export const r2_data_catalog_api_response_success_output: JsonSchema = {
+  "type": "boolean"
 };
 
 /**
@@ -6574,6 +8065,51 @@ export const resource_sharing_account_name_output: JsonSchema = {
 };
 
 /**
+ * The schema of `resource-sharing_api-response-collection` in responses.
+ */
+export const resource_sharing_api_response_collection_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/resource-sharing_api-response-common"
+    },
+    {
+      "$ref": "#/$defs/resource-sharing_api-response-collection-info"
+    }
+  ]
+};
+
+/**
+ * The schema of `resource-sharing_api-response-collection-info` in responses.
+ */
+export const resource_sharing_api_response_collection_info_output: JsonSchema = {
+  "properties": {
+    "result_info": {
+      "$ref": "#/$defs/resource-sharing_result_info"
+    }
+  },
+  "type": "object"
+};
+
+/**
+ * The schema of `resource-sharing_api-response-common` in responses.
+ */
+export const resource_sharing_api_response_common_output: JsonSchema = {
+  "properties": {
+    "errors": {
+      "$ref": "#/$defs/resource-sharing_v4errors"
+    },
+    "success": {
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "errors",
+    "success"
+  ],
+  "type": "object"
+};
+
+/**
  * The schema of `resource-sharing_api-response-common-failure` in responses.
  */
 export const resource_sharing_api_response_common_failure_output: JsonSchema = {
@@ -6840,6 +8376,36 @@ export const resource_sharing_share_resource_object_output: JsonSchema = {
 };
 
 /**
+ * The schema of `resource-sharing_share_response_collection` in responses.
+ */
+export const resource_sharing_share_response_collection_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/resource-sharing_api-response-collection"
+    },
+    {
+      "$ref": "#/$defs/resource-sharing_share_response_collection_result"
+    }
+  ]
+};
+
+/**
+ * The schema of `resource-sharing_share_response_collection_result` in
+ * responses.
+ */
+export const resource_sharing_share_response_collection_result_output: JsonSchema = {
+  "properties": {
+    "result": {
+      "items": {
+        "$ref": "#/$defs/resource-sharing_share_object"
+      },
+      "type": "array"
+    }
+  },
+  "type": "object"
+};
+
+/**
  * The schema of `resource-sharing_share_status` in responses.
  */
 export const resource_sharing_share_status_output: JsonSchema = {
@@ -6913,26 +8479,19 @@ export const rulesets_Message_output: JsonSchema = {
       "type": "string"
     },
     "source": {
-      "$ref": "#/$defs/rulesets_Message_source"
+      "properties": {
+        "pointer": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "pointer"
+      ],
+      "type": "object"
     }
   },
   "required": [
     "message"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `rulesets_Message_source` in responses.
- */
-export const rulesets_Message_source_output: JsonSchema = {
-  "properties": {
-    "pointer": {
-      "type": "string"
-    }
-  },
-  "required": [
-    "pointer"
   ],
   "type": "object"
 };
@@ -6959,7 +8518,29 @@ export const rulesets_Response_output: JsonSchema = {
       "$ref": "#/$defs/rulesets_Messages"
     },
     "result": {
-      "$ref": "#/$defs/rulesets_Response_result"
+      "oneOf": [
+        {
+          "type": "object"
+        },
+        {
+          "items": {
+            "type": "object"
+          },
+          "type": "array"
+        },
+        {
+          "type": "string"
+        },
+        {
+          "type": "number"
+        },
+        {
+          "type": "boolean"
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
     "success": {
       "type": "boolean"
@@ -6975,32 +8556,26 @@ export const rulesets_Response_output: JsonSchema = {
 };
 
 /**
- * The schema of `rulesets_Response_result` in responses.
+ * The schema of `rum_api-response-common` in responses.
  */
-export const rulesets_Response_result_output: JsonSchema = {
-  "oneOf": [
-    {
-      "type": "object"
+export const rum_api_response_common_output: JsonSchema = {
+  "properties": {
+    "errors": {
+      "$ref": "#/$defs/rum_messages"
     },
-    {
-      "items": {
-        "type": "object"
-      },
-      "type": "array"
+    "messages": {
+      "$ref": "#/$defs/rum_messages"
     },
-    {
-      "type": "string"
-    },
-    {
-      "type": "number"
-    },
-    {
+    "success": {
       "type": "boolean"
-    },
-    {
-      "type": "null"
     }
-  ]
+  },
+  "required": [
+    "errors",
+    "messages",
+    "success"
+  ],
+  "type": "object"
 };
 
 /**
@@ -7031,6 +8606,28 @@ export const rum_api_response_common_failure_output: JsonSchema = {
     "success"
   ],
   "type": "object"
+};
+
+/**
+ * The schema of `rum_messages` in responses.
+ */
+export const rum_messages_output: JsonSchema = {
+  "items": {
+    "properties": {
+      "code": {
+        "type": "integer"
+      },
+      "message": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "code",
+      "message"
+    ],
+    "type": "object"
+  },
+  "type": "array"
 };
 
 /**
@@ -7123,6 +8720,32 @@ export const security_center_api_response_common_failure_output: JsonSchema = {
 };
 
 /**
+ * The schema of `security-center_api-response-single` in responses.
+ */
+export const security_center_api_response_single_output: JsonSchema = {
+  "properties": {
+    "errors": {
+      "$ref": "#/$defs/security-center_messages"
+    },
+    "messages": {
+      "$ref": "#/$defs/security-center_messages"
+    },
+    "success": {
+      "enum": [
+        true
+      ],
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "errors",
+    "messages",
+    "success"
+  ],
+  "type": "object"
+};
+
+/**
  * The schema of `security-center_count` in responses.
  */
 export const security_center_count_output: JsonSchema = {
@@ -7150,7 +8773,15 @@ export const security_center_issue_output: JsonSchema = {
       "$ref": "#/$defs/security-center_issueType"
     },
     "payload": {
-      "$ref": "#/$defs/security-center_issue_payload"
+      "properties": {
+        "detection_method": {
+          "type": "string"
+        },
+        "zone_tag": {
+          "type": "string"
+        }
+      },
+      "type": "object"
     },
     "resolve_link": {
       "type": "string"
@@ -7214,21 +8845,6 @@ export const security_center_issueType_output: JsonSchema = {
     "configuration_suggestion"
   ],
   "type": "string"
-};
-
-/**
- * The schema of `security-center_issue_payload` in responses.
- */
-export const security_center_issue_payload_output: JsonSchema = {
-  "properties": {
-    "detection_method": {
-      "type": "string"
-    },
-    "zone_tag": {
-      "type": "string"
-    }
-  },
-  "type": "object"
 };
 
 /**
@@ -7316,6 +8932,59 @@ export const security_center_userClassification_output: JsonSchema = {
 };
 
 /**
+ * The schema of `security-center_valueCountsResponse` in responses.
+ */
+export const security_center_valueCountsResponse_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/security-center_api-response-common"
+    },
+    {
+      "properties": {
+        "result": {
+          "items": {
+            "properties": {
+              "count": {
+                "type": "integer"
+              },
+              "value": {
+                "type": "string"
+              }
+            },
+            "type": "object"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `speed_api-response-common` in responses.
+ */
+export const speed_api_response_common_output: JsonSchema = {
+  "properties": {
+    "errors": {
+      "$ref": "#/$defs/speed_messages"
+    },
+    "messages": {
+      "$ref": "#/$defs/speed_messages"
+    },
+    "success": {
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "errors",
+    "messages",
+    "success"
+  ],
+  "type": "object"
+};
+
+/**
  * The schema of `speed_api-response-common-failure` in responses.
  */
 export const speed_api_response_common_failure_output: JsonSchema = {
@@ -7350,6 +9019,43 @@ export const speed_api_response_common_failure_output: JsonSchema = {
 };
 
 /**
+ * The schema of `speed_base` in responses.
+ */
+export const speed_base_output: JsonSchema = {
+  "properties": {
+    "editable": {
+      "enum": [
+        true,
+        false
+      ],
+      "type": "boolean"
+    },
+    "id": {
+      "type": "string"
+    },
+    "modified_on": {
+      "oneOf": [
+        {
+          "format": "date-time",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "value": {
+      "enum": [
+        "on",
+        "off"
+      ],
+      "type": "string"
+    }
+  },
+  "type": "object"
+};
+
+/**
  * The schema of `speed_messages` in responses.
  */
 export const speed_messages_output: JsonSchema = {
@@ -7376,15 +9082,49 @@ export const speed_messages_output: JsonSchema = {
  * responses.
  */
 export const tls_certificates_and_hostnames_api_response_collection_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/tls-certificates-and-hostnames_api-response-common"
+    },
+    {
+      "properties": {
+        "result_info": {
+          "properties": {
+            "count": {
+              "type": "number"
+            },
+            "page": {
+              "type": "number"
+            },
+            "per_page": {
+              "type": "number"
+            },
+            "total_count": {
+              "type": "number"
+            },
+            "total_pages": {
+              "type": "number"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `tls-certificates-and-hostnames_api-response-common` in
+ * responses.
+ */
+export const tls_certificates_and_hostnames_api_response_common_output: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/tls-certificates-and-hostnames_messages"
     },
     "messages": {
       "$ref": "#/$defs/tls-certificates-and-hostnames_messages"
-    },
-    "result_info": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_api-response-collection_result_info"
     },
     "success": {
       "enum": [
@@ -7398,32 +9138,6 @@ export const tls_certificates_and_hostnames_api_response_collection_output: Json
     "messages",
     "success"
   ],
-  "type": "object"
-};
-
-/**
- * The schema of
- * `tls-certificates-and-hostnames_api-response-collection_result_info` in
- * responses.
- */
-export const tls_certificates_and_hostnames_api_response_collection_result_info_output: JsonSchema = {
-  "properties": {
-    "count": {
-      "type": "number"
-    },
-    "page": {
-      "type": "number"
-    },
-    "per_page": {
-      "type": "number"
-    },
-    "total_count": {
-      "type": "number"
-    },
-    "total_pages": {
-      "type": "number"
-    }
-  },
   "type": "object"
 };
 
@@ -7459,10 +9173,44 @@ export const tls_certificates_and_hostnames_api_response_common_failure_output: 
 };
 
 /**
+ * The schema of `tls-certificates-and-hostnames_api-response-single` in
+ * responses.
+ */
+export const tls_certificates_and_hostnames_api_response_single_output: JsonSchema = {
+  "properties": {
+    "errors": {
+      "$ref": "#/$defs/tls-certificates-and-hostnames_messages"
+    },
+    "messages": {
+      "$ref": "#/$defs/tls-certificates-and-hostnames_messages"
+    },
+    "success": {
+      "enum": [
+        true
+      ],
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "errors",
+    "messages",
+    "success"
+  ],
+  "type": "object"
+};
+
+/**
  * The schema of `tls-certificates-and-hostnames_expires_on-2` in responses.
  */
 export const tls_certificates_and_hostnames_expires_on_2_output: JsonSchema = {
   "format": "date-time",
+  "type": "string"
+};
+
+/**
+ * The schema of `tls-certificates-and-hostnames_identifier` in responses.
+ */
+export const tls_certificates_and_hostnames_identifier_output: JsonSchema = {
   "type": "string"
 };
 
@@ -7566,6 +9314,81 @@ export const tunnel_account_id_output: JsonSchema = {
 };
 
 /**
+ * The schema of `tunnel_api-response-collection` in responses.
+ */
+export const tunnel_api_response_collection_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/tunnel_api-response-common"
+    },
+    {
+      "properties": {
+        "result": {
+          "oneOf": [
+            {
+              "items": {
+                "type": "object"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "result_info": {
+          "$ref": "#/$defs/tunnel_result_info"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `tunnel_api-response-common` in responses.
+ */
+export const tunnel_api_response_common_output: JsonSchema = {
+  "properties": {
+    "errors": {
+      "$ref": "#/$defs/tunnel_messages"
+    },
+    "messages": {
+      "$ref": "#/$defs/tunnel_messages"
+    },
+    "result": {
+      "anyOf": [
+        {
+          "type": "object"
+        },
+        {
+          "items": {
+            "type": "object"
+          },
+          "type": "array"
+        },
+        {
+          "type": "string"
+        }
+      ]
+    },
+    "success": {
+      "enum": [
+        true
+      ],
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "errors",
+    "messages",
+    "result",
+    "success"
+  ],
+  "type": "object"
+};
+
+/**
  * The schema of `tunnel_api-response-common-failure` in responses.
  */
 export const tunnel_api_response_common_failure_output: JsonSchema = {
@@ -7620,6 +9443,32 @@ export const tunnel_api_response_common_failure_2_output: JsonSchema = {
     "errors",
     "messages",
     "result",
+    "success"
+  ],
+  "type": "object"
+};
+
+/**
+ * The schema of `tunnel_api-response-single-2` in responses.
+ */
+export const tunnel_api_response_single_2_output: JsonSchema = {
+  "properties": {
+    "errors": {
+      "$ref": "#/$defs/tunnel_messages-2"
+    },
+    "messages": {
+      "$ref": "#/$defs/tunnel_messages-2"
+    },
+    "success": {
+      "enum": [
+        true
+      ],
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "errors",
+    "messages",
     "success"
   ],
   "type": "object"
@@ -7760,30 +9609,19 @@ export const tunnel_deleted_at_output: JsonSchema = {
  * The schema of `tunnel_empty_response` in responses.
  */
 export const tunnel_empty_response_output: JsonSchema = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/tunnel_messages"
+  "allOf": [
+    {
+      "$ref": "#/$defs/tunnel_api-response-common"
     },
-    "messages": {
-      "$ref": "#/$defs/tunnel_messages"
-    },
-    "result": {
-      "type": "null"
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
+    {
+      "properties": {
+        "result": {
+          "type": "null"
+        }
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "result",
-    "success"
-  ],
-  "type": "object"
+  ]
 };
 
 /**
@@ -7794,6 +9632,13 @@ export const tunnel_features_output: JsonSchema = {
     "type": "string"
   },
   "type": "array"
+};
+
+/**
+ * The schema of `tunnel_identifier` in responses.
+ */
+export const tunnel_identifier_output: JsonSchema = {
+  "type": "string"
 };
 
 /**
@@ -7985,30 +9830,19 @@ export const tunnel_tunnel_name_output: JsonSchema = {
  * The schema of `tunnel_tunnel_response_token` in responses.
  */
 export const tunnel_tunnel_response_token_output: JsonSchema = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/tunnel_messages"
+  "allOf": [
+    {
+      "$ref": "#/$defs/tunnel_api-response-common"
     },
-    "messages": {
-      "$ref": "#/$defs/tunnel_messages"
-    },
-    "result": {
-      "$ref": "#/$defs/tunnel_tunnel_token"
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/tunnel_tunnel_token"
+        }
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "result",
-    "success"
-  ],
-  "type": "object"
+  ]
 };
 
 /**
@@ -8178,6 +10012,113 @@ export const usage_analytics_stream_usage_data_point_output: JsonSchema = {
 };
 
 /**
+ * The schema of `usage-analytics_stream_usage_response` in responses.
+ */
+export const usage_analytics_stream_usage_response_output: JsonSchema = {
+  "properties": {
+    "errors": {
+      "items": {
+        "$ref": "#/$defs/usage-analytics_api_error"
+      },
+      "type": "array"
+    },
+    "messages": {
+      "items": {
+        "$ref": "#/$defs/usage-analytics_api_message"
+      },
+      "type": "array"
+    },
+    "result": {
+      "items": {
+        "$ref": "#/$defs/usage-analytics_stream_usage_data_point"
+      },
+      "type": "array"
+    },
+    "success": {
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "errors",
+    "result",
+    "success"
+  ],
+  "type": "object"
+};
+
+/**
+ * The schema of `waf-product-api-bundle_api-response-common` in responses.
+ */
+export const waf_product_api_bundle_api_response_common_output: JsonSchema = {
+  "properties": {
+    "errors": {
+      "$ref": "#/$defs/waf-product-api-bundle_messages"
+    },
+    "messages": {
+      "$ref": "#/$defs/waf-product-api-bundle_messages"
+    },
+    "result": {
+      "anyOf": [
+        {
+          "type": "object"
+        },
+        {
+          "items": {
+            "type": "object"
+          },
+          "type": "array"
+        },
+        {
+          "type": "string"
+        }
+      ]
+    },
+    "success": {
+      "enum": [
+        true
+      ],
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "errors",
+    "messages",
+    "result",
+    "success"
+  ],
+  "type": "object"
+};
+
+/**
+ * The schema of `waf-product-api-bundle_api-response-single` in responses.
+ */
+export const waf_product_api_bundle_api_response_single_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/waf-product-api-bundle_api-response-common"
+    },
+    {
+      "properties": {
+        "result": {
+          "anyOf": [
+            {
+              "type": "object"
+            },
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
  * The schema of `waf-product-api-bundle_identifier` in responses.
  */
 export const waf_product_api_bundle_identifier_output: JsonSchema = {
@@ -8204,6 +10145,42 @@ export const waf_product_api_bundle_messages_output: JsonSchema = {
     "type": "object"
   },
   "type": "array"
+};
+
+/**
+ * The schema of `workers_api-response-collection` in responses.
+ */
+export const workers_api_response_collection_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/workers_api-response-common"
+    },
+    {
+      "properties": {
+        "result_info": {
+          "properties": {
+            "count": {
+              "type": "number"
+            },
+            "page": {
+              "type": "number"
+            },
+            "per_page": {
+              "type": "number"
+            },
+            "total_count": {
+              "type": "number"
+            },
+            "total_pages": {
+              "type": "number"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
+    }
+  ]
 };
 
 /**
@@ -8260,6 +10237,25 @@ export const workers_api_response_common_failure_output: JsonSchema = {
     "success"
   ],
   "type": "object"
+};
+
+/**
+ * The schema of `workers_api-response-null-result` in responses.
+ */
+export const workers_api_response_null_result_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/workers_api-response-common"
+    },
+    {
+      "properties": {
+        "result": {
+          "type": "null"
+        }
+      },
+      "type": "object"
+    }
+  ]
 };
 
 /**
@@ -8624,7 +10620,37 @@ export const workers_binding_kind_dispatch_namespace_output: JsonSchema = {
       "type": "string"
     },
     "outbound": {
-      "$ref": "#/$defs/workers_binding_kind_dispatch_namespace_outbound"
+      "properties": {
+        "params": {
+          "items": {
+            "properties": {
+              "name": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "name"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "worker": {
+          "properties": {
+            "entrypoint": {
+              "type": "string"
+            },
+            "environment": {
+              "type": "string"
+            },
+            "service": {
+              "type": "string"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
     },
     "type": {
       "enum": [
@@ -8638,60 +10664,6 @@ export const workers_binding_kind_dispatch_namespace_output: JsonSchema = {
     "namespace",
     "type"
   ],
-  "type": "object"
-};
-
-/**
- * The schema of `workers_binding_kind_dispatch_namespace_outbound` in
- * responses.
- */
-export const workers_binding_kind_dispatch_namespace_outbound_output: JsonSchema = {
-  "properties": {
-    "params": {
-      "items": {
-        "$ref": "#/$defs/workers_binding_kind_dispatch_namespace_outbound_paramsItem"
-      },
-      "type": "array"
-    },
-    "worker": {
-      "$ref": "#/$defs/workers_binding_kind_dispatch_namespace_outbound_worker"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `workers_binding_kind_dispatch_namespace_outbound_paramsItem`
- * in responses.
- */
-export const workers_binding_kind_dispatch_namespace_outbound_paramsItem_output: JsonSchema = {
-  "properties": {
-    "name": {
-      "type": "string"
-    }
-  },
-  "required": [
-    "name"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `workers_binding_kind_dispatch_namespace_outbound_worker` in
- * responses.
- */
-export const workers_binding_kind_dispatch_namespace_outbound_worker_output: JsonSchema = {
-  "properties": {
-    "entrypoint": {
-      "type": "string"
-    },
-    "environment": {
-      "type": "string"
-    },
-    "service": {
-      "type": "string"
-    }
-  },
   "type": "object"
 };
 
@@ -9118,7 +11090,22 @@ export const workers_binding_kind_ratelimit_output: JsonSchema = {
       "type": "string"
     },
     "simple": {
-      "$ref": "#/$defs/workers_binding_kind_ratelimit_simple"
+      "properties": {
+        "limit": {
+          "type": "number"
+        },
+        "mitigation_timeout": {
+          "type": "integer"
+        },
+        "period": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "limit",
+        "period"
+      ],
+      "type": "object"
     },
     "type": {
       "enum": [
@@ -9132,28 +11119,6 @@ export const workers_binding_kind_ratelimit_output: JsonSchema = {
     "namespace_id",
     "simple",
     "type"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `workers_binding_kind_ratelimit_simple` in responses.
- */
-export const workers_binding_kind_ratelimit_simple_output: JsonSchema = {
-  "properties": {
-    "limit": {
-      "type": "number"
-    },
-    "mitigation_timeout": {
-      "type": "integer"
-    },
-    "period": {
-      "type": "integer"
-    }
-  },
-  "required": [
-    "limit",
-    "period"
   ],
   "type": "object"
 };
@@ -9570,6 +11535,52 @@ export const workers_cache_options_output: JsonSchema = {
 };
 
 /**
+ * The schema of `workers_code_update_strategy` in responses.
+ */
+export const workers_code_update_strategy_output: JsonSchema = {
+  "oneOf": [
+    {
+      "properties": {
+        "mode": {
+          "enum": [
+            "immediate"
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "mode"
+      ],
+      "type": "object"
+    },
+    {
+      "properties": {
+        "max_delay": {
+          "oneOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "mode": {
+          "enum": [
+            "deferred"
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "mode"
+      ],
+      "type": "object"
+    }
+  ]
+};
+
+/**
  * The schema of `workers_compatibility_date` in responses.
  */
 export const workers_compatibility_date_output: JsonSchema = {
@@ -9591,6 +11602,39 @@ export const workers_compatibility_flags_output: JsonSchema = {
     "$ref": "#/$defs/workers_compatibility_flag"
   },
   "type": "array"
+};
+
+/**
+ * The schema of `workers_create-assets-upload-session-response` in responses.
+ */
+export const workers_create_assets_upload_session_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/workers_api-response-common"
+    },
+    {
+      "properties": {
+        "result": {
+          "properties": {
+            "buckets": {
+              "items": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "type": "array"
+            },
+            "jwt": {
+              "type": "string"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
+    }
+  ]
 };
 
 /**
@@ -9875,7 +11919,37 @@ export const workers_exports_reconciliation_error_response_output: JsonSchema = 
   "properties": {
     "errors": {
       "items": {
-        "$ref": "#/$defs/workers_exports_reconciliation_error_response_errorsItem"
+        "properties": {
+          "code": {
+            "enum": [
+              100402
+            ],
+            "type": "integer"
+          },
+          "message": {
+            "type": "string"
+          },
+          "meta": {
+            "properties": {
+              "details": {
+                "items": {
+                  "$ref": "#/$defs/workers_exports_reconciliation_error"
+                },
+                "type": "array"
+              }
+            },
+            "required": [
+              "details"
+            ],
+            "type": "object"
+          }
+        },
+        "required": [
+          "code",
+          "message",
+          "meta"
+        ],
+        "type": "object"
       },
       "type": "array"
     },
@@ -9897,52 +11971,6 @@ export const workers_exports_reconciliation_error_response_output: JsonSchema = 
     "messages",
     "result",
     "success"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `workers_exports_reconciliation_error_response_errorsItem` in
- * responses.
- */
-export const workers_exports_reconciliation_error_response_errorsItem_output: JsonSchema = {
-  "properties": {
-    "code": {
-      "enum": [
-        100402
-      ],
-      "type": "integer"
-    },
-    "message": {
-      "type": "string"
-    },
-    "meta": {
-      "$ref": "#/$defs/workers_exports_reconciliation_error_response_errorsItem_meta"
-    }
-  },
-  "required": [
-    "code",
-    "message",
-    "meta"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `workers_exports_reconciliation_error_response_errorsItem_meta`
- * in responses.
- */
-export const workers_exports_reconciliation_error_response_errorsItem_meta_output: JsonSchema = {
-  "properties": {
-    "details": {
-      "items": {
-        "$ref": "#/$defs/workers_exports_reconciliation_error"
-      },
-      "type": "array"
-    }
-  },
-  "required": [
-    "details"
   ],
   "type": "object"
 };
@@ -10288,48 +12316,34 @@ export const workers_migration_step_output: JsonSchema = {
     },
     "renamed_classes": {
       "items": {
-        "$ref": "#/$defs/workers_migration_step_renamed_classesItem"
+        "properties": {
+          "from": {
+            "type": "string"
+          },
+          "to": {
+            "type": "string"
+          }
+        },
+        "type": "object"
       },
       "type": "array"
     },
     "transferred_classes": {
       "items": {
-        "$ref": "#/$defs/workers_migration_step_transferred_classesItem"
+        "properties": {
+          "from": {
+            "type": "string"
+          },
+          "from_script": {
+            "type": "string"
+          },
+          "to": {
+            "type": "string"
+          }
+        },
+        "type": "object"
       },
       "type": "array"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `workers_migration_step_renamed_classesItem` in responses.
- */
-export const workers_migration_step_renamed_classesItem_output: JsonSchema = {
-  "properties": {
-    "from": {
-      "type": "string"
-    },
-    "to": {
-      "type": "string"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `workers_migration_step_transferred_classesItem` in responses.
- */
-export const workers_migration_step_transferred_classesItem_output: JsonSchema = {
-  "properties": {
-    "from": {
-      "type": "string"
-    },
-    "from_script": {
-      "type": "string"
-    },
-    "to": {
-      "type": "string"
     }
   },
   "type": "object"
@@ -10362,21 +12376,22 @@ export const workers_modified_on_output: JsonSchema = {
  * The schema of `workers_multiple_step_migrations` in responses.
  */
 export const workers_multiple_step_migrations_output: JsonSchema = {
-  "properties": {
-    "new_tag": {
-      "type": "string"
+  "allOf": [
+    {
+      "$ref": "#/$defs/workers_migration_tag_conditions"
     },
-    "old_tag": {
-      "type": "string"
-    },
-    "steps": {
-      "items": {
-        "$ref": "#/$defs/workers_migration_step"
+    {
+      "properties": {
+        "steps": {
+          "items": {
+            "$ref": "#/$defs/workers_migration_step"
+          },
+          "type": "array"
+        }
       },
-      "type": "array"
+      "type": "object"
     }
-  },
-  "type": "object"
+  ]
 };
 
 /**
@@ -10405,138 +12420,117 @@ export const workers_observability_2_output: JsonSchema = {
       ]
     },
     "issues": {
-      "$ref": "#/$defs/workers_observability-2_issues"
+      "oneOf": [
+        {
+          "properties": {
+            "enabled": {
+              "type": "boolean"
+            }
+          },
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
     "logs": {
-      "$ref": "#/$defs/workers_observability-2_logs"
+      "oneOf": [
+        {
+          "properties": {
+            "destinations": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "enabled": {
+              "type": "boolean"
+            },
+            "head_sampling_rate": {
+              "oneOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "invocation_logs": {
+              "type": "boolean"
+            },
+            "persist": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "enabled",
+            "invocation_logs"
+          ],
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
     "redact_query_string": {
       "type": "boolean"
     },
     "traces": {
-      "$ref": "#/$defs/workers_observability-2_traces"
+      "oneOf": [
+        {
+          "properties": {
+            "destinations": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "enabled": {
+              "type": "boolean"
+            },
+            "head_sampling_rate": {
+              "oneOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "persist": {
+              "type": "boolean"
+            },
+            "propagation_policy": {
+              "oneOf": [
+                {
+                  "enum": [
+                    "authenticated",
+                    "accept"
+                  ],
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            }
+          },
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ]
     }
   },
   "required": [
     "enabled"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `workers_observability-2_issues` in responses.
- */
-export const workers_observability_2_issues_output: JsonSchema = {
-  "oneOf": [
-    {
-      "properties": {
-        "enabled": {
-          "type": "boolean"
-        }
-      },
-      "type": "object"
-    },
-    {
-      "type": "null"
-    }
-  ]
-};
-
-/**
- * The schema of `workers_observability-2_logs` in responses.
- */
-export const workers_observability_2_logs_output: JsonSchema = {
-  "oneOf": [
-    {
-      "properties": {
-        "destinations": {
-          "items": {
-            "type": "string"
-          },
-          "type": "array"
-        },
-        "enabled": {
-          "type": "boolean"
-        },
-        "head_sampling_rate": {
-          "oneOf": [
-            {
-              "type": "number"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "invocation_logs": {
-          "type": "boolean"
-        },
-        "persist": {
-          "type": "boolean"
-        }
-      },
-      "required": [
-        "enabled",
-        "invocation_logs"
-      ],
-      "type": "object"
-    },
-    {
-      "type": "null"
-    }
-  ]
-};
-
-/**
- * The schema of `workers_observability-2_traces` in responses.
- */
-export const workers_observability_2_traces_output: JsonSchema = {
-  "oneOf": [
-    {
-      "properties": {
-        "destinations": {
-          "items": {
-            "type": "string"
-          },
-          "type": "array"
-        },
-        "enabled": {
-          "type": "boolean"
-        },
-        "head_sampling_rate": {
-          "oneOf": [
-            {
-              "type": "number"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "persist": {
-          "type": "boolean"
-        },
-        "propagation_policy": {
-          "oneOf": [
-            {
-              "enum": [
-                "authenticated",
-                "accept"
-              ],
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        }
-      },
-      "type": "object"
-    },
-    {
-      "type": "null"
-    }
-  ]
 };
 
 /**
@@ -10935,7 +12929,18 @@ export const workers_script_response_output: JsonSchema = {
     },
     "named_handlers": {
       "items": {
-        "$ref": "#/$defs/workers_script-response_named_handlersItem"
+        "properties": {
+          "handlers": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "name": {
+            "type": "string"
+          }
+        },
+        "type": "object"
       },
       "type": "array"
     },
@@ -10982,21 +12987,10 @@ export const workers_script_response_output: JsonSchema = {
 };
 
 /**
- * The schema of `workers_script-response_named_handlersItem` in responses.
+ * The schema of `workers_script_name` in responses.
  */
-export const workers_script_response_named_handlersItem_output: JsonSchema = {
-  "properties": {
-    "handlers": {
-      "items": {
-        "type": "string"
-      },
-      "type": "array"
-    },
-    "name": {
-      "type": "string"
-    }
-  },
-  "type": "object"
+export const workers_script_name_output: JsonSchema = {
+  "type": "string"
 };
 
 /**
@@ -11167,6 +13161,13 @@ export const zones_api_response_common_failure_2_output: JsonSchema = {
     "success"
   ],
   "type": "object"
+};
+
+/**
+ * The schema of `zones_identifier-2` in responses.
+ */
+export const zones_identifier_2_output: JsonSchema = {
+  "type": "string"
 };
 
 /**

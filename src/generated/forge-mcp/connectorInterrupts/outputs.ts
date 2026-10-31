@@ -4,63 +4,99 @@
 import type { JsonSchema } from "../_/tool.js";
 
 /**
+ * The schema of `mconn_connector_interrupts_create_response` in responses.
+ */
+export const mconn_connector_interrupts_create_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/mconn_good_response"
+    },
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/mconn_connector_interrupts_result"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `mconn_connector_interrupts_list_response` in responses.
+ */
+export const mconn_connector_interrupts_list_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/mconn_good_response"
+    },
+    {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/mconn_connector_interrupts_result"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
  * The schema of `mconn_connector_interrupts_result` in responses.
  */
 export const mconn_connector_interrupts_result_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/mconn_interrupt"
+    },
+    {
+      "properties": {
+        "submitted_at": {
+          "type": "string"
+        },
+        "triggered_at": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "submitted_at"
+      ],
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `mconn_interrupt` in responses.
+ */
+export const mconn_interrupt_output: JsonSchema = {
   "properties": {
     "reboot": {
-      "$ref": "#/$defs/mconn_interrupt_reboot"
+      "properties": {
+        "purge": {
+          "type": "boolean"
+        }
+      },
+      "type": "object"
     },
     "restart": {
-      "$ref": "#/$defs/mconn_interrupt_restart"
+      "properties": {
+        "purge": {
+          "type": "boolean"
+        }
+      },
+      "type": "object"
     },
     "shutdown": {
-      "$ref": "#/$defs/mconn_interrupt_shutdown"
-    },
-    "submitted_at": {
-      "type": "string"
-    },
-    "triggered_at": {
-      "type": "string"
-    }
-  },
-  "required": [
-    "submitted_at"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `mconn_interrupt_reboot` in responses.
- */
-export const mconn_interrupt_reboot_output: JsonSchema = {
-  "properties": {
-    "purge": {
-      "type": "boolean"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `mconn_interrupt_restart` in responses.
- */
-export const mconn_interrupt_restart_output: JsonSchema = {
-  "properties": {
-    "purge": {
-      "type": "boolean"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `mconn_interrupt_shutdown` in responses.
- */
-export const mconn_interrupt_shutdown_output: JsonSchema = {
-  "properties": {
-    "purge": {
-      "type": "boolean"
+      "properties": {
+        "purge": {
+          "type": "boolean"
+        }
+      },
+      "type": "object"
     }
   },
   "type": "object"

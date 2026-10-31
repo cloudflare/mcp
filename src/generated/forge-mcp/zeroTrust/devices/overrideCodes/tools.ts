@@ -36,9 +36,36 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/teams-devices_override_code",
+      "properties": {
+        "errors": {
+          "items": {
+            "$ref": "#/$defs/teams-devices_v4_response_message"
+          },
+          "type": "array"
+        },
+        "messages": {
+          "items": {
+            "$ref": "#/$defs/teams-devices_v4_response_message"
+          },
+          "type": "array"
+        },
+        "result": {
+          "$ref": "#/$defs/teams-devices_override_code"
+        },
+        "success": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "errors",
+        "messages",
+        "result",
+        "success"
+      ],
+      "type": "object",
       $defs: {
         "teams-devices_override_code": teams_devices_override_code_output,
+        "teams-devices_v4_response_message": teams_devices_v4_response_message_output,
       },
     },
     annotations: {
@@ -56,7 +83,33 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/teams-devices_override_code"
+          "properties": {
+            "errors": {
+              "items": {
+                "$ref": "#/$defs/teams-devices_v4_response_message"
+              },
+              "type": "array"
+            },
+            "messages": {
+              "items": {
+                "$ref": "#/$defs/teams-devices_v4_response_message"
+              },
+              "type": "array"
+            },
+            "result": {
+              "$ref": "#/$defs/teams-devices_override_code"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "messages",
+            "result",
+            "success"
+          ],
+          "type": "object"
         },
         "4XX": {
           "$ref": "#/$defs/teams-devices_v4_error_response"

@@ -5,14 +5,14 @@ import { type Tool, pathParam } from "../../_/tool.js";
 import {
   abuse_reports_AuthErrorResponse_output,
   abuse_reports_CloudflareAPIErrorResponse_output,
-  abuse_reports_ErrorMessage_code_output,
   abuse_reports_ErrorMessage_output,
   abuse_reports_Message_output,
+  abuse_reports_ResultInfo_output,
   abuse_reports_UnauthorizedErrorResponse_output,
 } from "../outputs.js";
 import {
   abuse_reports_EmailListItem_output,
-  abuse_reports_EmailListResponse_result_output,
+  abuse_reports_EmailListResponse_output,
 } from "./outputs.js";
 
 /**
@@ -50,19 +50,70 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
-        "emails": {
+        "errors": {
           "items": {
-            "$ref": "#/$defs/abuse-reports_EmailListItem"
+            "$ref": "#/$defs/abuse-reports_Message"
           },
           "type": "array"
+        },
+        "messages": {
+          "items": {
+            "$ref": "#/$defs/abuse-reports_Message"
+          },
+          "type": "array"
+        },
+        "result": {
+          "properties": {
+            "emails": {
+              "items": {
+                "$ref": "#/$defs/abuse-reports_EmailListItem"
+              },
+              "type": "array"
+            }
+          },
+          "required": [
+            "emails"
+          ],
+          "type": "object"
+        },
+        "result_info": {
+          "properties": {
+            "count": {
+              "type": "number"
+            },
+            "page": {
+              "type": "number"
+            },
+            "per_page": {
+              "type": "number"
+            },
+            "total_count": {
+              "type": "number"
+            },
+            "total_pages": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "count",
+            "page",
+            "per_page",
+            "total_count",
+            "total_pages"
+          ],
+          "type": "object"
+        },
+        "success": {
+          "type": "boolean"
         }
       },
       "required": [
-        "emails"
+        "success"
       ],
       "type": "object",
       $defs: {
         "abuse-reports_EmailListItem": abuse_reports_EmailListItem_output,
+        "abuse-reports_Message": abuse_reports_Message_output,
       },
     },
     annotations: {
@@ -84,15 +135,65 @@ export const tools: readonly Tool[] = [
       schemas: {
         "200": {
           "properties": {
-            "emails": {
+            "errors": {
               "items": {
-                "$ref": "#/$defs/abuse-reports_EmailListItem"
+                "$ref": "#/$defs/abuse-reports_Message"
               },
               "type": "array"
+            },
+            "messages": {
+              "items": {
+                "$ref": "#/$defs/abuse-reports_Message"
+              },
+              "type": "array"
+            },
+            "result": {
+              "properties": {
+                "emails": {
+                  "items": {
+                    "$ref": "#/$defs/abuse-reports_EmailListItem"
+                  },
+                  "type": "array"
+                }
+              },
+              "required": [
+                "emails"
+              ],
+              "type": "object"
+            },
+            "result_info": {
+              "properties": {
+                "count": {
+                  "type": "number"
+                },
+                "page": {
+                  "type": "number"
+                },
+                "per_page": {
+                  "type": "number"
+                },
+                "total_count": {
+                  "type": "number"
+                },
+                "total_pages": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "count",
+                "page",
+                "per_page",
+                "total_count",
+                "total_pages"
+              ],
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
             }
           },
           "required": [
-            "emails"
+            "success"
           ],
           "type": "object"
         },
@@ -154,7 +255,6 @@ export const tools: readonly Tool[] = [
         "abuse-reports_CloudflareAPIErrorResponse": abuse_reports_CloudflareAPIErrorResponse_output,
         "abuse-reports_EmailListItem": abuse_reports_EmailListItem_output,
         "abuse-reports_ErrorMessage": abuse_reports_ErrorMessage_output,
-        "abuse-reports_ErrorMessage_code": abuse_reports_ErrorMessage_code_output,
         "abuse-reports_Message": abuse_reports_Message_output,
         "abuse-reports_UnauthorizedErrorResponse": abuse_reports_UnauthorizedErrorResponse_output,
       },
@@ -197,10 +297,13 @@ export const tools: readonly Tool[] = [
       ],
     },
     outputSchema: {
-      "$ref": "#/$defs/abuse-reports_EmailListResponse_result",
+      "$ref": "#/$defs/abuse-reports_EmailListResponse",
       $defs: {
         "abuse-reports_EmailListItem": abuse_reports_EmailListItem_output,
-        "abuse-reports_EmailListResponse_result": abuse_reports_EmailListResponse_result_output,
+        "abuse-reports_EmailListResponse": abuse_reports_EmailListResponse_output,
+        "abuse-reports_ErrorMessage": abuse_reports_ErrorMessage_output,
+        "abuse-reports_Message": abuse_reports_Message_output,
+        "abuse-reports_ResultInfo": abuse_reports_ResultInfo_output,
       },
     },
     annotations: {
@@ -221,7 +324,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/abuse-reports_EmailListResponse_result"
+          "$ref": "#/$defs/abuse-reports_EmailListResponse"
         },
         "400": null,
         "401": {
@@ -237,10 +340,10 @@ export const tools: readonly Tool[] = [
         "abuse-reports_AuthErrorResponse": abuse_reports_AuthErrorResponse_output,
         "abuse-reports_CloudflareAPIErrorResponse": abuse_reports_CloudflareAPIErrorResponse_output,
         "abuse-reports_EmailListItem": abuse_reports_EmailListItem_output,
-        "abuse-reports_EmailListResponse_result": abuse_reports_EmailListResponse_result_output,
+        "abuse-reports_EmailListResponse": abuse_reports_EmailListResponse_output,
         "abuse-reports_ErrorMessage": abuse_reports_ErrorMessage_output,
-        "abuse-reports_ErrorMessage_code": abuse_reports_ErrorMessage_code_output,
         "abuse-reports_Message": abuse_reports_Message_output,
+        "abuse-reports_ResultInfo": abuse_reports_ResultInfo_output,
         "abuse-reports_UnauthorizedErrorResponse": abuse_reports_UnauthorizedErrorResponse_output,
       },
     },

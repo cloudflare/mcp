@@ -3,15 +3,21 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
+  iam_api_response_collection_output,
   iam_api_response_common_failure_output,
+  iam_api_response_common_output,
+  iam_api_response_single_output,
   iam_email_output,
   iam_messages_2_output,
   iam_result_info_output,
 } from "../../../outputs.js";
-import { iam_common_components_schemas_identifier } from "../../../schemas.js";
+import {
+  iam_account_identifier,
+  iam_common_components_schemas_identifier,
+} from "../../../schemas.js";
+import { iam_user_group_identifier } from "../schemas.js";
 import {
   iam_user_group_member_detailed_output,
-  iam_user_group_member_detailed_user_output,
   iam_user_group_member_output,
 } from "./outputs.js";
 import { iam_user_group_member_identifier } from "./schemas.js";
@@ -28,8 +34,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Account identifier tag.",
-          "type": "string"
+          "$ref": "#/$defs/iam_account_identifier",
+          "description": "Account identifier tag."
         },
         "body": {
           "items": {
@@ -47,8 +53,8 @@ export const tools: readonly Tool[] = [
           "type": "array"
         },
         "user_group_id": {
-          "description": "User Group identifier tag.",
-          "type": "string"
+          "$ref": "#/$defs/iam_user_group_identifier",
+          "description": "User Group identifier tag."
         }
       },
       required: [
@@ -57,28 +63,33 @@ export const tools: readonly Tool[] = [
         "body"
       ],
       $defs: {
+        "iam_account_identifier": iam_account_identifier,
         "iam_common_components-schemas-identifier": iam_common_components_schemas_identifier,
+        "iam_user_group_identifier": iam_user_group_identifier,
         "iam_user_group_member_identifier": iam_user_group_member_identifier,
       },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "$ref": "#/$defs/iam_user_group_member"
-          },
-          "type": "array"
+      "allOf": [
+        {
+          "$ref": "#/$defs/iam_api-response-single"
         },
-        "result_info": {
+        {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/iam_user_group_member"
+              },
+              "type": "array"
+            }
+          },
           "type": "object"
         }
-      },
-      "required": [
-        "result"
       ],
-      "type": "object",
       $defs: {
+        "iam_api-response-single": iam_api_response_single_output,
         "iam_email": iam_email_output,
+        "iam_messages-2": iam_messages_2_output,
         "iam_user_group_member": iam_user_group_member_output,
       },
     },
@@ -99,12 +110,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "com.cloudflare.api.account.member.create"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.api.account.member.create": {
-            "name": "com_cloudflare_api_account_member_create"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": true,
@@ -116,21 +122,22 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "items": {
-                "$ref": "#/$defs/iam_user_group_member"
-              },
-              "type": "array"
+          "allOf": [
+            {
+              "$ref": "#/$defs/iam_api-response-single"
             },
-            "result_info": {
+            {
+              "properties": {
+                "result": {
+                  "items": {
+                    "$ref": "#/$defs/iam_user_group_member"
+                  },
+                  "type": "array"
+                }
+              },
               "type": "object"
             }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/iam_api-response-common-failure"
@@ -138,6 +145,7 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "iam_api-response-common-failure": iam_api_response_common_failure_output,
+        "iam_api-response-single": iam_api_response_single_output,
         "iam_email": iam_email_output,
         "iam_messages-2": iam_messages_2_output,
         "iam_user_group_member": iam_user_group_member_output,
@@ -156,16 +164,16 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Account identifier tag.",
-          "type": "string"
+          "$ref": "#/$defs/iam_account_identifier",
+          "description": "Account identifier tag."
         },
         "member_id": {
-          "description": "The identifier of an existing account Member.",
-          "type": "string"
+          "$ref": "#/$defs/iam_user_group_member_identifier",
+          "description": "The identifier of an existing account Member."
         },
         "user_group_id": {
-          "description": "User Group identifier tag.",
-          "type": "string"
+          "$ref": "#/$defs/iam_user_group_identifier",
+          "description": "User Group identifier tag."
         }
       },
       required: [
@@ -173,11 +181,31 @@ export const tools: readonly Tool[] = [
         "user_group_id",
         "member_id"
       ],
+      $defs: {
+        "iam_account_identifier": iam_account_identifier,
+        "iam_common_components-schemas-identifier": iam_common_components_schemas_identifier,
+        "iam_user_group_identifier": iam_user_group_identifier,
+        "iam_user_group_member_identifier": iam_user_group_member_identifier,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/iam_user_group_member",
+      "allOf": [
+        {
+          "$ref": "#/$defs/iam_api-response-single"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/iam_user_group_member"
+            }
+          },
+          "type": "object"
+        }
+      ],
       $defs: {
+        "iam_api-response-single": iam_api_response_single_output,
         "iam_email": iam_email_output,
+        "iam_messages-2": iam_messages_2_output,
         "iam_user_group_member": iam_user_group_member_output,
       },
     },
@@ -198,12 +226,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "com.cloudflare.api.account.member.delete"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.api.account.member.delete": {
-            "name": "com_cloudflare_api_account_member_delete"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": true,
@@ -215,7 +238,19 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/iam_user_group_member"
+          "allOf": [
+            {
+              "$ref": "#/$defs/iam_api-response-single"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/iam_user_group_member"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/iam_api-response-common-failure"
@@ -223,6 +258,7 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "iam_api-response-common-failure": iam_api_response_common_failure_output,
+        "iam_api-response-single": iam_api_response_single_output,
         "iam_email": iam_email_output,
         "iam_messages-2": iam_messages_2_output,
         "iam_user_group_member": iam_user_group_member_output,
@@ -240,16 +276,16 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Account identifier tag.",
-          "type": "string"
+          "$ref": "#/$defs/iam_account_identifier",
+          "description": "Account identifier tag."
         },
         "member_id": {
-          "description": "The identifier of an existing account Member.",
-          "type": "string"
+          "$ref": "#/$defs/iam_user_group_member_identifier",
+          "description": "The identifier of an existing account Member."
         },
         "user_group_id": {
-          "description": "User Group identifier tag.",
-          "type": "string"
+          "$ref": "#/$defs/iam_user_group_identifier",
+          "description": "User Group identifier tag."
         }
       },
       required: [
@@ -257,13 +293,32 @@ export const tools: readonly Tool[] = [
         "user_group_id",
         "member_id"
       ],
+      $defs: {
+        "iam_account_identifier": iam_account_identifier,
+        "iam_common_components-schemas-identifier": iam_common_components_schemas_identifier,
+        "iam_user_group_identifier": iam_user_group_identifier,
+        "iam_user_group_member_identifier": iam_user_group_member_identifier,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/iam_user_group_member_detailed",
+      "allOf": [
+        {
+          "$ref": "#/$defs/iam_api-response-single"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/iam_user_group_member_detailed"
+            }
+          },
+          "type": "object"
+        }
+      ],
       $defs: {
+        "iam_api-response-single": iam_api_response_single_output,
         "iam_email": iam_email_output,
+        "iam_messages-2": iam_messages_2_output,
         "iam_user_group_member_detailed": iam_user_group_member_detailed_output,
-        "iam_user_group_member_detailed_user": iam_user_group_member_detailed_user_output,
       },
     },
     annotations: {
@@ -284,12 +339,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "com.cloudflare.api.account.member.read"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.api.account.member.read": {
-            "name": "com_cloudflare_api_account_member_read"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": true,
@@ -301,7 +351,19 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/iam_user_group_member_detailed"
+          "allOf": [
+            {
+              "$ref": "#/$defs/iam_api-response-single"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/iam_user_group_member_detailed"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/iam_api-response-common-failure"
@@ -309,10 +371,10 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "iam_api-response-common-failure": iam_api_response_common_failure_output,
+        "iam_api-response-single": iam_api_response_single_output,
         "iam_email": iam_email_output,
         "iam_messages-2": iam_messages_2_output,
         "iam_user_group_member_detailed": iam_user_group_member_detailed_output,
-        "iam_user_group_member_detailed_user": iam_user_group_member_detailed_user_output,
       },
     },
     request: (args) => ({
@@ -327,8 +389,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Account identifier tag.",
-          "type": "string"
+          "$ref": "#/$defs/iam_account_identifier",
+          "description": "Account identifier tag."
         },
         "direction": {
           "default": "asc",
@@ -354,33 +416,42 @@ export const tools: readonly Tool[] = [
           "type": "number"
         },
         "user_group_id": {
-          "description": "User Group identifier tag.",
-          "type": "string"
+          "$ref": "#/$defs/iam_user_group_identifier",
+          "description": "User Group identifier tag."
         }
       },
       required: [
         "account_id",
         "user_group_id"
       ],
+      $defs: {
+        "iam_account_identifier": iam_account_identifier,
+        "iam_common_components-schemas-identifier": iam_common_components_schemas_identifier,
+        "iam_user_group_identifier": iam_user_group_identifier,
+      },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "$ref": "#/$defs/iam_user_group_member"
-          },
-          "type": "array"
+      "allOf": [
+        {
+          "$ref": "#/$defs/iam_api-response-collection"
         },
-        "result_info": {
-          "$ref": "#/$defs/iam_result_info"
+        {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/iam_user_group_member"
+              },
+              "type": "array"
+            }
+          },
+          "type": "object"
         }
-      },
-      "required": [
-        "result"
       ],
-      "type": "object",
       $defs: {
+        "iam_api-response-collection": iam_api_response_collection_output,
+        "iam_api-response-common": iam_api_response_common_output,
         "iam_email": iam_email_output,
+        "iam_messages-2": iam_messages_2_output,
         "iam_result_info": iam_result_info_output,
         "iam_user_group_member": iam_user_group_member_output,
       },
@@ -403,12 +474,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "com.cloudflare.api.account.member.read"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.api.account.member.read": {
-            "name": "com_cloudflare_api_account_member_read"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": true,
@@ -420,27 +486,30 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "items": {
-                "$ref": "#/$defs/iam_user_group_member"
-              },
-              "type": "array"
+          "allOf": [
+            {
+              "$ref": "#/$defs/iam_api-response-collection"
             },
-            "result_info": {
-              "$ref": "#/$defs/iam_result_info"
+            {
+              "properties": {
+                "result": {
+                  "items": {
+                    "$ref": "#/$defs/iam_user_group_member"
+                  },
+                  "type": "array"
+                }
+              },
+              "type": "object"
             }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/iam_api-response-common-failure"
         }
       },
       $defs: {
+        "iam_api-response-collection": iam_api_response_collection_output,
+        "iam_api-response-common": iam_api_response_common_output,
         "iam_api-response-common-failure": iam_api_response_common_failure_output,
         "iam_email": iam_email_output,
         "iam_messages-2": iam_messages_2_output,
@@ -466,8 +535,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Account identifier tag.",
-          "type": "string"
+          "$ref": "#/$defs/iam_account_identifier",
+          "description": "Account identifier tag."
         },
         "body": {
           "items": {
@@ -485,8 +554,8 @@ export const tools: readonly Tool[] = [
           "type": "array"
         },
         "user_group_id": {
-          "description": "User Group identifier tag.",
-          "type": "string"
+          "$ref": "#/$defs/iam_user_group_identifier",
+          "description": "User Group identifier tag."
         }
       },
       required: [
@@ -495,28 +564,33 @@ export const tools: readonly Tool[] = [
         "body"
       ],
       $defs: {
+        "iam_account_identifier": iam_account_identifier,
         "iam_common_components-schemas-identifier": iam_common_components_schemas_identifier,
+        "iam_user_group_identifier": iam_user_group_identifier,
         "iam_user_group_member_identifier": iam_user_group_member_identifier,
       },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "$ref": "#/$defs/iam_user_group_member"
-          },
-          "type": "array"
+      "allOf": [
+        {
+          "$ref": "#/$defs/iam_api-response-single"
         },
-        "result_info": {
+        {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/iam_user_group_member"
+              },
+              "type": "array"
+            }
+          },
           "type": "object"
         }
-      },
-      "required": [
-        "result"
       ],
-      "type": "object",
       $defs: {
+        "iam_api-response-single": iam_api_response_single_output,
         "iam_email": iam_email_output,
+        "iam_messages-2": iam_messages_2_output,
         "iam_user_group_member": iam_user_group_member_output,
       },
     },
@@ -544,21 +618,22 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "items": {
-                "$ref": "#/$defs/iam_user_group_member"
-              },
-              "type": "array"
+          "allOf": [
+            {
+              "$ref": "#/$defs/iam_api-response-single"
             },
-            "result_info": {
+            {
+              "properties": {
+                "result": {
+                  "items": {
+                    "$ref": "#/$defs/iam_user_group_member"
+                  },
+                  "type": "array"
+                }
+              },
               "type": "object"
             }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/iam_api-response-common-failure"
@@ -566,6 +641,7 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "iam_api-response-common-failure": iam_api_response_common_failure_output,
+        "iam_api-response-single": iam_api_response_single_output,
         "iam_email": iam_email_output,
         "iam_messages-2": iam_messages_2_output,
         "iam_user_group_member": iam_user_group_member_output,

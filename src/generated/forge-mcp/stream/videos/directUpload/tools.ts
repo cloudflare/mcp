@@ -4,6 +4,7 @@
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
   stream_api_response_common_failure_output,
+  stream_api_response_single_output,
   stream_downloadedFrom_output,
   stream_height_output,
   stream_messages_output,
@@ -18,7 +19,7 @@ import {
   stream_watermarks_output,
   stream_width_output,
 } from "../../outputs.js";
-import { stream_creator } from "../../schemas.js";
+import { stream_account_identifier, stream_creator } from "../../schemas.js";
 import {
   stream_identifier_output,
   stream_scheduledDeletion_output,
@@ -30,8 +31,9 @@ import {
   stream_requireSignedURLs,
   stream_scheduledDeletion,
   stream_thumbnailTimestampPct,
-  stream_watermark_at_upload_alt,
+  stream_watermark_at_upload,
 } from "../schemas.js";
+import { stream_direct_upload_response_output } from "./outputs.js";
 import { stream_direct_upload_request } from "./schemas.js";
 
 /**
@@ -46,8 +48,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "The account identifier tag.",
-          "type": "string"
+          "$ref": "#/$defs/stream_account_identifier",
+          "description": "The account identifier tag."
         },
         "body": {
           "$ref": "#/$defs/stream_direct_upload_request"
@@ -62,6 +64,7 @@ export const tools: readonly Tool[] = [
         "body"
       ],
       $defs: {
+        "stream_account_identifier": stream_account_identifier,
         "stream_allowedOrigins": stream_allowedOrigins,
         "stream_creator": stream_creator,
         "stream_direct_upload_request": stream_direct_upload_request,
@@ -70,29 +73,18 @@ export const tools: readonly Tool[] = [
         "stream_requireSignedURLs": stream_requireSignedURLs,
         "stream_scheduledDeletion": stream_scheduledDeletion,
         "stream_thumbnailTimestampPct": stream_thumbnailTimestampPct,
-        "stream_watermark_at_upload_alt": stream_watermark_at_upload_alt,
+        "stream_watermark_at_upload": stream_watermark_at_upload,
       },
     },
     outputSchema: {
-      "properties": {
-        "scheduledDeletion": {
-          "$ref": "#/$defs/stream_scheduledDeletion"
-        },
-        "uid": {
-          "$ref": "#/$defs/stream_identifier"
-        },
-        "uploadURL": {
-          "type": "string"
-        },
-        "watermark": {
-          "$ref": "#/$defs/stream_watermarks"
-        }
-      },
-      "type": "object",
+      "$ref": "#/$defs/stream_direct_upload_response",
       $defs: {
+        "stream_api-response-single": stream_api_response_single_output,
+        "stream_direct_upload_response": stream_direct_upload_response_output,
         "stream_downloadedFrom": stream_downloadedFrom_output,
         "stream_height": stream_height_output,
         "stream_identifier": stream_identifier_output,
+        "stream_messages": stream_messages_output,
         "stream_name": stream_name_output,
         "stream_opacity": stream_opacity_output,
         "stream_padding": stream_padding_output,
@@ -123,21 +115,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "scheduledDeletion": {
-              "$ref": "#/$defs/stream_scheduledDeletion"
-            },
-            "uid": {
-              "$ref": "#/$defs/stream_identifier"
-            },
-            "uploadURL": {
-              "type": "string"
-            },
-            "watermark": {
-              "$ref": "#/$defs/stream_watermarks"
-            }
-          },
-          "type": "object"
+          "$ref": "#/$defs/stream_direct_upload_response"
         },
         "4XX": {
           "$ref": "#/$defs/stream_api-response-common-failure"
@@ -145,6 +123,8 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "stream_api-response-common-failure": stream_api_response_common_failure_output,
+        "stream_api-response-single": stream_api_response_single_output,
+        "stream_direct_upload_response": stream_direct_upload_response_output,
         "stream_downloadedFrom": stream_downloadedFrom_output,
         "stream_height": stream_height_output,
         "stream_identifier": stream_identifier_output,

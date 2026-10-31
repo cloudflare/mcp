@@ -3,11 +3,15 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
+  bill_subs_api_api_response_collection_output,
   bill_subs_api_api_response_common_failure_output,
+  bill_subs_api_api_response_common_output,
   bill_subs_api_messages_output,
   bill_subs_api_result_info_output,
 } from "../../../outputs.js";
+import { bill_subs_api_identifier } from "../../../schemas.js";
 import { bill_subs_api_account_billing_history_output } from "../outputs.js";
+import { bill_subs_api_account_billing_history_collection_output } from "./outputs.js";
 
 /**
  * The tools of `accounts.billing.history`.
@@ -21,8 +25,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier",
-          "type": "string"
+          "$ref": "#/$defs/bill-subs-api_identifier",
+          "description": "Identifier"
         },
         "page": {
           "default": 1,
@@ -42,25 +46,18 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+      $defs: {
+        "bill-subs-api_identifier": bill_subs_api_identifier,
+      },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "$ref": "#/$defs/bill-subs-api_account_billing_history"
-          },
-          "type": "array"
-        },
-        "result_info": {
-          "$ref": "#/$defs/bill-subs-api_result_info"
-        }
-      },
-      "required": [
-        "result"
-      ],
-      "type": "object",
+      "$ref": "#/$defs/bill-subs-api_account_billing_history_collection",
       $defs: {
         "bill-subs-api_account_billing_history": bill_subs_api_account_billing_history_output,
+        "bill-subs-api_account_billing_history_collection": bill_subs_api_account_billing_history_collection_output,
+        "bill-subs-api_api-response-collection": bill_subs_api_api_response_collection_output,
+        "bill-subs-api_api-response-common": bill_subs_api_api_response_common_output,
+        "bill-subs-api_messages": bill_subs_api_messages_output,
         "bill-subs-api_result_info": bill_subs_api_result_info_output,
       },
     },
@@ -81,12 +78,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "#billing:read"
-        ],
-        "x-fern-enum": {
-          "#billing:read": {
-            "name": "billing_read"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": true,
@@ -98,21 +90,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "items": {
-                "$ref": "#/$defs/bill-subs-api_account_billing_history"
-              },
-              "type": "array"
-            },
-            "result_info": {
-              "$ref": "#/$defs/bill-subs-api_result_info"
-            }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/bill-subs-api_account_billing_history_collection"
         },
         "4XX": {
           "$ref": "#/$defs/bill-subs-api_api-response-common-failure"
@@ -120,6 +98,9 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "bill-subs-api_account_billing_history": bill_subs_api_account_billing_history_output,
+        "bill-subs-api_account_billing_history_collection": bill_subs_api_account_billing_history_collection_output,
+        "bill-subs-api_api-response-collection": bill_subs_api_api_response_collection_output,
+        "bill-subs-api_api-response-common": bill_subs_api_api_response_common_output,
         "bill-subs-api_api-response-common-failure": bill_subs_api_api_response_common_failure_output,
         "bill-subs-api_messages": bill_subs_api_messages_output,
         "bill-subs-api_result_info": bill_subs_api_result_info_output,

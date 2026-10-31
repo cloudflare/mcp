@@ -14,6 +14,8 @@ import {
 import {
   pay_per_crawl_DaricZoneCanBeEnabled_output,
   pay_per_crawl_ZonesCanBeEnabledPayload_output,
+  pay_per_crawl_getZoneCanBeEnabledResponse_output,
+  pay_per_crawl_queryZonesCanBeEnabledResponse_output,
 } from "./outputs.js";
 import {
   pay_per_crawl_DaricZoneCanBeEnabledUpdate,
@@ -42,9 +44,13 @@ export const tools: readonly Tool[] = [
       ],
     },
     outputSchema: {
-      "$ref": "#/$defs/pay-per-crawl_DaricZoneCanBeEnabled",
+      "$ref": "#/$defs/pay-per-crawl_getZoneCanBeEnabledResponse",
       $defs: {
         "pay-per-crawl_DaricZoneCanBeEnabled": pay_per_crawl_DaricZoneCanBeEnabled_output,
+        "pay-per-crawl_Msg": pay_per_crawl_Msg_output,
+        "pay-per-crawl_ResultInfo": pay_per_crawl_ResultInfo_output,
+        "pay-per-crawl_Source": pay_per_crawl_Source_output,
+        "pay-per-crawl_getZoneCanBeEnabledResponse": pay_per_crawl_getZoneCanBeEnabledResponse_output,
       },
     },
     annotations: {
@@ -65,7 +71,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/pay-per-crawl_DaricZoneCanBeEnabled"
+          "$ref": "#/$defs/pay-per-crawl_getZoneCanBeEnabledResponse"
         },
         "400": {
           "$ref": "#/$defs/pay-per-crawl_apiErrorResponse"
@@ -74,8 +80,12 @@ export const tools: readonly Tool[] = [
       $defs: {
         "pay-per-crawl_DaricZoneCanBeEnabled": pay_per_crawl_DaricZoneCanBeEnabled_output,
         "pay-per-crawl_ErrorSource": pay_per_crawl_ErrorSource_output,
+        "pay-per-crawl_Msg": pay_per_crawl_Msg_output,
         "pay-per-crawl_RESTError": pay_per_crawl_RESTError_output,
+        "pay-per-crawl_ResultInfo": pay_per_crawl_ResultInfo_output,
+        "pay-per-crawl_Source": pay_per_crawl_Source_output,
         "pay-per-crawl_apiErrorResponse": pay_per_crawl_apiErrorResponse_output,
+        "pay-per-crawl_getZoneCanBeEnabledResponse": pay_per_crawl_getZoneCanBeEnabledResponse_output,
       },
     },
     request: (args) => ({
@@ -107,10 +117,14 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/pay-per-crawl_ZonesCanBeEnabledPayload",
+      "$ref": "#/$defs/pay-per-crawl_queryZonesCanBeEnabledResponse",
       $defs: {
         "pay-per-crawl_DaricZoneCanBeEnabled": pay_per_crawl_DaricZoneCanBeEnabled_output,
+        "pay-per-crawl_Msg": pay_per_crawl_Msg_output,
+        "pay-per-crawl_ResultInfo": pay_per_crawl_ResultInfo_output,
+        "pay-per-crawl_Source": pay_per_crawl_Source_output,
         "pay-per-crawl_ZonesCanBeEnabledPayload": pay_per_crawl_ZonesCanBeEnabledPayload_output,
+        "pay-per-crawl_queryZonesCanBeEnabledResponse": pay_per_crawl_queryZonesCanBeEnabledResponse_output,
       },
     },
     annotations: {
@@ -158,7 +172,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/pay-per-crawl_ZonesCanBeEnabledPayload"
+          "$ref": "#/$defs/pay-per-crawl_queryZonesCanBeEnabledResponse"
         },
         "400": {
           "$ref": "#/$defs/pay-per-crawl_apiErrorResponse"
@@ -167,9 +181,13 @@ export const tools: readonly Tool[] = [
       $defs: {
         "pay-per-crawl_DaricZoneCanBeEnabled": pay_per_crawl_DaricZoneCanBeEnabled_output,
         "pay-per-crawl_ErrorSource": pay_per_crawl_ErrorSource_output,
+        "pay-per-crawl_Msg": pay_per_crawl_Msg_output,
         "pay-per-crawl_RESTError": pay_per_crawl_RESTError_output,
+        "pay-per-crawl_ResultInfo": pay_per_crawl_ResultInfo_output,
+        "pay-per-crawl_Source": pay_per_crawl_Source_output,
         "pay-per-crawl_ZonesCanBeEnabledPayload": pay_per_crawl_ZonesCanBeEnabledPayload_output,
         "pay-per-crawl_apiErrorResponse": pay_per_crawl_apiErrorResponse_output,
+        "pay-per-crawl_queryZonesCanBeEnabledResponse": pay_per_crawl_queryZonesCanBeEnabledResponse_output,
       },
     },
     request: (args) => ({

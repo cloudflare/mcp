@@ -4,15 +4,13 @@
 import type { JsonSchema } from "../_/tool.js";
 
 /**
- * The schema of `abuse-reports_CSAMReport`.
+ * The schema of `abuse-reports_BaseReportFields`.
  */
-export const abuse_reports_CSAMReport: JsonSchema = {
+export const abuse_reports_BaseReportFields: JsonSchema = {
   "properties": {
     "act": {
-      "enum": [
-        "abuse_children"
-      ],
-      "type": "string"
+      "$ref": "#/$defs/abuse-reports_SubmissionReportType",
+      "description": "The report type for submitted reports."
     },
     "comments": {
       "description": "Any additional comments about the infringement not exceeding 2000 characters. Comments are kept internal to Cloudflare and not shared with the host or customer as part of regular processing. For delegated reports, comments may be shared in full.",
@@ -20,10 +18,6 @@ export const abuse_reports_CSAMReport: JsonSchema = {
     },
     "company": {
       "description": "Text not exceeding 100 characters. This field may be released by Cloudflare to third parties such as the Lumen Database (https://lumendatabase.org/).",
-      "type": "string"
-    },
-    "country": {
-      "description": "Text not exceeding 255 characters. This field may be released by Cloudflare to third parties such as the Lumen Database (https://lumendatabase.org/).\n",
       "type": "string"
     },
     "email": {
@@ -34,37 +28,8 @@ export const abuse_reports_CSAMReport: JsonSchema = {
       "description": "Should match the value provided in `email`",
       "type": "string"
     },
-    "host_notification": {
-      "description": "Notification type based on the abuse type. For delegated reports, the report—including contact information and comments—will be forwarded to the customer in full regardless of this value. NOTE: Copyright (DMCA) and Trademark reports cannot be anonymous.\n",
-      "enum": [
-        "send",
-        "send-anon"
-      ],
-      "type": "string"
-    },
-    "justification": {
-      "description": "A detailed description of the infringement, including any necessary access details and the exact steps needed to view the content, not exceeding 5000 characters.\n",
-      "type": "string"
-    },
     "name": {
       "description": "Text not exceeding 255 characters. This field may be released by Cloudflare to third parties such as the Lumen Database (https://lumendatabase.org/).",
-      "type": "string"
-    },
-    "ncmec_notification": {
-      "description": "Notification type based on the abuse type. NOTE: Copyright (DMCA) and Trademark reports cannot be anonymous.\n",
-      "enum": [
-        "send",
-        "send-anon"
-      ],
-      "type": "string"
-    },
-    "owner_notification": {
-      "description": "Notification type based on the abuse type. For delegated reports, the report—including contact information and comments—will be forwarded to the customer in full regardless of this value. NOTE: Copyright (DMCA) and Trademark reports cannot be anonymous.\n",
-      "enum": [
-        "send",
-        "send-anon",
-        "none"
-      ],
       "type": "string"
     },
     "reported_country": {
@@ -93,231 +58,212 @@ export const abuse_reports_CSAMReport: JsonSchema = {
     "email",
     "email2",
     "name",
-    "urls",
-    "host_notification",
-    "justification",
-    "ncmec_notification",
-    "owner_notification"
+    "urls"
   ],
   "type": "object"
+};
+
+/**
+ * The schema of `abuse-reports_CSAMReport`.
+ */
+export const abuse_reports_CSAMReport: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/abuse-reports_BaseReportFields"
+    },
+    {
+      "properties": {
+        "act": {
+          "enum": [
+            "abuse_children"
+          ],
+          "type": "string"
+        },
+        "country": {
+          "description": "Text not exceeding 255 characters. This field may be released by Cloudflare to third parties such as the Lumen Database (https://lumendatabase.org/).\n",
+          "type": "string"
+        },
+        "host_notification": {
+          "description": "Notification type based on the abuse type. For delegated reports, the report—including contact information and comments—will be forwarded to the customer in full regardless of this value. NOTE: Copyright (DMCA) and Trademark reports cannot be anonymous.\n",
+          "enum": [
+            "send",
+            "send-anon"
+          ],
+          "type": "string"
+        },
+        "justification": {
+          "description": "A detailed description of the infringement, including any necessary access details and the exact steps needed to view the content, not exceeding 5000 characters.\n",
+          "type": "string"
+        },
+        "ncmec_notification": {
+          "description": "Notification type based on the abuse type. NOTE: Copyright (DMCA) and Trademark reports cannot be anonymous.\n",
+          "enum": [
+            "send",
+            "send-anon"
+          ],
+          "type": "string"
+        },
+        "owner_notification": {
+          "description": "Notification type based on the abuse type. For delegated reports, the report—including contact information and comments—will be forwarded to the customer in full regardless of this value. NOTE: Copyright (DMCA) and Trademark reports cannot be anonymous.\n",
+          "enum": [
+            "send",
+            "send-anon",
+            "none"
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "host_notification",
+        "justification",
+        "ncmec_notification",
+        "owner_notification"
+      ],
+      "type": "object"
+    }
+  ]
 };
 
 /**
  * The schema of `abuse-reports_DMCAReport`.
  */
 export const abuse_reports_DMCAReport: JsonSchema = {
-  "properties": {
-    "act": {
-      "enum": [
-        "abuse_dmca"
+  "allOf": [
+    {
+      "$ref": "#/$defs/abuse-reports_BaseReportFields"
+    },
+    {
+      "properties": {
+        "act": {
+          "enum": [
+            "abuse_dmca"
+          ],
+          "type": "string"
+        },
+        "address1": {
+          "description": "Text not exceeding 100 characters. This field may be released by Cloudflare to third parties such as the Lumen Database (https://lumendatabase.org/).",
+          "type": "string"
+        },
+        "agent_name": {
+          "description": "The name of the copyright holder. Text not exceeding 60 characters. This field may be released by Cloudflare to third parties such as the Lumen Database (https://lumendatabase.org/).",
+          "type": "string"
+        },
+        "agree": {
+          "description": "Can be `0` for false or `1` for true. Must be value: 1 for DMCA reports",
+          "enum": [
+            1
+          ],
+          "type": "integer"
+        },
+        "city": {
+          "description": "Text not exceeding 255 characters. This field may be released by Cloudflare to third parties such as the Lumen Database (https://lumendatabase.org/).",
+          "type": "string"
+        },
+        "country": {
+          "description": "Text not exceeding 255 characters. This field may be released by Cloudflare to third parties such as the Lumen Database (https://lumendatabase.org/).\n",
+          "type": "string"
+        },
+        "host_notification": {
+          "description": "Notification type based on the abuse type. For delegated reports, the report—including contact information and comments—will be forwarded to the customer in full regardless of this value. NOTE: Copyright (DMCA) and Trademark reports cannot be anonymous.\n",
+          "enum": [
+            "send"
+          ],
+          "type": "string"
+        },
+        "original_work": {
+          "description": "Text not exceeding 255 characters. This field may be released by Cloudflare to third parties such as the Lumen Database (https://lumendatabase.org/).\n",
+          "type": "string"
+        },
+        "owner_notification": {
+          "description": "Notification type based on the abuse type. For delegated reports, the report—including contact information and comments—will be forwarded to the customer in full regardless of this value. NOTE: Copyright (DMCA) and Trademark reports cannot be anonymous.\n",
+          "enum": [
+            "send"
+          ],
+          "type": "string"
+        },
+        "signature": {
+          "description": "Required for DMCA reports, should be same as Name. An affirmation that all information in the report is true and accurate while agreeing to the policies of Cloudflare's abuse reports",
+          "type": "string"
+        },
+        "state": {
+          "description": "Text not exceeding 255 characters. This field may be released by Cloudflare to third parties such as the Lumen Database (https://lumendatabase.org/).",
+          "type": "string"
+        }
+      },
+      "required": [
+        "address1",
+        "agent_name",
+        "agree",
+        "city",
+        "country",
+        "host_notification",
+        "original_work",
+        "owner_notification",
+        "signature",
+        "state"
       ],
-      "type": "string"
-    },
-    "address1": {
-      "description": "Text not exceeding 100 characters. This field may be released by Cloudflare to third parties such as the Lumen Database (https://lumendatabase.org/).",
-      "type": "string"
-    },
-    "agent_name": {
-      "description": "The name of the copyright holder. Text not exceeding 60 characters. This field may be released by Cloudflare to third parties such as the Lumen Database (https://lumendatabase.org/).",
-      "type": "string"
-    },
-    "agree": {
-      "description": "Can be `0` for false or `1` for true. Must be value: 1 for DMCA reports",
-      "enum": [
-        1
-      ],
-      "type": "integer"
-    },
-    "city": {
-      "description": "Text not exceeding 255 characters. This field may be released by Cloudflare to third parties such as the Lumen Database (https://lumendatabase.org/).",
-      "type": "string"
-    },
-    "comments": {
-      "description": "Any additional comments about the infringement not exceeding 2000 characters. Comments are kept internal to Cloudflare and not shared with the host or customer as part of regular processing. For delegated reports, comments may be shared in full.",
-      "type": "string"
-    },
-    "company": {
-      "description": "Text not exceeding 100 characters. This field may be released by Cloudflare to third parties such as the Lumen Database (https://lumendatabase.org/).",
-      "type": "string"
-    },
-    "country": {
-      "description": "Text not exceeding 255 characters. This field may be released by Cloudflare to third parties such as the Lumen Database (https://lumendatabase.org/).\n",
-      "type": "string"
-    },
-    "email": {
-      "description": "A valid email of the abuse reporter. This field may be released by Cloudflare to third parties such as the Lumen Database (https://lumendatabase.org/).",
-      "type": "string"
-    },
-    "email2": {
-      "description": "Should match the value provided in `email`",
-      "type": "string"
-    },
-    "host_notification": {
-      "description": "Notification type based on the abuse type. For delegated reports, the report—including contact information and comments—will be forwarded to the customer in full regardless of this value. NOTE: Copyright (DMCA) and Trademark reports cannot be anonymous.\n",
-      "enum": [
-        "send"
-      ],
-      "type": "string"
-    },
-    "name": {
-      "description": "Text not exceeding 255 characters. This field may be released by Cloudflare to third parties such as the Lumen Database (https://lumendatabase.org/).",
-      "type": "string"
-    },
-    "original_work": {
-      "description": "Text not exceeding 255 characters. This field may be released by Cloudflare to third parties such as the Lumen Database (https://lumendatabase.org/).\n",
-      "type": "string"
-    },
-    "owner_notification": {
-      "description": "Notification type based on the abuse type. For delegated reports, the report—including contact information and comments—will be forwarded to the customer in full regardless of this value. NOTE: Copyright (DMCA) and Trademark reports cannot be anonymous.\n",
-      "enum": [
-        "send"
-      ],
-      "type": "string"
-    },
-    "reported_country": {
-      "description": "Text containing 2 characters",
-      "type": "string"
-    },
-    "reported_user_agent": {
-      "description": "Text not exceeding 255 characters",
-      "type": "string"
-    },
-    "signature": {
-      "description": "Required for DMCA reports, should be same as Name. An affirmation that all information in the report is true and accurate while agreeing to the policies of Cloudflare's abuse reports",
-      "type": "string"
-    },
-    "state": {
-      "description": "Text not exceeding 255 characters. This field may be released by Cloudflare to third parties such as the Lumen Database (https://lumendatabase.org/).",
-      "type": "string"
-    },
-    "tele": {
-      "description": "Text not exceeding 20 characters. This field may be released by Cloudflare to third parties such as the Lumen Database (https://lumendatabase.org/).",
-      "type": "string"
-    },
-    "title": {
-      "description": "Text not exceeding 255 characters",
-      "type": "string"
-    },
-    "urls": {
-      "description": "A list of valid URLs separated by ‘\\n’ (new line character). The list of the URLs should not exceed 250 URLs. All URLs should have the same hostname. Each URL should be unique. This field may be released by Cloudflare to third parties such as the Lumen Database (https://lumendatabase.org/).",
-      "type": "string"
+      "type": "object"
     }
-  },
-  "required": [
-    "act",
-    "email",
-    "email2",
-    "name",
-    "urls",
-    "address1",
-    "agent_name",
-    "agree",
-    "city",
-    "country",
-    "host_notification",
-    "original_work",
-    "owner_notification",
-    "signature",
-    "state"
-  ],
-  "type": "object"
+  ]
 };
 
 /**
  * The schema of `abuse-reports_GeneralReport`.
  */
 export const abuse_reports_GeneralReport: JsonSchema = {
-  "properties": {
-    "act": {
-      "enum": [
-        "abuse_general"
+  "allOf": [
+    {
+      "$ref": "#/$defs/abuse-reports_BaseReportFields"
+    },
+    {
+      "properties": {
+        "act": {
+          "enum": [
+            "abuse_general"
+          ],
+          "type": "string"
+        },
+        "destination_ips": {
+          "description": "A list of IP addresses separated by ‘\\n’ (new line character). The list of destination IPs should not exceed 30 IP addresses. Each one of the IP addresses ought to be unique.",
+          "type": "string"
+        },
+        "host_notification": {
+          "description": "Notification type based on the abuse type. For delegated reports, the report—including contact information and comments—will be forwarded to the customer in full regardless of this value. NOTE: Copyright (DMCA) and Trademark reports cannot be anonymous.\n",
+          "enum": [
+            "send",
+            "send-anon"
+          ],
+          "type": "string"
+        },
+        "justification": {
+          "description": "A detailed description of the infringement, including any necessary access details and the exact steps needed to view the content, not exceeding 5000 characters.\n",
+          "type": "string"
+        },
+        "owner_notification": {
+          "description": "Notification type based on the abuse type. For delegated reports, the report—including contact information and comments—will be forwarded to the customer in full regardless of this value. NOTE: Copyright (DMCA) and Trademark reports cannot be anonymous.\n",
+          "enum": [
+            "send",
+            "send-anon"
+          ],
+          "type": "string"
+        },
+        "ports_protocols": {
+          "description": "A comma separated list of ports and protocols e.g. 80/TCP, 22/UDP. The total size of the field should not exceed 2000 characters. Each individual port/protocol should not exceed 100 characters. The list should not have more than 30 unique ports and protocols.",
+          "type": "string"
+        },
+        "source_ips": {
+          "description": "A list of IP addresses separated by ‘\\n’ (new line character). The list of source IPs should not exceed 30 IP addresses. Each one of the IP addresses ought to be unique.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "host_notification",
+        "justification",
+        "owner_notification"
       ],
-      "type": "string"
-    },
-    "comments": {
-      "description": "Any additional comments about the infringement not exceeding 2000 characters. Comments are kept internal to Cloudflare and not shared with the host or customer as part of regular processing. For delegated reports, comments may be shared in full.",
-      "type": "string"
-    },
-    "company": {
-      "description": "Text not exceeding 100 characters. This field may be released by Cloudflare to third parties such as the Lumen Database (https://lumendatabase.org/).",
-      "type": "string"
-    },
-    "destination_ips": {
-      "description": "A list of IP addresses separated by ‘\\n’ (new line character). The list of destination IPs should not exceed 30 IP addresses. Each one of the IP addresses ought to be unique.",
-      "type": "string"
-    },
-    "email": {
-      "description": "A valid email of the abuse reporter. This field may be released by Cloudflare to third parties such as the Lumen Database (https://lumendatabase.org/).",
-      "type": "string"
-    },
-    "email2": {
-      "description": "Should match the value provided in `email`",
-      "type": "string"
-    },
-    "host_notification": {
-      "description": "Notification type based on the abuse type. For delegated reports, the report—including contact information and comments—will be forwarded to the customer in full regardless of this value. NOTE: Copyright (DMCA) and Trademark reports cannot be anonymous.\n",
-      "enum": [
-        "send",
-        "send-anon"
-      ],
-      "type": "string"
-    },
-    "justification": {
-      "description": "A detailed description of the infringement, including any necessary access details and the exact steps needed to view the content, not exceeding 5000 characters.\n",
-      "type": "string"
-    },
-    "name": {
-      "description": "Text not exceeding 255 characters. This field may be released by Cloudflare to third parties such as the Lumen Database (https://lumendatabase.org/).",
-      "type": "string"
-    },
-    "owner_notification": {
-      "description": "Notification type based on the abuse type. For delegated reports, the report—including contact information and comments—will be forwarded to the customer in full regardless of this value. NOTE: Copyright (DMCA) and Trademark reports cannot be anonymous.\n",
-      "enum": [
-        "send",
-        "send-anon"
-      ],
-      "type": "string"
-    },
-    "ports_protocols": {
-      "description": "A comma separated list of ports and protocols e.g. 80/TCP, 22/UDP. The total size of the field should not exceed 2000 characters. Each individual port/protocol should not exceed 100 characters. The list should not have more than 30 unique ports and protocols.",
-      "type": "string"
-    },
-    "reported_country": {
-      "description": "Text containing 2 characters",
-      "type": "string"
-    },
-    "reported_user_agent": {
-      "description": "Text not exceeding 255 characters",
-      "type": "string"
-    },
-    "source_ips": {
-      "description": "A list of IP addresses separated by ‘\\n’ (new line character). The list of source IPs should not exceed 30 IP addresses. Each one of the IP addresses ought to be unique.",
-      "type": "string"
-    },
-    "tele": {
-      "description": "Text not exceeding 20 characters. This field may be released by Cloudflare to third parties such as the Lumen Database (https://lumendatabase.org/).",
-      "type": "string"
-    },
-    "title": {
-      "description": "Text not exceeding 255 characters",
-      "type": "string"
-    },
-    "urls": {
-      "description": "A list of valid URLs separated by ‘\\n’ (new line character). The list of the URLs should not exceed 250 URLs. All URLs should have the same hostname. Each URL should be unique. This field may be released by Cloudflare to third parties such as the Lumen Database (https://lumendatabase.org/).",
-      "type": "string"
+      "type": "object"
     }
-  },
-  "required": [
-    "act",
-    "email",
-    "email2",
-    "name",
-    "urls",
-    "host_notification",
-    "justification",
-    "owner_notification"
-  ],
-  "type": "object"
+  ]
 };
 
 /**
@@ -339,179 +285,103 @@ export const abuse_reports_MitigationStatus: JsonSchema = {
  * The schema of `abuse-reports_NCSEIReport`.
  */
 export const abuse_reports_NCSEIReport: JsonSchema = {
-  "properties": {
-    "act": {
-      "enum": [
-        "abuse_ncsei"
+  "allOf": [
+    {
+      "$ref": "#/$defs/abuse-reports_BaseReportFields"
+    },
+    {
+      "properties": {
+        "act": {
+          "enum": [
+            "abuse_ncsei"
+          ],
+          "type": "string"
+        },
+        "country": {
+          "description": "Text not exceeding 255 characters. This field may be released by Cloudflare to third parties such as the Lumen Database (https://lumendatabase.org/).\n",
+          "type": "string"
+        },
+        "host_notification": {
+          "description": "Notification type based on the abuse type. For delegated reports, the report—including contact information and comments—will be forwarded to the customer in full regardless of this value. NOTE: Copyright (DMCA) and Trademark reports cannot be anonymous.\n",
+          "enum": [
+            "send",
+            "send-anon"
+          ],
+          "type": "string"
+        },
+        "ncsei_subject_representation": {
+          "description": "If the submitter is the target of NCSEI in the URLs of the abuse report.",
+          "type": "boolean"
+        },
+        "owner_notification": {
+          "description": "Notification type based on the abuse type. For delegated reports, the report—including contact information and comments—will be forwarded to the customer in full regardless of this value. NOTE: Copyright (DMCA) and Trademark reports cannot be anonymous.\n",
+          "enum": [
+            "send",
+            "send-anon",
+            "none"
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "host_notification",
+        "ncsei_subject_representation",
+        "owner_notification"
       ],
-      "type": "string"
-    },
-    "comments": {
-      "description": "Any additional comments about the infringement not exceeding 2000 characters. Comments are kept internal to Cloudflare and not shared with the host or customer as part of regular processing. For delegated reports, comments may be shared in full.",
-      "type": "string"
-    },
-    "company": {
-      "description": "Text not exceeding 100 characters. This field may be released by Cloudflare to third parties such as the Lumen Database (https://lumendatabase.org/).",
-      "type": "string"
-    },
-    "country": {
-      "description": "Text not exceeding 255 characters. This field may be released by Cloudflare to third parties such as the Lumen Database (https://lumendatabase.org/).\n",
-      "type": "string"
-    },
-    "email": {
-      "description": "A valid email of the abuse reporter. This field may be released by Cloudflare to third parties such as the Lumen Database (https://lumendatabase.org/).",
-      "type": "string"
-    },
-    "email2": {
-      "description": "Should match the value provided in `email`",
-      "type": "string"
-    },
-    "host_notification": {
-      "description": "Notification type based on the abuse type. For delegated reports, the report—including contact information and comments—will be forwarded to the customer in full regardless of this value. NOTE: Copyright (DMCA) and Trademark reports cannot be anonymous.\n",
-      "enum": [
-        "send",
-        "send-anon"
-      ],
-      "type": "string"
-    },
-    "name": {
-      "description": "Text not exceeding 255 characters. This field may be released by Cloudflare to third parties such as the Lumen Database (https://lumendatabase.org/).",
-      "type": "string"
-    },
-    "ncsei_subject_representation": {
-      "description": "If the submitter is the target of NCSEI in the URLs of the abuse report.",
-      "type": "boolean"
-    },
-    "owner_notification": {
-      "description": "Notification type based on the abuse type. For delegated reports, the report—including contact information and comments—will be forwarded to the customer in full regardless of this value. NOTE: Copyright (DMCA) and Trademark reports cannot be anonymous.\n",
-      "enum": [
-        "send",
-        "send-anon",
-        "none"
-      ],
-      "type": "string"
-    },
-    "reported_country": {
-      "description": "Text containing 2 characters",
-      "type": "string"
-    },
-    "reported_user_agent": {
-      "description": "Text not exceeding 255 characters",
-      "type": "string"
-    },
-    "tele": {
-      "description": "Text not exceeding 20 characters. This field may be released by Cloudflare to third parties such as the Lumen Database (https://lumendatabase.org/).",
-      "type": "string"
-    },
-    "title": {
-      "description": "Text not exceeding 255 characters",
-      "type": "string"
-    },
-    "urls": {
-      "description": "A list of valid URLs separated by ‘\\n’ (new line character). The list of the URLs should not exceed 250 URLs. All URLs should have the same hostname. Each URL should be unique. This field may be released by Cloudflare to third parties such as the Lumen Database (https://lumendatabase.org/).",
-      "type": "string"
+      "type": "object"
     }
-  },
-  "required": [
-    "act",
-    "email",
-    "email2",
-    "name",
-    "urls",
-    "host_notification",
-    "ncsei_subject_representation",
-    "owner_notification"
-  ],
-  "type": "object"
+  ]
 };
 
 /**
  * The schema of `abuse-reports_PhishingReport`.
  */
 export const abuse_reports_PhishingReport: JsonSchema = {
-  "properties": {
-    "act": {
-      "enum": [
-        "abuse_phishing"
+  "allOf": [
+    {
+      "$ref": "#/$defs/abuse-reports_BaseReportFields"
+    },
+    {
+      "properties": {
+        "act": {
+          "enum": [
+            "abuse_phishing"
+          ],
+          "type": "string"
+        },
+        "host_notification": {
+          "description": "Notification type based on the abuse type. For delegated reports, the report—including contact information and comments—will be forwarded to the customer in full regardless of this value. NOTE: Copyright (DMCA) and Trademark reports cannot be anonymous.\n",
+          "enum": [
+            "send",
+            "send-anon"
+          ],
+          "type": "string"
+        },
+        "justification": {
+          "description": "A detailed description of the infringement, including any necessary access details and the exact steps needed to view the content, not exceeding 5000 characters.\n",
+          "type": "string"
+        },
+        "original_work": {
+          "description": "Text not exceeding 255 characters. This field may be released by Cloudflare to third parties such as the Lumen Database (https://lumendatabase.org/).\n",
+          "type": "string"
+        },
+        "owner_notification": {
+          "description": "Notification type based on the abuse type. For delegated reports, the report—including contact information and comments—will be forwarded to the customer in full regardless of this value. NOTE: Copyright (DMCA) and Trademark reports cannot be anonymous.\n",
+          "enum": [
+            "send",
+            "send-anon"
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "host_notification",
+        "justification",
+        "owner_notification"
       ],
-      "type": "string"
-    },
-    "comments": {
-      "description": "Any additional comments about the infringement not exceeding 2000 characters. Comments are kept internal to Cloudflare and not shared with the host or customer as part of regular processing. For delegated reports, comments may be shared in full.",
-      "type": "string"
-    },
-    "company": {
-      "description": "Text not exceeding 100 characters. This field may be released by Cloudflare to third parties such as the Lumen Database (https://lumendatabase.org/).",
-      "type": "string"
-    },
-    "email": {
-      "description": "A valid email of the abuse reporter. This field may be released by Cloudflare to third parties such as the Lumen Database (https://lumendatabase.org/).",
-      "type": "string"
-    },
-    "email2": {
-      "description": "Should match the value provided in `email`",
-      "type": "string"
-    },
-    "host_notification": {
-      "description": "Notification type based on the abuse type. For delegated reports, the report—including contact information and comments—will be forwarded to the customer in full regardless of this value. NOTE: Copyright (DMCA) and Trademark reports cannot be anonymous.\n",
-      "enum": [
-        "send",
-        "send-anon"
-      ],
-      "type": "string"
-    },
-    "justification": {
-      "description": "A detailed description of the infringement, including any necessary access details and the exact steps needed to view the content, not exceeding 5000 characters.\n",
-      "type": "string"
-    },
-    "name": {
-      "description": "Text not exceeding 255 characters. This field may be released by Cloudflare to third parties such as the Lumen Database (https://lumendatabase.org/).",
-      "type": "string"
-    },
-    "original_work": {
-      "description": "Text not exceeding 255 characters. This field may be released by Cloudflare to third parties such as the Lumen Database (https://lumendatabase.org/).\n",
-      "type": "string"
-    },
-    "owner_notification": {
-      "description": "Notification type based on the abuse type. For delegated reports, the report—including contact information and comments—will be forwarded to the customer in full regardless of this value. NOTE: Copyright (DMCA) and Trademark reports cannot be anonymous.\n",
-      "enum": [
-        "send",
-        "send-anon"
-      ],
-      "type": "string"
-    },
-    "reported_country": {
-      "description": "Text containing 2 characters",
-      "type": "string"
-    },
-    "reported_user_agent": {
-      "description": "Text not exceeding 255 characters",
-      "type": "string"
-    },
-    "tele": {
-      "description": "Text not exceeding 20 characters. This field may be released by Cloudflare to third parties such as the Lumen Database (https://lumendatabase.org/).",
-      "type": "string"
-    },
-    "title": {
-      "description": "Text not exceeding 255 characters",
-      "type": "string"
-    },
-    "urls": {
-      "description": "A list of valid URLs separated by ‘\\n’ (new line character). The list of the URLs should not exceed 250 URLs. All URLs should have the same hostname. Each URL should be unique. This field may be released by Cloudflare to third parties such as the Lumen Database (https://lumendatabase.org/).",
-      "type": "string"
+      "type": "object"
     }
-  },
-  "required": [
-    "act",
-    "email",
-    "email2",
-    "name",
-    "urls",
-    "host_notification",
-    "justification",
-    "owner_notification"
-  ],
-  "type": "object"
+  ]
 };
 
 /**
@@ -596,76 +466,38 @@ export const abuse_reports_RegistrarWhoIsFields: JsonSchema = {
  * The schema of `abuse-reports_RegistrarWhoisReport`.
  */
 export const abuse_reports_RegistrarWhoisReport: JsonSchema = {
-  "properties": {
-    "act": {
-      "enum": [
-        "abuse_registrar_whois"
+  "allOf": [
+    {
+      "$ref": "#/$defs/abuse-reports_BaseReportFields"
+    },
+    {
+      "properties": {
+        "act": {
+          "enum": [
+            "abuse_registrar_whois"
+          ],
+          "type": "string"
+        },
+        "owner_notification": {
+          "description": "Notification type based on the abuse type. For delegated reports, the report—including contact information and comments—will be forwarded to the customer in full regardless of this value. NOTE: Copyright (DMCA) and Trademark reports cannot be anonymous.\n",
+          "enum": [
+            "send",
+            "send-anon",
+            "none"
+          ],
+          "type": "string"
+        },
+        "reg_who_request": {
+          "$ref": "#/$defs/abuse-reports_RegistrarWhoIsFields",
+          "description": "RDP-mandated fields for registrar WHOIS data disclosure requests."
+        }
+      },
+      "required": [
+        "owner_notification"
       ],
-      "type": "string"
-    },
-    "comments": {
-      "description": "Any additional comments about the infringement not exceeding 2000 characters. Comments are kept internal to Cloudflare and not shared with the host or customer as part of regular processing. For delegated reports, comments may be shared in full.",
-      "type": "string"
-    },
-    "company": {
-      "description": "Text not exceeding 100 characters. This field may be released by Cloudflare to third parties such as the Lumen Database (https://lumendatabase.org/).",
-      "type": "string"
-    },
-    "email": {
-      "description": "A valid email of the abuse reporter. This field may be released by Cloudflare to third parties such as the Lumen Database (https://lumendatabase.org/).",
-      "type": "string"
-    },
-    "email2": {
-      "description": "Should match the value provided in `email`",
-      "type": "string"
-    },
-    "name": {
-      "description": "Text not exceeding 255 characters. This field may be released by Cloudflare to third parties such as the Lumen Database (https://lumendatabase.org/).",
-      "type": "string"
-    },
-    "owner_notification": {
-      "description": "Notification type based on the abuse type. For delegated reports, the report—including contact information and comments—will be forwarded to the customer in full regardless of this value. NOTE: Copyright (DMCA) and Trademark reports cannot be anonymous.\n",
-      "enum": [
-        "send",
-        "send-anon",
-        "none"
-      ],
-      "type": "string"
-    },
-    "reg_who_request": {
-      "$ref": "#/$defs/abuse-reports_RegistrarWhoIsFields",
-      "description": "RDP-mandated fields for registrar WHOIS data disclosure requests."
-    },
-    "reported_country": {
-      "description": "Text containing 2 characters",
-      "type": "string"
-    },
-    "reported_user_agent": {
-      "description": "Text not exceeding 255 characters",
-      "type": "string"
-    },
-    "tele": {
-      "description": "Text not exceeding 20 characters. This field may be released by Cloudflare to third parties such as the Lumen Database (https://lumendatabase.org/).",
-      "type": "string"
-    },
-    "title": {
-      "description": "Text not exceeding 255 characters",
-      "type": "string"
-    },
-    "urls": {
-      "description": "A list of valid URLs separated by ‘\\n’ (new line character). The list of the URLs should not exceed 250 URLs. All URLs should have the same hostname. Each URL should be unique. This field may be released by Cloudflare to third parties such as the Lumen Database (https://lumendatabase.org/).",
-      "type": "string"
+      "type": "object"
     }
-  },
-  "required": [
-    "act",
-    "email",
-    "email2",
-    "name",
-    "urls",
-    "owner_notification"
-  ],
-  "type": "object"
+  ]
 };
 
 /**
@@ -696,6 +528,14 @@ export const abuse_reports_ReportType: JsonSchema = {
     "NCSEI",
     "NETWORK"
   ],
+  "type": "string"
+};
+
+/**
+ * The schema of `abuse-reports_SubmissionReportType`.
+ */
+export const abuse_reports_SubmissionReportType: JsonSchema = {
+  "description": "The report type for submitted reports.",
   "type": "string"
 };
 
@@ -748,181 +588,105 @@ export const abuse_reports_SubmittedAbuseReportStatus: JsonSchema = {
  * The schema of `abuse-reports_ThreatReport`.
  */
 export const abuse_reports_ThreatReport: JsonSchema = {
-  "properties": {
-    "act": {
-      "enum": [
-        "abuse_threat"
+  "allOf": [
+    {
+      "$ref": "#/$defs/abuse-reports_BaseReportFields"
+    },
+    {
+      "properties": {
+        "act": {
+          "enum": [
+            "abuse_threat"
+          ],
+          "type": "string"
+        },
+        "host_notification": {
+          "description": "Notification type based on the abuse type. For delegated reports, the report—including contact information and comments—will be forwarded to the customer in full regardless of this value. NOTE: Copyright (DMCA) and Trademark reports cannot be anonymous.\n",
+          "enum": [
+            "send",
+            "send-anon"
+          ],
+          "type": "string"
+        },
+        "justification": {
+          "description": "A detailed description of the infringement, including any necessary access details and the exact steps needed to view the content, not exceeding 5000 characters.\n",
+          "type": "string"
+        },
+        "owner_notification": {
+          "description": "Notification type based on the abuse type. For delegated reports, the report—including contact information and comments—will be forwarded to the customer in full regardless of this value. NOTE: Copyright (DMCA) and Trademark reports cannot be anonymous.\n",
+          "enum": [
+            "send",
+            "send-anon"
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "host_notification",
+        "justification",
+        "owner_notification"
       ],
-      "type": "string"
-    },
-    "comments": {
-      "description": "Any additional comments about the infringement not exceeding 2000 characters. Comments are kept internal to Cloudflare and not shared with the host or customer as part of regular processing. For delegated reports, comments may be shared in full.",
-      "type": "string"
-    },
-    "company": {
-      "description": "Text not exceeding 100 characters. This field may be released by Cloudflare to third parties such as the Lumen Database (https://lumendatabase.org/).",
-      "type": "string"
-    },
-    "email": {
-      "description": "A valid email of the abuse reporter. This field may be released by Cloudflare to third parties such as the Lumen Database (https://lumendatabase.org/).",
-      "type": "string"
-    },
-    "email2": {
-      "description": "Should match the value provided in `email`",
-      "type": "string"
-    },
-    "host_notification": {
-      "description": "Notification type based on the abuse type. For delegated reports, the report—including contact information and comments—will be forwarded to the customer in full regardless of this value. NOTE: Copyright (DMCA) and Trademark reports cannot be anonymous.\n",
-      "enum": [
-        "send",
-        "send-anon"
-      ],
-      "type": "string"
-    },
-    "justification": {
-      "description": "A detailed description of the infringement, including any necessary access details and the exact steps needed to view the content, not exceeding 5000 characters.\n",
-      "type": "string"
-    },
-    "name": {
-      "description": "Text not exceeding 255 characters. This field may be released by Cloudflare to third parties such as the Lumen Database (https://lumendatabase.org/).",
-      "type": "string"
-    },
-    "owner_notification": {
-      "description": "Notification type based on the abuse type. For delegated reports, the report—including contact information and comments—will be forwarded to the customer in full regardless of this value. NOTE: Copyright (DMCA) and Trademark reports cannot be anonymous.\n",
-      "enum": [
-        "send",
-        "send-anon"
-      ],
-      "type": "string"
-    },
-    "reported_country": {
-      "description": "Text containing 2 characters",
-      "type": "string"
-    },
-    "reported_user_agent": {
-      "description": "Text not exceeding 255 characters",
-      "type": "string"
-    },
-    "tele": {
-      "description": "Text not exceeding 20 characters. This field may be released by Cloudflare to third parties such as the Lumen Database (https://lumendatabase.org/).",
-      "type": "string"
-    },
-    "title": {
-      "description": "Text not exceeding 255 characters",
-      "type": "string"
-    },
-    "urls": {
-      "description": "A list of valid URLs separated by ‘\\n’ (new line character). The list of the URLs should not exceed 250 URLs. All URLs should have the same hostname. Each URL should be unique. This field may be released by Cloudflare to third parties such as the Lumen Database (https://lumendatabase.org/).",
-      "type": "string"
+      "type": "object"
     }
-  },
-  "required": [
-    "act",
-    "email",
-    "email2",
-    "name",
-    "urls",
-    "host_notification",
-    "justification",
-    "owner_notification"
-  ],
-  "type": "object"
+  ]
 };
 
 /**
  * The schema of `abuse-reports_TrademarkReport`.
  */
 export const abuse_reports_TrademarkReport: JsonSchema = {
-  "properties": {
-    "act": {
-      "enum": [
-        "abuse_trademark"
+  "allOf": [
+    {
+      "$ref": "#/$defs/abuse-reports_BaseReportFields"
+    },
+    {
+      "properties": {
+        "act": {
+          "enum": [
+            "abuse_trademark"
+          ],
+          "type": "string"
+        },
+        "host_notification": {
+          "description": "Notification type based on the abuse type. For delegated reports, the report—including contact information and comments—will be forwarded to the customer in full regardless of this value. NOTE: Copyright (DMCA) and Trademark reports cannot be anonymous.\n",
+          "enum": [
+            "send"
+          ],
+          "type": "string"
+        },
+        "justification": {
+          "description": "A detailed description of the infringement, including any necessary access details and the exact steps needed to view the content, not exceeding 5000 characters.\n",
+          "type": "string"
+        },
+        "owner_notification": {
+          "description": "Notification type based on the abuse type. For delegated reports, the report—including contact information and comments—will be forwarded to the customer in full regardless of this value. NOTE: Copyright (DMCA) and Trademark reports cannot be anonymous.\n",
+          "enum": [
+            "send"
+          ],
+          "type": "string"
+        },
+        "trademark_number": {
+          "description": "Text not exceeding 1000 characters",
+          "type": "string"
+        },
+        "trademark_office": {
+          "description": "Text not exceeding 1000 characters",
+          "type": "string"
+        },
+        "trademark_symbol": {
+          "description": "Text not exceeding 1000 characters",
+          "type": "string"
+        }
+      },
+      "required": [
+        "host_notification",
+        "justification",
+        "owner_notification",
+        "trademark_number",
+        "trademark_office",
+        "trademark_symbol"
       ],
-      "type": "string"
-    },
-    "comments": {
-      "description": "Any additional comments about the infringement not exceeding 2000 characters. Comments are kept internal to Cloudflare and not shared with the host or customer as part of regular processing. For delegated reports, comments may be shared in full.",
-      "type": "string"
-    },
-    "company": {
-      "description": "Text not exceeding 100 characters. This field may be released by Cloudflare to third parties such as the Lumen Database (https://lumendatabase.org/).",
-      "type": "string"
-    },
-    "email": {
-      "description": "A valid email of the abuse reporter. This field may be released by Cloudflare to third parties such as the Lumen Database (https://lumendatabase.org/).",
-      "type": "string"
-    },
-    "email2": {
-      "description": "Should match the value provided in `email`",
-      "type": "string"
-    },
-    "host_notification": {
-      "description": "Notification type based on the abuse type. For delegated reports, the report—including contact information and comments—will be forwarded to the customer in full regardless of this value. NOTE: Copyright (DMCA) and Trademark reports cannot be anonymous.\n",
-      "enum": [
-        "send"
-      ],
-      "type": "string"
-    },
-    "justification": {
-      "description": "A detailed description of the infringement, including any necessary access details and the exact steps needed to view the content, not exceeding 5000 characters.\n",
-      "type": "string"
-    },
-    "name": {
-      "description": "Text not exceeding 255 characters. This field may be released by Cloudflare to third parties such as the Lumen Database (https://lumendatabase.org/).",
-      "type": "string"
-    },
-    "owner_notification": {
-      "description": "Notification type based on the abuse type. For delegated reports, the report—including contact information and comments—will be forwarded to the customer in full regardless of this value. NOTE: Copyright (DMCA) and Trademark reports cannot be anonymous.\n",
-      "enum": [
-        "send"
-      ],
-      "type": "string"
-    },
-    "reported_country": {
-      "description": "Text containing 2 characters",
-      "type": "string"
-    },
-    "reported_user_agent": {
-      "description": "Text not exceeding 255 characters",
-      "type": "string"
-    },
-    "tele": {
-      "description": "Text not exceeding 20 characters. This field may be released by Cloudflare to third parties such as the Lumen Database (https://lumendatabase.org/).",
-      "type": "string"
-    },
-    "title": {
-      "description": "Text not exceeding 255 characters",
-      "type": "string"
-    },
-    "trademark_number": {
-      "description": "Text not exceeding 1000 characters",
-      "type": "string"
-    },
-    "trademark_office": {
-      "description": "Text not exceeding 1000 characters",
-      "type": "string"
-    },
-    "trademark_symbol": {
-      "description": "Text not exceeding 1000 characters",
-      "type": "string"
-    },
-    "urls": {
-      "description": "A list of valid URLs separated by ‘\\n’ (new line character). The list of the URLs should not exceed 250 URLs. All URLs should have the same hostname. Each URL should be unique. This field may be released by Cloudflare to third parties such as the Lumen Database (https://lumendatabase.org/).",
-      "type": "string"
+      "type": "object"
     }
-  },
-  "required": [
-    "act",
-    "email",
-    "email2",
-    "name",
-    "urls",
-    "host_notification",
-    "justification",
-    "owner_notification",
-    "trademark_number",
-    "trademark_office",
-    "trademark_symbol"
-  ],
-  "type": "object"
+  ]
 };

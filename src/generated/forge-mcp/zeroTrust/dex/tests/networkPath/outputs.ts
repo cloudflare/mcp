@@ -29,7 +29,105 @@ export const digital_experience_monitoring_traceroute_test_network_path_response
       "type": "string"
     },
     "networkPath": {
-      "$ref": "#/$defs/digital-experience-monitoring_traceroute_test_network_path_response_networkPath"
+      "oneOf": [
+        {
+          "properties": {
+            "sampling": {
+              "oneOf": [
+                {
+                  "properties": {
+                    "unit": {
+                      "enum": [
+                        "hours"
+                      ],
+                      "type": "string"
+                    },
+                    "value": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "unit",
+                    "value"
+                  ],
+                  "type": "object"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "slots": {
+              "items": {
+                "properties": {
+                  "clientToAppRttMs": {
+                    "oneOf": [
+                      {
+                        "type": "integer"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "clientToCfEgressRttMs": {
+                    "oneOf": [
+                      {
+                        "type": "integer"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "clientToCfIngressRttMs": {
+                    "oneOf": [
+                      {
+                        "type": "integer"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "clientToIspRttMs": {
+                    "oneOf": [
+                      {
+                        "type": "integer"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "id": {
+                    "$ref": "#/$defs/digital-experience-monitoring_uuid"
+                  },
+                  "timestamp": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "clientToAppRttMs",
+                  "clientToCfEgressRttMs",
+                  "clientToCfIngressRttMs",
+                  "id",
+                  "timestamp"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            }
+          },
+          "required": [
+            "slots"
+          ],
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
     "url": {
       "type": "string"
@@ -37,131 +135,6 @@ export const digital_experience_monitoring_traceroute_test_network_path_response
   },
   "required": [
     "id"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of
- * `digital-experience-monitoring_traceroute_test_network_path_response_networkPath`
- * in responses.
- */
-export const digital_experience_monitoring_traceroute_test_network_path_response_networkPath_output: JsonSchema = {
-  "oneOf": [
-    {
-      "properties": {
-        "sampling": {
-          "$ref": "#/$defs/digital-experience-monitoring_traceroute_test_network_path_response_networkPath_sampling"
-        },
-        "slots": {
-          "items": {
-            "$ref": "#/$defs/digital-experience-monitoring_traceroute_test_network_path_response_networkPath_slotsItem"
-          },
-          "type": "array"
-        }
-      },
-      "required": [
-        "slots"
-      ],
-      "type": "object"
-    },
-    {
-      "type": "null"
-    }
-  ]
-};
-
-/**
- * The schema of
- * `digital-experience-monitoring_traceroute_test_network_path_response_networkPath_sampling`
- * in responses.
- */
-export const digital_experience_monitoring_traceroute_test_network_path_response_networkPath_sampling_output: JsonSchema = {
-  "oneOf": [
-    {
-      "properties": {
-        "unit": {
-          "enum": [
-            "hours"
-          ],
-          "type": "string"
-        },
-        "value": {
-          "type": "integer"
-        }
-      },
-      "required": [
-        "unit",
-        "value"
-      ],
-      "type": "object"
-    },
-    {
-      "type": "null"
-    }
-  ]
-};
-
-/**
- * The schema of
- * `digital-experience-monitoring_traceroute_test_network_path_response_networkPath_slotsItem`
- * in responses.
- */
-export const digital_experience_monitoring_traceroute_test_network_path_response_networkPath_slotsItem_output: JsonSchema = {
-  "properties": {
-    "clientToAppRttMs": {
-      "oneOf": [
-        {
-          "type": "integer"
-        },
-        {
-          "type": "null"
-        }
-      ]
-    },
-    "clientToCfEgressRttMs": {
-      "oneOf": [
-        {
-          "type": "integer"
-        },
-        {
-          "type": "null"
-        }
-      ]
-    },
-    "clientToCfIngressRttMs": {
-      "oneOf": [
-        {
-          "type": "integer"
-        },
-        {
-          "type": "null"
-        }
-      ]
-    },
-    "clientToIspRttMs": {
-      "oneOf": [
-        {
-          "type": "integer"
-        },
-        {
-          "type": "null"
-        }
-      ]
-    },
-    "id": {
-      "$ref": "#/$defs/digital-experience-monitoring_uuid"
-    },
-    "timestamp": {
-      "type": "string"
-    }
-  },
-  "required": [
-    "clientToAppRttMs",
-    "clientToCfEgressRttMs",
-    "clientToCfIngressRttMs",
-    "id",
-    "timestamp"
   ],
   "type": "object"
 };

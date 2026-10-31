@@ -4,6 +4,7 @@
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
   cloudforce_one_port_scan_api_api_response_common_failure_output,
+  cloudforce_one_port_scan_api_api_response_common_output,
   cloudforce_one_port_scan_api_messages_output,
 } from "../outputs.js";
 import {
@@ -64,10 +65,24 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/cloudforce-one-port-scan-api_scan-config",
+      "allOf": [
+        {
+          "$ref": "#/$defs/cloudforce-one-port-scan-api_api-response-common"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/cloudforce-one-port-scan-api_scan-config"
+            }
+          },
+          "type": "object"
+        }
+      ],
       $defs: {
+        "cloudforce-one-port-scan-api_api-response-common": cloudforce_one_port_scan_api_api_response_common_output,
         "cloudforce-one-port-scan-api_frequency": cloudforce_one_port_scan_api_frequency_output,
         "cloudforce-one-port-scan-api_ips": cloudforce_one_port_scan_api_ips_output,
+        "cloudforce-one-port-scan-api_messages": cloudforce_one_port_scan_api_messages_output,
         "cloudforce-one-port-scan-api_ports": cloudforce_one_port_scan_api_ports_output,
         "cloudforce-one-port-scan-api_scan-config": cloudforce_one_port_scan_api_scan_config_output,
       },
@@ -89,13 +104,26 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/cloudforce-one-port-scan-api_scan-config"
+          "allOf": [
+            {
+              "$ref": "#/$defs/cloudforce-one-port-scan-api_api-response-common"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/cloudforce-one-port-scan-api_scan-config"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/cloudforce-one-port-scan-api_api-response-common-failure"
         }
       },
       $defs: {
+        "cloudforce-one-port-scan-api_api-response-common": cloudforce_one_port_scan_api_api_response_common_output,
         "cloudforce-one-port-scan-api_api-response-common-failure": cloudforce_one_port_scan_api_api_response_common_failure_output,
         "cloudforce-one-port-scan-api_frequency": cloudforce_one_port_scan_api_frequency_output,
         "cloudforce-one-port-scan-api_ips": cloudforce_one_port_scan_api_ips_output,
@@ -131,6 +159,32 @@ export const tools: readonly Tool[] = [
       ],
     },
     outputSchema: {
+      "properties": {
+        "errors": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "messages": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "result": {
+          "type": "object"
+        },
+        "success": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "errors",
+        "messages",
+        "result",
+        "success"
+      ],
       "type": "object",
     },
     annotations: {
@@ -150,6 +204,32 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
+          "properties": {
+            "errors": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "messages": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "result": {
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "messages",
+            "result",
+            "success"
+          ],
           "type": "object"
         },
         "4XX": {
@@ -157,6 +237,7 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
+        "cloudforce-one-port-scan-api_api-response-common": cloudforce_one_port_scan_api_api_response_common_output,
         "cloudforce-one-port-scan-api_api-response-common-failure": cloudforce_one_port_scan_api_api_response_common_failure_output,
         "cloudforce-one-port-scan-api_messages": cloudforce_one_port_scan_api_messages_output,
       },
@@ -209,10 +290,24 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/cloudforce-one-port-scan-api_scan-config",
+      "allOf": [
+        {
+          "$ref": "#/$defs/cloudforce-one-port-scan-api_api-response-common"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/cloudforce-one-port-scan-api_scan-config"
+            }
+          },
+          "type": "object"
+        }
+      ],
       $defs: {
+        "cloudforce-one-port-scan-api_api-response-common": cloudforce_one_port_scan_api_api_response_common_output,
         "cloudforce-one-port-scan-api_frequency": cloudforce_one_port_scan_api_frequency_output,
         "cloudforce-one-port-scan-api_ips": cloudforce_one_port_scan_api_ips_output,
+        "cloudforce-one-port-scan-api_messages": cloudforce_one_port_scan_api_messages_output,
         "cloudforce-one-port-scan-api_ports": cloudforce_one_port_scan_api_ports_output,
         "cloudforce-one-port-scan-api_scan-config": cloudforce_one_port_scan_api_scan_config_output,
       },
@@ -234,13 +329,26 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/cloudforce-one-port-scan-api_scan-config"
+          "allOf": [
+            {
+              "$ref": "#/$defs/cloudforce-one-port-scan-api_api-response-common"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/cloudforce-one-port-scan-api_scan-config"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/cloudforce-one-port-scan-api_api-response-common-failure"
         }
       },
       $defs: {
+        "cloudforce-one-port-scan-api_api-response-common": cloudforce_one_port_scan_api_api_response_common_output,
         "cloudforce-one-port-scan-api_api-response-common-failure": cloudforce_one_port_scan_api_api_response_common_failure_output,
         "cloudforce-one-port-scan-api_frequency": cloudforce_one_port_scan_api_frequency_output,
         "cloudforce-one-port-scan-api_ips": cloudforce_one_port_scan_api_ips_output,
@@ -271,24 +379,27 @@ export const tools: readonly Tool[] = [
       ],
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "$ref": "#/$defs/cloudforce-one-port-scan-api_scan-config"
-          },
-          "type": "array"
+      "allOf": [
+        {
+          "$ref": "#/$defs/cloudforce-one-port-scan-api_api-response-common"
         },
-        "result_info": {
+        {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/cloudforce-one-port-scan-api_scan-config"
+              },
+              "type": "array"
+            }
+          },
           "type": "object"
         }
-      },
-      "required": [
-        "result"
       ],
-      "type": "object",
       $defs: {
+        "cloudforce-one-port-scan-api_api-response-common": cloudforce_one_port_scan_api_api_response_common_output,
         "cloudforce-one-port-scan-api_frequency": cloudforce_one_port_scan_api_frequency_output,
         "cloudforce-one-port-scan-api_ips": cloudforce_one_port_scan_api_ips_output,
+        "cloudforce-one-port-scan-api_messages": cloudforce_one_port_scan_api_messages_output,
         "cloudforce-one-port-scan-api_ports": cloudforce_one_port_scan_api_ports_output,
         "cloudforce-one-port-scan-api_scan-config": cloudforce_one_port_scan_api_scan_config_output,
       },
@@ -311,27 +422,29 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "items": {
-                "$ref": "#/$defs/cloudforce-one-port-scan-api_scan-config"
-              },
-              "type": "array"
+          "allOf": [
+            {
+              "$ref": "#/$defs/cloudforce-one-port-scan-api_api-response-common"
             },
-            "result_info": {
+            {
+              "properties": {
+                "result": {
+                  "items": {
+                    "$ref": "#/$defs/cloudforce-one-port-scan-api_scan-config"
+                  },
+                  "type": "array"
+                }
+              },
               "type": "object"
             }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/cloudforce-one-port-scan-api_api-response-common-failure"
         }
       },
       $defs: {
+        "cloudforce-one-port-scan-api_api-response-common": cloudforce_one_port_scan_api_api_response_common_output,
         "cloudforce-one-port-scan-api_api-response-common-failure": cloudforce_one_port_scan_api_api_response_common_failure_output,
         "cloudforce-one-port-scan-api_frequency": cloudforce_one_port_scan_api_frequency_output,
         "cloudforce-one-port-scan-api_ips": cloudforce_one_port_scan_api_ips_output,

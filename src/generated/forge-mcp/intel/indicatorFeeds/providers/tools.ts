@@ -4,9 +4,11 @@
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
   custom_indicator_feeds_api_response_common_failure_output,
+  custom_indicator_feeds_api_response_single_output,
   custom_indicator_feeds_messages_2_output,
   custom_indicator_feeds_messages_output,
 } from "../outputs.js";
+import { custom_indicator_feeds_identifier } from "../schemas.js";
 import {
   custom_indicator_feeds_create_provider_response_output,
   custom_indicator_feeds_create_provider_result_output,
@@ -24,26 +26,30 @@ export const tools: readonly Tool[] = [
     inputSchema: {
       type: "object",
       properties: {
-        "account_id_path": {
-          "description": "Identifier",
-          "type": "string"
+        "account_id": {
+          "$ref": "#/$defs/custom-indicator-feeds_identifier",
+          "description": "Identifier"
         },
         "body": {
           "$ref": "#/$defs/custom-indicator-feeds_create_provider_request"
         }
       },
       required: [
-        "account_id_path",
+        "account_id",
         "body"
       ],
       $defs: {
         "custom-indicator-feeds_create_provider_request": custom_indicator_feeds_create_provider_request,
+        "custom-indicator-feeds_identifier": custom_indicator_feeds_identifier,
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/custom-indicator-feeds_create_provider_result",
+      "$ref": "#/$defs/custom-indicator-feeds_create_provider_response",
       $defs: {
+        "custom-indicator-feeds_api-response-single": custom_indicator_feeds_api_response_single_output,
+        "custom-indicator-feeds_create_provider_response": custom_indicator_feeds_create_provider_response_output,
         "custom-indicator-feeds_create_provider_result": custom_indicator_feeds_create_provider_result_output,
+        "custom-indicator-feeds_messages-2": custom_indicator_feeds_messages_2_output,
       },
     },
     annotations: {
@@ -54,11 +60,11 @@ export const tools: readonly Tool[] = [
       "title": "Create indicator feed provider"
     },
     method: "PUT",
-    path: "/accounts/{account_id_path}/intel/indicator-feeds/permissions/createProvider",
+    path: "/accounts/{account_id}/intel/indicator-feeds/permissions/createProvider",
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/custom-indicator-feeds_create_provider_result"
+          "$ref": "#/$defs/custom-indicator-feeds_create_provider_response"
         },
         "4XX": {
           "allOf": [
@@ -72,6 +78,7 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
+        "custom-indicator-feeds_api-response-single": custom_indicator_feeds_api_response_single_output,
         "custom-indicator-feeds_api_response_common_failure": custom_indicator_feeds_api_response_common_failure_output,
         "custom-indicator-feeds_create_provider_response": custom_indicator_feeds_create_provider_response_output,
         "custom-indicator-feeds_create_provider_result": custom_indicator_feeds_create_provider_result_output,
@@ -80,7 +87,7 @@ export const tools: readonly Tool[] = [
       },
     },
     request: (args) => ({
-      path: `/accounts/${pathParam(args, "account_id_path")}/intel/indicator-feeds/permissions/createProvider`,
+      path: `/accounts/${pathParam(args, "account_id")}/intel/indicator-feeds/permissions/createProvider`,
       body: { value: args["body"], mediaType: "application/json" },
     }),
   },

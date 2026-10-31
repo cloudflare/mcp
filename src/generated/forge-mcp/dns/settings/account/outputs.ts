@@ -22,6 +22,68 @@ export const dns_settings_account_settings_output: JsonSchema = {
 };
 
 /**
+ * The schema of `dns-settings_api-response-collection` in responses.
+ */
+export const dns_settings_api_response_collection_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/dns-settings_api-response-common"
+    },
+    {
+      "properties": {
+        "result_info": {
+          "properties": {
+            "count": {
+              "type": "number"
+            },
+            "page": {
+              "type": "number"
+            },
+            "per_page": {
+              "type": "number"
+            },
+            "total_count": {
+              "type": "number"
+            },
+            "total_pages": {
+              "type": "number"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `dns-settings_api-response-common` in responses.
+ */
+export const dns_settings_api_response_common_output: JsonSchema = {
+  "properties": {
+    "errors": {
+      "$ref": "#/$defs/dns-settings_messages"
+    },
+    "messages": {
+      "$ref": "#/$defs/dns-settings_messages"
+    },
+    "success": {
+      "enum": [
+        true
+      ],
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "errors",
+    "messages",
+    "success"
+  ],
+  "type": "object"
+};
+
+/**
  * The schema of `dns-settings_api-response-common-failure` in responses.
  */
 export const dns_settings_api_response_common_failure_output: JsonSchema = {
@@ -52,88 +114,15 @@ export const dns_settings_api_response_common_failure_output: JsonSchema = {
 };
 
 /**
- * The schema of `dns-settings_dns-settings-account-response` in responses.
+ * The schema of `dns-settings_api-response-single` in responses.
  */
-export const dns_settings_dns_settings_account_response_output: JsonSchema = {
-  "properties": {
-    "flatten_all_cnames": {
-      "$ref": "#/$defs/dns-settings_flatten_all_cnames"
-    },
-    "foundation_dns": {
-      "$ref": "#/$defs/dns-settings_foundation_dns"
-    },
-    "internal_dns": {
-      "$ref": "#/$defs/dns-settings_internal_dns_response"
-    },
-    "multi_provider": {
-      "$ref": "#/$defs/dns-settings_multi_provider"
-    },
-    "nameservers": {
-      "$ref": "#/$defs/dns-settings_dns-settings-account-response_nameservers"
-    },
-    "ns_ttl": {
-      "$ref": "#/$defs/dns-settings_ns_ttl"
-    },
-    "secondary_overrides": {
-      "$ref": "#/$defs/dns-settings_secondary_overrides"
-    },
-    "soa": {
-      "$ref": "#/$defs/dns-settings_soa-response"
-    },
-    "zone_mode": {
-      "$ref": "#/$defs/dns-settings_zone_mode"
-    }
-  },
-  "required": [
-    "flatten_all_cnames",
-    "foundation_dns",
-    "internal_dns",
-    "multi_provider",
-    "ns_ttl",
-    "secondary_overrides",
-    "soa",
-    "zone_mode",
-    "nameservers"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `dns-settings_dns-settings-account-response_nameservers` in
- * responses.
- */
-export const dns_settings_dns_settings_account_response_nameservers_output: JsonSchema = {
-  "properties": {
-    "type": {
-      "enum": [
-        "cloudflare.standard",
-        "cloudflare.advanced",
-        "cloudflare.standard.random",
-        "custom.account",
-        "custom.tenant"
-      ],
-      "type": "string"
-    }
-  },
-  "required": [
-    "type"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `dns-settings_dns_response_single` in responses.
- */
-export const dns_settings_dns_response_single_output: JsonSchema = {
+export const dns_settings_api_response_single_output: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/dns-settings_messages"
     },
     "messages": {
       "$ref": "#/$defs/dns-settings_messages"
-    },
-    "result": {
-      "$ref": "#/$defs/dns-settings_account_settings"
     },
     "success": {
       "enum": [
@@ -145,10 +134,124 @@ export const dns_settings_dns_response_single_output: JsonSchema = {
   "required": [
     "errors",
     "messages",
-    "success",
-    "result"
+    "success"
   ],
   "type": "object"
+};
+
+/**
+ * The schema of `dns-settings_dns-settings-account-response` in responses.
+ */
+export const dns_settings_dns_settings_account_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/dns-settings_dns-settings-response"
+    },
+    {
+      "properties": {
+        "nameservers": {
+          "properties": {
+            "type": {
+              "enum": [
+                "cloudflare.standard",
+                "cloudflare.advanced",
+                "cloudflare.standard.random",
+                "custom.account",
+                "custom.tenant"
+              ],
+              "type": "string"
+            }
+          },
+          "required": [
+            "type"
+          ],
+          "type": "object"
+        }
+      },
+      "required": [
+        "nameservers"
+      ],
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `dns-settings_dns-settings-base` in responses.
+ */
+export const dns_settings_dns_settings_base_output: JsonSchema = {
+  "properties": {
+    "flatten_all_cnames": {
+      "$ref": "#/$defs/dns-settings_flatten_all_cnames"
+    },
+    "foundation_dns": {
+      "$ref": "#/$defs/dns-settings_foundation_dns"
+    },
+    "internal_dns": {
+      "$ref": "#/$defs/dns-settings_internal_dns_base"
+    },
+    "multi_provider": {
+      "$ref": "#/$defs/dns-settings_multi_provider"
+    },
+    "ns_ttl": {
+      "$ref": "#/$defs/dns-settings_ns_ttl"
+    },
+    "secondary_overrides": {
+      "$ref": "#/$defs/dns-settings_secondary_overrides"
+    },
+    "soa": {
+      "$ref": "#/$defs/dns-settings_soa-base"
+    },
+    "zone_mode": {
+      "$ref": "#/$defs/dns-settings_zone_mode"
+    }
+  },
+  "type": "object"
+};
+
+/**
+ * The schema of `dns-settings_dns-settings-response` in responses.
+ */
+export const dns_settings_dns_settings_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/dns-settings_dns-settings-base"
+    },
+    {
+      "properties": {
+        "internal_dns": {
+          "$ref": "#/$defs/dns-settings_internal_dns_response"
+        },
+        "soa": {
+          "$ref": "#/$defs/dns-settings_soa-response"
+        }
+      },
+      "required": [
+        "internal_dns",
+        "soa"
+      ],
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `dns-settings_dns_response_single` in responses.
+ */
+export const dns_settings_dns_response_single_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/dns-settings_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/dns-settings_account_settings"
+        }
+      },
+      "type": "object"
+    }
+  ]
 };
 
 /**
@@ -170,6 +273,25 @@ export const dns_settings_flatten_all_cnames_output: JsonSchema = {
  */
 export const dns_settings_foundation_dns_output: JsonSchema = {
   "type": "boolean"
+};
+
+/**
+ * The schema of `dns-settings_identifier` in responses.
+ */
+export const dns_settings_identifier_output: JsonSchema = {
+  "type": "string"
+};
+
+/**
+ * The schema of `dns-settings_internal_dns_base` in responses.
+ */
+export const dns_settings_internal_dns_base_output: JsonSchema = {
+  "properties": {
+    "reference_zone_id": {
+      "type": "string"
+    }
+  },
+  "type": "object"
 };
 
 /**
@@ -239,6 +361,43 @@ export const dns_settings_ns_ttl_output: JsonSchema = {
  */
 export const dns_settings_secondary_overrides_output: JsonSchema = {
   "type": "boolean"
+};
+
+/**
+ * The schema of `dns-settings_soa-base` in responses.
+ */
+export const dns_settings_soa_base_output: JsonSchema = {
+  "properties": {
+    "expire": {
+      "type": "number"
+    },
+    "min_ttl": {
+      "type": "number"
+    },
+    "mname": {
+      "oneOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "refresh": {
+      "type": "number"
+    },
+    "retry": {
+      "type": "number"
+    },
+    "rname": {
+      "type": "string"
+    },
+    "ttl": {
+      "type": "number"
+    }
+  },
+  "type": "object"
 };
 
 /**

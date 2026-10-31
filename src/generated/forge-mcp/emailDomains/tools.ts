@@ -3,14 +3,18 @@
 
 import { type Tool, pathParam } from "../_/tool.js";
 import { email_identifier_output } from "../outputs.js";
+import { email_identifier } from "../schemas.js";
 import {
   email_email_domain_capability_output,
-  email_email_domain_collection_response_result_info_output,
+  email_email_domain_change_collection_response_output,
+  email_email_domain_change_output,
+  email_email_domain_collection_response_output,
   email_email_domain_dns_record_output,
-  email_email_domain_error_response_errorsItem_output,
-  email_email_domain_error_response_messagesItem_output,
   email_email_domain_error_response_output,
   email_email_domain_output,
+  email_email_domain_platform_status_output,
+  email_email_domain_response_output,
+  email_email_domain_tombstone_output,
   email_email_domain_verification_output,
 } from "./outputs.js";
 import { email_email_domain_create } from "./schemas.js";
@@ -20,15 +24,124 @@ import { email_email_domain_create } from "./schemas.js";
  */
 export const tools: readonly Tool[] = [
   {
-    name: "email_domains_create",
-    title: "Create an Email Domain",
-    description: "Creates a candidate and four DNS instructions. Rejects hostnames whose assigned Return-Path exceeds 201 ASCII characters. Creation follows read-only checks of the saved provider bundle and published exclusion. Hostnames inside an active full Cloudflare DNS zone return the generic hostname conflict error 2083. No per-domain provider DNS writes occur. Customer DNS observations remain pending and mail remains inactive. Unverified candidates may share a hostname. Supply an account-unique client_reference to retry the same enrollment safely; reuse with a different hostname returns error 2083. Final public-DNS, namespace protection and runtime readiness are separate gates. Available only to the configured OpenAI pilot account behind a default-off gate. Authentication failures may use the gateway error envelope.",
+    name: "email_domains_changes",
+    title: "List Email Domain changes",
+    description: "Returns retained domain-specific state changes and completed-removal tombstones in a transaction-safe opaque order. The top-level platform field is the current shared gate and must be combined with each domain's state. Store next_cursor after processing every response, and continue immediately while has_more is true. To take a checkpoint, request this operation with modified_since set to the current time, follow has_more to the end, and save the final next_cursor; it replays every change committed after the first of those requests. Initial bootstrap and error 2086 recovery take a checkpoint, list the full inventory, then replay from the saved checkpoint, so changes made during the inventory are not lost. Only a tombstone proves that a domain was removed. Available only to the configured OpenAI pilot account behind a default-off gate; while the gate is off, the pilot account gets 503 with error 2090 and Retry-After, and existing domains are unaffected. Unsupported methods return 405 with error 2091. Authentication failures may use the gateway error envelope.",
     inputSchema: {
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
+          "$ref": "#/$defs/email_identifier",
+          "description": "Identifier."
+        },
+        "cursor": {
+          "description": "Opaque cursor returned by the previous change page. Omit it for the first page.",
           "type": "string"
+        },
+        "modified_since": {
+          "description": "Optional RFC 3339 lower bound for the first request only. Values outside the retained history return error 2086. A value up to one minute ahead of the server clock is read as the current time; a later value returns 400.",
+          "format": "date-time",
+          "type": "string"
+        },
+        "per_page": {
+          "default": 20,
+          "description": "Maximum changes to return in one page.",
+          "type": "integer"
+        }
+      },
+      required: [
+        "account_id"
+      ],
+      $defs: {
+        "email_identifier": email_identifier,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/email_email_domain_change_collection_response",
+      $defs: {
+        "email_email_domain": email_email_domain_output,
+        "email_email_domain_capability": email_email_domain_capability_output,
+        "email_email_domain_change": email_email_domain_change_output,
+        "email_email_domain_change_collection_response": email_email_domain_change_collection_response_output,
+        "email_email_domain_dns_record": email_email_domain_dns_record_output,
+        "email_email_domain_platform_status": email_email_domain_platform_status_output,
+        "email_email_domain_tombstone": email_email_domain_tombstone_output,
+        "email_email_domain_verification": email_email_domain_verification_output,
+        "email_identifier": email_identifier_output,
+      },
+    },
+    annotations: {
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": true,
+      "readOnlyHint": true,
+      "title": "List Email Domain changes"
+    },
+    method: "GET",
+    path: "/accounts/{account_id}/email/domain-changes",
+    extensions: {
+      "x-cfPermissionsRequired": {
+        "enum": [
+          "com.cloudflare.api.account.email.domain.list"
+        ]
+      }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/email_email_domain_change_collection_response"
+        },
+        "400": {
+          "$ref": "#/$defs/email_email_domain_error_response"
+        },
+        "403": {
+          "$ref": "#/$defs/email_email_domain_error_response"
+        },
+        "404": {
+          "$ref": "#/$defs/email_email_domain_error_response"
+        },
+        "409": {
+          "$ref": "#/$defs/email_email_domain_error_response"
+        },
+        "500": {
+          "$ref": "#/$defs/email_email_domain_error_response"
+        },
+        "503": {
+          "$ref": "#/$defs/email_email_domain_error_response"
+        }
+      },
+      $defs: {
+        "email_email_domain": email_email_domain_output,
+        "email_email_domain_capability": email_email_domain_capability_output,
+        "email_email_domain_change": email_email_domain_change_output,
+        "email_email_domain_change_collection_response": email_email_domain_change_collection_response_output,
+        "email_email_domain_dns_record": email_email_domain_dns_record_output,
+        "email_email_domain_error_response": email_email_domain_error_response_output,
+        "email_email_domain_platform_status": email_email_domain_platform_status_output,
+        "email_email_domain_tombstone": email_email_domain_tombstone_output,
+        "email_email_domain_verification": email_email_domain_verification_output,
+        "email_identifier": email_identifier_output,
+      },
+    },
+    request: (args) => ({
+      path: `/accounts/${pathParam(args, "account_id")}/email/domain-changes`,
+      query: [
+        ["per_page", args["per_page"], false],
+        ["cursor", args["cursor"], false],
+        ["modified_since", args["modified_since"], false],
+      ],
+    }),
+  },
+  {
+    name: "email_domains_create",
+    title: "Create an Email Domain",
+    description: "Creates a candidate and four DNS instructions. Rejects hostnames with more than 16 labels or whose assigned Return-Path exceeds 201 ASCII characters; error 2077 names the hostname rule that failed. Creation follows read-only checks of the saved provider bundle and published exclusion. Hostnames inside an active full Cloudflare DNS zone, including zones under a PSL private suffix such as workers.dev, or held by another enrollment, return the generic hostname conflict error 2083. While an earlier enrollment of this account with the same hostname or client_reference is being deleted, create returns error 2084 with Retry-After set to the expected completion time. No per-domain provider DNS writes occur. Customer DNS observations remain pending and mail remains inactive. Unverified candidates may share a hostname. Supply an account-unique client_reference to retry the same enrollment safely; reuse with a different hostname returns error 2089. A full domain quota returns error 2081 and frees only when domains are deleted or candidates expire, so it is not retryable; the create rate limit returns 429 with error 2088 and Retry-After. Requests rejected before the Cloudflare zone check do not count toward the rate limit. Final public-DNS, namespace protection and runtime readiness are separate gates. Available only to the configured OpenAI pilot account behind a default-off gate; while the gate is off, the pilot account gets 503 with error 2090 and Retry-After, and existing domains are unaffected. Unsupported methods return 405 with error 2091. Authentication failures may use the gateway error envelope.",
+    inputSchema: {
+      type: "object",
+      properties: {
+        "account_id": {
+          "$ref": "#/$defs/email_identifier",
+          "description": "Identifier."
         },
         "body": {
           "$ref": "#/$defs/email_email_domain_create"
@@ -40,14 +153,16 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "email_email_domain_create": email_email_domain_create,
+        "email_identifier": email_identifier,
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/email_email_domain",
+      "$ref": "#/$defs/email_email_domain_response",
       $defs: {
         "email_email_domain": email_email_domain_output,
         "email_email_domain_capability": email_email_domain_capability_output,
         "email_email_domain_dns_record": email_email_domain_dns_record_output,
+        "email_email_domain_response": email_email_domain_response_output,
         "email_email_domain_verification": email_email_domain_verification_output,
         "email_identifier": email_identifier_output,
       },
@@ -65,18 +180,13 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "com.cloudflare.api.account.email.domain.create"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.api.account.email.domain.create": {
-            "name": "com_cloudflare_api_account_email_domain_create"
-          }
-        }
+        ]
       }
     },
     responses: {
       schemas: {
         "201": {
-          "$ref": "#/$defs/email_email_domain"
+          "$ref": "#/$defs/email_email_domain_response"
         },
         "400": {
           "$ref": "#/$defs/email_email_domain_error_response"
@@ -105,8 +215,7 @@ export const tools: readonly Tool[] = [
         "email_email_domain_capability": email_email_domain_capability_output,
         "email_email_domain_dns_record": email_email_domain_dns_record_output,
         "email_email_domain_error_response": email_email_domain_error_response_output,
-        "email_email_domain_error_response_errorsItem": email_email_domain_error_response_errorsItem_output,
-        "email_email_domain_error_response_messagesItem": email_email_domain_error_response_messagesItem_output,
+        "email_email_domain_response": email_email_domain_response_output,
         "email_email_domain_verification": email_email_domain_verification_output,
         "email_identifier": email_identifier_output,
       },
@@ -119,13 +228,13 @@ export const tools: readonly Tool[] = [
   {
     name: "email_domains_delete",
     title: "Delete an Email Domain",
-    description: "Requires an empty body. Unclaimed unpublished candidates are purged immediately. Claimed domains persist deleting state and retain claims until the deletion worker acknowledges safe revocation and token retirement. Repeated requests while deleting are idempotent. Available only to the configured OpenAI pilot account behind a default-off gate. Authentication failures may use the gateway error envelope.",
+    description: "Requires an empty body. Unclaimed, unpublished candidates are removed immediately after token retirement. Acquired or published resources retain deleting state and claims until the deletion worker acknowledges safe revocation and token retirement: deletion completes after the last authorization FWDR may still hold has expired, up to about 31 minutes after the request. Until then the hostname and client_reference cannot be enrolled again. Repeated requests while deleting are idempotent. Retry-After is the expected time until GET returns 404; follow the Location header after it. Available only to the configured OpenAI pilot account behind a default-off gate; while the gate is off, the pilot account gets 503 with error 2090 and Retry-After, and existing domains are unaffected. Unsupported methods return 405 with error 2091. Authentication failures may use the gateway error envelope.",
     inputSchema: {
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/email_identifier",
+          "description": "Identifier."
         },
         "email_domain_id": {
           "format": "uuid",
@@ -136,13 +245,17 @@ export const tools: readonly Tool[] = [
         "account_id",
         "email_domain_id"
       ],
+      $defs: {
+        "email_identifier": email_identifier,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/email_email_domain",
+      "$ref": "#/$defs/email_email_domain_response",
       $defs: {
         "email_email_domain": email_email_domain_output,
         "email_email_domain_capability": email_email_domain_capability_output,
         "email_email_domain_dns_record": email_email_domain_dns_record_output,
+        "email_email_domain_response": email_email_domain_response_output,
         "email_email_domain_verification": email_email_domain_verification_output,
         "email_identifier": email_identifier_output,
       },
@@ -160,18 +273,13 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "com.cloudflare.api.account.email.domain.delete"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.api.account.email.domain.delete": {
-            "name": "com_cloudflare_api_account_email_domain_delete"
-          }
-        }
+        ]
       }
     },
     responses: {
       schemas: {
         "202": {
-          "$ref": "#/$defs/email_email_domain"
+          "$ref": "#/$defs/email_email_domain_response"
         },
         "400": {
           "$ref": "#/$defs/email_email_domain_error_response"
@@ -197,8 +305,7 @@ export const tools: readonly Tool[] = [
         "email_email_domain_capability": email_email_domain_capability_output,
         "email_email_domain_dns_record": email_email_domain_dns_record_output,
         "email_email_domain_error_response": email_email_domain_error_response_output,
-        "email_email_domain_error_response_errorsItem": email_email_domain_error_response_errorsItem_output,
-        "email_email_domain_error_response_messagesItem": email_email_domain_error_response_messagesItem_output,
+        "email_email_domain_response": email_email_domain_response_output,
         "email_email_domain_verification": email_email_domain_verification_output,
         "email_identifier": email_identifier_output,
       },
@@ -210,13 +317,13 @@ export const tools: readonly Tool[] = [
   {
     name: "email_domains_get",
     title: "Get an Email Domain",
-    description: "Returns domain status and its four assigned DNS records. Shared provider health is reported by the capability states rather than duplicated on each DNS record. Expired unclaimed candidates and completed deletions return 404. Available only to the configured OpenAI pilot account behind a default-off gate. Authentication failures may use the gateway error envelope.",
+    description: "Returns domain status and its four assigned DNS records. Shared provider health is reported by the capability states rather than duplicated on each DNS record. Expired unclaimed candidates and completed deletions return 404. Available only to the configured OpenAI pilot account behind a default-off gate; while the gate is off, the pilot account gets 503 with error 2090 and Retry-After, and existing domains are unaffected. Unsupported methods return 405 with error 2091. Authentication failures may use the gateway error envelope.",
     inputSchema: {
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/email_identifier",
+          "description": "Identifier."
         },
         "email_domain_id": {
           "format": "uuid",
@@ -227,13 +334,17 @@ export const tools: readonly Tool[] = [
         "account_id",
         "email_domain_id"
       ],
+      $defs: {
+        "email_identifier": email_identifier,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/email_email_domain",
+      "$ref": "#/$defs/email_email_domain_response",
       $defs: {
         "email_email_domain": email_email_domain_output,
         "email_email_domain_capability": email_email_domain_capability_output,
         "email_email_domain_dns_record": email_email_domain_dns_record_output,
+        "email_email_domain_response": email_email_domain_response_output,
         "email_email_domain_verification": email_email_domain_verification_output,
         "email_identifier": email_identifier_output,
       },
@@ -251,18 +362,13 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "com.cloudflare.api.account.email.domain.read"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.api.account.email.domain.read": {
-            "name": "com_cloudflare_api_account_email_domain_read"
-          }
-        }
+        ]
       }
     },
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/email_email_domain"
+          "$ref": "#/$defs/email_email_domain_response"
         },
         "400": {
           "$ref": "#/$defs/email_email_domain_error_response"
@@ -285,8 +391,7 @@ export const tools: readonly Tool[] = [
         "email_email_domain_capability": email_email_domain_capability_output,
         "email_email_domain_dns_record": email_email_domain_dns_record_output,
         "email_email_domain_error_response": email_email_domain_error_response_output,
-        "email_email_domain_error_response_errorsItem": email_email_domain_error_response_errorsItem_output,
-        "email_email_domain_error_response_messagesItem": email_email_domain_error_response_messagesItem_output,
+        "email_email_domain_response": email_email_domain_response_output,
         "email_email_domain_verification": email_email_domain_verification_output,
         "email_identifier": email_identifier_output,
       },
@@ -298,13 +403,13 @@ export const tools: readonly Tool[] = [
   {
     name: "email_domains_list",
     title: "List Email Domains",
-    description: "Returns account-scoped domain status. DNS records are omitted unless requested; exact hostname filtering may return several candidates; retain the EmailDomain ID for each enrollment. Available only to the configured OpenAI pilot account behind a default-off gate. Authentication failures may use the gateway error envelope.",
+    description: "Returns account-scoped domain status. DNS records are omitted unless requested; exact hostname filtering may return several candidates; retain the EmailDomain ID for each enrollment. Available only to the configured OpenAI pilot account behind a default-off gate; while the gate is off, the pilot account gets 503 with error 2090 and Retry-After, and existing domains are unaffected. Unsupported methods return 405 with error 2091. Authentication failures may use the gateway error envelope.",
     inputSchema: {
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/email_identifier",
+          "description": "Identifier."
         },
         "cursor": {
           "description": "Opaque cursor returned by the previous page. Omit it for the first page.",
@@ -329,27 +434,16 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+      $defs: {
+        "email_identifier": email_identifier,
+      },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "$ref": "#/$defs/email_email_domain"
-          },
-          "type": "array"
-        },
-        "result_info": {
-          "$ref": "#/$defs/email_email_domain_collection_response_result_info"
-        }
-      },
-      "required": [
-        "result"
-      ],
-      "type": "object",
+      "$ref": "#/$defs/email_email_domain_collection_response",
       $defs: {
         "email_email_domain": email_email_domain_output,
         "email_email_domain_capability": email_email_domain_capability_output,
-        "email_email_domain_collection_response_result_info": email_email_domain_collection_response_result_info_output,
+        "email_email_domain_collection_response": email_email_domain_collection_response_output,
         "email_email_domain_dns_record": email_email_domain_dns_record_output,
         "email_email_domain_verification": email_email_domain_verification_output,
         "email_identifier": email_identifier_output,
@@ -368,32 +462,13 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "com.cloudflare.api.account.email.domain.list"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.api.account.email.domain.list": {
-            "name": "com_cloudflare_api_account_email_domain_list"
-          }
-        }
+        ]
       }
     },
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "items": {
-                "$ref": "#/$defs/email_email_domain"
-              },
-              "type": "array"
-            },
-            "result_info": {
-              "$ref": "#/$defs/email_email_domain_collection_response_result_info"
-            }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/email_email_domain_collection_response"
         },
         "400": {
           "$ref": "#/$defs/email_email_domain_error_response"
@@ -414,11 +489,9 @@ export const tools: readonly Tool[] = [
       $defs: {
         "email_email_domain": email_email_domain_output,
         "email_email_domain_capability": email_email_domain_capability_output,
-        "email_email_domain_collection_response_result_info": email_email_domain_collection_response_result_info_output,
+        "email_email_domain_collection_response": email_email_domain_collection_response_output,
         "email_email_domain_dns_record": email_email_domain_dns_record_output,
         "email_email_domain_error_response": email_email_domain_error_response_output,
-        "email_email_domain_error_response_errorsItem": email_email_domain_error_response_errorsItem_output,
-        "email_email_domain_error_response_messagesItem": email_email_domain_error_response_messagesItem_output,
         "email_email_domain_verification": email_email_domain_verification_output,
         "email_identifier": email_identifier_output,
       },
@@ -436,13 +509,13 @@ export const tools: readonly Tool[] = [
   {
     name: "email_domains_verify",
     title: "Verify an Email Domain",
-    description: "Requires an empty body. Schedules an expedited check and coalesces queued or leased work. It does not accept verification results, bypass activation gates, or perform customer DNS checks synchronously. Follow the Location header after Retry-After seconds until verification.observed_at appears or advances beyond the value in this 202 response; status may remain unchanged. Candidate expiry returns 404. Available only to the configured OpenAI pilot account behind a default-off gate. Authentication failures may use the gateway error envelope.",
+    description: "Requires an empty body. Schedules an expedited check and coalesces queued or leased work. It does not accept verification results, bypass activation gates, or perform customer DNS checks synchronously. Follow the Location header after Retry-After seconds until verification.observed_at appears or advances beyond the value in this 202 response; status may remain unchanged. Candidate expiry returns 404. A repeat within 30 seconds returns error 2082 with the remaining cooldown in Retry-After. Only a request that schedules a check counts toward the account rate limit, error 2088. Available only to the configured OpenAI pilot account behind a default-off gate; while the gate is off, the pilot account gets 503 with error 2090 and Retry-After, and existing domains are unaffected. Unsupported methods return 405 with error 2091. Authentication failures may use the gateway error envelope.",
     inputSchema: {
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/email_identifier",
+          "description": "Identifier."
         },
         "email_domain_id": {
           "format": "uuid",
@@ -453,13 +526,17 @@ export const tools: readonly Tool[] = [
         "account_id",
         "email_domain_id"
       ],
+      $defs: {
+        "email_identifier": email_identifier,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/email_email_domain",
+      "$ref": "#/$defs/email_email_domain_response",
       $defs: {
         "email_email_domain": email_email_domain_output,
         "email_email_domain_capability": email_email_domain_capability_output,
         "email_email_domain_dns_record": email_email_domain_dns_record_output,
+        "email_email_domain_response": email_email_domain_response_output,
         "email_email_domain_verification": email_email_domain_verification_output,
         "email_identifier": email_identifier_output,
       },
@@ -477,18 +554,13 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "com.cloudflare.api.account.email.domain.update"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.api.account.email.domain.update": {
-            "name": "com_cloudflare_api_account_email_domain_update"
-          }
-        }
+        ]
       }
     },
     responses: {
       schemas: {
         "202": {
-          "$ref": "#/$defs/email_email_domain"
+          "$ref": "#/$defs/email_email_domain_response"
         },
         "400": {
           "$ref": "#/$defs/email_email_domain_error_response"
@@ -517,8 +589,7 @@ export const tools: readonly Tool[] = [
         "email_email_domain_capability": email_email_domain_capability_output,
         "email_email_domain_dns_record": email_email_domain_dns_record_output,
         "email_email_domain_error_response": email_email_domain_error_response_output,
-        "email_email_domain_error_response_errorsItem": email_email_domain_error_response_errorsItem_output,
-        "email_email_domain_error_response_messagesItem": email_email_domain_error_response_messagesItem_output,
+        "email_email_domain_response": email_email_domain_response_output,
         "email_email_domain_verification": email_email_domain_verification_output,
         "email_identifier": email_identifier_output,
       },

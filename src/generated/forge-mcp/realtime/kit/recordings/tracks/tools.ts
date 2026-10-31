@@ -2,7 +2,15 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../../../_/tool.js";
-import { realtimekit_GenericSuccessResponse_output } from "../../outputs.js";
+import {
+  realtimekit_GenericErrorResponse_output,
+  realtimekit_GenericSuccessResponse_output,
+  realtimekit_ValidationIssue_output,
+} from "../../outputs.js";
+import {
+  realtimekit_account_identifier,
+  realtimekit_app_id,
+} from "../../schemas.js";
 import { realtimekit_Recording_output } from "../outputs.js";
 import { realtimekit_TrackConfigLayer } from "./schemas.js";
 
@@ -18,12 +26,12 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "The account identifier tag.",
-          "type": "string"
+          "$ref": "#/$defs/realtimekit_account_identifier",
+          "description": "The account identifier tag."
         },
         "app_id": {
-          "description": "The app identifier tag.",
-          "type": "string"
+          "$ref": "#/$defs/realtimekit_app_id",
+          "description": "The app identifier tag."
         },
         "body": {
           "description": "Starts audio track recording for an active meeting. Use `layers` only when you need to set a file name prefix. Selective track recording (`user_ids`) is in early beta contact support to use this feature.",
@@ -63,6 +71,8 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "realtimekit_TrackConfigLayer": realtimekit_TrackConfigLayer,
+        "realtimekit_account_identifier": realtimekit_account_identifier,
+        "realtimekit_app_id": realtimekit_app_id,
       },
     },
     outputSchema: {
@@ -131,11 +141,16 @@ export const tools: readonly Tool[] = [
               "type": "object"
             }
           ]
+        },
+        "4XX": {
+          "$ref": "#/$defs/realtimekit_GenericErrorResponse"
         }
       },
       $defs: {
+        "realtimekit_GenericErrorResponse": realtimekit_GenericErrorResponse_output,
         "realtimekit_GenericSuccessResponse": realtimekit_GenericSuccessResponse_output,
         "realtimekit_Recording": realtimekit_Recording_output,
+        "realtimekit_ValidationIssue": realtimekit_ValidationIssue_output,
       },
     },
     request: (args) => ({

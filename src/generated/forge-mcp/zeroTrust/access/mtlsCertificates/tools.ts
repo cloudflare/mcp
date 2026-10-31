@@ -3,18 +3,25 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
+  access_api_response_collection_output,
   access_api_response_common_failure_output,
+  access_api_response_common_output,
+  access_api_response_single_output,
   access_created_at_output,
   access_messages_output,
   access_timestamp_output,
   access_updated_at_output,
   access_uuid_output,
 } from "../../outputs.js";
+import { access_identifier, access_uuid } from "../../schemas.js";
+import { access_id_response_3_output } from "../outputs.js";
 import {
   access_associated_hostnames_output,
   access_certificates_output,
   access_fingerprint_output,
   access_name_7_output,
+  access_response_collection_6_output,
+  access_single_response_7_output,
 } from "./outputs.js";
 import { access_associated_hostnames, access_name_7 } from "./schemas.js";
 
@@ -38,8 +45,8 @@ export const tools: readonly Tool[] = [
           "type": "string"
         },
         "account_or_zone_id": {
-          "description": "The account ID or zone ID, as selected by account_or_zone.",
-          "type": "string"
+          "$ref": "#/$defs/access_identifier",
+          "description": "The account ID or zone ID, as selected by account_or_zone."
         },
         "body": {
           "properties": {
@@ -70,17 +77,21 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "access_associated_hostnames": access_associated_hostnames,
+        "access_identifier": access_identifier,
         "access_name-7": access_name_7,
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/access_certificates",
+      "$ref": "#/$defs/access_single_response-7",
       $defs: {
+        "access_api-response-single": access_api_response_single_output,
         "access_associated_hostnames": access_associated_hostnames_output,
         "access_certificates": access_certificates_output,
         "access_created_at": access_created_at_output,
         "access_fingerprint": access_fingerprint_output,
+        "access_messages": access_messages_output,
         "access_name-7": access_name_7_output,
+        "access_single_response-7": access_single_response_7_output,
         "access_timestamp": access_timestamp_output,
         "access_updated_at": access_updated_at_output,
       },
@@ -102,7 +113,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "201": {
-          "$ref": "#/$defs/access_certificates"
+          "$ref": "#/$defs/access_single_response-7"
         },
         "4XX": {
           "$ref": "#/$defs/access_api-response-common-failure"
@@ -110,12 +121,14 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "access_api-response-common-failure": access_api_response_common_failure_output,
+        "access_api-response-single": access_api_response_single_output,
         "access_associated_hostnames": access_associated_hostnames_output,
         "access_certificates": access_certificates_output,
         "access_created_at": access_created_at_output,
         "access_fingerprint": access_fingerprint_output,
         "access_messages": access_messages_output,
         "access_name-7": access_name_7_output,
+        "access_single_response-7": access_single_response_7_output,
         "access_timestamp": access_timestamp_output,
         "access_updated_at": access_updated_at_output,
       },
@@ -141,12 +154,12 @@ export const tools: readonly Tool[] = [
           "type": "string"
         },
         "account_or_zone_id": {
-          "description": "The account ID or zone ID, as selected by account_or_zone.",
-          "type": "string"
+          "$ref": "#/$defs/access_identifier",
+          "description": "The account ID or zone ID, as selected by account_or_zone."
         },
         "certificate_id": {
-          "description": "UUID.",
-          "type": "string"
+          "$ref": "#/$defs/access_uuid",
+          "description": "UUID."
         }
       },
       required: [
@@ -154,15 +167,17 @@ export const tools: readonly Tool[] = [
         "account_or_zone_id",
         "certificate_id"
       ],
+      $defs: {
+        "access_identifier": access_identifier,
+        "access_uuid": access_uuid,
+      },
     },
     outputSchema: {
-      "properties": {
-        "id": {
-          "$ref": "#/$defs/access_uuid"
-        }
-      },
-      "type": "object",
+      "$ref": "#/$defs/access_id_response-3",
       $defs: {
+        "access_api-response-common": access_api_response_common_output,
+        "access_id_response-3": access_id_response_3_output,
+        "access_messages": access_messages_output,
         "access_uuid": access_uuid_output,
       },
     },
@@ -183,19 +198,16 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "id": {
-              "$ref": "#/$defs/access_uuid"
-            }
-          },
-          "type": "object"
+          "$ref": "#/$defs/access_id_response-3"
         },
         "4XX": {
           "$ref": "#/$defs/access_api-response-common-failure"
         }
       },
       $defs: {
+        "access_api-response-common": access_api_response_common_output,
         "access_api-response-common-failure": access_api_response_common_failure_output,
+        "access_id_response-3": access_id_response_3_output,
         "access_messages": access_messages_output,
         "access_uuid": access_uuid_output,
       },
@@ -220,12 +232,12 @@ export const tools: readonly Tool[] = [
           "type": "string"
         },
         "account_or_zone_id": {
-          "description": "The account ID or zone ID, as selected by account_or_zone.",
-          "type": "string"
+          "$ref": "#/$defs/access_identifier",
+          "description": "The account ID or zone ID, as selected by account_or_zone."
         },
         "certificate_id": {
-          "description": "UUID.",
-          "type": "string"
+          "$ref": "#/$defs/access_uuid",
+          "description": "UUID."
         }
       },
       required: [
@@ -233,15 +245,22 @@ export const tools: readonly Tool[] = [
         "account_or_zone_id",
         "certificate_id"
       ],
+      $defs: {
+        "access_identifier": access_identifier,
+        "access_uuid": access_uuid,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/access_certificates",
+      "$ref": "#/$defs/access_single_response-7",
       $defs: {
+        "access_api-response-single": access_api_response_single_output,
         "access_associated_hostnames": access_associated_hostnames_output,
         "access_certificates": access_certificates_output,
         "access_created_at": access_created_at_output,
         "access_fingerprint": access_fingerprint_output,
+        "access_messages": access_messages_output,
         "access_name-7": access_name_7_output,
+        "access_single_response-7": access_single_response_7_output,
         "access_timestamp": access_timestamp_output,
         "access_updated_at": access_updated_at_output,
       },
@@ -264,7 +283,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/access_certificates"
+          "$ref": "#/$defs/access_single_response-7"
         },
         "4XX": {
           "$ref": "#/$defs/access_api-response-common-failure"
@@ -272,12 +291,14 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "access_api-response-common-failure": access_api_response_common_failure_output,
+        "access_api-response-single": access_api_response_single_output,
         "access_associated_hostnames": access_associated_hostnames_output,
         "access_certificates": access_certificates_output,
         "access_created_at": access_created_at_output,
         "access_fingerprint": access_fingerprint_output,
         "access_messages": access_messages_output,
         "access_name-7": access_name_7_output,
+        "access_single_response-7": access_single_response_7_output,
         "access_timestamp": access_timestamp_output,
         "access_updated_at": access_updated_at_output,
       },
@@ -302,8 +323,8 @@ export const tools: readonly Tool[] = [
           "type": "string"
         },
         "account_or_zone_id": {
-          "description": "The account ID or zone ID, as selected by account_or_zone.",
-          "type": "string"
+          "$ref": "#/$defs/access_identifier",
+          "description": "The account ID or zone ID, as selected by account_or_zone."
         },
         "page": {
           "default": 1,
@@ -320,46 +341,22 @@ export const tools: readonly Tool[] = [
         "account_or_zone",
         "account_or_zone_id"
       ],
+      $defs: {
+        "access_identifier": access_identifier,
+      },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "$ref": "#/$defs/access_certificates"
-          },
-          "type": "array"
-        },
-        "result_info": {
-          "properties": {
-            "count": {
-              "type": "number"
-            },
-            "page": {
-              "type": "number"
-            },
-            "per_page": {
-              "type": "number"
-            },
-            "total_count": {
-              "type": "number"
-            },
-            "total_pages": {
-              "type": "number"
-            }
-          },
-          "type": "object"
-        }
-      },
-      "required": [
-        "result"
-      ],
-      "type": "object",
+      "$ref": "#/$defs/access_response_collection-6",
       $defs: {
+        "access_api-response-collection": access_api_response_collection_output,
+        "access_api-response-common": access_api_response_common_output,
         "access_associated_hostnames": access_associated_hostnames_output,
         "access_certificates": access_certificates_output,
         "access_created_at": access_created_at_output,
         "access_fingerprint": access_fingerprint_output,
+        "access_messages": access_messages_output,
         "access_name-7": access_name_7_output,
+        "access_response_collection-6": access_response_collection_6_output,
         "access_timestamp": access_timestamp_output,
         "access_updated_at": access_updated_at_output,
       },
@@ -382,44 +379,15 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "items": {
-                "$ref": "#/$defs/access_certificates"
-              },
-              "type": "array"
-            },
-            "result_info": {
-              "properties": {
-                "count": {
-                  "type": "number"
-                },
-                "page": {
-                  "type": "number"
-                },
-                "per_page": {
-                  "type": "number"
-                },
-                "total_count": {
-                  "type": "number"
-                },
-                "total_pages": {
-                  "type": "number"
-                }
-              },
-              "type": "object"
-            }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/access_response_collection-6"
         },
         "4XX": {
           "$ref": "#/$defs/access_api-response-common-failure"
         }
       },
       $defs: {
+        "access_api-response-collection": access_api_response_collection_output,
+        "access_api-response-common": access_api_response_common_output,
         "access_api-response-common-failure": access_api_response_common_failure_output,
         "access_associated_hostnames": access_associated_hostnames_output,
         "access_certificates": access_certificates_output,
@@ -427,6 +395,7 @@ export const tools: readonly Tool[] = [
         "access_fingerprint": access_fingerprint_output,
         "access_messages": access_messages_output,
         "access_name-7": access_name_7_output,
+        "access_response_collection-6": access_response_collection_6_output,
         "access_timestamp": access_timestamp_output,
         "access_updated_at": access_updated_at_output,
       },
@@ -455,8 +424,8 @@ export const tools: readonly Tool[] = [
           "type": "string"
         },
         "account_or_zone_id": {
-          "description": "The account ID or zone ID, as selected by account_or_zone.",
-          "type": "string"
+          "$ref": "#/$defs/access_identifier",
+          "description": "The account ID or zone ID, as selected by account_or_zone."
         },
         "body": {
           "properties": {
@@ -475,8 +444,8 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "certificate_id": {
-          "description": "UUID.",
-          "type": "string"
+          "$ref": "#/$defs/access_uuid",
+          "description": "UUID."
         }
       },
       required: [
@@ -487,17 +456,22 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "access_associated_hostnames": access_associated_hostnames,
+        "access_identifier": access_identifier,
         "access_name-7": access_name_7,
+        "access_uuid": access_uuid,
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/access_certificates",
+      "$ref": "#/$defs/access_single_response-7",
       $defs: {
+        "access_api-response-single": access_api_response_single_output,
         "access_associated_hostnames": access_associated_hostnames_output,
         "access_certificates": access_certificates_output,
         "access_created_at": access_created_at_output,
         "access_fingerprint": access_fingerprint_output,
+        "access_messages": access_messages_output,
         "access_name-7": access_name_7_output,
+        "access_single_response-7": access_single_response_7_output,
         "access_timestamp": access_timestamp_output,
         "access_updated_at": access_updated_at_output,
       },
@@ -519,7 +493,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/access_certificates"
+          "$ref": "#/$defs/access_single_response-7"
         },
         "4XX": {
           "$ref": "#/$defs/access_api-response-common-failure"
@@ -527,12 +501,14 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "access_api-response-common-failure": access_api_response_common_failure_output,
+        "access_api-response-single": access_api_response_single_output,
         "access_associated_hostnames": access_associated_hostnames_output,
         "access_certificates": access_certificates_output,
         "access_created_at": access_created_at_output,
         "access_fingerprint": access_fingerprint_output,
         "access_messages": access_messages_output,
         "access_name-7": access_name_7_output,
+        "access_single_response-7": access_single_response_7_output,
         "access_timestamp": access_timestamp_output,
         "access_updated_at": access_updated_at_output,
       },

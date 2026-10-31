@@ -4,10 +4,26 @@
 import type { JsonSchema } from "../_/tool.js";
 
 /**
+ * The schema of `firewall_account_identifier`.
+ */
+export const firewall_account_identifier: JsonSchema = {
+  "description": "Defines an account identifier.",
+  "type": "string"
+};
+
+/**
  * The schema of `firewall_description`.
  */
 export const firewall_description: JsonSchema = {
   "description": "An informative summary of the rule. This value is sanitized and any tags will be removed.",
+  "type": "string"
+};
+
+/**
+ * The schema of `firewall_identifier`.
+ */
+export const firewall_identifier: JsonSchema = {
+  "description": "Defines an identifier.",
   "type": "string"
 };
 

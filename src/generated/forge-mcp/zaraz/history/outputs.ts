@@ -31,3 +31,40 @@ export const zaraz_zaraz_config_row_base_output: JsonSchema = {
   ],
   "type": "object"
 };
+
+/**
+ * The schema of `zaraz_zaraz-history-response` in responses.
+ */
+export const zaraz_zaraz_history_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/zaraz_api-response-common"
+    },
+    {
+      "properties": {
+        "result": {
+          "items": {
+            "allOf": [
+              {
+                "$ref": "#/$defs/zaraz_zaraz-config-row-base"
+              },
+              {
+                "properties": {
+                  "description": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "description"
+                ],
+                "type": "object"
+              }
+            ]
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};

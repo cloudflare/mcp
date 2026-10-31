@@ -5,7 +5,6 @@ import { type Tool, pathParam } from "../../_/tool.js";
 import {
   abuse_reports_AuthErrorResponse_output,
   abuse_reports_CloudflareAPIErrorResponse_output,
-  abuse_reports_ErrorMessage_code_output,
   abuse_reports_ErrorMessage_output,
   abuse_reports_Message_output,
   abuse_reports_MitigationStatus_output,
@@ -15,7 +14,6 @@ import { abuse_reports_MitigationStatus } from "../schemas.js";
 import {
   abuse_reports_MitigatedEntityType_output,
   abuse_reports_MitigationAppealResult_output,
-  abuse_reports_MitigationAppealResult_result_info_output,
   abuse_reports_MitigationListItem_output,
   abuse_reports_MitigationType_output,
 } from "./outputs.js";
@@ -103,18 +101,69 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
-        "mitigations": {
+        "errors": {
           "items": {
-            "$ref": "#/$defs/abuse-reports_MitigationListItem"
+            "$ref": "#/$defs/abuse-reports_Message"
           },
           "type": "array"
+        },
+        "messages": {
+          "items": {
+            "$ref": "#/$defs/abuse-reports_Message"
+          },
+          "type": "array"
+        },
+        "result": {
+          "properties": {
+            "mitigations": {
+              "items": {
+                "$ref": "#/$defs/abuse-reports_MitigationListItem"
+              },
+              "type": "array"
+            }
+          },
+          "required": [
+            "mitigations"
+          ],
+          "type": "object"
+        },
+        "result_info": {
+          "properties": {
+            "count": {
+              "type": "number"
+            },
+            "page": {
+              "type": "number"
+            },
+            "per_page": {
+              "type": "number"
+            },
+            "total_count": {
+              "type": "number"
+            },
+            "total_pages": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "count",
+            "page",
+            "per_page",
+            "total_count",
+            "total_pages"
+          ],
+          "type": "object"
+        },
+        "success": {
+          "type": "boolean"
         }
       },
       "required": [
-        "mitigations"
+        "success"
       ],
       "type": "object",
       $defs: {
+        "abuse-reports_Message": abuse_reports_Message_output,
         "abuse-reports_MitigatedEntityType": abuse_reports_MitigatedEntityType_output,
         "abuse-reports_MitigationListItem": abuse_reports_MitigationListItem_output,
         "abuse-reports_MitigationStatus": abuse_reports_MitigationStatus_output,
@@ -140,15 +189,65 @@ export const tools: readonly Tool[] = [
       schemas: {
         "200": {
           "properties": {
-            "mitigations": {
+            "errors": {
               "items": {
-                "$ref": "#/$defs/abuse-reports_MitigationListItem"
+                "$ref": "#/$defs/abuse-reports_Message"
               },
               "type": "array"
+            },
+            "messages": {
+              "items": {
+                "$ref": "#/$defs/abuse-reports_Message"
+              },
+              "type": "array"
+            },
+            "result": {
+              "properties": {
+                "mitigations": {
+                  "items": {
+                    "$ref": "#/$defs/abuse-reports_MitigationListItem"
+                  },
+                  "type": "array"
+                }
+              },
+              "required": [
+                "mitigations"
+              ],
+              "type": "object"
+            },
+            "result_info": {
+              "properties": {
+                "count": {
+                  "type": "number"
+                },
+                "page": {
+                  "type": "number"
+                },
+                "per_page": {
+                  "type": "number"
+                },
+                "total_count": {
+                  "type": "number"
+                },
+                "total_pages": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "count",
+                "page",
+                "per_page",
+                "total_count",
+                "total_pages"
+              ],
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
             }
           },
           "required": [
-            "mitigations"
+            "success"
           ],
           "type": "object"
         },
@@ -186,7 +285,6 @@ export const tools: readonly Tool[] = [
         "abuse-reports_AuthErrorResponse": abuse_reports_AuthErrorResponse_output,
         "abuse-reports_CloudflareAPIErrorResponse": abuse_reports_CloudflareAPIErrorResponse_output,
         "abuse-reports_ErrorMessage": abuse_reports_ErrorMessage_output,
-        "abuse-reports_ErrorMessage_code": abuse_reports_ErrorMessage_code_output,
         "abuse-reports_Message": abuse_reports_Message_output,
         "abuse-reports_MitigatedEntityType": abuse_reports_MitigatedEntityType_output,
         "abuse-reports_MitigationListItem": abuse_reports_MitigationListItem_output,
@@ -242,33 +340,11 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "anyOf": [
-        {
-          "properties": {
-            "result": {
-              "items": {
-                "$ref": "#/$defs/abuse-reports_MitigationListItem"
-              },
-              "type": "array"
-            },
-            "result_info": {
-              "$ref": "#/$defs/abuse-reports_MitigationAppealResult_result_info"
-            }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
-        },
-        {
-          "$ref": "#/$defs/abuse-reports_MitigationAppealResult"
-        }
-      ],
+      "$ref": "#/$defs/abuse-reports_MitigationAppealResult",
       $defs: {
         "abuse-reports_Message": abuse_reports_Message_output,
         "abuse-reports_MitigatedEntityType": abuse_reports_MitigatedEntityType_output,
         "abuse-reports_MitigationAppealResult": abuse_reports_MitigationAppealResult_output,
-        "abuse-reports_MitigationAppealResult_result_info": abuse_reports_MitigationAppealResult_result_info_output,
         "abuse-reports_MitigationListItem": abuse_reports_MitigationListItem_output,
         "abuse-reports_MitigationStatus": abuse_reports_MitigationStatus_output,
         "abuse-reports_MitigationType": abuse_reports_MitigationType_output,
@@ -291,21 +367,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "items": {
-                "$ref": "#/$defs/abuse-reports_MitigationListItem"
-              },
-              "type": "array"
-            },
-            "result_info": {
-              "$ref": "#/$defs/abuse-reports_MitigationAppealResult_result_info"
-            }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/abuse-reports_MitigationAppealResult"
         },
         "207": {
           "$ref": "#/$defs/abuse-reports_MitigationAppealResult"
@@ -344,11 +406,9 @@ export const tools: readonly Tool[] = [
         "abuse-reports_AuthErrorResponse": abuse_reports_AuthErrorResponse_output,
         "abuse-reports_CloudflareAPIErrorResponse": abuse_reports_CloudflareAPIErrorResponse_output,
         "abuse-reports_ErrorMessage": abuse_reports_ErrorMessage_output,
-        "abuse-reports_ErrorMessage_code": abuse_reports_ErrorMessage_code_output,
         "abuse-reports_Message": abuse_reports_Message_output,
         "abuse-reports_MitigatedEntityType": abuse_reports_MitigatedEntityType_output,
         "abuse-reports_MitigationAppealResult": abuse_reports_MitigationAppealResult_output,
-        "abuse-reports_MitigationAppealResult_result_info": abuse_reports_MitigationAppealResult_result_info_output,
         "abuse-reports_MitigationListItem": abuse_reports_MitigationListItem_output,
         "abuse-reports_MitigationStatus": abuse_reports_MitigationStatus_output,
         "abuse-reports_MitigationType": abuse_reports_MitigationType_output,

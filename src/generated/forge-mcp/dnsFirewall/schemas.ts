@@ -89,9 +89,9 @@ export const dns_firewall_dns_firewall_cluster: JsonSchema = {
 };
 
 /**
- * The schema of `dns-firewall_dns-firewall-cluster-post`.
+ * The schema of `dns-firewall_dns-firewall-cluster-patch`.
  */
-export const dns_firewall_dns_firewall_cluster_post: JsonSchema = {
+export const dns_firewall_dns_firewall_cluster_patch: JsonSchema = {
   "properties": {
     "attack_mitigation": {
       "$ref": "#/$defs/dns-firewall_attack_mitigation",
@@ -100,11 +100,6 @@ export const dns_firewall_dns_firewall_cluster_post: JsonSchema = {
     "deprecate_any_requests": {
       "$ref": "#/$defs/dns-firewall_deprecate_any_requests",
       "description": "Whether to refuse to answer queries for the ANY type"
-    },
-    "dns_firewall_ip_count": {
-      "$ref": "#/$defs/dns-firewall_dns_firewall_ip_count",
-      "default": 2,
-      "description": "Number of IPv4 addresses to assign to the DNS Firewall cluster. Only used during cluster creation and cannot be changed later."
     },
     "ecs_fallback": {
       "$ref": "#/$defs/dns-firewall_ecs_fallback",
@@ -141,11 +136,28 @@ export const dns_firewall_dns_firewall_cluster_post: JsonSchema = {
       "$ref": "#/$defs/dns-firewall_upstream_ips"
     }
   },
-  "required": [
-    "name",
-    "upstream_ips"
-  ],
   "type": "object"
+};
+
+/**
+ * The schema of `dns-firewall_dns-firewall-cluster-post`.
+ */
+export const dns_firewall_dns_firewall_cluster_post: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/dns-firewall_dns-firewall-cluster"
+    },
+    {
+      "properties": {
+        "dns_firewall_ip_count": {
+          "$ref": "#/$defs/dns-firewall_dns_firewall_ip_count",
+          "default": 2,
+          "description": "Number of IPv4 addresses to assign to the DNS Firewall cluster. Only used during cluster creation and cannot be changed later."
+        }
+      },
+      "type": "object"
+    }
+  ]
 };
 
 /**
@@ -162,6 +174,14 @@ export const dns_firewall_dns_firewall_ip_count: JsonSchema = {
 export const dns_firewall_ecs_fallback: JsonSchema = {
   "description": "Whether to forward client IP (resolver) subnet if no EDNS Client Subnet is sent",
   "type": "boolean"
+};
+
+/**
+ * The schema of `dns-firewall_identifier`.
+ */
+export const dns_firewall_identifier: JsonSchema = {
+  "description": "Identifier.",
+  "type": "string"
 };
 
 /**

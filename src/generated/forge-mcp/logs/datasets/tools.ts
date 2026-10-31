@@ -3,9 +3,11 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
+  lex_AvailableDestinationListResponse_output,
   lex_AvailableDestination_output,
-  lex_AvailableDestination_schema_output,
+  lex_DatasetDetailResponse_output,
   lex_DatasetResponse_output,
+  lex_DatasetSummaryListResponse_output,
   lex_DatasetSummary_output,
   lex_ErrorResponse_2_output,
   lex_LogField_output,
@@ -47,31 +49,11 @@ export const tools: readonly Tool[] = [
       ],
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "oneOf": [
-            {
-              "items": {
-                "$ref": "#/$defs/lex_AvailableDestination"
-              },
-              "type": "array"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "result_info": {
-          "type": "object"
-        }
-      },
-      "required": [
-        "result"
-      ],
-      "type": "object",
+      "$ref": "#/$defs/lex_AvailableDestinationListResponse",
       $defs: {
         "lex_AvailableDestination": lex_AvailableDestination_output,
-        "lex_AvailableDestination_schema": lex_AvailableDestination_schema_output,
+        "lex_AvailableDestinationListResponse": lex_AvailableDestinationListResponse_output,
+        "lex_V4Error-2": lex_V4Error_2_output,
       },
     },
     annotations: {
@@ -92,28 +74,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "oneOf": [
-                {
-                  "items": {
-                    "$ref": "#/$defs/lex_AvailableDestination"
-                  },
-                  "type": "array"
-                },
-                {
-                  "type": "null"
-                }
-              ]
-            },
-            "result_info": {
-              "type": "object"
-            }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/lex_AvailableDestinationListResponse"
         },
         "400": {
           "$ref": "#/$defs/lex_ErrorResponse-2"
@@ -127,7 +88,7 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "lex_AvailableDestination": lex_AvailableDestination_output,
-        "lex_AvailableDestination_schema": lex_AvailableDestination_schema_output,
+        "lex_AvailableDestinationListResponse": lex_AvailableDestinationListResponse_output,
         "lex_ErrorResponse-2": lex_ErrorResponse_2_output,
         "lex_V4Error-2": lex_V4Error_2_output,
       },
@@ -170,10 +131,13 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/lex_DatasetResponse",
+      "$ref": "#/$defs/lex_DatasetDetailResponse",
       $defs: {
+        "lex_DatasetDetailResponse": lex_DatasetDetailResponse_output,
         "lex_DatasetResponse": lex_DatasetResponse_output,
+        "lex_DatasetSummary": lex_DatasetSummary_output,
         "lex_LogField": lex_LogField_output,
+        "lex_V4Error-2": lex_V4Error_2_output,
       },
     },
     annotations: {
@@ -193,7 +157,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "201": {
-          "$ref": "#/$defs/lex_DatasetResponse"
+          "$ref": "#/$defs/lex_DatasetDetailResponse"
         },
         "400": {
           "$ref": "#/$defs/lex_ErrorResponse-2"
@@ -209,7 +173,9 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
+        "lex_DatasetDetailResponse": lex_DatasetDetailResponse_output,
         "lex_DatasetResponse": lex_DatasetResponse_output,
+        "lex_DatasetSummary": lex_DatasetSummary_output,
         "lex_ErrorResponse-2": lex_ErrorResponse_2_output,
         "lex_LogField": lex_LogField_output,
         "lex_V4Error-2": lex_V4Error_2_output,
@@ -251,10 +217,13 @@ export const tools: readonly Tool[] = [
       ],
     },
     outputSchema: {
-      "$ref": "#/$defs/lex_DatasetResponse",
+      "$ref": "#/$defs/lex_DatasetDetailResponse",
       $defs: {
+        "lex_DatasetDetailResponse": lex_DatasetDetailResponse_output,
         "lex_DatasetResponse": lex_DatasetResponse_output,
+        "lex_DatasetSummary": lex_DatasetSummary_output,
         "lex_LogField": lex_LogField_output,
+        "lex_V4Error-2": lex_V4Error_2_output,
       },
     },
     annotations: {
@@ -269,7 +238,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "202": {
-          "$ref": "#/$defs/lex_DatasetResponse"
+          "$ref": "#/$defs/lex_DatasetDetailResponse"
         },
         "400": {
           "$ref": "#/$defs/lex_ErrorResponse-2"
@@ -285,7 +254,9 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
+        "lex_DatasetDetailResponse": lex_DatasetDetailResponse_output,
         "lex_DatasetResponse": lex_DatasetResponse_output,
+        "lex_DatasetSummary": lex_DatasetSummary_output,
         "lex_ErrorResponse-2": lex_ErrorResponse_2_output,
         "lex_LogField": lex_LogField_output,
         "lex_V4Error-2": lex_V4Error_2_output,
@@ -326,10 +297,13 @@ export const tools: readonly Tool[] = [
       ],
     },
     outputSchema: {
-      "$ref": "#/$defs/lex_DatasetResponse",
+      "$ref": "#/$defs/lex_DatasetDetailResponse",
       $defs: {
+        "lex_DatasetDetailResponse": lex_DatasetDetailResponse_output,
         "lex_DatasetResponse": lex_DatasetResponse_output,
+        "lex_DatasetSummary": lex_DatasetSummary_output,
         "lex_LogField": lex_LogField_output,
+        "lex_V4Error-2": lex_V4Error_2_output,
       },
     },
     annotations: {
@@ -349,7 +323,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/lex_DatasetResponse"
+          "$ref": "#/$defs/lex_DatasetDetailResponse"
         },
         "400": {
           "$ref": "#/$defs/lex_ErrorResponse-2"
@@ -362,7 +336,9 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
+        "lex_DatasetDetailResponse": lex_DatasetDetailResponse_output,
         "lex_DatasetResponse": lex_DatasetResponse_output,
+        "lex_DatasetSummary": lex_DatasetSummary_output,
         "lex_ErrorResponse-2": lex_ErrorResponse_2_output,
         "lex_LogField": lex_LogField_output,
         "lex_V4Error-2": lex_V4Error_2_output,
@@ -402,30 +378,11 @@ export const tools: readonly Tool[] = [
       ],
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "oneOf": [
-            {
-              "items": {
-                "$ref": "#/$defs/lex_DatasetSummary"
-              },
-              "type": "array"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "result_info": {
-          "type": "object"
-        }
-      },
-      "required": [
-        "result"
-      ],
-      "type": "object",
+      "$ref": "#/$defs/lex_DatasetSummaryListResponse",
       $defs: {
         "lex_DatasetSummary": lex_DatasetSummary_output,
+        "lex_DatasetSummaryListResponse": lex_DatasetSummaryListResponse_output,
+        "lex_V4Error-2": lex_V4Error_2_output,
       },
     },
     annotations: {
@@ -446,28 +403,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "oneOf": [
-                {
-                  "items": {
-                    "$ref": "#/$defs/lex_DatasetSummary"
-                  },
-                  "type": "array"
-                },
-                {
-                  "type": "null"
-                }
-              ]
-            },
-            "result_info": {
-              "type": "object"
-            }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/lex_DatasetSummaryListResponse"
         },
         "400": {
           "$ref": "#/$defs/lex_ErrorResponse-2"
@@ -481,6 +417,7 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "lex_DatasetSummary": lex_DatasetSummary_output,
+        "lex_DatasetSummaryListResponse": lex_DatasetSummaryListResponse_output,
         "lex_ErrorResponse-2": lex_ErrorResponse_2_output,
         "lex_V4Error-2": lex_V4Error_2_output,
       },
@@ -531,10 +468,13 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/lex_DatasetResponse",
+      "$ref": "#/$defs/lex_DatasetDetailResponse",
       $defs: {
+        "lex_DatasetDetailResponse": lex_DatasetDetailResponse_output,
         "lex_DatasetResponse": lex_DatasetResponse_output,
+        "lex_DatasetSummary": lex_DatasetSummary_output,
         "lex_LogField": lex_LogField_output,
+        "lex_V4Error-2": lex_V4Error_2_output,
       },
     },
     annotations: {
@@ -554,7 +494,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/lex_DatasetResponse"
+          "$ref": "#/$defs/lex_DatasetDetailResponse"
         },
         "400": {
           "$ref": "#/$defs/lex_ErrorResponse-2"
@@ -567,7 +507,9 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
+        "lex_DatasetDetailResponse": lex_DatasetDetailResponse_output,
         "lex_DatasetResponse": lex_DatasetResponse_output,
+        "lex_DatasetSummary": lex_DatasetSummary_output,
         "lex_ErrorResponse-2": lex_ErrorResponse_2_output,
         "lex_LogField": lex_LogField_output,
         "lex_V4Error-2": lex_V4Error_2_output,

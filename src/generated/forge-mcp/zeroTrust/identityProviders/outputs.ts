@@ -7,220 +7,118 @@ import type { JsonSchema } from "../../_/tool.js";
  * The schema of `access_azureAD` in responses.
  */
 export const access_azureAD_output: JsonSchema = {
-  "properties": {
-    "config": {
-      "allOf": [
-        {
-          "$ref": "#/$defs/access_generic-oauth-config"
-        },
-        {
-          "$ref": "#/$defs/access_custom-claims-support"
-        },
-        {
-          "properties": {
-            "conditional_access_enabled": {
-              "type": "boolean"
+  "allOf": [
+    {
+      "$ref": "#/$defs/access_identity-provider"
+    },
+    {
+      "properties": {
+        "config": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/access_generic-oauth-config"
             },
-            "directory_id": {
-              "type": "string"
+            {
+              "$ref": "#/$defs/access_custom-claims-support"
             },
-            "prompt": {
-              "enum": [
-                "login",
-                "select_account",
-                "none"
-              ],
-              "type": "string"
-            },
-            "support_groups": {
-              "type": "boolean"
+            {
+              "properties": {
+                "conditional_access_enabled": {
+                  "type": "boolean"
+                },
+                "directory_id": {
+                  "type": "string"
+                },
+                "prompt": {
+                  "enum": [
+                    "login",
+                    "select_account",
+                    "none"
+                  ],
+                  "type": "string"
+                },
+                "support_groups": {
+                  "type": "boolean"
+                }
+              },
+              "type": "object"
             }
-          },
-          "type": "object"
+          ]
         }
-      ]
-    },
-    "id": {
-      "$ref": "#/$defs/access_uuid"
-    },
-    "name": {
-      "$ref": "#/$defs/access_name-3"
-    },
-    "read_only": {
-      "type": "boolean"
-    },
-    "saml_certificate_set": {
-      "$ref": "#/$defs/access_saml_certificate_set"
-    },
-    "saml_certificate_set_id": {
-      "format": "uuid",
-      "type": "string"
-    },
-    "scim_config": {
-      "$ref": "#/$defs/access_identity-provider_scim_config"
-    },
-    "type": {
-      "enum": [
-        "onetimepin",
-        "azureAD",
-        "saml",
-        "centrify",
-        "facebook",
-        "github",
-        "google-apps",
-        "google",
-        "linkedin",
-        "oidc",
-        "duo",
-        "okta",
-        "onelogin",
-        "pingone",
-        "yandex",
-        "cloudflare",
-        "passkeys"
-      ],
-      "type": "string"
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "config",
-    "name",
-    "type"
-  ],
-  "type": "object"
+  ]
 };
 
 /**
  * The schema of `access_centrify` in responses.
  */
 export const access_centrify_output: JsonSchema = {
-  "properties": {
-    "config": {
-      "allOf": [
-        {
-          "$ref": "#/$defs/access_generic-oauth-config"
-        },
-        {
-          "$ref": "#/$defs/access_custom-claims-support"
-        },
-        {
-          "properties": {
-            "centrify_account": {
-              "type": "string"
+  "allOf": [
+    {
+      "$ref": "#/$defs/access_identity-provider"
+    },
+    {
+      "properties": {
+        "config": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/access_generic-oauth-config"
             },
-            "centrify_app_id": {
-              "type": "string"
+            {
+              "$ref": "#/$defs/access_custom-claims-support"
+            },
+            {
+              "properties": {
+                "centrify_account": {
+                  "type": "string"
+                },
+                "centrify_app_id": {
+                  "type": "string"
+                }
+              },
+              "type": "object"
             }
-          },
-          "type": "object"
+          ]
         }
-      ]
-    },
-    "id": {
-      "$ref": "#/$defs/access_uuid"
-    },
-    "name": {
-      "$ref": "#/$defs/access_name-3"
-    },
-    "read_only": {
-      "type": "boolean"
-    },
-    "saml_certificate_set": {
-      "$ref": "#/$defs/access_saml_certificate_set"
-    },
-    "saml_certificate_set_id": {
-      "format": "uuid",
-      "type": "string"
-    },
-    "scim_config": {
-      "$ref": "#/$defs/access_identity-provider_scim_config"
-    },
-    "type": {
-      "enum": [
-        "onetimepin",
-        "azureAD",
-        "saml",
-        "centrify",
-        "facebook",
-        "github",
-        "google-apps",
-        "google",
-        "linkedin",
-        "oidc",
-        "duo",
-        "okta",
-        "onelogin",
-        "pingone",
-        "yandex",
-        "cloudflare",
-        "passkeys"
-      ],
-      "type": "string"
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "config",
-    "name",
-    "type"
-  ],
-  "type": "object"
+  ]
 };
 
 /**
  * The schema of `access_cloudflare` in responses.
  */
 export const access_cloudflare_output: JsonSchema = {
-  "properties": {
-    "config": {
-      "$ref": "#/$defs/access_cloudflare_config"
+  "allOf": [
+    {
+      "$ref": "#/$defs/access_identity-provider"
     },
-    "id": {
-      "$ref": "#/$defs/access_uuid"
-    },
-    "name": {
-      "$ref": "#/$defs/access_name-3"
-    },
-    "read_only": {
-      "type": "boolean"
-    },
-    "saml_certificate_set": {
-      "$ref": "#/$defs/access_saml_certificate_set"
-    },
-    "saml_certificate_set_id": {
-      "format": "uuid",
-      "type": "string"
-    },
-    "scim_config": {
-      "$ref": "#/$defs/access_identity-provider_scim_config"
-    },
-    "type": {
-      "enum": [
-        "cloudflare"
-      ],
-      "type": "string"
+    {
+      "properties": {
+        "config": {
+          "properties": {
+            "redirect_url": {
+              "type": "string"
+            },
+            "restrict_to_account_members": {
+              "type": "boolean"
+            }
+          },
+          "type": "object"
+        },
+        "type": {
+          "enum": [
+            "cloudflare"
+          ],
+          "type": "string"
+        }
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "config",
-    "name",
-    "type"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `access_cloudflare_config` in responses.
- */
-export const access_cloudflare_config_output: JsonSchema = {
-  "properties": {
-    "redirect_url": {
-      "type": "string"
-    },
-    "restrict_to_account_members": {
-      "type": "boolean"
-    }
-  },
-  "type": "object"
+  ]
 };
 
 /**
@@ -245,118 +143,55 @@ export const access_custom_claims_support_output: JsonSchema = {
  * The schema of `access_duo` in responses.
  */
 export const access_duo_output: JsonSchema = {
-  "properties": {
-    "config": {
-      "$ref": "#/$defs/access_duo_config"
+  "allOf": [
+    {
+      "$ref": "#/$defs/access_identity-provider"
     },
-    "id": {
-      "$ref": "#/$defs/access_uuid"
-    },
-    "name": {
-      "$ref": "#/$defs/access_name-3"
-    },
-    "read_only": {
-      "type": "boolean"
-    },
-    "saml_certificate_set": {
-      "$ref": "#/$defs/access_saml_certificate_set"
-    },
-    "saml_certificate_set_id": {
-      "format": "uuid",
-      "type": "string"
-    },
-    "scim_config": {
-      "$ref": "#/$defs/access_identity-provider_scim_config"
-    },
-    "type": {
-      "enum": [
-        "duo"
-      ],
-      "type": "string"
+    {
+      "properties": {
+        "config": {
+          "properties": {
+            "client_id": {
+              "type": "string"
+            },
+            "client_secret": {
+              "type": "string"
+            },
+            "issuer_url": {
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        "type": {
+          "enum": [
+            "duo"
+          ],
+          "type": "string"
+        }
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "config",
-    "name",
-    "type"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `access_duo_config` in responses.
- */
-export const access_duo_config_output: JsonSchema = {
-  "properties": {
-    "client_id": {
-      "type": "string"
-    },
-    "client_secret": {
-      "type": "string"
-    },
-    "issuer_url": {
-      "type": "string"
-    }
-  },
-  "type": "object"
+  ]
 };
 
 /**
  * The schema of `access_facebook` in responses.
  */
 export const access_facebook_output: JsonSchema = {
-  "properties": {
-    "config": {
-      "$ref": "#/$defs/access_generic-oauth-config"
+  "allOf": [
+    {
+      "$ref": "#/$defs/access_identity-provider"
     },
-    "id": {
-      "$ref": "#/$defs/access_uuid"
-    },
-    "name": {
-      "$ref": "#/$defs/access_name-3"
-    },
-    "read_only": {
-      "type": "boolean"
-    },
-    "saml_certificate_set": {
-      "$ref": "#/$defs/access_saml_certificate_set"
-    },
-    "saml_certificate_set_id": {
-      "format": "uuid",
-      "type": "string"
-    },
-    "scim_config": {
-      "$ref": "#/$defs/access_identity-provider_scim_config"
-    },
-    "type": {
-      "enum": [
-        "onetimepin",
-        "azureAD",
-        "saml",
-        "centrify",
-        "facebook",
-        "github",
-        "google-apps",
-        "google",
-        "linkedin",
-        "oidc",
-        "duo",
-        "okta",
-        "onelogin",
-        "pingone",
-        "yandex",
-        "cloudflare",
-        "passkeys"
-      ],
-      "type": "string"
+    {
+      "properties": {
+        "config": {
+          "$ref": "#/$defs/access_generic-oauth-config"
+        }
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "config",
-    "name",
-    "type"
-  ],
-  "type": "object"
+  ]
 };
 
 /**
@@ -378,158 +213,99 @@ export const access_generic_oauth_config_output: JsonSchema = {
  * The schema of `access_github` in responses.
  */
 export const access_github_output: JsonSchema = {
-  "properties": {
-    "config": {
-      "$ref": "#/$defs/access_generic-oauth-config"
+  "allOf": [
+    {
+      "$ref": "#/$defs/access_identity-provider"
     },
-    "id": {
-      "$ref": "#/$defs/access_uuid"
-    },
-    "name": {
-      "$ref": "#/$defs/access_name-3"
-    },
-    "read_only": {
-      "type": "boolean"
-    },
-    "saml_certificate_set": {
-      "$ref": "#/$defs/access_saml_certificate_set"
-    },
-    "saml_certificate_set_id": {
-      "format": "uuid",
-      "type": "string"
-    },
-    "scim_config": {
-      "$ref": "#/$defs/access_identity-provider_scim_config"
-    },
-    "type": {
-      "enum": [
-        "onetimepin",
-        "azureAD",
-        "saml",
-        "centrify",
-        "facebook",
-        "github",
-        "google-apps",
-        "google",
-        "linkedin",
-        "oidc",
-        "duo",
-        "okta",
-        "onelogin",
-        "pingone",
-        "yandex",
-        "cloudflare",
-        "passkeys"
-      ],
-      "type": "string"
+    {
+      "properties": {
+        "config": {
+          "$ref": "#/$defs/access_generic-oauth-config"
+        }
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "config",
-    "name",
-    "type"
-  ],
-  "type": "object"
+  ]
 };
 
 /**
  * The schema of `access_google` in responses.
  */
 export const access_google_output: JsonSchema = {
-  "properties": {
-    "config": {
-      "allOf": [
-        {
-          "$ref": "#/$defs/access_generic-oauth-config"
-        },
-        {
-          "$ref": "#/$defs/access_custom-claims-support"
+  "allOf": [
+    {
+      "$ref": "#/$defs/access_identity-provider"
+    },
+    {
+      "properties": {
+        "config": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/access_generic-oauth-config"
+            },
+            {
+              "$ref": "#/$defs/access_custom-claims-support"
+            }
+          ]
         }
-      ]
-    },
-    "id": {
-      "$ref": "#/$defs/access_uuid"
-    },
-    "name": {
-      "$ref": "#/$defs/access_name-3"
-    },
-    "read_only": {
-      "type": "boolean"
-    },
-    "saml_certificate_set": {
-      "$ref": "#/$defs/access_saml_certificate_set"
-    },
-    "saml_certificate_set_id": {
-      "format": "uuid",
-      "type": "string"
-    },
-    "scim_config": {
-      "$ref": "#/$defs/access_identity-provider_scim_config"
-    },
-    "type": {
-      "enum": [
-        "onetimepin",
-        "azureAD",
-        "saml",
-        "centrify",
-        "facebook",
-        "github",
-        "google-apps",
-        "google",
-        "linkedin",
-        "oidc",
-        "duo",
-        "okta",
-        "onelogin",
-        "pingone",
-        "yandex",
-        "cloudflare",
-        "passkeys"
-      ],
-      "type": "string"
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "config",
-    "name",
-    "type"
-  ],
-  "type": "object"
+  ]
 };
 
 /**
  * The schema of `access_google-apps` in responses.
  */
 export const access_google_apps_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/access_identity-provider"
+    },
+    {
+      "properties": {
+        "config": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/access_generic-oauth-config"
+            },
+            {
+              "$ref": "#/$defs/access_custom-claims-support"
+            },
+            {
+              "properties": {
+                "apps_domain": {
+                  "type": "string"
+                },
+                "prompt": {
+                  "enum": [
+                    "none",
+                    "consent",
+                    "select_account"
+                  ],
+                  "type": "string"
+                },
+                "use_login_hint": {
+                  "type": "boolean"
+                }
+              },
+              "type": "object"
+            }
+          ]
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `access_identity-provider` in responses.
+ */
+export const access_identity_provider_output: JsonSchema = {
   "properties": {
     "config": {
-      "allOf": [
-        {
-          "$ref": "#/$defs/access_generic-oauth-config"
-        },
-        {
-          "$ref": "#/$defs/access_custom-claims-support"
-        },
-        {
-          "properties": {
-            "apps_domain": {
-              "type": "string"
-            },
-            "prompt": {
-              "enum": [
-                "none",
-                "consent",
-                "select_account"
-              ],
-              "type": "string"
-            },
-            "use_login_hint": {
-              "type": "boolean"
-            }
-          },
-          "type": "object"
-        }
-      ]
+      "type": "object"
     },
     "id": {
       "$ref": "#/$defs/access_uuid"
@@ -548,7 +324,32 @@ export const access_google_apps_output: JsonSchema = {
       "type": "string"
     },
     "scim_config": {
-      "$ref": "#/$defs/access_identity-provider_scim_config"
+      "properties": {
+        "enabled": {
+          "type": "boolean"
+        },
+        "identity_update_behavior": {
+          "enum": [
+            "automatic",
+            "reauth",
+            "no_action"
+          ],
+          "type": "string"
+        },
+        "scim_base_url": {
+          "type": "string"
+        },
+        "seat_deprovision": {
+          "type": "boolean"
+        },
+        "secret": {
+          "type": "string"
+        },
+        "user_deprovision": {
+          "type": "boolean"
+        }
+      },
+      "type": "object"
     },
     "type": {
       "enum": [
@@ -578,38 +379,6 @@ export const access_google_apps_output: JsonSchema = {
     "name",
     "type"
   ],
-  "type": "object"
-};
-
-/**
- * The schema of `access_identity-provider_scim_config` in responses.
- */
-export const access_identity_provider_scim_config_output: JsonSchema = {
-  "properties": {
-    "enabled": {
-      "type": "boolean"
-    },
-    "identity_update_behavior": {
-      "enum": [
-        "automatic",
-        "reauth",
-        "no_action"
-      ],
-      "type": "string"
-    },
-    "scim_base_url": {
-      "type": "string"
-    },
-    "seat_deprovision": {
-      "type": "boolean"
-    },
-    "secret": {
-      "type": "string"
-    },
-    "user_deprovision": {
-      "type": "boolean"
-    }
-  },
   "type": "object"
 };
 
@@ -676,58 +445,19 @@ export const access_identity_providers_output: JsonSchema = {
  * The schema of `access_linkedin` in responses.
  */
 export const access_linkedin_output: JsonSchema = {
-  "properties": {
-    "config": {
-      "$ref": "#/$defs/access_generic-oauth-config"
+  "allOf": [
+    {
+      "$ref": "#/$defs/access_identity-provider"
     },
-    "id": {
-      "$ref": "#/$defs/access_uuid"
-    },
-    "name": {
-      "$ref": "#/$defs/access_name-3"
-    },
-    "read_only": {
-      "type": "boolean"
-    },
-    "saml_certificate_set": {
-      "$ref": "#/$defs/access_saml_certificate_set"
-    },
-    "saml_certificate_set_id": {
-      "format": "uuid",
-      "type": "string"
-    },
-    "scim_config": {
-      "$ref": "#/$defs/access_identity-provider_scim_config"
-    },
-    "type": {
-      "enum": [
-        "onetimepin",
-        "azureAD",
-        "saml",
-        "centrify",
-        "facebook",
-        "github",
-        "google-apps",
-        "google",
-        "linkedin",
-        "oidc",
-        "duo",
-        "okta",
-        "onelogin",
-        "pingone",
-        "yandex",
-        "cloudflare",
-        "passkeys"
-      ],
-      "type": "string"
+    {
+      "properties": {
+        "config": {
+          "$ref": "#/$defs/access_generic-oauth-config"
+        }
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "config",
-    "name",
-    "type"
-  ],
-  "type": "object"
+  ]
 };
 
 /**
@@ -741,479 +471,359 @@ export const access_name_3_output: JsonSchema = {
  * The schema of `access_oidc` in responses.
  */
 export const access_oidc_output: JsonSchema = {
-  "properties": {
-    "config": {
-      "allOf": [
-        {
-          "$ref": "#/$defs/access_generic-oauth-config"
-        },
-        {
-          "$ref": "#/$defs/access_custom-claims-support"
-        },
-        {
-          "properties": {
-            "auth_url": {
-              "type": "string"
+  "allOf": [
+    {
+      "$ref": "#/$defs/access_identity-provider"
+    },
+    {
+      "properties": {
+        "config": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/access_generic-oauth-config"
             },
-            "certs_url": {
-              "type": "string"
+            {
+              "$ref": "#/$defs/access_custom-claims-support"
             },
-            "pkce_enabled": {
-              "type": "boolean"
-            },
-            "scopes": {
-              "items": {
-                "type": "string"
+            {
+              "properties": {
+                "auth_url": {
+                  "type": "string"
+                },
+                "certs_url": {
+                  "type": "string"
+                },
+                "pkce_enabled": {
+                  "type": "boolean"
+                },
+                "scopes": {
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                "token_url": {
+                  "type": "string"
+                }
               },
-              "type": "array"
-            },
-            "token_url": {
-              "type": "string"
+              "type": "object"
             }
-          },
-          "type": "object"
+          ]
         }
-      ]
-    },
-    "id": {
-      "$ref": "#/$defs/access_uuid"
-    },
-    "name": {
-      "$ref": "#/$defs/access_name-3"
-    },
-    "read_only": {
-      "type": "boolean"
-    },
-    "saml_certificate_set": {
-      "$ref": "#/$defs/access_saml_certificate_set"
-    },
-    "saml_certificate_set_id": {
-      "format": "uuid",
-      "type": "string"
-    },
-    "scim_config": {
-      "$ref": "#/$defs/access_identity-provider_scim_config"
-    },
-    "type": {
-      "enum": [
-        "onetimepin",
-        "azureAD",
-        "saml",
-        "centrify",
-        "facebook",
-        "github",
-        "google-apps",
-        "google",
-        "linkedin",
-        "oidc",
-        "duo",
-        "okta",
-        "onelogin",
-        "pingone",
-        "yandex",
-        "cloudflare",
-        "passkeys"
-      ],
-      "type": "string"
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "config",
-    "name",
-    "type"
-  ],
-  "type": "object"
+  ]
 };
 
 /**
  * The schema of `access_okta` in responses.
  */
 export const access_okta_output: JsonSchema = {
-  "properties": {
-    "config": {
-      "allOf": [
-        {
-          "$ref": "#/$defs/access_generic-oauth-config"
-        },
-        {
-          "$ref": "#/$defs/access_custom-claims-support"
-        },
-        {
-          "properties": {
-            "authorization_server_id": {
-              "type": "string"
+  "allOf": [
+    {
+      "$ref": "#/$defs/access_identity-provider"
+    },
+    {
+      "properties": {
+        "config": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/access_generic-oauth-config"
             },
-            "okta_account": {
-              "type": "string"
+            {
+              "$ref": "#/$defs/access_custom-claims-support"
+            },
+            {
+              "properties": {
+                "authorization_server_id": {
+                  "type": "string"
+                },
+                "okta_account": {
+                  "type": "string"
+                }
+              },
+              "type": "object"
             }
-          },
-          "type": "object"
+          ]
         }
-      ]
-    },
-    "id": {
-      "$ref": "#/$defs/access_uuid"
-    },
-    "name": {
-      "$ref": "#/$defs/access_name-3"
-    },
-    "read_only": {
-      "type": "boolean"
-    },
-    "saml_certificate_set": {
-      "$ref": "#/$defs/access_saml_certificate_set"
-    },
-    "saml_certificate_set_id": {
-      "format": "uuid",
-      "type": "string"
-    },
-    "scim_config": {
-      "$ref": "#/$defs/access_identity-provider_scim_config"
-    },
-    "type": {
-      "enum": [
-        "onetimepin",
-        "azureAD",
-        "saml",
-        "centrify",
-        "facebook",
-        "github",
-        "google-apps",
-        "google",
-        "linkedin",
-        "oidc",
-        "duo",
-        "okta",
-        "onelogin",
-        "pingone",
-        "yandex",
-        "cloudflare",
-        "passkeys"
-      ],
-      "type": "string"
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "config",
-    "name",
-    "type"
-  ],
-  "type": "object"
+  ]
 };
 
 /**
  * The schema of `access_onelogin` in responses.
  */
 export const access_onelogin_output: JsonSchema = {
-  "properties": {
-    "config": {
-      "allOf": [
-        {
-          "$ref": "#/$defs/access_generic-oauth-config"
-        },
-        {
-          "$ref": "#/$defs/access_custom-claims-support"
-        },
-        {
-          "properties": {
-            "onelogin_account": {
-              "type": "string"
+  "allOf": [
+    {
+      "$ref": "#/$defs/access_identity-provider"
+    },
+    {
+      "properties": {
+        "config": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/access_generic-oauth-config"
+            },
+            {
+              "$ref": "#/$defs/access_custom-claims-support"
+            },
+            {
+              "properties": {
+                "onelogin_account": {
+                  "type": "string"
+                }
+              },
+              "type": "object"
             }
-          },
-          "type": "object"
+          ]
         }
-      ]
-    },
-    "id": {
-      "$ref": "#/$defs/access_uuid"
-    },
-    "name": {
-      "$ref": "#/$defs/access_name-3"
-    },
-    "read_only": {
-      "type": "boolean"
-    },
-    "saml_certificate_set": {
-      "$ref": "#/$defs/access_saml_certificate_set"
-    },
-    "saml_certificate_set_id": {
-      "format": "uuid",
-      "type": "string"
-    },
-    "scim_config": {
-      "$ref": "#/$defs/access_identity-provider_scim_config"
-    },
-    "type": {
-      "enum": [
-        "onetimepin",
-        "azureAD",
-        "saml",
-        "centrify",
-        "facebook",
-        "github",
-        "google-apps",
-        "google",
-        "linkedin",
-        "oidc",
-        "duo",
-        "okta",
-        "onelogin",
-        "pingone",
-        "yandex",
-        "cloudflare",
-        "passkeys"
-      ],
-      "type": "string"
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "config",
-    "name",
-    "type"
-  ],
-  "type": "object"
+  ]
 };
 
 /**
  * The schema of `access_onetimepin` in responses.
  */
 export const access_onetimepin_output: JsonSchema = {
-  "properties": {
-    "config": {
-      "$ref": "#/$defs/access_onetimepin_config"
+  "allOf": [
+    {
+      "$ref": "#/$defs/access_identity-provider"
     },
-    "id": {
-      "$ref": "#/$defs/access_uuid"
-    },
-    "name": {
-      "$ref": "#/$defs/access_name-3"
-    },
-    "read_only": {
-      "type": "boolean"
-    },
-    "saml_certificate_set": {
-      "$ref": "#/$defs/access_saml_certificate_set"
-    },
-    "saml_certificate_set_id": {
-      "format": "uuid",
-      "type": "string"
-    },
-    "scim_config": {
-      "$ref": "#/$defs/access_identity-provider_scim_config"
-    },
-    "type": {
-      "enum": [
-        "onetimepin"
-      ],
-      "type": "string"
+    {
+      "properties": {
+        "config": {
+          "properties": {
+            "redirect_url": {
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        "type": {
+          "enum": [
+            "onetimepin"
+          ],
+          "type": "string"
+        }
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "config",
-    "name",
-    "type"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `access_onetimepin_config` in responses.
- */
-export const access_onetimepin_config_output: JsonSchema = {
-  "properties": {
-    "redirect_url": {
-      "type": "string"
-    }
-  },
-  "type": "object"
+  ]
 };
 
 /**
  * The schema of `access_passkeys` in responses.
  */
 export const access_passkeys_output: JsonSchema = {
-  "properties": {
-    "config": {
-      "$ref": "#/$defs/access_passkeys_config"
+  "allOf": [
+    {
+      "$ref": "#/$defs/access_identity-provider"
     },
-    "id": {
-      "$ref": "#/$defs/access_uuid"
-    },
-    "name": {
-      "$ref": "#/$defs/access_name-3"
-    },
-    "read_only": {
-      "type": "boolean"
-    },
-    "saml_certificate_set": {
-      "$ref": "#/$defs/access_saml_certificate_set"
-    },
-    "saml_certificate_set_id": {
-      "format": "uuid",
-      "type": "string"
-    },
-    "scim_config": {
-      "$ref": "#/$defs/access_identity-provider_scim_config"
-    },
-    "type": {
-      "enum": [
-        "passkeys"
-      ],
-      "type": "string"
+    {
+      "properties": {
+        "config": {
+          "properties": {
+            "login_page_auto_prompt": {
+              "type": "boolean"
+            },
+            "redirect_url": {
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        "type": {
+          "enum": [
+            "passkeys"
+          ],
+          "type": "string"
+        }
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "config",
-    "name",
-    "type"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `access_passkeys_config` in responses.
- */
-export const access_passkeys_config_output: JsonSchema = {
-  "properties": {
-    "login_page_auto_prompt": {
-      "type": "boolean"
-    },
-    "redirect_url": {
-      "type": "string"
-    }
-  },
-  "type": "object"
+  ]
 };
 
 /**
  * The schema of `access_pingone` in responses.
  */
 export const access_pingone_output: JsonSchema = {
-  "properties": {
-    "config": {
-      "allOf": [
-        {
-          "$ref": "#/$defs/access_generic-oauth-config"
-        },
-        {
-          "$ref": "#/$defs/access_custom-claims-support"
-        },
-        {
-          "properties": {
-            "ping_env_id": {
-              "type": "string"
+  "allOf": [
+    {
+      "$ref": "#/$defs/access_identity-provider"
+    },
+    {
+      "properties": {
+        "config": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/access_generic-oauth-config"
+            },
+            {
+              "$ref": "#/$defs/access_custom-claims-support"
+            },
+            {
+              "properties": {
+                "ping_env_id": {
+                  "type": "string"
+                }
+              },
+              "type": "object"
             }
-          },
-          "type": "object"
+          ]
         }
-      ]
-    },
-    "id": {
-      "$ref": "#/$defs/access_uuid"
-    },
-    "name": {
-      "$ref": "#/$defs/access_name-3"
-    },
-    "read_only": {
-      "type": "boolean"
-    },
-    "saml_certificate_set": {
-      "$ref": "#/$defs/access_saml_certificate_set"
-    },
-    "saml_certificate_set_id": {
-      "format": "uuid",
-      "type": "string"
-    },
-    "scim_config": {
-      "$ref": "#/$defs/access_identity-provider_scim_config"
-    },
-    "type": {
-      "enum": [
-        "onetimepin",
-        "azureAD",
-        "saml",
-        "centrify",
-        "facebook",
-        "github",
-        "google-apps",
-        "google",
-        "linkedin",
-        "oidc",
-        "duo",
-        "okta",
-        "onelogin",
-        "pingone",
-        "yandex",
-        "cloudflare",
-        "passkeys"
-      ],
-      "type": "string"
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "config",
-    "name",
-    "type"
-  ],
-  "type": "object"
+  ]
+};
+
+/**
+ * The schema of `access_response_collection` in responses.
+ */
+export const access_response_collection_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/access_api-response-collection"
+    },
+    {
+      "properties": {
+        "result": {
+          "items": {
+            "anyOf": [
+              {
+                "$ref": "#/$defs/access_azureAD"
+              },
+              {
+                "$ref": "#/$defs/access_centrify"
+              },
+              {
+                "$ref": "#/$defs/access_facebook"
+              },
+              {
+                "$ref": "#/$defs/access_github"
+              },
+              {
+                "$ref": "#/$defs/access_google"
+              },
+              {
+                "$ref": "#/$defs/access_google-apps"
+              },
+              {
+                "$ref": "#/$defs/access_linkedin"
+              },
+              {
+                "$ref": "#/$defs/access_oidc"
+              },
+              {
+                "$ref": "#/$defs/access_duo"
+              },
+              {
+                "$ref": "#/$defs/access_okta"
+              },
+              {
+                "$ref": "#/$defs/access_onelogin"
+              },
+              {
+                "$ref": "#/$defs/access_pingone"
+              },
+              {
+                "$ref": "#/$defs/access_saml"
+              },
+              {
+                "$ref": "#/$defs/access_yandex"
+              },
+              {
+                "$ref": "#/$defs/access_onetimepin"
+              },
+              {
+                "$ref": "#/$defs/access_cloudflare"
+              },
+              {
+                "$ref": "#/$defs/access_passkeys"
+              }
+            ]
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    }
+  ]
 };
 
 /**
  * The schema of `access_saml` in responses.
  */
 export const access_saml_output: JsonSchema = {
-  "properties": {
-    "config": {
-      "$ref": "#/$defs/access_saml_config"
+  "allOf": [
+    {
+      "$ref": "#/$defs/access_identity-provider"
     },
-    "id": {
-      "$ref": "#/$defs/access_uuid"
-    },
-    "name": {
-      "$ref": "#/$defs/access_name-3"
-    },
-    "read_only": {
-      "type": "boolean"
-    },
-    "saml_certificate_set": {
-      "$ref": "#/$defs/access_saml_certificate_set"
-    },
-    "saml_certificate_set_id": {
-      "format": "uuid",
-      "type": "string"
-    },
-    "scim_config": {
-      "$ref": "#/$defs/access_identity-provider_scim_config"
-    },
-    "type": {
-      "enum": [
-        "onetimepin",
-        "azureAD",
-        "saml",
-        "centrify",
-        "facebook",
-        "github",
-        "google-apps",
-        "google",
-        "linkedin",
-        "oidc",
-        "duo",
-        "okta",
-        "onelogin",
-        "pingone",
-        "yandex",
-        "cloudflare",
-        "passkeys"
-      ],
-      "type": "string"
+    {
+      "properties": {
+        "config": {
+          "properties": {
+            "attributes": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "email_attribute_name": {
+              "type": "string"
+            },
+            "enable_encryption": {
+              "type": "boolean"
+            },
+            "force_authn": {
+              "type": "boolean"
+            },
+            "header_attributes": {
+              "items": {
+                "properties": {
+                  "attribute_name": {
+                    "type": "string"
+                  },
+                  "header_name": {
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "idp_public_certs": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "issuer_url": {
+              "type": "string"
+            },
+            "max_sso_url_length": {
+              "type": "integer"
+            },
+            "sign_request": {
+              "type": "boolean"
+            },
+            "sso_target_url": {
+              "type": "string"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "config",
-    "name",
-    "type"
-  ],
-  "type": "object"
+  ]
 };
 
 /**
@@ -1285,122 +895,39 @@ export const access_saml_certificate_set_output: JsonSchema = {
 };
 
 /**
- * The schema of `access_saml_config` in responses.
+ * The schema of `access_single_response-3` in responses.
  */
-export const access_saml_config_output: JsonSchema = {
-  "properties": {
-    "attributes": {
-      "items": {
-        "type": "string"
+export const access_single_response_3_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/access_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/access_identity-providers"
+        }
       },
-      "type": "array"
-    },
-    "email_attribute_name": {
-      "type": "string"
-    },
-    "enable_encryption": {
-      "type": "boolean"
-    },
-    "force_authn": {
-      "type": "boolean"
-    },
-    "header_attributes": {
-      "items": {
-        "$ref": "#/$defs/access_saml_config_header_attributesItem"
-      },
-      "type": "array"
-    },
-    "idp_public_certs": {
-      "items": {
-        "type": "string"
-      },
-      "type": "array"
-    },
-    "issuer_url": {
-      "type": "string"
-    },
-    "max_sso_url_length": {
-      "type": "integer"
-    },
-    "sign_request": {
-      "type": "boolean"
-    },
-    "sso_target_url": {
-      "type": "string"
+      "type": "object"
     }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `access_saml_config_header_attributesItem` in responses.
- */
-export const access_saml_config_header_attributesItem_output: JsonSchema = {
-  "properties": {
-    "attribute_name": {
-      "type": "string"
-    },
-    "header_name": {
-      "type": "string"
-    }
-  },
-  "type": "object"
+  ]
 };
 
 /**
  * The schema of `access_yandex` in responses.
  */
 export const access_yandex_output: JsonSchema = {
-  "properties": {
-    "config": {
-      "$ref": "#/$defs/access_generic-oauth-config"
+  "allOf": [
+    {
+      "$ref": "#/$defs/access_identity-provider"
     },
-    "id": {
-      "$ref": "#/$defs/access_uuid"
-    },
-    "name": {
-      "$ref": "#/$defs/access_name-3"
-    },
-    "read_only": {
-      "type": "boolean"
-    },
-    "saml_certificate_set": {
-      "$ref": "#/$defs/access_saml_certificate_set"
-    },
-    "saml_certificate_set_id": {
-      "format": "uuid",
-      "type": "string"
-    },
-    "scim_config": {
-      "$ref": "#/$defs/access_identity-provider_scim_config"
-    },
-    "type": {
-      "enum": [
-        "onetimepin",
-        "azureAD",
-        "saml",
-        "centrify",
-        "facebook",
-        "github",
-        "google-apps",
-        "google",
-        "linkedin",
-        "oidc",
-        "duo",
-        "okta",
-        "onelogin",
-        "pingone",
-        "yandex",
-        "cloudflare",
-        "passkeys"
-      ],
-      "type": "string"
+    {
+      "properties": {
+        "config": {
+          "$ref": "#/$defs/access_generic-oauth-config"
+        }
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "config",
-    "name",
-    "type"
-  ],
-  "type": "object"
+  ]
 };

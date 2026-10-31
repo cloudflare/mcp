@@ -70,6 +70,12 @@ export const magic_lan_output: JsonSchema = {
     "physport": {
       "$ref": "#/$defs/magic_port"
     },
+    "remote_subnets": {
+      "items": {
+        "$ref": "#/$defs/magic_remote_subnet"
+      },
+      "type": "array"
+    },
     "routed_subnets": {
       "items": {
         "$ref": "#/$defs/magic_routed_subnet"
@@ -87,6 +93,25 @@ export const magic_lan_output: JsonSchema = {
     }
   },
   "type": "object"
+};
+
+/**
+ * The schema of `magic_lan_deleted_response` in responses.
+ */
+export const magic_lan_deleted_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/magic_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/magic_lan"
+        }
+      },
+      "type": "object"
+    }
+  ]
 };
 
 /**
@@ -141,6 +166,44 @@ export const magic_lan_dhcp_server_output: JsonSchema = {
 };
 
 /**
+ * The schema of `magic_lan_modified_response` in responses.
+ */
+export const magic_lan_modified_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/magic_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/magic_lan"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `magic_lan_single_response` in responses.
+ */
+export const magic_lan_single_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/magic_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/magic_lan"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
  * The schema of `magic_lan_static_addressing` in responses.
  */
 export const magic_lan_static_addressing_output: JsonSchema = {
@@ -168,6 +231,28 @@ export const magic_lan_static_addressing_output: JsonSchema = {
 };
 
 /**
+ * The schema of `magic_lans_collection_response` in responses.
+ */
+export const magic_lans_collection_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/magic_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/magic_lan"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
  * The schema of `magic_nat` in responses.
  */
 export const magic_nat_output: JsonSchema = {
@@ -176,6 +261,25 @@ export const magic_nat_output: JsonSchema = {
       "$ref": "#/$defs/magic_cidr"
     }
   },
+  "type": "object"
+};
+
+/**
+ * The schema of `magic_remote_subnet` in responses.
+ */
+export const magic_remote_subnet_output: JsonSchema = {
+  "properties": {
+    "local_alias_prefix": {
+      "$ref": "#/$defs/magic_cidr"
+    },
+    "remote_prefix": {
+      "$ref": "#/$defs/magic_cidr"
+    }
+  },
+  "required": [
+    "local_alias_prefix",
+    "remote_prefix"
+  ],
   "type": "object"
 };
 

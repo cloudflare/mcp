@@ -89,7 +89,17 @@ export const cloudforce_one_MetaInputEntry: JsonSchema = {
       "type": "string"
     },
     "value": {
-      "$ref": "#/$defs/cloudforce-one_MetaInputEntry_value"
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "number"
+        },
+        {
+          "type": "boolean"
+        }
+      ]
     }
   },
   "required": [
@@ -97,23 +107,6 @@ export const cloudforce_one_MetaInputEntry: JsonSchema = {
     "value"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `cloudforce-one_MetaInputEntry_value`.
- */
-export const cloudforce_one_MetaInputEntry_value: JsonSchema = {
-  "anyOf": [
-    {
-      "type": "string"
-    },
-    {
-      "type": "number"
-    },
-    {
-      "type": "boolean"
-    }
-  ]
 };
 
 /**

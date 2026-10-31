@@ -4,8 +4,10 @@
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
   digital_experience_monitoring_api_response_common_failure_output,
+  digital_experience_monitoring_api_response_common_output,
   digital_experience_monitoring_messages_output,
 } from "../outputs.js";
+import { digital_experience_monitoring_account_identifier } from "../schemas.js";
 import { digital_experience_monitoring_colos_response_output } from "./outputs.js";
 
 /**
@@ -20,8 +22,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Unique Cloudflare account ID.",
-          "type": "string"
+          "$ref": "#/$defs/digital-experience-monitoring_account_identifier",
+          "description": "Unique Cloudflare account ID."
         },
         "from": {
           "description": "Start time for connection period in ISO (RFC3339 - ISO 8601) format.",
@@ -45,22 +47,28 @@ export const tools: readonly Tool[] = [
         "from",
         "to"
       ],
+      $defs: {
+        "digital-experience-monitoring_account_identifier": digital_experience_monitoring_account_identifier,
+      },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "$ref": "#/$defs/digital-experience-monitoring_colos_response"
+      "allOf": [
+        {
+          "$ref": "#/$defs/digital-experience-monitoring_api-response-common"
         },
-        "result_info": {
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/digital-experience-monitoring_colos_response"
+            }
+          },
           "type": "object"
         }
-      },
-      "required": [
-        "result"
       ],
-      "type": "object",
       $defs: {
+        "digital-experience-monitoring_api-response-common": digital_experience_monitoring_api_response_common_output,
         "digital-experience-monitoring_colos_response": digital_experience_monitoring_colos_response_output,
+        "digital-experience-monitoring_messages": digital_experience_monitoring_messages_output,
       },
     },
     annotations: {
@@ -83,24 +91,26 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "$ref": "#/$defs/digital-experience-monitoring_colos_response"
+          "allOf": [
+            {
+              "$ref": "#/$defs/digital-experience-monitoring_api-response-common"
             },
-            "result_info": {
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/digital-experience-monitoring_colos_response"
+                }
+              },
               "type": "object"
             }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/digital-experience-monitoring_api-response-common-failure"
         }
       },
       $defs: {
+        "digital-experience-monitoring_api-response-common": digital_experience_monitoring_api_response_common_output,
         "digital-experience-monitoring_api-response-common-failure": digital_experience_monitoring_api_response_common_failure_output,
         "digital-experience-monitoring_colos_response": digital_experience_monitoring_colos_response_output,
         "digital-experience-monitoring_messages": digital_experience_monitoring_messages_output,

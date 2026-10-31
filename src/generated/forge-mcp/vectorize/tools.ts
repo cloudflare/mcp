@@ -4,6 +4,8 @@
 import { type Tool, pathParam } from "../_/tool.js";
 import {
   vectorize_api_response_common_failure_output,
+  vectorize_api_response_common_output,
+  vectorize_api_response_single_output,
   vectorize_create_index_response_output,
   vectorize_index_delete_vectors_by_id_v2_response_output,
   vectorize_index_description_output,
@@ -15,7 +17,6 @@ import {
   vectorize_index_metric_output,
   vectorize_index_name_output,
   vectorize_index_preset_output,
-  vectorize_index_query_v2_response_matchesItem_output,
   vectorize_index_query_v2_response_output,
   vectorize_messages_output,
   vectorize_mutation_uuid_output,
@@ -24,6 +25,7 @@ import {
 } from "./outputs.js";
 import {
   vectorize_create_index_request,
+  vectorize_identifier,
   vectorize_index_configuration,
   vectorize_index_delete_vectors_by_id_request,
   vectorize_index_description,
@@ -50,8 +52,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier",
-          "type": "string"
+          "$ref": "#/$defs/vectorize_identifier",
+          "description": "Identifier"
         },
         "body": {
           "$ref": "#/$defs/vectorize_create-index-request"
@@ -63,6 +65,7 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "vectorize_create-index-request": vectorize_create_index_request,
+        "vectorize_identifier": vectorize_identifier,
         "vectorize_index-configuration": vectorize_index_configuration,
         "vectorize_index-description": vectorize_index_description,
         "vectorize_index-dimension-configuration": vectorize_index_dimension_configuration,
@@ -74,8 +77,22 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/vectorize_create-index-response",
+      "allOf": [
+        {
+          "$ref": "#/$defs/vectorize_api-response-single"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/vectorize_create-index-response"
+            }
+          },
+          "type": "object"
+        }
+      ],
       $defs: {
+        "vectorize_api-response-common": vectorize_api_response_common_output,
+        "vectorize_api-response-single": vectorize_api_response_single_output,
         "vectorize_create-index-response": vectorize_create_index_response_output,
         "vectorize_index-description": vectorize_index_description_output,
         "vectorize_index-dimension-configuration": vectorize_index_dimension_configuration_output,
@@ -83,6 +100,7 @@ export const tools: readonly Tool[] = [
         "vectorize_index-metric": vectorize_index_metric_output,
         "vectorize_index-name": vectorize_index_name_output,
         "vectorize_index-preset": vectorize_index_preset_output,
+        "vectorize_messages": vectorize_messages_output,
       },
     },
     annotations: {
@@ -101,25 +119,34 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "com.cloudflare.edge.vectorize.index.create"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.edge.vectorize.index.create": {
-            "name": "com_cloudflare_edge_vectorize_index_create"
-          }
-        }
+        ]
       }
     },
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/vectorize_create-index-response"
+          "allOf": [
+            {
+              "$ref": "#/$defs/vectorize_api-response-single"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/vectorize_create-index-response"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/vectorize_api-response-common-failure"
         }
       },
       $defs: {
+        "vectorize_api-response-common": vectorize_api_response_common_output,
         "vectorize_api-response-common-failure": vectorize_api_response_common_failure_output,
+        "vectorize_api-response-single": vectorize_api_response_single_output,
         "vectorize_create-index-response": vectorize_create_index_response_output,
         "vectorize_index-description": vectorize_index_description_output,
         "vectorize_index-dimension-configuration": vectorize_index_dimension_configuration_output,
@@ -143,27 +170,48 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier",
-          "type": "string"
+          "$ref": "#/$defs/vectorize_identifier",
+          "description": "Identifier"
         },
         "index_name": {
-          "type": "string"
+          "$ref": "#/$defs/vectorize_index-name"
         }
       },
       required: [
         "account_id",
         "index_name"
       ],
+      $defs: {
+        "vectorize_identifier": vectorize_identifier,
+        "vectorize_index-name": vectorize_index_name,
+      },
     },
     outputSchema: {
-      "oneOf": [
+      "allOf": [
         {
-          "type": "object"
+          "$ref": "#/$defs/vectorize_api-response-single"
         },
         {
-          "type": "null"
+          "properties": {
+            "result": {
+              "oneOf": [
+                {
+                  "type": "object"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            }
+          },
+          "type": "object"
         }
       ],
+      $defs: {
+        "vectorize_api-response-common": vectorize_api_response_common_output,
+        "vectorize_api-response-single": vectorize_api_response_single_output,
+        "vectorize_messages": vectorize_messages_output,
+      },
     },
     annotations: {
       "destructiveHint": true,
@@ -181,23 +229,30 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "com.cloudflare.edge.vectorize.index.delete"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.edge.vectorize.index.delete": {
-            "name": "com_cloudflare_edge_vectorize_index_delete"
-          }
-        }
+        ]
       }
     },
     responses: {
       schemas: {
         "200": {
-          "oneOf": [
+          "allOf": [
             {
-              "type": "object"
+              "$ref": "#/$defs/vectorize_api-response-single"
             },
             {
-              "type": "null"
+              "properties": {
+                "result": {
+                  "oneOf": [
+                    {
+                      "type": "object"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                }
+              },
+              "type": "object"
             }
           ]
         },
@@ -206,7 +261,9 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
+        "vectorize_api-response-common": vectorize_api_response_common_output,
         "vectorize_api-response-common-failure": vectorize_api_response_common_failure_output,
+        "vectorize_api-response-single": vectorize_api_response_single_output,
         "vectorize_messages": vectorize_messages_output,
       },
     },
@@ -222,14 +279,14 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier",
-          "type": "string"
+          "$ref": "#/$defs/vectorize_identifier",
+          "description": "Identifier"
         },
         "body": {
           "$ref": "#/$defs/vectorize_index-delete-vectors-by-id-request"
         },
         "index_name": {
-          "type": "string"
+          "$ref": "#/$defs/vectorize_index-name"
         }
       },
       required: [
@@ -238,14 +295,31 @@ export const tools: readonly Tool[] = [
         "body"
       ],
       $defs: {
+        "vectorize_identifier": vectorize_identifier,
         "vectorize_index-delete-vectors-by-id-request": vectorize_index_delete_vectors_by_id_request,
+        "vectorize_index-name": vectorize_index_name,
         "vectorize_vector-identifier": vectorize_vector_identifier,
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/vectorize_index-delete-vectors-by-id-v2-response",
+      "allOf": [
+        {
+          "$ref": "#/$defs/vectorize_api-response-single"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/vectorize_index-delete-vectors-by-id-v2-response"
+            }
+          },
+          "type": "object"
+        }
+      ],
       $defs: {
+        "vectorize_api-response-common": vectorize_api_response_common_output,
+        "vectorize_api-response-single": vectorize_api_response_single_output,
         "vectorize_index-delete-vectors-by-id-v2-response": vectorize_index_delete_vectors_by_id_v2_response_output,
+        "vectorize_messages": vectorize_messages_output,
         "vectorize_mutation-uuid": vectorize_mutation_uuid_output,
       },
     },
@@ -265,25 +339,34 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "com.cloudflare.edge.vectorize.index.delete"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.edge.vectorize.index.delete": {
-            "name": "com_cloudflare_edge_vectorize_index_delete"
-          }
-        }
+        ]
       }
     },
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/vectorize_index-delete-vectors-by-id-v2-response"
+          "allOf": [
+            {
+              "$ref": "#/$defs/vectorize_api-response-single"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/vectorize_index-delete-vectors-by-id-v2-response"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/vectorize_api-response-common-failure"
         }
       },
       $defs: {
+        "vectorize_api-response-common": vectorize_api_response_common_output,
         "vectorize_api-response-common-failure": vectorize_api_response_common_failure_output,
+        "vectorize_api-response-single": vectorize_api_response_single_output,
         "vectorize_index-delete-vectors-by-id-v2-response": vectorize_index_delete_vectors_by_id_v2_response_output,
         "vectorize_messages": vectorize_messages_output,
         "vectorize_mutation-uuid": vectorize_mutation_uuid_output,
@@ -302,21 +385,39 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier",
-          "type": "string"
+          "$ref": "#/$defs/vectorize_identifier",
+          "description": "Identifier"
         },
         "index_name": {
-          "type": "string"
+          "$ref": "#/$defs/vectorize_index-name"
         }
       },
       required: [
         "account_id",
         "index_name"
       ],
+      $defs: {
+        "vectorize_identifier": vectorize_identifier,
+        "vectorize_index-name": vectorize_index_name,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/vectorize_create-index-response",
+      "allOf": [
+        {
+          "$ref": "#/$defs/vectorize_api-response-single"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/vectorize_create-index-response"
+            }
+          },
+          "type": "object"
+        }
+      ],
       $defs: {
+        "vectorize_api-response-common": vectorize_api_response_common_output,
+        "vectorize_api-response-single": vectorize_api_response_single_output,
         "vectorize_create-index-response": vectorize_create_index_response_output,
         "vectorize_index-description": vectorize_index_description_output,
         "vectorize_index-dimension-configuration": vectorize_index_dimension_configuration_output,
@@ -324,6 +425,7 @@ export const tools: readonly Tool[] = [
         "vectorize_index-metric": vectorize_index_metric_output,
         "vectorize_index-name": vectorize_index_name_output,
         "vectorize_index-preset": vectorize_index_preset_output,
+        "vectorize_messages": vectorize_messages_output,
       },
     },
     annotations: {
@@ -343,25 +445,34 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "com.cloudflare.edge.vectorize.index.read"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.edge.vectorize.index.read": {
-            "name": "com_cloudflare_edge_vectorize_index_read"
-          }
-        }
+        ]
       }
     },
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/vectorize_create-index-response"
+          "allOf": [
+            {
+              "$ref": "#/$defs/vectorize_api-response-single"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/vectorize_create-index-response"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/vectorize_api-response-common-failure"
         }
       },
       $defs: {
+        "vectorize_api-response-common": vectorize_api_response_common_output,
         "vectorize_api-response-common-failure": vectorize_api_response_common_failure_output,
+        "vectorize_api-response-single": vectorize_api_response_single_output,
         "vectorize_create-index-response": vectorize_create_index_response_output,
         "vectorize_index-description": vectorize_index_description_output,
         "vectorize_index-dimension-configuration": vectorize_index_dimension_configuration_output,
@@ -384,14 +495,14 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier",
-          "type": "string"
+          "$ref": "#/$defs/vectorize_identifier",
+          "description": "Identifier"
         },
         "body": {
           "$ref": "#/$defs/vectorize_index-get-vectors-by-id-request"
         },
         "index_name": {
-          "type": "string"
+          "$ref": "#/$defs/vectorize_index-name"
         }
       },
       required: [
@@ -400,25 +511,30 @@ export const tools: readonly Tool[] = [
         "body"
       ],
       $defs: {
+        "vectorize_identifier": vectorize_identifier,
         "vectorize_index-get-vectors-by-id-request": vectorize_index_get_vectors_by_id_request,
+        "vectorize_index-name": vectorize_index_name,
         "vectorize_vector-identifier": vectorize_vector_identifier,
       },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "$ref": "#/$defs/vectorize_index-get-vectors-by-id-response"
+      "allOf": [
+        {
+          "$ref": "#/$defs/vectorize_api-response-common"
         },
-        "result_info": {
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/vectorize_index-get-vectors-by-id-response"
+            }
+          },
           "type": "object"
         }
-      },
-      "required": [
-        "result"
       ],
-      "type": "object",
       $defs: {
+        "vectorize_api-response-common": vectorize_api_response_common_output,
         "vectorize_index-get-vectors-by-id-response": vectorize_index_get_vectors_by_id_response_output,
+        "vectorize_messages": vectorize_messages_output,
         "vectorize_vector-identifier": vectorize_vector_identifier_output,
       },
     },
@@ -440,24 +556,26 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "$ref": "#/$defs/vectorize_index-get-vectors-by-id-response"
+          "allOf": [
+            {
+              "$ref": "#/$defs/vectorize_api-response-common"
             },
-            "result_info": {
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/vectorize_index-get-vectors-by-id-response"
+                }
+              },
               "type": "object"
             }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/vectorize_api-response-common-failure"
         }
       },
       $defs: {
+        "vectorize_api-response-common": vectorize_api_response_common_output,
         "vectorize_api-response-common-failure": vectorize_api_response_common_failure_output,
         "vectorize_index-get-vectors-by-id-response": vectorize_index_get_vectors_by_id_response_output,
         "vectorize_messages": vectorize_messages_output,
@@ -477,23 +595,42 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier",
-          "type": "string"
+          "$ref": "#/$defs/vectorize_identifier",
+          "description": "Identifier"
         },
         "index_name": {
-          "type": "string"
+          "$ref": "#/$defs/vectorize_index-name"
         }
       },
       required: [
         "account_id",
         "index_name"
       ],
+      $defs: {
+        "vectorize_identifier": vectorize_identifier,
+        "vectorize_index-name": vectorize_index_name,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/vectorize_index-info-response",
+      "allOf": [
+        {
+          "$ref": "#/$defs/vectorize_api-response-single"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/vectorize_index-info-response"
+            }
+          },
+          "type": "object"
+        }
+      ],
       $defs: {
+        "vectorize_api-response-common": vectorize_api_response_common_output,
+        "vectorize_api-response-single": vectorize_api_response_single_output,
         "vectorize_index-dimensions": vectorize_index_dimensions_output,
         "vectorize_index-info-response": vectorize_index_info_response_output,
+        "vectorize_messages": vectorize_messages_output,
         "vectorize_mutation-uuid": vectorize_mutation_uuid_output,
       },
     },
@@ -514,25 +651,34 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "com.cloudflare.edge.vectorize.index.read"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.edge.vectorize.index.read": {
-            "name": "com_cloudflare_edge_vectorize_index_read"
-          }
-        }
+        ]
       }
     },
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/vectorize_index-info-response"
+          "allOf": [
+            {
+              "$ref": "#/$defs/vectorize_api-response-single"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/vectorize_index-info-response"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/vectorize_api-response-common-failure"
         }
       },
       $defs: {
+        "vectorize_api-response-common": vectorize_api_response_common_output,
         "vectorize_api-response-common-failure": vectorize_api_response_common_failure_output,
+        "vectorize_api-response-single": vectorize_api_response_single_output,
         "vectorize_index-dimensions": vectorize_index_dimensions_output,
         "vectorize_index-info-response": vectorize_index_info_response_output,
         "vectorize_messages": vectorize_messages_output,
@@ -551,31 +697,36 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier",
-          "type": "string"
+          "$ref": "#/$defs/vectorize_identifier",
+          "description": "Identifier"
         }
       },
       required: [
         "account_id"
       ],
+      $defs: {
+        "vectorize_identifier": vectorize_identifier,
+      },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "$ref": "#/$defs/vectorize_create-index-response"
-          },
-          "type": "array"
+      "allOf": [
+        {
+          "$ref": "#/$defs/vectorize_api-response-common"
         },
-        "result_info": {
+        {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/vectorize_create-index-response"
+              },
+              "type": "array"
+            }
+          },
           "type": "object"
         }
-      },
-      "required": [
-        "result"
       ],
-      "type": "object",
       $defs: {
+        "vectorize_api-response-common": vectorize_api_response_common_output,
         "vectorize_create-index-response": vectorize_create_index_response_output,
         "vectorize_index-description": vectorize_index_description_output,
         "vectorize_index-dimension-configuration": vectorize_index_dimension_configuration_output,
@@ -583,6 +734,7 @@ export const tools: readonly Tool[] = [
         "vectorize_index-metric": vectorize_index_metric_output,
         "vectorize_index-name": vectorize_index_name_output,
         "vectorize_index-preset": vectorize_index_preset_output,
+        "vectorize_messages": vectorize_messages_output,
       },
     },
     annotations: {
@@ -602,38 +754,35 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "com.cloudflare.edge.vectorize.index.list"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.edge.vectorize.index.list": {
-            "name": "com_cloudflare_edge_vectorize_index_list"
-          }
-        }
+        ]
       }
     },
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "items": {
-                "$ref": "#/$defs/vectorize_create-index-response"
-              },
-              "type": "array"
+          "allOf": [
+            {
+              "$ref": "#/$defs/vectorize_api-response-common"
             },
-            "result_info": {
+            {
+              "properties": {
+                "result": {
+                  "items": {
+                    "$ref": "#/$defs/vectorize_create-index-response"
+                  },
+                  "type": "array"
+                }
+              },
               "type": "object"
             }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/vectorize_api-response-common-failure"
         }
       },
       $defs: {
+        "vectorize_api-response-common": vectorize_api_response_common_output,
         "vectorize_api-response-common-failure": vectorize_api_response_common_failure_output,
         "vectorize_create-index-response": vectorize_create_index_response_output,
         "vectorize_index-description": vectorize_index_description_output,
@@ -657,8 +806,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier",
-          "type": "string"
+          "$ref": "#/$defs/vectorize_identifier",
+          "description": "Identifier"
         },
         "count": {
           "default": 100,
@@ -670,18 +819,37 @@ export const tools: readonly Tool[] = [
           "type": "string"
         },
         "index_name": {
-          "type": "string"
+          "$ref": "#/$defs/vectorize_index-name"
         }
       },
       required: [
         "account_id",
         "index_name"
       ],
+      $defs: {
+        "vectorize_identifier": vectorize_identifier,
+        "vectorize_index-name": vectorize_index_name,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/vectorize_index-list-vectors-response",
+      "allOf": [
+        {
+          "$ref": "#/$defs/vectorize_api-response-single"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/vectorize_index-list-vectors-response"
+            }
+          },
+          "type": "object"
+        }
+      ],
       $defs: {
+        "vectorize_api-response-common": vectorize_api_response_common_output,
+        "vectorize_api-response-single": vectorize_api_response_single_output,
         "vectorize_index-list-vectors-response": vectorize_index_list_vectors_response_output,
+        "vectorize_messages": vectorize_messages_output,
         "vectorize_vector-identifier": vectorize_vector_identifier_output,
         "vectorize_vector-list-item": vectorize_vector_list_item_output,
       },
@@ -703,25 +871,34 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "com.cloudflare.edge.vectorize.index.read"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.edge.vectorize.index.read": {
-            "name": "com_cloudflare_edge_vectorize_index_read"
-          }
-        }
+        ]
       }
     },
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/vectorize_index-list-vectors-response"
+          "allOf": [
+            {
+              "$ref": "#/$defs/vectorize_api-response-single"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/vectorize_index-list-vectors-response"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/vectorize_api-response-common-failure"
         }
       },
       $defs: {
+        "vectorize_api-response-common": vectorize_api_response_common_output,
         "vectorize_api-response-common-failure": vectorize_api_response_common_failure_output,
+        "vectorize_api-response-single": vectorize_api_response_single_output,
         "vectorize_index-list-vectors-response": vectorize_index_list_vectors_response_output,
         "vectorize_messages": vectorize_messages_output,
         "vectorize_vector-identifier": vectorize_vector_identifier_output,
@@ -744,14 +921,14 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier",
-          "type": "string"
+          "$ref": "#/$defs/vectorize_identifier",
+          "description": "Identifier"
         },
         "body": {
           "$ref": "#/$defs/vectorize_index-query-v2-request"
         },
         "index_name": {
-          "type": "string"
+          "$ref": "#/$defs/vectorize_index-name"
         }
       },
       required: [
@@ -760,14 +937,30 @@ export const tools: readonly Tool[] = [
         "body"
       ],
       $defs: {
+        "vectorize_identifier": vectorize_identifier,
+        "vectorize_index-name": vectorize_index_name,
         "vectorize_index-query-v2-request": vectorize_index_query_v2_request,
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/vectorize_index-query-v2-response",
+      "allOf": [
+        {
+          "$ref": "#/$defs/vectorize_api-response-single"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/vectorize_index-query-v2-response"
+            }
+          },
+          "type": "object"
+        }
+      ],
       $defs: {
+        "vectorize_api-response-common": vectorize_api_response_common_output,
+        "vectorize_api-response-single": vectorize_api_response_single_output,
         "vectorize_index-query-v2-response": vectorize_index_query_v2_response_output,
-        "vectorize_index-query-v2-response_matchesItem": vectorize_index_query_v2_response_matchesItem_output,
+        "vectorize_messages": vectorize_messages_output,
         "vectorize_vector-identifier": vectorize_vector_identifier_output,
       },
     },
@@ -789,16 +982,29 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/vectorize_index-query-v2-response"
+          "allOf": [
+            {
+              "$ref": "#/$defs/vectorize_api-response-single"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/vectorize_index-query-v2-response"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/vectorize_api-response-common-failure"
         }
       },
       $defs: {
+        "vectorize_api-response-common": vectorize_api_response_common_output,
         "vectorize_api-response-common-failure": vectorize_api_response_common_failure_output,
+        "vectorize_api-response-single": vectorize_api_response_single_output,
         "vectorize_index-query-v2-response": vectorize_index_query_v2_response_output,
-        "vectorize_index-query-v2-response_matchesItem": vectorize_index_query_v2_response_matchesItem_output,
         "vectorize_messages": vectorize_messages_output,
         "vectorize_vector-identifier": vectorize_vector_identifier_output,
       },

@@ -4,13 +4,17 @@
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
   api_shield_api_response_common_failure_output,
+  api_shield_api_response_common_output,
   api_shield_messages_output,
 } from "../../outputs.js";
 import {
   api_shield_identifier,
   api_shield_identifier_2,
 } from "../../schemas.js";
-import { api_shield_openapi_with_thresholds_output } from "./outputs.js";
+import {
+  api_shield_openapi_with_thresholds_output,
+  api_shield_schema_response_with_thresholds_output,
+} from "./outputs.js";
 
 /**
  * The tools of `web_assets.schemas`.
@@ -66,20 +70,12 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "properties": {
-        "schemas": {
-          "items": {
-            "$ref": "#/$defs/api-shield_openapi-with-thresholds"
-          },
-          "type": "array"
-        },
-        "timestamp": {
-          "type": "string"
-        }
-      },
-      "type": "object",
+      "$ref": "#/$defs/api-shield_schema-response-with-thresholds",
       $defs: {
+        "api-shield_api-response-common": api_shield_api_response_common_output,
+        "api-shield_messages": api_shield_messages_output,
         "api-shield_openapi-with-thresholds": api_shield_openapi_with_thresholds_output,
+        "api-shield_schema-response-with-thresholds": api_shield_schema_response_with_thresholds_output,
       },
     },
     annotations: {
@@ -102,27 +98,18 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "schemas": {
-              "items": {
-                "$ref": "#/$defs/api-shield_openapi-with-thresholds"
-              },
-              "type": "array"
-            },
-            "timestamp": {
-              "type": "string"
-            }
-          },
-          "type": "object"
+          "$ref": "#/$defs/api-shield_schema-response-with-thresholds"
         },
         "4XX": {
           "$ref": "#/$defs/api-shield_api-response-common-failure"
         }
       },
       $defs: {
+        "api-shield_api-response-common": api_shield_api_response_common_output,
         "api-shield_api-response-common-failure": api_shield_api_response_common_failure_output,
         "api-shield_messages": api_shield_messages_output,
         "api-shield_openapi-with-thresholds": api_shield_openapi_with_thresholds_output,
+        "api-shield_schema-response-with-thresholds": api_shield_schema_response_with_thresholds_output,
       },
     },
     request: (args) => ({

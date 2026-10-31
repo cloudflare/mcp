@@ -3,19 +3,24 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
+  access_api_response_collection_output,
   access_api_response_common_failure_output,
+  access_api_response_common_output,
   access_messages_output,
   access_timestamp_output,
 } from "../outputs.js";
+import { access_identifier } from "../schemas.js";
 import {
   access_access_seat_output,
   access_gateway_seat_output,
+  access_response_collection_14_output,
   access_seat_uid_output,
   access_seats_output,
 } from "./outputs.js";
 import {
   access_access_seat,
   access_gateway_seat,
+  access_identifier_2,
   access_seat,
   access_seat_uid,
   access_seats_definition,
@@ -33,7 +38,7 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "type": "string"
+          "$ref": "#/$defs/access_identifier-2"
         },
         "body": {
           "$ref": "#/$defs/access_seats_definition"
@@ -46,47 +51,22 @@ export const tools: readonly Tool[] = [
       $defs: {
         "access_access_seat": access_access_seat,
         "access_gateway_seat": access_gateway_seat,
+        "access_identifier": access_identifier,
+        "access_identifier-2": access_identifier_2,
         "access_seat": access_seat,
         "access_seat_uid": access_seat_uid,
         "access_seats_definition": access_seats_definition,
       },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "$ref": "#/$defs/access_seats"
-          },
-          "type": "array"
-        },
-        "result_info": {
-          "properties": {
-            "count": {
-              "type": "number"
-            },
-            "page": {
-              "type": "number"
-            },
-            "per_page": {
-              "type": "number"
-            },
-            "total_count": {
-              "type": "number"
-            },
-            "total_pages": {
-              "type": "number"
-            }
-          },
-          "type": "object"
-        }
-      },
-      "required": [
-        "result"
-      ],
-      "type": "object",
+      "$ref": "#/$defs/access_response_collection-14",
       $defs: {
         "access_access_seat": access_access_seat_output,
+        "access_api-response-collection": access_api_response_collection_output,
+        "access_api-response-common": access_api_response_common_output,
         "access_gateway_seat": access_gateway_seat_output,
+        "access_messages": access_messages_output,
+        "access_response_collection-14": access_response_collection_14_output,
         "access_seat_uid": access_seat_uid_output,
         "access_seats": access_seats_output,
         "access_timestamp": access_timestamp_output,
@@ -109,38 +89,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "items": {
-                "$ref": "#/$defs/access_seats"
-              },
-              "type": "array"
-            },
-            "result_info": {
-              "properties": {
-                "count": {
-                  "type": "number"
-                },
-                "page": {
-                  "type": "number"
-                },
-                "per_page": {
-                  "type": "number"
-                },
-                "total_count": {
-                  "type": "number"
-                },
-                "total_pages": {
-                  "type": "number"
-                }
-              },
-              "type": "object"
-            }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/access_response_collection-14"
         },
         "4XX": {
           "$ref": "#/$defs/access_api-response-common-failure"
@@ -148,9 +97,12 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "access_access_seat": access_access_seat_output,
+        "access_api-response-collection": access_api_response_collection_output,
+        "access_api-response-common": access_api_response_common_output,
         "access_api-response-common-failure": access_api_response_common_failure_output,
         "access_gateway_seat": access_gateway_seat_output,
         "access_messages": access_messages_output,
+        "access_response_collection-14": access_response_collection_14_output,
         "access_seat_uid": access_seat_uid_output,
         "access_seats": access_seats_output,
         "access_timestamp": access_timestamp_output,

@@ -62,6 +62,25 @@ export const tunnel_mesh_configuration_response_output: JsonSchema = {
 };
 
 /**
+ * The schema of `tunnel_mesh_configuration_response_single` in responses.
+ */
+export const tunnel_mesh_configuration_response_single_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/tunnel_api-response-single-2"
+    },
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/tunnel_mesh_configuration_response"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
  * The schema of `tunnel_mesh_ha_mode` in responses.
  */
 export const tunnel_mesh_ha_mode_output: JsonSchema = {

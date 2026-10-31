@@ -4,9 +4,11 @@
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
   request_tracer_api_response_common_failure_output,
+  request_tracer_api_response_common_output,
   request_tracer_messages_output,
   request_tracer_trace_output,
 } from "./outputs.js";
+import { request_tracer_account_identifier } from "./schemas.js";
 
 /**
  * The tools of `request_tracers.traces`.
@@ -20,8 +22,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/request-tracer_account_identifier",
+          "description": "Identifier."
         },
         "body": {
           "properties": {
@@ -138,18 +140,35 @@ export const tools: readonly Tool[] = [
         "account_id",
         "body"
       ],
+      $defs: {
+        "request-tracer_account_identifier": request_tracer_account_identifier,
+      },
     },
     outputSchema: {
-      "properties": {
-        "status_code": {
-          "type": "integer"
+      "allOf": [
+        {
+          "$ref": "#/$defs/request-tracer_api-response-common"
         },
-        "trace": {
-          "$ref": "#/$defs/request-tracer_trace"
+        {
+          "properties": {
+            "result": {
+              "properties": {
+                "status_code": {
+                  "type": "integer"
+                },
+                "trace": {
+                  "$ref": "#/$defs/request-tracer_trace"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "type": "object"
         }
-      },
-      "type": "object",
+      ],
       $defs: {
+        "request-tracer_api-response-common": request_tracer_api_response_common_output,
+        "request-tracer_messages": request_tracer_messages_output,
         "request-tracer_trace": request_tracer_trace_output,
       },
     },
@@ -176,21 +195,34 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "status_code": {
-              "type": "integer"
+          "allOf": [
+            {
+              "$ref": "#/$defs/request-tracer_api-response-common"
             },
-            "trace": {
-              "$ref": "#/$defs/request-tracer_trace"
+            {
+              "properties": {
+                "result": {
+                  "properties": {
+                    "status_code": {
+                      "type": "integer"
+                    },
+                    "trace": {
+                      "$ref": "#/$defs/request-tracer_trace"
+                    }
+                  },
+                  "type": "object"
+                }
+              },
+              "type": "object"
             }
-          },
-          "type": "object"
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/request-tracer_api-response-common-failure"
         }
       },
       $defs: {
+        "request-tracer_api-response-common": request_tracer_api_response_common_output,
         "request-tracer_api-response-common-failure": request_tracer_api_response_common_failure_output,
         "request-tracer_messages": request_tracer_messages_output,
         "request-tracer_trace": request_tracer_trace_output,

@@ -9,15 +9,20 @@ import type { JsonSchema } from "../../../_/tool.js";
 export const organizations_api_BatchCreateMembersRequest: JsonSchema = {
   "properties": {
     "members": {
-      "items": {
-        "$ref": "#/$defs/organizations-api_CreateSingleMember"
-      },
-      "maxItems": 10,
-      "type": "array"
+      "description": "Omitted or null members are treated as an empty batch.",
+      "oneOf": [
+        {
+          "items": {
+            "$ref": "#/$defs/organizations-api_CreateSingleMember"
+          },
+          "maxItems": 10,
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ]
     }
   },
-  "required": [
-    "members"
-  ],
   "type": "object"
 };

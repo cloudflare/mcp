@@ -20,6 +20,14 @@ export const email_create_destination_address_properties: JsonSchema = {
 };
 
 /**
+ * The schema of `email_destination_address_identifier`.
+ */
+export const email_destination_address_identifier: JsonSchema = {
+  "description": "Destination address identifier.",
+  "type": "string"
+};
+
+/**
  * The schema of `email_email`.
  */
 export const email_email: JsonSchema = {

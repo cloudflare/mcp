@@ -11,9 +11,10 @@ import { tools as accounts_billing_historyTools } from "./accounts/billing/histo
 import { tools as accounts_billing_paymentMethodsTools } from "./accounts/billing/paymentMethods/tools.js";
 import { tools as accounts_billingTools } from "./accounts/billing/tools.js";
 import { tools as accounts_categoriesTools } from "./accounts/categories/tools.js";
+import { tools as accounts_entitlementsTools } from "./accounts/entitlements/tools.js";
 import { tools as accounts_logs_auditTools } from "./accounts/logs/audit/tools.js";
 import { tools as accounts_membersTools } from "./accounts/members/tools.js";
-import { tools as accounts_organizationTools } from "./accounts/organization/tools.js";
+import { tools as accounts_organizationsTools } from "./accounts/organizations/tools.js";
 import { tools as accounts_profileTools } from "./accounts/profile/tools.js";
 import { tools as accounts_subscriptionsTools } from "./accounts/subscriptions/tools.js";
 import { tools as accounts_tokens_permissionGroupsTools } from "./accounts/tokens/permissionGroups/tools.js";
@@ -116,6 +117,9 @@ import { tools as basinCatalogTools } from "./basinCatalog/tools.js";
 import { tools as billing_addressesTools } from "./billing/addresses/tools.js";
 import { tools as billing_profilesTools } from "./billing/profiles/tools.js";
 import { tools as billing_ratePlansTools } from "./billing/ratePlans/tools.js";
+import { tools as billing_spendPolicies_activityTools } from "./billing/spendPolicies/activity/tools.js";
+import { tools as billing_spendPolicies_auditTools } from "./billing/spendPolicies/audit/tools.js";
+import { tools as billing_spendPoliciesTools } from "./billing/spendPolicies/tools.js";
 import { tools as billing_usageTools } from "./billing/usage/tools.js";
 import { tools as botManagement_feedbackTools } from "./botManagement/feedback/tools.js";
 import { tools as botManagementTools } from "./botManagement/tools.js";
@@ -334,6 +338,8 @@ import { tools as healthchecks_previewsTools } from "./healthchecks/previews/too
 import { tools as healthchecksTools } from "./healthchecks/tools.js";
 import { tools as hyperdrive_integration_planetscaleTools } from "./hyperdrive/integration/planetscale/tools.js";
 import { tools as hyperdriveTools } from "./hyperdrive/tools.js";
+import { tools as iam_oauthClientsTools } from "./iam/oauthClients/tools.js";
+import { tools as iam_oauthScopesTools } from "./iam/oauthScopes/tools.js";
 import { tools as iam_permissionGroupsTools } from "./iam/permissionGroups/tools.js";
 import { tools as iam_resourceGroupsTools } from "./iam/resourceGroups/tools.js";
 import { tools as iam_ssoTools } from "./iam/sso/tools.js";
@@ -408,12 +414,6 @@ import { tools as logs_rayidTools } from "./logs/rayid/tools.js";
 import { tools as logs_received_fieldsTools } from "./logs/received/fields/tools.js";
 import { tools as logs_receivedTools } from "./logs/received/tools.js";
 import { tools as logs_retrieveTools } from "./logs/retrieve/tools.js";
-import { tools as magicCloudNetworking_catalogSyncs_prebuiltPoliciesTools } from "./magicCloudNetworking/catalogSyncs/prebuiltPolicies/tools.js";
-import { tools as magicCloudNetworking_catalogSyncsTools } from "./magicCloudNetworking/catalogSyncs/tools.js";
-import { tools as magicCloudNetworking_cloudIntegrationsTools } from "./magicCloudNetworking/cloudIntegrations/tools.js";
-import { tools as magicCloudNetworking_onRamps_addressSpacesTools } from "./magicCloudNetworking/onRamps/addressSpaces/tools.js";
-import { tools as magicCloudNetworking_onRampsTools } from "./magicCloudNetworking/onRamps/tools.js";
-import { tools as magicCloudNetworking_resourcesTools } from "./magicCloudNetworking/resources/tools.js";
 import { tools as magicNetworkMonitoring_configs_fullTools } from "./magicNetworkMonitoring/configs/full/tools.js";
 import { tools as magicNetworkMonitoring_configsTools } from "./magicNetworkMonitoring/configs/tools.js";
 import { tools as magicNetworkMonitoring_rules_advertisementsTools } from "./magicNetworkMonitoring/rules/advertisements/tools.js";
@@ -486,8 +486,7 @@ import { tools as o11y_telemetryTools } from "./o11y/telemetry/tools.js";
 import { tools as o11yTools } from "./o11y/tools.js";
 import { tools as o11y_tracing_rulesTools } from "./o11y/tracing/rules/tools.js";
 import { tools as o11y_tracing_settingsTools } from "./o11y/tracing/settings/tools.js";
-import { tools as oauthClientsTools } from "./oauthClients/tools.js";
-import { tools as oauthScopesTools } from "./oauthScopes/tools.js";
+import { tools as observability_usageLimitTools } from "./observability/usageLimit/tools.js";
 import { tools as organization_accountTools } from "./organization/account/tools.js";
 import { tools as organization_inviteTools } from "./organization/invite/tools.js";
 import { tools as organization_member_batchTools } from "./organization/member/batch/tools.js";
@@ -675,11 +674,8 @@ import { tools as rules_lists_bulkOperationsTools } from "./rules/lists/bulkOper
 import { tools as rules_lists_itemsTools } from "./rules/lists/items/tools.js";
 import { tools as rules_listsTools } from "./rules/lists/tools.js";
 import { tools as rulesets_entrypointTools } from "./rulesets/entrypoint/tools.js";
-import { tools as rulesets_entrypoint_versionsTools } from "./rulesets/entrypoint/versions/tools.js";
 import { tools as rulesets_rulesTools } from "./rulesets/rules/tools.js";
 import { tools as rulesetsTools } from "./rulesets/tools.js";
-import { tools as rulesets_versions_byTagTools } from "./rulesets/versions/byTag/tools.js";
-import { tools as rulesets_versionsTools } from "./rulesets/versions/tools.js";
 import { tools as rum_rulesTools } from "./rum/rules/tools.js";
 import { tools as rum_siteInfoTools } from "./rum/siteInfo/tools.js";
 import { tools as scim_groupsTools } from "./scim/groups/tools.js";
@@ -762,10 +758,6 @@ import { tools as tags_keysTools } from "./tags/keys/tools.js";
 import { tools as tags_resourcesTools } from "./tags/resources/tools.js";
 import { tools as tags_summaryTools } from "./tags/summary/tools.js";
 import { tools as tags_valuesTools } from "./tags/values/tools.js";
-import { tools as tenant_accountTools } from "./tenant/account/tools.js";
-import { tools as tenant_accountTypeTools } from "./tenant/accountType/tools.js";
-import { tools as tenant_entitlementTools } from "./tenant/entitlement/tools.js";
-import { tools as tenantTools } from "./tenant/tools.js";
 import { tools as tenantCustomNameserversTools } from "./tenantCustomNameservers/tools.js";
 import { tools as tunnelTools } from "./tunnel/tools.js";
 import { tools as tunnels_configTools } from "./tunnels/config/tools.js";
@@ -794,7 +786,6 @@ import { tools as user_loadBalancers_regionsTools } from "./user/loadBalancers/r
 import { tools as user_loadBalancingAnalytics_eventsTools } from "./user/loadBalancingAnalytics/events/tools.js";
 import { tools as user_membershipsTools } from "./user/memberships/tools.js";
 import { tools as user_subscriptionsTools } from "./user/subscriptions/tools.js";
-import { tools as user_tenantTools } from "./user/tenant/tools.js";
 import { tools as user_tokens_permissionGroupsTools } from "./user/tokens/permissionGroups/tools.js";
 import { tools as user_tokensTools } from "./user/tokens/tools.js";
 import { tools as userTools } from "./user/tools.js";
@@ -1063,9 +1054,10 @@ export const tools: readonly Tool[] = [
   ...accounts_billing_historyTools,
   ...accounts_billing_paymentMethodsTools,
   ...accounts_categoriesTools,
+  ...accounts_entitlementsTools,
   ...accounts_logs_auditTools,
   ...accounts_membersTools,
-  ...accounts_organizationTools,
+  ...accounts_organizationsTools,
   ...accounts_profileTools,
   ...accounts_subscriptionsTools,
   ...accounts_tokensTools,
@@ -1167,6 +1159,9 @@ export const tools: readonly Tool[] = [
   ...billing_addressesTools,
   ...billing_profilesTools,
   ...billing_ratePlansTools,
+  ...billing_spendPoliciesTools,
+  ...billing_spendPolicies_activityTools,
+  ...billing_spendPolicies_auditTools,
   ...billing_usageTools,
   ...botManagementTools,
   ...botManagement_feedbackTools,
@@ -1385,6 +1380,8 @@ export const tools: readonly Tool[] = [
   ...healthchecks_previewsTools,
   ...hyperdriveTools,
   ...hyperdrive_integration_planetscaleTools,
+  ...iam_oauthClientsTools,
+  ...iam_oauthScopesTools,
   ...iam_permissionGroupsTools,
   ...iam_resourceGroupsTools,
   ...iam_ssoTools,
@@ -1459,12 +1456,6 @@ export const tools: readonly Tool[] = [
   ...logs_receivedTools,
   ...logs_received_fieldsTools,
   ...logs_retrieveTools,
-  ...magicCloudNetworking_catalogSyncsTools,
-  ...magicCloudNetworking_catalogSyncs_prebuiltPoliciesTools,
-  ...magicCloudNetworking_cloudIntegrationsTools,
-  ...magicCloudNetworking_onRampsTools,
-  ...magicCloudNetworking_onRamps_addressSpacesTools,
-  ...magicCloudNetworking_resourcesTools,
   ...magicNetworkMonitoring_configsTools,
   ...magicNetworkMonitoring_configs_fullTools,
   ...magicNetworkMonitoring_rulesTools,
@@ -1537,8 +1528,7 @@ export const tools: readonly Tool[] = [
   ...o11y_telemetryTools,
   ...o11y_tracing_rulesTools,
   ...o11y_tracing_settingsTools,
-  ...oauthClientsTools,
-  ...oauthScopesTools,
+  ...observability_usageLimitTools,
   ...organizationTools,
   ...organization_accountTools,
   ...organization_inviteTools,
@@ -1727,10 +1717,7 @@ export const tools: readonly Tool[] = [
   ...rules_lists_itemsTools,
   ...rulesetsTools,
   ...rulesets_entrypointTools,
-  ...rulesets_entrypoint_versionsTools,
   ...rulesets_rulesTools,
-  ...rulesets_versionsTools,
-  ...rulesets_versions_byTagTools,
   ...rum_rulesTools,
   ...rum_siteInfoTools,
   ...scim_groupsTools,
@@ -1813,10 +1800,6 @@ export const tools: readonly Tool[] = [
   ...tags_resourcesTools,
   ...tags_summaryTools,
   ...tags_valuesTools,
-  ...tenantTools,
-  ...tenant_accountTools,
-  ...tenant_accountTypeTools,
-  ...tenant_entitlementTools,
   ...tenantCustomNameserversTools,
   ...tunnelTools,
   ...tunnelsTools,
@@ -1846,7 +1829,6 @@ export const tools: readonly Tool[] = [
   ...user_loadBalancingAnalytics_eventsTools,
   ...user_membershipsTools,
   ...user_subscriptionsTools,
-  ...user_tenantTools,
   ...user_tokensTools,
   ...user_tokens_permissionGroupsTools,
   ...vectorizeTools,

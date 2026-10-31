@@ -4,20 +4,31 @@
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
   resource_sharing_account_id_output,
+  resource_sharing_api_response_collection_info_output,
+  resource_sharing_api_response_collection_output,
   resource_sharing_api_response_common_failure_output,
+  resource_sharing_api_response_common_output,
   resource_sharing_created_output,
   resource_sharing_modified_output,
   resource_sharing_result_info_output,
   resource_sharing_v4error_output,
   resource_sharing_v4errors_output,
 } from "../../outputs.js";
-import { resource_sharing_account_id } from "../../schemas.js";
+import {
+  resource_sharing_account_id,
+  resource_sharing_share_id,
+} from "../../schemas.js";
 import {
   resource_sharing_excluded_recipient_id_output,
   resource_sharing_share_excluded_recipient_object_output,
+  resource_sharing_share_excluded_recipient_response_collection_output,
+  resource_sharing_share_excluded_recipient_response_collection_result_output,
+  resource_sharing_share_excluded_recipient_response_single_output,
+  resource_sharing_share_excluded_recipient_response_single_result_output,
 } from "./outputs.js";
 import {
   resource_sharing_create_share_excluded_recipient_request,
+  resource_sharing_excluded_recipient_id,
   resource_sharing_update_share_excluded_recipients_request,
 } from "./schemas.js";
 
@@ -32,36 +43,42 @@ export const tools: readonly Tool[] = [
     inputSchema: {
       type: "object",
       properties: {
-        "account_id_path": {
-          "description": "Account identifier.",
-          "type": "string"
+        "account_id": {
+          "$ref": "#/$defs/resource-sharing_account_id",
+          "description": "Account identifier."
         },
         "body": {
           "$ref": "#/$defs/resource-sharing_create_share_excluded_recipient_request"
         },
         "share_id": {
-          "description": "Share identifier tag.",
-          "type": "string"
+          "$ref": "#/$defs/resource-sharing_share_id",
+          "description": "Share identifier tag."
         }
       },
       required: [
-        "account_id_path",
+        "account_id",
         "share_id",
         "body"
       ],
       $defs: {
         "resource-sharing_account_id": resource_sharing_account_id,
         "resource-sharing_create_share_excluded_recipient_request": resource_sharing_create_share_excluded_recipient_request,
+        "resource-sharing_share_id": resource_sharing_share_id,
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/resource-sharing_share_excluded_recipient_object",
+      "$ref": "#/$defs/resource-sharing_share_excluded_recipient_response_single",
       $defs: {
         "resource-sharing_account_id": resource_sharing_account_id_output,
+        "resource-sharing_api-response-common": resource_sharing_api_response_common_output,
         "resource-sharing_created": resource_sharing_created_output,
         "resource-sharing_excluded_recipient_id": resource_sharing_excluded_recipient_id_output,
         "resource-sharing_modified": resource_sharing_modified_output,
         "resource-sharing_share_excluded_recipient_object": resource_sharing_share_excluded_recipient_object_output,
+        "resource-sharing_share_excluded_recipient_response_single": resource_sharing_share_excluded_recipient_response_single_output,
+        "resource-sharing_share_excluded_recipient_response_single_result": resource_sharing_share_excluded_recipient_response_single_result_output,
+        "resource-sharing_v4error": resource_sharing_v4error_output,
+        "resource-sharing_v4errors": resource_sharing_v4errors_output,
       },
     },
     annotations: {
@@ -72,7 +89,7 @@ export const tools: readonly Tool[] = [
       "title": "Trigger an account exclusion from a share"
     },
     method: "POST",
-    path: "/accounts/{account_id_path}/shares/{share_id}/excluded-recipients",
+    path: "/accounts/{account_id}/shares/{share_id}/excluded-recipients",
     extensions: {
       "x-api-token-group": null,
       "x-cfPlanAvailability": {
@@ -85,7 +102,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "201": {
-          "$ref": "#/$defs/resource-sharing_share_excluded_recipient_object"
+          "$ref": "#/$defs/resource-sharing_share_excluded_recipient_response_single"
         },
         "4XX": {
           "$ref": "#/$defs/resource-sharing_api-response-common-failure"
@@ -96,17 +113,20 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "resource-sharing_account_id": resource_sharing_account_id_output,
+        "resource-sharing_api-response-common": resource_sharing_api_response_common_output,
         "resource-sharing_api-response-common-failure": resource_sharing_api_response_common_failure_output,
         "resource-sharing_created": resource_sharing_created_output,
         "resource-sharing_excluded_recipient_id": resource_sharing_excluded_recipient_id_output,
         "resource-sharing_modified": resource_sharing_modified_output,
         "resource-sharing_share_excluded_recipient_object": resource_sharing_share_excluded_recipient_object_output,
+        "resource-sharing_share_excluded_recipient_response_single": resource_sharing_share_excluded_recipient_response_single_output,
+        "resource-sharing_share_excluded_recipient_response_single_result": resource_sharing_share_excluded_recipient_response_single_result_output,
         "resource-sharing_v4error": resource_sharing_v4error_output,
         "resource-sharing_v4errors": resource_sharing_v4errors_output,
       },
     },
     request: (args) => ({
-      path: `/accounts/${pathParam(args, "account_id_path")}/shares/${pathParam(args, "share_id")}/excluded-recipients`,
+      path: `/accounts/${pathParam(args, "account_id")}/shares/${pathParam(args, "share_id")}/excluded-recipients`,
       body: { value: args["body"], mediaType: "application/json" },
     }),
   },
@@ -118,16 +138,16 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Account identifier.",
-          "type": "string"
+          "$ref": "#/$defs/resource-sharing_account_id",
+          "description": "Account identifier."
         },
         "excluded_recipient_id": {
-          "description": "Share Excluded Recipient identifier tag.",
-          "type": "string"
+          "$ref": "#/$defs/resource-sharing_excluded_recipient_id",
+          "description": "Share Excluded Recipient identifier tag."
         },
         "share_id": {
-          "description": "Share identifier tag.",
-          "type": "string"
+          "$ref": "#/$defs/resource-sharing_share_id",
+          "description": "Share identifier tag."
         }
       },
       required: [
@@ -135,15 +155,25 @@ export const tools: readonly Tool[] = [
         "share_id",
         "excluded_recipient_id"
       ],
+      $defs: {
+        "resource-sharing_account_id": resource_sharing_account_id,
+        "resource-sharing_excluded_recipient_id": resource_sharing_excluded_recipient_id,
+        "resource-sharing_share_id": resource_sharing_share_id,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/resource-sharing_share_excluded_recipient_object",
+      "$ref": "#/$defs/resource-sharing_share_excluded_recipient_response_single",
       $defs: {
         "resource-sharing_account_id": resource_sharing_account_id_output,
+        "resource-sharing_api-response-common": resource_sharing_api_response_common_output,
         "resource-sharing_created": resource_sharing_created_output,
         "resource-sharing_excluded_recipient_id": resource_sharing_excluded_recipient_id_output,
         "resource-sharing_modified": resource_sharing_modified_output,
         "resource-sharing_share_excluded_recipient_object": resource_sharing_share_excluded_recipient_object_output,
+        "resource-sharing_share_excluded_recipient_response_single": resource_sharing_share_excluded_recipient_response_single_output,
+        "resource-sharing_share_excluded_recipient_response_single_result": resource_sharing_share_excluded_recipient_response_single_result_output,
+        "resource-sharing_v4error": resource_sharing_v4error_output,
+        "resource-sharing_v4errors": resource_sharing_v4errors_output,
       },
     },
     annotations: {
@@ -167,7 +197,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/resource-sharing_share_excluded_recipient_object"
+          "$ref": "#/$defs/resource-sharing_share_excluded_recipient_response_single"
         },
         "4XX": {
           "$ref": "#/$defs/resource-sharing_api-response-common-failure"
@@ -178,11 +208,14 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "resource-sharing_account_id": resource_sharing_account_id_output,
+        "resource-sharing_api-response-common": resource_sharing_api_response_common_output,
         "resource-sharing_api-response-common-failure": resource_sharing_api_response_common_failure_output,
         "resource-sharing_created": resource_sharing_created_output,
         "resource-sharing_excluded_recipient_id": resource_sharing_excluded_recipient_id_output,
         "resource-sharing_modified": resource_sharing_modified_output,
         "resource-sharing_share_excluded_recipient_object": resource_sharing_share_excluded_recipient_object_output,
+        "resource-sharing_share_excluded_recipient_response_single": resource_sharing_share_excluded_recipient_response_single_output,
+        "resource-sharing_share_excluded_recipient_response_single_result": resource_sharing_share_excluded_recipient_response_single_result_output,
         "resource-sharing_v4error": resource_sharing_v4error_output,
         "resource-sharing_v4errors": resource_sharing_v4errors_output,
       },
@@ -199,16 +232,16 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Account identifier.",
-          "type": "string"
+          "$ref": "#/$defs/resource-sharing_account_id",
+          "description": "Account identifier."
         },
         "excluded_recipient_id": {
-          "description": "Share Excluded Recipient identifier tag.",
-          "type": "string"
+          "$ref": "#/$defs/resource-sharing_excluded_recipient_id",
+          "description": "Share Excluded Recipient identifier tag."
         },
         "share_id": {
-          "description": "Share identifier tag.",
-          "type": "string"
+          "$ref": "#/$defs/resource-sharing_share_id",
+          "description": "Share identifier tag."
         }
       },
       required: [
@@ -216,15 +249,25 @@ export const tools: readonly Tool[] = [
         "share_id",
         "excluded_recipient_id"
       ],
+      $defs: {
+        "resource-sharing_account_id": resource_sharing_account_id,
+        "resource-sharing_excluded_recipient_id": resource_sharing_excluded_recipient_id,
+        "resource-sharing_share_id": resource_sharing_share_id,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/resource-sharing_share_excluded_recipient_object",
+      "$ref": "#/$defs/resource-sharing_share_excluded_recipient_response_single",
       $defs: {
         "resource-sharing_account_id": resource_sharing_account_id_output,
+        "resource-sharing_api-response-common": resource_sharing_api_response_common_output,
         "resource-sharing_created": resource_sharing_created_output,
         "resource-sharing_excluded_recipient_id": resource_sharing_excluded_recipient_id_output,
         "resource-sharing_modified": resource_sharing_modified_output,
         "resource-sharing_share_excluded_recipient_object": resource_sharing_share_excluded_recipient_object_output,
+        "resource-sharing_share_excluded_recipient_response_single": resource_sharing_share_excluded_recipient_response_single_output,
+        "resource-sharing_share_excluded_recipient_response_single_result": resource_sharing_share_excluded_recipient_response_single_result_output,
+        "resource-sharing_v4error": resource_sharing_v4error_output,
+        "resource-sharing_v4errors": resource_sharing_v4errors_output,
       },
     },
     annotations: {
@@ -248,7 +291,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/resource-sharing_share_excluded_recipient_object"
+          "$ref": "#/$defs/resource-sharing_share_excluded_recipient_response_single"
         },
         "4XX": {
           "$ref": "#/$defs/resource-sharing_api-response-common-failure"
@@ -259,11 +302,14 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "resource-sharing_account_id": resource_sharing_account_id_output,
+        "resource-sharing_api-response-common": resource_sharing_api_response_common_output,
         "resource-sharing_api-response-common-failure": resource_sharing_api_response_common_failure_output,
         "resource-sharing_created": resource_sharing_created_output,
         "resource-sharing_excluded_recipient_id": resource_sharing_excluded_recipient_id_output,
         "resource-sharing_modified": resource_sharing_modified_output,
         "resource-sharing_share_excluded_recipient_object": resource_sharing_share_excluded_recipient_object_output,
+        "resource-sharing_share_excluded_recipient_response_single": resource_sharing_share_excluded_recipient_response_single_output,
+        "resource-sharing_share_excluded_recipient_response_single_result": resource_sharing_share_excluded_recipient_response_single_result_output,
         "resource-sharing_v4error": resource_sharing_v4error_output,
         "resource-sharing_v4errors": resource_sharing_v4errors_output,
       },
@@ -279,9 +325,9 @@ export const tools: readonly Tool[] = [
     inputSchema: {
       type: "object",
       properties: {
-        "account_id_path": {
-          "description": "Account identifier.",
-          "type": "string"
+        "account_id": {
+          "$ref": "#/$defs/resource-sharing_account_id",
+          "description": "Account identifier."
         },
         "page": {
           "default": 1,
@@ -294,38 +340,35 @@ export const tools: readonly Tool[] = [
           "type": "integer"
         },
         "share_id": {
-          "description": "Share identifier tag.",
-          "type": "string"
+          "$ref": "#/$defs/resource-sharing_share_id",
+          "description": "Share identifier tag."
         }
       },
       required: [
-        "account_id_path",
+        "account_id",
         "share_id"
       ],
+      $defs: {
+        "resource-sharing_account_id": resource_sharing_account_id,
+        "resource-sharing_share_id": resource_sharing_share_id,
+      },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "$ref": "#/$defs/resource-sharing_share_excluded_recipient_object"
-          },
-          "type": "array"
-        },
-        "result_info": {
-          "$ref": "#/$defs/resource-sharing_result_info"
-        }
-      },
-      "required": [
-        "result"
-      ],
-      "type": "object",
+      "$ref": "#/$defs/resource-sharing_share_excluded_recipient_response_collection",
       $defs: {
         "resource-sharing_account_id": resource_sharing_account_id_output,
+        "resource-sharing_api-response-collection": resource_sharing_api_response_collection_output,
+        "resource-sharing_api-response-collection-info": resource_sharing_api_response_collection_info_output,
+        "resource-sharing_api-response-common": resource_sharing_api_response_common_output,
         "resource-sharing_created": resource_sharing_created_output,
         "resource-sharing_excluded_recipient_id": resource_sharing_excluded_recipient_id_output,
         "resource-sharing_modified": resource_sharing_modified_output,
         "resource-sharing_result_info": resource_sharing_result_info_output,
         "resource-sharing_share_excluded_recipient_object": resource_sharing_share_excluded_recipient_object_output,
+        "resource-sharing_share_excluded_recipient_response_collection": resource_sharing_share_excluded_recipient_response_collection_output,
+        "resource-sharing_share_excluded_recipient_response_collection_result": resource_sharing_share_excluded_recipient_response_collection_result_output,
+        "resource-sharing_v4error": resource_sharing_v4error_output,
+        "resource-sharing_v4errors": resource_sharing_v4errors_output,
       },
     },
     annotations: {
@@ -336,7 +379,7 @@ export const tools: readonly Tool[] = [
       "title": "List share excluded recipients by share ID"
     },
     method: "GET",
-    path: "/accounts/{account_id_path}/shares/{share_id}/excluded-recipients",
+    path: "/accounts/{account_id}/shares/{share_id}/excluded-recipients",
     extensions: {
       "x-api-token-group": null,
       "x-cfPlanAvailability": {
@@ -349,21 +392,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "items": {
-                "$ref": "#/$defs/resource-sharing_share_excluded_recipient_object"
-              },
-              "type": "array"
-            },
-            "result_info": {
-              "$ref": "#/$defs/resource-sharing_result_info"
-            }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/resource-sharing_share_excluded_recipient_response_collection"
         },
         "4XX": {
           "$ref": "#/$defs/resource-sharing_api-response-common-failure"
@@ -374,18 +403,23 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "resource-sharing_account_id": resource_sharing_account_id_output,
+        "resource-sharing_api-response-collection": resource_sharing_api_response_collection_output,
+        "resource-sharing_api-response-collection-info": resource_sharing_api_response_collection_info_output,
+        "resource-sharing_api-response-common": resource_sharing_api_response_common_output,
         "resource-sharing_api-response-common-failure": resource_sharing_api_response_common_failure_output,
         "resource-sharing_created": resource_sharing_created_output,
         "resource-sharing_excluded_recipient_id": resource_sharing_excluded_recipient_id_output,
         "resource-sharing_modified": resource_sharing_modified_output,
         "resource-sharing_result_info": resource_sharing_result_info_output,
         "resource-sharing_share_excluded_recipient_object": resource_sharing_share_excluded_recipient_object_output,
+        "resource-sharing_share_excluded_recipient_response_collection": resource_sharing_share_excluded_recipient_response_collection_output,
+        "resource-sharing_share_excluded_recipient_response_collection_result": resource_sharing_share_excluded_recipient_response_collection_result_output,
         "resource-sharing_v4error": resource_sharing_v4error_output,
         "resource-sharing_v4errors": resource_sharing_v4errors_output,
       },
     },
     request: (args) => ({
-      path: `/accounts/${pathParam(args, "account_id_path")}/shares/${pathParam(args, "share_id")}/excluded-recipients`,
+      path: `/accounts/${pathParam(args, "account_id")}/shares/${pathParam(args, "share_id")}/excluded-recipients`,
       query: [
         ["page", args["page"], true],
         ["per_page", args["per_page"], true],
@@ -399,26 +433,27 @@ export const tools: readonly Tool[] = [
     inputSchema: {
       type: "object",
       properties: {
-        "account_id_path": {
-          "description": "Account identifier.",
-          "type": "string"
+        "account_id": {
+          "$ref": "#/$defs/resource-sharing_account_id",
+          "description": "Account identifier."
         },
         "body": {
           "$ref": "#/$defs/resource-sharing_update_share_excluded_recipients_request"
         },
         "share_id": {
-          "description": "Share identifier tag.",
-          "type": "string"
+          "$ref": "#/$defs/resource-sharing_share_id",
+          "description": "Share identifier tag."
         }
       },
       required: [
-        "account_id_path",
+        "account_id",
         "share_id",
         "body"
       ],
       $defs: {
         "resource-sharing_account_id": resource_sharing_account_id,
         "resource-sharing_create_share_excluded_recipient_request": resource_sharing_create_share_excluded_recipient_request,
+        "resource-sharing_share_id": resource_sharing_share_id,
         "resource-sharing_update_share_excluded_recipients_request": resource_sharing_update_share_excluded_recipients_request,
       },
     },
@@ -430,7 +465,7 @@ export const tools: readonly Tool[] = [
       "title": "Trigger excluded-account reconciliation on a share"
     },
     method: "PUT",
-    path: "/accounts/{account_id_path}/shares/{share_id}/excluded-recipients",
+    path: "/accounts/{account_id}/shares/{share_id}/excluded-recipients",
     extensions: {
       "x-cfPlanAvailability": {
         "business": false,
@@ -456,7 +491,7 @@ export const tools: readonly Tool[] = [
       },
     },
     request: (args) => ({
-      path: `/accounts/${pathParam(args, "account_id_path")}/shares/${pathParam(args, "share_id")}/excluded-recipients`,
+      path: `/accounts/${pathParam(args, "account_id")}/shares/${pathParam(args, "share_id")}/excluded-recipients`,
       body: { value: args["body"], mediaType: "application/json" },
     }),
   },

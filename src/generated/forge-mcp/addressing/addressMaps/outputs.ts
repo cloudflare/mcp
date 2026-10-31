@@ -146,44 +146,34 @@ export const addressing_enabled_output: JsonSchema = {
  * The schema of `addressing_full_response` in responses.
  */
 export const addressing_full_response_output: JsonSchema = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/addressing_messages"
+  "allOf": [
+    {
+      "$ref": "#/$defs/addressing_api-response-single"
     },
-    "messages": {
-      "$ref": "#/$defs/addressing_messages"
-    },
-    "result": {
-      "allOf": [
-        {
-          "$ref": "#/$defs/addressing_address-maps"
-        },
-        {
-          "properties": {
-            "ips": {
-              "$ref": "#/$defs/addressing_ips"
+    {
+      "properties": {
+        "result": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/addressing_address-maps"
             },
-            "memberships": {
-              "$ref": "#/$defs/addressing_memberships"
+            {
+              "properties": {
+                "ips": {
+                  "$ref": "#/$defs/addressing_ips"
+                },
+                "memberships": {
+                  "$ref": "#/$defs/addressing_memberships"
+                }
+              },
+              "type": "object"
             }
-          },
-          "type": "object"
+          ]
         }
-      ]
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "success"
-  ],
-  "type": "object"
+  ]
 };
 
 /**
@@ -235,86 +225,39 @@ export const addressing_memberships_output: JsonSchema = {
  * The schema of `addressing_response_collection-3` in responses.
  */
 export const addressing_response_collection_3_output: JsonSchema = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/addressing_messages"
+  "allOf": [
+    {
+      "$ref": "#/$defs/addressing_api-response-collection"
     },
-    "messages": {
-      "$ref": "#/$defs/addressing_messages"
-    },
-    "result": {
-      "items": {
-        "$ref": "#/$defs/addressing_address-maps"
+    {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/addressing_address-maps"
+          },
+          "type": "array"
+        }
       },
-      "type": "array"
-    },
-    "result_info": {
-      "$ref": "#/$defs/addressing_response_collection-3_result_info"
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
+      "type": "object"
     }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "success"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `addressing_response_collection-3_result_info` in responses.
- */
-export const addressing_response_collection_3_result_info_output: JsonSchema = {
-  "properties": {
-    "count": {
-      "type": "number"
-    },
-    "page": {
-      "type": "number"
-    },
-    "per_page": {
-      "type": "number"
-    },
-    "total_count": {
-      "type": "number"
-    },
-    "total_pages": {
-      "type": "number"
-    }
-  },
-  "type": "object"
+  ]
 };
 
 /**
  * The schema of `addressing_single_response-3` in responses.
  */
 export const addressing_single_response_3_output: JsonSchema = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/addressing_messages"
+  "allOf": [
+    {
+      "$ref": "#/$defs/addressing_api-response-single"
     },
-    "messages": {
-      "$ref": "#/$defs/addressing_messages"
-    },
-    "result": {
-      "$ref": "#/$defs/addressing_address-maps"
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/addressing_address-maps"
+        }
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "success"
-  ],
-  "type": "object"
+  ]
 };

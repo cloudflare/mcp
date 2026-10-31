@@ -3,12 +3,16 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
+  aaa_api_response_collection_output,
+  aaa_api_response_common_2_output,
   aaa_api_response_common_failure_3_output,
   aaa_messages_3_output,
   aaa_policy_id_output,
+  aaa_result_info_2_output,
   aaa_schemas_name_output,
   aaa_uuid_output,
 } from "../outputs.js";
+import { aaa_account_id } from "../schemas.js";
 import {
   aaa_alert_body_output,
   aaa_components_schemas_description_output,
@@ -33,8 +37,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "The account id",
-          "type": "string"
+          "$ref": "#/$defs/aaa_account-id",
+          "description": "The account id"
         },
         "before": {
           "$ref": "#/$defs/aaa_before",
@@ -60,33 +64,25 @@ export const tools: readonly Tool[] = [
         "account_id"
       ],
       $defs: {
+        "aaa_account-id": aaa_account_id,
         "aaa_before": aaa_before,
         "aaa_per_page": aaa_per_page,
       },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "$ref": "#/$defs/aaa_history"
-          },
-          "type": "array"
-        },
-        "result_info": {
-          "type": "object"
-        }
-      },
-      "required": [
-        "result"
-      ],
-      "type": "object",
+      "$ref": "#/$defs/aaa_history_components-schemas-response_collection",
       $defs: {
         "aaa_alert_body": aaa_alert_body_output,
+        "aaa_api-response-collection": aaa_api_response_collection_output,
+        "aaa_api-response-common-2": aaa_api_response_common_2_output,
         "aaa_components-schemas-description": aaa_components_schemas_description_output,
         "aaa_history": aaa_history_output,
+        "aaa_history_components-schemas-response_collection": aaa_history_components_schemas_response_collection_output,
         "aaa_mechanism": aaa_mechanism_output,
         "aaa_mechanism_type": aaa_mechanism_type_output,
+        "aaa_messages-3": aaa_messages_3_output,
         "aaa_policy-id": aaa_policy_id_output,
+        "aaa_result_info-2": aaa_result_info_2_output,
         "aaa_schemas-alert_type": aaa_schemas_alert_type_output,
         "aaa_schemas-name": aaa_schemas_name_output,
         "aaa_sent": aaa_sent_output,
@@ -114,21 +110,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "items": {
-                "$ref": "#/$defs/aaa_history"
-              },
-              "type": "array"
-            },
-            "result_info": {
-              "type": "object"
-            }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/aaa_history_components-schemas-response_collection"
         },
         "4XX": {
           "allOf": [
@@ -143,6 +125,8 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "aaa_alert_body": aaa_alert_body_output,
+        "aaa_api-response-collection": aaa_api_response_collection_output,
+        "aaa_api-response-common-2": aaa_api_response_common_2_output,
         "aaa_api-response-common-failure-3": aaa_api_response_common_failure_3_output,
         "aaa_components-schemas-description": aaa_components_schemas_description_output,
         "aaa_history": aaa_history_output,
@@ -151,6 +135,7 @@ export const tools: readonly Tool[] = [
         "aaa_mechanism_type": aaa_mechanism_type_output,
         "aaa_messages-3": aaa_messages_3_output,
         "aaa_policy-id": aaa_policy_id_output,
+        "aaa_result_info-2": aaa_result_info_2_output,
         "aaa_schemas-alert_type": aaa_schemas_alert_type_output,
         "aaa_schemas-name": aaa_schemas_name_output,
         "aaa_sent": aaa_sent_output,

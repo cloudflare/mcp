@@ -4,6 +4,7 @@
 import { type Tool, pathParam } from "../_/tool.js";
 import {
   precursor_api_response_common_failure_output,
+  precursor_api_response_single_output,
   precursor_messages_output,
   precursor_precursor_config_output,
   precursor_precursor_config_response_body_output,
@@ -13,6 +14,7 @@ import {
   precursor_show_interstitial_output,
 } from "./outputs.js";
 import {
+  precursor_identifier,
   precursor_precursor_config,
   precursor_precursor_mode,
   precursor_precursor_rule,
@@ -40,19 +42,25 @@ export const tools: readonly Tool[] = [
           "type": "string"
         },
         "zone_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/precursor_identifier",
+          "description": "Identifier."
         }
       },
       required: [
         "zone_id",
         "cloudflare_version"
       ],
+      $defs: {
+        "precursor_identifier": precursor_identifier,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/precursor_precursor_config",
+      "$ref": "#/$defs/precursor_precursor_config_response_body",
       $defs: {
+        "precursor_api-response-single": precursor_api_response_single_output,
+        "precursor_messages": precursor_messages_output,
         "precursor_precursor_config": precursor_precursor_config_output,
+        "precursor_precursor_config_response_body": precursor_precursor_config_response_body_output,
         "precursor_precursor_mode": precursor_precursor_mode_output,
         "precursor_precursor_rule": precursor_precursor_rule_output,
         "precursor_precursor_rules": precursor_precursor_rules_output,
@@ -73,15 +81,7 @@ export const tools: readonly Tool[] = [
         "enum": [
           "com.cloudflare.api.account.zone.precursor.update",
           "com.cloudflare.api.account.zone.precursor.read"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.api.account.zone.precursor.read": {
-            "name": "com_cloudflare_api_account_zone_precursor_read"
-          },
-          "com.cloudflare.api.account.zone.precursor.update": {
-            "name": "com_cloudflare_api_account_zone_precursor_update"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": true,
@@ -93,7 +93,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/precursor_precursor_config"
+          "$ref": "#/$defs/precursor_precursor_config_response_body"
         },
         "4XX": {
           "allOf": [
@@ -108,6 +108,7 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "precursor_api-response-common-failure": precursor_api_response_common_failure_output,
+        "precursor_api-response-single": precursor_api_response_single_output,
         "precursor_messages": precursor_messages_output,
         "precursor_precursor_config": precursor_precursor_config_output,
         "precursor_precursor_config_response_body": precursor_precursor_config_response_body_output,
@@ -143,8 +144,8 @@ export const tools: readonly Tool[] = [
           "type": "string"
         },
         "zone_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/precursor_identifier",
+          "description": "Identifier."
         }
       },
       required: [
@@ -153,6 +154,7 @@ export const tools: readonly Tool[] = [
         "body"
       ],
       $defs: {
+        "precursor_identifier": precursor_identifier,
         "precursor_precursor_config": precursor_precursor_config,
         "precursor_precursor_mode": precursor_precursor_mode,
         "precursor_precursor_rule": precursor_precursor_rule,
@@ -161,9 +163,12 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/precursor_precursor_config",
+      "$ref": "#/$defs/precursor_precursor_config_response_body",
       $defs: {
+        "precursor_api-response-single": precursor_api_response_single_output,
+        "precursor_messages": precursor_messages_output,
         "precursor_precursor_config": precursor_precursor_config_output,
+        "precursor_precursor_config_response_body": precursor_precursor_config_response_body_output,
         "precursor_precursor_mode": precursor_precursor_mode_output,
         "precursor_precursor_rule": precursor_precursor_rule_output,
         "precursor_precursor_rules": precursor_precursor_rules_output,
@@ -183,12 +188,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "com.cloudflare.api.account.zone.precursor.update"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.api.account.zone.precursor.update": {
-            "name": "com_cloudflare_api_account_zone_precursor_update"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": true,
@@ -200,7 +200,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/precursor_precursor_config"
+          "$ref": "#/$defs/precursor_precursor_config_response_body"
         },
         "4XX": {
           "allOf": [
@@ -215,6 +215,7 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "precursor_api-response-common-failure": precursor_api_response_common_failure_output,
+        "precursor_api-response-single": precursor_api_response_single_output,
         "precursor_messages": precursor_messages_output,
         "precursor_precursor_config": precursor_precursor_config_output,
         "precursor_precursor_config_response_body": precursor_precursor_config_response_body_output,

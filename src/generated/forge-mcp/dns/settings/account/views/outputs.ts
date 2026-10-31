@@ -12,15 +12,12 @@ export const dns_settings_created_time_output: JsonSchema = {
 };
 
 /**
- * The schema of `dns-settings_dns-view-response` in responses.
+ * The schema of `dns-settings_dns-view` in responses.
  */
-export const dns_settings_dns_view_response_output: JsonSchema = {
+export const dns_settings_dns_view_output: JsonSchema = {
   "properties": {
     "created_time": {
       "$ref": "#/$defs/dns-settings_created_time"
-    },
-    "id": {
-      "$ref": "#/$defs/dns-settings_identifier"
     },
     "modified_time": {
       "$ref": "#/$defs/dns-settings_modified_time"
@@ -32,110 +29,70 @@ export const dns_settings_dns_view_response_output: JsonSchema = {
       "$ref": "#/$defs/dns-settings_zones"
     }
   },
-  "required": [
-    "created_time",
-    "modified_time",
-    "name",
-    "zones",
-    "id"
-  ],
   "type": "object"
+};
+
+/**
+ * The schema of `dns-settings_dns-view-response` in responses.
+ */
+export const dns_settings_dns_view_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/dns-settings_dns-view"
+    },
+    {
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/dns-settings_identifier"
+        }
+      },
+      "required": [
+        "id"
+      ],
+      "type": "object"
+    }
+  ]
 };
 
 /**
  * The schema of `dns-settings_dns_view_response_collection` in responses.
  */
 export const dns_settings_dns_view_response_collection_output: JsonSchema = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/dns-settings_messages"
+  "allOf": [
+    {
+      "$ref": "#/$defs/dns-settings_api-response-collection"
     },
-    "messages": {
-      "$ref": "#/$defs/dns-settings_messages"
-    },
-    "result": {
-      "items": {
-        "$ref": "#/$defs/dns-settings_dns-view-response"
+    {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/dns-settings_dns-view-response"
+          },
+          "type": "array"
+        }
       },
-      "type": "array"
-    },
-    "result_info": {
-      "$ref": "#/$defs/dns-settings_dns_view_response_collection_result_info"
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
+      "type": "object"
     }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "success"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `dns-settings_dns_view_response_collection_result_info` in
- * responses.
- */
-export const dns_settings_dns_view_response_collection_result_info_output: JsonSchema = {
-  "properties": {
-    "count": {
-      "type": "number"
-    },
-    "page": {
-      "type": "number"
-    },
-    "per_page": {
-      "type": "number"
-    },
-    "total_count": {
-      "type": "number"
-    },
-    "total_pages": {
-      "type": "number"
-    }
-  },
-  "type": "object"
+  ]
 };
 
 /**
  * The schema of `dns-settings_dns_view_response_single` in responses.
  */
 export const dns_settings_dns_view_response_single_output: JsonSchema = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/dns-settings_messages"
+  "allOf": [
+    {
+      "$ref": "#/$defs/dns-settings_api-response-single"
     },
-    "messages": {
-      "$ref": "#/$defs/dns-settings_messages"
-    },
-    "result": {
-      "$ref": "#/$defs/dns-settings_dns-view-response"
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/dns-settings_dns-view-response"
+        }
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "success"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `dns-settings_identifier` in responses.
- */
-export const dns_settings_identifier_output: JsonSchema = {
-  "type": "string"
+  ]
 };
 
 /**

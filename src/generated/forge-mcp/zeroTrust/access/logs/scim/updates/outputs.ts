@@ -44,3 +44,25 @@ export const access_responses_output: JsonSchema = {
   },
   "type": "object"
 };
+
+/**
+ * The schema of `access_scim_update_logs_response` in responses.
+ */
+export const access_scim_update_logs_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/access_api-response-collection"
+    },
+    {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/access_responses"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};

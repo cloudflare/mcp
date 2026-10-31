@@ -52,3 +52,44 @@ export const magic_cf1_site_location_output: JsonSchema = {
   },
   "type": "object"
 };
+
+/**
+ * The schema of `magic_cf1_site_single_response` in responses.
+ */
+export const magic_cf1_site_single_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/magic_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/magic_cf1_site"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `magic_cf1_sites_collection_response` in responses.
+ */
+export const magic_cf1_sites_collection_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/magic_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/magic_cf1_site"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};

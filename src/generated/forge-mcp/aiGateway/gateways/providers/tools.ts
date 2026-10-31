@@ -62,83 +62,7 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
-        "alias": {
-          "type": "string"
-        },
-        "default_config": {
-          "type": "boolean"
-        },
-        "gateway_id": {
-          "type": "string"
-        },
-        "id": {
-          "type": "string"
-        },
-        "modified_at": {
-          "format": "date-time",
-          "type": "string"
-        },
-        "provider_slug": {
-          "type": "string"
-        },
-        "rate_limit": {
-          "type": "number"
-        },
-        "rate_limit_period": {
-          "type": "number"
-        },
-        "secret_id": {
-          "type": "string"
-        },
-        "secret_preview": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "alias",
-        "default_config",
-        "gateway_id",
-        "id",
-        "modified_at",
-        "provider_slug",
-        "secret_id",
-        "secret_preview"
-      ],
-      "type": "object",
-    },
-    annotations: {
-      "destructiveHint": false,
-      "idempotentHint": false,
-      "openWorldHint": true,
-      "readOnlyHint": false,
-      "title": "Store a provider key"
-    },
-    method: "POST",
-    path: "/accounts/{account_id}/ai-gateway/gateways/{gateway_id}/provider_configs",
-    extensions: {
-      "x-api-token-group": [
-        "Secrets Store Write"
-      ],
-      "x-cfPermissionsRequired": {
-        "enum": [
-          "com.cloudflare.api.account.aig"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.api.account.aig": {
-            "name": "com_cloudflare_api_account_aig"
-          }
-        }
-      },
-      "x-cfPlanAvailability": {
-        "business": true,
-        "enterprise": true,
-        "free": true,
-        "pro": true
-      }
-    },
-    responses: {
-      schemas: {
-        "200": {
+        "result": {
           "properties": {
             "alias": {
               "type": "string"
@@ -151,6 +75,17 @@ export const tools: readonly Tool[] = [
             },
             "id": {
               "type": "string"
+            },
+            "last_used_at": {
+              "oneOf": [
+                {
+                  "format": "date",
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
             },
             "modified_at": {
               "format": "date-time",
@@ -181,6 +116,112 @@ export const tools: readonly Tool[] = [
             "provider_slug",
             "secret_id",
             "secret_preview"
+          ],
+          "type": "object"
+        },
+        "success": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "result",
+        "success"
+      ],
+      "type": "object",
+    },
+    annotations: {
+      "destructiveHint": false,
+      "idempotentHint": false,
+      "openWorldHint": true,
+      "readOnlyHint": false,
+      "title": "Store a provider key"
+    },
+    method: "POST",
+    path: "/accounts/{account_id}/ai-gateway/gateways/{gateway_id}/provider_configs",
+    extensions: {
+      "x-api-token-group": [
+        "Secrets Store Write"
+      ],
+      "x-cfPermissionsRequired": {
+        "enum": [
+          "com.cloudflare.api.account.aig"
+        ]
+      },
+      "x-cfPlanAvailability": {
+        "business": true,
+        "enterprise": true,
+        "free": true,
+        "pro": true
+      }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "properties": {
+                "alias": {
+                  "type": "string"
+                },
+                "default_config": {
+                  "type": "boolean"
+                },
+                "gateway_id": {
+                  "type": "string"
+                },
+                "id": {
+                  "type": "string"
+                },
+                "last_used_at": {
+                  "oneOf": [
+                    {
+                      "format": "date",
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "modified_at": {
+                  "format": "date-time",
+                  "type": "string"
+                },
+                "provider_slug": {
+                  "type": "string"
+                },
+                "rate_limit": {
+                  "type": "number"
+                },
+                "rate_limit_period": {
+                  "type": "number"
+                },
+                "secret_id": {
+                  "type": "string"
+                },
+                "secret_preview": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "alias",
+                "default_config",
+                "gateway_id",
+                "id",
+                "modified_at",
+                "provider_slug",
+                "secret_id",
+                "secret_preview"
+              ],
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "result",
+            "success"
           ],
           "type": "object"
         },
@@ -254,83 +295,7 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
-        "alias": {
-          "type": "string"
-        },
-        "default_config": {
-          "type": "boolean"
-        },
-        "gateway_id": {
-          "type": "string"
-        },
-        "id": {
-          "type": "string"
-        },
-        "modified_at": {
-          "format": "date-time",
-          "type": "string"
-        },
-        "provider_slug": {
-          "type": "string"
-        },
-        "rate_limit": {
-          "type": "number"
-        },
-        "rate_limit_period": {
-          "type": "number"
-        },
-        "secret_id": {
-          "type": "string"
-        },
-        "secret_preview": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "alias",
-        "default_config",
-        "gateway_id",
-        "id",
-        "modified_at",
-        "provider_slug",
-        "secret_id",
-        "secret_preview"
-      ],
-      "type": "object",
-    },
-    annotations: {
-      "destructiveHint": true,
-      "idempotentHint": true,
-      "openWorldHint": true,
-      "readOnlyHint": false,
-      "title": "Delete a provider key"
-    },
-    method: "DELETE",
-    path: "/accounts/{account_id}/ai-gateway/gateways/{gateway_id}/provider_configs/{id}",
-    extensions: {
-      "x-api-token-group": [
-        "Secrets Store Write"
-      ],
-      "x-cfPermissionsRequired": {
-        "enum": [
-          "com.cloudflare.api.account.aig"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.api.account.aig": {
-            "name": "com_cloudflare_api_account_aig"
-          }
-        }
-      },
-      "x-cfPlanAvailability": {
-        "business": true,
-        "enterprise": true,
-        "free": true,
-        "pro": true
-      }
-    },
-    responses: {
-      schemas: {
-        "200": {
+        "result": {
           "properties": {
             "alias": {
               "type": "string"
@@ -343,6 +308,17 @@ export const tools: readonly Tool[] = [
             },
             "id": {
               "type": "string"
+            },
+            "last_used_at": {
+              "oneOf": [
+                {
+                  "format": "date",
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
             },
             "modified_at": {
               "format": "date-time",
@@ -373,6 +349,112 @@ export const tools: readonly Tool[] = [
             "provider_slug",
             "secret_id",
             "secret_preview"
+          ],
+          "type": "object"
+        },
+        "success": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "result",
+        "success"
+      ],
+      "type": "object",
+    },
+    annotations: {
+      "destructiveHint": true,
+      "idempotentHint": true,
+      "openWorldHint": true,
+      "readOnlyHint": false,
+      "title": "Delete a provider key"
+    },
+    method: "DELETE",
+    path: "/accounts/{account_id}/ai-gateway/gateways/{gateway_id}/provider_configs/{id}",
+    extensions: {
+      "x-api-token-group": [
+        "Secrets Store Write"
+      ],
+      "x-cfPermissionsRequired": {
+        "enum": [
+          "com.cloudflare.api.account.aig"
+        ]
+      },
+      "x-cfPlanAvailability": {
+        "business": true,
+        "enterprise": true,
+        "free": true,
+        "pro": true
+      }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "properties": {
+                "alias": {
+                  "type": "string"
+                },
+                "default_config": {
+                  "type": "boolean"
+                },
+                "gateway_id": {
+                  "type": "string"
+                },
+                "id": {
+                  "type": "string"
+                },
+                "last_used_at": {
+                  "oneOf": [
+                    {
+                      "format": "date",
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "modified_at": {
+                  "format": "date-time",
+                  "type": "string"
+                },
+                "provider_slug": {
+                  "type": "string"
+                },
+                "rate_limit": {
+                  "type": "number"
+                },
+                "rate_limit_period": {
+                  "type": "number"
+                },
+                "secret_id": {
+                  "type": "string"
+                },
+                "secret_preview": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "alias",
+                "default_config",
+                "gateway_id",
+                "id",
+                "modified_at",
+                "provider_slug",
+                "secret_id",
+                "secret_preview"
+              ],
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "result",
+            "success"
           ],
           "type": "object"
         },
@@ -438,80 +520,7 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
-        "alias": {
-          "type": "string"
-        },
-        "default_config": {
-          "type": "boolean"
-        },
-        "gateway_id": {
-          "type": "string"
-        },
-        "id": {
-          "type": "string"
-        },
-        "modified_at": {
-          "format": "date-time",
-          "type": "string"
-        },
-        "provider_slug": {
-          "type": "string"
-        },
-        "rate_limit": {
-          "type": "number"
-        },
-        "rate_limit_period": {
-          "type": "number"
-        },
-        "secret_id": {
-          "type": "string"
-        },
-        "secret_preview": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "alias",
-        "default_config",
-        "gateway_id",
-        "id",
-        "modified_at",
-        "provider_slug",
-        "secret_id",
-        "secret_preview"
-      ],
-      "type": "object",
-    },
-    annotations: {
-      "destructiveHint": false,
-      "idempotentHint": true,
-      "openWorldHint": true,
-      "readOnlyHint": true,
-      "title": "Get a provider key"
-    },
-    method: "GET",
-    path: "/accounts/{account_id}/ai-gateway/gateways/{gateway_id}/provider_configs/{id}",
-    extensions: {
-      "x-cfPermissionsRequired": {
-        "enum": [
-          "com.cloudflare.api.account.aig"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.api.account.aig": {
-            "name": "com_cloudflare_api_account_aig"
-          }
-        }
-      },
-      "x-cfPlanAvailability": {
-        "business": true,
-        "enterprise": true,
-        "free": true,
-        "pro": true
-      }
-    },
-    responses: {
-      schemas: {
-        "200": {
+        "result": {
           "properties": {
             "alias": {
               "type": "string"
@@ -524,6 +533,17 @@ export const tools: readonly Tool[] = [
             },
             "id": {
               "type": "string"
+            },
+            "last_used_at": {
+              "oneOf": [
+                {
+                  "format": "date",
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
             },
             "modified_at": {
               "format": "date-time",
@@ -554,6 +574,109 @@ export const tools: readonly Tool[] = [
             "provider_slug",
             "secret_id",
             "secret_preview"
+          ],
+          "type": "object"
+        },
+        "success": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "result",
+        "success"
+      ],
+      "type": "object",
+    },
+    annotations: {
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": true,
+      "readOnlyHint": true,
+      "title": "Get a provider key"
+    },
+    method: "GET",
+    path: "/accounts/{account_id}/ai-gateway/gateways/{gateway_id}/provider_configs/{id}",
+    extensions: {
+      "x-cfPermissionsRequired": {
+        "enum": [
+          "com.cloudflare.api.account.aig"
+        ]
+      },
+      "x-cfPlanAvailability": {
+        "business": true,
+        "enterprise": true,
+        "free": true,
+        "pro": true
+      }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "properties": {
+                "alias": {
+                  "type": "string"
+                },
+                "default_config": {
+                  "type": "boolean"
+                },
+                "gateway_id": {
+                  "type": "string"
+                },
+                "id": {
+                  "type": "string"
+                },
+                "last_used_at": {
+                  "oneOf": [
+                    {
+                      "format": "date",
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "modified_at": {
+                  "format": "date-time",
+                  "type": "string"
+                },
+                "provider_slug": {
+                  "type": "string"
+                },
+                "rate_limit": {
+                  "type": "number"
+                },
+                "rate_limit_period": {
+                  "type": "number"
+                },
+                "secret_id": {
+                  "type": "string"
+                },
+                "secret_preview": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "alias",
+                "default_config",
+                "gateway_id",
+                "id",
+                "modified_at",
+                "provider_slug",
+                "secret_id",
+                "secret_preview"
+              ],
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "result",
+            "success"
           ],
           "type": "object"
         },
@@ -638,6 +761,17 @@ export const tools: readonly Tool[] = [
               "id": {
                 "type": "string"
               },
+              "last_used_at": {
+                "oneOf": [
+                  {
+                    "format": "date",
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
               "modified_at": {
                 "format": "date-time",
                 "type": "string"
@@ -672,12 +806,13 @@ export const tools: readonly Tool[] = [
           },
           "type": "array"
         },
-        "result_info": {
-          "type": "object"
+        "success": {
+          "type": "boolean"
         }
       },
       "required": [
-        "result"
+        "result",
+        "success"
       ],
       "type": "object",
     },
@@ -694,12 +829,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "com.cloudflare.api.account.aig"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.api.account.aig": {
-            "name": "com_cloudflare_api_account_aig"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": true,
@@ -726,6 +856,17 @@ export const tools: readonly Tool[] = [
                   },
                   "id": {
                     "type": "string"
+                  },
+                  "last_used_at": {
+                    "oneOf": [
+                      {
+                        "format": "date",
+                        "type": "string"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
                   },
                   "modified_at": {
                     "format": "date-time",
@@ -761,12 +902,13 @@ export const tools: readonly Tool[] = [
               },
               "type": "array"
             },
-            "result_info": {
-              "type": "object"
+            "success": {
+              "type": "boolean"
             }
           },
           "required": [
-            "result"
+            "result",
+            "success"
           ],
           "type": "object"
         },
@@ -848,83 +990,7 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
-        "alias": {
-          "type": "string"
-        },
-        "default_config": {
-          "type": "boolean"
-        },
-        "gateway_id": {
-          "type": "string"
-        },
-        "id": {
-          "type": "string"
-        },
-        "modified_at": {
-          "format": "date-time",
-          "type": "string"
-        },
-        "provider_slug": {
-          "type": "string"
-        },
-        "rate_limit": {
-          "type": "number"
-        },
-        "rate_limit_period": {
-          "type": "number"
-        },
-        "secret_id": {
-          "type": "string"
-        },
-        "secret_preview": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "alias",
-        "default_config",
-        "gateway_id",
-        "id",
-        "modified_at",
-        "provider_slug",
-        "secret_id",
-        "secret_preview"
-      ],
-      "type": "object",
-    },
-    annotations: {
-      "destructiveHint": true,
-      "idempotentHint": true,
-      "openWorldHint": true,
-      "readOnlyHint": false,
-      "title": "Rotate a provider key"
-    },
-    method: "PUT",
-    path: "/accounts/{account_id}/ai-gateway/gateways/{gateway_id}/provider_configs/{id}",
-    extensions: {
-      "x-api-token-group": [
-        "Secrets Store Write"
-      ],
-      "x-cfPermissionsRequired": {
-        "enum": [
-          "com.cloudflare.api.account.aig"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.api.account.aig": {
-            "name": "com_cloudflare_api_account_aig"
-          }
-        }
-      },
-      "x-cfPlanAvailability": {
-        "business": true,
-        "enterprise": true,
-        "free": true,
-        "pro": true
-      }
-    },
-    responses: {
-      schemas: {
-        "200": {
+        "result": {
           "properties": {
             "alias": {
               "type": "string"
@@ -937,6 +1003,17 @@ export const tools: readonly Tool[] = [
             },
             "id": {
               "type": "string"
+            },
+            "last_used_at": {
+              "oneOf": [
+                {
+                  "format": "date",
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
             },
             "modified_at": {
               "format": "date-time",
@@ -967,6 +1044,112 @@ export const tools: readonly Tool[] = [
             "provider_slug",
             "secret_id",
             "secret_preview"
+          ],
+          "type": "object"
+        },
+        "success": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "result",
+        "success"
+      ],
+      "type": "object",
+    },
+    annotations: {
+      "destructiveHint": true,
+      "idempotentHint": true,
+      "openWorldHint": true,
+      "readOnlyHint": false,
+      "title": "Rotate a provider key"
+    },
+    method: "PUT",
+    path: "/accounts/{account_id}/ai-gateway/gateways/{gateway_id}/provider_configs/{id}",
+    extensions: {
+      "x-api-token-group": [
+        "Secrets Store Write"
+      ],
+      "x-cfPermissionsRequired": {
+        "enum": [
+          "com.cloudflare.api.account.aig"
+        ]
+      },
+      "x-cfPlanAvailability": {
+        "business": true,
+        "enterprise": true,
+        "free": true,
+        "pro": true
+      }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "properties": {
+                "alias": {
+                  "type": "string"
+                },
+                "default_config": {
+                  "type": "boolean"
+                },
+                "gateway_id": {
+                  "type": "string"
+                },
+                "id": {
+                  "type": "string"
+                },
+                "last_used_at": {
+                  "oneOf": [
+                    {
+                      "format": "date",
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "modified_at": {
+                  "format": "date-time",
+                  "type": "string"
+                },
+                "provider_slug": {
+                  "type": "string"
+                },
+                "rate_limit": {
+                  "type": "number"
+                },
+                "rate_limit_period": {
+                  "type": "number"
+                },
+                "secret_id": {
+                  "type": "string"
+                },
+                "secret_preview": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "alias",
+                "default_config",
+                "gateway_id",
+                "id",
+                "modified_at",
+                "provider_slug",
+                "secret_id",
+                "secret_preview"
+              ],
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "result",
+            "success"
           ],
           "type": "object"
         },

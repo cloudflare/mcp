@@ -4,6 +4,8 @@
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
   logpush_api_response_common_failure_output,
+  logpush_api_response_common_output,
+  logpush_api_response_single_output,
   logpush_dataset_output,
   logpush_destination_conf_output,
   logpush_enabled_output,
@@ -16,6 +18,7 @@ import {
   logpush_last_error_output,
   logpush_logpull_options_output,
   logpush_logpush_job_output,
+  logpush_logpush_job_response_collection_output,
   logpush_max_upload_bytes_output,
   logpush_max_upload_interval_seconds_output,
   logpush_max_upload_records_output,
@@ -29,6 +32,8 @@ import {
   logpush_enabled,
   logpush_filter_attack_traffic,
   logpush_frequency,
+  logpush_id,
+  logpush_identifier,
   logpush_kind,
   logpush_logpull_options,
   logpush_max_upload_bytes,
@@ -38,6 +43,7 @@ import {
   logpush_output_options,
   logpush_ownership_challenge,
 } from "../schemas.js";
+import { logpush_logpush_job_response_single_output } from "./outputs.js";
 import { logpush_filter } from "./schemas.js";
 
 /**
@@ -60,8 +66,8 @@ export const tools: readonly Tool[] = [
           "type": "string"
         },
         "account_or_zone_id": {
-          "description": "The account ID or zone ID, as selected by account_or_zone.",
-          "type": "string"
+          "$ref": "#/$defs/logpush_identifier",
+          "description": "The account ID or zone ID, as selected by account_or_zone."
         },
         "body": {
           "properties": {
@@ -145,6 +151,7 @@ export const tools: readonly Tool[] = [
         "logpush_filter": logpush_filter,
         "logpush_filter_attack_traffic": logpush_filter_attack_traffic,
         "logpush_frequency": logpush_frequency,
+        "logpush_identifier": logpush_identifier,
         "logpush_kind": logpush_kind,
         "logpush_logpull_options": logpush_logpull_options,
         "logpush_max_upload_bytes": logpush_max_upload_bytes,
@@ -156,15 +163,9 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "oneOf": [
-        {
-          "$ref": "#/$defs/logpush_logpush_job"
-        },
-        {
-          "type": "null"
-        }
-      ],
+      "$ref": "#/$defs/logpush_logpush_job_response_single",
       $defs: {
+        "logpush_api-response-single": logpush_api_response_single_output,
         "logpush_dataset": logpush_dataset_output,
         "logpush_destination_conf": logpush_destination_conf_output,
         "logpush_enabled": logpush_enabled_output,
@@ -177,9 +178,11 @@ export const tools: readonly Tool[] = [
         "logpush_last_error": logpush_last_error_output,
         "logpush_logpull_options": logpush_logpull_options_output,
         "logpush_logpush_job": logpush_logpush_job_output,
+        "logpush_logpush_job_response_single": logpush_logpush_job_response_single_output,
         "logpush_max_upload_bytes": logpush_max_upload_bytes_output,
         "logpush_max_upload_interval_seconds": logpush_max_upload_interval_seconds_output,
         "logpush_max_upload_records": logpush_max_upload_records_output,
+        "logpush_messages": logpush_messages_output,
         "logpush_name": logpush_name_output,
         "logpush_output_options": logpush_output_options_output,
       },
@@ -200,12 +203,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "#logs:edit"
-        ],
-        "x-fern-enum": {
-          "#logs:edit": {
-            "name": "logs_edit"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": false,
@@ -217,14 +215,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "oneOf": [
-            {
-              "$ref": "#/$defs/logpush_logpush_job"
-            },
-            {
-              "type": "null"
-            }
-          ]
+          "$ref": "#/$defs/logpush_logpush_job_response_single"
         },
         "4XX": {
           "$ref": "#/$defs/logpush_api-response-common-failure"
@@ -232,6 +223,7 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "logpush_api-response-common-failure": logpush_api_response_common_failure_output,
+        "logpush_api-response-single": logpush_api_response_single_output,
         "logpush_dataset": logpush_dataset_output,
         "logpush_destination_conf": logpush_destination_conf_output,
         "logpush_enabled": logpush_enabled_output,
@@ -244,6 +236,7 @@ export const tools: readonly Tool[] = [
         "logpush_last_error": logpush_last_error_output,
         "logpush_logpull_options": logpush_logpull_options_output,
         "logpush_logpush_job": logpush_logpush_job_output,
+        "logpush_logpush_job_response_single": logpush_logpush_job_response_single_output,
         "logpush_max_upload_bytes": logpush_max_upload_bytes_output,
         "logpush_max_upload_interval_seconds": logpush_max_upload_interval_seconds_output,
         "logpush_max_upload_records": logpush_max_upload_records_output,
@@ -273,12 +266,12 @@ export const tools: readonly Tool[] = [
           "type": "string"
         },
         "account_or_zone_id": {
-          "description": "The account ID or zone ID, as selected by account_or_zone.",
-          "type": "string"
+          "$ref": "#/$defs/logpush_identifier",
+          "description": "The account ID or zone ID, as selected by account_or_zone."
         },
         "job_id": {
-          "description": "Unique id of the job.",
-          "type": "string"
+          "$ref": "#/$defs/logpush_id",
+          "description": "Unique id of the job."
         }
       },
       required: [
@@ -286,16 +279,34 @@ export const tools: readonly Tool[] = [
         "account_or_zone_id",
         "job_id"
       ],
+      $defs: {
+        "logpush_id": logpush_id,
+        "logpush_identifier": logpush_identifier,
+      },
     },
     outputSchema: {
-      "properties": {
-        "id": {
-          "$ref": "#/$defs/logpush_id"
+      "allOf": [
+        {
+          "$ref": "#/$defs/logpush_api-response-common"
+        },
+        {
+          "properties": {
+            "result": {
+              "properties": {
+                "id": {
+                  "$ref": "#/$defs/logpush_id"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "type": "object"
         }
-      },
-      "type": "object",
+      ],
       $defs: {
+        "logpush_api-response-common": logpush_api_response_common_output,
         "logpush_id": logpush_id_output,
+        "logpush_messages": logpush_messages_output,
       },
     },
     annotations: {
@@ -314,12 +325,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "#logs:edit"
-        ],
-        "x-fern-enum": {
-          "#logs:edit": {
-            "name": "logs_edit"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": false,
@@ -331,18 +337,31 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "id": {
-              "$ref": "#/$defs/logpush_id"
+          "allOf": [
+            {
+              "$ref": "#/$defs/logpush_api-response-common"
+            },
+            {
+              "properties": {
+                "result": {
+                  "properties": {
+                    "id": {
+                      "$ref": "#/$defs/logpush_id"
+                    }
+                  },
+                  "type": "object"
+                }
+              },
+              "type": "object"
             }
-          },
-          "type": "object"
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/logpush_api-response-common-failure"
         }
       },
       $defs: {
+        "logpush_api-response-common": logpush_api_response_common_output,
         "logpush_api-response-common-failure": logpush_api_response_common_failure_output,
         "logpush_id": logpush_id_output,
         "logpush_messages": logpush_messages_output,
@@ -368,12 +387,12 @@ export const tools: readonly Tool[] = [
           "type": "string"
         },
         "account_or_zone_id": {
-          "description": "The account ID or zone ID, as selected by account_or_zone.",
-          "type": "string"
+          "$ref": "#/$defs/logpush_identifier",
+          "description": "The account ID or zone ID, as selected by account_or_zone."
         },
         "job_id": {
-          "description": "Unique id of the job.",
-          "type": "string"
+          "$ref": "#/$defs/logpush_id",
+          "description": "Unique id of the job."
         }
       },
       required: [
@@ -381,17 +400,15 @@ export const tools: readonly Tool[] = [
         "account_or_zone_id",
         "job_id"
       ],
+      $defs: {
+        "logpush_id": logpush_id,
+        "logpush_identifier": logpush_identifier,
+      },
     },
     outputSchema: {
-      "oneOf": [
-        {
-          "$ref": "#/$defs/logpush_logpush_job"
-        },
-        {
-          "type": "null"
-        }
-      ],
+      "$ref": "#/$defs/logpush_logpush_job_response_single",
       $defs: {
+        "logpush_api-response-single": logpush_api_response_single_output,
         "logpush_dataset": logpush_dataset_output,
         "logpush_destination_conf": logpush_destination_conf_output,
         "logpush_enabled": logpush_enabled_output,
@@ -404,9 +421,11 @@ export const tools: readonly Tool[] = [
         "logpush_last_error": logpush_last_error_output,
         "logpush_logpull_options": logpush_logpull_options_output,
         "logpush_logpush_job": logpush_logpush_job_output,
+        "logpush_logpush_job_response_single": logpush_logpush_job_response_single_output,
         "logpush_max_upload_bytes": logpush_max_upload_bytes_output,
         "logpush_max_upload_interval_seconds": logpush_max_upload_interval_seconds_output,
         "logpush_max_upload_records": logpush_max_upload_records_output,
+        "logpush_messages": logpush_messages_output,
         "logpush_name": logpush_name_output,
         "logpush_output_options": logpush_output_options_output,
       },
@@ -427,12 +446,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "#logs:edit"
-        ],
-        "x-fern-enum": {
-          "#logs:edit": {
-            "name": "logs_edit"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": false,
@@ -444,14 +458,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "oneOf": [
-            {
-              "$ref": "#/$defs/logpush_logpush_job"
-            },
-            {
-              "type": "null"
-            }
-          ]
+          "$ref": "#/$defs/logpush_logpush_job_response_single"
         },
         "4XX": {
           "$ref": "#/$defs/logpush_api-response-common-failure"
@@ -459,6 +466,7 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "logpush_api-response-common-failure": logpush_api_response_common_failure_output,
+        "logpush_api-response-single": logpush_api_response_single_output,
         "logpush_dataset": logpush_dataset_output,
         "logpush_destination_conf": logpush_destination_conf_output,
         "logpush_enabled": logpush_enabled_output,
@@ -471,6 +479,7 @@ export const tools: readonly Tool[] = [
         "logpush_last_error": logpush_last_error_output,
         "logpush_logpull_options": logpush_logpull_options_output,
         "logpush_logpush_job": logpush_logpush_job_output,
+        "logpush_logpush_job_response_single": logpush_logpush_job_response_single_output,
         "logpush_max_upload_bytes": logpush_max_upload_bytes_output,
         "logpush_max_upload_interval_seconds": logpush_max_upload_interval_seconds_output,
         "logpush_max_upload_records": logpush_max_upload_records_output,
@@ -499,39 +508,22 @@ export const tools: readonly Tool[] = [
           "type": "string"
         },
         "account_or_zone_id": {
-          "description": "The account ID or zone ID, as selected by account_or_zone.",
-          "type": "string"
+          "$ref": "#/$defs/logpush_identifier",
+          "description": "The account ID or zone ID, as selected by account_or_zone."
         }
       },
       required: [
         "account_or_zone",
         "account_or_zone_id"
       ],
+      $defs: {
+        "logpush_identifier": logpush_identifier,
+      },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "oneOf": [
-              {
-                "$ref": "#/$defs/logpush_logpush_job"
-              },
-              {
-                "type": "null"
-              }
-            ]
-          },
-          "type": "array"
-        },
-        "result_info": {
-          "type": "object"
-        }
-      },
-      "required": [
-        "result"
-      ],
-      "type": "object",
+      "$ref": "#/$defs/logpush_logpush_job_response_collection",
       $defs: {
+        "logpush_api-response-common": logpush_api_response_common_output,
         "logpush_dataset": logpush_dataset_output,
         "logpush_destination_conf": logpush_destination_conf_output,
         "logpush_enabled": logpush_enabled_output,
@@ -544,9 +536,11 @@ export const tools: readonly Tool[] = [
         "logpush_last_error": logpush_last_error_output,
         "logpush_logpull_options": logpush_logpull_options_output,
         "logpush_logpush_job": logpush_logpush_job_output,
+        "logpush_logpush_job_response_collection": logpush_logpush_job_response_collection_output,
         "logpush_max_upload_bytes": logpush_max_upload_bytes_output,
         "logpush_max_upload_interval_seconds": logpush_max_upload_interval_seconds_output,
         "logpush_max_upload_records": logpush_max_upload_records_output,
+        "logpush_messages": logpush_messages_output,
         "logpush_name": logpush_name_output,
         "logpush_output_options": logpush_output_options_output,
       },
@@ -567,12 +561,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "#logs:edit"
-        ],
-        "x-fern-enum": {
-          "#logs:edit": {
-            "name": "logs_edit"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": false,
@@ -584,34 +573,14 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "items": {
-                "oneOf": [
-                  {
-                    "$ref": "#/$defs/logpush_logpush_job"
-                  },
-                  {
-                    "type": "null"
-                  }
-                ]
-              },
-              "type": "array"
-            },
-            "result_info": {
-              "type": "object"
-            }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/logpush_logpush_job_response_collection"
         },
         "4XX": {
           "$ref": "#/$defs/logpush_api-response-common-failure"
         }
       },
       $defs: {
+        "logpush_api-response-common": logpush_api_response_common_output,
         "logpush_api-response-common-failure": logpush_api_response_common_failure_output,
         "logpush_dataset": logpush_dataset_output,
         "logpush_destination_conf": logpush_destination_conf_output,
@@ -625,6 +594,7 @@ export const tools: readonly Tool[] = [
         "logpush_last_error": logpush_last_error_output,
         "logpush_logpull_options": logpush_logpull_options_output,
         "logpush_logpush_job": logpush_logpush_job_output,
+        "logpush_logpush_job_response_collection": logpush_logpush_job_response_collection_output,
         "logpush_max_upload_bytes": logpush_max_upload_bytes_output,
         "logpush_max_upload_interval_seconds": logpush_max_upload_interval_seconds_output,
         "logpush_max_upload_records": logpush_max_upload_records_output,
@@ -653,8 +623,8 @@ export const tools: readonly Tool[] = [
           "type": "string"
         },
         "account_or_zone_id": {
-          "description": "The account ID or zone ID, as selected by account_or_zone.",
-          "type": "string"
+          "$ref": "#/$defs/logpush_identifier",
+          "description": "The account ID or zone ID, as selected by account_or_zone."
         },
         "body": {
           "properties": {
@@ -718,8 +688,8 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "job_id": {
-          "description": "Unique id of the job.",
-          "type": "string"
+          "$ref": "#/$defs/logpush_id",
+          "description": "Unique id of the job."
         }
       },
       required: [
@@ -734,6 +704,8 @@ export const tools: readonly Tool[] = [
         "logpush_filter": logpush_filter,
         "logpush_filter_attack_traffic": logpush_filter_attack_traffic,
         "logpush_frequency": logpush_frequency,
+        "logpush_id": logpush_id,
+        "logpush_identifier": logpush_identifier,
         "logpush_kind": logpush_kind,
         "logpush_logpull_options": logpush_logpull_options,
         "logpush_max_upload_bytes": logpush_max_upload_bytes,
@@ -745,15 +717,9 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "oneOf": [
-        {
-          "$ref": "#/$defs/logpush_logpush_job"
-        },
-        {
-          "type": "null"
-        }
-      ],
+      "$ref": "#/$defs/logpush_logpush_job_response_single",
       $defs: {
+        "logpush_api-response-single": logpush_api_response_single_output,
         "logpush_dataset": logpush_dataset_output,
         "logpush_destination_conf": logpush_destination_conf_output,
         "logpush_enabled": logpush_enabled_output,
@@ -766,9 +732,11 @@ export const tools: readonly Tool[] = [
         "logpush_last_error": logpush_last_error_output,
         "logpush_logpull_options": logpush_logpull_options_output,
         "logpush_logpush_job": logpush_logpush_job_output,
+        "logpush_logpush_job_response_single": logpush_logpush_job_response_single_output,
         "logpush_max_upload_bytes": logpush_max_upload_bytes_output,
         "logpush_max_upload_interval_seconds": logpush_max_upload_interval_seconds_output,
         "logpush_max_upload_records": logpush_max_upload_records_output,
+        "logpush_messages": logpush_messages_output,
         "logpush_name": logpush_name_output,
         "logpush_output_options": logpush_output_options_output,
       },
@@ -789,12 +757,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "#logs:edit"
-        ],
-        "x-fern-enum": {
-          "#logs:edit": {
-            "name": "logs_edit"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": false,
@@ -806,14 +769,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "oneOf": [
-            {
-              "$ref": "#/$defs/logpush_logpush_job"
-            },
-            {
-              "type": "null"
-            }
-          ]
+          "$ref": "#/$defs/logpush_logpush_job_response_single"
         },
         "4XX": {
           "$ref": "#/$defs/logpush_api-response-common-failure"
@@ -821,6 +777,7 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "logpush_api-response-common-failure": logpush_api_response_common_failure_output,
+        "logpush_api-response-single": logpush_api_response_single_output,
         "logpush_dataset": logpush_dataset_output,
         "logpush_destination_conf": logpush_destination_conf_output,
         "logpush_enabled": logpush_enabled_output,
@@ -833,6 +790,7 @@ export const tools: readonly Tool[] = [
         "logpush_last_error": logpush_last_error_output,
         "logpush_logpull_options": logpush_logpull_options_output,
         "logpush_logpush_job": logpush_logpush_job_output,
+        "logpush_logpush_job_response_single": logpush_logpush_job_response_single_output,
         "logpush_max_upload_bytes": logpush_max_upload_bytes_output,
         "logpush_max_upload_interval_seconds": logpush_max_upload_interval_seconds_output,
         "logpush_max_upload_records": logpush_max_upload_records_output,

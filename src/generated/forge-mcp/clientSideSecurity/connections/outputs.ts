@@ -71,3 +71,49 @@ export const client_side_security_connection_output: JsonSchema = {
   ],
   "type": "object"
 };
+
+/**
+ * The schema of `client-side-security_get-zone-connection-response` in
+ * responses.
+ */
+export const client_side_security_get_zone_connection_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/client-side-security_api-get-response-collection"
+    },
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/client-side-security_connection"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `client-side-security_list-zone-connections-response` in
+ * responses.
+ */
+export const client_side_security_list_zone_connections_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/client-side-security_api-list-response-collection"
+    },
+    {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/client-side-security_connection"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};

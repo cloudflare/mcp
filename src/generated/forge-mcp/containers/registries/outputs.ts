@@ -30,7 +30,14 @@ export const cc_CustomerImageRegistry_output: JsonSchema = {
       "$ref": "#/$defs/cc_Domain"
     },
     "kind": {
-      "$ref": "#/$defs/cc_CustomerImageRegistry_kind"
+      "oneOf": [
+        {
+          "$ref": "#/$defs/cc_ExternalRegistryKind"
+        },
+        {
+          "$ref": "#/$defs/cc_DefaultImageRegistryKind"
+        }
+      ]
     },
     "public_key": {
       "type": "string"
@@ -41,20 +48,6 @@ export const cc_CustomerImageRegistry_output: JsonSchema = {
     "domain"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `cc_CustomerImageRegistry_kind` in responses.
- */
-export const cc_CustomerImageRegistry_kind_output: JsonSchema = {
-  "oneOf": [
-    {
-      "$ref": "#/$defs/cc_ExternalRegistryKind"
-    },
-    {
-      "$ref": "#/$defs/cc_DefaultImageRegistryKind"
-    }
-  ]
 };
 
 /**

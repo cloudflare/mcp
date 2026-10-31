@@ -4,6 +4,105 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
+ * The schema of `posture-api_BaseFindingType` in responses.
+ */
+export const posture_api_BaseFindingType_output: JsonSchema = {
+  "properties": {
+    "applies_to_all_integrations": {
+      "type": "boolean"
+    },
+    "asset_class": {
+      "type": "string"
+    },
+    "asset_vendor": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/posture-api_FindingTypeVendorsEnum"
+        },
+        {
+          "type": "string"
+        }
+      ]
+    },
+    "category": {
+      "$ref": "#/$defs/posture-api_FindingCategory"
+    },
+    "created_at": {
+      "format": "date-time",
+      "type": "string"
+    },
+    "description": {
+      "oneOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "expression": {
+      "type": "string"
+    },
+    "id": {
+      "format": "uuid",
+      "type": "string"
+    },
+    "integration_ids": {
+      "items": {
+        "format": "uuid",
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "match_count": {
+      "type": "integer"
+    },
+    "name": {
+      "type": "string"
+    },
+    "origin": {
+      "enum": [
+        "system",
+        "custom"
+      ],
+      "type": "string"
+    },
+    "quarantined": {
+      "type": "boolean"
+    },
+    "severity": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/posture-api_SeverityEnum"
+        },
+        {
+          "type": "string"
+        }
+      ]
+    },
+    "updated_at": {
+      "format": "date-time",
+      "type": "string"
+    },
+    "vendor": {
+      "type": "string"
+    },
+    "version": {
+      "type": "integer"
+    }
+  },
+  "required": [
+    "category",
+    "id",
+    "name",
+    "severity",
+    "vendor"
+  ],
+  "type": "object"
+};
+
+/**
  * The schema of `posture-api_CredentialHealthStatusEnum` in responses.
  */
 export const posture_api_CredentialHealthStatusEnum_output: JsonSchema = {
@@ -507,6 +606,33 @@ export const posture_api_ZeroTrustProduct_output: JsonSchema = {
 };
 
 /**
+ * The schema of `posture-api_api-response-collection` in responses.
+ */
+export const posture_api_api_response_collection_output: JsonSchema = {
+  "properties": {
+    "errors": {
+      "$ref": "#/$defs/posture-api_messages"
+    },
+    "messages": {
+      "$ref": "#/$defs/posture-api_messages"
+    },
+    "result_info": {
+      "$ref": "#/$defs/posture-api_result-info"
+    },
+    "success": {
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "errors",
+    "messages",
+    "result_info",
+    "success"
+  ],
+  "type": "object"
+};
+
+/**
  * The schema of `posture-api_api-response-common` in responses.
  */
 export const posture_api_api_response_common_output: JsonSchema = {
@@ -553,6 +679,25 @@ export const posture_api_error_response_output: JsonSchema = {
     "success"
   ],
   "type": "object"
+};
+
+/**
+ * The schema of `posture-api_export-job-response` in responses.
+ */
+export const posture_api_export_job_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/posture-api_api-response-common"
+    },
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/posture-api_ExportJob"
+        }
+      },
+      "type": "object"
+    }
+  ]
 };
 
 /**

@@ -6,10 +6,10 @@ import {
   cc_ISO8601Timestamp_output,
   cc_Messages_output,
   cc_V4BaseErrorResponse_output,
+  cc_V4BaseResponse_output,
 } from "../outputs.js";
 import {
   cc_ContainersDeleteImageRegistryResponseBody_output,
-  cc_CustomerImageRegistry_kind_output,
   cc_CustomerImageRegistry_output,
   cc_DefaultImageRegistryKind_output,
   cc_Domain_output,
@@ -53,14 +53,30 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/cc_CustomerImageRegistry",
+      "allOf": [
+        {
+          "$ref": "#/$defs/cc_V4BaseResponse"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/cc_CustomerImageRegistry"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        }
+      ],
       $defs: {
         "cc_CustomerImageRegistry": cc_CustomerImageRegistry_output,
-        "cc_CustomerImageRegistry_kind": cc_CustomerImageRegistry_kind_output,
         "cc_DefaultImageRegistryKind": cc_DefaultImageRegistryKind_output,
         "cc_Domain": cc_Domain_output,
         "cc_ExternalRegistryKind": cc_ExternalRegistryKind_output,
         "cc_ISO8601Timestamp": cc_ISO8601Timestamp_output,
+        "cc_Messages": cc_Messages_output,
+        "cc_V4BaseResponse": cc_V4BaseResponse_output,
       },
     },
     annotations: {
@@ -80,7 +96,22 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "201": {
-          "$ref": "#/$defs/cc_CustomerImageRegistry"
+          "allOf": [
+            {
+              "$ref": "#/$defs/cc_V4BaseResponse"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/cc_CustomerImageRegistry"
+                }
+              },
+              "required": [
+                "result"
+              ],
+              "type": "object"
+            }
+          ]
         },
         "400": {
           "$ref": "#/$defs/cc_V4BaseErrorResponse"
@@ -97,13 +128,13 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "cc_CustomerImageRegistry": cc_CustomerImageRegistry_output,
-        "cc_CustomerImageRegistry_kind": cc_CustomerImageRegistry_kind_output,
         "cc_DefaultImageRegistryKind": cc_DefaultImageRegistryKind_output,
         "cc_Domain": cc_Domain_output,
         "cc_ExternalRegistryKind": cc_ExternalRegistryKind_output,
         "cc_ISO8601Timestamp": cc_ISO8601Timestamp_output,
         "cc_Messages": cc_Messages_output,
         "cc_V4BaseErrorResponse": cc_V4BaseErrorResponse_output,
+        "cc_V4BaseResponse": cc_V4BaseResponse_output,
       },
     },
     request: (args) => ({
@@ -133,10 +164,27 @@ export const tools: readonly Tool[] = [
       ],
     },
     outputSchema: {
-      "$ref": "#/$defs/cc_ContainersDeleteImageRegistryResponseBody",
+      "allOf": [
+        {
+          "$ref": "#/$defs/cc_V4BaseResponse"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/cc_ContainersDeleteImageRegistryResponseBody"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        }
+      ],
       $defs: {
         "cc_ContainersDeleteImageRegistryResponseBody": cc_ContainersDeleteImageRegistryResponseBody_output,
         "cc_Domain": cc_Domain_output,
+        "cc_Messages": cc_Messages_output,
+        "cc_V4BaseResponse": cc_V4BaseResponse_output,
       },
     },
     annotations: {
@@ -156,7 +204,22 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/cc_ContainersDeleteImageRegistryResponseBody"
+          "allOf": [
+            {
+              "$ref": "#/$defs/cc_V4BaseResponse"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/cc_ContainersDeleteImageRegistryResponseBody"
+                }
+              },
+              "required": [
+                "result"
+              ],
+              "type": "object"
+            }
+          ]
         },
         "403": {
           "$ref": "#/$defs/cc_V4BaseErrorResponse"
@@ -176,6 +239,7 @@ export const tools: readonly Tool[] = [
         "cc_Domain": cc_Domain_output,
         "cc_Messages": cc_Messages_output,
         "cc_V4BaseErrorResponse": cc_V4BaseErrorResponse_output,
+        "cc_V4BaseResponse": cc_V4BaseResponse_output,
       },
     },
     request: (args) => ({
@@ -199,28 +263,33 @@ export const tools: readonly Tool[] = [
       ],
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "$ref": "#/$defs/cc_CustomerImageRegistry"
-          },
-          "type": "array"
+      "allOf": [
+        {
+          "$ref": "#/$defs/cc_V4BaseResponse"
         },
-        "result_info": {
+        {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/cc_CustomerImageRegistry"
+              },
+              "type": "array"
+            }
+          },
+          "required": [
+            "result"
+          ],
           "type": "object"
         }
-      },
-      "required": [
-        "result"
       ],
-      "type": "object",
       $defs: {
         "cc_CustomerImageRegistry": cc_CustomerImageRegistry_output,
-        "cc_CustomerImageRegistry_kind": cc_CustomerImageRegistry_kind_output,
         "cc_DefaultImageRegistryKind": cc_DefaultImageRegistryKind_output,
         "cc_Domain": cc_Domain_output,
         "cc_ExternalRegistryKind": cc_ExternalRegistryKind_output,
         "cc_ISO8601Timestamp": cc_ISO8601Timestamp_output,
+        "cc_Messages": cc_Messages_output,
+        "cc_V4BaseResponse": cc_V4BaseResponse_output,
       },
     },
     annotations: {
@@ -241,21 +310,25 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "items": {
-                "$ref": "#/$defs/cc_CustomerImageRegistry"
-              },
-              "type": "array"
+          "allOf": [
+            {
+              "$ref": "#/$defs/cc_V4BaseResponse"
             },
-            "result_info": {
+            {
+              "properties": {
+                "result": {
+                  "items": {
+                    "$ref": "#/$defs/cc_CustomerImageRegistry"
+                  },
+                  "type": "array"
+                }
+              },
+              "required": [
+                "result"
+              ],
               "type": "object"
             }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          ]
         },
         "401": {
           "$ref": "#/$defs/cc_V4BaseErrorResponse"
@@ -266,13 +339,13 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "cc_CustomerImageRegistry": cc_CustomerImageRegistry_output,
-        "cc_CustomerImageRegistry_kind": cc_CustomerImageRegistry_kind_output,
         "cc_DefaultImageRegistryKind": cc_DefaultImageRegistryKind_output,
         "cc_Domain": cc_Domain_output,
         "cc_ExternalRegistryKind": cc_ExternalRegistryKind_output,
         "cc_ISO8601Timestamp": cc_ISO8601Timestamp_output,
         "cc_Messages": cc_Messages_output,
         "cc_V4BaseErrorResponse": cc_V4BaseErrorResponse_output,
+        "cc_V4BaseResponse": cc_V4BaseResponse_output,
       },
     },
     request: (args) => ({

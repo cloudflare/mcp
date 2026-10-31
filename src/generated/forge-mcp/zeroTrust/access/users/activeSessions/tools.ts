@@ -3,19 +3,26 @@
 
 import { type Tool, pathParam } from "../../../../_/tool.js";
 import {
+  access_api_response_collection_output,
   access_api_response_common_failure_output,
+  access_api_response_common_output,
+  access_api_response_single_output,
   access_messages_output,
 } from "../../../outputs.js";
+import { access_identifier, access_uuid } from "../../../schemas.js";
 import {
   access_device_posture_check_output,
   access_device_posture_rule_2_output,
   access_device_session_output,
   access_geo_output,
-  access_identity_idp_output,
-  access_identity_mtls_auth_output,
   access_identity_output,
   access_string_key_map_device_session_output,
 } from "../outputs.js";
+import {
+  access_active_session_response_output,
+  access_active_sessions_response_output,
+} from "./outputs.js";
+import { access_nonce } from "./schemas.js";
 
 /**
  * The tools of `zero_trust.access.users.active_sessions`.
@@ -29,15 +36,15 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/access_identifier",
+          "description": "Identifier."
         },
         "nonce": {
-          "type": "string"
+          "$ref": "#/$defs/access_nonce"
         },
         "user_id": {
-          "description": "UUID.",
-          "type": "string"
+          "$ref": "#/$defs/access_uuid",
+          "description": "UUID."
         }
       },
       required: [
@@ -45,29 +52,23 @@ export const tools: readonly Tool[] = [
         "user_id",
         "nonce"
       ],
+      $defs: {
+        "access_identifier": access_identifier,
+        "access_nonce": access_nonce,
+        "access_uuid": access_uuid,
+      },
     },
     outputSchema: {
-      "allOf": [
-        {
-          "$ref": "#/$defs/access_identity"
-        },
-        {
-          "properties": {
-            "isActive": {
-              "type": "boolean"
-            }
-          },
-          "type": "object"
-        }
-      ],
+      "$ref": "#/$defs/access_active_session_response",
       $defs: {
+        "access_active_session_response": access_active_session_response_output,
+        "access_api-response-single": access_api_response_single_output,
         "access_device_posture_check": access_device_posture_check_output,
         "access_device_posture_rule-2": access_device_posture_rule_2_output,
         "access_device_session": access_device_session_output,
         "access_geo": access_geo_output,
         "access_identity": access_identity_output,
-        "access_identity_idp": access_identity_idp_output,
-        "access_identity_mtls_auth": access_identity_mtls_auth_output,
+        "access_messages": access_messages_output,
         "access_string_key_map_device_session": access_string_key_map_device_session_output,
       },
     },
@@ -88,33 +89,21 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "allOf": [
-            {
-              "$ref": "#/$defs/access_identity"
-            },
-            {
-              "properties": {
-                "isActive": {
-                  "type": "boolean"
-                }
-              },
-              "type": "object"
-            }
-          ]
+          "$ref": "#/$defs/access_active_session_response"
         },
         "4XX": {
           "$ref": "#/$defs/access_api-response-common-failure"
         }
       },
       $defs: {
+        "access_active_session_response": access_active_session_response_output,
         "access_api-response-common-failure": access_api_response_common_failure_output,
+        "access_api-response-single": access_api_response_single_output,
         "access_device_posture_check": access_device_posture_check_output,
         "access_device_posture_rule-2": access_device_posture_rule_2_output,
         "access_device_session": access_device_session_output,
         "access_geo": access_geo_output,
         "access_identity": access_identity_output,
-        "access_identity_idp": access_identity_idp_output,
-        "access_identity_mtls_auth": access_identity_mtls_auth_output,
         "access_messages": access_messages_output,
         "access_string_key_map_device_session": access_string_key_map_device_session_output,
       },
@@ -131,97 +120,31 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/access_identifier",
+          "description": "Identifier."
         },
         "user_id": {
-          "description": "UUID.",
-          "type": "string"
+          "$ref": "#/$defs/access_uuid",
+          "description": "UUID."
         }
       },
       required: [
         "account_id",
         "user_id"
       ],
+      $defs: {
+        "access_identifier": access_identifier,
+        "access_uuid": access_uuid,
+      },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "properties": {
-              "expiration": {
-                "type": "integer"
-              },
-              "metadata": {
-                "properties": {
-                  "apps": {
-                    "additionalProperties": {
-                      "properties": {
-                        "hostname": {
-                          "type": "string"
-                        },
-                        "name": {
-                          "type": "string"
-                        },
-                        "type": {
-                          "type": "string"
-                        },
-                        "uid": {
-                          "type": "string"
-                        }
-                      },
-                      "type": "object"
-                    },
-                    "type": "object"
-                  },
-                  "expires": {
-                    "type": "integer"
-                  },
-                  "iat": {
-                    "type": "integer"
-                  },
-                  "nonce": {
-                    "type": "string"
-                  },
-                  "ttl": {
-                    "type": "integer"
-                  }
-                },
-                "type": "object"
-              },
-              "name": {
-                "type": "string"
-              }
-            },
-            "type": "object"
-          },
-          "type": "array"
-        },
-        "result_info": {
-          "properties": {
-            "count": {
-              "type": "number"
-            },
-            "page": {
-              "type": "number"
-            },
-            "per_page": {
-              "type": "number"
-            },
-            "total_count": {
-              "type": "number"
-            },
-            "total_pages": {
-              "type": "number"
-            }
-          },
-          "type": "object"
-        }
+      "$ref": "#/$defs/access_active_sessions_response",
+      $defs: {
+        "access_active_sessions_response": access_active_sessions_response_output,
+        "access_api-response-collection": access_api_response_collection_output,
+        "access_api-response-common": access_api_response_common_output,
+        "access_messages": access_messages_output,
       },
-      "required": [
-        "result"
-      ],
-      "type": "object",
     },
     annotations: {
       "destructiveHint": false,
@@ -240,89 +163,16 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "items": {
-                "properties": {
-                  "expiration": {
-                    "type": "integer"
-                  },
-                  "metadata": {
-                    "properties": {
-                      "apps": {
-                        "additionalProperties": {
-                          "properties": {
-                            "hostname": {
-                              "type": "string"
-                            },
-                            "name": {
-                              "type": "string"
-                            },
-                            "type": {
-                              "type": "string"
-                            },
-                            "uid": {
-                              "type": "string"
-                            }
-                          },
-                          "type": "object"
-                        },
-                        "type": "object"
-                      },
-                      "expires": {
-                        "type": "integer"
-                      },
-                      "iat": {
-                        "type": "integer"
-                      },
-                      "nonce": {
-                        "type": "string"
-                      },
-                      "ttl": {
-                        "type": "integer"
-                      }
-                    },
-                    "type": "object"
-                  },
-                  "name": {
-                    "type": "string"
-                  }
-                },
-                "type": "object"
-              },
-              "type": "array"
-            },
-            "result_info": {
-              "properties": {
-                "count": {
-                  "type": "number"
-                },
-                "page": {
-                  "type": "number"
-                },
-                "per_page": {
-                  "type": "number"
-                },
-                "total_count": {
-                  "type": "number"
-                },
-                "total_pages": {
-                  "type": "number"
-                }
-              },
-              "type": "object"
-            }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/access_active_sessions_response"
         },
         "4XX": {
           "$ref": "#/$defs/access_api-response-common-failure"
         }
       },
       $defs: {
+        "access_active_sessions_response": access_active_sessions_response_output,
+        "access_api-response-collection": access_api_response_collection_output,
+        "access_api-response-common": access_api_response_common_output,
         "access_api-response-common-failure": access_api_response_common_failure_output,
         "access_messages": access_messages_output,
       },

@@ -85,28 +85,20 @@ export const api_shield_configuration_output: JsonSchema = {
  * The schema of `api-shield_configuration-single-response` in responses.
  */
 export const api_shield_configuration_single_response_output: JsonSchema = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/api-shield_messages"
+  "allOf": [
+    {
+      "$ref": "#/$defs/api-shield_api-response-common"
     },
-    "messages": {
-      "$ref": "#/$defs/api-shield_messages"
-    },
-    "result": {
-      "$ref": "#/$defs/api-shield_configuration"
-    },
-    "success": {
-      "enum": [
-        true
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/api-shield_configuration"
+        }
+      },
+      "required": [
+        "result"
       ],
-      "type": "boolean"
+      "type": "object"
     }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "success",
-    "result"
-  ],
-  "type": "object"
+  ]
 };

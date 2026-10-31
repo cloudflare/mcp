@@ -12,6 +12,14 @@ export const stream_audio_default: JsonSchema = {
 };
 
 /**
+ * The schema of `stream_audio_identifier`.
+ */
+export const stream_audio_identifier: JsonSchema = {
+  "description": "The unique identifier for an additional audio track.",
+  "type": "string"
+};
+
+/**
  * The schema of `stream_audio_label`.
  */
 export const stream_audio_label: JsonSchema = {

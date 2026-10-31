@@ -194,6 +194,28 @@ export const dnssec_dnssec_zsk_output: JsonSchema = {
 };
 
 /**
+ * The schema of `dnssec_dnssec_zsk_response_collection` in responses.
+ */
+export const dnssec_dnssec_zsk_response_collection_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/dnssec_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/dnssec_dnssec_zsk"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
  * The schema of `dnssec_key_storage_location` in responses.
  */
 export const dnssec_key_storage_location_output: JsonSchema = {

@@ -4,17 +4,23 @@
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
   magic_api_response_common_failure_output,
+  magic_api_response_common_output,
+  magic_api_response_single_output,
   magic_cidr_output,
   magic_identifier_output,
   magic_messages_output,
 } from "../../outputs.js";
-import { magic_cidr } from "../../schemas.js";
+import { magic_cidr, magic_identifier } from "../../schemas.js";
 import { magic_ip_address_output, magic_port_output } from "../outputs.js";
 import { magic_ip_address, magic_port } from "../schemas.js";
 import {
+  magic_acl_deleted_response_output,
+  magic_acl_modified_response_output,
   magic_acl_output,
   magic_acl_port_range_output,
+  magic_acl_single_response_output,
   magic_acl_subnet_output,
+  magic_acls_collection_response_output,
   magic_forward_locally_output,
   magic_lan_acl_configuration_output,
   magic_unidirectional_output,
@@ -41,15 +47,15 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier",
-          "type": "string"
+          "$ref": "#/$defs/magic_identifier",
+          "description": "Identifier"
         },
         "body": {
           "$ref": "#/$defs/magic_acls_add_single_request"
         },
         "site_id": {
-          "description": "Identifier",
-          "type": "string"
+          "$ref": "#/$defs/magic_identifier",
+          "description": "Identifier"
         }
       },
       required: [
@@ -63,6 +69,7 @@ export const tools: readonly Tool[] = [
         "magic_acls_add_single_request": magic_acls_add_single_request,
         "magic_cidr": magic_cidr,
         "magic_forward_locally": magic_forward_locally,
+        "magic_identifier": magic_identifier,
         "magic_ip-address": magic_ip_address,
         "magic_lan-acl-configuration": magic_lan_acl_configuration,
         "magic_port": magic_port,
@@ -70,16 +77,20 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/magic_acl",
+      "$ref": "#/$defs/magic_acl_single_response",
       $defs: {
         "magic_acl": magic_acl_output,
         "magic_acl-port-range": magic_acl_port_range_output,
         "magic_acl-subnet": magic_acl_subnet_output,
+        "magic_acl_single_response": magic_acl_single_response_output,
+        "magic_api-response-common": magic_api_response_common_output,
+        "magic_api-response-single": magic_api_response_single_output,
         "magic_cidr": magic_cidr_output,
         "magic_forward_locally": magic_forward_locally_output,
         "magic_identifier": magic_identifier_output,
         "magic_ip-address": magic_ip_address_output,
         "magic_lan-acl-configuration": magic_lan_acl_configuration_output,
+        "magic_messages": magic_messages_output,
         "magic_port": magic_port_output,
         "magic_unidirectional": magic_unidirectional_output,
       },
@@ -108,7 +119,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/magic_acl"
+          "$ref": "#/$defs/magic_acl_single_response"
         },
         "4XX": {
           "$ref": "#/$defs/magic_api-response-common-failure"
@@ -118,7 +129,10 @@ export const tools: readonly Tool[] = [
         "magic_acl": magic_acl_output,
         "magic_acl-port-range": magic_acl_port_range_output,
         "magic_acl-subnet": magic_acl_subnet_output,
+        "magic_acl_single_response": magic_acl_single_response_output,
+        "magic_api-response-common": magic_api_response_common_output,
         "magic_api-response-common-failure": magic_api_response_common_failure_output,
+        "magic_api-response-single": magic_api_response_single_output,
         "magic_cidr": magic_cidr_output,
         "magic_forward_locally": magic_forward_locally_output,
         "magic_identifier": magic_identifier_output,
@@ -142,16 +156,16 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier",
-          "type": "string"
+          "$ref": "#/$defs/magic_identifier",
+          "description": "Identifier"
         },
         "acl_id": {
-          "description": "Identifier",
-          "type": "string"
+          "$ref": "#/$defs/magic_identifier",
+          "description": "Identifier"
         },
         "site_id": {
-          "description": "Identifier",
-          "type": "string"
+          "$ref": "#/$defs/magic_identifier",
+          "description": "Identifier"
         }
       },
       required: [
@@ -159,18 +173,25 @@ export const tools: readonly Tool[] = [
         "site_id",
         "acl_id"
       ],
+      $defs: {
+        "magic_identifier": magic_identifier,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/magic_acl",
+      "$ref": "#/$defs/magic_acl_deleted_response",
       $defs: {
         "magic_acl": magic_acl_output,
         "magic_acl-port-range": magic_acl_port_range_output,
         "magic_acl-subnet": magic_acl_subnet_output,
+        "magic_acl_deleted_response": magic_acl_deleted_response_output,
+        "magic_api-response-common": magic_api_response_common_output,
+        "magic_api-response-single": magic_api_response_single_output,
         "magic_cidr": magic_cidr_output,
         "magic_forward_locally": magic_forward_locally_output,
         "magic_identifier": magic_identifier_output,
         "magic_ip-address": magic_ip_address_output,
         "magic_lan-acl-configuration": magic_lan_acl_configuration_output,
+        "magic_messages": magic_messages_output,
         "magic_port": magic_port_output,
         "magic_unidirectional": magic_unidirectional_output,
       },
@@ -192,12 +213,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "#organization:edit"
-        ],
-        "x-fern-enum": {
-          "#organization:edit": {
-            "name": "organization_edit"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": false,
@@ -209,7 +225,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/magic_acl"
+          "$ref": "#/$defs/magic_acl_deleted_response"
         },
         "4XX": {
           "$ref": "#/$defs/magic_api-response-common-failure"
@@ -219,7 +235,10 @@ export const tools: readonly Tool[] = [
         "magic_acl": magic_acl_output,
         "magic_acl-port-range": magic_acl_port_range_output,
         "magic_acl-subnet": magic_acl_subnet_output,
+        "magic_acl_deleted_response": magic_acl_deleted_response_output,
+        "magic_api-response-common": magic_api_response_common_output,
         "magic_api-response-common-failure": magic_api_response_common_failure_output,
+        "magic_api-response-single": magic_api_response_single_output,
         "magic_cidr": magic_cidr_output,
         "magic_forward_locally": magic_forward_locally_output,
         "magic_identifier": magic_identifier_output,
@@ -242,19 +261,19 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier",
-          "type": "string"
+          "$ref": "#/$defs/magic_identifier",
+          "description": "Identifier"
         },
         "acl_id": {
-          "description": "Identifier",
-          "type": "string"
+          "$ref": "#/$defs/magic_identifier",
+          "description": "Identifier"
         },
         "body": {
           "$ref": "#/$defs/magic_acl_update_request"
         },
         "site_id": {
-          "description": "Identifier",
-          "type": "string"
+          "$ref": "#/$defs/magic_identifier",
+          "description": "Identifier"
         }
       },
       required: [
@@ -269,6 +288,7 @@ export const tools: readonly Tool[] = [
         "magic_acl_update_request": magic_acl_update_request,
         "magic_cidr": magic_cidr,
         "magic_forward_locally": magic_forward_locally,
+        "magic_identifier": magic_identifier,
         "magic_ip-address": magic_ip_address,
         "magic_lan-acl-configuration": magic_lan_acl_configuration,
         "magic_port": magic_port,
@@ -276,16 +296,20 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/magic_acl",
+      "$ref": "#/$defs/magic_acl_modified_response",
       $defs: {
         "magic_acl": magic_acl_output,
         "magic_acl-port-range": magic_acl_port_range_output,
         "magic_acl-subnet": magic_acl_subnet_output,
+        "magic_acl_modified_response": magic_acl_modified_response_output,
+        "magic_api-response-common": magic_api_response_common_output,
+        "magic_api-response-single": magic_api_response_single_output,
         "magic_cidr": magic_cidr_output,
         "magic_forward_locally": magic_forward_locally_output,
         "magic_identifier": magic_identifier_output,
         "magic_ip-address": magic_ip_address_output,
         "magic_lan-acl-configuration": magic_lan_acl_configuration_output,
+        "magic_messages": magic_messages_output,
         "magic_port": magic_port_output,
         "magic_unidirectional": magic_unidirectional_output,
       },
@@ -307,12 +331,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "#organization:edit"
-        ],
-        "x-fern-enum": {
-          "#organization:edit": {
-            "name": "organization_edit"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": false,
@@ -324,7 +343,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/magic_acl"
+          "$ref": "#/$defs/magic_acl_modified_response"
         },
         "4XX": {
           "$ref": "#/$defs/magic_api-response-common-failure"
@@ -334,7 +353,10 @@ export const tools: readonly Tool[] = [
         "magic_acl": magic_acl_output,
         "magic_acl-port-range": magic_acl_port_range_output,
         "magic_acl-subnet": magic_acl_subnet_output,
+        "magic_acl_modified_response": magic_acl_modified_response_output,
+        "magic_api-response-common": magic_api_response_common_output,
         "magic_api-response-common-failure": magic_api_response_common_failure_output,
+        "magic_api-response-single": magic_api_response_single_output,
         "magic_cidr": magic_cidr_output,
         "magic_forward_locally": magic_forward_locally_output,
         "magic_identifier": magic_identifier_output,
@@ -358,16 +380,16 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier",
-          "type": "string"
+          "$ref": "#/$defs/magic_identifier",
+          "description": "Identifier"
         },
         "acl_id": {
-          "description": "Identifier",
-          "type": "string"
+          "$ref": "#/$defs/magic_identifier",
+          "description": "Identifier"
         },
         "site_id": {
-          "description": "Identifier",
-          "type": "string"
+          "$ref": "#/$defs/magic_identifier",
+          "description": "Identifier"
         }
       },
       required: [
@@ -375,18 +397,25 @@ export const tools: readonly Tool[] = [
         "site_id",
         "acl_id"
       ],
+      $defs: {
+        "magic_identifier": magic_identifier,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/magic_acl",
+      "$ref": "#/$defs/magic_acl_single_response",
       $defs: {
         "magic_acl": magic_acl_output,
         "magic_acl-port-range": magic_acl_port_range_output,
         "magic_acl-subnet": magic_acl_subnet_output,
+        "magic_acl_single_response": magic_acl_single_response_output,
+        "magic_api-response-common": magic_api_response_common_output,
+        "magic_api-response-single": magic_api_response_single_output,
         "magic_cidr": magic_cidr_output,
         "magic_forward_locally": magic_forward_locally_output,
         "magic_identifier": magic_identifier_output,
         "magic_ip-address": magic_ip_address_output,
         "magic_lan-acl-configuration": magic_lan_acl_configuration_output,
+        "magic_messages": magic_messages_output,
         "magic_port": magic_port_output,
         "magic_unidirectional": magic_unidirectional_output,
       },
@@ -410,12 +439,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "#organization:read"
-        ],
-        "x-fern-enum": {
-          "#organization:read": {
-            "name": "organization_read"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": false,
@@ -427,7 +451,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/magic_acl"
+          "$ref": "#/$defs/magic_acl_single_response"
         },
         "4XX": {
           "$ref": "#/$defs/magic_api-response-common-failure"
@@ -437,7 +461,10 @@ export const tools: readonly Tool[] = [
         "magic_acl": magic_acl_output,
         "magic_acl-port-range": magic_acl_port_range_output,
         "magic_acl-subnet": magic_acl_subnet_output,
+        "magic_acl_single_response": magic_acl_single_response_output,
+        "magic_api-response-common": magic_api_response_common_output,
         "magic_api-response-common-failure": magic_api_response_common_failure_output,
+        "magic_api-response-single": magic_api_response_single_output,
         "magic_cidr": magic_cidr_output,
         "magic_forward_locally": magic_forward_locally_output,
         "magic_identifier": magic_identifier_output,
@@ -460,44 +487,37 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier",
-          "type": "string"
+          "$ref": "#/$defs/magic_identifier",
+          "description": "Identifier"
         },
         "site_id": {
-          "description": "Identifier",
-          "type": "string"
+          "$ref": "#/$defs/magic_identifier",
+          "description": "Identifier"
         }
       },
       required: [
         "account_id",
         "site_id"
       ],
+      $defs: {
+        "magic_identifier": magic_identifier,
+      },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "$ref": "#/$defs/magic_acl"
-          },
-          "type": "array"
-        },
-        "result_info": {
-          "type": "object"
-        }
-      },
-      "required": [
-        "result"
-      ],
-      "type": "object",
+      "$ref": "#/$defs/magic_acls_collection_response",
       $defs: {
         "magic_acl": magic_acl_output,
         "magic_acl-port-range": magic_acl_port_range_output,
         "magic_acl-subnet": magic_acl_subnet_output,
+        "magic_acls_collection_response": magic_acls_collection_response_output,
+        "magic_api-response-common": magic_api_response_common_output,
+        "magic_api-response-single": magic_api_response_single_output,
         "magic_cidr": magic_cidr_output,
         "magic_forward_locally": magic_forward_locally_output,
         "magic_identifier": magic_identifier_output,
         "magic_ip-address": magic_ip_address_output,
         "magic_lan-acl-configuration": magic_lan_acl_configuration_output,
+        "magic_messages": magic_messages_output,
         "magic_port": magic_port_output,
         "magic_unidirectional": magic_unidirectional_output,
       },
@@ -528,21 +548,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "items": {
-                "$ref": "#/$defs/magic_acl"
-              },
-              "type": "array"
-            },
-            "result_info": {
-              "type": "object"
-            }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/magic_acls_collection_response"
         },
         "4XX": {
           "$ref": "#/$defs/magic_api-response-common-failure"
@@ -552,7 +558,10 @@ export const tools: readonly Tool[] = [
         "magic_acl": magic_acl_output,
         "magic_acl-port-range": magic_acl_port_range_output,
         "magic_acl-subnet": magic_acl_subnet_output,
+        "magic_acls_collection_response": magic_acls_collection_response_output,
+        "magic_api-response-common": magic_api_response_common_output,
         "magic_api-response-common-failure": magic_api_response_common_failure_output,
+        "magic_api-response-single": magic_api_response_single_output,
         "magic_cidr": magic_cidr_output,
         "magic_forward_locally": magic_forward_locally_output,
         "magic_identifier": magic_identifier_output,
@@ -575,19 +584,19 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier",
-          "type": "string"
+          "$ref": "#/$defs/magic_identifier",
+          "description": "Identifier"
         },
         "acl_id": {
-          "description": "Identifier",
-          "type": "string"
+          "$ref": "#/$defs/magic_identifier",
+          "description": "Identifier"
         },
         "body": {
           "$ref": "#/$defs/magic_acl_update_request"
         },
         "site_id": {
-          "description": "Identifier",
-          "type": "string"
+          "$ref": "#/$defs/magic_identifier",
+          "description": "Identifier"
         }
       },
       required: [
@@ -602,6 +611,7 @@ export const tools: readonly Tool[] = [
         "magic_acl_update_request": magic_acl_update_request,
         "magic_cidr": magic_cidr,
         "magic_forward_locally": magic_forward_locally,
+        "magic_identifier": magic_identifier,
         "magic_ip-address": magic_ip_address,
         "magic_lan-acl-configuration": magic_lan_acl_configuration,
         "magic_port": magic_port,
@@ -609,16 +619,20 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/magic_acl",
+      "$ref": "#/$defs/magic_acl_modified_response",
       $defs: {
         "magic_acl": magic_acl_output,
         "magic_acl-port-range": magic_acl_port_range_output,
         "magic_acl-subnet": magic_acl_subnet_output,
+        "magic_acl_modified_response": magic_acl_modified_response_output,
+        "magic_api-response-common": magic_api_response_common_output,
+        "magic_api-response-single": magic_api_response_single_output,
         "magic_cidr": magic_cidr_output,
         "magic_forward_locally": magic_forward_locally_output,
         "magic_identifier": magic_identifier_output,
         "magic_ip-address": magic_ip_address_output,
         "magic_lan-acl-configuration": magic_lan_acl_configuration_output,
+        "magic_messages": magic_messages_output,
         "magic_port": magic_port_output,
         "magic_unidirectional": magic_unidirectional_output,
       },
@@ -640,12 +654,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "#organization:edit"
-        ],
-        "x-fern-enum": {
-          "#organization:edit": {
-            "name": "organization_edit"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": false,
@@ -657,7 +666,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/magic_acl"
+          "$ref": "#/$defs/magic_acl_modified_response"
         },
         "4XX": {
           "$ref": "#/$defs/magic_api-response-common-failure"
@@ -667,7 +676,10 @@ export const tools: readonly Tool[] = [
         "magic_acl": magic_acl_output,
         "magic_acl-port-range": magic_acl_port_range_output,
         "magic_acl-subnet": magic_acl_subnet_output,
+        "magic_acl_modified_response": magic_acl_modified_response_output,
+        "magic_api-response-common": magic_api_response_common_output,
         "magic_api-response-common-failure": magic_api_response_common_failure_output,
+        "magic_api-response-single": magic_api_response_single_output,
         "magic_cidr": magic_cidr_output,
         "magic_forward_locally": magic_forward_locally_output,
         "magic_identifier": magic_identifier_output,

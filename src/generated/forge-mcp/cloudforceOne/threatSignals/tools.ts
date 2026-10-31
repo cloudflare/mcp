@@ -38,86 +38,21 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
-        "count": {
-          "type": "integer"
-        },
-        "results": {
+        "errors": {
           "items": {
             "properties": {
-              "article_id": {
-                "format": "uuid",
-                "type": "string"
-              },
-              "dataset_id": {
-                "oneOf": [
-                  {
-                    "format": "uuid",
-                    "type": "string"
-                  },
-                  {
-                    "type": "null"
-                  }
-                ]
-              },
-              "event_id": {
-                "oneOf": [
-                  {
-                    "format": "uuid",
-                    "type": "string"
-                  },
-                  {
-                    "type": "null"
-                  }
-                ]
-              },
-              "feed_id": {
-                "format": "uuid",
-                "type": "string"
-              },
-              "score": {
-                "type": "number"
-              },
-              "text": {
+              "message": {
                 "type": "string"
               }
             },
             "required": [
-              "article_id",
-              "dataset_id",
-              "event_id",
-              "feed_id",
-              "score",
-              "text"
+              "message"
             ],
             "type": "object"
           },
           "type": "array"
-        }
-      },
-      "required": [
-        "count",
-        "results"
-      ],
-      "type": "object",
-    },
-    annotations: {
-      "destructiveHint": false,
-      "idempotentHint": true,
-      "openWorldHint": true,
-      "readOnlyHint": true,
-      "title": "Search Threat Signals articles using AI Search"
-    },
-    method: "GET",
-    path: "/accounts/{account_id}/cloudforce-one/v2/threat-signals/search",
-    extensions: {
-      "x-api-token-group": [
-        "Cloudforce One Write",
-        "Cloudforce One Read"
-      ]
-    },
-    responses: {
-      schemas: {
-        "200": {
+        },
+        "result": {
           "properties": {
             "count": {
               "type": "integer"
@@ -178,6 +113,131 @@ export const tools: readonly Tool[] = [
           "required": [
             "count",
             "results"
+          ],
+          "type": "object"
+        },
+        "success": {
+          "enum": [
+            true
+          ],
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "errors",
+        "result",
+        "success"
+      ],
+      "type": "object",
+    },
+    annotations: {
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": true,
+      "readOnlyHint": true,
+      "title": "Search Threat Signals articles using AI Search"
+    },
+    method: "GET",
+    path: "/accounts/{account_id}/cloudforce-one/v2/threat-signals/search",
+    extensions: {
+      "x-api-token-group": [
+        "Cloudforce One Write",
+        "Cloudforce One Read"
+      ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result": {
+              "properties": {
+                "count": {
+                  "type": "integer"
+                },
+                "results": {
+                  "items": {
+                    "properties": {
+                      "article_id": {
+                        "format": "uuid",
+                        "type": "string"
+                      },
+                      "dataset_id": {
+                        "oneOf": [
+                          {
+                            "format": "uuid",
+                            "type": "string"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "event_id": {
+                        "oneOf": [
+                          {
+                            "format": "uuid",
+                            "type": "string"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "feed_id": {
+                        "format": "uuid",
+                        "type": "string"
+                      },
+                      "score": {
+                        "type": "number"
+                      },
+                      "text": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "article_id",
+                      "dataset_id",
+                      "event_id",
+                      "feed_id",
+                      "score",
+                      "text"
+                    ],
+                    "type": "object"
+                  },
+                  "type": "array"
+                }
+              },
+              "required": [
+                "count",
+                "results"
+              ],
+              "type": "object"
+            },
+            "success": {
+              "enum": [
+                true
+              ],
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "result",
+            "success"
           ],
           "type": "object"
         },

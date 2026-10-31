@@ -51,32 +51,25 @@ export const iam_user_group_member_detailed_output: JsonSchema = {
       "type": "string"
     },
     "user": {
-      "$ref": "#/$defs/iam_user_group_member_detailed_user"
+      "properties": {
+        "email": {
+          "$ref": "#/$defs/iam_email"
+        },
+        "first_name": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "last_name": {
+          "type": "string"
+        }
+      },
+      "type": "object"
     }
   },
   "required": [
     "id"
   ],
-  "type": "object"
-};
-
-/**
- * The schema of `iam_user_group_member_detailed_user` in responses.
- */
-export const iam_user_group_member_detailed_user_output: JsonSchema = {
-  "properties": {
-    "email": {
-      "$ref": "#/$defs/iam_email"
-    },
-    "first_name": {
-      "type": "string"
-    },
-    "id": {
-      "type": "string"
-    },
-    "last_name": {
-      "type": "string"
-    }
-  },
   "type": "object"
 };

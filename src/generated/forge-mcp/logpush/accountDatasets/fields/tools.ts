@@ -4,8 +4,11 @@
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
   logpush_api_response_common_failure_output,
+  logpush_api_response_common_output,
   logpush_messages_output,
 } from "../../outputs.js";
+import { logpush_dataset, logpush_identifier } from "../../schemas.js";
+import { logpush_logpush_field_response_collection_output } from "./outputs.js";
 
 /**
  * The tools of `logpush.account_datasets.fields`.
@@ -27,12 +30,13 @@ export const tools: readonly Tool[] = [
           "type": "string"
         },
         "account_or_zone_id": {
-          "description": "The account ID or zone ID, as selected by account_or_zone.",
-          "type": "string"
+          "$ref": "#/$defs/logpush_identifier",
+          "description": "The account ID or zone ID, as selected by account_or_zone."
         },
         "dataset_id": {
-          "description": "Name of the dataset. A list of supported datasets can be found on the [Developer Docs](https://developers.cloudflare.com/logs/reference/log-fields/).",
-          "type": "string"
+          "$ref": "#/$defs/logpush_dataset",
+          "default": "http_requests",
+          "description": "Name of the dataset. A list of supported datasets can be found on the [Developer Docs](https://developers.cloudflare.com/logs/reference/log-fields/)."
         }
       },
       required: [
@@ -40,12 +44,18 @@ export const tools: readonly Tool[] = [
         "account_or_zone_id",
         "dataset_id"
       ],
+      $defs: {
+        "logpush_dataset": logpush_dataset,
+        "logpush_identifier": logpush_identifier,
+      },
     },
     outputSchema: {
-      "additionalProperties": {
-        "type": "string"
+      "$ref": "#/$defs/logpush_logpush_field_response_collection",
+      $defs: {
+        "logpush_api-response-common": logpush_api_response_common_output,
+        "logpush_logpush_field_response_collection": logpush_logpush_field_response_collection_output,
+        "logpush_messages": logpush_messages_output,
       },
-      "type": "object",
     },
     annotations: {
       "destructiveHint": false,
@@ -63,12 +73,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "#logs:read"
-        ],
-        "x-fern-enum": {
-          "#logs:read": {
-            "name": "logs_read"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": false,
@@ -80,17 +85,16 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "additionalProperties": {
-            "type": "string"
-          },
-          "type": "object"
+          "$ref": "#/$defs/logpush_logpush_field_response_collection"
         },
         "4XX": {
           "$ref": "#/$defs/logpush_api-response-common-failure"
         }
       },
       $defs: {
+        "logpush_api-response-common": logpush_api_response_common_output,
         "logpush_api-response-common-failure": logpush_api_response_common_failure_output,
+        "logpush_logpush_field_response_collection": logpush_logpush_field_response_collection_output,
         "logpush_messages": logpush_messages_output,
       },
     },

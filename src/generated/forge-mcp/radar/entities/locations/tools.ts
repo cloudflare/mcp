@@ -33,75 +33,7 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
-        "location": {
-          "properties": {
-            "alpha2": {
-              "type": "string"
-            },
-            "confidenceLevel": {
-              "type": "integer"
-            },
-            "continent": {
-              "type": "string"
-            },
-            "latitude": {
-              "type": "string"
-            },
-            "longitude": {
-              "type": "string"
-            },
-            "name": {
-              "type": "string"
-            },
-            "region": {
-              "type": "string"
-            },
-            "subregion": {
-              "type": "string"
-            }
-          },
-          "required": [
-            "alpha2",
-            "confidenceLevel",
-            "continent",
-            "latitude",
-            "longitude",
-            "name",
-            "region",
-            "subregion"
-          ],
-          "type": "object"
-        }
-      },
-      "required": [
-        "location"
-      ],
-      "type": "object",
-    },
-    annotations: {
-      "destructiveHint": false,
-      "idempotentHint": true,
-      "openWorldHint": true,
-      "readOnlyHint": true,
-      "title": "Get location details"
-    },
-    method: "GET",
-    path: "/radar/entities/locations/{location}",
-    extensions: {
-      "x-api-token-group": [
-        "User Details Write",
-        "User Details Read"
-      ],
-      "x-cfPlanAvailability": {
-        "business": true,
-        "enterprise": true,
-        "free": true,
-        "pro": true
-      }
-    },
-    responses: {
-      schemas: {
-        "200": {
+        "result": {
           "properties": {
             "location": {
               "properties": {
@@ -145,6 +77,98 @@ export const tools: readonly Tool[] = [
           },
           "required": [
             "location"
+          ],
+          "type": "object"
+        },
+        "success": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "result",
+        "success"
+      ],
+      "type": "object",
+    },
+    annotations: {
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": true,
+      "readOnlyHint": true,
+      "title": "Get location details"
+    },
+    method: "GET",
+    path: "/radar/entities/locations/{location}",
+    extensions: {
+      "x-api-token-group": [
+        "User Details Write",
+        "User Details Read"
+      ],
+      "x-cfPlanAvailability": {
+        "business": true,
+        "enterprise": true,
+        "free": true,
+        "pro": true
+      }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "properties": {
+                "location": {
+                  "properties": {
+                    "alpha2": {
+                      "type": "string"
+                    },
+                    "confidenceLevel": {
+                      "type": "integer"
+                    },
+                    "continent": {
+                      "type": "string"
+                    },
+                    "latitude": {
+                      "type": "string"
+                    },
+                    "longitude": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "region": {
+                      "type": "string"
+                    },
+                    "subregion": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "alpha2",
+                    "confidenceLevel",
+                    "continent",
+                    "latitude",
+                    "longitude",
+                    "name",
+                    "region",
+                    "subregion"
+                  ],
+                  "type": "object"
+                }
+              },
+              "required": [
+                "location"
+              ],
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "result",
+            "success"
           ],
           "type": "object"
         },
@@ -220,74 +244,7 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
-        "locations": {
-          "items": {
-            "properties": {
-              "alpha2": {
-                "type": "string"
-              },
-              "continent": {
-                "type": "string"
-              },
-              "latitude": {
-                "type": "string"
-              },
-              "longitude": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "region": {
-                "type": "string"
-              },
-              "subregion": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "alpha2",
-              "continent",
-              "latitude",
-              "longitude",
-              "name",
-              "region",
-              "subregion"
-            ],
-            "type": "object"
-          },
-          "type": "array"
-        }
-      },
-      "required": [
-        "locations"
-      ],
-      "type": "object",
-    },
-    annotations: {
-      "destructiveHint": false,
-      "idempotentHint": true,
-      "openWorldHint": true,
-      "readOnlyHint": true,
-      "title": "List locations"
-    },
-    method: "GET",
-    path: "/radar/entities/locations",
-    extensions: {
-      "x-api-token-group": [
-        "User Details Write",
-        "User Details Read"
-      ],
-      "x-cfPlanAvailability": {
-        "business": true,
-        "enterprise": true,
-        "free": true,
-        "pro": true
-      }
-    },
-    responses: {
-      schemas: {
-        "200": {
+        "result": {
           "properties": {
             "locations": {
               "items": {
@@ -330,6 +287,97 @@ export const tools: readonly Tool[] = [
           },
           "required": [
             "locations"
+          ],
+          "type": "object"
+        },
+        "success": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "result",
+        "success"
+      ],
+      "type": "object",
+    },
+    annotations: {
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": true,
+      "readOnlyHint": true,
+      "title": "List locations"
+    },
+    method: "GET",
+    path: "/radar/entities/locations",
+    extensions: {
+      "x-api-token-group": [
+        "User Details Write",
+        "User Details Read"
+      ],
+      "x-cfPlanAvailability": {
+        "business": true,
+        "enterprise": true,
+        "free": true,
+        "pro": true
+      }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "properties": {
+                "locations": {
+                  "items": {
+                    "properties": {
+                      "alpha2": {
+                        "type": "string"
+                      },
+                      "continent": {
+                        "type": "string"
+                      },
+                      "latitude": {
+                        "type": "string"
+                      },
+                      "longitude": {
+                        "type": "string"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "region": {
+                        "type": "string"
+                      },
+                      "subregion": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "alpha2",
+                      "continent",
+                      "latitude",
+                      "longitude",
+                      "name",
+                      "region",
+                      "subregion"
+                    ],
+                    "type": "object"
+                  },
+                  "type": "array"
+                }
+              },
+              "required": [
+                "locations"
+              ],
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "result",
+            "success"
           ],
           "type": "object"
         },

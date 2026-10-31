@@ -70,277 +70,95 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
-        "count": {
-          "type": "integer"
-        },
-        "items": {
-          "items": {
-            "oneOf": [
-              {
-                "properties": {
-                  "article_id": {
-                    "format": "uuid",
-                    "type": "string"
-                  },
-                  "feed_id": {
-                    "format": "uuid",
-                    "type": "string"
-                  },
-                  "published_at": {
-                    "oneOf": [
-                      {
-                        "format": "date-time",
-                        "type": "string"
-                      },
-                      {
-                        "type": "null"
-                      }
-                    ]
-                  },
-                  "title": {
-                    "oneOf": [
-                      {
-                        "type": "string"
-                      },
-                      {
-                        "type": "null"
-                      }
-                    ]
-                  },
-                  "type": {
-                    "enum": [
-                      "article"
-                    ],
-                    "type": "string"
-                  }
-                },
-                "required": [
-                  "article_id",
-                  "feed_id",
-                  "published_at",
-                  "title",
-                  "type"
-                ],
-                "type": "object"
-              },
-              {
-                "properties": {
-                  "actor_id": {
-                    "format": "uuid",
-                    "type": "string"
-                  },
-                  "description": {
-                    "oneOf": [
-                      {
-                        "type": "string"
-                      },
-                      {
-                        "type": "null"
-                      }
-                    ]
-                  },
-                  "name": {
-                    "type": "string"
-                  },
-                  "retrieval_score": {
-                    "type": "number"
-                  },
-                  "type": {
-                    "enum": [
-                      "actor"
-                    ],
-                    "type": "string"
-                  }
-                },
-                "required": [
-                  "actor_id",
-                  "description",
-                  "name",
-                  "type"
-                ],
-                "type": "object"
-              },
-              {
-                "properties": {
-                  "description": {
-                    "oneOf": [
-                      {
-                        "type": "string"
-                      },
-                      {
-                        "type": "null"
-                      }
-                    ]
-                  },
-                  "tag_id": {
-                    "format": "uuid",
-                    "type": "string"
-                  },
-                  "type": {
-                    "enum": [
-                      "tag"
-                    ],
-                    "type": "string"
-                  },
-                  "value": {
-                    "type": "string"
-                  }
-                },
-                "required": [
-                  "description",
-                  "tag_id",
-                  "type",
-                  "value"
-                ],
-                "type": "object"
-              },
-              {
-                "properties": {
-                  "dataset_id": {
-                    "format": "uuid",
-                    "type": "string"
-                  },
-                  "event_id": {
-                    "format": "uuid",
-                    "type": "string"
-                  },
-                  "title": {
-                    "type": "string"
-                  },
-                  "type": {
-                    "enum": [
-                      "event"
-                    ],
-                    "type": "string"
-                  }
-                },
-                "required": [
-                  "dataset_id",
-                  "event_id",
-                  "title",
-                  "type"
-                ],
-                "type": "object"
-              },
-              {
-                "properties": {
-                  "dataset_id": {
-                    "format": "uuid",
-                    "type": "string"
-                  },
-                  "indicator_id": {
-                    "format": "uuid",
-                    "type": "string"
-                  },
-                  "indicator_type": {
-                    "type": "string"
-                  },
-                  "tags": {
-                    "items": {
-                      "properties": {
-                        "category_name": {
-                          "type": "string"
-                        },
-                        "uuid": {
-                          "format": "uuid",
-                          "type": "string"
-                        },
-                        "value": {
-                          "type": "string"
-                        }
-                      },
-                      "required": [
-                        "uuid",
-                        "value"
-                      ],
-                      "type": "object"
-                    },
-                    "type": "array"
-                  },
-                  "type": {
-                    "enum": [
-                      "indicator"
-                    ],
-                    "type": "string"
-                  },
-                  "value": {
-                    "type": "string"
-                  }
-                },
-                "required": [
-                  "dataset_id",
-                  "indicator_id",
-                  "indicator_type",
-                  "tags",
-                  "type",
-                  "value"
-                ],
-                "type": "object"
-              }
-            ]
-          },
-          "type": "array"
-        },
-        "partial": {
-          "type": "boolean"
-        },
-        "sources": {
+        "errors": {
           "items": {
             "properties": {
-              "source": {
-                "enum": [
-                  "article",
-                  "actor",
-                  "tag",
-                  "event",
-                  "indicator"
-                ],
+              "code": {
+                "type": "number"
+              },
+              "custom_feed_count": {
+                "type": "integer"
+              },
+              "custom_feed_limit": {
+                "type": "integer"
+              },
+              "expected": {
                 "type": "string"
               },
-              "status": {
+              "message": {
+                "type": "string"
+              },
+              "path": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "reason": {
                 "enum": [
-                  "complete",
-                  "degraded",
-                  "unavailable"
+                  "threat_signals_feed_limit",
+                  "free_custom_skills_disabled",
+                  "free_skill_run_disabled",
+                  "free_tier_reconciliation_in_progress",
+                  "free_tier_reconciliation_failed",
+                  "raw_content_expired",
+                  "curated_visibility_changed"
                 ],
                 "type": "string"
               }
             },
             "required": [
-              "source",
-              "status"
+              "message"
             ],
             "type": "object"
           },
           "type": "array"
-        }
-      },
-      "required": [
-        "count",
-        "items",
-        "partial",
-        "sources"
-      ],
-      "type": "object",
-    },
-    annotations: {
-      "destructiveHint": false,
-      "idempotentHint": false,
-      "openWorldHint": true,
-      "readOnlyHint": false,
-      "title": "Search threat intelligence"
-    },
-    method: "POST",
-    path: "/accounts/{account_id}/cloudforce-one/v2/search",
-    extensions: {
-      "x-api-token-group": [
-        "Cloudforce One Write"
-      ],
-      "x-stability": "beta"
-    },
-    responses: {
-      schemas: {
-        "200": {
+        },
+        "messages": {
+          "items": {
+            "properties": {
+              "code": {
+                "type": "number"
+              },
+              "custom_feed_count": {
+                "type": "integer"
+              },
+              "custom_feed_limit": {
+                "type": "integer"
+              },
+              "expected": {
+                "type": "string"
+              },
+              "message": {
+                "type": "string"
+              },
+              "path": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "reason": {
+                "enum": [
+                  "threat_signals_feed_limit",
+                  "free_custom_skills_disabled",
+                  "free_skill_run_disabled",
+                  "free_tier_reconciliation_in_progress",
+                  "free_tier_reconciliation_failed",
+                  "raw_content_expired",
+                  "curated_visibility_changed"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "message"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "result": {
           "properties": {
             "count": {
               "type": "integer"
@@ -592,6 +410,398 @@ export const tools: readonly Tool[] = [
             "items",
             "partial",
             "sources"
+          ],
+          "type": "object"
+        },
+        "success": {
+          "enum": [
+            true
+          ],
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "errors",
+        "messages",
+        "result",
+        "success"
+      ],
+      "type": "object",
+    },
+    annotations: {
+      "destructiveHint": false,
+      "idempotentHint": false,
+      "openWorldHint": true,
+      "readOnlyHint": false,
+      "title": "Search threat intelligence"
+    },
+    method: "POST",
+    path: "/accounts/{account_id}/cloudforce-one/v2/search",
+    extensions: {
+      "x-api-token-group": [
+        "Cloudforce One Write"
+      ],
+      "x-stability": "beta"
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "code": {
+                    "type": "number"
+                  },
+                  "custom_feed_count": {
+                    "type": "integer"
+                  },
+                  "custom_feed_limit": {
+                    "type": "integer"
+                  },
+                  "expected": {
+                    "type": "string"
+                  },
+                  "message": {
+                    "type": "string"
+                  },
+                  "path": {
+                    "items": {
+                      "type": "string"
+                    },
+                    "type": "array"
+                  },
+                  "reason": {
+                    "enum": [
+                      "threat_signals_feed_limit",
+                      "free_custom_skills_disabled",
+                      "free_skill_run_disabled",
+                      "free_tier_reconciliation_in_progress",
+                      "free_tier_reconciliation_failed",
+                      "raw_content_expired",
+                      "curated_visibility_changed"
+                    ],
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "messages": {
+              "items": {
+                "properties": {
+                  "code": {
+                    "type": "number"
+                  },
+                  "custom_feed_count": {
+                    "type": "integer"
+                  },
+                  "custom_feed_limit": {
+                    "type": "integer"
+                  },
+                  "expected": {
+                    "type": "string"
+                  },
+                  "message": {
+                    "type": "string"
+                  },
+                  "path": {
+                    "items": {
+                      "type": "string"
+                    },
+                    "type": "array"
+                  },
+                  "reason": {
+                    "enum": [
+                      "threat_signals_feed_limit",
+                      "free_custom_skills_disabled",
+                      "free_skill_run_disabled",
+                      "free_tier_reconciliation_in_progress",
+                      "free_tier_reconciliation_failed",
+                      "raw_content_expired",
+                      "curated_visibility_changed"
+                    ],
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result": {
+              "properties": {
+                "count": {
+                  "type": "integer"
+                },
+                "items": {
+                  "items": {
+                    "oneOf": [
+                      {
+                        "properties": {
+                          "article_id": {
+                            "format": "uuid",
+                            "type": "string"
+                          },
+                          "feed_id": {
+                            "format": "uuid",
+                            "type": "string"
+                          },
+                          "published_at": {
+                            "oneOf": [
+                              {
+                                "format": "date-time",
+                                "type": "string"
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ]
+                          },
+                          "title": {
+                            "oneOf": [
+                              {
+                                "type": "string"
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ]
+                          },
+                          "type": {
+                            "enum": [
+                              "article"
+                            ],
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "article_id",
+                          "feed_id",
+                          "published_at",
+                          "title",
+                          "type"
+                        ],
+                        "type": "object"
+                      },
+                      {
+                        "properties": {
+                          "actor_id": {
+                            "format": "uuid",
+                            "type": "string"
+                          },
+                          "description": {
+                            "oneOf": [
+                              {
+                                "type": "string"
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ]
+                          },
+                          "name": {
+                            "type": "string"
+                          },
+                          "retrieval_score": {
+                            "type": "number"
+                          },
+                          "type": {
+                            "enum": [
+                              "actor"
+                            ],
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "actor_id",
+                          "description",
+                          "name",
+                          "type"
+                        ],
+                        "type": "object"
+                      },
+                      {
+                        "properties": {
+                          "description": {
+                            "oneOf": [
+                              {
+                                "type": "string"
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ]
+                          },
+                          "tag_id": {
+                            "format": "uuid",
+                            "type": "string"
+                          },
+                          "type": {
+                            "enum": [
+                              "tag"
+                            ],
+                            "type": "string"
+                          },
+                          "value": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "description",
+                          "tag_id",
+                          "type",
+                          "value"
+                        ],
+                        "type": "object"
+                      },
+                      {
+                        "properties": {
+                          "dataset_id": {
+                            "format": "uuid",
+                            "type": "string"
+                          },
+                          "event_id": {
+                            "format": "uuid",
+                            "type": "string"
+                          },
+                          "title": {
+                            "type": "string"
+                          },
+                          "type": {
+                            "enum": [
+                              "event"
+                            ],
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "dataset_id",
+                          "event_id",
+                          "title",
+                          "type"
+                        ],
+                        "type": "object"
+                      },
+                      {
+                        "properties": {
+                          "dataset_id": {
+                            "format": "uuid",
+                            "type": "string"
+                          },
+                          "indicator_id": {
+                            "format": "uuid",
+                            "type": "string"
+                          },
+                          "indicator_type": {
+                            "type": "string"
+                          },
+                          "tags": {
+                            "items": {
+                              "properties": {
+                                "category_name": {
+                                  "type": "string"
+                                },
+                                "uuid": {
+                                  "format": "uuid",
+                                  "type": "string"
+                                },
+                                "value": {
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "uuid",
+                                "value"
+                              ],
+                              "type": "object"
+                            },
+                            "type": "array"
+                          },
+                          "type": {
+                            "enum": [
+                              "indicator"
+                            ],
+                            "type": "string"
+                          },
+                          "value": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "dataset_id",
+                          "indicator_id",
+                          "indicator_type",
+                          "tags",
+                          "type",
+                          "value"
+                        ],
+                        "type": "object"
+                      }
+                    ]
+                  },
+                  "type": "array"
+                },
+                "partial": {
+                  "type": "boolean"
+                },
+                "sources": {
+                  "items": {
+                    "properties": {
+                      "source": {
+                        "enum": [
+                          "article",
+                          "actor",
+                          "tag",
+                          "event",
+                          "indicator"
+                        ],
+                        "type": "string"
+                      },
+                      "status": {
+                        "enum": [
+                          "complete",
+                          "degraded",
+                          "unavailable"
+                        ],
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "source",
+                      "status"
+                    ],
+                    "type": "object"
+                  },
+                  "type": "array"
+                }
+              },
+              "required": [
+                "count",
+                "items",
+                "partial",
+                "sources"
+              ],
+              "type": "object"
+            },
+            "success": {
+              "enum": [
+                true
+              ],
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "messages",
+            "result",
+            "success"
           ],
           "type": "object"
         },

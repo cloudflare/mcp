@@ -4,15 +4,19 @@
 import { type Tool, pathParam } from "../../../../../_/tool.js";
 import {
   access_api_response_common_failure_output,
+  access_api_response_single_output,
   access_messages_output,
   access_uuid_output,
 } from "../../../../outputs.js";
+import { access_identifier } from "../../../../schemas.js";
 import {
   access_email_2_output,
   access_name_10_output,
 } from "../../../outputs.js";
+import { access_policy_test_id } from "../schemas.js";
 import {
   access_policy_users_output,
+  access_policy_users_resp_output,
   access_user_result_output,
 } from "./outputs.js";
 
@@ -28,8 +32,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/access_identifier",
+          "description": "Identifier."
         },
         "page": {
           "default": 1,
@@ -41,8 +45,8 @@ export const tools: readonly Tool[] = [
           "type": "integer"
         },
         "policy_test_id": {
-          "description": "The UUID of the policy test.",
-          "type": "string"
+          "$ref": "#/$defs/access_policy_test_id",
+          "description": "The UUID of the policy test."
         },
         "status": {
           "description": "Filter users by their policy evaluation status.",
@@ -58,27 +62,20 @@ export const tools: readonly Tool[] = [
         "account_id",
         "policy_test_id"
       ],
+      $defs: {
+        "access_identifier": access_identifier,
+        "access_policy_test_id": access_policy_test_id,
+      },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "$ref": "#/$defs/access_policy_users"
-          },
-          "type": "array"
-        },
-        "result_info": {
-          "type": "object"
-        }
-      },
-      "required": [
-        "result"
-      ],
-      "type": "object",
+      "$ref": "#/$defs/access_policy_users_resp",
       $defs: {
+        "access_api-response-single": access_api_response_single_output,
         "access_email-2": access_email_2_output,
+        "access_messages": access_messages_output,
         "access_name-10": access_name_10_output,
         "access_policy_users": access_policy_users_output,
+        "access_policy_users_resp": access_policy_users_resp_output,
         "access_user_result": access_user_result_output,
         "access_uuid": access_uuid_output,
       },
@@ -101,21 +98,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "items": {
-                "$ref": "#/$defs/access_policy_users"
-              },
-              "type": "array"
-            },
-            "result_info": {
-              "type": "object"
-            }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/access_policy_users_resp"
         },
         "400": {
           "$ref": "#/$defs/access_api-response-common-failure"
@@ -123,10 +106,12 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "access_api-response-common-failure": access_api_response_common_failure_output,
+        "access_api-response-single": access_api_response_single_output,
         "access_email-2": access_email_2_output,
         "access_messages": access_messages_output,
         "access_name-10": access_name_10_output,
         "access_policy_users": access_policy_users_output,
+        "access_policy_users_resp": access_policy_users_resp_output,
         "access_user_result": access_user_result_output,
         "access_uuid": access_uuid_output,
       },

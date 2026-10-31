@@ -69,7 +69,15 @@ export const cps_communication_preferences_output: JsonSchema = {
       "type": "string"
     },
     "email": {
-      "$ref": "#/$defs/cps_communication_preferences_email"
+      "properties": {
+        "hard_bounce": {
+          "type": "boolean"
+        },
+        "verified": {
+          "type": "boolean"
+        }
+      },
+      "type": "object"
     },
     "language-locale": {
       "enum": [
@@ -108,17 +116,35 @@ export const cps_communication_preferences_output: JsonSchema = {
 };
 
 /**
- * The schema of `cps_communication_preferences_email` in responses.
+ * The schema of `cps_communication_preferences_response` in responses.
  */
-export const cps_communication_preferences_email_output: JsonSchema = {
+export const cps_communication_preferences_response_output: JsonSchema = {
   "properties": {
-    "hard_bounce": {
-      "type": "boolean"
+    "errors": {
+      "items": {
+        "$ref": "#/$defs/cps_api_response_message"
+      },
+      "type": "array"
     },
-    "verified": {
+    "messages": {
+      "items": {
+        "$ref": "#/$defs/cps_api_response_message"
+      },
+      "type": "array"
+    },
+    "result": {
+      "$ref": "#/$defs/cps_communication_preferences"
+    },
+    "success": {
       "type": "boolean"
     }
   },
+  "required": [
+    "errors",
+    "messages",
+    "result",
+    "success"
+  ],
   "type": "object"
 };
 

@@ -7,39 +7,41 @@ import type { JsonSchema } from "../../../../_/tool.js";
  * The schema of `api-shield_credentials-JWT-Key-oct-patch-request`.
  */
 export const api_shield_credentials_JWT_Key_oct_patch_request: JsonSchema = {
-  "description": "JSON representation of a symmetric key for PATCH requests.",
-  "properties": {
-    "alg": {
-      "description": "Algorithm",
-      "enum": [
-        "HS256",
-        "HS384",
-        "HS512"
+  "allOf": [
+    {
+      "$ref": "#/$defs/api-shield_credentials-JWT-Key-common"
+    },
+    {
+      "properties": {
+        "alg": {
+          "description": "Algorithm",
+          "enum": [
+            "HS256",
+            "HS384",
+            "HS512"
+          ],
+          "type": "string"
+        },
+        "k": {
+          "description": "Symmetric key material. Optional for PATCH: omit to preserve existing secret for matching `{alg,kid}`; send a string to rotate. `k: null` is invalid.",
+          "type": "string"
+        },
+        "kty": {
+          "description": "Key Type",
+          "enum": [
+            "oct"
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "alg",
+        "kty"
       ],
-      "type": "string"
-    },
-    "k": {
-      "description": "Symmetric key material. Optional for PATCH: omit to preserve existing secret for matching `{alg,kid}`; send a string to rotate. `k: null` is invalid.",
-      "type": "string"
-    },
-    "kid": {
-      "description": "Key ID",
-      "type": "string"
-    },
-    "kty": {
-      "description": "Key Type",
-      "enum": [
-        "oct"
-      ],
-      "type": "string"
+      "type": "object"
     }
-  },
-  "required": [
-    "kid",
-    "alg",
-    "kty"
   ],
-  "type": "object"
+  "description": "JSON representation of a symmetric key for PATCH requests."
 };
 
 /**

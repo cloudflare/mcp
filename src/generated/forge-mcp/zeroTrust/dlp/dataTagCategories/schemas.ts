@@ -7,41 +7,28 @@ import type { JsonSchema } from "../../../_/tool.js";
  * The schema of `dlp_DataTagCategoryTagUpdate`.
  */
 export const dlp_DataTagCategoryTagUpdate: JsonSchema = {
-  "properties": {
-    "description": {
-      "oneOf": [
-        {
-          "type": "string"
-        },
-        {
-          "type": "null"
-        }
-      ]
+  "allOf": [
+    {
+      "$ref": "#/$defs/dlp_DataTagUpdate"
     },
-    "id": {
-      "description": "If `None` (omitted), a new tag will be created. Otherwise, an existing tag will be\nupdated.",
-      "oneOf": [
-        {
-          "format": "uuid",
-          "type": "string"
-        },
-        {
-          "type": "null"
+    {
+      "properties": {
+        "id": {
+          "description": "If `None` (omitted), a new tag will be created. Otherwise, an existing tag will be\nupdated.",
+          "oneOf": [
+            {
+              "format": "uuid",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
         }
-      ]
-    },
-    "name": {
-      "oneOf": [
-        {
-          "type": "string"
-        },
-        {
-          "type": "null"
-        }
-      ]
+      },
+      "type": "object"
     }
-  },
-  "type": "object"
+  ]
 };
 
 /**

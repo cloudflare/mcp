@@ -3,13 +3,22 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
+  access_api_response_collection_output,
   access_api_response_common_failure_output,
+  access_api_response_common_output,
+  access_api_response_single_output,
   access_created_at_output,
   access_identifier_output,
   access_messages_output,
   access_timestamp_output,
 } from "../../outputs.js";
-import { access_idp_federation_grant_output } from "./outputs.js";
+import { access_identifier } from "../../schemas.js";
+import {
+  access_idp_federation_grant_id_response_output,
+  access_idp_federation_grant_list_response_output,
+  access_idp_federation_grant_output,
+  access_idp_federation_grant_response_output,
+} from "./outputs.js";
 import { access_idp_federation_grant_create_request } from "./schemas.js";
 
 /**
@@ -24,8 +33,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/access_identifier",
+          "description": "Identifier."
         },
         "body": {
           "$ref": "#/$defs/access_idp_federation_grant_create_request"
@@ -36,15 +45,19 @@ export const tools: readonly Tool[] = [
         "body"
       ],
       $defs: {
+        "access_identifier": access_identifier,
         "access_idp_federation_grant_create_request": access_idp_federation_grant_create_request,
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/access_idp_federation_grant",
+      "$ref": "#/$defs/access_idp_federation_grant_response",
       $defs: {
+        "access_api-response-single": access_api_response_single_output,
         "access_created_at": access_created_at_output,
         "access_identifier": access_identifier_output,
         "access_idp_federation_grant": access_idp_federation_grant_output,
+        "access_idp_federation_grant_response": access_idp_federation_grant_response_output,
+        "access_messages": access_messages_output,
         "access_timestamp": access_timestamp_output,
       },
     },
@@ -63,7 +76,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "201": {
-          "$ref": "#/$defs/access_idp_federation_grant"
+          "$ref": "#/$defs/access_idp_federation_grant_response"
         },
         "4XX": {
           "$ref": "#/$defs/access_api-response-common-failure"
@@ -71,9 +84,11 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "access_api-response-common-failure": access_api_response_common_failure_output,
+        "access_api-response-single": access_api_response_single_output,
         "access_created_at": access_created_at_output,
         "access_identifier": access_identifier_output,
         "access_idp_federation_grant": access_idp_federation_grant_output,
+        "access_idp_federation_grant_response": access_idp_federation_grant_response_output,
         "access_messages": access_messages_output,
         "access_timestamp": access_timestamp_output,
       },
@@ -91,28 +106,29 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/access_identifier",
+          "description": "Identifier."
         },
         "grant_id": {
-          "description": "UID of the IdP federation grant.",
-          "type": "string"
+          "$ref": "#/$defs/access_identifier",
+          "description": "UID of the IdP federation grant."
         }
       },
       required: [
         "account_id",
         "grant_id"
       ],
+      $defs: {
+        "access_identifier": access_identifier,
+      },
     },
     outputSchema: {
-      "properties": {
-        "id": {
-          "$ref": "#/$defs/access_identifier"
-        }
-      },
-      "type": "object",
+      "$ref": "#/$defs/access_idp_federation_grant_id_response",
       $defs: {
+        "access_api-response-single": access_api_response_single_output,
         "access_identifier": access_identifier_output,
+        "access_idp_federation_grant_id_response": access_idp_federation_grant_id_response_output,
+        "access_messages": access_messages_output,
       },
     },
     annotations: {
@@ -127,12 +143,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "202": {
-          "properties": {
-            "id": {
-              "$ref": "#/$defs/access_identifier"
-            }
-          },
-          "type": "object"
+          "$ref": "#/$defs/access_idp_federation_grant_id_response"
         },
         "404": {
           "$ref": "#/$defs/access_api-response-common-failure"
@@ -143,7 +154,9 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "access_api-response-common-failure": access_api_response_common_failure_output,
+        "access_api-response-single": access_api_response_single_output,
         "access_identifier": access_identifier_output,
+        "access_idp_federation_grant_id_response": access_idp_federation_grant_id_response_output,
         "access_messages": access_messages_output,
       },
     },
@@ -159,25 +172,31 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/access_identifier",
+          "description": "Identifier."
         },
         "grant_id": {
-          "description": "UID of the IdP federation grant.",
-          "type": "string"
+          "$ref": "#/$defs/access_identifier",
+          "description": "UID of the IdP federation grant."
         }
       },
       required: [
         "account_id",
         "grant_id"
       ],
+      $defs: {
+        "access_identifier": access_identifier,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/access_idp_federation_grant",
+      "$ref": "#/$defs/access_idp_federation_grant_response",
       $defs: {
+        "access_api-response-single": access_api_response_single_output,
         "access_created_at": access_created_at_output,
         "access_identifier": access_identifier_output,
         "access_idp_federation_grant": access_idp_federation_grant_output,
+        "access_idp_federation_grant_response": access_idp_federation_grant_response_output,
+        "access_messages": access_messages_output,
         "access_timestamp": access_timestamp_output,
       },
     },
@@ -196,7 +215,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/access_idp_federation_grant"
+          "$ref": "#/$defs/access_idp_federation_grant_response"
         },
         "404": {
           "$ref": "#/$defs/access_api-response-common-failure"
@@ -207,9 +226,11 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "access_api-response-common-failure": access_api_response_common_failure_output,
+        "access_api-response-single": access_api_response_single_output,
         "access_created_at": access_created_at_output,
         "access_identifier": access_identifier_output,
         "access_idp_federation_grant": access_idp_federation_grant_output,
+        "access_idp_federation_grant_response": access_idp_federation_grant_response_output,
         "access_messages": access_messages_output,
         "access_timestamp": access_timestamp_output,
       },
@@ -226,51 +247,27 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/access_identifier",
+          "description": "Identifier."
         }
       },
       required: [
         "account_id"
       ],
+      $defs: {
+        "access_identifier": access_identifier,
+      },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "$ref": "#/$defs/access_idp_federation_grant"
-          },
-          "type": "array"
-        },
-        "result_info": {
-          "properties": {
-            "count": {
-              "type": "number"
-            },
-            "page": {
-              "type": "number"
-            },
-            "per_page": {
-              "type": "number"
-            },
-            "total_count": {
-              "type": "number"
-            },
-            "total_pages": {
-              "type": "number"
-            }
-          },
-          "type": "object"
-        }
-      },
-      "required": [
-        "result"
-      ],
-      "type": "object",
+      "$ref": "#/$defs/access_idp_federation_grant_list_response",
       $defs: {
+        "access_api-response-collection": access_api_response_collection_output,
+        "access_api-response-common": access_api_response_common_output,
         "access_created_at": access_created_at_output,
         "access_identifier": access_identifier_output,
         "access_idp_federation_grant": access_idp_federation_grant_output,
+        "access_idp_federation_grant_list_response": access_idp_federation_grant_list_response_output,
+        "access_messages": access_messages_output,
         "access_timestamp": access_timestamp_output,
       },
     },
@@ -289,48 +286,20 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "items": {
-                "$ref": "#/$defs/access_idp_federation_grant"
-              },
-              "type": "array"
-            },
-            "result_info": {
-              "properties": {
-                "count": {
-                  "type": "number"
-                },
-                "page": {
-                  "type": "number"
-                },
-                "per_page": {
-                  "type": "number"
-                },
-                "total_count": {
-                  "type": "number"
-                },
-                "total_pages": {
-                  "type": "number"
-                }
-              },
-              "type": "object"
-            }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/access_idp_federation_grant_list_response"
         },
         "4XX": {
           "$ref": "#/$defs/access_api-response-common-failure"
         }
       },
       $defs: {
+        "access_api-response-collection": access_api_response_collection_output,
+        "access_api-response-common": access_api_response_common_output,
         "access_api-response-common-failure": access_api_response_common_failure_output,
         "access_created_at": access_created_at_output,
         "access_identifier": access_identifier_output,
         "access_idp_federation_grant": access_idp_federation_grant_output,
+        "access_idp_federation_grant_list_response": access_idp_federation_grant_list_response_output,
         "access_messages": access_messages_output,
         "access_timestamp": access_timestamp_output,
       },

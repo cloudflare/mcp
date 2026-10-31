@@ -56,3 +56,44 @@ export const access_fingerprint_output: JsonSchema = {
 export const access_name_7_output: JsonSchema = {
   "type": "string"
 };
+
+/**
+ * The schema of `access_response_collection-6` in responses.
+ */
+export const access_response_collection_6_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/access_api-response-collection"
+    },
+    {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/access_certificates"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `access_single_response-7` in responses.
+ */
+export const access_single_response_7_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/access_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/access_certificates"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};

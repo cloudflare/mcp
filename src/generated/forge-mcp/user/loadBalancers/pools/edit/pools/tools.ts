@@ -5,7 +5,10 @@ import { type Tool, pathParam } from "../../../../../_/tool.js";
 import {
   load_balancing_Host_output,
   load_balancing_address_output,
+  load_balancing_api_paginated_response_collection_output,
   load_balancing_api_response_common_failure_output,
+  load_balancing_api_response_common_output,
+  load_balancing_api_response_single_output,
   load_balancing_check_regions_output,
   load_balancing_disabled_at_output,
   load_balancing_enabled_output,
@@ -35,6 +38,8 @@ import {
   load_balancing_schemas_header_output,
   load_balancing_schemas_identifier_output,
   load_balancing_schemas_name_output,
+  load_balancing_schemas_response_collection_output,
+  load_balancing_schemas_single_response_output,
   load_balancing_timestamp_output,
   load_balancing_virtual_network_id_output,
   load_balancing_weight_output,
@@ -64,6 +69,7 @@ import {
   load_balancing_schemas_description,
   load_balancing_schemas_enabled,
   load_balancing_schemas_header,
+  load_balancing_schemas_identifier,
   load_balancing_schemas_name,
   load_balancing_virtual_network_id,
   load_balancing_weight,
@@ -150,7 +156,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "pool_id": {
-          "type": "string"
+          "$ref": "#/$defs/load-balancing_schemas-identifier"
         }
       },
       required: [
@@ -181,75 +187,19 @@ export const tools: readonly Tool[] = [
         "load-balancing_schemas-description": load_balancing_schemas_description,
         "load-balancing_schemas-enabled": load_balancing_schemas_enabled,
         "load-balancing_schemas-header": load_balancing_schemas_header,
+        "load-balancing_schemas-identifier": load_balancing_schemas_identifier,
         "load-balancing_schemas-name": load_balancing_schemas_name,
         "load-balancing_virtual_network_id": load_balancing_virtual_network_id,
         "load-balancing_weight": load_balancing_weight,
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/load-balancing_pool",
+      "$ref": "#/$defs/load-balancing_schemas-single_response",
       $defs: {
         "load-balancing_Host": load_balancing_Host_output,
         "load-balancing_address": load_balancing_address_output,
-        "load-balancing_check_regions": load_balancing_check_regions_output,
-        "load-balancing_disabled_at": load_balancing_disabled_at_output,
-        "load-balancing_enabled": load_balancing_enabled_output,
-        "load-balancing_filter_options": load_balancing_filter_options_output,
-        "load-balancing_health_sources": load_balancing_health_sources_output,
-        "load-balancing_latitude": load_balancing_latitude_output,
-        "load-balancing_load_shedding": load_balancing_load_shedding_output,
-        "load-balancing_longitude": load_balancing_longitude_output,
-        "load-balancing_minimum_origins": load_balancing_minimum_origins_output,
-        "load-balancing_monitor_group_id": load_balancing_monitor_group_id_output,
-        "load-balancing_monitor_id": load_balancing_monitor_id_output,
-        "load-balancing_name": load_balancing_name_output,
-        "load-balancing_networks": load_balancing_networks_output,
-        "load-balancing_notification_email": load_balancing_notification_email_output,
-        "load-balancing_notification_filter": load_balancing_notification_filter_output,
-        "load-balancing_origin": load_balancing_origin_output,
-        "load-balancing_origin_flatten_cname": load_balancing_origin_flatten_cname_output,
-        "load-balancing_origin_port": load_balancing_origin_port_output,
-        "load-balancing_origin_steering": load_balancing_origin_steering_output,
-        "load-balancing_origins": load_balancing_origins_output,
-        "load-balancing_pool": load_balancing_pool_output,
-        "load-balancing_schemas-description": load_balancing_schemas_description_output,
-        "load-balancing_schemas-disabled_at": load_balancing_schemas_disabled_at_output,
-        "load-balancing_schemas-enabled": load_balancing_schemas_enabled_output,
-        "load-balancing_schemas-header": load_balancing_schemas_header_output,
-        "load-balancing_schemas-identifier": load_balancing_schemas_identifier_output,
-        "load-balancing_schemas-name": load_balancing_schemas_name_output,
-        "load-balancing_timestamp": load_balancing_timestamp_output,
-        "load-balancing_virtual_network_id": load_balancing_virtual_network_id_output,
-        "load-balancing_weight": load_balancing_weight_output,
-      },
-    },
-    annotations: {
-      "destructiveHint": false,
-      "idempotentHint": false,
-      "openWorldHint": true,
-      "readOnlyHint": false,
-      "title": "Patch Pool"
-    },
-    method: "PATCH",
-    path: "/user/load_balancers/pools/{pool_id}",
-    extensions: {
-      "x-api-token-group": [
-        "Load Balancing: Monitors and Pools Write"
-      ]
-    },
-    responses: {
-      schemas: {
-        "200": {
-          "$ref": "#/$defs/load-balancing_pool"
-        },
-        "4XX": {
-          "$ref": "#/$defs/load-balancing_api-response-common-failure"
-        }
-      },
-      $defs: {
-        "load-balancing_Host": load_balancing_Host_output,
-        "load-balancing_address": load_balancing_address_output,
-        "load-balancing_api-response-common-failure": load_balancing_api_response_common_failure_output,
+        "load-balancing_api-response-common": load_balancing_api_response_common_output,
+        "load-balancing_api-response-single": load_balancing_api_response_single_output,
         "load-balancing_check_regions": load_balancing_check_regions_output,
         "load-balancing_disabled_at": load_balancing_disabled_at_output,
         "load-balancing_enabled": load_balancing_enabled_output,
@@ -278,6 +228,70 @@ export const tools: readonly Tool[] = [
         "load-balancing_schemas-header": load_balancing_schemas_header_output,
         "load-balancing_schemas-identifier": load_balancing_schemas_identifier_output,
         "load-balancing_schemas-name": load_balancing_schemas_name_output,
+        "load-balancing_schemas-single_response": load_balancing_schemas_single_response_output,
+        "load-balancing_timestamp": load_balancing_timestamp_output,
+        "load-balancing_virtual_network_id": load_balancing_virtual_network_id_output,
+        "load-balancing_weight": load_balancing_weight_output,
+      },
+    },
+    annotations: {
+      "destructiveHint": false,
+      "idempotentHint": false,
+      "openWorldHint": true,
+      "readOnlyHint": false,
+      "title": "Patch Pool"
+    },
+    method: "PATCH",
+    path: "/user/load_balancers/pools/{pool_id}",
+    extensions: {
+      "x-api-token-group": [
+        "Load Balancing: Monitors and Pools Write"
+      ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "$ref": "#/$defs/load-balancing_schemas-single_response"
+        },
+        "4XX": {
+          "$ref": "#/$defs/load-balancing_api-response-common-failure"
+        }
+      },
+      $defs: {
+        "load-balancing_Host": load_balancing_Host_output,
+        "load-balancing_address": load_balancing_address_output,
+        "load-balancing_api-response-common": load_balancing_api_response_common_output,
+        "load-balancing_api-response-common-failure": load_balancing_api_response_common_failure_output,
+        "load-balancing_api-response-single": load_balancing_api_response_single_output,
+        "load-balancing_check_regions": load_balancing_check_regions_output,
+        "load-balancing_disabled_at": load_balancing_disabled_at_output,
+        "load-balancing_enabled": load_balancing_enabled_output,
+        "load-balancing_filter_options": load_balancing_filter_options_output,
+        "load-balancing_health_sources": load_balancing_health_sources_output,
+        "load-balancing_latitude": load_balancing_latitude_output,
+        "load-balancing_load_shedding": load_balancing_load_shedding_output,
+        "load-balancing_longitude": load_balancing_longitude_output,
+        "load-balancing_messages": load_balancing_messages_output,
+        "load-balancing_minimum_origins": load_balancing_minimum_origins_output,
+        "load-balancing_monitor_group_id": load_balancing_monitor_group_id_output,
+        "load-balancing_monitor_id": load_balancing_monitor_id_output,
+        "load-balancing_name": load_balancing_name_output,
+        "load-balancing_networks": load_balancing_networks_output,
+        "load-balancing_notification_email": load_balancing_notification_email_output,
+        "load-balancing_notification_filter": load_balancing_notification_filter_output,
+        "load-balancing_origin": load_balancing_origin_output,
+        "load-balancing_origin_flatten_cname": load_balancing_origin_flatten_cname_output,
+        "load-balancing_origin_port": load_balancing_origin_port_output,
+        "load-balancing_origin_steering": load_balancing_origin_steering_output,
+        "load-balancing_origins": load_balancing_origins_output,
+        "load-balancing_pool": load_balancing_pool_output,
+        "load-balancing_schemas-description": load_balancing_schemas_description_output,
+        "load-balancing_schemas-disabled_at": load_balancing_schemas_disabled_at_output,
+        "load-balancing_schemas-enabled": load_balancing_schemas_enabled_output,
+        "load-balancing_schemas-header": load_balancing_schemas_header_output,
+        "load-balancing_schemas-identifier": load_balancing_schemas_identifier_output,
+        "load-balancing_schemas-name": load_balancing_schemas_name_output,
+        "load-balancing_schemas-single_response": load_balancing_schemas_single_response_output,
         "load-balancing_timestamp": load_balancing_timestamp_output,
         "load-balancing_virtual_network_id": load_balancing_virtual_network_id_output,
         "load-balancing_weight": load_balancing_weight_output,
@@ -313,24 +327,12 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "$ref": "#/$defs/load-balancing_pool"
-          },
-          "type": "array"
-        },
-        "result_info": {
-          "$ref": "#/$defs/load-balancing_result_info"
-        }
-      },
-      "required": [
-        "result"
-      ],
-      "type": "object",
+      "$ref": "#/$defs/load-balancing_schemas-response_collection",
       $defs: {
         "load-balancing_Host": load_balancing_Host_output,
         "load-balancing_address": load_balancing_address_output,
+        "load-balancing_api-paginated-response-collection": load_balancing_api_paginated_response_collection_output,
+        "load-balancing_api-response-common": load_balancing_api_response_common_output,
         "load-balancing_check_regions": load_balancing_check_regions_output,
         "load-balancing_disabled_at": load_balancing_disabled_at_output,
         "load-balancing_enabled": load_balancing_enabled_output,
@@ -339,6 +341,7 @@ export const tools: readonly Tool[] = [
         "load-balancing_latitude": load_balancing_latitude_output,
         "load-balancing_load_shedding": load_balancing_load_shedding_output,
         "load-balancing_longitude": load_balancing_longitude_output,
+        "load-balancing_messages": load_balancing_messages_output,
         "load-balancing_minimum_origins": load_balancing_minimum_origins_output,
         "load-balancing_monitor_group_id": load_balancing_monitor_group_id_output,
         "load-balancing_monitor_id": load_balancing_monitor_id_output,
@@ -359,6 +362,7 @@ export const tools: readonly Tool[] = [
         "load-balancing_schemas-header": load_balancing_schemas_header_output,
         "load-balancing_schemas-identifier": load_balancing_schemas_identifier_output,
         "load-balancing_schemas-name": load_balancing_schemas_name_output,
+        "load-balancing_schemas-response_collection": load_balancing_schemas_response_collection_output,
         "load-balancing_timestamp": load_balancing_timestamp_output,
         "load-balancing_virtual_network_id": load_balancing_virtual_network_id_output,
         "load-balancing_weight": load_balancing_weight_output,
@@ -381,21 +385,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "items": {
-                "$ref": "#/$defs/load-balancing_pool"
-              },
-              "type": "array"
-            },
-            "result_info": {
-              "$ref": "#/$defs/load-balancing_result_info"
-            }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/load-balancing_schemas-response_collection"
         },
         "4XX": {
           "$ref": "#/$defs/load-balancing_api-response-common-failure"
@@ -404,6 +394,8 @@ export const tools: readonly Tool[] = [
       $defs: {
         "load-balancing_Host": load_balancing_Host_output,
         "load-balancing_address": load_balancing_address_output,
+        "load-balancing_api-paginated-response-collection": load_balancing_api_paginated_response_collection_output,
+        "load-balancing_api-response-common": load_balancing_api_response_common_output,
         "load-balancing_api-response-common-failure": load_balancing_api_response_common_failure_output,
         "load-balancing_check_regions": load_balancing_check_regions_output,
         "load-balancing_disabled_at": load_balancing_disabled_at_output,
@@ -434,6 +426,7 @@ export const tools: readonly Tool[] = [
         "load-balancing_schemas-header": load_balancing_schemas_header_output,
         "load-balancing_schemas-identifier": load_balancing_schemas_identifier_output,
         "load-balancing_schemas-name": load_balancing_schemas_name_output,
+        "load-balancing_schemas-response_collection": load_balancing_schemas_response_collection_output,
         "load-balancing_timestamp": load_balancing_timestamp_output,
         "load-balancing_virtual_network_id": load_balancing_virtual_network_id_output,
         "load-balancing_weight": load_balancing_weight_output,

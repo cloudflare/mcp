@@ -53,12 +53,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "com.cloudflare.api.account.ai"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.api.account.ai": {
-            "name": "com_cloudflare_api_account_ai"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": true,
@@ -129,16 +124,28 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
-        "file_name": {
-          "type": "string"
+        "result": {
+          "properties": {
+            "file_name": {
+              "type": "string"
+            },
+            "file_url": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "file_name",
+            "file_url"
+          ],
+          "type": "object"
         },
-        "file_url": {
-          "type": "string"
+        "success": {
+          "type": "boolean"
         }
       },
       "required": [
-        "file_name",
-        "file_url"
+        "result",
+        "success"
       ],
       "type": "object",
     },
@@ -155,12 +162,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "com.cloudflare.api.account.ai"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.api.account.ai": {
-            "name": "com_cloudflare_api_account_ai"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": true,
@@ -173,16 +175,28 @@ export const tools: readonly Tool[] = [
       schemas: {
         "200": {
           "properties": {
-            "file_name": {
-              "type": "string"
+            "result": {
+              "properties": {
+                "file_name": {
+                  "type": "string"
+                },
+                "file_url": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "file_name",
+                "file_url"
+              ],
+              "type": "object"
             },
-            "file_url": {
-              "type": "string"
+            "success": {
+              "type": "boolean"
             }
           },
           "required": [
-            "file_name",
-            "file_url"
+            "result",
+            "success"
           ],
           "type": "object"
         },

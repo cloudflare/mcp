@@ -3,24 +3,27 @@
 
 import { type Tool, pathParam } from "../../../../_/tool.js";
 import {
+  dns_settings_api_response_collection_output,
   dns_settings_api_response_common_failure_output,
+  dns_settings_api_response_common_output,
+  dns_settings_api_response_single_output,
+  dns_settings_identifier_output,
   dns_settings_messages_output,
 } from "../outputs.js";
-import { dns_settings_page } from "../schemas.js";
+import { dns_settings_identifier, dns_settings_page } from "../schemas.js";
 import {
   dns_settings_created_time_output,
+  dns_settings_dns_view_output,
   dns_settings_dns_view_response_collection_output,
-  dns_settings_dns_view_response_collection_result_info_output,
   dns_settings_dns_view_response_output,
   dns_settings_dns_view_response_single_output,
-  dns_settings_identifier_output,
   dns_settings_modified_time_output,
   dns_settings_name_output,
   dns_settings_zones_output,
 } from "./outputs.js";
 import {
   dns_settings_direction,
-  dns_settings_dns_view,
+  dns_settings_dns_view_patch,
   dns_settings_dns_view_post,
   dns_settings_match,
   dns_settings_name,
@@ -41,8 +44,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/dns-settings_identifier",
+          "description": "Identifier."
         },
         "body": {
           "$ref": "#/$defs/dns-settings_dns-view-post"
@@ -54,16 +57,21 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "dns-settings_dns-view-post": dns_settings_dns_view_post,
+        "dns-settings_identifier": dns_settings_identifier,
         "dns-settings_name": dns_settings_name,
         "dns-settings_zones": dns_settings_zones,
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/dns-settings_dns-view-response",
+      "$ref": "#/$defs/dns-settings_dns_view_response_single",
       $defs: {
+        "dns-settings_api-response-single": dns_settings_api_response_single_output,
         "dns-settings_created_time": dns_settings_created_time_output,
+        "dns-settings_dns-view": dns_settings_dns_view_output,
         "dns-settings_dns-view-response": dns_settings_dns_view_response_output,
+        "dns-settings_dns_view_response_single": dns_settings_dns_view_response_single_output,
         "dns-settings_identifier": dns_settings_identifier_output,
+        "dns-settings_messages": dns_settings_messages_output,
         "dns-settings_modified_time": dns_settings_modified_time_output,
         "dns-settings_name": dns_settings_name_output,
         "dns-settings_zones": dns_settings_zones_output,
@@ -85,12 +93,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "com.cloudflare.api.account.dns.view.create"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.api.account.dns.view.create": {
-            "name": "com_cloudflare_api_account_dns_view_create"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": false,
@@ -102,7 +105,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/dns-settings_dns-view-response"
+          "$ref": "#/$defs/dns-settings_dns_view_response_single"
         },
         "4XX": {
           "allOf": [
@@ -117,7 +120,9 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "dns-settings_api-response-common-failure": dns_settings_api_response_common_failure_output,
+        "dns-settings_api-response-single": dns_settings_api_response_single_output,
         "dns-settings_created_time": dns_settings_created_time_output,
+        "dns-settings_dns-view": dns_settings_dns_view_output,
         "dns-settings_dns-view-response": dns_settings_dns_view_response_output,
         "dns-settings_dns_view_response_single": dns_settings_dns_view_response_single_output,
         "dns-settings_identifier": dns_settings_identifier_output,
@@ -140,18 +145,21 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/dns-settings_identifier",
+          "description": "Identifier."
         },
         "view_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/dns-settings_identifier",
+          "description": "Identifier."
         }
       },
       required: [
         "account_id",
         "view_id"
       ],
+      $defs: {
+        "dns-settings_identifier": dns_settings_identifier,
+      },
     },
     outputSchema: {
       "properties": {
@@ -185,12 +193,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "com.cloudflare.api.account.dns.view.delete"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.api.account.dns.view.delete": {
-            "name": "com_cloudflare_api_account_dns_view_delete"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": false,
@@ -253,15 +256,15 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/dns-settings_identifier",
+          "description": "Identifier."
         },
         "body": {
-          "$ref": "#/$defs/dns-settings_dns-view"
+          "$ref": "#/$defs/dns-settings_dns-view-patch"
         },
         "view_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/dns-settings_identifier",
+          "description": "Identifier."
         }
       },
       required: [
@@ -270,17 +273,22 @@ export const tools: readonly Tool[] = [
         "body"
       ],
       $defs: {
-        "dns-settings_dns-view": dns_settings_dns_view,
+        "dns-settings_dns-view-patch": dns_settings_dns_view_patch,
+        "dns-settings_identifier": dns_settings_identifier,
         "dns-settings_name": dns_settings_name,
         "dns-settings_zones": dns_settings_zones,
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/dns-settings_dns-view-response",
+      "$ref": "#/$defs/dns-settings_dns_view_response_single",
       $defs: {
+        "dns-settings_api-response-single": dns_settings_api_response_single_output,
         "dns-settings_created_time": dns_settings_created_time_output,
+        "dns-settings_dns-view": dns_settings_dns_view_output,
         "dns-settings_dns-view-response": dns_settings_dns_view_response_output,
+        "dns-settings_dns_view_response_single": dns_settings_dns_view_response_single_output,
         "dns-settings_identifier": dns_settings_identifier_output,
+        "dns-settings_messages": dns_settings_messages_output,
         "dns-settings_modified_time": dns_settings_modified_time_output,
         "dns-settings_name": dns_settings_name_output,
         "dns-settings_zones": dns_settings_zones_output,
@@ -302,12 +310,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "com.cloudflare.api.account.dns.view.update"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.api.account.dns.view.update": {
-            "name": "com_cloudflare_api_account_dns_view_update"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": false,
@@ -319,7 +322,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/dns-settings_dns-view-response"
+          "$ref": "#/$defs/dns-settings_dns_view_response_single"
         },
         "4XX": {
           "allOf": [
@@ -334,7 +337,9 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "dns-settings_api-response-common-failure": dns_settings_api_response_common_failure_output,
+        "dns-settings_api-response-single": dns_settings_api_response_single_output,
         "dns-settings_created_time": dns_settings_created_time_output,
+        "dns-settings_dns-view": dns_settings_dns_view_output,
         "dns-settings_dns-view-response": dns_settings_dns_view_response_output,
         "dns-settings_dns_view_response_single": dns_settings_dns_view_response_single_output,
         "dns-settings_identifier": dns_settings_identifier_output,
@@ -357,25 +362,32 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/dns-settings_identifier",
+          "description": "Identifier."
         },
         "view_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/dns-settings_identifier",
+          "description": "Identifier."
         }
       },
       required: [
         "account_id",
         "view_id"
       ],
+      $defs: {
+        "dns-settings_identifier": dns_settings_identifier,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/dns-settings_dns-view-response",
+      "$ref": "#/$defs/dns-settings_dns_view_response_single",
       $defs: {
+        "dns-settings_api-response-single": dns_settings_api_response_single_output,
         "dns-settings_created_time": dns_settings_created_time_output,
+        "dns-settings_dns-view": dns_settings_dns_view_output,
         "dns-settings_dns-view-response": dns_settings_dns_view_response_output,
+        "dns-settings_dns_view_response_single": dns_settings_dns_view_response_single_output,
         "dns-settings_identifier": dns_settings_identifier_output,
+        "dns-settings_messages": dns_settings_messages_output,
         "dns-settings_modified_time": dns_settings_modified_time_output,
         "dns-settings_name": dns_settings_name_output,
         "dns-settings_zones": dns_settings_zones_output,
@@ -398,12 +410,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "com.cloudflare.api.account.dns.view.read"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.api.account.dns.view.read": {
-            "name": "com_cloudflare_api_account_dns_view_read"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": false,
@@ -415,7 +422,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/dns-settings_dns-view-response"
+          "$ref": "#/$defs/dns-settings_dns_view_response_single"
         },
         "4XX": {
           "allOf": [
@@ -430,7 +437,9 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "dns-settings_api-response-common-failure": dns_settings_api_response_common_failure_output,
+        "dns-settings_api-response-single": dns_settings_api_response_single_output,
         "dns-settings_created_time": dns_settings_created_time_output,
+        "dns-settings_dns-view": dns_settings_dns_view_output,
         "dns-settings_dns-view-response": dns_settings_dns_view_response_output,
         "dns-settings_dns_view_response_single": dns_settings_dns_view_response_single_output,
         "dns-settings_identifier": dns_settings_identifier_output,
@@ -452,8 +461,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/dns-settings_identifier",
+          "description": "Identifier."
         },
         "direction": {
           "$ref": "#/$defs/dns-settings_direction",
@@ -514,6 +523,7 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "dns-settings_direction": dns_settings_direction,
+        "dns-settings_identifier": dns_settings_identifier,
         "dns-settings_match": dns_settings_match,
         "dns-settings_order": dns_settings_order,
         "dns-settings_page": dns_settings_page,
@@ -521,42 +531,16 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "$ref": "#/$defs/dns-settings_dns-view-response"
-          },
-          "type": "array"
-        },
-        "result_info": {
-          "properties": {
-            "count": {
-              "type": "number"
-            },
-            "page": {
-              "type": "number"
-            },
-            "per_page": {
-              "type": "number"
-            },
-            "total_count": {
-              "type": "number"
-            },
-            "total_pages": {
-              "type": "number"
-            }
-          },
-          "type": "object"
-        }
-      },
-      "required": [
-        "result"
-      ],
-      "type": "object",
+      "$ref": "#/$defs/dns-settings_dns_view_response_collection",
       $defs: {
+        "dns-settings_api-response-collection": dns_settings_api_response_collection_output,
+        "dns-settings_api-response-common": dns_settings_api_response_common_output,
         "dns-settings_created_time": dns_settings_created_time_output,
+        "dns-settings_dns-view": dns_settings_dns_view_output,
         "dns-settings_dns-view-response": dns_settings_dns_view_response_output,
+        "dns-settings_dns_view_response_collection": dns_settings_dns_view_response_collection_output,
         "dns-settings_identifier": dns_settings_identifier_output,
+        "dns-settings_messages": dns_settings_messages_output,
         "dns-settings_modified_time": dns_settings_modified_time_output,
         "dns-settings_name": dns_settings_name_output,
         "dns-settings_zones": dns_settings_zones_output,
@@ -579,12 +563,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "com.cloudflare.api.account.dns.view.list"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.api.account.dns.view.list": {
-            "name": "com_cloudflare_api_account_dns_view_list"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": false,
@@ -596,38 +575,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "items": {
-                "$ref": "#/$defs/dns-settings_dns-view-response"
-              },
-              "type": "array"
-            },
-            "result_info": {
-              "properties": {
-                "count": {
-                  "type": "number"
-                },
-                "page": {
-                  "type": "number"
-                },
-                "per_page": {
-                  "type": "number"
-                },
-                "total_count": {
-                  "type": "number"
-                },
-                "total_pages": {
-                  "type": "number"
-                }
-              },
-              "type": "object"
-            }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/dns-settings_dns_view_response_collection"
         },
         "4XX": {
           "allOf": [
@@ -641,11 +589,13 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
+        "dns-settings_api-response-collection": dns_settings_api_response_collection_output,
+        "dns-settings_api-response-common": dns_settings_api_response_common_output,
         "dns-settings_api-response-common-failure": dns_settings_api_response_common_failure_output,
         "dns-settings_created_time": dns_settings_created_time_output,
+        "dns-settings_dns-view": dns_settings_dns_view_output,
         "dns-settings_dns-view-response": dns_settings_dns_view_response_output,
         "dns-settings_dns_view_response_collection": dns_settings_dns_view_response_collection_output,
-        "dns-settings_dns_view_response_collection_result_info": dns_settings_dns_view_response_collection_result_info_output,
         "dns-settings_identifier": dns_settings_identifier_output,
         "dns-settings_messages": dns_settings_messages_output,
         "dns-settings_modified_time": dns_settings_modified_time_output,

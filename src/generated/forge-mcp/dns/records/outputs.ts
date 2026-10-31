@@ -7,1112 +7,822 @@ import type { JsonSchema } from "../../_/tool.js";
  * The schema of `dns-records_AAAARecord` in responses.
  */
 export const dns_records_AAAARecord_output: JsonSchema = {
-  "properties": {
-    "comment": {
-      "$ref": "#/$defs/dns-records_comment"
+  "allOf": [
+    {
+      "$ref": "#/$defs/dns-records_dns-record-shared-fields"
     },
-    "content": {
-      "type": "string"
-    },
-    "name": {
-      "$ref": "#/$defs/dns-records_name"
-    },
-    "private_routing": {
-      "type": "boolean"
-    },
-    "proxied": {
-      "$ref": "#/$defs/dns-records_proxied"
-    },
-    "settings": {
-      "$ref": "#/$defs/dns-records_settings"
-    },
-    "tags": {
-      "$ref": "#/$defs/dns-records_tags"
-    },
-    "ttl": {
-      "$ref": "#/$defs/dns-records_ttl"
-    },
-    "type": {
-      "enum": [
-        "AAAA"
-      ],
-      "type": "string"
+    {
+      "properties": {
+        "content": {
+          "type": "string"
+        },
+        "private_routing": {
+          "type": "boolean"
+        },
+        "type": {
+          "enum": [
+            "AAAA"
+          ],
+          "type": "string"
+        }
+      },
+      "type": "object"
     }
-  },
-  "type": "object"
+  ]
 };
 
 /**
  * The schema of `dns-records_ARecord` in responses.
  */
 export const dns_records_ARecord_output: JsonSchema = {
-  "properties": {
-    "comment": {
-      "$ref": "#/$defs/dns-records_comment"
+  "allOf": [
+    {
+      "$ref": "#/$defs/dns-records_dns-record-shared-fields"
     },
-    "content": {
-      "type": "string"
-    },
-    "name": {
-      "$ref": "#/$defs/dns-records_name"
-    },
-    "private_routing": {
-      "type": "boolean"
-    },
-    "proxied": {
-      "$ref": "#/$defs/dns-records_proxied"
-    },
-    "settings": {
-      "$ref": "#/$defs/dns-records_settings"
-    },
-    "tags": {
-      "$ref": "#/$defs/dns-records_tags"
-    },
-    "ttl": {
-      "$ref": "#/$defs/dns-records_ttl"
-    },
-    "type": {
-      "enum": [
-        "A"
-      ],
-      "type": "string"
+    {
+      "properties": {
+        "content": {
+          "type": "string"
+        },
+        "private_routing": {
+          "type": "boolean"
+        },
+        "type": {
+          "enum": [
+            "A"
+          ],
+          "type": "string"
+        }
+      },
+      "type": "object"
     }
-  },
-  "type": "object"
+  ]
 };
 
 /**
  * The schema of `dns-records_CAARecord` in responses.
  */
 export const dns_records_CAARecord_output: JsonSchema = {
-  "properties": {
-    "comment": {
-      "$ref": "#/$defs/dns-records_comment"
+  "allOf": [
+    {
+      "$ref": "#/$defs/dns-records_dns-record-shared-fields"
     },
-    "content": {
-      "type": "string"
-    },
-    "data": {
-      "$ref": "#/$defs/dns-records_CAARecord_data"
-    },
-    "name": {
-      "$ref": "#/$defs/dns-records_name"
-    },
-    "proxied": {
-      "$ref": "#/$defs/dns-records_proxied"
-    },
-    "settings": {
-      "$ref": "#/$defs/dns-records_settings"
-    },
-    "tags": {
-      "$ref": "#/$defs/dns-records_tags"
-    },
-    "ttl": {
-      "$ref": "#/$defs/dns-records_ttl"
-    },
-    "type": {
-      "enum": [
-        "CAA"
-      ],
-      "type": "string"
+    {
+      "properties": {
+        "content": {
+          "type": "string"
+        },
+        "data": {
+          "properties": {
+            "flags": {
+              "type": "number"
+            },
+            "tag": {
+              "type": "string"
+            },
+            "value": {
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        "type": {
+          "enum": [
+            "CAA"
+          ],
+          "type": "string"
+        }
+      },
+      "type": "object"
     }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `dns-records_CAARecord_data` in responses.
- */
-export const dns_records_CAARecord_data_output: JsonSchema = {
-  "properties": {
-    "flags": {
-      "type": "number"
-    },
-    "tag": {
-      "type": "string"
-    },
-    "value": {
-      "type": "string"
-    }
-  },
-  "type": "object"
+  ]
 };
 
 /**
  * The schema of `dns-records_CERTRecord` in responses.
  */
 export const dns_records_CERTRecord_output: JsonSchema = {
-  "properties": {
-    "comment": {
-      "$ref": "#/$defs/dns-records_comment"
+  "allOf": [
+    {
+      "$ref": "#/$defs/dns-records_dns-record-shared-fields"
     },
-    "content": {
-      "type": "string"
-    },
-    "data": {
-      "$ref": "#/$defs/dns-records_CERTRecord_data"
-    },
-    "name": {
-      "$ref": "#/$defs/dns-records_name"
-    },
-    "proxied": {
-      "$ref": "#/$defs/dns-records_proxied"
-    },
-    "settings": {
-      "$ref": "#/$defs/dns-records_settings"
-    },
-    "tags": {
-      "$ref": "#/$defs/dns-records_tags"
-    },
-    "ttl": {
-      "$ref": "#/$defs/dns-records_ttl"
-    },
-    "type": {
-      "enum": [
-        "CERT"
-      ],
-      "type": "string"
+    {
+      "properties": {
+        "content": {
+          "type": "string"
+        },
+        "data": {
+          "properties": {
+            "algorithm": {
+              "type": "number"
+            },
+            "certificate": {
+              "type": "string"
+            },
+            "key_tag": {
+              "type": "number"
+            },
+            "type": {
+              "type": "number"
+            }
+          },
+          "type": "object"
+        },
+        "type": {
+          "enum": [
+            "CERT"
+          ],
+          "type": "string"
+        }
+      },
+      "type": "object"
     }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `dns-records_CERTRecord_data` in responses.
- */
-export const dns_records_CERTRecord_data_output: JsonSchema = {
-  "properties": {
-    "algorithm": {
-      "type": "number"
-    },
-    "certificate": {
-      "type": "string"
-    },
-    "key_tag": {
-      "type": "number"
-    },
-    "type": {
-      "type": "number"
-    }
-  },
-  "type": "object"
+  ]
 };
 
 /**
  * The schema of `dns-records_CNAMERecord` in responses.
  */
 export const dns_records_CNAMERecord_output: JsonSchema = {
-  "properties": {
-    "comment": {
-      "$ref": "#/$defs/dns-records_comment"
+  "allOf": [
+    {
+      "$ref": "#/$defs/dns-records_dns-record-shared-fields"
     },
-    "content": {
-      "type": "string"
-    },
-    "name": {
-      "$ref": "#/$defs/dns-records_name"
-    },
-    "proxied": {
-      "$ref": "#/$defs/dns-records_proxied"
-    },
-    "settings": {
-      "$ref": "#/$defs/dns-records_CNAMERecord_settings"
-    },
-    "tags": {
-      "$ref": "#/$defs/dns-records_tags"
-    },
-    "ttl": {
-      "$ref": "#/$defs/dns-records_ttl"
-    },
-    "type": {
-      "enum": [
-        "CNAME"
-      ],
-      "type": "string"
+    {
+      "properties": {
+        "content": {
+          "type": "string"
+        },
+        "settings": {
+          "properties": {
+            "flatten_cname": {
+              "type": "boolean"
+            }
+          },
+          "type": "object"
+        },
+        "type": {
+          "enum": [
+            "CNAME"
+          ],
+          "type": "string"
+        }
+      },
+      "type": "object"
     }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `dns-records_CNAMERecord_settings` in responses.
- */
-export const dns_records_CNAMERecord_settings_output: JsonSchema = {
-  "properties": {
-    "flatten_cname": {
-      "type": "boolean"
-    }
-  },
-  "type": "object"
+  ]
 };
 
 /**
  * The schema of `dns-records_DNSKEYRecord` in responses.
  */
 export const dns_records_DNSKEYRecord_output: JsonSchema = {
-  "properties": {
-    "comment": {
-      "$ref": "#/$defs/dns-records_comment"
+  "allOf": [
+    {
+      "$ref": "#/$defs/dns-records_dns-record-shared-fields"
     },
-    "content": {
-      "type": "string"
-    },
-    "data": {
-      "$ref": "#/$defs/dns-records_DNSKEYRecord_data"
-    },
-    "name": {
-      "$ref": "#/$defs/dns-records_name"
-    },
-    "proxied": {
-      "$ref": "#/$defs/dns-records_proxied"
-    },
-    "settings": {
-      "$ref": "#/$defs/dns-records_settings"
-    },
-    "tags": {
-      "$ref": "#/$defs/dns-records_tags"
-    },
-    "ttl": {
-      "$ref": "#/$defs/dns-records_ttl"
-    },
-    "type": {
-      "enum": [
-        "DNSKEY"
-      ],
-      "type": "string"
+    {
+      "properties": {
+        "content": {
+          "type": "string"
+        },
+        "data": {
+          "properties": {
+            "algorithm": {
+              "type": "number"
+            },
+            "flags": {
+              "type": "number"
+            },
+            "protocol": {
+              "type": "number"
+            },
+            "public_key": {
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        "type": {
+          "enum": [
+            "DNSKEY"
+          ],
+          "type": "string"
+        }
+      },
+      "type": "object"
     }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `dns-records_DNSKEYRecord_data` in responses.
- */
-export const dns_records_DNSKEYRecord_data_output: JsonSchema = {
-  "properties": {
-    "algorithm": {
-      "type": "number"
-    },
-    "flags": {
-      "type": "number"
-    },
-    "protocol": {
-      "type": "number"
-    },
-    "public_key": {
-      "type": "string"
-    }
-  },
-  "type": "object"
+  ]
 };
 
 /**
  * The schema of `dns-records_DSRecord` in responses.
  */
 export const dns_records_DSRecord_output: JsonSchema = {
-  "properties": {
-    "comment": {
-      "$ref": "#/$defs/dns-records_comment"
+  "allOf": [
+    {
+      "$ref": "#/$defs/dns-records_dns-record-shared-fields"
     },
-    "content": {
-      "type": "string"
-    },
-    "data": {
-      "$ref": "#/$defs/dns-records_DSRecord_data"
-    },
-    "name": {
-      "$ref": "#/$defs/dns-records_name"
-    },
-    "proxied": {
-      "$ref": "#/$defs/dns-records_proxied"
-    },
-    "settings": {
-      "$ref": "#/$defs/dns-records_settings"
-    },
-    "tags": {
-      "$ref": "#/$defs/dns-records_tags"
-    },
-    "ttl": {
-      "$ref": "#/$defs/dns-records_ttl"
-    },
-    "type": {
-      "enum": [
-        "DS"
-      ],
-      "type": "string"
+    {
+      "properties": {
+        "content": {
+          "type": "string"
+        },
+        "data": {
+          "properties": {
+            "algorithm": {
+              "type": "number"
+            },
+            "digest": {
+              "type": "string"
+            },
+            "digest_type": {
+              "type": "number"
+            },
+            "key_tag": {
+              "type": "number"
+            }
+          },
+          "type": "object"
+        },
+        "type": {
+          "enum": [
+            "DS"
+          ],
+          "type": "string"
+        }
+      },
+      "type": "object"
     }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `dns-records_DSRecord_data` in responses.
- */
-export const dns_records_DSRecord_data_output: JsonSchema = {
-  "properties": {
-    "algorithm": {
-      "type": "number"
-    },
-    "digest": {
-      "type": "string"
-    },
-    "digest_type": {
-      "type": "number"
-    },
-    "key_tag": {
-      "type": "number"
-    }
-  },
-  "type": "object"
+  ]
 };
 
 /**
  * The schema of `dns-records_HTTPSRecord` in responses.
  */
 export const dns_records_HTTPSRecord_output: JsonSchema = {
-  "properties": {
-    "comment": {
-      "$ref": "#/$defs/dns-records_comment"
+  "allOf": [
+    {
+      "$ref": "#/$defs/dns-records_dns-record-shared-fields"
     },
-    "content": {
-      "type": "string"
-    },
-    "data": {
-      "$ref": "#/$defs/dns-records_HTTPSRecord_data"
-    },
-    "name": {
-      "$ref": "#/$defs/dns-records_name"
-    },
-    "proxied": {
-      "$ref": "#/$defs/dns-records_proxied"
-    },
-    "settings": {
-      "$ref": "#/$defs/dns-records_settings"
-    },
-    "tags": {
-      "$ref": "#/$defs/dns-records_tags"
-    },
-    "ttl": {
-      "$ref": "#/$defs/dns-records_ttl"
-    },
-    "type": {
-      "enum": [
-        "HTTPS"
-      ],
-      "type": "string"
+    {
+      "properties": {
+        "content": {
+          "type": "string"
+        },
+        "data": {
+          "properties": {
+            "priority": {
+              "type": "number"
+            },
+            "target": {
+              "type": "string"
+            },
+            "value": {
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        "type": {
+          "enum": [
+            "HTTPS"
+          ],
+          "type": "string"
+        }
+      },
+      "type": "object"
     }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `dns-records_HTTPSRecord_data` in responses.
- */
-export const dns_records_HTTPSRecord_data_output: JsonSchema = {
-  "properties": {
-    "priority": {
-      "type": "number"
-    },
-    "target": {
-      "type": "string"
-    },
-    "value": {
-      "type": "string"
-    }
-  },
-  "type": "object"
+  ]
 };
 
 /**
  * The schema of `dns-records_LOCRecord` in responses.
  */
 export const dns_records_LOCRecord_output: JsonSchema = {
-  "properties": {
-    "comment": {
-      "$ref": "#/$defs/dns-records_comment"
+  "allOf": [
+    {
+      "$ref": "#/$defs/dns-records_dns-record-shared-fields"
     },
-    "content": {
-      "type": "string"
-    },
-    "data": {
-      "$ref": "#/$defs/dns-records_LOCRecord_data"
-    },
-    "name": {
-      "$ref": "#/$defs/dns-records_name"
-    },
-    "proxied": {
-      "$ref": "#/$defs/dns-records_proxied"
-    },
-    "settings": {
-      "$ref": "#/$defs/dns-records_settings"
-    },
-    "tags": {
-      "$ref": "#/$defs/dns-records_tags"
-    },
-    "ttl": {
-      "$ref": "#/$defs/dns-records_ttl"
-    },
-    "type": {
-      "enum": [
-        "LOC"
-      ],
-      "type": "string"
+    {
+      "properties": {
+        "content": {
+          "type": "string"
+        },
+        "data": {
+          "properties": {
+            "altitude": {
+              "type": "number"
+            },
+            "lat_degrees": {
+              "type": "number"
+            },
+            "lat_direction": {
+              "enum": [
+                "N",
+                "S"
+              ],
+              "type": "string"
+            },
+            "lat_minutes": {
+              "type": "number"
+            },
+            "lat_seconds": {
+              "type": "number"
+            },
+            "long_degrees": {
+              "type": "number"
+            },
+            "long_direction": {
+              "enum": [
+                "E",
+                "W"
+              ],
+              "type": "string"
+            },
+            "long_minutes": {
+              "type": "number"
+            },
+            "long_seconds": {
+              "type": "number"
+            },
+            "precision_horz": {
+              "type": "number"
+            },
+            "precision_vert": {
+              "type": "number"
+            },
+            "size": {
+              "type": "number"
+            }
+          },
+          "type": "object"
+        },
+        "type": {
+          "enum": [
+            "LOC"
+          ],
+          "type": "string"
+        }
+      },
+      "type": "object"
     }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `dns-records_LOCRecord_data` in responses.
- */
-export const dns_records_LOCRecord_data_output: JsonSchema = {
-  "properties": {
-    "altitude": {
-      "type": "number"
-    },
-    "lat_degrees": {
-      "type": "number"
-    },
-    "lat_direction": {
-      "enum": [
-        "N",
-        "S"
-      ],
-      "type": "string"
-    },
-    "lat_minutes": {
-      "type": "number"
-    },
-    "lat_seconds": {
-      "type": "number"
-    },
-    "long_degrees": {
-      "type": "number"
-    },
-    "long_direction": {
-      "enum": [
-        "E",
-        "W"
-      ],
-      "type": "string"
-    },
-    "long_minutes": {
-      "type": "number"
-    },
-    "long_seconds": {
-      "type": "number"
-    },
-    "precision_horz": {
-      "type": "number"
-    },
-    "precision_vert": {
-      "type": "number"
-    },
-    "size": {
-      "type": "number"
-    }
-  },
-  "type": "object"
+  ]
 };
 
 /**
  * The schema of `dns-records_MXRecord` in responses.
  */
 export const dns_records_MXRecord_output: JsonSchema = {
-  "properties": {
-    "comment": {
-      "$ref": "#/$defs/dns-records_comment"
+  "allOf": [
+    {
+      "$ref": "#/$defs/dns-records_dns-record-shared-fields"
     },
-    "content": {
-      "type": "string"
-    },
-    "name": {
-      "$ref": "#/$defs/dns-records_name"
-    },
-    "priority": {
-      "$ref": "#/$defs/dns-records_priority"
-    },
-    "proxied": {
-      "$ref": "#/$defs/dns-records_proxied"
-    },
-    "settings": {
-      "$ref": "#/$defs/dns-records_settings"
-    },
-    "tags": {
-      "$ref": "#/$defs/dns-records_tags"
-    },
-    "ttl": {
-      "$ref": "#/$defs/dns-records_ttl"
-    },
-    "type": {
-      "enum": [
-        "MX"
-      ],
-      "type": "string"
+    {
+      "properties": {
+        "content": {
+          "type": "string"
+        },
+        "priority": {
+          "$ref": "#/$defs/dns-records_priority"
+        },
+        "type": {
+          "enum": [
+            "MX"
+          ],
+          "type": "string"
+        }
+      },
+      "type": "object"
     }
-  },
-  "type": "object"
+  ]
 };
 
 /**
  * The schema of `dns-records_NAPTRRecord` in responses.
  */
 export const dns_records_NAPTRRecord_output: JsonSchema = {
-  "properties": {
-    "comment": {
-      "$ref": "#/$defs/dns-records_comment"
+  "allOf": [
+    {
+      "$ref": "#/$defs/dns-records_dns-record-shared-fields"
     },
-    "content": {
-      "type": "string"
-    },
-    "data": {
-      "$ref": "#/$defs/dns-records_NAPTRRecord_data"
-    },
-    "name": {
-      "$ref": "#/$defs/dns-records_name"
-    },
-    "proxied": {
-      "$ref": "#/$defs/dns-records_proxied"
-    },
-    "settings": {
-      "$ref": "#/$defs/dns-records_settings"
-    },
-    "tags": {
-      "$ref": "#/$defs/dns-records_tags"
-    },
-    "ttl": {
-      "$ref": "#/$defs/dns-records_ttl"
-    },
-    "type": {
-      "enum": [
-        "NAPTR"
-      ],
-      "type": "string"
+    {
+      "properties": {
+        "content": {
+          "type": "string"
+        },
+        "data": {
+          "properties": {
+            "flags": {
+              "type": "string"
+            },
+            "order": {
+              "type": "number"
+            },
+            "preference": {
+              "type": "number"
+            },
+            "regex": {
+              "type": "string"
+            },
+            "replacement": {
+              "type": "string"
+            },
+            "service": {
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        "type": {
+          "enum": [
+            "NAPTR"
+          ],
+          "type": "string"
+        }
+      },
+      "type": "object"
     }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `dns-records_NAPTRRecord_data` in responses.
- */
-export const dns_records_NAPTRRecord_data_output: JsonSchema = {
-  "properties": {
-    "flags": {
-      "type": "string"
-    },
-    "order": {
-      "type": "number"
-    },
-    "preference": {
-      "type": "number"
-    },
-    "regex": {
-      "type": "string"
-    },
-    "replacement": {
-      "type": "string"
-    },
-    "service": {
-      "type": "string"
-    }
-  },
-  "type": "object"
+  ]
 };
 
 /**
  * The schema of `dns-records_NSRecord` in responses.
  */
 export const dns_records_NSRecord_output: JsonSchema = {
-  "properties": {
-    "comment": {
-      "$ref": "#/$defs/dns-records_comment"
+  "allOf": [
+    {
+      "$ref": "#/$defs/dns-records_dns-record-shared-fields"
     },
-    "content": {
-      "type": "string"
-    },
-    "name": {
-      "$ref": "#/$defs/dns-records_name"
-    },
-    "proxied": {
-      "$ref": "#/$defs/dns-records_proxied"
-    },
-    "settings": {
-      "$ref": "#/$defs/dns-records_settings"
-    },
-    "tags": {
-      "$ref": "#/$defs/dns-records_tags"
-    },
-    "ttl": {
-      "$ref": "#/$defs/dns-records_ttl"
-    },
-    "type": {
-      "enum": [
-        "NS"
-      ],
-      "type": "string"
+    {
+      "properties": {
+        "content": {
+          "type": "string"
+        },
+        "type": {
+          "enum": [
+            "NS"
+          ],
+          "type": "string"
+        }
+      },
+      "type": "object"
     }
-  },
-  "type": "object"
+  ]
 };
 
 /**
  * The schema of `dns-records_OPENPGPKEYRecord` in responses.
  */
 export const dns_records_OPENPGPKEYRecord_output: JsonSchema = {
-  "properties": {
-    "comment": {
-      "$ref": "#/$defs/dns-records_comment"
+  "allOf": [
+    {
+      "$ref": "#/$defs/dns-records_dns-record-shared-fields"
     },
-    "content": {
-      "type": "string"
-    },
-    "name": {
-      "$ref": "#/$defs/dns-records_name"
-    },
-    "proxied": {
-      "$ref": "#/$defs/dns-records_proxied"
-    },
-    "settings": {
-      "$ref": "#/$defs/dns-records_settings"
-    },
-    "tags": {
-      "$ref": "#/$defs/dns-records_tags"
-    },
-    "ttl": {
-      "$ref": "#/$defs/dns-records_ttl"
-    },
-    "type": {
-      "enum": [
-        "OPENPGPKEY"
-      ],
-      "type": "string"
+    {
+      "properties": {
+        "content": {
+          "type": "string"
+        },
+        "type": {
+          "enum": [
+            "OPENPGPKEY"
+          ],
+          "type": "string"
+        }
+      },
+      "type": "object"
     }
-  },
-  "type": "object"
+  ]
 };
 
 /**
  * The schema of `dns-records_PTRRecord` in responses.
  */
 export const dns_records_PTRRecord_output: JsonSchema = {
-  "properties": {
-    "comment": {
-      "$ref": "#/$defs/dns-records_comment"
+  "allOf": [
+    {
+      "$ref": "#/$defs/dns-records_dns-record-shared-fields"
     },
-    "content": {
-      "type": "string"
-    },
-    "name": {
-      "$ref": "#/$defs/dns-records_name"
-    },
-    "proxied": {
-      "$ref": "#/$defs/dns-records_proxied"
-    },
-    "settings": {
-      "$ref": "#/$defs/dns-records_settings"
-    },
-    "tags": {
-      "$ref": "#/$defs/dns-records_tags"
-    },
-    "ttl": {
-      "$ref": "#/$defs/dns-records_ttl"
-    },
-    "type": {
-      "enum": [
-        "PTR"
-      ],
-      "type": "string"
+    {
+      "properties": {
+        "content": {
+          "type": "string"
+        },
+        "type": {
+          "enum": [
+            "PTR"
+          ],
+          "type": "string"
+        }
+      },
+      "type": "object"
     }
-  },
-  "type": "object"
+  ]
 };
 
 /**
  * The schema of `dns-records_SMIMEARecord` in responses.
  */
 export const dns_records_SMIMEARecord_output: JsonSchema = {
-  "properties": {
-    "comment": {
-      "$ref": "#/$defs/dns-records_comment"
+  "allOf": [
+    {
+      "$ref": "#/$defs/dns-records_dns-record-shared-fields"
     },
-    "content": {
-      "type": "string"
-    },
-    "data": {
-      "$ref": "#/$defs/dns-records_SMIMEARecord_data"
-    },
-    "name": {
-      "$ref": "#/$defs/dns-records_name"
-    },
-    "proxied": {
-      "$ref": "#/$defs/dns-records_proxied"
-    },
-    "settings": {
-      "$ref": "#/$defs/dns-records_settings"
-    },
-    "tags": {
-      "$ref": "#/$defs/dns-records_tags"
-    },
-    "ttl": {
-      "$ref": "#/$defs/dns-records_ttl"
-    },
-    "type": {
-      "enum": [
-        "SMIMEA"
-      ],
-      "type": "string"
+    {
+      "properties": {
+        "content": {
+          "type": "string"
+        },
+        "data": {
+          "properties": {
+            "certificate": {
+              "type": "string"
+            },
+            "matching_type": {
+              "type": "number"
+            },
+            "selector": {
+              "type": "number"
+            },
+            "usage": {
+              "type": "number"
+            }
+          },
+          "type": "object"
+        },
+        "type": {
+          "enum": [
+            "SMIMEA"
+          ],
+          "type": "string"
+        }
+      },
+      "type": "object"
     }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `dns-records_SMIMEARecord_data` in responses.
- */
-export const dns_records_SMIMEARecord_data_output: JsonSchema = {
-  "properties": {
-    "certificate": {
-      "type": "string"
-    },
-    "matching_type": {
-      "type": "number"
-    },
-    "selector": {
-      "type": "number"
-    },
-    "usage": {
-      "type": "number"
-    }
-  },
-  "type": "object"
+  ]
 };
 
 /**
  * The schema of `dns-records_SRVRecord` in responses.
  */
 export const dns_records_SRVRecord_output: JsonSchema = {
-  "properties": {
-    "comment": {
-      "$ref": "#/$defs/dns-records_comment"
+  "allOf": [
+    {
+      "$ref": "#/$defs/dns-records_dns-record-shared-fields"
     },
-    "content": {
-      "type": "string"
-    },
-    "data": {
-      "$ref": "#/$defs/dns-records_SRVRecord_data"
-    },
-    "name": {
-      "$ref": "#/$defs/dns-records_name"
-    },
-    "proxied": {
-      "$ref": "#/$defs/dns-records_proxied"
-    },
-    "settings": {
-      "$ref": "#/$defs/dns-records_settings"
-    },
-    "tags": {
-      "$ref": "#/$defs/dns-records_tags"
-    },
-    "ttl": {
-      "$ref": "#/$defs/dns-records_ttl"
-    },
-    "type": {
-      "enum": [
-        "SRV"
-      ],
-      "type": "string"
+    {
+      "properties": {
+        "content": {
+          "type": "string"
+        },
+        "data": {
+          "properties": {
+            "port": {
+              "type": "number"
+            },
+            "priority": {
+              "$ref": "#/$defs/dns-records_priority"
+            },
+            "target": {
+              "type": "string"
+            },
+            "weight": {
+              "type": "number"
+            }
+          },
+          "type": "object"
+        },
+        "type": {
+          "enum": [
+            "SRV"
+          ],
+          "type": "string"
+        }
+      },
+      "type": "object"
     }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `dns-records_SRVRecord_data` in responses.
- */
-export const dns_records_SRVRecord_data_output: JsonSchema = {
-  "properties": {
-    "port": {
-      "type": "number"
-    },
-    "priority": {
-      "$ref": "#/$defs/dns-records_priority"
-    },
-    "target": {
-      "type": "string"
-    },
-    "weight": {
-      "type": "number"
-    }
-  },
-  "type": "object"
+  ]
 };
 
 /**
  * The schema of `dns-records_SSHFPRecord` in responses.
  */
 export const dns_records_SSHFPRecord_output: JsonSchema = {
-  "properties": {
-    "comment": {
-      "$ref": "#/$defs/dns-records_comment"
+  "allOf": [
+    {
+      "$ref": "#/$defs/dns-records_dns-record-shared-fields"
     },
-    "content": {
-      "type": "string"
-    },
-    "data": {
-      "$ref": "#/$defs/dns-records_SSHFPRecord_data"
-    },
-    "name": {
-      "$ref": "#/$defs/dns-records_name"
-    },
-    "proxied": {
-      "$ref": "#/$defs/dns-records_proxied"
-    },
-    "settings": {
-      "$ref": "#/$defs/dns-records_settings"
-    },
-    "tags": {
-      "$ref": "#/$defs/dns-records_tags"
-    },
-    "ttl": {
-      "$ref": "#/$defs/dns-records_ttl"
-    },
-    "type": {
-      "enum": [
-        "SSHFP"
-      ],
-      "type": "string"
+    {
+      "properties": {
+        "content": {
+          "type": "string"
+        },
+        "data": {
+          "properties": {
+            "algorithm": {
+              "type": "number"
+            },
+            "fingerprint": {
+              "type": "string"
+            },
+            "type": {
+              "type": "number"
+            }
+          },
+          "type": "object"
+        },
+        "type": {
+          "enum": [
+            "SSHFP"
+          ],
+          "type": "string"
+        }
+      },
+      "type": "object"
     }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `dns-records_SSHFPRecord_data` in responses.
- */
-export const dns_records_SSHFPRecord_data_output: JsonSchema = {
-  "properties": {
-    "algorithm": {
-      "type": "number"
-    },
-    "fingerprint": {
-      "type": "string"
-    },
-    "type": {
-      "type": "number"
-    }
-  },
-  "type": "object"
+  ]
 };
 
 /**
  * The schema of `dns-records_SVCBRecord` in responses.
  */
 export const dns_records_SVCBRecord_output: JsonSchema = {
-  "properties": {
-    "comment": {
-      "$ref": "#/$defs/dns-records_comment"
+  "allOf": [
+    {
+      "$ref": "#/$defs/dns-records_dns-record-shared-fields"
     },
-    "content": {
-      "type": "string"
-    },
-    "data": {
-      "$ref": "#/$defs/dns-records_SVCBRecord_data"
-    },
-    "name": {
-      "$ref": "#/$defs/dns-records_name"
-    },
-    "proxied": {
-      "$ref": "#/$defs/dns-records_proxied"
-    },
-    "settings": {
-      "$ref": "#/$defs/dns-records_settings"
-    },
-    "tags": {
-      "$ref": "#/$defs/dns-records_tags"
-    },
-    "ttl": {
-      "$ref": "#/$defs/dns-records_ttl"
-    },
-    "type": {
-      "enum": [
-        "SVCB"
-      ],
-      "type": "string"
+    {
+      "properties": {
+        "content": {
+          "type": "string"
+        },
+        "data": {
+          "properties": {
+            "priority": {
+              "type": "number"
+            },
+            "target": {
+              "type": "string"
+            },
+            "value": {
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        "type": {
+          "enum": [
+            "SVCB"
+          ],
+          "type": "string"
+        }
+      },
+      "type": "object"
     }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `dns-records_SVCBRecord_data` in responses.
- */
-export const dns_records_SVCBRecord_data_output: JsonSchema = {
-  "properties": {
-    "priority": {
-      "type": "number"
-    },
-    "target": {
-      "type": "string"
-    },
-    "value": {
-      "type": "string"
-    }
-  },
-  "type": "object"
+  ]
 };
 
 /**
  * The schema of `dns-records_TLSARecord` in responses.
  */
 export const dns_records_TLSARecord_output: JsonSchema = {
-  "properties": {
-    "comment": {
-      "$ref": "#/$defs/dns-records_comment"
+  "allOf": [
+    {
+      "$ref": "#/$defs/dns-records_dns-record-shared-fields"
     },
-    "content": {
-      "type": "string"
-    },
-    "data": {
-      "$ref": "#/$defs/dns-records_TLSARecord_data"
-    },
-    "name": {
-      "$ref": "#/$defs/dns-records_name"
-    },
-    "proxied": {
-      "$ref": "#/$defs/dns-records_proxied"
-    },
-    "settings": {
-      "$ref": "#/$defs/dns-records_settings"
-    },
-    "tags": {
-      "$ref": "#/$defs/dns-records_tags"
-    },
-    "ttl": {
-      "$ref": "#/$defs/dns-records_ttl"
-    },
-    "type": {
-      "enum": [
-        "TLSA"
-      ],
-      "type": "string"
+    {
+      "properties": {
+        "content": {
+          "type": "string"
+        },
+        "data": {
+          "properties": {
+            "certificate": {
+              "type": "string"
+            },
+            "matching_type": {
+              "type": "number"
+            },
+            "selector": {
+              "type": "number"
+            },
+            "usage": {
+              "type": "number"
+            }
+          },
+          "type": "object"
+        },
+        "type": {
+          "enum": [
+            "TLSA"
+          ],
+          "type": "string"
+        }
+      },
+      "type": "object"
     }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `dns-records_TLSARecord_data` in responses.
- */
-export const dns_records_TLSARecord_data_output: JsonSchema = {
-  "properties": {
-    "certificate": {
-      "type": "string"
-    },
-    "matching_type": {
-      "type": "number"
-    },
-    "selector": {
-      "type": "number"
-    },
-    "usage": {
-      "type": "number"
-    }
-  },
-  "type": "object"
+  ]
 };
 
 /**
  * The schema of `dns-records_TXTRecord` in responses.
  */
 export const dns_records_TXTRecord_output: JsonSchema = {
-  "properties": {
-    "comment": {
-      "$ref": "#/$defs/dns-records_comment"
+  "allOf": [
+    {
+      "$ref": "#/$defs/dns-records_dns-record-shared-fields"
     },
-    "content": {
-      "type": "string"
-    },
-    "name": {
-      "$ref": "#/$defs/dns-records_name"
-    },
-    "proxied": {
-      "$ref": "#/$defs/dns-records_proxied"
-    },
-    "settings": {
-      "$ref": "#/$defs/dns-records_settings"
-    },
-    "tags": {
-      "$ref": "#/$defs/dns-records_tags"
-    },
-    "ttl": {
-      "$ref": "#/$defs/dns-records_ttl"
-    },
-    "type": {
-      "enum": [
-        "TXT"
-      ],
-      "type": "string"
+    {
+      "properties": {
+        "content": {
+          "type": "string"
+        },
+        "type": {
+          "enum": [
+            "TXT"
+          ],
+          "type": "string"
+        }
+      },
+      "type": "object"
     }
-  },
-  "type": "object"
+  ]
 };
 
 /**
  * The schema of `dns-records_URIRecord` in responses.
  */
 export const dns_records_URIRecord_output: JsonSchema = {
-  "properties": {
-    "comment": {
-      "$ref": "#/$defs/dns-records_comment"
+  "allOf": [
+    {
+      "$ref": "#/$defs/dns-records_dns-record-shared-fields"
     },
-    "content": {
-      "type": "string"
-    },
-    "data": {
-      "$ref": "#/$defs/dns-records_URIRecord_data"
-    },
-    "name": {
-      "$ref": "#/$defs/dns-records_name"
-    },
-    "priority": {
-      "$ref": "#/$defs/dns-records_priority"
-    },
-    "proxied": {
-      "$ref": "#/$defs/dns-records_proxied"
-    },
-    "settings": {
-      "$ref": "#/$defs/dns-records_settings"
-    },
-    "tags": {
-      "$ref": "#/$defs/dns-records_tags"
-    },
-    "ttl": {
-      "$ref": "#/$defs/dns-records_ttl"
-    },
-    "type": {
-      "enum": [
-        "URI"
-      ],
-      "type": "string"
+    {
+      "properties": {
+        "content": {
+          "type": "string"
+        },
+        "data": {
+          "properties": {
+            "target": {
+              "type": "string"
+            },
+            "weight": {
+              "type": "number"
+            }
+          },
+          "type": "object"
+        },
+        "priority": {
+          "$ref": "#/$defs/dns-records_priority"
+        },
+        "type": {
+          "enum": [
+            "URI"
+          ],
+          "type": "string"
+        }
+      },
+      "type": "object"
     }
-  },
-  "type": "object"
+  ]
 };
 
 /**
- * The schema of `dns-records_URIRecord_data` in responses.
+ * The schema of `dns-records_api-response-collection` in responses.
  */
-export const dns_records_URIRecord_data_output: JsonSchema = {
-  "properties": {
-    "target": {
-      "type": "string"
+export const dns_records_api_response_collection_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/dns-records_api-response-common"
     },
-    "weight": {
-      "type": "number"
+    {
+      "properties": {
+        "result_info": {
+          "properties": {
+            "count": {
+              "type": "number"
+            },
+            "page": {
+              "type": "number"
+            },
+            "per_page": {
+              "type": "number"
+            },
+            "total_count": {
+              "type": "number"
+            },
+            "total_pages": {
+              "type": "number"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
     }
-  },
-  "type": "object"
+  ]
 };
 
 /**
@@ -1218,6 +928,33 @@ export const dns_records_dns_record_response_output: JsonSchema = {
       "type": "object"
     }
   ]
+};
+
+/**
+ * The schema of `dns-records_dns-record-shared-fields` in responses.
+ */
+export const dns_records_dns_record_shared_fields_output: JsonSchema = {
+  "properties": {
+    "comment": {
+      "$ref": "#/$defs/dns-records_comment"
+    },
+    "name": {
+      "$ref": "#/$defs/dns-records_name"
+    },
+    "proxied": {
+      "$ref": "#/$defs/dns-records_proxied"
+    },
+    "settings": {
+      "$ref": "#/$defs/dns-records_settings"
+    },
+    "tags": {
+      "$ref": "#/$defs/dns-records_tags"
+    },
+    "ttl": {
+      "$ref": "#/$defs/dns-records_ttl"
+    }
+  },
+  "type": "object"
 };
 
 /**
@@ -1354,10 +1091,108 @@ export const dns_records_dns_response_review_scan_object_output: JsonSchema = {
 };
 
 /**
- * The schema of `dns-records_identifier` in responses.
+ * The schema of `dns-records_dns_response_batch` in responses.
  */
-export const dns_records_identifier_output: JsonSchema = {
-  "type": "string"
+export const dns_records_dns_response_batch_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/dns-records_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/dns-records_dns-response-batch-object"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `dns-records_dns_response_collection` in responses.
+ */
+export const dns_records_dns_response_collection_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/dns-records_api-response-collection"
+    },
+    {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/dns-records_dns-record-response"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `dns-records_dns_response_review_scan` in responses.
+ */
+export const dns_records_dns_response_review_scan_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/dns-records_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/dns-records_dns-response-review-scan-object"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `dns-records_dns_response_single` in responses.
+ */
+export const dns_records_dns_response_single_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/dns-records_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/dns-records_dns-record-response"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `dns-records_dns_response_trigger_scan` in responses.
+ */
+export const dns_records_dns_response_trigger_scan_output: JsonSchema = {
+  "properties": {
+    "errors": {
+      "$ref": "#/$defs/dns-records_messages"
+    },
+    "messages": {
+      "$ref": "#/$defs/dns-records_messages"
+    },
+    "success": {
+      "enum": [
+        true
+      ],
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "errors",
+    "messages",
+    "success"
+  ],
+  "type": "object"
 };
 
 /**

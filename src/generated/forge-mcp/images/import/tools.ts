@@ -4,28 +4,29 @@
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
   images_api_response_common_failure_output,
+  images_api_response_common_output,
+  images_api_response_single_output,
   images_deleted_response_output,
   images_messages_output,
 } from "../outputs.js";
+import { images_account_identifier } from "../schemas.js";
 import {
   images_sourcingkit_acceptable_content_type_output,
   images_sourcingkit_conflict_behaviour_output,
   images_sourcingkit_migration_create_response_output,
   images_sourcingkit_migration_list_response_output,
-  images_sourcingkit_migration_list_response_result_output,
   images_sourcingkit_migration_log_list_response_output,
-  images_sourcingkit_migration_log_list_response_result_output,
   images_sourcingkit_migration_log_output,
   images_sourcingkit_migration_log_type_output,
   images_sourcingkit_migration_output,
   images_sourcingkit_migration_progress_response_output,
-  images_sourcingkit_migration_progress_response_result_output,
   images_sourcingkit_migration_single_response_output,
   images_sourcingkit_migration_status_output,
 } from "./outputs.js";
 import {
   images_sourcingkit_acceptable_content_type,
   images_sourcingkit_conflict_behaviour,
+  images_sourcingkit_identifier,
   images_sourcingkit_migration_create_request,
 } from "./schemas.js";
 
@@ -41,25 +42,33 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Account identifier tag.",
-          "type": "string"
+          "$ref": "#/$defs/images_account_identifier",
+          "description": "Account identifier tag."
         },
         "migration_id": {
-          "description": "Sourcing kit resource identifier.",
-          "type": "string"
+          "$ref": "#/$defs/images_sourcingkit_identifier",
+          "description": "Sourcing kit resource identifier."
         }
       },
       required: [
         "account_id",
         "migration_id"
       ],
+      $defs: {
+        "images_account_identifier": images_account_identifier,
+        "images_sourcingkit_identifier": images_sourcingkit_identifier,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/images_sourcingkit_migration",
+      "$ref": "#/$defs/images_sourcingkit_migration_single_response",
       $defs: {
+        "images_api-response-common": images_api_response_common_output,
+        "images_api-response-single": images_api_response_single_output,
+        "images_messages": images_messages_output,
         "images_sourcingkit_acceptable_content_type": images_sourcingkit_acceptable_content_type_output,
         "images_sourcingkit_conflict_behaviour": images_sourcingkit_conflict_behaviour_output,
         "images_sourcingkit_migration": images_sourcingkit_migration_output,
+        "images_sourcingkit_migration_single_response": images_sourcingkit_migration_single_response_output,
         "images_sourcingkit_migration_status": images_sourcingkit_migration_status_output,
       },
     },
@@ -80,18 +89,21 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/images_sourcingkit_migration"
+          "$ref": "#/$defs/images_sourcingkit_migration_single_response"
         },
         "4XX": {
           "$ref": "#/$defs/images_api-response-common-failure"
         }
       },
       $defs: {
+        "images_api-response-common": images_api_response_common_output,
         "images_api-response-common-failure": images_api_response_common_failure_output,
+        "images_api-response-single": images_api_response_single_output,
         "images_messages": images_messages_output,
         "images_sourcingkit_acceptable_content_type": images_sourcingkit_acceptable_content_type_output,
         "images_sourcingkit_conflict_behaviour": images_sourcingkit_conflict_behaviour_output,
         "images_sourcingkit_migration": images_sourcingkit_migration_output,
+        "images_sourcingkit_migration_single_response": images_sourcingkit_migration_single_response_output,
         "images_sourcingkit_migration_status": images_sourcingkit_migration_status_output,
       },
     },
@@ -107,8 +119,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Account identifier tag.",
-          "type": "string"
+          "$ref": "#/$defs/images_account_identifier",
+          "description": "Account identifier tag."
         },
         "body": {
           "$ref": "#/$defs/images_sourcingkit_migration_create_request"
@@ -119,17 +131,22 @@ export const tools: readonly Tool[] = [
         "body"
       ],
       $defs: {
+        "images_account_identifier": images_account_identifier,
         "images_sourcingkit_acceptable_content_type": images_sourcingkit_acceptable_content_type,
         "images_sourcingkit_conflict_behaviour": images_sourcingkit_conflict_behaviour,
         "images_sourcingkit_migration_create_request": images_sourcingkit_migration_create_request,
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/images_sourcingkit_migration",
+      "$ref": "#/$defs/images_sourcingkit_migration_create_response",
       $defs: {
+        "images_api-response-common": images_api_response_common_output,
+        "images_api-response-single": images_api_response_single_output,
+        "images_messages": images_messages_output,
         "images_sourcingkit_acceptable_content_type": images_sourcingkit_acceptable_content_type_output,
         "images_sourcingkit_conflict_behaviour": images_sourcingkit_conflict_behaviour_output,
         "images_sourcingkit_migration": images_sourcingkit_migration_output,
+        "images_sourcingkit_migration_create_response": images_sourcingkit_migration_create_response_output,
         "images_sourcingkit_migration_status": images_sourcingkit_migration_status_output,
       },
     },
@@ -150,7 +167,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/images_sourcingkit_migration"
+          "$ref": "#/$defs/images_sourcingkit_migration_create_response"
         },
         "4XX": {
           "anyOf": [
@@ -164,7 +181,9 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
+        "images_api-response-common": images_api_response_common_output,
         "images_api-response-common-failure": images_api_response_common_failure_output,
+        "images_api-response-single": images_api_response_single_output,
         "images_messages": images_messages_output,
         "images_sourcingkit_acceptable_content_type": images_sourcingkit_acceptable_content_type_output,
         "images_sourcingkit_conflict_behaviour": images_sourcingkit_conflict_behaviour_output,
@@ -186,21 +205,31 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Account identifier tag.",
-          "type": "string"
+          "$ref": "#/$defs/images_account_identifier",
+          "description": "Account identifier tag."
         },
         "migration_id": {
-          "description": "Sourcing kit resource identifier.",
-          "type": "string"
+          "$ref": "#/$defs/images_sourcingkit_identifier",
+          "description": "Sourcing kit resource identifier."
         }
       },
       required: [
         "account_id",
         "migration_id"
       ],
+      $defs: {
+        "images_account_identifier": images_account_identifier,
+        "images_sourcingkit_identifier": images_sourcingkit_identifier,
+      },
     },
     outputSchema: {
-      "type": "object",
+      "$ref": "#/$defs/images_deleted_response",
+      $defs: {
+        "images_api-response-common": images_api_response_common_output,
+        "images_api-response-single": images_api_response_single_output,
+        "images_deleted_response": images_deleted_response_output,
+        "images_messages": images_messages_output,
+      },
     },
     annotations: {
       "destructiveHint": true,
@@ -219,7 +248,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "type": "object"
+          "$ref": "#/$defs/images_deleted_response"
         },
         "4XX": {
           "anyOf": [
@@ -233,7 +262,9 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
+        "images_api-response-common": images_api_response_common_output,
         "images_api-response-common-failure": images_api_response_common_failure_output,
+        "images_api-response-single": images_api_response_single_output,
         "images_deleted_response": images_deleted_response_output,
         "images_messages": images_messages_output,
       },
@@ -250,25 +281,33 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Account identifier tag.",
-          "type": "string"
+          "$ref": "#/$defs/images_account_identifier",
+          "description": "Account identifier tag."
         },
         "migration_id": {
-          "description": "Sourcing kit resource identifier.",
-          "type": "string"
+          "$ref": "#/$defs/images_sourcingkit_identifier",
+          "description": "Sourcing kit resource identifier."
         }
       },
       required: [
         "account_id",
         "migration_id"
       ],
+      $defs: {
+        "images_account_identifier": images_account_identifier,
+        "images_sourcingkit_identifier": images_sourcingkit_identifier,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/images_sourcingkit_migration",
+      "$ref": "#/$defs/images_sourcingkit_migration_single_response",
       $defs: {
+        "images_api-response-common": images_api_response_common_output,
+        "images_api-response-single": images_api_response_single_output,
+        "images_messages": images_messages_output,
         "images_sourcingkit_acceptable_content_type": images_sourcingkit_acceptable_content_type_output,
         "images_sourcingkit_conflict_behaviour": images_sourcingkit_conflict_behaviour_output,
         "images_sourcingkit_migration": images_sourcingkit_migration_output,
+        "images_sourcingkit_migration_single_response": images_sourcingkit_migration_single_response_output,
         "images_sourcingkit_migration_status": images_sourcingkit_migration_status_output,
       },
     },
@@ -290,7 +329,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/images_sourcingkit_migration"
+          "$ref": "#/$defs/images_sourcingkit_migration_single_response"
         },
         "4XX": {
           "anyOf": [
@@ -304,7 +343,9 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
+        "images_api-response-common": images_api_response_common_output,
         "images_api-response-common-failure": images_api_response_common_failure_output,
+        "images_api-response-single": images_api_response_single_output,
         "images_messages": images_messages_output,
         "images_sourcingkit_acceptable_content_type": images_sourcingkit_acceptable_content_type_output,
         "images_sourcingkit_conflict_behaviour": images_sourcingkit_conflict_behaviour_output,
@@ -325,8 +366,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Account identifier tag.",
-          "type": "string"
+          "$ref": "#/$defs/images_account_identifier",
+          "description": "Account identifier tag."
         },
         "limit": {
           "default": 25,
@@ -342,21 +383,19 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+      $defs: {
+        "images_account_identifier": images_account_identifier,
+      },
     },
     outputSchema: {
-      "properties": {
-        "migrations": {
-          "items": {
-            "$ref": "#/$defs/images_sourcingkit_migration"
-          },
-          "type": "array"
-        }
-      },
-      "type": "object",
+      "$ref": "#/$defs/images_sourcingkit_migration_list_response",
       $defs: {
+        "images_api-response-common": images_api_response_common_output,
+        "images_messages": images_messages_output,
         "images_sourcingkit_acceptable_content_type": images_sourcingkit_acceptable_content_type_output,
         "images_sourcingkit_conflict_behaviour": images_sourcingkit_conflict_behaviour_output,
         "images_sourcingkit_migration": images_sourcingkit_migration_output,
+        "images_sourcingkit_migration_list_response": images_sourcingkit_migration_list_response_output,
         "images_sourcingkit_migration_status": images_sourcingkit_migration_status_output,
       },
     },
@@ -378,15 +417,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "migrations": {
-              "items": {
-                "$ref": "#/$defs/images_sourcingkit_migration"
-              },
-              "type": "array"
-            }
-          },
-          "type": "object"
+          "$ref": "#/$defs/images_sourcingkit_migration_list_response"
         },
         "4XX": {
           "anyOf": [
@@ -400,13 +431,13 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
+        "images_api-response-common": images_api_response_common_output,
         "images_api-response-common-failure": images_api_response_common_failure_output,
         "images_messages": images_messages_output,
         "images_sourcingkit_acceptable_content_type": images_sourcingkit_acceptable_content_type_output,
         "images_sourcingkit_conflict_behaviour": images_sourcingkit_conflict_behaviour_output,
         "images_sourcingkit_migration": images_sourcingkit_migration_output,
         "images_sourcingkit_migration_list_response": images_sourcingkit_migration_list_response_output,
-        "images_sourcingkit_migration_list_response_result": images_sourcingkit_migration_list_response_result_output,
         "images_sourcingkit_migration_status": images_sourcingkit_migration_status_output,
       },
     },
@@ -426,8 +457,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Account identifier tag.",
-          "type": "string"
+          "$ref": "#/$defs/images_account_identifier",
+          "description": "Account identifier tag."
         },
         "limit": {
           "default": 25,
@@ -435,8 +466,8 @@ export const tools: readonly Tool[] = [
           "type": "integer"
         },
         "migration_id": {
-          "description": "Sourcing kit resource identifier.",
-          "type": "string"
+          "$ref": "#/$defs/images_sourcingkit_identifier",
+          "description": "Sourcing kit resource identifier."
         },
         "offset": {
           "default": 0,
@@ -448,19 +479,18 @@ export const tools: readonly Tool[] = [
         "account_id",
         "migration_id"
       ],
+      $defs: {
+        "images_account_identifier": images_account_identifier,
+        "images_sourcingkit_identifier": images_sourcingkit_identifier,
+      },
     },
     outputSchema: {
-      "properties": {
-        "logs": {
-          "items": {
-            "$ref": "#/$defs/images_sourcingkit_migration_log"
-          },
-          "type": "array"
-        }
-      },
-      "type": "object",
+      "$ref": "#/$defs/images_sourcingkit_migration_log_list_response",
       $defs: {
+        "images_api-response-common": images_api_response_common_output,
+        "images_messages": images_messages_output,
         "images_sourcingkit_migration_log": images_sourcingkit_migration_log_output,
+        "images_sourcingkit_migration_log_list_response": images_sourcingkit_migration_log_list_response_output,
         "images_sourcingkit_migration_log_type": images_sourcingkit_migration_log_type_output,
       },
     },
@@ -482,15 +512,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "logs": {
-              "items": {
-                "$ref": "#/$defs/images_sourcingkit_migration_log"
-              },
-              "type": "array"
-            }
-          },
-          "type": "object"
+          "$ref": "#/$defs/images_sourcingkit_migration_log_list_response"
         },
         "4XX": {
           "anyOf": [
@@ -504,11 +526,11 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
+        "images_api-response-common": images_api_response_common_output,
         "images_api-response-common-failure": images_api_response_common_failure_output,
         "images_messages": images_messages_output,
         "images_sourcingkit_migration_log": images_sourcingkit_migration_log_output,
         "images_sourcingkit_migration_log_list_response": images_sourcingkit_migration_log_list_response_output,
-        "images_sourcingkit_migration_log_list_response_result": images_sourcingkit_migration_log_list_response_result_output,
         "images_sourcingkit_migration_log_type": images_sourcingkit_migration_log_type_output,
       },
     },
@@ -528,82 +550,30 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Account identifier tag.",
-          "type": "string"
+          "$ref": "#/$defs/images_account_identifier",
+          "description": "Account identifier tag."
         },
         "migration_id": {
-          "description": "Sourcing kit resource identifier.",
-          "type": "string"
+          "$ref": "#/$defs/images_sourcingkit_identifier",
+          "description": "Sourcing kit resource identifier."
         }
       },
       required: [
         "account_id",
         "migration_id"
       ],
+      $defs: {
+        "images_account_identifier": images_account_identifier,
+        "images_sourcingkit_identifier": images_sourcingkit_identifier,
+      },
     },
     outputSchema: {
-      "properties": {
-        "endedAt": {
-          "oneOf": [
-            {
-              "format": "date-time",
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "importErrorsCount": {
-          "type": "integer"
-        },
-        "importSuccessCount": {
-          "type": "integer"
-        },
-        "isAccurate": {
-          "type": "boolean"
-        },
-        "scannedCount": {
-          "type": "integer"
-        },
-        "skippedConflictCount": {
-          "type": "integer"
-        },
-        "skippedExcludedContentTypeCount": {
-          "type": "integer"
-        },
-        "skippedInvalidMediaCount": {
-          "type": "integer"
-        },
-        "skippedInvalidNameCount": {
-          "type": "integer"
-        },
-        "skippedOversizeCount": {
-          "type": "integer"
-        },
-        "skippedStorageClassCount": {
-          "type": "integer"
-        },
-        "skippedUnsupportedContentTypeCount": {
-          "type": "integer"
-        },
-        "startedAt": {
-          "oneOf": [
-            {
-              "format": "date-time",
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "status": {
-          "$ref": "#/$defs/images_sourcingkit_migration_status"
-        }
-      },
-      "type": "object",
+      "$ref": "#/$defs/images_sourcingkit_migration_progress_response",
       $defs: {
+        "images_api-response-common": images_api_response_common_output,
+        "images_api-response-single": images_api_response_single_output,
+        "images_messages": images_messages_output,
+        "images_sourcingkit_migration_progress_response": images_sourcingkit_migration_progress_response_output,
         "images_sourcingkit_migration_status": images_sourcingkit_migration_status_output,
       },
     },
@@ -625,67 +595,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "endedAt": {
-              "oneOf": [
-                {
-                  "format": "date-time",
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ]
-            },
-            "importErrorsCount": {
-              "type": "integer"
-            },
-            "importSuccessCount": {
-              "type": "integer"
-            },
-            "isAccurate": {
-              "type": "boolean"
-            },
-            "scannedCount": {
-              "type": "integer"
-            },
-            "skippedConflictCount": {
-              "type": "integer"
-            },
-            "skippedExcludedContentTypeCount": {
-              "type": "integer"
-            },
-            "skippedInvalidMediaCount": {
-              "type": "integer"
-            },
-            "skippedInvalidNameCount": {
-              "type": "integer"
-            },
-            "skippedOversizeCount": {
-              "type": "integer"
-            },
-            "skippedStorageClassCount": {
-              "type": "integer"
-            },
-            "skippedUnsupportedContentTypeCount": {
-              "type": "integer"
-            },
-            "startedAt": {
-              "oneOf": [
-                {
-                  "format": "date-time",
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ]
-            },
-            "status": {
-              "$ref": "#/$defs/images_sourcingkit_migration_status"
-            }
-          },
-          "type": "object"
+          "$ref": "#/$defs/images_sourcingkit_migration_progress_response"
         },
         "4XX": {
           "anyOf": [
@@ -699,10 +609,11 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
+        "images_api-response-common": images_api_response_common_output,
         "images_api-response-common-failure": images_api_response_common_failure_output,
+        "images_api-response-single": images_api_response_single_output,
         "images_messages": images_messages_output,
         "images_sourcingkit_migration_progress_response": images_sourcingkit_migration_progress_response_output,
-        "images_sourcingkit_migration_progress_response_result": images_sourcingkit_migration_progress_response_result_output,
         "images_sourcingkit_migration_status": images_sourcingkit_migration_status_output,
       },
     },
@@ -718,25 +629,33 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Account identifier tag.",
-          "type": "string"
+          "$ref": "#/$defs/images_account_identifier",
+          "description": "Account identifier tag."
         },
         "migration_id": {
-          "description": "Sourcing kit resource identifier.",
-          "type": "string"
+          "$ref": "#/$defs/images_sourcingkit_identifier",
+          "description": "Sourcing kit resource identifier."
         }
       },
       required: [
         "account_id",
         "migration_id"
       ],
+      $defs: {
+        "images_account_identifier": images_account_identifier,
+        "images_sourcingkit_identifier": images_sourcingkit_identifier,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/images_sourcingkit_migration",
+      "$ref": "#/$defs/images_sourcingkit_migration_single_response",
       $defs: {
+        "images_api-response-common": images_api_response_common_output,
+        "images_api-response-single": images_api_response_single_output,
+        "images_messages": images_messages_output,
         "images_sourcingkit_acceptable_content_type": images_sourcingkit_acceptable_content_type_output,
         "images_sourcingkit_conflict_behaviour": images_sourcingkit_conflict_behaviour_output,
         "images_sourcingkit_migration": images_sourcingkit_migration_output,
+        "images_sourcingkit_migration_single_response": images_sourcingkit_migration_single_response_output,
         "images_sourcingkit_migration_status": images_sourcingkit_migration_status_output,
       },
     },
@@ -757,18 +676,21 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/images_sourcingkit_migration"
+          "$ref": "#/$defs/images_sourcingkit_migration_single_response"
         },
         "4XX": {
           "$ref": "#/$defs/images_api-response-common-failure"
         }
       },
       $defs: {
+        "images_api-response-common": images_api_response_common_output,
         "images_api-response-common-failure": images_api_response_common_failure_output,
+        "images_api-response-single": images_api_response_single_output,
         "images_messages": images_messages_output,
         "images_sourcingkit_acceptable_content_type": images_sourcingkit_acceptable_content_type_output,
         "images_sourcingkit_conflict_behaviour": images_sourcingkit_conflict_behaviour_output,
         "images_sourcingkit_migration": images_sourcingkit_migration_output,
+        "images_sourcingkit_migration_single_response": images_sourcingkit_migration_single_response_output,
         "images_sourcingkit_migration_status": images_sourcingkit_migration_status_output,
       },
     },

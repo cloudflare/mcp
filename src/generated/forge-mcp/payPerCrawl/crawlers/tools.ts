@@ -4,12 +4,15 @@
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
   pay_per_crawl_ErrorSource_output,
+  pay_per_crawl_Msg_output,
   pay_per_crawl_RESTError_output,
+  pay_per_crawl_ResultInfo_output,
+  pay_per_crawl_Source_output,
   pay_per_crawl_apiErrorResponse_output,
 } from "../../outputs.js";
 import {
   pay_per_crawl_CrawlerEntry_output,
-  pay_per_crawl_listCrawlersResponse_result_output,
+  pay_per_crawl_listCrawlersResponse_output,
 } from "./outputs.js";
 
 /**
@@ -33,10 +36,13 @@ export const tools: readonly Tool[] = [
       ],
     },
     outputSchema: {
-      "$ref": "#/$defs/pay-per-crawl_listCrawlersResponse_result",
+      "$ref": "#/$defs/pay-per-crawl_listCrawlersResponse",
       $defs: {
         "pay-per-crawl_CrawlerEntry": pay_per_crawl_CrawlerEntry_output,
-        "pay-per-crawl_listCrawlersResponse_result": pay_per_crawl_listCrawlersResponse_result_output,
+        "pay-per-crawl_Msg": pay_per_crawl_Msg_output,
+        "pay-per-crawl_ResultInfo": pay_per_crawl_ResultInfo_output,
+        "pay-per-crawl_Source": pay_per_crawl_Source_output,
+        "pay-per-crawl_listCrawlersResponse": pay_per_crawl_listCrawlersResponse_output,
       },
     },
     annotations: {
@@ -51,7 +57,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/pay-per-crawl_listCrawlersResponse_result"
+          "$ref": "#/$defs/pay-per-crawl_listCrawlersResponse"
         },
         "400": {
           "$ref": "#/$defs/pay-per-crawl_apiErrorResponse"
@@ -60,9 +66,12 @@ export const tools: readonly Tool[] = [
       $defs: {
         "pay-per-crawl_CrawlerEntry": pay_per_crawl_CrawlerEntry_output,
         "pay-per-crawl_ErrorSource": pay_per_crawl_ErrorSource_output,
+        "pay-per-crawl_Msg": pay_per_crawl_Msg_output,
         "pay-per-crawl_RESTError": pay_per_crawl_RESTError_output,
+        "pay-per-crawl_ResultInfo": pay_per_crawl_ResultInfo_output,
+        "pay-per-crawl_Source": pay_per_crawl_Source_output,
         "pay-per-crawl_apiErrorResponse": pay_per_crawl_apiErrorResponse_output,
-        "pay-per-crawl_listCrawlersResponse_result": pay_per_crawl_listCrawlersResponse_result_output,
+        "pay-per-crawl_listCrawlersResponse": pay_per_crawl_listCrawlersResponse_output,
       },
     },
     request: (args) => ({

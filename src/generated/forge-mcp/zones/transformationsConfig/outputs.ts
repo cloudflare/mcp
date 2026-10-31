@@ -7,36 +7,25 @@ import type { JsonSchema } from "../../_/tool.js";
  * The schema of `speed_transformations_config_response` in responses.
  */
 export const speed_transformations_config_response_output: JsonSchema = {
-  "properties": {
-    "editable": {
-      "enum": [
-        true,
-        false
-      ],
-      "type": "boolean"
+  "allOf": [
+    {
+      "$ref": "#/$defs/speed_base"
     },
-    "id": {
-      "enum": [
-        "transformations_config"
-      ],
-      "type": "string"
-    },
-    "modified_on": {
-      "oneOf": [
-        {
-          "format": "date-time",
+    {
+      "properties": {
+        "id": {
+          "enum": [
+            "transformations_config"
+          ],
           "type": "string"
         },
-        {
-          "type": "null"
+        "value": {
+          "$ref": "#/$defs/speed_transformations_config_value"
         }
-      ]
-    },
-    "value": {
-      "$ref": "#/$defs/speed_transformations_config_value"
+      },
+      "type": "object"
     }
-  },
-  "type": "object"
+  ]
 };
 
 /**

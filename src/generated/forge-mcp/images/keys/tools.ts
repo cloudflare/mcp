@@ -4,8 +4,10 @@
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
   images_api_response_common_failure_output,
+  images_api_response_common_output,
   images_messages_output,
 } from "../outputs.js";
+import { images_account_identifier } from "../schemas.js";
 import {
   images_image_key_name_output,
   images_image_key_response_collection_output,
@@ -13,6 +15,7 @@ import {
   images_image_keys_output,
   images_image_keys_response_output,
 } from "./outputs.js";
+import { images_signing_key_identifier } from "./schemas.js";
 
 /**
  * The tools of `images.keys`.
@@ -26,25 +29,32 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Account identifier tag.",
-          "type": "string"
+          "$ref": "#/$defs/images_account_identifier",
+          "description": "Account identifier tag."
         },
         "signing_key_name": {
-          "type": "string"
+          "$ref": "#/$defs/images_signing_key_identifier"
         }
       },
       required: [
         "account_id",
         "signing_key_name"
       ],
+      $defs: {
+        "images_account_identifier": images_account_identifier,
+        "images_signing_key_identifier": images_signing_key_identifier,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/images_image_keys_response",
+      "$ref": "#/$defs/images_image_key_response_collection",
       $defs: {
+        "images_api-response-common": images_api_response_common_output,
         "images_image_key_name": images_image_key_name_output,
+        "images_image_key_response_collection": images_image_key_response_collection_output,
         "images_image_key_value": images_image_key_value_output,
         "images_image_keys": images_image_keys_output,
         "images_image_keys_response": images_image_keys_response_output,
+        "images_messages": images_messages_output,
       },
     },
     annotations: {
@@ -59,7 +69,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/images_image_keys_response"
+          "$ref": "#/$defs/images_image_key_response_collection"
         },
         "4XX": {
           "anyOf": [
@@ -73,6 +83,7 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
+        "images_api-response-common": images_api_response_common_output,
         "images_api-response-common-failure": images_api_response_common_failure_output,
         "images_image_key_name": images_image_key_name_output,
         "images_image_key_response_collection": images_image_key_response_collection_output,
@@ -94,25 +105,32 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Account identifier tag.",
-          "type": "string"
+          "$ref": "#/$defs/images_account_identifier",
+          "description": "Account identifier tag."
         },
         "signing_key_name": {
-          "type": "string"
+          "$ref": "#/$defs/images_signing_key_identifier"
         }
       },
       required: [
         "account_id",
         "signing_key_name"
       ],
+      $defs: {
+        "images_account_identifier": images_account_identifier,
+        "images_signing_key_identifier": images_signing_key_identifier,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/images_image_keys_response",
+      "$ref": "#/$defs/images_image_key_response_collection",
       $defs: {
+        "images_api-response-common": images_api_response_common_output,
         "images_image_key_name": images_image_key_name_output,
+        "images_image_key_response_collection": images_image_key_response_collection_output,
         "images_image_key_value": images_image_key_value_output,
         "images_image_keys": images_image_keys_output,
         "images_image_keys_response": images_image_keys_response_output,
+        "images_messages": images_messages_output,
       },
     },
     annotations: {
@@ -127,7 +145,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/images_image_keys_response"
+          "$ref": "#/$defs/images_image_key_response_collection"
         },
         "4XX": {
           "anyOf": [
@@ -141,6 +159,7 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
+        "images_api-response-common": images_api_response_common_output,
         "images_api-response-common-failure": images_api_response_common_failure_output,
         "images_image_key_name": images_image_key_name_output,
         "images_image_key_response_collection": images_image_key_response_collection_output,
@@ -162,21 +181,27 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Account identifier tag.",
-          "type": "string"
+          "$ref": "#/$defs/images_account_identifier",
+          "description": "Account identifier tag."
         }
       },
       required: [
         "account_id"
       ],
+      $defs: {
+        "images_account_identifier": images_account_identifier,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/images_image_keys_response",
+      "$ref": "#/$defs/images_image_key_response_collection",
       $defs: {
+        "images_api-response-common": images_api_response_common_output,
         "images_image_key_name": images_image_key_name_output,
+        "images_image_key_response_collection": images_image_key_response_collection_output,
         "images_image_key_value": images_image_key_value_output,
         "images_image_keys": images_image_keys_output,
         "images_image_keys_response": images_image_keys_response_output,
+        "images_messages": images_messages_output,
       },
     },
     annotations: {
@@ -197,7 +222,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/images_image_keys_response"
+          "$ref": "#/$defs/images_image_key_response_collection"
         },
         "4XX": {
           "anyOf": [
@@ -211,6 +236,7 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
+        "images_api-response-common": images_api_response_common_output,
         "images_api-response-common-failure": images_api_response_common_failure_output,
         "images_image_key_name": images_image_key_name_output,
         "images_image_key_response_collection": images_image_key_response_collection_output,

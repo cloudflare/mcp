@@ -2,12 +2,7 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../_/tool.js";
-import {
-  brapi_SerializedAXNode_checked_output,
-  brapi_SerializedAXNode_output,
-  brapi_SerializedAXNode_pressed_output,
-  brapi_SerializedAXNode_value_output,
-} from "./outputs.js";
+import { brapi_SerializedAXNode_output } from "./outputs.js";
 
 /**
  * The tools of `browser_run.quick_action`.
@@ -297,7 +292,7 @@ export const tools: readonly Tool[] = [
                   "type": "string"
                 },
                 "userAgent": {
-                  "default": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36",
+                  "default": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36",
                   "type": "string"
                 },
                 "viewport": {
@@ -420,19 +415,92 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
-        "accessibilityTree": {
-          "$ref": "#/$defs/brapi_SerializedAXNode"
+        "errors": {
+          "items": {
+            "properties": {
+              "code": {
+                "type": "number"
+              },
+              "message": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "code",
+              "message"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "meta": {
+          "properties": {
+            "finalUrl": {
+              "type": "string"
+            },
+            "headers": {
+              "additionalProperties": {
+                "type": "string"
+              },
+              "type": "object"
+            },
+            "redirectChain": {
+              "items": {
+                "properties": {
+                  "headers": {
+                    "additionalProperties": {
+                      "type": "string"
+                    },
+                    "type": "object"
+                  },
+                  "status": {
+                    "type": "number"
+                  },
+                  "url": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "headers",
+                  "status",
+                  "url"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "status": {
+              "type": "number"
+            },
+            "title": {
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        "result": {
+          "properties": {
+            "accessibilityTree": {
+              "$ref": "#/$defs/brapi_SerializedAXNode"
+            }
+          },
+          "required": [
+            "accessibilityTree"
+          ],
+          "type": "object"
+        },
+        "success": {
+          "type": "boolean"
         }
       },
       "required": [
-        "accessibilityTree"
+        "meta",
+        "result",
+        "success"
       ],
       "type": "object",
       $defs: {
         "brapi_SerializedAXNode": brapi_SerializedAXNode_output,
-        "brapi_SerializedAXNode_checked": brapi_SerializedAXNode_checked_output,
-        "brapi_SerializedAXNode_pressed": brapi_SerializedAXNode_pressed_output,
-        "brapi_SerializedAXNode_value": brapi_SerializedAXNode_value_output,
       },
     },
     annotations: {
@@ -452,12 +520,7 @@ export const tools: readonly Tool[] = [
         "enum": [
           "com.cloudflare.api.account.brapi.read"
         ],
-        "type": "string",
-        "x-fern-enum": {
-          "com.cloudflare.api.account.brapi.read": {
-            "name": "com_cloudflare_api_account_brapi_read"
-          }
-        }
+        "type": "string"
       },
       "x-cfPlanAvailability": {
         "business": true,
@@ -470,12 +533,88 @@ export const tools: readonly Tool[] = [
       schemas: {
         "200": {
           "properties": {
-            "accessibilityTree": {
-              "$ref": "#/$defs/brapi_SerializedAXNode"
+            "errors": {
+              "items": {
+                "properties": {
+                  "code": {
+                    "type": "number"
+                  },
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "meta": {
+              "properties": {
+                "finalUrl": {
+                  "type": "string"
+                },
+                "headers": {
+                  "additionalProperties": {
+                    "type": "string"
+                  },
+                  "type": "object"
+                },
+                "redirectChain": {
+                  "items": {
+                    "properties": {
+                      "headers": {
+                        "additionalProperties": {
+                          "type": "string"
+                        },
+                        "type": "object"
+                      },
+                      "status": {
+                        "type": "number"
+                      },
+                      "url": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "headers",
+                      "status",
+                      "url"
+                    ],
+                    "type": "object"
+                  },
+                  "type": "array"
+                },
+                "status": {
+                  "type": "number"
+                },
+                "title": {
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            "result": {
+              "properties": {
+                "accessibilityTree": {
+                  "$ref": "#/$defs/brapi_SerializedAXNode"
+                }
+              },
+              "required": [
+                "accessibilityTree"
+              ],
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
             }
           },
           "required": [
-            "accessibilityTree"
+            "meta",
+            "result",
+            "success"
           ],
           "type": "object"
         },
@@ -598,9 +737,6 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "brapi_SerializedAXNode": brapi_SerializedAXNode_output,
-        "brapi_SerializedAXNode_checked": brapi_SerializedAXNode_checked_output,
-        "brapi_SerializedAXNode_pressed": brapi_SerializedAXNode_pressed_output,
-        "brapi_SerializedAXNode_value": brapi_SerializedAXNode_value_output,
       },
     },
     request: (args) => ({
@@ -890,7 +1026,7 @@ export const tools: readonly Tool[] = [
                   "type": "string"
                 },
                 "userAgent": {
-                  "default": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36",
+                  "default": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36",
                   "type": "string"
                 },
                 "viewport": {
@@ -1012,7 +1148,82 @@ export const tools: readonly Tool[] = [
       ],
     },
     outputSchema: {
-      "type": "string",
+      "properties": {
+        "errors": {
+          "items": {
+            "properties": {
+              "code": {
+                "type": "number"
+              },
+              "message": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "code",
+              "message"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "meta": {
+          "properties": {
+            "finalUrl": {
+              "type": "string"
+            },
+            "headers": {
+              "additionalProperties": {
+                "type": "string"
+              },
+              "type": "object"
+            },
+            "redirectChain": {
+              "items": {
+                "properties": {
+                  "headers": {
+                    "additionalProperties": {
+                      "type": "string"
+                    },
+                    "type": "object"
+                  },
+                  "status": {
+                    "type": "number"
+                  },
+                  "url": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "headers",
+                  "status",
+                  "url"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "status": {
+              "type": "number"
+            },
+            "title": {
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        "result": {
+          "type": "string"
+        },
+        "success": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "meta",
+        "success"
+      ],
+      "type": "object",
     },
     annotations: {
       "destructiveHint": false,
@@ -1031,12 +1242,7 @@ export const tools: readonly Tool[] = [
         "enum": [
           "com.cloudflare.api.account.brapi.read"
         ],
-        "type": "string",
-        "x-fern-enum": {
-          "com.cloudflare.api.account.brapi.read": {
-            "name": "com_cloudflare_api_account_brapi_read"
-          }
-        }
+        "type": "string"
       },
       "x-cfPlanAvailability": {
         "business": true,
@@ -1048,7 +1254,82 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "type": "string"
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "code": {
+                    "type": "number"
+                  },
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "meta": {
+              "properties": {
+                "finalUrl": {
+                  "type": "string"
+                },
+                "headers": {
+                  "additionalProperties": {
+                    "type": "string"
+                  },
+                  "type": "object"
+                },
+                "redirectChain": {
+                  "items": {
+                    "properties": {
+                      "headers": {
+                        "additionalProperties": {
+                          "type": "string"
+                        },
+                        "type": "object"
+                      },
+                      "status": {
+                        "type": "number"
+                      },
+                      "url": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "headers",
+                      "status",
+                      "url"
+                    ],
+                    "type": "object"
+                  },
+                  "type": "array"
+                },
+                "status": {
+                  "type": "number"
+                },
+                "title": {
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            "result": {
+              "type": "string"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "meta",
+            "success"
+          ],
+          "type": "object"
         },
         "400": {
           "properties": {
@@ -1500,7 +1781,7 @@ export const tools: readonly Tool[] = [
                   "type": "string"
                 },
                 "userAgent": {
-                  "default": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36",
+                  "default": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36",
                   "type": "string"
                 },
                 "viewport": {
@@ -1622,16 +1903,92 @@ export const tools: readonly Tool[] = [
       ],
     },
     outputSchema: {
-      "additionalProperties": {
-        "oneOf": [
-          {
+      "properties": {
+        "errors": {
+          "items": {
+            "properties": {
+              "code": {
+                "type": "number"
+              },
+              "message": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "code",
+              "message"
+            ],
             "type": "object"
           },
-          {
-            "type": "null"
-          }
-        ]
+          "type": "array"
+        },
+        "meta": {
+          "properties": {
+            "finalUrl": {
+              "type": "string"
+            },
+            "headers": {
+              "additionalProperties": {
+                "type": "string"
+              },
+              "type": "object"
+            },
+            "redirectChain": {
+              "items": {
+                "properties": {
+                  "headers": {
+                    "additionalProperties": {
+                      "type": "string"
+                    },
+                    "type": "object"
+                  },
+                  "status": {
+                    "type": "number"
+                  },
+                  "url": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "headers",
+                  "status",
+                  "url"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "status": {
+              "type": "number"
+            },
+            "title": {
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        "result": {
+          "additionalProperties": {
+            "oneOf": [
+              {
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "type": "object"
+        },
+        "success": {
+          "type": "boolean"
+        }
       },
+      "required": [
+        "meta",
+        "result",
+        "success"
+      ],
       "type": "object",
     },
     annotations: {
@@ -1651,12 +2008,7 @@ export const tools: readonly Tool[] = [
         "enum": [
           "com.cloudflare.api.account.brapi.read"
         ],
-        "type": "string",
-        "x-fern-enum": {
-          "com.cloudflare.api.account.brapi.read": {
-            "name": "com_cloudflare_api_account_brapi_read"
-          }
-        }
+        "type": "string"
       },
       "x-cfPlanAvailability": {
         "business": true,
@@ -1668,16 +2020,92 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "additionalProperties": {
-            "oneOf": [
-              {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "code": {
+                    "type": "number"
+                  },
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message"
+                ],
                 "type": "object"
               },
-              {
-                "type": "null"
-              }
-            ]
+              "type": "array"
+            },
+            "meta": {
+              "properties": {
+                "finalUrl": {
+                  "type": "string"
+                },
+                "headers": {
+                  "additionalProperties": {
+                    "type": "string"
+                  },
+                  "type": "object"
+                },
+                "redirectChain": {
+                  "items": {
+                    "properties": {
+                      "headers": {
+                        "additionalProperties": {
+                          "type": "string"
+                        },
+                        "type": "object"
+                      },
+                      "status": {
+                        "type": "number"
+                      },
+                      "url": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "headers",
+                      "status",
+                      "url"
+                    ],
+                    "type": "object"
+                  },
+                  "type": "array"
+                },
+                "status": {
+                  "type": "number"
+                },
+                "title": {
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            "result": {
+              "additionalProperties": {
+                "oneOf": [
+                  {
+                    "type": "object"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
+            }
           },
+          "required": [
+            "meta",
+            "result",
+            "success"
+          ],
           "type": "object"
         },
         "400": {
@@ -2092,7 +2520,7 @@ export const tools: readonly Tool[] = [
                   "type": "string"
                 },
                 "userAgent": {
-                  "default": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36",
+                  "default": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36",
                   "type": "string"
                 },
                 "viewport": {
@@ -2219,18 +2647,83 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
+        "errors": {
+          "items": {
+            "properties": {
+              "code": {
+                "type": "number"
+              },
+              "message": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "code",
+              "message"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "meta": {
+          "properties": {
+            "finalUrl": {
+              "type": "string"
+            },
+            "headers": {
+              "additionalProperties": {
+                "type": "string"
+              },
+              "type": "object"
+            },
+            "redirectChain": {
+              "items": {
+                "properties": {
+                  "headers": {
+                    "additionalProperties": {
+                      "type": "string"
+                    },
+                    "type": "object"
+                  },
+                  "status": {
+                    "type": "number"
+                  },
+                  "url": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "headers",
+                  "status",
+                  "url"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "status": {
+              "type": "number"
+            },
+            "title": {
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
         "result": {
           "items": {
             "type": "string"
           },
           "type": "array"
         },
-        "result_info": {
-          "type": "object"
+        "success": {
+          "type": "boolean"
         }
       },
       "required": [
-        "result"
+        "meta",
+        "result",
+        "success"
       ],
       "type": "object",
     },
@@ -2251,12 +2744,7 @@ export const tools: readonly Tool[] = [
         "enum": [
           "com.cloudflare.api.account.brapi.read"
         ],
-        "type": "string",
-        "x-fern-enum": {
-          "com.cloudflare.api.account.brapi.read": {
-            "name": "com_cloudflare_api_account_brapi_read"
-          }
-        }
+        "type": "string"
       },
       "x-cfPlanAvailability": {
         "business": true,
@@ -2269,18 +2757,83 @@ export const tools: readonly Tool[] = [
       schemas: {
         "200": {
           "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "code": {
+                    "type": "number"
+                  },
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "meta": {
+              "properties": {
+                "finalUrl": {
+                  "type": "string"
+                },
+                "headers": {
+                  "additionalProperties": {
+                    "type": "string"
+                  },
+                  "type": "object"
+                },
+                "redirectChain": {
+                  "items": {
+                    "properties": {
+                      "headers": {
+                        "additionalProperties": {
+                          "type": "string"
+                        },
+                        "type": "object"
+                      },
+                      "status": {
+                        "type": "number"
+                      },
+                      "url": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "headers",
+                      "status",
+                      "url"
+                    ],
+                    "type": "object"
+                  },
+                  "type": "array"
+                },
+                "status": {
+                  "type": "number"
+                },
+                "title": {
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
             "result": {
               "items": {
                 "type": "string"
               },
               "type": "array"
             },
-            "result_info": {
-              "type": "object"
+            "success": {
+              "type": "boolean"
             }
           },
           "required": [
-            "result"
+            "meta",
+            "result",
+            "success"
           ],
           "type": "object"
         },
@@ -2689,7 +3242,7 @@ export const tools: readonly Tool[] = [
                   "type": "string"
                 },
                 "userAgent": {
-                  "default": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36",
+                  "default": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36",
                   "type": "string"
                 },
                 "viewport": {
@@ -2811,7 +3364,82 @@ export const tools: readonly Tool[] = [
       ],
     },
     outputSchema: {
-      "type": "string",
+      "properties": {
+        "errors": {
+          "items": {
+            "properties": {
+              "code": {
+                "type": "number"
+              },
+              "message": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "code",
+              "message"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "meta": {
+          "properties": {
+            "finalUrl": {
+              "type": "string"
+            },
+            "headers": {
+              "additionalProperties": {
+                "type": "string"
+              },
+              "type": "object"
+            },
+            "redirectChain": {
+              "items": {
+                "properties": {
+                  "headers": {
+                    "additionalProperties": {
+                      "type": "string"
+                    },
+                    "type": "object"
+                  },
+                  "status": {
+                    "type": "number"
+                  },
+                  "url": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "headers",
+                  "status",
+                  "url"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "status": {
+              "type": "number"
+            },
+            "title": {
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        "result": {
+          "type": "string"
+        },
+        "success": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "meta",
+        "success"
+      ],
+      "type": "object",
     },
     annotations: {
       "destructiveHint": false,
@@ -2830,12 +3458,7 @@ export const tools: readonly Tool[] = [
         "enum": [
           "com.cloudflare.api.account.brapi.read"
         ],
-        "type": "string",
-        "x-fern-enum": {
-          "com.cloudflare.api.account.brapi.read": {
-            "name": "com_cloudflare_api_account_brapi_read"
-          }
-        }
+        "type": "string"
       },
       "x-cfPlanAvailability": {
         "business": true,
@@ -2847,7 +3470,82 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "type": "string"
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "code": {
+                    "type": "number"
+                  },
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "meta": {
+              "properties": {
+                "finalUrl": {
+                  "type": "string"
+                },
+                "headers": {
+                  "additionalProperties": {
+                    "type": "string"
+                  },
+                  "type": "object"
+                },
+                "redirectChain": {
+                  "items": {
+                    "properties": {
+                      "headers": {
+                        "additionalProperties": {
+                          "type": "string"
+                        },
+                        "type": "object"
+                      },
+                      "status": {
+                        "type": "number"
+                      },
+                      "url": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "headers",
+                      "status",
+                      "url"
+                    ],
+                    "type": "object"
+                  },
+                  "type": "array"
+                },
+                "status": {
+                  "type": "number"
+                },
+                "title": {
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            "result": {
+              "type": "string"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "meta",
+            "success"
+          ],
+          "type": "object"
         },
         "400": {
           "properties": {
@@ -3404,7 +4102,7 @@ export const tools: readonly Tool[] = [
                   "type": "string"
                 },
                 "userAgent": {
-                  "default": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36",
+                  "default": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36",
                   "type": "string"
                 },
                 "viewport": {
@@ -3542,12 +4240,7 @@ export const tools: readonly Tool[] = [
         "enum": [
           "com.cloudflare.api.account.brapi.read"
         ],
-        "type": "string",
-        "x-fern-enum": {
-          "com.cloudflare.api.account.brapi.read": {
-            "name": "com_cloudflare_api_account_brapi_read"
-          }
-        }
+        "type": "string"
       },
       "x-cfPlanAvailability": {
         "business": true,
@@ -3979,7 +4672,7 @@ export const tools: readonly Tool[] = [
                   "type": "string"
                 },
                 "userAgent": {
-                  "default": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36",
+                  "default": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36",
                   "type": "string"
                 },
                 "viewport": {
@@ -4105,6 +4798,69 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
+        "errors": {
+          "items": {
+            "properties": {
+              "code": {
+                "type": "number"
+              },
+              "message": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "code",
+              "message"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "meta": {
+          "properties": {
+            "finalUrl": {
+              "type": "string"
+            },
+            "headers": {
+              "additionalProperties": {
+                "type": "string"
+              },
+              "type": "object"
+            },
+            "redirectChain": {
+              "items": {
+                "properties": {
+                  "headers": {
+                    "additionalProperties": {
+                      "type": "string"
+                    },
+                    "type": "object"
+                  },
+                  "status": {
+                    "type": "number"
+                  },
+                  "url": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "headers",
+                  "status",
+                  "url"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "status": {
+              "type": "number"
+            },
+            "title": {
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
         "result": {
           "items": {
             "properties": {
@@ -4170,12 +4926,14 @@ export const tools: readonly Tool[] = [
           },
           "type": "array"
         },
-        "result_info": {
-          "type": "object"
+        "success": {
+          "type": "boolean"
         }
       },
       "required": [
-        "result"
+        "meta",
+        "result",
+        "success"
       ],
       "type": "object",
     },
@@ -4196,12 +4954,7 @@ export const tools: readonly Tool[] = [
         "enum": [
           "com.cloudflare.api.account.brapi.read"
         ],
-        "type": "string",
-        "x-fern-enum": {
-          "com.cloudflare.api.account.brapi.read": {
-            "name": "com_cloudflare_api_account_brapi_read"
-          }
-        }
+        "type": "string"
       },
       "x-cfPlanAvailability": {
         "business": true,
@@ -4214,6 +4967,69 @@ export const tools: readonly Tool[] = [
       schemas: {
         "200": {
           "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "code": {
+                    "type": "number"
+                  },
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "meta": {
+              "properties": {
+                "finalUrl": {
+                  "type": "string"
+                },
+                "headers": {
+                  "additionalProperties": {
+                    "type": "string"
+                  },
+                  "type": "object"
+                },
+                "redirectChain": {
+                  "items": {
+                    "properties": {
+                      "headers": {
+                        "additionalProperties": {
+                          "type": "string"
+                        },
+                        "type": "object"
+                      },
+                      "status": {
+                        "type": "number"
+                      },
+                      "url": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "headers",
+                      "status",
+                      "url"
+                    ],
+                    "type": "object"
+                  },
+                  "type": "array"
+                },
+                "status": {
+                  "type": "number"
+                },
+                "title": {
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
             "result": {
               "items": {
                 "properties": {
@@ -4279,12 +5095,14 @@ export const tools: readonly Tool[] = [
               },
               "type": "array"
             },
-            "result_info": {
-              "type": "object"
+            "success": {
+              "type": "boolean"
             }
           },
           "required": [
-            "result"
+            "meta",
+            "result",
+            "success"
           ],
           "type": "object"
         },
@@ -4767,7 +5585,7 @@ export const tools: readonly Tool[] = [
                   "type": "string"
                 },
                 "userAgent": {
-                  "default": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36",
+                  "default": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36",
                   "type": "string"
                 },
                 "viewport": {
@@ -4934,12 +5752,7 @@ export const tools: readonly Tool[] = [
         "enum": [
           "com.cloudflare.api.account.brapi.read"
         ],
-        "type": "string",
-        "x-fern-enum": {
-          "com.cloudflare.api.account.brapi.read": {
-            "name": "com_cloudflare_api_account_brapi_read"
-          }
-        }
+        "type": "string"
       },
       "x-cfPlanAvailability": {
         "business": true,
@@ -5459,7 +6272,7 @@ export const tools: readonly Tool[] = [
                   "type": "string"
                 },
                 "userAgent": {
-                  "default": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36",
+                  "default": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36",
                   "type": "string"
                 },
                 "viewport": {
@@ -5582,25 +6395,97 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
-        "accessibilityTree": {
-          "$ref": "#/$defs/brapi_SerializedAXNode"
+        "errors": {
+          "items": {
+            "properties": {
+              "code": {
+                "type": "number"
+              },
+              "message": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "code",
+              "message"
+            ],
+            "type": "object"
+          },
+          "type": "array"
         },
-        "content": {
-          "type": "string"
+        "meta": {
+          "properties": {
+            "finalUrl": {
+              "type": "string"
+            },
+            "headers": {
+              "additionalProperties": {
+                "type": "string"
+              },
+              "type": "object"
+            },
+            "redirectChain": {
+              "items": {
+                "properties": {
+                  "headers": {
+                    "additionalProperties": {
+                      "type": "string"
+                    },
+                    "type": "object"
+                  },
+                  "status": {
+                    "type": "number"
+                  },
+                  "url": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "headers",
+                  "status",
+                  "url"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "status": {
+              "type": "number"
+            },
+            "title": {
+              "type": "string"
+            }
+          },
+          "type": "object"
         },
-        "markdown": {
-          "type": "string"
+        "result": {
+          "properties": {
+            "accessibilityTree": {
+              "$ref": "#/$defs/brapi_SerializedAXNode"
+            },
+            "content": {
+              "type": "string"
+            },
+            "markdown": {
+              "type": "string"
+            },
+            "screenshot": {
+              "type": "string"
+            }
+          },
+          "type": "object"
         },
-        "screenshot": {
-          "type": "string"
+        "success": {
+          "type": "boolean"
         }
       },
+      "required": [
+        "meta",
+        "success"
+      ],
       "type": "object",
       $defs: {
         "brapi_SerializedAXNode": brapi_SerializedAXNode_output,
-        "brapi_SerializedAXNode_checked": brapi_SerializedAXNode_checked_output,
-        "brapi_SerializedAXNode_pressed": brapi_SerializedAXNode_pressed_output,
-        "brapi_SerializedAXNode_value": brapi_SerializedAXNode_value_output,
       },
     },
     annotations: {
@@ -5620,12 +6505,7 @@ export const tools: readonly Tool[] = [
         "enum": [
           "com.cloudflare.api.account.brapi.read"
         ],
-        "type": "string",
-        "x-fern-enum": {
-          "com.cloudflare.api.account.brapi.read": {
-            "name": "com_cloudflare_api_account_brapi_read"
-          }
-        }
+        "type": "string"
       },
       "x-cfPlanAvailability": {
         "business": true,
@@ -5638,19 +6518,94 @@ export const tools: readonly Tool[] = [
       schemas: {
         "200": {
           "properties": {
-            "accessibilityTree": {
-              "$ref": "#/$defs/brapi_SerializedAXNode"
+            "errors": {
+              "items": {
+                "properties": {
+                  "code": {
+                    "type": "number"
+                  },
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
             },
-            "content": {
-              "type": "string"
+            "meta": {
+              "properties": {
+                "finalUrl": {
+                  "type": "string"
+                },
+                "headers": {
+                  "additionalProperties": {
+                    "type": "string"
+                  },
+                  "type": "object"
+                },
+                "redirectChain": {
+                  "items": {
+                    "properties": {
+                      "headers": {
+                        "additionalProperties": {
+                          "type": "string"
+                        },
+                        "type": "object"
+                      },
+                      "status": {
+                        "type": "number"
+                      },
+                      "url": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "headers",
+                      "status",
+                      "url"
+                    ],
+                    "type": "object"
+                  },
+                  "type": "array"
+                },
+                "status": {
+                  "type": "number"
+                },
+                "title": {
+                  "type": "string"
+                }
+              },
+              "type": "object"
             },
-            "markdown": {
-              "type": "string"
+            "result": {
+              "properties": {
+                "accessibilityTree": {
+                  "$ref": "#/$defs/brapi_SerializedAXNode"
+                },
+                "content": {
+                  "type": "string"
+                },
+                "markdown": {
+                  "type": "string"
+                },
+                "screenshot": {
+                  "type": "string"
+                }
+              },
+              "type": "object"
             },
-            "screenshot": {
-              "type": "string"
+            "success": {
+              "type": "boolean"
             }
           },
+          "required": [
+            "meta",
+            "success"
+          ],
           "type": "object"
         },
         "400": {
@@ -5772,9 +6727,6 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "brapi_SerializedAXNode": brapi_SerializedAXNode_output,
-        "brapi_SerializedAXNode_checked": brapi_SerializedAXNode_checked_output,
-        "brapi_SerializedAXNode_pressed": brapi_SerializedAXNode_pressed_output,
-        "brapi_SerializedAXNode_value": brapi_SerializedAXNode_value_output,
       },
     },
     request: (args) => ({

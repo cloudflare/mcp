@@ -26,3 +26,11 @@ export const snippets_SnippetName: JsonSchema = {
   "description": "Identify the snippet.",
   "type": "string"
 };
+
+/**
+ * The schema of `snippets_ZoneId`.
+ */
+export const snippets_ZoneId: JsonSchema = {
+  "description": "Use this field to specify the unique ID of the zone.",
+  "type": "string"
+};

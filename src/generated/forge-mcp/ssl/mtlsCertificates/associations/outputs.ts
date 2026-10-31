@@ -25,61 +25,22 @@ export const tls_certificates_and_hostnames_associationObject_output: JsonSchema
  * responses.
  */
 export const tls_certificates_and_hostnames_association_response_collection_output: JsonSchema = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_messages"
+  "allOf": [
+    {
+      "$ref": "#/$defs/tls-certificates-and-hostnames_api-response-collection"
     },
-    "messages": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_messages"
-    },
-    "result": {
-      "items": {
-        "$ref": "#/$defs/tls-certificates-and-hostnames_associationObject"
+    {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/tls-certificates-and-hostnames_associationObject"
+          },
+          "type": "array"
+        }
       },
-      "type": "array"
-    },
-    "result_info": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_association_response_collection_result_info"
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
+      "type": "object"
     }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "success"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of
- * `tls-certificates-and-hostnames_association_response_collection_result_info`
- * in responses.
- */
-export const tls_certificates_and_hostnames_association_response_collection_result_info_output: JsonSchema = {
-  "properties": {
-    "count": {
-      "type": "number"
-    },
-    "page": {
-      "type": "number"
-    },
-    "per_page": {
-      "type": "number"
-    },
-    "total_count": {
-      "type": "number"
-    },
-    "total_pages": {
-      "type": "number"
-    }
-  },
-  "type": "object"
+  ]
 };
 
 /**

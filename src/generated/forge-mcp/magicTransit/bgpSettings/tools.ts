@@ -4,11 +4,15 @@
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
   magic_api_response_common_failure_output,
+  magic_api_response_common_output,
+  magic_api_response_single_output,
   magic_messages_output,
 } from "../outputs.js";
+import { magic_identifier } from "../schemas.js";
 import {
   magic_bgp_redistribute_sources_output,
   magic_bgp_settings_output,
+  magic_magic_bgp_settings_response_output,
 } from "./outputs.js";
 import {
   magic_update_bgp_settings_redistribute_sources,
@@ -27,19 +31,26 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier",
-          "type": "string"
+          "$ref": "#/$defs/magic_identifier",
+          "description": "Identifier"
         }
       },
       required: [
         "account_id"
       ],
+      $defs: {
+        "magic_identifier": magic_identifier,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/magic_bgp_settings",
+      "$ref": "#/$defs/magic_magic_bgp_settings_response",
       $defs: {
+        "magic_api-response-common": magic_api_response_common_output,
+        "magic_api-response-single": magic_api_response_single_output,
         "magic_bgp_redistribute_sources": magic_bgp_redistribute_sources_output,
         "magic_bgp_settings": magic_bgp_settings_output,
+        "magic_magic_bgp_settings_response": magic_magic_bgp_settings_response_output,
+        "magic_messages": magic_messages_output,
       },
     },
     annotations: {
@@ -63,16 +74,19 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/magic_bgp_settings"
+          "$ref": "#/$defs/magic_magic_bgp_settings_response"
         },
         "4XX": {
           "$ref": "#/$defs/magic_api-response-common-failure"
         }
       },
       $defs: {
+        "magic_api-response-common": magic_api_response_common_output,
         "magic_api-response-common-failure": magic_api_response_common_failure_output,
+        "magic_api-response-single": magic_api_response_single_output,
         "magic_bgp_redistribute_sources": magic_bgp_redistribute_sources_output,
         "magic_bgp_settings": magic_bgp_settings_output,
+        "magic_magic_bgp_settings_response": magic_magic_bgp_settings_response_output,
         "magic_messages": magic_messages_output,
       },
     },
@@ -88,8 +102,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier",
-          "type": "string"
+          "$ref": "#/$defs/magic_identifier",
+          "description": "Identifier"
         },
         "body": {
           "$ref": "#/$defs/magic_update_bgp_settings_request"
@@ -100,15 +114,20 @@ export const tools: readonly Tool[] = [
         "body"
       ],
       $defs: {
+        "magic_identifier": magic_identifier,
         "magic_update_bgp_settings_redistribute_sources": magic_update_bgp_settings_redistribute_sources,
         "magic_update_bgp_settings_request": magic_update_bgp_settings_request,
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/magic_bgp_settings",
+      "$ref": "#/$defs/magic_magic_bgp_settings_response",
       $defs: {
+        "magic_api-response-common": magic_api_response_common_output,
+        "magic_api-response-single": magic_api_response_single_output,
         "magic_bgp_redistribute_sources": magic_bgp_redistribute_sources_output,
         "magic_bgp_settings": magic_bgp_settings_output,
+        "magic_magic_bgp_settings_response": magic_magic_bgp_settings_response_output,
+        "magic_messages": magic_messages_output,
       },
     },
     annotations: {
@@ -132,16 +151,19 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/magic_bgp_settings"
+          "$ref": "#/$defs/magic_magic_bgp_settings_response"
         },
         "4XX": {
           "$ref": "#/$defs/magic_api-response-common-failure"
         }
       },
       $defs: {
+        "magic_api-response-common": magic_api_response_common_output,
         "magic_api-response-common-failure": magic_api_response_common_failure_output,
+        "magic_api-response-single": magic_api_response_single_output,
         "magic_bgp_redistribute_sources": magic_bgp_redistribute_sources_output,
         "magic_bgp_settings": magic_bgp_settings_output,
+        "magic_magic_bgp_settings_response": magic_magic_bgp_settings_response_output,
         "magic_messages": magic_messages_output,
       },
     },

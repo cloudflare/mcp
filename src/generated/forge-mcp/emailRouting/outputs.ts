@@ -88,9 +88,28 @@ export const email_email_setting_tag_output: JsonSchema = {
 };
 
 /**
- * The schema of `email_email_settings_properties` in responses.
+ * The schema of `email_email_settings_response_single` in responses.
  */
-export const email_email_settings_properties_output: JsonSchema = {
+export const email_email_settings_response_single_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/email_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/email_settings"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `email_settings` in responses.
+ */
+export const email_settings_output: JsonSchema = {
   "properties": {
     "created": {
       "$ref": "#/$defs/email_email_setting_created"

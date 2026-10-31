@@ -25,6 +25,31 @@ export const aaa_alert_types_output: JsonSchema = {
 };
 
 /**
+ * The schema of `aaa_alerts-response_collection` in responses.
+ */
+export const aaa_alerts_response_collection_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/aaa_api-response-common-2"
+    },
+    {
+      "properties": {
+        "result": {
+          "additionalProperties": {
+            "items": {
+              "$ref": "#/$defs/aaa_alert-types"
+            },
+            "type": "array"
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
  * The schema of `aaa_description` in responses.
  */
 export const aaa_description_output: JsonSchema = {
@@ -42,7 +67,9 @@ export const aaa_display_name_output: JsonSchema = {
  * The schema of `aaa_filter_options` in responses.
  */
 export const aaa_filter_options_output: JsonSchema = {
-  "items": {},
+  "items": {
+    "type": "object"
+  },
   "type": "array"
 };
 

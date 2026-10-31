@@ -56,19 +56,8 @@ export const logshare_messages_output: JsonSchema = {
       "code": {
         "type": "integer"
       },
-      "documentation_url": {
-        "type": "string"
-      },
       "message": {
         "type": "string"
-      },
-      "source": {
-        "properties": {
-          "pointer": {
-            "type": "string"
-          }
-        },
-        "type": "object"
       }
     },
     "required": [

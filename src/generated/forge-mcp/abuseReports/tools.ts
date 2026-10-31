@@ -24,7 +24,6 @@ import {
   abuse_reports_DiffEmailError_output,
   abuse_reports_EmailError_output,
   abuse_reports_ErrorCode_output,
-  abuse_reports_ErrorMessage_code_output,
   abuse_reports_ErrorMessage_output,
   abuse_reports_InternalError_output,
   abuse_reports_InvalidNotifyError_output,
@@ -37,20 +36,19 @@ import {
   abuse_reports_NoSigError_output,
   abuse_reports_PortsProtocolError_output,
   abuse_reports_RateLimitedErrorResponse_output,
-  abuse_reports_RateLimitedErrorResponse_request_output,
   abuse_reports_RateLimitedError_output,
   abuse_reports_RegistrarWhoIsFields_output,
   abuse_reports_ReportStatus_output,
   abuse_reports_ReportType_output,
+  abuse_reports_ResultInfo_output,
   abuse_reports_SubmissionReportType_output,
   abuse_reports_SubmitErrorResponse_output,
-  abuse_reports_SubmitErrorResponse_request_output,
   abuse_reports_SubmitReportResponse_output,
-  abuse_reports_SubmitReportResponse_request_output,
   abuse_reports_SubmittedAbuseReportDenialReason_output,
+  abuse_reports_SubmittedAbuseReportDetailResponse_output,
   abuse_reports_SubmittedAbuseReportDetail_output,
   abuse_reports_SubmittedAbuseReportListItem_output,
-  abuse_reports_SubmittedAbuseReportListResponse_result_output,
+  abuse_reports_SubmittedAbuseReportListResponse_output,
   abuse_reports_SubmittedAbuseReportStatus_output,
   abuse_reports_SubmitterDetails_output,
   abuse_reports_UnauthorizedErrorResponse_output,
@@ -60,6 +58,7 @@ import {
   abuse_reports_UrlNotvalidError_output,
 } from "./outputs.js";
 import {
+  abuse_reports_BaseReportFields,
   abuse_reports_CSAMReport,
   abuse_reports_DMCAReport,
   abuse_reports_GeneralReport,
@@ -70,6 +69,7 @@ import {
   abuse_reports_RegistrarWhoisReport,
   abuse_reports_ReportStatus,
   abuse_reports_ReportType,
+  abuse_reports_SubmissionReportType,
   abuse_reports_SubmitReportRequest,
   abuse_reports_SubmittedAbuseReportStatus,
   abuse_reports_ThreatReport,
@@ -95,8 +95,8 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/abuse-reports_SubmitReportRequest"
         },
         "report_type": {
-          "description": "The report type to be submitted. Example: abuse_general",
-          "type": "string"
+          "$ref": "#/$defs/abuse-reports_SubmissionReportType",
+          "description": "The report type to be submitted. Example: abuse_general"
         }
       },
       required: [
@@ -105,6 +105,7 @@ export const tools: readonly Tool[] = [
         "body"
       ],
       $defs: {
+        "abuse-reports_BaseReportFields": abuse_reports_BaseReportFields,
         "abuse-reports_CSAMReport": abuse_reports_CSAMReport,
         "abuse-reports_DMCAReport": abuse_reports_DMCAReport,
         "abuse-reports_GeneralReport": abuse_reports_GeneralReport,
@@ -112,6 +113,7 @@ export const tools: readonly Tool[] = [
         "abuse-reports_PhishingReport": abuse_reports_PhishingReport,
         "abuse-reports_RegistrarWhoIsFields": abuse_reports_RegistrarWhoIsFields,
         "abuse-reports_RegistrarWhoisReport": abuse_reports_RegistrarWhoisReport,
+        "abuse-reports_SubmissionReportType": abuse_reports_SubmissionReportType,
         "abuse-reports_SubmitReportRequest": abuse_reports_SubmitReportRequest,
         "abuse-reports_ThreatReport": abuse_reports_ThreatReport,
         "abuse-reports_TrademarkReport": abuse_reports_TrademarkReport,
@@ -122,7 +124,6 @@ export const tools: readonly Tool[] = [
       $defs: {
         "abuse-reports_SubmissionReportType": abuse_reports_SubmissionReportType_output,
         "abuse-reports_SubmitReportResponse": abuse_reports_SubmitReportResponse_output,
-        "abuse-reports_SubmitReportResponse_request": abuse_reports_SubmitReportResponse_request_output,
       },
     },
     annotations: {
@@ -182,7 +183,6 @@ export const tools: readonly Tool[] = [
         "abuse-reports_EmailError": abuse_reports_EmailError_output,
         "abuse-reports_ErrorCode": abuse_reports_ErrorCode_output,
         "abuse-reports_ErrorMessage": abuse_reports_ErrorMessage_output,
-        "abuse-reports_ErrorMessage_code": abuse_reports_ErrorMessage_code_output,
         "abuse-reports_InternalError": abuse_reports_InternalError_output,
         "abuse-reports_InvalidNotifyError": abuse_reports_InvalidNotifyError_output,
         "abuse-reports_MaxIPsError": abuse_reports_MaxIPsError_output,
@@ -194,12 +194,9 @@ export const tools: readonly Tool[] = [
         "abuse-reports_PortsProtocolError": abuse_reports_PortsProtocolError_output,
         "abuse-reports_RateLimitedError": abuse_reports_RateLimitedError_output,
         "abuse-reports_RateLimitedErrorResponse": abuse_reports_RateLimitedErrorResponse_output,
-        "abuse-reports_RateLimitedErrorResponse_request": abuse_reports_RateLimitedErrorResponse_request_output,
         "abuse-reports_SubmissionReportType": abuse_reports_SubmissionReportType_output,
         "abuse-reports_SubmitErrorResponse": abuse_reports_SubmitErrorResponse_output,
-        "abuse-reports_SubmitErrorResponse_request": abuse_reports_SubmitErrorResponse_request_output,
         "abuse-reports_SubmitReportResponse": abuse_reports_SubmitReportResponse_output,
-        "abuse-reports_SubmitReportResponse_request": abuse_reports_SubmitReportResponse_request_output,
         "abuse-reports_UnauthorizedErrorResponse": abuse_reports_UnauthorizedErrorResponse_output,
         "abuse-reports_UnexpectedActError": abuse_reports_UnexpectedActError_output,
         "abuse-reports_UnknownError": abuse_reports_UnknownError_output,
@@ -234,9 +231,35 @@ export const tools: readonly Tool[] = [
       ],
     },
     outputSchema: {
-      "$ref": "#/$defs/abuse-reports_AbuseReport",
+      "properties": {
+        "errors": {
+          "items": {
+            "$ref": "#/$defs/abuse-reports_ErrorMessage"
+          },
+          "type": "array"
+        },
+        "messages": {
+          "items": {
+            "$ref": "#/$defs/abuse-reports_Message"
+          },
+          "type": "array"
+        },
+        "result": {
+          "$ref": "#/$defs/abuse-reports_AbuseReport"
+        },
+        "success": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "result",
+        "success"
+      ],
+      "type": "object",
       $defs: {
         "abuse-reports_AbuseReport": abuse_reports_AbuseReport_output,
+        "abuse-reports_ErrorMessage": abuse_reports_ErrorMessage_output,
+        "abuse-reports_Message": abuse_reports_Message_output,
         "abuse-reports_MitigationSummary": abuse_reports_MitigationSummary_output,
         "abuse-reports_ReportStatus": abuse_reports_ReportStatus_output,
         "abuse-reports_ReportType": abuse_reports_ReportType_output,
@@ -261,7 +284,31 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/abuse-reports_AbuseReport"
+          "properties": {
+            "errors": {
+              "items": {
+                "$ref": "#/$defs/abuse-reports_ErrorMessage"
+              },
+              "type": "array"
+            },
+            "messages": {
+              "items": {
+                "$ref": "#/$defs/abuse-reports_Message"
+              },
+              "type": "array"
+            },
+            "result": {
+              "$ref": "#/$defs/abuse-reports_AbuseReport"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "result",
+            "success"
+          ],
+          "type": "object"
         },
         "400": {
           "properties": {
@@ -329,7 +376,6 @@ export const tools: readonly Tool[] = [
         "abuse-reports_AuthErrorResponse": abuse_reports_AuthErrorResponse_output,
         "abuse-reports_CloudflareAPIErrorResponse": abuse_reports_CloudflareAPIErrorResponse_output,
         "abuse-reports_ErrorMessage": abuse_reports_ErrorMessage_output,
-        "abuse-reports_ErrorMessage_code": abuse_reports_ErrorMessage_code_output,
         "abuse-reports_Message": abuse_reports_Message_output,
         "abuse-reports_MitigationSummary": abuse_reports_MitigationSummary_output,
         "abuse-reports_ReportStatus": abuse_reports_ReportStatus_output,
@@ -364,12 +410,16 @@ export const tools: readonly Tool[] = [
       ],
     },
     outputSchema: {
-      "$ref": "#/$defs/abuse-reports_SubmittedAbuseReportDetail",
+      "$ref": "#/$defs/abuse-reports_SubmittedAbuseReportDetailResponse",
       $defs: {
+        "abuse-reports_ErrorMessage": abuse_reports_ErrorMessage_output,
+        "abuse-reports_Message": abuse_reports_Message_output,
         "abuse-reports_RegistrarWhoIsFields": abuse_reports_RegistrarWhoIsFields_output,
         "abuse-reports_ReportType": abuse_reports_ReportType_output,
         "abuse-reports_SubmittedAbuseReportDenialReason": abuse_reports_SubmittedAbuseReportDenialReason_output,
         "abuse-reports_SubmittedAbuseReportDetail": abuse_reports_SubmittedAbuseReportDetail_output,
+        "abuse-reports_SubmittedAbuseReportDetailResponse": abuse_reports_SubmittedAbuseReportDetailResponse_output,
+        "abuse-reports_SubmittedAbuseReportListItem": abuse_reports_SubmittedAbuseReportListItem_output,
         "abuse-reports_SubmittedAbuseReportStatus": abuse_reports_SubmittedAbuseReportStatus_output,
         "abuse-reports_SubmitterDetails": abuse_reports_SubmitterDetails_output,
       },
@@ -392,7 +442,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/abuse-reports_SubmittedAbuseReportDetail"
+          "$ref": "#/$defs/abuse-reports_SubmittedAbuseReportDetailResponse"
         },
         "400": null,
         "401": {
@@ -408,12 +458,13 @@ export const tools: readonly Tool[] = [
         "abuse-reports_AuthErrorResponse": abuse_reports_AuthErrorResponse_output,
         "abuse-reports_CloudflareAPIErrorResponse": abuse_reports_CloudflareAPIErrorResponse_output,
         "abuse-reports_ErrorMessage": abuse_reports_ErrorMessage_output,
-        "abuse-reports_ErrorMessage_code": abuse_reports_ErrorMessage_code_output,
         "abuse-reports_Message": abuse_reports_Message_output,
         "abuse-reports_RegistrarWhoIsFields": abuse_reports_RegistrarWhoIsFields_output,
         "abuse-reports_ReportType": abuse_reports_ReportType_output,
         "abuse-reports_SubmittedAbuseReportDenialReason": abuse_reports_SubmittedAbuseReportDenialReason_output,
         "abuse-reports_SubmittedAbuseReportDetail": abuse_reports_SubmittedAbuseReportDetail_output,
+        "abuse-reports_SubmittedAbuseReportDetailResponse": abuse_reports_SubmittedAbuseReportDetailResponse_output,
+        "abuse-reports_SubmittedAbuseReportListItem": abuse_reports_SubmittedAbuseReportListItem_output,
         "abuse-reports_SubmittedAbuseReportStatus": abuse_reports_SubmittedAbuseReportStatus_output,
         "abuse-reports_SubmitterDetails": abuse_reports_SubmitterDetails_output,
         "abuse-reports_UnauthorizedErrorResponse": abuse_reports_UnauthorizedErrorResponse_output,
@@ -486,19 +537,70 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
-        "reports": {
+        "errors": {
           "items": {
-            "$ref": "#/$defs/abuse-reports_AbuseReport"
+            "$ref": "#/$defs/abuse-reports_Message"
           },
           "type": "array"
+        },
+        "messages": {
+          "items": {
+            "$ref": "#/$defs/abuse-reports_Message"
+          },
+          "type": "array"
+        },
+        "result": {
+          "properties": {
+            "reports": {
+              "items": {
+                "$ref": "#/$defs/abuse-reports_AbuseReport"
+              },
+              "type": "array"
+            }
+          },
+          "required": [
+            "reports"
+          ],
+          "type": "object"
+        },
+        "result_info": {
+          "properties": {
+            "count": {
+              "type": "number"
+            },
+            "page": {
+              "type": "number"
+            },
+            "per_page": {
+              "type": "number"
+            },
+            "total_count": {
+              "type": "number"
+            },
+            "total_pages": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "count",
+            "page",
+            "per_page",
+            "total_count",
+            "total_pages"
+          ],
+          "type": "object"
+        },
+        "success": {
+          "type": "boolean"
         }
       },
       "required": [
-        "reports"
+        "success"
       ],
       "type": "object",
       $defs: {
         "abuse-reports_AbuseReport": abuse_reports_AbuseReport_output,
+        "abuse-reports_Message": abuse_reports_Message_output,
         "abuse-reports_MitigationSummary": abuse_reports_MitigationSummary_output,
         "abuse-reports_ReportStatus": abuse_reports_ReportStatus_output,
         "abuse-reports_ReportType": abuse_reports_ReportType_output,
@@ -524,15 +626,65 @@ export const tools: readonly Tool[] = [
       schemas: {
         "200": {
           "properties": {
-            "reports": {
+            "errors": {
               "items": {
-                "$ref": "#/$defs/abuse-reports_AbuseReport"
+                "$ref": "#/$defs/abuse-reports_Message"
               },
               "type": "array"
+            },
+            "messages": {
+              "items": {
+                "$ref": "#/$defs/abuse-reports_Message"
+              },
+              "type": "array"
+            },
+            "result": {
+              "properties": {
+                "reports": {
+                  "items": {
+                    "$ref": "#/$defs/abuse-reports_AbuseReport"
+                  },
+                  "type": "array"
+                }
+              },
+              "required": [
+                "reports"
+              ],
+              "type": "object"
+            },
+            "result_info": {
+              "properties": {
+                "count": {
+                  "type": "number"
+                },
+                "page": {
+                  "type": "number"
+                },
+                "per_page": {
+                  "type": "number"
+                },
+                "total_count": {
+                  "type": "number"
+                },
+                "total_pages": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "count",
+                "page",
+                "per_page",
+                "total_count",
+                "total_pages"
+              ],
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
             }
           },
           "required": [
-            "reports"
+            "success"
           ],
           "type": "object"
         },
@@ -572,7 +724,6 @@ export const tools: readonly Tool[] = [
         "abuse-reports_AuthErrorResponse": abuse_reports_AuthErrorResponse_output,
         "abuse-reports_CloudflareAPIErrorResponse": abuse_reports_CloudflareAPIErrorResponse_output,
         "abuse-reports_ErrorMessage": abuse_reports_ErrorMessage_output,
-        "abuse-reports_ErrorMessage_code": abuse_reports_ErrorMessage_code_output,
         "abuse-reports_Message": abuse_reports_Message_output,
         "abuse-reports_MitigationSummary": abuse_reports_MitigationSummary_output,
         "abuse-reports_ReportStatus": abuse_reports_ReportStatus_output,
@@ -667,12 +818,15 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/abuse-reports_SubmittedAbuseReportListResponse_result",
+      "$ref": "#/$defs/abuse-reports_SubmittedAbuseReportListResponse",
       $defs: {
+        "abuse-reports_ErrorMessage": abuse_reports_ErrorMessage_output,
+        "abuse-reports_Message": abuse_reports_Message_output,
         "abuse-reports_ReportType": abuse_reports_ReportType_output,
+        "abuse-reports_ResultInfo": abuse_reports_ResultInfo_output,
         "abuse-reports_SubmittedAbuseReportDenialReason": abuse_reports_SubmittedAbuseReportDenialReason_output,
         "abuse-reports_SubmittedAbuseReportListItem": abuse_reports_SubmittedAbuseReportListItem_output,
-        "abuse-reports_SubmittedAbuseReportListResponse_result": abuse_reports_SubmittedAbuseReportListResponse_result_output,
+        "abuse-reports_SubmittedAbuseReportListResponse": abuse_reports_SubmittedAbuseReportListResponse_output,
         "abuse-reports_SubmittedAbuseReportStatus": abuse_reports_SubmittedAbuseReportStatus_output,
         "abuse-reports_SubmitterDetails": abuse_reports_SubmitterDetails_output,
       },
@@ -695,7 +849,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/abuse-reports_SubmittedAbuseReportListResponse_result"
+          "$ref": "#/$defs/abuse-reports_SubmittedAbuseReportListResponse"
         },
         "400": null,
         "401": {
@@ -710,12 +864,12 @@ export const tools: readonly Tool[] = [
         "abuse-reports_AuthErrorResponse": abuse_reports_AuthErrorResponse_output,
         "abuse-reports_CloudflareAPIErrorResponse": abuse_reports_CloudflareAPIErrorResponse_output,
         "abuse-reports_ErrorMessage": abuse_reports_ErrorMessage_output,
-        "abuse-reports_ErrorMessage_code": abuse_reports_ErrorMessage_code_output,
         "abuse-reports_Message": abuse_reports_Message_output,
         "abuse-reports_ReportType": abuse_reports_ReportType_output,
+        "abuse-reports_ResultInfo": abuse_reports_ResultInfo_output,
         "abuse-reports_SubmittedAbuseReportDenialReason": abuse_reports_SubmittedAbuseReportDenialReason_output,
         "abuse-reports_SubmittedAbuseReportListItem": abuse_reports_SubmittedAbuseReportListItem_output,
-        "abuse-reports_SubmittedAbuseReportListResponse_result": abuse_reports_SubmittedAbuseReportListResponse_result_output,
+        "abuse-reports_SubmittedAbuseReportListResponse": abuse_reports_SubmittedAbuseReportListResponse_output,
         "abuse-reports_SubmittedAbuseReportStatus": abuse_reports_SubmittedAbuseReportStatus_output,
         "abuse-reports_SubmitterDetails": abuse_reports_SubmitterDetails_output,
         "abuse-reports_UnauthorizedErrorResponse": abuse_reports_UnauthorizedErrorResponse_output,

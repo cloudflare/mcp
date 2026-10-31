@@ -24,7 +24,40 @@ export const dns_settings_account_settings_patch: JsonSchema = {
  * The schema of `dns-settings_dns-settings-account-patch`.
  */
 export const dns_settings_dns_settings_account_patch: JsonSchema = {
-  "description": "Default settings for new zones created in this account.",
+  "allOf": [
+    {
+      "$ref": "#/$defs/dns-settings_dns-settings-patch"
+    },
+    {
+      "properties": {
+        "nameservers": {
+          "description": "Settings determining the nameservers through which the zone should be available.",
+          "properties": {
+            "type": {
+              "description": "Nameserver type",
+              "enum": [
+                "cloudflare.standard",
+                "cloudflare.advanced",
+                "cloudflare.standard.random",
+                "custom.account",
+                "custom.tenant"
+              ],
+              "type": "string"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
+    }
+  ],
+  "description": "Default settings for new zones created in this account."
+};
+
+/**
+ * The schema of `dns-settings_dns-settings-patch`.
+ */
+export const dns_settings_dns_settings_patch: JsonSchema = {
   "properties": {
     "flatten_all_cnames": {
       "$ref": "#/$defs/dns-settings_flatten_all_cnames",
@@ -42,10 +75,6 @@ export const dns_settings_dns_settings_account_patch: JsonSchema = {
       "$ref": "#/$defs/dns-settings_multi_provider",
       "description": "Whether to enable multi-provider DNS, which causes Cloudflare to activate the zone even when non-Cloudflare NS records exist, and to respect NS records at the zone apex during outbound zone transfers."
     },
-    "nameservers": {
-      "$ref": "#/$defs/dns-settings_dns-settings-account-patch_nameservers",
-      "description": "Settings determining the nameservers through which the zone should be available."
-    },
     "ns_ttl": {
       "$ref": "#/$defs/dns-settings_ns_ttl",
       "description": "The time to live (TTL) of the zone's nameserver (NS) records."
@@ -61,27 +90,6 @@ export const dns_settings_dns_settings_account_patch: JsonSchema = {
     "zone_mode": {
       "$ref": "#/$defs/dns-settings_zone_mode",
       "description": "Whether the zone mode is a regular or CDN/DNS only zone."
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `dns-settings_dns-settings-account-patch_nameservers`.
- */
-export const dns_settings_dns_settings_account_patch_nameservers: JsonSchema = {
-  "description": "Settings determining the nameservers through which the zone should be available.",
-  "properties": {
-    "type": {
-      "description": "Nameserver type",
-      "enum": [
-        "cloudflare.standard",
-        "cloudflare.advanced",
-        "cloudflare.standard.random",
-        "custom.account",
-        "custom.tenant"
-      ],
-      "type": "string"
     }
   },
   "type": "object"
@@ -110,6 +118,14 @@ export const dns_settings_foundation_dns: JsonSchema = {
   "deprecated": true,
   "description": "Deprecated. Use nameservers.type to configure Advanced Nameservers.",
   "type": "boolean"
+};
+
+/**
+ * The schema of `dns-settings_identifier`.
+ */
+export const dns_settings_identifier: JsonSchema = {
+  "description": "Identifier.",
+  "type": "string"
 };
 
 /**

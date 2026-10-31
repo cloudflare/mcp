@@ -53,6 +53,14 @@ export const lists_item_hostname: JsonSchema = {
 };
 
 /**
+ * The schema of `lists_item_id`.
+ */
+export const lists_item_id: JsonSchema = {
+  "description": "Defines the unique ID of the item in the List.",
+  "type": "string"
+};
+
+/**
  * The schema of `lists_item_ip`.
  */
 export const lists_item_ip: JsonSchema = {

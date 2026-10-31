@@ -9,7 +9,38 @@ import type { JsonSchema } from "../../../_/tool.js";
 export const r2_cors_rule_output: JsonSchema = {
   "properties": {
     "allowed": {
-      "$ref": "#/$defs/r2_cors-rule_allowed"
+      "properties": {
+        "headers": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "methods": {
+          "items": {
+            "enum": [
+              "GET",
+              "PUT",
+              "POST",
+              "DELETE",
+              "HEAD"
+            ],
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "origins": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "methods",
+        "origins"
+      ],
+      "type": "object"
     },
     "exposeHeaders": {
       "items": {
@@ -26,44 +57,6 @@ export const r2_cors_rule_output: JsonSchema = {
   },
   "required": [
     "allowed"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `r2_cors-rule_allowed` in responses.
- */
-export const r2_cors_rule_allowed_output: JsonSchema = {
-  "properties": {
-    "headers": {
-      "items": {
-        "type": "string"
-      },
-      "type": "array"
-    },
-    "methods": {
-      "items": {
-        "enum": [
-          "GET",
-          "PUT",
-          "POST",
-          "DELETE",
-          "HEAD"
-        ],
-        "type": "string"
-      },
-      "type": "array"
-    },
-    "origins": {
-      "items": {
-        "type": "string"
-      },
-      "type": "array"
-    }
-  },
-  "required": [
-    "methods",
-    "origins"
   ],
   "type": "object"
 };

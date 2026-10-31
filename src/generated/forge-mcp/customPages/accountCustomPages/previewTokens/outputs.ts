@@ -17,3 +17,22 @@ export const custom_pages_preview_token_output: JsonSchema = {
   ],
   "type": "object"
 };
+
+/**
+ * The schema of `custom-pages_preview_token_result` in responses.
+ */
+export const custom_pages_preview_token_result_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/custom-pages_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/custom-pages_preview_token"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};

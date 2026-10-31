@@ -4,6 +4,13 @@
 import type { JsonSchema } from "../_/tool.js";
 
 /**
+ * The schema of `cache_identifier`.
+ */
+export const cache_identifier: JsonSchema = {
+  "type": "string"
+};
+
+/**
  * The schema of `tls-certificates-and-hostnames_bundle_method`.
  */
 export const tls_certificates_and_hostnames_bundle_method: JsonSchema = {
@@ -33,10 +40,11 @@ export const tls_certificates_and_hostnames_host: JsonSchema = {
 };
 
 /**
- * The schema of `tls-certificates-and-hostnames_identifier`.
+ * The schema of
+ * `tls-certificates-and-hostnames_keyless_certificate_identifier`.
  */
-export const tls_certificates_and_hostnames_identifier: JsonSchema = {
-  "description": "Identifier.",
+export const tls_certificates_and_hostnames_keyless_certificate_identifier: JsonSchema = {
+  "description": "Keyless certificate identifier tag.",
   "type": "string"
 };
 

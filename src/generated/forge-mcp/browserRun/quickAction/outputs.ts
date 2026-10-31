@@ -12,7 +12,17 @@ export const brapi_SerializedAXNode_output: JsonSchema = {
       "type": "string"
     },
     "checked": {
-      "$ref": "#/$defs/brapi_SerializedAXNode_checked"
+      "oneOf": [
+        {
+          "type": "boolean"
+        },
+        {
+          "enum": [
+            "mixed"
+          ],
+          "type": "string"
+        }
+      ]
     },
     "children": {
       "items": {
@@ -60,7 +70,17 @@ export const brapi_SerializedAXNode_output: JsonSchema = {
       "type": "string"
     },
     "pressed": {
-      "$ref": "#/$defs/brapi_SerializedAXNode_pressed"
+      "oneOf": [
+        {
+          "type": "boolean"
+        },
+        {
+          "enum": [
+            "mixed"
+          ],
+          "type": "string"
+        }
+      ]
     },
     "readonly": {
       "type": "boolean"
@@ -78,7 +98,14 @@ export const brapi_SerializedAXNode_output: JsonSchema = {
       "type": "boolean"
     },
     "value": {
-      "$ref": "#/$defs/brapi_SerializedAXNode_value"
+      "oneOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "number"
+        }
+      ]
     },
     "valuemax": {
       "type": "number"
@@ -94,52 +121,4 @@ export const brapi_SerializedAXNode_output: JsonSchema = {
     "role"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `brapi_SerializedAXNode_checked` in responses.
- */
-export const brapi_SerializedAXNode_checked_output: JsonSchema = {
-  "oneOf": [
-    {
-      "type": "boolean"
-    },
-    {
-      "enum": [
-        "mixed"
-      ],
-      "type": "string"
-    }
-  ]
-};
-
-/**
- * The schema of `brapi_SerializedAXNode_pressed` in responses.
- */
-export const brapi_SerializedAXNode_pressed_output: JsonSchema = {
-  "oneOf": [
-    {
-      "type": "boolean"
-    },
-    {
-      "enum": [
-        "mixed"
-      ],
-      "type": "string"
-    }
-  ]
-};
-
-/**
- * The schema of `brapi_SerializedAXNode_value` in responses.
- */
-export const brapi_SerializedAXNode_value_output: JsonSchema = {
-  "oneOf": [
-    {
-      "type": "string"
-    },
-    {
-      "type": "number"
-    }
-  ]
 };

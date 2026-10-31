@@ -62,29 +62,19 @@ export const api_shield_action_output: JsonSchema = {
  * The schema of `api-shield_api-response-single-obj` in responses.
  */
 export const api_shield_api_response_single_obj_output: JsonSchema = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/api-shield_messages"
+  "allOf": [
+    {
+      "$ref": "#/$defs/api-shield_api-response-common"
     },
-    "messages": {
-      "$ref": "#/$defs/api-shield_messages"
-    },
-    "result": {
+    {
+      "properties": {
+        "result": {
+          "type": "object"
+        }
+      },
       "type": "object"
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
     }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "success"
-  ],
-  "type": "object"
+  ]
 };
 
 /**

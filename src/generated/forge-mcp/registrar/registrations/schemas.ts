@@ -42,7 +42,21 @@ export const registrar_api_domain_transfer_check_request: JsonSchema = {
     "domains": {
       "description": "List of domain objects to evaluate for transfer eligibility.",
       "items": {
-        "$ref": "#/$defs/registrar-api_domain_transfer_check_request_domainsItem"
+        "properties": {
+          "auth_code": {
+            "contentEncoding": "base64",
+            "description": "Base64-encoded auth/EPP code from the current registrar.\nRequired for most TLDs. `.uk` namespaces do not use auth\ncodes.\n",
+            "type": "string"
+          },
+          "domain_name": {
+            "description": "Fully qualified domain name (FQDN) to check for transfer eligibility.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "domain_name"
+        ],
+        "type": "object"
       },
       "maxItems": 10,
       "minItems": 1,
@@ -51,27 +65,6 @@ export const registrar_api_domain_transfer_check_request: JsonSchema = {
   },
   "required": [
     "domains"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `registrar-api_domain_transfer_check_request_domainsItem`.
- */
-export const registrar_api_domain_transfer_check_request_domainsItem: JsonSchema = {
-  "properties": {
-    "auth_code": {
-      "contentEncoding": "base64",
-      "description": "Base64-encoded auth/EPP code from the current registrar.\nRequired for most TLDs. `.uk` namespaces do not use auth\ncodes.\n",
-      "type": "string"
-    },
-    "domain_name": {
-      "description": "Fully qualified domain name (FQDN) to check for transfer eligibility.",
-      "type": "string"
-    }
-  },
-  "required": [
-    "domain_name"
   ],
   "type": "object"
 };
@@ -215,8 +208,7 @@ export const registrar_api_registration_create_request: JsonSchema = {
       "type": "object"
     },
     "contacts": {
-      "$ref": "#/$defs/registrar-api_registration_contacts",
-      "description": "Provides contact data for the registration request.\n\nThe per-extension schema from\n`GET /accounts/{account_id}/registrar/extensions/{extension}` defines the\naccepted contact roles. Every currently supported extension requires only\n`contacts.registrant` from API callers. Callers may provide additional roles\nsuch as `technical`, `administrator`, and `billing` when the extension\nschema includes them. When a registry requires an omitted role, Cloudflare\nmay derive that contact from `contacts.registrant`.\n\nWhen the request omits either the entire `contacts` object or\n`contacts.registrant`, the system uses the account's default address book\nentry as the registrant contact. The account owner must configure this\ndefault at `https://dash.cloudflare.com/{account_id}/domains/registrations`,\nwhere they can create or update the address book entry and accept the\nrequired agreement. Dashboard settings currently provide the only way to\nmanage address book entries.\n\nWithout either a default address book entry or a registrant contact, the\nregistration request fails validation.\n"
+      "$ref": "#/$defs/registrar-api_registration_contacts"
     },
     "domain_name": {
       "$ref": "#/$defs/registrar-api_domain_name",
@@ -276,8 +268,7 @@ export const registrar_api_transfer_in_create_request: JsonSchema = {
       "type": "object"
     },
     "contacts": {
-      "$ref": "#/$defs/registrar-api_registration_contacts",
-      "description": "Provides contact data for the registration request.\n\nThe per-extension schema from\n`GET /accounts/{account_id}/registrar/extensions/{extension}` defines the\naccepted contact roles. Every currently supported extension requires only\n`contacts.registrant` from API callers. Callers may provide additional roles\nsuch as `technical`, `administrator`, and `billing` when the extension\nschema includes them. When a registry requires an omitted role, Cloudflare\nmay derive that contact from `contacts.registrant`.\n\nWhen the request omits either the entire `contacts` object or\n`contacts.registrant`, the system uses the account's default address book\nentry as the registrant contact. The account owner must configure this\ndefault at `https://dash.cloudflare.com/{account_id}/domains/registrations`,\nwhere they can create or update the address book entry and accept the\nrequired agreement. Dashboard settings currently provide the only way to\nmanage address book entries.\n\nWithout either a default address book entry or a registrant contact, the\nregistration request fails validation.\n"
+      "$ref": "#/$defs/registrar-api_registration_contacts"
     },
     "privacy_mode": {
       "description": "WHOIS privacy mode to apply after transfer completes. Defaults to\nthe extension's default privacy mode (typically `redaction`).\n",

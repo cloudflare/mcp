@@ -4,8 +4,11 @@
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
   speed_api_response_common_failure_output,
+  speed_api_response_common_output,
+  speed_base_output,
   speed_messages_output,
 } from "../../outputs.js";
+import { speed_identifier } from "../../schemas.js";
 import {
   speed_transformations_allowed_origins_response_output,
   speed_transformations_allowed_origins_value_output,
@@ -36,8 +39,8 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "zone_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/speed_identifier",
+          "description": "Identifier."
         }
       },
       required: [
@@ -45,12 +48,28 @@ export const tools: readonly Tool[] = [
         "body"
       ],
       $defs: {
+        "speed_identifier": speed_identifier,
         "speed_transformations_allowed_origins_value": speed_transformations_allowed_origins_value,
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/speed_transformations_allowed_origins_response",
+      "allOf": [
+        {
+          "$ref": "#/$defs/speed_api-response-common"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/speed_transformations_allowed_origins_response"
+            }
+          },
+          "type": "object"
+        }
+      ],
       $defs: {
+        "speed_api-response-common": speed_api_response_common_output,
+        "speed_base": speed_base_output,
+        "speed_messages": speed_messages_output,
         "speed_transformations_allowed_origins_response": speed_transformations_allowed_origins_response_output,
         "speed_transformations_allowed_origins_value": speed_transformations_allowed_origins_value_output,
       },
@@ -78,14 +97,28 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/speed_transformations_allowed_origins_response"
+          "allOf": [
+            {
+              "$ref": "#/$defs/speed_api-response-common"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/speed_transformations_allowed_origins_response"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/speed_api-response-common-failure"
         }
       },
       $defs: {
+        "speed_api-response-common": speed_api_response_common_output,
         "speed_api-response-common-failure": speed_api_response_common_failure_output,
+        "speed_base": speed_base_output,
         "speed_messages": speed_messages_output,
         "speed_transformations_allowed_origins_response": speed_transformations_allowed_origins_response_output,
         "speed_transformations_allowed_origins_value": speed_transformations_allowed_origins_value_output,
@@ -104,17 +137,35 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "zone_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/speed_identifier",
+          "description": "Identifier."
         }
       },
       required: [
         "zone_id"
       ],
+      $defs: {
+        "speed_identifier": speed_identifier,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/speed_transformations_allowed_origins_response",
+      "allOf": [
+        {
+          "$ref": "#/$defs/speed_api-response-common"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/speed_transformations_allowed_origins_response"
+            }
+          },
+          "type": "object"
+        }
+      ],
       $defs: {
+        "speed_api-response-common": speed_api_response_common_output,
+        "speed_base": speed_base_output,
+        "speed_messages": speed_messages_output,
         "speed_transformations_allowed_origins_response": speed_transformations_allowed_origins_response_output,
         "speed_transformations_allowed_origins_value": speed_transformations_allowed_origins_value_output,
       },
@@ -143,14 +194,28 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/speed_transformations_allowed_origins_response"
+          "allOf": [
+            {
+              "$ref": "#/$defs/speed_api-response-common"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/speed_transformations_allowed_origins_response"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/speed_api-response-common-failure"
         }
       },
       $defs: {
+        "speed_api-response-common": speed_api_response_common_output,
         "speed_api-response-common-failure": speed_api_response_common_failure_output,
+        "speed_base": speed_base_output,
         "speed_messages": speed_messages_output,
         "speed_transformations_allowed_origins_response": speed_transformations_allowed_origins_response_output,
         "speed_transformations_allowed_origins_value": speed_transformations_allowed_origins_value_output,

@@ -3,6 +3,7 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
+  posture_api_BaseFindingType_output,
   posture_api_CredentialHealthStatusEnum_output,
   posture_api_ExportJobTypeEnum_output,
   posture_api_ExportJob_output,
@@ -17,8 +18,10 @@ import {
   posture_api_StatusEnum_output,
   posture_api_Vendor_output,
   posture_api_ZeroTrustProduct_output,
+  posture_api_api_response_collection_output,
   posture_api_api_response_common_output,
   posture_api_error_response_output,
+  posture_api_export_job_response_output,
   posture_api_messages_output,
   posture_api_result_info_output,
 } from "../outputs.js";
@@ -31,6 +34,8 @@ import {
   posture_api_FindingSeverityOverride_output,
   posture_api_FindingType_output,
   posture_api_Finding_output,
+  posture_api_finding_response_output,
+  posture_api_paginated_finding_list_output,
 } from "./outputs.js";
 import {
   posture_api_FindingBulkActionRequest,
@@ -71,11 +76,14 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/posture-api_ExportJob",
+      "$ref": "#/$defs/posture-api_export-job-response",
       $defs: {
         "posture-api_ExportJob": posture_api_ExportJob_output,
         "posture-api_ExportJobTypeEnum": posture_api_ExportJobTypeEnum_output,
         "posture-api_StatusEnum": posture_api_StatusEnum_output,
+        "posture-api_api-response-common": posture_api_api_response_common_output,
+        "posture-api_export-job-response": posture_api_export_job_response_output,
+        "posture-api_messages": posture_api_messages_output,
       },
     },
     annotations: {
@@ -96,7 +104,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/posture-api_ExportJob"
+          "$ref": "#/$defs/posture-api_export-job-response"
         },
         "400": null,
         "429": {
@@ -108,6 +116,7 @@ export const tools: readonly Tool[] = [
         "posture-api_ExportJobTypeEnum": posture_api_ExportJobTypeEnum_output,
         "posture-api_StatusEnum": posture_api_StatusEnum_output,
         "posture-api_api-response-common": posture_api_api_response_common_output,
+        "posture-api_export-job-response": posture_api_export_job_response_output,
         "posture-api_messages": posture_api_messages_output,
       },
     },
@@ -139,8 +148,9 @@ export const tools: readonly Tool[] = [
       ],
     },
     outputSchema: {
-      "$ref": "#/$defs/posture-api_Finding",
+      "$ref": "#/$defs/posture-api_finding-response",
       $defs: {
+        "posture-api_BaseFindingType": posture_api_BaseFindingType_output,
         "posture-api_CredentialHealthStatusEnum": posture_api_CredentialHealthStatusEnum_output,
         "posture-api_Finding": posture_api_Finding_output,
         "posture-api_FindingCategory": posture_api_FindingCategory_output,
@@ -156,6 +166,9 @@ export const tools: readonly Tool[] = [
         "posture-api_SeverityEnum": posture_api_SeverityEnum_output,
         "posture-api_Vendor": posture_api_Vendor_output,
         "posture-api_ZeroTrustProduct": posture_api_ZeroTrustProduct_output,
+        "posture-api_api-response-common": posture_api_api_response_common_output,
+        "posture-api_finding-response": posture_api_finding_response_output,
+        "posture-api_messages": posture_api_messages_output,
       },
     },
     annotations: {
@@ -176,7 +189,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/posture-api_Finding"
+          "$ref": "#/$defs/posture-api_finding-response"
         },
         "400": {
           "$ref": "#/$defs/posture-api_error-response"
@@ -195,6 +208,7 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
+        "posture-api_BaseFindingType": posture_api_BaseFindingType_output,
         "posture-api_CredentialHealthStatusEnum": posture_api_CredentialHealthStatusEnum_output,
         "posture-api_Finding": posture_api_Finding_output,
         "posture-api_FindingCategory": posture_api_FindingCategory_output,
@@ -212,6 +226,7 @@ export const tools: readonly Tool[] = [
         "posture-api_ZeroTrustProduct": posture_api_ZeroTrustProduct_output,
         "posture-api_api-response-common": posture_api_api_response_common_output,
         "posture-api_error-response": posture_api_error_response_output,
+        "posture-api_finding-response": posture_api_finding_response_output,
         "posture-api_messages": posture_api_messages_output,
       },
     },
@@ -243,8 +258,9 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/posture-api_Finding",
+      "$ref": "#/$defs/posture-api_finding-response",
       $defs: {
+        "posture-api_BaseFindingType": posture_api_BaseFindingType_output,
         "posture-api_CredentialHealthStatusEnum": posture_api_CredentialHealthStatusEnum_output,
         "posture-api_Finding": posture_api_Finding_output,
         "posture-api_FindingCategory": posture_api_FindingCategory_output,
@@ -260,6 +276,9 @@ export const tools: readonly Tool[] = [
         "posture-api_SeverityEnum": posture_api_SeverityEnum_output,
         "posture-api_Vendor": posture_api_Vendor_output,
         "posture-api_ZeroTrustProduct": posture_api_ZeroTrustProduct_output,
+        "posture-api_api-response-common": posture_api_api_response_common_output,
+        "posture-api_finding-response": posture_api_finding_response_output,
+        "posture-api_messages": posture_api_messages_output,
       },
     },
     annotations: {
@@ -279,7 +298,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/posture-api_Finding"
+          "$ref": "#/$defs/posture-api_finding-response"
         },
         "400": null,
         "429": {
@@ -287,6 +306,7 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
+        "posture-api_BaseFindingType": posture_api_BaseFindingType_output,
         "posture-api_CredentialHealthStatusEnum": posture_api_CredentialHealthStatusEnum_output,
         "posture-api_Finding": posture_api_Finding_output,
         "posture-api_FindingCategory": posture_api_FindingCategory_output,
@@ -303,6 +323,7 @@ export const tools: readonly Tool[] = [
         "posture-api_Vendor": posture_api_Vendor_output,
         "posture-api_ZeroTrustProduct": posture_api_ZeroTrustProduct_output,
         "posture-api_api-response-common": posture_api_api_response_common_output,
+        "posture-api_finding-response": posture_api_finding_response_output,
         "posture-api_messages": posture_api_messages_output,
       },
     },
@@ -429,22 +450,9 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "$ref": "#/$defs/posture-api_Finding"
-          },
-          "type": "array"
-        },
-        "result_info": {
-          "$ref": "#/$defs/posture-api_result-info"
-        }
-      },
-      "required": [
-        "result"
-      ],
-      "type": "object",
+      "$ref": "#/$defs/posture-api_paginated-finding-list",
       $defs: {
+        "posture-api_BaseFindingType": posture_api_BaseFindingType_output,
         "posture-api_CredentialHealthStatusEnum": posture_api_CredentialHealthStatusEnum_output,
         "posture-api_Finding": posture_api_Finding_output,
         "posture-api_FindingCategory": posture_api_FindingCategory_output,
@@ -460,6 +468,9 @@ export const tools: readonly Tool[] = [
         "posture-api_SeverityEnum": posture_api_SeverityEnum_output,
         "posture-api_Vendor": posture_api_Vendor_output,
         "posture-api_ZeroTrustProduct": posture_api_ZeroTrustProduct_output,
+        "posture-api_api-response-collection": posture_api_api_response_collection_output,
+        "posture-api_messages": posture_api_messages_output,
+        "posture-api_paginated-finding-list": posture_api_paginated_finding_list_output,
         "posture-api_result-info": posture_api_result_info_output,
       },
     },
@@ -481,21 +492,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "items": {
-                "$ref": "#/$defs/posture-api_Finding"
-              },
-              "type": "array"
-            },
-            "result_info": {
-              "$ref": "#/$defs/posture-api_result-info"
-            }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/posture-api_paginated-finding-list"
         },
         "400": {
           "$ref": "#/$defs/posture-api_error-response"
@@ -511,6 +508,7 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
+        "posture-api_BaseFindingType": posture_api_BaseFindingType_output,
         "posture-api_CredentialHealthStatusEnum": posture_api_CredentialHealthStatusEnum_output,
         "posture-api_Finding": posture_api_Finding_output,
         "posture-api_FindingCategory": posture_api_FindingCategory_output,
@@ -526,9 +524,11 @@ export const tools: readonly Tool[] = [
         "posture-api_SeverityEnum": posture_api_SeverityEnum_output,
         "posture-api_Vendor": posture_api_Vendor_output,
         "posture-api_ZeroTrustProduct": posture_api_ZeroTrustProduct_output,
+        "posture-api_api-response-collection": posture_api_api_response_collection_output,
         "posture-api_api-response-common": posture_api_api_response_common_output,
         "posture-api_error-response": posture_api_error_response_output,
         "posture-api_messages": posture_api_messages_output,
+        "posture-api_paginated-finding-list": posture_api_paginated_finding_list_output,
         "posture-api_result-info": posture_api_result_info_output,
       },
     },
@@ -577,8 +577,9 @@ export const tools: readonly Tool[] = [
       ],
     },
     outputSchema: {
-      "$ref": "#/$defs/posture-api_Finding",
+      "$ref": "#/$defs/posture-api_finding-response",
       $defs: {
+        "posture-api_BaseFindingType": posture_api_BaseFindingType_output,
         "posture-api_CredentialHealthStatusEnum": posture_api_CredentialHealthStatusEnum_output,
         "posture-api_Finding": posture_api_Finding_output,
         "posture-api_FindingCategory": posture_api_FindingCategory_output,
@@ -594,6 +595,9 @@ export const tools: readonly Tool[] = [
         "posture-api_SeverityEnum": posture_api_SeverityEnum_output,
         "posture-api_Vendor": posture_api_Vendor_output,
         "posture-api_ZeroTrustProduct": posture_api_ZeroTrustProduct_output,
+        "posture-api_api-response-common": posture_api_api_response_common_output,
+        "posture-api_finding-response": posture_api_finding_response_output,
+        "posture-api_messages": posture_api_messages_output,
       },
     },
     annotations: {
@@ -613,7 +617,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/posture-api_Finding"
+          "$ref": "#/$defs/posture-api_finding-response"
         },
         "400": null,
         "404": null,
@@ -625,6 +629,7 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
+        "posture-api_BaseFindingType": posture_api_BaseFindingType_output,
         "posture-api_CredentialHealthStatusEnum": posture_api_CredentialHealthStatusEnum_output,
         "posture-api_Finding": posture_api_Finding_output,
         "posture-api_FindingCategory": posture_api_FindingCategory_output,
@@ -642,6 +647,7 @@ export const tools: readonly Tool[] = [
         "posture-api_ZeroTrustProduct": posture_api_ZeroTrustProduct_output,
         "posture-api_api-response-common": posture_api_api_response_common_output,
         "posture-api_error-response": posture_api_error_response_output,
+        "posture-api_finding-response": posture_api_finding_response_output,
         "posture-api_messages": posture_api_messages_output,
       },
     },
@@ -679,8 +685,9 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/posture-api_Finding",
+      "$ref": "#/$defs/posture-api_finding-response",
       $defs: {
+        "posture-api_BaseFindingType": posture_api_BaseFindingType_output,
         "posture-api_CredentialHealthStatusEnum": posture_api_CredentialHealthStatusEnum_output,
         "posture-api_Finding": posture_api_Finding_output,
         "posture-api_FindingCategory": posture_api_FindingCategory_output,
@@ -696,6 +703,9 @@ export const tools: readonly Tool[] = [
         "posture-api_SeverityEnum": posture_api_SeverityEnum_output,
         "posture-api_Vendor": posture_api_Vendor_output,
         "posture-api_ZeroTrustProduct": posture_api_ZeroTrustProduct_output,
+        "posture-api_api-response-common": posture_api_api_response_common_output,
+        "posture-api_finding-response": posture_api_finding_response_output,
+        "posture-api_messages": posture_api_messages_output,
       },
     },
     annotations: {
@@ -715,7 +725,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/posture-api_Finding"
+          "$ref": "#/$defs/posture-api_finding-response"
         },
         "400": null,
         "404": null,
@@ -727,6 +737,7 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
+        "posture-api_BaseFindingType": posture_api_BaseFindingType_output,
         "posture-api_CredentialHealthStatusEnum": posture_api_CredentialHealthStatusEnum_output,
         "posture-api_Finding": posture_api_Finding_output,
         "posture-api_FindingCategory": posture_api_FindingCategory_output,
@@ -744,6 +755,7 @@ export const tools: readonly Tool[] = [
         "posture-api_ZeroTrustProduct": posture_api_ZeroTrustProduct_output,
         "posture-api_api-response-common": posture_api_api_response_common_output,
         "posture-api_error-response": posture_api_error_response_output,
+        "posture-api_finding-response": posture_api_finding_response_output,
         "posture-api_messages": posture_api_messages_output,
       },
     },
@@ -776,8 +788,9 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/posture-api_Finding",
+      "$ref": "#/$defs/posture-api_finding-response",
       $defs: {
+        "posture-api_BaseFindingType": posture_api_BaseFindingType_output,
         "posture-api_CredentialHealthStatusEnum": posture_api_CredentialHealthStatusEnum_output,
         "posture-api_Finding": posture_api_Finding_output,
         "posture-api_FindingCategory": posture_api_FindingCategory_output,
@@ -793,6 +806,9 @@ export const tools: readonly Tool[] = [
         "posture-api_SeverityEnum": posture_api_SeverityEnum_output,
         "posture-api_Vendor": posture_api_Vendor_output,
         "posture-api_ZeroTrustProduct": posture_api_ZeroTrustProduct_output,
+        "posture-api_api-response-common": posture_api_api_response_common_output,
+        "posture-api_finding-response": posture_api_finding_response_output,
+        "posture-api_messages": posture_api_messages_output,
       },
     },
     annotations: {
@@ -812,7 +828,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/posture-api_Finding"
+          "$ref": "#/$defs/posture-api_finding-response"
         },
         "400": null,
         "429": {
@@ -820,6 +836,7 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
+        "posture-api_BaseFindingType": posture_api_BaseFindingType_output,
         "posture-api_CredentialHealthStatusEnum": posture_api_CredentialHealthStatusEnum_output,
         "posture-api_Finding": posture_api_Finding_output,
         "posture-api_FindingCategory": posture_api_FindingCategory_output,
@@ -836,6 +853,7 @@ export const tools: readonly Tool[] = [
         "posture-api_Vendor": posture_api_Vendor_output,
         "posture-api_ZeroTrustProduct": posture_api_ZeroTrustProduct_output,
         "posture-api_api-response-common": posture_api_api_response_common_output,
+        "posture-api_finding-response": posture_api_finding_response_output,
         "posture-api_messages": posture_api_messages_output,
       },
     },

@@ -4,24 +4,18 @@
 import { type Tool, pathParam } from "../_/tool.js";
 import {
   smartshield_api_response_common_failure_output,
+  smartshield_api_response_common_output,
+  smartshield_api_response_result_output,
   smartshield_messages_output,
-  smartshield_smart_shield_settings_cache_reserve_output,
+  smartshield_single_smart_shield_get_response_output,
+  smartshield_single_smart_shield_patch_response_output,
   smartshield_smart_shield_settings_get_response_output,
-  smartshield_smart_shield_settings_patch_response_cache_reserve_output,
+  smartshield_smart_shield_settings_output,
   smartshield_smart_shield_settings_patch_response_output,
-  smartshield_smart_shield_settings_patch_response_regional_tiered_cache_output,
-  smartshield_smart_shield_settings_patch_response_smart_routing_output,
-  smartshield_smart_shield_settings_patch_response_smart_tiered_cache_output,
-  smartshield_smart_shield_settings_regional_tiered_cache_output,
-  smartshield_smart_shield_settings_smart_routing_output,
-  smartshield_smart_shield_settings_smart_tiered_cache_output,
 } from "./outputs.js";
 import {
+  smartshield_identifier,
   smartshield_smart_shield_settings_patch_body,
-  smartshield_smart_shield_settings_patch_body_cache_reserve,
-  smartshield_smart_shield_settings_patch_body_regional_tiered_cache,
-  smartshield_smart_shield_settings_patch_body_smart_routing,
-  smartshield_smart_shield_settings_patch_body_smart_tiered_cache,
 } from "./schemas.js";
 
 /**
@@ -36,22 +30,33 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "zone_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/smartshield_identifier",
+          "description": "Identifier."
         }
       },
       required: [
         "zone_id"
       ],
+      $defs: {
+        "smartshield_identifier": smartshield_identifier,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/smartshield_smart_shield_settings_get_response",
+      "allOf": [
+        {
+          "$ref": "#/$defs/smartshield_api-response-common"
+        },
+        {
+          "$ref": "#/$defs/smartshield_single_smart_shield_get_response"
+        }
+      ],
       $defs: {
-        "smartshield_smart_shield_settings_cache_reserve": smartshield_smart_shield_settings_cache_reserve_output,
+        "smartshield_api-response-common": smartshield_api_response_common_output,
+        "smartshield_api-response-result": smartshield_api_response_result_output,
+        "smartshield_messages": smartshield_messages_output,
+        "smartshield_single_smart_shield_get_response": smartshield_single_smart_shield_get_response_output,
+        "smartshield_smart_shield_settings": smartshield_smart_shield_settings_output,
         "smartshield_smart_shield_settings_get_response": smartshield_smart_shield_settings_get_response_output,
-        "smartshield_smart_shield_settings_regional_tiered_cache": smartshield_smart_shield_settings_regional_tiered_cache_output,
-        "smartshield_smart_shield_settings_smart_routing": smartshield_smart_shield_settings_smart_routing_output,
-        "smartshield_smart_shield_settings_smart_tiered_cache": smartshield_smart_shield_settings_smart_tiered_cache_output,
       },
     },
     annotations: {
@@ -73,12 +78,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "#zone_settings:read"
-        ],
-        "x-fern-enum": {
-          "#zone_settings:read": {
-            "name": "zone_settings_read"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": true,
@@ -90,7 +90,14 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/smartshield_smart_shield_settings_get_response"
+          "allOf": [
+            {
+              "$ref": "#/$defs/smartshield_api-response-common"
+            },
+            {
+              "$ref": "#/$defs/smartshield_single_smart_shield_get_response"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/smartshield_api-response-common-failure"
@@ -103,13 +110,13 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
+        "smartshield_api-response-common": smartshield_api_response_common_output,
         "smartshield_api-response-common-failure": smartshield_api_response_common_failure_output,
+        "smartshield_api-response-result": smartshield_api_response_result_output,
         "smartshield_messages": smartshield_messages_output,
-        "smartshield_smart_shield_settings_cache_reserve": smartshield_smart_shield_settings_cache_reserve_output,
+        "smartshield_single_smart_shield_get_response": smartshield_single_smart_shield_get_response_output,
+        "smartshield_smart_shield_settings": smartshield_smart_shield_settings_output,
         "smartshield_smart_shield_settings_get_response": smartshield_smart_shield_settings_get_response_output,
-        "smartshield_smart_shield_settings_regional_tiered_cache": smartshield_smart_shield_settings_regional_tiered_cache_output,
-        "smartshield_smart_shield_settings_smart_routing": smartshield_smart_shield_settings_smart_routing_output,
-        "smartshield_smart_shield_settings_smart_tiered_cache": smartshield_smart_shield_settings_smart_tiered_cache_output,
       },
     },
     request: (args) => ({
@@ -127,8 +134,8 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/smartshield_smart_shield_settings_patch_body"
         },
         "zone_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/smartshield_identifier",
+          "description": "Identifier."
         }
       },
       required: [
@@ -136,21 +143,25 @@ export const tools: readonly Tool[] = [
         "body"
       ],
       $defs: {
+        "smartshield_identifier": smartshield_identifier,
         "smartshield_smart_shield_settings_patch_body": smartshield_smart_shield_settings_patch_body,
-        "smartshield_smart_shield_settings_patch_body_cache_reserve": smartshield_smart_shield_settings_patch_body_cache_reserve,
-        "smartshield_smart_shield_settings_patch_body_regional_tiered_cache": smartshield_smart_shield_settings_patch_body_regional_tiered_cache,
-        "smartshield_smart_shield_settings_patch_body_smart_routing": smartshield_smart_shield_settings_patch_body_smart_routing,
-        "smartshield_smart_shield_settings_patch_body_smart_tiered_cache": smartshield_smart_shield_settings_patch_body_smart_tiered_cache,
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/smartshield_smart_shield_settings_patch_response",
+      "allOf": [
+        {
+          "$ref": "#/$defs/smartshield_api-response-common"
+        },
+        {
+          "$ref": "#/$defs/smartshield_single_smart_shield_patch_response"
+        }
+      ],
       $defs: {
+        "smartshield_api-response-common": smartshield_api_response_common_output,
+        "smartshield_api-response-result": smartshield_api_response_result_output,
+        "smartshield_messages": smartshield_messages_output,
+        "smartshield_single_smart_shield_patch_response": smartshield_single_smart_shield_patch_response_output,
         "smartshield_smart_shield_settings_patch_response": smartshield_smart_shield_settings_patch_response_output,
-        "smartshield_smart_shield_settings_patch_response_cache_reserve": smartshield_smart_shield_settings_patch_response_cache_reserve_output,
-        "smartshield_smart_shield_settings_patch_response_regional_tiered_cache": smartshield_smart_shield_settings_patch_response_regional_tiered_cache_output,
-        "smartshield_smart_shield_settings_patch_response_smart_routing": smartshield_smart_shield_settings_patch_response_smart_routing_output,
-        "smartshield_smart_shield_settings_patch_response_smart_tiered_cache": smartshield_smart_shield_settings_patch_response_smart_tiered_cache_output,
       },
     },
     annotations: {
@@ -171,15 +182,7 @@ export const tools: readonly Tool[] = [
         "enum": [
           "#zone_settings:read",
           "#zone_settings:edit"
-        ],
-        "x-fern-enum": {
-          "#zone_settings:edit": {
-            "name": "zone_settings_edit"
-          },
-          "#zone_settings:read": {
-            "name": "zone_settings_read"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": true,
@@ -191,7 +194,14 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/smartshield_smart_shield_settings_patch_response"
+          "allOf": [
+            {
+              "$ref": "#/$defs/smartshield_api-response-common"
+            },
+            {
+              "$ref": "#/$defs/smartshield_single_smart_shield_patch_response"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/smartshield_api-response-common-failure"
@@ -204,13 +214,12 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
+        "smartshield_api-response-common": smartshield_api_response_common_output,
         "smartshield_api-response-common-failure": smartshield_api_response_common_failure_output,
+        "smartshield_api-response-result": smartshield_api_response_result_output,
         "smartshield_messages": smartshield_messages_output,
+        "smartshield_single_smart_shield_patch_response": smartshield_single_smart_shield_patch_response_output,
         "smartshield_smart_shield_settings_patch_response": smartshield_smart_shield_settings_patch_response_output,
-        "smartshield_smart_shield_settings_patch_response_cache_reserve": smartshield_smart_shield_settings_patch_response_cache_reserve_output,
-        "smartshield_smart_shield_settings_patch_response_regional_tiered_cache": smartshield_smart_shield_settings_patch_response_regional_tiered_cache_output,
-        "smartshield_smart_shield_settings_patch_response_smart_routing": smartshield_smart_shield_settings_patch_response_smart_routing_output,
-        "smartshield_smart_shield_settings_patch_response_smart_tiered_cache": smartshield_smart_shield_settings_patch_response_smart_tiered_cache_output,
       },
     },
     request: (args) => ({

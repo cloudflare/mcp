@@ -45,6 +45,14 @@ export const logpush_transformer_description: JsonSchema = {
 };
 
 /**
+ * The schema of `logpush_transformer_identifier`.
+ */
+export const logpush_transformer_identifier: JsonSchema = {
+  "description": "The transformer ID.",
+  "type": "integer"
+};
+
+/**
  * The schema of `logpush_transformer_name`.
  */
 export const logpush_transformer_name: JsonSchema = {

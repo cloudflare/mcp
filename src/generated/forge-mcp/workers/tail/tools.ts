@@ -8,6 +8,7 @@ import {
   workers_identifier_output,
   workers_messages_output,
 } from "../../outputs.js";
+import { workers_identifier, workers_script_name } from "../../schemas.js";
 import { workers_tail_output } from "./outputs.js";
 
 /**
@@ -22,16 +23,16 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/workers_identifier",
+          "description": "Identifier."
         },
         "id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/workers_identifier",
+          "description": "Identifier."
         },
         "script_name": {
-          "description": "Name of the script.",
-          "type": "string"
+          "$ref": "#/$defs/workers_script_name",
+          "description": "Name of the script."
         }
       },
       required: [
@@ -39,6 +40,10 @@ export const tools: readonly Tool[] = [
         "script_name",
         "id"
       ],
+      $defs: {
+        "workers_identifier": workers_identifier,
+        "workers_script_name": workers_script_name,
+      },
     },
     outputSchema: {
       "$ref": "#/$defs/workers_api-response-common",
@@ -96,23 +101,44 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/workers_identifier",
+          "description": "Identifier."
         },
         "script_name": {
-          "description": "Name of the script.",
-          "type": "string"
+          "$ref": "#/$defs/workers_script_name",
+          "description": "Name of the script."
         }
       },
       required: [
         "account_id",
         "script_name"
       ],
+      $defs: {
+        "workers_identifier": workers_identifier,
+        "workers_script_name": workers_script_name,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/workers_tail",
+      "allOf": [
+        {
+          "$ref": "#/$defs/workers_api-response-common"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/workers_tail"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        }
+      ],
       $defs: {
+        "workers_api-response-common": workers_api_response_common_output,
         "workers_identifier": workers_identifier_output,
+        "workers_messages": workers_messages_output,
         "workers_tail": workers_tail_output,
       },
     },
@@ -145,13 +171,29 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/workers_tail"
+          "allOf": [
+            {
+              "$ref": "#/$defs/workers_api-response-common"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/workers_tail"
+                }
+              },
+              "required": [
+                "result"
+              ],
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/workers_api-response-common-failure"
         }
       },
       $defs: {
+        "workers_api-response-common": workers_api_response_common_output,
         "workers_api-response-common-failure": workers_api_response_common_failure_output,
         "workers_identifier": workers_identifier_output,
         "workers_messages": workers_messages_output,
@@ -170,23 +212,44 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/workers_identifier",
+          "description": "Identifier."
         },
         "script_name": {
-          "description": "Name of the script.",
-          "type": "string"
+          "$ref": "#/$defs/workers_script_name",
+          "description": "Name of the script."
         }
       },
       required: [
         "account_id",
         "script_name"
       ],
+      $defs: {
+        "workers_identifier": workers_identifier,
+        "workers_script_name": workers_script_name,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/workers_tail",
+      "allOf": [
+        {
+          "$ref": "#/$defs/workers_api-response-common"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/workers_tail"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        }
+      ],
       $defs: {
+        "workers_api-response-common": workers_api_response_common_output,
         "workers_identifier": workers_identifier_output,
+        "workers_messages": workers_messages_output,
         "workers_tail": workers_tail_output,
       },
     },
@@ -215,13 +278,29 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/workers_tail"
+          "allOf": [
+            {
+              "$ref": "#/$defs/workers_api-response-common"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/workers_tail"
+                }
+              },
+              "required": [
+                "result"
+              ],
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/workers_api-response-common-failure"
         }
       },
       $defs: {
+        "workers_api-response-common": workers_api_response_common_output,
         "workers_api-response-common-failure": workers_api_response_common_failure_output,
         "workers_identifier": workers_identifier_output,
         "workers_messages": workers_messages_output,

@@ -18,10 +18,10 @@ export const tools: readonly Tool[] = [
           "type": "string"
         },
         "domain_id": {
-          "type": "string"
+          "type": "integer"
         },
         "query_id": {
-          "type": "string"
+          "type": "integer"
         }
       },
       required: [
@@ -32,20 +32,32 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
-        "dismissed": {
+        "result": {
+          "properties": {
+            "dismissed": {
+              "type": "boolean"
+            },
+            "domain_id": {
+              "type": "integer"
+            },
+            "query_id": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "dismissed",
+            "domain_id",
+            "query_id"
+          ],
+          "type": "object"
+        },
+        "success": {
           "type": "boolean"
-        },
-        "domain_id": {
-          "type": "integer"
-        },
-        "query_id": {
-          "type": "integer"
         }
       },
       "required": [
-        "dismissed",
-        "domain_id",
-        "query_id"
+        "result",
+        "success"
       ],
       "type": "object",
     },
@@ -67,20 +79,32 @@ export const tools: readonly Tool[] = [
       schemas: {
         "200": {
           "properties": {
-            "dismissed": {
+            "result": {
+              "properties": {
+                "dismissed": {
+                  "type": "boolean"
+                },
+                "domain_id": {
+                  "type": "integer"
+                },
+                "query_id": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "dismissed",
+                "domain_id",
+                "query_id"
+              ],
+              "type": "object"
+            },
+            "success": {
               "type": "boolean"
-            },
-            "domain_id": {
-              "type": "integer"
-            },
-            "query_id": {
-              "type": "integer"
             }
           },
           "required": [
-            "dismissed",
-            "domain_id",
-            "query_id"
+            "result",
+            "success"
           ],
           "type": "object"
         },
@@ -119,6 +143,54 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
+        "errors": {
+          "items": {
+            "properties": {
+              "code": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "number"
+                  }
+                ]
+              },
+              "message": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "message"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "messages": {
+          "items": {
+            "properties": {
+              "code": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "number"
+                  }
+                ]
+              },
+              "message": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "message"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
         "result": {
           "anyOf": [
             {
@@ -274,10 +346,16 @@ export const tools: readonly Tool[] = [
             "total_count"
           ],
           "type": "object"
+        },
+        "success": {
+          "type": "boolean"
         }
       },
       "required": [
-        "result"
+        "errors",
+        "messages",
+        "result",
+        "success"
       ],
       "type": "object",
     },
@@ -300,6 +378,54 @@ export const tools: readonly Tool[] = [
       schemas: {
         "200": {
           "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "code": {
+                    "anyOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "number"
+                      }
+                    ]
+                  },
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "messages": {
+              "items": {
+                "properties": {
+                  "code": {
+                    "anyOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "number"
+                      }
+                    ]
+                  },
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
             "result": {
               "anyOf": [
                 {
@@ -455,10 +581,16 @@ export const tools: readonly Tool[] = [
                 "total_count"
               ],
               "type": "object"
+            },
+            "success": {
+              "type": "boolean"
             }
           },
           "required": [
-            "result"
+            "errors",
+            "messages",
+            "result",
+            "success"
           ],
           "type": "object"
         },
@@ -485,10 +617,10 @@ export const tools: readonly Tool[] = [
           "type": "string"
         },
         "domain_id": {
-          "type": "string"
+          "type": "integer"
         },
         "query_id": {
-          "type": "string"
+          "type": "integer"
         }
       },
       required: [
@@ -499,20 +631,32 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
-        "dismissed": {
+        "result": {
+          "properties": {
+            "dismissed": {
+              "type": "boolean"
+            },
+            "domain_id": {
+              "type": "integer"
+            },
+            "query_id": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "dismissed",
+            "domain_id",
+            "query_id"
+          ],
+          "type": "object"
+        },
+        "success": {
           "type": "boolean"
-        },
-        "domain_id": {
-          "type": "integer"
-        },
-        "query_id": {
-          "type": "integer"
         }
       },
       "required": [
-        "dismissed",
-        "domain_id",
-        "query_id"
+        "result",
+        "success"
       ],
       "type": "object",
     },
@@ -534,20 +678,32 @@ export const tools: readonly Tool[] = [
       schemas: {
         "200": {
           "properties": {
-            "dismissed": {
+            "result": {
+              "properties": {
+                "dismissed": {
+                  "type": "boolean"
+                },
+                "domain_id": {
+                  "type": "integer"
+                },
+                "query_id": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "dismissed",
+                "domain_id",
+                "query_id"
+              ],
+              "type": "object"
+            },
+            "success": {
               "type": "boolean"
-            },
-            "domain_id": {
-              "type": "integer"
-            },
-            "query_id": {
-              "type": "integer"
             }
           },
           "required": [
-            "dismissed",
-            "domain_id",
-            "query_id"
+            "result",
+            "success"
           ],
           "type": "object"
         },

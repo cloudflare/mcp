@@ -5,12 +5,8 @@ import type { Tool } from "../../_/tool.js";
 import {
   aaa_api_response_common_failure_output,
   aaa_api_response_common_output,
-  aaa_audit_logs_action_output,
-  aaa_audit_logs_actor_output,
   aaa_audit_logs_output,
-  aaa_audit_logs_owner_output,
-  aaa_audit_logs_resource_output,
-  aaa_audit_logs_response_collection_alt_output,
+  aaa_audit_logs_response_collection_output$,
   aaa_identifier_output,
   aaa_messages_output,
 } from "../../outputs.js";
@@ -101,15 +97,11 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/aaa_audit_logs_response_collection_alt",
+      "$ref": "#/$defs/aaa_audit_logs_response_collection",
       $defs: {
         "aaa_api-response-common": aaa_api_response_common_output,
         "aaa_audit-logs": aaa_audit_logs_output,
-        "aaa_audit-logs_action": aaa_audit_logs_action_output,
-        "aaa_audit-logs_actor": aaa_audit_logs_actor_output,
-        "aaa_audit-logs_owner": aaa_audit_logs_owner_output,
-        "aaa_audit-logs_resource": aaa_audit_logs_resource_output,
-        "aaa_audit_logs_response_collection_alt": aaa_audit_logs_response_collection_alt_output,
+        "aaa_audit_logs_response_collection": aaa_audit_logs_response_collection_output$,
         "aaa_identifier": aaa_identifier_output,
         "aaa_messages": aaa_messages_output,
       },
@@ -138,12 +130,12 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/aaa_audit_logs_response_collection_alt"
+          "$ref": "#/$defs/aaa_audit_logs_response_collection"
         },
         "4XX": {
           "allOf": [
             {
-              "$ref": "#/$defs/aaa_audit_logs_response_collection_alt"
+              "$ref": "#/$defs/aaa_audit_logs_response_collection"
             },
             {
               "$ref": "#/$defs/aaa_api-response-common-failure"
@@ -155,11 +147,7 @@ export const tools: readonly Tool[] = [
         "aaa_api-response-common": aaa_api_response_common_output,
         "aaa_api-response-common-failure": aaa_api_response_common_failure_output,
         "aaa_audit-logs": aaa_audit_logs_output,
-        "aaa_audit-logs_action": aaa_audit_logs_action_output,
-        "aaa_audit-logs_actor": aaa_audit_logs_actor_output,
-        "aaa_audit-logs_owner": aaa_audit_logs_owner_output,
-        "aaa_audit-logs_resource": aaa_audit_logs_resource_output,
-        "aaa_audit_logs_response_collection_alt": aaa_audit_logs_response_collection_alt_output,
+        "aaa_audit_logs_response_collection": aaa_audit_logs_response_collection_output$,
         "aaa_identifier": aaa_identifier_output,
         "aaa_messages": aaa_messages_output,
       },

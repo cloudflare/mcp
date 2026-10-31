@@ -5,17 +5,20 @@ import { type Tool, pathParam } from "../../_/tool.js";
 import {
   addressing_account_identifier_output,
   addressing_api_response_collection_output,
-  addressing_api_response_collection_result_info_output,
   addressing_api_response_common_failure_output,
+  addressing_api_response_common_output,
+  addressing_api_response_single_output,
   addressing_loa_document_identifier_output,
   addressing_messages_output,
   addressing_timestamp_output,
 } from "../outputs.js";
-import { addressing_loa_document_identifier } from "../schemas.js";
+import {
+  addressing_account_identifier,
+  addressing_loa_document_identifier,
+} from "../schemas.js";
 import {
   addressing_advertised_modified_at_nullable_output,
   addressing_advertised_output,
-  addressing_api_response_common_output,
   addressing_approved_output,
   addressing_asn_output,
   addressing_cidr_output,
@@ -35,6 +38,7 @@ import {
   addressing_cidr,
   addressing_delegate_loa_creation,
   addressing_description,
+  addressing_prefix_identifier,
 } from "./schemas.js";
 
 /**
@@ -49,8 +53,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier of a Cloudflare account.",
-          "type": "string"
+          "$ref": "#/$defs/addressing_account_identifier",
+          "description": "Identifier of a Cloudflare account."
         },
         "body": {
           "properties": {
@@ -88,6 +92,7 @@ export const tools: readonly Tool[] = [
         "body"
       ],
       $defs: {
+        "addressing_account_identifier": addressing_account_identifier,
         "addressing_asn": addressing_asn,
         "addressing_cidr": addressing_cidr,
         "addressing_delegate_loa_creation": addressing_delegate_loa_creation,
@@ -96,11 +101,12 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/addressing_ipam-prefixes",
+      "$ref": "#/$defs/addressing_single_response",
       $defs: {
         "addressing_account_identifier": addressing_account_identifier_output,
         "addressing_advertised": addressing_advertised_output,
         "addressing_advertised_modified_at_nullable": addressing_advertised_modified_at_nullable_output,
+        "addressing_api-response-single": addressing_api_response_single_output,
         "addressing_approved": addressing_approved_output,
         "addressing_asn": addressing_asn_output,
         "addressing_cidr": addressing_cidr_output,
@@ -108,10 +114,12 @@ export const tools: readonly Tool[] = [
         "addressing_description": addressing_description_output,
         "addressing_ipam-prefixes": addressing_ipam_prefixes_output,
         "addressing_loa_document_identifier": addressing_loa_document_identifier_output,
+        "addressing_messages": addressing_messages_output,
         "addressing_on_demand_enabled": addressing_on_demand_enabled_output,
         "addressing_on_demand_locked": addressing_on_demand_locked_output,
         "addressing_ownership_validation_token": addressing_ownership_validation_token_output,
         "addressing_prefix_identifier": addressing_prefix_identifier_output,
+        "addressing_single_response": addressing_single_response_output,
         "addressing_timestamp": addressing_timestamp_output,
         "addressing_validation_state": addressing_validation_state_output,
       },
@@ -131,7 +139,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "201": {
-          "$ref": "#/$defs/addressing_ipam-prefixes"
+          "$ref": "#/$defs/addressing_single_response"
         },
         "4XX": {
           "allOf": [
@@ -149,6 +157,7 @@ export const tools: readonly Tool[] = [
         "addressing_advertised": addressing_advertised_output,
         "addressing_advertised_modified_at_nullable": addressing_advertised_modified_at_nullable_output,
         "addressing_api-response-common-failure": addressing_api_response_common_failure_output,
+        "addressing_api-response-single": addressing_api_response_single_output,
         "addressing_approved": addressing_approved_output,
         "addressing_asn": addressing_asn_output,
         "addressing_cidr": addressing_cidr_output,
@@ -179,23 +188,27 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier of a Cloudflare account.",
-          "type": "string"
+          "$ref": "#/$defs/addressing_account_identifier",
+          "description": "Identifier of a Cloudflare account."
         },
         "prefix_id": {
-          "description": "Identifier of an IP Prefix.",
-          "type": "string"
+          "$ref": "#/$defs/addressing_prefix_identifier",
+          "description": "Identifier of an IP Prefix."
         }
       },
       required: [
         "account_id",
         "prefix_id"
       ],
+      $defs: {
+        "addressing_account_identifier": addressing_account_identifier,
+        "addressing_prefix_identifier": addressing_prefix_identifier,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/addressing_api-response-common",
+      "$ref": "#/$defs/addressing_api-response-single",
       $defs: {
-        "addressing_api-response-common": addressing_api_response_common_output,
+        "addressing_api-response-single": addressing_api_response_single_output,
         "addressing_messages": addressing_messages_output,
       },
     },
@@ -216,7 +229,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/addressing_api-response-common"
+          "$ref": "#/$defs/addressing_api-response-single"
         },
         "4XX": {
           "allOf": [
@@ -231,9 +244,9 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "addressing_api-response-collection": addressing_api_response_collection_output,
-        "addressing_api-response-collection_result_info": addressing_api_response_collection_result_info_output,
         "addressing_api-response-common": addressing_api_response_common_output,
         "addressing_api-response-common-failure": addressing_api_response_common_failure_output,
+        "addressing_api-response-single": addressing_api_response_single_output,
         "addressing_messages": addressing_messages_output,
       },
     },
@@ -249,8 +262,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier of a Cloudflare account.",
-          "type": "string"
+          "$ref": "#/$defs/addressing_account_identifier",
+          "description": "Identifier of a Cloudflare account."
         },
         "body": {
           "properties": {
@@ -265,8 +278,8 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "prefix_id": {
-          "description": "Identifier of an IP Prefix.",
-          "type": "string"
+          "$ref": "#/$defs/addressing_prefix_identifier",
+          "description": "Identifier of an IP Prefix."
         }
       },
       required: [
@@ -275,15 +288,18 @@ export const tools: readonly Tool[] = [
         "body"
       ],
       $defs: {
+        "addressing_account_identifier": addressing_account_identifier,
         "addressing_description": addressing_description,
+        "addressing_prefix_identifier": addressing_prefix_identifier,
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/addressing_ipam-prefixes",
+      "$ref": "#/$defs/addressing_single_response",
       $defs: {
         "addressing_account_identifier": addressing_account_identifier_output,
         "addressing_advertised": addressing_advertised_output,
         "addressing_advertised_modified_at_nullable": addressing_advertised_modified_at_nullable_output,
+        "addressing_api-response-single": addressing_api_response_single_output,
         "addressing_approved": addressing_approved_output,
         "addressing_asn": addressing_asn_output,
         "addressing_cidr": addressing_cidr_output,
@@ -291,10 +307,12 @@ export const tools: readonly Tool[] = [
         "addressing_description": addressing_description_output,
         "addressing_ipam-prefixes": addressing_ipam_prefixes_output,
         "addressing_loa_document_identifier": addressing_loa_document_identifier_output,
+        "addressing_messages": addressing_messages_output,
         "addressing_on_demand_enabled": addressing_on_demand_enabled_output,
         "addressing_on_demand_locked": addressing_on_demand_locked_output,
         "addressing_ownership_validation_token": addressing_ownership_validation_token_output,
         "addressing_prefix_identifier": addressing_prefix_identifier_output,
+        "addressing_single_response": addressing_single_response_output,
         "addressing_timestamp": addressing_timestamp_output,
         "addressing_validation_state": addressing_validation_state_output,
       },
@@ -317,7 +335,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/addressing_ipam-prefixes"
+          "$ref": "#/$defs/addressing_single_response"
         },
         "4XX": {
           "allOf": [
@@ -335,6 +353,7 @@ export const tools: readonly Tool[] = [
         "addressing_advertised": addressing_advertised_output,
         "addressing_advertised_modified_at_nullable": addressing_advertised_modified_at_nullable_output,
         "addressing_api-response-common-failure": addressing_api_response_common_failure_output,
+        "addressing_api-response-single": addressing_api_response_single_output,
         "addressing_approved": addressing_approved_output,
         "addressing_asn": addressing_asn_output,
         "addressing_cidr": addressing_cidr_output,
@@ -365,25 +384,30 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier of a Cloudflare account.",
-          "type": "string"
+          "$ref": "#/$defs/addressing_account_identifier",
+          "description": "Identifier of a Cloudflare account."
         },
         "prefix_id": {
-          "description": "Identifier of an IP Prefix.",
-          "type": "string"
+          "$ref": "#/$defs/addressing_prefix_identifier",
+          "description": "Identifier of an IP Prefix."
         }
       },
       required: [
         "account_id",
         "prefix_id"
       ],
+      $defs: {
+        "addressing_account_identifier": addressing_account_identifier,
+        "addressing_prefix_identifier": addressing_prefix_identifier,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/addressing_ipam-prefixes",
+      "$ref": "#/$defs/addressing_single_response",
       $defs: {
         "addressing_account_identifier": addressing_account_identifier_output,
         "addressing_advertised": addressing_advertised_output,
         "addressing_advertised_modified_at_nullable": addressing_advertised_modified_at_nullable_output,
+        "addressing_api-response-single": addressing_api_response_single_output,
         "addressing_approved": addressing_approved_output,
         "addressing_asn": addressing_asn_output,
         "addressing_cidr": addressing_cidr_output,
@@ -391,10 +415,12 @@ export const tools: readonly Tool[] = [
         "addressing_description": addressing_description_output,
         "addressing_ipam-prefixes": addressing_ipam_prefixes_output,
         "addressing_loa_document_identifier": addressing_loa_document_identifier_output,
+        "addressing_messages": addressing_messages_output,
         "addressing_on_demand_enabled": addressing_on_demand_enabled_output,
         "addressing_on_demand_locked": addressing_on_demand_locked_output,
         "addressing_ownership_validation_token": addressing_ownership_validation_token_output,
         "addressing_prefix_identifier": addressing_prefix_identifier_output,
+        "addressing_single_response": addressing_single_response_output,
         "addressing_timestamp": addressing_timestamp_output,
         "addressing_validation_state": addressing_validation_state_output,
       },
@@ -421,7 +447,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/addressing_ipam-prefixes"
+          "$ref": "#/$defs/addressing_single_response"
         },
         "4XX": {
           "allOf": [
@@ -439,6 +465,7 @@ export const tools: readonly Tool[] = [
         "addressing_advertised": addressing_advertised_output,
         "addressing_advertised_modified_at_nullable": addressing_advertised_modified_at_nullable_output,
         "addressing_api-response-common-failure": addressing_api_response_common_failure_output,
+        "addressing_api-response-single": addressing_api_response_single_output,
         "addressing_approved": addressing_approved_output,
         "addressing_asn": addressing_asn_output,
         "addressing_cidr": addressing_cidr_output,
@@ -468,34 +495,24 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier of a Cloudflare account.",
-          "type": "string"
+          "$ref": "#/$defs/addressing_account_identifier",
+          "description": "Identifier of a Cloudflare account."
         }
       },
       required: [
         "account_id"
       ],
+      $defs: {
+        "addressing_account_identifier": addressing_account_identifier,
+      },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "$ref": "#/$defs/addressing_ipam-prefixes"
-          },
-          "type": "array"
-        },
-        "result_info": {
-          "type": "object"
-        }
-      },
-      "required": [
-        "result"
-      ],
-      "type": "object",
+      "$ref": "#/$defs/addressing_response_collection",
       $defs: {
         "addressing_account_identifier": addressing_account_identifier_output,
         "addressing_advertised": addressing_advertised_output,
         "addressing_advertised_modified_at_nullable": addressing_advertised_modified_at_nullable_output,
+        "addressing_api-response-single": addressing_api_response_single_output,
         "addressing_approved": addressing_approved_output,
         "addressing_asn": addressing_asn_output,
         "addressing_cidr": addressing_cidr_output,
@@ -503,10 +520,12 @@ export const tools: readonly Tool[] = [
         "addressing_description": addressing_description_output,
         "addressing_ipam-prefixes": addressing_ipam_prefixes_output,
         "addressing_loa_document_identifier": addressing_loa_document_identifier_output,
+        "addressing_messages": addressing_messages_output,
         "addressing_on_demand_enabled": addressing_on_demand_enabled_output,
         "addressing_on_demand_locked": addressing_on_demand_locked_output,
         "addressing_ownership_validation_token": addressing_ownership_validation_token_output,
         "addressing_prefix_identifier": addressing_prefix_identifier_output,
+        "addressing_response_collection": addressing_response_collection_output,
         "addressing_timestamp": addressing_timestamp_output,
         "addressing_validation_state": addressing_validation_state_output,
       },
@@ -533,21 +552,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "items": {
-                "$ref": "#/$defs/addressing_ipam-prefixes"
-              },
-              "type": "array"
-            },
-            "result_info": {
-              "type": "object"
-            }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/addressing_response_collection"
         },
         "4XX": {
           "allOf": [
@@ -565,6 +570,7 @@ export const tools: readonly Tool[] = [
         "addressing_advertised": addressing_advertised_output,
         "addressing_advertised_modified_at_nullable": addressing_advertised_modified_at_nullable_output,
         "addressing_api-response-common-failure": addressing_api_response_common_failure_output,
+        "addressing_api-response-single": addressing_api_response_single_output,
         "addressing_approved": addressing_approved_output,
         "addressing_asn": addressing_asn_output,
         "addressing_cidr": addressing_cidr_output,

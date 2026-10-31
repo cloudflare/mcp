@@ -55,6 +55,28 @@ export const pay_per_crawl_EnabledDomain_output: JsonSchema = {
 };
 
 /**
+ * The schema of `pay-per-crawl_EnabledDomainsResponse` in responses.
+ */
+export const pay_per_crawl_EnabledDomainsResponse_output: JsonSchema = {
+  "properties": {
+    "result": {
+      "$ref": "#/$defs/pay-per-crawl_EnabledDomainsResult"
+    },
+    "result_info": {
+      "$ref": "#/$defs/pay-per-crawl_ResultInfo"
+    },
+    "success": {
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "result",
+    "success"
+  ],
+  "type": "object"
+};
+
+/**
  * The schema of `pay-per-crawl_EnabledDomainsResult` in responses.
  */
 export const pay_per_crawl_EnabledDomainsResult_output: JsonSchema = {

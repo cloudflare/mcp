@@ -4,6 +4,161 @@
 import type { JsonSchema } from "../../../_/tool.js";
 
 /**
+ * The schema of `one_IntegrationCreateResponse` in responses.
+ */
+export const one_IntegrationCreateResponse_output: JsonSchema = {
+  "properties": {
+    "errors": {
+      "items": {
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "messages": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "result": {
+      "$ref": "#/$defs/one_IntegrationV2Detail"
+    },
+    "success": {
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "result",
+    "success"
+  ],
+  "type": "object"
+};
+
+/**
+ * The schema of `one_IntegrationDetailResponse` in responses.
+ */
+export const one_IntegrationDetailResponse_output: JsonSchema = {
+  "properties": {
+    "errors": {
+      "items": {
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "messages": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "result": {
+      "$ref": "#/$defs/one_IntegrationV2Detail"
+    },
+    "success": {
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "result",
+    "success"
+  ],
+  "type": "object"
+};
+
+/**
+ * The schema of `one_IntegrationPauseResponse` in responses.
+ */
+export const one_IntegrationPauseResponse_output: JsonSchema = {
+  "properties": {
+    "errors": {
+      "items": {
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "messages": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "result": {
+      "$ref": "#/$defs/one_IntegrationV2Detail"
+    },
+    "success": {
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "result",
+    "success"
+  ],
+  "type": "object"
+};
+
+/**
+ * The schema of `one_IntegrationResumeResponse` in responses.
+ */
+export const one_IntegrationResumeResponse_output: JsonSchema = {
+  "properties": {
+    "errors": {
+      "items": {
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "messages": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "result": {
+      "$ref": "#/$defs/one_IntegrationV2Detail"
+    },
+    "success": {
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "result",
+    "success"
+  ],
+  "type": "object"
+};
+
+/**
+ * The schema of `one_IntegrationUpdateResponse` in responses.
+ */
+export const one_IntegrationUpdateResponse_output: JsonSchema = {
+  "properties": {
+    "errors": {
+      "items": {
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "messages": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "result": {
+      "$ref": "#/$defs/one_IntegrationV2Detail"
+    },
+    "success": {
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "result",
+    "success"
+  ],
+  "type": "object"
+};
+
+/**
  * The schema of `one_IntegrationV2Detail` in responses.
  */
 export const one_IntegrationV2Detail_output: JsonSchema = {
@@ -35,7 +190,40 @@ export const one_IntegrationV2Detail_output: JsonSchema = {
       ]
     },
     "authorization_link": {
-      "$ref": "#/$defs/one_IntegrationV2Detail_authorization_link"
+      "oneOf": [
+        {
+          "properties": {
+            "components": {
+              "oneOf": [
+                {
+                  "type": "object"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "link": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            }
+          },
+          "required": [
+            "components",
+            "link"
+          ],
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
     "created": {
       "format": "date-time",
@@ -106,46 +294,6 @@ export const one_IntegrationV2Detail_output: JsonSchema = {
 };
 
 /**
- * The schema of `one_IntegrationV2Detail_authorization_link` in responses.
- */
-export const one_IntegrationV2Detail_authorization_link_output: JsonSchema = {
-  "oneOf": [
-    {
-      "properties": {
-        "components": {
-          "oneOf": [
-            {
-              "type": "object"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "link": {
-          "oneOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        }
-      },
-      "required": [
-        "components",
-        "link"
-      ],
-      "type": "object"
-    },
-    {
-      "type": "null"
-    }
-  ]
-};
-
-/**
  * The schema of `one_IntegrationV2ListItem` in responses.
  */
 export const one_IntegrationV2ListItem_output: JsonSchema = {
@@ -164,7 +312,26 @@ export const one_IntegrationV2ListItem_output: JsonSchema = {
       "type": "object"
     },
     "auth_method": {
-      "$ref": "#/$defs/one_IntegrationV2ListItem_auth_method"
+      "oneOf": [
+        {
+          "properties": {
+            "display_name": {
+              "type": "string"
+            },
+            "id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "display_name",
+            "id"
+          ],
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
     "created": {
       "format": "date-time",
@@ -209,69 +376,75 @@ export const one_IntegrationV2ListItem_output: JsonSchema = {
 };
 
 /**
- * The schema of `one_IntegrationV2ListItem_auth_method` in responses.
+ * The schema of `one_PaginatedIntegrationV2ListItemList` in responses.
  */
-export const one_IntegrationV2ListItem_auth_method_output: JsonSchema = {
-  "oneOf": [
-    {
+export const one_PaginatedIntegrationV2ListItemList_output: JsonSchema = {
+  "properties": {
+    "errors": {
+      "items": {
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "messages": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "result": {
+      "items": {
+        "$ref": "#/$defs/one_IntegrationV2ListItem"
+      },
+      "type": "array"
+    },
+    "result_info": {
       "properties": {
-        "display_name": {
-          "type": "string"
+        "count": {
+          "type": "integer"
         },
-        "id": {
-          "type": "string"
+        "next": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "page": {
+          "type": "integer"
+        },
+        "per_page": {
+          "type": "integer"
+        },
+        "previous": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "total_count": {
+          "type": "integer"
         }
       },
-      "required": [
-        "display_name",
-        "id"
-      ],
       "type": "object"
     },
-    {
-      "type": "null"
-    }
-  ]
-};
-
-/**
- * The schema of `one_PaginatedIntegrationV2ListItemList_result_info` in
- * responses.
- */
-export const one_PaginatedIntegrationV2ListItemList_result_info_output: JsonSchema = {
-  "properties": {
-    "count": {
-      "type": "integer"
-    },
-    "next": {
-      "oneOf": [
-        {
-          "type": "string"
-        },
-        {
-          "type": "null"
-        }
-      ]
-    },
-    "page": {
-      "type": "integer"
-    },
-    "per_page": {
-      "type": "integer"
-    },
-    "previous": {
-      "oneOf": [
-        {
-          "type": "string"
-        },
-        {
-          "type": "null"
-        }
-      ]
-    },
-    "total_count": {
-      "type": "integer"
+    "success": {
+      "type": "boolean"
     }
   },
+  "required": [
+    "errors",
+    "messages",
+    "result",
+    "result_info",
+    "success"
+  ],
   "type": "object"
 };

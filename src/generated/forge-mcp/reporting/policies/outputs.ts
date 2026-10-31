@@ -4,124 +4,188 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
- * The schema of `reports_PoliciesListResponse_resultItem` in responses.
+ * The schema of `reports_PoliciesListResponse` in responses.
  */
-export const reports_PoliciesListResponse_resultItem_output: JsonSchema = {
+export const reports_PoliciesListResponse_output: JsonSchema = {
   "properties": {
-    "enabled": {
+    "errors": {
+      "items": {
+        "$ref": "#/$defs/reports_Error"
+      },
+      "type": "array"
+    },
+    "messages": {
+      "items": {
+        "$ref": "#/$defs/reports_Message"
+      },
+      "type": "array"
+    },
+    "result": {
+      "oneOf": [
+        {
+          "items": {
+            "properties": {
+              "enabled": {
+                "type": "boolean"
+              },
+              "policy_description": {
+                "type": "string"
+              },
+              "policy_id": {
+                "format": "uuid",
+                "type": "string"
+              },
+              "policy_name": {
+                "type": "string"
+              },
+              "policy_schedule": {
+                "type": "string"
+              },
+              "valid_from": {
+                "oneOf": [
+                  {
+                    "format": "date-time",
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "valid_to": {
+                "oneOf": [
+                  {
+                    "format": "date-time",
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "version": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "enabled",
+              "policy_id",
+              "policy_name",
+              "policy_schedule",
+              "valid_from",
+              "version"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "success": {
+      "enum": [
+        true
+      ],
       "type": "boolean"
-    },
-    "policy_description": {
-      "type": "string"
-    },
-    "policy_id": {
-      "format": "uuid",
-      "type": "string"
-    },
-    "policy_name": {
-      "type": "string"
-    },
-    "policy_schedule": {
-      "type": "string"
-    },
-    "valid_from": {
-      "oneOf": [
-        {
-          "format": "date-time",
-          "type": "string"
-        },
-        {
-          "type": "null"
-        }
-      ]
-    },
-    "valid_to": {
-      "oneOf": [
-        {
-          "format": "date-time",
-          "type": "string"
-        },
-        {
-          "type": "null"
-        }
-      ]
-    },
-    "version": {
-      "type": "integer"
     }
   },
   "required": [
-    "enabled",
-    "policy_id",
-    "policy_name",
-    "policy_schedule",
-    "valid_from",
-    "version"
+    "result",
+    "success"
   ],
   "type": "object"
 };
 
 /**
- * The schema of `reports_PolicySingleResponse_result` in responses.
+ * The schema of `reports_PolicySingleResponse` in responses.
  */
-export const reports_PolicySingleResponse_result_output: JsonSchema = {
-  "oneOf": [
-    {
-      "properties": {
-        "enabled": {
-          "type": "boolean"
-        },
-        "policy_description": {
-          "type": "string"
-        },
-        "policy_id": {
-          "format": "uuid",
-          "type": "string"
-        },
-        "policy_name": {
-          "type": "string"
-        },
-        "policy_schedule": {
-          "type": "string"
-        },
-        "valid_from": {
-          "oneOf": [
-            {
-              "format": "date-time",
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "valid_to": {
-          "oneOf": [
-            {
-              "format": "date-time",
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "version": {
-          "type": "integer"
-        }
+export const reports_PolicySingleResponse_output: JsonSchema = {
+  "properties": {
+    "errors": {
+      "items": {
+        "$ref": "#/$defs/reports_Error"
       },
-      "required": [
-        "enabled",
-        "policy_id",
-        "policy_name",
-        "policy_schedule",
-        "valid_from",
-        "version"
-      ],
-      "type": "object"
+      "type": "array"
     },
-    {
-      "type": "null"
+    "messages": {
+      "items": {
+        "$ref": "#/$defs/reports_Message"
+      },
+      "type": "array"
+    },
+    "result": {
+      "oneOf": [
+        {
+          "properties": {
+            "enabled": {
+              "type": "boolean"
+            },
+            "policy_description": {
+              "type": "string"
+            },
+            "policy_id": {
+              "format": "uuid",
+              "type": "string"
+            },
+            "policy_name": {
+              "type": "string"
+            },
+            "policy_schedule": {
+              "type": "string"
+            },
+            "valid_from": {
+              "oneOf": [
+                {
+                  "format": "date-time",
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "valid_to": {
+              "oneOf": [
+                {
+                  "format": "date-time",
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "version": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "enabled",
+            "policy_id",
+            "policy_name",
+            "policy_schedule",
+            "valid_from",
+            "version"
+          ],
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "success": {
+      "enum": [
+        true
+      ],
+      "type": "boolean"
     }
-  ]
+  },
+  "required": [
+    "result",
+    "success"
+  ],
+  "type": "object"
 };

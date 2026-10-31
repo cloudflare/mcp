@@ -3,12 +3,15 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
+  tunnel_api_response_collection_output,
   tunnel_api_response_common_failure_output,
+  tunnel_api_response_common_output,
   tunnel_created_at_output,
   tunnel_deleted_at_output,
   tunnel_messages_output,
   tunnel_result_info_output,
 } from "../../outputs.js";
+import { tunnel_account_id } from "../../schemas.js";
 import {
   tunnel_virtual_network_id_output,
   tunnel_virtual_network_name_output,
@@ -42,8 +45,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Cloudflare account ID",
-          "type": "string"
+          "$ref": "#/$defs/tunnel_account_id",
+          "description": "Cloudflare account ID"
         },
         "body": {
           "properties": {
@@ -78,21 +81,25 @@ export const tools: readonly Tool[] = [
         "body"
       ],
       $defs: {
+        "tunnel_account_id": tunnel_account_id,
         "tunnel_is_default_network_optional": tunnel_is_default_network_optional,
         "tunnel_virtual_network_comment": tunnel_virtual_network_comment,
         "tunnel_virtual_network_name": tunnel_virtual_network_name,
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/tunnel_virtual-network",
+      "$ref": "#/$defs/tunnel_vnet_response_single",
       $defs: {
+        "tunnel_api-response-common": tunnel_api_response_common_output,
         "tunnel_created_at": tunnel_created_at_output,
         "tunnel_deleted_at": tunnel_deleted_at_output,
         "tunnel_is_default_network": tunnel_is_default_network_output,
+        "tunnel_messages": tunnel_messages_output,
         "tunnel_virtual-network": tunnel_virtual_network_output,
         "tunnel_virtual_network_comment": tunnel_virtual_network_comment_output,
         "tunnel_virtual_network_id": tunnel_virtual_network_id_output,
         "tunnel_virtual_network_name": tunnel_virtual_network_name_output,
+        "tunnel_vnet_response_single": tunnel_vnet_response_single_output,
       },
     },
     annotations: {
@@ -113,7 +120,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/tunnel_virtual-network"
+          "$ref": "#/$defs/tunnel_vnet_response_single"
         },
         "4XX": {
           "allOf": [
@@ -127,6 +134,7 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
+        "tunnel_api-response-common": tunnel_api_response_common_output,
         "tunnel_api-response-common-failure": tunnel_api_response_common_failure_output,
         "tunnel_created_at": tunnel_created_at_output,
         "tunnel_deleted_at": tunnel_deleted_at_output,
@@ -152,29 +160,36 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Cloudflare account ID",
-          "type": "string"
+          "$ref": "#/$defs/tunnel_account_id",
+          "description": "Cloudflare account ID"
         },
         "virtual_network_id": {
-          "description": "UUID of the virtual network.",
-          "type": "string"
+          "$ref": "#/$defs/tunnel_virtual_network_id",
+          "description": "UUID of the virtual network."
         }
       },
       required: [
         "account_id",
         "virtual_network_id"
       ],
+      $defs: {
+        "tunnel_account_id": tunnel_account_id,
+        "tunnel_virtual_network_id": tunnel_virtual_network_id,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/tunnel_virtual-network",
+      "$ref": "#/$defs/tunnel_vnet_response_single",
       $defs: {
+        "tunnel_api-response-common": tunnel_api_response_common_output,
         "tunnel_created_at": tunnel_created_at_output,
         "tunnel_deleted_at": tunnel_deleted_at_output,
         "tunnel_is_default_network": tunnel_is_default_network_output,
+        "tunnel_messages": tunnel_messages_output,
         "tunnel_virtual-network": tunnel_virtual_network_output,
         "tunnel_virtual_network_comment": tunnel_virtual_network_comment_output,
         "tunnel_virtual_network_id": tunnel_virtual_network_id_output,
         "tunnel_virtual_network_name": tunnel_virtual_network_name_output,
+        "tunnel_vnet_response_single": tunnel_vnet_response_single_output,
       },
     },
     annotations: {
@@ -195,7 +210,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/tunnel_virtual-network"
+          "$ref": "#/$defs/tunnel_vnet_response_single"
         },
         "4XX": {
           "allOf": [
@@ -209,6 +224,7 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
+        "tunnel_api-response-common": tunnel_api_response_common_output,
         "tunnel_api-response-common-failure": tunnel_api_response_common_failure_output,
         "tunnel_created_at": tunnel_created_at_output,
         "tunnel_deleted_at": tunnel_deleted_at_output,
@@ -233,8 +249,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Cloudflare account ID",
-          "type": "string"
+          "$ref": "#/$defs/tunnel_account_id",
+          "description": "Cloudflare account ID"
         },
         "body": {
           "properties": {
@@ -256,8 +272,8 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "virtual_network_id": {
-          "description": "UUID of the virtual network.",
-          "type": "string"
+          "$ref": "#/$defs/tunnel_virtual_network_id",
+          "description": "UUID of the virtual network."
         }
       },
       required: [
@@ -266,21 +282,26 @@ export const tools: readonly Tool[] = [
         "body"
       ],
       $defs: {
+        "tunnel_account_id": tunnel_account_id,
         "tunnel_is_default_network_optional": tunnel_is_default_network_optional,
         "tunnel_virtual_network_comment": tunnel_virtual_network_comment,
+        "tunnel_virtual_network_id": tunnel_virtual_network_id,
         "tunnel_virtual_network_name": tunnel_virtual_network_name,
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/tunnel_virtual-network",
+      "$ref": "#/$defs/tunnel_vnet_response_single",
       $defs: {
+        "tunnel_api-response-common": tunnel_api_response_common_output,
         "tunnel_created_at": tunnel_created_at_output,
         "tunnel_deleted_at": tunnel_deleted_at_output,
         "tunnel_is_default_network": tunnel_is_default_network_output,
+        "tunnel_messages": tunnel_messages_output,
         "tunnel_virtual-network": tunnel_virtual_network_output,
         "tunnel_virtual_network_comment": tunnel_virtual_network_comment_output,
         "tunnel_virtual_network_id": tunnel_virtual_network_id_output,
         "tunnel_virtual_network_name": tunnel_virtual_network_name_output,
+        "tunnel_vnet_response_single": tunnel_vnet_response_single_output,
       },
     },
     annotations: {
@@ -301,7 +322,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/tunnel_virtual-network"
+          "$ref": "#/$defs/tunnel_vnet_response_single"
         },
         "4XX": {
           "allOf": [
@@ -315,6 +336,7 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
+        "tunnel_api-response-common": tunnel_api_response_common_output,
         "tunnel_api-response-common-failure": tunnel_api_response_common_failure_output,
         "tunnel_created_at": tunnel_created_at_output,
         "tunnel_deleted_at": tunnel_deleted_at_output,
@@ -340,8 +362,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Cloudflare account ID",
-          "type": "string"
+          "$ref": "#/$defs/tunnel_account_id",
+          "description": "Cloudflare account ID"
         },
         "body": {
           "properties": {
@@ -362,8 +384,8 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "virtual_network_id": {
-          "description": "UUID of the virtual network.",
-          "type": "string"
+          "$ref": "#/$defs/tunnel_virtual_network_id",
+          "description": "UUID of the virtual network."
         }
       },
       required: [
@@ -372,21 +394,26 @@ export const tools: readonly Tool[] = [
         "body"
       ],
       $defs: {
+        "tunnel_account_id": tunnel_account_id,
         "tunnel_is_default_network": tunnel_is_default_network,
         "tunnel_virtual_network_comment": tunnel_virtual_network_comment,
+        "tunnel_virtual_network_id": tunnel_virtual_network_id,
         "tunnel_virtual_network_name": tunnel_virtual_network_name,
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/tunnel_virtual-network",
+      "$ref": "#/$defs/tunnel_vnet_response_single",
       $defs: {
+        "tunnel_api-response-common": tunnel_api_response_common_output,
         "tunnel_created_at": tunnel_created_at_output,
         "tunnel_deleted_at": tunnel_deleted_at_output,
         "tunnel_is_default_network": tunnel_is_default_network_output,
+        "tunnel_messages": tunnel_messages_output,
         "tunnel_virtual-network": tunnel_virtual_network_output,
         "tunnel_virtual_network_comment": tunnel_virtual_network_comment_output,
         "tunnel_virtual_network_id": tunnel_virtual_network_id_output,
         "tunnel_virtual_network_name": tunnel_virtual_network_name_output,
+        "tunnel_vnet_response_single": tunnel_vnet_response_single_output,
       },
     },
     annotations: {
@@ -401,7 +428,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/tunnel_virtual-network"
+          "$ref": "#/$defs/tunnel_vnet_response_single"
         },
         "4XX": {
           "allOf": [
@@ -415,6 +442,7 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
+        "tunnel_api-response-common": tunnel_api_response_common_output,
         "tunnel_api-response-common-failure": tunnel_api_response_common_failure_output,
         "tunnel_created_at": tunnel_created_at_output,
         "tunnel_deleted_at": tunnel_deleted_at_output,
@@ -440,8 +468,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Cloudflare account ID",
-          "type": "string"
+          "$ref": "#/$defs/tunnel_account_id",
+          "description": "Cloudflare account ID"
         },
         "id": {
           "$ref": "#/$defs/tunnel_virtual_network_id",
@@ -469,35 +497,26 @@ export const tools: readonly Tool[] = [
         "account_id"
       ],
       $defs: {
+        "tunnel_account_id": tunnel_account_id,
         "tunnel_virtual_network_id": tunnel_virtual_network_id,
         "tunnel_virtual_network_name": tunnel_virtual_network_name,
       },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "$ref": "#/$defs/tunnel_virtual-network"
-          },
-          "type": "array"
-        },
-        "result_info": {
-          "$ref": "#/$defs/tunnel_result_info"
-        }
-      },
-      "required": [
-        "result"
-      ],
-      "type": "object",
+      "$ref": "#/$defs/tunnel_vnet_response_collection",
       $defs: {
+        "tunnel_api-response-collection": tunnel_api_response_collection_output,
+        "tunnel_api-response-common": tunnel_api_response_common_output,
         "tunnel_created_at": tunnel_created_at_output,
         "tunnel_deleted_at": tunnel_deleted_at_output,
         "tunnel_is_default_network": tunnel_is_default_network_output,
+        "tunnel_messages": tunnel_messages_output,
         "tunnel_result_info": tunnel_result_info_output,
         "tunnel_virtual-network": tunnel_virtual_network_output,
         "tunnel_virtual_network_comment": tunnel_virtual_network_comment_output,
         "tunnel_virtual_network_id": tunnel_virtual_network_id_output,
         "tunnel_virtual_network_name": tunnel_virtual_network_name_output,
+        "tunnel_vnet_response_collection": tunnel_vnet_response_collection_output,
       },
     },
     annotations: {
@@ -520,21 +539,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "items": {
-                "$ref": "#/$defs/tunnel_virtual-network"
-              },
-              "type": "array"
-            },
-            "result_info": {
-              "$ref": "#/$defs/tunnel_result_info"
-            }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/tunnel_vnet_response_collection"
         },
         "4XX": {
           "allOf": [
@@ -548,6 +553,8 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
+        "tunnel_api-response-collection": tunnel_api_response_collection_output,
+        "tunnel_api-response-common": tunnel_api_response_common_output,
         "tunnel_api-response-common-failure": tunnel_api_response_common_failure_output,
         "tunnel_created_at": tunnel_created_at_output,
         "tunnel_deleted_at": tunnel_deleted_at_output,

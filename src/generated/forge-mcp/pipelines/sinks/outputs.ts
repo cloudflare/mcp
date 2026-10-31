@@ -32,61 +32,53 @@ export const cloudflare_pipelines_SinkFormat_output: JsonSchema = {
  * The schema of `cloudflare-pipelines_SinkJsonFormat` in responses.
  */
 export const cloudflare_pipelines_SinkJsonFormat_output: JsonSchema = {
-  "properties": {
-    "compression": {
-      "$ref": "#/$defs/cloudflare-pipelines_JsonCompression"
+  "allOf": [
+    {
+      "$ref": "#/$defs/cloudflare-pipelines_JsonFormat"
     },
-    "decimal_encoding": {
-      "$ref": "#/$defs/cloudflare-pipelines_DecimalEncoding"
-    },
-    "timestamp_format": {
-      "$ref": "#/$defs/cloudflare-pipelines_TimestampFormat"
-    },
-    "type": {
-      "enum": [
-        "json"
+    {
+      "properties": {
+        "compression": {
+          "$ref": "#/$defs/cloudflare-pipelines_JsonCompression"
+        },
+        "type": {
+          "enum": [
+            "json"
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "type"
       ],
-      "type": "string"
-    },
-    "unstructured": {
-      "type": "boolean"
+      "type": "object"
     }
-  },
-  "required": [
-    "type"
-  ],
-  "type": "object"
+  ]
 };
 
 /**
  * The schema of `cloudflare-pipelines_SinkParquetFormat` in responses.
  */
 export const cloudflare_pipelines_SinkParquetFormat_output: JsonSchema = {
-  "properties": {
-    "compression": {
-      "$ref": "#/$defs/cloudflare-pipelines_ParquetCompression"
+  "allOf": [
+    {
+      "$ref": "#/$defs/cloudflare-pipelines_ParquetFormat"
     },
-    "row_group_bytes": {
-      "oneOf": [
-        {
-          "type": "integer"
-        },
-        {
-          "type": "null"
+    {
+      "properties": {
+        "type": {
+          "enum": [
+            "parquet"
+          ],
+          "type": "string"
         }
-      ]
-    },
-    "type": {
-      "enum": [
-        "parquet"
+      },
+      "required": [
+        "type"
       ],
-      "type": "string"
+      "type": "object"
     }
-  },
-  "required": [
-    "type"
-  ],
-  "type": "object"
+  ]
 };
 
 /**
@@ -101,22 +93,67 @@ export const cloudflare_pipelines_r2Table_output: JsonSchema = {
       "type": "string"
     },
     "credentials": {
-      "$ref": "#/$defs/cloudflare-pipelines_r2Table_credentials"
+      "properties": {
+        "access_key_id": {
+          "type": "string"
+        },
+        "secret_access_key": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "access_key_id",
+        "secret_access_key"
+      ],
+      "type": "object"
     },
     "file_naming": {
-      "$ref": "#/$defs/cloudflare-pipelines_r2Table_file_naming"
+      "properties": {
+        "prefix": {
+          "type": "string"
+        },
+        "strategy": {
+          "enum": [
+            "serial",
+            "uuid",
+            "uuid_v7",
+            "ulid"
+          ],
+          "type": "string"
+        },
+        "suffix": {
+          "type": "string"
+        }
+      },
+      "type": "object"
     },
     "jurisdiction": {
       "type": "string"
     },
     "partitioning": {
-      "$ref": "#/$defs/cloudflare-pipelines_r2Table_partitioning"
+      "properties": {
+        "time_pattern": {
+          "type": "string"
+        }
+      },
+      "type": "object"
     },
     "path": {
       "type": "string"
     },
     "rolling_policy": {
-      "$ref": "#/$defs/cloudflare-pipelines_r2Table_rolling_policy"
+      "properties": {
+        "file_size_bytes": {
+          "type": "integer"
+        },
+        "inactivity_seconds": {
+          "type": "integer"
+        },
+        "interval_seconds": {
+          "type": "integer"
+        }
+      },
+      "type": "object"
     }
   },
   "required": [
@@ -139,153 +176,58 @@ export const cloudflare_pipelines_r2TablePublic_output: JsonSchema = {
       "type": "string"
     },
     "file_naming": {
-      "$ref": "#/$defs/cloudflare-pipelines_r2TablePublic_file_naming"
+      "properties": {
+        "prefix": {
+          "type": "string"
+        },
+        "strategy": {
+          "enum": [
+            "serial",
+            "uuid",
+            "uuid_v7",
+            "ulid"
+          ],
+          "type": "string"
+        },
+        "suffix": {
+          "type": "string"
+        }
+      },
+      "type": "object"
     },
     "jurisdiction": {
       "type": "string"
     },
     "partitioning": {
-      "$ref": "#/$defs/cloudflare-pipelines_r2TablePublic_partitioning"
+      "properties": {
+        "time_pattern": {
+          "type": "string"
+        }
+      },
+      "type": "object"
     },
     "path": {
       "type": "string"
     },
     "rolling_policy": {
-      "$ref": "#/$defs/cloudflare-pipelines_r2TablePublic_rolling_policy"
+      "properties": {
+        "file_size_bytes": {
+          "type": "integer"
+        },
+        "inactivity_seconds": {
+          "type": "integer"
+        },
+        "interval_seconds": {
+          "type": "integer"
+        }
+      },
+      "type": "object"
     }
   },
   "required": [
     "account_id",
     "bucket"
   ],
-  "type": "object"
-};
-
-/**
- * The schema of `cloudflare-pipelines_r2TablePublic_file_naming` in responses.
- */
-export const cloudflare_pipelines_r2TablePublic_file_naming_output: JsonSchema = {
-  "properties": {
-    "prefix": {
-      "type": "string"
-    },
-    "strategy": {
-      "enum": [
-        "serial",
-        "uuid",
-        "uuid_v7",
-        "ulid"
-      ],
-      "type": "string"
-    },
-    "suffix": {
-      "type": "string"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `cloudflare-pipelines_r2TablePublic_partitioning` in responses.
- */
-export const cloudflare_pipelines_r2TablePublic_partitioning_output: JsonSchema = {
-  "properties": {
-    "time_pattern": {
-      "type": "string"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `cloudflare-pipelines_r2TablePublic_rolling_policy` in
- * responses.
- */
-export const cloudflare_pipelines_r2TablePublic_rolling_policy_output: JsonSchema = {
-  "properties": {
-    "file_size_bytes": {
-      "type": "integer"
-    },
-    "inactivity_seconds": {
-      "type": "integer"
-    },
-    "interval_seconds": {
-      "type": "integer"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `cloudflare-pipelines_r2Table_credentials` in responses.
- */
-export const cloudflare_pipelines_r2Table_credentials_output: JsonSchema = {
-  "properties": {
-    "access_key_id": {
-      "type": "string"
-    },
-    "secret_access_key": {
-      "type": "string"
-    }
-  },
-  "required": [
-    "access_key_id",
-    "secret_access_key"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `cloudflare-pipelines_r2Table_file_naming` in responses.
- */
-export const cloudflare_pipelines_r2Table_file_naming_output: JsonSchema = {
-  "properties": {
-    "prefix": {
-      "type": "string"
-    },
-    "strategy": {
-      "enum": [
-        "serial",
-        "uuid",
-        "uuid_v7",
-        "ulid"
-      ],
-      "type": "string"
-    },
-    "suffix": {
-      "type": "string"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `cloudflare-pipelines_r2Table_partitioning` in responses.
- */
-export const cloudflare_pipelines_r2Table_partitioning_output: JsonSchema = {
-  "properties": {
-    "time_pattern": {
-      "type": "string"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `cloudflare-pipelines_r2Table_rolling_policy` in responses.
- */
-export const cloudflare_pipelines_r2Table_rolling_policy_output: JsonSchema = {
-  "properties": {
-    "file_size_bytes": {
-      "type": "integer"
-    },
-    "inactivity_seconds": {
-      "type": "integer"
-    },
-    "interval_seconds": {
-      "type": "integer"
-    }
-  },
   "type": "object"
 };
 
@@ -304,7 +246,18 @@ export const cloudflare_pipelines_r2_data_catalogTable_output: JsonSchema = {
       "type": "string"
     },
     "rolling_policy": {
-      "$ref": "#/$defs/cloudflare-pipelines_r2_data_catalogTable_rolling_policy"
+      "properties": {
+        "file_size_bytes": {
+          "type": "integer"
+        },
+        "inactivity_seconds": {
+          "type": "integer"
+        },
+        "interval_seconds": {
+          "type": "integer"
+        }
+      },
+      "type": "object"
     },
     "table_name": {
       "type": "string"
@@ -337,7 +290,18 @@ export const cloudflare_pipelines_r2_data_catalogTablePublic_output: JsonSchema 
       "type": "string"
     },
     "rolling_policy": {
-      "$ref": "#/$defs/cloudflare-pipelines_r2_data_catalogTablePublic_rolling_policy"
+      "properties": {
+        "file_size_bytes": {
+          "type": "integer"
+        },
+        "inactivity_seconds": {
+          "type": "integer"
+        },
+        "interval_seconds": {
+          "type": "integer"
+        }
+      },
+      "type": "object"
     },
     "table_name": {
       "type": "string"
@@ -348,44 +312,5 @@ export const cloudflare_pipelines_r2_data_catalogTablePublic_output: JsonSchema 
     "bucket",
     "table_name"
   ],
-  "type": "object"
-};
-
-/**
- * The schema of
- * `cloudflare-pipelines_r2_data_catalogTablePublic_rolling_policy` in
- * responses.
- */
-export const cloudflare_pipelines_r2_data_catalogTablePublic_rolling_policy_output: JsonSchema = {
-  "properties": {
-    "file_size_bytes": {
-      "type": "integer"
-    },
-    "inactivity_seconds": {
-      "type": "integer"
-    },
-    "interval_seconds": {
-      "type": "integer"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `cloudflare-pipelines_r2_data_catalogTable_rolling_policy` in
- * responses.
- */
-export const cloudflare_pipelines_r2_data_catalogTable_rolling_policy_output: JsonSchema = {
-  "properties": {
-    "file_size_bytes": {
-      "type": "integer"
-    },
-    "inactivity_seconds": {
-      "type": "integer"
-    },
-    "interval_seconds": {
-      "type": "integer"
-    }
-  },
   "type": "object"
 };

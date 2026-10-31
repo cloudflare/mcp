@@ -4,6 +4,14 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
+ * The schema of `iam_sso_connector_identifier`.
+ */
+export const iam_sso_connector_identifier: JsonSchema = {
+  "$ref": "#/$defs/iam_common_components-schemas-identifier",
+  "description": "SSO Connector identifier tag."
+};
+
+/**
  * The schema of `iam_use_fedramp_language`.
  */
 export const iam_use_fedramp_language: JsonSchema = {

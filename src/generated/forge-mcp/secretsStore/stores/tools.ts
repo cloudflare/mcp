@@ -3,7 +3,9 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
+  secrets_store_api_response_collection_output,
   secrets_store_api_response_common_failure_output,
+  secrets_store_api_response_common_output,
   secrets_store_created_output,
   secrets_store_messages_output,
   secrets_store_modified_output,
@@ -13,6 +15,8 @@ import {
   secrets_store_account_identifier_output,
   secrets_store_storeObject_output,
   secrets_store_store_name_output,
+  secrets_store_store_response_output,
+  secrets_store_stores_response_collection_output,
 } from "./outputs.js";
 
 /**
@@ -41,14 +45,18 @@ export const tools: readonly Tool[] = [
       ],
     },
     outputSchema: {
-      "$ref": "#/$defs/secrets-store_storeObject",
+      "$ref": "#/$defs/secrets-store_store_response",
       $defs: {
         "secrets-store_account_identifier": secrets_store_account_identifier_output,
+        "secrets-store_api-response-collection": secrets_store_api_response_collection_output,
+        "secrets-store_api-response-common": secrets_store_api_response_common_output,
         "secrets-store_created": secrets_store_created_output,
+        "secrets-store_messages": secrets_store_messages_output,
         "secrets-store_modified": secrets_store_modified_output,
         "secrets-store_storeObject": secrets_store_storeObject_output,
         "secrets-store_store_identifier": secrets_store_store_identifier_output,
         "secrets-store_store_name": secrets_store_store_name_output,
+        "secrets-store_store_response": secrets_store_store_response_output,
       },
     },
     annotations: {
@@ -76,7 +84,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/secrets-store_storeObject"
+          "$ref": "#/$defs/secrets-store_store_response"
         },
         "4XX": {
           "$ref": "#/$defs/secrets-store_api-response-common-failure"
@@ -84,6 +92,8 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "secrets-store_account_identifier": secrets_store_account_identifier_output,
+        "secrets-store_api-response-collection": secrets_store_api_response_collection_output,
+        "secrets-store_api-response-common": secrets_store_api_response_common_output,
         "secrets-store_api-response-common-failure": secrets_store_api_response_common_failure_output,
         "secrets-store_created": secrets_store_created_output,
         "secrets-store_messages": secrets_store_messages_output,
@@ -91,6 +101,7 @@ export const tools: readonly Tool[] = [
         "secrets-store_storeObject": secrets_store_storeObject_output,
         "secrets-store_store_identifier": secrets_store_store_identifier_output,
         "secrets-store_store_name": secrets_store_store_name_output,
+        "secrets-store_store_response": secrets_store_store_response_output,
       },
     },
     request: (args) => ({
@@ -141,45 +152,18 @@ export const tools: readonly Tool[] = [
       ],
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "$ref": "#/$defs/secrets-store_storeObject"
-          },
-          "type": "array"
-        },
-        "result_info": {
-          "properties": {
-            "count": {
-              "type": "number"
-            },
-            "page": {
-              "type": "number"
-            },
-            "per_page": {
-              "type": "number"
-            },
-            "total_count": {
-              "type": "number"
-            },
-            "total_pages": {
-              "type": "number"
-            }
-          },
-          "type": "object"
-        }
-      },
-      "required": [
-        "result"
-      ],
-      "type": "object",
+      "$ref": "#/$defs/secrets-store_stores_response_collection",
       $defs: {
         "secrets-store_account_identifier": secrets_store_account_identifier_output,
+        "secrets-store_api-response-collection": secrets_store_api_response_collection_output,
+        "secrets-store_api-response-common": secrets_store_api_response_common_output,
         "secrets-store_created": secrets_store_created_output,
+        "secrets-store_messages": secrets_store_messages_output,
         "secrets-store_modified": secrets_store_modified_output,
         "secrets-store_storeObject": secrets_store_storeObject_output,
         "secrets-store_store_identifier": secrets_store_store_identifier_output,
         "secrets-store_store_name": secrets_store_store_name_output,
+        "secrets-store_stores_response_collection": secrets_store_stores_response_collection_output,
       },
     },
     annotations: {
@@ -207,38 +191,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "items": {
-                "$ref": "#/$defs/secrets-store_storeObject"
-              },
-              "type": "array"
-            },
-            "result_info": {
-              "properties": {
-                "count": {
-                  "type": "number"
-                },
-                "page": {
-                  "type": "number"
-                },
-                "per_page": {
-                  "type": "number"
-                },
-                "total_count": {
-                  "type": "number"
-                },
-                "total_pages": {
-                  "type": "number"
-                }
-              },
-              "type": "object"
-            }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/secrets-store_stores_response_collection"
         },
         "4XX": {
           "$ref": "#/$defs/secrets-store_api-response-common-failure"
@@ -246,6 +199,8 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "secrets-store_account_identifier": secrets_store_account_identifier_output,
+        "secrets-store_api-response-collection": secrets_store_api_response_collection_output,
+        "secrets-store_api-response-common": secrets_store_api_response_common_output,
         "secrets-store_api-response-common-failure": secrets_store_api_response_common_failure_output,
         "secrets-store_created": secrets_store_created_output,
         "secrets-store_messages": secrets_store_messages_output,
@@ -253,6 +208,7 @@ export const tools: readonly Tool[] = [
         "secrets-store_storeObject": secrets_store_storeObject_output,
         "secrets-store_store_identifier": secrets_store_store_identifier_output,
         "secrets-store_store_name": secrets_store_store_name_output,
+        "secrets-store_stores_response_collection": secrets_store_stores_response_collection_output,
       },
     },
     request: (args) => ({

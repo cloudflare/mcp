@@ -4,6 +4,14 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
+ * The schema of `firewall_components-ua-rule-id`.
+ */
+export const firewall_components_ua_rule_id: JsonSchema = {
+  "description": "The unique identifier of the User Agent Blocking rule.",
+  "type": "string"
+};
+
+/**
  * The schema of `firewall_description_search`.
  */
 export const firewall_description_search: JsonSchema = {

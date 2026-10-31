@@ -7,6 +7,7 @@ import {
   r2_slurper_api_v4_error_output,
   r2_slurper_api_v4_failure_output,
   r2_slurper_api_v4_message_output,
+  r2_slurper_api_v4_success_output,
 } from "../outputs.js";
 import {
   r2_slurper_GCSLikeCredsSchema,
@@ -21,8 +22,6 @@ import {
 import {
   r2_slurper_JobProgressResponse_output,
   r2_slurper_JobResponse_output,
-  r2_slurper_JobResponse_source_output,
-  r2_slurper_JobResponse_target_output,
   r2_slurper_JobStatus_output,
 } from "./outputs.js";
 import { r2_slurper_CreateJobRequest } from "./schemas.js";
@@ -51,7 +50,24 @@ export const tools: readonly Tool[] = [
       ],
     },
     outputSchema: {
-      "type": "string",
+      "allOf": [
+        {
+          "$ref": "#/$defs/r2-slurper_api-v4-success"
+        },
+        {
+          "properties": {
+            "result": {
+              "type": "string"
+            }
+          },
+          "type": "object"
+        }
+      ],
+      $defs: {
+        "r2-slurper_api-v4-error": r2_slurper_api_v4_error_output,
+        "r2-slurper_api-v4-message": r2_slurper_api_v4_message_output,
+        "r2-slurper_api-v4-success": r2_slurper_api_v4_success_output,
+      },
     },
     annotations: {
       "destructiveHint": true,
@@ -65,7 +81,19 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "type": "string"
+          "allOf": [
+            {
+              "$ref": "#/$defs/r2-slurper_api-v4-success"
+            },
+            {
+              "properties": {
+                "result": {
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/r2-slurper_api-v4-failure"
@@ -75,6 +103,7 @@ export const tools: readonly Tool[] = [
         "r2-slurper_api-v4-error": r2_slurper_api_v4_error_output,
         "r2-slurper_api-v4-failure": r2_slurper_api_v4_failure_output,
         "r2-slurper_api-v4-message": r2_slurper_api_v4_message_output,
+        "r2-slurper_api-v4-success": r2_slurper_api_v4_success_output,
       },
     },
     request: (args) => ({
@@ -97,7 +126,24 @@ export const tools: readonly Tool[] = [
       ],
     },
     outputSchema: {
-      "type": "string",
+      "allOf": [
+        {
+          "$ref": "#/$defs/r2-slurper_api-v4-success"
+        },
+        {
+          "properties": {
+            "result": {
+              "type": "string"
+            }
+          },
+          "type": "object"
+        }
+      ],
+      $defs: {
+        "r2-slurper_api-v4-error": r2_slurper_api_v4_error_output,
+        "r2-slurper_api-v4-message": r2_slurper_api_v4_message_output,
+        "r2-slurper_api-v4-success": r2_slurper_api_v4_success_output,
+      },
     },
     annotations: {
       "destructiveHint": true,
@@ -111,7 +157,19 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "type": "string"
+          "allOf": [
+            {
+              "$ref": "#/$defs/r2-slurper_api-v4-success"
+            },
+            {
+              "properties": {
+                "result": {
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/r2-slurper_api-v4-failure"
@@ -121,6 +179,7 @@ export const tools: readonly Tool[] = [
         "r2-slurper_api-v4-error": r2_slurper_api_v4_error_output,
         "r2-slurper_api-v4-failure": r2_slurper_api_v4_failure_output,
         "r2-slurper_api-v4-message": r2_slurper_api_v4_message_output,
+        "r2-slurper_api-v4-success": r2_slurper_api_v4_success_output,
       },
     },
     request: (args) => ({
@@ -158,12 +217,29 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "properties": {
-        "id": {
-          "type": "string"
+      "allOf": [
+        {
+          "$ref": "#/$defs/r2-slurper_api-v4-success"
+        },
+        {
+          "properties": {
+            "result": {
+              "properties": {
+                "id": {
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "type": "object"
         }
+      ],
+      $defs: {
+        "r2-slurper_api-v4-error": r2_slurper_api_v4_error_output,
+        "r2-slurper_api-v4-message": r2_slurper_api_v4_message_output,
+        "r2-slurper_api-v4-success": r2_slurper_api_v4_success_output,
       },
-      "type": "object",
     },
     annotations: {
       "destructiveHint": false,
@@ -177,12 +253,24 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "201": {
-          "properties": {
-            "id": {
-              "type": "string"
+          "allOf": [
+            {
+              "$ref": "#/$defs/r2-slurper_api-v4-success"
+            },
+            {
+              "properties": {
+                "result": {
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              },
+              "type": "object"
             }
-          },
-          "type": "object"
+          ]
         },
         "409": {
           "$ref": "#/$defs/r2-slurper_api-v4-failure"
@@ -195,6 +283,7 @@ export const tools: readonly Tool[] = [
         "r2-slurper_api-v4-error": r2_slurper_api_v4_error_output,
         "r2-slurper_api-v4-failure": r2_slurper_api_v4_failure_output,
         "r2-slurper_api-v4-message": r2_slurper_api_v4_message_output,
+        "r2-slurper_api-v4-success": r2_slurper_api_v4_success_output,
       },
     },
     request: (args) => ({
@@ -222,7 +311,24 @@ export const tools: readonly Tool[] = [
       ],
     },
     outputSchema: {
-      "type": "string",
+      "allOf": [
+        {
+          "$ref": "#/$defs/r2-slurper_api-v4-success"
+        },
+        {
+          "properties": {
+            "result": {
+              "type": "string"
+            }
+          },
+          "type": "object"
+        }
+      ],
+      $defs: {
+        "r2-slurper_api-v4-error": r2_slurper_api_v4_error_output,
+        "r2-slurper_api-v4-message": r2_slurper_api_v4_message_output,
+        "r2-slurper_api-v4-success": r2_slurper_api_v4_success_output,
+      },
     },
     annotations: {
       "destructiveHint": true,
@@ -236,7 +342,19 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "type": "string"
+          "allOf": [
+            {
+              "$ref": "#/$defs/r2-slurper_api-v4-success"
+            },
+            {
+              "properties": {
+                "result": {
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "409": {
           "$ref": "#/$defs/r2-slurper_api-v4-failure"
@@ -249,6 +367,7 @@ export const tools: readonly Tool[] = [
         "r2-slurper_api-v4-error": r2_slurper_api_v4_error_output,
         "r2-slurper_api-v4-failure": r2_slurper_api_v4_failure_output,
         "r2-slurper_api-v4-message": r2_slurper_api_v4_message_output,
+        "r2-slurper_api-v4-success": r2_slurper_api_v4_success_output,
       },
     },
     request: (args) => ({
@@ -275,13 +394,26 @@ export const tools: readonly Tool[] = [
       ],
     },
     outputSchema: {
-      "$ref": "#/$defs/r2-slurper_JobResponse",
+      "allOf": [
+        {
+          "$ref": "#/$defs/r2-slurper_api-v4-success"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/r2-slurper_JobResponse"
+            }
+          },
+          "type": "object"
+        }
+      ],
       $defs: {
         "r2-slurper_JobResponse": r2_slurper_JobResponse_output,
-        "r2-slurper_JobResponse_source": r2_slurper_JobResponse_source_output,
-        "r2-slurper_JobResponse_target": r2_slurper_JobResponse_target_output,
         "r2-slurper_JobStatus": r2_slurper_JobStatus_output,
         "r2-slurper_Jurisdiction": r2_slurper_Jurisdiction_output,
+        "r2-slurper_api-v4-error": r2_slurper_api_v4_error_output,
+        "r2-slurper_api-v4-message": r2_slurper_api_v4_message_output,
+        "r2-slurper_api-v4-success": r2_slurper_api_v4_success_output,
       },
     },
     annotations: {
@@ -296,7 +428,19 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/r2-slurper_JobResponse"
+          "allOf": [
+            {
+              "$ref": "#/$defs/r2-slurper_api-v4-success"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/r2-slurper_JobResponse"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/r2-slurper_api-v4-failure"
@@ -304,13 +448,12 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "r2-slurper_JobResponse": r2_slurper_JobResponse_output,
-        "r2-slurper_JobResponse_source": r2_slurper_JobResponse_source_output,
-        "r2-slurper_JobResponse_target": r2_slurper_JobResponse_target_output,
         "r2-slurper_JobStatus": r2_slurper_JobStatus_output,
         "r2-slurper_Jurisdiction": r2_slurper_Jurisdiction_output,
         "r2-slurper_api-v4-error": r2_slurper_api_v4_error_output,
         "r2-slurper_api-v4-failure": r2_slurper_api_v4_failure_output,
         "r2-slurper_api-v4-message": r2_slurper_api_v4_message_output,
+        "r2-slurper_api-v4-success": r2_slurper_api_v4_success_output,
       },
     },
     request: (args) => ({
@@ -339,27 +482,29 @@ export const tools: readonly Tool[] = [
       ],
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "$ref": "#/$defs/r2-slurper_JobResponse"
-          },
-          "type": "array"
+      "allOf": [
+        {
+          "$ref": "#/$defs/r2-slurper_api-v4-success"
         },
-        "result_info": {
+        {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/r2-slurper_JobResponse"
+              },
+              "type": "array"
+            }
+          },
           "type": "object"
         }
-      },
-      "required": [
-        "result"
       ],
-      "type": "object",
       $defs: {
         "r2-slurper_JobResponse": r2_slurper_JobResponse_output,
-        "r2-slurper_JobResponse_source": r2_slurper_JobResponse_source_output,
-        "r2-slurper_JobResponse_target": r2_slurper_JobResponse_target_output,
         "r2-slurper_JobStatus": r2_slurper_JobStatus_output,
         "r2-slurper_Jurisdiction": r2_slurper_Jurisdiction_output,
+        "r2-slurper_api-v4-error": r2_slurper_api_v4_error_output,
+        "r2-slurper_api-v4-message": r2_slurper_api_v4_message_output,
+        "r2-slurper_api-v4-success": r2_slurper_api_v4_success_output,
       },
     },
     annotations: {
@@ -374,21 +519,22 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "items": {
-                "$ref": "#/$defs/r2-slurper_JobResponse"
-              },
-              "type": "array"
+          "allOf": [
+            {
+              "$ref": "#/$defs/r2-slurper_api-v4-success"
             },
-            "result_info": {
+            {
+              "properties": {
+                "result": {
+                  "items": {
+                    "$ref": "#/$defs/r2-slurper_JobResponse"
+                  },
+                  "type": "array"
+                }
+              },
               "type": "object"
             }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/r2-slurper_api-v4-failure"
@@ -396,13 +542,12 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "r2-slurper_JobResponse": r2_slurper_JobResponse_output,
-        "r2-slurper_JobResponse_source": r2_slurper_JobResponse_source_output,
-        "r2-slurper_JobResponse_target": r2_slurper_JobResponse_target_output,
         "r2-slurper_JobStatus": r2_slurper_JobStatus_output,
         "r2-slurper_Jurisdiction": r2_slurper_Jurisdiction_output,
         "r2-slurper_api-v4-error": r2_slurper_api_v4_error_output,
         "r2-slurper_api-v4-failure": r2_slurper_api_v4_failure_output,
         "r2-slurper_api-v4-message": r2_slurper_api_v4_message_output,
+        "r2-slurper_api-v4-success": r2_slurper_api_v4_success_output,
       },
     },
     request: (args) => ({
@@ -433,7 +578,24 @@ export const tools: readonly Tool[] = [
       ],
     },
     outputSchema: {
-      "type": "string",
+      "allOf": [
+        {
+          "$ref": "#/$defs/r2-slurper_api-v4-success"
+        },
+        {
+          "properties": {
+            "result": {
+              "type": "string"
+            }
+          },
+          "type": "object"
+        }
+      ],
+      $defs: {
+        "r2-slurper_api-v4-error": r2_slurper_api_v4_error_output,
+        "r2-slurper_api-v4-message": r2_slurper_api_v4_message_output,
+        "r2-slurper_api-v4-success": r2_slurper_api_v4_success_output,
+      },
     },
     annotations: {
       "destructiveHint": true,
@@ -447,7 +609,19 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "type": "string"
+          "allOf": [
+            {
+              "$ref": "#/$defs/r2-slurper_api-v4-success"
+            },
+            {
+              "properties": {
+                "result": {
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "409": {
           "$ref": "#/$defs/r2-slurper_api-v4-failure"
@@ -460,6 +634,7 @@ export const tools: readonly Tool[] = [
         "r2-slurper_api-v4-error": r2_slurper_api_v4_error_output,
         "r2-slurper_api-v4-failure": r2_slurper_api_v4_failure_output,
         "r2-slurper_api-v4-message": r2_slurper_api_v4_message_output,
+        "r2-slurper_api-v4-success": r2_slurper_api_v4_success_output,
       },
     },
     request: (args) => ({
@@ -486,10 +661,25 @@ export const tools: readonly Tool[] = [
       ],
     },
     outputSchema: {
-      "$ref": "#/$defs/r2-slurper_JobProgressResponse",
+      "allOf": [
+        {
+          "$ref": "#/$defs/r2-slurper_api-v4-success"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/r2-slurper_JobProgressResponse"
+            }
+          },
+          "type": "object"
+        }
+      ],
       $defs: {
         "r2-slurper_JobProgressResponse": r2_slurper_JobProgressResponse_output,
         "r2-slurper_JobStatus": r2_slurper_JobStatus_output,
+        "r2-slurper_api-v4-error": r2_slurper_api_v4_error_output,
+        "r2-slurper_api-v4-message": r2_slurper_api_v4_message_output,
+        "r2-slurper_api-v4-success": r2_slurper_api_v4_success_output,
       },
     },
     annotations: {
@@ -504,7 +694,19 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/r2-slurper_JobProgressResponse"
+          "allOf": [
+            {
+              "$ref": "#/$defs/r2-slurper_api-v4-success"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/r2-slurper_JobProgressResponse"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/r2-slurper_api-v4-failure"
@@ -516,6 +718,7 @@ export const tools: readonly Tool[] = [
         "r2-slurper_api-v4-error": r2_slurper_api_v4_error_output,
         "r2-slurper_api-v4-failure": r2_slurper_api_v4_failure_output,
         "r2-slurper_api-v4-message": r2_slurper_api_v4_message_output,
+        "r2-slurper_api-v4-success": r2_slurper_api_v4_success_output,
       },
     },
     request: (args) => ({
@@ -542,7 +745,24 @@ export const tools: readonly Tool[] = [
       ],
     },
     outputSchema: {
-      "type": "string",
+      "allOf": [
+        {
+          "$ref": "#/$defs/r2-slurper_api-v4-success"
+        },
+        {
+          "properties": {
+            "result": {
+              "type": "string"
+            }
+          },
+          "type": "object"
+        }
+      ],
+      $defs: {
+        "r2-slurper_api-v4-error": r2_slurper_api_v4_error_output,
+        "r2-slurper_api-v4-message": r2_slurper_api_v4_message_output,
+        "r2-slurper_api-v4-success": r2_slurper_api_v4_success_output,
+      },
     },
     annotations: {
       "destructiveHint": true,
@@ -556,7 +776,19 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "type": "string"
+          "allOf": [
+            {
+              "$ref": "#/$defs/r2-slurper_api-v4-success"
+            },
+            {
+              "properties": {
+                "result": {
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/r2-slurper_api-v4-failure"
@@ -566,6 +798,7 @@ export const tools: readonly Tool[] = [
         "r2-slurper_api-v4-error": r2_slurper_api_v4_error_output,
         "r2-slurper_api-v4-failure": r2_slurper_api_v4_failure_output,
         "r2-slurper_api-v4-message": r2_slurper_api_v4_message_output,
+        "r2-slurper_api-v4-success": r2_slurper_api_v4_success_output,
       },
     },
     request: (args) => ({

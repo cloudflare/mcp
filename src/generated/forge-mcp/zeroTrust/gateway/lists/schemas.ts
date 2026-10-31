@@ -68,6 +68,14 @@ export const zero_trust_gateway_type_2: JsonSchema = {
 };
 
 /**
+ * The schema of `zero-trust-gateway_uuid-2`.
+ */
+export const zero_trust_gateway_uuid_2: JsonSchema = {
+  "description": "Identify the API resource with a UUID.",
+  "type": "string"
+};
+
+/**
  * The schema of `zero-trust-gateway_value`.
  */
 export const zero_trust_gateway_value: JsonSchema = {

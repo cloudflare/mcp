@@ -3,11 +3,14 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
+  secrets_store_api_response_collection_output,
   secrets_store_api_response_common_failure_output,
+  secrets_store_api_response_common_output,
   secrets_store_messages_output,
 } from "../outputs.js";
 import {
   secrets_store_quota_output,
+  secrets_store_quota_response_output,
   secrets_store_secretsUsageObject_output,
   secrets_store_usageQuotaObject_output,
   secrets_store_usage_output,
@@ -34,9 +37,13 @@ export const tools: readonly Tool[] = [
       ],
     },
     outputSchema: {
-      "$ref": "#/$defs/secrets-store_secretsUsageObject",
+      "$ref": "#/$defs/secrets-store_quota_response",
       $defs: {
+        "secrets-store_api-response-collection": secrets_store_api_response_collection_output,
+        "secrets-store_api-response-common": secrets_store_api_response_common_output,
+        "secrets-store_messages": secrets_store_messages_output,
         "secrets-store_quota": secrets_store_quota_output,
+        "secrets-store_quota_response": secrets_store_quota_response_output,
         "secrets-store_secretsUsageObject": secrets_store_secretsUsageObject_output,
         "secrets-store_usage": secrets_store_usage_output,
         "secrets-store_usageQuotaObject": secrets_store_usageQuotaObject_output,
@@ -67,16 +74,19 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/secrets-store_secretsUsageObject"
+          "$ref": "#/$defs/secrets-store_quota_response"
         },
         "4XX": {
           "$ref": "#/$defs/secrets-store_api-response-common-failure"
         }
       },
       $defs: {
+        "secrets-store_api-response-collection": secrets_store_api_response_collection_output,
+        "secrets-store_api-response-common": secrets_store_api_response_common_output,
         "secrets-store_api-response-common-failure": secrets_store_api_response_common_failure_output,
         "secrets-store_messages": secrets_store_messages_output,
         "secrets-store_quota": secrets_store_quota_output,
+        "secrets-store_quota_response": secrets_store_quota_response_output,
         "secrets-store_secretsUsageObject": secrets_store_secretsUsageObject_output,
         "secrets-store_usage": secrets_store_usage_output,
         "secrets-store_usageQuotaObject": secrets_store_usageQuotaObject_output,

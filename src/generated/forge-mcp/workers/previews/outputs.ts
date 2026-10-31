@@ -33,7 +33,76 @@ export const workers_Preview_output: JsonSchema = {
       "type": "string"
     },
     "observability": {
-      "$ref": "#/$defs/workers_Preview_observability"
+      "properties": {
+        "enabled": {
+          "type": "boolean"
+        },
+        "head_sampling_rate": {
+          "type": "number"
+        },
+        "issues": {
+          "oneOf": [
+            {
+              "properties": {
+                "enabled": {
+                  "type": "boolean"
+                }
+              },
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "logs": {
+          "properties": {
+            "destinations": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "enabled": {
+              "type": "boolean"
+            },
+            "head_sampling_rate": {
+              "type": "number"
+            },
+            "invocation_logs": {
+              "type": "boolean"
+            },
+            "persist": {
+              "type": "boolean"
+            }
+          },
+          "type": "object"
+        },
+        "redact_query_string": {
+          "type": "boolean"
+        },
+        "traces": {
+          "properties": {
+            "destinations": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "enabled": {
+              "type": "boolean"
+            },
+            "head_sampling_rate": {
+              "type": "number"
+            },
+            "persist": {
+              "type": "boolean"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
     },
     "slug": {
       "type": "string"
@@ -47,7 +116,15 @@ export const workers_Preview_output: JsonSchema = {
     },
     "tail_consumers": {
       "items": {
-        "$ref": "#/$defs/workers_Preview_tail_consumersItem"
+        "properties": {
+          "name": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "name"
+        ],
+        "type": "object"
       },
       "type": "array"
     },
@@ -73,118 +150,6 @@ export const workers_Preview_output: JsonSchema = {
     "tail_consumers",
     "updated_on",
     "urls"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `workers_Preview_observability` in responses.
- */
-export const workers_Preview_observability_output: JsonSchema = {
-  "properties": {
-    "enabled": {
-      "type": "boolean"
-    },
-    "head_sampling_rate": {
-      "type": "number"
-    },
-    "issues": {
-      "$ref": "#/$defs/workers_Preview_observability_issues"
-    },
-    "logs": {
-      "$ref": "#/$defs/workers_Preview_observability_logs"
-    },
-    "redact_query_string": {
-      "type": "boolean"
-    },
-    "traces": {
-      "$ref": "#/$defs/workers_Preview_observability_traces"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `workers_Preview_observability_issues` in responses.
- */
-export const workers_Preview_observability_issues_output: JsonSchema = {
-  "oneOf": [
-    {
-      "properties": {
-        "enabled": {
-          "type": "boolean"
-        }
-      },
-      "type": "object"
-    },
-    {
-      "type": "null"
-    }
-  ]
-};
-
-/**
- * The schema of `workers_Preview_observability_logs` in responses.
- */
-export const workers_Preview_observability_logs_output: JsonSchema = {
-  "properties": {
-    "destinations": {
-      "items": {
-        "type": "string"
-      },
-      "type": "array"
-    },
-    "enabled": {
-      "type": "boolean"
-    },
-    "head_sampling_rate": {
-      "type": "number"
-    },
-    "invocation_logs": {
-      "type": "boolean"
-    },
-    "persist": {
-      "type": "boolean"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `workers_Preview_observability_traces` in responses.
- */
-export const workers_Preview_observability_traces_output: JsonSchema = {
-  "properties": {
-    "destinations": {
-      "items": {
-        "type": "string"
-      },
-      "type": "array"
-    },
-    "enabled": {
-      "type": "boolean"
-    },
-    "head_sampling_rate": {
-      "type": "number"
-    },
-    "persist": {
-      "type": "boolean"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `workers_Preview_tail_consumersItem` in responses.
- */
-export const workers_Preview_tail_consumersItem_output: JsonSchema = {
-  "properties": {
-    "name": {
-      "type": "string"
-    }
-  },
-  "required": [
-    "name"
   ],
   "type": "object"
 };

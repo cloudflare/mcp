@@ -37,16 +37,28 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
-        "domain": {
-          "type": "string"
+        "result": {
+          "properties": {
+            "domain": {
+              "type": "string"
+            },
+            "id": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "domain",
+            "id"
+          ],
+          "type": "object"
         },
-        "id": {
-          "type": "integer"
+        "success": {
+          "type": "boolean"
         }
       },
       "required": [
-        "domain",
-        "id"
+        "result",
+        "success"
       ],
       "type": "object",
     },
@@ -68,16 +80,28 @@ export const tools: readonly Tool[] = [
       schemas: {
         "201": {
           "properties": {
-            "domain": {
-              "type": "string"
+            "result": {
+              "properties": {
+                "domain": {
+                  "type": "string"
+                },
+                "id": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "domain",
+                "id"
+              ],
+              "type": "object"
             },
-            "id": {
-              "type": "integer"
+            "success": {
+              "type": "boolean"
             }
           },
           "required": [
-            "domain",
-            "id"
+            "result",
+            "success"
           ],
           "type": "object"
         },
@@ -161,7 +185,7 @@ export const tools: readonly Tool[] = [
         },
         "id": {
           "description": "Domain ID",
-          "type": "string"
+          "type": "integer"
         }
       },
       required: [
@@ -171,23 +195,35 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
-        "deleted": {
-          "enum": [
-            true
+        "result": {
+          "properties": {
+            "deleted": {
+              "enum": [
+                true
+              ],
+              "type": "boolean"
+            },
+            "domain": {
+              "type": "string"
+            },
+            "id": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "deleted",
+            "domain",
+            "id"
           ],
+          "type": "object"
+        },
+        "success": {
           "type": "boolean"
-        },
-        "domain": {
-          "type": "string"
-        },
-        "id": {
-          "type": "integer"
         }
       },
       "required": [
-        "deleted",
-        "domain",
-        "id"
+        "result",
+        "success"
       ],
       "type": "object",
     },
@@ -209,23 +245,35 @@ export const tools: readonly Tool[] = [
       schemas: {
         "200": {
           "properties": {
-            "deleted": {
-              "enum": [
-                true
+            "result": {
+              "properties": {
+                "deleted": {
+                  "enum": [
+                    true
+                  ],
+                  "type": "boolean"
+                },
+                "domain": {
+                  "type": "string"
+                },
+                "id": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "deleted",
+                "domain",
+                "id"
               ],
+              "type": "object"
+            },
+            "success": {
               "type": "boolean"
-            },
-            "domain": {
-              "type": "string"
-            },
-            "id": {
-              "type": "integer"
             }
           },
           "required": [
-            "deleted",
-            "domain",
-            "id"
+            "result",
+            "success"
           ],
           "type": "object"
         },
@@ -337,10 +385,15 @@ export const tools: readonly Tool[] = [
             "total_count"
           ],
           "type": "object"
+        },
+        "success": {
+          "type": "boolean"
         }
       },
       "required": [
-        "result"
+        "result",
+        "result_info",
+        "success"
       ],
       "type": "object",
     },
@@ -407,10 +460,15 @@ export const tools: readonly Tool[] = [
                 "total_count"
               ],
               "type": "object"
+            },
+            "success": {
+              "type": "boolean"
             }
           },
           "required": [
-            "result"
+            "result",
+            "result_info",
+            "success"
           ],
           "type": "object"
         },

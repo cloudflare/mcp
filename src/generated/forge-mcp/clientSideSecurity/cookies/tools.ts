@@ -3,12 +3,20 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
+  client_side_security_api_get_response_collection_output,
+  client_side_security_api_list_response_collection_output,
   client_side_security_api_response_common_failure_output,
+  client_side_security_api_response_common_output,
   client_side_security_id_output,
   client_side_security_messages_output,
   client_side_security_result_info_output,
 } from "../outputs.js";
-import { client_side_security_cookie_output } from "./outputs.js";
+import { client_side_security_id } from "../schemas.js";
+import {
+  client_side_security_cookie_output,
+  client_side_security_get_zone_cookie_response_output,
+  client_side_security_list_zone_cookies_response_output,
+} from "./outputs.js";
 
 /**
  * The tools of `client_side_security.cookies`.
@@ -22,24 +30,31 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "cookie_id": {
-          "description": "Identifier",
-          "type": "string"
+          "$ref": "#/$defs/client-side-security_id",
+          "description": "Identifier"
         },
         "zone_id": {
-          "description": "Identifier",
-          "type": "string"
+          "$ref": "#/$defs/client-side-security_id",
+          "description": "Identifier"
         }
       },
       required: [
         "zone_id",
         "cookie_id"
       ],
+      $defs: {
+        "client-side-security_id": client_side_security_id,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/client-side-security_cookie",
+      "$ref": "#/$defs/client-side-security_get-zone-cookie-response",
       $defs: {
+        "client-side-security_api-get-response-collection": client_side_security_api_get_response_collection_output,
+        "client-side-security_api-response-common": client_side_security_api_response_common_output,
         "client-side-security_cookie": client_side_security_cookie_output,
+        "client-side-security_get-zone-cookie-response": client_side_security_get_zone_cookie_response_output,
         "client-side-security_id": client_side_security_id_output,
+        "client-side-security_messages": client_side_security_messages_output,
       },
     },
     annotations: {
@@ -70,15 +85,18 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/client-side-security_cookie"
+          "$ref": "#/$defs/client-side-security_get-zone-cookie-response"
         },
         "4XX": {
           "$ref": "#/$defs/client-side-security_api-response-common-failure"
         }
       },
       $defs: {
+        "client-side-security_api-get-response-collection": client_side_security_api_get_response_collection_output,
+        "client-side-security_api-response-common": client_side_security_api_response_common_output,
         "client-side-security_api-response-common-failure": client_side_security_api_response_common_failure_output,
         "client-side-security_cookie": client_side_security_cookie_output,
+        "client-side-security_get-zone-cookie-response": client_side_security_get_zone_cookie_response_output,
         "client-side-security_id": client_side_security_id_output,
         "client-side-security_messages": client_side_security_messages_output,
       },
@@ -171,33 +189,26 @@ export const tools: readonly Tool[] = [
           "type": "string"
         },
         "zone_id": {
-          "description": "Identifier",
-          "type": "string"
+          "$ref": "#/$defs/client-side-security_id",
+          "description": "Identifier"
         }
       },
       required: [
         "zone_id"
       ],
+      $defs: {
+        "client-side-security_id": client_side_security_id,
+      },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "$ref": "#/$defs/client-side-security_cookie"
-          },
-          "type": "array"
-        },
-        "result_info": {
-          "$ref": "#/$defs/client-side-security_result_info"
-        }
-      },
-      "required": [
-        "result"
-      ],
-      "type": "object",
+      "$ref": "#/$defs/client-side-security_list-zone-cookies-response",
       $defs: {
+        "client-side-security_api-list-response-collection": client_side_security_api_list_response_collection_output,
+        "client-side-security_api-response-common": client_side_security_api_response_common_output,
         "client-side-security_cookie": client_side_security_cookie_output,
         "client-side-security_id": client_side_security_id_output,
+        "client-side-security_list-zone-cookies-response": client_side_security_list_zone_cookies_response_output,
+        "client-side-security_messages": client_side_security_messages_output,
         "client-side-security_result_info": client_side_security_result_info_output,
       },
     },
@@ -229,30 +240,19 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "items": {
-                "$ref": "#/$defs/client-side-security_cookie"
-              },
-              "type": "array"
-            },
-            "result_info": {
-              "$ref": "#/$defs/client-side-security_result_info"
-            }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/client-side-security_list-zone-cookies-response"
         },
         "4XX": {
           "$ref": "#/$defs/client-side-security_api-response-common-failure"
         }
       },
       $defs: {
+        "client-side-security_api-list-response-collection": client_side_security_api_list_response_collection_output,
+        "client-side-security_api-response-common": client_side_security_api_response_common_output,
         "client-side-security_api-response-common-failure": client_side_security_api_response_common_failure_output,
         "client-side-security_cookie": client_side_security_cookie_output,
         "client-side-security_id": client_side_security_id_output,
+        "client-side-security_list-zone-cookies-response": client_side_security_list_zone_cookies_response_output,
         "client-side-security_messages": client_side_security_messages_output,
         "client-side-security_result_info": client_side_security_result_info_output,
       },

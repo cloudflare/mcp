@@ -59,75 +59,55 @@ export const logpush_instant_logs_job_output: JsonSchema = {
  * The schema of `logpush_instant_logs_job_response_collection` in responses.
  */
 export const logpush_instant_logs_job_response_collection_output: JsonSchema = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/logpush_messages"
+  "allOf": [
+    {
+      "$ref": "#/$defs/logpush_api-response-common"
     },
-    "messages": {
-      "$ref": "#/$defs/logpush_messages"
-    },
-    "result": {
-      "items": {
-        "oneOf": [
-          {
-            "$ref": "#/$defs/logpush_instant_logs_job"
+    {
+      "properties": {
+        "result": {
+          "items": {
+            "oneOf": [
+              {
+                "$ref": "#/$defs/logpush_instant_logs_job"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
-          {
-            "type": "null"
-          }
-        ]
+          "type": "array"
+        }
       },
-      "type": "array"
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
+      "type": "object"
     }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "success"
-  ],
-  "type": "object"
+  ]
 };
 
 /**
  * The schema of `logpush_instant_logs_job_response_single` in responses.
  */
 export const logpush_instant_logs_job_response_single_output: JsonSchema = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/logpush_messages"
+  "allOf": [
+    {
+      "$ref": "#/$defs/logpush_api-response-single"
     },
-    "messages": {
-      "$ref": "#/$defs/logpush_messages"
-    },
-    "result": {
-      "oneOf": [
-        {
-          "$ref": "#/$defs/logpush_instant_logs_job"
-        },
-        {
-          "type": "null"
+    {
+      "properties": {
+        "result": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/logpush_instant_logs_job"
+            },
+            {
+              "type": "null"
+            }
+          ]
         }
-      ]
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "success"
-  ],
-  "type": "object"
+  ]
 };
 
 /**

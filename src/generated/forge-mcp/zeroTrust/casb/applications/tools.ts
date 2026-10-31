@@ -3,12 +3,13 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
+  one_ApplicationDetailResponse_output,
   one_ApplicationDetail_output,
   one_ApplicationList_output,
   one_AuthMethodSummary_output,
   one_AuthMethod_output,
   one_FeatureScope_output,
-  one_PaginatedApplicationListList_result_info_output,
+  one_PaginatedApplicationListList_output,
   one_Permission_output,
   one_UseCaseDetail_output,
   one_UseCaseSummary_output,
@@ -58,9 +59,10 @@ export const tools: readonly Tool[] = [
       ],
     },
     outputSchema: {
-      "$ref": "#/$defs/one_ApplicationDetail",
+      "$ref": "#/$defs/one_ApplicationDetailResponse",
       $defs: {
         "one_ApplicationDetail": one_ApplicationDetail_output,
+        "one_ApplicationDetailResponse": one_ApplicationDetailResponse_output,
         "one_AuthMethod": one_AuthMethod_output,
         "one_FeatureScope": one_FeatureScope_output,
         "one_Permission": one_Permission_output,
@@ -82,12 +84,13 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/one_ApplicationDetail"
+          "$ref": "#/$defs/one_ApplicationDetailResponse"
         },
         "404": null
       },
       $defs: {
         "one_ApplicationDetail": one_ApplicationDetail_output,
+        "one_ApplicationDetailResponse": one_ApplicationDetailResponse_output,
         "one_AuthMethod": one_AuthMethod_output,
         "one_FeatureScope": one_FeatureScope_output,
         "one_Permission": one_Permission_output,
@@ -127,25 +130,11 @@ export const tools: readonly Tool[] = [
       ],
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "$ref": "#/$defs/one_ApplicationList"
-          },
-          "type": "array"
-        },
-        "result_info": {
-          "$ref": "#/$defs/one_PaginatedApplicationListList_result_info"
-        }
-      },
-      "required": [
-        "result"
-      ],
-      "type": "object",
+      "$ref": "#/$defs/one_PaginatedApplicationListList",
       $defs: {
         "one_ApplicationList": one_ApplicationList_output,
         "one_AuthMethodSummary": one_AuthMethodSummary_output,
-        "one_PaginatedApplicationListList_result_info": one_PaginatedApplicationListList_result_info_output,
+        "one_PaginatedApplicationListList": one_PaginatedApplicationListList_output,
         "one_Permission": one_Permission_output,
         "one_UseCaseSummary": one_UseCaseSummary_output,
       },
@@ -165,28 +154,14 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "items": {
-                "$ref": "#/$defs/one_ApplicationList"
-              },
-              "type": "array"
-            },
-            "result_info": {
-              "$ref": "#/$defs/one_PaginatedApplicationListList_result_info"
-            }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/one_PaginatedApplicationListList"
         },
         "400": null
       },
       $defs: {
         "one_ApplicationList": one_ApplicationList_output,
         "one_AuthMethodSummary": one_AuthMethodSummary_output,
-        "one_PaginatedApplicationListList_result_info": one_PaginatedApplicationListList_result_info_output,
+        "one_PaginatedApplicationListList": one_PaginatedApplicationListList_output,
         "one_Permission": one_Permission_output,
         "one_UseCaseSummary": one_UseCaseSummary_output,
       },

@@ -4,9 +4,9 @@
 import type { JsonSchema } from "../../../../../../_/tool.js";
 
 /**
- * The schema of `dos_ProtectionStatus` in responses.
+ * The schema of `advanced-ddos-protection_ProtectionStatus` in responses.
  */
-export const dos_ProtectionStatus_output: JsonSchema = {
+export const advanced_ddos_protection_ProtectionStatus_output: JsonSchema = {
   "properties": {
     "enabled": {
       "type": "boolean"
@@ -16,4 +16,24 @@ export const dos_ProtectionStatus_output: JsonSchema = {
     "enabled"
   ],
   "type": "object"
+};
+
+/**
+ * The schema of `advanced-ddos-protection_protection-status-response` in
+ * responses.
+ */
+export const advanced_ddos_protection_protection_status_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/advanced-ddos-protection_api-response-common"
+    },
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/advanced-ddos-protection_ProtectionStatus"
+        }
+      },
+      "type": "object"
+    }
+  ]
 };

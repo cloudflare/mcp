@@ -453,6 +453,29 @@ export const digital_experience_monitoring_directional_stat_output: JsonSchema =
 };
 
 /**
+ * The schema of `digital-experience-monitoring_fleet_status_devices_response`
+ * in responses.
+ */
+export const digital_experience_monitoring_fleet_status_devices_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/digital-experience-monitoring_api-response-collection"
+    },
+    {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/digital-experience-monitoring_device"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
  * The schema of `digital-experience-monitoring_mode` in responses.
  */
 export const digital_experience_monitoring_mode_output: JsonSchema = {
@@ -571,7 +594,49 @@ export const digital_experience_monitoring_schemas_ip_info_output: JsonSchema = 
       ]
     },
     "location": {
-      "$ref": "#/$defs/digital-experience-monitoring_schemas-ip_info_location"
+      "properties": {
+        "city": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "country_iso": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "state_iso": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "zip": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "type": "object"
     },
     "name": {
       "oneOf": [
@@ -595,56 +660,6 @@ export const digital_experience_monitoring_schemas_ip_info_output: JsonSchema = 
     },
     "version": {
       "type": "integer"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `digital-experience-monitoring_schemas-ip_info_location` in
- * responses.
- */
-export const digital_experience_monitoring_schemas_ip_info_location_output: JsonSchema = {
-  "properties": {
-    "city": {
-      "oneOf": [
-        {
-          "type": "string"
-        },
-        {
-          "type": "null"
-        }
-      ]
-    },
-    "country_iso": {
-      "oneOf": [
-        {
-          "type": "string"
-        },
-        {
-          "type": "null"
-        }
-      ]
-    },
-    "state_iso": {
-      "oneOf": [
-        {
-          "type": "string"
-        },
-        {
-          "type": "null"
-        }
-      ]
-    },
-    "zip": {
-      "oneOf": [
-        {
-          "type": "string"
-        },
-        {
-          "type": "null"
-        }
-      ]
     }
   },
   "type": "object"

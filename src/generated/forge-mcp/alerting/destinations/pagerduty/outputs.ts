@@ -4,6 +4,28 @@
 import type { JsonSchema } from "../../../_/tool.js";
 
 /**
+ * The schema of `aaa_components-schemas-response_collection` in responses.
+ */
+export const aaa_components_schemas_response_collection_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/aaa_api-response-common-2"
+    },
+    {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/aaa_pagerduty"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
  * The schema of `aaa_name` in responses.
  */
 export const aaa_name_output: JsonSchema = {
@@ -23,6 +45,30 @@ export const aaa_pagerduty_output: JsonSchema = {
     }
   },
   "type": "object"
+};
+
+/**
+ * The schema of `aaa_sensitive_id_response` in responses.
+ */
+export const aaa_sensitive_id_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/aaa_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "properties": {
+            "id": {
+              "$ref": "#/$defs/aaa_token"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
+    }
+  ]
 };
 
 /**

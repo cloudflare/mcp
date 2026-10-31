@@ -4,10 +4,12 @@
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
   addressing_api_response_common_failure_output,
+  addressing_api_response_common_output,
   addressing_messages_output,
   addressing_service_identifier_output,
   addressing_service_name_output,
 } from "../outputs.js";
+import { addressing_account_identifier } from "../schemas.js";
 
 /**
  * The tools of `addressing.services`.
@@ -21,39 +23,45 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier of a Cloudflare account.",
-          "type": "string"
+          "$ref": "#/$defs/addressing_account_identifier",
+          "description": "Identifier of a Cloudflare account."
         }
       },
       required: [
         "account_id"
       ],
+      $defs: {
+        "addressing_account_identifier": addressing_account_identifier,
+      },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "properties": {
-              "id": {
-                "$ref": "#/$defs/addressing_service_identifier"
-              },
-              "name": {
-                "$ref": "#/$defs/addressing_service_name"
-              }
-            },
-            "type": "object"
-          },
-          "type": "array"
+      "allOf": [
+        {
+          "$ref": "#/$defs/addressing_api-response-common"
         },
-        "result_info": {
+        {
+          "properties": {
+            "result": {
+              "items": {
+                "properties": {
+                  "id": {
+                    "$ref": "#/$defs/addressing_service_identifier"
+                  },
+                  "name": {
+                    "$ref": "#/$defs/addressing_service_name"
+                  }
+                },
+                "type": "object"
+              },
+              "type": "array"
+            }
+          },
           "type": "object"
         }
-      },
-      "required": [
-        "result"
       ],
-      "type": "object",
       $defs: {
+        "addressing_api-response-common": addressing_api_response_common_output,
+        "addressing_messages": addressing_messages_output,
         "addressing_service_identifier": addressing_service_identifier_output,
         "addressing_service_name": addressing_service_name_output,
       },
@@ -76,35 +84,37 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "items": {
-                "properties": {
-                  "id": {
-                    "$ref": "#/$defs/addressing_service_identifier"
-                  },
-                  "name": {
-                    "$ref": "#/$defs/addressing_service_name"
-                  }
-                },
-                "type": "object"
-              },
-              "type": "array"
+          "allOf": [
+            {
+              "$ref": "#/$defs/addressing_api-response-common"
             },
-            "result_info": {
+            {
+              "properties": {
+                "result": {
+                  "items": {
+                    "properties": {
+                      "id": {
+                        "$ref": "#/$defs/addressing_service_identifier"
+                      },
+                      "name": {
+                        "$ref": "#/$defs/addressing_service_name"
+                      }
+                    },
+                    "type": "object"
+                  },
+                  "type": "array"
+                }
+              },
               "type": "object"
             }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/addressing_api-response-common-failure"
         }
       },
       $defs: {
+        "addressing_api-response-common": addressing_api_response_common_output,
         "addressing_api-response-common-failure": addressing_api_response_common_failure_output,
         "addressing_messages": addressing_messages_output,
         "addressing_service_identifier": addressing_service_identifier_output,

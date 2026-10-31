@@ -10,7 +10,19 @@ export const pages_deployment_log_output: JsonSchema = {
   "properties": {
     "data": {
       "items": {
-        "$ref": "#/$defs/pages_deployment_log_dataItem"
+        "properties": {
+          "line": {
+            "type": "string"
+          },
+          "ts": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "line",
+          "ts"
+        ],
+        "type": "object"
       },
       "type": "array"
     },
@@ -25,25 +37,6 @@ export const pages_deployment_log_output: JsonSchema = {
     "data",
     "includes_container_logs",
     "total"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `pages_deployment_log_dataItem` in responses.
- */
-export const pages_deployment_log_dataItem_output: JsonSchema = {
-  "properties": {
-    "line": {
-      "type": "string"
-    },
-    "ts": {
-      "type": "string"
-    }
-  },
-  "required": [
-    "line",
-    "ts"
   ],
   "type": "object"
 };

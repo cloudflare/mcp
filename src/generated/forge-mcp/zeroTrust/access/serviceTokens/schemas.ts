@@ -12,30 +12,6 @@ export const access_client_secret_version: JsonSchema = {
 };
 
 /**
- * The schema of `access_duration`.
- */
-export const access_duration: JsonSchema = {
-  "description": "The duration for how long the service token will be valid. Must be in the format `300ms` or `2h45m`, or the special value `forever` for non-expiring tokens. Valid time units are: ns, us (or µs), ms, s, m, h. The default is 1 year in hours (8760h).",
-  "type": "string"
-};
-
-/**
- * The schema of `access_enabled`.
- */
-export const access_enabled: JsonSchema = {
-  "description": "Whether the service token is enabled. A disabled service token cannot be used to authenticate; both its current and previous `client_secret` stop being accepted, but the token itself is preserved and can be re-enabled. A service token reported as leaked is disabled automatically and cannot be re-enabled until its secret is rotated; attempting to do so returns a 409. Defaults to enabled when omitted on create.",
-  "type": "boolean"
-};
-
-/**
- * The schema of `access_name-2`.
- */
-export const access_name_2: JsonSchema = {
-  "description": "The name of the service token.",
-  "type": "string"
-};
-
-/**
  * The schema of `access_previous_client_secret_expires_at`.
  */
 export const access_previous_client_secret_expires_at: JsonSchema = {

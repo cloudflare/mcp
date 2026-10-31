@@ -39,6 +39,7 @@ export const tools: readonly Tool[] = [
           "type": "string"
         },
         "namespace": {
+          "default": "default",
           "description": "Namespace name.",
           "type": "string"
         }
@@ -52,83 +53,7 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
-        "description": {
-          "type": "string"
-        },
-        "end_reason": {
-          "type": "string"
-        },
-        "ended_at": {
-          "type": "string"
-        },
-        "id": {
-          "type": "string"
-        },
-        "last_seen_at": {
-          "type": "string"
-        },
-        "source": {
-          "enum": [
-            "user",
-            "schedule"
-          ],
-          "type": "string"
-        },
-        "started_at": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "id",
-        "source"
-      ],
-      "type": "object",
-    },
-    annotations: {
-      "destructiveHint": true,
-      "idempotentHint": false,
-      "openWorldHint": true,
-      "readOnlyHint": false,
-      "title": "Cancel an indexing job."
-    },
-    method: "PATCH",
-    path: "/accounts/{account_id}/ai-search/namespaces/{namespace}/instances/{id}/jobs/{job_id}",
-    extensions: {
-      "x-cfPermissionsRequired": {
-        "enum": [
-          "com.cloudflare.api.account.ai-search"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.api.account.ai-search": {
-            "name": "com_cloudflare_api_account_ai_search"
-          }
-        }
-      },
-      "x-cfPlanAvailability": {
-        "business": true,
-        "enterprise": true,
-        "free": true,
-        "pro": true
-      },
-      "x-forge-params": {
-        "action": {
-          "default": "cancel",
-          "hidden": true
-        },
-        "id": {
-          "description": "AI Search instance ID."
-        },
-        "job_id": {
-          "description": "Indexing job ID."
-        },
-        "namespace": {
-          "description": "Namespace to use for this operation."
-        }
-      }
-    },
-    responses: {
-      schemas: {
-        "200": {
+        "result": {
           "properties": {
             "description": {
               "type": "string"
@@ -159,6 +84,102 @@ export const tools: readonly Tool[] = [
           "required": [
             "id",
             "source"
+          ],
+          "type": "object"
+        },
+        "success": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "result",
+        "success"
+      ],
+      "type": "object",
+    },
+    annotations: {
+      "destructiveHint": true,
+      "idempotentHint": false,
+      "openWorldHint": true,
+      "readOnlyHint": false,
+      "title": "Cancel an indexing job."
+    },
+    method: "PATCH",
+    path: "/accounts/{account_id}/ai-search/namespaces/{namespace}/instances/{id}/jobs/{job_id}",
+    extensions: {
+      "x-cfPermissionsRequired": {
+        "enum": [
+          "com.cloudflare.api.account.ai-search"
+        ]
+      },
+      "x-cfPlanAvailability": {
+        "business": true,
+        "enterprise": true,
+        "free": true,
+        "pro": true
+      },
+      "x-forge-params": {
+        "action": {
+          "default": "cancel",
+          "hidden": true
+        },
+        "id": {
+          "description": "AI Search instance ID."
+        },
+        "job_id": {
+          "description": "Indexing job ID."
+        },
+        "namespace": {
+          "default": "default",
+          "description": "Namespace to use for this operation."
+        }
+      }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "properties": {
+                "description": {
+                  "type": "string"
+                },
+                "end_reason": {
+                  "type": "string"
+                },
+                "ended_at": {
+                  "type": "string"
+                },
+                "id": {
+                  "type": "string"
+                },
+                "last_seen_at": {
+                  "type": "string"
+                },
+                "source": {
+                  "enum": [
+                    "user",
+                    "schedule"
+                  ],
+                  "type": "string"
+                },
+                "started_at": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "id",
+                "source"
+              ],
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "result",
+            "success"
           ],
           "type": "object"
         },
@@ -291,6 +312,7 @@ export const tools: readonly Tool[] = [
           "type": "string"
         },
         "namespace": {
+          "default": "default",
           "description": "Namespace name.",
           "type": "string"
         }
@@ -303,79 +325,7 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
-        "description": {
-          "type": "string"
-        },
-        "end_reason": {
-          "type": "string"
-        },
-        "ended_at": {
-          "type": "string"
-        },
-        "id": {
-          "type": "string"
-        },
-        "last_seen_at": {
-          "type": "string"
-        },
-        "source": {
-          "enum": [
-            "user",
-            "schedule"
-          ],
-          "type": "string"
-        },
-        "started_at": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "id",
-        "source"
-      ],
-      "type": "object",
-    },
-    annotations: {
-      "destructiveHint": false,
-      "idempotentHint": false,
-      "openWorldHint": true,
-      "readOnlyHint": false,
-      "title": "Create new job"
-    },
-    method: "POST",
-    path: "/accounts/{account_id}/ai-search/namespaces/{namespace}/instances/{id}/jobs",
-    extensions: {
-      "x-cfPermissionsRequired": {
-        "enum": [
-          "com.cloudflare.api.account.ai-search"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.api.account.ai-search": {
-            "name": "com_cloudflare_api_account_ai_search"
-          }
-        }
-      },
-      "x-cfPlanAvailability": {
-        "business": true,
-        "enterprise": true,
-        "free": true,
-        "pro": true
-      },
-      "x-forge-params": {
-        "description": {
-          "description": "Optional description for the indexing job."
-        },
-        "id": {
-          "description": "AI Search instance ID."
-        },
-        "namespace": {
-          "description": "Namespace to use for this operation."
-        }
-      }
-    },
-    responses: {
-      schemas: {
-        "200": {
+        "result": {
           "properties": {
             "description": {
               "type": "string"
@@ -406,6 +356,98 @@ export const tools: readonly Tool[] = [
           "required": [
             "id",
             "source"
+          ],
+          "type": "object"
+        },
+        "success": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "result",
+        "success"
+      ],
+      "type": "object",
+    },
+    annotations: {
+      "destructiveHint": false,
+      "idempotentHint": false,
+      "openWorldHint": true,
+      "readOnlyHint": false,
+      "title": "Create new job"
+    },
+    method: "POST",
+    path: "/accounts/{account_id}/ai-search/namespaces/{namespace}/instances/{id}/jobs",
+    extensions: {
+      "x-cfPermissionsRequired": {
+        "enum": [
+          "com.cloudflare.api.account.ai-search"
+        ]
+      },
+      "x-cfPlanAvailability": {
+        "business": true,
+        "enterprise": true,
+        "free": true,
+        "pro": true
+      },
+      "x-forge-params": {
+        "description": {
+          "description": "Optional description for the indexing job."
+        },
+        "id": {
+          "description": "AI Search instance ID."
+        },
+        "namespace": {
+          "default": "default",
+          "description": "Namespace to use for this operation."
+        }
+      }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "properties": {
+                "description": {
+                  "type": "string"
+                },
+                "end_reason": {
+                  "type": "string"
+                },
+                "ended_at": {
+                  "type": "string"
+                },
+                "id": {
+                  "type": "string"
+                },
+                "last_seen_at": {
+                  "type": "string"
+                },
+                "source": {
+                  "enum": [
+                    "user",
+                    "schedule"
+                  ],
+                  "type": "string"
+                },
+                "started_at": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "id",
+                "source"
+              ],
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "result",
+            "success"
           ],
           "type": "object"
         },
@@ -598,6 +640,7 @@ export const tools: readonly Tool[] = [
           "type": "string"
         },
         "namespace": {
+          "default": "default",
           "description": "Namespace name.",
           "type": "string"
         }
@@ -611,79 +654,7 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
-        "description": {
-          "type": "string"
-        },
-        "end_reason": {
-          "type": "string"
-        },
-        "ended_at": {
-          "type": "string"
-        },
-        "id": {
-          "type": "string"
-        },
-        "last_seen_at": {
-          "type": "string"
-        },
-        "source": {
-          "enum": [
-            "user",
-            "schedule"
-          ],
-          "type": "string"
-        },
-        "started_at": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "id",
-        "source"
-      ],
-      "type": "object",
-    },
-    annotations: {
-      "destructiveHint": false,
-      "idempotentHint": true,
-      "openWorldHint": true,
-      "readOnlyHint": true,
-      "title": "Get a Job Details"
-    },
-    method: "GET",
-    path: "/accounts/{account_id}/ai-search/namespaces/{namespace}/instances/{id}/jobs/{job_id}",
-    extensions: {
-      "x-cfPermissionsRequired": {
-        "enum": [
-          "com.cloudflare.api.account.ai-search"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.api.account.ai-search": {
-            "name": "com_cloudflare_api_account_ai_search"
-          }
-        }
-      },
-      "x-cfPlanAvailability": {
-        "business": true,
-        "enterprise": true,
-        "free": true,
-        "pro": true
-      },
-      "x-forge-params": {
-        "id": {
-          "description": "AI Search instance ID."
-        },
-        "job_id": {
-          "description": "Indexing job ID."
-        },
-        "namespace": {
-          "description": "Namespace to use for this operation."
-        }
-      }
-    },
-    responses: {
-      schemas: {
-        "200": {
+        "result": {
           "properties": {
             "description": {
               "type": "string"
@@ -714,6 +685,98 @@ export const tools: readonly Tool[] = [
           "required": [
             "id",
             "source"
+          ],
+          "type": "object"
+        },
+        "success": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "result",
+        "success"
+      ],
+      "type": "object",
+    },
+    annotations: {
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": true,
+      "readOnlyHint": true,
+      "title": "Get a Job Details"
+    },
+    method: "GET",
+    path: "/accounts/{account_id}/ai-search/namespaces/{namespace}/instances/{id}/jobs/{job_id}",
+    extensions: {
+      "x-cfPermissionsRequired": {
+        "enum": [
+          "com.cloudflare.api.account.ai-search"
+        ]
+      },
+      "x-cfPlanAvailability": {
+        "business": true,
+        "enterprise": true,
+        "free": true,
+        "pro": true
+      },
+      "x-forge-params": {
+        "id": {
+          "description": "AI Search instance ID."
+        },
+        "job_id": {
+          "description": "Indexing job ID."
+        },
+        "namespace": {
+          "default": "default",
+          "description": "Namespace to use for this operation."
+        }
+      }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "properties": {
+                "description": {
+                  "type": "string"
+                },
+                "end_reason": {
+                  "type": "string"
+                },
+                "ended_at": {
+                  "type": "string"
+                },
+                "id": {
+                  "type": "string"
+                },
+                "last_seen_at": {
+                  "type": "string"
+                },
+                "source": {
+                  "enum": [
+                    "user",
+                    "schedule"
+                  ],
+                  "type": "string"
+                },
+                "started_at": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "id",
+                "source"
+              ],
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "result",
+            "success"
           ],
           "type": "object"
         },
@@ -804,6 +867,7 @@ export const tools: readonly Tool[] = [
           "type": "string"
         },
         "namespace": {
+          "default": "default",
           "description": "Namespace name.",
           "type": "string"
         },
@@ -883,10 +947,15 @@ export const tools: readonly Tool[] = [
             "total_count"
           ],
           "type": "object"
+        },
+        "success": {
+          "type": "boolean"
         }
       },
       "required": [
-        "result"
+        "result",
+        "result_info",
+        "success"
       ],
       "type": "object",
     },
@@ -903,12 +972,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "com.cloudflare.api.account.ai-search"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.api.account.ai-search": {
-            "name": "com_cloudflare_api_account_ai_search"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": true,
@@ -921,6 +985,7 @@ export const tools: readonly Tool[] = [
           "description": "AI Search instance ID."
         },
         "namespace": {
+          "default": "default",
           "description": "Namespace to use for this operation."
         }
       }
@@ -988,10 +1053,15 @@ export const tools: readonly Tool[] = [
                 "total_count"
               ],
               "type": "object"
+            },
+            "success": {
+              "type": "boolean"
             }
           },
           "required": [
-            "result"
+            "result",
+            "result_info",
+            "success"
           ],
           "type": "object"
         },
@@ -1129,6 +1199,7 @@ export const tools: readonly Tool[] = [
           "type": "string"
         },
         "namespace": {
+          "default": "default",
           "description": "Namespace name.",
           "type": "string"
         },
@@ -1198,10 +1269,15 @@ export const tools: readonly Tool[] = [
             "total_count"
           ],
           "type": "object"
+        },
+        "success": {
+          "type": "boolean"
         }
       },
       "required": [
-        "result"
+        "result",
+        "result_info",
+        "success"
       ],
       "type": "object",
     },
@@ -1218,12 +1294,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "com.cloudflare.api.account.ai-search"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.api.account.ai-search": {
-            "name": "com_cloudflare_api_account_ai_search"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": true,
@@ -1239,6 +1310,7 @@ export const tools: readonly Tool[] = [
           "description": "Indexing job ID."
         },
         "namespace": {
+          "default": "default",
           "description": "Namespace to use for this operation."
         }
       }
@@ -1295,10 +1367,15 @@ export const tools: readonly Tool[] = [
                 "total_count"
               ],
               "type": "object"
+            },
+            "success": {
+              "type": "boolean"
             }
           },
           "required": [
-            "result"
+            "result",
+            "result_info",
+            "success"
           ],
           "type": "object"
         },

@@ -7,265 +7,127 @@ import type { JsonSchema } from "../_/tool.js";
  * The schema of `rulesets_BlockRule` in responses.
  */
 export const rulesets_BlockRule_output: JsonSchema = {
-  "properties": {
-    "action": {
-      "enum": [
-        "block"
-      ],
-      "type": "string"
+  "allOf": [
+    {
+      "$ref": "#/$defs/rulesets_Rule"
     },
-    "action_parameters": {
-      "$ref": "#/$defs/rulesets_BlockRule_action_parameters"
-    },
-    "categories": {
-      "$ref": "#/$defs/rulesets_RuleCategories"
-    },
-    "description": {
-      "type": "string"
-    },
-    "enabled": {
-      "allOf": [
-        {
-          "$ref": "#/$defs/rulesets_RuleEnabled"
+    {
+      "properties": {
+        "action": {
+          "enum": [
+            "block"
+          ],
+          "type": "string"
         },
-        {
-          "type": "boolean"
+        "action_parameters": {
+          "properties": {
+            "response": {
+              "properties": {
+                "content": {
+                  "type": "string"
+                },
+                "content_type": {
+                  "type": "string"
+                },
+                "status_code": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "content",
+                "content_type",
+                "status_code"
+              ],
+              "type": "object"
+            }
+          },
+          "type": "object"
+        },
+        "description": {
+          "type": "string"
         }
-      ]
-    },
-    "exposed_credential_check": {
-      "$ref": "#/$defs/rulesets_RuleExposedCredentialCheck"
-    },
-    "expression": {
-      "type": "string"
-    },
-    "id": {
-      "$ref": "#/$defs/rulesets_RuleId"
-    },
-    "last_updated": {
-      "format": "date-time",
-      "type": "string"
-    },
-    "logging": {
-      "$ref": "#/$defs/rulesets_RuleLogging"
-    },
-    "ratelimit": {
-      "$ref": "#/$defs/rulesets_RuleRatelimit"
-    },
-    "ref": {
-      "type": "string"
-    },
-    "version": {
-      "type": "string"
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "last_updated",
-    "version"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `rulesets_BlockRule_action_parameters` in responses.
- */
-export const rulesets_BlockRule_action_parameters_output: JsonSchema = {
-  "properties": {
-    "response": {
-      "$ref": "#/$defs/rulesets_BlockRule_action_parameters_response"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `rulesets_BlockRule_action_parameters_response` in responses.
- */
-export const rulesets_BlockRule_action_parameters_response_output: JsonSchema = {
-  "properties": {
-    "content": {
-      "type": "string"
-    },
-    "content_type": {
-      "type": "string"
-    },
-    "status_code": {
-      "type": "integer"
-    }
-  },
-  "required": [
-    "content",
-    "content_type",
-    "status_code"
-  ],
-  "type": "object"
+  ]
 };
 
 /**
  * The schema of `rulesets_ChallengeRule` in responses.
  */
 export const rulesets_ChallengeRule_output: JsonSchema = {
-  "properties": {
-    "action": {
-      "enum": [
-        "challenge"
-      ],
-      "type": "string"
+  "allOf": [
+    {
+      "$ref": "#/$defs/rulesets_Rule"
     },
-    "action_parameters": {
-      "type": "object"
-    },
-    "categories": {
-      "$ref": "#/$defs/rulesets_RuleCategories"
-    },
-    "description": {
-      "type": "string"
-    },
-    "enabled": {
-      "allOf": [
-        {
-          "$ref": "#/$defs/rulesets_RuleEnabled"
+    {
+      "properties": {
+        "action": {
+          "enum": [
+            "challenge"
+          ],
+          "type": "string"
         },
-        {
-          "type": "boolean"
+        "description": {
+          "type": "string"
         }
-      ]
-    },
-    "exposed_credential_check": {
-      "$ref": "#/$defs/rulesets_RuleExposedCredentialCheck"
-    },
-    "expression": {
-      "type": "string"
-    },
-    "id": {
-      "$ref": "#/$defs/rulesets_RuleId"
-    },
-    "last_updated": {
-      "format": "date-time",
-      "type": "string"
-    },
-    "logging": {
-      "$ref": "#/$defs/rulesets_RuleLogging"
-    },
-    "ratelimit": {
-      "$ref": "#/$defs/rulesets_RuleRatelimit"
-    },
-    "ref": {
-      "type": "string"
-    },
-    "version": {
-      "type": "string"
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "last_updated",
-    "version"
-  ],
-  "type": "object"
+  ]
 };
 
 /**
  * The schema of `rulesets_CompressResponseRule` in responses.
  */
 export const rulesets_CompressResponseRule_output: JsonSchema = {
-  "properties": {
-    "action": {
-      "enum": [
-        "compress_response"
-      ],
-      "type": "string"
+  "allOf": [
+    {
+      "$ref": "#/$defs/rulesets_Rule"
     },
-    "action_parameters": {
-      "$ref": "#/$defs/rulesets_CompressResponseRule_action_parameters"
-    },
-    "categories": {
-      "$ref": "#/$defs/rulesets_RuleCategories"
-    },
-    "description": {
-      "type": "string"
-    },
-    "enabled": {
-      "allOf": [
-        {
-          "$ref": "#/$defs/rulesets_RuleEnabled"
+    {
+      "properties": {
+        "action": {
+          "enum": [
+            "compress_response"
+          ],
+          "type": "string"
         },
-        {
-          "type": "boolean"
+        "action_parameters": {
+          "properties": {
+            "algorithms": {
+              "items": {
+                "properties": {
+                  "name": {
+                    "enum": [
+                      "none",
+                      "auto",
+                      "default",
+                      "gzip",
+                      "brotli",
+                      "zstd"
+                    ],
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              },
+              "minItems": 1,
+              "type": "array"
+            }
+          },
+          "required": [
+            "algorithms"
+          ],
+          "type": "object"
+        },
+        "description": {
+          "type": "string"
         }
-      ]
-    },
-    "exposed_credential_check": {
-      "$ref": "#/$defs/rulesets_RuleExposedCredentialCheck"
-    },
-    "expression": {
-      "type": "string"
-    },
-    "id": {
-      "$ref": "#/$defs/rulesets_RuleId"
-    },
-    "last_updated": {
-      "format": "date-time",
-      "type": "string"
-    },
-    "logging": {
-      "$ref": "#/$defs/rulesets_RuleLogging"
-    },
-    "ratelimit": {
-      "$ref": "#/$defs/rulesets_RuleRatelimit"
-    },
-    "ref": {
-      "type": "string"
-    },
-    "version": {
-      "type": "string"
-    }
-  },
-  "required": [
-    "last_updated",
-    "version"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `rulesets_CompressResponseRule_action_parameters` in responses.
- */
-export const rulesets_CompressResponseRule_action_parameters_output: JsonSchema = {
-  "properties": {
-    "algorithms": {
-      "items": {
-        "$ref": "#/$defs/rulesets_CompressResponseRule_action_parameters_algorithmsItem"
       },
-      "minItems": 1,
-      "type": "array"
+      "type": "object"
     }
-  },
-  "required": [
-    "algorithms"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of
- * `rulesets_CompressResponseRule_action_parameters_algorithmsItem` in
- * responses.
- */
-export const rulesets_CompressResponseRule_action_parameters_algorithmsItem_output: JsonSchema = {
-  "properties": {
-    "name": {
-      "enum": [
-        "none",
-        "auto",
-        "default",
-        "gzip",
-        "brotli",
-        "zstd"
-      ],
-      "type": "string"
-    }
-  },
-  "type": "object"
+  ]
 };
 
 /**
@@ -279,63 +141,25 @@ export const rulesets_Cursor_output: JsonSchema = {
  * The schema of `rulesets_DDoSDynamicRule` in responses.
  */
 export const rulesets_DDoSDynamicRule_output: JsonSchema = {
-  "properties": {
-    "action": {
-      "enum": [
-        "ddos_dynamic"
-      ],
-      "type": "string"
+  "allOf": [
+    {
+      "$ref": "#/$defs/rulesets_Rule"
     },
-    "action_parameters": {
-      "type": "object"
-    },
-    "categories": {
-      "$ref": "#/$defs/rulesets_RuleCategories"
-    },
-    "description": {
-      "type": "string"
-    },
-    "enabled": {
-      "allOf": [
-        {
-          "$ref": "#/$defs/rulesets_RuleEnabled"
+    {
+      "properties": {
+        "action": {
+          "enum": [
+            "ddos_dynamic"
+          ],
+          "type": "string"
         },
-        {
-          "type": "boolean"
+        "description": {
+          "type": "string"
         }
-      ]
-    },
-    "exposed_credential_check": {
-      "$ref": "#/$defs/rulesets_RuleExposedCredentialCheck"
-    },
-    "expression": {
-      "type": "string"
-    },
-    "id": {
-      "$ref": "#/$defs/rulesets_RuleId"
-    },
-    "last_updated": {
-      "format": "date-time",
-      "type": "string"
-    },
-    "logging": {
-      "$ref": "#/$defs/rulesets_RuleLogging"
-    },
-    "ratelimit": {
-      "$ref": "#/$defs/rulesets_RuleRatelimit"
-    },
-    "ref": {
-      "type": "string"
-    },
-    "version": {
-      "type": "string"
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "last_updated",
-    "version"
-  ],
-  "type": "object"
+  ]
 };
 
 /**
@@ -458,63 +282,49 @@ export const rulesets_ExecuteOverrides_output: JsonSchema = {
  * The schema of `rulesets_ExecuteRule` in responses.
  */
 export const rulesets_ExecuteRule_output: JsonSchema = {
-  "properties": {
-    "action": {
-      "enum": [
-        "execute"
-      ],
-      "type": "string"
+  "allOf": [
+    {
+      "$ref": "#/$defs/rulesets_Rule"
     },
-    "action_parameters": {
-      "$ref": "#/$defs/rulesets_ExecuteRule_action_parameters"
-    },
-    "categories": {
-      "$ref": "#/$defs/rulesets_RuleCategories"
-    },
-    "description": {
-      "type": "string"
-    },
-    "enabled": {
-      "allOf": [
-        {
-          "$ref": "#/$defs/rulesets_RuleEnabled"
+    {
+      "properties": {
+        "action": {
+          "enum": [
+            "execute"
+          ],
+          "type": "string"
         },
-        {
-          "type": "boolean"
+        "action_parameters": {
+          "properties": {
+            "id": {
+              "allOf": [
+                {
+                  "$ref": "#/$defs/rulesets_RulesetId"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "matched_data": {
+              "$ref": "#/$defs/rulesets_ExecuteMatchedData"
+            },
+            "overrides": {
+              "$ref": "#/$defs/rulesets_ExecuteOverrides"
+            }
+          },
+          "required": [
+            "id"
+          ],
+          "type": "object"
+        },
+        "description": {
+          "type": "string"
         }
-      ]
-    },
-    "exposed_credential_check": {
-      "$ref": "#/$defs/rulesets_RuleExposedCredentialCheck"
-    },
-    "expression": {
-      "type": "string"
-    },
-    "id": {
-      "$ref": "#/$defs/rulesets_RuleId"
-    },
-    "last_updated": {
-      "format": "date-time",
-      "type": "string"
-    },
-    "logging": {
-      "$ref": "#/$defs/rulesets_RuleLogging"
-    },
-    "ratelimit": {
-      "$ref": "#/$defs/rulesets_RuleRatelimit"
-    },
-    "ref": {
-      "type": "string"
-    },
-    "version": {
-      "type": "string"
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "last_updated",
-    "version"
-  ],
-  "type": "object"
+  ]
 };
 
 /**
@@ -577,34 +387,6 @@ export const rulesets_ExecuteRuleOverrides_output: JsonSchema = {
 };
 
 /**
- * The schema of `rulesets_ExecuteRule_action_parameters` in responses.
- */
-export const rulesets_ExecuteRule_action_parameters_output: JsonSchema = {
-  "properties": {
-    "id": {
-      "allOf": [
-        {
-          "$ref": "#/$defs/rulesets_RulesetId"
-        },
-        {
-          "type": "string"
-        }
-      ]
-    },
-    "matched_data": {
-      "$ref": "#/$defs/rulesets_ExecuteMatchedData"
-    },
-    "overrides": {
-      "$ref": "#/$defs/rulesets_ExecuteOverrides"
-    }
-  },
-  "required": [
-    "id"
-  ],
-  "type": "object"
-};
-
-/**
  * The schema of `rulesets_ExecuteSensitivityLevel` in responses.
  */
 export const rulesets_ExecuteSensitivityLevel_output: JsonSchema = {
@@ -621,126 +403,50 @@ export const rulesets_ExecuteSensitivityLevel_output: JsonSchema = {
  * The schema of `rulesets_ForceConnectionCloseRule` in responses.
  */
 export const rulesets_ForceConnectionCloseRule_output: JsonSchema = {
-  "properties": {
-    "action": {
-      "enum": [
-        "force_connection_close"
-      ],
-      "type": "string"
+  "allOf": [
+    {
+      "$ref": "#/$defs/rulesets_Rule"
     },
-    "action_parameters": {
-      "type": "object"
-    },
-    "categories": {
-      "$ref": "#/$defs/rulesets_RuleCategories"
-    },
-    "description": {
-      "type": "string"
-    },
-    "enabled": {
-      "allOf": [
-        {
-          "$ref": "#/$defs/rulesets_RuleEnabled"
+    {
+      "properties": {
+        "action": {
+          "enum": [
+            "force_connection_close"
+          ],
+          "type": "string"
         },
-        {
-          "type": "boolean"
+        "description": {
+          "type": "string"
         }
-      ]
-    },
-    "exposed_credential_check": {
-      "$ref": "#/$defs/rulesets_RuleExposedCredentialCheck"
-    },
-    "expression": {
-      "type": "string"
-    },
-    "id": {
-      "$ref": "#/$defs/rulesets_RuleId"
-    },
-    "last_updated": {
-      "format": "date-time",
-      "type": "string"
-    },
-    "logging": {
-      "$ref": "#/$defs/rulesets_RuleLogging"
-    },
-    "ratelimit": {
-      "$ref": "#/$defs/rulesets_RuleRatelimit"
-    },
-    "ref": {
-      "type": "string"
-    },
-    "version": {
-      "type": "string"
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "last_updated",
-    "version"
-  ],
-  "type": "object"
+  ]
 };
 
 /**
  * The schema of `rulesets_JsChallengeRule` in responses.
  */
 export const rulesets_JsChallengeRule_output: JsonSchema = {
-  "properties": {
-    "action": {
-      "enum": [
-        "js_challenge"
-      ],
-      "type": "string"
+  "allOf": [
+    {
+      "$ref": "#/$defs/rulesets_Rule"
     },
-    "action_parameters": {
-      "type": "object"
-    },
-    "categories": {
-      "$ref": "#/$defs/rulesets_RuleCategories"
-    },
-    "description": {
-      "type": "string"
-    },
-    "enabled": {
-      "allOf": [
-        {
-          "$ref": "#/$defs/rulesets_RuleEnabled"
+    {
+      "properties": {
+        "action": {
+          "enum": [
+            "js_challenge"
+          ],
+          "type": "string"
         },
-        {
-          "type": "boolean"
+        "description": {
+          "type": "string"
         }
-      ]
-    },
-    "exposed_credential_check": {
-      "$ref": "#/$defs/rulesets_RuleExposedCredentialCheck"
-    },
-    "expression": {
-      "type": "string"
-    },
-    "id": {
-      "$ref": "#/$defs/rulesets_RuleId"
-    },
-    "last_updated": {
-      "format": "date-time",
-      "type": "string"
-    },
-    "logging": {
-      "$ref": "#/$defs/rulesets_RuleLogging"
-    },
-    "ratelimit": {
-      "$ref": "#/$defs/rulesets_RuleRatelimit"
-    },
-    "ref": {
-      "type": "string"
-    },
-    "version": {
-      "type": "string"
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "last_updated",
-    "version"
-  ],
-  "type": "object"
+  ]
 };
 
 /**
@@ -829,87 +535,45 @@ export const rulesets_LogCustomFieldResponseFields_output: JsonSchema = {
  * The schema of `rulesets_LogCustomFieldRule` in responses.
  */
 export const rulesets_LogCustomFieldRule_output: JsonSchema = {
-  "properties": {
-    "action": {
-      "enum": [
-        "log_custom_field"
-      ],
-      "type": "string"
+  "allOf": [
+    {
+      "$ref": "#/$defs/rulesets_Rule"
     },
-    "action_parameters": {
-      "$ref": "#/$defs/rulesets_LogCustomFieldRule_action_parameters"
-    },
-    "categories": {
-      "$ref": "#/$defs/rulesets_RuleCategories"
-    },
-    "description": {
-      "type": "string"
-    },
-    "enabled": {
-      "allOf": [
-        {
-          "$ref": "#/$defs/rulesets_RuleEnabled"
+    {
+      "properties": {
+        "action": {
+          "enum": [
+            "log_custom_field"
+          ],
+          "type": "string"
         },
-        {
-          "type": "boolean"
+        "action_parameters": {
+          "properties": {
+            "cookie_fields": {
+              "$ref": "#/$defs/rulesets_LogCustomFieldCookieFields"
+            },
+            "raw_response_fields": {
+              "$ref": "#/$defs/rulesets_LogCustomFieldRawResponseFields"
+            },
+            "request_fields": {
+              "$ref": "#/$defs/rulesets_LogCustomFieldRequestFields"
+            },
+            "response_fields": {
+              "$ref": "#/$defs/rulesets_LogCustomFieldResponseFields"
+            },
+            "transformed_request_fields": {
+              "$ref": "#/$defs/rulesets_LogCustomFieldTransformedRequestFields"
+            }
+          },
+          "type": "object"
+        },
+        "description": {
+          "type": "string"
         }
-      ]
-    },
-    "exposed_credential_check": {
-      "$ref": "#/$defs/rulesets_RuleExposedCredentialCheck"
-    },
-    "expression": {
-      "type": "string"
-    },
-    "id": {
-      "$ref": "#/$defs/rulesets_RuleId"
-    },
-    "last_updated": {
-      "format": "date-time",
-      "type": "string"
-    },
-    "logging": {
-      "$ref": "#/$defs/rulesets_RuleLogging"
-    },
-    "ratelimit": {
-      "$ref": "#/$defs/rulesets_RuleRatelimit"
-    },
-    "ref": {
-      "type": "string"
-    },
-    "version": {
-      "type": "string"
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "last_updated",
-    "version"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `rulesets_LogCustomFieldRule_action_parameters` in responses.
- */
-export const rulesets_LogCustomFieldRule_action_parameters_output: JsonSchema = {
-  "properties": {
-    "cookie_fields": {
-      "$ref": "#/$defs/rulesets_LogCustomFieldCookieFields"
-    },
-    "raw_response_fields": {
-      "$ref": "#/$defs/rulesets_LogCustomFieldRawResponseFields"
-    },
-    "request_fields": {
-      "$ref": "#/$defs/rulesets_LogCustomFieldRequestFields"
-    },
-    "response_fields": {
-      "$ref": "#/$defs/rulesets_LogCustomFieldResponseFields"
-    },
-    "transformed_request_fields": {
-      "$ref": "#/$defs/rulesets_LogCustomFieldTransformedRequestFields"
-    }
-  },
-  "type": "object"
+  ]
 };
 
 /**
@@ -935,126 +599,50 @@ export const rulesets_LogCustomFieldTransformedRequestFields_output: JsonSchema 
  * The schema of `rulesets_LogRule` in responses.
  */
 export const rulesets_LogRule_output: JsonSchema = {
-  "properties": {
-    "action": {
-      "enum": [
-        "log"
-      ],
-      "type": "string"
+  "allOf": [
+    {
+      "$ref": "#/$defs/rulesets_Rule"
     },
-    "action_parameters": {
-      "type": "object"
-    },
-    "categories": {
-      "$ref": "#/$defs/rulesets_RuleCategories"
-    },
-    "description": {
-      "type": "string"
-    },
-    "enabled": {
-      "allOf": [
-        {
-          "$ref": "#/$defs/rulesets_RuleEnabled"
+    {
+      "properties": {
+        "action": {
+          "enum": [
+            "log"
+          ],
+          "type": "string"
         },
-        {
-          "type": "boolean"
+        "description": {
+          "type": "string"
         }
-      ]
-    },
-    "exposed_credential_check": {
-      "$ref": "#/$defs/rulesets_RuleExposedCredentialCheck"
-    },
-    "expression": {
-      "type": "string"
-    },
-    "id": {
-      "$ref": "#/$defs/rulesets_RuleId"
-    },
-    "last_updated": {
-      "format": "date-time",
-      "type": "string"
-    },
-    "logging": {
-      "$ref": "#/$defs/rulesets_RuleLogging"
-    },
-    "ratelimit": {
-      "$ref": "#/$defs/rulesets_RuleRatelimit"
-    },
-    "ref": {
-      "type": "string"
-    },
-    "version": {
-      "type": "string"
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "last_updated",
-    "version"
-  ],
-  "type": "object"
+  ]
 };
 
 /**
  * The schema of `rulesets_ManagedChallengeRule` in responses.
  */
 export const rulesets_ManagedChallengeRule_output: JsonSchema = {
-  "properties": {
-    "action": {
-      "enum": [
-        "managed_challenge"
-      ],
-      "type": "string"
+  "allOf": [
+    {
+      "$ref": "#/$defs/rulesets_Rule"
     },
-    "action_parameters": {
-      "type": "object"
-    },
-    "categories": {
-      "$ref": "#/$defs/rulesets_RuleCategories"
-    },
-    "description": {
-      "type": "string"
-    },
-    "enabled": {
-      "allOf": [
-        {
-          "$ref": "#/$defs/rulesets_RuleEnabled"
+    {
+      "properties": {
+        "action": {
+          "enum": [
+            "managed_challenge"
+          ],
+          "type": "string"
         },
-        {
-          "type": "boolean"
+        "description": {
+          "type": "string"
         }
-      ]
-    },
-    "exposed_credential_check": {
-      "$ref": "#/$defs/rulesets_RuleExposedCredentialCheck"
-    },
-    "expression": {
-      "type": "string"
-    },
-    "id": {
-      "$ref": "#/$defs/rulesets_RuleId"
-    },
-    "last_updated": {
-      "format": "date-time",
-      "type": "string"
-    },
-    "logging": {
-      "$ref": "#/$defs/rulesets_RuleLogging"
-    },
-    "ratelimit": {
-      "$ref": "#/$defs/rulesets_RuleRatelimit"
-    },
-    "ref": {
-      "type": "string"
-    },
-    "version": {
-      "type": "string"
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "last_updated",
-    "version"
-  ],
-  "type": "object"
+  ]
 };
 
 /**
@@ -1095,7 +683,15 @@ export const rulesets_RedirectFromValue_output: JsonSchema = {
       "type": "integer"
     },
     "target_url": {
-      "$ref": "#/$defs/rulesets_RedirectFromValue_target_url"
+      "properties": {
+        "expression": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        }
+      },
+      "type": "object"
     }
   },
   "required": [
@@ -1105,816 +701,146 @@ export const rulesets_RedirectFromValue_output: JsonSchema = {
 };
 
 /**
- * The schema of `rulesets_RedirectFromValue_target_url` in responses.
- */
-export const rulesets_RedirectFromValue_target_url_output: JsonSchema = {
-  "properties": {
-    "expression": {
-      "type": "string"
-    },
-    "value": {
-      "type": "string"
-    }
-  },
-  "type": "object"
-};
-
-/**
  * The schema of `rulesets_RedirectRule` in responses.
  */
 export const rulesets_RedirectRule_output: JsonSchema = {
-  "properties": {
-    "action": {
-      "enum": [
-        "redirect"
-      ],
-      "type": "string"
+  "allOf": [
+    {
+      "$ref": "#/$defs/rulesets_Rule"
     },
-    "action_parameters": {
-      "$ref": "#/$defs/rulesets_RedirectRule_action_parameters"
-    },
-    "categories": {
-      "$ref": "#/$defs/rulesets_RuleCategories"
-    },
-    "description": {
-      "type": "string"
-    },
-    "enabled": {
-      "allOf": [
-        {
-          "$ref": "#/$defs/rulesets_RuleEnabled"
+    {
+      "properties": {
+        "action": {
+          "enum": [
+            "redirect"
+          ],
+          "type": "string"
         },
-        {
-          "type": "boolean"
+        "action_parameters": {
+          "properties": {
+            "from_list": {
+              "$ref": "#/$defs/rulesets_RedirectFromList"
+            },
+            "from_value": {
+              "$ref": "#/$defs/rulesets_RedirectFromValue"
+            }
+          },
+          "type": "object"
+        },
+        "description": {
+          "type": "string"
         }
-      ]
-    },
-    "exposed_credential_check": {
-      "$ref": "#/$defs/rulesets_RuleExposedCredentialCheck"
-    },
-    "expression": {
-      "type": "string"
-    },
-    "id": {
-      "$ref": "#/$defs/rulesets_RuleId"
-    },
-    "last_updated": {
-      "format": "date-time",
-      "type": "string"
-    },
-    "logging": {
-      "$ref": "#/$defs/rulesets_RuleLogging"
-    },
-    "ratelimit": {
-      "$ref": "#/$defs/rulesets_RuleRatelimit"
-    },
-    "ref": {
-      "type": "string"
-    },
-    "version": {
-      "type": "string"
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "last_updated",
-    "version"
-  ],
-  "type": "object"
+  ]
 };
 
 /**
- * The schema of `rulesets_RedirectRule_action_parameters` in responses.
+ * The schema of `rulesets_RequestRule` in responses.
  */
-export const rulesets_RedirectRule_action_parameters_output: JsonSchema = {
-  "properties": {
-    "from_list": {
-      "$ref": "#/$defs/rulesets_RedirectFromList"
+export const rulesets_RequestRule_output: JsonSchema = {
+  "oneOf": [
+    {
+      "$ref": "#/$defs/rulesets_BlockRule"
     },
-    "from_value": {
-      "$ref": "#/$defs/rulesets_RedirectFromValue"
+    {
+      "$ref": "#/$defs/rulesets_ChallengeRule"
+    },
+    {
+      "$ref": "#/$defs/rulesets_CompressResponseRule"
+    },
+    {
+      "$ref": "#/$defs/rulesets_DDoSDynamicRule"
+    },
+    {
+      "$ref": "#/$defs/rulesets_ExecuteRule"
+    },
+    {
+      "$ref": "#/$defs/rulesets_ForceConnectionCloseRule"
+    },
+    {
+      "$ref": "#/$defs/rulesets_JsChallengeRule"
+    },
+    {
+      "$ref": "#/$defs/rulesets_LogRule"
+    },
+    {
+      "$ref": "#/$defs/rulesets_LogCustomFieldRule"
+    },
+    {
+      "$ref": "#/$defs/rulesets_ManagedChallengeRule"
+    },
+    {
+      "$ref": "#/$defs/rulesets_RedirectRule"
+    },
+    {
+      "$ref": "#/$defs/rulesets_RewriteRule"
+    },
+    {
+      "$ref": "#/$defs/rulesets_RouteRule"
+    },
+    {
+      "$ref": "#/$defs/rulesets_ScoreRule"
+    },
+    {
+      "$ref": "#/$defs/rulesets_ServeErrorRule"
+    },
+    {
+      "$ref": "#/$defs/rulesets_SetCacheControlRule"
+    },
+    {
+      "$ref": "#/$defs/rulesets_SetCacheSettingsRule"
+    },
+    {
+      "$ref": "#/$defs/rulesets_SetCacheTagsRule"
+    },
+    {
+      "$ref": "#/$defs/rulesets_SetConfigRule"
+    },
+    {
+      "$ref": "#/$defs/rulesets_SkipRule"
+    },
+    {
+      "$ref": "#/$defs/rulesets_TransformResponseHTMLRule"
     }
-  },
-  "type": "object"
+  ]
 };
 
 /**
  * The schema of `rulesets_ResponseRule` in responses.
  */
 export const rulesets_ResponseRule_output: JsonSchema = {
-  "oneOf": [
+  "allOf": [
     {
-      "allOf": [
-        {
-          "$ref": "#/$defs/rulesets_BlockRule"
-        },
-        {
-          "properties": {
-            "action": {
-              "type": "string"
-            },
-            "enabled": {
-              "type": "boolean"
-            },
-            "expression": {
-              "type": "string"
-            },
-            "id": {
-              "type": "string"
-            },
-            "ref": {
-              "type": "string"
-            }
-          },
-          "required": [
-            "action",
-            "enabled",
-            "expression",
-            "id",
-            "ref"
-          ],
-          "type": "object"
-        }
-      ]
+      "$ref": "#/$defs/rulesets_RequestRule"
     },
     {
-      "allOf": [
-        {
-          "$ref": "#/$defs/rulesets_ChallengeRule"
+      "properties": {
+        "action": {
+          "type": "string"
         },
-        {
-          "properties": {
-            "action": {
-              "type": "string"
-            },
-            "enabled": {
-              "type": "boolean"
-            },
-            "expression": {
-              "type": "string"
-            },
-            "id": {
-              "type": "string"
-            },
-            "ref": {
-              "type": "string"
-            }
-          },
-          "required": [
-            "action",
-            "enabled",
-            "expression",
-            "id",
-            "ref"
-          ],
-          "type": "object"
-        }
-      ]
-    },
-    {
-      "allOf": [
-        {
-          "$ref": "#/$defs/rulesets_CompressResponseRule"
+        "enabled": {
+          "type": "boolean"
         },
-        {
-          "properties": {
-            "action": {
-              "type": "string"
-            },
-            "enabled": {
-              "type": "boolean"
-            },
-            "expression": {
-              "type": "string"
-            },
-            "id": {
-              "type": "string"
-            },
-            "ref": {
-              "type": "string"
-            }
-          },
-          "required": [
-            "action",
-            "enabled",
-            "expression",
-            "id",
-            "ref"
-          ],
-          "type": "object"
-        }
-      ]
-    },
-    {
-      "allOf": [
-        {
-          "$ref": "#/$defs/rulesets_DDoSDynamicRule"
+        "expression": {
+          "type": "string"
         },
-        {
-          "properties": {
-            "action": {
-              "type": "string"
-            },
-            "enabled": {
-              "type": "boolean"
-            },
-            "expression": {
-              "type": "string"
-            },
-            "id": {
-              "type": "string"
-            },
-            "ref": {
-              "type": "string"
-            }
-          },
-          "required": [
-            "action",
-            "enabled",
-            "expression",
-            "id",
-            "ref"
-          ],
-          "type": "object"
-        }
-      ]
-    },
-    {
-      "allOf": [
-        {
-          "$ref": "#/$defs/rulesets_ExecuteRule"
+        "id": {
+          "type": "string"
         },
-        {
-          "properties": {
-            "action": {
-              "type": "string"
-            },
-            "enabled": {
-              "type": "boolean"
-            },
-            "expression": {
-              "type": "string"
-            },
-            "id": {
-              "type": "string"
-            },
-            "ref": {
-              "type": "string"
-            }
-          },
-          "required": [
-            "action",
-            "enabled",
-            "expression",
-            "id",
-            "ref"
-          ],
-          "type": "object"
+        "ref": {
+          "type": "string"
         }
-      ]
-    },
-    {
-      "allOf": [
-        {
-          "$ref": "#/$defs/rulesets_ForceConnectionCloseRule"
-        },
-        {
-          "properties": {
-            "action": {
-              "type": "string"
-            },
-            "enabled": {
-              "type": "boolean"
-            },
-            "expression": {
-              "type": "string"
-            },
-            "id": {
-              "type": "string"
-            },
-            "ref": {
-              "type": "string"
-            }
-          },
-          "required": [
-            "action",
-            "enabled",
-            "expression",
-            "id",
-            "ref"
-          ],
-          "type": "object"
-        }
-      ]
-    },
-    {
-      "allOf": [
-        {
-          "$ref": "#/$defs/rulesets_JsChallengeRule"
-        },
-        {
-          "properties": {
-            "action": {
-              "type": "string"
-            },
-            "enabled": {
-              "type": "boolean"
-            },
-            "expression": {
-              "type": "string"
-            },
-            "id": {
-              "type": "string"
-            },
-            "ref": {
-              "type": "string"
-            }
-          },
-          "required": [
-            "action",
-            "enabled",
-            "expression",
-            "id",
-            "ref"
-          ],
-          "type": "object"
-        }
-      ]
-    },
-    {
-      "allOf": [
-        {
-          "$ref": "#/$defs/rulesets_LogRule"
-        },
-        {
-          "properties": {
-            "action": {
-              "type": "string"
-            },
-            "enabled": {
-              "type": "boolean"
-            },
-            "expression": {
-              "type": "string"
-            },
-            "id": {
-              "type": "string"
-            },
-            "ref": {
-              "type": "string"
-            }
-          },
-          "required": [
-            "action",
-            "enabled",
-            "expression",
-            "id",
-            "ref"
-          ],
-          "type": "object"
-        }
-      ]
-    },
-    {
-      "allOf": [
-        {
-          "$ref": "#/$defs/rulesets_LogCustomFieldRule"
-        },
-        {
-          "properties": {
-            "action": {
-              "type": "string"
-            },
-            "enabled": {
-              "type": "boolean"
-            },
-            "expression": {
-              "type": "string"
-            },
-            "id": {
-              "type": "string"
-            },
-            "ref": {
-              "type": "string"
-            }
-          },
-          "required": [
-            "action",
-            "enabled",
-            "expression",
-            "id",
-            "ref"
-          ],
-          "type": "object"
-        }
-      ]
-    },
-    {
-      "allOf": [
-        {
-          "$ref": "#/$defs/rulesets_ManagedChallengeRule"
-        },
-        {
-          "properties": {
-            "action": {
-              "type": "string"
-            },
-            "enabled": {
-              "type": "boolean"
-            },
-            "expression": {
-              "type": "string"
-            },
-            "id": {
-              "type": "string"
-            },
-            "ref": {
-              "type": "string"
-            }
-          },
-          "required": [
-            "action",
-            "enabled",
-            "expression",
-            "id",
-            "ref"
-          ],
-          "type": "object"
-        }
-      ]
-    },
-    {
-      "allOf": [
-        {
-          "$ref": "#/$defs/rulesets_RedirectRule"
-        },
-        {
-          "properties": {
-            "action": {
-              "type": "string"
-            },
-            "enabled": {
-              "type": "boolean"
-            },
-            "expression": {
-              "type": "string"
-            },
-            "id": {
-              "type": "string"
-            },
-            "ref": {
-              "type": "string"
-            }
-          },
-          "required": [
-            "action",
-            "enabled",
-            "expression",
-            "id",
-            "ref"
-          ],
-          "type": "object"
-        }
-      ]
-    },
-    {
-      "allOf": [
-        {
-          "$ref": "#/$defs/rulesets_RewriteRule"
-        },
-        {
-          "properties": {
-            "action": {
-              "type": "string"
-            },
-            "enabled": {
-              "type": "boolean"
-            },
-            "expression": {
-              "type": "string"
-            },
-            "id": {
-              "type": "string"
-            },
-            "ref": {
-              "type": "string"
-            }
-          },
-          "required": [
-            "action",
-            "enabled",
-            "expression",
-            "id",
-            "ref"
-          ],
-          "type": "object"
-        }
-      ]
-    },
-    {
-      "allOf": [
-        {
-          "$ref": "#/$defs/rulesets_RouteRule"
-        },
-        {
-          "properties": {
-            "action": {
-              "type": "string"
-            },
-            "enabled": {
-              "type": "boolean"
-            },
-            "expression": {
-              "type": "string"
-            },
-            "id": {
-              "type": "string"
-            },
-            "ref": {
-              "type": "string"
-            }
-          },
-          "required": [
-            "action",
-            "enabled",
-            "expression",
-            "id",
-            "ref"
-          ],
-          "type": "object"
-        }
-      ]
-    },
-    {
-      "allOf": [
-        {
-          "$ref": "#/$defs/rulesets_ScoreRule"
-        },
-        {
-          "properties": {
-            "action": {
-              "type": "string"
-            },
-            "enabled": {
-              "type": "boolean"
-            },
-            "expression": {
-              "type": "string"
-            },
-            "id": {
-              "type": "string"
-            },
-            "ref": {
-              "type": "string"
-            }
-          },
-          "required": [
-            "action",
-            "enabled",
-            "expression",
-            "id",
-            "ref"
-          ],
-          "type": "object"
-        }
-      ]
-    },
-    {
-      "allOf": [
-        {
-          "$ref": "#/$defs/rulesets_ServeErrorRule"
-        },
-        {
-          "properties": {
-            "action": {
-              "type": "string"
-            },
-            "enabled": {
-              "type": "boolean"
-            },
-            "expression": {
-              "type": "string"
-            },
-            "id": {
-              "type": "string"
-            },
-            "ref": {
-              "type": "string"
-            }
-          },
-          "required": [
-            "action",
-            "enabled",
-            "expression",
-            "id",
-            "ref"
-          ],
-          "type": "object"
-        }
-      ]
-    },
-    {
-      "allOf": [
-        {
-          "$ref": "#/$defs/rulesets_SetCacheControlRule"
-        },
-        {
-          "properties": {
-            "action": {
-              "type": "string"
-            },
-            "enabled": {
-              "type": "boolean"
-            },
-            "expression": {
-              "type": "string"
-            },
-            "id": {
-              "type": "string"
-            },
-            "ref": {
-              "type": "string"
-            }
-          },
-          "required": [
-            "action",
-            "enabled",
-            "expression",
-            "id",
-            "ref"
-          ],
-          "type": "object"
-        }
-      ]
-    },
-    {
-      "allOf": [
-        {
-          "$ref": "#/$defs/rulesets_SetCacheSettingsRule"
-        },
-        {
-          "properties": {
-            "action": {
-              "type": "string"
-            },
-            "enabled": {
-              "type": "boolean"
-            },
-            "expression": {
-              "type": "string"
-            },
-            "id": {
-              "type": "string"
-            },
-            "ref": {
-              "type": "string"
-            }
-          },
-          "required": [
-            "action",
-            "enabled",
-            "expression",
-            "id",
-            "ref"
-          ],
-          "type": "object"
-        }
-      ]
-    },
-    {
-      "allOf": [
-        {
-          "$ref": "#/$defs/rulesets_SetCacheTagsRule"
-        },
-        {
-          "properties": {
-            "action": {
-              "type": "string"
-            },
-            "enabled": {
-              "type": "boolean"
-            },
-            "expression": {
-              "type": "string"
-            },
-            "id": {
-              "type": "string"
-            },
-            "ref": {
-              "type": "string"
-            }
-          },
-          "required": [
-            "action",
-            "enabled",
-            "expression",
-            "id",
-            "ref"
-          ],
-          "type": "object"
-        }
-      ]
-    },
-    {
-      "allOf": [
-        {
-          "$ref": "#/$defs/rulesets_SetConfigRule"
-        },
-        {
-          "properties": {
-            "action": {
-              "type": "string"
-            },
-            "enabled": {
-              "type": "boolean"
-            },
-            "expression": {
-              "type": "string"
-            },
-            "id": {
-              "type": "string"
-            },
-            "ref": {
-              "type": "string"
-            }
-          },
-          "required": [
-            "action",
-            "enabled",
-            "expression",
-            "id",
-            "ref"
-          ],
-          "type": "object"
-        }
-      ]
-    },
-    {
-      "allOf": [
-        {
-          "$ref": "#/$defs/rulesets_SkipRule"
-        },
-        {
-          "properties": {
-            "action": {
-              "type": "string"
-            },
-            "enabled": {
-              "type": "boolean"
-            },
-            "expression": {
-              "type": "string"
-            },
-            "id": {
-              "type": "string"
-            },
-            "ref": {
-              "type": "string"
-            }
-          },
-          "required": [
-            "action",
-            "enabled",
-            "expression",
-            "id",
-            "ref"
-          ],
-          "type": "object"
-        }
-      ]
-    },
-    {
-      "allOf": [
-        {
-          "$ref": "#/$defs/rulesets_TransformResponseHTMLRule"
-        },
-        {
-          "properties": {
-            "action": {
-              "type": "string"
-            },
-            "enabled": {
-              "type": "boolean"
-            },
-            "expression": {
-              "type": "string"
-            },
-            "id": {
-              "type": "string"
-            },
-            "ref": {
-              "type": "string"
-            }
-          },
-          "required": [
-            "action",
-            "enabled",
-            "expression",
-            "id",
-            "ref"
-          ],
-          "type": "object"
-        }
-      ]
+      },
+      "required": [
+        "action",
+        "enabled",
+        "expression",
+        "id",
+        "ref"
+      ],
+      "type": "object"
     }
   ]
 };
@@ -1935,31 +861,24 @@ export const rulesets_ResponseRules_output: JsonSchema = {
 export const rulesets_ResultInfo_output: JsonSchema = {
   "properties": {
     "cursors": {
-      "$ref": "#/$defs/rulesets_ResultInfo_cursors"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `rulesets_ResultInfo_cursors` in responses.
- */
-export const rulesets_ResultInfo_cursors_output: JsonSchema = {
-  "properties": {
-    "after": {
-      "allOf": [
-        {
-          "$ref": "#/$defs/rulesets_Cursor"
-        },
-        {
-          "type": "string"
+      "properties": {
+        "after": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/rulesets_Cursor"
+            },
+            {
+              "type": "string"
+            }
+          ]
         }
-      ]
+      },
+      "required": [
+        "after"
+      ],
+      "type": "object"
     }
   },
-  "required": [
-    "after"
-  ],
   "type": "object"
 };
 
@@ -2120,78 +1039,36 @@ export const rulesets_RewriteHeaders_output: JsonSchema = {
  * The schema of `rulesets_RewriteRule` in responses.
  */
 export const rulesets_RewriteRule_output: JsonSchema = {
-  "properties": {
-    "action": {
-      "enum": [
-        "rewrite"
-      ],
-      "type": "string"
+  "allOf": [
+    {
+      "$ref": "#/$defs/rulesets_Rule"
     },
-    "action_parameters": {
-      "$ref": "#/$defs/rulesets_RewriteRule_action_parameters"
-    },
-    "categories": {
-      "$ref": "#/$defs/rulesets_RuleCategories"
-    },
-    "description": {
-      "type": "string"
-    },
-    "enabled": {
-      "allOf": [
-        {
-          "$ref": "#/$defs/rulesets_RuleEnabled"
+    {
+      "properties": {
+        "action": {
+          "enum": [
+            "rewrite"
+          ],
+          "type": "string"
         },
-        {
-          "type": "boolean"
+        "action_parameters": {
+          "properties": {
+            "headers": {
+              "$ref": "#/$defs/rulesets_RewriteHeaders"
+            },
+            "uri": {
+              "$ref": "#/$defs/rulesets_RewriteUri"
+            }
+          },
+          "type": "object"
+        },
+        "description": {
+          "type": "string"
         }
-      ]
-    },
-    "exposed_credential_check": {
-      "$ref": "#/$defs/rulesets_RuleExposedCredentialCheck"
-    },
-    "expression": {
-      "type": "string"
-    },
-    "id": {
-      "$ref": "#/$defs/rulesets_RuleId"
-    },
-    "last_updated": {
-      "format": "date-time",
-      "type": "string"
-    },
-    "logging": {
-      "$ref": "#/$defs/rulesets_RuleLogging"
-    },
-    "ratelimit": {
-      "$ref": "#/$defs/rulesets_RuleRatelimit"
-    },
-    "ref": {
-      "type": "string"
-    },
-    "version": {
-      "type": "string"
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "last_updated",
-    "version"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `rulesets_RewriteRule_action_parameters` in responses.
- */
-export const rulesets_RewriteRule_action_parameters_output: JsonSchema = {
-  "properties": {
-    "headers": {
-      "$ref": "#/$defs/rulesets_RewriteHeaders"
-    },
-    "uri": {
-      "$ref": "#/$defs/rulesets_RewriteUri"
-    }
-  },
-  "type": "object"
+  ]
 };
 
 /**
@@ -2292,15 +1169,66 @@ export const rulesets_RouteOrigin_output: JsonSchema = {
  * The schema of `rulesets_RouteRule` in responses.
  */
 export const rulesets_RouteRule_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/rulesets_Rule"
+    },
+    {
+      "properties": {
+        "action": {
+          "enum": [
+            "route"
+          ],
+          "type": "string"
+        },
+        "action_parameters": {
+          "properties": {
+            "host_header": {
+              "$ref": "#/$defs/rulesets_RouteHostHeader"
+            },
+            "origin": {
+              "$ref": "#/$defs/rulesets_RouteOrigin"
+            },
+            "sni": {
+              "$ref": "#/$defs/rulesets_RouteSNI"
+            }
+          },
+          "type": "object"
+        },
+        "description": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `rulesets_RouteSNI` in responses.
+ */
+export const rulesets_RouteSNI_output: JsonSchema = {
+  "properties": {
+    "value": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "value"
+  ],
+  "type": "object"
+};
+
+/**
+ * The schema of `rulesets_Rule` in responses.
+ */
+export const rulesets_Rule_output: JsonSchema = {
   "properties": {
     "action": {
-      "enum": [
-        "route"
-      ],
-      "type": "string"
+      "$ref": "#/$defs/rulesets_RuleAction"
     },
     "action_parameters": {
-      "$ref": "#/$defs/rulesets_RouteRule_action_parameters"
+      "type": "object"
     },
     "categories": {
       "$ref": "#/$defs/rulesets_RuleCategories"
@@ -2347,39 +1275,6 @@ export const rulesets_RouteRule_output: JsonSchema = {
   "required": [
     "last_updated",
     "version"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `rulesets_RouteRule_action_parameters` in responses.
- */
-export const rulesets_RouteRule_action_parameters_output: JsonSchema = {
-  "properties": {
-    "host_header": {
-      "$ref": "#/$defs/rulesets_RouteHostHeader"
-    },
-    "origin": {
-      "$ref": "#/$defs/rulesets_RouteOrigin"
-    },
-    "sni": {
-      "$ref": "#/$defs/rulesets_RouteSNI"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `rulesets_RouteSNI` in responses.
- */
-export const rulesets_RouteSNI_output: JsonSchema = {
-  "properties": {
-    "value": {
-      "type": "string"
-    }
-  },
-  "required": [
-    "value"
   ],
   "type": "object"
 };
@@ -2614,78 +1509,36 @@ export const rulesets_ScoreIncrement_output: JsonSchema = {
  * The schema of `rulesets_ScoreRule` in responses.
  */
 export const rulesets_ScoreRule_output: JsonSchema = {
-  "properties": {
-    "action": {
-      "enum": [
-        "score"
-      ],
-      "type": "string"
+  "allOf": [
+    {
+      "$ref": "#/$defs/rulesets_Rule"
     },
-    "action_parameters": {
-      "$ref": "#/$defs/rulesets_ScoreRule_action_parameters"
-    },
-    "categories": {
-      "$ref": "#/$defs/rulesets_RuleCategories"
-    },
-    "description": {
-      "type": "string"
-    },
-    "enabled": {
-      "allOf": [
-        {
-          "$ref": "#/$defs/rulesets_RuleEnabled"
+    {
+      "properties": {
+        "action": {
+          "enum": [
+            "score"
+          ],
+          "type": "string"
         },
-        {
-          "type": "boolean"
+        "action_parameters": {
+          "properties": {
+            "increment": {
+              "$ref": "#/$defs/rulesets_ScoreIncrement"
+            }
+          },
+          "required": [
+            "increment"
+          ],
+          "type": "object"
+        },
+        "description": {
+          "type": "string"
         }
-      ]
-    },
-    "exposed_credential_check": {
-      "$ref": "#/$defs/rulesets_RuleExposedCredentialCheck"
-    },
-    "expression": {
-      "type": "string"
-    },
-    "id": {
-      "$ref": "#/$defs/rulesets_RuleId"
-    },
-    "last_updated": {
-      "format": "date-time",
-      "type": "string"
-    },
-    "logging": {
-      "$ref": "#/$defs/rulesets_RuleLogging"
-    },
-    "ratelimit": {
-      "$ref": "#/$defs/rulesets_RuleRatelimit"
-    },
-    "ref": {
-      "type": "string"
-    },
-    "version": {
-      "type": "string"
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "last_updated",
-    "version"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `rulesets_ScoreRule_action_parameters` in responses.
- */
-export const rulesets_ScoreRule_action_parameters_output: JsonSchema = {
-  "properties": {
-    "increment": {
-      "$ref": "#/$defs/rulesets_ScoreIncrement"
-    }
-  },
-  "required": [
-    "increment"
-  ],
-  "type": "object"
+  ]
 };
 
 /**
@@ -2719,104 +1572,69 @@ export const rulesets_ServeErrorContentType_output: JsonSchema = {
  * The schema of `rulesets_ServeErrorRule` in responses.
  */
 export const rulesets_ServeErrorRule_output: JsonSchema = {
-  "properties": {
-    "action": {
-      "enum": [
-        "serve_error"
-      ],
-      "type": "string"
+  "allOf": [
+    {
+      "$ref": "#/$defs/rulesets_Rule"
     },
-    "action_parameters": {
-      "allOf": [
-        {
-          "properties": {
-            "content_type": {
-              "$ref": "#/$defs/rulesets_ServeErrorContentType"
-            },
-            "status_code": {
-              "$ref": "#/$defs/rulesets_ServeErrorStatusCode"
-            }
-          },
-          "required": [
-            "content_type"
+    {
+      "properties": {
+        "action": {
+          "enum": [
+            "serve_error"
           ],
-          "type": "object"
+          "type": "string"
         },
-        {
-          "oneOf": [
+        "action_parameters": {
+          "allOf": [
             {
               "properties": {
-                "content": {
-                  "$ref": "#/$defs/rulesets_ServeErrorContent"
+                "content_type": {
+                  "$ref": "#/$defs/rulesets_ServeErrorContentType"
+                },
+                "status_code": {
+                  "$ref": "#/$defs/rulesets_ServeErrorStatusCode"
                 }
               },
               "required": [
-                "content"
+                "content_type"
               ],
               "type": "object"
             },
             {
-              "properties": {
-                "asset_name": {
-                  "$ref": "#/$defs/rulesets_ServeErrorAssetName"
+              "oneOf": [
+                {
+                  "properties": {
+                    "content": {
+                      "$ref": "#/$defs/rulesets_ServeErrorContent"
+                    }
+                  },
+                  "required": [
+                    "content"
+                  ],
+                  "type": "object"
+                },
+                {
+                  "properties": {
+                    "asset_name": {
+                      "$ref": "#/$defs/rulesets_ServeErrorAssetName"
+                    }
+                  },
+                  "required": [
+                    "asset_name"
+                  ],
+                  "type": "object"
                 }
-              },
-              "required": [
-                "asset_name"
-              ],
-              "type": "object"
+              ]
             }
           ]
-        }
-      ]
-    },
-    "categories": {
-      "$ref": "#/$defs/rulesets_RuleCategories"
-    },
-    "description": {
-      "type": "string"
-    },
-    "enabled": {
-      "allOf": [
-        {
-          "$ref": "#/$defs/rulesets_RuleEnabled"
         },
-        {
-          "type": "boolean"
+        "description": {
+          "type": "string"
         }
-      ]
-    },
-    "exposed_credential_check": {
-      "$ref": "#/$defs/rulesets_RuleExposedCredentialCheck"
-    },
-    "expression": {
-      "type": "string"
-    },
-    "id": {
-      "$ref": "#/$defs/rulesets_RuleId"
-    },
-    "last_updated": {
-      "format": "date-time",
-      "type": "string"
-    },
-    "logging": {
-      "$ref": "#/$defs/rulesets_RuleLogging"
-    },
-    "ratelimit": {
-      "$ref": "#/$defs/rulesets_RuleRatelimit"
-    },
-    "ref": {
-      "type": "string"
-    },
-    "version": {
-      "type": "string"
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "last_updated",
-    "version"
-  ],
-  "type": "object"
+  ]
 };
 
 /**
@@ -3026,111 +1844,69 @@ export const rulesets_SetCacheControlOperation_output: JsonSchema = {
  * The schema of `rulesets_SetCacheControlRule` in responses.
  */
 export const rulesets_SetCacheControlRule_output: JsonSchema = {
-  "properties": {
-    "action": {
-      "enum": [
-        "set_cache_control"
-      ],
-      "type": "string"
+  "allOf": [
+    {
+      "$ref": "#/$defs/rulesets_Rule"
     },
-    "action_parameters": {
-      "$ref": "#/$defs/rulesets_SetCacheControlRule_action_parameters"
-    },
-    "categories": {
-      "$ref": "#/$defs/rulesets_RuleCategories"
-    },
-    "description": {
-      "type": "string"
-    },
-    "enabled": {
-      "allOf": [
-        {
-          "$ref": "#/$defs/rulesets_RuleEnabled"
+    {
+      "properties": {
+        "action": {
+          "enum": [
+            "set_cache_control"
+          ],
+          "type": "string"
         },
-        {
-          "type": "boolean"
+        "action_parameters": {
+          "properties": {
+            "immutable": {
+              "$ref": "#/$defs/rulesets_SetCacheControlDirective"
+            },
+            "max-age": {
+              "$ref": "#/$defs/rulesets_SetCacheControlDirectiveWithValue"
+            },
+            "must-revalidate": {
+              "$ref": "#/$defs/rulesets_SetCacheControlDirective"
+            },
+            "must-understand": {
+              "$ref": "#/$defs/rulesets_SetCacheControlDirective"
+            },
+            "no-cache": {
+              "$ref": "#/$defs/rulesets_SetCacheControlDirectiveWithQualifiers"
+            },
+            "no-store": {
+              "$ref": "#/$defs/rulesets_SetCacheControlDirective"
+            },
+            "no-transform": {
+              "$ref": "#/$defs/rulesets_SetCacheControlDirective"
+            },
+            "private": {
+              "$ref": "#/$defs/rulesets_SetCacheControlDirectiveWithQualifiers"
+            },
+            "proxy-revalidate": {
+              "$ref": "#/$defs/rulesets_SetCacheControlDirective"
+            },
+            "public": {
+              "$ref": "#/$defs/rulesets_SetCacheControlDirective"
+            },
+            "s-maxage": {
+              "$ref": "#/$defs/rulesets_SetCacheControlDirectiveWithValue"
+            },
+            "stale-if-error": {
+              "$ref": "#/$defs/rulesets_SetCacheControlDirectiveWithValue"
+            },
+            "stale-while-revalidate": {
+              "$ref": "#/$defs/rulesets_SetCacheControlDirectiveWithValue"
+            }
+          },
+          "type": "object"
+        },
+        "description": {
+          "type": "string"
         }
-      ]
-    },
-    "exposed_credential_check": {
-      "$ref": "#/$defs/rulesets_RuleExposedCredentialCheck"
-    },
-    "expression": {
-      "type": "string"
-    },
-    "id": {
-      "$ref": "#/$defs/rulesets_RuleId"
-    },
-    "last_updated": {
-      "format": "date-time",
-      "type": "string"
-    },
-    "logging": {
-      "$ref": "#/$defs/rulesets_RuleLogging"
-    },
-    "ratelimit": {
-      "$ref": "#/$defs/rulesets_RuleRatelimit"
-    },
-    "ref": {
-      "type": "string"
-    },
-    "version": {
-      "type": "string"
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "last_updated",
-    "version"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `rulesets_SetCacheControlRule_action_parameters` in responses.
- */
-export const rulesets_SetCacheControlRule_action_parameters_output: JsonSchema = {
-  "properties": {
-    "immutable": {
-      "$ref": "#/$defs/rulesets_SetCacheControlDirective"
-    },
-    "max-age": {
-      "$ref": "#/$defs/rulesets_SetCacheControlDirectiveWithValue"
-    },
-    "must-revalidate": {
-      "$ref": "#/$defs/rulesets_SetCacheControlDirective"
-    },
-    "must-understand": {
-      "$ref": "#/$defs/rulesets_SetCacheControlDirective"
-    },
-    "no-cache": {
-      "$ref": "#/$defs/rulesets_SetCacheControlDirectiveWithQualifiers"
-    },
-    "no-store": {
-      "$ref": "#/$defs/rulesets_SetCacheControlDirective"
-    },
-    "no-transform": {
-      "$ref": "#/$defs/rulesets_SetCacheControlDirective"
-    },
-    "private": {
-      "$ref": "#/$defs/rulesets_SetCacheControlDirectiveWithQualifiers"
-    },
-    "proxy-revalidate": {
-      "$ref": "#/$defs/rulesets_SetCacheControlDirective"
-    },
-    "public": {
-      "$ref": "#/$defs/rulesets_SetCacheControlDirective"
-    },
-    "s-maxage": {
-      "$ref": "#/$defs/rulesets_SetCacheControlDirectiveWithValue"
-    },
-    "stale-if-error": {
-      "$ref": "#/$defs/rulesets_SetCacheControlDirectiveWithValue"
-    },
-    "stale-while-revalidate": {
-      "$ref": "#/$defs/rulesets_SetCacheControlDirectiveWithValue"
-    }
-  },
-  "type": "object"
+  ]
 };
 
 /**
@@ -3317,56 +2093,40 @@ export const rulesets_SetCacheSettingsCustomCacheKeyHost_output: JsonSchema = {
 export const rulesets_SetCacheSettingsCustomCacheKeyQueryString_output: JsonSchema = {
   "properties": {
     "exclude": {
-      "$ref": "#/$defs/rulesets_SetCacheSettingsCustomCacheKeyQueryString_exclude"
+      "properties": {
+        "all": {
+          "enum": [
+            true
+          ],
+          "type": "boolean"
+        },
+        "list": {
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1,
+          "type": "array"
+        }
+      },
+      "type": "object"
     },
     "include": {
-      "$ref": "#/$defs/rulesets_SetCacheSettingsCustomCacheKeyQueryString_include"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `rulesets_SetCacheSettingsCustomCacheKeyQueryString_exclude` in
- * responses.
- */
-export const rulesets_SetCacheSettingsCustomCacheKeyQueryString_exclude_output: JsonSchema = {
-  "properties": {
-    "all": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
-    },
-    "list": {
-      "items": {
-        "type": "string"
+      "properties": {
+        "all": {
+          "enum": [
+            true
+          ],
+          "type": "boolean"
+        },
+        "list": {
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1,
+          "type": "array"
+        }
       },
-      "minItems": 1,
-      "type": "array"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `rulesets_SetCacheSettingsCustomCacheKeyQueryString_include` in
- * responses.
- */
-export const rulesets_SetCacheSettingsCustomCacheKeyQueryString_include_output: JsonSchema = {
-  "properties": {
-    "all": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
-    },
-    "list": {
-      "items": {
-        "type": "string"
-      },
-      "minItems": 1,
-      "type": "array"
+      "type": "object"
     }
   },
   "type": "object"
@@ -3469,123 +2229,81 @@ export const rulesets_SetCacheSettingsRespectStrongEtags_output: JsonSchema = {
  * The schema of `rulesets_SetCacheSettingsRule` in responses.
  */
 export const rulesets_SetCacheSettingsRule_output: JsonSchema = {
-  "properties": {
-    "action": {
-      "enum": [
-        "set_cache_settings"
-      ],
-      "type": "string"
+  "allOf": [
+    {
+      "$ref": "#/$defs/rulesets_Rule"
     },
-    "action_parameters": {
-      "$ref": "#/$defs/rulesets_SetCacheSettingsRule_action_parameters"
-    },
-    "categories": {
-      "$ref": "#/$defs/rulesets_RuleCategories"
-    },
-    "description": {
-      "type": "string"
-    },
-    "enabled": {
-      "allOf": [
-        {
-          "$ref": "#/$defs/rulesets_RuleEnabled"
+    {
+      "properties": {
+        "action": {
+          "enum": [
+            "set_cache_settings"
+          ],
+          "type": "string"
         },
-        {
-          "type": "boolean"
+        "action_parameters": {
+          "properties": {
+            "additional_cacheable_ports": {
+              "$ref": "#/$defs/rulesets_SetCacheSettingsAdditionalCacheablePorts"
+            },
+            "browser_ttl": {
+              "$ref": "#/$defs/rulesets_SetCacheSettingsBrowserTTL"
+            },
+            "cache": {
+              "$ref": "#/$defs/rulesets_SetCacheSettingsCache"
+            },
+            "cache_key": {
+              "$ref": "#/$defs/rulesets_SetCacheSettingsCacheKey"
+            },
+            "cache_reserve": {
+              "$ref": "#/$defs/rulesets_SetCacheSettingsCacheReserve"
+            },
+            "edge_ttl": {
+              "$ref": "#/$defs/rulesets_SetCacheSettingsEdgeTTL"
+            },
+            "origin_cache_control": {
+              "$ref": "#/$defs/rulesets_SetCacheSettingsOriginCacheControl"
+            },
+            "origin_error_page_passthru": {
+              "$ref": "#/$defs/rulesets_SetCacheSettingsOriginErrorPagePassthru"
+            },
+            "origin_range_requests": {
+              "$ref": "#/$defs/rulesets_SetCacheSettingsOriginRangeRequests"
+            },
+            "read_timeout": {
+              "$ref": "#/$defs/rulesets_SetCacheSettingsReadTimeout"
+            },
+            "respect_strong_etags": {
+              "$ref": "#/$defs/rulesets_SetCacheSettingsRespectStrongEtags"
+            },
+            "serve_stale": {
+              "$ref": "#/$defs/rulesets_SetCacheSettingsServeStale"
+            },
+            "shared_dictionary": {
+              "$ref": "#/$defs/rulesets_SetCacheSettingsSharedDictionary"
+            },
+            "strip_etags": {
+              "$ref": "#/$defs/rulesets_SetCacheSettingsStripETags"
+            },
+            "strip_last_modified": {
+              "$ref": "#/$defs/rulesets_SetCacheSettingsStripLastModified"
+            },
+            "strip_set_cookie": {
+              "$ref": "#/$defs/rulesets_SetCacheSettingsStripSetCookie"
+            },
+            "vary": {
+              "$ref": "#/$defs/rulesets_SetCacheSettingsVary"
+            }
+          },
+          "type": "object"
+        },
+        "description": {
+          "type": "string"
         }
-      ]
-    },
-    "exposed_credential_check": {
-      "$ref": "#/$defs/rulesets_RuleExposedCredentialCheck"
-    },
-    "expression": {
-      "type": "string"
-    },
-    "id": {
-      "$ref": "#/$defs/rulesets_RuleId"
-    },
-    "last_updated": {
-      "format": "date-time",
-      "type": "string"
-    },
-    "logging": {
-      "$ref": "#/$defs/rulesets_RuleLogging"
-    },
-    "ratelimit": {
-      "$ref": "#/$defs/rulesets_RuleRatelimit"
-    },
-    "ref": {
-      "type": "string"
-    },
-    "version": {
-      "type": "string"
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "last_updated",
-    "version"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `rulesets_SetCacheSettingsRule_action_parameters` in responses.
- */
-export const rulesets_SetCacheSettingsRule_action_parameters_output: JsonSchema = {
-  "properties": {
-    "additional_cacheable_ports": {
-      "$ref": "#/$defs/rulesets_SetCacheSettingsAdditionalCacheablePorts"
-    },
-    "browser_ttl": {
-      "$ref": "#/$defs/rulesets_SetCacheSettingsBrowserTTL"
-    },
-    "cache": {
-      "$ref": "#/$defs/rulesets_SetCacheSettingsCache"
-    },
-    "cache_key": {
-      "$ref": "#/$defs/rulesets_SetCacheSettingsCacheKey"
-    },
-    "cache_reserve": {
-      "$ref": "#/$defs/rulesets_SetCacheSettingsCacheReserve"
-    },
-    "edge_ttl": {
-      "$ref": "#/$defs/rulesets_SetCacheSettingsEdgeTTL"
-    },
-    "origin_cache_control": {
-      "$ref": "#/$defs/rulesets_SetCacheSettingsOriginCacheControl"
-    },
-    "origin_error_page_passthru": {
-      "$ref": "#/$defs/rulesets_SetCacheSettingsOriginErrorPagePassthru"
-    },
-    "origin_range_requests": {
-      "$ref": "#/$defs/rulesets_SetCacheSettingsOriginRangeRequests"
-    },
-    "read_timeout": {
-      "$ref": "#/$defs/rulesets_SetCacheSettingsReadTimeout"
-    },
-    "respect_strong_etags": {
-      "$ref": "#/$defs/rulesets_SetCacheSettingsRespectStrongEtags"
-    },
-    "serve_stale": {
-      "$ref": "#/$defs/rulesets_SetCacheSettingsServeStale"
-    },
-    "shared_dictionary": {
-      "$ref": "#/$defs/rulesets_SetCacheSettingsSharedDictionary"
-    },
-    "strip_etags": {
-      "$ref": "#/$defs/rulesets_SetCacheSettingsStripETags"
-    },
-    "strip_last_modified": {
-      "$ref": "#/$defs/rulesets_SetCacheSettingsStripLastModified"
-    },
-    "strip_set_cookie": {
-      "$ref": "#/$defs/rulesets_SetCacheSettingsStripSetCookie"
-    },
-    "vary": {
-      "$ref": "#/$defs/rulesets_SetCacheSettingsVary"
-    }
-  },
-  "type": "object"
+  ]
 };
 
 /**
@@ -3764,218 +2482,176 @@ export const rulesets_SetCacheTagsOperation_output: JsonSchema = {
  * The schema of `rulesets_SetCacheTagsRule` in responses.
  */
 export const rulesets_SetCacheTagsRule_output: JsonSchema = {
-  "properties": {
-    "action": {
-      "enum": [
-        "set_cache_tags"
-      ],
-      "type": "string"
-    },
-    "action_parameters": {
-      "$ref": "#/$defs/rulesets_SetCacheTagsRule_action_parameters"
-    },
-    "categories": {
-      "$ref": "#/$defs/rulesets_RuleCategories"
-    },
-    "description": {
-      "type": "string"
-    },
-    "enabled": {
-      "allOf": [
-        {
-          "$ref": "#/$defs/rulesets_RuleEnabled"
-        },
-        {
-          "type": "boolean"
-        }
-      ]
-    },
-    "exposed_credential_check": {
-      "$ref": "#/$defs/rulesets_RuleExposedCredentialCheck"
-    },
-    "expression": {
-      "type": "string"
-    },
-    "id": {
-      "$ref": "#/$defs/rulesets_RuleId"
-    },
-    "last_updated": {
-      "format": "date-time",
-      "type": "string"
-    },
-    "logging": {
-      "$ref": "#/$defs/rulesets_RuleLogging"
-    },
-    "ratelimit": {
-      "$ref": "#/$defs/rulesets_RuleRatelimit"
-    },
-    "ref": {
-      "type": "string"
-    },
-    "version": {
-      "type": "string"
-    }
-  },
-  "required": [
-    "last_updated",
-    "version"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `rulesets_SetCacheTagsRule_action_parameters` in responses.
- */
-export const rulesets_SetCacheTagsRule_action_parameters_output: JsonSchema = {
-  "oneOf": [
+  "allOf": [
     {
-      "properties": {
-        "operation": {
-          "allOf": [
-            {
-              "$ref": "#/$defs/rulesets_SetCacheTagsOperation"
-            },
-            {
-              "enum": [
-                "add"
-              ],
-              "type": "string"
-            }
-          ]
-        },
-        "values": {
-          "$ref": "#/$defs/rulesets_SetCacheTagsValues"
-        }
-      },
-      "required": [
-        "operation",
-        "values"
-      ],
-      "type": "object"
+      "$ref": "#/$defs/rulesets_Rule"
     },
     {
       "properties": {
-        "expression": {
-          "$ref": "#/$defs/rulesets_SetCacheTagsExpression"
+        "action": {
+          "enum": [
+            "set_cache_tags"
+          ],
+          "type": "string"
         },
-        "operation": {
-          "allOf": [
+        "action_parameters": {
+          "oneOf": [
             {
-              "$ref": "#/$defs/rulesets_SetCacheTagsOperation"
+              "properties": {
+                "operation": {
+                  "allOf": [
+                    {
+                      "$ref": "#/$defs/rulesets_SetCacheTagsOperation"
+                    },
+                    {
+                      "enum": [
+                        "add"
+                      ],
+                      "type": "string"
+                    }
+                  ]
+                },
+                "values": {
+                  "$ref": "#/$defs/rulesets_SetCacheTagsValues"
+                }
+              },
+              "required": [
+                "operation",
+                "values"
+              ],
+              "type": "object"
             },
             {
-              "enum": [
-                "add"
+              "properties": {
+                "expression": {
+                  "$ref": "#/$defs/rulesets_SetCacheTagsExpression"
+                },
+                "operation": {
+                  "allOf": [
+                    {
+                      "$ref": "#/$defs/rulesets_SetCacheTagsOperation"
+                    },
+                    {
+                      "enum": [
+                        "add"
+                      ],
+                      "type": "string"
+                    }
+                  ]
+                }
+              },
+              "required": [
+                "expression",
+                "operation"
               ],
-              "type": "string"
-            }
-          ]
-        }
-      },
-      "required": [
-        "expression",
-        "operation"
-      ],
-      "type": "object"
-    },
-    {
-      "properties": {
-        "operation": {
-          "allOf": [
-            {
-              "$ref": "#/$defs/rulesets_SetCacheTagsOperation"
+              "type": "object"
             },
             {
-              "enum": [
-                "remove"
+              "properties": {
+                "operation": {
+                  "allOf": [
+                    {
+                      "$ref": "#/$defs/rulesets_SetCacheTagsOperation"
+                    },
+                    {
+                      "enum": [
+                        "remove"
+                      ],
+                      "type": "string"
+                    }
+                  ]
+                },
+                "values": {
+                  "$ref": "#/$defs/rulesets_SetCacheTagsValues"
+                }
+              },
+              "required": [
+                "operation",
+                "values"
               ],
-              "type": "string"
+              "type": "object"
+            },
+            {
+              "properties": {
+                "expression": {
+                  "$ref": "#/$defs/rulesets_SetCacheTagsExpression"
+                },
+                "operation": {
+                  "allOf": [
+                    {
+                      "$ref": "#/$defs/rulesets_SetCacheTagsOperation"
+                    },
+                    {
+                      "enum": [
+                        "remove"
+                      ],
+                      "type": "string"
+                    }
+                  ]
+                }
+              },
+              "required": [
+                "expression",
+                "operation"
+              ],
+              "type": "object"
+            },
+            {
+              "properties": {
+                "operation": {
+                  "allOf": [
+                    {
+                      "$ref": "#/$defs/rulesets_SetCacheTagsOperation"
+                    },
+                    {
+                      "enum": [
+                        "set"
+                      ],
+                      "type": "string"
+                    }
+                  ]
+                },
+                "values": {
+                  "$ref": "#/$defs/rulesets_SetCacheTagsValues"
+                }
+              },
+              "required": [
+                "operation",
+                "values"
+              ],
+              "type": "object"
+            },
+            {
+              "properties": {
+                "expression": {
+                  "$ref": "#/$defs/rulesets_SetCacheTagsExpression"
+                },
+                "operation": {
+                  "allOf": [
+                    {
+                      "$ref": "#/$defs/rulesets_SetCacheTagsOperation"
+                    },
+                    {
+                      "enum": [
+                        "set"
+                      ],
+                      "type": "string"
+                    }
+                  ]
+                }
+              },
+              "required": [
+                "expression",
+                "operation"
+              ],
+              "type": "object"
             }
           ]
         },
-        "values": {
-          "$ref": "#/$defs/rulesets_SetCacheTagsValues"
+        "description": {
+          "type": "string"
         }
       },
-      "required": [
-        "operation",
-        "values"
-      ],
-      "type": "object"
-    },
-    {
-      "properties": {
-        "expression": {
-          "$ref": "#/$defs/rulesets_SetCacheTagsExpression"
-        },
-        "operation": {
-          "allOf": [
-            {
-              "$ref": "#/$defs/rulesets_SetCacheTagsOperation"
-            },
-            {
-              "enum": [
-                "remove"
-              ],
-              "type": "string"
-            }
-          ]
-        }
-      },
-      "required": [
-        "expression",
-        "operation"
-      ],
-      "type": "object"
-    },
-    {
-      "properties": {
-        "operation": {
-          "allOf": [
-            {
-              "$ref": "#/$defs/rulesets_SetCacheTagsOperation"
-            },
-            {
-              "enum": [
-                "set"
-              ],
-              "type": "string"
-            }
-          ]
-        },
-        "values": {
-          "$ref": "#/$defs/rulesets_SetCacheTagsValues"
-        }
-      },
-      "required": [
-        "operation",
-        "values"
-      ],
-      "type": "object"
-    },
-    {
-      "properties": {
-        "expression": {
-          "$ref": "#/$defs/rulesets_SetCacheTagsExpression"
-        },
-        "operation": {
-          "allOf": [
-            {
-              "$ref": "#/$defs/rulesets_SetCacheTagsOperation"
-            },
-            {
-              "enum": [
-                "set"
-              ],
-              "type": "string"
-            }
-          ]
-        }
-      },
-      "required": [
-        "expression",
-        "operation"
-      ],
       "type": "object"
     }
   ]
@@ -4015,190 +2691,148 @@ export const rulesets_SetConfigAutominify_output: JsonSchema = {
  * The schema of `rulesets_SetConfigRule` in responses.
  */
 export const rulesets_SetConfigRule_output: JsonSchema = {
-  "properties": {
-    "action": {
-      "enum": [
-        "set_config"
-      ],
-      "type": "string"
+  "allOf": [
+    {
+      "$ref": "#/$defs/rulesets_Rule"
     },
-    "action_parameters": {
-      "$ref": "#/$defs/rulesets_SetConfigRule_action_parameters"
-    },
-    "categories": {
-      "$ref": "#/$defs/rulesets_RuleCategories"
-    },
-    "description": {
-      "type": "string"
-    },
-    "enabled": {
-      "allOf": [
-        {
-          "$ref": "#/$defs/rulesets_RuleEnabled"
+    {
+      "properties": {
+        "action": {
+          "enum": [
+            "set_config"
+          ],
+          "type": "string"
         },
-        {
-          "type": "boolean"
+        "action_parameters": {
+          "properties": {
+            "automatic_https_rewrites": {
+              "type": "boolean"
+            },
+            "autominify": {
+              "$ref": "#/$defs/rulesets_SetConfigAutominify"
+            },
+            "bic": {
+              "type": "boolean"
+            },
+            "content_converter": {
+              "type": "boolean"
+            },
+            "disable_apps": {
+              "enum": [
+                true
+              ],
+              "type": "boolean"
+            },
+            "disable_pay_per_crawl": {
+              "enum": [
+                true
+              ],
+              "type": "boolean"
+            },
+            "disable_rum": {
+              "enum": [
+                true
+              ],
+              "type": "boolean"
+            },
+            "disable_zaraz": {
+              "enum": [
+                true
+              ],
+              "type": "boolean"
+            },
+            "email_obfuscation": {
+              "type": "boolean"
+            },
+            "fonts": {
+              "type": "boolean"
+            },
+            "hotlink_protection": {
+              "type": "boolean"
+            },
+            "mirage": {
+              "type": "boolean"
+            },
+            "opportunistic_encryption": {
+              "type": "boolean"
+            },
+            "polish": {
+              "enum": [
+                "off",
+                "lossless",
+                "lossy",
+                "webp"
+              ],
+              "type": "string"
+            },
+            "redirects_for_ai_training": {
+              "type": "boolean"
+            },
+            "request_body_buffering": {
+              "enum": [
+                "none",
+                "standard",
+                "full"
+              ],
+              "type": "string"
+            },
+            "response_body_buffering": {
+              "enum": [
+                "none",
+                "standard"
+              ],
+              "type": "string"
+            },
+            "rocket_loader": {
+              "type": "boolean"
+            },
+            "security_level": {
+              "enum": [
+                "off",
+                "essentially_off",
+                "low",
+                "medium",
+                "high",
+                "under_attack"
+              ],
+              "type": "string"
+            },
+            "server_side_excludes": {
+              "type": "boolean"
+            },
+            "ssl": {
+              "enum": [
+                "off",
+                "flexible",
+                "full",
+                "strict",
+                "origin_pull"
+              ],
+              "type": "string"
+            },
+            "sxg": {
+              "type": "boolean"
+            },
+            "webmcp_enabled": {
+              "type": "boolean"
+            },
+            "webmcp_packs": {
+              "items": {
+                "type": "string"
+              },
+              "maxItems": 100,
+              "type": "array"
+            }
+          },
+          "type": "object"
+        },
+        "description": {
+          "type": "string"
         }
-      ]
-    },
-    "exposed_credential_check": {
-      "$ref": "#/$defs/rulesets_RuleExposedCredentialCheck"
-    },
-    "expression": {
-      "type": "string"
-    },
-    "id": {
-      "$ref": "#/$defs/rulesets_RuleId"
-    },
-    "last_updated": {
-      "format": "date-time",
-      "type": "string"
-    },
-    "logging": {
-      "$ref": "#/$defs/rulesets_RuleLogging"
-    },
-    "ratelimit": {
-      "$ref": "#/$defs/rulesets_RuleRatelimit"
-    },
-    "ref": {
-      "type": "string"
-    },
-    "version": {
-      "type": "string"
-    }
-  },
-  "required": [
-    "last_updated",
-    "version"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `rulesets_SetConfigRule_action_parameters` in responses.
- */
-export const rulesets_SetConfigRule_action_parameters_output: JsonSchema = {
-  "properties": {
-    "automatic_https_rewrites": {
-      "type": "boolean"
-    },
-    "autominify": {
-      "$ref": "#/$defs/rulesets_SetConfigAutominify"
-    },
-    "bic": {
-      "type": "boolean"
-    },
-    "content_converter": {
-      "type": "boolean"
-    },
-    "disable_apps": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
-    },
-    "disable_pay_per_crawl": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
-    },
-    "disable_rum": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
-    },
-    "disable_zaraz": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
-    },
-    "email_obfuscation": {
-      "type": "boolean"
-    },
-    "fonts": {
-      "type": "boolean"
-    },
-    "hotlink_protection": {
-      "type": "boolean"
-    },
-    "mirage": {
-      "type": "boolean"
-    },
-    "opportunistic_encryption": {
-      "type": "boolean"
-    },
-    "polish": {
-      "enum": [
-        "off",
-        "lossless",
-        "lossy",
-        "webp"
-      ],
-      "type": "string"
-    },
-    "redirects_for_ai_training": {
-      "type": "boolean"
-    },
-    "request_body_buffering": {
-      "enum": [
-        "none",
-        "standard",
-        "full"
-      ],
-      "type": "string"
-    },
-    "response_body_buffering": {
-      "enum": [
-        "none",
-        "standard"
-      ],
-      "type": "string"
-    },
-    "rocket_loader": {
-      "type": "boolean"
-    },
-    "security_level": {
-      "enum": [
-        "off",
-        "essentially_off",
-        "low",
-        "medium",
-        "high",
-        "under_attack"
-      ],
-      "type": "string"
-    },
-    "server_side_excludes": {
-      "type": "boolean"
-    },
-    "ssl": {
-      "enum": [
-        "off",
-        "flexible",
-        "full",
-        "strict",
-        "origin_pull"
-      ],
-      "type": "string"
-    },
-    "sxg": {
-      "type": "boolean"
-    },
-    "webmcp_enabled": {
-      "type": "boolean"
-    },
-    "webmcp_packs": {
-      "items": {
-        "type": "string"
       },
-      "maxItems": 100,
-      "type": "array"
+      "type": "object"
     }
-  },
-  "type": "object"
+  ]
 };
 
 /**
@@ -4253,90 +2887,48 @@ export const rulesets_SkipProducts_output: JsonSchema = {
  * The schema of `rulesets_SkipRule` in responses.
  */
 export const rulesets_SkipRule_output: JsonSchema = {
-  "properties": {
-    "action": {
-      "enum": [
-        "skip"
-      ],
-      "type": "string"
+  "allOf": [
+    {
+      "$ref": "#/$defs/rulesets_Rule"
     },
-    "action_parameters": {
-      "$ref": "#/$defs/rulesets_SkipRule_action_parameters"
-    },
-    "categories": {
-      "$ref": "#/$defs/rulesets_RuleCategories"
-    },
-    "description": {
-      "type": "string"
-    },
-    "enabled": {
-      "allOf": [
-        {
-          "$ref": "#/$defs/rulesets_RuleEnabled"
+    {
+      "properties": {
+        "action": {
+          "enum": [
+            "skip"
+          ],
+          "type": "string"
         },
-        {
-          "type": "boolean"
+        "action_parameters": {
+          "properties": {
+            "phase": {
+              "$ref": "#/$defs/rulesets_SkipPhase"
+            },
+            "phases": {
+              "$ref": "#/$defs/rulesets_SkipPhases"
+            },
+            "products": {
+              "$ref": "#/$defs/rulesets_SkipProducts"
+            },
+            "rules": {
+              "$ref": "#/$defs/rulesets_SkipRules"
+            },
+            "ruleset": {
+              "$ref": "#/$defs/rulesets_SkipRuleset"
+            },
+            "rulesets": {
+              "$ref": "#/$defs/rulesets_SkipRulesets"
+            }
+          },
+          "type": "object"
+        },
+        "description": {
+          "type": "string"
         }
-      ]
-    },
-    "exposed_credential_check": {
-      "$ref": "#/$defs/rulesets_RuleExposedCredentialCheck"
-    },
-    "expression": {
-      "type": "string"
-    },
-    "id": {
-      "$ref": "#/$defs/rulesets_RuleId"
-    },
-    "last_updated": {
-      "format": "date-time",
-      "type": "string"
-    },
-    "logging": {
-      "$ref": "#/$defs/rulesets_RuleLogging"
-    },
-    "ratelimit": {
-      "$ref": "#/$defs/rulesets_RuleRatelimit"
-    },
-    "ref": {
-      "type": "string"
-    },
-    "version": {
-      "type": "string"
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "last_updated",
-    "version"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `rulesets_SkipRule_action_parameters` in responses.
- */
-export const rulesets_SkipRule_action_parameters_output: JsonSchema = {
-  "properties": {
-    "phase": {
-      "$ref": "#/$defs/rulesets_SkipPhase"
-    },
-    "phases": {
-      "$ref": "#/$defs/rulesets_SkipPhases"
-    },
-    "products": {
-      "$ref": "#/$defs/rulesets_SkipProducts"
-    },
-    "rules": {
-      "$ref": "#/$defs/rulesets_SkipRules"
-    },
-    "ruleset": {
-      "$ref": "#/$defs/rulesets_SkipRuleset"
-    },
-    "rulesets": {
-      "$ref": "#/$defs/rulesets_SkipRulesets"
-    }
-  },
-  "type": "object"
+  ]
 };
 
 /**
@@ -4392,77 +2984,34 @@ export const rulesets_SkipRulesets_output: JsonSchema = {
  * The schema of `rulesets_TransformResponseHTMLRule` in responses.
  */
 export const rulesets_TransformResponseHTMLRule_output: JsonSchema = {
-  "properties": {
-    "action": {
-      "enum": [
-        "transform_response_html"
-      ],
-      "type": "string"
+  "allOf": [
+    {
+      "$ref": "#/$defs/rulesets_Rule"
     },
-    "action_parameters": {
-      "$ref": "#/$defs/rulesets_TransformResponseHTMLRule_action_parameters"
-    },
-    "categories": {
-      "$ref": "#/$defs/rulesets_RuleCategories"
-    },
-    "description": {
-      "type": "string"
-    },
-    "enabled": {
-      "allOf": [
-        {
-          "$ref": "#/$defs/rulesets_RuleEnabled"
+    {
+      "properties": {
+        "action": {
+          "enum": [
+            "transform_response_html"
+          ],
+          "type": "string"
         },
-        {
-          "type": "boolean"
+        "action_parameters": {
+          "properties": {
+            "link_maze": {
+              "type": "object"
+            }
+          },
+          "required": [
+            "link_maze"
+          ],
+          "type": "object"
+        },
+        "description": {
+          "type": "string"
         }
-      ]
-    },
-    "exposed_credential_check": {
-      "$ref": "#/$defs/rulesets_RuleExposedCredentialCheck"
-    },
-    "expression": {
-      "type": "string"
-    },
-    "id": {
-      "$ref": "#/$defs/rulesets_RuleId"
-    },
-    "last_updated": {
-      "format": "date-time",
-      "type": "string"
-    },
-    "logging": {
-      "$ref": "#/$defs/rulesets_RuleLogging"
-    },
-    "ratelimit": {
-      "$ref": "#/$defs/rulesets_RuleRatelimit"
-    },
-    "ref": {
-      "type": "string"
-    },
-    "version": {
-      "type": "string"
-    }
-  },
-  "required": [
-    "last_updated",
-    "version"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `rulesets_TransformResponseHTMLRule_action_parameters` in
- * responses.
- */
-export const rulesets_TransformResponseHTMLRule_action_parameters_output: JsonSchema = {
-  "properties": {
-    "link_maze": {
+      },
       "type": "object"
     }
-  },
-  "required": [
-    "link_maze"
-  ],
-  "type": "object"
+  ]
 };

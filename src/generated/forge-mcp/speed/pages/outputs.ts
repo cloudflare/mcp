@@ -4,6 +4,68 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
+ * The schema of `observatory_api-response-collection` in responses.
+ */
+export const observatory_api_response_collection_output: JsonSchema = {
+  "properties": {
+    "errors": {
+      "$ref": "#/$defs/observatory_messages"
+    },
+    "messages": {
+      "$ref": "#/$defs/observatory_messages"
+    },
+    "success": {
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "errors",
+    "messages",
+    "success"
+  ],
+  "type": "object"
+};
+
+/**
+ * The schema of `observatory_pages-response-collection` in responses.
+ */
+export const observatory_pages_response_collection_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/observatory_api-response-collection"
+    },
+    {
+      "properties": {
+        "result": {
+          "items": {
+            "properties": {
+              "region": {
+                "$ref": "#/$defs/observatory_labeled_region"
+              },
+              "scheduleFrequency": {
+                "$ref": "#/$defs/observatory_schedule_frequency"
+              },
+              "tests": {
+                "items": {
+                  "$ref": "#/$defs/observatory_page_test"
+                },
+                "type": "array"
+              },
+              "url": {
+                "$ref": "#/$defs/observatory_url"
+              }
+            },
+            "type": "object"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
  * The schema of `observatory_trend` in responses.
  */
 export const observatory_trend_output: JsonSchema = {
@@ -114,4 +176,23 @@ export const observatory_trend_output: JsonSchema = {
     }
   },
   "type": "object"
+};
+
+/**
+ * The schema of `observatory_trend-response` in responses.
+ */
+export const observatory_trend_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/observatory_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/observatory_trend"
+        }
+      },
+      "type": "object"
+    }
+  ]
 };

@@ -62,6 +62,38 @@ export const csam_config_service_api_response_message_output: JsonSchema = {
 };
 
 /**
+ * The schema of `csam-config-service_api_response_single` in responses.
+ */
+export const csam_config_service_api_response_single_output: JsonSchema = {
+  "properties": {
+    "errors": {
+      "items": {
+        "$ref": "#/$defs/csam-config-service_api_response_message"
+      },
+      "type": "array"
+    },
+    "messages": {
+      "items": {
+        "$ref": "#/$defs/csam-config-service_api_response_message"
+      },
+      "type": "array"
+    },
+    "result": {
+      "type": "object"
+    },
+    "success": {
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "errors",
+    "messages",
+    "success"
+  ],
+  "type": "object"
+};
+
+/**
  * The schema of `csam-config-service_csam_scanner_setting` in responses.
  */
 export const csam_config_service_csam_scanner_setting_output: JsonSchema = {
@@ -91,6 +123,26 @@ export const csam_config_service_csam_scanner_setting_output: JsonSchema = {
     }
   },
   "type": "object"
+};
+
+/**
+ * The schema of `csam-config-service_csam_scanner_single_response` in
+ * responses.
+ */
+export const csam_config_service_csam_scanner_single_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/csam-config-service_api_response_single"
+    },
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/csam-config-service_csam_scanner_setting"
+        }
+      },
+      "type": "object"
+    }
+  ]
 };
 
 /**

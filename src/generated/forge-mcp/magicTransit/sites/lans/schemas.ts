@@ -162,6 +162,12 @@ export const magic_lan_update_request: JsonSchema = {
     "physport": {
       "$ref": "#/$defs/magic_port"
     },
+    "remote_subnets": {
+      "items": {
+        "$ref": "#/$defs/magic_remote_subnet"
+      },
+      "type": "array"
+    },
     "routed_subnets": {
       "items": {
         "$ref": "#/$defs/magic_routed_subnet"
@@ -209,6 +215,12 @@ export const magic_lans_add_single_request: JsonSchema = {
     "physport": {
       "$ref": "#/$defs/magic_port"
     },
+    "remote_subnets": {
+      "items": {
+        "$ref": "#/$defs/magic_remote_subnet"
+      },
+      "type": "array"
+    },
     "routed_subnets": {
       "items": {
         "$ref": "#/$defs/magic_routed_subnet"
@@ -237,6 +249,28 @@ export const magic_nat: JsonSchema = {
       "description": "A valid CIDR notation representing an IP range."
     }
   },
+  "type": "object"
+};
+
+/**
+ * The schema of `magic_remote_subnet`.
+ */
+export const magic_remote_subnet: JsonSchema = {
+  "description": "A remote subnet reachable through Cloudflare that is addressed from this LAN by a local alias prefix of the same size. The local alias prefix must not overlap other subnets on the LAN, and the remote prefix must not overlap other remote prefixes on the LAN.",
+  "properties": {
+    "local_alias_prefix": {
+      "$ref": "#/$defs/magic_cidr",
+      "description": "A valid CIDR notation representing an IP range."
+    },
+    "remote_prefix": {
+      "$ref": "#/$defs/magic_cidr",
+      "description": "A valid CIDR notation representing an IP range."
+    }
+  },
+  "required": [
+    "local_alias_prefix",
+    "remote_prefix"
+  ],
   "type": "object"
 };
 

@@ -79,83 +79,7 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
-        "meta": {
-          "properties": {
-            "dateRange": {
-              "items": {
-                "properties": {
-                  "endTime": {
-                    "format": "date-time",
-                    "type": "string"
-                  },
-                  "startTime": {
-                    "format": "date-time",
-                    "type": "string"
-                  }
-                },
-                "required": [
-                  "endTime",
-                  "startTime"
-                ],
-                "type": "object"
-              },
-              "type": "array"
-            }
-          },
-          "required": [
-            "dateRange"
-          ],
-          "type": "object"
-        },
-        "top_0": {
-          "items": {
-            "properties": {
-              "prefix": {
-                "type": "string"
-              },
-              "value": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "prefix",
-              "value"
-            ],
-            "type": "object"
-          },
-          "type": "array"
-        }
-      },
-      "required": [
-        "meta",
-        "top_0"
-      ],
-      "type": "object",
-    },
-    annotations: {
-      "destructiveHint": false,
-      "idempotentHint": true,
-      "openWorldHint": true,
-      "readOnlyHint": true,
-      "title": "Get top prefixes by BGP updates"
-    },
-    method: "GET",
-    path: "/radar/bgp/top/prefixes",
-    extensions: {
-      "x-api-token-group": [
-        "User Details Write",
-        "User Details Read"
-      ],
-      "x-cfPlanAvailability": {
-        "business": true,
-        "enterprise": true,
-        "free": true,
-        "pro": true
-      }
-    },
-    responses: {
-      schemas: {
-        "200": {
+        "result": {
           "properties": {
             "meta": {
               "properties": {
@@ -207,6 +131,106 @@ export const tools: readonly Tool[] = [
           "required": [
             "meta",
             "top_0"
+          ],
+          "type": "object"
+        },
+        "success": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "result",
+        "success"
+      ],
+      "type": "object",
+    },
+    annotations: {
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": true,
+      "readOnlyHint": true,
+      "title": "Get top prefixes by BGP updates"
+    },
+    method: "GET",
+    path: "/radar/bgp/top/prefixes",
+    extensions: {
+      "x-api-token-group": [
+        "User Details Write",
+        "User Details Read"
+      ],
+      "x-cfPlanAvailability": {
+        "business": true,
+        "enterprise": true,
+        "free": true,
+        "pro": true
+      }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "properties": {
+                "meta": {
+                  "properties": {
+                    "dateRange": {
+                      "items": {
+                        "properties": {
+                          "endTime": {
+                            "format": "date-time",
+                            "type": "string"
+                          },
+                          "startTime": {
+                            "format": "date-time",
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "endTime",
+                          "startTime"
+                        ],
+                        "type": "object"
+                      },
+                      "type": "array"
+                    }
+                  },
+                  "required": [
+                    "dateRange"
+                  ],
+                  "type": "object"
+                },
+                "top_0": {
+                  "items": {
+                    "properties": {
+                      "prefix": {
+                        "type": "string"
+                      },
+                      "value": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "prefix",
+                      "value"
+                    ],
+                    "type": "object"
+                  },
+                  "type": "array"
+                }
+              },
+              "required": [
+                "meta",
+                "top_0"
+              ],
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "result",
+            "success"
           ],
           "type": "object"
         },

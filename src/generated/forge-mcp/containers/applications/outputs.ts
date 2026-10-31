@@ -4,6 +4,74 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
+ * The schema of `cc_Application` in responses.
+ */
+export const cc_Application_output: JsonSchema = {
+  "properties": {
+    "account_id": {
+      "$ref": "#/$defs/cc_AccountID"
+    },
+    "active_rollout_id": {
+      "$ref": "#/$defs/cc_RolloutID"
+    },
+    "configuration": {
+      "$ref": "#/$defs/cc_UserDeploymentConfiguration"
+    },
+    "constraints": {
+      "$ref": "#/$defs/cc_ApplicationConstraints"
+    },
+    "created_at": {
+      "$ref": "#/$defs/cc_ISO8601Timestamp"
+    },
+    "durable_objects": {
+      "$ref": "#/$defs/cc_ApplicationDurableObjectsConfiguration"
+    },
+    "health": {
+      "$ref": "#/$defs/cc_ApplicationHealth"
+    },
+    "id": {
+      "$ref": "#/$defs/cc_ApplicationID"
+    },
+    "instances": {
+      "type": "integer"
+    },
+    "max_instances": {
+      "type": "integer"
+    },
+    "name": {
+      "$ref": "#/$defs/cc_ApplicationName"
+    },
+    "observability": {
+      "$ref": "#/$defs/cc_ApplicationObservability"
+    },
+    "rollout_active_grace_period": {
+      "$ref": "#/$defs/cc_ApplicationRolloutActiveGracePeriod"
+    },
+    "scheduling_policy": {
+      "$ref": "#/$defs/cc_SchedulingPolicy"
+    },
+    "updated_at": {
+      "$ref": "#/$defs/cc_ISO8601Timestamp"
+    },
+    "version": {
+      "type": "integer"
+    }
+  },
+  "required": [
+    "account_id",
+    "configuration",
+    "created_at",
+    "id",
+    "instances",
+    "name",
+    "scheduling_policy",
+    "updated_at",
+    "version"
+  ],
+  "type": "object"
+};
+
+/**
  * The schema of `cc_ApplicationConstraints` in responses.
  */
 export const cc_ApplicationConstraints_output: JsonSchema = {
@@ -300,7 +368,19 @@ export const cc_DurableObjectApplicationConstraints_output: JsonSchema = {
 export const cc_DurableObjectApplicationHealth_output: JsonSchema = {
   "properties": {
     "instances": {
-      "$ref": "#/$defs/cc_DurableObjectApplicationHealth_instances"
+      "properties": {
+        "active": {
+          "type": "integer"
+        },
+        "starting": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "active",
+        "starting"
+      ],
+      "type": "object"
     },
     "summary": {
       "enum": [
@@ -316,43 +396,17 @@ export const cc_DurableObjectApplicationHealth_output: JsonSchema = {
 };
 
 /**
- * The schema of `cc_DurableObjectApplicationHealth_instances` in responses.
- */
-export const cc_DurableObjectApplicationHealth_instances_output: JsonSchema = {
-  "properties": {
-    "active": {
-      "type": "integer"
-    },
-    "starting": {
-      "type": "integer"
-    }
-  },
-  "required": [
-    "active",
-    "starting"
-  ],
-  "type": "object"
-};
-
-/**
  * The schema of `cc_DurableObjectApplicationObservability` in responses.
  */
 export const cc_DurableObjectApplicationObservability_output: JsonSchema = {
   "properties": {
     "logs": {
-      "$ref": "#/$defs/cc_DurableObjectApplicationObservability_logs"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `cc_DurableObjectApplicationObservability_logs` in responses.
- */
-export const cc_DurableObjectApplicationObservability_logs_output: JsonSchema = {
-  "properties": {
-    "enabled": {
-      "type": "boolean"
+      "properties": {
+        "enabled": {
+          "type": "boolean"
+        }
+      },
+      "type": "object"
     }
   },
   "type": "object"
@@ -607,68 +661,22 @@ export const cc_SSHPublicKey_output: JsonSchema = {
  * The schema of `cc_ScheduledApplication` in responses.
  */
 export const cc_ScheduledApplication_output: JsonSchema = {
-  "properties": {
-    "account_id": {
-      "$ref": "#/$defs/cc_AccountID"
+  "allOf": [
+    {
+      "$ref": "#/$defs/cc_Application"
     },
-    "active_rollout_id": {
-      "$ref": "#/$defs/cc_RolloutID"
-    },
-    "configuration": {
-      "$ref": "#/$defs/cc_UserDeploymentConfiguration"
-    },
-    "constraints": {
-      "$ref": "#/$defs/cc_ApplicationConstraints"
-    },
-    "created_at": {
-      "$ref": "#/$defs/cc_ISO8601Timestamp"
-    },
-    "durable_objects": {
-      "$ref": "#/$defs/cc_ApplicationDurableObjectsConfiguration"
-    },
-    "health": {
-      "$ref": "#/$defs/cc_ApplicationHealth"
-    },
-    "id": {
-      "$ref": "#/$defs/cc_ApplicationID"
-    },
-    "instances": {
-      "type": "integer"
-    },
-    "max_instances": {
-      "type": "integer"
-    },
-    "name": {
-      "$ref": "#/$defs/cc_ApplicationName"
-    },
-    "observability": {
-      "$ref": "#/$defs/cc_ApplicationObservability"
-    },
-    "rollout_active_grace_period": {
-      "$ref": "#/$defs/cc_ApplicationRolloutActiveGracePeriod"
-    },
-    "scheduling_policy": {
-      "$ref": "#/$defs/cc_ScheduledApplicationSchedulingPolicy"
-    },
-    "updated_at": {
-      "$ref": "#/$defs/cc_ISO8601Timestamp"
-    },
-    "version": {
-      "type": "integer"
+    {
+      "properties": {
+        "scheduling_policy": {
+          "$ref": "#/$defs/cc_ScheduledApplicationSchedulingPolicy"
+        }
+      },
+      "required": [
+        "scheduling_policy"
+      ],
+      "type": "object"
     }
-  },
-  "required": [
-    "account_id",
-    "configuration",
-    "created_at",
-    "id",
-    "instances",
-    "name",
-    "scheduling_policy",
-    "updated_at",
-    "version"
-  ],
-  "type": "object"
+  ]
 };
 
 /**
@@ -677,6 +685,17 @@ export const cc_ScheduledApplication_output: JsonSchema = {
 export const cc_ScheduledApplicationSchedulingPolicy_output: JsonSchema = {
   "enum": [
     "default"
+  ],
+  "type": "string"
+};
+
+/**
+ * The schema of `cc_SchedulingPolicy` in responses.
+ */
+export const cc_SchedulingPolicy_output: JsonSchema = {
+  "enum": [
+    "default",
+    "durable_object"
   ],
   "type": "string"
 };

@@ -30,6 +30,30 @@ export const load_balancing_components_schemas_enabled_output: JsonSchema = {
 };
 
 /**
+ * The schema of `load-balancing_components-schemas-id_response` in responses.
+ */
+export const load_balancing_components_schemas_id_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/load-balancing_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "properties": {
+            "id": {
+              "$ref": "#/$defs/load-balancing_load-balancer_components-schemas-identifier"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
  * The schema of `load-balancing_components-schemas-name` in responses.
  */
 export const load_balancing_components_schemas_name_output: JsonSchema = {
@@ -181,6 +205,51 @@ export const load_balancing_load_balancer_output: JsonSchema = {
  */
 export const load_balancing_load_balancer_components_schemas_identifier_output: JsonSchema = {
   "type": "string"
+};
+
+/**
+ * The schema of
+ * `load-balancing_load-balancer_components-schemas-response_collection` in
+ * responses.
+ */
+export const load_balancing_load_balancer_components_schemas_response_collection_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/load-balancing_api-paginated-response-collection"
+    },
+    {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/load-balancing_load-balancer"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of
+ * `load-balancing_load-balancer_components-schemas-single_response` in
+ * responses.
+ */
+export const load_balancing_load_balancer_components_schemas_single_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/load-balancing_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/load-balancing_load-balancer"
+        }
+      },
+      "type": "object"
+    }
+  ]
 };
 
 /**

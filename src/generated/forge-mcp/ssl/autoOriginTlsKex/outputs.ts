@@ -31,6 +31,33 @@ export const cache_auto_origin_tls_kex_failure_response_output: JsonSchema = {
 };
 
 /**
+ * The schema of `cache_auto_origin_tls_kex_response` in responses.
+ */
+export const cache_auto_origin_tls_kex_response_output: JsonSchema = {
+  "properties": {
+    "errors": {
+      "$ref": "#/$defs/cache_messages"
+    },
+    "messages": {
+      "$ref": "#/$defs/cache_messages"
+    },
+    "result": {
+      "$ref": "#/$defs/cache_auto_origin_tls_kex_result"
+    },
+    "success": {
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "errors",
+    "messages",
+    "result",
+    "success"
+  ],
+  "type": "object"
+};
+
+/**
  * The schema of `cache_auto_origin_tls_kex_result` in responses.
  */
 export const cache_auto_origin_tls_kex_result_output: JsonSchema = {

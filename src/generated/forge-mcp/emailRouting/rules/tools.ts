@@ -2,14 +2,22 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../_/tool.js";
-import { email_identifier_output } from "../../outputs.js";
+import {
+  email_api_response_collection_output,
+  email_api_response_common_output,
+  email_api_response_single_output,
+  email_identifier_output,
+  email_messages_output,
+} from "../../outputs.js";
+import { email_identifier } from "../../schemas.js";
 import {
   email_account_rule_output,
-  email_account_rule_zone_output,
   email_account_rules_plan_change_output,
   email_account_rules_plan_output,
   email_account_rules_plan_remote_rule_output,
+  email_account_rules_plan_response_single_output,
   email_account_rules_plan_zone_output,
+  email_account_rules_response_collection_output,
   email_rule_action_output,
   email_rule_actions_output,
   email_rule_enabled_output,
@@ -19,8 +27,10 @@ import {
   email_rule_name_output,
   email_rule_priority_output,
   email_rule_properties_output,
+  email_rule_response_single_output,
   email_rule_source_output,
   email_rule_tag_output,
+  email_rules_output,
 } from "./outputs.js";
 import {
   email_account_rules_plan_catch_all_entry,
@@ -35,6 +45,7 @@ import {
   email_rule_catchall_matcher,
   email_rule_catchall_matchers,
   email_rule_enabled,
+  email_rule_identifier,
   email_rule_matcher,
   email_rule_matchers,
   email_rule_name,
@@ -59,8 +70,8 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/email_create_rule_properties"
         },
         "zone_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/email_identifier",
+          "description": "Identifier."
         }
       },
       required: [
@@ -69,6 +80,7 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "email_create_rule_properties": email_create_rule_properties,
+        "email_identifier": email_identifier,
         "email_rule_action": email_rule_action,
         "email_rule_actions": email_rule_actions,
         "email_rule_enabled": email_rule_enabled,
@@ -81,8 +93,10 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/email_rule_properties",
+      "$ref": "#/$defs/email_rule_response_single",
       $defs: {
+        "email_api-response-single": email_api_response_single_output,
+        "email_messages": email_messages_output,
         "email_rule_action": email_rule_action_output,
         "email_rule_actions": email_rule_actions_output,
         "email_rule_enabled": email_rule_enabled_output,
@@ -91,9 +105,10 @@ export const tools: readonly Tool[] = [
         "email_rule_matchers": email_rule_matchers_output,
         "email_rule_name": email_rule_name_output,
         "email_rule_priority": email_rule_priority_output,
-        "email_rule_properties": email_rule_properties_output,
+        "email_rule_response_single": email_rule_response_single_output,
         "email_rule_source": email_rule_source_output,
         "email_rule_tag": email_rule_tag_output,
+        "email_rules": email_rules_output,
       },
     },
     annotations: {
@@ -112,12 +127,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "com.cloudflare.api.account.zone.email.routing.rule.create"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.api.account.zone.email.routing.rule.create": {
-            "name": "com_cloudflare_api_account_zone_email_routing_rule_create"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": true,
@@ -129,12 +139,14 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/email_rule_properties"
+          "$ref": "#/$defs/email_rule_response_single"
         },
         "400": null,
         "422": null
       },
       $defs: {
+        "email_api-response-single": email_api_response_single_output,
+        "email_messages": email_messages_output,
         "email_rule_action": email_rule_action_output,
         "email_rule_actions": email_rule_actions_output,
         "email_rule_enabled": email_rule_enabled_output,
@@ -143,9 +155,10 @@ export const tools: readonly Tool[] = [
         "email_rule_matchers": email_rule_matchers_output,
         "email_rule_name": email_rule_name_output,
         "email_rule_priority": email_rule_priority_output,
-        "email_rule_properties": email_rule_properties_output,
+        "email_rule_response_single": email_rule_response_single_output,
         "email_rule_source": email_rule_source_output,
         "email_rule_tag": email_rule_tag_output,
+        "email_rules": email_rules_output,
       },
     },
     request: (args) => ({
@@ -161,22 +174,28 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "rule_identifier": {
-          "description": "Routing rule identifier.",
-          "type": "string"
+          "$ref": "#/$defs/email_rule_identifier",
+          "description": "Routing rule identifier."
         },
         "zone_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/email_identifier",
+          "description": "Identifier."
         }
       },
       required: [
         "zone_id",
         "rule_identifier"
       ],
+      $defs: {
+        "email_identifier": email_identifier,
+        "email_rule_identifier": email_rule_identifier,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/email_rule_properties",
+      "$ref": "#/$defs/email_rule_response_single",
       $defs: {
+        "email_api-response-single": email_api_response_single_output,
+        "email_messages": email_messages_output,
         "email_rule_action": email_rule_action_output,
         "email_rule_actions": email_rule_actions_output,
         "email_rule_enabled": email_rule_enabled_output,
@@ -185,9 +204,10 @@ export const tools: readonly Tool[] = [
         "email_rule_matchers": email_rule_matchers_output,
         "email_rule_name": email_rule_name_output,
         "email_rule_priority": email_rule_priority_output,
-        "email_rule_properties": email_rule_properties_output,
+        "email_rule_response_single": email_rule_response_single_output,
         "email_rule_source": email_rule_source_output,
         "email_rule_tag": email_rule_tag_output,
+        "email_rules": email_rules_output,
       },
     },
     annotations: {
@@ -206,12 +226,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "com.cloudflare.api.account.zone.email.routing.rule.delete"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.api.account.zone.email.routing.rule.delete": {
-            "name": "com_cloudflare_api_account_zone_email_routing_rule_delete"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": true,
@@ -223,11 +238,13 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/email_rule_properties"
+          "$ref": "#/$defs/email_rule_response_single"
         },
         "404": null
       },
       $defs: {
+        "email_api-response-single": email_api_response_single_output,
+        "email_messages": email_messages_output,
         "email_rule_action": email_rule_action_output,
         "email_rule_actions": email_rule_actions_output,
         "email_rule_enabled": email_rule_enabled_output,
@@ -236,9 +253,10 @@ export const tools: readonly Tool[] = [
         "email_rule_matchers": email_rule_matchers_output,
         "email_rule_name": email_rule_name_output,
         "email_rule_priority": email_rule_priority_output,
-        "email_rule_properties": email_rule_properties_output,
+        "email_rule_response_single": email_rule_response_single_output,
         "email_rule_source": email_rule_source_output,
         "email_rule_tag": email_rule_tag_output,
+        "email_rules": email_rules_output,
       },
     },
     request: (args) => ({
@@ -253,22 +271,28 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "rule_identifier": {
-          "description": "Routing rule identifier.",
-          "type": "string"
+          "$ref": "#/$defs/email_rule_identifier",
+          "description": "Routing rule identifier."
         },
         "zone_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/email_identifier",
+          "description": "Identifier."
         }
       },
       required: [
         "zone_id",
         "rule_identifier"
       ],
+      $defs: {
+        "email_identifier": email_identifier,
+        "email_rule_identifier": email_rule_identifier,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/email_rule_properties",
+      "$ref": "#/$defs/email_rule_response_single",
       $defs: {
+        "email_api-response-single": email_api_response_single_output,
+        "email_messages": email_messages_output,
         "email_rule_action": email_rule_action_output,
         "email_rule_actions": email_rule_actions_output,
         "email_rule_enabled": email_rule_enabled_output,
@@ -277,9 +301,10 @@ export const tools: readonly Tool[] = [
         "email_rule_matchers": email_rule_matchers_output,
         "email_rule_name": email_rule_name_output,
         "email_rule_priority": email_rule_priority_output,
-        "email_rule_properties": email_rule_properties_output,
+        "email_rule_response_single": email_rule_response_single_output,
         "email_rule_source": email_rule_source_output,
         "email_rule_tag": email_rule_tag_output,
+        "email_rules": email_rules_output,
       },
     },
     annotations: {
@@ -299,12 +324,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "com.cloudflare.api.account.zone.email.routing.rule.read"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.api.account.zone.email.routing.rule.read": {
-            "name": "com_cloudflare_api_account_zone_email_routing_rule_read"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": true,
@@ -316,11 +336,13 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/email_rule_properties"
+          "$ref": "#/$defs/email_rule_response_single"
         },
         "404": null
       },
       $defs: {
+        "email_api-response-single": email_api_response_single_output,
+        "email_messages": email_messages_output,
         "email_rule_action": email_rule_action_output,
         "email_rule_actions": email_rule_actions_output,
         "email_rule_enabled": email_rule_enabled_output,
@@ -329,9 +351,10 @@ export const tools: readonly Tool[] = [
         "email_rule_matchers": email_rule_matchers_output,
         "email_rule_name": email_rule_name_output,
         "email_rule_priority": email_rule_priority_output,
-        "email_rule_properties": email_rule_properties_output,
+        "email_rule_response_single": email_rule_response_single_output,
         "email_rule_source": email_rule_source_output,
         "email_rule_tag": email_rule_tag_output,
+        "email_rules": email_rules_output,
       },
     },
     request: (args) => ({
@@ -354,8 +377,8 @@ export const tools: readonly Tool[] = [
           "type": "string"
         },
         "account_or_zone_id": {
-          "description": "The account ID or zone ID, as selected by account_or_zone.",
-          "type": "string"
+          "$ref": "#/$defs/email_identifier",
+          "description": "The account ID or zone ID, as selected by account_or_zone."
         },
         "enabled": {
           "description": "Filter by enabled routing rules.",
@@ -380,40 +403,18 @@ export const tools: readonly Tool[] = [
         "account_or_zone",
         "account_or_zone_id"
       ],
+      $defs: {
+        "email_identifier": email_identifier,
+      },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "$ref": "#/$defs/email_account_rule"
-          },
-          "type": "array"
-        },
-        "result_info": {
-          "properties": {
-            "count": {
-              "type": "number"
-            },
-            "page": {
-              "type": "number"
-            },
-            "per_page": {
-              "type": "number"
-            },
-            "total_count": {
-              "type": "number"
-            }
-          },
-          "type": "object"
-        }
-      },
-      "required": [
-        "result"
-      ],
-      "type": "object",
+      "$ref": "#/$defs/email_account_rules_response_collection",
       $defs: {
         "email_account_rule": email_account_rule_output,
-        "email_account_rule_zone": email_account_rule_zone_output,
+        "email_account_rules_response_collection": email_account_rules_response_collection_output,
+        "email_api-response-collection": email_api_response_collection_output,
+        "email_api-response-common": email_api_response_common_output,
+        "email_messages": email_messages_output,
         "email_rule_action": email_rule_action_output,
         "email_rule_actions": email_rule_actions_output,
         "email_rule_enabled": email_rule_enabled_output,
@@ -422,6 +423,7 @@ export const tools: readonly Tool[] = [
         "email_rule_matchers": email_rule_matchers_output,
         "email_rule_name": email_rule_name_output,
         "email_rule_priority": email_rule_priority_output,
+        "email_rule_properties": email_rule_properties_output,
         "email_rule_source": email_rule_source_output,
         "email_rule_tag": email_rule_tag_output,
       },
@@ -447,41 +449,16 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "items": {
-                "$ref": "#/$defs/email_account_rule"
-              },
-              "type": "array"
-            },
-            "result_info": {
-              "properties": {
-                "count": {
-                  "type": "number"
-                },
-                "page": {
-                  "type": "number"
-                },
-                "per_page": {
-                  "type": "number"
-                },
-                "total_count": {
-                  "type": "number"
-                }
-              },
-              "type": "object"
-            }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/email_account_rules_response_collection"
         },
         "403": null
       },
       $defs: {
         "email_account_rule": email_account_rule_output,
-        "email_account_rule_zone": email_account_rule_zone_output,
+        "email_account_rules_response_collection": email_account_rules_response_collection_output,
+        "email_api-response-collection": email_api_response_collection_output,
+        "email_api-response-common": email_api_response_common_output,
+        "email_messages": email_messages_output,
         "email_rule_action": email_rule_action_output,
         "email_rule_actions": email_rule_actions_output,
         "email_rule_enabled": email_rule_enabled_output,
@@ -490,6 +467,7 @@ export const tools: readonly Tool[] = [
         "email_rule_matchers": email_rule_matchers_output,
         "email_rule_name": email_rule_name_output,
         "email_rule_priority": email_rule_priority_output,
+        "email_rule_properties": email_rule_properties_output,
         "email_rule_source": email_rule_source_output,
         "email_rule_tag": email_rule_tag_output,
       },
@@ -511,8 +489,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/email_identifier",
+          "description": "Identifier."
         },
         "body": {
           "$ref": "#/$defs/email_account_rules_plan_request"
@@ -527,6 +505,7 @@ export const tools: readonly Tool[] = [
         "email_account_rules_plan_catch_all_rule": email_account_rules_plan_catch_all_rule,
         "email_account_rules_plan_request": email_account_rules_plan_request,
         "email_account_rules_plan_rule": email_account_rules_plan_rule,
+        "email_identifier": email_identifier,
         "email_rule_action": email_rule_action,
         "email_rule_actions": email_rule_actions,
         "email_rule_catchall-action": email_rule_catchall_action,
@@ -540,13 +519,16 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/email_account_rules_plan",
+      "$ref": "#/$defs/email_account_rules_plan_response_single",
       $defs: {
         "email_account_rules_plan": email_account_rules_plan_output,
         "email_account_rules_plan_change": email_account_rules_plan_change_output,
         "email_account_rules_plan_remote_rule": email_account_rules_plan_remote_rule_output,
+        "email_account_rules_plan_response_single": email_account_rules_plan_response_single_output,
         "email_account_rules_plan_zone": email_account_rules_plan_zone_output,
+        "email_api-response-single": email_api_response_single_output,
         "email_identifier": email_identifier_output,
+        "email_messages": email_messages_output,
         "email_rule_action": email_rule_action_output,
         "email_rule_actions": email_rule_actions_output,
         "email_rule_enabled": email_rule_enabled_output,
@@ -577,7 +559,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/email_account_rules_plan"
+          "$ref": "#/$defs/email_account_rules_plan_response_single"
         },
         "400": null,
         "403": null,
@@ -587,8 +569,11 @@ export const tools: readonly Tool[] = [
         "email_account_rules_plan": email_account_rules_plan_output,
         "email_account_rules_plan_change": email_account_rules_plan_change_output,
         "email_account_rules_plan_remote_rule": email_account_rules_plan_remote_rule_output,
+        "email_account_rules_plan_response_single": email_account_rules_plan_response_single_output,
         "email_account_rules_plan_zone": email_account_rules_plan_zone_output,
+        "email_api-response-single": email_api_response_single_output,
         "email_identifier": email_identifier_output,
+        "email_messages": email_messages_output,
         "email_rule_action": email_rule_action_output,
         "email_rule_actions": email_rule_actions_output,
         "email_rule_enabled": email_rule_enabled_output,
@@ -614,12 +599,12 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/email_update_rule_properties"
         },
         "rule_identifier": {
-          "description": "Routing rule identifier.",
-          "type": "string"
+          "$ref": "#/$defs/email_rule_identifier",
+          "description": "Routing rule identifier."
         },
         "zone_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/email_identifier",
+          "description": "Identifier."
         }
       },
       required: [
@@ -628,9 +613,11 @@ export const tools: readonly Tool[] = [
         "body"
       ],
       $defs: {
+        "email_identifier": email_identifier,
         "email_rule_action": email_rule_action,
         "email_rule_actions": email_rule_actions,
         "email_rule_enabled": email_rule_enabled,
+        "email_rule_identifier": email_rule_identifier,
         "email_rule_matcher": email_rule_matcher,
         "email_rule_matchers": email_rule_matchers,
         "email_rule_name": email_rule_name,
@@ -641,8 +628,10 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/email_rule_properties",
+      "$ref": "#/$defs/email_rule_response_single",
       $defs: {
+        "email_api-response-single": email_api_response_single_output,
+        "email_messages": email_messages_output,
         "email_rule_action": email_rule_action_output,
         "email_rule_actions": email_rule_actions_output,
         "email_rule_enabled": email_rule_enabled_output,
@@ -651,9 +640,10 @@ export const tools: readonly Tool[] = [
         "email_rule_matchers": email_rule_matchers_output,
         "email_rule_name": email_rule_name_output,
         "email_rule_priority": email_rule_priority_output,
-        "email_rule_properties": email_rule_properties_output,
+        "email_rule_response_single": email_rule_response_single_output,
         "email_rule_source": email_rule_source_output,
         "email_rule_tag": email_rule_tag_output,
+        "email_rules": email_rules_output,
       },
     },
     annotations: {
@@ -672,12 +662,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "com.cloudflare.api.account.zone.email.routing.rule.update"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.api.account.zone.email.routing.rule.update": {
-            "name": "com_cloudflare_api_account_zone_email_routing_rule_update"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": true,
@@ -689,12 +674,14 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/email_rule_properties"
+          "$ref": "#/$defs/email_rule_response_single"
         },
         "400": null,
         "422": null
       },
       $defs: {
+        "email_api-response-single": email_api_response_single_output,
+        "email_messages": email_messages_output,
         "email_rule_action": email_rule_action_output,
         "email_rule_actions": email_rule_actions_output,
         "email_rule_enabled": email_rule_enabled_output,
@@ -703,9 +690,10 @@ export const tools: readonly Tool[] = [
         "email_rule_matchers": email_rule_matchers_output,
         "email_rule_name": email_rule_name_output,
         "email_rule_priority": email_rule_priority_output,
-        "email_rule_properties": email_rule_properties_output,
+        "email_rule_response_single": email_rule_response_single_output,
         "email_rule_source": email_rule_source_output,
         "email_rule_tag": email_rule_tag_output,
+        "email_rules": email_rules_output,
       },
     },
     request: (args) => ({

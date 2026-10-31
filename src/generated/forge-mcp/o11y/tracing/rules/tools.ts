@@ -25,66 +25,38 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
-        "rules": {
+        "errors": {
           "items": {
             "properties": {
-              "action": {
-                "enum": [
-                  "set_trace_settings"
-                ],
-                "type": "string"
-              },
-              "action_parameters": {
-                "properties": {
-                  "sampling_ratio": {
-                    "type": "number"
-                  }
-                },
-                "required": [
-                  "sampling_ratio"
-                ],
-                "type": "object"
-              },
-              "description": {
-                "type": "string"
-              },
-              "enabled": {
-                "type": "boolean"
-              },
-              "expression": {
+              "message": {
                 "type": "string"
               }
             },
             "required": [
-              "action",
-              "action_parameters",
-              "description",
-              "enabled",
-              "expression"
+              "message"
             ],
             "type": "object"
           },
-          "maxItems": 1000,
           "type": "array"
-        }
-      },
-      "required": [
-        "rules"
-      ],
-      "type": "object",
-    },
-    annotations: {
-      "destructiveHint": true,
-      "idempotentHint": true,
-      "openWorldHint": true,
-      "readOnlyHint": false,
-      "title": "Delete zone trace rules"
-    },
-    method: "DELETE",
-    path: "/zones/{zone_id}/observability/tracing/rules",
-    responses: {
-      schemas: {
-        "200": {
+        },
+        "messages": {
+          "items": {
+            "properties": {
+              "message": {
+                "enum": [
+                  "Successful request"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "message"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "result": {
           "properties": {
             "rules": {
               "items": {
@@ -131,6 +103,130 @@ export const tools: readonly Tool[] = [
           },
           "required": [
             "rules"
+          ],
+          "type": "object"
+        },
+        "success": {
+          "enum": [
+            true
+          ],
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "errors",
+        "messages",
+        "result",
+        "success"
+      ],
+      "type": "object",
+    },
+    annotations: {
+      "destructiveHint": true,
+      "idempotentHint": true,
+      "openWorldHint": true,
+      "readOnlyHint": false,
+      "title": "Delete zone trace rules"
+    },
+    method: "DELETE",
+    path: "/zones/{zone_id}/observability/tracing/rules",
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "messages": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "enum": [
+                      "Successful request"
+                    ],
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result": {
+              "properties": {
+                "rules": {
+                  "items": {
+                    "properties": {
+                      "action": {
+                        "enum": [
+                          "set_trace_settings"
+                        ],
+                        "type": "string"
+                      },
+                      "action_parameters": {
+                        "properties": {
+                          "sampling_ratio": {
+                            "type": "number"
+                          }
+                        },
+                        "required": [
+                          "sampling_ratio"
+                        ],
+                        "type": "object"
+                      },
+                      "description": {
+                        "type": "string"
+                      },
+                      "enabled": {
+                        "type": "boolean"
+                      },
+                      "expression": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "action",
+                      "action_parameters",
+                      "description",
+                      "enabled",
+                      "expression"
+                    ],
+                    "type": "object"
+                  },
+                  "maxItems": 1000,
+                  "type": "array"
+                }
+              },
+              "required": [
+                "rules"
+              ],
+              "type": "object"
+            },
+            "success": {
+              "enum": [
+                true
+              ],
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "messages",
+            "result",
+            "success"
           ],
           "type": "object"
         },
@@ -358,66 +454,38 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
-        "rules": {
+        "errors": {
           "items": {
             "properties": {
-              "action": {
-                "enum": [
-                  "set_trace_settings"
-                ],
-                "type": "string"
-              },
-              "action_parameters": {
-                "properties": {
-                  "sampling_ratio": {
-                    "type": "number"
-                  }
-                },
-                "required": [
-                  "sampling_ratio"
-                ],
-                "type": "object"
-              },
-              "description": {
-                "type": "string"
-              },
-              "enabled": {
-                "type": "boolean"
-              },
-              "expression": {
+              "message": {
                 "type": "string"
               }
             },
             "required": [
-              "action",
-              "action_parameters",
-              "description",
-              "enabled",
-              "expression"
+              "message"
             ],
             "type": "object"
           },
-          "maxItems": 1000,
           "type": "array"
-        }
-      },
-      "required": [
-        "rules"
-      ],
-      "type": "object",
-    },
-    annotations: {
-      "destructiveHint": false,
-      "idempotentHint": true,
-      "openWorldHint": true,
-      "readOnlyHint": true,
-      "title": "View zone trace rules"
-    },
-    method: "GET",
-    path: "/zones/{zone_id}/observability/tracing/rules",
-    responses: {
-      schemas: {
-        "200": {
+        },
+        "messages": {
+          "items": {
+            "properties": {
+              "message": {
+                "enum": [
+                  "Successful request"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "message"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "result": {
           "properties": {
             "rules": {
               "items": {
@@ -464,6 +532,130 @@ export const tools: readonly Tool[] = [
           },
           "required": [
             "rules"
+          ],
+          "type": "object"
+        },
+        "success": {
+          "enum": [
+            true
+          ],
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "errors",
+        "messages",
+        "result",
+        "success"
+      ],
+      "type": "object",
+    },
+    annotations: {
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": true,
+      "readOnlyHint": true,
+      "title": "View zone trace rules"
+    },
+    method: "GET",
+    path: "/zones/{zone_id}/observability/tracing/rules",
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "messages": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "enum": [
+                      "Successful request"
+                    ],
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result": {
+              "properties": {
+                "rules": {
+                  "items": {
+                    "properties": {
+                      "action": {
+                        "enum": [
+                          "set_trace_settings"
+                        ],
+                        "type": "string"
+                      },
+                      "action_parameters": {
+                        "properties": {
+                          "sampling_ratio": {
+                            "type": "number"
+                          }
+                        },
+                        "required": [
+                          "sampling_ratio"
+                        ],
+                        "type": "object"
+                      },
+                      "description": {
+                        "type": "string"
+                      },
+                      "enabled": {
+                        "type": "boolean"
+                      },
+                      "expression": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "action",
+                      "action_parameters",
+                      "description",
+                      "enabled",
+                      "expression"
+                    ],
+                    "type": "object"
+                  },
+                  "maxItems": 1000,
+                  "type": "array"
+                }
+              },
+              "required": [
+                "rules"
+              ],
+              "type": "object"
+            },
+            "success": {
+              "enum": [
+                true
+              ],
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "messages",
+            "result",
+            "success"
           ],
           "type": "object"
         },
@@ -746,66 +938,38 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
-        "rules": {
+        "errors": {
           "items": {
             "properties": {
-              "action": {
-                "enum": [
-                  "set_trace_settings"
-                ],
-                "type": "string"
-              },
-              "action_parameters": {
-                "properties": {
-                  "sampling_ratio": {
-                    "type": "number"
-                  }
-                },
-                "required": [
-                  "sampling_ratio"
-                ],
-                "type": "object"
-              },
-              "description": {
-                "type": "string"
-              },
-              "enabled": {
-                "type": "boolean"
-              },
-              "expression": {
+              "message": {
                 "type": "string"
               }
             },
             "required": [
-              "action",
-              "action_parameters",
-              "description",
-              "enabled",
-              "expression"
+              "message"
             ],
             "type": "object"
           },
-          "maxItems": 1000,
           "type": "array"
-        }
-      },
-      "required": [
-        "rules"
-      ],
-      "type": "object",
-    },
-    annotations: {
-      "destructiveHint": true,
-      "idempotentHint": true,
-      "openWorldHint": true,
-      "readOnlyHint": false,
-      "title": "Replace zone trace rules"
-    },
-    method: "PUT",
-    path: "/zones/{zone_id}/observability/tracing/rules",
-    responses: {
-      schemas: {
-        "200": {
+        },
+        "messages": {
+          "items": {
+            "properties": {
+              "message": {
+                "enum": [
+                  "Successful request"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "message"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "result": {
           "properties": {
             "rules": {
               "items": {
@@ -852,6 +1016,130 @@ export const tools: readonly Tool[] = [
           },
           "required": [
             "rules"
+          ],
+          "type": "object"
+        },
+        "success": {
+          "enum": [
+            true
+          ],
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "errors",
+        "messages",
+        "result",
+        "success"
+      ],
+      "type": "object",
+    },
+    annotations: {
+      "destructiveHint": true,
+      "idempotentHint": true,
+      "openWorldHint": true,
+      "readOnlyHint": false,
+      "title": "Replace zone trace rules"
+    },
+    method: "PUT",
+    path: "/zones/{zone_id}/observability/tracing/rules",
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "messages": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "enum": [
+                      "Successful request"
+                    ],
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result": {
+              "properties": {
+                "rules": {
+                  "items": {
+                    "properties": {
+                      "action": {
+                        "enum": [
+                          "set_trace_settings"
+                        ],
+                        "type": "string"
+                      },
+                      "action_parameters": {
+                        "properties": {
+                          "sampling_ratio": {
+                            "type": "number"
+                          }
+                        },
+                        "required": [
+                          "sampling_ratio"
+                        ],
+                        "type": "object"
+                      },
+                      "description": {
+                        "type": "string"
+                      },
+                      "enabled": {
+                        "type": "boolean"
+                      },
+                      "expression": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "action",
+                      "action_parameters",
+                      "description",
+                      "enabled",
+                      "expression"
+                    ],
+                    "type": "object"
+                  },
+                  "maxItems": 1000,
+                  "type": "array"
+                }
+              },
+              "required": [
+                "rules"
+              ],
+              "type": "object"
+            },
+            "success": {
+              "enum": [
+                true
+              ],
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "messages",
+            "result",
+            "success"
           ],
           "type": "object"
         },

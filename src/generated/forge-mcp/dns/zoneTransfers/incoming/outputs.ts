@@ -14,60 +14,43 @@ export const secondary_dns_auto_refresh_seconds_output: JsonSchema = {
  * The schema of `secondary-dns_single_response_incoming` in responses.
  */
 export const secondary_dns_single_response_incoming_output: JsonSchema = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/secondary-dns_messages"
+  "allOf": [
+    {
+      "$ref": "#/$defs/secondary-dns_api-response-single"
     },
-    "messages": {
-      "$ref": "#/$defs/secondary-dns_messages"
-    },
-    "result": {
-      "$ref": "#/$defs/secondary-dns_single_response_incoming_result"
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
+    {
+      "properties": {
+        "result": {
+          "properties": {
+            "auto_refresh_seconds": {
+              "$ref": "#/$defs/secondary-dns_auto_refresh_seconds"
+            },
+            "checked_time": {
+              "$ref": "#/$defs/secondary-dns_time"
+            },
+            "created_time": {
+              "$ref": "#/$defs/secondary-dns_time"
+            },
+            "id": {
+              "$ref": "#/$defs/secondary-dns_identifier"
+            },
+            "modified_time": {
+              "$ref": "#/$defs/secondary-dns_time"
+            },
+            "name": {
+              "$ref": "#/$defs/secondary-dns_name"
+            },
+            "peers": {
+              "$ref": "#/$defs/secondary-dns_peers"
+            },
+            "soa_serial": {
+              "$ref": "#/$defs/secondary-dns_soa_serial"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "success"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `secondary-dns_single_response_incoming_result` in responses.
- */
-export const secondary_dns_single_response_incoming_result_output: JsonSchema = {
-  "properties": {
-    "auto_refresh_seconds": {
-      "$ref": "#/$defs/secondary-dns_auto_refresh_seconds"
-    },
-    "checked_time": {
-      "$ref": "#/$defs/secondary-dns_time"
-    },
-    "created_time": {
-      "$ref": "#/$defs/secondary-dns_time"
-    },
-    "id": {
-      "$ref": "#/$defs/secondary-dns_identifier"
-    },
-    "modified_time": {
-      "$ref": "#/$defs/secondary-dns_time"
-    },
-    "name": {
-      "$ref": "#/$defs/secondary-dns_name"
-    },
-    "peers": {
-      "$ref": "#/$defs/secondary-dns_peers"
-    },
-    "soa_serial": {
-      "$ref": "#/$defs/secondary-dns_soa_serial"
-    }
-  },
-  "type": "object"
+  ]
 };

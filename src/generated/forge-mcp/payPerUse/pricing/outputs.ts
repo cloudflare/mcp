@@ -64,3 +64,33 @@ export const pay_per_crawl_PPUOperatorPrices_output: JsonSchema = {
   ],
   "type": "object"
 };
+
+/**
+ * The schema of `pay-per-crawl_PPUOperatorPricesResponse` in responses.
+ */
+export const pay_per_crawl_PPUOperatorPricesResponse_output: JsonSchema = {
+  "properties": {
+    "errors": {
+      "items": {
+        "$ref": "#/$defs/pay-per-crawl_Msg"
+      },
+      "type": "array"
+    },
+    "messages": {
+      "items": {
+        "$ref": "#/$defs/pay-per-crawl_Msg"
+      },
+      "type": "array"
+    },
+    "result": {
+      "$ref": "#/$defs/pay-per-crawl_PPUOperatorPrices"
+    },
+    "result_info": {
+      "$ref": "#/$defs/pay-per-crawl_ResultInfo"
+    },
+    "success": {
+      "type": "boolean"
+    }
+  },
+  "type": "object"
+};

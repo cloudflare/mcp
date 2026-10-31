@@ -117,34 +117,27 @@ export const mq_http_consumer_response_output: JsonSchema = {
       "$ref": "#/$defs/mq_queue-name"
     },
     "settings": {
-      "$ref": "#/$defs/mq_http-consumer-response_settings"
+      "properties": {
+        "batch_size": {
+          "$ref": "#/$defs/mq_batch-size"
+        },
+        "max_retries": {
+          "$ref": "#/$defs/mq_max-retries"
+        },
+        "retry_delay": {
+          "$ref": "#/$defs/mq_retry-delay"
+        },
+        "visibility_timeout_ms": {
+          "$ref": "#/$defs/mq_visibility-timeout"
+        }
+      },
+      "type": "object"
     },
     "type": {
       "enum": [
         "http_pull"
       ],
       "type": "string"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `mq_http-consumer-response_settings` in responses.
- */
-export const mq_http_consumer_response_settings_output: JsonSchema = {
-  "properties": {
-    "batch_size": {
-      "$ref": "#/$defs/mq_batch-size"
-    },
-    "max_retries": {
-      "$ref": "#/$defs/mq_max-retries"
-    },
-    "retry_delay": {
-      "$ref": "#/$defs/mq_retry-delay"
-    },
-    "visibility_timeout_ms": {
-      "$ref": "#/$defs/mq_visibility-timeout"
     }
   },
   "type": "object"
@@ -358,37 +351,30 @@ export const mq_worker_consumer_response_output: JsonSchema = {
       "$ref": "#/$defs/mq_script-name"
     },
     "settings": {
-      "$ref": "#/$defs/mq_worker-consumer-response_settings"
+      "properties": {
+        "batch_size": {
+          "$ref": "#/$defs/mq_batch-size"
+        },
+        "max_concurrency": {
+          "$ref": "#/$defs/mq_max-concurrency"
+        },
+        "max_retries": {
+          "$ref": "#/$defs/mq_max-retries"
+        },
+        "max_wait_time_ms": {
+          "$ref": "#/$defs/mq_max-wait-time"
+        },
+        "retry_delay": {
+          "$ref": "#/$defs/mq_retry-delay"
+        }
+      },
+      "type": "object"
     },
     "type": {
       "enum": [
         "worker"
       ],
       "type": "string"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `mq_worker-consumer-response_settings` in responses.
- */
-export const mq_worker_consumer_response_settings_output: JsonSchema = {
-  "properties": {
-    "batch_size": {
-      "$ref": "#/$defs/mq_batch-size"
-    },
-    "max_concurrency": {
-      "$ref": "#/$defs/mq_max-concurrency"
-    },
-    "max_retries": {
-      "$ref": "#/$defs/mq_max-retries"
-    },
-    "max_wait_time_ms": {
-      "$ref": "#/$defs/mq_max-wait-time"
-    },
-    "retry_delay": {
-      "$ref": "#/$defs/mq_retry-delay"
     }
   },
   "type": "object"

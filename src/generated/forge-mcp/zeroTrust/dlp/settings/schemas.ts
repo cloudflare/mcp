@@ -62,7 +62,7 @@ export const dlp_PayloadLogSettingUpdate: JsonSchema = {
   "properties": {
     "masking_level": {
       "$ref": "#/$defs/dlp_PayloadLogMaskingLevel",
-      "description": "Masking level for payload logs.\n\n- `full`: The entire payload is masked.\n- `partial`: Only partial payload content is masked.\n- `clear`: No masking is applied to the payload content.\n- `default`: DLP uses its default masking behavior."
+      "default": "default"
     },
     "public_key": {
       "description": "Base64-encoded public key for encrypting payload logs.\n\n- Set to a non-empty base64 string to enable payload logging with the given key.\n- Set to an empty string to disable payload logging.\n- Omit or set to null to leave unchanged (PATCH) or reset to disabled (PUT).",

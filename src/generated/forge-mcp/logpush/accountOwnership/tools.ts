@@ -4,9 +4,11 @@
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
   logpush_api_response_common_failure_output,
+  logpush_api_response_common_output,
   logpush_messages_output,
 } from "../outputs.js";
-import { logpush_destination_conf } from "../schemas.js";
+import { logpush_destination_conf, logpush_identifier } from "../schemas.js";
+import { logpush_get_ownership_response_output } from "./outputs.js";
 
 /**
  * The tools of `logpush.account_ownership`.
@@ -28,8 +30,8 @@ export const tools: readonly Tool[] = [
           "type": "string"
         },
         "account_or_zone_id": {
-          "description": "The account ID or zone ID, as selected by account_or_zone.",
-          "type": "string"
+          "$ref": "#/$defs/logpush_identifier",
+          "description": "The account ID or zone ID, as selected by account_or_zone."
         },
         "body": {
           "properties": {
@@ -51,28 +53,16 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "logpush_destination_conf": logpush_destination_conf,
+        "logpush_identifier": logpush_identifier,
       },
     },
     outputSchema: {
-      "oneOf": [
-        {
-          "properties": {
-            "filename": {
-              "type": "string"
-            },
-            "message": {
-              "type": "string"
-            },
-            "valid": {
-              "type": "boolean"
-            }
-          },
-          "type": "object"
-        },
-        {
-          "type": "null"
-        }
-      ],
+      "$ref": "#/$defs/logpush_get_ownership_response",
+      $defs: {
+        "logpush_api-response-common": logpush_api_response_common_output,
+        "logpush_get_ownership_response": logpush_get_ownership_response_output,
+        "logpush_messages": logpush_messages_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -90,12 +80,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "#logs:edit"
-        ],
-        "x-fern-enum": {
-          "#logs:edit": {
-            "name": "logs_edit"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": false,
@@ -107,32 +92,16 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "oneOf": [
-            {
-              "properties": {
-                "filename": {
-                  "type": "string"
-                },
-                "message": {
-                  "type": "string"
-                },
-                "valid": {
-                  "type": "boolean"
-                }
-              },
-              "type": "object"
-            },
-            {
-              "type": "null"
-            }
-          ]
+          "$ref": "#/$defs/logpush_get_ownership_response"
         },
         "4XX": {
           "$ref": "#/$defs/logpush_api-response-common-failure"
         }
       },
       $defs: {
+        "logpush_api-response-common": logpush_api_response_common_output,
         "logpush_api-response-common-failure": logpush_api_response_common_failure_output,
+        "logpush_get_ownership_response": logpush_get_ownership_response_output,
         "logpush_messages": logpush_messages_output,
       },
     },

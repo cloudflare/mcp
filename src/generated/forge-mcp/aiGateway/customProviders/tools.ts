@@ -68,115 +68,7 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
-        "base_url": {
-          "type": "string"
-        },
-        "beta": {
-          "type": "boolean"
-        },
-        "created_at": {
-          "format": "date-time",
-          "type": "string"
-        },
-        "curl_example": {
-          "type": "string"
-        },
-        "description": {
-          "type": "string"
-        },
-        "enable": {
-          "type": "boolean"
-        },
-        "headers": {
-          "type": "string"
-        },
-        "id": {
-          "format": "uuid",
-          "type": "string"
-        },
-        "js_example": {
-          "type": "string"
-        },
-        "link": {
-          "type": "string"
-        },
-        "logo": {
-          "type": "string"
-        },
-        "modified_at": {
-          "format": "date-time",
-          "type": "string"
-        },
-        "name": {
-          "type": "string"
-        },
-        "position": {
-          "type": "integer"
-        },
-        "slug": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "base_url",
-        "created_at",
-        "id",
-        "modified_at",
-        "name",
-        "slug"
-      ],
-      "type": "object",
-    },
-    annotations: {
-      "destructiveHint": false,
-      "idempotentHint": false,
-      "openWorldHint": true,
-      "readOnlyHint": false,
-      "title": "Create a custom provider"
-    },
-    method: "POST",
-    path: "/accounts/{account_id}/ai-gateway/custom-providers",
-    extensions: {
-      "x-api-token-group": [
-        "AI Gateway Write"
-      ],
-      "x-cfPermissionsRequired": {
-        "enum": [
-          "com.cloudflare.api.account.aig"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.api.account.aig": {
-            "name": "com_cloudflare_api_account_aig"
-          }
-        }
-      },
-      "x-cfPlanAvailability": {
-        "business": true,
-        "enterprise": true,
-        "free": true,
-        "pro": true
-      },
-      "x-forge-params": {
-        "beta": {
-          "hidden": true
-        },
-        "curl_example": {
-          "hidden": true
-        },
-        "js_example": {
-          "hidden": true
-        },
-        "link": {
-          "hidden": true
-        },
-        "position": {
-          "hidden": true
-        }
-      }
-    },
-    responses: {
-      schemas: {
-        "200": {
+        "result": {
           "properties": {
             "base_url": {
               "type": "string"
@@ -234,6 +126,133 @@ export const tools: readonly Tool[] = [
             "modified_at",
             "name",
             "slug"
+          ],
+          "type": "object"
+        },
+        "success": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "result",
+        "success"
+      ],
+      "type": "object",
+    },
+    annotations: {
+      "destructiveHint": false,
+      "idempotentHint": false,
+      "openWorldHint": true,
+      "readOnlyHint": false,
+      "title": "Create a custom provider"
+    },
+    method: "POST",
+    path: "/accounts/{account_id}/ai-gateway/custom-providers",
+    extensions: {
+      "x-api-token-group": [
+        "AI Gateway Write"
+      ],
+      "x-cfPermissionsRequired": {
+        "enum": [
+          "com.cloudflare.api.account.aig"
+        ]
+      },
+      "x-cfPlanAvailability": {
+        "business": true,
+        "enterprise": true,
+        "free": true,
+        "pro": true
+      },
+      "x-forge-params": {
+        "beta": {
+          "hidden": true
+        },
+        "curl_example": {
+          "hidden": true
+        },
+        "js_example": {
+          "hidden": true
+        },
+        "link": {
+          "hidden": true
+        },
+        "position": {
+          "hidden": true
+        }
+      }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "properties": {
+                "base_url": {
+                  "type": "string"
+                },
+                "beta": {
+                  "type": "boolean"
+                },
+                "created_at": {
+                  "format": "date-time",
+                  "type": "string"
+                },
+                "curl_example": {
+                  "type": "string"
+                },
+                "description": {
+                  "type": "string"
+                },
+                "enable": {
+                  "type": "boolean"
+                },
+                "headers": {
+                  "type": "string"
+                },
+                "id": {
+                  "format": "uuid",
+                  "type": "string"
+                },
+                "js_example": {
+                  "type": "string"
+                },
+                "link": {
+                  "type": "string"
+                },
+                "logo": {
+                  "type": "string"
+                },
+                "modified_at": {
+                  "format": "date-time",
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "position": {
+                  "type": "integer"
+                },
+                "slug": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "base_url",
+                "created_at",
+                "id",
+                "modified_at",
+                "name",
+                "slug"
+              ],
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "result",
+            "success"
           ],
           "type": "object"
         },
@@ -303,98 +322,7 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
-        "base_url": {
-          "type": "string"
-        },
-        "beta": {
-          "type": "boolean"
-        },
-        "created_at": {
-          "format": "date-time",
-          "type": "string"
-        },
-        "curl_example": {
-          "type": "string"
-        },
-        "description": {
-          "type": "string"
-        },
-        "enable": {
-          "type": "boolean"
-        },
-        "headers": {
-          "type": "string"
-        },
-        "id": {
-          "format": "uuid",
-          "type": "string"
-        },
-        "js_example": {
-          "type": "string"
-        },
-        "link": {
-          "type": "string"
-        },
-        "logo": {
-          "type": "string"
-        },
-        "modified_at": {
-          "format": "date-time",
-          "type": "string"
-        },
-        "name": {
-          "type": "string"
-        },
-        "position": {
-          "type": "integer"
-        },
-        "slug": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "base_url",
-        "created_at",
-        "id",
-        "modified_at",
-        "name",
-        "slug"
-      ],
-      "type": "object",
-    },
-    annotations: {
-      "destructiveHint": true,
-      "idempotentHint": true,
-      "openWorldHint": true,
-      "readOnlyHint": false,
-      "title": "Delete a custom provider"
-    },
-    method: "DELETE",
-    path: "/accounts/{account_id}/ai-gateway/custom-providers/{id}",
-    extensions: {
-      "x-api-token-group": [
-        "AI Gateway Write"
-      ],
-      "x-cfPermissionsRequired": {
-        "enum": [
-          "com.cloudflare.api.account.aig"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.api.account.aig": {
-            "name": "com_cloudflare_api_account_aig"
-          }
-        }
-      },
-      "x-cfPlanAvailability": {
-        "business": true,
-        "enterprise": true,
-        "free": true,
-        "pro": true
-      }
-    },
-    responses: {
-      schemas: {
-        "200": {
+        "result": {
           "properties": {
             "base_url": {
               "type": "string"
@@ -452,6 +380,116 @@ export const tools: readonly Tool[] = [
             "modified_at",
             "name",
             "slug"
+          ],
+          "type": "object"
+        },
+        "success": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "result",
+        "success"
+      ],
+      "type": "object",
+    },
+    annotations: {
+      "destructiveHint": true,
+      "idempotentHint": true,
+      "openWorldHint": true,
+      "readOnlyHint": false,
+      "title": "Delete a custom provider"
+    },
+    method: "DELETE",
+    path: "/accounts/{account_id}/ai-gateway/custom-providers/{id}",
+    extensions: {
+      "x-api-token-group": [
+        "AI Gateway Write"
+      ],
+      "x-cfPermissionsRequired": {
+        "enum": [
+          "com.cloudflare.api.account.aig"
+        ]
+      },
+      "x-cfPlanAvailability": {
+        "business": true,
+        "enterprise": true,
+        "free": true,
+        "pro": true
+      }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "properties": {
+                "base_url": {
+                  "type": "string"
+                },
+                "beta": {
+                  "type": "boolean"
+                },
+                "created_at": {
+                  "format": "date-time",
+                  "type": "string"
+                },
+                "curl_example": {
+                  "type": "string"
+                },
+                "description": {
+                  "type": "string"
+                },
+                "enable": {
+                  "type": "boolean"
+                },
+                "headers": {
+                  "type": "string"
+                },
+                "id": {
+                  "format": "uuid",
+                  "type": "string"
+                },
+                "js_example": {
+                  "type": "string"
+                },
+                "link": {
+                  "type": "string"
+                },
+                "logo": {
+                  "type": "string"
+                },
+                "modified_at": {
+                  "format": "date-time",
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "position": {
+                  "type": "integer"
+                },
+                "slug": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "base_url",
+                "created_at",
+                "id",
+                "modified_at",
+                "name",
+                "slug"
+              ],
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "result",
+            "success"
           ],
           "type": "object"
         },
@@ -513,99 +551,7 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
-        "base_url": {
-          "type": "string"
-        },
-        "beta": {
-          "type": "boolean"
-        },
-        "created_at": {
-          "format": "date-time",
-          "type": "string"
-        },
-        "curl_example": {
-          "type": "string"
-        },
-        "description": {
-          "type": "string"
-        },
-        "enable": {
-          "type": "boolean"
-        },
-        "headers": {
-          "type": "string"
-        },
-        "id": {
-          "format": "uuid",
-          "type": "string"
-        },
-        "js_example": {
-          "type": "string"
-        },
-        "link": {
-          "type": "string"
-        },
-        "logo": {
-          "type": "string"
-        },
-        "modified_at": {
-          "format": "date-time",
-          "type": "string"
-        },
-        "name": {
-          "type": "string"
-        },
-        "position": {
-          "type": "integer"
-        },
-        "slug": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "base_url",
-        "created_at",
-        "id",
-        "modified_at",
-        "name",
-        "slug"
-      ],
-      "type": "object",
-    },
-    annotations: {
-      "destructiveHint": false,
-      "idempotentHint": true,
-      "openWorldHint": true,
-      "readOnlyHint": true,
-      "title": "Get a custom provider"
-    },
-    method: "GET",
-    path: "/accounts/{account_id}/ai-gateway/custom-providers/{id}",
-    extensions: {
-      "x-api-token-group": [
-        "AI Gateway Write",
-        "AI Gateway Read"
-      ],
-      "x-cfPermissionsRequired": {
-        "enum": [
-          "com.cloudflare.api.account.aig"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.api.account.aig": {
-            "name": "com_cloudflare_api_account_aig"
-          }
-        }
-      },
-      "x-cfPlanAvailability": {
-        "business": true,
-        "enterprise": true,
-        "free": true,
-        "pro": true
-      }
-    },
-    responses: {
-      schemas: {
-        "200": {
+        "result": {
           "properties": {
             "base_url": {
               "type": "string"
@@ -663,6 +609,117 @@ export const tools: readonly Tool[] = [
             "modified_at",
             "name",
             "slug"
+          ],
+          "type": "object"
+        },
+        "success": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "result",
+        "success"
+      ],
+      "type": "object",
+    },
+    annotations: {
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": true,
+      "readOnlyHint": true,
+      "title": "Get a custom provider"
+    },
+    method: "GET",
+    path: "/accounts/{account_id}/ai-gateway/custom-providers/{id}",
+    extensions: {
+      "x-api-token-group": [
+        "AI Gateway Write",
+        "AI Gateway Read"
+      ],
+      "x-cfPermissionsRequired": {
+        "enum": [
+          "com.cloudflare.api.account.aig"
+        ]
+      },
+      "x-cfPlanAvailability": {
+        "business": true,
+        "enterprise": true,
+        "free": true,
+        "pro": true
+      }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "properties": {
+                "base_url": {
+                  "type": "string"
+                },
+                "beta": {
+                  "type": "boolean"
+                },
+                "created_at": {
+                  "format": "date-time",
+                  "type": "string"
+                },
+                "curl_example": {
+                  "type": "string"
+                },
+                "description": {
+                  "type": "string"
+                },
+                "enable": {
+                  "type": "boolean"
+                },
+                "headers": {
+                  "type": "string"
+                },
+                "id": {
+                  "format": "uuid",
+                  "type": "string"
+                },
+                "js_example": {
+                  "type": "string"
+                },
+                "link": {
+                  "type": "string"
+                },
+                "logo": {
+                  "type": "string"
+                },
+                "modified_at": {
+                  "format": "date-time",
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "position": {
+                  "type": "integer"
+                },
+                "slug": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "base_url",
+                "created_at",
+                "id",
+                "modified_at",
+                "name",
+                "slug"
+              ],
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "result",
+            "success"
           ],
           "type": "object"
         },
@@ -801,12 +858,13 @@ export const tools: readonly Tool[] = [
           },
           "type": "array"
         },
-        "result_info": {
-          "type": "object"
+        "success": {
+          "type": "boolean"
         }
       },
       "required": [
-        "result"
+        "result",
+        "success"
       ],
       "type": "object",
     },
@@ -827,12 +885,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "com.cloudflare.api.account.aig"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.api.account.aig": {
-            "name": "com_cloudflare_api_account_aig"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": true,
@@ -909,12 +962,13 @@ export const tools: readonly Tool[] = [
               },
               "type": "array"
             },
-            "result_info": {
-              "type": "object"
+            "success": {
+              "type": "boolean"
             }
           },
           "required": [
-            "result"
+            "result",
+            "success"
           ],
           "type": "object"
         },
@@ -1025,118 +1079,7 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
-        "base_url": {
-          "type": "string"
-        },
-        "beta": {
-          "type": "boolean"
-        },
-        "created_at": {
-          "format": "date-time",
-          "type": "string"
-        },
-        "curl_example": {
-          "type": "string"
-        },
-        "description": {
-          "type": "string"
-        },
-        "enable": {
-          "type": "boolean"
-        },
-        "headers": {
-          "type": "string"
-        },
-        "id": {
-          "format": "uuid",
-          "type": "string"
-        },
-        "js_example": {
-          "type": "string"
-        },
-        "link": {
-          "type": "string"
-        },
-        "logo": {
-          "type": "string"
-        },
-        "modified_at": {
-          "format": "date-time",
-          "type": "string"
-        },
-        "name": {
-          "type": "string"
-        },
-        "position": {
-          "type": "integer"
-        },
-        "slug": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "base_url",
-        "created_at",
-        "id",
-        "modified_at",
-        "name",
-        "slug"
-      ],
-      "type": "object",
-    },
-    annotations: {
-      "destructiveHint": false,
-      "idempotentHint": false,
-      "openWorldHint": true,
-      "readOnlyHint": false,
-      "title": "Update a custom provider"
-    },
-    method: "PATCH",
-    path: "/accounts/{account_id}/ai-gateway/custom-providers/{id}",
-    extensions: {
-      "x-api-token-group": [
-        "AI Gateway Write"
-      ],
-      "x-cfPermissionsRequired": {
-        "enum": [
-          "com.cloudflare.api.account.aig"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.api.account.aig": {
-            "name": "com_cloudflare_api_account_aig"
-          }
-        }
-      },
-      "x-cfPlanAvailability": {
-        "business": true,
-        "enterprise": true,
-        "free": true,
-        "pro": true
-      },
-      "x-forge-params": {
-        "beta": {
-          "hidden": true
-        },
-        "curl_example": {
-          "hidden": true
-        },
-        "js_example": {
-          "hidden": true
-        },
-        "link": {
-          "hidden": true
-        },
-        "logo": {
-          "hidden": true
-        },
-        "position": {
-          "hidden": true
-        }
-      }
-    },
-    responses: {
-      schemas: {
-        "200": {
+        "result": {
           "properties": {
             "base_url": {
               "type": "string"
@@ -1194,6 +1137,136 @@ export const tools: readonly Tool[] = [
             "modified_at",
             "name",
             "slug"
+          ],
+          "type": "object"
+        },
+        "success": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "result",
+        "success"
+      ],
+      "type": "object",
+    },
+    annotations: {
+      "destructiveHint": false,
+      "idempotentHint": false,
+      "openWorldHint": true,
+      "readOnlyHint": false,
+      "title": "Update a custom provider"
+    },
+    method: "PATCH",
+    path: "/accounts/{account_id}/ai-gateway/custom-providers/{id}",
+    extensions: {
+      "x-api-token-group": [
+        "AI Gateway Write"
+      ],
+      "x-cfPermissionsRequired": {
+        "enum": [
+          "com.cloudflare.api.account.aig"
+        ]
+      },
+      "x-cfPlanAvailability": {
+        "business": true,
+        "enterprise": true,
+        "free": true,
+        "pro": true
+      },
+      "x-forge-params": {
+        "beta": {
+          "hidden": true
+        },
+        "curl_example": {
+          "hidden": true
+        },
+        "js_example": {
+          "hidden": true
+        },
+        "link": {
+          "hidden": true
+        },
+        "logo": {
+          "hidden": true
+        },
+        "position": {
+          "hidden": true
+        }
+      }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "properties": {
+                "base_url": {
+                  "type": "string"
+                },
+                "beta": {
+                  "type": "boolean"
+                },
+                "created_at": {
+                  "format": "date-time",
+                  "type": "string"
+                },
+                "curl_example": {
+                  "type": "string"
+                },
+                "description": {
+                  "type": "string"
+                },
+                "enable": {
+                  "type": "boolean"
+                },
+                "headers": {
+                  "type": "string"
+                },
+                "id": {
+                  "format": "uuid",
+                  "type": "string"
+                },
+                "js_example": {
+                  "type": "string"
+                },
+                "link": {
+                  "type": "string"
+                },
+                "logo": {
+                  "type": "string"
+                },
+                "modified_at": {
+                  "format": "date-time",
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "position": {
+                  "type": "integer"
+                },
+                "slug": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "base_url",
+                "created_at",
+                "id",
+                "modified_at",
+                "name",
+                "slug"
+              ],
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "result",
+            "success"
           ],
           "type": "object"
         },

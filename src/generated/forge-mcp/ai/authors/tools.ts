@@ -24,18 +24,33 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
+        "errors": {
+          "items": {
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "messages": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
         "result": {
           "items": {
             "type": "object"
           },
           "type": "array"
         },
-        "result_info": {
-          "type": "object"
+        "success": {
+          "type": "boolean"
         }
       },
       "required": [
-        "result"
+        "errors",
+        "messages",
+        "result",
+        "success"
       ],
       "type": "object",
     },
@@ -56,12 +71,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "com.cloudflare.api.account.ai"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.api.account.ai": {
-            "name": "com_cloudflare_api_account_ai"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": true,
@@ -74,18 +84,33 @@ export const tools: readonly Tool[] = [
       schemas: {
         "200": {
           "properties": {
+            "errors": {
+              "items": {
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "messages": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
             "result": {
               "items": {
                 "type": "object"
               },
               "type": "array"
             },
-            "result_info": {
-              "type": "object"
+            "success": {
+              "type": "boolean"
             }
           },
           "required": [
-            "result"
+            "errors",
+            "messages",
+            "result",
+            "success"
           ],
           "type": "object"
         },

@@ -21,41 +21,24 @@ export const addressing_delegation_identifier_output: JsonSchema = {
  * The schema of `addressing_id_response` in responses.
  */
 export const addressing_id_response_output: JsonSchema = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/addressing_messages"
+  "allOf": [
+    {
+      "$ref": "#/$defs/addressing_api-response-single"
     },
-    "messages": {
-      "$ref": "#/$defs/addressing_messages"
-    },
-    "result": {
-      "$ref": "#/$defs/addressing_id_response_result"
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
+    {
+      "properties": {
+        "result": {
+          "properties": {
+            "id": {
+              "$ref": "#/$defs/addressing_delegation_identifier"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "success"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `addressing_id_response_result` in responses.
- */
-export const addressing_id_response_result_output: JsonSchema = {
-  "properties": {
-    "id": {
-      "$ref": "#/$defs/addressing_delegation_identifier"
-    }
-  },
-  "type": "object"
+  ]
 };
 
 /**
@@ -89,86 +72,39 @@ export const addressing_ipam_delegations_output: JsonSchema = {
  * The schema of `addressing_response_collection-2` in responses.
  */
 export const addressing_response_collection_2_output: JsonSchema = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/addressing_messages"
+  "allOf": [
+    {
+      "$ref": "#/$defs/addressing_api-response-collection"
     },
-    "messages": {
-      "$ref": "#/$defs/addressing_messages"
-    },
-    "result": {
-      "items": {
-        "$ref": "#/$defs/addressing_ipam-delegations"
+    {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/addressing_ipam-delegations"
+          },
+          "type": "array"
+        }
       },
-      "type": "array"
-    },
-    "result_info": {
-      "$ref": "#/$defs/addressing_response_collection-2_result_info"
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
+      "type": "object"
     }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "success"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `addressing_response_collection-2_result_info` in responses.
- */
-export const addressing_response_collection_2_result_info_output: JsonSchema = {
-  "properties": {
-    "count": {
-      "type": "number"
-    },
-    "page": {
-      "type": "number"
-    },
-    "per_page": {
-      "type": "number"
-    },
-    "total_count": {
-      "type": "number"
-    },
-    "total_pages": {
-      "type": "number"
-    }
-  },
-  "type": "object"
+  ]
 };
 
 /**
  * The schema of `addressing_single_response-2` in responses.
  */
 export const addressing_single_response_2_output: JsonSchema = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/addressing_messages"
+  "allOf": [
+    {
+      "$ref": "#/$defs/addressing_api-response-single"
     },
-    "messages": {
-      "$ref": "#/$defs/addressing_messages"
-    },
-    "result": {
-      "$ref": "#/$defs/addressing_ipam-delegations"
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/addressing_ipam-delegations"
+        }
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "success"
-  ],
-  "type": "object"
+  ]
 };

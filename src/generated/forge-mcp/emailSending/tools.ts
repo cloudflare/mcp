@@ -3,8 +3,6 @@
 
 import { type Tool, pathParam } from "../_/tool.js";
 import {
-  email_sending_EmailApiError_errorsItem_output,
-  email_sending_EmailApiError_messagesItem_output,
   email_sending_EmailApiError_output,
   email_sending_EmailSendResponse_output,
 } from "./outputs.js";
@@ -13,11 +11,6 @@ import {
   email_sending_EmailAddressString,
   email_sending_EmailAttachment,
   email_sending_EmailBuilder,
-  email_sending_EmailBuilder_bcc,
-  email_sending_EmailBuilder_cc,
-  email_sending_EmailBuilder_from,
-  email_sending_EmailBuilder_reply_to,
-  email_sending_EmailBuilder_to,
   email_sending_EmailInlineAttachment,
   email_sending_SendRawRequest,
 } from "./schemas.js";
@@ -58,12 +51,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "com.cloudflare.api.account.email.sending.read"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.api.account.email.sending.read": {
-            "name": "com_cloudflare_api_account_email_sending_read"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": true,
@@ -84,8 +72,6 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "email-sending_EmailApiError": email_sending_EmailApiError_output,
-        "email-sending_EmailApiError_errorsItem": email_sending_EmailApiError_errorsItem_output,
-        "email-sending_EmailApiError_messagesItem": email_sending_EmailApiError_messagesItem_output,
       },
     },
     request: (args) => ({
@@ -116,16 +102,89 @@ export const tools: readonly Tool[] = [
         "email-sending_EmailAddressString": email_sending_EmailAddressString,
         "email-sending_EmailAttachment": email_sending_EmailAttachment,
         "email-sending_EmailBuilder": email_sending_EmailBuilder,
-        "email-sending_EmailBuilder_bcc": email_sending_EmailBuilder_bcc,
-        "email-sending_EmailBuilder_cc": email_sending_EmailBuilder_cc,
-        "email-sending_EmailBuilder_from": email_sending_EmailBuilder_from,
-        "email-sending_EmailBuilder_reply_to": email_sending_EmailBuilder_reply_to,
-        "email-sending_EmailBuilder_to": email_sending_EmailBuilder_to,
         "email-sending_EmailInlineAttachment": email_sending_EmailInlineAttachment,
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/email-sending_EmailSendResponse",
+      "properties": {
+        "errors": {
+          "items": {
+            "properties": {
+              "code": {
+                "type": "number"
+              },
+              "message": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "code",
+              "message"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "messages": {
+          "items": {
+            "properties": {
+              "code": {
+                "type": "number"
+              },
+              "message": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "code",
+              "message"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "result": {
+          "$ref": "#/$defs/email-sending_EmailSendResponse"
+        },
+        "result_info": {
+          "properties": {
+            "count": {
+              "type": "number"
+            },
+            "cursor": {
+              "type": "string"
+            },
+            "page": {
+              "type": "number"
+            },
+            "per_page": {
+              "type": "number"
+            },
+            "total_count": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "count",
+            "per_page",
+            "total_count"
+          ],
+          "type": "object"
+        },
+        "success": {
+          "enum": [
+            true
+          ],
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "errors",
+        "messages",
+        "result",
+        "success"
+      ],
+      "type": "object",
       $defs: {
         "email-sending_EmailSendResponse": email_sending_EmailSendResponse_output,
       },
@@ -143,12 +202,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "com.cloudflare.api.account.email.sending.create"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.api.account.email.sending.create": {
-            "name": "com_cloudflare_api_account_email_sending_create"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": true,
@@ -160,7 +214,85 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/email-sending_EmailSendResponse"
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "code": {
+                    "type": "number"
+                  },
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "messages": {
+              "items": {
+                "properties": {
+                  "code": {
+                    "type": "number"
+                  },
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result": {
+              "$ref": "#/$defs/email-sending_EmailSendResponse"
+            },
+            "result_info": {
+              "properties": {
+                "count": {
+                  "type": "number"
+                },
+                "cursor": {
+                  "type": "string"
+                },
+                "page": {
+                  "type": "number"
+                },
+                "per_page": {
+                  "type": "number"
+                },
+                "total_count": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "count",
+                "per_page",
+                "total_count"
+              ],
+              "type": "object"
+            },
+            "success": {
+              "enum": [
+                true
+              ],
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "messages",
+            "result",
+            "success"
+          ],
+          "type": "object"
         },
         "400": {
           "properties": {
@@ -472,7 +604,85 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/email-sending_EmailSendResponse",
+      "properties": {
+        "errors": {
+          "items": {
+            "properties": {
+              "code": {
+                "type": "number"
+              },
+              "message": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "code",
+              "message"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "messages": {
+          "items": {
+            "properties": {
+              "code": {
+                "type": "number"
+              },
+              "message": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "code",
+              "message"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "result": {
+          "$ref": "#/$defs/email-sending_EmailSendResponse"
+        },
+        "result_info": {
+          "properties": {
+            "count": {
+              "type": "number"
+            },
+            "cursor": {
+              "type": "string"
+            },
+            "page": {
+              "type": "number"
+            },
+            "per_page": {
+              "type": "number"
+            },
+            "total_count": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "count",
+            "per_page",
+            "total_count"
+          ],
+          "type": "object"
+        },
+        "success": {
+          "enum": [
+            true
+          ],
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "errors",
+        "messages",
+        "result",
+        "success"
+      ],
+      "type": "object",
       $defs: {
         "email-sending_EmailSendResponse": email_sending_EmailSendResponse_output,
       },
@@ -490,12 +700,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "com.cloudflare.api.account.email.sending.create"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.api.account.email.sending.create": {
-            "name": "com_cloudflare_api_account_email_sending_create"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": true,
@@ -507,7 +712,85 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/email-sending_EmailSendResponse"
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "code": {
+                    "type": "number"
+                  },
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "messages": {
+              "items": {
+                "properties": {
+                  "code": {
+                    "type": "number"
+                  },
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result": {
+              "$ref": "#/$defs/email-sending_EmailSendResponse"
+            },
+            "result_info": {
+              "properties": {
+                "count": {
+                  "type": "number"
+                },
+                "cursor": {
+                  "type": "string"
+                },
+                "page": {
+                  "type": "number"
+                },
+                "per_page": {
+                  "type": "number"
+                },
+                "total_count": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "count",
+                "per_page",
+                "total_count"
+              ],
+              "type": "object"
+            },
+            "success": {
+              "enum": [
+                true
+              ],
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "messages",
+            "result",
+            "success"
+          ],
+          "type": "object"
         },
         "400": {
           "properties": {

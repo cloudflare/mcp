@@ -4,11 +4,15 @@
 import { type Tool, pathParam } from "../../../../_/tool.js";
 import {
   logcontrol_api_response_common_failure_output,
+  logcontrol_api_response_single_output,
   logcontrol_messages_output,
 } from "../../outputs.js";
+import { logcontrol_identifier } from "../../schemas.js";
 import {
   logcontrol_allow_out_of_region_access_output,
+  logcontrol_api_response_common_output,
   logcontrol_cmb_config_output,
+  logcontrol_cmb_config_response_single_output,
   logcontrol_regions_output,
 } from "./outputs.js";
 import {
@@ -29,8 +33,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/logcontrol_identifier",
+          "description": "Identifier."
         },
         "body": {
           "$ref": "#/$defs/logcontrol_cmb_config"
@@ -43,14 +47,18 @@ export const tools: readonly Tool[] = [
       $defs: {
         "logcontrol_allow_out_of_region_access": logcontrol_allow_out_of_region_access,
         "logcontrol_cmb_config": logcontrol_cmb_config,
+        "logcontrol_identifier": logcontrol_identifier,
         "logcontrol_regions": logcontrol_regions,
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/logcontrol_cmb_config",
+      "$ref": "#/$defs/logcontrol_cmb_config_response_single",
       $defs: {
         "logcontrol_allow_out_of_region_access": logcontrol_allow_out_of_region_access_output,
+        "logcontrol_api-response-single": logcontrol_api_response_single_output,
         "logcontrol_cmb_config": logcontrol_cmb_config_output,
+        "logcontrol_cmb_config_response_single": logcontrol_cmb_config_response_single_output,
+        "logcontrol_messages": logcontrol_messages_output,
         "logcontrol_regions": logcontrol_regions_output,
       },
     },
@@ -70,18 +78,13 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "#logs:edit"
-        ],
-        "x-fern-enum": {
-          "#logs:edit": {
-            "name": "logs_edit"
-          }
-        }
+        ]
       }
     },
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/logcontrol_cmb_config"
+          "$ref": "#/$defs/logcontrol_cmb_config_response_single"
         },
         "4XX": {
           "$ref": "#/$defs/logcontrol_api-response-common-failure"
@@ -90,7 +93,9 @@ export const tools: readonly Tool[] = [
       $defs: {
         "logcontrol_allow_out_of_region_access": logcontrol_allow_out_of_region_access_output,
         "logcontrol_api-response-common-failure": logcontrol_api_response_common_failure_output,
+        "logcontrol_api-response-single": logcontrol_api_response_single_output,
         "logcontrol_cmb_config": logcontrol_cmb_config_output,
+        "logcontrol_cmb_config_response_single": logcontrol_cmb_config_response_single_output,
         "logcontrol_messages": logcontrol_messages_output,
         "logcontrol_regions": logcontrol_regions_output,
       },
@@ -108,16 +113,35 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/logcontrol_identifier",
+          "description": "Identifier."
         }
       },
       required: [
         "account_id"
       ],
+      $defs: {
+        "logcontrol_identifier": logcontrol_identifier,
+      },
     },
     outputSchema: {
-      "type": "null",
+      "allOf": [
+        {
+          "$ref": "#/$defs/logcontrol_api-response-common"
+        },
+        {
+          "properties": {
+            "result": {
+              "type": "null"
+            }
+          },
+          "type": "object"
+        }
+      ],
+      $defs: {
+        "logcontrol_api-response-common": logcontrol_api_response_common_output,
+        "logcontrol_messages": logcontrol_messages_output,
+      },
     },
     annotations: {
       "destructiveHint": true,
@@ -135,24 +159,32 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "#logs:edit"
-        ],
-        "x-fern-enum": {
-          "#logs:edit": {
-            "name": "logs_edit"
-          }
-        }
+        ]
       }
     },
     responses: {
       schemas: {
         "200": {
-          "type": "null"
+          "allOf": [
+            {
+              "$ref": "#/$defs/logcontrol_api-response-common"
+            },
+            {
+              "properties": {
+                "result": {
+                  "type": "null"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/logcontrol_api-response-common-failure"
         }
       },
       $defs: {
+        "logcontrol_api-response-common": logcontrol_api_response_common_output,
         "logcontrol_api-response-common-failure": logcontrol_api_response_common_failure_output,
         "logcontrol_messages": logcontrol_messages_output,
       },
@@ -169,19 +201,25 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/logcontrol_identifier",
+          "description": "Identifier."
         }
       },
       required: [
         "account_id"
       ],
+      $defs: {
+        "logcontrol_identifier": logcontrol_identifier,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/logcontrol_cmb_config",
+      "$ref": "#/$defs/logcontrol_cmb_config_response_single",
       $defs: {
         "logcontrol_allow_out_of_region_access": logcontrol_allow_out_of_region_access_output,
+        "logcontrol_api-response-single": logcontrol_api_response_single_output,
         "logcontrol_cmb_config": logcontrol_cmb_config_output,
+        "logcontrol_cmb_config_response_single": logcontrol_cmb_config_response_single_output,
+        "logcontrol_messages": logcontrol_messages_output,
         "logcontrol_regions": logcontrol_regions_output,
       },
     },
@@ -203,21 +241,13 @@ export const tools: readonly Tool[] = [
         "enum": [
           "#logs:read",
           "#analytics:read"
-        ],
-        "x-fern-enum": {
-          "#analytics:read": {
-            "name": "analytics_read"
-          },
-          "#logs:read": {
-            "name": "logs_read"
-          }
-        }
+        ]
       }
     },
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/logcontrol_cmb_config"
+          "$ref": "#/$defs/logcontrol_cmb_config_response_single"
         },
         "4XX": {
           "$ref": "#/$defs/logcontrol_api-response-common-failure"
@@ -226,7 +256,9 @@ export const tools: readonly Tool[] = [
       $defs: {
         "logcontrol_allow_out_of_region_access": logcontrol_allow_out_of_region_access_output,
         "logcontrol_api-response-common-failure": logcontrol_api_response_common_failure_output,
+        "logcontrol_api-response-single": logcontrol_api_response_single_output,
         "logcontrol_cmb_config": logcontrol_cmb_config_output,
+        "logcontrol_cmb_config_response_single": logcontrol_cmb_config_response_single_output,
         "logcontrol_messages": logcontrol_messages_output,
         "logcontrol_regions": logcontrol_regions_output,
       },

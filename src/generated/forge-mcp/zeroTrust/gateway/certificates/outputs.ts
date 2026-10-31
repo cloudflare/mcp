@@ -75,64 +75,41 @@ export const zero_trust_gateway_region_output: JsonSchema = {
  * The schema of `zero-trust-gateway_response_collection` in responses.
  */
 export const zero_trust_gateway_response_collection_output: JsonSchema = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/zero-trust-gateway_messages"
+  "allOf": [
+    {
+      "$ref": "#/$defs/zero-trust-gateway_api-response-collection"
     },
-    "messages": {
-      "$ref": "#/$defs/zero-trust-gateway_messages"
-    },
-    "result": {
-      "items": {
-        "$ref": "#/$defs/zero-trust-gateway_certificates"
+    {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/zero-trust-gateway_certificates"
+          },
+          "type": "array"
+        }
       },
-      "type": "array"
-    },
-    "result_info": {
-      "$ref": "#/$defs/zero-trust-gateway_result_info"
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
+      "type": "object"
     }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "success"
-  ],
-  "type": "object"
+  ]
 };
 
 /**
  * The schema of `zero-trust-gateway_single_response` in responses.
  */
 export const zero_trust_gateway_single_response_output: JsonSchema = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/zero-trust-gateway_messages"
+  "allOf": [
+    {
+      "$ref": "#/$defs/zero-trust-gateway_api-response-single"
     },
-    "messages": {
-      "$ref": "#/$defs/zero-trust-gateway_messages"
-    },
-    "result": {
-      "$ref": "#/$defs/zero-trust-gateway_certificates"
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/zero-trust-gateway_certificates"
+        }
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "success"
-  ],
-  "type": "object"
+  ]
 };
 
 /**

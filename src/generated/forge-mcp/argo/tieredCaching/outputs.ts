@@ -7,28 +7,48 @@ import type { JsonSchema } from "../../_/tool.js";
  * The schema of `cache-settings_tiered_cache` in responses.
  */
 export const cache_settings_tiered_cache_output: JsonSchema = {
-  "properties": {
-    "id": {
-      "enum": [
-        "tiered_caching"
-      ],
-      "type": "string"
+  "allOf": [
+    {
+      "$ref": "#/$defs/cache-settings_base"
     },
-    "modified_on": {
-      "oneOf": [
-        {
-          "format": "date-time",
+    {
+      "properties": {
+        "id": {
+          "enum": [
+            "tiered_caching"
+          ],
           "type": "string"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `cache-settings_tiered_cache_response_value` in responses.
+ */
+export const cache_settings_tiered_cache_response_value_output: JsonSchema = {
+  "properties": {
+    "result": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/cache-settings_tiered_cache"
         },
         {
-          "type": "null"
+          "properties": {
+            "value": {
+              "$ref": "#/$defs/cache-settings_tiered_cache_value"
+            }
+          },
+          "required": [
+            "value"
+          ],
+          "type": "object"
         }
       ]
     }
   },
-  "required": [
-    "id"
-  ],
   "type": "object"
 };
 

@@ -209,46 +209,31 @@ export const flagship_Error_output: JsonSchema = {
  * The schema of `flagship_EvaluationError` in responses.
  */
 export const flagship_EvaluationError_output: JsonSchema = {
-  "properties": {
-    "errorCode": {
-      "enum": [
-        "PROVIDER_NOT_READY",
-        "FLAG_NOT_FOUND",
-        "PARSE_ERROR",
-        "TYPE_MISMATCH",
-        "TARGETING_KEY_MISSING",
-        "INVALID_CONTEXT",
-        "GENERAL"
+  "allOf": [
+    {
+      "$ref": "#/$defs/flagship_Error"
+    },
+    {
+      "properties": {
+        "errorCode": {
+          "enum": [
+            "PROVIDER_NOT_READY",
+            "FLAG_NOT_FOUND",
+            "PARSE_ERROR",
+            "TYPE_MISMATCH",
+            "TARGETING_KEY_MISSING",
+            "INVALID_CONTEXT",
+            "GENERAL"
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "errorCode"
       ],
-      "type": "string"
-    },
-    "errors": {
-      "items": {
-        "$ref": "#/$defs/flagship_ApiMessage"
-      },
-      "type": "array"
-    },
-    "messages": {
-      "items": {
-        "$ref": "#/$defs/flagship_ApiMessage"
-      },
-      "type": "array"
-    },
-    "result": {
-      "type": "null"
-    },
-    "success": {
-      "type": "boolean"
+      "type": "object"
     }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "result",
-    "success",
-    "errorCode"
-  ],
-  "type": "object"
+  ]
 };
 
 /**

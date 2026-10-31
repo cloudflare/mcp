@@ -3,8 +3,11 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
-  r2_data_catalog_api_response_common_failure_errorsItem_output,
   r2_data_catalog_api_response_common_failure_output,
+  r2_data_catalog_api_response_errors_output,
+  r2_data_catalog_api_response_messages_output,
+  r2_data_catalog_api_response_single_output,
+  r2_data_catalog_api_response_success_output,
   r2_data_catalog_get_table_response_output,
   r2_data_catalog_namespace_identifier_output,
   r2_data_catalog_table_details_output,
@@ -12,6 +15,10 @@ import {
   r2_data_catalog_table_list_response_output,
   r2_data_catalog_table_metadata_output,
 } from "../../../outputs.js";
+import {
+  r2_data_catalog_account_id,
+  r2_data_catalog_bucket_name,
+} from "../../../schemas.js";
 
 /**
  * The tools of `basin_catalog.namespaces.tables`.
@@ -25,12 +32,12 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifies the account.",
-          "type": "string"
+          "$ref": "#/$defs/r2-data-catalog_account-id",
+          "description": "Identifies the account."
         },
         "bucket_name": {
-          "description": "Specifies the R2 bucket name.",
-          "type": "string"
+          "$ref": "#/$defs/r2-data-catalog_bucket-name",
+          "description": "Specifies the R2 bucket name."
         },
         "namespace": {
           "description": "The namespace identifier.\nFor nested namespaces, use %1F as separator (e.g., \"bronze%1Fanalytics\").\n",
@@ -47,10 +54,30 @@ export const tools: readonly Tool[] = [
         "namespace",
         "table_name"
       ],
+      $defs: {
+        "r2-data-catalog_account-id": r2_data_catalog_account_id,
+        "r2-data-catalog_bucket-name": r2_data_catalog_bucket_name,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/r2-data-catalog_get-table-response",
+      "allOf": [
+        {
+          "$ref": "#/$defs/r2-data-catalog_api-response-single"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/r2-data-catalog_get-table-response"
+            }
+          },
+          "type": "object"
+        }
+      ],
       $defs: {
+        "r2-data-catalog_api-response-errors": r2_data_catalog_api_response_errors_output,
+        "r2-data-catalog_api-response-messages": r2_data_catalog_api_response_messages_output,
+        "r2-data-catalog_api-response-single": r2_data_catalog_api_response_single_output,
+        "r2-data-catalog_api-response-success": r2_data_catalog_api_response_success_output,
         "r2-data-catalog_get-table-response": r2_data_catalog_get_table_response_output,
         "r2-data-catalog_namespace-identifier": r2_data_catalog_namespace_identifier_output,
         "r2-data-catalog_table-identifier": r2_data_catalog_table_identifier_output,
@@ -75,7 +102,19 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/r2-data-catalog_get-table-response"
+          "allOf": [
+            {
+              "$ref": "#/$defs/r2-data-catalog_api-response-single"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/r2-data-catalog_get-table-response"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "400": {
           "$ref": "#/$defs/r2-data-catalog_api-response-common-failure"
@@ -95,7 +134,10 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "r2-data-catalog_api-response-common-failure": r2_data_catalog_api_response_common_failure_output,
-        "r2-data-catalog_api-response-common-failure_errorsItem": r2_data_catalog_api_response_common_failure_errorsItem_output,
+        "r2-data-catalog_api-response-errors": r2_data_catalog_api_response_errors_output,
+        "r2-data-catalog_api-response-messages": r2_data_catalog_api_response_messages_output,
+        "r2-data-catalog_api-response-single": r2_data_catalog_api_response_single_output,
+        "r2-data-catalog_api-response-success": r2_data_catalog_api_response_success_output,
         "r2-data-catalog_get-table-response": r2_data_catalog_get_table_response_output,
         "r2-data-catalog_namespace-identifier": r2_data_catalog_namespace_identifier_output,
         "r2-data-catalog_table-identifier": r2_data_catalog_table_identifier_output,
@@ -114,12 +156,12 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifies the account.",
-          "type": "string"
+          "$ref": "#/$defs/r2-data-catalog_account-id",
+          "description": "Identifies the account."
         },
         "bucket_name": {
-          "description": "Specifies the R2 bucket name.",
-          "type": "string"
+          "$ref": "#/$defs/r2-data-catalog_bucket-name",
+          "description": "Specifies the R2 bucket name."
         },
         "namespace": {
           "description": "The namespace identifier.\nFor nested namespaces, use %1F as separator (e.g., \"bronze%1Fanalytics\").\n",
@@ -150,10 +192,30 @@ export const tools: readonly Tool[] = [
         "bucket_name",
         "namespace"
       ],
+      $defs: {
+        "r2-data-catalog_account-id": r2_data_catalog_account_id,
+        "r2-data-catalog_bucket-name": r2_data_catalog_bucket_name,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/r2-data-catalog_table-list-response",
+      "allOf": [
+        {
+          "$ref": "#/$defs/r2-data-catalog_api-response-single"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/r2-data-catalog_table-list-response"
+            }
+          },
+          "type": "object"
+        }
+      ],
       $defs: {
+        "r2-data-catalog_api-response-errors": r2_data_catalog_api_response_errors_output,
+        "r2-data-catalog_api-response-messages": r2_data_catalog_api_response_messages_output,
+        "r2-data-catalog_api-response-single": r2_data_catalog_api_response_single_output,
+        "r2-data-catalog_api-response-success": r2_data_catalog_api_response_success_output,
         "r2-data-catalog_namespace-identifier": r2_data_catalog_namespace_identifier_output,
         "r2-data-catalog_table-details": r2_data_catalog_table_details_output,
         "r2-data-catalog_table-identifier": r2_data_catalog_table_identifier_output,
@@ -178,7 +240,19 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/r2-data-catalog_table-list-response"
+          "allOf": [
+            {
+              "$ref": "#/$defs/r2-data-catalog_api-response-single"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/r2-data-catalog_table-list-response"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "400": {
           "$ref": "#/$defs/r2-data-catalog_api-response-common-failure"
@@ -198,7 +272,10 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "r2-data-catalog_api-response-common-failure": r2_data_catalog_api_response_common_failure_output,
-        "r2-data-catalog_api-response-common-failure_errorsItem": r2_data_catalog_api_response_common_failure_errorsItem_output,
+        "r2-data-catalog_api-response-errors": r2_data_catalog_api_response_errors_output,
+        "r2-data-catalog_api-response-messages": r2_data_catalog_api_response_messages_output,
+        "r2-data-catalog_api-response-single": r2_data_catalog_api_response_single_output,
+        "r2-data-catalog_api-response-success": r2_data_catalog_api_response_success_output,
         "r2-data-catalog_namespace-identifier": r2_data_catalog_namespace_identifier_output,
         "r2-data-catalog_table-details": r2_data_catalog_table_details_output,
         "r2-data-catalog_table-identifier": r2_data_catalog_table_identifier_output,

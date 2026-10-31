@@ -5,15 +5,10 @@ import { type Tool, pathParam } from "../../_/tool.js";
 import { reports_Error_output, reports_Message_output } from "../outputs.js";
 import {
   reports_AccountIndustryErrorResponse_output,
-  reports_AccountIndustryPatchResponse_industry_output,
   reports_AccountIndustryPatchResponse_output,
-  reports_AccountIndustrySingleResponse_industry_output,
   reports_AccountIndustrySingleResponse_output,
 } from "./outputs.js";
-import {
-  reports_PatchAccountIndustryBody,
-  reports_PatchAccountIndustryBody_industry,
-} from "./schemas.js";
+import { reports_PatchAccountIndustryBody } from "./schemas.js";
 
 /**
  * The tools of `reporting.industry`.
@@ -36,10 +31,38 @@ export const tools: readonly Tool[] = [
       ],
     },
     outputSchema: {
-      "$ref": "#/$defs/reports_AccountIndustrySingleResponse",
+      "properties": {
+        "errors": {
+          "items": {
+            "$ref": "#/$defs/reports_Error"
+          },
+          "type": "array"
+        },
+        "messages": {
+          "items": {
+            "$ref": "#/$defs/reports_Message"
+          },
+          "type": "array"
+        },
+        "result": {
+          "$ref": "#/$defs/reports_AccountIndustrySingleResponse"
+        },
+        "success": {
+          "enum": [
+            true
+          ],
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "result",
+        "success"
+      ],
+      "type": "object",
       $defs: {
         "reports_AccountIndustrySingleResponse": reports_AccountIndustrySingleResponse_output,
-        "reports_AccountIndustrySingleResponse_industry": reports_AccountIndustrySingleResponse_industry_output,
+        "reports_Error": reports_Error_output,
+        "reports_Message": reports_Message_output,
       },
     },
     annotations: {
@@ -59,7 +82,34 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/reports_AccountIndustrySingleResponse"
+          "properties": {
+            "errors": {
+              "items": {
+                "$ref": "#/$defs/reports_Error"
+              },
+              "type": "array"
+            },
+            "messages": {
+              "items": {
+                "$ref": "#/$defs/reports_Message"
+              },
+              "type": "array"
+            },
+            "result": {
+              "$ref": "#/$defs/reports_AccountIndustrySingleResponse"
+            },
+            "success": {
+              "enum": [
+                true
+              ],
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "result",
+            "success"
+          ],
+          "type": "object"
         },
         "400": {
           "$ref": "#/$defs/reports_AccountIndustryErrorResponse"
@@ -68,7 +118,6 @@ export const tools: readonly Tool[] = [
       $defs: {
         "reports_AccountIndustryErrorResponse": reports_AccountIndustryErrorResponse_output,
         "reports_AccountIndustrySingleResponse": reports_AccountIndustrySingleResponse_output,
-        "reports_AccountIndustrySingleResponse_industry": reports_AccountIndustrySingleResponse_industry_output,
         "reports_Error": reports_Error_output,
         "reports_Message": reports_Message_output,
       },
@@ -97,14 +146,41 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "reports_PatchAccountIndustryBody": reports_PatchAccountIndustryBody,
-        "reports_PatchAccountIndustryBody_industry": reports_PatchAccountIndustryBody_industry,
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/reports_AccountIndustryPatchResponse",
+      "properties": {
+        "errors": {
+          "items": {
+            "$ref": "#/$defs/reports_Error"
+          },
+          "type": "array"
+        },
+        "messages": {
+          "items": {
+            "$ref": "#/$defs/reports_Message"
+          },
+          "type": "array"
+        },
+        "result": {
+          "$ref": "#/$defs/reports_AccountIndustryPatchResponse"
+        },
+        "success": {
+          "enum": [
+            true
+          ],
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "result",
+        "success"
+      ],
+      "type": "object",
       $defs: {
         "reports_AccountIndustryPatchResponse": reports_AccountIndustryPatchResponse_output,
-        "reports_AccountIndustryPatchResponse_industry": reports_AccountIndustryPatchResponse_industry_output,
+        "reports_Error": reports_Error_output,
+        "reports_Message": reports_Message_output,
       },
     },
     annotations: {
@@ -124,7 +200,34 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/reports_AccountIndustryPatchResponse"
+          "properties": {
+            "errors": {
+              "items": {
+                "$ref": "#/$defs/reports_Error"
+              },
+              "type": "array"
+            },
+            "messages": {
+              "items": {
+                "$ref": "#/$defs/reports_Message"
+              },
+              "type": "array"
+            },
+            "result": {
+              "$ref": "#/$defs/reports_AccountIndustryPatchResponse"
+            },
+            "success": {
+              "enum": [
+                true
+              ],
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "result",
+            "success"
+          ],
+          "type": "object"
         },
         "400": {
           "$ref": "#/$defs/reports_AccountIndustryErrorResponse"
@@ -139,7 +242,6 @@ export const tools: readonly Tool[] = [
       $defs: {
         "reports_AccountIndustryErrorResponse": reports_AccountIndustryErrorResponse_output,
         "reports_AccountIndustryPatchResponse": reports_AccountIndustryPatchResponse_output,
-        "reports_AccountIndustryPatchResponse_industry": reports_AccountIndustryPatchResponse_industry_output,
         "reports_Error": reports_Error_output,
         "reports_Message": reports_Message_output,
       },

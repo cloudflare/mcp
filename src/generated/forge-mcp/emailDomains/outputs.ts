@@ -11,6 +11,10 @@ export const email_email_domain_output: JsonSchema = {
     "account_id": {
       "$ref": "#/$defs/email_identifier"
     },
+    "claim_release_at": {
+      "format": "date-time",
+      "type": "string"
+    },
     "client_reference": {
       "type": "string"
     },
@@ -48,6 +52,10 @@ export const email_email_domain_output: JsonSchema = {
       ],
       "type": "string"
     },
+    "modified_at": {
+      "format": "date-time",
+      "type": "string"
+    },
     "routing": {
       "$ref": "#/$defs/email_email_domain_capability"
     },
@@ -64,6 +72,7 @@ export const email_email_domain_output: JsonSchema = {
     "hostname",
     "id",
     "lifecycle_status",
+    "modified_at",
     "routing",
     "sending",
     "verification"
@@ -100,25 +109,146 @@ export const email_email_domain_capability_output: JsonSchema = {
 };
 
 /**
- * The schema of `email_email_domain_collection_response_result_info` in
- * responses.
+ * The schema of `email_email_domain_change` in responses.
  */
-export const email_email_domain_collection_response_result_info_output: JsonSchema = {
+export const email_email_domain_change_output: JsonSchema = {
   "properties": {
-    "count": {
-      "type": "integer"
+    "email_domain": {
+      "$ref": "#/$defs/email_email_domain"
     },
-    "next_cursor": {
+    "kind": {
+      "enum": [
+        "email_domain",
+        "tombstone"
+      ],
       "type": "string"
     },
-    "per_page": {
-      "type": "integer"
+    "tombstone": {
+      "$ref": "#/$defs/email_email_domain_tombstone"
     }
   },
   "required": [
-    "count",
-    "next_cursor",
-    "per_page"
+    "kind"
+  ],
+  "type": "object"
+};
+
+/**
+ * The schema of `email_email_domain_change_collection_response` in responses.
+ */
+export const email_email_domain_change_collection_response_output: JsonSchema = {
+  "properties": {
+    "errors": {
+      "items": {
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "messages": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "platform": {
+      "$ref": "#/$defs/email_email_domain_platform_status"
+    },
+    "result": {
+      "items": {
+        "$ref": "#/$defs/email_email_domain_change"
+      },
+      "type": "array"
+    },
+    "result_info": {
+      "properties": {
+        "count": {
+          "type": "integer"
+        },
+        "has_more": {
+          "type": "boolean"
+        },
+        "next_cursor": {
+          "type": "string"
+        },
+        "per_page": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "count",
+        "has_more",
+        "next_cursor",
+        "per_page"
+      ],
+      "type": "object"
+    },
+    "success": {
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "errors",
+    "messages",
+    "platform",
+    "result",
+    "result_info",
+    "success"
+  ],
+  "type": "object"
+};
+
+/**
+ * The schema of `email_email_domain_collection_response` in responses.
+ */
+export const email_email_domain_collection_response_output: JsonSchema = {
+  "properties": {
+    "errors": {
+      "items": {
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "messages": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "result": {
+      "items": {
+        "$ref": "#/$defs/email_email_domain"
+      },
+      "type": "array"
+    },
+    "result_info": {
+      "properties": {
+        "count": {
+          "type": "integer"
+        },
+        "next_cursor": {
+          "type": "string"
+        },
+        "per_page": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "count",
+        "next_cursor",
+        "per_page"
+      ],
+      "type": "object"
+    },
+    "success": {
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "errors",
+    "messages",
+    "result",
+    "result_info",
+    "success"
   ],
   "type": "object"
 };
@@ -161,6 +291,8 @@ export const email_email_domain_dns_record_output: JsonSchema = {
     },
     "selector": {
       "enum": [
+        "cf1",
+        "cf2",
         "s1",
         "s2"
       ],
@@ -210,13 +342,37 @@ export const email_email_domain_error_response_output: JsonSchema = {
   "properties": {
     "errors": {
       "items": {
-        "$ref": "#/$defs/email_email_domain_error_response_errorsItem"
+        "properties": {
+          "code": {
+            "type": "integer"
+          },
+          "message": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "code",
+          "message"
+        ],
+        "type": "object"
       },
       "type": "array"
     },
     "messages": {
       "items": {
-        "$ref": "#/$defs/email_email_domain_error_response_messagesItem"
+        "properties": {
+          "code": {
+            "type": "integer"
+          },
+          "message": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "code",
+          "message"
+        ],
+        "type": "object"
       },
       "type": "array"
     },
@@ -247,39 +403,88 @@ export const email_email_domain_error_response_output: JsonSchema = {
 };
 
 /**
- * The schema of `email_email_domain_error_response_errorsItem` in responses.
+ * The schema of `email_email_domain_platform_status` in responses.
  */
-export const email_email_domain_error_response_errorsItem_output: JsonSchema = {
+export const email_email_domain_platform_status_output: JsonSchema = {
   "properties": {
-    "code": {
-      "type": "integer"
+    "routing": {
+      "$ref": "#/$defs/email_email_domain_capability"
     },
-    "message": {
-      "type": "string"
+    "sending": {
+      "$ref": "#/$defs/email_email_domain_capability"
     }
   },
   "required": [
-    "code",
-    "message"
+    "routing",
+    "sending"
   ],
   "type": "object"
 };
 
 /**
- * The schema of `email_email_domain_error_response_messagesItem` in responses.
+ * The schema of `email_email_domain_response` in responses.
  */
-export const email_email_domain_error_response_messagesItem_output: JsonSchema = {
+export const email_email_domain_response_output: JsonSchema = {
   "properties": {
-    "code": {
-      "type": "integer"
+    "errors": {
+      "items": {
+        "type": "object"
+      },
+      "type": "array"
     },
-    "message": {
+    "messages": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "result": {
+      "$ref": "#/$defs/email_email_domain"
+    },
+    "success": {
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "errors",
+    "messages",
+    "result",
+    "success"
+  ],
+  "type": "object"
+};
+
+/**
+ * The schema of `email_email_domain_tombstone` in responses.
+ */
+export const email_email_domain_tombstone_output: JsonSchema = {
+  "properties": {
+    "hostname": {
+      "type": "string"
+    },
+    "id": {
+      "format": "uuid",
+      "type": "string"
+    },
+    "modified_at": {
+      "format": "date-time",
+      "type": "string"
+    },
+    "reason": {
+      "enum": [
+        "deleted",
+        "claim_released",
+        "expired",
+        "claim_lost"
+      ],
       "type": "string"
     }
   },
   "required": [
-    "code",
-    "message"
+    "hostname",
+    "id",
+    "modified_at",
+    "reason"
   ],
   "type": "object"
 };

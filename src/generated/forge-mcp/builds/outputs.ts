@@ -4,49 +4,6 @@
 import type { JsonSchema } from "../_/tool.js";
 
 /**
- * The schema of `builds_APIResponse` in responses.
- */
-export const builds_APIResponse_output: JsonSchema = {
-  "properties": {
-    "errors": {
-      "items": {
-        "$ref": "#/$defs/builds_ApiError"
-      },
-      "type": "array"
-    },
-    "messages": {
-      "items": {
-        "type": "string"
-      },
-      "type": "array"
-    },
-    "result": {
-      "oneOf": [
-        {
-          "type": "object"
-        },
-        {
-          "type": "null"
-        }
-      ]
-    },
-    "result_info": {
-      "$ref": "#/$defs/builds_PaginationInfo"
-    },
-    "success": {
-      "type": "boolean"
-    }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "result",
-    "success"
-  ],
-  "type": "object"
-};
-
-/**
  * The schema of `builds_CanceledBuildResponse` in responses.
  */
 export const builds_CanceledBuildResponse_output: JsonSchema = {

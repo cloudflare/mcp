@@ -4,9 +4,13 @@
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
   magic_visibility_mnm_api_response_common_failure_output,
+  magic_visibility_mnm_api_response_common_output,
+  magic_visibility_mnm_api_response_single_output,
   magic_visibility_mnm_messages_output,
 } from "../../outputs.js";
+import { magic_visibility_mnm_account_identifier } from "../../schemas.js";
 import { magic_visibility_mnm_mnm_rule_automatic_advertisement_output } from "../outputs.js";
+import { magic_visibility_mnm_rule_identifier } from "../schemas.js";
 import {
   magic_visibility_mnm_mnm_rule_advertisable_response_output,
   magic_visibility_mnm_mnm_rule_advertisement_single_response_output,
@@ -24,22 +28,30 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "type": "string"
+          "$ref": "#/$defs/magic-visibility-mnm_account_identifier"
         },
         "rule_id": {
-          "description": "The id of the rule. Must be unique.",
-          "type": "string"
+          "$ref": "#/$defs/magic-visibility-mnm_rule_identifier",
+          "description": "The id of the rule. Must be unique."
         }
       },
       required: [
         "account_id",
         "rule_id"
       ],
+      $defs: {
+        "magic-visibility-mnm_account_identifier": magic_visibility_mnm_account_identifier,
+        "magic-visibility-mnm_rule_identifier": magic_visibility_mnm_rule_identifier,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/magic-visibility-mnm_mnm_rule_advertisable_response",
+      "$ref": "#/$defs/magic-visibility-mnm_mnm_rule_advertisement_single_response",
       $defs: {
+        "magic-visibility-mnm_api-response-common": magic_visibility_mnm_api_response_common_output,
+        "magic-visibility-mnm_api-response-single": magic_visibility_mnm_api_response_single_output,
+        "magic-visibility-mnm_messages": magic_visibility_mnm_messages_output,
         "magic-visibility-mnm_mnm_rule_advertisable_response": magic_visibility_mnm_mnm_rule_advertisable_response_output,
+        "magic-visibility-mnm_mnm_rule_advertisement_single_response": magic_visibility_mnm_mnm_rule_advertisement_single_response_output,
         "magic-visibility-mnm_mnm_rule_automatic_advertisement": magic_visibility_mnm_mnm_rule_automatic_advertisement_output,
       },
     },
@@ -61,7 +73,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/magic-visibility-mnm_mnm_rule_advertisable_response"
+          "$ref": "#/$defs/magic-visibility-mnm_mnm_rule_advertisement_single_response"
         },
         "4XX": {
           "allOf": [
@@ -75,7 +87,9 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
+        "magic-visibility-mnm_api-response-common": magic_visibility_mnm_api_response_common_output,
         "magic-visibility-mnm_api-response-common-failure": magic_visibility_mnm_api_response_common_failure_output,
+        "magic-visibility-mnm_api-response-single": magic_visibility_mnm_api_response_single_output,
         "magic-visibility-mnm_messages": magic_visibility_mnm_messages_output,
         "magic-visibility-mnm_mnm_rule_advertisable_response": magic_visibility_mnm_mnm_rule_advertisable_response_output,
         "magic-visibility-mnm_mnm_rule_advertisement_single_response": magic_visibility_mnm_mnm_rule_advertisement_single_response_output,

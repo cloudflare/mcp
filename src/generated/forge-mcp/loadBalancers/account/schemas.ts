@@ -192,6 +192,13 @@ export const load_balancing_load_balancer_editable: JsonSchema = {
 };
 
 /**
+ * The schema of `load-balancing_load-balancer_components-schemas-identifier`.
+ */
+export const load_balancing_load_balancer_components_schemas_identifier: JsonSchema = {
+  "type": "string"
+};
+
+/**
  * The schema of `load-balancing_location_strategy`.
  */
 export const load_balancing_location_strategy: JsonSchema = {

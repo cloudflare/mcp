@@ -36,27 +36,19 @@ export const waitingroom_event_details_queueing_method_output: JsonSchema = {
  * The schema of `waitingroom_event_details_response` in responses.
  */
 export const waitingroom_event_details_response_output: JsonSchema = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/waitingroom_messages"
+  "allOf": [
+    {
+      "$ref": "#/$defs/waitingroom_api-response-single"
     },
-    "messages": {
-      "$ref": "#/$defs/waitingroom_messages"
-    },
-    "result": {
-      "$ref": "#/$defs/waitingroom_event_details_result"
-    },
-    "success": {
-      "type": "boolean"
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/waitingroom_event_details_result"
+        }
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "result",
-    "success"
-  ],
-  "type": "object"
+  ]
 };
 
 /**

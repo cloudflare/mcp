@@ -32,3 +32,111 @@ export const cws_BasicAuthCredential_output: JsonSchema = {
   ],
   "type": "object"
 };
+
+/**
+ * The schema of `cws_PageResponseBasicAuthCredential` in responses.
+ */
+export const cws_PageResponseBasicAuthCredential_output: JsonSchema = {
+  "properties": {
+    "errors": {
+      "oneOf": [
+        {
+          "items": {
+            "$ref": "#/$defs/cws_ResponseMessage"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "messages": {
+      "oneOf": [
+        {
+          "items": {
+            "$ref": "#/$defs/cws_ResponseMessage"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "result": {
+      "oneOf": [
+        {
+          "items": {
+            "$ref": "#/$defs/cws_BasicAuthCredential"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "result_info": {
+      "$ref": "#/$defs/cws_ResultInfo"
+    },
+    "success": {
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "errors",
+    "messages",
+    "result",
+    "result_info",
+    "success"
+  ],
+  "type": "object"
+};
+
+/**
+ * The schema of `cws_ResponseBasicAuthCredential` in responses.
+ */
+export const cws_ResponseBasicAuthCredential_output: JsonSchema = {
+  "properties": {
+    "errors": {
+      "oneOf": [
+        {
+          "items": {
+            "$ref": "#/$defs/cws_ResponseMessage"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "messages": {
+      "oneOf": [
+        {
+          "items": {
+            "$ref": "#/$defs/cws_ResponseMessage"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "result": {
+      "$ref": "#/$defs/cws_BasicAuthCredential"
+    },
+    "success": {
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "errors",
+    "messages",
+    "result",
+    "success"
+  ],
+  "type": "object"
+};

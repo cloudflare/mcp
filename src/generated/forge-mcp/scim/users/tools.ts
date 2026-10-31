@@ -2,11 +2,14 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../_/tool.js";
+import {
+  iam_account_identifier,
+  iam_common_components_schemas_identifier,
+} from "../../schemas.js";
 import { iam_scim_error_response_output } from "../outputs.js";
 import {
   iam_scim_user_email_object_output,
   iam_scim_user_list_response_output,
-  iam_scim_user_meta_output,
   iam_scim_user_name_object_output,
   iam_scim_user_output,
 } from "./outputs.js";
@@ -15,6 +18,7 @@ import {
   iam_scim_patch_operation,
   iam_scim_user_create_request,
   iam_scim_user_email_object,
+  iam_scim_user_identifier,
   iam_scim_user_name_object,
   iam_scim_user_replace_request,
 } from "./schemas.js";
@@ -31,8 +35,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Account identifier tag.",
-          "type": "string"
+          "$ref": "#/$defs/iam_account_identifier",
+          "description": "Account identifier tag."
         },
         "body": {
           "$ref": "#/$defs/iam_scim_user_create_request"
@@ -43,6 +47,8 @@ export const tools: readonly Tool[] = [
         "body"
       ],
       $defs: {
+        "iam_account_identifier": iam_account_identifier,
+        "iam_common_components-schemas-identifier": iam_common_components_schemas_identifier,
         "iam_scim_user_create_request": iam_scim_user_create_request,
         "iam_scim_user_email_object": iam_scim_user_email_object,
         "iam_scim_user_name_object": iam_scim_user_name_object,
@@ -53,7 +59,6 @@ export const tools: readonly Tool[] = [
       $defs: {
         "iam_scim_user": iam_scim_user_output,
         "iam_scim_user_email_object": iam_scim_user_email_object_output,
-        "iam_scim_user_meta": iam_scim_user_meta_output,
         "iam_scim_user_name_object": iam_scim_user_name_object_output,
       },
     },
@@ -74,12 +79,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "com.cloudflare.api.account.member.create"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.api.account.member.create": {
-            "name": "com_cloudflare_api_account_member_create"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": false,
@@ -101,7 +101,6 @@ export const tools: readonly Tool[] = [
         "iam_scim_error_response": iam_scim_error_response_output,
         "iam_scim_user": iam_scim_user_output,
         "iam_scim_user_email_object": iam_scim_user_email_object_output,
-        "iam_scim_user_meta": iam_scim_user_meta_output,
         "iam_scim_user_name_object": iam_scim_user_name_object_output,
       },
     },
@@ -118,18 +117,23 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Account identifier tag.",
-          "type": "string"
+          "$ref": "#/$defs/iam_account_identifier",
+          "description": "Account identifier tag."
         },
         "user_id": {
-          "description": "The user tag identifying a SCIM User resource (account member).",
-          "type": "string"
+          "$ref": "#/$defs/iam_scim_user_identifier",
+          "description": "The user tag identifying a SCIM User resource (account member)."
         }
       },
       required: [
         "account_id",
         "user_id"
       ],
+      $defs: {
+        "iam_account_identifier": iam_account_identifier,
+        "iam_common_components-schemas-identifier": iam_common_components_schemas_identifier,
+        "iam_scim_user_identifier": iam_scim_user_identifier,
+      },
     },
     annotations: {
       "destructiveHint": true,
@@ -148,12 +152,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "com.cloudflare.api.account.member.delete"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.api.account.member.delete": {
-            "name": "com_cloudflare_api_account_member_delete"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": false,
@@ -185,15 +184,15 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Account identifier tag.",
-          "type": "string"
+          "$ref": "#/$defs/iam_account_identifier",
+          "description": "Account identifier tag."
         },
         "body": {
           "$ref": "#/$defs/iam_scim_patch_op_request"
         },
         "user_id": {
-          "description": "The user tag identifying a SCIM User resource (account member).",
-          "type": "string"
+          "$ref": "#/$defs/iam_scim_user_identifier",
+          "description": "The user tag identifying a SCIM User resource (account member)."
         }
       },
       required: [
@@ -202,8 +201,11 @@ export const tools: readonly Tool[] = [
         "body"
       ],
       $defs: {
+        "iam_account_identifier": iam_account_identifier,
+        "iam_common_components-schemas-identifier": iam_common_components_schemas_identifier,
         "iam_scim_patch_op_request": iam_scim_patch_op_request,
         "iam_scim_patch_operation": iam_scim_patch_operation,
+        "iam_scim_user_identifier": iam_scim_user_identifier,
       },
     },
     outputSchema: {
@@ -211,7 +213,6 @@ export const tools: readonly Tool[] = [
       $defs: {
         "iam_scim_user": iam_scim_user_output,
         "iam_scim_user_email_object": iam_scim_user_email_object_output,
-        "iam_scim_user_meta": iam_scim_user_meta_output,
         "iam_scim_user_name_object": iam_scim_user_name_object_output,
       },
     },
@@ -232,12 +233,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "com.cloudflare.api.account.member.update"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.api.account.member.update": {
-            "name": "com_cloudflare_api_account_member_update"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": false,
@@ -259,7 +255,6 @@ export const tools: readonly Tool[] = [
         "iam_scim_error_response": iam_scim_error_response_output,
         "iam_scim_user": iam_scim_user_output,
         "iam_scim_user_email_object": iam_scim_user_email_object_output,
-        "iam_scim_user_meta": iam_scim_user_meta_output,
         "iam_scim_user_name_object": iam_scim_user_name_object_output,
       },
     },
@@ -276,25 +271,29 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Account identifier tag.",
-          "type": "string"
+          "$ref": "#/$defs/iam_account_identifier",
+          "description": "Account identifier tag."
         },
         "user_id": {
-          "description": "The user tag identifying a SCIM User resource (account member).",
-          "type": "string"
+          "$ref": "#/$defs/iam_scim_user_identifier",
+          "description": "The user tag identifying a SCIM User resource (account member)."
         }
       },
       required: [
         "account_id",
         "user_id"
       ],
+      $defs: {
+        "iam_account_identifier": iam_account_identifier,
+        "iam_common_components-schemas-identifier": iam_common_components_schemas_identifier,
+        "iam_scim_user_identifier": iam_scim_user_identifier,
+      },
     },
     outputSchema: {
       "$ref": "#/$defs/iam_scim_user",
       $defs: {
         "iam_scim_user": iam_scim_user_output,
         "iam_scim_user_email_object": iam_scim_user_email_object_output,
-        "iam_scim_user_meta": iam_scim_user_meta_output,
         "iam_scim_user_name_object": iam_scim_user_name_object_output,
       },
     },
@@ -316,12 +315,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "com.cloudflare.api.account.member.read"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.api.account.member.read": {
-            "name": "com_cloudflare_api_account_member_read"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": true,
@@ -343,7 +337,6 @@ export const tools: readonly Tool[] = [
         "iam_scim_error_response": iam_scim_error_response_output,
         "iam_scim_user": iam_scim_user_output,
         "iam_scim_user_email_object": iam_scim_user_email_object_output,
-        "iam_scim_user_meta": iam_scim_user_meta_output,
         "iam_scim_user_name_object": iam_scim_user_name_object_output,
       },
     },
@@ -359,8 +352,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Account identifier tag.",
-          "type": "string"
+          "$ref": "#/$defs/iam_account_identifier",
+          "description": "Account identifier tag."
         },
         "count": {
           "description": "Specifies the desired maximum number of query results per page.\n",
@@ -379,6 +372,10 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+      $defs: {
+        "iam_account_identifier": iam_account_identifier,
+        "iam_common_components-schemas-identifier": iam_common_components_schemas_identifier,
+      },
     },
     outputSchema: {
       "$ref": "#/$defs/iam_scim_user_list_response",
@@ -386,7 +383,6 @@ export const tools: readonly Tool[] = [
         "iam_scim_user": iam_scim_user_output,
         "iam_scim_user_email_object": iam_scim_user_email_object_output,
         "iam_scim_user_list_response": iam_scim_user_list_response_output,
-        "iam_scim_user_meta": iam_scim_user_meta_output,
         "iam_scim_user_name_object": iam_scim_user_name_object_output,
       },
     },
@@ -408,12 +404,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "com.cloudflare.api.account.member.list"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.api.account.member.list": {
-            "name": "com_cloudflare_api_account_member_list"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": true,
@@ -436,7 +427,6 @@ export const tools: readonly Tool[] = [
         "iam_scim_user": iam_scim_user_output,
         "iam_scim_user_email_object": iam_scim_user_email_object_output,
         "iam_scim_user_list_response": iam_scim_user_list_response_output,
-        "iam_scim_user_meta": iam_scim_user_meta_output,
         "iam_scim_user_name_object": iam_scim_user_name_object_output,
       },
     },
@@ -457,15 +447,15 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Account identifier tag.",
-          "type": "string"
+          "$ref": "#/$defs/iam_account_identifier",
+          "description": "Account identifier tag."
         },
         "body": {
           "$ref": "#/$defs/iam_scim_user_replace_request"
         },
         "user_id": {
-          "description": "The user tag identifying a SCIM User resource (account member).",
-          "type": "string"
+          "$ref": "#/$defs/iam_scim_user_identifier",
+          "description": "The user tag identifying a SCIM User resource (account member)."
         }
       },
       required: [
@@ -474,7 +464,10 @@ export const tools: readonly Tool[] = [
         "body"
       ],
       $defs: {
+        "iam_account_identifier": iam_account_identifier,
+        "iam_common_components-schemas-identifier": iam_common_components_schemas_identifier,
         "iam_scim_user_email_object": iam_scim_user_email_object,
+        "iam_scim_user_identifier": iam_scim_user_identifier,
         "iam_scim_user_name_object": iam_scim_user_name_object,
         "iam_scim_user_replace_request": iam_scim_user_replace_request,
       },
@@ -484,7 +477,6 @@ export const tools: readonly Tool[] = [
       $defs: {
         "iam_scim_user": iam_scim_user_output,
         "iam_scim_user_email_object": iam_scim_user_email_object_output,
-        "iam_scim_user_meta": iam_scim_user_meta_output,
         "iam_scim_user_name_object": iam_scim_user_name_object_output,
       },
     },
@@ -505,12 +497,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "com.cloudflare.api.account.member.update"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.api.account.member.update": {
-            "name": "com_cloudflare_api_account_member_update"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": false,
@@ -532,7 +519,6 @@ export const tools: readonly Tool[] = [
         "iam_scim_error_response": iam_scim_error_response_output,
         "iam_scim_user": iam_scim_user_output,
         "iam_scim_user_email_object": iam_scim_user_email_object_output,
-        "iam_scim_user_meta": iam_scim_user_meta_output,
         "iam_scim_user_name_object": iam_scim_user_name_object_output,
       },
     },

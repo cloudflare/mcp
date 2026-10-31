@@ -3,13 +3,14 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
+  digital_experience_monitoring_api_response_collection_output,
   digital_experience_monitoring_api_response_common_failure_output,
+  digital_experience_monitoring_api_response_common_output,
   digital_experience_monitoring_messages_output,
 } from "../outputs.js";
+import { digital_experience_monitoring_account_identifier } from "../schemas.js";
 import {
-  digital_experience_monitoring_get_commands_response_commandsItem_output,
   digital_experience_monitoring_get_commands_response_output,
-  digital_experience_monitoring_post_commands_response_commandsItem_output,
   digital_experience_monitoring_post_commands_response_output,
 } from "./outputs.js";
 
@@ -25,8 +26,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Unique Cloudflare account ID.",
-          "type": "string"
+          "$ref": "#/$defs/digital-experience-monitoring_account_identifier",
+          "description": "Unique Cloudflare account ID."
         },
         "body": {
           "properties": {
@@ -128,12 +129,29 @@ export const tools: readonly Tool[] = [
         "account_id",
         "body"
       ],
+      $defs: {
+        "digital-experience-monitoring_account_identifier": digital_experience_monitoring_account_identifier,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/digital-experience-monitoring_post_commands_response",
+      "allOf": [
+        {
+          "$ref": "#/$defs/digital-experience-monitoring_api-response-collection"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/digital-experience-monitoring_post_commands_response"
+            }
+          },
+          "type": "object"
+        }
+      ],
       $defs: {
+        "digital-experience-monitoring_api-response-collection": digital_experience_monitoring_api_response_collection_output,
+        "digital-experience-monitoring_api-response-common": digital_experience_monitoring_api_response_common_output,
+        "digital-experience-monitoring_messages": digital_experience_monitoring_messages_output,
         "digital-experience-monitoring_post_commands_response": digital_experience_monitoring_post_commands_response_output,
-        "digital-experience-monitoring_post_commands_response_commandsItem": digital_experience_monitoring_post_commands_response_commandsItem_output,
       },
     },
     annotations: {
@@ -153,17 +171,30 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/digital-experience-monitoring_post_commands_response"
+          "allOf": [
+            {
+              "$ref": "#/$defs/digital-experience-monitoring_api-response-collection"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/digital-experience-monitoring_post_commands_response"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/digital-experience-monitoring_api-response-common-failure"
         }
       },
       $defs: {
+        "digital-experience-monitoring_api-response-collection": digital_experience_monitoring_api_response_collection_output,
+        "digital-experience-monitoring_api-response-common": digital_experience_monitoring_api_response_common_output,
         "digital-experience-monitoring_api-response-common-failure": digital_experience_monitoring_api_response_common_failure_output,
         "digital-experience-monitoring_messages": digital_experience_monitoring_messages_output,
         "digital-experience-monitoring_post_commands_response": digital_experience_monitoring_post_commands_response_output,
-        "digital-experience-monitoring_post_commands_response_commandsItem": digital_experience_monitoring_post_commands_response_commandsItem_output,
       },
     },
     request: (args) => ({
@@ -179,8 +210,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Unique Cloudflare account ID.",
-          "type": "string"
+          "$ref": "#/$defs/digital-experience-monitoring_account_identifier",
+          "description": "Unique Cloudflare account ID."
         },
         "command_type": {
           "description": "Optionally filter executed commands by command type.",
@@ -234,12 +265,29 @@ export const tools: readonly Tool[] = [
         "page",
         "per_page"
       ],
+      $defs: {
+        "digital-experience-monitoring_account_identifier": digital_experience_monitoring_account_identifier,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/digital-experience-monitoring_get_commands_response",
+      "allOf": [
+        {
+          "$ref": "#/$defs/digital-experience-monitoring_api-response-collection"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/digital-experience-monitoring_get_commands_response"
+            }
+          },
+          "type": "object"
+        }
+      ],
       $defs: {
+        "digital-experience-monitoring_api-response-collection": digital_experience_monitoring_api_response_collection_output,
+        "digital-experience-monitoring_api-response-common": digital_experience_monitoring_api_response_common_output,
         "digital-experience-monitoring_get_commands_response": digital_experience_monitoring_get_commands_response_output,
-        "digital-experience-monitoring_get_commands_response_commandsItem": digital_experience_monitoring_get_commands_response_commandsItem_output,
+        "digital-experience-monitoring_messages": digital_experience_monitoring_messages_output,
       },
     },
     annotations: {
@@ -262,16 +310,29 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/digital-experience-monitoring_get_commands_response"
+          "allOf": [
+            {
+              "$ref": "#/$defs/digital-experience-monitoring_api-response-collection"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/digital-experience-monitoring_get_commands_response"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/digital-experience-monitoring_api-response-common-failure"
         }
       },
       $defs: {
+        "digital-experience-monitoring_api-response-collection": digital_experience_monitoring_api_response_collection_output,
+        "digital-experience-monitoring_api-response-common": digital_experience_monitoring_api_response_common_output,
         "digital-experience-monitoring_api-response-common-failure": digital_experience_monitoring_api_response_common_failure_output,
         "digital-experience-monitoring_get_commands_response": digital_experience_monitoring_get_commands_response_output,
-        "digital-experience-monitoring_get_commands_response_commandsItem": digital_experience_monitoring_get_commands_response_commandsItem_output,
         "digital-experience-monitoring_messages": digital_experience_monitoring_messages_output,
       },
     },

@@ -66,3 +66,11 @@ export const logshare_timestamps: JsonSchema = {
   ],
   "type": "string"
 };
+
+/**
+ * The schema of `logshare_zone_identifier`.
+ */
+export const logshare_zone_identifier: JsonSchema = {
+  "description": "Identifier.",
+  "type": "string"
+};

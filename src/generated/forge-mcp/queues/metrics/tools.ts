@@ -6,8 +6,10 @@ import {
   mq_api_v4_error_output,
   mq_api_v4_failure_output,
   mq_api_v4_message_output,
+  mq_api_v4_success_output,
   mq_queue_metrics_output,
 } from "../outputs.js";
+import { mq_identifier } from "../schemas.js";
 
 /**
  * The tools of `queues.metrics`.
@@ -21,22 +23,40 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "A Resource identifier.",
-          "type": "string"
+          "$ref": "#/$defs/mq_identifier",
+          "description": "A Resource identifier."
         },
         "queue_id": {
-          "description": "A Resource identifier.",
-          "type": "string"
+          "$ref": "#/$defs/mq_identifier",
+          "description": "A Resource identifier."
         }
       },
       required: [
         "account_id",
         "queue_id"
       ],
+      $defs: {
+        "mq_identifier": mq_identifier,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/mq_queue-metrics",
+      "allOf": [
+        {
+          "$ref": "#/$defs/mq_api-v4-success"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/mq_queue-metrics"
+            }
+          },
+          "type": "object"
+        }
+      ],
       $defs: {
+        "mq_api-v4-error": mq_api_v4_error_output,
+        "mq_api-v4-message": mq_api_v4_message_output,
+        "mq_api-v4-success": mq_api_v4_success_output,
         "mq_queue-metrics": mq_queue_metrics_output,
       },
     },
@@ -60,7 +80,19 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/mq_queue-metrics"
+          "allOf": [
+            {
+              "$ref": "#/$defs/mq_api-v4-success"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/mq_queue-metrics"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/mq_api-v4-failure"
@@ -70,6 +102,7 @@ export const tools: readonly Tool[] = [
         "mq_api-v4-error": mq_api_v4_error_output,
         "mq_api-v4-failure": mq_api_v4_failure_output,
         "mq_api-v4-message": mq_api_v4_message_output,
+        "mq_api-v4-success": mq_api_v4_success_output,
         "mq_queue-metrics": mq_queue_metrics_output,
       },
     },

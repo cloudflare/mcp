@@ -4,9 +4,11 @@
 import { type Tool, pathParam } from "../../../../_/tool.js";
 import {
   access_api_response_common_failure_output,
+  access_api_response_common_output,
   access_messages_output,
   access_timestamp_output,
 } from "../../../outputs.js";
+import { access_identifier } from "../../../schemas.js";
 import {
   access_access_requests_output,
   access_action_output,
@@ -17,6 +19,7 @@ import {
   access_email_3_output,
   access_ip_output,
   access_ray_id_output,
+  access_response_collection_12_output,
 } from "./outputs.js";
 import { access_email_3, access_user_id } from "./schemas.js";
 
@@ -32,8 +35,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/access_identifier",
+          "description": "Identifier."
         },
         "allowed_op": {
           "default": "eq",
@@ -176,35 +179,25 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "access_email-3": access_email_3,
+        "access_identifier": access_identifier,
         "access_user_id": access_user_id,
       },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "$ref": "#/$defs/access_access-requests"
-          },
-          "type": "array"
-        },
-        "result_info": {
-          "type": "object"
-        }
-      },
-      "required": [
-        "result"
-      ],
-      "type": "object",
+      "$ref": "#/$defs/access_response_collection-12",
       $defs: {
         "access_access-requests": access_access_requests_output,
         "access_action": access_action_output,
         "access_allowed": access_allowed_output,
+        "access_api-response-common": access_api_response_common_output,
         "access_app_domain": access_app_domain_output,
         "access_app_uid": access_app_uid_output,
         "access_connection": access_connection_output,
         "access_email-3": access_email_3_output,
         "access_ip": access_ip_output,
+        "access_messages": access_messages_output,
         "access_ray_id": access_ray_id_output,
+        "access_response_collection-12": access_response_collection_12_output,
         "access_timestamp": access_timestamp_output,
       },
     },
@@ -225,21 +218,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "items": {
-                "$ref": "#/$defs/access_access-requests"
-              },
-              "type": "array"
-            },
-            "result_info": {
-              "type": "object"
-            }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/access_response_collection-12"
         },
         "4XX": {
           "$ref": "#/$defs/access_api-response-common-failure"
@@ -249,6 +228,7 @@ export const tools: readonly Tool[] = [
         "access_access-requests": access_access_requests_output,
         "access_action": access_action_output,
         "access_allowed": access_allowed_output,
+        "access_api-response-common": access_api_response_common_output,
         "access_api-response-common-failure": access_api_response_common_failure_output,
         "access_app_domain": access_app_domain_output,
         "access_app_uid": access_app_uid_output,
@@ -257,6 +237,7 @@ export const tools: readonly Tool[] = [
         "access_ip": access_ip_output,
         "access_messages": access_messages_output,
         "access_ray_id": access_ray_id_output,
+        "access_response_collection-12": access_response_collection_12_output,
         "access_timestamp": access_timestamp_output,
       },
     },

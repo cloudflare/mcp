@@ -35,27 +35,20 @@ export const workers_PreviewsBaseConfig: JsonSchema = {
     "tail_consumers": {
       "description": "Other Workers that should consume logs from newly created Previews.",
       "items": {
-        "$ref": "#/$defs/workers_PreviewsBaseConfig_tail_consumersItem"
+        "properties": {
+          "name": {
+            "description": "Name of the consumer Worker.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "name"
+        ],
+        "type": "object"
       },
       "type": "array"
     }
   },
-  "type": "object"
-};
-
-/**
- * The schema of `workers_PreviewsBaseConfig_tail_consumersItem`.
- */
-export const workers_PreviewsBaseConfig_tail_consumersItem: JsonSchema = {
-  "properties": {
-    "name": {
-      "description": "Name of the consumer Worker.",
-      "type": "string"
-    }
-  },
-  "required": [
-    "name"
-  ],
   "type": "object"
 };
 
@@ -74,16 +67,140 @@ export const workers_Worker: JsonSchema = {
       "type": "string"
     },
     "observability": {
-      "$ref": "#/$defs/workers_Worker_observability",
-      "description": "Observability settings for the Worker."
+      "description": "Observability settings for the Worker.",
+      "properties": {
+        "enabled": {
+          "default": false,
+          "description": "Whether observability is enabled for the Worker.",
+          "type": "boolean"
+        },
+        "head_sampling_rate": {
+          "default": 1,
+          "description": "The sampling rate for observability. From 0 to 1 (1 = 100%, 0.1 = 10%).",
+          "type": "number"
+        },
+        "issues": {
+          "description": "Real-time Issues settings for the Worker.",
+          "oneOf": [
+            {
+              "properties": {
+                "enabled": {
+                  "default": false,
+                  "description": "Whether real-time Issues are enabled for the Worker.",
+                  "type": "boolean"
+                }
+              },
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "logs": {
+          "description": "Log settings for the Worker.",
+          "properties": {
+            "destinations": {
+              "default": [],
+              "description": "A list of destinations where logs will be exported to.",
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "enabled": {
+              "default": false,
+              "description": "Whether logs are enabled for the Worker.",
+              "type": "boolean"
+            },
+            "head_sampling_rate": {
+              "default": 1,
+              "description": "The sampling rate for logs. From 0 to 1 (1 = 100%, 0.1 = 10%).",
+              "type": "number"
+            },
+            "invocation_logs": {
+              "default": true,
+              "description": "Whether [invocation logs](https://developers.cloudflare.com/workers/observability/logs/workers-logs/#invocation-logs) are enabled for the Worker.",
+              "type": "boolean"
+            },
+            "persist": {
+              "default": true,
+              "description": "Whether log persistence is enabled for the Worker.",
+              "type": "boolean"
+            }
+          },
+          "type": "object"
+        },
+        "redact_query_string": {
+          "default": false,
+          "description": "Whether query strings are removed from request URLs in logs and traces.",
+          "type": "boolean"
+        },
+        "traces": {
+          "description": "Trace settings for the Worker.",
+          "properties": {
+            "destinations": {
+              "default": [],
+              "description": "A list of destinations where traces will be exported to.",
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "enabled": {
+              "default": false,
+              "description": "Whether traces are enabled for the Worker.",
+              "type": "boolean"
+            },
+            "head_sampling_rate": {
+              "default": 1,
+              "description": "The sampling rate for traces. From 0 to 1 (1 = 100%, 0.1 = 10%).",
+              "type": "number"
+            },
+            "persist": {
+              "default": true,
+              "description": "Whether trace persistence is enabled for the Worker.",
+              "type": "boolean"
+            },
+            "propagation_policy": {
+              "description": "Controls how inbound trace context (traceparent/tracestate) headers on incoming requests are handled. \"authenticated\" honors inbound trace context only when accompanied by a valid trace auth token. \"accept\" unconditionally accepts inbound trace context. Requires the trace propagation feature to be enabled. Returns null when the trace propagation feature is not enabled for the account.",
+              "oneOf": [
+                {
+                  "enum": [
+                    "authenticated",
+                    "accept"
+                  ],
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
     },
     "previews_base_config": {
       "$ref": "#/$defs/workers_PreviewsBaseConfig",
       "description": "Template configuration used when creating new Previews for this Worker."
     },
     "subdomain": {
-      "$ref": "#/$defs/workers_Worker_subdomain",
-      "description": "Subdomain settings for the Worker."
+      "description": "Subdomain settings for the Worker.",
+      "properties": {
+        "enabled": {
+          "default": false,
+          "description": "Whether the *.workers.dev subdomain is enabled for the Worker.",
+          "type": "boolean"
+        },
+        "previews_enabled": {
+          "description": "Whether [preview URLs](https://developers.cloudflare.com/workers/configuration/previews/) are enabled for the Worker.",
+          "type": "boolean"
+        }
+      },
+      "type": "object"
     },
     "tags": {
       "default": [],
@@ -98,7 +215,16 @@ export const workers_Worker: JsonSchema = {
       "default": [],
       "description": "Other Workers that should consume logs from the Worker.",
       "items": {
-        "$ref": "#/$defs/workers_Worker_tail_consumersItem"
+        "properties": {
+          "name": {
+            "description": "Name of the consumer Worker.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "name"
+        ],
+        "type": "object"
       },
       "type": "array"
     }
@@ -110,186 +236,6 @@ export const workers_Worker: JsonSchema = {
     "subdomain",
     "tags",
     "tail_consumers"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `workers_Worker_observability`.
- */
-export const workers_Worker_observability: JsonSchema = {
-  "description": "Observability settings for the Worker.",
-  "properties": {
-    "enabled": {
-      "default": false,
-      "description": "Whether observability is enabled for the Worker.",
-      "type": "boolean"
-    },
-    "head_sampling_rate": {
-      "default": 1,
-      "description": "The sampling rate for observability. From 0 to 1 (1 = 100%, 0.1 = 10%).",
-      "type": "number"
-    },
-    "issues": {
-      "$ref": "#/$defs/workers_Worker_observability_issues",
-      "description": "Real-time Issues settings for the Worker."
-    },
-    "logs": {
-      "$ref": "#/$defs/workers_Worker_observability_logs",
-      "description": "Log settings for the Worker."
-    },
-    "redact_query_string": {
-      "default": false,
-      "description": "Whether query strings are removed from request URLs in logs and traces.",
-      "type": "boolean"
-    },
-    "traces": {
-      "$ref": "#/$defs/workers_Worker_observability_traces",
-      "description": "Trace settings for the Worker."
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `workers_Worker_observability_issues`.
- */
-export const workers_Worker_observability_issues: JsonSchema = {
-  "description": "Real-time Issues settings for the Worker.",
-  "oneOf": [
-    {
-      "properties": {
-        "enabled": {
-          "default": false,
-          "description": "Whether real-time Issues are enabled for the Worker.",
-          "type": "boolean"
-        }
-      },
-      "type": "object"
-    },
-    {
-      "type": "null"
-    }
-  ]
-};
-
-/**
- * The schema of `workers_Worker_observability_logs`.
- */
-export const workers_Worker_observability_logs: JsonSchema = {
-  "description": "Log settings for the Worker.",
-  "properties": {
-    "destinations": {
-      "default": [],
-      "description": "A list of destinations where logs will be exported to.",
-      "items": {
-        "type": "string"
-      },
-      "type": "array"
-    },
-    "enabled": {
-      "default": false,
-      "description": "Whether logs are enabled for the Worker.",
-      "type": "boolean"
-    },
-    "head_sampling_rate": {
-      "default": 1,
-      "description": "The sampling rate for logs. From 0 to 1 (1 = 100%, 0.1 = 10%).",
-      "type": "number"
-    },
-    "invocation_logs": {
-      "default": true,
-      "description": "Whether [invocation logs](https://developers.cloudflare.com/workers/observability/logs/workers-logs/#invocation-logs) are enabled for the Worker.",
-      "type": "boolean"
-    },
-    "persist": {
-      "default": true,
-      "description": "Whether log persistence is enabled for the Worker.",
-      "type": "boolean"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `workers_Worker_observability_traces`.
- */
-export const workers_Worker_observability_traces: JsonSchema = {
-  "description": "Trace settings for the Worker.",
-  "properties": {
-    "destinations": {
-      "default": [],
-      "description": "A list of destinations where traces will be exported to.",
-      "items": {
-        "type": "string"
-      },
-      "type": "array"
-    },
-    "enabled": {
-      "default": false,
-      "description": "Whether traces are enabled for the Worker.",
-      "type": "boolean"
-    },
-    "head_sampling_rate": {
-      "default": 1,
-      "description": "The sampling rate for traces. From 0 to 1 (1 = 100%, 0.1 = 10%).",
-      "type": "number"
-    },
-    "persist": {
-      "default": true,
-      "description": "Whether trace persistence is enabled for the Worker.",
-      "type": "boolean"
-    },
-    "propagation_policy": {
-      "description": "Controls how inbound trace context (traceparent/tracestate) headers on incoming requests are handled. \"authenticated\" honors inbound trace context only when accompanied by a valid trace auth token. \"accept\" unconditionally accepts inbound trace context. Requires the trace propagation feature to be enabled. Returns null when the trace propagation feature is not enabled for the account.",
-      "oneOf": [
-        {
-          "enum": [
-            "authenticated",
-            "accept"
-          ],
-          "type": "string"
-        },
-        {
-          "type": "null"
-        }
-      ]
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `workers_Worker_subdomain`.
- */
-export const workers_Worker_subdomain: JsonSchema = {
-  "description": "Subdomain settings for the Worker.",
-  "properties": {
-    "enabled": {
-      "default": false,
-      "description": "Whether the *.workers.dev subdomain is enabled for the Worker.",
-      "type": "boolean"
-    },
-    "previews_enabled": {
-      "description": "Whether [preview URLs](https://developers.cloudflare.com/workers/configuration/previews/) are enabled for the Worker.",
-      "type": "boolean"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `workers_Worker_tail_consumersItem`.
- */
-export const workers_Worker_tail_consumersItem: JsonSchema = {
-  "properties": {
-    "name": {
-      "description": "Name of the consumer Worker.",
-      "type": "string"
-    }
-  },
-  "required": [
-    "name"
   ],
   "type": "object"
 };
@@ -367,12 +313,56 @@ export const workers_observability: JsonSchema = {
       "type": "number"
     },
     "issues": {
-      "$ref": "#/$defs/workers_observability_issues",
-      "description": "Real-time Issues settings for the Worker."
+      "description": "Real-time Issues settings for the Worker.",
+      "oneOf": [
+        {
+          "properties": {
+            "enabled": {
+              "default": false,
+              "description": "Whether real-time Issues are enabled for the Worker.",
+              "type": "boolean"
+            }
+          },
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
     "logs": {
-      "$ref": "#/$defs/workers_observability_logs",
-      "description": "Log settings for the Worker."
+      "description": "Log settings for the Worker.",
+      "properties": {
+        "destinations": {
+          "default": [],
+          "description": "A list of destinations where logs will be exported to.",
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "enabled": {
+          "default": false,
+          "description": "Whether logs are enabled for the Worker.",
+          "type": "boolean"
+        },
+        "head_sampling_rate": {
+          "default": 1,
+          "description": "The sampling rate for logs. From 0 to 1 (1 = 100%, 0.1 = 10%).",
+          "type": "number"
+        },
+        "invocation_logs": {
+          "default": true,
+          "description": "Whether [invocation logs](https://developers.cloudflare.com/workers/observability/logs/workers-logs/#invocation-logs) are enabled for the Worker.",
+          "type": "boolean"
+        },
+        "persist": {
+          "default": true,
+          "description": "Whether log persistence is enabled for the Worker.",
+          "type": "boolean"
+        }
+      },
+      "type": "object"
     },
     "redact_query_string": {
       "default": false,
@@ -380,116 +370,48 @@ export const workers_observability: JsonSchema = {
       "type": "boolean"
     },
     "traces": {
-      "$ref": "#/$defs/workers_observability_traces",
-      "description": "Trace settings for the Worker."
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `workers_observability_issues`.
- */
-export const workers_observability_issues: JsonSchema = {
-  "description": "Real-time Issues settings for the Worker.",
-  "oneOf": [
-    {
+      "description": "Trace settings for the Worker.",
       "properties": {
+        "destinations": {
+          "default": [],
+          "description": "A list of destinations where traces will be exported to.",
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
         "enabled": {
           "default": false,
-          "description": "Whether real-time Issues are enabled for the Worker.",
+          "description": "Whether traces are enabled for the Worker.",
           "type": "boolean"
+        },
+        "head_sampling_rate": {
+          "default": 1,
+          "description": "The sampling rate for traces. From 0 to 1 (1 = 100%, 0.1 = 10%).",
+          "type": "number"
+        },
+        "persist": {
+          "default": true,
+          "description": "Whether trace persistence is enabled for the Worker.",
+          "type": "boolean"
+        },
+        "propagation_policy": {
+          "description": "Controls how inbound trace context (traceparent/tracestate) headers on incoming requests are handled. \"authenticated\" honors inbound trace context only when accompanied by a valid trace auth token. \"accept\" unconditionally accepts inbound trace context. Requires the trace propagation feature to be enabled. Returns null when the trace propagation feature is not enabled for the account.",
+          "oneOf": [
+            {
+              "enum": [
+                "authenticated",
+                "accept"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
         }
       },
       "type": "object"
-    },
-    {
-      "type": "null"
-    }
-  ]
-};
-
-/**
- * The schema of `workers_observability_logs`.
- */
-export const workers_observability_logs: JsonSchema = {
-  "description": "Log settings for the Worker.",
-  "properties": {
-    "destinations": {
-      "default": [],
-      "description": "A list of destinations where logs will be exported to.",
-      "items": {
-        "type": "string"
-      },
-      "type": "array"
-    },
-    "enabled": {
-      "default": false,
-      "description": "Whether logs are enabled for the Worker.",
-      "type": "boolean"
-    },
-    "head_sampling_rate": {
-      "default": 1,
-      "description": "The sampling rate for logs. From 0 to 1 (1 = 100%, 0.1 = 10%).",
-      "type": "number"
-    },
-    "invocation_logs": {
-      "default": true,
-      "description": "Whether [invocation logs](https://developers.cloudflare.com/workers/observability/logs/workers-logs/#invocation-logs) are enabled for the Worker.",
-      "type": "boolean"
-    },
-    "persist": {
-      "default": true,
-      "description": "Whether log persistence is enabled for the Worker.",
-      "type": "boolean"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `workers_observability_traces`.
- */
-export const workers_observability_traces: JsonSchema = {
-  "description": "Trace settings for the Worker.",
-  "properties": {
-    "destinations": {
-      "default": [],
-      "description": "A list of destinations where traces will be exported to.",
-      "items": {
-        "type": "string"
-      },
-      "type": "array"
-    },
-    "enabled": {
-      "default": false,
-      "description": "Whether traces are enabled for the Worker.",
-      "type": "boolean"
-    },
-    "head_sampling_rate": {
-      "default": 1,
-      "description": "The sampling rate for traces. From 0 to 1 (1 = 100%, 0.1 = 10%).",
-      "type": "number"
-    },
-    "persist": {
-      "default": true,
-      "description": "Whether trace persistence is enabled for the Worker.",
-      "type": "boolean"
-    },
-    "propagation_policy": {
-      "description": "Controls how inbound trace context (traceparent/tracestate) headers on incoming requests are handled. \"authenticated\" honors inbound trace context only when accompanied by a valid trace auth token. \"accept\" unconditionally accepts inbound trace context. Requires the trace propagation feature to be enabled. Returns null when the trace propagation feature is not enabled for the account.",
-      "oneOf": [
-        {
-          "enum": [
-            "authenticated",
-            "accept"
-          ],
-          "type": "string"
-        },
-        {
-          "type": "null"
-        }
-      ]
     }
   },
   "type": "object"

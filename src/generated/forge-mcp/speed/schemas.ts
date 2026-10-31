@@ -16,6 +16,14 @@ export const observatory_device_type: JsonSchema = {
 };
 
 /**
+ * The schema of `observatory_identifier`.
+ */
+export const observatory_identifier: JsonSchema = {
+  "description": "Identifier.",
+  "type": "string"
+};
+
+/**
  * The schema of `observatory_region`.
  */
 export const observatory_region: JsonSchema = {
@@ -63,5 +71,13 @@ export const observatory_schedule_frequency: JsonSchema = {
  */
 export const observatory_timestamp: JsonSchema = {
   "format": "date-time",
+  "type": "string"
+};
+
+/**
+ * The schema of `observatory_url`.
+ */
+export const observatory_url: JsonSchema = {
+  "description": "A URL.",
   "type": "string"
 };

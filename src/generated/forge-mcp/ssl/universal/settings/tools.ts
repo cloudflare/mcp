@@ -4,8 +4,10 @@
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
   tls_certificates_and_hostnames_api_response_common_failure_output,
+  tls_certificates_and_hostnames_api_response_single_output,
   tls_certificates_and_hostnames_messages_output,
 } from "../../../outputs.js";
+import { tls_certificates_and_hostnames_identifier } from "../../../schemas.js";
 import {
   tls_certificates_and_hostnames_enabled_2_output,
   tls_certificates_and_hostnames_ssl_universal_settings_response_output,
@@ -31,8 +33,8 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/tls-certificates-and-hostnames_universal"
         },
         "zone_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/tls-certificates-and-hostnames_identifier",
+          "description": "Identifier."
         }
       },
       required: [
@@ -41,13 +43,17 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "tls-certificates-and-hostnames_enabled-2": tls_certificates_and_hostnames_enabled_2,
+        "tls-certificates-and-hostnames_identifier": tls_certificates_and_hostnames_identifier,
         "tls-certificates-and-hostnames_universal": tls_certificates_and_hostnames_universal,
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_universal",
+      "$ref": "#/$defs/tls-certificates-and-hostnames_ssl_universal_settings_response",
       $defs: {
+        "tls-certificates-and-hostnames_api-response-single": tls_certificates_and_hostnames_api_response_single_output,
         "tls-certificates-and-hostnames_enabled-2": tls_certificates_and_hostnames_enabled_2_output,
+        "tls-certificates-and-hostnames_messages": tls_certificates_and_hostnames_messages_output,
+        "tls-certificates-and-hostnames_ssl_universal_settings_response": tls_certificates_and_hostnames_ssl_universal_settings_response_output,
         "tls-certificates-and-hostnames_universal": tls_certificates_and_hostnames_universal_output,
       },
     },
@@ -68,15 +74,7 @@ export const tools: readonly Tool[] = [
         "enum": [
           "#ssl:read",
           "#ssl:edit"
-        ],
-        "x-fern-enum": {
-          "#ssl:edit": {
-            "name": "ssl_edit"
-          },
-          "#ssl:read": {
-            "name": "ssl_read"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": true,
@@ -88,7 +86,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/tls-certificates-and-hostnames_universal"
+          "$ref": "#/$defs/tls-certificates-and-hostnames_ssl_universal_settings_response"
         },
         "4XX": {
           "allOf": [
@@ -103,6 +101,7 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "tls-certificates-and-hostnames_api-response-common-failure": tls_certificates_and_hostnames_api_response_common_failure_output,
+        "tls-certificates-and-hostnames_api-response-single": tls_certificates_and_hostnames_api_response_single_output,
         "tls-certificates-and-hostnames_enabled-2": tls_certificates_and_hostnames_enabled_2_output,
         "tls-certificates-and-hostnames_messages": tls_certificates_and_hostnames_messages_output,
         "tls-certificates-and-hostnames_ssl_universal_settings_response": tls_certificates_and_hostnames_ssl_universal_settings_response_output,
@@ -122,18 +121,24 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "zone_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/tls-certificates-and-hostnames_identifier",
+          "description": "Identifier."
         }
       },
       required: [
         "zone_id"
       ],
+      $defs: {
+        "tls-certificates-and-hostnames_identifier": tls_certificates_and_hostnames_identifier,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_universal",
+      "$ref": "#/$defs/tls-certificates-and-hostnames_ssl_universal_settings_response",
       $defs: {
+        "tls-certificates-and-hostnames_api-response-single": tls_certificates_and_hostnames_api_response_single_output,
         "tls-certificates-and-hostnames_enabled-2": tls_certificates_and_hostnames_enabled_2_output,
+        "tls-certificates-and-hostnames_messages": tls_certificates_and_hostnames_messages_output,
+        "tls-certificates-and-hostnames_ssl_universal_settings_response": tls_certificates_and_hostnames_ssl_universal_settings_response_output,
         "tls-certificates-and-hostnames_universal": tls_certificates_and_hostnames_universal_output,
       },
     },
@@ -154,12 +159,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "#ssl:read"
-        ],
-        "x-fern-enum": {
-          "#ssl:read": {
-            "name": "ssl_read"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": true,
@@ -171,7 +171,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/tls-certificates-and-hostnames_universal"
+          "$ref": "#/$defs/tls-certificates-and-hostnames_ssl_universal_settings_response"
         },
         "4XX": {
           "allOf": [
@@ -186,6 +186,7 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "tls-certificates-and-hostnames_api-response-common-failure": tls_certificates_and_hostnames_api_response_common_failure_output,
+        "tls-certificates-and-hostnames_api-response-single": tls_certificates_and_hostnames_api_response_single_output,
         "tls-certificates-and-hostnames_enabled-2": tls_certificates_and_hostnames_enabled_2_output,
         "tls-certificates-and-hostnames_messages": tls_certificates_and_hostnames_messages_output,
         "tls-certificates-and-hostnames_ssl_universal_settings_response": tls_certificates_and_hostnames_ssl_universal_settings_response_output,

@@ -4,6 +4,14 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
+ * The schema of `digital-experience-monitoring_account_identifier`.
+ */
+export const digital_experience_monitoring_account_identifier: JsonSchema = {
+  "description": "Unique identifier linked to an account.",
+  "type": "string"
+};
+
+/**
  * The schema of `digital-experience-monitoring_colo`.
  */
 export const digital_experience_monitoring_colo: JsonSchema = {

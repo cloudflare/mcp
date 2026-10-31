@@ -36,6 +36,14 @@ export const addressing_bgp_prefix_create: JsonSchema = {
 };
 
 /**
+ * The schema of `addressing_bgp_prefix_identifier`.
+ */
+export const addressing_bgp_prefix_identifier: JsonSchema = {
+  "description": "Identifier of BGP Prefix.",
+  "type": "string"
+};
+
+/**
  * The schema of `addressing_bgp_prefix_update_advertisement`.
  */
 export const addressing_bgp_prefix_update_advertisement: JsonSchema = {
@@ -51,19 +59,12 @@ export const addressing_bgp_prefix_update_advertisement: JsonSchema = {
       "description": "Determines if Cloudflare advertises a BYOIP BGP prefix even when there is no matching BGP prefix in the Magic routing table. When true, Cloudflare will automatically withdraw the BGP prefix when there are no matching BGP routes, and will resume advertising when there is at least one matching BGP route."
     },
     "on_demand": {
-      "$ref": "#/$defs/addressing_bgp_prefix_update_advertisement_on_demand"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `addressing_bgp_prefix_update_advertisement_on_demand`.
- */
-export const addressing_bgp_prefix_update_advertisement_on_demand: JsonSchema = {
-  "properties": {
-    "advertised": {
-      "type": "boolean"
+      "properties": {
+        "advertised": {
+          "type": "boolean"
+        }
+      },
+      "type": "object"
     }
   },
   "type": "object"

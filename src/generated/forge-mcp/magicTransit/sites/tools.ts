@@ -4,6 +4,8 @@
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
   magic_api_response_common_failure_output,
+  magic_api_response_common_output,
+  magic_api_response_single_output,
   magic_identifier_output,
   magic_messages_output,
 } from "../outputs.js";
@@ -11,9 +13,13 @@ import { magic_identifier } from "../schemas.js";
 import {
   magic_connector_id_output,
   magic_secondary_connector_id_output,
+  magic_site_deleted_response_output,
   magic_site_location_output,
+  magic_site_modified_response_output,
   magic_site_name_output,
   magic_site_output,
+  magic_site_single_response_output,
+  magic_sites_collection_response_output,
 } from "./outputs.js";
 import {
   magic_connector_id,
@@ -36,8 +42,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier",
-          "type": "string"
+          "$ref": "#/$defs/magic_identifier",
+          "description": "Identifier"
         },
         "body": {
           "$ref": "#/$defs/magic_sites_add_single_request"
@@ -49,6 +55,7 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "magic_connector-id": magic_connector_id,
+        "magic_identifier": magic_identifier,
         "magic_secondary-connector-id": magic_secondary_connector_id,
         "magic_site-location": magic_site_location,
         "magic_site-name": magic_site_name,
@@ -56,14 +63,18 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/magic_site",
+      "$ref": "#/$defs/magic_site_single_response",
       $defs: {
+        "magic_api-response-common": magic_api_response_common_output,
+        "magic_api-response-single": magic_api_response_single_output,
         "magic_connector-id": magic_connector_id_output,
         "magic_identifier": magic_identifier_output,
+        "magic_messages": magic_messages_output,
         "magic_secondary-connector-id": magic_secondary_connector_id_output,
         "magic_site": magic_site_output,
         "magic_site-location": magic_site_location_output,
         "magic_site-name": magic_site_name_output,
+        "magic_site_single_response": magic_site_single_response_output,
       },
     },
     annotations: {
@@ -90,14 +101,16 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/magic_site"
+          "$ref": "#/$defs/magic_site_single_response"
         },
         "4XX": {
           "$ref": "#/$defs/magic_api-response-common-failure"
         }
       },
       $defs: {
+        "magic_api-response-common": magic_api_response_common_output,
         "magic_api-response-common-failure": magic_api_response_common_failure_output,
+        "magic_api-response-single": magic_api_response_single_output,
         "magic_connector-id": magic_connector_id_output,
         "magic_identifier": magic_identifier_output,
         "magic_messages": magic_messages_output,
@@ -105,6 +118,7 @@ export const tools: readonly Tool[] = [
         "magic_site": magic_site_output,
         "magic_site-location": magic_site_location_output,
         "magic_site-name": magic_site_name_output,
+        "magic_site_single_response": magic_site_single_response_output,
       },
     },
     request: (args) => ({
@@ -120,28 +134,35 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier",
-          "type": "string"
+          "$ref": "#/$defs/magic_identifier",
+          "description": "Identifier"
         },
         "site_id": {
-          "description": "Identifier",
-          "type": "string"
+          "$ref": "#/$defs/magic_identifier",
+          "description": "Identifier"
         }
       },
       required: [
         "account_id",
         "site_id"
       ],
+      $defs: {
+        "magic_identifier": magic_identifier,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/magic_site",
+      "$ref": "#/$defs/magic_site_deleted_response",
       $defs: {
+        "magic_api-response-common": magic_api_response_common_output,
+        "magic_api-response-single": magic_api_response_single_output,
         "magic_connector-id": magic_connector_id_output,
         "magic_identifier": magic_identifier_output,
+        "magic_messages": magic_messages_output,
         "magic_secondary-connector-id": magic_secondary_connector_id_output,
         "magic_site": magic_site_output,
         "magic_site-location": magic_site_location_output,
         "magic_site-name": magic_site_name_output,
+        "magic_site_deleted_response": magic_site_deleted_response_output,
       },
     },
     annotations: {
@@ -161,12 +182,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "#organization:edit"
-        ],
-        "x-fern-enum": {
-          "#organization:edit": {
-            "name": "organization_edit"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": false,
@@ -178,14 +194,16 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/magic_site"
+          "$ref": "#/$defs/magic_site_deleted_response"
         },
         "4XX": {
           "$ref": "#/$defs/magic_api-response-common-failure"
         }
       },
       $defs: {
+        "magic_api-response-common": magic_api_response_common_output,
         "magic_api-response-common-failure": magic_api_response_common_failure_output,
+        "magic_api-response-single": magic_api_response_single_output,
         "magic_connector-id": magic_connector_id_output,
         "magic_identifier": magic_identifier_output,
         "magic_messages": magic_messages_output,
@@ -193,6 +211,7 @@ export const tools: readonly Tool[] = [
         "magic_site": magic_site_output,
         "magic_site-location": magic_site_location_output,
         "magic_site-name": magic_site_name_output,
+        "magic_site_deleted_response": magic_site_deleted_response_output,
       },
     },
     request: (args) => ({
@@ -207,15 +226,15 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier",
-          "type": "string"
+          "$ref": "#/$defs/magic_identifier",
+          "description": "Identifier"
         },
         "body": {
           "$ref": "#/$defs/magic_site_update_request"
         },
         "site_id": {
-          "description": "Identifier",
-          "type": "string"
+          "$ref": "#/$defs/magic_identifier",
+          "description": "Identifier"
         }
       },
       required: [
@@ -225,6 +244,7 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "magic_connector-id": magic_connector_id,
+        "magic_identifier": magic_identifier,
         "magic_secondary-connector-id": magic_secondary_connector_id,
         "magic_site-location": magic_site_location,
         "magic_site-name": magic_site_name,
@@ -232,14 +252,18 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/magic_site",
+      "$ref": "#/$defs/magic_site_modified_response",
       $defs: {
+        "magic_api-response-common": magic_api_response_common_output,
+        "magic_api-response-single": magic_api_response_single_output,
         "magic_connector-id": magic_connector_id_output,
         "magic_identifier": magic_identifier_output,
+        "magic_messages": magic_messages_output,
         "magic_secondary-connector-id": magic_secondary_connector_id_output,
         "magic_site": magic_site_output,
         "magic_site-location": magic_site_location_output,
         "magic_site-name": magic_site_name_output,
+        "magic_site_modified_response": magic_site_modified_response_output,
       },
     },
     annotations: {
@@ -259,12 +283,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "#organization:edit"
-        ],
-        "x-fern-enum": {
-          "#organization:edit": {
-            "name": "organization_edit"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": false,
@@ -276,14 +295,16 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/magic_site"
+          "$ref": "#/$defs/magic_site_modified_response"
         },
         "4XX": {
           "$ref": "#/$defs/magic_api-response-common-failure"
         }
       },
       $defs: {
+        "magic_api-response-common": magic_api_response_common_output,
         "magic_api-response-common-failure": magic_api_response_common_failure_output,
+        "magic_api-response-single": magic_api_response_single_output,
         "magic_connector-id": magic_connector_id_output,
         "magic_identifier": magic_identifier_output,
         "magic_messages": magic_messages_output,
@@ -291,6 +312,7 @@ export const tools: readonly Tool[] = [
         "magic_site": magic_site_output,
         "magic_site-location": magic_site_location_output,
         "magic_site-name": magic_site_name_output,
+        "magic_site_modified_response": magic_site_modified_response_output,
       },
     },
     request: (args) => ({
@@ -306,12 +328,12 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier",
-          "type": "string"
+          "$ref": "#/$defs/magic_identifier",
+          "description": "Identifier"
         },
         "site_id": {
-          "description": "Identifier",
-          "type": "string"
+          "$ref": "#/$defs/magic_identifier",
+          "description": "Identifier"
         },
         "x_magic_new_hc_target": {
           "description": "If true, the health check target in the response body will be presented using the new object format. Defaults to false.",
@@ -322,16 +344,23 @@ export const tools: readonly Tool[] = [
         "account_id",
         "site_id"
       ],
+      $defs: {
+        "magic_identifier": magic_identifier,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/magic_site",
+      "$ref": "#/$defs/magic_site_single_response",
       $defs: {
+        "magic_api-response-common": magic_api_response_common_output,
+        "magic_api-response-single": magic_api_response_single_output,
         "magic_connector-id": magic_connector_id_output,
         "magic_identifier": magic_identifier_output,
+        "magic_messages": magic_messages_output,
         "magic_secondary-connector-id": magic_secondary_connector_id_output,
         "magic_site": magic_site_output,
         "magic_site-location": magic_site_location_output,
         "magic_site-name": magic_site_name_output,
+        "magic_site_single_response": magic_site_single_response_output,
       },
     },
     annotations: {
@@ -353,12 +382,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "#organization:read"
-        ],
-        "x-fern-enum": {
-          "#organization:read": {
-            "name": "organization_read"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": false,
@@ -370,14 +394,16 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/magic_site"
+          "$ref": "#/$defs/magic_site_single_response"
         },
         "4XX": {
           "$ref": "#/$defs/magic_api-response-common-failure"
         }
       },
       $defs: {
+        "magic_api-response-common": magic_api_response_common_output,
         "magic_api-response-common-failure": magic_api_response_common_failure_output,
+        "magic_api-response-single": magic_api_response_single_output,
         "magic_connector-id": magic_connector_id_output,
         "magic_identifier": magic_identifier_output,
         "magic_messages": magic_messages_output,
@@ -385,6 +411,7 @@ export const tools: readonly Tool[] = [
         "magic_site": magic_site_output,
         "magic_site-location": magic_site_location_output,
         "magic_site-name": magic_site_name_output,
+        "magic_site_single_response": magic_site_single_response_output,
       },
     },
     request: (args) => ({
@@ -402,8 +429,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier",
-          "type": "string"
+          "$ref": "#/$defs/magic_identifier",
+          "description": "Identifier"
         },
         "connectorid": {
           "$ref": "#/$defs/magic_identifier",
@@ -418,28 +445,18 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "$ref": "#/$defs/magic_site"
-          },
-          "type": "array"
-        },
-        "result_info": {
-          "type": "object"
-        }
-      },
-      "required": [
-        "result"
-      ],
-      "type": "object",
+      "$ref": "#/$defs/magic_sites_collection_response",
       $defs: {
+        "magic_api-response-common": magic_api_response_common_output,
+        "magic_api-response-single": magic_api_response_single_output,
         "magic_connector-id": magic_connector_id_output,
         "magic_identifier": magic_identifier_output,
+        "magic_messages": magic_messages_output,
         "magic_secondary-connector-id": magic_secondary_connector_id_output,
         "magic_site": magic_site_output,
         "magic_site-location": magic_site_location_output,
         "magic_site-name": magic_site_name_output,
+        "magic_sites_collection_response": magic_sites_collection_response_output,
       },
     },
     annotations: {
@@ -468,28 +485,16 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "items": {
-                "$ref": "#/$defs/magic_site"
-              },
-              "type": "array"
-            },
-            "result_info": {
-              "type": "object"
-            }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/magic_sites_collection_response"
         },
         "4XX": {
           "$ref": "#/$defs/magic_api-response-common-failure"
         }
       },
       $defs: {
+        "magic_api-response-common": magic_api_response_common_output,
         "magic_api-response-common-failure": magic_api_response_common_failure_output,
+        "magic_api-response-single": magic_api_response_single_output,
         "magic_connector-id": magic_connector_id_output,
         "magic_identifier": magic_identifier_output,
         "magic_messages": magic_messages_output,
@@ -497,6 +502,7 @@ export const tools: readonly Tool[] = [
         "magic_site": magic_site_output,
         "magic_site-location": magic_site_location_output,
         "magic_site-name": magic_site_name_output,
+        "magic_sites_collection_response": magic_sites_collection_response_output,
       },
     },
     request: (args) => ({
@@ -514,15 +520,15 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier",
-          "type": "string"
+          "$ref": "#/$defs/magic_identifier",
+          "description": "Identifier"
         },
         "body": {
           "$ref": "#/$defs/magic_site_update_request"
         },
         "site_id": {
-          "description": "Identifier",
-          "type": "string"
+          "$ref": "#/$defs/magic_identifier",
+          "description": "Identifier"
         }
       },
       required: [
@@ -532,6 +538,7 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "magic_connector-id": magic_connector_id,
+        "magic_identifier": magic_identifier,
         "magic_secondary-connector-id": magic_secondary_connector_id,
         "magic_site-location": magic_site_location,
         "magic_site-name": magic_site_name,
@@ -539,14 +546,18 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/magic_site",
+      "$ref": "#/$defs/magic_site_modified_response",
       $defs: {
+        "magic_api-response-common": magic_api_response_common_output,
+        "magic_api-response-single": magic_api_response_single_output,
         "magic_connector-id": magic_connector_id_output,
         "magic_identifier": magic_identifier_output,
+        "magic_messages": magic_messages_output,
         "magic_secondary-connector-id": magic_secondary_connector_id_output,
         "magic_site": magic_site_output,
         "magic_site-location": magic_site_location_output,
         "magic_site-name": magic_site_name_output,
+        "magic_site_modified_response": magic_site_modified_response_output,
       },
     },
     annotations: {
@@ -566,12 +577,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "#organization:edit"
-        ],
-        "x-fern-enum": {
-          "#organization:edit": {
-            "name": "organization_edit"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": false,
@@ -583,14 +589,16 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/magic_site"
+          "$ref": "#/$defs/magic_site_modified_response"
         },
         "4XX": {
           "$ref": "#/$defs/magic_api-response-common-failure"
         }
       },
       $defs: {
+        "magic_api-response-common": magic_api_response_common_output,
         "magic_api-response-common-failure": magic_api_response_common_failure_output,
+        "magic_api-response-single": magic_api_response_single_output,
         "magic_connector-id": magic_connector_id_output,
         "magic_identifier": magic_identifier_output,
         "magic_messages": magic_messages_output,
@@ -598,6 +606,7 @@ export const tools: readonly Tool[] = [
         "magic_site": magic_site_output,
         "magic_site-location": magic_site_location_output,
         "magic_site-name": magic_site_name_output,
+        "magic_site_modified_response": magic_site_modified_response_output,
       },
     },
     request: (args) => ({

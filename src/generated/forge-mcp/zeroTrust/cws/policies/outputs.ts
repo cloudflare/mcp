@@ -4,6 +4,67 @@
 import type { JsonSchema } from "../../../_/tool.js";
 
 /**
+ * The schema of `cws_PageResponsePolicy` in responses.
+ */
+export const cws_PageResponsePolicy_output: JsonSchema = {
+  "properties": {
+    "errors": {
+      "oneOf": [
+        {
+          "items": {
+            "$ref": "#/$defs/cws_ResponseMessage"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "messages": {
+      "oneOf": [
+        {
+          "items": {
+            "$ref": "#/$defs/cws_ResponseMessage"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "result": {
+      "oneOf": [
+        {
+          "items": {
+            "$ref": "#/$defs/cws_Policy"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "result_info": {
+      "$ref": "#/$defs/cws_ResultInfo"
+    },
+    "success": {
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "errors",
+    "messages",
+    "result",
+    "result_info",
+    "success"
+  ],
+  "type": "object"
+};
+
+/**
  * The schema of `cws_Policy` in responses.
  */
 export const cws_Policy_output: JsonSchema = {
@@ -55,6 +116,53 @@ export const cws_Policy_output: JsonSchema = {
     "rego_source",
     "tags",
     "updated_at"
+  ],
+  "type": "object"
+};
+
+/**
+ * The schema of `cws_ResponsePolicy` in responses.
+ */
+export const cws_ResponsePolicy_output: JsonSchema = {
+  "properties": {
+    "errors": {
+      "oneOf": [
+        {
+          "items": {
+            "$ref": "#/$defs/cws_ResponseMessage"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "messages": {
+      "oneOf": [
+        {
+          "items": {
+            "$ref": "#/$defs/cws_ResponseMessage"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "result": {
+      "$ref": "#/$defs/cws_Policy"
+    },
+    "success": {
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "errors",
+    "messages",
+    "result",
+    "success"
   ],
   "type": "object"
 };

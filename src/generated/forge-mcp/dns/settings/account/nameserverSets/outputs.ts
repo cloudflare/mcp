@@ -30,44 +30,34 @@ export const dns_settings_nameserver_set_address_groups_output: JsonSchema = {
  * The schema of `dns-settings_nameserver-set-advanced-response` in responses.
  */
 export const dns_settings_nameserver_set_advanced_response_output: JsonSchema = {
-  "properties": {
-    "advanced": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
+  "allOf": [
+    {
+      "$ref": "#/$defs/dns-settings_nameserver-set-response-base"
     },
-    "created_on": {
-      "format": "date-time",
-      "type": "string"
-    },
-    "id": {
-      "$ref": "#/$defs/dns-settings_nameserver-set-id"
-    },
-    "ip_set": {
-      "$ref": "#/$defs/dns-settings_nameserver-set-ip-set"
-    },
-    "name": {
-      "$ref": "#/$defs/dns-settings_nameserver-set-name"
-    },
-    "nameservers": {
-      "items": {
-        "$ref": "#/$defs/dns-settings_nameserver-set-advanced-response-member"
+    {
+      "properties": {
+        "advanced": {
+          "enum": [
+            true
+          ],
+          "type": "boolean"
+        },
+        "nameservers": {
+          "items": {
+            "$ref": "#/$defs/dns-settings_nameserver-set-advanced-response-member"
+          },
+          "maxItems": 5,
+          "minItems": 2,
+          "type": "array"
+        }
       },
-      "maxItems": 5,
-      "minItems": 2,
-      "type": "array"
+      "required": [
+        "advanced",
+        "nameservers"
+      ],
+      "type": "object"
     }
-  },
-  "required": [
-    "created_on",
-    "id",
-    "ip_set",
-    "name",
-    "advanced",
-    "nameservers"
-  ],
-  "type": "object"
+  ]
 };
 
 /**
@@ -160,6 +150,34 @@ export const dns_settings_nameserver_set_response_output: JsonSchema = {
 };
 
 /**
+ * The schema of `dns-settings_nameserver-set-response-base` in responses.
+ */
+export const dns_settings_nameserver_set_response_base_output: JsonSchema = {
+  "properties": {
+    "created_on": {
+      "format": "date-time",
+      "type": "string"
+    },
+    "id": {
+      "$ref": "#/$defs/dns-settings_nameserver-set-id"
+    },
+    "ip_set": {
+      "$ref": "#/$defs/dns-settings_nameserver-set-ip-set"
+    },
+    "name": {
+      "$ref": "#/$defs/dns-settings_nameserver-set-name"
+    }
+  },
+  "required": [
+    "created_on",
+    "id",
+    "ip_set",
+    "name"
+  ],
+  "type": "object"
+};
+
+/**
  * The schema of `dns-settings_nameserver-set-response-member` in responses.
  */
 export const dns_settings_nameserver_set_response_member_output: JsonSchema = {
@@ -186,42 +204,109 @@ export const dns_settings_nameserver_set_response_member_output: JsonSchema = {
  * The schema of `dns-settings_nameserver-set-standard-response` in responses.
  */
 export const dns_settings_nameserver_set_standard_response_output: JsonSchema = {
-  "properties": {
-    "advanced": {
-      "enum": [
-        false
-      ],
-      "type": "boolean"
+  "allOf": [
+    {
+      "$ref": "#/$defs/dns-settings_nameserver-set-response-base"
     },
-    "created_on": {
-      "format": "date-time",
-      "type": "string"
-    },
-    "id": {
-      "$ref": "#/$defs/dns-settings_nameserver-set-id"
-    },
-    "ip_set": {
-      "$ref": "#/$defs/dns-settings_nameserver-set-ip-set"
-    },
-    "name": {
-      "$ref": "#/$defs/dns-settings_nameserver-set-name"
-    },
-    "nameservers": {
-      "items": {
-        "$ref": "#/$defs/dns-settings_nameserver-set-response-member"
+    {
+      "properties": {
+        "advanced": {
+          "enum": [
+            false
+          ],
+          "type": "boolean"
+        },
+        "nameservers": {
+          "items": {
+            "$ref": "#/$defs/dns-settings_nameserver-set-response-member"
+          },
+          "maxItems": 5,
+          "minItems": 2,
+          "type": "array"
+        }
       },
-      "maxItems": 5,
-      "minItems": 2,
-      "type": "array"
+      "required": [
+        "advanced",
+        "nameservers"
+      ],
+      "type": "object"
     }
-  },
-  "required": [
-    "created_on",
-    "id",
-    "ip_set",
-    "name",
-    "advanced",
-    "nameservers"
-  ],
-  "type": "object"
+  ]
+};
+
+/**
+ * The schema of `dns-settings_nameserver_set_delete_response` in responses.
+ */
+export const dns_settings_nameserver_set_delete_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/dns-settings_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "properties": {
+            "id": {
+              "$ref": "#/$defs/dns-settings_nameserver-set-id"
+            }
+          },
+          "required": [
+            "id"
+          ],
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `dns-settings_nameserver_set_response_collection` in responses.
+ */
+export const dns_settings_nameserver_set_response_collection_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/dns-settings_api-response-collection"
+    },
+    {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/dns-settings_nameserver-set-response"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `dns-settings_nameserver_set_response_single` in responses.
+ */
+export const dns_settings_nameserver_set_response_single_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/dns-settings_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/dns-settings_nameserver-set-response"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object"
+    }
+  ]
 };

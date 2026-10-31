@@ -4,6 +4,7 @@
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
   dlp_api_response_common_failure_output,
+  dlp_api_response_single_output,
   dlp_messages_output,
 } from "../../outputs.js";
 import { dlp_RegexValidationResult_output } from "./outputs.js";
@@ -38,9 +39,23 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/dlp_RegexValidationResult",
+      "allOf": [
+        {
+          "$ref": "#/$defs/dlp_api-response-single"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/dlp_RegexValidationResult"
+            }
+          },
+          "type": "object"
+        }
+      ],
       $defs: {
         "dlp_RegexValidationResult": dlp_RegexValidationResult_output,
+        "dlp_api-response-single": dlp_api_response_single_output,
+        "dlp_messages": dlp_messages_output,
       },
     },
     annotations: {
@@ -60,7 +75,19 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/dlp_RegexValidationResult"
+          "allOf": [
+            {
+              "$ref": "#/$defs/dlp_api-response-single"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/dlp_RegexValidationResult"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/dlp_api-response-common-failure"
@@ -69,6 +96,7 @@ export const tools: readonly Tool[] = [
       $defs: {
         "dlp_RegexValidationResult": dlp_RegexValidationResult_output,
         "dlp_api-response-common-failure": dlp_api_response_common_failure_output,
+        "dlp_api-response-single": dlp_api_response_single_output,
         "dlp_messages": dlp_messages_output,
       },
     },

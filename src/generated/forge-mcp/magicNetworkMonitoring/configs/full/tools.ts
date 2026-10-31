@@ -4,8 +4,11 @@
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
   magic_visibility_mnm_api_response_common_failure_output,
+  magic_visibility_mnm_api_response_common_output,
+  magic_visibility_mnm_api_response_single_output,
   magic_visibility_mnm_messages_output,
 } from "../../outputs.js";
+import { magic_visibility_mnm_account_identifier } from "../../schemas.js";
 import {
   magic_visibility_mnm_mnm_config_default_sampling_output,
   magic_visibility_mnm_mnm_config_name_output,
@@ -29,21 +32,28 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "type": "string"
+          "$ref": "#/$defs/magic-visibility-mnm_account_identifier"
         }
       },
       required: [
         "account_id"
       ],
+      $defs: {
+        "magic-visibility-mnm_account_identifier": magic_visibility_mnm_account_identifier,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/magic-visibility-mnm_mnm_config",
+      "$ref": "#/$defs/magic-visibility-mnm_mnm_config_single_response",
       $defs: {
+        "magic-visibility-mnm_api-response-common": magic_visibility_mnm_api_response_common_output,
+        "magic-visibility-mnm_api-response-single": magic_visibility_mnm_api_response_single_output,
+        "magic-visibility-mnm_messages": magic_visibility_mnm_messages_output,
         "magic-visibility-mnm_mnm_config": magic_visibility_mnm_mnm_config_output,
         "magic-visibility-mnm_mnm_config_default_sampling": magic_visibility_mnm_mnm_config_default_sampling_output,
         "magic-visibility-mnm_mnm_config_name": magic_visibility_mnm_mnm_config_name_output,
         "magic-visibility-mnm_mnm_config_router_ip": magic_visibility_mnm_mnm_config_router_ip_output,
         "magic-visibility-mnm_mnm_config_router_ips": magic_visibility_mnm_mnm_config_router_ips_output,
+        "magic-visibility-mnm_mnm_config_single_response": magic_visibility_mnm_mnm_config_single_response_output,
         "magic-visibility-mnm_mnm_config_warp_device": magic_visibility_mnm_mnm_config_warp_device_output,
         "magic-visibility-mnm_mnm_config_warp_devices": magic_visibility_mnm_mnm_config_warp_devices_output,
       },
@@ -67,7 +77,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/magic-visibility-mnm_mnm_config"
+          "$ref": "#/$defs/magic-visibility-mnm_mnm_config_single_response"
         },
         "4XX": {
           "allOf": [
@@ -81,7 +91,9 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
+        "magic-visibility-mnm_api-response-common": magic_visibility_mnm_api_response_common_output,
         "magic-visibility-mnm_api-response-common-failure": magic_visibility_mnm_api_response_common_failure_output,
+        "magic-visibility-mnm_api-response-single": magic_visibility_mnm_api_response_single_output,
         "magic-visibility-mnm_messages": magic_visibility_mnm_messages_output,
         "magic-visibility-mnm_mnm_config": magic_visibility_mnm_mnm_config_output,
         "magic-visibility-mnm_mnm_config_default_sampling": magic_visibility_mnm_mnm_config_default_sampling_output,

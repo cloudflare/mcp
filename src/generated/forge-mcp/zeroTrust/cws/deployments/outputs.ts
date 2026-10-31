@@ -96,3 +96,111 @@ export const cws_Deployment_output: JsonSchema = {
   ],
   "type": "object"
 };
+
+/**
+ * The schema of `cws_PageResponseDeployment` in responses.
+ */
+export const cws_PageResponseDeployment_output: JsonSchema = {
+  "properties": {
+    "errors": {
+      "oneOf": [
+        {
+          "items": {
+            "$ref": "#/$defs/cws_ResponseMessage"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "messages": {
+      "oneOf": [
+        {
+          "items": {
+            "$ref": "#/$defs/cws_ResponseMessage"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "result": {
+      "oneOf": [
+        {
+          "items": {
+            "$ref": "#/$defs/cws_Deployment"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "result_info": {
+      "$ref": "#/$defs/cws_ResultInfo"
+    },
+    "success": {
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "errors",
+    "messages",
+    "result",
+    "result_info",
+    "success"
+  ],
+  "type": "object"
+};
+
+/**
+ * The schema of `cws_ResponseDeployment` in responses.
+ */
+export const cws_ResponseDeployment_output: JsonSchema = {
+  "properties": {
+    "errors": {
+      "oneOf": [
+        {
+          "items": {
+            "$ref": "#/$defs/cws_ResponseMessage"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "messages": {
+      "oneOf": [
+        {
+          "items": {
+            "$ref": "#/$defs/cws_ResponseMessage"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "result": {
+      "$ref": "#/$defs/cws_Deployment"
+    },
+    "success": {
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "errors",
+    "messages",
+    "result",
+    "success"
+  ],
+  "type": "object"
+};

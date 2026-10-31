@@ -4,23 +4,19 @@
 import { type Tool, pathParam } from "../../../../_/tool.js";
 import {
   digital_experience_monitoring_api_response_common_failure_output,
+  digital_experience_monitoring_api_response_single_output,
   digital_experience_monitoring_messages_output,
   digital_experience_monitoring_uuid_output,
 } from "../../outputs.js";
 import {
-  digital_experience_monitoring_test_stat_over_time_output,
-  digital_experience_monitoring_test_stat_over_time_slotsItem_output,
-  digital_experience_monitoring_test_stat_pct_over_time_output,
-  digital_experience_monitoring_test_stat_pct_over_time_slotsItem_output,
-} from "../outputs.js";
+  digital_experience_monitoring_account_identifier,
+  digital_experience_monitoring_uuid,
+} from "../../schemas.js";
 import {
-  digital_experience_monitoring_http_details_response_httpStatsByColoItem_httpStatusCodeItem_output,
-  digital_experience_monitoring_http_details_response_httpStatsByColoItem_output,
-  digital_experience_monitoring_http_details_response_httpStats_httpStatusCodeItem_output,
-  digital_experience_monitoring_http_details_response_httpStats_output,
-  digital_experience_monitoring_http_details_response_output,
-  digital_experience_monitoring_http_details_response_target_policiesItem_output,
-} from "./outputs.js";
+  digital_experience_monitoring_test_stat_over_time_output,
+  digital_experience_monitoring_test_stat_pct_over_time_output,
+} from "../outputs.js";
+import { digital_experience_monitoring_http_details_response_output } from "./outputs.js";
 
 /**
  * The tools of `zero_trust.dex.test_results.http`.
@@ -34,8 +30,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Unique Cloudflare account ID.",
-          "type": "string"
+          "$ref": "#/$defs/digital-experience-monitoring_account_identifier",
+          "description": "Unique Cloudflare account ID."
         },
         "colo": {
           "description": "Optionally filter result stats to a Cloudflare colo. Cannot be used in combination with deviceId param.",
@@ -61,8 +57,8 @@ export const tools: readonly Tool[] = [
           "type": "string"
         },
         "test_id": {
-          "description": "Unique identifier for a specific test.",
-          "type": "string"
+          "$ref": "#/$defs/digital-experience-monitoring_uuid",
+          "description": "Unique identifier for a specific test."
         },
         "to": {
           "description": "End time for aggregate metrics in ISO ms.",
@@ -76,20 +72,31 @@ export const tools: readonly Tool[] = [
         "to",
         "interval"
       ],
+      $defs: {
+        "digital-experience-monitoring_account_identifier": digital_experience_monitoring_account_identifier,
+        "digital-experience-monitoring_uuid": digital_experience_monitoring_uuid,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/digital-experience-monitoring_http_details_response",
+      "allOf": [
+        {
+          "$ref": "#/$defs/digital-experience-monitoring_api-response-single"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/digital-experience-monitoring_http_details_response"
+            }
+          },
+          "type": "object"
+        }
+      ],
       $defs: {
+        "digital-experience-monitoring_api-response-single": digital_experience_monitoring_api_response_single_output,
         "digital-experience-monitoring_http_details_response": digital_experience_monitoring_http_details_response_output,
-        "digital-experience-monitoring_http_details_response_httpStats": digital_experience_monitoring_http_details_response_httpStats_output,
-        "digital-experience-monitoring_http_details_response_httpStatsByColoItem": digital_experience_monitoring_http_details_response_httpStatsByColoItem_output,
-        "digital-experience-monitoring_http_details_response_httpStatsByColoItem_httpStatusCodeItem": digital_experience_monitoring_http_details_response_httpStatsByColoItem_httpStatusCodeItem_output,
-        "digital-experience-monitoring_http_details_response_httpStats_httpStatusCodeItem": digital_experience_monitoring_http_details_response_httpStats_httpStatusCodeItem_output,
-        "digital-experience-monitoring_http_details_response_target_policiesItem": digital_experience_monitoring_http_details_response_target_policiesItem_output,
+        "digital-experience-monitoring_messages": digital_experience_monitoring_messages_output,
         "digital-experience-monitoring_test_stat_over_time": digital_experience_monitoring_test_stat_over_time_output,
-        "digital-experience-monitoring_test_stat_over_time_slotsItem": digital_experience_monitoring_test_stat_over_time_slotsItem_output,
         "digital-experience-monitoring_test_stat_pct_over_time": digital_experience_monitoring_test_stat_pct_over_time_output,
-        "digital-experience-monitoring_test_stat_pct_over_time_slotsItem": digital_experience_monitoring_test_stat_pct_over_time_slotsItem_output,
         "digital-experience-monitoring_uuid": digital_experience_monitoring_uuid_output,
       },
     },
@@ -113,7 +120,19 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/digital-experience-monitoring_http_details_response"
+          "allOf": [
+            {
+              "$ref": "#/$defs/digital-experience-monitoring_api-response-single"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/digital-experience-monitoring_http_details_response"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/digital-experience-monitoring_api-response-common-failure"
@@ -121,17 +140,11 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "digital-experience-monitoring_api-response-common-failure": digital_experience_monitoring_api_response_common_failure_output,
+        "digital-experience-monitoring_api-response-single": digital_experience_monitoring_api_response_single_output,
         "digital-experience-monitoring_http_details_response": digital_experience_monitoring_http_details_response_output,
-        "digital-experience-monitoring_http_details_response_httpStats": digital_experience_monitoring_http_details_response_httpStats_output,
-        "digital-experience-monitoring_http_details_response_httpStatsByColoItem": digital_experience_monitoring_http_details_response_httpStatsByColoItem_output,
-        "digital-experience-monitoring_http_details_response_httpStatsByColoItem_httpStatusCodeItem": digital_experience_monitoring_http_details_response_httpStatsByColoItem_httpStatusCodeItem_output,
-        "digital-experience-monitoring_http_details_response_httpStats_httpStatusCodeItem": digital_experience_monitoring_http_details_response_httpStats_httpStatusCodeItem_output,
-        "digital-experience-monitoring_http_details_response_target_policiesItem": digital_experience_monitoring_http_details_response_target_policiesItem_output,
         "digital-experience-monitoring_messages": digital_experience_monitoring_messages_output,
         "digital-experience-monitoring_test_stat_over_time": digital_experience_monitoring_test_stat_over_time_output,
-        "digital-experience-monitoring_test_stat_over_time_slotsItem": digital_experience_monitoring_test_stat_over_time_slotsItem_output,
         "digital-experience-monitoring_test_stat_pct_over_time": digital_experience_monitoring_test_stat_pct_over_time_output,
-        "digital-experience-monitoring_test_stat_pct_over_time_slotsItem": digital_experience_monitoring_test_stat_pct_over_time_slotsItem_output,
         "digital-experience-monitoring_uuid": digital_experience_monitoring_uuid_output,
       },
     },

@@ -120,48 +120,50 @@ export const api_shield_credentials_JWT_Key_EC_common: JsonSchema = {
  * The schema of `api-shield_credentials-JWT-Key-RSA`.
  */
 export const api_shield_credentials_JWT_Key_RSA: JsonSchema = {
-  "description": "JSON representation of an RSA key.",
-  "properties": {
-    "alg": {
-      "description": "Algorithm",
-      "enum": [
-        "RS256",
-        "RS384",
-        "RS512",
-        "PS256",
-        "PS384",
-        "PS512"
+  "allOf": [
+    {
+      "$ref": "#/$defs/api-shield_credentials-JWT-Key-common"
+    },
+    {
+      "properties": {
+        "alg": {
+          "description": "Algorithm",
+          "enum": [
+            "RS256",
+            "RS384",
+            "RS512",
+            "PS256",
+            "PS384",
+            "PS512"
+          ],
+          "type": "string"
+        },
+        "e": {
+          "description": "RSA exponent",
+          "type": "string"
+        },
+        "kty": {
+          "description": "Key Type",
+          "enum": [
+            "RSA"
+          ],
+          "type": "string"
+        },
+        "n": {
+          "description": "RSA modulus",
+          "type": "string"
+        }
+      },
+      "required": [
+        "alg",
+        "e",
+        "kty",
+        "n"
       ],
-      "type": "string"
-    },
-    "e": {
-      "description": "RSA exponent",
-      "type": "string"
-    },
-    "kid": {
-      "description": "Key ID",
-      "type": "string"
-    },
-    "kty": {
-      "description": "Key Type",
-      "enum": [
-        "RSA"
-      ],
-      "type": "string"
-    },
-    "n": {
-      "description": "RSA modulus",
-      "type": "string"
+      "type": "object"
     }
-  },
-  "required": [
-    "kid",
-    "alg",
-    "e",
-    "kty",
-    "n"
   ],
-  "type": "object"
+  "description": "JSON representation of an RSA key."
 };
 
 /**
@@ -184,40 +186,42 @@ export const api_shield_credentials_JWT_Key_common: JsonSchema = {
  * The schema of `api-shield_credentials-JWT-Key-oct-request`.
  */
 export const api_shield_credentials_JWT_Key_oct_request: JsonSchema = {
-  "description": "JSON representation of a symmetric key for create/PUT requests.",
-  "properties": {
-    "alg": {
-      "description": "Algorithm",
-      "enum": [
-        "HS256",
-        "HS384",
-        "HS512"
+  "allOf": [
+    {
+      "$ref": "#/$defs/api-shield_credentials-JWT-Key-common"
+    },
+    {
+      "properties": {
+        "alg": {
+          "description": "Algorithm",
+          "enum": [
+            "HS256",
+            "HS384",
+            "HS512"
+          ],
+          "type": "string"
+        },
+        "k": {
+          "description": "Symmetric key material. Required for create and PUT update requests.",
+          "type": "string"
+        },
+        "kty": {
+          "description": "Key Type",
+          "enum": [
+            "oct"
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "alg",
+        "k",
+        "kty"
       ],
-      "type": "string"
-    },
-    "k": {
-      "description": "Symmetric key material. Required for create and PUT update requests.",
-      "type": "string"
-    },
-    "kid": {
-      "description": "Key ID",
-      "type": "string"
-    },
-    "kty": {
-      "description": "Key Type",
-      "enum": [
-        "oct"
-      ],
-      "type": "string"
+      "type": "object"
     }
-  },
-  "required": [
-    "kid",
-    "alg",
-    "k",
-    "kty"
   ],
-  "type": "object"
+  "description": "JSON representation of a symmetric key for create/PUT requests."
 };
 
 /**

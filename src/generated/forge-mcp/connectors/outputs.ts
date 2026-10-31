@@ -70,6 +70,123 @@ export const mconn_customer_connector_output: JsonSchema = {
 };
 
 /**
+ * The schema of `mconn_customer_connectors_create_response` in responses.
+ */
+export const mconn_customer_connectors_create_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/mconn_good_response"
+    },
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/mconn_customer_connector"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `mconn_customer_connectors_delete_response` in responses.
+ */
+export const mconn_customer_connectors_delete_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/mconn_good_response"
+    },
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/mconn_customer_connector"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `mconn_customer_connectors_edit_response` in responses.
+ */
+export const mconn_customer_connectors_edit_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/mconn_good_response"
+    },
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/mconn_customer_connector"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `mconn_customer_connectors_get_response` in responses.
+ */
+export const mconn_customer_connectors_get_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/mconn_good_response"
+    },
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/mconn_customer_connector"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `mconn_customer_connectors_list_response` in responses.
+ */
+export const mconn_customer_connectors_list_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/mconn_good_response"
+    },
+    {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/mconn_customer_connector"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `mconn_customer_connectors_update_response` in responses.
+ */
+export const mconn_customer_connectors_update_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/mconn_good_response"
+    },
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/mconn_customer_connector"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
  * The schema of `mconn_customer_device` in responses.
  */
 export const mconn_customer_device_output: JsonSchema = {
@@ -114,12 +231,5 @@ export const mconn_day_of_week_output: JsonSchema = {
  * The schema of `mconn_embargo_date` in responses.
  */
 export const mconn_embargo_date_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `mconn_uuid` in responses.
- */
-export const mconn_uuid_output: JsonSchema = {
   "type": "string"
 };

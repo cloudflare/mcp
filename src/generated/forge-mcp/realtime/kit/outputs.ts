@@ -107,12 +107,24 @@ export const realtimekit_AudioConfig_output: JsonSchema = {
 };
 
 /**
- * The schema of `realtimekit_GenericErrorResponse` in responses.
+ * The schema of `realtimekit_ErrorResponse` in responses.
  */
-export const realtimekit_GenericErrorResponse_output: JsonSchema = {
+export const realtimekit_ErrorResponse_output: JsonSchema = {
   "properties": {
     "error": {
-      "$ref": "#/$defs/realtimekit_GenericErrorResponse_error"
+      "properties": {
+        "code": {
+          "type": "number"
+        },
+        "message": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "code",
+        "message"
+      ],
+      "type": "object"
     },
     "success": {
       "type": "boolean"
@@ -126,24 +138,48 @@ export const realtimekit_GenericErrorResponse_output: JsonSchema = {
 };
 
 /**
- * The schema of `realtimekit_GenericErrorResponse_error` in responses.
+ * The schema of `realtimekit_GenericErrorResponse` in responses.
  */
-export const realtimekit_GenericErrorResponse_error_output: JsonSchema = {
+export const realtimekit_GenericErrorResponse_output: JsonSchema = {
   "properties": {
-    "code": {
-      "type": "number"
+    "error": {
+      "properties": {
+        "code": {
+          "type": "number"
+        },
+        "details": {
+          "oneOf": [
+            {
+              "items": {
+                "$ref": "#/$defs/realtimekit_ValidationIssue"
+              },
+              "type": "array"
+            },
+            {
+              "type": "object"
+            }
+          ]
+        },
+        "message": {
+          "type": "string"
+        },
+        "reason": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "code",
+        "message"
+      ],
+      "type": "object"
     },
-    "details": {},
-    "message": {
-      "type": "string"
-    },
-    "reason": {
-      "type": "string"
+    "success": {
+      "type": "boolean"
     }
   },
   "required": [
-    "code",
-    "message"
+    "error",
+    "success"
   ],
   "type": "object"
 };
@@ -162,6 +198,175 @@ export const realtimekit_GenericSuccessResponse_output: JsonSchema = {
   },
   "required": [
     "success"
+  ],
+  "type": "object"
+};
+
+/**
+ * The schema of `realtimekit_Livestream` in responses.
+ */
+export const realtimekit_Livestream_output: JsonSchema = {
+  "properties": {
+    "created_at": {
+      "format": "date-time",
+      "type": "string"
+    },
+    "disabled": {
+      "type": "boolean"
+    },
+    "external_id": {
+      "type": "string"
+    },
+    "id": {
+      "format": "uuid",
+      "type": "string"
+    },
+    "ingest_server": {
+      "type": "string"
+    },
+    "manual_ingest": {
+      "type": "boolean"
+    },
+    "meeting_id": {
+      "oneOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "name": {
+      "oneOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "playback_url": {
+      "type": "string"
+    },
+    "status": {
+      "enum": [
+        "LIVE",
+        "IDLE",
+        "ERRORED",
+        "INVOKED",
+        "METRICS_READY"
+      ],
+      "type": "string"
+    },
+    "stream_key": {
+      "type": "string"
+    },
+    "updated_at": {
+      "format": "date-time",
+      "type": "string"
+    }
+  },
+  "required": [
+    "created_at",
+    "disabled",
+    "external_id",
+    "id",
+    "ingest_server",
+    "manual_ingest",
+    "meeting_id",
+    "name",
+    "playback_url",
+    "status",
+    "stream_key",
+    "updated_at"
+  ],
+  "type": "object"
+};
+
+/**
+ * The schema of `realtimekit_LivestreamSession` in responses.
+ */
+export const realtimekit_LivestreamSession_output: JsonSchema = {
+  "properties": {
+    "created_at": {
+      "format": "date-time",
+      "type": "string"
+    },
+    "err_message": {
+      "oneOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "id": {
+      "format": "uuid",
+      "type": "string"
+    },
+    "ingest_seconds": {
+      "type": "number"
+    },
+    "invoked_time": {
+      "oneOf": [
+        {
+          "format": "date-time",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "livestream_id": {
+      "format": "uuid",
+      "type": "string"
+    },
+    "started_time": {
+      "oneOf": [
+        {
+          "format": "date-time",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "stopped_time": {
+      "oneOf": [
+        {
+          "format": "date-time",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "updated_at": {
+      "format": "date-time",
+      "type": "string"
+    },
+    "viewer_seconds": {
+      "type": "number"
+    }
+  },
+  "required": [
+    "created_at",
+    "err_message",
+    "id",
+    "ingest_seconds",
+    "invoked_time",
+    "livestream_id",
+    "started_time",
+    "stopped_time",
+    "updated_at",
+    "viewer_seconds"
   ],
   "type": "object"
 };
@@ -327,7 +532,11 @@ export const realtimekit_StorageConfig_output: JsonSchema = {
               "type": "string"
             },
             "auth_method": {
-              "$ref": "#/$defs/realtimekit_StorageConfig_auth_method"
+              "enum": [
+                "KEY",
+                "PASSWORD"
+              ],
+              "type": "string"
             },
             "bucket": {
               "type": "string"
@@ -354,7 +563,14 @@ export const realtimekit_StorageConfig_output: JsonSchema = {
               "type": "string"
             },
             "type": {
-              "$ref": "#/$defs/realtimekit_StorageConfig_type"
+              "enum": [
+                "aws",
+                "azure",
+                "digitalocean",
+                "gcs",
+                "sftp"
+              ],
+              "type": "string"
             },
             "username": {
               "type": "string"
@@ -456,28 +672,35 @@ export const realtimekit_StorageConfig_output: JsonSchema = {
 };
 
 /**
- * The schema of `realtimekit_StorageConfig_auth_method` in responses.
+ * The schema of `realtimekit_ValidationIssue` in responses.
  */
-export const realtimekit_StorageConfig_auth_method_output: JsonSchema = {
-  "enum": [
-    "KEY",
-    "PASSWORD"
+export const realtimekit_ValidationIssue_output: JsonSchema = {
+  "properties": {
+    "code": {
+      "type": "string"
+    },
+    "field": {
+      "type": "string"
+    },
+    "location": {
+      "enum": [
+        "path",
+        "query",
+        "body"
+      ],
+      "type": "string"
+    },
+    "message": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "code",
+    "field",
+    "location",
+    "message"
   ],
-  "type": "string"
-};
-
-/**
- * The schema of `realtimekit_StorageConfig_type` in responses.
- */
-export const realtimekit_StorageConfig_type_output: JsonSchema = {
-  "enum": [
-    "aws",
-    "azure",
-    "digitalocean",
-    "gcs",
-    "sftp"
-  ],
-  "type": "string"
+  "type": "object"
 };
 
 /**
@@ -500,46 +723,32 @@ export const realtimekit_VideoConfig_output: JsonSchema = {
       "type": "integer"
     },
     "watermark": {
-      "$ref": "#/$defs/realtimekit_VideoConfig_watermark"
-    },
-    "width": {
-      "type": "integer"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `realtimekit_VideoConfig_watermark` in responses.
- */
-export const realtimekit_VideoConfig_watermark_output: JsonSchema = {
-  "properties": {
-    "position": {
-      "enum": [
-        "left top",
-        "right top",
-        "left bottom",
-        "right bottom"
-      ],
-      "type": "string"
-    },
-    "size": {
-      "$ref": "#/$defs/realtimekit_VideoConfig_watermark_size"
-    },
-    "url": {
-      "type": "string"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `realtimekit_VideoConfig_watermark_size` in responses.
- */
-export const realtimekit_VideoConfig_watermark_size_output: JsonSchema = {
-  "properties": {
-    "height": {
-      "type": "integer"
+      "properties": {
+        "position": {
+          "enum": [
+            "left top",
+            "right top",
+            "left bottom",
+            "right bottom"
+          ],
+          "type": "string"
+        },
+        "size": {
+          "properties": {
+            "height": {
+              "type": "integer"
+            },
+            "width": {
+              "type": "integer"
+            }
+          },
+          "type": "object"
+        },
+        "url": {
+          "type": "string"
+        }
+      },
+      "type": "object"
     },
     "width": {
       "type": "integer"

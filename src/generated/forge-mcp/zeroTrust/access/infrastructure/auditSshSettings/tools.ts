@@ -4,9 +4,11 @@
 import { type Tool, pathParam } from "../../../../_/tool.js";
 import {
   zero_trust_gateway_api_response_common_failure_output,
+  zero_trust_gateway_api_response_single_output,
   zero_trust_gateway_messages_output,
   zero_trust_gateway_read_only_timestamp_output,
 } from "../../../outputs.js";
+import { zero_trust_gateway_identifier_2 } from "../../../schemas.js";
 import {
   zero_trust_gateway_public_key_output,
   zero_trust_gateway_settings_output,
@@ -27,20 +29,26 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Specify the Cloudflare account identifier.",
-          "type": "string"
+          "$ref": "#/$defs/zero-trust-gateway_identifier-2",
+          "description": "Specify the Cloudflare account identifier."
         }
       },
       required: [
         "account_id"
       ],
+      $defs: {
+        "zero-trust-gateway_identifier-2": zero_trust_gateway_identifier_2,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/zero-trust-gateway_settings",
+      "$ref": "#/$defs/zero-trust-gateway_single_response-6",
       $defs: {
+        "zero-trust-gateway_api-response-single": zero_trust_gateway_api_response_single_output,
+        "zero-trust-gateway_messages": zero_trust_gateway_messages_output,
         "zero-trust-gateway_public_key": zero_trust_gateway_public_key_output,
         "zero-trust-gateway_read_only_timestamp": zero_trust_gateway_read_only_timestamp_output,
         "zero-trust-gateway_settings": zero_trust_gateway_settings_output,
+        "zero-trust-gateway_single_response-6": zero_trust_gateway_single_response_6_output,
         "zero-trust-gateway_uuid-5": zero_trust_gateway_uuid_5_output,
       },
     },
@@ -56,7 +64,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/zero-trust-gateway_settings"
+          "$ref": "#/$defs/zero-trust-gateway_single_response-6"
         },
         "4XX": {
           "allOf": [
@@ -71,6 +79,7 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "zero-trust-gateway_api-response-common-failure": zero_trust_gateway_api_response_common_failure_output,
+        "zero-trust-gateway_api-response-single": zero_trust_gateway_api_response_single_output,
         "zero-trust-gateway_messages": zero_trust_gateway_messages_output,
         "zero-trust-gateway_public_key": zero_trust_gateway_public_key_output,
         "zero-trust-gateway_read_only_timestamp": zero_trust_gateway_read_only_timestamp_output,
@@ -91,20 +100,26 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Specify the Cloudflare account identifier.",
-          "type": "string"
+          "$ref": "#/$defs/zero-trust-gateway_identifier-2",
+          "description": "Specify the Cloudflare account identifier."
         }
       },
       required: [
         "account_id"
       ],
+      $defs: {
+        "zero-trust-gateway_identifier-2": zero_trust_gateway_identifier_2,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/zero-trust-gateway_settings",
+      "$ref": "#/$defs/zero-trust-gateway_single_response-6",
       $defs: {
+        "zero-trust-gateway_api-response-single": zero_trust_gateway_api_response_single_output,
+        "zero-trust-gateway_messages": zero_trust_gateway_messages_output,
         "zero-trust-gateway_public_key": zero_trust_gateway_public_key_output,
         "zero-trust-gateway_read_only_timestamp": zero_trust_gateway_read_only_timestamp_output,
         "zero-trust-gateway_settings": zero_trust_gateway_settings_output,
+        "zero-trust-gateway_single_response-6": zero_trust_gateway_single_response_6_output,
         "zero-trust-gateway_uuid-5": zero_trust_gateway_uuid_5_output,
       },
     },
@@ -120,7 +135,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/zero-trust-gateway_settings"
+          "$ref": "#/$defs/zero-trust-gateway_single_response-6"
         },
         "4XX": {
           "allOf": [
@@ -135,6 +150,7 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "zero-trust-gateway_api-response-common-failure": zero_trust_gateway_api_response_common_failure_output,
+        "zero-trust-gateway_api-response-single": zero_trust_gateway_api_response_single_output,
         "zero-trust-gateway_messages": zero_trust_gateway_messages_output,
         "zero-trust-gateway_public_key": zero_trust_gateway_public_key_output,
         "zero-trust-gateway_read_only_timestamp": zero_trust_gateway_read_only_timestamp_output,
@@ -155,8 +171,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Specify the Cloudflare account identifier.",
-          "type": "string"
+          "$ref": "#/$defs/zero-trust-gateway_identifier-2",
+          "description": "Specify the Cloudflare account identifier."
         },
         "body": {
           "properties": {
@@ -176,15 +192,19 @@ export const tools: readonly Tool[] = [
         "body"
       ],
       $defs: {
+        "zero-trust-gateway_identifier-2": zero_trust_gateway_identifier_2,
         "zero-trust-gateway_public_key": zero_trust_gateway_public_key,
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/zero-trust-gateway_settings",
+      "$ref": "#/$defs/zero-trust-gateway_single_response-6",
       $defs: {
+        "zero-trust-gateway_api-response-single": zero_trust_gateway_api_response_single_output,
+        "zero-trust-gateway_messages": zero_trust_gateway_messages_output,
         "zero-trust-gateway_public_key": zero_trust_gateway_public_key_output,
         "zero-trust-gateway_read_only_timestamp": zero_trust_gateway_read_only_timestamp_output,
         "zero-trust-gateway_settings": zero_trust_gateway_settings_output,
+        "zero-trust-gateway_single_response-6": zero_trust_gateway_single_response_6_output,
         "zero-trust-gateway_uuid-5": zero_trust_gateway_uuid_5_output,
       },
     },
@@ -200,7 +220,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/zero-trust-gateway_settings"
+          "$ref": "#/$defs/zero-trust-gateway_single_response-6"
         },
         "4XX": {
           "allOf": [
@@ -215,6 +235,7 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "zero-trust-gateway_api-response-common-failure": zero_trust_gateway_api_response_common_failure_output,
+        "zero-trust-gateway_api-response-single": zero_trust_gateway_api_response_single_output,
         "zero-trust-gateway_messages": zero_trust_gateway_messages_output,
         "zero-trust-gateway_public_key": zero_trust_gateway_public_key_output,
         "zero-trust-gateway_read_only_timestamp": zero_trust_gateway_read_only_timestamp_output,

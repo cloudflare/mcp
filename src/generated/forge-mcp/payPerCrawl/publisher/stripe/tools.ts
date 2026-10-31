@@ -14,6 +14,8 @@ import {
 import {
   pay_per_crawl_StripeConnectResp_output,
   pay_per_crawl_StripeConnection_output,
+  pay_per_crawl_createStripeConfigResponse_output,
+  pay_per_crawl_getStripeConfigResponse_output,
 } from "../../outputs.js";
 
 /**
@@ -37,9 +39,13 @@ export const tools: readonly Tool[] = [
       ],
     },
     outputSchema: {
-      "$ref": "#/$defs/pay-per-crawl_StripeConnectResp",
+      "$ref": "#/$defs/pay-per-crawl_createStripeConfigResponse",
       $defs: {
+        "pay-per-crawl_Msg": pay_per_crawl_Msg_output,
+        "pay-per-crawl_ResultInfo": pay_per_crawl_ResultInfo_output,
+        "pay-per-crawl_Source": pay_per_crawl_Source_output,
         "pay-per-crawl_StripeConnectResp": pay_per_crawl_StripeConnectResp_output,
+        "pay-per-crawl_createStripeConfigResponse": pay_per_crawl_createStripeConfigResponse_output,
       },
     },
     annotations: {
@@ -59,7 +65,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/pay-per-crawl_StripeConnectResp"
+          "$ref": "#/$defs/pay-per-crawl_createStripeConfigResponse"
         },
         "400": {
           "$ref": "#/$defs/pay-per-crawl_apiErrorResponse"
@@ -67,9 +73,13 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "pay-per-crawl_ErrorSource": pay_per_crawl_ErrorSource_output,
+        "pay-per-crawl_Msg": pay_per_crawl_Msg_output,
         "pay-per-crawl_RESTError": pay_per_crawl_RESTError_output,
+        "pay-per-crawl_ResultInfo": pay_per_crawl_ResultInfo_output,
+        "pay-per-crawl_Source": pay_per_crawl_Source_output,
         "pay-per-crawl_StripeConnectResp": pay_per_crawl_StripeConnectResp_output,
         "pay-per-crawl_apiErrorResponse": pay_per_crawl_apiErrorResponse_output,
+        "pay-per-crawl_createStripeConfigResponse": pay_per_crawl_createStripeConfigResponse_output,
       },
     },
     request: (args) => ({
@@ -155,9 +165,13 @@ export const tools: readonly Tool[] = [
       ],
     },
     outputSchema: {
-      "$ref": "#/$defs/pay-per-crawl_StripeConnection",
+      "$ref": "#/$defs/pay-per-crawl_getStripeConfigResponse",
       $defs: {
+        "pay-per-crawl_Msg": pay_per_crawl_Msg_output,
+        "pay-per-crawl_ResultInfo": pay_per_crawl_ResultInfo_output,
+        "pay-per-crawl_Source": pay_per_crawl_Source_output,
         "pay-per-crawl_StripeConnection": pay_per_crawl_StripeConnection_output,
+        "pay-per-crawl_getStripeConfigResponse": pay_per_crawl_getStripeConfigResponse_output,
       },
     },
     annotations: {
@@ -205,7 +219,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/pay-per-crawl_StripeConnection"
+          "$ref": "#/$defs/pay-per-crawl_getStripeConfigResponse"
         },
         "400": {
           "$ref": "#/$defs/pay-per-crawl_apiErrorResponse"
@@ -213,9 +227,13 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "pay-per-crawl_ErrorSource": pay_per_crawl_ErrorSource_output,
+        "pay-per-crawl_Msg": pay_per_crawl_Msg_output,
         "pay-per-crawl_RESTError": pay_per_crawl_RESTError_output,
+        "pay-per-crawl_ResultInfo": pay_per_crawl_ResultInfo_output,
+        "pay-per-crawl_Source": pay_per_crawl_Source_output,
         "pay-per-crawl_StripeConnection": pay_per_crawl_StripeConnection_output,
         "pay-per-crawl_apiErrorResponse": pay_per_crawl_apiErrorResponse_output,
+        "pay-per-crawl_getStripeConfigResponse": pay_per_crawl_getStripeConfigResponse_output,
       },
     },
     request: (args) => ({

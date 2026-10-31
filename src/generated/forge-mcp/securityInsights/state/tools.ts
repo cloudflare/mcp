@@ -4,8 +4,10 @@
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
   security_center_api_response_common_failure_output,
+  security_center_api_response_common_output,
   security_center_messages_output,
 } from "../../outputs.js";
+import { security_center_identifier } from "../../schemas.js";
 import { security_center_accountStateResponse_output } from "./outputs.js";
 import { security_center_updateAccountStateRequest } from "./schemas.js";
 
@@ -21,18 +23,35 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/security-center_identifier",
+          "description": "Identifier."
         }
       },
       required: [
         "account_id"
       ],
+      $defs: {
+        "security-center_identifier": security_center_identifier,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/security-center_accountStateResponse",
+      "allOf": [
+        {
+          "$ref": "#/$defs/security-center_api-response-common"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/security-center_accountStateResponse"
+            }
+          },
+          "type": "object"
+        }
+      ],
       $defs: {
         "security-center_accountStateResponse": security_center_accountStateResponse_output,
+        "security-center_api-response-common": security_center_api_response_common_output,
+        "security-center_messages": security_center_messages_output,
       },
     },
     annotations: {
@@ -47,7 +66,19 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/security-center_accountStateResponse"
+          "allOf": [
+            {
+              "$ref": "#/$defs/security-center_api-response-common"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/security-center_accountStateResponse"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/security-center_api-response-common-failure"
@@ -55,6 +86,7 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "security-center_accountStateResponse": security_center_accountStateResponse_output,
+        "security-center_api-response-common": security_center_api_response_common_output,
         "security-center_api-response-common-failure": security_center_api_response_common_failure_output,
         "security-center_messages": security_center_messages_output,
       },
@@ -71,8 +103,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/security-center_identifier",
+          "description": "Identifier."
         },
         "body": {
           "$ref": "#/$defs/security-center_updateAccountStateRequest"
@@ -83,13 +115,28 @@ export const tools: readonly Tool[] = [
         "body"
       ],
       $defs: {
+        "security-center_identifier": security_center_identifier,
         "security-center_updateAccountStateRequest": security_center_updateAccountStateRequest,
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/security-center_accountStateResponse",
+      "allOf": [
+        {
+          "$ref": "#/$defs/security-center_api-response-common"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/security-center_accountStateResponse"
+            }
+          },
+          "type": "object"
+        }
+      ],
       $defs: {
         "security-center_accountStateResponse": security_center_accountStateResponse_output,
+        "security-center_api-response-common": security_center_api_response_common_output,
+        "security-center_messages": security_center_messages_output,
       },
     },
     annotations: {
@@ -104,7 +151,19 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/security-center_accountStateResponse"
+          "allOf": [
+            {
+              "$ref": "#/$defs/security-center_api-response-common"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/security-center_accountStateResponse"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/security-center_api-response-common-failure"
@@ -112,6 +171,7 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "security-center_accountStateResponse": security_center_accountStateResponse_output,
+        "security-center_api-response-common": security_center_api_response_common_output,
         "security-center_api-response-common-failure": security_center_api_response_common_failure_output,
         "security-center_messages": security_center_messages_output,
       },

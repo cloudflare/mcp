@@ -26,3 +26,68 @@ export const access_idp_federation_grant_output: JsonSchema = {
   ],
   "type": "object"
 };
+
+/**
+ * The schema of `access_idp_federation_grant_id_response` in responses.
+ */
+export const access_idp_federation_grant_id_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/access_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "properties": {
+            "id": {
+              "$ref": "#/$defs/access_identifier"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `access_idp_federation_grant_list_response` in responses.
+ */
+export const access_idp_federation_grant_list_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/access_api-response-collection"
+    },
+    {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/access_idp_federation_grant"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `access_idp_federation_grant_response` in responses.
+ */
+export const access_idp_federation_grant_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/access_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/access_idp_federation_grant"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};

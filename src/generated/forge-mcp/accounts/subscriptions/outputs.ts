@@ -4,6 +4,49 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
+ * The schema of `bill-subs-api_account_subscription_response_collection` in
+ * responses.
+ */
+export const bill_subs_api_account_subscription_response_collection_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/bill-subs-api_api-response-collection"
+    },
+    {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/bill-subs-api_subscription"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `bill-subs-api_account_subscription_response_single` in
+ * responses.
+ */
+export const bill_subs_api_account_subscription_response_single_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/bill-subs-api_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/bill-subs-api_subscription"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
  * The schema of `bill-subs-api_cancel_reason` in responses.
  */
 export const bill_subs_api_cancel_reason_output: JsonSchema = {
@@ -29,4 +72,23 @@ export const bill_subs_api_cancel_reason_output: JsonSchema = {
     }
   },
   "type": "object"
+};
+
+/**
+ * The schema of `bill-subs-api_cancel_reason_response_single` in responses.
+ */
+export const bill_subs_api_cancel_reason_response_single_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/bill-subs-api_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/bill-subs-api_cancel_reason"
+        }
+      },
+      "type": "object"
+    }
+  ]
 };

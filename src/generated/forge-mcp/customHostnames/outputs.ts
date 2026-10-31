@@ -55,34 +55,17 @@ export const tls_certificates_and_hostnames_custom_hostname_output: JsonSchema =
 };
 
 /**
- * The schema of `tls-certificates-and-hostnames_custom_hostname_identifier` in
- * responses.
- */
-export const tls_certificates_and_hostnames_custom_hostname_identifier_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of
- * `tls-certificates-and-hostnames_custom_hostname_response_collection` in
+ * `tls-certificates-and-hostnames_custom_hostname_api_response_common` in
  * responses.
  */
-export const tls_certificates_and_hostnames_custom_hostname_response_collection_output: JsonSchema = {
+export const tls_certificates_and_hostnames_custom_hostname_api_response_common_output: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/tls-certificates-and-hostnames_messages"
     },
     "messages": {
       "$ref": "#/$defs/tls-certificates-and-hostnames_custom_hostname_response_messages"
-    },
-    "result": {
-      "items": {
-        "$ref": "#/$defs/tls-certificates-and-hostnames_custom-hostname"
-      },
-      "type": "array"
-    },
-    "result_info": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_result_info"
     },
     "success": {
       "enum": [
@@ -97,6 +80,41 @@ export const tls_certificates_and_hostnames_custom_hostname_response_collection_
     "success"
   ],
   "type": "object"
+};
+
+/**
+ * The schema of `tls-certificates-and-hostnames_custom_hostname_identifier` in
+ * responses.
+ */
+export const tls_certificates_and_hostnames_custom_hostname_identifier_output: JsonSchema = {
+  "type": "string"
+};
+
+/**
+ * The schema of
+ * `tls-certificates-and-hostnames_custom_hostname_response_collection` in
+ * responses.
+ */
+export const tls_certificates_and_hostnames_custom_hostname_response_collection_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/tls-certificates-and-hostnames_custom_hostname_api_response_common"
+    },
+    {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/tls-certificates-and-hostnames_custom-hostname"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "$ref": "#/$defs/tls-certificates-and-hostnames_result_info"
+        }
+      },
+      "type": "object"
+    }
+  ]
 };
 
 /**
@@ -117,29 +135,19 @@ export const tls_certificates_and_hostnames_custom_hostname_response_messages_ou
  * responses.
  */
 export const tls_certificates_and_hostnames_custom_hostname_response_single_output: JsonSchema = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_messages"
+  "allOf": [
+    {
+      "$ref": "#/$defs/tls-certificates-and-hostnames_custom_hostname_api_response_common"
     },
-    "messages": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_custom_hostname_response_messages"
-    },
-    "result": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_custom-hostname"
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/tls-certificates-and-hostnames_custom-hostname"
+        }
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "success"
-  ],
-  "type": "object"
+  ]
 };
 
 /**

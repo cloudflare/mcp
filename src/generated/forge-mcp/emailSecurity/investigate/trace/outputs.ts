@@ -9,80 +9,66 @@ import type { JsonSchema } from "../../../_/tool.js";
 export const email_security_MessageTrace_output: JsonSchema = {
   "properties": {
     "inbound": {
-      "$ref": "#/$defs/email-security_MessageTrace_inbound"
+      "properties": {
+        "lines": {
+          "oneOf": [
+            {
+              "items": {
+                "$ref": "#/$defs/email-security_TraceLine"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "pending": {
+          "oneOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "type": "object"
     },
     "outbound": {
-      "$ref": "#/$defs/email-security_MessageTrace_outbound"
+      "properties": {
+        "lines": {
+          "oneOf": [
+            {
+              "items": {
+                "$ref": "#/$defs/email-security_TraceLine"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "pending": {
+          "oneOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "type": "object"
     }
   },
   "required": [
     "inbound",
     "outbound"
   ],
-  "type": "object"
-};
-
-/**
- * The schema of `email-security_MessageTrace_inbound` in responses.
- */
-export const email_security_MessageTrace_inbound_output: JsonSchema = {
-  "properties": {
-    "lines": {
-      "oneOf": [
-        {
-          "items": {
-            "$ref": "#/$defs/email-security_TraceLine"
-          },
-          "type": "array"
-        },
-        {
-          "type": "null"
-        }
-      ]
-    },
-    "pending": {
-      "oneOf": [
-        {
-          "type": "boolean"
-        },
-        {
-          "type": "null"
-        }
-      ]
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `email-security_MessageTrace_outbound` in responses.
- */
-export const email_security_MessageTrace_outbound_output: JsonSchema = {
-  "properties": {
-    "lines": {
-      "oneOf": [
-        {
-          "items": {
-            "$ref": "#/$defs/email-security_TraceLine"
-          },
-          "type": "array"
-        },
-        {
-          "type": "null"
-        }
-      ]
-    },
-    "pending": {
-      "oneOf": [
-        {
-          "type": "boolean"
-        },
-        {
-          "type": "null"
-        }
-      ]
-    }
-  },
   "type": "object"
 };
 

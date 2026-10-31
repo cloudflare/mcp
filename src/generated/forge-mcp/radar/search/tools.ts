@@ -84,31 +84,43 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
-        "search": {
-          "items": {
-            "properties": {
-              "code": {
-                "type": "string"
+        "result": {
+          "properties": {
+            "search": {
+              "items": {
+                "properties": {
+                  "code": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "type": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "code",
+                  "name",
+                  "type"
+                ],
+                "type": "object"
               },
-              "name": {
-                "type": "string"
-              },
-              "type": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "code",
-              "name",
-              "type"
-            ],
-            "type": "object"
+              "type": "array"
+            }
           },
-          "type": "array"
+          "required": [
+            "search"
+          ],
+          "type": "object"
+        },
+        "success": {
+          "type": "boolean"
         }
       },
       "required": [
-        "search"
+        "result",
+        "success"
       ],
       "type": "object",
     },
@@ -137,31 +149,43 @@ export const tools: readonly Tool[] = [
       schemas: {
         "200": {
           "properties": {
-            "search": {
-              "items": {
-                "properties": {
-                  "code": {
-                    "type": "string"
+            "result": {
+              "properties": {
+                "search": {
+                  "items": {
+                    "properties": {
+                      "code": {
+                        "type": "string"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "type": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "code",
+                      "name",
+                      "type"
+                    ],
+                    "type": "object"
                   },
-                  "name": {
-                    "type": "string"
-                  },
-                  "type": {
-                    "type": "string"
-                  }
-                },
-                "required": [
-                  "code",
-                  "name",
-                  "type"
-                ],
-                "type": "object"
+                  "type": "array"
+                }
               },
-              "type": "array"
+              "required": [
+                "search"
+              ],
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
             }
           },
           "required": [
-            "search"
+            "result",
+            "success"
           ],
           "type": "object"
         },

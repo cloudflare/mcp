@@ -3,10 +3,10 @@
 
 import { type Tool, pathParam } from "../../../../../_/tool.js";
 import {
-  realtimekit_Poll_optionsItem_output,
-  realtimekit_Poll_optionsItem_votesItem_output,
-  realtimekit_Poll_output,
-} from "./outputs.js";
+  realtimekit_account_identifier,
+  realtimekit_app_id,
+} from "../../../schemas.js";
+import { realtimekit_Poll_output } from "./outputs.js";
 
 /**
  * The tools of `realtime.kit.meetings.active.polls`.
@@ -20,12 +20,12 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "The account identifier tag.",
-          "type": "string"
+          "$ref": "#/$defs/realtimekit_account_identifier",
+          "description": "The account identifier tag."
         },
         "app_id": {
-          "description": "The app identifier tag.",
-          "type": "string"
+          "$ref": "#/$defs/realtimekit_app_id",
+          "description": "The app identifier tag."
         },
         "body": {
           "description": "Request body for creating a new poll",
@@ -67,6 +67,10 @@ export const tools: readonly Tool[] = [
         "meeting_id",
         "body"
       ],
+      $defs: {
+        "realtimekit_account_identifier": realtimekit_account_identifier,
+        "realtimekit_app_id": realtimekit_app_id,
+      },
     },
     outputSchema: {
       "properties": {
@@ -88,8 +92,6 @@ export const tools: readonly Tool[] = [
       "type": "object",
       $defs: {
         "realtimekit_Poll": realtimekit_Poll_output,
-        "realtimekit_Poll_optionsItem": realtimekit_Poll_optionsItem_output,
-        "realtimekit_Poll_optionsItem_votesItem": realtimekit_Poll_optionsItem_votesItem_output,
       },
     },
     annotations: {
@@ -132,8 +134,6 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "realtimekit_Poll": realtimekit_Poll_output,
-        "realtimekit_Poll_optionsItem": realtimekit_Poll_optionsItem_output,
-        "realtimekit_Poll_optionsItem_votesItem": realtimekit_Poll_optionsItem_votesItem_output,
       },
     },
     request: (args) => ({

@@ -130,7 +130,23 @@ export const realtimekit_Recording_output: JsonSchema = {
 export const realtimekit_startReason_output: JsonSchema = {
   "properties": {
     "caller": {
-      "$ref": "#/$defs/realtimekit_startReason_caller"
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "type": {
+          "enum": [
+            "ORGANIZATION",
+            "USER"
+          ],
+          "type": "string"
+        },
+        "user_Id": {
+          "format": "uuid",
+          "type": "string"
+        }
+      },
+      "type": "object"
     },
     "reason": {
       "enum": [
@@ -144,35 +160,28 @@ export const realtimekit_startReason_output: JsonSchema = {
 };
 
 /**
- * The schema of `realtimekit_startReason_caller` in responses.
- */
-export const realtimekit_startReason_caller_output: JsonSchema = {
-  "properties": {
-    "name": {
-      "type": "string"
-    },
-    "type": {
-      "enum": [
-        "ORGANIZATION",
-        "USER"
-      ],
-      "type": "string"
-    },
-    "user_Id": {
-      "format": "uuid",
-      "type": "string"
-    }
-  },
-  "type": "object"
-};
-
-/**
  * The schema of `realtimekit_stopReason` in responses.
  */
 export const realtimekit_stopReason_output: JsonSchema = {
   "properties": {
     "caller": {
-      "$ref": "#/$defs/realtimekit_stopReason_caller"
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "type": {
+          "enum": [
+            "ORGANIZATION",
+            "USER"
+          ],
+          "type": "string"
+        },
+        "user_Id": {
+          "format": "uuid",
+          "type": "string"
+        }
+      },
+      "type": "object"
     },
     "reason": {
       "enum": [
@@ -180,29 +189,6 @@ export const realtimekit_stopReason_output: JsonSchema = {
         "INTERNAL_ERROR",
         "ALL_PEERS_LEFT"
       ],
-      "type": "string"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `realtimekit_stopReason_caller` in responses.
- */
-export const realtimekit_stopReason_caller_output: JsonSchema = {
-  "properties": {
-    "name": {
-      "type": "string"
-    },
-    "type": {
-      "enum": [
-        "ORGANIZATION",
-        "USER"
-      ],
-      "type": "string"
-    },
-    "user_Id": {
-      "format": "uuid",
       "type": "string"
     }
   },

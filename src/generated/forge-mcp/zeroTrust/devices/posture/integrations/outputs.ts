@@ -49,6 +49,73 @@ export const teams_devices_interval_output: JsonSchema = {
 };
 
 /**
+ * The schema of `teams-devices_schemas-id_response` in responses.
+ */
+export const teams_devices_schemas_id_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/teams-devices_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "oneOf": [
+            {
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `teams-devices_schemas-response_collection` in responses.
+ */
+export const teams_devices_schemas_response_collection_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/teams-devices_api-response-collection"
+    },
+    {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/teams-devices_device-posture-integrations"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `teams-devices_schemas-single_response` in responses.
+ */
+export const teams_devices_schemas_single_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/teams-devices_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/teams-devices_device-posture-integrations"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
  * The schema of `teams-devices_schemas-type` in responses.
  */
 export const teams_devices_schemas_type_output: JsonSchema = {

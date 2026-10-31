@@ -136,6 +136,14 @@ export const iam_scim_user_email_object: JsonSchema = {
 };
 
 /**
+ * The schema of `iam_scim_user_identifier`.
+ */
+export const iam_scim_user_identifier: JsonSchema = {
+  "description": "The user tag identifying a SCIM User resource (account member).",
+  "type": "string"
+};
+
+/**
  * The schema of `iam_scim_user_name_object`.
  */
 export const iam_scim_user_name_object: JsonSchema = {

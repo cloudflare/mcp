@@ -83,3 +83,26 @@ export const cc_V4BaseErrorResponse_output: JsonSchema = {
   ],
   "type": "object"
 };
+
+/**
+ * The schema of `cc_V4BaseResponse` in responses.
+ */
+export const cc_V4BaseResponse_output: JsonSchema = {
+  "properties": {
+    "errors": {
+      "$ref": "#/$defs/cc_Messages"
+    },
+    "messages": {
+      "$ref": "#/$defs/cc_Messages"
+    },
+    "success": {
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "errors",
+    "messages",
+    "success"
+  ],
+  "type": "object"
+};

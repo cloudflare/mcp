@@ -4,6 +4,7 @@
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
   turnstile_api_response_common_failure_output,
+  turnstile_api_response_common_output,
   turnstile_bot_fight_mode_output,
   turnstile_clearance_level_output,
   turnstile_created_on_output,
@@ -144,8 +145,29 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/turnstile_widget_detail",
+      "allOf": [
+        {
+          "$ref": "#/$defs/turnstile_api-response-common"
+        },
+        {
+          "properties": {
+            "result_info": {
+              "$ref": "#/$defs/turnstile_result_info"
+            }
+          },
+          "type": "object"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/turnstile_widget_detail"
+            }
+          },
+          "type": "object"
+        }
+      ],
       $defs: {
+        "turnstile_api-response-common": turnstile_api_response_common_output,
         "turnstile_bot_fight_mode": turnstile_bot_fight_mode_output,
         "turnstile_clearance_level": turnstile_clearance_level_output,
         "turnstile_created_on": turnstile_created_on_output,
@@ -153,10 +175,12 @@ export const tools: readonly Tool[] = [
         "turnstile_domains": turnstile_domains_output,
         "turnstile_ephemeral_id": turnstile_ephemeral_id_output,
         "turnstile_last_modified_via": turnstile_last_modified_via_output,
+        "turnstile_messages": turnstile_messages_output,
         "turnstile_modified_on": turnstile_modified_on_output,
         "turnstile_name": turnstile_name_output,
         "turnstile_offlabel": turnstile_offlabel_output,
         "turnstile_region": turnstile_region_output,
+        "turnstile_result_info": turnstile_result_info_output,
         "turnstile_secret": turnstile_secret_output,
         "turnstile_sitekey": turnstile_sitekey_output,
         "turnstile_widget_detail": turnstile_widget_detail_output,
@@ -186,13 +210,34 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/turnstile_widget_detail"
+          "allOf": [
+            {
+              "$ref": "#/$defs/turnstile_api-response-common"
+            },
+            {
+              "properties": {
+                "result_info": {
+                  "$ref": "#/$defs/turnstile_result_info"
+                }
+              },
+              "type": "object"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/turnstile_widget_detail"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/turnstile_api-response-common-failure"
         }
       },
       $defs: {
+        "turnstile_api-response-common": turnstile_api_response_common_output,
         "turnstile_api-response-common-failure": turnstile_api_response_common_failure_output,
         "turnstile_bot_fight_mode": turnstile_bot_fight_mode_output,
         "turnstile_clearance_level": turnstile_clearance_level_output,
@@ -206,6 +251,7 @@ export const tools: readonly Tool[] = [
         "turnstile_name": turnstile_name_output,
         "turnstile_offlabel": turnstile_offlabel_output,
         "turnstile_region": turnstile_region_output,
+        "turnstile_result_info": turnstile_result_info_output,
         "turnstile_secret": turnstile_secret_output,
         "turnstile_sitekey": turnstile_sitekey_output,
         "turnstile_widget_detail": turnstile_widget_detail_output,
@@ -250,8 +296,21 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/turnstile_widget_detail",
+      "allOf": [
+        {
+          "$ref": "#/$defs/turnstile_api-response-common"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/turnstile_widget_detail"
+            }
+          },
+          "type": "object"
+        }
+      ],
       $defs: {
+        "turnstile_api-response-common": turnstile_api_response_common_output,
         "turnstile_bot_fight_mode": turnstile_bot_fight_mode_output,
         "turnstile_clearance_level": turnstile_clearance_level_output,
         "turnstile_created_on": turnstile_created_on_output,
@@ -259,6 +318,7 @@ export const tools: readonly Tool[] = [
         "turnstile_domains": turnstile_domains_output,
         "turnstile_ephemeral_id": turnstile_ephemeral_id_output,
         "turnstile_last_modified_via": turnstile_last_modified_via_output,
+        "turnstile_messages": turnstile_messages_output,
         "turnstile_modified_on": turnstile_modified_on_output,
         "turnstile_name": turnstile_name_output,
         "turnstile_offlabel": turnstile_offlabel_output,
@@ -287,13 +347,26 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/turnstile_widget_detail"
+          "allOf": [
+            {
+              "$ref": "#/$defs/turnstile_api-response-common"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/turnstile_widget_detail"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/turnstile_api-response-common-failure"
         }
       },
       $defs: {
+        "turnstile_api-response-common": turnstile_api_response_common_output,
         "turnstile_api-response-common-failure": turnstile_api_response_common_failure_output,
         "turnstile_bot_fight_mode": turnstile_bot_fight_mode_output,
         "turnstile_clearance_level": turnstile_clearance_level_output,
@@ -343,8 +416,21 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/turnstile_widget_detail",
+      "allOf": [
+        {
+          "$ref": "#/$defs/turnstile_api-response-common"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/turnstile_widget_detail"
+            }
+          },
+          "type": "object"
+        }
+      ],
       $defs: {
+        "turnstile_api-response-common": turnstile_api_response_common_output,
         "turnstile_bot_fight_mode": turnstile_bot_fight_mode_output,
         "turnstile_clearance_level": turnstile_clearance_level_output,
         "turnstile_created_on": turnstile_created_on_output,
@@ -352,6 +438,7 @@ export const tools: readonly Tool[] = [
         "turnstile_domains": turnstile_domains_output,
         "turnstile_ephemeral_id": turnstile_ephemeral_id_output,
         "turnstile_last_modified_via": turnstile_last_modified_via_output,
+        "turnstile_messages": turnstile_messages_output,
         "turnstile_modified_on": turnstile_modified_on_output,
         "turnstile_name": turnstile_name_output,
         "turnstile_offlabel": turnstile_offlabel_output,
@@ -382,13 +469,26 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/turnstile_widget_detail"
+          "allOf": [
+            {
+              "$ref": "#/$defs/turnstile_api-response-common"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/turnstile_widget_detail"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/turnstile_api-response-common-failure"
         }
       },
       $defs: {
+        "turnstile_api-response-common": turnstile_api_response_common_output,
         "turnstile_api-response-common-failure": turnstile_api_response_common_failure_output,
         "turnstile_bot_fight_mode": turnstile_bot_fight_mode_output,
         "turnstile_clearance_level": turnstile_clearance_level_output,
@@ -465,22 +565,32 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "$ref": "#/$defs/turnstile_widget_list"
-          },
-          "type": "array"
+      "allOf": [
+        {
+          "$ref": "#/$defs/turnstile_api-response-common"
         },
-        "result_info": {
-          "$ref": "#/$defs/turnstile_result_info"
+        {
+          "properties": {
+            "result_info": {
+              "$ref": "#/$defs/turnstile_result_info"
+            }
+          },
+          "type": "object"
+        },
+        {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/turnstile_widget_list"
+              },
+              "type": "array"
+            }
+          },
+          "type": "object"
         }
-      },
-      "required": [
-        "result"
       ],
-      "type": "object",
       $defs: {
+        "turnstile_api-response-common": turnstile_api_response_common_output,
         "turnstile_bot_fight_mode": turnstile_bot_fight_mode_output,
         "turnstile_clearance_level": turnstile_clearance_level_output,
         "turnstile_created_on": turnstile_created_on_output,
@@ -488,6 +598,7 @@ export const tools: readonly Tool[] = [
         "turnstile_domains": turnstile_domains_output,
         "turnstile_ephemeral_id": turnstile_ephemeral_id_output,
         "turnstile_last_modified_via": turnstile_last_modified_via_output,
+        "turnstile_messages": turnstile_messages_output,
         "turnstile_modified_on": turnstile_modified_on_output,
         "turnstile_name": turnstile_name_output,
         "turnstile_offlabel": turnstile_offlabel_output,
@@ -518,27 +629,37 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "items": {
-                "$ref": "#/$defs/turnstile_widget_list"
-              },
-              "type": "array"
+          "allOf": [
+            {
+              "$ref": "#/$defs/turnstile_api-response-common"
             },
-            "result_info": {
-              "$ref": "#/$defs/turnstile_result_info"
+            {
+              "properties": {
+                "result_info": {
+                  "$ref": "#/$defs/turnstile_result_info"
+                }
+              },
+              "type": "object"
+            },
+            {
+              "properties": {
+                "result": {
+                  "items": {
+                    "$ref": "#/$defs/turnstile_widget_list"
+                  },
+                  "type": "array"
+                }
+              },
+              "type": "object"
             }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/turnstile_api-response-common-failure"
         }
       },
       $defs: {
+        "turnstile_api-response-common": turnstile_api_response_common_output,
         "turnstile_api-response-common-failure": turnstile_api_response_common_failure_output,
         "turnstile_bot_fight_mode": turnstile_bot_fight_mode_output,
         "turnstile_clearance_level": turnstile_clearance_level_output,
@@ -607,8 +728,21 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/turnstile_widget_detail",
+      "allOf": [
+        {
+          "$ref": "#/$defs/turnstile_api-response-common"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/turnstile_widget_detail"
+            }
+          },
+          "type": "object"
+        }
+      ],
       $defs: {
+        "turnstile_api-response-common": turnstile_api_response_common_output,
         "turnstile_bot_fight_mode": turnstile_bot_fight_mode_output,
         "turnstile_clearance_level": turnstile_clearance_level_output,
         "turnstile_created_on": turnstile_created_on_output,
@@ -616,6 +750,7 @@ export const tools: readonly Tool[] = [
         "turnstile_domains": turnstile_domains_output,
         "turnstile_ephemeral_id": turnstile_ephemeral_id_output,
         "turnstile_last_modified_via": turnstile_last_modified_via_output,
+        "turnstile_messages": turnstile_messages_output,
         "turnstile_modified_on": turnstile_modified_on_output,
         "turnstile_name": turnstile_name_output,
         "turnstile_offlabel": turnstile_offlabel_output,
@@ -644,13 +779,26 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/turnstile_widget_detail"
+          "allOf": [
+            {
+              "$ref": "#/$defs/turnstile_api-response-common"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/turnstile_widget_detail"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/turnstile_api-response-common-failure"
         }
       },
       $defs: {
+        "turnstile_api-response-common": turnstile_api_response_common_output,
         "turnstile_api-response-common-failure": turnstile_api_response_common_failure_output,
         "turnstile_bot_fight_mode": turnstile_bot_fight_mode_output,
         "turnstile_clearance_level": turnstile_clearance_level_output,
@@ -751,8 +899,21 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/turnstile_widget_detail",
+      "allOf": [
+        {
+          "$ref": "#/$defs/turnstile_api-response-common"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/turnstile_widget_detail"
+            }
+          },
+          "type": "object"
+        }
+      ],
       $defs: {
+        "turnstile_api-response-common": turnstile_api_response_common_output,
         "turnstile_bot_fight_mode": turnstile_bot_fight_mode_output,
         "turnstile_clearance_level": turnstile_clearance_level_output,
         "turnstile_created_on": turnstile_created_on_output,
@@ -760,6 +921,7 @@ export const tools: readonly Tool[] = [
         "turnstile_domains": turnstile_domains_output,
         "turnstile_ephemeral_id": turnstile_ephemeral_id_output,
         "turnstile_last_modified_via": turnstile_last_modified_via_output,
+        "turnstile_messages": turnstile_messages_output,
         "turnstile_modified_on": turnstile_modified_on_output,
         "turnstile_name": turnstile_name_output,
         "turnstile_offlabel": turnstile_offlabel_output,
@@ -793,13 +955,26 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/turnstile_widget_detail"
+          "allOf": [
+            {
+              "$ref": "#/$defs/turnstile_api-response-common"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/turnstile_widget_detail"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/turnstile_api-response-common-failure"
         }
       },
       $defs: {
+        "turnstile_api-response-common": turnstile_api_response_common_output,
         "turnstile_api-response-common-failure": turnstile_api_response_common_failure_output,
         "turnstile_bot_fight_mode": turnstile_bot_fight_mode_output,
         "turnstile_clearance_level": turnstile_clearance_level_output,

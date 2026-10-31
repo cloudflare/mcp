@@ -10,7 +10,31 @@ export const intel_domain_history_output: JsonSchema = {
   "properties": {
     "categorizations": {
       "items": {
-        "$ref": "#/$defs/intel_domain-history_categorizationsItem"
+        "properties": {
+          "categories": {
+            "items": {
+              "properties": {
+                "id": {
+                  "type": "integer"
+                },
+                "name": {
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            "type": "array"
+          },
+          "end": {
+            "format": "date",
+            "type": "string"
+          },
+          "start": {
+            "format": "date",
+            "type": "string"
+          }
+        },
+        "type": "object"
       },
       "type": "array"
     },
@@ -22,76 +46,23 @@ export const intel_domain_history_output: JsonSchema = {
 };
 
 /**
- * The schema of `intel_domain-history_categorizationsItem` in responses.
- */
-export const intel_domain_history_categorizationsItem_output: JsonSchema = {
-  "properties": {
-    "categories": {
-      "items": {
-        "$ref": "#/$defs/intel_domain-history_categorizationsItem_categoriesItem"
-      },
-      "type": "array"
-    },
-    "end": {
-      "format": "date",
-      "type": "string"
-    },
-    "start": {
-      "format": "date",
-      "type": "string"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `intel_domain-history_categorizationsItem_categoriesItem` in
- * responses.
- */
-export const intel_domain_history_categorizationsItem_categoriesItem_output: JsonSchema = {
-  "properties": {
-    "id": {
-      "type": "integer"
-    },
-    "name": {
-      "type": "string"
-    }
-  },
-  "type": "object"
-};
-
-/**
  * The schema of `intel_response` in responses.
  */
 export const intel_response_output: JsonSchema = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/intel_messages"
+  "allOf": [
+    {
+      "$ref": "#/$defs/intel_api-response-collection"
     },
-    "messages": {
-      "$ref": "#/$defs/intel_messages"
-    },
-    "result": {
-      "items": {
-        "$ref": "#/$defs/intel_domain-history"
+    {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/intel_domain-history"
+          },
+          "type": "array"
+        }
       },
-      "type": "array"
-    },
-    "result_info": {
-      "$ref": "#/$defs/intel_result_info"
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
+      "type": "object"
     }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "result",
-    "success"
-  ],
-  "type": "object"
+  ]
 };

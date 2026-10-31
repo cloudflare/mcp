@@ -4,6 +4,7 @@
 import { type Tool, pathParam } from "../../../../_/tool.js";
 import {
   workers_api_response_common_failure_output,
+  workers_api_response_common_output,
   workers_binding_item_output,
   workers_binding_kind_ai_output,
   workers_binding_kind_ai_search_namespace_output,
@@ -14,9 +15,6 @@ import {
   workers_binding_kind_browser_output,
   workers_binding_kind_d1_output,
   workers_binding_kind_data_blob_output,
-  workers_binding_kind_dispatch_namespace_outbound_output,
-  workers_binding_kind_dispatch_namespace_outbound_paramsItem_output,
-  workers_binding_kind_dispatch_namespace_outbound_worker_output,
   workers_binding_kind_dispatch_namespace_output,
   workers_binding_kind_durable_object_namespace_output,
   workers_binding_kind_flagship_output,
@@ -34,7 +32,6 @@ import {
   workers_binding_kind_queue_output,
   workers_binding_kind_r2_bucket_output,
   workers_binding_kind_ratelimit_output,
-  workers_binding_kind_ratelimit_simple_output,
   workers_binding_kind_secret_key_output,
   workers_binding_kind_secret_text_output,
   workers_binding_kind_secrets_store_secret_output,
@@ -52,6 +49,11 @@ import {
   workers_messages_output,
   workers_namespace_identifier_output,
 } from "../../../../outputs.js";
+import {
+  workers_identifier,
+  workers_script_name,
+} from "../../../../schemas.js";
+import { workers_dispatch_namespace_name } from "../../schemas.js";
 
 /**
  * The tools of `workers_for_platforms.dispatch_namespaces.scripts.bindings`.
@@ -65,16 +67,16 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/workers_identifier",
+          "description": "Identifier."
         },
         "dispatch_namespace": {
-          "description": "Name of the Workers for Platforms dispatch namespace.",
-          "type": "string"
+          "$ref": "#/$defs/workers_dispatch_namespace_name",
+          "description": "Name of the Workers for Platforms dispatch namespace."
         },
         "script_name": {
-          "description": "Name of the script.",
-          "type": "string"
+          "$ref": "#/$defs/workers_script_name",
+          "description": "Name of the script."
         }
       },
       required: [
@@ -82,21 +84,31 @@ export const tools: readonly Tool[] = [
         "dispatch_namespace",
         "script_name"
       ],
+      $defs: {
+        "workers_dispatch_namespace_name": workers_dispatch_namespace_name,
+        "workers_identifier": workers_identifier,
+        "workers_script_name": workers_script_name,
+      },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "$ref": "#/$defs/workers_bindings"
+      "allOf": [
+        {
+          "$ref": "#/$defs/workers_api-response-common"
         },
-        "result_info": {
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/workers_bindings"
+            }
+          },
+          "required": [
+            "result"
+          ],
           "type": "object"
         }
-      },
-      "required": [
-        "result"
       ],
-      "type": "object",
       $defs: {
+        "workers_api-response-common": workers_api_response_common_output,
         "workers_binding_item": workers_binding_item_output,
         "workers_binding_kind_ai": workers_binding_kind_ai_output,
         "workers_binding_kind_ai_search": workers_binding_kind_ai_search_output,
@@ -108,9 +120,6 @@ export const tools: readonly Tool[] = [
         "workers_binding_kind_d1": workers_binding_kind_d1_output,
         "workers_binding_kind_data_blob": workers_binding_kind_data_blob_output,
         "workers_binding_kind_dispatch_namespace": workers_binding_kind_dispatch_namespace_output,
-        "workers_binding_kind_dispatch_namespace_outbound": workers_binding_kind_dispatch_namespace_outbound_output,
-        "workers_binding_kind_dispatch_namespace_outbound_paramsItem": workers_binding_kind_dispatch_namespace_outbound_paramsItem_output,
-        "workers_binding_kind_dispatch_namespace_outbound_worker": workers_binding_kind_dispatch_namespace_outbound_worker_output,
         "workers_binding_kind_durable_object_namespace": workers_binding_kind_durable_object_namespace_output,
         "workers_binding_kind_flagship": workers_binding_kind_flagship_output,
         "workers_binding_kind_hyperdrive": workers_binding_kind_hyperdrive_output,
@@ -127,7 +136,6 @@ export const tools: readonly Tool[] = [
         "workers_binding_kind_queue": workers_binding_kind_queue_output,
         "workers_binding_kind_r2_bucket": workers_binding_kind_r2_bucket_output,
         "workers_binding_kind_ratelimit": workers_binding_kind_ratelimit_output,
-        "workers_binding_kind_ratelimit_simple": workers_binding_kind_ratelimit_simple_output,
         "workers_binding_kind_secret_key": workers_binding_kind_secret_key_output,
         "workers_binding_kind_secret_text": workers_binding_kind_secret_text_output,
         "workers_binding_kind_secrets_store_secret": workers_binding_kind_secrets_store_secret_output,
@@ -142,6 +150,7 @@ export const tools: readonly Tool[] = [
         "workers_binding_kind_workflow": workers_binding_kind_workflow_output,
         "workers_binding_name": workers_binding_name_output,
         "workers_bindings": workers_bindings_output,
+        "workers_messages": workers_messages_output,
         "workers_namespace_identifier": workers_namespace_identifier_output,
       },
     },
@@ -164,24 +173,29 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "$ref": "#/$defs/workers_bindings"
+          "allOf": [
+            {
+              "$ref": "#/$defs/workers_api-response-common"
             },
-            "result_info": {
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/workers_bindings"
+                }
+              },
+              "required": [
+                "result"
+              ],
               "type": "object"
             }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/workers_api-response-common-failure"
         }
       },
       $defs: {
+        "workers_api-response-common": workers_api_response_common_output,
         "workers_api-response-common-failure": workers_api_response_common_failure_output,
         "workers_binding_item": workers_binding_item_output,
         "workers_binding_kind_ai": workers_binding_kind_ai_output,
@@ -194,9 +208,6 @@ export const tools: readonly Tool[] = [
         "workers_binding_kind_d1": workers_binding_kind_d1_output,
         "workers_binding_kind_data_blob": workers_binding_kind_data_blob_output,
         "workers_binding_kind_dispatch_namespace": workers_binding_kind_dispatch_namespace_output,
-        "workers_binding_kind_dispatch_namespace_outbound": workers_binding_kind_dispatch_namespace_outbound_output,
-        "workers_binding_kind_dispatch_namespace_outbound_paramsItem": workers_binding_kind_dispatch_namespace_outbound_paramsItem_output,
-        "workers_binding_kind_dispatch_namespace_outbound_worker": workers_binding_kind_dispatch_namespace_outbound_worker_output,
         "workers_binding_kind_durable_object_namespace": workers_binding_kind_durable_object_namespace_output,
         "workers_binding_kind_flagship": workers_binding_kind_flagship_output,
         "workers_binding_kind_hyperdrive": workers_binding_kind_hyperdrive_output,
@@ -213,7 +224,6 @@ export const tools: readonly Tool[] = [
         "workers_binding_kind_queue": workers_binding_kind_queue_output,
         "workers_binding_kind_r2_bucket": workers_binding_kind_r2_bucket_output,
         "workers_binding_kind_ratelimit": workers_binding_kind_ratelimit_output,
-        "workers_binding_kind_ratelimit_simple": workers_binding_kind_ratelimit_simple_output,
         "workers_binding_kind_secret_key": workers_binding_kind_secret_key_output,
         "workers_binding_kind_secret_text": workers_binding_kind_secret_text_output,
         "workers_binding_kind_secrets_store_secret": workers_binding_kind_secrets_store_secret_output,

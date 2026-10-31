@@ -4,6 +4,28 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
+ * The schema of `dls_FetchPublicRegionResponse` in responses.
+ */
+export const dls_FetchPublicRegionResponse_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/dls_good_response"
+    },
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/dls_RegionPublic"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object"
+    }
+  ]
+};
+
+/**
  * The schema of `dls_RegionPublic` in responses.
  */
 export const dls_RegionPublic_output: JsonSchema = {
@@ -46,25 +68,57 @@ export const dls_RegionPublic_output: JsonSchema = {
 };
 
 /**
- * The schema of `dls_RegionPublicPaginatedListResponse_result_info` in
- * responses.
+ * The schema of `dls_RegionPublicPaginatedListResponse` in responses.
  */
-export const dls_RegionPublicPaginatedListResponse_result_info_output: JsonSchema = {
+export const dls_RegionPublicPaginatedListResponse_output: JsonSchema = {
   "properties": {
-    "count": {
-      "type": "integer"
+    "errors": {
+      "items": {
+        "$ref": "#/$defs/dls_coded_message"
+      },
+      "type": "array"
     },
-    "cursor": {
-      "type": "string"
+    "messages": {
+      "items": {
+        "$ref": "#/$defs/dls_coded_message"
+      },
+      "type": "array"
     },
-    "per_page": {
-      "type": "integer"
+    "result": {
+      "items": {
+        "$ref": "#/$defs/dls_RegionPublic"
+      },
+      "type": "array"
+    },
+    "result_info": {
+      "properties": {
+        "count": {
+          "type": "integer"
+        },
+        "cursor": {
+          "type": "string"
+        },
+        "per_page": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "count",
+        "cursor",
+        "per_page"
+      ],
+      "type": "object"
+    },
+    "success": {
+      "type": "boolean"
     }
   },
   "required": [
-    "count",
-    "cursor",
-    "per_page"
+    "errors",
+    "messages",
+    "result",
+    "result_info",
+    "success"
   ],
   "type": "object"
 };

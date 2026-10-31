@@ -119,29 +119,19 @@ export const zero_trust_gateway_response_collection_10_output: JsonSchema = {
  * The schema of `zero-trust-gateway_single_response-7` in responses.
  */
 export const zero_trust_gateway_single_response_7_output: JsonSchema = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/zero-trust-gateway_messages"
+  "allOf": [
+    {
+      "$ref": "#/$defs/zero-trust-gateway_api-response-single"
     },
-    "messages": {
-      "$ref": "#/$defs/zero-trust-gateway_messages"
-    },
-    "result": {
-      "$ref": "#/$defs/zero-trust-gateway_pacfile"
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/zero-trust-gateway_pacfile"
+        }
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "success"
-  ],
-  "type": "object"
+  ]
 };
 
 /**

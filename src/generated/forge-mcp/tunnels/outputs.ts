@@ -7,30 +7,19 @@ import type { JsonSchema } from "../_/tool.js";
  * The schema of `tunnel_cfd-tunnel-response-single` in responses.
  */
 export const tunnel_cfd_tunnel_response_single_output: JsonSchema = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/tunnel_messages"
+  "allOf": [
+    {
+      "$ref": "#/$defs/tunnel_api-response-common"
     },
-    "messages": {
-      "$ref": "#/$defs/tunnel_messages"
-    },
-    "result": {
-      "$ref": "#/$defs/tunnel_cfd_tunnel"
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/tunnel_cfd_tunnel"
+        }
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "result",
-    "success"
-  ],
-  "type": "object"
+  ]
 };
 
 /**
@@ -54,43 +43,29 @@ export const tunnel_connections_output: JsonSchema = {
  * The schema of `tunnel_tunnel-response-collection` in responses.
  */
 export const tunnel_tunnel_response_collection_output: JsonSchema = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/tunnel_messages"
+  "allOf": [
+    {
+      "$ref": "#/$defs/tunnel_api-response-collection"
     },
-    "messages": {
-      "$ref": "#/$defs/tunnel_messages"
-    },
-    "result": {
-      "items": {
-        "anyOf": [
-          {
-            "$ref": "#/$defs/tunnel_cfd_tunnel"
+    {
+      "properties": {
+        "result": {
+          "items": {
+            "anyOf": [
+              {
+                "$ref": "#/$defs/tunnel_cfd_tunnel"
+              },
+              {
+                "$ref": "#/$defs/tunnel_warp_connector_tunnel"
+              }
+            ]
           },
-          {
-            "$ref": "#/$defs/tunnel_warp_connector_tunnel"
-          }
-        ]
+          "type": "array"
+        }
       },
-      "type": "array"
-    },
-    "result_info": {
-      "$ref": "#/$defs/tunnel_result_info"
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
+      "type": "object"
     }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "result",
-    "success"
-  ],
-  "type": "object"
+  ]
 };
 
 /**

@@ -4,6 +4,7 @@
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
   email_auth_api_response_common_failure_output,
+  email_auth_api_response_single_output,
   email_auth_messages_output,
 } from "../outputs.js";
 import { email_auth_identifier } from "../schemas.js";
@@ -43,12 +44,26 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/email-auth_SpfTree",
+      "allOf": [
+        {
+          "$ref": "#/$defs/email-auth_api-response-single"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/email-auth_SpfTree"
+            }
+          },
+          "type": "object"
+        }
+      ],
       $defs: {
         "email-auth_InspectError": email_auth_InspectError_output,
         "email-auth_SpfComponent": email_auth_SpfComponent_output,
         "email-auth_SpfResult": email_auth_SpfResult_output,
         "email-auth_SpfTree": email_auth_SpfTree_output,
+        "email-auth_api-response-single": email_auth_api_response_single_output,
+        "email-auth_messages": email_auth_messages_output,
       },
     },
     annotations: {
@@ -63,7 +78,19 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/email-auth_SpfTree"
+          "allOf": [
+            {
+              "$ref": "#/$defs/email-auth_api-response-single"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/email-auth_SpfTree"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/email-auth_api-response-common-failure"
@@ -75,6 +102,7 @@ export const tools: readonly Tool[] = [
         "email-auth_SpfResult": email_auth_SpfResult_output,
         "email-auth_SpfTree": email_auth_SpfTree_output,
         "email-auth_api-response-common-failure": email_auth_api_response_common_failure_output,
+        "email-auth_api-response-single": email_auth_api_response_single_output,
         "email-auth_messages": email_auth_messages_output,
       },
     },

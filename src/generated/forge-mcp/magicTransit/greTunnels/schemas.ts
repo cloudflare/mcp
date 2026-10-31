@@ -80,9 +80,17 @@ export const magic_customer_gre_endpoint: JsonSchema = {
 };
 
 /**
- * The schema of `magic_gre_tunnel_add_single_request`.
+ * The schema of `magic_gre_tunnel_name`.
  */
-export const magic_gre_tunnel_add_single_request: JsonSchema = {
+export const magic_gre_tunnel_name: JsonSchema = {
+  "description": "The name of the tunnel. The name cannot contain spaces or special characters, must be 15 characters or less, and cannot share a name with another GRE tunnel.",
+  "type": "string"
+};
+
+/**
+ * The schema of `magic_gre_tunnel_update_request`.
+ */
+export const magic_gre_tunnel_update_request: JsonSchema = {
   "properties": {
     "automatic_return_routing": {
       "$ref": "#/$defs/magic_automatic_return_routing",
@@ -134,14 +142,6 @@ export const magic_gre_tunnel_add_single_request: JsonSchema = {
     "name"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `magic_gre_tunnel_name`.
- */
-export const magic_gre_tunnel_name: JsonSchema = {
-  "description": "The name of the tunnel. The name cannot contain spaces or special characters, must be 15 characters or less, and cannot share a name with another GRE tunnel.",
-  "type": "string"
 };
 
 /**

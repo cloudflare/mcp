@@ -4,12 +4,19 @@
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
   pay_per_crawl_ErrorSource_output,
+  pay_per_crawl_Msg_output,
   pay_per_crawl_RESTError_output,
+  pay_per_crawl_ResultInfo_output,
+  pay_per_crawl_Source_output,
   pay_per_crawl_apiErrorResponse_output,
 } from "../../outputs.js";
-import { pay_per_crawl_PPUPrice_output } from "../outputs.js";
+import {
+  pay_per_crawl_PPUPriceResponse_output,
+  pay_per_crawl_PPUPrice_output,
+} from "../outputs.js";
 import {
   pay_per_crawl_PPUProposal_output,
+  pay_per_crawl_PPUProposalsResponse_output,
   pay_per_crawl_PPUProposals_output,
 } from "./outputs.js";
 import { pay_per_crawl_PPUOperatorProposalActionRequest } from "./schemas.js";
@@ -43,9 +50,13 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/pay-per-crawl_PPUPrice",
+      "$ref": "#/$defs/pay-per-crawl_PPUPriceResponse",
       $defs: {
+        "pay-per-crawl_Msg": pay_per_crawl_Msg_output,
         "pay-per-crawl_PPUPrice": pay_per_crawl_PPUPrice_output,
+        "pay-per-crawl_PPUPriceResponse": pay_per_crawl_PPUPriceResponse_output,
+        "pay-per-crawl_ResultInfo": pay_per_crawl_ResultInfo_output,
+        "pay-per-crawl_Source": pay_per_crawl_Source_output,
       },
     },
     annotations: {
@@ -60,7 +71,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/pay-per-crawl_PPUPrice"
+          "$ref": "#/$defs/pay-per-crawl_PPUPriceResponse"
         },
         "400": {
           "$ref": "#/$defs/pay-per-crawl_apiErrorResponse"
@@ -77,8 +88,12 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "pay-per-crawl_ErrorSource": pay_per_crawl_ErrorSource_output,
+        "pay-per-crawl_Msg": pay_per_crawl_Msg_output,
         "pay-per-crawl_PPUPrice": pay_per_crawl_PPUPrice_output,
+        "pay-per-crawl_PPUPriceResponse": pay_per_crawl_PPUPriceResponse_output,
         "pay-per-crawl_RESTError": pay_per_crawl_RESTError_output,
+        "pay-per-crawl_ResultInfo": pay_per_crawl_ResultInfo_output,
+        "pay-per-crawl_Source": pay_per_crawl_Source_output,
         "pay-per-crawl_apiErrorResponse": pay_per_crawl_apiErrorResponse_output,
       },
     },
@@ -114,10 +129,14 @@ export const tools: readonly Tool[] = [
       ],
     },
     outputSchema: {
-      "$ref": "#/$defs/pay-per-crawl_PPUProposals",
+      "$ref": "#/$defs/pay-per-crawl_PPUProposalsResponse",
       $defs: {
+        "pay-per-crawl_Msg": pay_per_crawl_Msg_output,
         "pay-per-crawl_PPUProposal": pay_per_crawl_PPUProposal_output,
         "pay-per-crawl_PPUProposals": pay_per_crawl_PPUProposals_output,
+        "pay-per-crawl_PPUProposalsResponse": pay_per_crawl_PPUProposalsResponse_output,
+        "pay-per-crawl_ResultInfo": pay_per_crawl_ResultInfo_output,
+        "pay-per-crawl_Source": pay_per_crawl_Source_output,
       },
     },
     annotations: {
@@ -132,7 +151,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/pay-per-crawl_PPUProposals"
+          "$ref": "#/$defs/pay-per-crawl_PPUProposalsResponse"
         },
         "400": {
           "$ref": "#/$defs/pay-per-crawl_apiErrorResponse"
@@ -146,9 +165,13 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "pay-per-crawl_ErrorSource": pay_per_crawl_ErrorSource_output,
+        "pay-per-crawl_Msg": pay_per_crawl_Msg_output,
         "pay-per-crawl_PPUProposal": pay_per_crawl_PPUProposal_output,
         "pay-per-crawl_PPUProposals": pay_per_crawl_PPUProposals_output,
+        "pay-per-crawl_PPUProposalsResponse": pay_per_crawl_PPUProposalsResponse_output,
         "pay-per-crawl_RESTError": pay_per_crawl_RESTError_output,
+        "pay-per-crawl_ResultInfo": pay_per_crawl_ResultInfo_output,
+        "pay-per-crawl_Source": pay_per_crawl_Source_output,
         "pay-per-crawl_apiErrorResponse": pay_per_crawl_apiErrorResponse_output,
       },
     },

@@ -3,16 +3,15 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
+  builds_APIResponse_output,
   builds_ApiError_output,
   builds_BuildOutcome_output,
-  builds_BuildResponse_deploy_hook_output,
   builds_BuildResponse_output,
-  builds_BuildResponse_pull_request_output,
-  builds_BuildResponse_trigger_output,
   builds_BuildStatus_output,
   builds_BuildTriggerMetadataResponse_output,
   builds_BuildTriggerSource_output,
   builds_ErrorResponse_output,
+  builds_PaginationInfo_output,
   builds_SCMProviderType_output,
   builds_UpsertRepoConnectionResponse_output,
   builds_branch_excludes_output,
@@ -76,17 +75,29 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/builds_BuildsByVersionResponse",
+      "allOf": [
+        {
+          "$ref": "#/$defs/builds_APIResponse"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/builds_BuildsByVersionResponse"
+            }
+          },
+          "type": "object"
+        }
+      ],
       $defs: {
+        "builds_APIResponse": builds_APIResponse_output,
+        "builds_ApiError": builds_ApiError_output,
         "builds_BuildOutcome": builds_BuildOutcome_output,
         "builds_BuildResponse": builds_BuildResponse_output,
-        "builds_BuildResponse_deploy_hook": builds_BuildResponse_deploy_hook_output,
-        "builds_BuildResponse_pull_request": builds_BuildResponse_pull_request_output,
-        "builds_BuildResponse_trigger": builds_BuildResponse_trigger_output,
         "builds_BuildStatus": builds_BuildStatus_output,
         "builds_BuildTriggerMetadataResponse": builds_BuildTriggerMetadataResponse_output,
         "builds_BuildTriggerSource": builds_BuildTriggerSource_output,
         "builds_BuildsByVersionResponse": builds_BuildsByVersionResponse_output,
+        "builds_PaginationInfo": builds_PaginationInfo_output,
         "builds_SCMProviderType": builds_SCMProviderType_output,
         "builds_UpsertRepoConnectionResponse": builds_UpsertRepoConnectionResponse_output,
         "builds_branch": builds_branch_output,
@@ -135,24 +146,35 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/builds_BuildsByVersionResponse"
+          "allOf": [
+            {
+              "$ref": "#/$defs/builds_APIResponse"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/builds_BuildsByVersionResponse"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "401": {
           "$ref": "#/$defs/builds_ErrorResponse"
         }
       },
       $defs: {
+        "builds_APIResponse": builds_APIResponse_output,
         "builds_ApiError": builds_ApiError_output,
         "builds_BuildOutcome": builds_BuildOutcome_output,
         "builds_BuildResponse": builds_BuildResponse_output,
-        "builds_BuildResponse_deploy_hook": builds_BuildResponse_deploy_hook_output,
-        "builds_BuildResponse_pull_request": builds_BuildResponse_pull_request_output,
-        "builds_BuildResponse_trigger": builds_BuildResponse_trigger_output,
         "builds_BuildStatus": builds_BuildStatus_output,
         "builds_BuildTriggerMetadataResponse": builds_BuildTriggerMetadataResponse_output,
         "builds_BuildTriggerSource": builds_BuildTriggerSource_output,
         "builds_BuildsByVersionResponse": builds_BuildsByVersionResponse_output,
         "builds_ErrorResponse": builds_ErrorResponse_output,
+        "builds_PaginationInfo": builds_PaginationInfo_output,
         "builds_SCMProviderType": builds_SCMProviderType_output,
         "builds_UpsertRepoConnectionResponse": builds_UpsertRepoConnectionResponse_output,
         "builds_branch": builds_branch_output,

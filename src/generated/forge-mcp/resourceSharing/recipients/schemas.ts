@@ -4,6 +4,14 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
+ * The schema of `resource-sharing_recipient_id`.
+ */
+export const resource_sharing_recipient_id: JsonSchema = {
+  "description": "Share Recipient identifier tag.",
+  "type": "string"
+};
+
+/**
  * The schema of `resource-sharing_update_share_recipients_request`.
  */
 export const resource_sharing_update_share_recipients_request: JsonSchema = {

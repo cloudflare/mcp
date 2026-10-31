@@ -4,14 +4,23 @@
 import { type Tool, pathParam } from "../../../../_/tool.js";
 import {
   access_api_response_common_failure_output,
+  access_api_response_single_output,
   access_messages_output,
 } from "../../../outputs.js";
+import { access_identifier, access_uuid } from "../../../schemas.js";
 import {
   access_allow_iframe_output,
   access_skip_interstitial_output,
 } from "../outputs.js";
-import { access_allow_iframe, access_skip_interstitial } from "../schemas.js";
-import { access_app_settings_response_output } from "./outputs.js";
+import {
+  access_allow_iframe,
+  access_app_id,
+  access_skip_interstitial,
+} from "../schemas.js";
+import {
+  access_app_settings_response_output,
+  access_single_response_update_output,
+} from "./outputs.js";
 import { access_app_settings_request } from "./schemas.js";
 
 /**
@@ -34,11 +43,11 @@ export const tools: readonly Tool[] = [
           "type": "string"
         },
         "account_or_zone_id": {
-          "description": "The account ID or zone ID, as selected by account_or_zone.",
-          "type": "string"
+          "$ref": "#/$defs/access_identifier",
+          "description": "The account ID or zone ID, as selected by account_or_zone."
         },
         "app_id": {
-          "type": "string"
+          "$ref": "#/$defs/access_app_id"
         },
         "body": {
           "$ref": "#/$defs/access_app_settings_request"
@@ -52,15 +61,21 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "access_allow_iframe": access_allow_iframe,
+        "access_app_id": access_app_id,
         "access_app_settings_request": access_app_settings_request,
+        "access_identifier": access_identifier,
         "access_skip_interstitial": access_skip_interstitial,
+        "access_uuid": access_uuid,
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/access_app_settings_response",
+      "$ref": "#/$defs/access_single_response_update",
       $defs: {
         "access_allow_iframe": access_allow_iframe_output,
+        "access_api-response-single": access_api_response_single_output,
         "access_app_settings_response": access_app_settings_response_output,
+        "access_messages": access_messages_output,
+        "access_single_response_update": access_single_response_update_output,
         "access_skip_interstitial": access_skip_interstitial_output,
       },
     },
@@ -81,7 +96,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "202": {
-          "$ref": "#/$defs/access_app_settings_response"
+          "$ref": "#/$defs/access_single_response_update"
         },
         "4XX": {
           "$ref": "#/$defs/access_api-response-common-failure"
@@ -90,8 +105,10 @@ export const tools: readonly Tool[] = [
       $defs: {
         "access_allow_iframe": access_allow_iframe_output,
         "access_api-response-common-failure": access_api_response_common_failure_output,
+        "access_api-response-single": access_api_response_single_output,
         "access_app_settings_response": access_app_settings_response_output,
         "access_messages": access_messages_output,
+        "access_single_response_update": access_single_response_update_output,
         "access_skip_interstitial": access_skip_interstitial_output,
       },
     },

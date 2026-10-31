@@ -26,3 +26,11 @@ export const dnssec_dnssec_use_nsec3: JsonSchema = {
   "description": "If true, enables the use of NSEC3 together with DNSSEC on the zone.\nCombined with setting dnssec_presigned to true, this enables the use of\nNSEC3 records when transferring in from an external provider.\nIf dnssec_presigned is instead set to false (default), NSEC3 records will be\ngenerated and signed at request time.\n\nSee [DNSSEC with NSEC3](https://developers.cloudflare.com/dns/dnssec/enable-nsec3/) for details.",
   "type": "boolean"
 };
+
+/**
+ * The schema of `dnssec_identifier`.
+ */
+export const dnssec_identifier: JsonSchema = {
+  "description": "Identifier.",
+  "type": "string"
+};

@@ -10,8 +10,9 @@ export const builds_CreateWorkerBuildSettingsInput: JsonSchema = {
   "description": "Build and deploy settings when creating a Worker build configuration",
   "properties": {
     "build_caching_enabled": {
-      "$ref": "#/$defs/builds_build_caching_enabled",
-      "default": true
+      "default": true,
+      "description": "Whether builds reuse cached dependencies and build artifacts.",
+      "type": "boolean"
     },
     "build_command": {
       "$ref": "#/$defs/builds_build_command",
@@ -205,8 +206,14 @@ export const builds_UpdateWorkerRequest: JsonSchema = {
   "description": "Request body for updating a Worker build configuration. At least one field must be provided.",
   "properties": {
     "git_repository": {
-      "$ref": "#/$defs/builds_UpdateWorkerRequest_git_repository",
-      "description": "Git repository settings to update"
+      "description": "Git repository settings to update",
+      "properties": {
+        "branch": {
+          "description": "New git branch to watch for builds",
+          "type": "string"
+        }
+      },
+      "type": "object"
     },
     "previews_base_config": {
       "$ref": "#/$defs/builds_UpdateWorkerBuildSettingsInput",
@@ -219,20 +226,6 @@ export const builds_UpdateWorkerRequest: JsonSchema = {
     "production_settings": {
       "$ref": "#/$defs/builds_UpdateWorkerBuildSettingsInput",
       "description": "Partial build settings for updating a Worker build configuration"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `builds_UpdateWorkerRequest_git_repository`.
- */
-export const builds_UpdateWorkerRequest_git_repository: JsonSchema = {
-  "description": "Git repository settings to update",
-  "properties": {
-    "branch": {
-      "description": "New git branch to watch for builds",
-      "type": "string"
     }
   },
   "type": "object"

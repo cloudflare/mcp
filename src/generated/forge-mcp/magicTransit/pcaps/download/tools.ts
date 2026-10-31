@@ -6,6 +6,7 @@ import {
   magic_visibility_pcaps_api_response_common_failure_output,
   magic_visibility_pcaps_messages_output,
 } from "../outputs.js";
+import { magic_visibility_pcaps_identifier } from "../schemas.js";
 
 /**
  * The tools of `magic_transit.pcaps.download`.
@@ -19,18 +20,21 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/magic-visibility-pcaps_identifier",
+          "description": "Identifier."
         },
         "pcap_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/magic-visibility-pcaps_identifier",
+          "description": "Identifier."
         }
       },
       required: [
         "account_id",
         "pcap_id"
       ],
+      $defs: {
+        "magic-visibility-pcaps_identifier": magic_visibility_pcaps_identifier,
+      },
     },
     annotations: {
       "destructiveHint": false,

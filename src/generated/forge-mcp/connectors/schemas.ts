@@ -69,86 +69,40 @@ export const mconn_customer_connectors_create_request: JsonSchema = {
  * The schema of `mconn_customer_connectors_edit_request`.
  */
 export const mconn_customer_connectors_edit_request: JsonSchema = {
-  "properties": {
-    "activated": {
-      "type": "boolean"
+  "allOf": [
+    {
+      "$ref": "#/$defs/mconn_customer_connector_fields"
     },
-    "interrupt_window_days_of_week": {
-      "description": "Allowed days of the week for upgrades. Default is all days.",
-      "items": {
-        "$ref": "#/$defs/mconn_day_of_week"
+    {
+      "properties": {
+        "provision_license": {
+          "description": "When true, regenerate license key for the connector.",
+          "type": "boolean"
+        }
       },
-      "type": "array"
-    },
-    "interrupt_window_duration_hours": {
-      "type": "number"
-    },
-    "interrupt_window_embargo_dates": {
-      "description": "List of dates (YYYY-MM-DD) when upgrades are blocked.",
-      "items": {
-        "$ref": "#/$defs/mconn_embargo_date"
-      },
-      "maxItems": 100,
-      "type": "array"
-    },
-    "interrupt_window_hour_of_day": {
-      "type": "number"
-    },
-    "notes": {
-      "type": "string"
-    },
-    "provision_license": {
-      "description": "When true, regenerate license key for the connector.",
-      "type": "boolean"
-    },
-    "timezone": {
-      "type": "string"
+      "type": "object"
     }
-  },
-  "type": "object"
+  ]
 };
 
 /**
  * The schema of `mconn_customer_connectors_update_request`.
  */
 export const mconn_customer_connectors_update_request: JsonSchema = {
-  "properties": {
-    "activated": {
-      "type": "boolean"
+  "allOf": [
+    {
+      "$ref": "#/$defs/mconn_customer_connector_fields"
     },
-    "interrupt_window_days_of_week": {
-      "description": "Allowed days of the week for upgrades. Default is all days.",
-      "items": {
-        "$ref": "#/$defs/mconn_day_of_week"
+    {
+      "properties": {
+        "provision_license": {
+          "description": "When true, regenerate license key for the connector.",
+          "type": "boolean"
+        }
       },
-      "type": "array"
-    },
-    "interrupt_window_duration_hours": {
-      "type": "number"
-    },
-    "interrupt_window_embargo_dates": {
-      "description": "List of dates (YYYY-MM-DD) when upgrades are blocked.",
-      "items": {
-        "$ref": "#/$defs/mconn_embargo_date"
-      },
-      "maxItems": 100,
-      "type": "array"
-    },
-    "interrupt_window_hour_of_day": {
-      "type": "number"
-    },
-    "notes": {
-      "type": "string"
-    },
-    "provision_license": {
-      "description": "When true, regenerate license key for the connector.",
-      "type": "boolean"
-    },
-    "timezone": {
-      "type": "string"
+      "type": "object"
     }
-  },
-  "type": "object"
+  ]
 };
 
 /**

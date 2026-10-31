@@ -4,12 +4,14 @@
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
   tls_certificates_and_hostnames_api_response_collection_output,
-  tls_certificates_and_hostnames_api_response_collection_result_info_output,
   tls_certificates_and_hostnames_api_response_common_failure_output,
+  tls_certificates_and_hostnames_api_response_common_output,
+  tls_certificates_and_hostnames_api_response_single_output,
   tls_certificates_and_hostnames_expires_on_2_output,
   tls_certificates_and_hostnames_messages_output,
   tls_certificates_and_hostnames_signature_output,
 } from "../../outputs.js";
+import { tls_certificates_and_hostnames_identifier } from "../../schemas.js";
 import {
   tls_certificates_and_hostnames_ca_output,
   tls_certificates_and_hostnames_certificateObjectPost_output,
@@ -29,6 +31,7 @@ import {
 import {
   tls_certificates_and_hostnames_ca,
   tls_certificates_and_hostnames_certificates_2,
+  tls_certificates_and_hostnames_mtls_certificate_identifier,
   tls_certificates_and_hostnames_name_2,
   tls_certificates_and_hostnames_private_key_4,
 } from "./schemas.js";
@@ -45,8 +48,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/tls-certificates-and-hostnames_identifier",
+          "description": "Identifier."
         },
         "body": {
           "properties": {
@@ -81,18 +84,22 @@ export const tools: readonly Tool[] = [
       $defs: {
         "tls-certificates-and-hostnames_ca": tls_certificates_and_hostnames_ca,
         "tls-certificates-and-hostnames_certificates-2": tls_certificates_and_hostnames_certificates_2,
+        "tls-certificates-and-hostnames_identifier": tls_certificates_and_hostnames_identifier,
         "tls-certificates-and-hostnames_name-2": tls_certificates_and_hostnames_name_2,
         "tls-certificates-and-hostnames_private_key-4": tls_certificates_and_hostnames_private_key_4,
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_certificateObjectPost",
+      "$ref": "#/$defs/tls-certificates-and-hostnames_certificate_response_single_post",
       $defs: {
+        "tls-certificates-and-hostnames_api-response-single": tls_certificates_and_hostnames_api_response_single_output,
         "tls-certificates-and-hostnames_ca": tls_certificates_and_hostnames_ca_output,
         "tls-certificates-and-hostnames_certificateObjectPost": tls_certificates_and_hostnames_certificateObjectPost_output,
+        "tls-certificates-and-hostnames_certificate_response_single_post": tls_certificates_and_hostnames_certificate_response_single_post_output,
         "tls-certificates-and-hostnames_certificates-2": tls_certificates_and_hostnames_certificates_2_output,
         "tls-certificates-and-hostnames_expires_on-2": tls_certificates_and_hostnames_expires_on_2_output,
         "tls-certificates-and-hostnames_issuer-2": tls_certificates_and_hostnames_issuer_2_output,
+        "tls-certificates-and-hostnames_messages": tls_certificates_and_hostnames_messages_output,
         "tls-certificates-and-hostnames_mtls_certificate_identifier": tls_certificates_and_hostnames_mtls_certificate_identifier_output,
         "tls-certificates-and-hostnames_name-2": tls_certificates_and_hostnames_name_2_output,
         "tls-certificates-and-hostnames_serial_number-2": tls_certificates_and_hostnames_serial_number_2_output,
@@ -118,12 +125,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "#ssl:edit"
-        ],
-        "x-fern-enum": {
-          "#ssl:edit": {
-            "name": "ssl_edit"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": true,
@@ -135,7 +137,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/tls-certificates-and-hostnames_certificateObjectPost"
+          "$ref": "#/$defs/tls-certificates-and-hostnames_certificate_response_single_post"
         },
         "4XX": {
           "allOf": [
@@ -150,6 +152,7 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "tls-certificates-and-hostnames_api-response-common-failure": tls_certificates_and_hostnames_api_response_common_failure_output,
+        "tls-certificates-and-hostnames_api-response-single": tls_certificates_and_hostnames_api_response_single_output,
         "tls-certificates-and-hostnames_ca": tls_certificates_and_hostnames_ca_output,
         "tls-certificates-and-hostnames_certificateObjectPost": tls_certificates_and_hostnames_certificateObjectPost_output,
         "tls-certificates-and-hostnames_certificate_response_single_post": tls_certificates_and_hostnames_certificate_response_single_post_output,
@@ -179,27 +182,34 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/tls-certificates-and-hostnames_identifier",
+          "description": "Identifier."
         },
         "mtls_certificate_id": {
-          "description": "Certificate identifier tag.",
-          "type": "string"
+          "$ref": "#/$defs/tls-certificates-and-hostnames_mtls_certificate_identifier",
+          "description": "Certificate identifier tag."
         }
       },
       required: [
         "account_id",
         "mtls_certificate_id"
       ],
+      $defs: {
+        "tls-certificates-and-hostnames_identifier": tls_certificates_and_hostnames_identifier,
+        "tls-certificates-and-hostnames_mtls_certificate_identifier": tls_certificates_and_hostnames_mtls_certificate_identifier,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_certificateObject-3",
+      "$ref": "#/$defs/tls-certificates-and-hostnames_certificate_response_single-5",
       $defs: {
+        "tls-certificates-and-hostnames_api-response-single": tls_certificates_and_hostnames_api_response_single_output,
         "tls-certificates-and-hostnames_ca": tls_certificates_and_hostnames_ca_output,
         "tls-certificates-and-hostnames_certificateObject-3": tls_certificates_and_hostnames_certificateObject_3_output,
+        "tls-certificates-and-hostnames_certificate_response_single-5": tls_certificates_and_hostnames_certificate_response_single_5_output,
         "tls-certificates-and-hostnames_certificates-2": tls_certificates_and_hostnames_certificates_2_output,
         "tls-certificates-and-hostnames_expires_on-2": tls_certificates_and_hostnames_expires_on_2_output,
         "tls-certificates-and-hostnames_issuer-2": tls_certificates_and_hostnames_issuer_2_output,
+        "tls-certificates-and-hostnames_messages": tls_certificates_and_hostnames_messages_output,
         "tls-certificates-and-hostnames_mtls_certificate_identifier": tls_certificates_and_hostnames_mtls_certificate_identifier_output,
         "tls-certificates-and-hostnames_name-2": tls_certificates_and_hostnames_name_2_output,
         "tls-certificates-and-hostnames_serial_number-2": tls_certificates_and_hostnames_serial_number_2_output,
@@ -224,12 +234,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "#ssl:edit"
-        ],
-        "x-fern-enum": {
-          "#ssl:edit": {
-            "name": "ssl_edit"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": true,
@@ -241,7 +246,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/tls-certificates-and-hostnames_certificateObject-3"
+          "$ref": "#/$defs/tls-certificates-and-hostnames_certificate_response_single-5"
         },
         "4XX": {
           "allOf": [
@@ -256,6 +261,7 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "tls-certificates-and-hostnames_api-response-common-failure": tls_certificates_and_hostnames_api_response_common_failure_output,
+        "tls-certificates-and-hostnames_api-response-single": tls_certificates_and_hostnames_api_response_single_output,
         "tls-certificates-and-hostnames_ca": tls_certificates_and_hostnames_ca_output,
         "tls-certificates-and-hostnames_certificateObject-3": tls_certificates_and_hostnames_certificateObject_3_output,
         "tls-certificates-and-hostnames_certificate_response_single-5": tls_certificates_and_hostnames_certificate_response_single_5_output,
@@ -283,27 +289,34 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/tls-certificates-and-hostnames_identifier",
+          "description": "Identifier."
         },
         "mtls_certificate_id": {
-          "description": "Certificate identifier tag.",
-          "type": "string"
+          "$ref": "#/$defs/tls-certificates-and-hostnames_mtls_certificate_identifier",
+          "description": "Certificate identifier tag."
         }
       },
       required: [
         "account_id",
         "mtls_certificate_id"
       ],
+      $defs: {
+        "tls-certificates-and-hostnames_identifier": tls_certificates_and_hostnames_identifier,
+        "tls-certificates-and-hostnames_mtls_certificate_identifier": tls_certificates_and_hostnames_mtls_certificate_identifier,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_certificateObject-3",
+      "$ref": "#/$defs/tls-certificates-and-hostnames_certificate_response_single-5",
       $defs: {
+        "tls-certificates-and-hostnames_api-response-single": tls_certificates_and_hostnames_api_response_single_output,
         "tls-certificates-and-hostnames_ca": tls_certificates_and_hostnames_ca_output,
         "tls-certificates-and-hostnames_certificateObject-3": tls_certificates_and_hostnames_certificateObject_3_output,
+        "tls-certificates-and-hostnames_certificate_response_single-5": tls_certificates_and_hostnames_certificate_response_single_5_output,
         "tls-certificates-and-hostnames_certificates-2": tls_certificates_and_hostnames_certificates_2_output,
         "tls-certificates-and-hostnames_expires_on-2": tls_certificates_and_hostnames_expires_on_2_output,
         "tls-certificates-and-hostnames_issuer-2": tls_certificates_and_hostnames_issuer_2_output,
+        "tls-certificates-and-hostnames_messages": tls_certificates_and_hostnames_messages_output,
         "tls-certificates-and-hostnames_mtls_certificate_identifier": tls_certificates_and_hostnames_mtls_certificate_identifier_output,
         "tls-certificates-and-hostnames_name-2": tls_certificates_and_hostnames_name_2_output,
         "tls-certificates-and-hostnames_serial_number-2": tls_certificates_and_hostnames_serial_number_2_output,
@@ -329,12 +342,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "#ssl:read"
-        ],
-        "x-fern-enum": {
-          "#ssl:read": {
-            "name": "ssl_read"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": true,
@@ -346,7 +354,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/tls-certificates-and-hostnames_certificateObject-3"
+          "$ref": "#/$defs/tls-certificates-and-hostnames_certificate_response_single-5"
         },
         "4XX": {
           "allOf": [
@@ -361,6 +369,7 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "tls-certificates-and-hostnames_api-response-common-failure": tls_certificates_and_hostnames_api_response_common_failure_output,
+        "tls-certificates-and-hostnames_api-response-single": tls_certificates_and_hostnames_api_response_single_output,
         "tls-certificates-and-hostnames_ca": tls_certificates_and_hostnames_ca_output,
         "tls-certificates-and-hostnames_certificateObject-3": tls_certificates_and_hostnames_certificateObject_3_output,
         "tls-certificates-and-hostnames_certificate_response_single-5": tls_certificates_and_hostnames_certificate_response_single_5_output,
@@ -388,8 +397,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/tls-certificates-and-hostnames_identifier",
+          "description": "Identifier."
         },
         "type": {
           "description": "Filters results by certificate type. Multiple types can be comma-separated.",
@@ -407,46 +416,22 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+      $defs: {
+        "tls-certificates-and-hostnames_identifier": tls_certificates_and_hostnames_identifier,
+      },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "$ref": "#/$defs/tls-certificates-and-hostnames_certificateObject-3"
-          },
-          "type": "array"
-        },
-        "result_info": {
-          "properties": {
-            "count": {
-              "type": "number"
-            },
-            "page": {
-              "type": "number"
-            },
-            "per_page": {
-              "type": "number"
-            },
-            "total_count": {
-              "type": "number"
-            },
-            "total_pages": {
-              "type": "number"
-            }
-          },
-          "type": "object"
-        }
-      },
-      "required": [
-        "result"
-      ],
-      "type": "object",
+      "$ref": "#/$defs/tls-certificates-and-hostnames_certificate_response_collection-5",
       $defs: {
+        "tls-certificates-and-hostnames_api-response-collection": tls_certificates_and_hostnames_api_response_collection_output,
+        "tls-certificates-and-hostnames_api-response-common": tls_certificates_and_hostnames_api_response_common_output,
         "tls-certificates-and-hostnames_ca": tls_certificates_and_hostnames_ca_output,
         "tls-certificates-and-hostnames_certificateObject-3": tls_certificates_and_hostnames_certificateObject_3_output,
+        "tls-certificates-and-hostnames_certificate_response_collection-5": tls_certificates_and_hostnames_certificate_response_collection_5_output,
         "tls-certificates-and-hostnames_certificates-2": tls_certificates_and_hostnames_certificates_2_output,
         "tls-certificates-and-hostnames_expires_on-2": tls_certificates_and_hostnames_expires_on_2_output,
         "tls-certificates-and-hostnames_issuer-2": tls_certificates_and_hostnames_issuer_2_output,
+        "tls-certificates-and-hostnames_messages": tls_certificates_and_hostnames_messages_output,
         "tls-certificates-and-hostnames_mtls_certificate_identifier": tls_certificates_and_hostnames_mtls_certificate_identifier_output,
         "tls-certificates-and-hostnames_name-2": tls_certificates_and_hostnames_name_2_output,
         "tls-certificates-and-hostnames_serial_number-2": tls_certificates_and_hostnames_serial_number_2_output,
@@ -472,12 +457,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "#ssl:read"
-        ],
-        "x-fern-enum": {
-          "#ssl:read": {
-            "name": "ssl_read"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": true,
@@ -489,38 +469,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "items": {
-                "$ref": "#/$defs/tls-certificates-and-hostnames_certificateObject-3"
-              },
-              "type": "array"
-            },
-            "result_info": {
-              "properties": {
-                "count": {
-                  "type": "number"
-                },
-                "page": {
-                  "type": "number"
-                },
-                "per_page": {
-                  "type": "number"
-                },
-                "total_count": {
-                  "type": "number"
-                },
-                "total_pages": {
-                  "type": "number"
-                }
-              },
-              "type": "object"
-            }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/tls-certificates-and-hostnames_certificate_response_collection-5"
         },
         "4XX": {
           "allOf": [
@@ -535,7 +484,7 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "tls-certificates-and-hostnames_api-response-collection": tls_certificates_and_hostnames_api_response_collection_output,
-        "tls-certificates-and-hostnames_api-response-collection_result_info": tls_certificates_and_hostnames_api_response_collection_result_info_output,
+        "tls-certificates-and-hostnames_api-response-common": tls_certificates_and_hostnames_api_response_common_output,
         "tls-certificates-and-hostnames_api-response-common-failure": tls_certificates_and_hostnames_api_response_common_failure_output,
         "tls-certificates-and-hostnames_ca": tls_certificates_and_hostnames_ca_output,
         "tls-certificates-and-hostnames_certificateObject-3": tls_certificates_and_hostnames_certificateObject_3_output,

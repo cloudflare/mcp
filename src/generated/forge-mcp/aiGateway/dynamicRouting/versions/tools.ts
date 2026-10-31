@@ -362,389 +362,7 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
-        "created_at": {
-          "format": "date-time",
-          "type": "string"
-        },
-        "elements": {
-          "items": {
-            "oneOf": [
-              {
-                "properties": {
-                  "id": {
-                    "type": "string"
-                  },
-                  "outputs": {
-                    "properties": {
-                      "next": {
-                        "properties": {
-                          "elementId": {
-                            "type": "string"
-                          }
-                        },
-                        "required": [
-                          "elementId"
-                        ],
-                        "type": "object"
-                      }
-                    },
-                    "required": [
-                      "next"
-                    ],
-                    "type": "object"
-                  },
-                  "type": {
-                    "enum": [
-                      "start"
-                    ],
-                    "type": "string"
-                  }
-                },
-                "required": [
-                  "id",
-                  "outputs",
-                  "type"
-                ],
-                "type": "object"
-              },
-              {
-                "properties": {
-                  "id": {
-                    "type": "string"
-                  },
-                  "outputs": {
-                    "properties": {
-                      "false": {
-                        "properties": {
-                          "elementId": {
-                            "type": "string"
-                          }
-                        },
-                        "required": [
-                          "elementId"
-                        ],
-                        "type": "object"
-                      },
-                      "true": {
-                        "properties": {
-                          "elementId": {
-                            "type": "string"
-                          }
-                        },
-                        "required": [
-                          "elementId"
-                        ],
-                        "type": "object"
-                      }
-                    },
-                    "required": [
-                      "false",
-                      "true"
-                    ],
-                    "type": "object"
-                  },
-                  "properties": {
-                    "properties": {
-                      "conditions": {
-                        "type": "object"
-                      }
-                    },
-                    "type": "object"
-                  },
-                  "type": {
-                    "enum": [
-                      "conditional"
-                    ],
-                    "type": "string"
-                  }
-                },
-                "required": [
-                  "id",
-                  "outputs",
-                  "properties",
-                  "type"
-                ],
-                "type": "object"
-              },
-              {
-                "properties": {
-                  "id": {
-                    "type": "string"
-                  },
-                  "outputs": {
-                    "additionalProperties": {
-                      "properties": {
-                        "elementId": {
-                          "type": "string"
-                        }
-                      },
-                      "required": [
-                        "elementId"
-                      ],
-                      "type": "object"
-                    },
-                    "type": "object"
-                  },
-                  "type": {
-                    "enum": [
-                      "percentage"
-                    ],
-                    "type": "string"
-                  }
-                },
-                "required": [
-                  "id",
-                  "outputs",
-                  "type"
-                ],
-                "type": "object"
-              },
-              {
-                "properties": {
-                  "id": {
-                    "type": "string"
-                  },
-                  "outputs": {
-                    "properties": {
-                      "fallback": {
-                        "properties": {
-                          "elementId": {
-                            "type": "string"
-                          }
-                        },
-                        "required": [
-                          "elementId"
-                        ],
-                        "type": "object"
-                      },
-                      "success": {
-                        "properties": {
-                          "elementId": {
-                            "type": "string"
-                          }
-                        },
-                        "required": [
-                          "elementId"
-                        ],
-                        "type": "object"
-                      }
-                    },
-                    "required": [
-                      "fallback",
-                      "success"
-                    ],
-                    "type": "object"
-                  },
-                  "properties": {
-                    "properties": {
-                      "key": {
-                        "type": "string"
-                      },
-                      "limit": {
-                        "type": "number"
-                      },
-                      "limitType": {
-                        "enum": [
-                          "count",
-                          "cost"
-                        ],
-                        "type": "string"
-                      },
-                      "window": {
-                        "type": "number"
-                      }
-                    },
-                    "required": [
-                      "key",
-                      "limit",
-                      "limitType",
-                      "window"
-                    ],
-                    "type": "object"
-                  },
-                  "type": {
-                    "enum": [
-                      "rate"
-                    ],
-                    "type": "string"
-                  }
-                },
-                "required": [
-                  "id",
-                  "outputs",
-                  "properties",
-                  "type"
-                ],
-                "type": "object"
-              },
-              {
-                "properties": {
-                  "id": {
-                    "type": "string"
-                  },
-                  "outputs": {
-                    "properties": {
-                      "fallback": {
-                        "properties": {
-                          "elementId": {
-                            "type": "string"
-                          }
-                        },
-                        "required": [
-                          "elementId"
-                        ],
-                        "type": "object"
-                      },
-                      "success": {
-                        "properties": {
-                          "elementId": {
-                            "type": "string"
-                          }
-                        },
-                        "required": [
-                          "elementId"
-                        ],
-                        "type": "object"
-                      }
-                    },
-                    "required": [
-                      "fallback",
-                      "success"
-                    ],
-                    "type": "object"
-                  },
-                  "properties": {
-                    "properties": {
-                      "model": {
-                        "type": "string"
-                      },
-                      "provider": {
-                        "type": "string"
-                      },
-                      "retries": {
-                        "type": "number"
-                      },
-                      "timeout": {
-                        "type": "number"
-                      }
-                    },
-                    "required": [
-                      "model",
-                      "provider",
-                      "retries",
-                      "timeout"
-                    ],
-                    "type": "object"
-                  },
-                  "type": {
-                    "enum": [
-                      "model"
-                    ],
-                    "type": "string"
-                  }
-                },
-                "required": [
-                  "id",
-                  "outputs",
-                  "properties",
-                  "type"
-                ],
-                "type": "object"
-              },
-              {
-                "properties": {
-                  "id": {
-                    "type": "string"
-                  },
-                  "outputs": {
-                    "additionalProperties": {
-                      "properties": {
-                        "elementId": {
-                          "type": "string"
-                        }
-                      },
-                      "required": [
-                        "elementId"
-                      ],
-                      "type": "object"
-                    },
-                    "type": "object"
-                  },
-                  "type": {
-                    "enum": [
-                      "end"
-                    ],
-                    "type": "string"
-                  }
-                },
-                "required": [
-                  "id",
-                  "outputs",
-                  "type"
-                ],
-                "type": "object"
-              }
-            ]
-          },
-          "type": "array"
-        },
-        "gateway_id": {
-          "type": "string"
-        },
-        "id": {
-          "type": "string"
-        },
-        "modified_at": {
-          "format": "date-time",
-          "type": "string"
-        },
-        "name": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "created_at",
-        "elements",
-        "gateway_id",
-        "id",
-        "modified_at",
-        "name"
-      ],
-      "type": "object",
-    },
-    annotations: {
-      "destructiveHint": false,
-      "idempotentHint": false,
-      "openWorldHint": true,
-      "readOnlyHint": false,
-      "title": "Create a dynamic route version"
-    },
-    method: "POST",
-    path: "/accounts/{account_id}/ai-gateway/gateways/{gateway_id}/routes/{id}/versions",
-    extensions: {
-      "x-api-token-group": [
-        "AI Gateway Write"
-      ],
-      "x-cfPermissionsRequired": {
-        "enum": [
-          "com.cloudflare.api.account.aig"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.api.account.aig": {
-            "name": "com_cloudflare_api_account_aig"
-          }
-        }
-      },
-      "x-cfPlanAvailability": {
-        "business": true,
-        "enterprise": true,
-        "free": true,
-        "pro": true
-      }
-    },
-    responses: {
-      schemas: {
-        "200": {
+        "result": {
           "properties": {
             "created_at": {
               "format": "date-time",
@@ -1096,6 +714,407 @@ export const tools: readonly Tool[] = [
           ],
           "type": "object"
         },
+        "success": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "result",
+        "success"
+      ],
+      "type": "object",
+    },
+    annotations: {
+      "destructiveHint": false,
+      "idempotentHint": false,
+      "openWorldHint": true,
+      "readOnlyHint": false,
+      "title": "Create a dynamic route version"
+    },
+    method: "POST",
+    path: "/accounts/{account_id}/ai-gateway/gateways/{gateway_id}/routes/{id}/versions",
+    extensions: {
+      "x-api-token-group": [
+        "AI Gateway Write"
+      ],
+      "x-cfPermissionsRequired": {
+        "enum": [
+          "com.cloudflare.api.account.aig"
+        ]
+      },
+      "x-cfPlanAvailability": {
+        "business": true,
+        "enterprise": true,
+        "free": true,
+        "pro": true
+      }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "properties": {
+                "created_at": {
+                  "format": "date-time",
+                  "type": "string"
+                },
+                "elements": {
+                  "items": {
+                    "oneOf": [
+                      {
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "outputs": {
+                            "properties": {
+                              "next": {
+                                "properties": {
+                                  "elementId": {
+                                    "type": "string"
+                                  }
+                                },
+                                "required": [
+                                  "elementId"
+                                ],
+                                "type": "object"
+                              }
+                            },
+                            "required": [
+                              "next"
+                            ],
+                            "type": "object"
+                          },
+                          "type": {
+                            "enum": [
+                              "start"
+                            ],
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "outputs",
+                          "type"
+                        ],
+                        "type": "object"
+                      },
+                      {
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "outputs": {
+                            "properties": {
+                              "false": {
+                                "properties": {
+                                  "elementId": {
+                                    "type": "string"
+                                  }
+                                },
+                                "required": [
+                                  "elementId"
+                                ],
+                                "type": "object"
+                              },
+                              "true": {
+                                "properties": {
+                                  "elementId": {
+                                    "type": "string"
+                                  }
+                                },
+                                "required": [
+                                  "elementId"
+                                ],
+                                "type": "object"
+                              }
+                            },
+                            "required": [
+                              "false",
+                              "true"
+                            ],
+                            "type": "object"
+                          },
+                          "properties": {
+                            "properties": {
+                              "conditions": {
+                                "type": "object"
+                              }
+                            },
+                            "type": "object"
+                          },
+                          "type": {
+                            "enum": [
+                              "conditional"
+                            ],
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "outputs",
+                          "properties",
+                          "type"
+                        ],
+                        "type": "object"
+                      },
+                      {
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "outputs": {
+                            "additionalProperties": {
+                              "properties": {
+                                "elementId": {
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "elementId"
+                              ],
+                              "type": "object"
+                            },
+                            "type": "object"
+                          },
+                          "type": {
+                            "enum": [
+                              "percentage"
+                            ],
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "outputs",
+                          "type"
+                        ],
+                        "type": "object"
+                      },
+                      {
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "outputs": {
+                            "properties": {
+                              "fallback": {
+                                "properties": {
+                                  "elementId": {
+                                    "type": "string"
+                                  }
+                                },
+                                "required": [
+                                  "elementId"
+                                ],
+                                "type": "object"
+                              },
+                              "success": {
+                                "properties": {
+                                  "elementId": {
+                                    "type": "string"
+                                  }
+                                },
+                                "required": [
+                                  "elementId"
+                                ],
+                                "type": "object"
+                              }
+                            },
+                            "required": [
+                              "fallback",
+                              "success"
+                            ],
+                            "type": "object"
+                          },
+                          "properties": {
+                            "properties": {
+                              "key": {
+                                "type": "string"
+                              },
+                              "limit": {
+                                "type": "number"
+                              },
+                              "limitType": {
+                                "enum": [
+                                  "count",
+                                  "cost"
+                                ],
+                                "type": "string"
+                              },
+                              "window": {
+                                "type": "number"
+                              }
+                            },
+                            "required": [
+                              "key",
+                              "limit",
+                              "limitType",
+                              "window"
+                            ],
+                            "type": "object"
+                          },
+                          "type": {
+                            "enum": [
+                              "rate"
+                            ],
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "outputs",
+                          "properties",
+                          "type"
+                        ],
+                        "type": "object"
+                      },
+                      {
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "outputs": {
+                            "properties": {
+                              "fallback": {
+                                "properties": {
+                                  "elementId": {
+                                    "type": "string"
+                                  }
+                                },
+                                "required": [
+                                  "elementId"
+                                ],
+                                "type": "object"
+                              },
+                              "success": {
+                                "properties": {
+                                  "elementId": {
+                                    "type": "string"
+                                  }
+                                },
+                                "required": [
+                                  "elementId"
+                                ],
+                                "type": "object"
+                              }
+                            },
+                            "required": [
+                              "fallback",
+                              "success"
+                            ],
+                            "type": "object"
+                          },
+                          "properties": {
+                            "properties": {
+                              "model": {
+                                "type": "string"
+                              },
+                              "provider": {
+                                "type": "string"
+                              },
+                              "retries": {
+                                "type": "number"
+                              },
+                              "timeout": {
+                                "type": "number"
+                              }
+                            },
+                            "required": [
+                              "model",
+                              "provider",
+                              "retries",
+                              "timeout"
+                            ],
+                            "type": "object"
+                          },
+                          "type": {
+                            "enum": [
+                              "model"
+                            ],
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "outputs",
+                          "properties",
+                          "type"
+                        ],
+                        "type": "object"
+                      },
+                      {
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "outputs": {
+                            "additionalProperties": {
+                              "properties": {
+                                "elementId": {
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "elementId"
+                              ],
+                              "type": "object"
+                            },
+                            "type": "object"
+                          },
+                          "type": {
+                            "enum": [
+                              "end"
+                            ],
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "outputs",
+                          "type"
+                        ],
+                        "type": "object"
+                      }
+                    ]
+                  },
+                  "type": "array"
+                },
+                "gateway_id": {
+                  "type": "string"
+                },
+                "id": {
+                  "type": "string"
+                },
+                "modified_at": {
+                  "format": "date-time",
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "created_at",
+                "elements",
+                "gateway_id",
+                "id",
+                "modified_at",
+                "name"
+              ],
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "result",
+            "success"
+          ],
+          "type": "object"
+        },
         "400": {
           "properties": {
             "errors": {
@@ -1162,408 +1181,7 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
-        "active": {
-          "enum": [
-            "true",
-            "false"
-          ],
-          "type": "string"
-        },
-        "created_at": {
-          "type": "string"
-        },
-        "data": {
-          "type": "string"
-        },
-        "elements": {
-          "items": {
-            "oneOf": [
-              {
-                "properties": {
-                  "id": {
-                    "type": "string"
-                  },
-                  "outputs": {
-                    "properties": {
-                      "next": {
-                        "properties": {
-                          "elementId": {
-                            "type": "string"
-                          }
-                        },
-                        "required": [
-                          "elementId"
-                        ],
-                        "type": "object"
-                      }
-                    },
-                    "required": [
-                      "next"
-                    ],
-                    "type": "object"
-                  },
-                  "type": {
-                    "enum": [
-                      "start"
-                    ],
-                    "type": "string"
-                  }
-                },
-                "required": [
-                  "id",
-                  "outputs",
-                  "type"
-                ],
-                "type": "object"
-              },
-              {
-                "properties": {
-                  "id": {
-                    "type": "string"
-                  },
-                  "outputs": {
-                    "properties": {
-                      "false": {
-                        "properties": {
-                          "elementId": {
-                            "type": "string"
-                          }
-                        },
-                        "required": [
-                          "elementId"
-                        ],
-                        "type": "object"
-                      },
-                      "true": {
-                        "properties": {
-                          "elementId": {
-                            "type": "string"
-                          }
-                        },
-                        "required": [
-                          "elementId"
-                        ],
-                        "type": "object"
-                      }
-                    },
-                    "required": [
-                      "false",
-                      "true"
-                    ],
-                    "type": "object"
-                  },
-                  "properties": {
-                    "properties": {
-                      "conditions": {
-                        "type": "object"
-                      }
-                    },
-                    "type": "object"
-                  },
-                  "type": {
-                    "enum": [
-                      "conditional"
-                    ],
-                    "type": "string"
-                  }
-                },
-                "required": [
-                  "id",
-                  "outputs",
-                  "properties",
-                  "type"
-                ],
-                "type": "object"
-              },
-              {
-                "properties": {
-                  "id": {
-                    "type": "string"
-                  },
-                  "outputs": {
-                    "additionalProperties": {
-                      "properties": {
-                        "elementId": {
-                          "type": "string"
-                        }
-                      },
-                      "required": [
-                        "elementId"
-                      ],
-                      "type": "object"
-                    },
-                    "type": "object"
-                  },
-                  "type": {
-                    "enum": [
-                      "percentage"
-                    ],
-                    "type": "string"
-                  }
-                },
-                "required": [
-                  "id",
-                  "outputs",
-                  "type"
-                ],
-                "type": "object"
-              },
-              {
-                "properties": {
-                  "id": {
-                    "type": "string"
-                  },
-                  "outputs": {
-                    "properties": {
-                      "fallback": {
-                        "properties": {
-                          "elementId": {
-                            "type": "string"
-                          }
-                        },
-                        "required": [
-                          "elementId"
-                        ],
-                        "type": "object"
-                      },
-                      "success": {
-                        "properties": {
-                          "elementId": {
-                            "type": "string"
-                          }
-                        },
-                        "required": [
-                          "elementId"
-                        ],
-                        "type": "object"
-                      }
-                    },
-                    "required": [
-                      "fallback",
-                      "success"
-                    ],
-                    "type": "object"
-                  },
-                  "properties": {
-                    "properties": {
-                      "key": {
-                        "type": "string"
-                      },
-                      "limit": {
-                        "type": "number"
-                      },
-                      "limitType": {
-                        "enum": [
-                          "count",
-                          "cost"
-                        ],
-                        "type": "string"
-                      },
-                      "window": {
-                        "type": "number"
-                      }
-                    },
-                    "required": [
-                      "key",
-                      "limit",
-                      "limitType",
-                      "window"
-                    ],
-                    "type": "object"
-                  },
-                  "type": {
-                    "enum": [
-                      "rate"
-                    ],
-                    "type": "string"
-                  }
-                },
-                "required": [
-                  "id",
-                  "outputs",
-                  "properties",
-                  "type"
-                ],
-                "type": "object"
-              },
-              {
-                "properties": {
-                  "id": {
-                    "type": "string"
-                  },
-                  "outputs": {
-                    "properties": {
-                      "fallback": {
-                        "properties": {
-                          "elementId": {
-                            "type": "string"
-                          }
-                        },
-                        "required": [
-                          "elementId"
-                        ],
-                        "type": "object"
-                      },
-                      "success": {
-                        "properties": {
-                          "elementId": {
-                            "type": "string"
-                          }
-                        },
-                        "required": [
-                          "elementId"
-                        ],
-                        "type": "object"
-                      }
-                    },
-                    "required": [
-                      "fallback",
-                      "success"
-                    ],
-                    "type": "object"
-                  },
-                  "properties": {
-                    "properties": {
-                      "model": {
-                        "type": "string"
-                      },
-                      "provider": {
-                        "type": "string"
-                      },
-                      "retries": {
-                        "type": "number"
-                      },
-                      "timeout": {
-                        "type": "number"
-                      }
-                    },
-                    "required": [
-                      "model",
-                      "provider",
-                      "retries",
-                      "timeout"
-                    ],
-                    "type": "object"
-                  },
-                  "type": {
-                    "enum": [
-                      "model"
-                    ],
-                    "type": "string"
-                  }
-                },
-                "required": [
-                  "id",
-                  "outputs",
-                  "properties",
-                  "type"
-                ],
-                "type": "object"
-              },
-              {
-                "properties": {
-                  "id": {
-                    "type": "string"
-                  },
-                  "outputs": {
-                    "additionalProperties": {
-                      "properties": {
-                        "elementId": {
-                          "type": "string"
-                        }
-                      },
-                      "required": [
-                        "elementId"
-                      ],
-                      "type": "object"
-                    },
-                    "type": "object"
-                  },
-                  "type": {
-                    "enum": [
-                      "end"
-                    ],
-                    "type": "string"
-                  }
-                },
-                "required": [
-                  "id",
-                  "outputs",
-                  "type"
-                ],
-                "type": "object"
-              }
-            ]
-          },
-          "type": "array"
-        },
-        "gateway_id": {
-          "type": "string"
-        },
-        "id": {
-          "type": "string"
-        },
-        "is_valid": {
-          "type": "boolean"
-        },
-        "modified_at": {
-          "format": "date-time",
-          "type": "string"
-        },
-        "name": {
-          "type": "string"
-        },
-        "version_id": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "active",
-        "created_at",
-        "data",
-        "elements",
-        "gateway_id",
-        "id",
-        "modified_at",
-        "name",
-        "version_id"
-      ],
-      "type": "object",
-    },
-    annotations: {
-      "destructiveHint": false,
-      "idempotentHint": true,
-      "openWorldHint": true,
-      "readOnlyHint": true,
-      "title": "Get a dynamic route version"
-    },
-    method: "GET",
-    path: "/accounts/{account_id}/ai-gateway/gateways/{gateway_id}/routes/{id}/versions/{version_id}",
-    extensions: {
-      "x-api-token-group": [
-        "AI Gateway Write",
-        "AI Gateway Read"
-      ],
-      "x-cfPermissionsRequired": {
-        "enum": [
-          "com.cloudflare.api.account.aig"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.api.account.aig": {
-            "name": "com_cloudflare_api_account_aig"
-          }
-        }
-      },
-      "x-cfPlanAvailability": {
-        "business": true,
-        "enterprise": true,
-        "free": true,
-        "pro": true
-      }
-    },
-    responses: {
-      schemas: {
-        "200": {
+        "result": {
           "properties": {
             "active": {
               "enum": [
@@ -1933,6 +1551,426 @@ export const tools: readonly Tool[] = [
           ],
           "type": "object"
         },
+        "success": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "result",
+        "success"
+      ],
+      "type": "object",
+    },
+    annotations: {
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": true,
+      "readOnlyHint": true,
+      "title": "Get a dynamic route version"
+    },
+    method: "GET",
+    path: "/accounts/{account_id}/ai-gateway/gateways/{gateway_id}/routes/{id}/versions/{version_id}",
+    extensions: {
+      "x-api-token-group": [
+        "AI Gateway Write",
+        "AI Gateway Read"
+      ],
+      "x-cfPermissionsRequired": {
+        "enum": [
+          "com.cloudflare.api.account.aig"
+        ]
+      },
+      "x-cfPlanAvailability": {
+        "business": true,
+        "enterprise": true,
+        "free": true,
+        "pro": true
+      }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "properties": {
+                "active": {
+                  "enum": [
+                    "true",
+                    "false"
+                  ],
+                  "type": "string"
+                },
+                "created_at": {
+                  "type": "string"
+                },
+                "data": {
+                  "type": "string"
+                },
+                "elements": {
+                  "items": {
+                    "oneOf": [
+                      {
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "outputs": {
+                            "properties": {
+                              "next": {
+                                "properties": {
+                                  "elementId": {
+                                    "type": "string"
+                                  }
+                                },
+                                "required": [
+                                  "elementId"
+                                ],
+                                "type": "object"
+                              }
+                            },
+                            "required": [
+                              "next"
+                            ],
+                            "type": "object"
+                          },
+                          "type": {
+                            "enum": [
+                              "start"
+                            ],
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "outputs",
+                          "type"
+                        ],
+                        "type": "object"
+                      },
+                      {
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "outputs": {
+                            "properties": {
+                              "false": {
+                                "properties": {
+                                  "elementId": {
+                                    "type": "string"
+                                  }
+                                },
+                                "required": [
+                                  "elementId"
+                                ],
+                                "type": "object"
+                              },
+                              "true": {
+                                "properties": {
+                                  "elementId": {
+                                    "type": "string"
+                                  }
+                                },
+                                "required": [
+                                  "elementId"
+                                ],
+                                "type": "object"
+                              }
+                            },
+                            "required": [
+                              "false",
+                              "true"
+                            ],
+                            "type": "object"
+                          },
+                          "properties": {
+                            "properties": {
+                              "conditions": {
+                                "type": "object"
+                              }
+                            },
+                            "type": "object"
+                          },
+                          "type": {
+                            "enum": [
+                              "conditional"
+                            ],
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "outputs",
+                          "properties",
+                          "type"
+                        ],
+                        "type": "object"
+                      },
+                      {
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "outputs": {
+                            "additionalProperties": {
+                              "properties": {
+                                "elementId": {
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "elementId"
+                              ],
+                              "type": "object"
+                            },
+                            "type": "object"
+                          },
+                          "type": {
+                            "enum": [
+                              "percentage"
+                            ],
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "outputs",
+                          "type"
+                        ],
+                        "type": "object"
+                      },
+                      {
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "outputs": {
+                            "properties": {
+                              "fallback": {
+                                "properties": {
+                                  "elementId": {
+                                    "type": "string"
+                                  }
+                                },
+                                "required": [
+                                  "elementId"
+                                ],
+                                "type": "object"
+                              },
+                              "success": {
+                                "properties": {
+                                  "elementId": {
+                                    "type": "string"
+                                  }
+                                },
+                                "required": [
+                                  "elementId"
+                                ],
+                                "type": "object"
+                              }
+                            },
+                            "required": [
+                              "fallback",
+                              "success"
+                            ],
+                            "type": "object"
+                          },
+                          "properties": {
+                            "properties": {
+                              "key": {
+                                "type": "string"
+                              },
+                              "limit": {
+                                "type": "number"
+                              },
+                              "limitType": {
+                                "enum": [
+                                  "count",
+                                  "cost"
+                                ],
+                                "type": "string"
+                              },
+                              "window": {
+                                "type": "number"
+                              }
+                            },
+                            "required": [
+                              "key",
+                              "limit",
+                              "limitType",
+                              "window"
+                            ],
+                            "type": "object"
+                          },
+                          "type": {
+                            "enum": [
+                              "rate"
+                            ],
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "outputs",
+                          "properties",
+                          "type"
+                        ],
+                        "type": "object"
+                      },
+                      {
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "outputs": {
+                            "properties": {
+                              "fallback": {
+                                "properties": {
+                                  "elementId": {
+                                    "type": "string"
+                                  }
+                                },
+                                "required": [
+                                  "elementId"
+                                ],
+                                "type": "object"
+                              },
+                              "success": {
+                                "properties": {
+                                  "elementId": {
+                                    "type": "string"
+                                  }
+                                },
+                                "required": [
+                                  "elementId"
+                                ],
+                                "type": "object"
+                              }
+                            },
+                            "required": [
+                              "fallback",
+                              "success"
+                            ],
+                            "type": "object"
+                          },
+                          "properties": {
+                            "properties": {
+                              "model": {
+                                "type": "string"
+                              },
+                              "provider": {
+                                "type": "string"
+                              },
+                              "retries": {
+                                "type": "number"
+                              },
+                              "timeout": {
+                                "type": "number"
+                              }
+                            },
+                            "required": [
+                              "model",
+                              "provider",
+                              "retries",
+                              "timeout"
+                            ],
+                            "type": "object"
+                          },
+                          "type": {
+                            "enum": [
+                              "model"
+                            ],
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "outputs",
+                          "properties",
+                          "type"
+                        ],
+                        "type": "object"
+                      },
+                      {
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "outputs": {
+                            "additionalProperties": {
+                              "properties": {
+                                "elementId": {
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "elementId"
+                              ],
+                              "type": "object"
+                            },
+                            "type": "object"
+                          },
+                          "type": {
+                            "enum": [
+                              "end"
+                            ],
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "outputs",
+                          "type"
+                        ],
+                        "type": "object"
+                      }
+                    ]
+                  },
+                  "type": "array"
+                },
+                "gateway_id": {
+                  "type": "string"
+                },
+                "id": {
+                  "type": "string"
+                },
+                "is_valid": {
+                  "type": "boolean"
+                },
+                "modified_at": {
+                  "format": "date-time",
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "version_id": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "active",
+                "created_at",
+                "data",
+                "elements",
+                "gateway_id",
+                "id",
+                "modified_at",
+                "name",
+                "version_id"
+              ],
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "result",
+            "success"
+          ],
+          "type": "object"
+        },
         "400": {
           "properties": {
             "errors": {
@@ -2078,12 +2116,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "com.cloudflare.api.account.aig"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.api.account.aig": {
-            "name": "com_cloudflare_api_account_aig"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": true,

@@ -359,62 +359,54 @@ export const zero_trust_gateway_fips_settings_output: JsonSchema = {
 export const zero_trust_gateway_gateway_account_settings_output: JsonSchema = {
   "properties": {
     "settings": {
-      "$ref": "#/$defs/zero-trust-gateway_gateway-account-settings_settings"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `zero-trust-gateway_gateway-account-settings_settings` in
- * responses.
- */
-export const zero_trust_gateway_gateway_account_settings_settings_output: JsonSchema = {
-  "properties": {
-    "activity_log": {
-      "$ref": "#/$defs/zero-trust-gateway_activity-log-settings"
-    },
-    "antivirus": {
-      "$ref": "#/$defs/zero-trust-gateway_anti-virus-settings"
-    },
-    "block_page": {
-      "$ref": "#/$defs/zero-trust-gateway_block-page-settings"
-    },
-    "body_scanning": {
-      "$ref": "#/$defs/zero-trust-gateway_body-scanning-settings"
-    },
-    "browser_isolation": {
-      "$ref": "#/$defs/zero-trust-gateway_browser-isolation-settings"
-    },
-    "certificate": {
-      "$ref": "#/$defs/zero-trust-gateway_certificate-settings"
-    },
-    "custom_certificate": {
-      "$ref": "#/$defs/zero-trust-gateway_custom-certificate-settings"
-    },
-    "extended_email_matching": {
-      "$ref": "#/$defs/zero-trust-gateway_extended-email-matching"
-    },
-    "fips": {
-      "$ref": "#/$defs/zero-trust-gateway_fips-settings"
-    },
-    "host_selector": {
-      "$ref": "#/$defs/zero-trust-gateway_host-selector-settings"
-    },
-    "inspection": {
-      "$ref": "#/$defs/zero-trust-gateway_inspection-settings"
-    },
-    "max_ttl_secs": {
-      "$ref": "#/$defs/zero-trust-gateway_max-ttl-secs"
-    },
-    "protocol_detection": {
-      "$ref": "#/$defs/zero-trust-gateway_protocol-detection"
-    },
-    "sandbox": {
-      "$ref": "#/$defs/zero-trust-gateway_sandbox"
-    },
-    "tls_decrypt": {
-      "$ref": "#/$defs/zero-trust-gateway_tls-settings"
+      "properties": {
+        "activity_log": {
+          "$ref": "#/$defs/zero-trust-gateway_activity-log-settings"
+        },
+        "antivirus": {
+          "$ref": "#/$defs/zero-trust-gateway_anti-virus-settings"
+        },
+        "block_page": {
+          "$ref": "#/$defs/zero-trust-gateway_block-page-settings"
+        },
+        "body_scanning": {
+          "$ref": "#/$defs/zero-trust-gateway_body-scanning-settings"
+        },
+        "browser_isolation": {
+          "$ref": "#/$defs/zero-trust-gateway_browser-isolation-settings"
+        },
+        "certificate": {
+          "$ref": "#/$defs/zero-trust-gateway_certificate-settings"
+        },
+        "custom_certificate": {
+          "$ref": "#/$defs/zero-trust-gateway_custom-certificate-settings"
+        },
+        "extended_email_matching": {
+          "$ref": "#/$defs/zero-trust-gateway_extended-email-matching"
+        },
+        "fips": {
+          "$ref": "#/$defs/zero-trust-gateway_fips-settings"
+        },
+        "host_selector": {
+          "$ref": "#/$defs/zero-trust-gateway_host-selector-settings"
+        },
+        "inspection": {
+          "$ref": "#/$defs/zero-trust-gateway_inspection-settings"
+        },
+        "max_ttl_secs": {
+          "$ref": "#/$defs/zero-trust-gateway_max-ttl-secs"
+        },
+        "protocol_detection": {
+          "$ref": "#/$defs/zero-trust-gateway_protocol-detection"
+        },
+        "sandbox": {
+          "$ref": "#/$defs/zero-trust-gateway_sandbox"
+        },
+        "tls_decrypt": {
+          "$ref": "#/$defs/zero-trust-gateway_tls-settings"
+        }
+      },
+      "type": "object"
     }
   },
   "type": "object"
@@ -424,44 +416,34 @@ export const zero_trust_gateway_gateway_account_settings_settings_output: JsonSc
  * The schema of `zero-trust-gateway_gateway_account_config` in responses.
  */
 export const zero_trust_gateway_gateway_account_config_output: JsonSchema = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/zero-trust-gateway_messages"
+  "allOf": [
+    {
+      "$ref": "#/$defs/zero-trust-gateway_api-response-single"
     },
-    "messages": {
-      "$ref": "#/$defs/zero-trust-gateway_messages"
-    },
-    "result": {
-      "allOf": [
-        {
-          "$ref": "#/$defs/zero-trust-gateway_gateway-account-settings"
-        },
-        {
-          "properties": {
-            "created_at": {
-              "$ref": "#/$defs/zero-trust-gateway_read_only_timestamp"
+    {
+      "properties": {
+        "result": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/zero-trust-gateway_gateway-account-settings"
             },
-            "updated_at": {
-              "$ref": "#/$defs/zero-trust-gateway_read_only_timestamp"
+            {
+              "properties": {
+                "created_at": {
+                  "$ref": "#/$defs/zero-trust-gateway_read_only_timestamp"
+                },
+                "updated_at": {
+                  "$ref": "#/$defs/zero-trust-gateway_read_only_timestamp"
+                }
+              },
+              "type": "object"
             }
-          },
-          "type": "object"
+          ]
         }
-      ]
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "success"
-  ],
-  "type": "object"
+  ]
 };
 
 /**

@@ -4,10 +4,18 @@
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
   resource_tagging_api_response_common_failure_output,
+  resource_tagging_api_response_common_output,
   resource_tagging_cursor_result_info_output,
   resource_tagging_messages_output,
 } from "../outputs.js";
-import { resource_tagging_tag_key_summary_output } from "./outputs.js";
+import {
+  resource_tagging_account_id,
+  resource_tagging_identifier,
+} from "../schemas.js";
+import {
+  resource_tagging_tag_key_summary_output,
+  resource_tagging_tag_key_summary_response_collection_output,
+} from "./outputs.js";
 
 /**
  * The tools of `tags.summary`.
@@ -21,7 +29,7 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "type": "string"
+          "$ref": "#/$defs/resource-tagging_account_id"
         },
         "cursor": {
           "description": "Cursor for pagination.",
@@ -31,26 +39,19 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+      $defs: {
+        "resource-tagging_account_id": resource_tagging_account_id,
+        "resource-tagging_identifier": resource_tagging_identifier,
+      },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "$ref": "#/$defs/resource-tagging_tag_key_summary"
-          },
-          "type": "array"
-        },
-        "result_info": {
-          "$ref": "#/$defs/resource-tagging_cursor_result_info"
-        }
-      },
-      "required": [
-        "result"
-      ],
-      "type": "object",
+      "$ref": "#/$defs/resource-tagging_tag_key_summary_response_collection",
       $defs: {
+        "resource-tagging_api-response-common": resource_tagging_api_response_common_output,
         "resource-tagging_cursor_result_info": resource_tagging_cursor_result_info_output,
+        "resource-tagging_messages": resource_tagging_messages_output,
         "resource-tagging_tag_key_summary": resource_tagging_tag_key_summary_output,
+        "resource-tagging_tag_key_summary_response_collection": resource_tagging_tag_key_summary_response_collection_output,
       },
     },
     annotations: {
@@ -74,21 +75,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "items": {
-                "$ref": "#/$defs/resource-tagging_tag_key_summary"
-              },
-              "type": "array"
-            },
-            "result_info": {
-              "$ref": "#/$defs/resource-tagging_cursor_result_info"
-            }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/resource-tagging_tag_key_summary_response_collection"
         },
         "4XX": {
           "$ref": "#/$defs/resource-tagging_api-response-common-failure"
@@ -98,10 +85,12 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
+        "resource-tagging_api-response-common": resource_tagging_api_response_common_output,
         "resource-tagging_api-response-common-failure": resource_tagging_api_response_common_failure_output,
         "resource-tagging_cursor_result_info": resource_tagging_cursor_result_info_output,
         "resource-tagging_messages": resource_tagging_messages_output,
         "resource-tagging_tag_key_summary": resource_tagging_tag_key_summary_output,
+        "resource-tagging_tag_key_summary_response_collection": resource_tagging_tag_key_summary_response_collection_output,
       },
     },
     request: (args) => ({

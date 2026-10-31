@@ -6,10 +6,16 @@ import {
   cws_DeletedResult_output,
   cws_ErrorResponse_output,
   cws_MessageSource_output,
+  cws_ResponseDeletedResult_output,
   cws_ResponseMessage_output,
   cws_ResultInfo_output,
 } from "../outputs.js";
-import { cws_DomainACLEntry_output, cws_DomainACL_output } from "./outputs.js";
+import {
+  cws_DomainACLEntry_output,
+  cws_DomainACL_output,
+  cws_PageResponseDomainACL_output,
+  cws_ResponseDomainACL_output,
+} from "./outputs.js";
 import {
   cws_CreateDomainACLInputBody,
   cws_DomainACLEntry,
@@ -45,10 +51,13 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/cws_DomainACL",
+      "$ref": "#/$defs/cws_ResponseDomainACL",
       $defs: {
         "cws_DomainACL": cws_DomainACL_output,
         "cws_DomainACLEntry": cws_DomainACLEntry_output,
+        "cws_MessageSource": cws_MessageSource_output,
+        "cws_ResponseDomainACL": cws_ResponseDomainACL_output,
+        "cws_ResponseMessage": cws_ResponseMessage_output,
       },
     },
     annotations: {
@@ -66,7 +75,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "201": {
-          "$ref": "#/$defs/cws_DomainACL"
+          "$ref": "#/$defs/cws_ResponseDomainACL"
         },
         "4XX": {
           "$ref": "#/$defs/cws_ErrorResponse"
@@ -80,6 +89,7 @@ export const tools: readonly Tool[] = [
         "cws_DomainACLEntry": cws_DomainACLEntry_output,
         "cws_ErrorResponse": cws_ErrorResponse_output,
         "cws_MessageSource": cws_MessageSource_output,
+        "cws_ResponseDomainACL": cws_ResponseDomainACL_output,
         "cws_ResponseMessage": cws_ResponseMessage_output,
       },
     },
@@ -111,9 +121,12 @@ export const tools: readonly Tool[] = [
       ],
     },
     outputSchema: {
-      "$ref": "#/$defs/cws_DeletedResult",
+      "$ref": "#/$defs/cws_ResponseDeletedResult",
       $defs: {
         "cws_DeletedResult": cws_DeletedResult_output,
+        "cws_MessageSource": cws_MessageSource_output,
+        "cws_ResponseDeletedResult": cws_ResponseDeletedResult_output,
+        "cws_ResponseMessage": cws_ResponseMessage_output,
       },
     },
     annotations: {
@@ -131,7 +144,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/cws_DeletedResult"
+          "$ref": "#/$defs/cws_ResponseDeletedResult"
         },
         "4XX": {
           "$ref": "#/$defs/cws_ErrorResponse"
@@ -144,6 +157,7 @@ export const tools: readonly Tool[] = [
         "cws_DeletedResult": cws_DeletedResult_output,
         "cws_ErrorResponse": cws_ErrorResponse_output,
         "cws_MessageSource": cws_MessageSource_output,
+        "cws_ResponseDeletedResult": cws_ResponseDeletedResult_output,
         "cws_ResponseMessage": cws_ResponseMessage_output,
       },
     },
@@ -174,10 +188,13 @@ export const tools: readonly Tool[] = [
       ],
     },
     outputSchema: {
-      "$ref": "#/$defs/cws_DomainACL",
+      "$ref": "#/$defs/cws_ResponseDomainACL",
       $defs: {
         "cws_DomainACL": cws_DomainACL_output,
         "cws_DomainACLEntry": cws_DomainACLEntry_output,
+        "cws_MessageSource": cws_MessageSource_output,
+        "cws_ResponseDomainACL": cws_ResponseDomainACL_output,
+        "cws_ResponseMessage": cws_ResponseMessage_output,
       },
     },
     annotations: {
@@ -195,7 +212,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/cws_DomainACL"
+          "$ref": "#/$defs/cws_ResponseDomainACL"
         },
         "4XX": {
           "$ref": "#/$defs/cws_ErrorResponse"
@@ -209,6 +226,7 @@ export const tools: readonly Tool[] = [
         "cws_DomainACLEntry": cws_DomainACLEntry_output,
         "cws_ErrorResponse": cws_ErrorResponse_output,
         "cws_MessageSource": cws_MessageSource_output,
+        "cws_ResponseDomainACL": cws_ResponseDomainACL_output,
         "cws_ResponseMessage": cws_ResponseMessage_output,
       },
     },
@@ -270,31 +288,13 @@ export const tools: readonly Tool[] = [
       ],
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "oneOf": [
-            {
-              "items": {
-                "$ref": "#/$defs/cws_DomainACL"
-              },
-              "type": "array"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "result_info": {
-          "$ref": "#/$defs/cws_ResultInfo"
-        }
-      },
-      "required": [
-        "result"
-      ],
-      "type": "object",
+      "$ref": "#/$defs/cws_PageResponseDomainACL",
       $defs: {
         "cws_DomainACL": cws_DomainACL_output,
         "cws_DomainACLEntry": cws_DomainACLEntry_output,
+        "cws_MessageSource": cws_MessageSource_output,
+        "cws_PageResponseDomainACL": cws_PageResponseDomainACL_output,
+        "cws_ResponseMessage": cws_ResponseMessage_output,
         "cws_ResultInfo": cws_ResultInfo_output,
       },
     },
@@ -313,28 +313,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "oneOf": [
-                {
-                  "items": {
-                    "$ref": "#/$defs/cws_DomainACL"
-                  },
-                  "type": "array"
-                },
-                {
-                  "type": "null"
-                }
-              ]
-            },
-            "result_info": {
-              "$ref": "#/$defs/cws_ResultInfo"
-            }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/cws_PageResponseDomainACL"
         },
         "4XX": {
           "$ref": "#/$defs/cws_ErrorResponse"
@@ -348,6 +327,7 @@ export const tools: readonly Tool[] = [
         "cws_DomainACLEntry": cws_DomainACLEntry_output,
         "cws_ErrorResponse": cws_ErrorResponse_output,
         "cws_MessageSource": cws_MessageSource_output,
+        "cws_PageResponseDomainACL": cws_PageResponseDomainACL_output,
         "cws_ResponseMessage": cws_ResponseMessage_output,
         "cws_ResultInfo": cws_ResultInfo_output,
       },
@@ -395,10 +375,13 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/cws_DomainACL",
+      "$ref": "#/$defs/cws_ResponseDomainACL",
       $defs: {
         "cws_DomainACL": cws_DomainACL_output,
         "cws_DomainACLEntry": cws_DomainACLEntry_output,
+        "cws_MessageSource": cws_MessageSource_output,
+        "cws_ResponseDomainACL": cws_ResponseDomainACL_output,
+        "cws_ResponseMessage": cws_ResponseMessage_output,
       },
     },
     annotations: {
@@ -416,7 +399,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/cws_DomainACL"
+          "$ref": "#/$defs/cws_ResponseDomainACL"
         },
         "4XX": {
           "$ref": "#/$defs/cws_ErrorResponse"
@@ -430,6 +413,7 @@ export const tools: readonly Tool[] = [
         "cws_DomainACLEntry": cws_DomainACLEntry_output,
         "cws_ErrorResponse": cws_ErrorResponse_output,
         "cws_MessageSource": cws_MessageSource_output,
+        "cws_ResponseDomainACL": cws_ResponseDomainACL_output,
         "cws_ResponseMessage": cws_ResponseMessage_output,
       },
     },

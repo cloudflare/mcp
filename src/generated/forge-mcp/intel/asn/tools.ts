@@ -4,13 +4,16 @@
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
   intel_api_response_common_failure_output,
+  intel_api_response_single_output,
   intel_messages_output,
   intel_schemas_messages_output,
 } from "../outputs.js";
+import { intel_identifier } from "../schemas.js";
 import {
   intel_asn_components_schemas_response_output,
   intel_asn_output,
 } from "./outputs.js";
+import { intel_asn } from "./schemas.js";
 
 /**
  * The tools of `intel.asn`.
@@ -24,22 +27,29 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/intel_identifier",
+          "description": "Identifier."
         },
         "asn": {
-          "type": "string"
+          "$ref": "#/$defs/intel_asn"
         }
       },
       required: [
         "account_id",
         "asn"
       ],
+      $defs: {
+        "intel_asn": intel_asn,
+        "intel_identifier": intel_identifier,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/intel_asn",
+      "$ref": "#/$defs/intel_asn_components-schemas-response",
       $defs: {
+        "intel_api-response-single": intel_api_response_single_output,
         "intel_asn": intel_asn_output,
+        "intel_asn_components-schemas-response": intel_asn_components_schemas_response_output,
+        "intel_schemas-messages": intel_schemas_messages_output,
       },
     },
     annotations: {
@@ -60,7 +70,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/intel_asn"
+          "$ref": "#/$defs/intel_asn_components-schemas-response"
         },
         "4XX": {
           "allOf": [
@@ -75,6 +85,7 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "intel_api-response-common-failure": intel_api_response_common_failure_output,
+        "intel_api-response-single": intel_api_response_single_output,
         "intel_asn": intel_asn_output,
         "intel_asn_components-schemas-response": intel_asn_components_schemas_response_output,
         "intel_messages": intel_messages_output,

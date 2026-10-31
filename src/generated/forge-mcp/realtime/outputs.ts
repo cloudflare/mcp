@@ -4,6 +4,32 @@
 import type { JsonSchema } from "../_/tool.js";
 
 /**
+ * The schema of `calls_api-response-common` in responses.
+ */
+export const calls_api_response_common_output: JsonSchema = {
+  "properties": {
+    "errors": {
+      "$ref": "#/$defs/calls_messages"
+    },
+    "messages": {
+      "$ref": "#/$defs/calls_messages"
+    },
+    "success": {
+      "enum": [
+        true
+      ],
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "errors",
+    "messages",
+    "success"
+  ],
+  "type": "object"
+};
+
+/**
  * The schema of `calls_api-response-common-failure` in responses.
  */
 export const calls_api_response_common_failure_output: JsonSchema = {
@@ -28,6 +54,32 @@ export const calls_api_response_common_failure_output: JsonSchema = {
     "errors",
     "messages",
     "result",
+    "success"
+  ],
+  "type": "object"
+};
+
+/**
+ * The schema of `calls_api-response-single` in responses.
+ */
+export const calls_api_response_single_output: JsonSchema = {
+  "properties": {
+    "errors": {
+      "$ref": "#/$defs/calls_messages"
+    },
+    "messages": {
+      "$ref": "#/$defs/calls_messages"
+    },
+    "success": {
+      "enum": [
+        true
+      ],
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "errors",
+    "messages",
     "success"
   ],
   "type": "object"

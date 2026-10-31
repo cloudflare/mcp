@@ -101,7 +101,35 @@ export const r2_get_custom_domain_response_output: JsonSchema = {
       "type": "string"
     },
     "status": {
-      "$ref": "#/$defs/r2_get_custom_domain_response_status"
+      "properties": {
+        "ownership": {
+          "enum": [
+            "pending",
+            "active",
+            "deactivated",
+            "blocked",
+            "error",
+            "unknown"
+          ],
+          "type": "string"
+        },
+        "ssl": {
+          "enum": [
+            "initializing",
+            "pending",
+            "active",
+            "deactivated",
+            "error",
+            "unknown"
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "ownership",
+        "ssl"
+      ],
+      "type": "object"
     },
     "zoneId": {
       "type": "string"
@@ -114,41 +142,6 @@ export const r2_get_custom_domain_response_output: JsonSchema = {
     "domain",
     "enabled",
     "status"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `r2_get_custom_domain_response_status` in responses.
- */
-export const r2_get_custom_domain_response_status_output: JsonSchema = {
-  "properties": {
-    "ownership": {
-      "enum": [
-        "pending",
-        "active",
-        "deactivated",
-        "blocked",
-        "error",
-        "unknown"
-      ],
-      "type": "string"
-    },
-    "ssl": {
-      "enum": [
-        "initializing",
-        "pending",
-        "active",
-        "deactivated",
-        "error",
-        "unknown"
-      ],
-      "type": "string"
-    }
-  },
-  "required": [
-    "ownership",
-    "ssl"
   ],
   "type": "object"
 };
@@ -160,93 +153,78 @@ export const r2_list_custom_domains_response_output: JsonSchema = {
   "properties": {
     "domains": {
       "items": {
-        "$ref": "#/$defs/r2_list_custom_domains_response_domainsItem"
+        "properties": {
+          "ciphers": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "domain": {
+            "type": "string"
+          },
+          "enabled": {
+            "type": "boolean"
+          },
+          "minTLS": {
+            "enum": [
+              "1.0",
+              "1.1",
+              "1.2",
+              "1.3"
+            ],
+            "type": "string"
+          },
+          "status": {
+            "properties": {
+              "ownership": {
+                "enum": [
+                  "pending",
+                  "active",
+                  "deactivated",
+                  "blocked",
+                  "error",
+                  "unknown"
+                ],
+                "type": "string"
+              },
+              "ssl": {
+                "enum": [
+                  "initializing",
+                  "pending",
+                  "active",
+                  "deactivated",
+                  "error",
+                  "unknown"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "ownership",
+              "ssl"
+            ],
+            "type": "object"
+          },
+          "zoneId": {
+            "type": "string"
+          },
+          "zoneName": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "domain",
+          "enabled",
+          "status"
+        ],
+        "type": "object"
       },
       "type": "array"
     }
   },
   "required": [
     "domains"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `r2_list_custom_domains_response_domainsItem` in responses.
- */
-export const r2_list_custom_domains_response_domainsItem_output: JsonSchema = {
-  "properties": {
-    "ciphers": {
-      "items": {
-        "type": "string"
-      },
-      "type": "array"
-    },
-    "domain": {
-      "type": "string"
-    },
-    "enabled": {
-      "type": "boolean"
-    },
-    "minTLS": {
-      "enum": [
-        "1.0",
-        "1.1",
-        "1.2",
-        "1.3"
-      ],
-      "type": "string"
-    },
-    "status": {
-      "$ref": "#/$defs/r2_list_custom_domains_response_domainsItem_status"
-    },
-    "zoneId": {
-      "type": "string"
-    },
-    "zoneName": {
-      "type": "string"
-    }
-  },
-  "required": [
-    "domain",
-    "enabled",
-    "status"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `r2_list_custom_domains_response_domainsItem_status` in
- * responses.
- */
-export const r2_list_custom_domains_response_domainsItem_status_output: JsonSchema = {
-  "properties": {
-    "ownership": {
-      "enum": [
-        "pending",
-        "active",
-        "deactivated",
-        "blocked",
-        "error",
-        "unknown"
-      ],
-      "type": "string"
-    },
-    "ssl": {
-      "enum": [
-        "initializing",
-        "pending",
-        "active",
-        "deactivated",
-        "error",
-        "unknown"
-      ],
-      "type": "string"
-    }
-  },
-  "required": [
-    "ownership",
-    "ssl"
   ],
   "type": "object"
 };

@@ -34,65 +34,57 @@ export const cloudflare_pipelines_SinkFormat: JsonSchema = {
  * The schema of `cloudflare-pipelines_SinkJsonFormat`.
  */
 export const cloudflare_pipelines_SinkJsonFormat: JsonSchema = {
-  "description": "Json",
-  "properties": {
-    "compression": {
-      "$ref": "#/$defs/cloudflare-pipelines_JsonCompression",
-      "default": "uncompressed",
-      "description": "Specifies the compression applied to JSON sink output."
+  "allOf": [
+    {
+      "$ref": "#/$defs/cloudflare-pipelines_JsonFormat"
     },
-    "decimal_encoding": {
-      "$ref": "#/$defs/cloudflare-pipelines_DecimalEncoding"
-    },
-    "timestamp_format": {
-      "$ref": "#/$defs/cloudflare-pipelines_TimestampFormat"
-    },
-    "type": {
-      "enum": [
-        "json"
+    {
+      "properties": {
+        "compression": {
+          "$ref": "#/$defs/cloudflare-pipelines_JsonCompression",
+          "default": "uncompressed",
+          "description": "Specifies the compression applied to JSON sink output."
+        },
+        "type": {
+          "enum": [
+            "json"
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "type"
       ],
-      "type": "string"
-    },
-    "unstructured": {
-      "type": "boolean"
+      "type": "object"
     }
-  },
-  "required": [
-    "type"
   ],
-  "type": "object"
+  "description": "Json"
 };
 
 /**
  * The schema of `cloudflare-pipelines_SinkParquetFormat`.
  */
 export const cloudflare_pipelines_SinkParquetFormat: JsonSchema = {
-  "description": "Parquet",
-  "properties": {
-    "compression": {
-      "$ref": "#/$defs/cloudflare-pipelines_ParquetCompression"
+  "allOf": [
+    {
+      "$ref": "#/$defs/cloudflare-pipelines_ParquetFormat"
     },
-    "row_group_bytes": {
-      "oneOf": [
-        {
-          "type": "integer"
-        },
-        {
-          "type": "null"
+    {
+      "properties": {
+        "type": {
+          "enum": [
+            "parquet"
+          ],
+          "type": "string"
         }
-      ]
-    },
-    "type": {
-      "enum": [
-        "parquet"
+      },
+      "required": [
+        "type"
       ],
-      "type": "string"
+      "type": "object"
     }
-  },
-  "required": [
-    "type"
   ],
-  "type": "object"
+  "description": "Parquet"
 };
 
 /**
@@ -110,27 +102,81 @@ export const cloudflare_pipelines_r2Table: JsonSchema = {
       "type": "string"
     },
     "credentials": {
-      "$ref": "#/$defs/cloudflare-pipelines_r2Table_credentials"
+      "properties": {
+        "access_key_id": {
+          "description": "Cloudflare Account ID for the bucket",
+          "type": "string"
+        },
+        "secret_access_key": {
+          "description": "Cloudflare Account ID for the bucket",
+          "type": "string"
+        }
+      },
+      "required": [
+        "access_key_id",
+        "secret_access_key"
+      ],
+      "type": "object"
     },
     "file_naming": {
-      "$ref": "#/$defs/cloudflare-pipelines_r2Table_file_naming",
-      "description": "Controls filename prefix/suffix and strategy."
+      "description": "Controls filename prefix/suffix and strategy.",
+      "properties": {
+        "prefix": {
+          "description": "The prefix to use in file name. i.e prefix-<uuid>.parquet",
+          "type": "string"
+        },
+        "strategy": {
+          "description": "Filename generation strategy.",
+          "enum": [
+            "serial",
+            "uuid",
+            "uuid_v7",
+            "ulid"
+          ],
+          "type": "string"
+        },
+        "suffix": {
+          "description": "This will overwrite the default file suffix. i.e .parquet, use with caution",
+          "type": "string"
+        }
+      },
+      "type": "object"
     },
     "jurisdiction": {
       "description": "Jurisdiction this bucket is hosted in",
       "type": "string"
     },
     "partitioning": {
-      "$ref": "#/$defs/cloudflare-pipelines_r2Table_partitioning",
-      "description": "Data-layout partitioning for sinks."
+      "description": "Data-layout partitioning for sinks.",
+      "properties": {
+        "time_pattern": {
+          "description": "The pattern of the date string",
+          "type": "string"
+        }
+      },
+      "type": "object"
     },
     "path": {
       "description": "Subpath within the bucket to write to",
       "type": "string"
     },
     "rolling_policy": {
-      "$ref": "#/$defs/cloudflare-pipelines_r2Table_rolling_policy",
-      "description": "Rolling policy for file sinks (when & why to close a file and open a new one)."
+      "description": "Rolling policy for file sinks (when & why to close a file and open a new one).",
+      "properties": {
+        "file_size_bytes": {
+          "description": "Files will be rolled after reaching this number of bytes",
+          "type": "integer"
+        },
+        "inactivity_seconds": {
+          "description": "Number of seconds of inactivity to wait before rolling over to a new file",
+          "type": "integer"
+        },
+        "interval_seconds": {
+          "description": "Number of seconds to wait before rolling over to a new file",
+          "type": "integer"
+        }
+      },
+      "type": "object"
     }
   },
   "required": [
@@ -138,92 +184,6 @@ export const cloudflare_pipelines_r2Table: JsonSchema = {
     "bucket",
     "credentials"
   ],
-  "type": "object"
-};
-
-/**
- * The schema of `cloudflare-pipelines_r2Table_credentials`.
- */
-export const cloudflare_pipelines_r2Table_credentials: JsonSchema = {
-  "description": "R2 Credentials",
-  "properties": {
-    "access_key_id": {
-      "description": "Cloudflare Account ID for the bucket",
-      "type": "string"
-    },
-    "secret_access_key": {
-      "description": "Cloudflare Account ID for the bucket",
-      "type": "string"
-    }
-  },
-  "required": [
-    "access_key_id",
-    "secret_access_key"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `cloudflare-pipelines_r2Table_file_naming`.
- */
-export const cloudflare_pipelines_r2Table_file_naming: JsonSchema = {
-  "description": "Controls filename prefix/suffix and strategy.",
-  "properties": {
-    "prefix": {
-      "description": "The prefix to use in file name. i.e prefix-<uuid>.parquet",
-      "type": "string"
-    },
-    "strategy": {
-      "description": "Filename generation strategy.",
-      "enum": [
-        "serial",
-        "uuid",
-        "uuid_v7",
-        "ulid"
-      ],
-      "type": "string"
-    },
-    "suffix": {
-      "description": "This will overwrite the default file suffix. i.e .parquet, use with caution",
-      "type": "string"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `cloudflare-pipelines_r2Table_partitioning`.
- */
-export const cloudflare_pipelines_r2Table_partitioning: JsonSchema = {
-  "description": "Data-layout partitioning for sinks.",
-  "properties": {
-    "time_pattern": {
-      "description": "The pattern of the date string",
-      "type": "string"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `cloudflare-pipelines_r2Table_rolling_policy`.
- */
-export const cloudflare_pipelines_r2Table_rolling_policy: JsonSchema = {
-  "description": "Rolling policy for file sinks (when & why to close a file and open a new one).",
-  "properties": {
-    "file_size_bytes": {
-      "description": "Files will be rolled after reaching this number of bytes",
-      "type": "integer"
-    },
-    "inactivity_seconds": {
-      "description": "Number of seconds of inactivity to wait before rolling over to a new file",
-      "type": "integer"
-    },
-    "interval_seconds": {
-      "description": "Number of seconds to wait before rolling over to a new file",
-      "type": "integer"
-    }
-  },
   "type": "object"
 };
 
@@ -246,8 +206,22 @@ export const cloudflare_pipelines_r2_data_catalogTable: JsonSchema = {
       "type": "string"
     },
     "rolling_policy": {
-      "$ref": "#/$defs/cloudflare-pipelines_r2_data_catalogTable_rolling_policy",
-      "description": "Rolling policy for file sinks (when & why to close a file and open a new one)."
+      "description": "Rolling policy for file sinks (when & why to close a file and open a new one).",
+      "properties": {
+        "file_size_bytes": {
+          "description": "Files will be rolled after reaching this number of bytes",
+          "type": "integer"
+        },
+        "inactivity_seconds": {
+          "description": "Number of seconds of inactivity to wait before rolling over to a new file",
+          "type": "integer"
+        },
+        "interval_seconds": {
+          "description": "Number of seconds to wait before rolling over to a new file",
+          "type": "integer"
+        }
+      },
+      "type": "object"
     },
     "table_name": {
       "description": "Table name",
@@ -268,23 +242,9 @@ export const cloudflare_pipelines_r2_data_catalogTable: JsonSchema = {
 };
 
 /**
- * The schema of `cloudflare-pipelines_r2_data_catalogTable_rolling_policy`.
+ * The schema of `cloudflare-pipelines_workers-pipelines-sink-id`.
  */
-export const cloudflare_pipelines_r2_data_catalogTable_rolling_policy: JsonSchema = {
-  "description": "Rolling policy for file sinks (when & why to close a file and open a new one).",
-  "properties": {
-    "file_size_bytes": {
-      "description": "Files will be rolled after reaching this number of bytes",
-      "type": "integer"
-    },
-    "inactivity_seconds": {
-      "description": "Number of seconds of inactivity to wait before rolling over to a new file",
-      "type": "integer"
-    },
-    "interval_seconds": {
-      "description": "Number of seconds to wait before rolling over to a new file",
-      "type": "integer"
-    }
-  },
-  "type": "object"
+export const cloudflare_pipelines_workers_pipelines_sink_id: JsonSchema = {
+  "description": "Specifies the publid ID of the sink.",
+  "type": "string"
 };

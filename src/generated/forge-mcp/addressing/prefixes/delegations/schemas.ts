@@ -10,3 +10,11 @@ export const addressing_delegated_account_identifier: JsonSchema = {
   "description": "Account identifier for the account to which prefix is being delegated.",
   "type": "string"
 };
+
+/**
+ * The schema of `addressing_delegation_identifier`.
+ */
+export const addressing_delegation_identifier: JsonSchema = {
+  "description": "Identifier of a Delegation.",
+  "type": "string"
+};

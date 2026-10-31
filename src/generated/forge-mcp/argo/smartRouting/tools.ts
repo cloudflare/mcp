@@ -4,6 +4,8 @@
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
   argo_config_api_response_common_failure_output,
+  argo_config_api_response_single_output,
+  argo_config_count_zones_response_output,
   argo_config_editable_output,
   argo_config_messages_output,
   argo_config_modified_on_output,
@@ -11,7 +13,11 @@ import {
   argo_config_setting_id_output,
   argo_config_setting_value_output,
 } from "./outputs.js";
-import { argo_config_patch, argo_config_setting_value } from "./schemas.js";
+import {
+  argo_config_identifier,
+  argo_config_patch,
+  argo_config_setting_value,
+} from "./schemas.js";
 
 /**
  * The tools of `argo.smart_routing`.
@@ -25,16 +31,23 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier of the account.",
-          "type": "string"
+          "$ref": "#/$defs/argo-config_identifier",
+          "description": "Identifier of the account."
         }
       },
       required: [
         "account_id"
       ],
+      $defs: {
+        "argo-config_identifier": argo_config_identifier,
+      },
     },
     outputSchema: {
-      "type": "integer",
+      "$ref": "#/$defs/argo-config_count_zones_response",
+      $defs: {
+        "argo-config_count_zones_response": argo_config_count_zones_response_output,
+        "argo-config_messages": argo_config_messages_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -55,12 +68,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "#zone_settings:read"
-        ],
-        "x-fern-enum": {
-          "#zone_settings:read": {
-            "name": "zone_settings_read"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": true,
@@ -72,7 +80,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "type": "integer"
+          "$ref": "#/$defs/argo-config_count_zones_response"
         },
         "4XX": {
           "$ref": "#/$defs/argo-config_api_response_common_failure"
@@ -80,6 +88,7 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "argo-config_api_response_common_failure": argo_config_api_response_common_failure_output,
+        "argo-config_count_zones_response": argo_config_count_zones_response_output,
         "argo-config_messages": argo_config_messages_output,
       },
     },
@@ -96,7 +105,11 @@ export const tools: readonly Tool[] = [
       properties: {},
     },
     outputSchema: {
-      "type": "integer",
+      "$ref": "#/$defs/argo-config_count_zones_response",
+      $defs: {
+        "argo-config_count_zones_response": argo_config_count_zones_response_output,
+        "argo-config_messages": argo_config_messages_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -117,12 +130,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "#zone_settings:read"
-        ],
-        "x-fern-enum": {
-          "#zone_settings:read": {
-            "name": "zone_settings_read"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": true,
@@ -134,7 +142,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "type": "integer"
+          "$ref": "#/$defs/argo-config_count_zones_response"
         },
         "4XX": {
           "$ref": "#/$defs/argo-config_api_response_common_failure"
@@ -142,6 +150,7 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "argo-config_api_response_common_failure": argo_config_api_response_common_failure_output,
+        "argo-config_count_zones_response": argo_config_count_zones_response_output,
         "argo-config_messages": argo_config_messages_output,
       },
     },
@@ -160,8 +169,8 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/argo-config_patch"
         },
         "zone_id": {
-          "description": "Specifies the zone associated with the API call.",
-          "type": "string"
+          "$ref": "#/$defs/argo-config_identifier",
+          "description": "Specifies the zone associated with the API call."
         }
       },
       required: [
@@ -169,14 +178,17 @@ export const tools: readonly Tool[] = [
         "body"
       ],
       $defs: {
+        "argo-config_identifier": argo_config_identifier,
         "argo-config_patch": argo_config_patch,
         "argo-config_setting_value": argo_config_setting_value,
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/argo-config_result_object",
+      "$ref": "#/$defs/argo-config_api_response_single",
       $defs: {
+        "argo-config_api_response_single": argo_config_api_response_single_output,
         "argo-config_editable": argo_config_editable_output,
+        "argo-config_messages": argo_config_messages_output,
         "argo-config_modified_on": argo_config_modified_on_output,
         "argo-config_result_object": argo_config_result_object_output,
         "argo-config_setting_id": argo_config_setting_id_output,
@@ -200,15 +212,7 @@ export const tools: readonly Tool[] = [
         "enum": [
           "#zone_settings:read",
           "#zone_settings:edit"
-        ],
-        "x-fern-enum": {
-          "#zone_settings:edit": {
-            "name": "zone_settings_edit"
-          },
-          "#zone_settings:read": {
-            "name": "zone_settings_read"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": true,
@@ -220,7 +224,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/argo-config_result_object"
+          "$ref": "#/$defs/argo-config_api_response_single"
         },
         "4XX": {
           "$ref": "#/$defs/argo-config_api_response_common_failure"
@@ -228,6 +232,7 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "argo-config_api_response_common_failure": argo_config_api_response_common_failure_output,
+        "argo-config_api_response_single": argo_config_api_response_single_output,
         "argo-config_editable": argo_config_editable_output,
         "argo-config_messages": argo_config_messages_output,
         "argo-config_modified_on": argo_config_modified_on_output,
@@ -249,18 +254,23 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "zone_id": {
-          "description": "Specifies the zone associated with the API call.",
-          "type": "string"
+          "$ref": "#/$defs/argo-config_identifier",
+          "description": "Specifies the zone associated with the API call."
         }
       },
       required: [
         "zone_id"
       ],
+      $defs: {
+        "argo-config_identifier": argo_config_identifier,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/argo-config_result_object",
+      "$ref": "#/$defs/argo-config_api_response_single",
       $defs: {
+        "argo-config_api_response_single": argo_config_api_response_single_output,
         "argo-config_editable": argo_config_editable_output,
+        "argo-config_messages": argo_config_messages_output,
         "argo-config_modified_on": argo_config_modified_on_output,
         "argo-config_result_object": argo_config_result_object_output,
         "argo-config_setting_id": argo_config_setting_id_output,
@@ -284,12 +294,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "#zone_settings:read"
-        ],
-        "x-fern-enum": {
-          "#zone_settings:read": {
-            "name": "zone_settings_read"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": true,
@@ -301,7 +306,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/argo-config_result_object"
+          "$ref": "#/$defs/argo-config_api_response_single"
         },
         "4XX": {
           "$ref": "#/$defs/argo-config_api_response_common_failure"
@@ -309,6 +314,7 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "argo-config_api_response_common_failure": argo_config_api_response_common_failure_output,
+        "argo-config_api_response_single": argo_config_api_response_single_output,
         "argo-config_editable": argo_config_editable_output,
         "argo-config_messages": argo_config_messages_output,
         "argo-config_modified_on": argo_config_modified_on_output,

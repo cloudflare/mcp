@@ -3,13 +3,16 @@
 
 import { type Tool, pathParam } from "../../../../_/tool.js";
 import {
+  access_api_response_collection_output,
   access_api_response_common_failure_output,
+  access_api_response_common_output,
+  access_api_response_single_output,
   access_identifier_output,
   access_messages_output,
   access_timestamp_output,
 } from "../../../outputs.js";
+import { access_identifier, access_uuid } from "../../../schemas.js";
 import {
-  access_access_group_rule_group_output,
   access_access_group_rule_output,
   access_allowed_clipboard_local_to_remote_formats_output,
   access_allowed_clipboard_remote_to_local_formats_output,
@@ -17,73 +20,53 @@ import {
   access_approval_group_output,
   access_approval_groups_output,
   access_approval_required_output,
-  access_auth_context_rule_auth_context_output,
   access_auth_context_rule_output,
-  access_authentication_method_rule_auth_method_output,
   access_authentication_method_rule_output,
-  access_azure_group_rule_azureAD_output,
   access_azure_group_rule_output,
+  access_base_policy_resp_output,
   access_certificate_rule_output,
-  access_cloudflare_account_member_rule_cloudflare_account_member_output,
   access_cloudflare_account_member_rule_output,
-  access_common_name_rule_common_name_output,
   access_common_name_rule_output,
   access_connection_rules_output,
   access_connection_rules_rdp_output,
-  access_country_rule_geo_output,
   access_country_rule_output,
   access_decision_output,
-  access_device_posture_rule_device_posture_output,
   access_device_posture_rule_output,
-  access_domain_rule_email_domain_output,
   access_domain_rule_output,
-  access_email_list_rule_email_list_output,
   access_email_list_rule_output,
-  access_email_rule_email_output,
   access_email_rule_output,
   access_everyone_rule_output,
   access_exclude_2_output,
-  access_external_evaluation_rule_external_evaluation_output,
   access_external_evaluation_rule_output,
-  access_github_organization_rule_github_organization_output,
   access_github_organization_rule_output,
-  access_gsuite_group_rule_gsuite_output,
   access_gsuite_group_rule_output,
   access_include_2_output,
-  access_ip_list_rule_ip_list_output,
   access_ip_list_rule_output,
-  access_ip_rule_ip_output,
   access_ip_rule_output,
   access_isolation_required_output,
-  access_linked_app_token_rule_linked_app_token_output,
   access_linked_app_token_rule_output,
-  access_login_method_rule_login_method_output,
   access_login_method_rule_output,
   access_mfa_config_output,
   access_name_9_output,
-  access_oidc_claim_rule_oidc_output,
   access_oidc_claim_rule_output,
-  access_okta_group_rule_okta_output,
   access_okta_group_rule_output,
   access_policy_resolution_account_id_output,
+  access_policy_resp_output,
   access_purpose_justification_prompt_output,
   access_purpose_justification_required_output,
   access_rdp_clipboard_format_output,
   access_require_2_output,
   access_rule_output,
   access_saml_group_rule_output,
-  access_saml_group_rule_saml_output,
   access_service_token_rule_output,
-  access_service_token_rule_service_token_output,
+  access_service_token_tag_rule_output,
   access_session_duration_3_output,
   access_user_risk_score_rule_output,
-  access_user_risk_score_rule_user_risk_score_output,
   access_uuid_2_output,
 } from "../../outputs.js";
 import {
   access_allow_email_alias_output,
   access_app_policy_response_output,
-  access_base_policy_resp_output,
   access_connection_rules_infra_output,
   access_connection_rules_ssh_output,
   access_infra_mfa_config_output,
@@ -91,7 +74,11 @@ import {
   access_precedence_output,
   access_usernames_output,
 } from "../outputs.js";
-import { access_app_policy_result_output } from "./outputs.js";
+import {
+  access_app_policy_result_output,
+  access_response_collection_9_output,
+  access_single_response_10_output,
+} from "./outputs.js";
 
 /**
  * The tools of `zero_trust.access.applications.policies`.
@@ -113,16 +100,16 @@ export const tools: readonly Tool[] = [
           "type": "string"
         },
         "account_or_zone_id": {
-          "description": "The account ID or zone ID, as selected by account_or_zone.",
-          "type": "string"
+          "$ref": "#/$defs/access_identifier",
+          "description": "The account ID or zone ID, as selected by account_or_zone."
         },
         "app_id": {
-          "description": "The application ID.",
-          "type": "string"
+          "$ref": "#/$defs/access_uuid",
+          "description": "The application ID."
         },
         "policy_id": {
-          "description": "The policy ID.",
-          "type": "string"
+          "$ref": "#/$defs/access_uuid",
+          "description": "The policy ID."
         }
       },
       required: [
@@ -131,76 +118,63 @@ export const tools: readonly Tool[] = [
         "app_id",
         "policy_id"
       ],
+      $defs: {
+        "access_identifier": access_identifier,
+        "access_uuid": access_uuid,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/access_app_policy_result",
+      "$ref": "#/$defs/access_single_response-10",
       $defs: {
         "access_access_group_rule": access_access_group_rule_output,
-        "access_access_group_rule_group": access_access_group_rule_group_output,
         "access_allow_email_alias": access_allow_email_alias_output,
         "access_allowed_clipboard_local_to_remote_formats": access_allowed_clipboard_local_to_remote_formats_output,
         "access_allowed_clipboard_remote_to_local_formats": access_allowed_clipboard_remote_to_local_formats_output,
         "access_any_valid_service_token_rule": access_any_valid_service_token_rule_output,
+        "access_api-response-single": access_api_response_single_output,
         "access_app_policy_response": access_app_policy_response_output,
         "access_app_policy_result": access_app_policy_result_output,
         "access_approval_group": access_approval_group_output,
         "access_approval_groups": access_approval_groups_output,
         "access_approval_required": access_approval_required_output,
         "access_auth_context_rule": access_auth_context_rule_output,
-        "access_auth_context_rule_auth_context": access_auth_context_rule_auth_context_output,
         "access_authentication_method_rule": access_authentication_method_rule_output,
-        "access_authentication_method_rule_auth_method": access_authentication_method_rule_auth_method_output,
         "access_azure_group_rule": access_azure_group_rule_output,
-        "access_azure_group_rule_azureAD": access_azure_group_rule_azureAD_output,
         "access_base_policy_resp": access_base_policy_resp_output,
         "access_certificate_rule": access_certificate_rule_output,
         "access_cloudflare_account_member_rule": access_cloudflare_account_member_rule_output,
-        "access_cloudflare_account_member_rule_cloudflare_account_member": access_cloudflare_account_member_rule_cloudflare_account_member_output,
         "access_common_name_rule": access_common_name_rule_output,
-        "access_common_name_rule_common_name": access_common_name_rule_common_name_output,
         "access_connection_rules": access_connection_rules_output,
         "access_connection_rules_infra": access_connection_rules_infra_output,
         "access_connection_rules_rdp": access_connection_rules_rdp_output,
         "access_connection_rules_ssh": access_connection_rules_ssh_output,
         "access_country_rule": access_country_rule_output,
-        "access_country_rule_geo": access_country_rule_geo_output,
         "access_decision": access_decision_output,
         "access_device_posture_rule": access_device_posture_rule_output,
-        "access_device_posture_rule_device_posture": access_device_posture_rule_device_posture_output,
         "access_domain_rule": access_domain_rule_output,
-        "access_domain_rule_email_domain": access_domain_rule_email_domain_output,
         "access_email_list_rule": access_email_list_rule_output,
-        "access_email_list_rule_email_list": access_email_list_rule_email_list_output,
         "access_email_rule": access_email_rule_output,
-        "access_email_rule_email": access_email_rule_email_output,
         "access_everyone_rule": access_everyone_rule_output,
         "access_exclude-2": access_exclude_2_output,
         "access_external_evaluation_rule": access_external_evaluation_rule_output,
-        "access_external_evaluation_rule_external_evaluation": access_external_evaluation_rule_external_evaluation_output,
         "access_github_organization_rule": access_github_organization_rule_output,
-        "access_github_organization_rule_github-organization": access_github_organization_rule_github_organization_output,
         "access_gsuite_group_rule": access_gsuite_group_rule_output,
-        "access_gsuite_group_rule_gsuite": access_gsuite_group_rule_gsuite_output,
         "access_identifier": access_identifier_output,
         "access_include-2": access_include_2_output,
         "access_infra_mfa_config": access_infra_mfa_config_output,
         "access_infra_policy_resp": access_infra_policy_resp_output,
         "access_ip_list_rule": access_ip_list_rule_output,
-        "access_ip_list_rule_ip_list": access_ip_list_rule_ip_list_output,
         "access_ip_rule": access_ip_rule_output,
-        "access_ip_rule_ip": access_ip_rule_ip_output,
         "access_isolation_required": access_isolation_required_output,
         "access_linked_app_token_rule": access_linked_app_token_rule_output,
-        "access_linked_app_token_rule_linked_app_token": access_linked_app_token_rule_linked_app_token_output,
         "access_login_method_rule": access_login_method_rule_output,
-        "access_login_method_rule_login_method": access_login_method_rule_login_method_output,
+        "access_messages": access_messages_output,
         "access_mfa_config": access_mfa_config_output,
         "access_name-9": access_name_9_output,
         "access_oidc_claim_rule": access_oidc_claim_rule_output,
-        "access_oidc_claim_rule_oidc": access_oidc_claim_rule_oidc_output,
         "access_okta_group_rule": access_okta_group_rule_output,
-        "access_okta_group_rule_okta": access_okta_group_rule_okta_output,
         "access_policy_resolution_account_id": access_policy_resolution_account_id_output,
+        "access_policy_resp": access_policy_resp_output,
         "access_precedence": access_precedence_output,
         "access_purpose_justification_prompt": access_purpose_justification_prompt_output,
         "access_purpose_justification_required": access_purpose_justification_required_output,
@@ -208,13 +182,12 @@ export const tools: readonly Tool[] = [
         "access_require-2": access_require_2_output,
         "access_rule": access_rule_output,
         "access_saml_group_rule": access_saml_group_rule_output,
-        "access_saml_group_rule_saml": access_saml_group_rule_saml_output,
         "access_service_token_rule": access_service_token_rule_output,
-        "access_service_token_rule_service_token": access_service_token_rule_service_token_output,
+        "access_service_token_tag_rule": access_service_token_tag_rule_output,
         "access_session_duration-3": access_session_duration_3_output,
+        "access_single_response-10": access_single_response_10_output,
         "access_timestamp": access_timestamp_output,
         "access_user_risk_score_rule": access_user_risk_score_rule_output,
-        "access_user_risk_score_rule_user_risk_score": access_user_risk_score_rule_user_risk_score_output,
         "access_usernames": access_usernames_output,
         "access_uuid-2": access_uuid_2_output,
       },
@@ -237,7 +210,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/access_app_policy_result"
+          "$ref": "#/$defs/access_single_response-10"
         },
         "4XX": {
           "$ref": "#/$defs/access_api-response-common-failure"
@@ -245,73 +218,55 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "access_access_group_rule": access_access_group_rule_output,
-        "access_access_group_rule_group": access_access_group_rule_group_output,
         "access_allow_email_alias": access_allow_email_alias_output,
         "access_allowed_clipboard_local_to_remote_formats": access_allowed_clipboard_local_to_remote_formats_output,
         "access_allowed_clipboard_remote_to_local_formats": access_allowed_clipboard_remote_to_local_formats_output,
         "access_any_valid_service_token_rule": access_any_valid_service_token_rule_output,
         "access_api-response-common-failure": access_api_response_common_failure_output,
+        "access_api-response-single": access_api_response_single_output,
         "access_app_policy_response": access_app_policy_response_output,
         "access_app_policy_result": access_app_policy_result_output,
         "access_approval_group": access_approval_group_output,
         "access_approval_groups": access_approval_groups_output,
         "access_approval_required": access_approval_required_output,
         "access_auth_context_rule": access_auth_context_rule_output,
-        "access_auth_context_rule_auth_context": access_auth_context_rule_auth_context_output,
         "access_authentication_method_rule": access_authentication_method_rule_output,
-        "access_authentication_method_rule_auth_method": access_authentication_method_rule_auth_method_output,
         "access_azure_group_rule": access_azure_group_rule_output,
-        "access_azure_group_rule_azureAD": access_azure_group_rule_azureAD_output,
         "access_base_policy_resp": access_base_policy_resp_output,
         "access_certificate_rule": access_certificate_rule_output,
         "access_cloudflare_account_member_rule": access_cloudflare_account_member_rule_output,
-        "access_cloudflare_account_member_rule_cloudflare_account_member": access_cloudflare_account_member_rule_cloudflare_account_member_output,
         "access_common_name_rule": access_common_name_rule_output,
-        "access_common_name_rule_common_name": access_common_name_rule_common_name_output,
         "access_connection_rules": access_connection_rules_output,
         "access_connection_rules_infra": access_connection_rules_infra_output,
         "access_connection_rules_rdp": access_connection_rules_rdp_output,
         "access_connection_rules_ssh": access_connection_rules_ssh_output,
         "access_country_rule": access_country_rule_output,
-        "access_country_rule_geo": access_country_rule_geo_output,
         "access_decision": access_decision_output,
         "access_device_posture_rule": access_device_posture_rule_output,
-        "access_device_posture_rule_device_posture": access_device_posture_rule_device_posture_output,
         "access_domain_rule": access_domain_rule_output,
-        "access_domain_rule_email_domain": access_domain_rule_email_domain_output,
         "access_email_list_rule": access_email_list_rule_output,
-        "access_email_list_rule_email_list": access_email_list_rule_email_list_output,
         "access_email_rule": access_email_rule_output,
-        "access_email_rule_email": access_email_rule_email_output,
         "access_everyone_rule": access_everyone_rule_output,
         "access_exclude-2": access_exclude_2_output,
         "access_external_evaluation_rule": access_external_evaluation_rule_output,
-        "access_external_evaluation_rule_external_evaluation": access_external_evaluation_rule_external_evaluation_output,
         "access_github_organization_rule": access_github_organization_rule_output,
-        "access_github_organization_rule_github-organization": access_github_organization_rule_github_organization_output,
         "access_gsuite_group_rule": access_gsuite_group_rule_output,
-        "access_gsuite_group_rule_gsuite": access_gsuite_group_rule_gsuite_output,
         "access_identifier": access_identifier_output,
         "access_include-2": access_include_2_output,
         "access_infra_mfa_config": access_infra_mfa_config_output,
         "access_infra_policy_resp": access_infra_policy_resp_output,
         "access_ip_list_rule": access_ip_list_rule_output,
-        "access_ip_list_rule_ip_list": access_ip_list_rule_ip_list_output,
         "access_ip_rule": access_ip_rule_output,
-        "access_ip_rule_ip": access_ip_rule_ip_output,
         "access_isolation_required": access_isolation_required_output,
         "access_linked_app_token_rule": access_linked_app_token_rule_output,
-        "access_linked_app_token_rule_linked_app_token": access_linked_app_token_rule_linked_app_token_output,
         "access_login_method_rule": access_login_method_rule_output,
-        "access_login_method_rule_login_method": access_login_method_rule_login_method_output,
         "access_messages": access_messages_output,
         "access_mfa_config": access_mfa_config_output,
         "access_name-9": access_name_9_output,
         "access_oidc_claim_rule": access_oidc_claim_rule_output,
-        "access_oidc_claim_rule_oidc": access_oidc_claim_rule_oidc_output,
         "access_okta_group_rule": access_okta_group_rule_output,
-        "access_okta_group_rule_okta": access_okta_group_rule_okta_output,
         "access_policy_resolution_account_id": access_policy_resolution_account_id_output,
+        "access_policy_resp": access_policy_resp_output,
         "access_precedence": access_precedence_output,
         "access_purpose_justification_prompt": access_purpose_justification_prompt_output,
         "access_purpose_justification_required": access_purpose_justification_required_output,
@@ -319,13 +274,12 @@ export const tools: readonly Tool[] = [
         "access_require-2": access_require_2_output,
         "access_rule": access_rule_output,
         "access_saml_group_rule": access_saml_group_rule_output,
-        "access_saml_group_rule_saml": access_saml_group_rule_saml_output,
         "access_service_token_rule": access_service_token_rule_output,
-        "access_service_token_rule_service_token": access_service_token_rule_service_token_output,
+        "access_service_token_tag_rule": access_service_token_tag_rule_output,
         "access_session_duration-3": access_session_duration_3_output,
+        "access_single_response-10": access_single_response_10_output,
         "access_timestamp": access_timestamp_output,
         "access_user_risk_score_rule": access_user_risk_score_rule_output,
-        "access_user_risk_score_rule_user_risk_score": access_user_risk_score_rule_user_risk_score_output,
         "access_usernames": access_usernames_output,
         "access_uuid-2": access_uuid_2_output,
       },
@@ -350,12 +304,12 @@ export const tools: readonly Tool[] = [
           "type": "string"
         },
         "account_or_zone_id": {
-          "description": "The account ID or zone ID, as selected by account_or_zone.",
-          "type": "string"
+          "$ref": "#/$defs/access_identifier",
+          "description": "The account ID or zone ID, as selected by account_or_zone."
         },
         "app_id": {
-          "description": "The application ID.",
-          "type": "string"
+          "$ref": "#/$defs/access_uuid",
+          "description": "The application ID."
         },
         "page": {
           "default": 1,
@@ -373,121 +327,77 @@ export const tools: readonly Tool[] = [
         "account_or_zone_id",
         "app_id"
       ],
+      $defs: {
+        "access_identifier": access_identifier,
+        "access_uuid": access_uuid,
+      },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "$ref": "#/$defs/access_app_policy_result"
-          },
-          "type": "array"
-        },
-        "result_info": {
-          "properties": {
-            "count": {
-              "type": "number"
-            },
-            "page": {
-              "type": "number"
-            },
-            "per_page": {
-              "type": "number"
-            },
-            "total_count": {
-              "type": "number"
-            },
-            "total_pages": {
-              "type": "number"
-            }
-          },
-          "type": "object"
-        }
-      },
-      "required": [
-        "result"
-      ],
-      "type": "object",
+      "$ref": "#/$defs/access_response_collection-9",
       $defs: {
         "access_access_group_rule": access_access_group_rule_output,
-        "access_access_group_rule_group": access_access_group_rule_group_output,
         "access_allow_email_alias": access_allow_email_alias_output,
         "access_allowed_clipboard_local_to_remote_formats": access_allowed_clipboard_local_to_remote_formats_output,
         "access_allowed_clipboard_remote_to_local_formats": access_allowed_clipboard_remote_to_local_formats_output,
         "access_any_valid_service_token_rule": access_any_valid_service_token_rule_output,
+        "access_api-response-collection": access_api_response_collection_output,
+        "access_api-response-common": access_api_response_common_output,
         "access_app_policy_response": access_app_policy_response_output,
         "access_app_policy_result": access_app_policy_result_output,
         "access_approval_group": access_approval_group_output,
         "access_approval_groups": access_approval_groups_output,
         "access_approval_required": access_approval_required_output,
         "access_auth_context_rule": access_auth_context_rule_output,
-        "access_auth_context_rule_auth_context": access_auth_context_rule_auth_context_output,
         "access_authentication_method_rule": access_authentication_method_rule_output,
-        "access_authentication_method_rule_auth_method": access_authentication_method_rule_auth_method_output,
         "access_azure_group_rule": access_azure_group_rule_output,
-        "access_azure_group_rule_azureAD": access_azure_group_rule_azureAD_output,
         "access_base_policy_resp": access_base_policy_resp_output,
         "access_certificate_rule": access_certificate_rule_output,
         "access_cloudflare_account_member_rule": access_cloudflare_account_member_rule_output,
-        "access_cloudflare_account_member_rule_cloudflare_account_member": access_cloudflare_account_member_rule_cloudflare_account_member_output,
         "access_common_name_rule": access_common_name_rule_output,
-        "access_common_name_rule_common_name": access_common_name_rule_common_name_output,
         "access_connection_rules": access_connection_rules_output,
         "access_connection_rules_infra": access_connection_rules_infra_output,
         "access_connection_rules_rdp": access_connection_rules_rdp_output,
         "access_connection_rules_ssh": access_connection_rules_ssh_output,
         "access_country_rule": access_country_rule_output,
-        "access_country_rule_geo": access_country_rule_geo_output,
         "access_decision": access_decision_output,
         "access_device_posture_rule": access_device_posture_rule_output,
-        "access_device_posture_rule_device_posture": access_device_posture_rule_device_posture_output,
         "access_domain_rule": access_domain_rule_output,
-        "access_domain_rule_email_domain": access_domain_rule_email_domain_output,
         "access_email_list_rule": access_email_list_rule_output,
-        "access_email_list_rule_email_list": access_email_list_rule_email_list_output,
         "access_email_rule": access_email_rule_output,
-        "access_email_rule_email": access_email_rule_email_output,
         "access_everyone_rule": access_everyone_rule_output,
         "access_exclude-2": access_exclude_2_output,
         "access_external_evaluation_rule": access_external_evaluation_rule_output,
-        "access_external_evaluation_rule_external_evaluation": access_external_evaluation_rule_external_evaluation_output,
         "access_github_organization_rule": access_github_organization_rule_output,
-        "access_github_organization_rule_github-organization": access_github_organization_rule_github_organization_output,
         "access_gsuite_group_rule": access_gsuite_group_rule_output,
-        "access_gsuite_group_rule_gsuite": access_gsuite_group_rule_gsuite_output,
         "access_identifier": access_identifier_output,
         "access_include-2": access_include_2_output,
         "access_infra_mfa_config": access_infra_mfa_config_output,
         "access_infra_policy_resp": access_infra_policy_resp_output,
         "access_ip_list_rule": access_ip_list_rule_output,
-        "access_ip_list_rule_ip_list": access_ip_list_rule_ip_list_output,
         "access_ip_rule": access_ip_rule_output,
-        "access_ip_rule_ip": access_ip_rule_ip_output,
         "access_isolation_required": access_isolation_required_output,
         "access_linked_app_token_rule": access_linked_app_token_rule_output,
-        "access_linked_app_token_rule_linked_app_token": access_linked_app_token_rule_linked_app_token_output,
         "access_login_method_rule": access_login_method_rule_output,
-        "access_login_method_rule_login_method": access_login_method_rule_login_method_output,
+        "access_messages": access_messages_output,
         "access_mfa_config": access_mfa_config_output,
         "access_name-9": access_name_9_output,
         "access_oidc_claim_rule": access_oidc_claim_rule_output,
-        "access_oidc_claim_rule_oidc": access_oidc_claim_rule_oidc_output,
         "access_okta_group_rule": access_okta_group_rule_output,
-        "access_okta_group_rule_okta": access_okta_group_rule_okta_output,
         "access_policy_resolution_account_id": access_policy_resolution_account_id_output,
+        "access_policy_resp": access_policy_resp_output,
         "access_precedence": access_precedence_output,
         "access_purpose_justification_prompt": access_purpose_justification_prompt_output,
         "access_purpose_justification_required": access_purpose_justification_required_output,
         "access_rdp_clipboard_format": access_rdp_clipboard_format_output,
         "access_require-2": access_require_2_output,
+        "access_response_collection-9": access_response_collection_9_output,
         "access_rule": access_rule_output,
         "access_saml_group_rule": access_saml_group_rule_output,
-        "access_saml_group_rule_saml": access_saml_group_rule_saml_output,
         "access_service_token_rule": access_service_token_rule_output,
-        "access_service_token_rule_service_token": access_service_token_rule_service_token_output,
+        "access_service_token_tag_rule": access_service_token_tag_rule_output,
         "access_session_duration-3": access_session_duration_3_output,
         "access_timestamp": access_timestamp_output,
         "access_user_risk_score_rule": access_user_risk_score_rule_output,
-        "access_user_risk_score_rule_user_risk_score": access_user_risk_score_rule_user_risk_score_output,
         "access_usernames": access_usernames_output,
         "access_uuid-2": access_uuid_2_output,
       },
@@ -510,38 +420,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "items": {
-                "$ref": "#/$defs/access_app_policy_result"
-              },
-              "type": "array"
-            },
-            "result_info": {
-              "properties": {
-                "count": {
-                  "type": "number"
-                },
-                "page": {
-                  "type": "number"
-                },
-                "per_page": {
-                  "type": "number"
-                },
-                "total_count": {
-                  "type": "number"
-                },
-                "total_pages": {
-                  "type": "number"
-                }
-              },
-              "type": "object"
-            }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/access_response_collection-9"
         },
         "4XX": {
           "$ref": "#/$defs/access_api-response-common-failure"
@@ -549,11 +428,12 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "access_access_group_rule": access_access_group_rule_output,
-        "access_access_group_rule_group": access_access_group_rule_group_output,
         "access_allow_email_alias": access_allow_email_alias_output,
         "access_allowed_clipboard_local_to_remote_formats": access_allowed_clipboard_local_to_remote_formats_output,
         "access_allowed_clipboard_remote_to_local_formats": access_allowed_clipboard_remote_to_local_formats_output,
         "access_any_valid_service_token_rule": access_any_valid_service_token_rule_output,
+        "access_api-response-collection": access_api_response_collection_output,
+        "access_api-response-common": access_api_response_common_output,
         "access_api-response-common-failure": access_api_response_common_failure_output,
         "access_app_policy_response": access_app_policy_response_output,
         "access_app_policy_result": access_app_policy_result_output,
@@ -561,75 +441,56 @@ export const tools: readonly Tool[] = [
         "access_approval_groups": access_approval_groups_output,
         "access_approval_required": access_approval_required_output,
         "access_auth_context_rule": access_auth_context_rule_output,
-        "access_auth_context_rule_auth_context": access_auth_context_rule_auth_context_output,
         "access_authentication_method_rule": access_authentication_method_rule_output,
-        "access_authentication_method_rule_auth_method": access_authentication_method_rule_auth_method_output,
         "access_azure_group_rule": access_azure_group_rule_output,
-        "access_azure_group_rule_azureAD": access_azure_group_rule_azureAD_output,
         "access_base_policy_resp": access_base_policy_resp_output,
         "access_certificate_rule": access_certificate_rule_output,
         "access_cloudflare_account_member_rule": access_cloudflare_account_member_rule_output,
-        "access_cloudflare_account_member_rule_cloudflare_account_member": access_cloudflare_account_member_rule_cloudflare_account_member_output,
         "access_common_name_rule": access_common_name_rule_output,
-        "access_common_name_rule_common_name": access_common_name_rule_common_name_output,
         "access_connection_rules": access_connection_rules_output,
         "access_connection_rules_infra": access_connection_rules_infra_output,
         "access_connection_rules_rdp": access_connection_rules_rdp_output,
         "access_connection_rules_ssh": access_connection_rules_ssh_output,
         "access_country_rule": access_country_rule_output,
-        "access_country_rule_geo": access_country_rule_geo_output,
         "access_decision": access_decision_output,
         "access_device_posture_rule": access_device_posture_rule_output,
-        "access_device_posture_rule_device_posture": access_device_posture_rule_device_posture_output,
         "access_domain_rule": access_domain_rule_output,
-        "access_domain_rule_email_domain": access_domain_rule_email_domain_output,
         "access_email_list_rule": access_email_list_rule_output,
-        "access_email_list_rule_email_list": access_email_list_rule_email_list_output,
         "access_email_rule": access_email_rule_output,
-        "access_email_rule_email": access_email_rule_email_output,
         "access_everyone_rule": access_everyone_rule_output,
         "access_exclude-2": access_exclude_2_output,
         "access_external_evaluation_rule": access_external_evaluation_rule_output,
-        "access_external_evaluation_rule_external_evaluation": access_external_evaluation_rule_external_evaluation_output,
         "access_github_organization_rule": access_github_organization_rule_output,
-        "access_github_organization_rule_github-organization": access_github_organization_rule_github_organization_output,
         "access_gsuite_group_rule": access_gsuite_group_rule_output,
-        "access_gsuite_group_rule_gsuite": access_gsuite_group_rule_gsuite_output,
         "access_identifier": access_identifier_output,
         "access_include-2": access_include_2_output,
         "access_infra_mfa_config": access_infra_mfa_config_output,
         "access_infra_policy_resp": access_infra_policy_resp_output,
         "access_ip_list_rule": access_ip_list_rule_output,
-        "access_ip_list_rule_ip_list": access_ip_list_rule_ip_list_output,
         "access_ip_rule": access_ip_rule_output,
-        "access_ip_rule_ip": access_ip_rule_ip_output,
         "access_isolation_required": access_isolation_required_output,
         "access_linked_app_token_rule": access_linked_app_token_rule_output,
-        "access_linked_app_token_rule_linked_app_token": access_linked_app_token_rule_linked_app_token_output,
         "access_login_method_rule": access_login_method_rule_output,
-        "access_login_method_rule_login_method": access_login_method_rule_login_method_output,
         "access_messages": access_messages_output,
         "access_mfa_config": access_mfa_config_output,
         "access_name-9": access_name_9_output,
         "access_oidc_claim_rule": access_oidc_claim_rule_output,
-        "access_oidc_claim_rule_oidc": access_oidc_claim_rule_oidc_output,
         "access_okta_group_rule": access_okta_group_rule_output,
-        "access_okta_group_rule_okta": access_okta_group_rule_okta_output,
         "access_policy_resolution_account_id": access_policy_resolution_account_id_output,
+        "access_policy_resp": access_policy_resp_output,
         "access_precedence": access_precedence_output,
         "access_purpose_justification_prompt": access_purpose_justification_prompt_output,
         "access_purpose_justification_required": access_purpose_justification_required_output,
         "access_rdp_clipboard_format": access_rdp_clipboard_format_output,
         "access_require-2": access_require_2_output,
+        "access_response_collection-9": access_response_collection_9_output,
         "access_rule": access_rule_output,
         "access_saml_group_rule": access_saml_group_rule_output,
-        "access_saml_group_rule_saml": access_saml_group_rule_saml_output,
         "access_service_token_rule": access_service_token_rule_output,
-        "access_service_token_rule_service_token": access_service_token_rule_service_token_output,
+        "access_service_token_tag_rule": access_service_token_tag_rule_output,
         "access_session_duration-3": access_session_duration_3_output,
         "access_timestamp": access_timestamp_output,
         "access_user_risk_score_rule": access_user_risk_score_rule_output,
-        "access_user_risk_score_rule_user_risk_score": access_user_risk_score_rule_user_risk_score_output,
         "access_usernames": access_usernames_output,
         "access_uuid-2": access_uuid_2_output,
       },
@@ -650,16 +511,16 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/access_identifier",
+          "description": "Identifier."
         },
         "app_id": {
-          "description": "The application ID.",
-          "type": "string"
+          "$ref": "#/$defs/access_uuid",
+          "description": "The application ID."
         },
         "policy_id": {
-          "description": "The policy ID.",
-          "type": "string"
+          "$ref": "#/$defs/access_uuid",
+          "description": "The policy ID."
         }
       },
       required: [
@@ -667,121 +528,77 @@ export const tools: readonly Tool[] = [
         "app_id",
         "policy_id"
       ],
+      $defs: {
+        "access_identifier": access_identifier,
+        "access_uuid": access_uuid,
+      },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "$ref": "#/$defs/access_app_policy_result"
-          },
-          "type": "array"
-        },
-        "result_info": {
-          "properties": {
-            "count": {
-              "type": "number"
-            },
-            "page": {
-              "type": "number"
-            },
-            "per_page": {
-              "type": "number"
-            },
-            "total_count": {
-              "type": "number"
-            },
-            "total_pages": {
-              "type": "number"
-            }
-          },
-          "type": "object"
-        }
-      },
-      "required": [
-        "result"
-      ],
-      "type": "object",
+      "$ref": "#/$defs/access_response_collection-9",
       $defs: {
         "access_access_group_rule": access_access_group_rule_output,
-        "access_access_group_rule_group": access_access_group_rule_group_output,
         "access_allow_email_alias": access_allow_email_alias_output,
         "access_allowed_clipboard_local_to_remote_formats": access_allowed_clipboard_local_to_remote_formats_output,
         "access_allowed_clipboard_remote_to_local_formats": access_allowed_clipboard_remote_to_local_formats_output,
         "access_any_valid_service_token_rule": access_any_valid_service_token_rule_output,
+        "access_api-response-collection": access_api_response_collection_output,
+        "access_api-response-common": access_api_response_common_output,
         "access_app_policy_response": access_app_policy_response_output,
         "access_app_policy_result": access_app_policy_result_output,
         "access_approval_group": access_approval_group_output,
         "access_approval_groups": access_approval_groups_output,
         "access_approval_required": access_approval_required_output,
         "access_auth_context_rule": access_auth_context_rule_output,
-        "access_auth_context_rule_auth_context": access_auth_context_rule_auth_context_output,
         "access_authentication_method_rule": access_authentication_method_rule_output,
-        "access_authentication_method_rule_auth_method": access_authentication_method_rule_auth_method_output,
         "access_azure_group_rule": access_azure_group_rule_output,
-        "access_azure_group_rule_azureAD": access_azure_group_rule_azureAD_output,
         "access_base_policy_resp": access_base_policy_resp_output,
         "access_certificate_rule": access_certificate_rule_output,
         "access_cloudflare_account_member_rule": access_cloudflare_account_member_rule_output,
-        "access_cloudflare_account_member_rule_cloudflare_account_member": access_cloudflare_account_member_rule_cloudflare_account_member_output,
         "access_common_name_rule": access_common_name_rule_output,
-        "access_common_name_rule_common_name": access_common_name_rule_common_name_output,
         "access_connection_rules": access_connection_rules_output,
         "access_connection_rules_infra": access_connection_rules_infra_output,
         "access_connection_rules_rdp": access_connection_rules_rdp_output,
         "access_connection_rules_ssh": access_connection_rules_ssh_output,
         "access_country_rule": access_country_rule_output,
-        "access_country_rule_geo": access_country_rule_geo_output,
         "access_decision": access_decision_output,
         "access_device_posture_rule": access_device_posture_rule_output,
-        "access_device_posture_rule_device_posture": access_device_posture_rule_device_posture_output,
         "access_domain_rule": access_domain_rule_output,
-        "access_domain_rule_email_domain": access_domain_rule_email_domain_output,
         "access_email_list_rule": access_email_list_rule_output,
-        "access_email_list_rule_email_list": access_email_list_rule_email_list_output,
         "access_email_rule": access_email_rule_output,
-        "access_email_rule_email": access_email_rule_email_output,
         "access_everyone_rule": access_everyone_rule_output,
         "access_exclude-2": access_exclude_2_output,
         "access_external_evaluation_rule": access_external_evaluation_rule_output,
-        "access_external_evaluation_rule_external_evaluation": access_external_evaluation_rule_external_evaluation_output,
         "access_github_organization_rule": access_github_organization_rule_output,
-        "access_github_organization_rule_github-organization": access_github_organization_rule_github_organization_output,
         "access_gsuite_group_rule": access_gsuite_group_rule_output,
-        "access_gsuite_group_rule_gsuite": access_gsuite_group_rule_gsuite_output,
         "access_identifier": access_identifier_output,
         "access_include-2": access_include_2_output,
         "access_infra_mfa_config": access_infra_mfa_config_output,
         "access_infra_policy_resp": access_infra_policy_resp_output,
         "access_ip_list_rule": access_ip_list_rule_output,
-        "access_ip_list_rule_ip_list": access_ip_list_rule_ip_list_output,
         "access_ip_rule": access_ip_rule_output,
-        "access_ip_rule_ip": access_ip_rule_ip_output,
         "access_isolation_required": access_isolation_required_output,
         "access_linked_app_token_rule": access_linked_app_token_rule_output,
-        "access_linked_app_token_rule_linked_app_token": access_linked_app_token_rule_linked_app_token_output,
         "access_login_method_rule": access_login_method_rule_output,
-        "access_login_method_rule_login_method": access_login_method_rule_login_method_output,
+        "access_messages": access_messages_output,
         "access_mfa_config": access_mfa_config_output,
         "access_name-9": access_name_9_output,
         "access_oidc_claim_rule": access_oidc_claim_rule_output,
-        "access_oidc_claim_rule_oidc": access_oidc_claim_rule_oidc_output,
         "access_okta_group_rule": access_okta_group_rule_output,
-        "access_okta_group_rule_okta": access_okta_group_rule_okta_output,
         "access_policy_resolution_account_id": access_policy_resolution_account_id_output,
+        "access_policy_resp": access_policy_resp_output,
         "access_precedence": access_precedence_output,
         "access_purpose_justification_prompt": access_purpose_justification_prompt_output,
         "access_purpose_justification_required": access_purpose_justification_required_output,
         "access_rdp_clipboard_format": access_rdp_clipboard_format_output,
         "access_require-2": access_require_2_output,
+        "access_response_collection-9": access_response_collection_9_output,
         "access_rule": access_rule_output,
         "access_saml_group_rule": access_saml_group_rule_output,
-        "access_saml_group_rule_saml": access_saml_group_rule_saml_output,
         "access_service_token_rule": access_service_token_rule_output,
-        "access_service_token_rule_service_token": access_service_token_rule_service_token_output,
+        "access_service_token_tag_rule": access_service_token_tag_rule_output,
         "access_session_duration-3": access_session_duration_3_output,
         "access_timestamp": access_timestamp_output,
         "access_user_risk_score_rule": access_user_risk_score_rule_output,
-        "access_user_risk_score_rule_user_risk_score": access_user_risk_score_rule_user_risk_score_output,
         "access_usernames": access_usernames_output,
         "access_uuid-2": access_uuid_2_output,
       },
@@ -803,38 +620,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "items": {
-                "$ref": "#/$defs/access_app_policy_result"
-              },
-              "type": "array"
-            },
-            "result_info": {
-              "properties": {
-                "count": {
-                  "type": "number"
-                },
-                "page": {
-                  "type": "number"
-                },
-                "per_page": {
-                  "type": "number"
-                },
-                "total_count": {
-                  "type": "number"
-                },
-                "total_pages": {
-                  "type": "number"
-                }
-              },
-              "type": "object"
-            }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/access_response_collection-9"
         },
         "4XX": {
           "$ref": "#/$defs/access_api-response-common-failure"
@@ -842,11 +628,12 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "access_access_group_rule": access_access_group_rule_output,
-        "access_access_group_rule_group": access_access_group_rule_group_output,
         "access_allow_email_alias": access_allow_email_alias_output,
         "access_allowed_clipboard_local_to_remote_formats": access_allowed_clipboard_local_to_remote_formats_output,
         "access_allowed_clipboard_remote_to_local_formats": access_allowed_clipboard_remote_to_local_formats_output,
         "access_any_valid_service_token_rule": access_any_valid_service_token_rule_output,
+        "access_api-response-collection": access_api_response_collection_output,
+        "access_api-response-common": access_api_response_common_output,
         "access_api-response-common-failure": access_api_response_common_failure_output,
         "access_app_policy_response": access_app_policy_response_output,
         "access_app_policy_result": access_app_policy_result_output,
@@ -854,75 +641,56 @@ export const tools: readonly Tool[] = [
         "access_approval_groups": access_approval_groups_output,
         "access_approval_required": access_approval_required_output,
         "access_auth_context_rule": access_auth_context_rule_output,
-        "access_auth_context_rule_auth_context": access_auth_context_rule_auth_context_output,
         "access_authentication_method_rule": access_authentication_method_rule_output,
-        "access_authentication_method_rule_auth_method": access_authentication_method_rule_auth_method_output,
         "access_azure_group_rule": access_azure_group_rule_output,
-        "access_azure_group_rule_azureAD": access_azure_group_rule_azureAD_output,
         "access_base_policy_resp": access_base_policy_resp_output,
         "access_certificate_rule": access_certificate_rule_output,
         "access_cloudflare_account_member_rule": access_cloudflare_account_member_rule_output,
-        "access_cloudflare_account_member_rule_cloudflare_account_member": access_cloudflare_account_member_rule_cloudflare_account_member_output,
         "access_common_name_rule": access_common_name_rule_output,
-        "access_common_name_rule_common_name": access_common_name_rule_common_name_output,
         "access_connection_rules": access_connection_rules_output,
         "access_connection_rules_infra": access_connection_rules_infra_output,
         "access_connection_rules_rdp": access_connection_rules_rdp_output,
         "access_connection_rules_ssh": access_connection_rules_ssh_output,
         "access_country_rule": access_country_rule_output,
-        "access_country_rule_geo": access_country_rule_geo_output,
         "access_decision": access_decision_output,
         "access_device_posture_rule": access_device_posture_rule_output,
-        "access_device_posture_rule_device_posture": access_device_posture_rule_device_posture_output,
         "access_domain_rule": access_domain_rule_output,
-        "access_domain_rule_email_domain": access_domain_rule_email_domain_output,
         "access_email_list_rule": access_email_list_rule_output,
-        "access_email_list_rule_email_list": access_email_list_rule_email_list_output,
         "access_email_rule": access_email_rule_output,
-        "access_email_rule_email": access_email_rule_email_output,
         "access_everyone_rule": access_everyone_rule_output,
         "access_exclude-2": access_exclude_2_output,
         "access_external_evaluation_rule": access_external_evaluation_rule_output,
-        "access_external_evaluation_rule_external_evaluation": access_external_evaluation_rule_external_evaluation_output,
         "access_github_organization_rule": access_github_organization_rule_output,
-        "access_github_organization_rule_github-organization": access_github_organization_rule_github_organization_output,
         "access_gsuite_group_rule": access_gsuite_group_rule_output,
-        "access_gsuite_group_rule_gsuite": access_gsuite_group_rule_gsuite_output,
         "access_identifier": access_identifier_output,
         "access_include-2": access_include_2_output,
         "access_infra_mfa_config": access_infra_mfa_config_output,
         "access_infra_policy_resp": access_infra_policy_resp_output,
         "access_ip_list_rule": access_ip_list_rule_output,
-        "access_ip_list_rule_ip_list": access_ip_list_rule_ip_list_output,
         "access_ip_rule": access_ip_rule_output,
-        "access_ip_rule_ip": access_ip_rule_ip_output,
         "access_isolation_required": access_isolation_required_output,
         "access_linked_app_token_rule": access_linked_app_token_rule_output,
-        "access_linked_app_token_rule_linked_app_token": access_linked_app_token_rule_linked_app_token_output,
         "access_login_method_rule": access_login_method_rule_output,
-        "access_login_method_rule_login_method": access_login_method_rule_login_method_output,
         "access_messages": access_messages_output,
         "access_mfa_config": access_mfa_config_output,
         "access_name-9": access_name_9_output,
         "access_oidc_claim_rule": access_oidc_claim_rule_output,
-        "access_oidc_claim_rule_oidc": access_oidc_claim_rule_oidc_output,
         "access_okta_group_rule": access_okta_group_rule_output,
-        "access_okta_group_rule_okta": access_okta_group_rule_okta_output,
         "access_policy_resolution_account_id": access_policy_resolution_account_id_output,
+        "access_policy_resp": access_policy_resp_output,
         "access_precedence": access_precedence_output,
         "access_purpose_justification_prompt": access_purpose_justification_prompt_output,
         "access_purpose_justification_required": access_purpose_justification_required_output,
         "access_rdp_clipboard_format": access_rdp_clipboard_format_output,
         "access_require-2": access_require_2_output,
+        "access_response_collection-9": access_response_collection_9_output,
         "access_rule": access_rule_output,
         "access_saml_group_rule": access_saml_group_rule_output,
-        "access_saml_group_rule_saml": access_saml_group_rule_saml_output,
         "access_service_token_rule": access_service_token_rule_output,
-        "access_service_token_rule_service_token": access_service_token_rule_service_token_output,
+        "access_service_token_tag_rule": access_service_token_tag_rule_output,
         "access_session_duration-3": access_session_duration_3_output,
         "access_timestamp": access_timestamp_output,
         "access_user_risk_score_rule": access_user_risk_score_rule_output,
-        "access_user_risk_score_rule_user_risk_score": access_user_risk_score_rule_user_risk_score_output,
         "access_usernames": access_usernames_output,
         "access_uuid-2": access_uuid_2_output,
       },

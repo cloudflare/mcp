@@ -59,6 +59,60 @@ export const bill_subs_api_account_billing_history_output: JsonSchema = {
 };
 
 /**
+ * The schema of `bill-subs-api_account_credits_response` in responses.
+ */
+export const bill_subs_api_account_credits_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/bill-subs-api_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "properties": {
+            "confirmed_balance_cents": {
+              "type": "integer"
+            },
+            "currency": {
+              "type": "string"
+            },
+            "days_remaining": {
+              "type": "integer"
+            },
+            "eligible": {
+              "type": "boolean"
+            },
+            "has_record": {
+              "type": "boolean"
+            },
+            "original_amount_cents": {
+              "type": "integer"
+            },
+            "percent_consumed": {
+              "type": "number"
+            },
+            "projected_depletion_date": {
+              "format": "date-time",
+              "type": "string"
+            },
+            "valid_from": {
+              "format": "date-time",
+              "type": "string"
+            },
+            "valid_to": {
+              "format": "date-time",
+              "type": "string"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
  * The schema of `bill-subs-api_bad_debt_info` in responses.
  */
 export const bill_subs_api_bad_debt_info_output: JsonSchema = {
@@ -80,4 +134,74 @@ export const bill_subs_api_bad_debt_info_output: JsonSchema = {
     }
   },
   "type": "object"
+};
+
+/**
+ * The schema of `bill-subs-api_bad_debt_response_single` in responses.
+ */
+export const bill_subs_api_bad_debt_response_single_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/bill-subs-api_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/bill-subs-api_bad_debt_info"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `bill-subs-api_client_secret_response_single` in responses.
+ */
+export const bill_subs_api_client_secret_response_single_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/bill-subs-api_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "properties": {
+            "client_secret": {
+              "type": "string"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `bill-subs-api_unpaid_invoices_response_single` in responses.
+ */
+export const bill_subs_api_unpaid_invoices_response_single_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/bill-subs-api_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "properties": {
+            "invoices": {
+              "items": {
+                "$ref": "#/$defs/bill-subs-api_account_billing_history"
+              },
+              "type": "array"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
+    }
+  ]
 };

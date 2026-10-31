@@ -133,12 +133,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "com.cloudflare.api.account.ai"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.api.account.ai": {
-            "name": "com_cloudflare_api_account_ai"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": true,

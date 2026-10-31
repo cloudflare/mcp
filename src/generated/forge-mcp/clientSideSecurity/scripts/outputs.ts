@@ -46,6 +46,50 @@ export const client_side_security_fetched_at_output: JsonSchema = {
 };
 
 /**
+ * The schema of `client-side-security_get-zone-script-response` in responses.
+ */
+export const client_side_security_get_zone_script_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/client-side-security_api-get-response-collection"
+    },
+    {
+      "properties": {
+        "result": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/client-side-security_script"
+            },
+            {
+              "properties": {
+                "versions": {
+                  "oneOf": [
+                    {
+                      "items": {
+                        "$ref": "#/$defs/client-side-security_version"
+                      },
+                      "type": "array"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                }
+              },
+              "type": "object"
+            }
+          ]
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object"
+    }
+  ]
+};
+
+/**
  * The schema of `client-side-security_hash` in responses.
  */
 export const client_side_security_hash_output: JsonSchema = {
@@ -69,6 +113,31 @@ export const client_side_security_js_integrity_score_output: JsonSchema = {
     },
     {
       "type": "null"
+    }
+  ]
+};
+
+/**
+ * The schema of `client-side-security_list-zone-scripts-response` in responses.
+ */
+export const client_side_security_list_zone_scripts_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/client-side-security_api-list-response-collection"
+    },
+    {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/client-side-security_script"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object"
     }
   ]
 };

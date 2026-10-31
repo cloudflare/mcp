@@ -3,11 +3,15 @@
 
 import { type Tool, pathParam } from "../../../../_/tool.js";
 import {
+  teams_devices_api_response_collection_output,
   teams_devices_api_response_common_failure_output,
+  teams_devices_api_response_common_output,
+  teams_devices_api_response_single_output,
   teams_devices_messages_output,
   teams_devices_result_info_output,
   teams_devices_uuid_output,
 } from "../../outputs.js";
+import { teams_devices_identifier, teams_devices_uuid } from "../../schemas.js";
 import {
   teams_devices_access_serial_number_list_input_request_output,
   teams_devices_antivirus_input_request_output,
@@ -15,7 +19,6 @@ import {
   teams_devices_carbonblack_input_request_output,
   teams_devices_checkDisks_output,
   teams_devices_client_certificate_input_request_output,
-  teams_devices_client_certificate_v2_input_request_locations_output,
   teams_devices_client_certificate_v2_input_request_output,
   teams_devices_crowdstrike_input_request_output,
   teams_devices_custom_s2s_input_request_output,
@@ -27,6 +30,7 @@ import {
   teams_devices_extended_key_usage_enum_output,
   teams_devices_file_input_request_output,
   teams_devices_firewall_input_request_output,
+  teams_devices_id_response_output,
   teams_devices_input_output,
   teams_devices_intune_input_request_output,
   teams_devices_kolide_input_request_output,
@@ -37,9 +41,11 @@ import {
   teams_devices_paths_output,
   teams_devices_platform_output,
   teams_devices_requireAll_output,
+  teams_devices_response_collection_output,
   teams_devices_schedule_output,
   teams_devices_sentinelone_input_request_output,
   teams_devices_sentinelone_s2s_input_request_output,
+  teams_devices_single_response_output,
   teams_devices_tanium_input_request_output,
   teams_devices_trust_stores_enum_output,
   teams_devices_trust_stores_output,
@@ -55,7 +61,6 @@ import {
   teams_devices_checkDisks,
   teams_devices_client_certificate_input_request,
   teams_devices_client_certificate_v2_input_request,
-  teams_devices_client_certificate_v2_input_request_locations,
   teams_devices_crowdstrike_input_request,
   teams_devices_custom_s2s_input_request,
   teams_devices_description,
@@ -98,7 +103,7 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "type": "string"
+          "$ref": "#/$defs/teams-devices_identifier"
         },
         "body": {
           "properties": {
@@ -150,7 +155,6 @@ export const tools: readonly Tool[] = [
         "teams-devices_checkDisks": teams_devices_checkDisks,
         "teams-devices_client_certificate_input_request": teams_devices_client_certificate_input_request,
         "teams-devices_client_certificate_v2_input_request": teams_devices_client_certificate_v2_input_request,
-        "teams-devices_client_certificate_v2_input_request_locations": teams_devices_client_certificate_v2_input_request_locations,
         "teams-devices_crowdstrike_input_request": teams_devices_crowdstrike_input_request,
         "teams-devices_custom_s2s_input_request": teams_devices_custom_s2s_input_request,
         "teams-devices_description": teams_devices_description,
@@ -160,6 +164,7 @@ export const tools: readonly Tool[] = [
         "teams-devices_extended_key_usage_enum": teams_devices_extended_key_usage_enum,
         "teams-devices_file_input_request": teams_devices_file_input_request,
         "teams-devices_firewall_input_request": teams_devices_firewall_input_request,
+        "teams-devices_identifier": teams_devices_identifier,
         "teams-devices_input": teams_devices_input,
         "teams-devices_intune_input_request": teams_devices_intune_input_request,
         "teams-devices_kolide_input_request": teams_devices_kolide_input_request,
@@ -182,16 +187,17 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/teams-devices_device-posture-rules",
+      "$ref": "#/$defs/teams-devices_single_response",
       $defs: {
         "teams-devices_access_serial_number_list_input_request": teams_devices_access_serial_number_list_input_request_output,
         "teams-devices_antivirus_input_request": teams_devices_antivirus_input_request_output,
+        "teams-devices_api-response-common": teams_devices_api_response_common_output,
+        "teams-devices_api-response-single": teams_devices_api_response_single_output,
         "teams-devices_application_input_request": teams_devices_application_input_request_output,
         "teams-devices_carbonblack_input_request": teams_devices_carbonblack_input_request_output,
         "teams-devices_checkDisks": teams_devices_checkDisks_output,
         "teams-devices_client_certificate_input_request": teams_devices_client_certificate_input_request_output,
         "teams-devices_client_certificate_v2_input_request": teams_devices_client_certificate_v2_input_request_output,
-        "teams-devices_client_certificate_v2_input_request_locations": teams_devices_client_certificate_v2_input_request_locations_output,
         "teams-devices_crowdstrike_input_request": teams_devices_crowdstrike_input_request_output,
         "teams-devices_custom_s2s_input_request": teams_devices_custom_s2s_input_request_output,
         "teams-devices_description": teams_devices_description_output,
@@ -207,6 +213,7 @@ export const tools: readonly Tool[] = [
         "teams-devices_kolide_input_request": teams_devices_kolide_input_request_output,
         "teams-devices_match": teams_devices_match_output,
         "teams-devices_match_item": teams_devices_match_item_output,
+        "teams-devices_messages": teams_devices_messages_output,
         "teams-devices_name": teams_devices_name_output,
         "teams-devices_os_version_input_request": teams_devices_os_version_input_request_output,
         "teams-devices_paths": teams_devices_paths_output,
@@ -215,6 +222,7 @@ export const tools: readonly Tool[] = [
         "teams-devices_schedule": teams_devices_schedule_output,
         "teams-devices_sentinelone_input_request": teams_devices_sentinelone_input_request_output,
         "teams-devices_sentinelone_s2s_input_request": teams_devices_sentinelone_s2s_input_request_output,
+        "teams-devices_single_response": teams_devices_single_response_output,
         "teams-devices_tanium_input_request": teams_devices_tanium_input_request_output,
         "teams-devices_trust_stores": teams_devices_trust_stores_output,
         "teams-devices_trust_stores_enum": teams_devices_trust_stores_enum_output,
@@ -241,7 +249,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/teams-devices_device-posture-rules"
+          "$ref": "#/$defs/teams-devices_single_response"
         },
         "4XX": {
           "$ref": "#/$defs/teams-devices_api-response-common-failure"
@@ -250,13 +258,14 @@ export const tools: readonly Tool[] = [
       $defs: {
         "teams-devices_access_serial_number_list_input_request": teams_devices_access_serial_number_list_input_request_output,
         "teams-devices_antivirus_input_request": teams_devices_antivirus_input_request_output,
+        "teams-devices_api-response-common": teams_devices_api_response_common_output,
         "teams-devices_api-response-common-failure": teams_devices_api_response_common_failure_output,
+        "teams-devices_api-response-single": teams_devices_api_response_single_output,
         "teams-devices_application_input_request": teams_devices_application_input_request_output,
         "teams-devices_carbonblack_input_request": teams_devices_carbonblack_input_request_output,
         "teams-devices_checkDisks": teams_devices_checkDisks_output,
         "teams-devices_client_certificate_input_request": teams_devices_client_certificate_input_request_output,
         "teams-devices_client_certificate_v2_input_request": teams_devices_client_certificate_v2_input_request_output,
-        "teams-devices_client_certificate_v2_input_request_locations": teams_devices_client_certificate_v2_input_request_locations_output,
         "teams-devices_crowdstrike_input_request": teams_devices_crowdstrike_input_request_output,
         "teams-devices_custom_s2s_input_request": teams_devices_custom_s2s_input_request_output,
         "teams-devices_description": teams_devices_description_output,
@@ -281,6 +290,7 @@ export const tools: readonly Tool[] = [
         "teams-devices_schedule": teams_devices_schedule_output,
         "teams-devices_sentinelone_input_request": teams_devices_sentinelone_input_request_output,
         "teams-devices_sentinelone_s2s_input_request": teams_devices_sentinelone_s2s_input_request_output,
+        "teams-devices_single_response": teams_devices_single_response_output,
         "teams-devices_tanium_input_request": teams_devices_tanium_input_request_output,
         "teams-devices_trust_stores": teams_devices_trust_stores_output,
         "teams-devices_trust_stores_enum": teams_devices_trust_stores_enum_output,
@@ -303,26 +313,29 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "type": "string"
+          "$ref": "#/$defs/teams-devices_identifier"
         },
         "rule_id": {
-          "description": "API UUID.",
-          "type": "string"
+          "$ref": "#/$defs/teams-devices_uuid",
+          "description": "API UUID."
         }
       },
       required: [
         "account_id",
         "rule_id"
       ],
+      $defs: {
+        "teams-devices_identifier": teams_devices_identifier,
+        "teams-devices_uuid": teams_devices_uuid,
+      },
     },
     outputSchema: {
-      "properties": {
-        "id": {
-          "$ref": "#/$defs/teams-devices_uuid"
-        }
-      },
-      "type": "object",
+      "$ref": "#/$defs/teams-devices_id_response",
       $defs: {
+        "teams-devices_api-response-common": teams_devices_api_response_common_output,
+        "teams-devices_api-response-single": teams_devices_api_response_single_output,
+        "teams-devices_id_response": teams_devices_id_response_output,
+        "teams-devices_messages": teams_devices_messages_output,
         "teams-devices_uuid": teams_devices_uuid_output,
       },
     },
@@ -343,19 +356,17 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "id": {
-              "$ref": "#/$defs/teams-devices_uuid"
-            }
-          },
-          "type": "object"
+          "$ref": "#/$defs/teams-devices_id_response"
         },
         "4XX": {
           "$ref": "#/$defs/teams-devices_api-response-common-failure"
         }
       },
       $defs: {
+        "teams-devices_api-response-common": teams_devices_api_response_common_output,
         "teams-devices_api-response-common-failure": teams_devices_api_response_common_failure_output,
+        "teams-devices_api-response-single": teams_devices_api_response_single_output,
+        "teams-devices_id_response": teams_devices_id_response_output,
         "teams-devices_messages": teams_devices_messages_output,
         "teams-devices_uuid": teams_devices_uuid_output,
       },
@@ -372,29 +383,34 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "type": "string"
+          "$ref": "#/$defs/teams-devices_identifier"
         },
         "rule_id": {
-          "description": "API UUID.",
-          "type": "string"
+          "$ref": "#/$defs/teams-devices_uuid",
+          "description": "API UUID."
         }
       },
       required: [
         "account_id",
         "rule_id"
       ],
+      $defs: {
+        "teams-devices_identifier": teams_devices_identifier,
+        "teams-devices_uuid": teams_devices_uuid,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/teams-devices_device-posture-rules",
+      "$ref": "#/$defs/teams-devices_single_response",
       $defs: {
         "teams-devices_access_serial_number_list_input_request": teams_devices_access_serial_number_list_input_request_output,
         "teams-devices_antivirus_input_request": teams_devices_antivirus_input_request_output,
+        "teams-devices_api-response-common": teams_devices_api_response_common_output,
+        "teams-devices_api-response-single": teams_devices_api_response_single_output,
         "teams-devices_application_input_request": teams_devices_application_input_request_output,
         "teams-devices_carbonblack_input_request": teams_devices_carbonblack_input_request_output,
         "teams-devices_checkDisks": teams_devices_checkDisks_output,
         "teams-devices_client_certificate_input_request": teams_devices_client_certificate_input_request_output,
         "teams-devices_client_certificate_v2_input_request": teams_devices_client_certificate_v2_input_request_output,
-        "teams-devices_client_certificate_v2_input_request_locations": teams_devices_client_certificate_v2_input_request_locations_output,
         "teams-devices_crowdstrike_input_request": teams_devices_crowdstrike_input_request_output,
         "teams-devices_custom_s2s_input_request": teams_devices_custom_s2s_input_request_output,
         "teams-devices_description": teams_devices_description_output,
@@ -410,6 +426,7 @@ export const tools: readonly Tool[] = [
         "teams-devices_kolide_input_request": teams_devices_kolide_input_request_output,
         "teams-devices_match": teams_devices_match_output,
         "teams-devices_match_item": teams_devices_match_item_output,
+        "teams-devices_messages": teams_devices_messages_output,
         "teams-devices_name": teams_devices_name_output,
         "teams-devices_os_version_input_request": teams_devices_os_version_input_request_output,
         "teams-devices_paths": teams_devices_paths_output,
@@ -418,6 +435,7 @@ export const tools: readonly Tool[] = [
         "teams-devices_schedule": teams_devices_schedule_output,
         "teams-devices_sentinelone_input_request": teams_devices_sentinelone_input_request_output,
         "teams-devices_sentinelone_s2s_input_request": teams_devices_sentinelone_s2s_input_request_output,
+        "teams-devices_single_response": teams_devices_single_response_output,
         "teams-devices_tanium_input_request": teams_devices_tanium_input_request_output,
         "teams-devices_trust_stores": teams_devices_trust_stores_output,
         "teams-devices_trust_stores_enum": teams_devices_trust_stores_enum_output,
@@ -439,7 +457,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/teams-devices_device-posture-rules"
+          "$ref": "#/$defs/teams-devices_single_response"
         },
         "4XX": {
           "$ref": "#/$defs/teams-devices_api-response-common-failure"
@@ -448,13 +466,14 @@ export const tools: readonly Tool[] = [
       $defs: {
         "teams-devices_access_serial_number_list_input_request": teams_devices_access_serial_number_list_input_request_output,
         "teams-devices_antivirus_input_request": teams_devices_antivirus_input_request_output,
+        "teams-devices_api-response-common": teams_devices_api_response_common_output,
         "teams-devices_api-response-common-failure": teams_devices_api_response_common_failure_output,
+        "teams-devices_api-response-single": teams_devices_api_response_single_output,
         "teams-devices_application_input_request": teams_devices_application_input_request_output,
         "teams-devices_carbonblack_input_request": teams_devices_carbonblack_input_request_output,
         "teams-devices_checkDisks": teams_devices_checkDisks_output,
         "teams-devices_client_certificate_input_request": teams_devices_client_certificate_input_request_output,
         "teams-devices_client_certificate_v2_input_request": teams_devices_client_certificate_v2_input_request_output,
-        "teams-devices_client_certificate_v2_input_request_locations": teams_devices_client_certificate_v2_input_request_locations_output,
         "teams-devices_crowdstrike_input_request": teams_devices_crowdstrike_input_request_output,
         "teams-devices_custom_s2s_input_request": teams_devices_custom_s2s_input_request_output,
         "teams-devices_description": teams_devices_description_output,
@@ -479,6 +498,7 @@ export const tools: readonly Tool[] = [
         "teams-devices_schedule": teams_devices_schedule_output,
         "teams-devices_sentinelone_input_request": teams_devices_sentinelone_input_request_output,
         "teams-devices_sentinelone_s2s_input_request": teams_devices_sentinelone_s2s_input_request_output,
+        "teams-devices_single_response": teams_devices_single_response_output,
         "teams-devices_tanium_input_request": teams_devices_tanium_input_request_output,
         "teams-devices_trust_stores": teams_devices_trust_stores_output,
         "teams-devices_trust_stores_enum": teams_devices_trust_stores_enum_output,
@@ -500,38 +520,28 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "type": "string"
+          "$ref": "#/$defs/teams-devices_identifier"
         }
       },
       required: [
         "account_id"
       ],
+      $defs: {
+        "teams-devices_identifier": teams_devices_identifier,
+      },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "$ref": "#/$defs/teams-devices_device-posture-rules"
-          },
-          "type": "array"
-        },
-        "result_info": {
-          "$ref": "#/$defs/teams-devices_result_info"
-        }
-      },
-      "required": [
-        "result"
-      ],
-      "type": "object",
+      "$ref": "#/$defs/teams-devices_response_collection",
       $defs: {
         "teams-devices_access_serial_number_list_input_request": teams_devices_access_serial_number_list_input_request_output,
         "teams-devices_antivirus_input_request": teams_devices_antivirus_input_request_output,
+        "teams-devices_api-response-collection": teams_devices_api_response_collection_output,
+        "teams-devices_api-response-common": teams_devices_api_response_common_output,
         "teams-devices_application_input_request": teams_devices_application_input_request_output,
         "teams-devices_carbonblack_input_request": teams_devices_carbonblack_input_request_output,
         "teams-devices_checkDisks": teams_devices_checkDisks_output,
         "teams-devices_client_certificate_input_request": teams_devices_client_certificate_input_request_output,
         "teams-devices_client_certificate_v2_input_request": teams_devices_client_certificate_v2_input_request_output,
-        "teams-devices_client_certificate_v2_input_request_locations": teams_devices_client_certificate_v2_input_request_locations_output,
         "teams-devices_crowdstrike_input_request": teams_devices_crowdstrike_input_request_output,
         "teams-devices_custom_s2s_input_request": teams_devices_custom_s2s_input_request_output,
         "teams-devices_description": teams_devices_description_output,
@@ -547,11 +557,13 @@ export const tools: readonly Tool[] = [
         "teams-devices_kolide_input_request": teams_devices_kolide_input_request_output,
         "teams-devices_match": teams_devices_match_output,
         "teams-devices_match_item": teams_devices_match_item_output,
+        "teams-devices_messages": teams_devices_messages_output,
         "teams-devices_name": teams_devices_name_output,
         "teams-devices_os_version_input_request": teams_devices_os_version_input_request_output,
         "teams-devices_paths": teams_devices_paths_output,
         "teams-devices_platform": teams_devices_platform_output,
         "teams-devices_requireAll": teams_devices_requireAll_output,
+        "teams-devices_response_collection": teams_devices_response_collection_output,
         "teams-devices_result_info": teams_devices_result_info_output,
         "teams-devices_schedule": teams_devices_schedule_output,
         "teams-devices_sentinelone_input_request": teams_devices_sentinelone_input_request_output,
@@ -577,21 +589,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "items": {
-                "$ref": "#/$defs/teams-devices_device-posture-rules"
-              },
-              "type": "array"
-            },
-            "result_info": {
-              "$ref": "#/$defs/teams-devices_result_info"
-            }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/teams-devices_response_collection"
         },
         "4XX": {
           "$ref": "#/$defs/teams-devices_api-response-common-failure"
@@ -600,13 +598,14 @@ export const tools: readonly Tool[] = [
       $defs: {
         "teams-devices_access_serial_number_list_input_request": teams_devices_access_serial_number_list_input_request_output,
         "teams-devices_antivirus_input_request": teams_devices_antivirus_input_request_output,
+        "teams-devices_api-response-collection": teams_devices_api_response_collection_output,
+        "teams-devices_api-response-common": teams_devices_api_response_common_output,
         "teams-devices_api-response-common-failure": teams_devices_api_response_common_failure_output,
         "teams-devices_application_input_request": teams_devices_application_input_request_output,
         "teams-devices_carbonblack_input_request": teams_devices_carbonblack_input_request_output,
         "teams-devices_checkDisks": teams_devices_checkDisks_output,
         "teams-devices_client_certificate_input_request": teams_devices_client_certificate_input_request_output,
         "teams-devices_client_certificate_v2_input_request": teams_devices_client_certificate_v2_input_request_output,
-        "teams-devices_client_certificate_v2_input_request_locations": teams_devices_client_certificate_v2_input_request_locations_output,
         "teams-devices_crowdstrike_input_request": teams_devices_crowdstrike_input_request_output,
         "teams-devices_custom_s2s_input_request": teams_devices_custom_s2s_input_request_output,
         "teams-devices_description": teams_devices_description_output,
@@ -628,6 +627,7 @@ export const tools: readonly Tool[] = [
         "teams-devices_paths": teams_devices_paths_output,
         "teams-devices_platform": teams_devices_platform_output,
         "teams-devices_requireAll": teams_devices_requireAll_output,
+        "teams-devices_response_collection": teams_devices_response_collection_output,
         "teams-devices_result_info": teams_devices_result_info_output,
         "teams-devices_schedule": teams_devices_schedule_output,
         "teams-devices_sentinelone_input_request": teams_devices_sentinelone_input_request_output,
@@ -653,7 +653,7 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "type": "string"
+          "$ref": "#/$defs/teams-devices_identifier"
         },
         "body": {
           "properties": {
@@ -693,8 +693,8 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "rule_id": {
-          "description": "API UUID.",
-          "type": "string"
+          "$ref": "#/$defs/teams-devices_uuid",
+          "description": "API UUID."
         }
       },
       required: [
@@ -710,7 +710,6 @@ export const tools: readonly Tool[] = [
         "teams-devices_checkDisks": teams_devices_checkDisks,
         "teams-devices_client_certificate_input_request": teams_devices_client_certificate_input_request,
         "teams-devices_client_certificate_v2_input_request": teams_devices_client_certificate_v2_input_request,
-        "teams-devices_client_certificate_v2_input_request_locations": teams_devices_client_certificate_v2_input_request_locations,
         "teams-devices_crowdstrike_input_request": teams_devices_crowdstrike_input_request,
         "teams-devices_custom_s2s_input_request": teams_devices_custom_s2s_input_request,
         "teams-devices_description": teams_devices_description,
@@ -720,6 +719,7 @@ export const tools: readonly Tool[] = [
         "teams-devices_extended_key_usage_enum": teams_devices_extended_key_usage_enum,
         "teams-devices_file_input_request": teams_devices_file_input_request,
         "teams-devices_firewall_input_request": teams_devices_firewall_input_request,
+        "teams-devices_identifier": teams_devices_identifier,
         "teams-devices_input": teams_devices_input,
         "teams-devices_intune_input_request": teams_devices_intune_input_request,
         "teams-devices_kolide_input_request": teams_devices_kolide_input_request,
@@ -738,20 +738,22 @@ export const tools: readonly Tool[] = [
         "teams-devices_trust_stores_enum": teams_devices_trust_stores_enum,
         "teams-devices_type": teams_devices_type,
         "teams-devices_unique_client_id_input_request": teams_devices_unique_client_id_input_request,
+        "teams-devices_uuid": teams_devices_uuid,
         "teams-devices_workspace_one_input_request": teams_devices_workspace_one_input_request,
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/teams-devices_device-posture-rules",
+      "$ref": "#/$defs/teams-devices_single_response",
       $defs: {
         "teams-devices_access_serial_number_list_input_request": teams_devices_access_serial_number_list_input_request_output,
         "teams-devices_antivirus_input_request": teams_devices_antivirus_input_request_output,
+        "teams-devices_api-response-common": teams_devices_api_response_common_output,
+        "teams-devices_api-response-single": teams_devices_api_response_single_output,
         "teams-devices_application_input_request": teams_devices_application_input_request_output,
         "teams-devices_carbonblack_input_request": teams_devices_carbonblack_input_request_output,
         "teams-devices_checkDisks": teams_devices_checkDisks_output,
         "teams-devices_client_certificate_input_request": teams_devices_client_certificate_input_request_output,
         "teams-devices_client_certificate_v2_input_request": teams_devices_client_certificate_v2_input_request_output,
-        "teams-devices_client_certificate_v2_input_request_locations": teams_devices_client_certificate_v2_input_request_locations_output,
         "teams-devices_crowdstrike_input_request": teams_devices_crowdstrike_input_request_output,
         "teams-devices_custom_s2s_input_request": teams_devices_custom_s2s_input_request_output,
         "teams-devices_description": teams_devices_description_output,
@@ -767,6 +769,7 @@ export const tools: readonly Tool[] = [
         "teams-devices_kolide_input_request": teams_devices_kolide_input_request_output,
         "teams-devices_match": teams_devices_match_output,
         "teams-devices_match_item": teams_devices_match_item_output,
+        "teams-devices_messages": teams_devices_messages_output,
         "teams-devices_name": teams_devices_name_output,
         "teams-devices_os_version_input_request": teams_devices_os_version_input_request_output,
         "teams-devices_paths": teams_devices_paths_output,
@@ -775,6 +778,7 @@ export const tools: readonly Tool[] = [
         "teams-devices_schedule": teams_devices_schedule_output,
         "teams-devices_sentinelone_input_request": teams_devices_sentinelone_input_request_output,
         "teams-devices_sentinelone_s2s_input_request": teams_devices_sentinelone_s2s_input_request_output,
+        "teams-devices_single_response": teams_devices_single_response_output,
         "teams-devices_tanium_input_request": teams_devices_tanium_input_request_output,
         "teams-devices_trust_stores": teams_devices_trust_stores_output,
         "teams-devices_trust_stores_enum": teams_devices_trust_stores_enum_output,
@@ -801,7 +805,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/teams-devices_device-posture-rules"
+          "$ref": "#/$defs/teams-devices_single_response"
         },
         "4XX": {
           "$ref": "#/$defs/teams-devices_api-response-common-failure"
@@ -810,13 +814,14 @@ export const tools: readonly Tool[] = [
       $defs: {
         "teams-devices_access_serial_number_list_input_request": teams_devices_access_serial_number_list_input_request_output,
         "teams-devices_antivirus_input_request": teams_devices_antivirus_input_request_output,
+        "teams-devices_api-response-common": teams_devices_api_response_common_output,
         "teams-devices_api-response-common-failure": teams_devices_api_response_common_failure_output,
+        "teams-devices_api-response-single": teams_devices_api_response_single_output,
         "teams-devices_application_input_request": teams_devices_application_input_request_output,
         "teams-devices_carbonblack_input_request": teams_devices_carbonblack_input_request_output,
         "teams-devices_checkDisks": teams_devices_checkDisks_output,
         "teams-devices_client_certificate_input_request": teams_devices_client_certificate_input_request_output,
         "teams-devices_client_certificate_v2_input_request": teams_devices_client_certificate_v2_input_request_output,
-        "teams-devices_client_certificate_v2_input_request_locations": teams_devices_client_certificate_v2_input_request_locations_output,
         "teams-devices_crowdstrike_input_request": teams_devices_crowdstrike_input_request_output,
         "teams-devices_custom_s2s_input_request": teams_devices_custom_s2s_input_request_output,
         "teams-devices_description": teams_devices_description_output,
@@ -841,6 +846,7 @@ export const tools: readonly Tool[] = [
         "teams-devices_schedule": teams_devices_schedule_output,
         "teams-devices_sentinelone_input_request": teams_devices_sentinelone_input_request_output,
         "teams-devices_sentinelone_s2s_input_request": teams_devices_sentinelone_s2s_input_request_output,
+        "teams-devices_single_response": teams_devices_single_response_output,
         "teams-devices_tanium_input_request": teams_devices_tanium_input_request_output,
         "teams-devices_trust_stores": teams_devices_trust_stores_output,
         "teams-devices_trust_stores_enum": teams_devices_trust_stores_enum_output,

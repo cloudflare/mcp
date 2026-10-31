@@ -155,6 +155,48 @@ export const teams_devices_device_settings_policy_output: JsonSchema = {
 };
 
 /**
+ * The schema of `teams-devices_device_settings_response` in responses.
+ */
+export const teams_devices_device_settings_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/teams-devices_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/teams-devices_device_settings_policy"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `teams-devices_device_settings_response_collection` in
+ * responses.
+ */
+export const teams_devices_device_settings_response_collection_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/teams-devices_api-response-collection"
+    },
+    {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/teams-devices_device_settings_policy"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
  * The schema of `teams-devices_precedence` in responses.
  */
 export const teams_devices_precedence_output: JsonSchema = {

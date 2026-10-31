@@ -70,3 +70,11 @@ export const tls_certificates_and_hostnames_custom_csr_create_request_2: JsonSch
   ],
   "type": "object"
 };
+
+/**
+ * The schema of `tls-certificates-and-hostnames_custom_csr_identifier`.
+ */
+export const tls_certificates_and_hostnames_custom_csr_identifier: JsonSchema = {
+  "description": "Custom CSR identifier tag.",
+  "type": "string"
+};

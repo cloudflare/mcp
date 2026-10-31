@@ -4,6 +4,85 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
+ * The schema of `client-side-security_get-zone-policy-response` in responses.
+ */
+export const client_side_security_get_zone_policy_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/client-side-security_api-get-response-collection"
+    },
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/client-side-security_policy-with-id"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `client-side-security_list-zone-policies-response` in
+ * responses.
+ */
+export const client_side_security_list_zone_policies_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/client-side-security_api-list-response-collection"
+    },
+    {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/client-side-security_policy-with-id"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `client-side-security_policy` in responses.
+ */
+export const client_side_security_policy_output: JsonSchema = {
+  "properties": {
+    "action": {
+      "$ref": "#/$defs/client-side-security_policy-action"
+    },
+    "description": {
+      "$ref": "#/$defs/client-side-security_policy-description"
+    },
+    "enabled": {
+      "$ref": "#/$defs/client-side-security_policy-enabled"
+    },
+    "expression": {
+      "$ref": "#/$defs/client-side-security_policy-expression"
+    },
+    "value": {
+      "$ref": "#/$defs/client-side-security_policy-value"
+    }
+  },
+  "required": [
+    "action",
+    "description",
+    "enabled",
+    "expression",
+    "value"
+  ],
+  "type": "object"
+};
+
+/**
  * The schema of `client-side-security_policy-action` in responses.
  */
 export const client_side_security_policy_action_output: JsonSchema = {
@@ -47,33 +126,20 @@ export const client_side_security_policy_value_output: JsonSchema = {
  * The schema of `client-side-security_policy-with-id` in responses.
  */
 export const client_side_security_policy_with_id_output: JsonSchema = {
-  "properties": {
-    "action": {
-      "$ref": "#/$defs/client-side-security_policy-action"
+  "allOf": [
+    {
+      "$ref": "#/$defs/client-side-security_policy"
     },
-    "description": {
-      "$ref": "#/$defs/client-side-security_policy-description"
-    },
-    "enabled": {
-      "$ref": "#/$defs/client-side-security_policy-enabled"
-    },
-    "expression": {
-      "$ref": "#/$defs/client-side-security_policy-expression"
-    },
-    "id": {
-      "$ref": "#/$defs/client-side-security_id"
-    },
-    "value": {
-      "$ref": "#/$defs/client-side-security_policy-value"
+    {
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/client-side-security_id"
+        }
+      },
+      "required": [
+        "id"
+      ],
+      "type": "object"
     }
-  },
-  "required": [
-    "action",
-    "description",
-    "enabled",
-    "expression",
-    "value",
-    "id"
-  ],
-  "type": "object"
+  ]
 };

@@ -3,17 +3,21 @@
 
 import { type Tool, pathParam } from "../_/tool.js";
 import {
+  bot_management_ai_agent_action_output,
+  bot_management_ai_agents_output,
   bot_management_ai_bots_migration_opt_out_output,
   bot_management_ai_bots_protection_output,
   bot_management_ai_search_output,
   bot_management_ai_training_output,
   bot_management_ai_user_output,
   bot_management_api_response_common_failure_output,
+  bot_management_api_response_single_output,
   bot_management_auto_update_model_output,
   bot_management_base_config_output,
   bot_management_bm_cookie_enabled_output,
   bot_management_bm_subscription_config_output,
   bot_management_bot_fight_mode_config_output,
+  bot_management_bot_management_response_body_output,
   bot_management_bot_preference_sync_enabled_output,
   bot_management_cf_robots_variant_output,
   bot_management_content_bots_protection_output,
@@ -41,6 +45,8 @@ import {
   bot_management_using_latest_model_output,
 } from "./outputs.js";
 import {
+  bot_management_ai_agent_action,
+  bot_management_ai_agents,
   bot_management_ai_bots_migration_opt_out,
   bot_management_ai_bots_protection,
   bot_management_ai_search,
@@ -58,6 +64,7 @@ import {
   bot_management_crawler_protection,
   bot_management_enable_js,
   bot_management_fight_mode,
+  bot_management_identifier,
   bot_management_is_robots_txt_managed,
   bot_management_jsd_api_results_enabled,
   bot_management_optimize_wordpress,
@@ -82,40 +89,34 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "zone_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/bot-management_identifier",
+          "description": "Identifier."
         }
       },
       required: [
         "zone_id"
       ],
+      $defs: {
+        "bot-management_identifier": bot_management_identifier,
+      },
     },
     outputSchema: {
-      "oneOf": [
-        {
-          "$ref": "#/$defs/bot-management_bot_fight_mode_config"
-        },
-        {
-          "$ref": "#/$defs/bot-management_sbfm_definitely_config"
-        },
-        {
-          "$ref": "#/$defs/bot-management_sbfm_likely_config"
-        },
-        {
-          "$ref": "#/$defs/bot-management_bm_subscription_config"
-        }
-      ],
+      "$ref": "#/$defs/bot-management_bot_management_response_body",
       $defs: {
+        "bot-management_ai_agent_action": bot_management_ai_agent_action_output,
+        "bot-management_ai_agents": bot_management_ai_agents_output,
         "bot-management_ai_bots_migration_opt_out": bot_management_ai_bots_migration_opt_out_output,
         "bot-management_ai_bots_protection": bot_management_ai_bots_protection_output,
         "bot-management_ai_search": bot_management_ai_search_output,
         "bot-management_ai_training": bot_management_ai_training_output,
         "bot-management_ai_user": bot_management_ai_user_output,
+        "bot-management_api-response-single": bot_management_api_response_single_output,
         "bot-management_auto_update_model": bot_management_auto_update_model_output,
         "bot-management_base_config": bot_management_base_config_output,
         "bot-management_bm_cookie_enabled": bot_management_bm_cookie_enabled_output,
         "bot-management_bm_subscription_config": bot_management_bm_subscription_config_output,
         "bot-management_bot_fight_mode_config": bot_management_bot_fight_mode_config_output,
+        "bot-management_bot_management_response_body": bot_management_bot_management_response_body_output,
         "bot-management_bot_preference_sync_enabled": bot_management_bot_preference_sync_enabled_output,
         "bot-management_cf_robots_variant": bot_management_cf_robots_variant_output,
         "bot-management_content_bots_protection": bot_management_content_bots_protection_output,
@@ -125,6 +126,7 @@ export const tools: readonly Tool[] = [
         "bot-management_fight_mode_turned_on": bot_management_fight_mode_turned_on_output,
         "bot-management_is_robots_txt_managed": bot_management_is_robots_txt_managed_output,
         "bot-management_jsd_api_results_enabled": bot_management_jsd_api_results_enabled_output,
+        "bot-management_messages": bot_management_messages_output,
         "bot-management_optimize_wordpress": bot_management_optimize_wordpress_output,
         "bot-management_optimize_wordpress_turned_on": bot_management_optimize_wordpress_turned_on_output,
         "bot-management_sbfm_definitely_automated": bot_management_sbfm_definitely_automated_output,
@@ -166,37 +168,28 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "oneOf": [
-            {
-              "$ref": "#/$defs/bot-management_bot_fight_mode_config"
-            },
-            {
-              "$ref": "#/$defs/bot-management_sbfm_definitely_config"
-            },
-            {
-              "$ref": "#/$defs/bot-management_sbfm_likely_config"
-            },
-            {
-              "$ref": "#/$defs/bot-management_bm_subscription_config"
-            }
-          ]
+          "$ref": "#/$defs/bot-management_bot_management_response_body"
         },
         "4XX": {
           "$ref": "#/$defs/bot-management_api-response-common-failure"
         }
       },
       $defs: {
+        "bot-management_ai_agent_action": bot_management_ai_agent_action_output,
+        "bot-management_ai_agents": bot_management_ai_agents_output,
         "bot-management_ai_bots_migration_opt_out": bot_management_ai_bots_migration_opt_out_output,
         "bot-management_ai_bots_protection": bot_management_ai_bots_protection_output,
         "bot-management_ai_search": bot_management_ai_search_output,
         "bot-management_ai_training": bot_management_ai_training_output,
         "bot-management_ai_user": bot_management_ai_user_output,
         "bot-management_api-response-common-failure": bot_management_api_response_common_failure_output,
+        "bot-management_api-response-single": bot_management_api_response_single_output,
         "bot-management_auto_update_model": bot_management_auto_update_model_output,
         "bot-management_base_config": bot_management_base_config_output,
         "bot-management_bm_cookie_enabled": bot_management_bm_cookie_enabled_output,
         "bot-management_bm_subscription_config": bot_management_bm_subscription_config_output,
         "bot-management_bot_fight_mode_config": bot_management_bot_fight_mode_config_output,
+        "bot-management_bot_management_response_body": bot_management_bot_management_response_body_output,
         "bot-management_bot_preference_sync_enabled": bot_management_bot_preference_sync_enabled_output,
         "bot-management_cf_robots_variant": bot_management_cf_robots_variant_output,
         "bot-management_content_bots_protection": bot_management_content_bots_protection_output,
@@ -239,8 +232,8 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/bot-management_config_single"
         },
         "zone_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/bot-management_identifier",
+          "description": "Identifier."
         }
       },
       required: [
@@ -248,6 +241,8 @@ export const tools: readonly Tool[] = [
         "body"
       ],
       $defs: {
+        "bot-management_ai_agent_action": bot_management_ai_agent_action,
+        "bot-management_ai_agents": bot_management_ai_agents,
         "bot-management_ai_bots_migration_opt_out": bot_management_ai_bots_migration_opt_out,
         "bot-management_ai_bots_protection": bot_management_ai_bots_protection,
         "bot-management_ai_search": bot_management_ai_search,
@@ -265,6 +260,7 @@ export const tools: readonly Tool[] = [
         "bot-management_crawler_protection": bot_management_crawler_protection,
         "bot-management_enable_js": bot_management_enable_js,
         "bot-management_fight_mode": bot_management_fight_mode,
+        "bot-management_identifier": bot_management_identifier,
         "bot-management_is_robots_txt_managed": bot_management_is_robots_txt_managed,
         "bot-management_jsd_api_results_enabled": bot_management_jsd_api_results_enabled,
         "bot-management_optimize_wordpress": bot_management_optimize_wordpress,
@@ -278,31 +274,22 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "oneOf": [
-        {
-          "$ref": "#/$defs/bot-management_bot_fight_mode_config"
-        },
-        {
-          "$ref": "#/$defs/bot-management_sbfm_definitely_config"
-        },
-        {
-          "$ref": "#/$defs/bot-management_sbfm_likely_config"
-        },
-        {
-          "$ref": "#/$defs/bot-management_bm_subscription_config"
-        }
-      ],
+      "$ref": "#/$defs/bot-management_bot_management_response_body",
       $defs: {
+        "bot-management_ai_agent_action": bot_management_ai_agent_action_output,
+        "bot-management_ai_agents": bot_management_ai_agents_output,
         "bot-management_ai_bots_migration_opt_out": bot_management_ai_bots_migration_opt_out_output,
         "bot-management_ai_bots_protection": bot_management_ai_bots_protection_output,
         "bot-management_ai_search": bot_management_ai_search_output,
         "bot-management_ai_training": bot_management_ai_training_output,
         "bot-management_ai_user": bot_management_ai_user_output,
+        "bot-management_api-response-single": bot_management_api_response_single_output,
         "bot-management_auto_update_model": bot_management_auto_update_model_output,
         "bot-management_base_config": bot_management_base_config_output,
         "bot-management_bm_cookie_enabled": bot_management_bm_cookie_enabled_output,
         "bot-management_bm_subscription_config": bot_management_bm_subscription_config_output,
         "bot-management_bot_fight_mode_config": bot_management_bot_fight_mode_config_output,
+        "bot-management_bot_management_response_body": bot_management_bot_management_response_body_output,
         "bot-management_bot_preference_sync_enabled": bot_management_bot_preference_sync_enabled_output,
         "bot-management_cf_robots_variant": bot_management_cf_robots_variant_output,
         "bot-management_content_bots_protection": bot_management_content_bots_protection_output,
@@ -312,6 +299,7 @@ export const tools: readonly Tool[] = [
         "bot-management_fight_mode_turned_on": bot_management_fight_mode_turned_on_output,
         "bot-management_is_robots_txt_managed": bot_management_is_robots_txt_managed_output,
         "bot-management_jsd_api_results_enabled": bot_management_jsd_api_results_enabled_output,
+        "bot-management_messages": bot_management_messages_output,
         "bot-management_optimize_wordpress": bot_management_optimize_wordpress_output,
         "bot-management_optimize_wordpress_turned_on": bot_management_optimize_wordpress_turned_on_output,
         "bot-management_sbfm_definitely_automated": bot_management_sbfm_definitely_automated_output,
@@ -352,37 +340,28 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "oneOf": [
-            {
-              "$ref": "#/$defs/bot-management_bot_fight_mode_config"
-            },
-            {
-              "$ref": "#/$defs/bot-management_sbfm_definitely_config"
-            },
-            {
-              "$ref": "#/$defs/bot-management_sbfm_likely_config"
-            },
-            {
-              "$ref": "#/$defs/bot-management_bm_subscription_config"
-            }
-          ]
+          "$ref": "#/$defs/bot-management_bot_management_response_body"
         },
         "4XX": {
           "$ref": "#/$defs/bot-management_api-response-common-failure"
         }
       },
       $defs: {
+        "bot-management_ai_agent_action": bot_management_ai_agent_action_output,
+        "bot-management_ai_agents": bot_management_ai_agents_output,
         "bot-management_ai_bots_migration_opt_out": bot_management_ai_bots_migration_opt_out_output,
         "bot-management_ai_bots_protection": bot_management_ai_bots_protection_output,
         "bot-management_ai_search": bot_management_ai_search_output,
         "bot-management_ai_training": bot_management_ai_training_output,
         "bot-management_ai_user": bot_management_ai_user_output,
         "bot-management_api-response-common-failure": bot_management_api_response_common_failure_output,
+        "bot-management_api-response-single": bot_management_api_response_single_output,
         "bot-management_auto_update_model": bot_management_auto_update_model_output,
         "bot-management_base_config": bot_management_base_config_output,
         "bot-management_bm_cookie_enabled": bot_management_bm_cookie_enabled_output,
         "bot-management_bm_subscription_config": bot_management_bm_subscription_config_output,
         "bot-management_bot_fight_mode_config": bot_management_bot_fight_mode_config_output,
+        "bot-management_bot_management_response_body": bot_management_bot_management_response_body_output,
         "bot-management_bot_preference_sync_enabled": bot_management_bot_preference_sync_enabled_output,
         "bot-management_cf_robots_variant": bot_management_cf_robots_variant_output,
         "bot-management_content_bots_protection": bot_management_content_bots_protection_output,

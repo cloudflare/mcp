@@ -4,9 +4,9 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
- * The schema of `dns-firewall_dns-firewall-reverse-dns`.
+ * The schema of `dns-firewall_dns-firewall-reverse-dns-patch`.
  */
-export const dns_firewall_dns_firewall_reverse_dns: JsonSchema = {
+export const dns_firewall_dns_firewall_reverse_dns_patch: JsonSchema = {
   "properties": {
     "ptr": {
       "additionalProperties": {

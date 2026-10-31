@@ -52,7 +52,33 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/teams-devices_deployment_group",
+      "properties": {
+        "errors": {
+          "items": {
+            "$ref": "#/$defs/teams-devices_v4_response_message"
+          },
+          "type": "array"
+        },
+        "messages": {
+          "items": {
+            "$ref": "#/$defs/teams-devices_v4_response_message"
+          },
+          "type": "array"
+        },
+        "result": {
+          "$ref": "#/$defs/teams-devices_deployment_group"
+        },
+        "success": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "errors",
+        "messages",
+        "result",
+        "success"
+      ],
+      "type": "object",
       $defs: {
         "teams-devices_deployment_group": teams_devices_deployment_group_output,
         "teams-devices_deployment_group_created_at": teams_devices_deployment_group_created_at_output,
@@ -60,6 +86,7 @@ export const tools: readonly Tool[] = [
         "teams-devices_deployment_group_name": teams_devices_deployment_group_name_output,
         "teams-devices_deployment_group_policy_ids": teams_devices_deployment_group_policy_ids_output,
         "teams-devices_deployment_group_updated_at": teams_devices_deployment_group_updated_at_output,
+        "teams-devices_v4_response_message": teams_devices_v4_response_message_output,
         "teams-devices_version_config": teams_devices_version_config_output,
       },
     },
@@ -78,7 +105,33 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/teams-devices_deployment_group"
+          "properties": {
+            "errors": {
+              "items": {
+                "$ref": "#/$defs/teams-devices_v4_response_message"
+              },
+              "type": "array"
+            },
+            "messages": {
+              "items": {
+                "$ref": "#/$defs/teams-devices_v4_response_message"
+              },
+              "type": "array"
+            },
+            "result": {
+              "$ref": "#/$defs/teams-devices_deployment_group"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "messages",
+            "result",
+            "success"
+          ],
+          "type": "object"
         },
         "4XX": {
           "$ref": "#/$defs/teams-devices_v4_error_response"
@@ -122,11 +175,40 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
-        "id": {
-          "type": "string"
+        "errors": {
+          "items": {
+            "$ref": "#/$defs/teams-devices_v4_response_message"
+          },
+          "type": "array"
+        },
+        "messages": {
+          "items": {
+            "$ref": "#/$defs/teams-devices_v4_response_message"
+          },
+          "type": "array"
+        },
+        "result": {
+          "properties": {
+            "id": {
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        "success": {
+          "type": "boolean"
         }
       },
+      "required": [
+        "errors",
+        "messages",
+        "result",
+        "success"
+      ],
       "type": "object",
+      $defs: {
+        "teams-devices_v4_response_message": teams_devices_v4_response_message_output,
+      },
     },
     annotations: {
       "destructiveHint": true,
@@ -144,10 +226,36 @@ export const tools: readonly Tool[] = [
       schemas: {
         "200": {
           "properties": {
-            "id": {
-              "type": "string"
+            "errors": {
+              "items": {
+                "$ref": "#/$defs/teams-devices_v4_response_message"
+              },
+              "type": "array"
+            },
+            "messages": {
+              "items": {
+                "$ref": "#/$defs/teams-devices_v4_response_message"
+              },
+              "type": "array"
+            },
+            "result": {
+              "properties": {
+                "id": {
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
             }
           },
+          "required": [
+            "errors",
+            "messages",
+            "result",
+            "success"
+          ],
           "type": "object"
         },
         "4XX": {
@@ -183,7 +291,33 @@ export const tools: readonly Tool[] = [
       ],
     },
     outputSchema: {
-      "$ref": "#/$defs/teams-devices_deployment_group",
+      "properties": {
+        "errors": {
+          "items": {
+            "$ref": "#/$defs/teams-devices_v4_response_message"
+          },
+          "type": "array"
+        },
+        "messages": {
+          "items": {
+            "$ref": "#/$defs/teams-devices_v4_response_message"
+          },
+          "type": "array"
+        },
+        "result": {
+          "$ref": "#/$defs/teams-devices_deployment_group"
+        },
+        "success": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "errors",
+        "messages",
+        "result",
+        "success"
+      ],
+      "type": "object",
       $defs: {
         "teams-devices_deployment_group": teams_devices_deployment_group_output,
         "teams-devices_deployment_group_created_at": teams_devices_deployment_group_created_at_output,
@@ -191,6 +325,7 @@ export const tools: readonly Tool[] = [
         "teams-devices_deployment_group_name": teams_devices_deployment_group_name_output,
         "teams-devices_deployment_group_policy_ids": teams_devices_deployment_group_policy_ids_output,
         "teams-devices_deployment_group_updated_at": teams_devices_deployment_group_updated_at_output,
+        "teams-devices_v4_response_message": teams_devices_v4_response_message_output,
         "teams-devices_version_config": teams_devices_version_config_output,
       },
     },
@@ -206,7 +341,33 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/teams-devices_deployment_group"
+          "properties": {
+            "errors": {
+              "items": {
+                "$ref": "#/$defs/teams-devices_v4_response_message"
+              },
+              "type": "array"
+            },
+            "messages": {
+              "items": {
+                "$ref": "#/$defs/teams-devices_v4_response_message"
+              },
+              "type": "array"
+            },
+            "result": {
+              "$ref": "#/$defs/teams-devices_deployment_group"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "messages",
+            "result",
+            "success"
+          ],
+          "type": "object"
         },
         "4XX": {
           "$ref": "#/$defs/teams-devices_v4_error_response"
@@ -255,6 +416,18 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
+        "errors": {
+          "items": {
+            "$ref": "#/$defs/teams-devices_v4_response_message"
+          },
+          "type": "array"
+        },
+        "messages": {
+          "items": {
+            "$ref": "#/$defs/teams-devices_v4_response_message"
+          },
+          "type": "array"
+        },
         "result": {
           "items": {
             "$ref": "#/$defs/teams-devices_deployment_group"
@@ -263,10 +436,17 @@ export const tools: readonly Tool[] = [
         },
         "result_info": {
           "$ref": "#/$defs/teams-devices_pagination_info"
+        },
+        "success": {
+          "type": "boolean"
         }
       },
       "required": [
-        "result"
+        "errors",
+        "messages",
+        "result",
+        "result_info",
+        "success"
       ],
       "type": "object",
       $defs: {
@@ -277,6 +457,7 @@ export const tools: readonly Tool[] = [
         "teams-devices_deployment_group_policy_ids": teams_devices_deployment_group_policy_ids_output,
         "teams-devices_deployment_group_updated_at": teams_devices_deployment_group_updated_at_output,
         "teams-devices_pagination_info": teams_devices_pagination_info_output,
+        "teams-devices_v4_response_message": teams_devices_v4_response_message_output,
         "teams-devices_version_config": teams_devices_version_config_output,
       },
     },
@@ -293,6 +474,18 @@ export const tools: readonly Tool[] = [
       schemas: {
         "200": {
           "properties": {
+            "errors": {
+              "items": {
+                "$ref": "#/$defs/teams-devices_v4_response_message"
+              },
+              "type": "array"
+            },
+            "messages": {
+              "items": {
+                "$ref": "#/$defs/teams-devices_v4_response_message"
+              },
+              "type": "array"
+            },
             "result": {
               "items": {
                 "$ref": "#/$defs/teams-devices_deployment_group"
@@ -301,10 +494,17 @@ export const tools: readonly Tool[] = [
             },
             "result_info": {
               "$ref": "#/$defs/teams-devices_pagination_info"
+            },
+            "success": {
+              "type": "boolean"
             }
           },
           "required": [
-            "result"
+            "errors",
+            "messages",
+            "result",
+            "result_info",
+            "success"
           ],
           "type": "object"
         },
@@ -362,7 +562,33 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/teams-devices_deployment_group",
+      "properties": {
+        "errors": {
+          "items": {
+            "$ref": "#/$defs/teams-devices_v4_response_message"
+          },
+          "type": "array"
+        },
+        "messages": {
+          "items": {
+            "$ref": "#/$defs/teams-devices_v4_response_message"
+          },
+          "type": "array"
+        },
+        "result": {
+          "$ref": "#/$defs/teams-devices_deployment_group"
+        },
+        "success": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "errors",
+        "messages",
+        "result",
+        "success"
+      ],
+      "type": "object",
       $defs: {
         "teams-devices_deployment_group": teams_devices_deployment_group_output,
         "teams-devices_deployment_group_created_at": teams_devices_deployment_group_created_at_output,
@@ -370,6 +596,7 @@ export const tools: readonly Tool[] = [
         "teams-devices_deployment_group_name": teams_devices_deployment_group_name_output,
         "teams-devices_deployment_group_policy_ids": teams_devices_deployment_group_policy_ids_output,
         "teams-devices_deployment_group_updated_at": teams_devices_deployment_group_updated_at_output,
+        "teams-devices_v4_response_message": teams_devices_v4_response_message_output,
         "teams-devices_version_config": teams_devices_version_config_output,
       },
     },
@@ -388,7 +615,33 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/teams-devices_deployment_group"
+          "properties": {
+            "errors": {
+              "items": {
+                "$ref": "#/$defs/teams-devices_v4_response_message"
+              },
+              "type": "array"
+            },
+            "messages": {
+              "items": {
+                "$ref": "#/$defs/teams-devices_v4_response_message"
+              },
+              "type": "array"
+            },
+            "result": {
+              "$ref": "#/$defs/teams-devices_deployment_group"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "messages",
+            "result",
+            "success"
+          ],
+          "type": "object"
         },
         "4XX": {
           "$ref": "#/$defs/teams-devices_v4_error_response"

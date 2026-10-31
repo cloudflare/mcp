@@ -37,63 +37,49 @@ export const intel_ipv6_output: JsonSchema = {
 export const intel_schemas_ip_output: JsonSchema = {
   "properties": {
     "belongs_to_ref": {
-      "$ref": "#/$defs/intel_schemas-ip_belongs_to_ref"
+      "properties": {
+        "country": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "type": {
+          "enum": [
+            "hosting_provider",
+            "isp",
+            "organization"
+          ],
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        }
+      },
+      "type": "object"
     },
     "ip": {
       "$ref": "#/$defs/intel_ip"
     },
     "risk_types": {
       "items": {
-        "$ref": "#/$defs/intel_schemas-ip_risk_typesItem"
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "name": {
+            "type": "string"
+          },
+          "super_category_id": {
+            "type": "number"
+          }
+        },
+        "type": "object"
       },
       "type": "array"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `intel_schemas-ip_belongs_to_ref` in responses.
- */
-export const intel_schemas_ip_belongs_to_ref_output: JsonSchema = {
-  "properties": {
-    "country": {
-      "type": "string"
-    },
-    "description": {
-      "type": "string"
-    },
-    "id": {
-      "type": "string"
-    },
-    "type": {
-      "enum": [
-        "hosting_provider",
-        "isp",
-        "organization"
-      ],
-      "type": "string"
-    },
-    "value": {
-      "type": "string"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `intel_schemas-ip_risk_typesItem` in responses.
- */
-export const intel_schemas_ip_risk_typesItem_output: JsonSchema = {
-  "properties": {
-    "id": {
-      "type": "number"
-    },
-    "name": {
-      "type": "string"
-    },
-    "super_category_id": {
-      "type": "number"
     }
   },
   "type": "object"
@@ -103,34 +89,20 @@ export const intel_schemas_ip_risk_typesItem_output: JsonSchema = {
  * The schema of `intel_schemas-response` in responses.
  */
 export const intel_schemas_response_output: JsonSchema = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/intel_messages"
+  "allOf": [
+    {
+      "$ref": "#/$defs/intel_api-response-collection"
     },
-    "messages": {
-      "$ref": "#/$defs/intel_messages"
-    },
-    "result": {
-      "items": {
-        "$ref": "#/$defs/intel_schemas-ip"
+    {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/intel_schemas-ip"
+          },
+          "type": "array"
+        }
       },
-      "type": "array"
-    },
-    "result_info": {
-      "$ref": "#/$defs/intel_result_info"
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
+      "type": "object"
     }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "result",
-    "success"
-  ],
-  "type": "object"
+  ]
 };

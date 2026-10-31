@@ -4,13 +4,16 @@
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
   security_center_api_response_common_failure_output,
+  security_center_api_response_common_output,
   security_center_messages_output,
 } from "../../../outputs.js";
+import { security_center_identifier } from "../../../schemas.js";
 import {
+  security_center_partnerAssetResultInfo_output,
   security_center_partnerEntitlement_output,
   security_center_shadowHost_output,
+  security_center_shadowHostsResponse_output,
 } from "../outputs.js";
-import { security_center_identifier } from "../schemas.js";
 
 /**
  * The tools of `security_insights.partners.shadow_zone_hosts`.
@@ -27,14 +30,13 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/security-center_identifier",
           "description": "Identifier."
         },
+        "cursor": {
+          "description": "Opaque cursor from the previous response's `result_info.cursor`. Omit for the first page.",
+          "type": "string"
+        },
         "domain": {
           "description": "The shadow-zone domain.",
           "type": "string"
-        },
-        "page": {
-          "default": 1,
-          "description": "Page number for premium partner asset results.",
-          "type": "integer"
         },
         "partner": {
           "description": "The partner integration identifier.",
@@ -59,41 +61,14 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "properties": {
-        "collection_truncated": {
-          "type": "boolean"
-        },
-        "domain": {
-          "type": "string"
-        },
-        "entitlement": {
-          "$ref": "#/$defs/security-center_partnerEntitlement"
-        },
-        "has_more": {
-          "type": "boolean"
-        },
-        "items": {
-          "items": {
-            "$ref": "#/$defs/security-center_shadowHost"
-          },
-          "type": "array"
-        },
-        "total_count": {
-          "type": "integer"
-        }
-      },
-      "required": [
-        "collection_truncated",
-        "domain",
-        "entitlement",
-        "has_more",
-        "items",
-        "total_count"
-      ],
-      "type": "object",
+      "$ref": "#/$defs/security-center_shadowHostsResponse",
       $defs: {
+        "security-center_api-response-common": security_center_api_response_common_output,
+        "security-center_messages": security_center_messages_output,
+        "security-center_partnerAssetResultInfo": security_center_partnerAssetResultInfo_output,
         "security-center_partnerEntitlement": security_center_partnerEntitlement_output,
         "security-center_shadowHost": security_center_shadowHost_output,
+        "security-center_shadowHostsResponse": security_center_shadowHostsResponse_output,
       },
     },
     annotations: {
@@ -108,54 +83,26 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "collection_truncated": {
-              "type": "boolean"
-            },
-            "domain": {
-              "type": "string"
-            },
-            "entitlement": {
-              "$ref": "#/$defs/security-center_partnerEntitlement"
-            },
-            "has_more": {
-              "type": "boolean"
-            },
-            "items": {
-              "items": {
-                "$ref": "#/$defs/security-center_shadowHost"
-              },
-              "type": "array"
-            },
-            "total_count": {
-              "type": "integer"
-            }
-          },
-          "required": [
-            "collection_truncated",
-            "domain",
-            "entitlement",
-            "has_more",
-            "items",
-            "total_count"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/security-center_shadowHostsResponse"
         },
         "4XX": {
           "$ref": "#/$defs/security-center_api-response-common-failure"
         }
       },
       $defs: {
+        "security-center_api-response-common": security_center_api_response_common_output,
         "security-center_api-response-common-failure": security_center_api_response_common_failure_output,
         "security-center_messages": security_center_messages_output,
+        "security-center_partnerAssetResultInfo": security_center_partnerAssetResultInfo_output,
         "security-center_partnerEntitlement": security_center_partnerEntitlement_output,
         "security-center_shadowHost": security_center_shadowHost_output,
+        "security-center_shadowHostsResponse": security_center_shadowHostsResponse_output,
       },
     },
     request: (args) => ({
       path: `/accounts/${pathParam(args, "account_id")}/security-center/partners/${pathParam(args, "partner")}/shadow-zones/${pathParam(args, "domain")}/hosts`,
       query: [
-        ["page", args["page"], true],
+        ["cursor", args["cursor"], true],
         ["per_page", args["per_page"], true],
       ],
     }),

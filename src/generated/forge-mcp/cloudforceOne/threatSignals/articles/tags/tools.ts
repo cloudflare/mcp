@@ -43,58 +43,65 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
-        "applied_by": {
-          "enum": [
-            "ai",
-            "analyst",
-            "system"
-          ],
-          "type": "string"
-        },
-        "categoryId": {
-          "oneOf": [
-            {
-              "format": "uuid",
-              "type": "string"
+        "errors": {
+          "items": {
+            "properties": {
+              "message": {
+                "type": "string"
+              }
             },
-            {
-              "type": "null"
-            }
-          ]
+            "required": [
+              "message"
+            ],
+            "type": "object"
+          },
+          "type": "array"
         },
-        "uuid": {
-          "format": "uuid",
-          "type": "string"
+        "messages": {
+          "items": {
+            "properties": {
+              "code": {
+                "type": "number"
+              },
+              "custom_feed_count": {
+                "type": "integer"
+              },
+              "custom_feed_limit": {
+                "type": "integer"
+              },
+              "expected": {
+                "type": "string"
+              },
+              "message": {
+                "type": "string"
+              },
+              "path": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "reason": {
+                "enum": [
+                  "threat_signals_feed_limit",
+                  "free_custom_skills_disabled",
+                  "free_skill_run_disabled",
+                  "free_tier_reconciliation_in_progress",
+                  "free_tier_reconciliation_failed",
+                  "raw_content_expired",
+                  "curated_visibility_changed"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "message"
+            ],
+            "type": "object"
+          },
+          "type": "array"
         },
-        "value": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "applied_by",
-        "categoryId",
-        "uuid",
-        "value"
-      ],
-      "type": "object",
-    },
-    annotations: {
-      "destructiveHint": false,
-      "idempotentHint": false,
-      "openWorldHint": true,
-      "readOnlyHint": false,
-      "title": "Add tag to Threat Signals article"
-    },
-    method: "POST",
-    path: "/accounts/{account_id}/cloudforce-one/v2/threat-signals/articles/{article_id}/tags",
-    extensions: {
-      "x-api-token-group": [
-        "Cloudforce One Write"
-      ]
-    },
-    responses: {
-      schemas: {
-        "201": {
+        "result": {
           "properties": {
             "applied_by": {
               "enum": [
@@ -131,6 +138,149 @@ export const tools: readonly Tool[] = [
           ],
           "type": "object"
         },
+        "success": {
+          "enum": [
+            true
+          ],
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "errors",
+        "messages",
+        "result",
+        "success"
+      ],
+      "type": "object",
+    },
+    annotations: {
+      "destructiveHint": false,
+      "idempotentHint": false,
+      "openWorldHint": true,
+      "readOnlyHint": false,
+      "title": "Add tag to Threat Signals article"
+    },
+    method: "POST",
+    path: "/accounts/{account_id}/cloudforce-one/v2/threat-signals/articles/{article_id}/tags",
+    extensions: {
+      "x-api-token-group": [
+        "Cloudforce One Write"
+      ]
+    },
+    responses: {
+      schemas: {
+        "201": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "messages": {
+              "items": {
+                "properties": {
+                  "code": {
+                    "type": "number"
+                  },
+                  "custom_feed_count": {
+                    "type": "integer"
+                  },
+                  "custom_feed_limit": {
+                    "type": "integer"
+                  },
+                  "expected": {
+                    "type": "string"
+                  },
+                  "message": {
+                    "type": "string"
+                  },
+                  "path": {
+                    "items": {
+                      "type": "string"
+                    },
+                    "type": "array"
+                  },
+                  "reason": {
+                    "enum": [
+                      "threat_signals_feed_limit",
+                      "free_custom_skills_disabled",
+                      "free_skill_run_disabled",
+                      "free_tier_reconciliation_in_progress",
+                      "free_tier_reconciliation_failed",
+                      "raw_content_expired",
+                      "curated_visibility_changed"
+                    ],
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result": {
+              "properties": {
+                "applied_by": {
+                  "enum": [
+                    "ai",
+                    "analyst",
+                    "system"
+                  ],
+                  "type": "string"
+                },
+                "categoryId": {
+                  "oneOf": [
+                    {
+                      "format": "uuid",
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "uuid": {
+                  "format": "uuid",
+                  "type": "string"
+                },
+                "value": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "applied_by",
+                "categoryId",
+                "uuid",
+                "value"
+              ],
+              "type": "object"
+            },
+            "success": {
+              "enum": [
+                true
+              ],
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "messages",
+            "result",
+            "success"
+          ],
+          "type": "object"
+        },
         "4XX": null
       },
     },
@@ -162,73 +312,65 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
-        "tag_skill_version": {
-          "type": "string"
-        },
-        "tags": {
+        "errors": {
           "items": {
             "properties": {
-              "applied_by": {
-                "enum": [
-                  "ai",
-                  "analyst",
-                  "system"
-                ],
-                "type": "string"
-              },
-              "categoryId": {
-                "oneOf": [
-                  {
-                    "format": "uuid",
-                    "type": "string"
-                  },
-                  {
-                    "type": "null"
-                  }
-                ]
-              },
-              "uuid": {
-                "format": "uuid",
-                "type": "string"
-              },
-              "value": {
+              "message": {
                 "type": "string"
               }
             },
             "required": [
-              "applied_by",
-              "categoryId",
-              "uuid",
-              "value"
+              "message"
             ],
             "type": "object"
           },
           "type": "array"
-        }
-      },
-      "required": [
-        "tag_skill_version",
-        "tags"
-      ],
-      "type": "object",
-    },
-    annotations: {
-      "destructiveHint": false,
-      "idempotentHint": false,
-      "openWorldHint": true,
-      "readOnlyHint": false,
-      "title": "Generate Threat Signals article AI tags"
-    },
-    method: "POST",
-    path: "/accounts/{account_id}/cloudforce-one/v2/threat-signals/articles/{article_id}/tag",
-    extensions: {
-      "x-api-token-group": [
-        "Cloudforce One Write"
-      ]
-    },
-    responses: {
-      schemas: {
-        "200": {
+        },
+        "messages": {
+          "items": {
+            "properties": {
+              "code": {
+                "type": "number"
+              },
+              "custom_feed_count": {
+                "type": "integer"
+              },
+              "custom_feed_limit": {
+                "type": "integer"
+              },
+              "expected": {
+                "type": "string"
+              },
+              "message": {
+                "type": "string"
+              },
+              "path": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "reason": {
+                "enum": [
+                  "threat_signals_feed_limit",
+                  "free_custom_skills_disabled",
+                  "free_skill_run_disabled",
+                  "free_tier_reconciliation_in_progress",
+                  "free_tier_reconciliation_failed",
+                  "raw_content_expired",
+                  "curated_visibility_changed"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "message"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "result": {
           "properties": {
             "tag_skill_version": {
               "type": "string"
@@ -280,6 +422,164 @@ export const tools: readonly Tool[] = [
           ],
           "type": "object"
         },
+        "success": {
+          "enum": [
+            true
+          ],
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "errors",
+        "messages",
+        "result",
+        "success"
+      ],
+      "type": "object",
+    },
+    annotations: {
+      "destructiveHint": false,
+      "idempotentHint": false,
+      "openWorldHint": true,
+      "readOnlyHint": false,
+      "title": "Generate Threat Signals article AI tags"
+    },
+    method: "POST",
+    path: "/accounts/{account_id}/cloudforce-one/v2/threat-signals/articles/{article_id}/tag",
+    extensions: {
+      "x-api-token-group": [
+        "Cloudforce One Write"
+      ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "messages": {
+              "items": {
+                "properties": {
+                  "code": {
+                    "type": "number"
+                  },
+                  "custom_feed_count": {
+                    "type": "integer"
+                  },
+                  "custom_feed_limit": {
+                    "type": "integer"
+                  },
+                  "expected": {
+                    "type": "string"
+                  },
+                  "message": {
+                    "type": "string"
+                  },
+                  "path": {
+                    "items": {
+                      "type": "string"
+                    },
+                    "type": "array"
+                  },
+                  "reason": {
+                    "enum": [
+                      "threat_signals_feed_limit",
+                      "free_custom_skills_disabled",
+                      "free_skill_run_disabled",
+                      "free_tier_reconciliation_in_progress",
+                      "free_tier_reconciliation_failed",
+                      "raw_content_expired",
+                      "curated_visibility_changed"
+                    ],
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result": {
+              "properties": {
+                "tag_skill_version": {
+                  "type": "string"
+                },
+                "tags": {
+                  "items": {
+                    "properties": {
+                      "applied_by": {
+                        "enum": [
+                          "ai",
+                          "analyst",
+                          "system"
+                        ],
+                        "type": "string"
+                      },
+                      "categoryId": {
+                        "oneOf": [
+                          {
+                            "format": "uuid",
+                            "type": "string"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "uuid": {
+                        "format": "uuid",
+                        "type": "string"
+                      },
+                      "value": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "applied_by",
+                      "categoryId",
+                      "uuid",
+                      "value"
+                    ],
+                    "type": "object"
+                  },
+                  "type": "array"
+                }
+              },
+              "required": [
+                "tag_skill_version",
+                "tags"
+              ],
+              "type": "object"
+            },
+            "success": {
+              "enum": [
+                true
+              ],
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "messages",
+            "result",
+            "success"
+          ],
+          "type": "object"
+        },
         "4XX": null
       },
     },
@@ -316,58 +616,65 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
-        "applied_by": {
-          "enum": [
-            "ai",
-            "analyst",
-            "system"
-          ],
-          "type": "string"
-        },
-        "categoryId": {
-          "oneOf": [
-            {
-              "format": "uuid",
-              "type": "string"
+        "errors": {
+          "items": {
+            "properties": {
+              "message": {
+                "type": "string"
+              }
             },
-            {
-              "type": "null"
-            }
-          ]
+            "required": [
+              "message"
+            ],
+            "type": "object"
+          },
+          "type": "array"
         },
-        "uuid": {
-          "format": "uuid",
-          "type": "string"
+        "messages": {
+          "items": {
+            "properties": {
+              "code": {
+                "type": "number"
+              },
+              "custom_feed_count": {
+                "type": "integer"
+              },
+              "custom_feed_limit": {
+                "type": "integer"
+              },
+              "expected": {
+                "type": "string"
+              },
+              "message": {
+                "type": "string"
+              },
+              "path": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "reason": {
+                "enum": [
+                  "threat_signals_feed_limit",
+                  "free_custom_skills_disabled",
+                  "free_skill_run_disabled",
+                  "free_tier_reconciliation_in_progress",
+                  "free_tier_reconciliation_failed",
+                  "raw_content_expired",
+                  "curated_visibility_changed"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "message"
+            ],
+            "type": "object"
+          },
+          "type": "array"
         },
-        "value": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "applied_by",
-        "categoryId",
-        "uuid",
-        "value"
-      ],
-      "type": "object",
-    },
-    annotations: {
-      "destructiveHint": true,
-      "idempotentHint": true,
-      "openWorldHint": true,
-      "readOnlyHint": false,
-      "title": "Remove tag from Threat Signals article"
-    },
-    method: "DELETE",
-    path: "/accounts/{account_id}/cloudforce-one/v2/threat-signals/articles/{article_id}/tags/{tag_id}",
-    extensions: {
-      "x-api-token-group": [
-        "Cloudforce One Write"
-      ]
-    },
-    responses: {
-      schemas: {
-        "200": {
+        "result": {
           "properties": {
             "applied_by": {
               "enum": [
@@ -401,6 +708,149 @@ export const tools: readonly Tool[] = [
             "categoryId",
             "uuid",
             "value"
+          ],
+          "type": "object"
+        },
+        "success": {
+          "enum": [
+            true
+          ],
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "errors",
+        "messages",
+        "result",
+        "success"
+      ],
+      "type": "object",
+    },
+    annotations: {
+      "destructiveHint": true,
+      "idempotentHint": true,
+      "openWorldHint": true,
+      "readOnlyHint": false,
+      "title": "Remove tag from Threat Signals article"
+    },
+    method: "DELETE",
+    path: "/accounts/{account_id}/cloudforce-one/v2/threat-signals/articles/{article_id}/tags/{tag_id}",
+    extensions: {
+      "x-api-token-group": [
+        "Cloudforce One Write"
+      ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "messages": {
+              "items": {
+                "properties": {
+                  "code": {
+                    "type": "number"
+                  },
+                  "custom_feed_count": {
+                    "type": "integer"
+                  },
+                  "custom_feed_limit": {
+                    "type": "integer"
+                  },
+                  "expected": {
+                    "type": "string"
+                  },
+                  "message": {
+                    "type": "string"
+                  },
+                  "path": {
+                    "items": {
+                      "type": "string"
+                    },
+                    "type": "array"
+                  },
+                  "reason": {
+                    "enum": [
+                      "threat_signals_feed_limit",
+                      "free_custom_skills_disabled",
+                      "free_skill_run_disabled",
+                      "free_tier_reconciliation_in_progress",
+                      "free_tier_reconciliation_failed",
+                      "raw_content_expired",
+                      "curated_visibility_changed"
+                    ],
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result": {
+              "properties": {
+                "applied_by": {
+                  "enum": [
+                    "ai",
+                    "analyst",
+                    "system"
+                  ],
+                  "type": "string"
+                },
+                "categoryId": {
+                  "oneOf": [
+                    {
+                      "format": "uuid",
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "uuid": {
+                  "format": "uuid",
+                  "type": "string"
+                },
+                "value": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "applied_by",
+                "categoryId",
+                "uuid",
+                "value"
+              ],
+              "type": "object"
+            },
+            "success": {
+              "enum": [
+                true
+              ],
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "messages",
+            "result",
+            "success"
           ],
           "type": "object"
         },

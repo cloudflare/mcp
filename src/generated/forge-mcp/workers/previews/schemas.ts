@@ -18,8 +18,106 @@ export const workers_Preview: JsonSchema = {
       "type": "string"
     },
     "observability": {
-      "$ref": "#/$defs/workers_Preview_observability",
-      "description": "Observability settings for the Preview."
+      "description": "Observability settings for the Preview.",
+      "properties": {
+        "enabled": {
+          "default": false,
+          "description": "Whether observability is enabled for the Preview.",
+          "type": "boolean"
+        },
+        "head_sampling_rate": {
+          "default": 1,
+          "description": "The sampling rate for observability. From 0 to 1 (1 = 100%, 0.1 = 10%).",
+          "type": "number"
+        },
+        "issues": {
+          "description": "Real-time Issues settings for the Preview.",
+          "oneOf": [
+            {
+              "properties": {
+                "enabled": {
+                  "default": false,
+                  "description": "Whether real-time Issues are enabled for the Preview.",
+                  "type": "boolean"
+                }
+              },
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "logs": {
+          "description": "Log settings for the Preview.",
+          "properties": {
+            "destinations": {
+              "default": [],
+              "description": "A list of destinations where logs will be exported to.",
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "enabled": {
+              "default": false,
+              "description": "Whether logs are enabled for the Preview.",
+              "type": "boolean"
+            },
+            "head_sampling_rate": {
+              "default": 1,
+              "description": "The sampling rate for logs. From 0 to 1 (1 = 100%, 0.1 = 10%).",
+              "type": "number"
+            },
+            "invocation_logs": {
+              "default": true,
+              "description": "Whether invocation logs are enabled for the Preview.",
+              "type": "boolean"
+            },
+            "persist": {
+              "default": true,
+              "description": "Whether log persistence is enabled for the Preview.",
+              "type": "boolean"
+            }
+          },
+          "type": "object"
+        },
+        "redact_query_string": {
+          "default": false,
+          "description": "Whether query strings are removed from request URLs in logs and traces.",
+          "type": "boolean"
+        },
+        "traces": {
+          "description": "Trace settings for the Preview.",
+          "properties": {
+            "destinations": {
+              "default": [],
+              "description": "A list of destinations where traces will be exported to.",
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "enabled": {
+              "default": false,
+              "description": "Whether traces are enabled for the Preview.",
+              "type": "boolean"
+            },
+            "head_sampling_rate": {
+              "default": 1,
+              "description": "The sampling rate for traces. From 0 to 1 (1 = 100%, 0.1 = 10%).",
+              "type": "number"
+            },
+            "persist": {
+              "default": true,
+              "description": "Whether trace persistence is enabled for the Preview.",
+              "type": "boolean"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
     },
     "tags": {
       "default": [],
@@ -34,7 +132,16 @@ export const workers_Preview: JsonSchema = {
       "default": [],
       "description": "Other Workers that should consume logs from the Preview.",
       "items": {
-        "$ref": "#/$defs/workers_Preview_tail_consumersItem"
+        "properties": {
+          "name": {
+            "description": "Name of the consumer Worker.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "name"
+        ],
+        "type": "object"
       },
       "type": "array"
     }
@@ -45,152 +152,6 @@ export const workers_Preview: JsonSchema = {
     "observability",
     "tags",
     "tail_consumers"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `workers_Preview_observability`.
- */
-export const workers_Preview_observability: JsonSchema = {
-  "description": "Observability settings for the Preview.",
-  "properties": {
-    "enabled": {
-      "default": false,
-      "description": "Whether observability is enabled for the Preview.",
-      "type": "boolean"
-    },
-    "head_sampling_rate": {
-      "default": 1,
-      "description": "The sampling rate for observability. From 0 to 1 (1 = 100%, 0.1 = 10%).",
-      "type": "number"
-    },
-    "issues": {
-      "$ref": "#/$defs/workers_Preview_observability_issues",
-      "description": "Real-time Issues settings for the Preview."
-    },
-    "logs": {
-      "$ref": "#/$defs/workers_Preview_observability_logs",
-      "description": "Log settings for the Preview."
-    },
-    "redact_query_string": {
-      "default": false,
-      "description": "Whether query strings are removed from request URLs in logs and traces.",
-      "type": "boolean"
-    },
-    "traces": {
-      "$ref": "#/$defs/workers_Preview_observability_traces",
-      "description": "Trace settings for the Preview."
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `workers_Preview_observability_issues`.
- */
-export const workers_Preview_observability_issues: JsonSchema = {
-  "description": "Real-time Issues settings for the Preview.",
-  "oneOf": [
-    {
-      "properties": {
-        "enabled": {
-          "default": false,
-          "description": "Whether real-time Issues are enabled for the Preview.",
-          "type": "boolean"
-        }
-      },
-      "type": "object"
-    },
-    {
-      "type": "null"
-    }
-  ]
-};
-
-/**
- * The schema of `workers_Preview_observability_logs`.
- */
-export const workers_Preview_observability_logs: JsonSchema = {
-  "description": "Log settings for the Preview.",
-  "properties": {
-    "destinations": {
-      "default": [],
-      "description": "A list of destinations where logs will be exported to.",
-      "items": {
-        "type": "string"
-      },
-      "type": "array"
-    },
-    "enabled": {
-      "default": false,
-      "description": "Whether logs are enabled for the Preview.",
-      "type": "boolean"
-    },
-    "head_sampling_rate": {
-      "default": 1,
-      "description": "The sampling rate for logs. From 0 to 1 (1 = 100%, 0.1 = 10%).",
-      "type": "number"
-    },
-    "invocation_logs": {
-      "default": true,
-      "description": "Whether invocation logs are enabled for the Preview.",
-      "type": "boolean"
-    },
-    "persist": {
-      "default": true,
-      "description": "Whether log persistence is enabled for the Preview.",
-      "type": "boolean"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `workers_Preview_observability_traces`.
- */
-export const workers_Preview_observability_traces: JsonSchema = {
-  "description": "Trace settings for the Preview.",
-  "properties": {
-    "destinations": {
-      "default": [],
-      "description": "A list of destinations where traces will be exported to.",
-      "items": {
-        "type": "string"
-      },
-      "type": "array"
-    },
-    "enabled": {
-      "default": false,
-      "description": "Whether traces are enabled for the Preview.",
-      "type": "boolean"
-    },
-    "head_sampling_rate": {
-      "default": 1,
-      "description": "The sampling rate for traces. From 0 to 1 (1 = 100%, 0.1 = 10%).",
-      "type": "number"
-    },
-    "persist": {
-      "default": true,
-      "description": "Whether trace persistence is enabled for the Preview.",
-      "type": "boolean"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `workers_Preview_tail_consumersItem`.
- */
-export const workers_Preview_tail_consumersItem: JsonSchema = {
-  "properties": {
-    "name": {
-      "description": "Name of the consumer Worker.",
-      "type": "string"
-    }
-  },
-  "required": [
-    "name"
   ],
   "type": "object"
 };

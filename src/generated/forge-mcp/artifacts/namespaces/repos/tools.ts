@@ -52,60 +52,65 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
-        "default_branch": {
-          "type": "string"
-        },
-        "description": {
-          "oneOf": [
-            {
-              "type": "string"
+        "errors": {
+          "items": {
+            "properties": {
+              "code": {
+                "type": "integer"
+              },
+              "documentation_url": {
+                "type": "string"
+              },
+              "message": {
+                "type": "string"
+              },
+              "source": {
+                "properties": {
+                  "pointer": {
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              }
             },
-            {
-              "type": "null"
-            }
-          ]
+            "required": [
+              "code",
+              "message"
+            ],
+            "type": "object"
+          },
+          "type": "array"
         },
-        "id": {
-          "type": "string"
+        "messages": {
+          "items": {
+            "properties": {
+              "code": {
+                "type": "integer"
+              },
+              "documentation_url": {
+                "type": "string"
+              },
+              "message": {
+                "type": "string"
+              },
+              "source": {
+                "properties": {
+                  "pointer": {
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              }
+            },
+            "required": [
+              "code",
+              "message"
+            ],
+            "type": "object"
+          },
+          "type": "array"
         },
-        "name": {
-          "type": "string"
-        },
-        "remote": {
-          "type": "string"
-        },
-        "token": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "default_branch",
-        "description",
-        "id",
-        "name",
-        "remote",
-        "token"
-      ],
-      "type": "object",
-    },
-    annotations: {
-      "destructiveHint": false,
-      "idempotentHint": false,
-      "openWorldHint": true,
-      "readOnlyHint": false,
-      "title": "Create a repository"
-    },
-    method: "POST",
-    path: "/accounts/{account_id}/artifacts/namespaces/{namespace}/repos",
-    extensions: {
-      "x-api-token-group": [
-        "Artifacts Edit"
-      ],
-      "x-stability": "beta"
-    },
-    responses: {
-      schemas: {
-        "201": {
+        "result": {
           "properties": {
             "default_branch": {
               "type": "string"
@@ -140,6 +145,251 @@ export const tools: readonly Tool[] = [
             "name",
             "remote",
             "token"
+          ],
+          "type": "object"
+        },
+        "result_info": {
+          "anyOf": [
+            {
+              "properties": {
+                "count": {
+                  "type": "integer"
+                },
+                "cursor": {
+                  "type": "string"
+                },
+                "per_page": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "count",
+                "cursor",
+                "per_page"
+              ],
+              "type": "object"
+            },
+            {
+              "properties": {
+                "count": {
+                  "type": "integer"
+                },
+                "page": {
+                  "type": "integer"
+                },
+                "per_page": {
+                  "type": "integer"
+                },
+                "total_count": {
+                  "type": "integer"
+                },
+                "total_pages": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "count",
+                "page",
+                "per_page",
+                "total_count",
+                "total_pages"
+              ],
+              "type": "object"
+            }
+          ]
+        },
+        "success": {
+          "enum": [
+            true
+          ],
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "errors",
+        "messages",
+        "result",
+        "success"
+      ],
+      "type": "object",
+    },
+    annotations: {
+      "destructiveHint": false,
+      "idempotentHint": false,
+      "openWorldHint": true,
+      "readOnlyHint": false,
+      "title": "Create a repository"
+    },
+    method: "POST",
+    path: "/accounts/{account_id}/artifacts/namespaces/{namespace}/repos",
+    extensions: {
+      "x-api-token-group": [
+        "Artifacts Edit"
+      ],
+      "x-stability": "beta"
+    },
+    responses: {
+      schemas: {
+        "201": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "code": {
+                    "type": "integer"
+                  },
+                  "documentation_url": {
+                    "type": "string"
+                  },
+                  "message": {
+                    "type": "string"
+                  },
+                  "source": {
+                    "properties": {
+                      "pointer": {
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "messages": {
+              "items": {
+                "properties": {
+                  "code": {
+                    "type": "integer"
+                  },
+                  "documentation_url": {
+                    "type": "string"
+                  },
+                  "message": {
+                    "type": "string"
+                  },
+                  "source": {
+                    "properties": {
+                      "pointer": {
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result": {
+              "properties": {
+                "default_branch": {
+                  "type": "string"
+                },
+                "description": {
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "id": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "remote": {
+                  "type": "string"
+                },
+                "token": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "default_branch",
+                "description",
+                "id",
+                "name",
+                "remote",
+                "token"
+              ],
+              "type": "object"
+            },
+            "result_info": {
+              "anyOf": [
+                {
+                  "properties": {
+                    "count": {
+                      "type": "integer"
+                    },
+                    "cursor": {
+                      "type": "string"
+                    },
+                    "per_page": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "count",
+                    "cursor",
+                    "per_page"
+                  ],
+                  "type": "object"
+                },
+                {
+                  "properties": {
+                    "count": {
+                      "type": "integer"
+                    },
+                    "page": {
+                      "type": "integer"
+                    },
+                    "per_page": {
+                      "type": "integer"
+                    },
+                    "total_count": {
+                      "type": "integer"
+                    },
+                    "total_pages": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "count",
+                    "page",
+                    "per_page",
+                    "total_count",
+                    "total_pages"
+                  ],
+                  "type": "object"
+                }
+              ]
+            },
+            "success": {
+              "enum": [
+                true
+              ],
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "messages",
+            "result",
+            "success"
           ],
           "type": "object"
         },
@@ -608,12 +858,137 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
-        "id": {
-          "type": "string"
+        "errors": {
+          "items": {
+            "properties": {
+              "code": {
+                "type": "integer"
+              },
+              "documentation_url": {
+                "type": "string"
+              },
+              "message": {
+                "type": "string"
+              },
+              "source": {
+                "properties": {
+                  "pointer": {
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              }
+            },
+            "required": [
+              "code",
+              "message"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "messages": {
+          "items": {
+            "properties": {
+              "code": {
+                "type": "integer"
+              },
+              "documentation_url": {
+                "type": "string"
+              },
+              "message": {
+                "type": "string"
+              },
+              "source": {
+                "properties": {
+                  "pointer": {
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              }
+            },
+            "required": [
+              "code",
+              "message"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "result": {
+          "properties": {
+            "id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "id"
+          ],
+          "type": "object"
+        },
+        "result_info": {
+          "anyOf": [
+            {
+              "properties": {
+                "count": {
+                  "type": "integer"
+                },
+                "cursor": {
+                  "type": "string"
+                },
+                "per_page": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "count",
+                "cursor",
+                "per_page"
+              ],
+              "type": "object"
+            },
+            {
+              "properties": {
+                "count": {
+                  "type": "integer"
+                },
+                "page": {
+                  "type": "integer"
+                },
+                "per_page": {
+                  "type": "integer"
+                },
+                "total_count": {
+                  "type": "integer"
+                },
+                "total_pages": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "count",
+                "page",
+                "per_page",
+                "total_count",
+                "total_pages"
+              ],
+              "type": "object"
+            }
+          ]
+        },
+        "success": {
+          "enum": [
+            true
+          ],
+          "type": "boolean"
         }
       },
       "required": [
-        "id"
+        "errors",
+        "messages",
+        "result",
+        "success"
       ],
       "type": "object",
     },
@@ -636,12 +1011,137 @@ export const tools: readonly Tool[] = [
       schemas: {
         "202": {
           "properties": {
-            "id": {
-              "type": "string"
+            "errors": {
+              "items": {
+                "properties": {
+                  "code": {
+                    "type": "integer"
+                  },
+                  "documentation_url": {
+                    "type": "string"
+                  },
+                  "message": {
+                    "type": "string"
+                  },
+                  "source": {
+                    "properties": {
+                      "pointer": {
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "messages": {
+              "items": {
+                "properties": {
+                  "code": {
+                    "type": "integer"
+                  },
+                  "documentation_url": {
+                    "type": "string"
+                  },
+                  "message": {
+                    "type": "string"
+                  },
+                  "source": {
+                    "properties": {
+                      "pointer": {
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result": {
+              "properties": {
+                "id": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "id"
+              ],
+              "type": "object"
+            },
+            "result_info": {
+              "anyOf": [
+                {
+                  "properties": {
+                    "count": {
+                      "type": "integer"
+                    },
+                    "cursor": {
+                      "type": "string"
+                    },
+                    "per_page": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "count",
+                    "cursor",
+                    "per_page"
+                  ],
+                  "type": "object"
+                },
+                {
+                  "properties": {
+                    "count": {
+                      "type": "integer"
+                    },
+                    "page": {
+                      "type": "integer"
+                    },
+                    "per_page": {
+                      "type": "integer"
+                    },
+                    "total_count": {
+                      "type": "integer"
+                    },
+                    "total_pages": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "count",
+                    "page",
+                    "per_page",
+                    "total_count",
+                    "total_pages"
+                  ],
+                  "type": "object"
+                }
+              ]
+            },
+            "success": {
+              "enum": [
+                true
+              ],
+              "type": "boolean"
             }
           },
           "required": [
-            "id"
+            "errors",
+            "messages",
+            "result",
+            "success"
           ],
           "type": "object"
         },
@@ -1100,10 +1600,16 @@ export const tools: readonly Tool[] = [
             "description": {
               "type": "string"
             },
+            "name": {
+              "type": "string"
+            },
             "read_only": {
               "type": "boolean"
             }
           },
+          "required": [
+            "name"
+          ],
           "type": "object"
         },
         "name": {
@@ -1124,64 +1630,65 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
-        "default_branch": {
-          "type": "string"
-        },
-        "description": {
-          "oneOf": [
-            {
-              "type": "string"
+        "errors": {
+          "items": {
+            "properties": {
+              "code": {
+                "type": "integer"
+              },
+              "documentation_url": {
+                "type": "string"
+              },
+              "message": {
+                "type": "string"
+              },
+              "source": {
+                "properties": {
+                  "pointer": {
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              }
             },
-            {
-              "type": "null"
-            }
-          ]
+            "required": [
+              "code",
+              "message"
+            ],
+            "type": "object"
+          },
+          "type": "array"
         },
-        "id": {
-          "type": "string"
+        "messages": {
+          "items": {
+            "properties": {
+              "code": {
+                "type": "integer"
+              },
+              "documentation_url": {
+                "type": "string"
+              },
+              "message": {
+                "type": "string"
+              },
+              "source": {
+                "properties": {
+                  "pointer": {
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              }
+            },
+            "required": [
+              "code",
+              "message"
+            ],
+            "type": "object"
+          },
+          "type": "array"
         },
-        "name": {
-          "type": "string"
-        },
-        "objects": {
-          "type": "integer"
-        },
-        "remote": {
-          "type": "string"
-        },
-        "token": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "default_branch",
-        "description",
-        "id",
-        "name",
-        "objects",
-        "remote",
-        "token"
-      ],
-      "type": "object",
-    },
-    annotations: {
-      "destructiveHint": false,
-      "idempotentHint": false,
-      "openWorldHint": true,
-      "readOnlyHint": false,
-      "title": "Fork a repository"
-    },
-    method: "POST",
-    path: "/accounts/{account_id}/artifacts/namespaces/{namespace}/repos/{name}/fork",
-    extensions: {
-      "x-api-token-group": [
-        "Artifacts Edit"
-      ],
-      "x-stability": "beta"
-    },
-    responses: {
-      schemas: {
-        "201": {
+        "result": {
           "properties": {
             "default_branch": {
               "type": "string"
@@ -1220,6 +1727,255 @@ export const tools: readonly Tool[] = [
             "objects",
             "remote",
             "token"
+          ],
+          "type": "object"
+        },
+        "result_info": {
+          "anyOf": [
+            {
+              "properties": {
+                "count": {
+                  "type": "integer"
+                },
+                "cursor": {
+                  "type": "string"
+                },
+                "per_page": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "count",
+                "cursor",
+                "per_page"
+              ],
+              "type": "object"
+            },
+            {
+              "properties": {
+                "count": {
+                  "type": "integer"
+                },
+                "page": {
+                  "type": "integer"
+                },
+                "per_page": {
+                  "type": "integer"
+                },
+                "total_count": {
+                  "type": "integer"
+                },
+                "total_pages": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "count",
+                "page",
+                "per_page",
+                "total_count",
+                "total_pages"
+              ],
+              "type": "object"
+            }
+          ]
+        },
+        "success": {
+          "enum": [
+            true
+          ],
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "errors",
+        "messages",
+        "result",
+        "success"
+      ],
+      "type": "object",
+    },
+    annotations: {
+      "destructiveHint": false,
+      "idempotentHint": false,
+      "openWorldHint": true,
+      "readOnlyHint": false,
+      "title": "Fork a repository"
+    },
+    method: "POST",
+    path: "/accounts/{account_id}/artifacts/namespaces/{namespace}/repos/{name}/fork",
+    extensions: {
+      "x-api-token-group": [
+        "Artifacts Edit"
+      ],
+      "x-stability": "beta"
+    },
+    responses: {
+      schemas: {
+        "201": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "code": {
+                    "type": "integer"
+                  },
+                  "documentation_url": {
+                    "type": "string"
+                  },
+                  "message": {
+                    "type": "string"
+                  },
+                  "source": {
+                    "properties": {
+                      "pointer": {
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "messages": {
+              "items": {
+                "properties": {
+                  "code": {
+                    "type": "integer"
+                  },
+                  "documentation_url": {
+                    "type": "string"
+                  },
+                  "message": {
+                    "type": "string"
+                  },
+                  "source": {
+                    "properties": {
+                      "pointer": {
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result": {
+              "properties": {
+                "default_branch": {
+                  "type": "string"
+                },
+                "description": {
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "id": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "objects": {
+                  "type": "integer"
+                },
+                "remote": {
+                  "type": "string"
+                },
+                "token": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "default_branch",
+                "description",
+                "id",
+                "name",
+                "objects",
+                "remote",
+                "token"
+              ],
+              "type": "object"
+            },
+            "result_info": {
+              "anyOf": [
+                {
+                  "properties": {
+                    "count": {
+                      "type": "integer"
+                    },
+                    "cursor": {
+                      "type": "string"
+                    },
+                    "per_page": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "count",
+                    "cursor",
+                    "per_page"
+                  ],
+                  "type": "object"
+                },
+                {
+                  "properties": {
+                    "count": {
+                      "type": "integer"
+                    },
+                    "page": {
+                      "type": "integer"
+                    },
+                    "per_page": {
+                      "type": "integer"
+                    },
+                    "total_count": {
+                      "type": "integer"
+                    },
+                    "total_pages": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "count",
+                    "page",
+                    "per_page",
+                    "total_count",
+                    "total_pages"
+                  ],
+                  "type": "object"
+                }
+              ]
+            },
+            "success": {
+              "enum": [
+                true
+              ],
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "messages",
+            "result",
+            "success"
           ],
           "type": "object"
         },
@@ -1860,93 +2616,65 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
-        "created_at": {
-          "format": "date-time",
-          "type": "string"
-        },
-        "default_branch": {
-          "type": "string"
-        },
-        "description": {
-          "oneOf": [
-            {
-              "type": "string"
+        "errors": {
+          "items": {
+            "properties": {
+              "code": {
+                "type": "integer"
+              },
+              "documentation_url": {
+                "type": "string"
+              },
+              "message": {
+                "type": "string"
+              },
+              "source": {
+                "properties": {
+                  "pointer": {
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              }
             },
-            {
-              "type": "null"
-            }
-          ]
+            "required": [
+              "code",
+              "message"
+            ],
+            "type": "object"
+          },
+          "type": "array"
         },
-        "id": {
-          "type": "string"
-        },
-        "last_push_at": {
-          "oneOf": [
-            {
-              "format": "date-time",
-              "type": "string"
+        "messages": {
+          "items": {
+            "properties": {
+              "code": {
+                "type": "integer"
+              },
+              "documentation_url": {
+                "type": "string"
+              },
+              "message": {
+                "type": "string"
+              },
+              "source": {
+                "properties": {
+                  "pointer": {
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              }
             },
-            {
-              "type": "null"
-            }
-          ]
+            "required": [
+              "code",
+              "message"
+            ],
+            "type": "object"
+          },
+          "type": "array"
         },
-        "name": {
-          "type": "string"
-        },
-        "read_only": {
-          "type": "boolean"
-        },
-        "remote": {
-          "type": "string"
-        },
-        "source": {
-          "oneOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "updated_at": {
-          "format": "date-time",
-          "type": "string"
-        }
-      },
-      "required": [
-        "created_at",
-        "default_branch",
-        "description",
-        "id",
-        "last_push_at",
-        "name",
-        "read_only",
-        "remote",
-        "source",
-        "updated_at"
-      ],
-      "type": "object",
-    },
-    annotations: {
-      "destructiveHint": false,
-      "idempotentHint": true,
-      "openWorldHint": true,
-      "readOnlyHint": true,
-      "title": "Get a repository"
-    },
-    method: "GET",
-    path: "/accounts/{account_id}/artifacts/namespaces/{namespace}/repos/{name}",
-    extensions: {
-      "x-api-token-group": [
-        "Artifacts Read"
-      ],
-      "x-stability": "beta"
-    },
-    responses: {
-      schemas: {
-        "200": {
+        "result": {
           "properties": {
             "created_at": {
               "format": "date-time",
@@ -2014,6 +2742,284 @@ export const tools: readonly Tool[] = [
             "remote",
             "source",
             "updated_at"
+          ],
+          "type": "object"
+        },
+        "result_info": {
+          "anyOf": [
+            {
+              "properties": {
+                "count": {
+                  "type": "integer"
+                },
+                "cursor": {
+                  "type": "string"
+                },
+                "per_page": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "count",
+                "cursor",
+                "per_page"
+              ],
+              "type": "object"
+            },
+            {
+              "properties": {
+                "count": {
+                  "type": "integer"
+                },
+                "page": {
+                  "type": "integer"
+                },
+                "per_page": {
+                  "type": "integer"
+                },
+                "total_count": {
+                  "type": "integer"
+                },
+                "total_pages": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "count",
+                "page",
+                "per_page",
+                "total_count",
+                "total_pages"
+              ],
+              "type": "object"
+            }
+          ]
+        },
+        "success": {
+          "enum": [
+            true
+          ],
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "errors",
+        "messages",
+        "result",
+        "success"
+      ],
+      "type": "object",
+    },
+    annotations: {
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": true,
+      "readOnlyHint": true,
+      "title": "Get a repository"
+    },
+    method: "GET",
+    path: "/accounts/{account_id}/artifacts/namespaces/{namespace}/repos/{name}",
+    extensions: {
+      "x-api-token-group": [
+        "Artifacts Read"
+      ],
+      "x-stability": "beta"
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "code": {
+                    "type": "integer"
+                  },
+                  "documentation_url": {
+                    "type": "string"
+                  },
+                  "message": {
+                    "type": "string"
+                  },
+                  "source": {
+                    "properties": {
+                      "pointer": {
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "messages": {
+              "items": {
+                "properties": {
+                  "code": {
+                    "type": "integer"
+                  },
+                  "documentation_url": {
+                    "type": "string"
+                  },
+                  "message": {
+                    "type": "string"
+                  },
+                  "source": {
+                    "properties": {
+                      "pointer": {
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result": {
+              "properties": {
+                "created_at": {
+                  "format": "date-time",
+                  "type": "string"
+                },
+                "default_branch": {
+                  "type": "string"
+                },
+                "description": {
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "id": {
+                  "type": "string"
+                },
+                "last_push_at": {
+                  "oneOf": [
+                    {
+                      "format": "date-time",
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "name": {
+                  "type": "string"
+                },
+                "read_only": {
+                  "type": "boolean"
+                },
+                "remote": {
+                  "type": "string"
+                },
+                "source": {
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "updated_at": {
+                  "format": "date-time",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "created_at",
+                "default_branch",
+                "description",
+                "id",
+                "last_push_at",
+                "name",
+                "read_only",
+                "remote",
+                "source",
+                "updated_at"
+              ],
+              "type": "object"
+            },
+            "result_info": {
+              "anyOf": [
+                {
+                  "properties": {
+                    "count": {
+                      "type": "integer"
+                    },
+                    "cursor": {
+                      "type": "string"
+                    },
+                    "per_page": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "count",
+                    "cursor",
+                    "per_page"
+                  ],
+                  "type": "object"
+                },
+                {
+                  "properties": {
+                    "count": {
+                      "type": "integer"
+                    },
+                    "page": {
+                      "type": "integer"
+                    },
+                    "per_page": {
+                      "type": "integer"
+                    },
+                    "total_count": {
+                      "type": "integer"
+                    },
+                    "total_pages": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "count",
+                    "page",
+                    "per_page",
+                    "total_count",
+                    "total_pages"
+                  ],
+                  "type": "object"
+                }
+              ]
+            },
+            "success": {
+              "enum": [
+                true
+              ],
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "messages",
+            "result",
+            "success"
           ],
           "type": "object"
         },
@@ -2589,60 +3595,65 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
-        "default_branch": {
-          "type": "string"
-        },
-        "description": {
-          "oneOf": [
-            {
-              "type": "string"
+        "errors": {
+          "items": {
+            "properties": {
+              "code": {
+                "type": "integer"
+              },
+              "documentation_url": {
+                "type": "string"
+              },
+              "message": {
+                "type": "string"
+              },
+              "source": {
+                "properties": {
+                  "pointer": {
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              }
             },
-            {
-              "type": "null"
-            }
-          ]
+            "required": [
+              "code",
+              "message"
+            ],
+            "type": "object"
+          },
+          "type": "array"
         },
-        "id": {
-          "type": "string"
+        "messages": {
+          "items": {
+            "properties": {
+              "code": {
+                "type": "integer"
+              },
+              "documentation_url": {
+                "type": "string"
+              },
+              "message": {
+                "type": "string"
+              },
+              "source": {
+                "properties": {
+                  "pointer": {
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              }
+            },
+            "required": [
+              "code",
+              "message"
+            ],
+            "type": "object"
+          },
+          "type": "array"
         },
-        "name": {
-          "type": "string"
-        },
-        "remote": {
-          "type": "string"
-        },
-        "token": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "default_branch",
-        "description",
-        "id",
-        "name",
-        "remote",
-        "token"
-      ],
-      "type": "object",
-    },
-    annotations: {
-      "destructiveHint": false,
-      "idempotentHint": false,
-      "openWorldHint": true,
-      "readOnlyHint": false,
-      "title": "Import a repository"
-    },
-    method: "POST",
-    path: "/accounts/{account_id}/artifacts/namespaces/{namespace}/repos/{name}/import",
-    extensions: {
-      "x-api-token-group": [
-        "Artifacts Edit"
-      ],
-      "x-stability": "beta"
-    },
-    responses: {
-      schemas: {
-        "201": {
+        "result": {
           "properties": {
             "default_branch": {
               "type": "string"
@@ -2677,6 +3688,251 @@ export const tools: readonly Tool[] = [
             "name",
             "remote",
             "token"
+          ],
+          "type": "object"
+        },
+        "result_info": {
+          "anyOf": [
+            {
+              "properties": {
+                "count": {
+                  "type": "integer"
+                },
+                "cursor": {
+                  "type": "string"
+                },
+                "per_page": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "count",
+                "cursor",
+                "per_page"
+              ],
+              "type": "object"
+            },
+            {
+              "properties": {
+                "count": {
+                  "type": "integer"
+                },
+                "page": {
+                  "type": "integer"
+                },
+                "per_page": {
+                  "type": "integer"
+                },
+                "total_count": {
+                  "type": "integer"
+                },
+                "total_pages": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "count",
+                "page",
+                "per_page",
+                "total_count",
+                "total_pages"
+              ],
+              "type": "object"
+            }
+          ]
+        },
+        "success": {
+          "enum": [
+            true
+          ],
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "errors",
+        "messages",
+        "result",
+        "success"
+      ],
+      "type": "object",
+    },
+    annotations: {
+      "destructiveHint": false,
+      "idempotentHint": false,
+      "openWorldHint": true,
+      "readOnlyHint": false,
+      "title": "Import a repository"
+    },
+    method: "POST",
+    path: "/accounts/{account_id}/artifacts/namespaces/{namespace}/repos/{name}/import",
+    extensions: {
+      "x-api-token-group": [
+        "Artifacts Edit"
+      ],
+      "x-stability": "beta"
+    },
+    responses: {
+      schemas: {
+        "201": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "code": {
+                    "type": "integer"
+                  },
+                  "documentation_url": {
+                    "type": "string"
+                  },
+                  "message": {
+                    "type": "string"
+                  },
+                  "source": {
+                    "properties": {
+                      "pointer": {
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "messages": {
+              "items": {
+                "properties": {
+                  "code": {
+                    "type": "integer"
+                  },
+                  "documentation_url": {
+                    "type": "string"
+                  },
+                  "message": {
+                    "type": "string"
+                  },
+                  "source": {
+                    "properties": {
+                      "pointer": {
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result": {
+              "properties": {
+                "default_branch": {
+                  "type": "string"
+                },
+                "description": {
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "id": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "remote": {
+                  "type": "string"
+                },
+                "token": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "default_branch",
+                "description",
+                "id",
+                "name",
+                "remote",
+                "token"
+              ],
+              "type": "object"
+            },
+            "result_info": {
+              "anyOf": [
+                {
+                  "properties": {
+                    "count": {
+                      "type": "integer"
+                    },
+                    "cursor": {
+                      "type": "string"
+                    },
+                    "per_page": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "count",
+                    "cursor",
+                    "per_page"
+                  ],
+                  "type": "object"
+                },
+                {
+                  "properties": {
+                    "count": {
+                      "type": "integer"
+                    },
+                    "page": {
+                      "type": "integer"
+                    },
+                    "per_page": {
+                      "type": "integer"
+                    },
+                    "total_count": {
+                      "type": "integer"
+                    },
+                    "total_pages": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "count",
+                    "page",
+                    "per_page",
+                    "total_count",
+                    "total_pages"
+                  ],
+                  "type": "object"
+                }
+              ]
+            },
+            "success": {
+              "enum": [
+                true
+              ],
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "messages",
+            "result",
+            "success"
           ],
           "type": "object"
         },
@@ -3684,6 +4940,64 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
+        "errors": {
+          "items": {
+            "properties": {
+              "code": {
+                "type": "integer"
+              },
+              "documentation_url": {
+                "type": "string"
+              },
+              "message": {
+                "type": "string"
+              },
+              "source": {
+                "properties": {
+                  "pointer": {
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              }
+            },
+            "required": [
+              "code",
+              "message"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "messages": {
+          "items": {
+            "properties": {
+              "code": {
+                "type": "integer"
+              },
+              "documentation_url": {
+                "type": "string"
+              },
+              "message": {
+                "type": "string"
+              },
+              "source": {
+                "properties": {
+                  "pointer": {
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              }
+            },
+            "required": [
+              "code",
+              "message"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
         "result": {
           "items": {
             "properties": {
@@ -3807,10 +5121,19 @@ export const tools: readonly Tool[] = [
               "type": "object"
             }
           ]
+        },
+        "success": {
+          "enum": [
+            true
+          ],
+          "type": "boolean"
         }
       },
       "required": [
-        "result"
+        "errors",
+        "messages",
+        "result",
+        "success"
       ],
       "type": "object",
     },
@@ -3833,6 +5156,64 @@ export const tools: readonly Tool[] = [
       schemas: {
         "200": {
           "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "code": {
+                    "type": "integer"
+                  },
+                  "documentation_url": {
+                    "type": "string"
+                  },
+                  "message": {
+                    "type": "string"
+                  },
+                  "source": {
+                    "properties": {
+                      "pointer": {
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "messages": {
+              "items": {
+                "properties": {
+                  "code": {
+                    "type": "integer"
+                  },
+                  "documentation_url": {
+                    "type": "string"
+                  },
+                  "message": {
+                    "type": "string"
+                  },
+                  "source": {
+                    "properties": {
+                      "pointer": {
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
             "result": {
               "items": {
                 "properties": {
@@ -3956,10 +5337,19 @@ export const tools: readonly Tool[] = [
                   "type": "object"
                 }
               ]
+            },
+            "success": {
+              "enum": [
+                true
+              ],
+              "type": "boolean"
             }
           },
           "required": [
-            "result"
+            "errors",
+            "messages",
+            "result",
+            "success"
           ],
           "type": "object"
         },

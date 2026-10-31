@@ -6,10 +6,15 @@ import {
   cws_DeletedResult_output,
   cws_ErrorResponse_output,
   cws_MessageSource_output,
+  cws_ResponseDeletedResult_output,
   cws_ResponseMessage_output,
   cws_ResultInfo_output,
 } from "../../outputs.js";
-import { cws_BasicAuthSecretResponse_output } from "./outputs.js";
+import {
+  cws_BasicAuthSecretResponse_output,
+  cws_PageResponseBasicAuthSecretResponse_output,
+  cws_ResponseBasicAuthSecretResponse_output,
+} from "./outputs.js";
 import { cws_CreateBasicAuthSecretBody } from "./schemas.js";
 
 /**
@@ -46,9 +51,12 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/cws_BasicAuthSecretResponse",
+      "$ref": "#/$defs/cws_ResponseBasicAuthSecretResponse",
       $defs: {
         "cws_BasicAuthSecretResponse": cws_BasicAuthSecretResponse_output,
+        "cws_MessageSource": cws_MessageSource_output,
+        "cws_ResponseBasicAuthSecretResponse": cws_ResponseBasicAuthSecretResponse_output,
+        "cws_ResponseMessage": cws_ResponseMessage_output,
       },
     },
     annotations: {
@@ -66,7 +74,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "201": {
-          "$ref": "#/$defs/cws_BasicAuthSecretResponse"
+          "$ref": "#/$defs/cws_ResponseBasicAuthSecretResponse"
         },
         "4XX": {
           "$ref": "#/$defs/cws_ErrorResponse"
@@ -82,6 +90,7 @@ export const tools: readonly Tool[] = [
         "cws_BasicAuthSecretResponse": cws_BasicAuthSecretResponse_output,
         "cws_ErrorResponse": cws_ErrorResponse_output,
         "cws_MessageSource": cws_MessageSource_output,
+        "cws_ResponseBasicAuthSecretResponse": cws_ResponseBasicAuthSecretResponse_output,
         "cws_ResponseMessage": cws_ResponseMessage_output,
       },
     },
@@ -119,9 +128,12 @@ export const tools: readonly Tool[] = [
       ],
     },
     outputSchema: {
-      "$ref": "#/$defs/cws_DeletedResult",
+      "$ref": "#/$defs/cws_ResponseDeletedResult",
       $defs: {
         "cws_DeletedResult": cws_DeletedResult_output,
+        "cws_MessageSource": cws_MessageSource_output,
+        "cws_ResponseDeletedResult": cws_ResponseDeletedResult_output,
+        "cws_ResponseMessage": cws_ResponseMessage_output,
       },
     },
     annotations: {
@@ -139,7 +151,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/cws_DeletedResult"
+          "$ref": "#/$defs/cws_ResponseDeletedResult"
         },
         "4XX": {
           "$ref": "#/$defs/cws_ErrorResponse"
@@ -152,6 +164,7 @@ export const tools: readonly Tool[] = [
         "cws_DeletedResult": cws_DeletedResult_output,
         "cws_ErrorResponse": cws_ErrorResponse_output,
         "cws_MessageSource": cws_MessageSource_output,
+        "cws_ResponseDeletedResult": cws_ResponseDeletedResult_output,
         "cws_ResponseMessage": cws_ResponseMessage_output,
       },
     },
@@ -188,9 +201,12 @@ export const tools: readonly Tool[] = [
       ],
     },
     outputSchema: {
-      "$ref": "#/$defs/cws_BasicAuthSecretResponse",
+      "$ref": "#/$defs/cws_ResponseBasicAuthSecretResponse",
       $defs: {
         "cws_BasicAuthSecretResponse": cws_BasicAuthSecretResponse_output,
+        "cws_MessageSource": cws_MessageSource_output,
+        "cws_ResponseBasicAuthSecretResponse": cws_ResponseBasicAuthSecretResponse_output,
+        "cws_ResponseMessage": cws_ResponseMessage_output,
       },
     },
     annotations: {
@@ -208,7 +224,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/cws_BasicAuthSecretResponse"
+          "$ref": "#/$defs/cws_ResponseBasicAuthSecretResponse"
         },
         "4XX": {
           "$ref": "#/$defs/cws_ErrorResponse"
@@ -221,6 +237,7 @@ export const tools: readonly Tool[] = [
         "cws_BasicAuthSecretResponse": cws_BasicAuthSecretResponse_output,
         "cws_ErrorResponse": cws_ErrorResponse_output,
         "cws_MessageSource": cws_MessageSource_output,
+        "cws_ResponseBasicAuthSecretResponse": cws_ResponseBasicAuthSecretResponse_output,
         "cws_ResponseMessage": cws_ResponseMessage_output,
       },
     },
@@ -277,30 +294,12 @@ export const tools: readonly Tool[] = [
       ],
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "oneOf": [
-            {
-              "items": {
-                "$ref": "#/$defs/cws_BasicAuthSecretResponse"
-              },
-              "type": "array"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "result_info": {
-          "$ref": "#/$defs/cws_ResultInfo"
-        }
-      },
-      "required": [
-        "result"
-      ],
-      "type": "object",
+      "$ref": "#/$defs/cws_PageResponseBasicAuthSecretResponse",
       $defs: {
         "cws_BasicAuthSecretResponse": cws_BasicAuthSecretResponse_output,
+        "cws_MessageSource": cws_MessageSource_output,
+        "cws_PageResponseBasicAuthSecretResponse": cws_PageResponseBasicAuthSecretResponse_output,
+        "cws_ResponseMessage": cws_ResponseMessage_output,
         "cws_ResultInfo": cws_ResultInfo_output,
       },
     },
@@ -319,28 +318,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "oneOf": [
-                {
-                  "items": {
-                    "$ref": "#/$defs/cws_BasicAuthSecretResponse"
-                  },
-                  "type": "array"
-                },
-                {
-                  "type": "null"
-                }
-              ]
-            },
-            "result_info": {
-              "$ref": "#/$defs/cws_ResultInfo"
-            }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/cws_PageResponseBasicAuthSecretResponse"
         },
         "4XX": {
           "$ref": "#/$defs/cws_ErrorResponse"
@@ -353,6 +331,7 @@ export const tools: readonly Tool[] = [
         "cws_BasicAuthSecretResponse": cws_BasicAuthSecretResponse_output,
         "cws_ErrorResponse": cws_ErrorResponse_output,
         "cws_MessageSource": cws_MessageSource_output,
+        "cws_PageResponseBasicAuthSecretResponse": cws_PageResponseBasicAuthSecretResponse_output,
         "cws_ResponseMessage": cws_ResponseMessage_output,
         "cws_ResultInfo": cws_ResultInfo_output,
       },

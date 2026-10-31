@@ -14,6 +14,9 @@ import {
 import {
   pay_per_crawl_IronCladContract_output,
   pay_per_crawl_SignatureLinkResponse_output,
+  pay_per_crawl_getTermsResponse_output,
+  pay_per_crawl_getTermsSignatureLinkResponse_output,
+  pay_per_crawl_getTermsSignatureResponse_output,
 } from "./outputs.js";
 
 /**
@@ -37,9 +40,13 @@ export const tools: readonly Tool[] = [
       ],
     },
     outputSchema: {
-      "$ref": "#/$defs/pay-per-crawl_IronCladContract",
+      "$ref": "#/$defs/pay-per-crawl_getTermsResponse",
       $defs: {
         "pay-per-crawl_IronCladContract": pay_per_crawl_IronCladContract_output,
+        "pay-per-crawl_Msg": pay_per_crawl_Msg_output,
+        "pay-per-crawl_ResultInfo": pay_per_crawl_ResultInfo_output,
+        "pay-per-crawl_Source": pay_per_crawl_Source_output,
+        "pay-per-crawl_getTermsResponse": pay_per_crawl_getTermsResponse_output,
       },
     },
     annotations: {
@@ -87,7 +94,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/pay-per-crawl_IronCladContract"
+          "$ref": "#/$defs/pay-per-crawl_getTermsResponse"
         },
         "400": {
           "$ref": "#/$defs/pay-per-crawl_apiErrorResponse"
@@ -96,8 +103,12 @@ export const tools: readonly Tool[] = [
       $defs: {
         "pay-per-crawl_ErrorSource": pay_per_crawl_ErrorSource_output,
         "pay-per-crawl_IronCladContract": pay_per_crawl_IronCladContract_output,
+        "pay-per-crawl_Msg": pay_per_crawl_Msg_output,
         "pay-per-crawl_RESTError": pay_per_crawl_RESTError_output,
+        "pay-per-crawl_ResultInfo": pay_per_crawl_ResultInfo_output,
+        "pay-per-crawl_Source": pay_per_crawl_Source_output,
         "pay-per-crawl_apiErrorResponse": pay_per_crawl_apiErrorResponse_output,
+        "pay-per-crawl_getTermsResponse": pay_per_crawl_getTermsResponse_output,
       },
     },
     request: (args) => ({
@@ -125,14 +136,13 @@ export const tools: readonly Tool[] = [
       ],
     },
     outputSchema: {
-      "oneOf": [
-        {
-          "type": "string"
-        },
-        {
-          "type": "null"
-        }
-      ],
+      "$ref": "#/$defs/pay-per-crawl_getTermsSignatureResponse",
+      $defs: {
+        "pay-per-crawl_Msg": pay_per_crawl_Msg_output,
+        "pay-per-crawl_ResultInfo": pay_per_crawl_ResultInfo_output,
+        "pay-per-crawl_Source": pay_per_crawl_Source_output,
+        "pay-per-crawl_getTermsSignatureResponse": pay_per_crawl_getTermsSignatureResponse_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -179,14 +189,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "oneOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ]
+          "$ref": "#/$defs/pay-per-crawl_getTermsSignatureResponse"
         },
         "400": {
           "$ref": "#/$defs/pay-per-crawl_apiErrorResponse"
@@ -194,8 +197,12 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "pay-per-crawl_ErrorSource": pay_per_crawl_ErrorSource_output,
+        "pay-per-crawl_Msg": pay_per_crawl_Msg_output,
         "pay-per-crawl_RESTError": pay_per_crawl_RESTError_output,
+        "pay-per-crawl_ResultInfo": pay_per_crawl_ResultInfo_output,
+        "pay-per-crawl_Source": pay_per_crawl_Source_output,
         "pay-per-crawl_apiErrorResponse": pay_per_crawl_apiErrorResponse_output,
+        "pay-per-crawl_getTermsSignatureResponse": pay_per_crawl_getTermsSignatureResponse_output,
       },
     },
     request: (args) => ({
@@ -222,9 +229,13 @@ export const tools: readonly Tool[] = [
       ],
     },
     outputSchema: {
-      "$ref": "#/$defs/pay-per-crawl_SignatureLinkResponse",
+      "$ref": "#/$defs/pay-per-crawl_getTermsSignatureLinkResponse",
       $defs: {
+        "pay-per-crawl_Msg": pay_per_crawl_Msg_output,
+        "pay-per-crawl_ResultInfo": pay_per_crawl_ResultInfo_output,
         "pay-per-crawl_SignatureLinkResponse": pay_per_crawl_SignatureLinkResponse_output,
+        "pay-per-crawl_Source": pay_per_crawl_Source_output,
+        "pay-per-crawl_getTermsSignatureLinkResponse": pay_per_crawl_getTermsSignatureLinkResponse_output,
       },
     },
     annotations: {
@@ -272,7 +283,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/pay-per-crawl_SignatureLinkResponse"
+          "$ref": "#/$defs/pay-per-crawl_getTermsSignatureLinkResponse"
         },
         "400": {
           "$ref": "#/$defs/pay-per-crawl_apiErrorResponse"
@@ -280,9 +291,13 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "pay-per-crawl_ErrorSource": pay_per_crawl_ErrorSource_output,
+        "pay-per-crawl_Msg": pay_per_crawl_Msg_output,
         "pay-per-crawl_RESTError": pay_per_crawl_RESTError_output,
+        "pay-per-crawl_ResultInfo": pay_per_crawl_ResultInfo_output,
         "pay-per-crawl_SignatureLinkResponse": pay_per_crawl_SignatureLinkResponse_output,
+        "pay-per-crawl_Source": pay_per_crawl_Source_output,
         "pay-per-crawl_apiErrorResponse": pay_per_crawl_apiErrorResponse_output,
+        "pay-per-crawl_getTermsSignatureLinkResponse": pay_per_crawl_getTermsSignatureLinkResponse_output,
       },
     },
     request: (args) => ({

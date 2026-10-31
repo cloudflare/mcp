@@ -6,6 +6,9 @@ import {
   spectrum_analytics_api_response_common_failure_output,
   spectrum_analytics_identifier_output,
   spectrum_analytics_messages_output,
+  spectrum_analytics_since_output,
+  spectrum_analytics_timestamp_output,
+  spectrum_analytics_until_output,
 } from "../../outputs.js";
 import {
   spectrum_analytics_since,
@@ -13,9 +16,10 @@ import {
   spectrum_analytics_until,
 } from "../../schemas.js";
 import {
+  spectrum_analytics_api_response_collection_output,
+  spectrum_analytics_api_response_common_output,
   spectrum_analytics_zone_report_output,
-  spectrum_analytics_zone_report_totals_bandwidth_output,
-  spectrum_analytics_zone_report_totals_output,
+  spectrum_analytics_zones_report_response_output,
 } from "./outputs.js";
 
 /**
@@ -48,43 +52,17 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "$ref": "#/$defs/spectrum-analytics_zone_report"
-          },
-          "type": "array"
-        },
-        "result_info": {
-          "properties": {
-            "count": {
-              "type": "number"
-            },
-            "page": {
-              "type": "number"
-            },
-            "per_page": {
-              "type": "number"
-            },
-            "total_count": {
-              "type": "number"
-            },
-            "total_pages": {
-              "type": "number"
-            }
-          },
-          "type": "object"
-        }
-      },
-      "required": [
-        "result"
-      ],
-      "type": "object",
+      "$ref": "#/$defs/spectrum-analytics_zones_report_response",
       $defs: {
+        "spectrum-analytics_api-response-collection": spectrum_analytics_api_response_collection_output,
+        "spectrum-analytics_api-response-common": spectrum_analytics_api_response_common_output,
         "spectrum-analytics_identifier": spectrum_analytics_identifier_output,
+        "spectrum-analytics_messages": spectrum_analytics_messages_output,
+        "spectrum-analytics_since": spectrum_analytics_since_output,
+        "spectrum-analytics_timestamp": spectrum_analytics_timestamp_output,
+        "spectrum-analytics_until": spectrum_analytics_until_output,
         "spectrum-analytics_zone_report": spectrum_analytics_zone_report_output,
-        "spectrum-analytics_zone_report_totals": spectrum_analytics_zone_report_totals_output,
-        "spectrum-analytics_zone_report_totals_bandwidth": spectrum_analytics_zone_report_totals_bandwidth_output,
+        "spectrum-analytics_zones_report_response": spectrum_analytics_zones_report_response_output,
       },
     },
     annotations: {
@@ -105,50 +83,23 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "items": {
-                "$ref": "#/$defs/spectrum-analytics_zone_report"
-              },
-              "type": "array"
-            },
-            "result_info": {
-              "properties": {
-                "count": {
-                  "type": "number"
-                },
-                "page": {
-                  "type": "number"
-                },
-                "per_page": {
-                  "type": "number"
-                },
-                "total_count": {
-                  "type": "number"
-                },
-                "total_pages": {
-                  "type": "number"
-                }
-              },
-              "type": "object"
-            }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/spectrum-analytics_zones_report_response"
         },
         "4XX": {
           "$ref": "#/$defs/spectrum-analytics_api-response-common-failure"
         }
       },
       $defs: {
+        "spectrum-analytics_api-response-collection": spectrum_analytics_api_response_collection_output,
+        "spectrum-analytics_api-response-common": spectrum_analytics_api_response_common_output,
         "spectrum-analytics_api-response-common-failure": spectrum_analytics_api_response_common_failure_output,
         "spectrum-analytics_identifier": spectrum_analytics_identifier_output,
         "spectrum-analytics_messages": spectrum_analytics_messages_output,
+        "spectrum-analytics_since": spectrum_analytics_since_output,
+        "spectrum-analytics_timestamp": spectrum_analytics_timestamp_output,
+        "spectrum-analytics_until": spectrum_analytics_until_output,
         "spectrum-analytics_zone_report": spectrum_analytics_zone_report_output,
-        "spectrum-analytics_zone_report_totals": spectrum_analytics_zone_report_totals_output,
-        "spectrum-analytics_zone_report_totals_bandwidth": spectrum_analytics_zone_report_totals_bandwidth_output,
+        "spectrum-analytics_zones_report_response": spectrum_analytics_zones_report_response_output,
       },
     },
     request: (args) => ({

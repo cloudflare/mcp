@@ -3,8 +3,10 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
+  builds_APIResponse_output,
   builds_ApiError_output,
   builds_ErrorResponse_output,
+  builds_PaginationInfo_output,
 } from "../../outputs.js";
 import { builds_account_id } from "../../schemas.js";
 import { builds_GetAccountLimitResponse_output } from "./outputs.js";
@@ -33,9 +35,24 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/builds_GetAccountLimitResponse",
+      "allOf": [
+        {
+          "$ref": "#/$defs/builds_APIResponse"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/builds_GetAccountLimitResponse"
+            }
+          },
+          "type": "object"
+        }
+      ],
       $defs: {
+        "builds_APIResponse": builds_APIResponse_output,
+        "builds_ApiError": builds_ApiError_output,
         "builds_GetAccountLimitResponse": builds_GetAccountLimitResponse_output,
+        "builds_PaginationInfo": builds_PaginationInfo_output,
       },
     },
     annotations: {
@@ -56,16 +73,30 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/builds_GetAccountLimitResponse"
+          "allOf": [
+            {
+              "$ref": "#/$defs/builds_APIResponse"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/builds_GetAccountLimitResponse"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "401": {
           "$ref": "#/$defs/builds_ErrorResponse"
         }
       },
       $defs: {
+        "builds_APIResponse": builds_APIResponse_output,
         "builds_ApiError": builds_ApiError_output,
         "builds_ErrorResponse": builds_ErrorResponse_output,
         "builds_GetAccountLimitResponse": builds_GetAccountLimitResponse_output,
+        "builds_PaginationInfo": builds_PaginationInfo_output,
       },
     },
     request: (args) => ({

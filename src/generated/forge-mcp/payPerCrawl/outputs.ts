@@ -29,3 +29,63 @@ export const pay_per_crawl_StripeConnection_output: JsonSchema = {
   },
   "type": "object"
 };
+
+/**
+ * The schema of `pay-per-crawl_createStripeConfigResponse` in responses.
+ */
+export const pay_per_crawl_createStripeConfigResponse_output: JsonSchema = {
+  "properties": {
+    "errors": {
+      "items": {
+        "$ref": "#/$defs/pay-per-crawl_Msg"
+      },
+      "type": "array"
+    },
+    "messages": {
+      "items": {
+        "$ref": "#/$defs/pay-per-crawl_Msg"
+      },
+      "type": "array"
+    },
+    "result": {
+      "$ref": "#/$defs/pay-per-crawl_StripeConnectResp"
+    },
+    "result_info": {
+      "$ref": "#/$defs/pay-per-crawl_ResultInfo"
+    },
+    "success": {
+      "type": "boolean"
+    }
+  },
+  "type": "object"
+};
+
+/**
+ * The schema of `pay-per-crawl_getStripeConfigResponse` in responses.
+ */
+export const pay_per_crawl_getStripeConfigResponse_output: JsonSchema = {
+  "properties": {
+    "errors": {
+      "items": {
+        "$ref": "#/$defs/pay-per-crawl_Msg"
+      },
+      "type": "array"
+    },
+    "messages": {
+      "items": {
+        "$ref": "#/$defs/pay-per-crawl_Msg"
+      },
+      "type": "array"
+    },
+    "result": {
+      "$ref": "#/$defs/pay-per-crawl_StripeConnection"
+    },
+    "result_info": {
+      "$ref": "#/$defs/pay-per-crawl_ResultInfo"
+    },
+    "success": {
+      "type": "boolean"
+    }
+  },
+  "type": "object"
+};

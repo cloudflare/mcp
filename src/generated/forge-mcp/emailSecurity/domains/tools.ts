@@ -4,7 +4,10 @@
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
   email_security_DispositionLabel_output,
+  email_security_api_response_collection_output,
   email_security_api_response_common_failure_output,
+  email_security_api_response_common_output,
+  email_security_api_response_single_output,
   email_security_messages_output,
   email_security_timestamp_output,
 } from "../outputs.js";
@@ -154,30 +157,42 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "properties": {
-        "deletes": {
-          "items": {
-            "$ref": "#/$defs/email-security_DeletedDomain"
+      "allOf": [
+        {
+          "$ref": "#/$defs/email-security_api-response-single"
+        },
+        {
+          "properties": {
+            "result": {
+              "properties": {
+                "deletes": {
+                  "items": {
+                    "$ref": "#/$defs/email-security_DeletedDomain"
+                  },
+                  "type": "array"
+                },
+                "patches": {
+                  "$ref": "#/$defs/email-security_DomainList"
+                },
+                "posts": {
+                  "$ref": "#/$defs/email-security_DomainList"
+                },
+                "puts": {
+                  "$ref": "#/$defs/email-security_DomainList"
+                }
+              },
+              "required": [
+                "deletes",
+                "patches",
+                "posts",
+                "puts"
+              ],
+              "type": "object"
+            }
           },
-          "type": "array"
-        },
-        "patches": {
-          "$ref": "#/$defs/email-security_DomainList"
-        },
-        "posts": {
-          "$ref": "#/$defs/email-security_DomainList"
-        },
-        "puts": {
-          "$ref": "#/$defs/email-security_DomainList"
+          "type": "object"
         }
-      },
-      "required": [
-        "deletes",
-        "patches",
-        "posts",
-        "puts"
       ],
-      "type": "object",
       $defs: {
         "email-security_DeletedDomain": email_security_DeletedDomain_output,
         "email-security_DeliveryMode": email_security_DeliveryMode_output,
@@ -192,6 +207,8 @@ export const tools: readonly Tool[] = [
         "email-security_Region": email_security_Region_output,
         "email-security_ScannableFolder": email_security_ScannableFolder_output,
         "email-security_SpfStatus": email_security_SpfStatus_output,
+        "email-security_api-response-single": email_security_api_response_single_output,
+        "email-security_messages": email_security_messages_output,
         "email-security_timestamp": email_security_timestamp_output,
       },
     },
@@ -213,30 +230,42 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "deletes": {
-              "items": {
-                "$ref": "#/$defs/email-security_DeletedDomain"
+          "allOf": [
+            {
+              "$ref": "#/$defs/email-security_api-response-single"
+            },
+            {
+              "properties": {
+                "result": {
+                  "properties": {
+                    "deletes": {
+                      "items": {
+                        "$ref": "#/$defs/email-security_DeletedDomain"
+                      },
+                      "type": "array"
+                    },
+                    "patches": {
+                      "$ref": "#/$defs/email-security_DomainList"
+                    },
+                    "posts": {
+                      "$ref": "#/$defs/email-security_DomainList"
+                    },
+                    "puts": {
+                      "$ref": "#/$defs/email-security_DomainList"
+                    }
+                  },
+                  "required": [
+                    "deletes",
+                    "patches",
+                    "posts",
+                    "puts"
+                  ],
+                  "type": "object"
+                }
               },
-              "type": "array"
-            },
-            "patches": {
-              "$ref": "#/$defs/email-security_DomainList"
-            },
-            "posts": {
-              "$ref": "#/$defs/email-security_DomainList"
-            },
-            "puts": {
-              "$ref": "#/$defs/email-security_DomainList"
+              "type": "object"
             }
-          },
-          "required": [
-            "deletes",
-            "patches",
-            "posts",
-            "puts"
-          ],
-          "type": "object"
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/email-security_api-response-common-failure"
@@ -257,6 +286,7 @@ export const tools: readonly Tool[] = [
         "email-security_ScannableFolder": email_security_ScannableFolder_output,
         "email-security_SpfStatus": email_security_SpfStatus_output,
         "email-security_api-response-common-failure": email_security_api_response_common_failure_output,
+        "email-security_api-response-single": email_security_api_response_single_output,
         "email-security_messages": email_security_messages_output,
         "email-security_timestamp": email_security_timestamp_output,
       },
@@ -295,7 +325,19 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/email-security_Domain",
+      "allOf": [
+        {
+          "$ref": "#/$defs/email-security_api-response-single"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/email-security_Domain"
+            }
+          },
+          "type": "object"
+        }
+      ],
       $defs: {
         "email-security_DeliveryMode": email_security_DeliveryMode_output,
         "email-security_DispositionLabel": email_security_DispositionLabel_output,
@@ -308,6 +350,8 @@ export const tools: readonly Tool[] = [
         "email-security_Region": email_security_Region_output,
         "email-security_ScannableFolder": email_security_ScannableFolder_output,
         "email-security_SpfStatus": email_security_SpfStatus_output,
+        "email-security_api-response-single": email_security_api_response_single_output,
+        "email-security_messages": email_security_messages_output,
         "email-security_timestamp": email_security_timestamp_output,
       },
     },
@@ -329,7 +373,19 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "201": {
-          "$ref": "#/$defs/email-security_Domain"
+          "allOf": [
+            {
+              "$ref": "#/$defs/email-security_api-response-single"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/email-security_Domain"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/email-security_api-response-common-failure"
@@ -348,6 +404,7 @@ export const tools: readonly Tool[] = [
         "email-security_ScannableFolder": email_security_ScannableFolder_output,
         "email-security_SpfStatus": email_security_SpfStatus_output,
         "email-security_api-response-common-failure": email_security_api_response_common_failure_output,
+        "email-security_api-response-single": email_security_api_response_single_output,
         "email-security_messages": email_security_messages_output,
         "email-security_timestamp": email_security_timestamp_output,
       },
@@ -383,10 +440,24 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/email-security_DeletedDomain",
+      "allOf": [
+        {
+          "$ref": "#/$defs/email-security_api-response-single"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/email-security_DeletedDomain"
+            }
+          },
+          "type": "object"
+        }
+      ],
       $defs: {
         "email-security_DeletedDomain": email_security_DeletedDomain_output,
         "email-security_DomainId": email_security_DomainId_output,
+        "email-security_api-response-single": email_security_api_response_single_output,
+        "email-security_messages": email_security_messages_output,
       },
     },
     annotations: {
@@ -407,7 +478,19 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/email-security_DeletedDomain"
+          "allOf": [
+            {
+              "$ref": "#/$defs/email-security_api-response-single"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/email-security_DeletedDomain"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/email-security_api-response-common-failure"
@@ -417,6 +500,7 @@ export const tools: readonly Tool[] = [
         "email-security_DeletedDomain": email_security_DeletedDomain_output,
         "email-security_DomainId": email_security_DomainId_output,
         "email-security_api-response-common-failure": email_security_api_response_common_failure_output,
+        "email-security_api-response-single": email_security_api_response_single_output,
         "email-security_messages": email_security_messages_output,
       },
     },
@@ -459,7 +543,19 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/email-security_Domain",
+      "allOf": [
+        {
+          "$ref": "#/$defs/email-security_api-response-single"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/email-security_Domain"
+            }
+          },
+          "type": "object"
+        }
+      ],
       $defs: {
         "email-security_DeliveryMode": email_security_DeliveryMode_output,
         "email-security_DispositionLabel": email_security_DispositionLabel_output,
@@ -472,6 +568,8 @@ export const tools: readonly Tool[] = [
         "email-security_Region": email_security_Region_output,
         "email-security_ScannableFolder": email_security_ScannableFolder_output,
         "email-security_SpfStatus": email_security_SpfStatus_output,
+        "email-security_api-response-single": email_security_api_response_single_output,
+        "email-security_messages": email_security_messages_output,
         "email-security_timestamp": email_security_timestamp_output,
       },
     },
@@ -493,7 +591,19 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/email-security_Domain"
+          "allOf": [
+            {
+              "$ref": "#/$defs/email-security_api-response-single"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/email-security_Domain"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/email-security_api-response-common-failure"
@@ -512,6 +622,7 @@ export const tools: readonly Tool[] = [
         "email-security_ScannableFolder": email_security_ScannableFolder_output,
         "email-security_SpfStatus": email_security_SpfStatus_output,
         "email-security_api-response-common-failure": email_security_api_response_common_failure_output,
+        "email-security_api-response-single": email_security_api_response_single_output,
         "email-security_messages": email_security_messages_output,
         "email-security_timestamp": email_security_timestamp_output,
       },
@@ -547,7 +658,19 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/email-security_Domain",
+      "allOf": [
+        {
+          "$ref": "#/$defs/email-security_api-response-single"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/email-security_Domain"
+            }
+          },
+          "type": "object"
+        }
+      ],
       $defs: {
         "email-security_DeliveryMode": email_security_DeliveryMode_output,
         "email-security_DispositionLabel": email_security_DispositionLabel_output,
@@ -560,6 +683,8 @@ export const tools: readonly Tool[] = [
         "email-security_Region": email_security_Region_output,
         "email-security_ScannableFolder": email_security_ScannableFolder_output,
         "email-security_SpfStatus": email_security_SpfStatus_output,
+        "email-security_api-response-single": email_security_api_response_single_output,
+        "email-security_messages": email_security_messages_output,
         "email-security_timestamp": email_security_timestamp_output,
       },
     },
@@ -582,7 +707,19 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/email-security_Domain"
+          "allOf": [
+            {
+              "$ref": "#/$defs/email-security_api-response-single"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/email-security_Domain"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/email-security_api-response-common-failure"
@@ -601,6 +738,7 @@ export const tools: readonly Tool[] = [
         "email-security_ScannableFolder": email_security_ScannableFolder_output,
         "email-security_SpfStatus": email_security_SpfStatus_output,
         "email-security_api-response-common-failure": email_security_api_response_common_failure_output,
+        "email-security_api-response-single": email_security_api_response_single_output,
         "email-security_messages": email_security_messages_output,
         "email-security_timestamp": email_security_timestamp_output,
       },
@@ -685,32 +823,19 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "$ref": "#/$defs/email-security_DomainList"
+      "allOf": [
+        {
+          "$ref": "#/$defs/email-security_api-response-collection"
         },
-        "result_info": {
+        {
           "properties": {
-            "count": {
-              "type": "number"
-            },
-            "page": {
-              "type": "number"
-            },
-            "per_page": {
-              "type": "number"
-            },
-            "total_count": {
-              "type": "number"
+            "result": {
+              "$ref": "#/$defs/email-security_DomainList"
             }
           },
           "type": "object"
         }
-      },
-      "required": [
-        "result"
       ],
-      "type": "object",
       $defs: {
         "email-security_DeliveryMode": email_security_DeliveryMode_output,
         "email-security_DispositionLabel": email_security_DispositionLabel_output,
@@ -724,6 +849,9 @@ export const tools: readonly Tool[] = [
         "email-security_Region": email_security_Region_output,
         "email-security_ScannableFolder": email_security_ScannableFolder_output,
         "email-security_SpfStatus": email_security_SpfStatus_output,
+        "email-security_api-response-collection": email_security_api_response_collection_output,
+        "email-security_api-response-common": email_security_api_response_common_output,
+        "email-security_messages": email_security_messages_output,
         "email-security_timestamp": email_security_timestamp_output,
       },
     },
@@ -746,32 +874,19 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "$ref": "#/$defs/email-security_DomainList"
+          "allOf": [
+            {
+              "$ref": "#/$defs/email-security_api-response-collection"
             },
-            "result_info": {
+            {
               "properties": {
-                "count": {
-                  "type": "number"
-                },
-                "page": {
-                  "type": "number"
-                },
-                "per_page": {
-                  "type": "number"
-                },
-                "total_count": {
-                  "type": "number"
+                "result": {
+                  "$ref": "#/$defs/email-security_DomainList"
                 }
               },
               "type": "object"
             }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/email-security_api-response-common-failure"
@@ -790,6 +905,8 @@ export const tools: readonly Tool[] = [
         "email-security_Region": email_security_Region_output,
         "email-security_ScannableFolder": email_security_ScannableFolder_output,
         "email-security_SpfStatus": email_security_SpfStatus_output,
+        "email-security_api-response-collection": email_security_api_response_collection_output,
+        "email-security_api-response-common": email_security_api_response_common_output,
         "email-security_api-response-common-failure": email_security_api_response_common_failure_output,
         "email-security_messages": email_security_messages_output,
         "email-security_timestamp": email_security_timestamp_output,
@@ -846,7 +963,19 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/email-security_Domain",
+      "allOf": [
+        {
+          "$ref": "#/$defs/email-security_api-response-single"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/email-security_Domain"
+            }
+          },
+          "type": "object"
+        }
+      ],
       $defs: {
         "email-security_DeliveryMode": email_security_DeliveryMode_output,
         "email-security_DispositionLabel": email_security_DispositionLabel_output,
@@ -859,6 +988,8 @@ export const tools: readonly Tool[] = [
         "email-security_Region": email_security_Region_output,
         "email-security_ScannableFolder": email_security_ScannableFolder_output,
         "email-security_SpfStatus": email_security_SpfStatus_output,
+        "email-security_api-response-single": email_security_api_response_single_output,
+        "email-security_messages": email_security_messages_output,
         "email-security_timestamp": email_security_timestamp_output,
       },
     },
@@ -877,7 +1008,19 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/email-security_Domain"
+          "allOf": [
+            {
+              "$ref": "#/$defs/email-security_api-response-single"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/email-security_Domain"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/email-security_api-response-common-failure"
@@ -896,6 +1039,7 @@ export const tools: readonly Tool[] = [
         "email-security_ScannableFolder": email_security_ScannableFolder_output,
         "email-security_SpfStatus": email_security_SpfStatus_output,
         "email-security_api-response-common-failure": email_security_api_response_common_failure_output,
+        "email-security_api-response-single": email_security_api_response_single_output,
         "email-security_messages": email_security_messages_output,
         "email-security_timestamp": email_security_timestamp_output,
       },

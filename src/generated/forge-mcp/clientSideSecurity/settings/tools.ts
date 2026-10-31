@@ -3,16 +3,21 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
+  client_side_security_api_get_response_collection_output,
   client_side_security_api_response_common_failure_output,
+  client_side_security_api_response_common_output,
   client_side_security_messages_output,
 } from "../outputs.js";
+import { client_side_security_id } from "../schemas.js";
 import {
+  client_side_security_api_response_single_output,
   client_side_security_enabled_output,
   client_side_security_get_zone_settings_response_output,
   client_side_security_update_zone_settings_response_output,
   client_side_security_updated_at_output,
   client_side_security_use_cloudflare_reporting_endpoint_output,
   client_side_security_use_connection_url_path_output,
+  client_side_security_zone_settings_response_single_output,
 } from "./outputs.js";
 import {
   client_side_security_enabled,
@@ -32,19 +37,37 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "zone_id": {
-          "description": "Identifier",
-          "type": "string"
+          "$ref": "#/$defs/client-side-security_id",
+          "description": "Identifier"
         }
       },
       required: [
         "zone_id"
       ],
+      $defs: {
+        "client-side-security_id": client_side_security_id,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/client-side-security_get-zone-settings-response",
+      "allOf": [
+        {
+          "$ref": "#/$defs/client-side-security_api-get-response-collection"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/client-side-security_get-zone-settings-response"
+            }
+          },
+          "type": "object"
+        }
+      ],
       $defs: {
+        "client-side-security_api-get-response-collection": client_side_security_api_get_response_collection_output,
+        "client-side-security_api-response-common": client_side_security_api_response_common_output,
         "client-side-security_enabled": client_side_security_enabled_output,
         "client-side-security_get-zone-settings-response": client_side_security_get_zone_settings_response_output,
+        "client-side-security_messages": client_side_security_messages_output,
         "client-side-security_updated_at": client_side_security_updated_at_output,
         "client-side-security_use_cloudflare_reporting_endpoint": client_side_security_use_cloudflare_reporting_endpoint_output,
         "client-side-security_use_connection_url_path": client_side_security_use_connection_url_path_output,
@@ -78,13 +101,27 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/client-side-security_get-zone-settings-response"
+          "allOf": [
+            {
+              "$ref": "#/$defs/client-side-security_api-get-response-collection"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/client-side-security_get-zone-settings-response"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/client-side-security_api-response-common-failure"
         }
       },
       $defs: {
+        "client-side-security_api-get-response-collection": client_side_security_api_get_response_collection_output,
+        "client-side-security_api-response-common": client_side_security_api_response_common_output,
         "client-side-security_api-response-common-failure": client_side_security_api_response_common_failure_output,
         "client-side-security_enabled": client_side_security_enabled_output,
         "client-side-security_get-zone-settings-response": client_side_security_get_zone_settings_response_output,
@@ -123,8 +160,8 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "zone_id": {
-          "description": "Identifier",
-          "type": "string"
+          "$ref": "#/$defs/client-side-security_id",
+          "description": "Identifier"
         }
       },
       required: [
@@ -133,18 +170,35 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "client-side-security_enabled": client_side_security_enabled,
+        "client-side-security_id": client_side_security_id,
         "client-side-security_use_cloudflare_reporting_endpoint": client_side_security_use_cloudflare_reporting_endpoint,
         "client-side-security_use_connection_url_path": client_side_security_use_connection_url_path,
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/client-side-security_update-zone-settings-response",
+      "allOf": [
+        {
+          "$ref": "#/$defs/client-side-security_zone_settings_response_single"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/client-side-security_update-zone-settings-response"
+            }
+          },
+          "type": "object"
+        }
+      ],
       $defs: {
+        "client-side-security_api-response-common": client_side_security_api_response_common_output,
+        "client-side-security_api-response-single": client_side_security_api_response_single_output,
         "client-side-security_enabled": client_side_security_enabled_output,
+        "client-side-security_messages": client_side_security_messages_output,
         "client-side-security_update-zone-settings-response": client_side_security_update_zone_settings_response_output,
         "client-side-security_updated_at": client_side_security_updated_at_output,
         "client-side-security_use_cloudflare_reporting_endpoint": client_side_security_use_cloudflare_reporting_endpoint_output,
         "client-side-security_use_connection_url_path": client_side_security_use_connection_url_path_output,
+        "client-side-security_zone_settings_response_single": client_side_security_zone_settings_response_single_output,
       },
     },
     annotations: {
@@ -172,20 +226,35 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/client-side-security_update-zone-settings-response"
+          "allOf": [
+            {
+              "$ref": "#/$defs/client-side-security_zone_settings_response_single"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/client-side-security_update-zone-settings-response"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/client-side-security_api-response-common-failure"
         }
       },
       $defs: {
+        "client-side-security_api-response-common": client_side_security_api_response_common_output,
         "client-side-security_api-response-common-failure": client_side_security_api_response_common_failure_output,
+        "client-side-security_api-response-single": client_side_security_api_response_single_output,
         "client-side-security_enabled": client_side_security_enabled_output,
         "client-side-security_messages": client_side_security_messages_output,
         "client-side-security_update-zone-settings-response": client_side_security_update_zone_settings_response_output,
         "client-side-security_updated_at": client_side_security_updated_at_output,
         "client-side-security_use_cloudflare_reporting_endpoint": client_side_security_use_cloudflare_reporting_endpoint_output,
         "client-side-security_use_connection_url_path": client_side_security_use_connection_url_path_output,
+        "client-side-security_zone_settings_response_single": client_side_security_zone_settings_response_single_output,
       },
     },
     request: (args) => ({

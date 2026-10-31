@@ -3,9 +3,11 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
+  builds_APIResponse_output,
   builds_ApiError_output,
   builds_EnvironmentVariablesResponse_output,
   builds_ErrorResponse_output,
+  builds_PaginationInfo_output,
   builds_SCMProviderType_output,
   builds_WorkerBuildSettings_output,
   builds_WorkerGitRepository_output,
@@ -63,9 +65,24 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/builds_WorkerResponse",
+      "allOf": [
+        {
+          "$ref": "#/$defs/builds_APIResponse"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/builds_WorkerResponse"
+            }
+          },
+          "type": "object"
+        }
+      ],
       $defs: {
+        "builds_APIResponse": builds_APIResponse_output,
+        "builds_ApiError": builds_ApiError_output,
         "builds_EnvironmentVariablesResponse": builds_EnvironmentVariablesResponse_output,
+        "builds_PaginationInfo": builds_PaginationInfo_output,
         "builds_SCMProviderType": builds_SCMProviderType_output,
         "builds_WorkerBuildSettings": builds_WorkerBuildSettings_output,
         "builds_WorkerGitRepository": builds_WorkerGitRepository_output,
@@ -103,7 +120,19 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/builds_WorkerResponse"
+          "allOf": [
+            {
+              "$ref": "#/$defs/builds_APIResponse"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/builds_WorkerResponse"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "400": {
           "$ref": "#/$defs/builds_ErrorResponse"
@@ -116,9 +145,11 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
+        "builds_APIResponse": builds_APIResponse_output,
         "builds_ApiError": builds_ApiError_output,
         "builds_EnvironmentVariablesResponse": builds_EnvironmentVariablesResponse_output,
         "builds_ErrorResponse": builds_ErrorResponse_output,
+        "builds_PaginationInfo": builds_PaginationInfo_output,
         "builds_SCMProviderType": builds_SCMProviderType_output,
         "builds_WorkerBuildSettings": builds_WorkerBuildSettings_output,
         "builds_WorkerGitRepository": builds_WorkerGitRepository_output,

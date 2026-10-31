@@ -32,6 +32,15 @@ export const tunnel_subnet_comment: JsonSchema = {
 };
 
 /**
+ * The schema of `tunnel_subnet_id`.
+ */
+export const tunnel_subnet_id: JsonSchema = {
+  "description": "The UUID of the subnet.",
+  "format": "uuid",
+  "type": "string"
+};
+
+/**
  * The schema of `tunnel_subnet_ip_network`.
  */
 export const tunnel_subnet_ip_network: JsonSchema = {

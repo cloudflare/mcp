@@ -49,6 +49,14 @@ export const web3_dnslink: JsonSchema = {
 };
 
 /**
+ * The schema of `web3_identifier`.
+ */
+export const web3_identifier: JsonSchema = {
+  "description": "Specify the identifier of the hostname.",
+  "type": "string"
+};
+
+/**
  * The schema of `web3_modify_request`.
  */
 export const web3_modify_request: JsonSchema = {

@@ -7,10 +7,14 @@ import {
   art_APIMessage_output,
   art_ErrorResponse_output,
   art_ResultValues_output,
+  art_SummaryResponse_output,
   art_SummaryResult_output,
 } from "../../outputs.js";
 import { art_Filter } from "../../schemas.js";
-import { art_DataSecurityFindingsTimeseriesResult_output } from "./outputs.js";
+import {
+  art_DataSecurityFindingsTimeseriesResponse_output,
+  art_DataSecurityFindingsTimeseriesResult_output,
+} from "./outputs.js";
 import {
   art_DataSecurityFindingsSummaryQuery,
   art_DataSecurityFindingsTimeseriesQuery,
@@ -45,9 +49,12 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/art_SummaryResult",
+      "$ref": "#/$defs/art_SummaryResponse",
       $defs: {
+        "art_APIError": art_APIError_output,
+        "art_APIMessage": art_APIMessage_output,
         "art_ResultValues": art_ResultValues_output,
+        "art_SummaryResponse": art_SummaryResponse_output,
         "art_SummaryResult": art_SummaryResult_output,
       },
     },
@@ -69,7 +76,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/art_SummaryResult"
+          "$ref": "#/$defs/art_SummaryResponse"
         },
         "400": {
           "$ref": "#/$defs/art_ErrorResponse"
@@ -86,6 +93,7 @@ export const tools: readonly Tool[] = [
         "art_APIMessage": art_APIMessage_output,
         "art_ErrorResponse": art_ErrorResponse_output,
         "art_ResultValues": art_ResultValues_output,
+        "art_SummaryResponse": art_SummaryResponse_output,
         "art_SummaryResult": art_SummaryResult_output,
       },
     },
@@ -119,8 +127,11 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/art_DataSecurityFindingsTimeseriesResult",
+      "$ref": "#/$defs/art_DataSecurityFindingsTimeseriesResponse",
       $defs: {
+        "art_APIError": art_APIError_output,
+        "art_APIMessage": art_APIMessage_output,
+        "art_DataSecurityFindingsTimeseriesResponse": art_DataSecurityFindingsTimeseriesResponse_output,
         "art_DataSecurityFindingsTimeseriesResult": art_DataSecurityFindingsTimeseriesResult_output,
         "art_ResultValues": art_ResultValues_output,
       },
@@ -143,7 +154,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/art_DataSecurityFindingsTimeseriesResult"
+          "$ref": "#/$defs/art_DataSecurityFindingsTimeseriesResponse"
         },
         "400": {
           "$ref": "#/$defs/art_ErrorResponse"
@@ -158,6 +169,7 @@ export const tools: readonly Tool[] = [
       $defs: {
         "art_APIError": art_APIError_output,
         "art_APIMessage": art_APIMessage_output,
+        "art_DataSecurityFindingsTimeseriesResponse": art_DataSecurityFindingsTimeseriesResponse_output,
         "art_DataSecurityFindingsTimeseriesResult": art_DataSecurityFindingsTimeseriesResult_output,
         "art_ErrorResponse": art_ErrorResponse_output,
         "art_ResultValues": art_ResultValues_output,

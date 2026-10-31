@@ -40,9 +40,8 @@ import {
   flagship_FlagsPage_output,
   flagship_ResultInfo_output,
   flagship_Rule_output,
-  flagship_Rule_rollout_output,
 } from "./outputs.js";
-import { flagship_Rule, flagship_Rule_rollout } from "./schemas.js";
+import { flagship_Rule } from "./schemas.js";
 
 /**
  * The tools of `flagship.apps.flags`.
@@ -167,11 +166,52 @@ export const tools: readonly Tool[] = [
         "flagship_LogicalCondition3": flagship_LogicalCondition3,
         "flagship_LogicalCondition4": flagship_LogicalCondition4,
         "flagship_Rule": flagship_Rule,
-        "flagship_Rule_rollout": flagship_Rule_rollout,
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/flagship_Flag",
+      "properties": {
+        "errors": {
+          "items": {
+            "properties": {
+              "message": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "message"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "messages": {
+          "items": {
+            "properties": {
+              "message": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "message"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "result": {
+          "$ref": "#/$defs/flagship_Flag"
+        },
+        "success": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "errors",
+        "messages",
+        "result",
+        "success"
+      ],
+      "type": "object",
       $defs: {
         "flagship_BaseCondition": flagship_BaseCondition_output,
         "flagship_Condition": flagship_Condition_output,
@@ -187,7 +227,6 @@ export const tools: readonly Tool[] = [
         "flagship_LogicalCondition3": flagship_LogicalCondition3_output,
         "flagship_LogicalCondition4": flagship_LogicalCondition4_output,
         "flagship_Rule": flagship_Rule_output,
-        "flagship_Rule_rollout": flagship_Rule_rollout_output,
       },
     },
     annotations: {
@@ -206,12 +245,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "com.cloudflare.api.account.flagship.app.update"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.api.account.flagship.app.update": {
-            "name": "com_cloudflare_api_account_flagship_app_update"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": true,
@@ -223,7 +257,49 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "201": {
-          "$ref": "#/$defs/flagship_Flag"
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "messages": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result": {
+              "$ref": "#/$defs/flagship_Flag"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "messages",
+            "result",
+            "success"
+          ],
+          "type": "object"
         },
         "400": {
           "$ref": "#/$defs/flagship_Error"
@@ -261,7 +337,6 @@ export const tools: readonly Tool[] = [
         "flagship_LogicalCondition3": flagship_LogicalCondition3_output,
         "flagship_LogicalCondition4": flagship_LogicalCondition4_output,
         "flagship_Rule": flagship_Rule_output,
-        "flagship_Rule_rollout": flagship_Rule_rollout_output,
       },
     },
     request: (args) => ({
@@ -296,7 +371,49 @@ export const tools: readonly Tool[] = [
       ],
     },
     outputSchema: {
-      "$ref": "#/$defs/flagship_DeleteFlagResult",
+      "properties": {
+        "errors": {
+          "items": {
+            "properties": {
+              "message": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "message"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "messages": {
+          "items": {
+            "properties": {
+              "message": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "message"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "result": {
+          "$ref": "#/$defs/flagship_DeleteFlagResult"
+        },
+        "success": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "errors",
+        "messages",
+        "result",
+        "success"
+      ],
+      "type": "object",
       $defs: {
         "flagship_DeleteFlagResult": flagship_DeleteFlagResult_output,
       },
@@ -317,12 +434,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "com.cloudflare.api.account.flagship.app.update"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.api.account.flagship.app.update": {
-            "name": "com_cloudflare_api_account_flagship_app_update"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": true,
@@ -334,7 +446,49 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/flagship_DeleteFlagResult"
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "messages": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result": {
+              "$ref": "#/$defs/flagship_DeleteFlagResult"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "messages",
+            "result",
+            "success"
+          ],
+          "type": "object"
         },
         "400": {
           "$ref": "#/$defs/flagship_Error"
@@ -435,12 +589,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "com.cloudflare.api.account.flagship.app.evaluate"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.api.account.flagship.app.evaluate": {
-            "name": "com_cloudflare_api_account_flagship_app_evaluate"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": true,
@@ -513,7 +662,49 @@ export const tools: readonly Tool[] = [
       ],
     },
     outputSchema: {
-      "$ref": "#/$defs/flagship_Flag",
+      "properties": {
+        "errors": {
+          "items": {
+            "properties": {
+              "message": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "message"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "messages": {
+          "items": {
+            "properties": {
+              "message": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "message"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "result": {
+          "$ref": "#/$defs/flagship_Flag"
+        },
+        "success": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "errors",
+        "messages",
+        "result",
+        "success"
+      ],
+      "type": "object",
       $defs: {
         "flagship_BaseCondition": flagship_BaseCondition_output,
         "flagship_Condition": flagship_Condition_output,
@@ -529,7 +720,6 @@ export const tools: readonly Tool[] = [
         "flagship_LogicalCondition3": flagship_LogicalCondition3_output,
         "flagship_LogicalCondition4": flagship_LogicalCondition4_output,
         "flagship_Rule": flagship_Rule_output,
-        "flagship_Rule_rollout": flagship_Rule_rollout_output,
       },
     },
     annotations: {
@@ -549,12 +739,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "com.cloudflare.api.account.flagship.app.read"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.api.account.flagship.app.read": {
-            "name": "com_cloudflare_api_account_flagship_app_read"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": true,
@@ -566,7 +751,49 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/flagship_Flag"
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "messages": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result": {
+              "$ref": "#/$defs/flagship_Flag"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "messages",
+            "result",
+            "success"
+          ],
+          "type": "object"
         },
         "400": {
           "$ref": "#/$defs/flagship_Error"
@@ -604,7 +831,6 @@ export const tools: readonly Tool[] = [
         "flagship_LogicalCondition3": flagship_LogicalCondition3_output,
         "flagship_LogicalCondition4": flagship_LogicalCondition4_output,
         "flagship_Rule": flagship_Rule_output,
-        "flagship_Rule_rollout": flagship_Rule_rollout_output,
       },
     },
     request: (args) => ({
@@ -642,15 +868,50 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
+        "errors": {
+          "items": {
+            "properties": {
+              "message": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "message"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "messages": {
+          "items": {
+            "properties": {
+              "message": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "message"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
         "result": {
           "$ref": "#/$defs/flagship_FlagsPage"
         },
         "result_info": {
           "$ref": "#/$defs/flagship_ResultInfo"
+        },
+        "success": {
+          "type": "boolean"
         }
       },
       "required": [
-        "result"
+        "errors",
+        "messages",
+        "result",
+        "result_info",
+        "success"
       ],
       "type": "object",
       $defs: {
@@ -670,7 +931,6 @@ export const tools: readonly Tool[] = [
         "flagship_LogicalCondition4": flagship_LogicalCondition4_output,
         "flagship_ResultInfo": flagship_ResultInfo_output,
         "flagship_Rule": flagship_Rule_output,
-        "flagship_Rule_rollout": flagship_Rule_rollout_output,
       },
     },
     annotations: {
@@ -690,12 +950,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "com.cloudflare.api.account.flagship.app.read"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.api.account.flagship.app.read": {
-            "name": "com_cloudflare_api_account_flagship_app_read"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": true,
@@ -708,15 +963,50 @@ export const tools: readonly Tool[] = [
       schemas: {
         "200": {
           "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "messages": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
             "result": {
               "$ref": "#/$defs/flagship_FlagsPage"
             },
             "result_info": {
               "$ref": "#/$defs/flagship_ResultInfo"
+            },
+            "success": {
+              "type": "boolean"
             }
           },
           "required": [
-            "result"
+            "errors",
+            "messages",
+            "result",
+            "result_info",
+            "success"
           ],
           "type": "object"
         },
@@ -758,7 +1048,6 @@ export const tools: readonly Tool[] = [
         "flagship_LogicalCondition4": flagship_LogicalCondition4_output,
         "flagship_ResultInfo": flagship_ResultInfo_output,
         "flagship_Rule": flagship_Rule_output,
-        "flagship_Rule_rollout": flagship_Rule_rollout_output,
       },
     },
     request: (args) => ({
@@ -845,7 +1134,49 @@ export const tools: readonly Tool[] = [
       ],
     },
     outputSchema: {
-      "$ref": "#/$defs/flagship_Flag",
+      "properties": {
+        "errors": {
+          "items": {
+            "properties": {
+              "message": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "message"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "messages": {
+          "items": {
+            "properties": {
+              "message": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "message"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "result": {
+          "$ref": "#/$defs/flagship_Flag"
+        },
+        "success": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "errors",
+        "messages",
+        "result",
+        "success"
+      ],
+      "type": "object",
       $defs: {
         "flagship_BaseCondition": flagship_BaseCondition_output,
         "flagship_Condition": flagship_Condition_output,
@@ -861,7 +1192,6 @@ export const tools: readonly Tool[] = [
         "flagship_LogicalCondition3": flagship_LogicalCondition3_output,
         "flagship_LogicalCondition4": flagship_LogicalCondition4_output,
         "flagship_Rule": flagship_Rule_output,
-        "flagship_Rule_rollout": flagship_Rule_rollout_output,
       },
     },
     annotations: {
@@ -880,12 +1210,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "com.cloudflare.api.account.flagship.app.update"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.api.account.flagship.app.update": {
-            "name": "com_cloudflare_api_account_flagship_app_update"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": true,
@@ -897,7 +1222,49 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/flagship_Flag"
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "messages": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result": {
+              "$ref": "#/$defs/flagship_Flag"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "messages",
+            "result",
+            "success"
+          ],
+          "type": "object"
         },
         "400": {
           "$ref": "#/$defs/flagship_Error"
@@ -935,7 +1302,6 @@ export const tools: readonly Tool[] = [
         "flagship_LogicalCondition3": flagship_LogicalCondition3_output,
         "flagship_LogicalCondition4": flagship_LogicalCondition4_output,
         "flagship_Rule": flagship_Rule_output,
-        "flagship_Rule_rollout": flagship_Rule_rollout_output,
       },
     },
     request: (args) => ({
@@ -1067,11 +1433,52 @@ export const tools: readonly Tool[] = [
         "flagship_LogicalCondition3": flagship_LogicalCondition3,
         "flagship_LogicalCondition4": flagship_LogicalCondition4,
         "flagship_Rule": flagship_Rule,
-        "flagship_Rule_rollout": flagship_Rule_rollout,
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/flagship_Flag",
+      "properties": {
+        "errors": {
+          "items": {
+            "properties": {
+              "message": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "message"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "messages": {
+          "items": {
+            "properties": {
+              "message": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "message"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "result": {
+          "$ref": "#/$defs/flagship_Flag"
+        },
+        "success": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "errors",
+        "messages",
+        "result",
+        "success"
+      ],
+      "type": "object",
       $defs: {
         "flagship_BaseCondition": flagship_BaseCondition_output,
         "flagship_Condition": flagship_Condition_output,
@@ -1087,7 +1494,6 @@ export const tools: readonly Tool[] = [
         "flagship_LogicalCondition3": flagship_LogicalCondition3_output,
         "flagship_LogicalCondition4": flagship_LogicalCondition4_output,
         "flagship_Rule": flagship_Rule_output,
-        "flagship_Rule_rollout": flagship_Rule_rollout_output,
       },
     },
     annotations: {
@@ -1106,12 +1512,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "com.cloudflare.api.account.flagship.app.update"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.api.account.flagship.app.update": {
-            "name": "com_cloudflare_api_account_flagship_app_update"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": true,
@@ -1123,7 +1524,49 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/flagship_Flag"
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "messages": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result": {
+              "$ref": "#/$defs/flagship_Flag"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "messages",
+            "result",
+            "success"
+          ],
+          "type": "object"
         },
         "400": {
           "$ref": "#/$defs/flagship_Error"
@@ -1161,7 +1604,6 @@ export const tools: readonly Tool[] = [
         "flagship_LogicalCondition3": flagship_LogicalCondition3_output,
         "flagship_LogicalCondition4": flagship_LogicalCondition4_output,
         "flagship_Rule": flagship_Rule_output,
-        "flagship_Rule_rollout": flagship_Rule_rollout_output,
       },
     },
     request: (args) => ({

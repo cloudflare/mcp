@@ -340,7 +340,14 @@ export const abuse_reports_ErrorCode_output: JsonSchema = {
 export const abuse_reports_ErrorMessage_output: JsonSchema = {
   "properties": {
     "code": {
-      "$ref": "#/$defs/abuse-reports_ErrorMessage_code"
+      "oneOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "number"
+        }
+      ]
     },
     "message": {
       "type": "string"
@@ -350,20 +357,6 @@ export const abuse_reports_ErrorMessage_output: JsonSchema = {
     "message"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `abuse-reports_ErrorMessage_code` in responses.
- */
-export const abuse_reports_ErrorMessage_code_output: JsonSchema = {
-  "oneOf": [
-    {
-      "type": "string"
-    },
-    {
-      "type": "number"
-    }
-  ]
 };
 
 /**
@@ -504,7 +497,15 @@ export const abuse_reports_RateLimitedErrorResponse_output: JsonSchema = {
       "type": "string"
     },
     "request": {
-      "$ref": "#/$defs/abuse-reports_RateLimitedErrorResponse_request"
+      "properties": {
+        "act": {
+          "$ref": "#/$defs/abuse-reports_SubmissionReportType"
+        }
+      },
+      "required": [
+        "act"
+      ],
+      "type": "object"
     },
     "result": {
       "type": "string"
@@ -516,21 +517,6 @@ export const abuse_reports_RateLimitedErrorResponse_output: JsonSchema = {
     "msg",
     "request",
     "result"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `abuse-reports_RateLimitedErrorResponse_request` in responses.
- */
-export const abuse_reports_RateLimitedErrorResponse_request_output: JsonSchema = {
-  "properties": {
-    "act": {
-      "$ref": "#/$defs/abuse-reports_SubmissionReportType"
-    }
-  },
-  "required": [
-    "act"
   ],
   "type": "object"
 };
@@ -635,6 +621,37 @@ export const abuse_reports_ReportType_output: JsonSchema = {
 };
 
 /**
+ * The schema of `abuse-reports_ResultInfo` in responses.
+ */
+export const abuse_reports_ResultInfo_output: JsonSchema = {
+  "properties": {
+    "count": {
+      "type": "number"
+    },
+    "page": {
+      "type": "number"
+    },
+    "per_page": {
+      "type": "number"
+    },
+    "total_count": {
+      "type": "number"
+    },
+    "total_pages": {
+      "type": "number"
+    }
+  },
+  "required": [
+    "count",
+    "page",
+    "per_page",
+    "total_count",
+    "total_pages"
+  ],
+  "type": "object"
+};
+
+/**
  * The schema of `abuse-reports_SubmissionReportType` in responses.
  */
 export const abuse_reports_SubmissionReportType_output: JsonSchema = {
@@ -656,7 +673,15 @@ export const abuse_reports_SubmitErrorResponse_output: JsonSchema = {
       "type": "string"
     },
     "request": {
-      "$ref": "#/$defs/abuse-reports_SubmitErrorResponse_request"
+      "properties": {
+        "act": {
+          "$ref": "#/$defs/abuse-reports_SubmissionReportType"
+        }
+      },
+      "required": [
+        "act"
+      ],
+      "type": "object"
     },
     "result": {
       "type": "string"
@@ -673,21 +698,6 @@ export const abuse_reports_SubmitErrorResponse_output: JsonSchema = {
 };
 
 /**
- * The schema of `abuse-reports_SubmitErrorResponse_request` in responses.
- */
-export const abuse_reports_SubmitErrorResponse_request_output: JsonSchema = {
-  "properties": {
-    "act": {
-      "$ref": "#/$defs/abuse-reports_SubmissionReportType"
-    }
-  },
-  "required": [
-    "act"
-  ],
-  "type": "object"
-};
-
-/**
  * The schema of `abuse-reports_SubmitReportResponse` in responses.
  */
 export const abuse_reports_SubmitReportResponse_output: JsonSchema = {
@@ -696,7 +706,15 @@ export const abuse_reports_SubmitReportResponse_output: JsonSchema = {
       "type": "string"
     },
     "request": {
-      "$ref": "#/$defs/abuse-reports_SubmitReportResponse_request"
+      "properties": {
+        "act": {
+          "$ref": "#/$defs/abuse-reports_SubmissionReportType"
+        }
+      },
+      "required": [
+        "act"
+      ],
+      "type": "object"
     },
     "result": {
       "type": "string"
@@ -706,21 +724,6 @@ export const abuse_reports_SubmitReportResponse_output: JsonSchema = {
     "abuse_rand",
     "request",
     "result"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `abuse-reports_SubmitReportResponse_request` in responses.
- */
-export const abuse_reports_SubmitReportResponse_request_output: JsonSchema = {
-  "properties": {
-    "act": {
-      "$ref": "#/$defs/abuse-reports_SubmissionReportType"
-    }
-  },
-  "required": [
-    "act"
   ],
   "type": "object"
 };
@@ -751,124 +754,128 @@ export const abuse_reports_SubmittedAbuseReportDenialReason_output: JsonSchema =
  * The schema of `abuse-reports_SubmittedAbuseReportDetail` in responses.
  */
 export const abuse_reports_SubmittedAbuseReportDetail_output: JsonSchema = {
-  "properties": {
-    "agent_name": {
-      "type": "string"
+  "allOf": [
+    {
+      "$ref": "#/$defs/abuse-reports_SubmittedAbuseReportListItem"
     },
-    "cdate": {
-      "format": "date-time",
-      "type": "string"
-    },
-    "comments": {
-      "type": "string"
-    },
-    "court": {
-      "type": "string"
-    },
-    "denial_reason": {
-      "oneOf": [
-        {
-          "$ref": "#/$defs/abuse-reports_SubmittedAbuseReportDenialReason"
+    {
+      "properties": {
+        "agent_name": {
+          "type": "string"
         },
-        {
-          "type": "null"
+        "comments": {
+          "type": "string"
+        },
+        "court": {
+          "type": "string"
+        },
+        "destination_ips": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "dsa_attestation": {
+          "type": "boolean"
+        },
+        "host_notification": {
+          "type": "string"
+        },
+        "justification": {
+          "type": "string"
+        },
+        "ncmec_notification": {
+          "type": "string"
+        },
+        "ncsei_subject_representation": {
+          "type": "boolean"
+        },
+        "original_work": {
+          "type": "string"
+        },
+        "owner_notification": {
+          "type": "string"
+        },
+        "ports_protocols": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "reg_who_request": {
+          "$ref": "#/$defs/abuse-reports_RegistrarWhoIsFields"
+        },
+        "reported_country": {
+          "type": "string"
+        },
+        "reported_user_agent": {
+          "type": "string"
+        },
+        "source_ips": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "subtypes": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "title": {
+          "type": "string"
+        },
+        "udrp": {
+          "type": "string"
+        },
+        "urls": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "urs": {
+          "type": "string"
         }
-      ]
-    },
-    "destination_ips": {
+      },
+      "required": [
+        "dsa_attestation",
+        "urls"
+      ],
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `abuse-reports_SubmittedAbuseReportDetailResponse` in
+ * responses.
+ */
+export const abuse_reports_SubmittedAbuseReportDetailResponse_output: JsonSchema = {
+  "properties": {
+    "errors": {
       "items": {
-        "type": "string"
+        "$ref": "#/$defs/abuse-reports_ErrorMessage"
       },
       "type": "array"
     },
-    "domain": {
-      "type": "string"
+    "messages": {
+      "items": {
+        "$ref": "#/$defs/abuse-reports_Message"
+      },
+      "type": "array"
     },
-    "dsa_attestation": {
+    "result": {
+      "$ref": "#/$defs/abuse-reports_SubmittedAbuseReportDetail"
+    },
+    "success": {
       "type": "boolean"
-    },
-    "host_notification": {
-      "type": "string"
-    },
-    "id": {
-      "type": "string"
-    },
-    "justification": {
-      "type": "string"
-    },
-    "ncmec_notification": {
-      "type": "string"
-    },
-    "ncsei_subject_representation": {
-      "type": "boolean"
-    },
-    "original_work": {
-      "type": "string"
-    },
-    "owner_notification": {
-      "type": "string"
-    },
-    "ports_protocols": {
-      "items": {
-        "type": "string"
-      },
-      "type": "array"
-    },
-    "reg_who_request": {
-      "$ref": "#/$defs/abuse-reports_RegistrarWhoIsFields"
-    },
-    "reported_country": {
-      "type": "string"
-    },
-    "reported_user_agent": {
-      "type": "string"
-    },
-    "source_ips": {
-      "items": {
-        "type": "string"
-      },
-      "type": "array"
-    },
-    "status": {
-      "$ref": "#/$defs/abuse-reports_SubmittedAbuseReportStatus"
-    },
-    "submitter": {
-      "$ref": "#/$defs/abuse-reports_SubmitterDetails"
-    },
-    "subtypes": {
-      "items": {
-        "type": "string"
-      },
-      "type": "array"
-    },
-    "title": {
-      "type": "string"
-    },
-    "type": {
-      "$ref": "#/$defs/abuse-reports_ReportType"
-    },
-    "udrp": {
-      "type": "string"
-    },
-    "urls": {
-      "items": {
-        "type": "string"
-      },
-      "type": "array"
-    },
-    "urs": {
-      "type": "string"
     }
   },
   "required": [
-    "cdate",
-    "denial_reason",
-    "domain",
-    "id",
-    "status",
-    "type",
-    "dsa_attestation",
-    "urls"
+    "result",
+    "success"
   ],
   "type": "object"
 };
@@ -920,20 +927,46 @@ export const abuse_reports_SubmittedAbuseReportListItem_output: JsonSchema = {
 };
 
 /**
- * The schema of `abuse-reports_SubmittedAbuseReportListResponse_result` in
- * responses.
+ * The schema of `abuse-reports_SubmittedAbuseReportListResponse` in responses.
  */
-export const abuse_reports_SubmittedAbuseReportListResponse_result_output: JsonSchema = {
+export const abuse_reports_SubmittedAbuseReportListResponse_output: JsonSchema = {
   "properties": {
-    "reports": {
+    "errors": {
       "items": {
-        "$ref": "#/$defs/abuse-reports_SubmittedAbuseReportListItem"
+        "$ref": "#/$defs/abuse-reports_ErrorMessage"
       },
       "type": "array"
+    },
+    "messages": {
+      "items": {
+        "$ref": "#/$defs/abuse-reports_Message"
+      },
+      "type": "array"
+    },
+    "result": {
+      "properties": {
+        "reports": {
+          "items": {
+            "$ref": "#/$defs/abuse-reports_SubmittedAbuseReportListItem"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "reports"
+      ],
+      "type": "object"
+    },
+    "result_info": {
+      "$ref": "#/$defs/abuse-reports_ResultInfo"
+    },
+    "success": {
+      "type": "boolean"
     }
   },
   "required": [
-    "reports"
+    "result",
+    "success"
   ],
   "type": "object"
 };

@@ -21,6 +21,14 @@ export const addressing_address_maps_membership_request: JsonSchema = {
 };
 
 /**
+ * The schema of `addressing_address_map_identifier`.
+ */
+export const addressing_address_map_identifier: JsonSchema = {
+  "description": "Identifier of an Address Map.",
+  "type": "string"
+};
+
+/**
  * The schema of `addressing_default_sni`.
  */
 export const addressing_default_sni: JsonSchema = {

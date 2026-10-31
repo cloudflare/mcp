@@ -34,6 +34,66 @@ export const argo_config_api_response_common_failure_output: JsonSchema = {
 };
 
 /**
+ * The schema of `argo-config_api_response_single` in responses.
+ */
+export const argo_config_api_response_single_output: JsonSchema = {
+  "properties": {
+    "errors": {
+      "$ref": "#/$defs/argo-config_messages"
+    },
+    "messages": {
+      "$ref": "#/$defs/argo-config_messages"
+    },
+    "result": {
+      "$ref": "#/$defs/argo-config_result_object"
+    },
+    "success": {
+      "enum": [
+        true
+      ],
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "errors",
+    "messages",
+    "result",
+    "success"
+  ],
+  "type": "object"
+};
+
+/**
+ * The schema of `argo-config_count_zones_response` in responses.
+ */
+export const argo_config_count_zones_response_output: JsonSchema = {
+  "properties": {
+    "errors": {
+      "$ref": "#/$defs/argo-config_messages"
+    },
+    "messages": {
+      "$ref": "#/$defs/argo-config_messages"
+    },
+    "result": {
+      "type": "integer"
+    },
+    "success": {
+      "enum": [
+        true
+      ],
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "errors",
+    "messages",
+    "result",
+    "success"
+  ],
+  "type": "object"
+};
+
+/**
  * The schema of `argo-config_editable` in responses.
  */
 export const argo_config_editable_output: JsonSchema = {

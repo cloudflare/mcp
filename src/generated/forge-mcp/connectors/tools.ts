@@ -5,14 +5,23 @@ import { type Tool, pathParam } from "../_/tool.js";
 import {
   mconn_bad_response_output,
   mconn_coded_message_output,
+  mconn_good_response_output,
   mconn_none_output,
+  mconn_response_output,
+  mconn_uuid_output,
 } from "../outputs.js";
+import { mconn_account_id, mconn_uuid } from "../schemas.js";
 import {
   mconn_customer_connector_output,
+  mconn_customer_connectors_create_response_output,
+  mconn_customer_connectors_delete_response_output,
+  mconn_customer_connectors_edit_response_output,
+  mconn_customer_connectors_get_response_output,
+  mconn_customer_connectors_list_response_output,
+  mconn_customer_connectors_update_response_output,
   mconn_customer_device_output,
   mconn_day_of_week_output,
   mconn_embargo_date_output,
-  mconn_uuid_output,
 } from "./outputs.js";
 import {
   mconn_customer_connector_fields,
@@ -36,7 +45,7 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "type": "string"
+          "$ref": "#/$defs/mconn_account_id"
         },
         "body": {
           "$ref": "#/$defs/mconn_customer_connectors_create_request"
@@ -47,6 +56,7 @@ export const tools: readonly Tool[] = [
         "body"
       ],
       $defs: {
+        "mconn_account_id": mconn_account_id,
         "mconn_customer_connector_fields": mconn_customer_connector_fields,
         "mconn_customer_connectors_create_request": mconn_customer_connectors_create_request,
         "mconn_customer_device_options": mconn_customer_device_options,
@@ -55,12 +65,16 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/mconn_customer_connector",
+      "$ref": "#/$defs/mconn_customer_connectors_create_response",
       $defs: {
+        "mconn_coded_message": mconn_coded_message_output,
         "mconn_customer_connector": mconn_customer_connector_output,
+        "mconn_customer_connectors_create_response": mconn_customer_connectors_create_response_output,
         "mconn_customer_device": mconn_customer_device_output,
         "mconn_day_of_week": mconn_day_of_week_output,
         "mconn_embargo_date": mconn_embargo_date_output,
+        "mconn_good_response": mconn_good_response_output,
+        "mconn_response": mconn_response_output,
         "mconn_uuid": mconn_uuid_output,
       },
     },
@@ -87,7 +101,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/mconn_customer_connector"
+          "$ref": "#/$defs/mconn_customer_connectors_create_response"
         },
         "400": {
           "$ref": "#/$defs/mconn_bad_response"
@@ -112,10 +126,13 @@ export const tools: readonly Tool[] = [
         "mconn_bad_response": mconn_bad_response_output,
         "mconn_coded_message": mconn_coded_message_output,
         "mconn_customer_connector": mconn_customer_connector_output,
+        "mconn_customer_connectors_create_response": mconn_customer_connectors_create_response_output,
         "mconn_customer_device": mconn_customer_device_output,
         "mconn_day_of_week": mconn_day_of_week_output,
         "mconn_embargo_date": mconn_embargo_date_output,
+        "mconn_good_response": mconn_good_response_output,
         "mconn_none": mconn_none_output,
+        "mconn_response": mconn_response_output,
         "mconn_uuid": mconn_uuid_output,
       },
     },
@@ -132,24 +149,32 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "type": "string"
+          "$ref": "#/$defs/mconn_account_id"
         },
         "connector_id": {
-          "type": "string"
+          "$ref": "#/$defs/mconn_uuid"
         }
       },
       required: [
         "account_id",
         "connector_id"
       ],
+      $defs: {
+        "mconn_account_id": mconn_account_id,
+        "mconn_uuid": mconn_uuid,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/mconn_customer_connector",
+      "$ref": "#/$defs/mconn_customer_connectors_delete_response",
       $defs: {
+        "mconn_coded_message": mconn_coded_message_output,
         "mconn_customer_connector": mconn_customer_connector_output,
+        "mconn_customer_connectors_delete_response": mconn_customer_connectors_delete_response_output,
         "mconn_customer_device": mconn_customer_device_output,
         "mconn_day_of_week": mconn_day_of_week_output,
         "mconn_embargo_date": mconn_embargo_date_output,
+        "mconn_good_response": mconn_good_response_output,
+        "mconn_response": mconn_response_output,
         "mconn_uuid": mconn_uuid_output,
       },
     },
@@ -176,7 +201,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/mconn_customer_connector"
+          "$ref": "#/$defs/mconn_customer_connectors_delete_response"
         },
         "400": {
           "$ref": "#/$defs/mconn_bad_response"
@@ -198,10 +223,13 @@ export const tools: readonly Tool[] = [
         "mconn_bad_response": mconn_bad_response_output,
         "mconn_coded_message": mconn_coded_message_output,
         "mconn_customer_connector": mconn_customer_connector_output,
+        "mconn_customer_connectors_delete_response": mconn_customer_connectors_delete_response_output,
         "mconn_customer_device": mconn_customer_device_output,
         "mconn_day_of_week": mconn_day_of_week_output,
         "mconn_embargo_date": mconn_embargo_date_output,
+        "mconn_good_response": mconn_good_response_output,
         "mconn_none": mconn_none_output,
+        "mconn_response": mconn_response_output,
         "mconn_uuid": mconn_uuid_output,
       },
     },
@@ -217,13 +245,13 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "type": "string"
+          "$ref": "#/$defs/mconn_account_id"
         },
         "body": {
           "$ref": "#/$defs/mconn_customer_connectors_edit_request"
         },
         "connector_id": {
-          "type": "string"
+          "$ref": "#/$defs/mconn_uuid"
         }
       },
       required: [
@@ -232,18 +260,25 @@ export const tools: readonly Tool[] = [
         "body"
       ],
       $defs: {
+        "mconn_account_id": mconn_account_id,
+        "mconn_customer_connector_fields": mconn_customer_connector_fields,
         "mconn_customer_connectors_edit_request": mconn_customer_connectors_edit_request,
         "mconn_day_of_week": mconn_day_of_week,
         "mconn_embargo_date": mconn_embargo_date,
+        "mconn_uuid": mconn_uuid,
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/mconn_customer_connector",
+      "$ref": "#/$defs/mconn_customer_connectors_edit_response",
       $defs: {
+        "mconn_coded_message": mconn_coded_message_output,
         "mconn_customer_connector": mconn_customer_connector_output,
+        "mconn_customer_connectors_edit_response": mconn_customer_connectors_edit_response_output,
         "mconn_customer_device": mconn_customer_device_output,
         "mconn_day_of_week": mconn_day_of_week_output,
         "mconn_embargo_date": mconn_embargo_date_output,
+        "mconn_good_response": mconn_good_response_output,
+        "mconn_response": mconn_response_output,
         "mconn_uuid": mconn_uuid_output,
       },
     },
@@ -270,7 +305,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/mconn_customer_connector"
+          "$ref": "#/$defs/mconn_customer_connectors_edit_response"
         },
         "400": {
           "$ref": "#/$defs/mconn_bad_response"
@@ -292,10 +327,13 @@ export const tools: readonly Tool[] = [
         "mconn_bad_response": mconn_bad_response_output,
         "mconn_coded_message": mconn_coded_message_output,
         "mconn_customer_connector": mconn_customer_connector_output,
+        "mconn_customer_connectors_edit_response": mconn_customer_connectors_edit_response_output,
         "mconn_customer_device": mconn_customer_device_output,
         "mconn_day_of_week": mconn_day_of_week_output,
         "mconn_embargo_date": mconn_embargo_date_output,
+        "mconn_good_response": mconn_good_response_output,
         "mconn_none": mconn_none_output,
+        "mconn_response": mconn_response_output,
         "mconn_uuid": mconn_uuid_output,
       },
     },
@@ -312,24 +350,32 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "type": "string"
+          "$ref": "#/$defs/mconn_account_id"
         },
         "connector_id": {
-          "type": "string"
+          "$ref": "#/$defs/mconn_uuid"
         }
       },
       required: [
         "account_id",
         "connector_id"
       ],
+      $defs: {
+        "mconn_account_id": mconn_account_id,
+        "mconn_uuid": mconn_uuid,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/mconn_customer_connector",
+      "$ref": "#/$defs/mconn_customer_connectors_get_response",
       $defs: {
+        "mconn_coded_message": mconn_coded_message_output,
         "mconn_customer_connector": mconn_customer_connector_output,
+        "mconn_customer_connectors_get_response": mconn_customer_connectors_get_response_output,
         "mconn_customer_device": mconn_customer_device_output,
         "mconn_day_of_week": mconn_day_of_week_output,
         "mconn_embargo_date": mconn_embargo_date_output,
+        "mconn_good_response": mconn_good_response_output,
+        "mconn_response": mconn_response_output,
         "mconn_uuid": mconn_uuid_output,
       },
     },
@@ -357,7 +403,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/mconn_customer_connector"
+          "$ref": "#/$defs/mconn_customer_connectors_get_response"
         },
         "400": {
           "$ref": "#/$defs/mconn_bad_response"
@@ -379,10 +425,13 @@ export const tools: readonly Tool[] = [
         "mconn_bad_response": mconn_bad_response_output,
         "mconn_coded_message": mconn_coded_message_output,
         "mconn_customer_connector": mconn_customer_connector_output,
+        "mconn_customer_connectors_get_response": mconn_customer_connectors_get_response_output,
         "mconn_customer_device": mconn_customer_device_output,
         "mconn_day_of_week": mconn_day_of_week_output,
         "mconn_embargo_date": mconn_embargo_date_output,
+        "mconn_good_response": mconn_good_response_output,
         "mconn_none": mconn_none_output,
+        "mconn_response": mconn_response_output,
         "mconn_uuid": mconn_uuid_output,
       },
     },
@@ -398,7 +447,7 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "type": "string"
+          "$ref": "#/$defs/mconn_account_id"
         },
         "device_type": {
           "description": "Filter connectors by device type.",
@@ -412,28 +461,21 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+      $defs: {
+        "mconn_account_id": mconn_account_id,
+      },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "$ref": "#/$defs/mconn_customer_connector"
-          },
-          "type": "array"
-        },
-        "result_info": {
-          "type": "object"
-        }
-      },
-      "required": [
-        "result"
-      ],
-      "type": "object",
+      "$ref": "#/$defs/mconn_customer_connectors_list_response",
       $defs: {
+        "mconn_coded_message": mconn_coded_message_output,
         "mconn_customer_connector": mconn_customer_connector_output,
+        "mconn_customer_connectors_list_response": mconn_customer_connectors_list_response_output,
         "mconn_customer_device": mconn_customer_device_output,
         "mconn_day_of_week": mconn_day_of_week_output,
         "mconn_embargo_date": mconn_embargo_date_output,
+        "mconn_good_response": mconn_good_response_output,
+        "mconn_response": mconn_response_output,
         "mconn_uuid": mconn_uuid_output,
       },
     },
@@ -461,21 +503,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "items": {
-                "$ref": "#/$defs/mconn_customer_connector"
-              },
-              "type": "array"
-            },
-            "result_info": {
-              "type": "object"
-            }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/mconn_customer_connectors_list_response"
         },
         "400": {
           "$ref": "#/$defs/mconn_bad_response"
@@ -494,10 +522,13 @@ export const tools: readonly Tool[] = [
         "mconn_bad_response": mconn_bad_response_output,
         "mconn_coded_message": mconn_coded_message_output,
         "mconn_customer_connector": mconn_customer_connector_output,
+        "mconn_customer_connectors_list_response": mconn_customer_connectors_list_response_output,
         "mconn_customer_device": mconn_customer_device_output,
         "mconn_day_of_week": mconn_day_of_week_output,
         "mconn_embargo_date": mconn_embargo_date_output,
+        "mconn_good_response": mconn_good_response_output,
         "mconn_none": mconn_none_output,
+        "mconn_response": mconn_response_output,
         "mconn_uuid": mconn_uuid_output,
       },
     },
@@ -516,13 +547,13 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "type": "string"
+          "$ref": "#/$defs/mconn_account_id"
         },
         "body": {
           "$ref": "#/$defs/mconn_customer_connectors_update_request"
         },
         "connector_id": {
-          "type": "string"
+          "$ref": "#/$defs/mconn_uuid"
         }
       },
       required: [
@@ -531,18 +562,25 @@ export const tools: readonly Tool[] = [
         "body"
       ],
       $defs: {
+        "mconn_account_id": mconn_account_id,
+        "mconn_customer_connector_fields": mconn_customer_connector_fields,
         "mconn_customer_connectors_update_request": mconn_customer_connectors_update_request,
         "mconn_day_of_week": mconn_day_of_week,
         "mconn_embargo_date": mconn_embargo_date,
+        "mconn_uuid": mconn_uuid,
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/mconn_customer_connector",
+      "$ref": "#/$defs/mconn_customer_connectors_update_response",
       $defs: {
+        "mconn_coded_message": mconn_coded_message_output,
         "mconn_customer_connector": mconn_customer_connector_output,
+        "mconn_customer_connectors_update_response": mconn_customer_connectors_update_response_output,
         "mconn_customer_device": mconn_customer_device_output,
         "mconn_day_of_week": mconn_day_of_week_output,
         "mconn_embargo_date": mconn_embargo_date_output,
+        "mconn_good_response": mconn_good_response_output,
+        "mconn_response": mconn_response_output,
         "mconn_uuid": mconn_uuid_output,
       },
     },
@@ -569,7 +607,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/mconn_customer_connector"
+          "$ref": "#/$defs/mconn_customer_connectors_update_response"
         },
         "400": {
           "$ref": "#/$defs/mconn_bad_response"
@@ -591,10 +629,13 @@ export const tools: readonly Tool[] = [
         "mconn_bad_response": mconn_bad_response_output,
         "mconn_coded_message": mconn_coded_message_output,
         "mconn_customer_connector": mconn_customer_connector_output,
+        "mconn_customer_connectors_update_response": mconn_customer_connectors_update_response_output,
         "mconn_customer_device": mconn_customer_device_output,
         "mconn_day_of_week": mconn_day_of_week_output,
         "mconn_embargo_date": mconn_embargo_date_output,
+        "mconn_good_response": mconn_good_response_output,
         "mconn_none": mconn_none_output,
+        "mconn_response": mconn_response_output,
         "mconn_uuid": mconn_uuid_output,
       },
     },

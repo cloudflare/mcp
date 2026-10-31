@@ -43,13 +43,6 @@ export const r2_bucket_location_output: JsonSchema = {
 };
 
 /**
- * The schema of `r2_bucket_name` in responses.
- */
-export const r2_bucket_name_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `r2_jurisdiction` in responses.
  */
 export const r2_jurisdiction_output: JsonSchema = {
@@ -61,4 +54,47 @@ export const r2_jurisdiction_output: JsonSchema = {
     "fedramp-high"
   ],
   "type": "string"
+};
+
+/**
+ * The schema of `r2_result_info` in responses.
+ */
+export const r2_result_info_output: JsonSchema = {
+  "properties": {
+    "cursor": {
+      "type": "string"
+    },
+    "per_page": {
+      "type": "number"
+    },
+    "total_count": {
+      "type": "integer"
+    }
+  },
+  "required": [
+    "total_count"
+  ],
+  "type": "object"
+};
+
+/**
+ * The schema of `r2_v4_response_list` in responses.
+ */
+export const r2_v4_response_list_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/r2_v4_response"
+    },
+    {
+      "properties": {
+        "result_info": {
+          "$ref": "#/$defs/r2_result_info"
+        }
+      },
+      "required": [
+        "result_info"
+      ],
+      "type": "object"
+    }
+  ]
 };

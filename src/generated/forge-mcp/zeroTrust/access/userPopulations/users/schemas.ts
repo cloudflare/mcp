@@ -81,7 +81,46 @@ export const access_scim_patch_request: JsonSchema = {
   "properties": {
     "Operations": {
       "items": {
-        "$ref": "#/$defs/access_scim_patch_request_OperationsItem"
+        "properties": {
+          "op": {
+            "enum": [
+              "add",
+              "remove",
+              "replace"
+            ],
+            "type": "string"
+          },
+          "path": {
+            "type": "string"
+          },
+          "value": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              },
+              {
+                "type": "boolean"
+              },
+              {
+                "items": {},
+                "type": "array"
+              },
+              {
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "op"
+        ],
+        "type": "object"
       },
       "type": "array"
     },
@@ -94,30 +133,6 @@ export const access_scim_patch_request: JsonSchema = {
   },
   "required": [
     "Operations"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `access_scim_patch_request_OperationsItem`.
- */
-export const access_scim_patch_request_OperationsItem: JsonSchema = {
-  "properties": {
-    "op": {
-      "enum": [
-        "add",
-        "remove",
-        "replace"
-      ],
-      "type": "string"
-    },
-    "path": {
-      "type": "string"
-    },
-    "value": {}
-  },
-  "required": [
-    "op"
   ],
   "type": "object"
 };

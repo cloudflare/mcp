@@ -7,6 +7,7 @@ import {
   email_security_ValidationStatus_output,
   email_security_Validation_output,
   email_security_api_response_common_failure_output,
+  email_security_api_response_common_output,
   email_security_messages_output,
 } from "../../outputs.js";
 import {
@@ -18,7 +19,6 @@ import {
   email_security_Finding_output,
   email_security_Link_output,
   email_security_MessageDetectionDetails_output,
-  email_security_MessageDetectionDetails_sender_info_output,
   email_security_MessageHeader_output,
   email_security_ThreatCategory_output,
 } from "./outputs.js";
@@ -53,18 +53,34 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/email-security_MessageDetectionDetails",
+      "allOf": [
+        {
+          "$ref": "#/$defs/email-security_api-response-common"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/email-security_MessageDetectionDetails"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        }
+      ],
       $defs: {
         "email-security_Attachment": email_security_Attachment_output,
         "email-security_DispositionLabel": email_security_DispositionLabel_output,
         "email-security_Finding": email_security_Finding_output,
         "email-security_Link": email_security_Link_output,
         "email-security_MessageDetectionDetails": email_security_MessageDetectionDetails_output,
-        "email-security_MessageDetectionDetails_sender_info": email_security_MessageDetectionDetails_sender_info_output,
         "email-security_MessageHeader": email_security_MessageHeader_output,
         "email-security_ThreatCategory": email_security_ThreatCategory_output,
         "email-security_Validation": email_security_Validation_output,
         "email-security_ValidationStatus": email_security_ValidationStatus_output,
+        "email-security_api-response-common": email_security_api_response_common_output,
+        "email-security_messages": email_security_messages_output,
       },
     },
     annotations: {
@@ -86,7 +102,22 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/email-security_MessageDetectionDetails"
+          "allOf": [
+            {
+              "$ref": "#/$defs/email-security_api-response-common"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/email-security_MessageDetectionDetails"
+                }
+              },
+              "required": [
+                "result"
+              ],
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/email-security_api-response-common-failure"
@@ -98,11 +129,11 @@ export const tools: readonly Tool[] = [
         "email-security_Finding": email_security_Finding_output,
         "email-security_Link": email_security_Link_output,
         "email-security_MessageDetectionDetails": email_security_MessageDetectionDetails_output,
-        "email-security_MessageDetectionDetails_sender_info": email_security_MessageDetectionDetails_sender_info_output,
         "email-security_MessageHeader": email_security_MessageHeader_output,
         "email-security_ThreatCategory": email_security_ThreatCategory_output,
         "email-security_Validation": email_security_Validation_output,
         "email-security_ValidationStatus": email_security_ValidationStatus_output,
+        "email-security_api-response-common": email_security_api_response_common_output,
         "email-security_api-response-common-failure": email_security_api_response_common_failure_output,
         "email-security_messages": email_security_messages_output,
       },

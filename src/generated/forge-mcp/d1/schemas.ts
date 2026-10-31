@@ -4,6 +4,14 @@
 import type { JsonSchema } from "../_/tool.js";
 
 /**
+ * The schema of `d1_account-identifier`.
+ */
+export const d1_account_identifier: JsonSchema = {
+  "description": "Account identifier tag.",
+  "type": "string"
+};
+
+/**
  * The schema of `d1_batch-query`.
  */
 export const d1_batch_query: JsonSchema = {
@@ -27,6 +35,14 @@ export const d1_batch_query: JsonSchema = {
       "type": "object"
     }
   ]
+};
+
+/**
+ * The schema of `d1_database-identifier`.
+ */
+export const d1_database_identifier: JsonSchema = {
+  "description": "D1 database identifier (UUID).",
+  "type": "string"
 };
 
 /**

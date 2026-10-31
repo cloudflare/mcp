@@ -135,3 +135,50 @@ export const firewall_zonelockdown_output: JsonSchema = {
   ],
   "type": "object"
 };
+
+/**
+ * The schema of `firewall_zonelockdown_response_collection` in responses.
+ */
+export const firewall_zonelockdown_response_collection_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/firewall_api-response-collection"
+    },
+    {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/firewall_zonelockdown"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `firewall_zonelockdown_response_single` in responses.
+ */
+export const firewall_zonelockdown_response_single_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/firewall_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/firewall_zonelockdown"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object"
+    }
+  ]
+};

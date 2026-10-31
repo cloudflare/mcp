@@ -3,10 +3,14 @@
 
 import { type Tool, pathParam } from "../../../../_/tool.js";
 import {
+  teams_devices_api_response_collection_output,
   teams_devices_api_response_common_failure_output,
+  teams_devices_api_response_common_output,
+  teams_devices_api_response_single_output,
   teams_devices_messages_output,
   teams_devices_result_info_output,
 } from "../../outputs.js";
+import { teams_devices_identifier } from "../../schemas.js";
 import {
   teams_devices_allow_mode_switch_output,
   teams_devices_allow_updates_output,
@@ -76,6 +80,7 @@ import {
   teams_devices_profile_type,
   teams_devices_register_interface_ip_with_dns,
   teams_devices_sccm_vpn_boundary_support,
+  teams_devices_schemas_uuid,
   teams_devices_service_mode_v2,
   teams_devices_split_tunnel,
   teams_devices_split_tunnel_address,
@@ -92,6 +97,8 @@ import {
   teams_devices_browser_extension_config_output,
   teams_devices_default_output,
   teams_devices_device_settings_policy_output,
+  teams_devices_device_settings_response_collection_output,
+  teams_devices_device_settings_response_output,
   teams_devices_precedence_output,
   teams_devices_schemas_description_output,
   teams_devices_schemas_match_output,
@@ -117,7 +124,7 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "type": "string"
+          "$ref": "#/$defs/teams-devices_identifier"
         },
         "body": {
           "properties": {
@@ -292,6 +299,7 @@ export const tools: readonly Tool[] = [
         "teams-devices_exclude_split_tunnel_with_address": teams_devices_exclude_split_tunnel_with_address,
         "teams-devices_exclude_split_tunnel_with_host": teams_devices_exclude_split_tunnel_with_host,
         "teams-devices_global_acceleration": teams_devices_global_acceleration,
+        "teams-devices_identifier": teams_devices_identifier,
         "teams-devices_include_request": teams_devices_include_request,
         "teams-devices_include_split_tunnel_address": teams_devices_include_split_tunnel_address,
         "teams-devices_include_split_tunnel_description": teams_devices_include_split_tunnel_description,
@@ -320,16 +328,19 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/teams-devices_device_settings_policy",
+      "$ref": "#/$defs/teams-devices_device_settings_response",
       $defs: {
         "teams-devices_allow_mode_switch": teams_devices_allow_mode_switch_output,
         "teams-devices_allow_updates": teams_devices_allow_updates_output,
         "teams-devices_allowed_to_leave": teams_devices_allowed_to_leave_output,
+        "teams-devices_api-response-common": teams_devices_api_response_common_output,
+        "teams-devices_api-response-single": teams_devices_api_response_single_output,
         "teams-devices_auto_connect": teams_devices_auto_connect_output,
         "teams-devices_browser_extension_config": teams_devices_browser_extension_config_output,
         "teams-devices_captive_portal": teams_devices_captive_portal_output,
         "teams-devices_default": teams_devices_default_output,
         "teams-devices_device_settings_policy": teams_devices_device_settings_policy_output,
+        "teams-devices_device_settings_response": teams_devices_device_settings_response_output,
         "teams-devices_disable_auto_fallback": teams_devices_disable_auto_fallback_output,
         "teams-devices_dns_search_suffix": teams_devices_dns_search_suffix_output,
         "teams-devices_dns_search_suffixes": teams_devices_dns_search_suffixes_output,
@@ -351,6 +362,7 @@ export const tools: readonly Tool[] = [
         "teams-devices_ip": teams_devices_ip_output,
         "teams-devices_lan_allow_minutes": teams_devices_lan_allow_minutes_output,
         "teams-devices_lan_allow_subnet_size": teams_devices_lan_allow_subnet_size_output,
+        "teams-devices_messages": teams_devices_messages_output,
         "teams-devices_precedence": teams_devices_precedence_output,
         "teams-devices_profile_type": teams_devices_profile_type_output,
         "teams-devices_register_interface_ip_with_dns": teams_devices_register_interface_ip_with_dns_output,
@@ -389,7 +401,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/teams-devices_device_settings_policy"
+          "$ref": "#/$defs/teams-devices_device_settings_response"
         },
         "4XX": {
           "$ref": "#/$defs/teams-devices_api-response-common-failure"
@@ -399,12 +411,15 @@ export const tools: readonly Tool[] = [
         "teams-devices_allow_mode_switch": teams_devices_allow_mode_switch_output,
         "teams-devices_allow_updates": teams_devices_allow_updates_output,
         "teams-devices_allowed_to_leave": teams_devices_allowed_to_leave_output,
+        "teams-devices_api-response-common": teams_devices_api_response_common_output,
         "teams-devices_api-response-common-failure": teams_devices_api_response_common_failure_output,
+        "teams-devices_api-response-single": teams_devices_api_response_single_output,
         "teams-devices_auto_connect": teams_devices_auto_connect_output,
         "teams-devices_browser_extension_config": teams_devices_browser_extension_config_output,
         "teams-devices_captive_portal": teams_devices_captive_portal_output,
         "teams-devices_default": teams_devices_default_output,
         "teams-devices_device_settings_policy": teams_devices_device_settings_policy_output,
+        "teams-devices_device_settings_response": teams_devices_device_settings_response_output,
         "teams-devices_disable_auto_fallback": teams_devices_disable_auto_fallback_output,
         "teams-devices_dns_search_suffix": teams_devices_dns_search_suffix_output,
         "teams-devices_dns_search_suffixes": teams_devices_dns_search_suffixes_output,
@@ -461,42 +476,35 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "type": "string"
+          "$ref": "#/$defs/teams-devices_identifier"
         },
         "policy_id": {
-          "type": "string"
+          "$ref": "#/$defs/teams-devices_schemas-uuid"
         }
       },
       required: [
         "account_id",
         "policy_id"
       ],
+      $defs: {
+        "teams-devices_identifier": teams_devices_identifier,
+        "teams-devices_schemas-uuid": teams_devices_schemas_uuid,
+      },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "$ref": "#/$defs/teams-devices_device_settings_policy"
-          },
-          "type": "array"
-        },
-        "result_info": {
-          "$ref": "#/$defs/teams-devices_result_info"
-        }
-      },
-      "required": [
-        "result"
-      ],
-      "type": "object",
+      "$ref": "#/$defs/teams-devices_device_settings_response_collection",
       $defs: {
         "teams-devices_allow_mode_switch": teams_devices_allow_mode_switch_output,
         "teams-devices_allow_updates": teams_devices_allow_updates_output,
         "teams-devices_allowed_to_leave": teams_devices_allowed_to_leave_output,
+        "teams-devices_api-response-collection": teams_devices_api_response_collection_output,
+        "teams-devices_api-response-common": teams_devices_api_response_common_output,
         "teams-devices_auto_connect": teams_devices_auto_connect_output,
         "teams-devices_browser_extension_config": teams_devices_browser_extension_config_output,
         "teams-devices_captive_portal": teams_devices_captive_portal_output,
         "teams-devices_default": teams_devices_default_output,
         "teams-devices_device_settings_policy": teams_devices_device_settings_policy_output,
+        "teams-devices_device_settings_response_collection": teams_devices_device_settings_response_collection_output,
         "teams-devices_disable_auto_fallback": teams_devices_disable_auto_fallback_output,
         "teams-devices_dns_search_suffix": teams_devices_dns_search_suffix_output,
         "teams-devices_dns_search_suffixes": teams_devices_dns_search_suffixes_output,
@@ -518,6 +526,7 @@ export const tools: readonly Tool[] = [
         "teams-devices_ip": teams_devices_ip_output,
         "teams-devices_lan_allow_minutes": teams_devices_lan_allow_minutes_output,
         "teams-devices_lan_allow_subnet_size": teams_devices_lan_allow_subnet_size_output,
+        "teams-devices_messages": teams_devices_messages_output,
         "teams-devices_precedence": teams_devices_precedence_output,
         "teams-devices_profile_type": teams_devices_profile_type_output,
         "teams-devices_register_interface_ip_with_dns": teams_devices_register_interface_ip_with_dns_output,
@@ -557,21 +566,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "items": {
-                "$ref": "#/$defs/teams-devices_device_settings_policy"
-              },
-              "type": "array"
-            },
-            "result_info": {
-              "$ref": "#/$defs/teams-devices_result_info"
-            }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/teams-devices_device_settings_response_collection"
         },
         "4XX": {
           "$ref": "#/$defs/teams-devices_api-response-common-failure"
@@ -581,12 +576,15 @@ export const tools: readonly Tool[] = [
         "teams-devices_allow_mode_switch": teams_devices_allow_mode_switch_output,
         "teams-devices_allow_updates": teams_devices_allow_updates_output,
         "teams-devices_allowed_to_leave": teams_devices_allowed_to_leave_output,
+        "teams-devices_api-response-collection": teams_devices_api_response_collection_output,
+        "teams-devices_api-response-common": teams_devices_api_response_common_output,
         "teams-devices_api-response-common-failure": teams_devices_api_response_common_failure_output,
         "teams-devices_auto_connect": teams_devices_auto_connect_output,
         "teams-devices_browser_extension_config": teams_devices_browser_extension_config_output,
         "teams-devices_captive_portal": teams_devices_captive_portal_output,
         "teams-devices_default": teams_devices_default_output,
         "teams-devices_device_settings_policy": teams_devices_device_settings_policy_output,
+        "teams-devices_device_settings_response_collection": teams_devices_device_settings_response_collection_output,
         "teams-devices_disable_auto_fallback": teams_devices_disable_auto_fallback_output,
         "teams-devices_dns_search_suffix": teams_devices_dns_search_suffix_output,
         "teams-devices_dns_search_suffixes": teams_devices_dns_search_suffixes_output,
@@ -643,28 +641,35 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "type": "string"
+          "$ref": "#/$defs/teams-devices_identifier"
         },
         "policy_id": {
-          "type": "string"
+          "$ref": "#/$defs/teams-devices_schemas-uuid"
         }
       },
       required: [
         "account_id",
         "policy_id"
       ],
+      $defs: {
+        "teams-devices_identifier": teams_devices_identifier,
+        "teams-devices_schemas-uuid": teams_devices_schemas_uuid,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/teams-devices_device_settings_policy",
+      "$ref": "#/$defs/teams-devices_device_settings_response",
       $defs: {
         "teams-devices_allow_mode_switch": teams_devices_allow_mode_switch_output,
         "teams-devices_allow_updates": teams_devices_allow_updates_output,
         "teams-devices_allowed_to_leave": teams_devices_allowed_to_leave_output,
+        "teams-devices_api-response-common": teams_devices_api_response_common_output,
+        "teams-devices_api-response-single": teams_devices_api_response_single_output,
         "teams-devices_auto_connect": teams_devices_auto_connect_output,
         "teams-devices_browser_extension_config": teams_devices_browser_extension_config_output,
         "teams-devices_captive_portal": teams_devices_captive_portal_output,
         "teams-devices_default": teams_devices_default_output,
         "teams-devices_device_settings_policy": teams_devices_device_settings_policy_output,
+        "teams-devices_device_settings_response": teams_devices_device_settings_response_output,
         "teams-devices_disable_auto_fallback": teams_devices_disable_auto_fallback_output,
         "teams-devices_dns_search_suffix": teams_devices_dns_search_suffix_output,
         "teams-devices_dns_search_suffixes": teams_devices_dns_search_suffixes_output,
@@ -686,6 +691,7 @@ export const tools: readonly Tool[] = [
         "teams-devices_ip": teams_devices_ip_output,
         "teams-devices_lan_allow_minutes": teams_devices_lan_allow_minutes_output,
         "teams-devices_lan_allow_subnet_size": teams_devices_lan_allow_subnet_size_output,
+        "teams-devices_messages": teams_devices_messages_output,
         "teams-devices_precedence": teams_devices_precedence_output,
         "teams-devices_profile_type": teams_devices_profile_type_output,
         "teams-devices_register_interface_ip_with_dns": teams_devices_register_interface_ip_with_dns_output,
@@ -719,7 +725,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/teams-devices_device_settings_policy"
+          "$ref": "#/$defs/teams-devices_device_settings_response"
         },
         "4XX": {
           "$ref": "#/$defs/teams-devices_api-response-common-failure"
@@ -729,12 +735,15 @@ export const tools: readonly Tool[] = [
         "teams-devices_allow_mode_switch": teams_devices_allow_mode_switch_output,
         "teams-devices_allow_updates": teams_devices_allow_updates_output,
         "teams-devices_allowed_to_leave": teams_devices_allowed_to_leave_output,
+        "teams-devices_api-response-common": teams_devices_api_response_common_output,
         "teams-devices_api-response-common-failure": teams_devices_api_response_common_failure_output,
+        "teams-devices_api-response-single": teams_devices_api_response_single_output,
         "teams-devices_auto_connect": teams_devices_auto_connect_output,
         "teams-devices_browser_extension_config": teams_devices_browser_extension_config_output,
         "teams-devices_captive_portal": teams_devices_captive_portal_output,
         "teams-devices_default": teams_devices_default_output,
         "teams-devices_device_settings_policy": teams_devices_device_settings_policy_output,
+        "teams-devices_device_settings_response": teams_devices_device_settings_response_output,
         "teams-devices_disable_auto_fallback": teams_devices_disable_auto_fallback_output,
         "teams-devices_dns_search_suffix": teams_devices_dns_search_suffix_output,
         "teams-devices_dns_search_suffixes": teams_devices_dns_search_suffixes_output,
@@ -790,7 +799,7 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "type": "string"
+          "$ref": "#/$defs/teams-devices_identifier"
         },
         "profile_type": {
           "$ref": "#/$defs/teams-devices_profile_type",
@@ -802,34 +811,24 @@ export const tools: readonly Tool[] = [
         "account_id"
       ],
       $defs: {
+        "teams-devices_identifier": teams_devices_identifier,
         "teams-devices_profile_type": teams_devices_profile_type,
       },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "$ref": "#/$defs/teams-devices_device_settings_policy"
-          },
-          "type": "array"
-        },
-        "result_info": {
-          "$ref": "#/$defs/teams-devices_result_info"
-        }
-      },
-      "required": [
-        "result"
-      ],
-      "type": "object",
+      "$ref": "#/$defs/teams-devices_device_settings_response_collection",
       $defs: {
         "teams-devices_allow_mode_switch": teams_devices_allow_mode_switch_output,
         "teams-devices_allow_updates": teams_devices_allow_updates_output,
         "teams-devices_allowed_to_leave": teams_devices_allowed_to_leave_output,
+        "teams-devices_api-response-collection": teams_devices_api_response_collection_output,
+        "teams-devices_api-response-common": teams_devices_api_response_common_output,
         "teams-devices_auto_connect": teams_devices_auto_connect_output,
         "teams-devices_browser_extension_config": teams_devices_browser_extension_config_output,
         "teams-devices_captive_portal": teams_devices_captive_portal_output,
         "teams-devices_default": teams_devices_default_output,
         "teams-devices_device_settings_policy": teams_devices_device_settings_policy_output,
+        "teams-devices_device_settings_response_collection": teams_devices_device_settings_response_collection_output,
         "teams-devices_disable_auto_fallback": teams_devices_disable_auto_fallback_output,
         "teams-devices_dns_search_suffix": teams_devices_dns_search_suffix_output,
         "teams-devices_dns_search_suffixes": teams_devices_dns_search_suffixes_output,
@@ -851,6 +850,7 @@ export const tools: readonly Tool[] = [
         "teams-devices_ip": teams_devices_ip_output,
         "teams-devices_lan_allow_minutes": teams_devices_lan_allow_minutes_output,
         "teams-devices_lan_allow_subnet_size": teams_devices_lan_allow_subnet_size_output,
+        "teams-devices_messages": teams_devices_messages_output,
         "teams-devices_precedence": teams_devices_precedence_output,
         "teams-devices_profile_type": teams_devices_profile_type_output,
         "teams-devices_register_interface_ip_with_dns": teams_devices_register_interface_ip_with_dns_output,
@@ -885,21 +885,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "items": {
-                "$ref": "#/$defs/teams-devices_device_settings_policy"
-              },
-              "type": "array"
-            },
-            "result_info": {
-              "$ref": "#/$defs/teams-devices_result_info"
-            }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/teams-devices_device_settings_response_collection"
         },
         "4XX": {
           "$ref": "#/$defs/teams-devices_api-response-common-failure"
@@ -909,12 +895,15 @@ export const tools: readonly Tool[] = [
         "teams-devices_allow_mode_switch": teams_devices_allow_mode_switch_output,
         "teams-devices_allow_updates": teams_devices_allow_updates_output,
         "teams-devices_allowed_to_leave": teams_devices_allowed_to_leave_output,
+        "teams-devices_api-response-collection": teams_devices_api_response_collection_output,
+        "teams-devices_api-response-common": teams_devices_api_response_common_output,
         "teams-devices_api-response-common-failure": teams_devices_api_response_common_failure_output,
         "teams-devices_auto_connect": teams_devices_auto_connect_output,
         "teams-devices_browser_extension_config": teams_devices_browser_extension_config_output,
         "teams-devices_captive_portal": teams_devices_captive_portal_output,
         "teams-devices_default": teams_devices_default_output,
         "teams-devices_device_settings_policy": teams_devices_device_settings_policy_output,
+        "teams-devices_device_settings_response_collection": teams_devices_device_settings_response_collection_output,
         "teams-devices_disable_auto_fallback": teams_devices_disable_auto_fallback_output,
         "teams-devices_dns_search_suffix": teams_devices_dns_search_suffix_output,
         "teams-devices_dns_search_suffixes": teams_devices_dns_search_suffixes_output,
@@ -974,7 +963,7 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "type": "string"
+          "$ref": "#/$defs/teams-devices_identifier"
         },
         "body": {
           "properties": {
@@ -1113,7 +1102,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "policy_id": {
-          "type": "string"
+          "$ref": "#/$defs/teams-devices_schemas-uuid"
         }
       },
       required: [
@@ -1138,6 +1127,7 @@ export const tools: readonly Tool[] = [
         "teams-devices_exclude_split_tunnel_with_address": teams_devices_exclude_split_tunnel_with_address,
         "teams-devices_exclude_split_tunnel_with_host": teams_devices_exclude_split_tunnel_with_host,
         "teams-devices_global_acceleration": teams_devices_global_acceleration,
+        "teams-devices_identifier": teams_devices_identifier,
         "teams-devices_include_request": teams_devices_include_request,
         "teams-devices_include_split_tunnel_address": teams_devices_include_split_tunnel_address,
         "teams-devices_include_split_tunnel_description": teams_devices_include_split_tunnel_description,
@@ -1151,6 +1141,7 @@ export const tools: readonly Tool[] = [
         "teams-devices_sccm_vpn_boundary_support": teams_devices_sccm_vpn_boundary_support,
         "teams-devices_schemas-description": teams_devices_schemas_description,
         "teams-devices_schemas-match": teams_devices_schemas_match,
+        "teams-devices_schemas-uuid": teams_devices_schemas_uuid,
         "teams-devices_service_mode_v2": teams_devices_service_mode_v2,
         "teams-devices_split_tunnel": teams_devices_split_tunnel,
         "teams-devices_split_tunnel_address": teams_devices_split_tunnel_address,
@@ -1165,16 +1156,19 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/teams-devices_device_settings_policy",
+      "$ref": "#/$defs/teams-devices_device_settings_response",
       $defs: {
         "teams-devices_allow_mode_switch": teams_devices_allow_mode_switch_output,
         "teams-devices_allow_updates": teams_devices_allow_updates_output,
         "teams-devices_allowed_to_leave": teams_devices_allowed_to_leave_output,
+        "teams-devices_api-response-common": teams_devices_api_response_common_output,
+        "teams-devices_api-response-single": teams_devices_api_response_single_output,
         "teams-devices_auto_connect": teams_devices_auto_connect_output,
         "teams-devices_browser_extension_config": teams_devices_browser_extension_config_output,
         "teams-devices_captive_portal": teams_devices_captive_portal_output,
         "teams-devices_default": teams_devices_default_output,
         "teams-devices_device_settings_policy": teams_devices_device_settings_policy_output,
+        "teams-devices_device_settings_response": teams_devices_device_settings_response_output,
         "teams-devices_disable_auto_fallback": teams_devices_disable_auto_fallback_output,
         "teams-devices_dns_search_suffix": teams_devices_dns_search_suffix_output,
         "teams-devices_dns_search_suffixes": teams_devices_dns_search_suffixes_output,
@@ -1196,6 +1190,7 @@ export const tools: readonly Tool[] = [
         "teams-devices_ip": teams_devices_ip_output,
         "teams-devices_lan_allow_minutes": teams_devices_lan_allow_minutes_output,
         "teams-devices_lan_allow_subnet_size": teams_devices_lan_allow_subnet_size_output,
+        "teams-devices_messages": teams_devices_messages_output,
         "teams-devices_precedence": teams_devices_precedence_output,
         "teams-devices_profile_type": teams_devices_profile_type_output,
         "teams-devices_register_interface_ip_with_dns": teams_devices_register_interface_ip_with_dns_output,
@@ -1234,7 +1229,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/teams-devices_device_settings_policy"
+          "$ref": "#/$defs/teams-devices_device_settings_response"
         },
         "4XX": {
           "$ref": "#/$defs/teams-devices_api-response-common-failure"
@@ -1244,12 +1239,15 @@ export const tools: readonly Tool[] = [
         "teams-devices_allow_mode_switch": teams_devices_allow_mode_switch_output,
         "teams-devices_allow_updates": teams_devices_allow_updates_output,
         "teams-devices_allowed_to_leave": teams_devices_allowed_to_leave_output,
+        "teams-devices_api-response-common": teams_devices_api_response_common_output,
         "teams-devices_api-response-common-failure": teams_devices_api_response_common_failure_output,
+        "teams-devices_api-response-single": teams_devices_api_response_single_output,
         "teams-devices_auto_connect": teams_devices_auto_connect_output,
         "teams-devices_browser_extension_config": teams_devices_browser_extension_config_output,
         "teams-devices_captive_portal": teams_devices_captive_portal_output,
         "teams-devices_default": teams_devices_default_output,
         "teams-devices_device_settings_policy": teams_devices_device_settings_policy_output,
+        "teams-devices_device_settings_response": teams_devices_device_settings_response_output,
         "teams-devices_disable_auto_fallback": teams_devices_disable_auto_fallback_output,
         "teams-devices_dns_search_suffix": teams_devices_dns_search_suffix_output,
         "teams-devices_dns_search_suffixes": teams_devices_dns_search_suffixes_output,

@@ -4,6 +4,32 @@
 import type { JsonSchema } from "../_/tool.js";
 
 /**
+ * The schema of `stream_api-response-common` in responses.
+ */
+export const stream_api_response_common_output: JsonSchema = {
+  "properties": {
+    "errors": {
+      "$ref": "#/$defs/stream_messages"
+    },
+    "messages": {
+      "$ref": "#/$defs/stream_messages"
+    },
+    "success": {
+      "enum": [
+        true
+      ],
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "errors",
+    "messages",
+    "success"
+  ],
+  "type": "object"
+};
+
+/**
  * The schema of `stream_api-response-common-failure` in responses.
  */
 export const stream_api_response_common_failure_output: JsonSchema = {
@@ -34,10 +60,55 @@ export const stream_api_response_common_failure_output: JsonSchema = {
 };
 
 /**
+ * The schema of `stream_api-response-single` in responses.
+ */
+export const stream_api_response_single_output: JsonSchema = {
+  "properties": {
+    "errors": {
+      "$ref": "#/$defs/stream_messages"
+    },
+    "messages": {
+      "$ref": "#/$defs/stream_messages"
+    },
+    "success": {
+      "enum": [
+        true
+      ],
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "errors",
+    "messages",
+    "success"
+  ],
+  "type": "object"
+};
+
+/**
  * The schema of `stream_creator` in responses.
  */
 export const stream_creator_output: JsonSchema = {
   "type": "string"
+};
+
+/**
+ * The schema of `stream_deleted_response` in responses.
+ */
+export const stream_deleted_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/stream_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    }
+  ]
 };
 
 /**
@@ -52,6 +123,13 @@ export const stream_downloadedFrom_output: JsonSchema = {
  */
 export const stream_height_output: JsonSchema = {
   "type": "integer"
+};
+
+/**
+ * The schema of `stream_identifier-2` in responses.
+ */
+export const stream_identifier_2_output: JsonSchema = {
+  "type": "string"
 };
 
 /**
@@ -120,6 +198,39 @@ export const stream_position_output: JsonSchema = {
  */
 export const stream_scale_output: JsonSchema = {
   "type": "number"
+};
+
+/**
+ * The schema of `stream_storage_use_response` in responses.
+ */
+export const stream_storage_use_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/stream_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "properties": {
+            "creator": {
+              "$ref": "#/$defs/stream_creator"
+            },
+            "totalStorageMinutes": {
+              "type": "number"
+            },
+            "totalStorageMinutesLimit": {
+              "type": "integer"
+            },
+            "videoCount": {
+              "type": "integer"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
+    }
+  ]
 };
 
 /**

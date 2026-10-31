@@ -3,16 +3,15 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
+  workers_api_response_collection_output,
   workers_api_response_common_failure_output,
+  workers_api_response_common_output,
   workers_messages_output,
 } from "../../outputs.js";
+import { workers_identifier } from "../../schemas.js";
 import {
-  workers_api_response_collection_output,
-  workers_api_response_collection_result_info_output,
   workers_namespace_output,
   workers_query_result_output,
-  workers_query_result_resultsItem_meta_output,
-  workers_query_result_resultsItem_output,
   workers_query_value_output,
 } from "./outputs.js";
 import {
@@ -20,6 +19,7 @@ import {
   workers_query_by_id,
   workers_query_by_name,
   workers_query_param,
+  workers_schemas_id,
 } from "./schemas.js";
 
 /**
@@ -34,8 +34,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/workers_identifier",
+          "description": "Identifier."
         },
         "page": {
           "default": 1,
@@ -51,41 +51,31 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+      $defs: {
+        "workers_identifier": workers_identifier,
+      },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "$ref": "#/$defs/workers_namespace"
-          },
-          "type": "array"
+      "allOf": [
+        {
+          "$ref": "#/$defs/workers_api-response-collection"
         },
-        "result_info": {
+        {
           "properties": {
-            "count": {
-              "type": "number"
-            },
-            "page": {
-              "type": "number"
-            },
-            "per_page": {
-              "type": "number"
-            },
-            "total_count": {
-              "type": "number"
-            },
-            "total_pages": {
-              "type": "number"
+            "result": {
+              "items": {
+                "$ref": "#/$defs/workers_namespace"
+              },
+              "type": "array"
             }
           },
           "type": "object"
         }
-      },
-      "required": [
-        "result"
       ],
-      "type": "object",
       $defs: {
+        "workers_api-response-collection": workers_api_response_collection_output,
+        "workers_api-response-common": workers_api_response_common_output,
+        "workers_messages": workers_messages_output,
         "workers_namespace": workers_namespace_output,
       },
     },
@@ -115,38 +105,22 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "items": {
-                "$ref": "#/$defs/workers_namespace"
-              },
-              "type": "array"
+          "allOf": [
+            {
+              "$ref": "#/$defs/workers_api-response-collection"
             },
-            "result_info": {
+            {
               "properties": {
-                "count": {
-                  "type": "number"
-                },
-                "page": {
-                  "type": "number"
-                },
-                "per_page": {
-                  "type": "number"
-                },
-                "total_count": {
-                  "type": "number"
-                },
-                "total_pages": {
-                  "type": "number"
+                "result": {
+                  "items": {
+                    "$ref": "#/$defs/workers_namespace"
+                  },
+                  "type": "array"
                 }
               },
               "type": "object"
             }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          ]
         },
         "4XX": {
           "allOf": [
@@ -172,7 +146,7 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "workers_api-response-collection": workers_api_response_collection_output,
-        "workers_api-response-collection_result_info": workers_api_response_collection_result_info_output,
+        "workers_api-response-common": workers_api_response_common_output,
         "workers_api-response-common-failure": workers_api_response_common_failure_output,
         "workers_messages": workers_messages_output,
         "workers_namespace": workers_namespace_output,
@@ -194,8 +168,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/workers_identifier",
+          "description": "Identifier."
         },
         "body": {
           "oneOf": [
@@ -208,8 +182,8 @@ export const tools: readonly Tool[] = [
           ]
         },
         "id": {
-          "description": "ID of the namespace.",
-          "type": "string"
+          "$ref": "#/$defs/workers_schemas-id",
+          "description": "ID of the namespace."
         }
       },
       required: [
@@ -218,18 +192,32 @@ export const tools: readonly Tool[] = [
         "body"
       ],
       $defs: {
+        "workers_identifier": workers_identifier,
         "workers_query": workers_query,
         "workers_query-by-id": workers_query_by_id,
         "workers_query-by-name": workers_query_by_name,
         "workers_query-param": workers_query_param,
+        "workers_schemas-id": workers_schemas_id,
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/workers_query-result",
+      "allOf": [
+        {
+          "$ref": "#/$defs/workers_api-response-common"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/workers_query-result"
+            }
+          },
+          "type": "object"
+        }
+      ],
       $defs: {
+        "workers_api-response-common": workers_api_response_common_output,
+        "workers_messages": workers_messages_output,
         "workers_query-result": workers_query_result_output,
-        "workers_query-result_resultsItem": workers_query_result_resultsItem_output,
-        "workers_query-result_resultsItem_meta": workers_query_result_resultsItem_meta_output,
         "workers_query-value": workers_query_value_output,
       },
     },
@@ -253,18 +241,29 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/workers_query-result"
+          "allOf": [
+            {
+              "$ref": "#/$defs/workers_api-response-common"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/workers_query-result"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/workers_api-response-common-failure"
         }
       },
       $defs: {
+        "workers_api-response-common": workers_api_response_common_output,
         "workers_api-response-common-failure": workers_api_response_common_failure_output,
         "workers_messages": workers_messages_output,
         "workers_query-result": workers_query_result_output,
-        "workers_query-result_resultsItem": workers_query_result_resultsItem_output,
-        "workers_query-result_resultsItem_meta": workers_query_result_resultsItem_meta_output,
         "workers_query-value": workers_query_value_output,
       },
     },

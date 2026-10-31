@@ -15,7 +15,15 @@ export const field_extractors_ApiError_output: JsonSchema = {
       "type": "string"
     },
     "source": {
-      "$ref": "#/$defs/field-extractors_ApiError_source"
+      "properties": {
+        "pointer": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "pointer"
+      ],
+      "type": "object"
     }
   },
   "required": [
@@ -26,16 +34,56 @@ export const field_extractors_ApiError_output: JsonSchema = {
 };
 
 /**
- * The schema of `field-extractors_ApiError_source` in responses.
+ * The schema of `field-extractors_DeleteResponse` in responses.
  */
-export const field_extractors_ApiError_source_output: JsonSchema = {
+export const field_extractors_DeleteResponse_output: JsonSchema = {
   "properties": {
-    "pointer": {
-      "type": "string"
+    "errors": {
+      "items": {
+        "$ref": "#/$defs/field-extractors_ApiError"
+      },
+      "type": "array"
+    },
+    "messages": {
+      "items": {
+        "properties": {
+          "code": {
+            "type": "number"
+          },
+          "message": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "code",
+          "message"
+        ],
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "result": {
+      "oneOf": [
+        {
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "success": {
+      "enum": [
+        true
+      ],
+      "type": "boolean"
     }
   },
   "required": [
-    "pointer"
+    "errors",
+    "messages",
+    "result",
+    "success"
   ],
   "type": "object"
 };
@@ -53,7 +101,19 @@ export const field_extractors_ErrorResponse_output: JsonSchema = {
     },
     "messages": {
       "items": {
-        "$ref": "#/$defs/field-extractors_ErrorResponse_messagesItem"
+        "properties": {
+          "code": {
+            "type": "number"
+          },
+          "message": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "code",
+          "message"
+        ],
+        "type": "object"
       },
       "type": "array"
     },
@@ -79,25 +139,6 @@ export const field_extractors_ErrorResponse_output: JsonSchema = {
     "messages",
     "result",
     "success"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `field-extractors_ErrorResponse_messagesItem` in responses.
- */
-export const field_extractors_ErrorResponse_messagesItem_output: JsonSchema = {
-  "properties": {
-    "code": {
-      "type": "number"
-    },
-    "message": {
-      "type": "string"
-    }
-  },
-  "required": [
-    "code",
-    "message"
   ],
   "type": "object"
 };
@@ -165,6 +206,54 @@ export const field_extractors_RuleOutput_output: JsonSchema = {
   "required": [
     "fields",
     "ref"
+  ],
+  "type": "object"
+};
+
+/**
+ * The schema of `field-extractors_SuccessResponse` in responses.
+ */
+export const field_extractors_SuccessResponse_output: JsonSchema = {
+  "properties": {
+    "errors": {
+      "items": {
+        "$ref": "#/$defs/field-extractors_ApiError"
+      },
+      "type": "array"
+    },
+    "messages": {
+      "items": {
+        "properties": {
+          "code": {
+            "type": "number"
+          },
+          "message": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "code",
+          "message"
+        ],
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "result": {
+      "$ref": "#/$defs/field-extractors_ExtractorResult"
+    },
+    "success": {
+      "enum": [
+        true
+      ],
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "errors",
+    "messages",
+    "result",
+    "success"
   ],
   "type": "object"
 };

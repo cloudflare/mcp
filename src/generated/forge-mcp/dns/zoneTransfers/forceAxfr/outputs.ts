@@ -7,29 +7,19 @@ import type { JsonSchema } from "../../../_/tool.js";
  * The schema of `secondary-dns_force_response` in responses.
  */
 export const secondary_dns_force_response_output: JsonSchema = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/secondary-dns_messages"
+  "allOf": [
+    {
+      "$ref": "#/$defs/secondary-dns_api-response-single"
     },
-    "messages": {
-      "$ref": "#/$defs/secondary-dns_messages"
-    },
-    "result": {
-      "$ref": "#/$defs/secondary-dns_force_result"
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/secondary-dns_force_result"
+        }
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "success"
-  ],
-  "type": "object"
+  ]
 };
 
 /**

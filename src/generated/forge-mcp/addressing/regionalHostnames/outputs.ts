@@ -4,6 +4,42 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
+ * The schema of `dls_api-response-collection` in responses.
+ */
+export const dls_api_response_collection_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/dls_api-response-common"
+    },
+    {
+      "properties": {
+        "result_info": {
+          "properties": {
+            "count": {
+              "type": "number"
+            },
+            "page": {
+              "type": "number"
+            },
+            "per_page": {
+              "type": "number"
+            },
+            "total_count": {
+              "type": "number"
+            },
+            "total_pages": {
+              "type": "number"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
  * The schema of `dls_api-response-common` in responses.
  */
 export const dls_api_response_common_output: JsonSchema = {

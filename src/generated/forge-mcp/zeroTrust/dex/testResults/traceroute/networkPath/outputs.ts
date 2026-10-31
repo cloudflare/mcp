@@ -33,7 +33,133 @@ export const digital_experience_monitoring_traceroute_test_result_network_path_r
     },
     "hops": {
       "items": {
-        "$ref": "#/$defs/digital-experience-monitoring_traceroute_test_result_network_path_response_hopsItem"
+        "properties": {
+          "asn": {
+            "oneOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "aso": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "ipAddress": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "location": {
+            "oneOf": [
+              {
+                "properties": {
+                  "city": {
+                    "oneOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "state": {
+                    "oneOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "zip": {
+                    "oneOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  }
+                },
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "mile": {
+            "oneOf": [
+              {
+                "enum": [
+                  "client-to-app",
+                  "client-to-cf-egress",
+                  "client-to-cf-ingress",
+                  "client-to-isp"
+                ],
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "name": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "packetLossPct": {
+            "oneOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "rttMs": {
+            "oneOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "ttl": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "ttl"
+        ],
+        "type": "object"
       },
       "type": "array"
     },
@@ -65,148 +191,4 @@ export const digital_experience_monitoring_traceroute_test_result_network_path_r
     "resultId"
   ],
   "type": "object"
-};
-
-/**
- * The schema of
- * `digital-experience-monitoring_traceroute_test_result_network_path_response_hopsItem`
- * in responses.
- */
-export const digital_experience_monitoring_traceroute_test_result_network_path_response_hopsItem_output: JsonSchema = {
-  "properties": {
-    "asn": {
-      "oneOf": [
-        {
-          "type": "integer"
-        },
-        {
-          "type": "null"
-        }
-      ]
-    },
-    "aso": {
-      "oneOf": [
-        {
-          "type": "string"
-        },
-        {
-          "type": "null"
-        }
-      ]
-    },
-    "ipAddress": {
-      "oneOf": [
-        {
-          "type": "string"
-        },
-        {
-          "type": "null"
-        }
-      ]
-    },
-    "location": {
-      "$ref": "#/$defs/digital-experience-monitoring_traceroute_test_result_network_path_response_hopsItem_location"
-    },
-    "mile": {
-      "oneOf": [
-        {
-          "enum": [
-            "client-to-app",
-            "client-to-cf-egress",
-            "client-to-cf-ingress",
-            "client-to-isp"
-          ],
-          "type": "string"
-        },
-        {
-          "type": "null"
-        }
-      ]
-    },
-    "name": {
-      "oneOf": [
-        {
-          "type": "string"
-        },
-        {
-          "type": "null"
-        }
-      ]
-    },
-    "packetLossPct": {
-      "oneOf": [
-        {
-          "type": "number"
-        },
-        {
-          "type": "null"
-        }
-      ]
-    },
-    "rttMs": {
-      "oneOf": [
-        {
-          "type": "integer"
-        },
-        {
-          "type": "null"
-        }
-      ]
-    },
-    "ttl": {
-      "type": "integer"
-    }
-  },
-  "required": [
-    "ttl"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of
- * `digital-experience-monitoring_traceroute_test_result_network_path_response_hopsItem_location`
- * in responses.
- */
-export const digital_experience_monitoring_traceroute_test_result_network_path_response_hopsItem_location_output: JsonSchema = {
-  "oneOf": [
-    {
-      "properties": {
-        "city": {
-          "oneOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "state": {
-          "oneOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "zip": {
-          "oneOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        }
-      },
-      "type": "object"
-    },
-    {
-      "type": "null"
-    }
-  ]
 };

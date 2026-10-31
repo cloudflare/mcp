@@ -56,3 +56,44 @@ export const magic_bgp_filter_profile_output: JsonSchema = {
   ],
   "type": "object"
 };
+
+/**
+ * The schema of `magic_magic_bgp_filter_profile_response` in responses.
+ */
+export const magic_magic_bgp_filter_profile_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/magic_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/magic_bgp_filter_profile"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `magic_magic_bgp_filter_profiles_list_response` in responses.
+ */
+export const magic_magic_bgp_filter_profiles_list_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/magic_api-response-common"
+    },
+    {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/magic_bgp_filter_profile"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};

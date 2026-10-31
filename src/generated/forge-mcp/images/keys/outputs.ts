@@ -14,30 +14,19 @@ export const images_image_key_name_output: JsonSchema = {
  * The schema of `images_image_key_response_collection` in responses.
  */
 export const images_image_key_response_collection_output: JsonSchema = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/images_messages"
+  "allOf": [
+    {
+      "$ref": "#/$defs/images_api-response-common"
     },
-    "messages": {
-      "$ref": "#/$defs/images_messages"
-    },
-    "result": {
-      "$ref": "#/$defs/images_image_keys_response"
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/images_image_keys_response"
+        }
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "result",
-    "success"
-  ],
-  "type": "object"
+  ]
 };
 
 /**

@@ -5,10 +5,14 @@ import { type Tool, pathParam } from "../../_/tool.js";
 import {
   dls_bad_response_output,
   dls_coded_message_output,
+  dls_good_response_output,
   dls_none_output,
+  dls_response_output,
 } from "../outputs.js";
+import { dls_account_identifier } from "../schemas.js";
 import {
-  dls_RegionPublicPaginatedListResponse_result_info_output,
+  dls_FetchPublicRegionResponse_output,
+  dls_RegionPublicPaginatedListResponse_output,
   dls_RegionPublic_output,
 } from "./outputs.js";
 
@@ -24,8 +28,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier of a Cloudflare account.",
-          "type": "string"
+          "$ref": "#/$defs/dls_account_identifier",
+          "description": "Identifier of a Cloudflare account."
         },
         "region_id": {
           "description": "UUID of the region (custom or managed) or region_key of a managed region.",
@@ -36,11 +40,18 @@ export const tools: readonly Tool[] = [
         "account_id",
         "region_id"
       ],
+      $defs: {
+        "dls_account_identifier": dls_account_identifier,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/dls_RegionPublic",
+      "$ref": "#/$defs/dls_FetchPublicRegionResponse",
       $defs: {
+        "dls_FetchPublicRegionResponse": dls_FetchPublicRegionResponse_output,
         "dls_RegionPublic": dls_RegionPublic_output,
+        "dls_coded_message": dls_coded_message_output,
+        "dls_good_response": dls_good_response_output,
+        "dls_response": dls_response_output,
       },
     },
     annotations: {
@@ -61,7 +72,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/dls_RegionPublic"
+          "$ref": "#/$defs/dls_FetchPublicRegionResponse"
         },
         "401": {
           "$ref": "#/$defs/dls_bad_response"
@@ -77,10 +88,13 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
+        "dls_FetchPublicRegionResponse": dls_FetchPublicRegionResponse_output,
         "dls_RegionPublic": dls_RegionPublic_output,
         "dls_bad_response": dls_bad_response_output,
         "dls_coded_message": dls_coded_message_output,
+        "dls_good_response": dls_good_response_output,
         "dls_none": dls_none_output,
+        "dls_response": dls_response_output,
       },
     },
     request: (args) => ({
@@ -95,8 +109,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier of a Cloudflare account.",
-          "type": "string"
+          "$ref": "#/$defs/dls_account_identifier",
+          "description": "Identifier of a Cloudflare account."
         },
         "cursor": {
           "description": "Opaque token for cursor-based pagination. Omit for the first page. Pass the value from a previous response to fetch the next page.",
@@ -118,26 +132,16 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+      $defs: {
+        "dls_account_identifier": dls_account_identifier,
+      },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "$ref": "#/$defs/dls_RegionPublic"
-          },
-          "type": "array"
-        },
-        "result_info": {
-          "$ref": "#/$defs/dls_RegionPublicPaginatedListResponse_result_info"
-        }
-      },
-      "required": [
-        "result"
-      ],
-      "type": "object",
+      "$ref": "#/$defs/dls_RegionPublicPaginatedListResponse",
       $defs: {
         "dls_RegionPublic": dls_RegionPublic_output,
-        "dls_RegionPublicPaginatedListResponse_result_info": dls_RegionPublicPaginatedListResponse_result_info_output,
+        "dls_RegionPublicPaginatedListResponse": dls_RegionPublicPaginatedListResponse_output,
+        "dls_coded_message": dls_coded_message_output,
       },
     },
     annotations: {
@@ -158,21 +162,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "items": {
-                "$ref": "#/$defs/dls_RegionPublic"
-              },
-              "type": "array"
-            },
-            "result_info": {
-              "$ref": "#/$defs/dls_RegionPublicPaginatedListResponse_result_info"
-            }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/dls_RegionPublicPaginatedListResponse"
         },
         "400": {
           "$ref": "#/$defs/dls_bad_response"
@@ -189,10 +179,11 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "dls_RegionPublic": dls_RegionPublic_output,
-        "dls_RegionPublicPaginatedListResponse_result_info": dls_RegionPublicPaginatedListResponse_result_info_output,
+        "dls_RegionPublicPaginatedListResponse": dls_RegionPublicPaginatedListResponse_output,
         "dls_bad_response": dls_bad_response_output,
         "dls_coded_message": dls_coded_message_output,
         "dls_none": dls_none_output,
+        "dls_response": dls_response_output,
       },
     },
     request: (args) => ({

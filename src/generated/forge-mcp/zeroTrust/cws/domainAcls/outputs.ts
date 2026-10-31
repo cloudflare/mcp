@@ -77,3 +77,111 @@ export const cws_DomainACLEntry_output: JsonSchema = {
   ],
   "type": "object"
 };
+
+/**
+ * The schema of `cws_PageResponseDomainACL` in responses.
+ */
+export const cws_PageResponseDomainACL_output: JsonSchema = {
+  "properties": {
+    "errors": {
+      "oneOf": [
+        {
+          "items": {
+            "$ref": "#/$defs/cws_ResponseMessage"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "messages": {
+      "oneOf": [
+        {
+          "items": {
+            "$ref": "#/$defs/cws_ResponseMessage"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "result": {
+      "oneOf": [
+        {
+          "items": {
+            "$ref": "#/$defs/cws_DomainACL"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "result_info": {
+      "$ref": "#/$defs/cws_ResultInfo"
+    },
+    "success": {
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "errors",
+    "messages",
+    "result",
+    "result_info",
+    "success"
+  ],
+  "type": "object"
+};
+
+/**
+ * The schema of `cws_ResponseDomainACL` in responses.
+ */
+export const cws_ResponseDomainACL_output: JsonSchema = {
+  "properties": {
+    "errors": {
+      "oneOf": [
+        {
+          "items": {
+            "$ref": "#/$defs/cws_ResponseMessage"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "messages": {
+      "oneOf": [
+        {
+          "items": {
+            "$ref": "#/$defs/cws_ResponseMessage"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "result": {
+      "$ref": "#/$defs/cws_DomainACL"
+    },
+    "success": {
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "errors",
+    "messages",
+    "result",
+    "success"
+  ],
+  "type": "object"
+};

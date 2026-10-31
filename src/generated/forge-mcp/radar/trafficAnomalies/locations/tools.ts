@@ -52,31 +52,43 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
-        "trafficAnomalies": {
-          "items": {
-            "properties": {
-              "clientCountryAlpha2": {
-                "type": "string"
+        "result": {
+          "properties": {
+            "trafficAnomalies": {
+              "items": {
+                "properties": {
+                  "clientCountryAlpha2": {
+                    "type": "string"
+                  },
+                  "clientCountryName": {
+                    "type": "string"
+                  },
+                  "value": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "clientCountryAlpha2",
+                  "clientCountryName",
+                  "value"
+                ],
+                "type": "object"
               },
-              "clientCountryName": {
-                "type": "string"
-              },
-              "value": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "clientCountryAlpha2",
-              "clientCountryName",
-              "value"
-            ],
-            "type": "object"
+              "type": "array"
+            }
           },
-          "type": "array"
+          "required": [
+            "trafficAnomalies"
+          ],
+          "type": "object"
+        },
+        "success": {
+          "type": "boolean"
         }
       },
       "required": [
-        "trafficAnomalies"
+        "result",
+        "success"
       ],
       "type": "object",
     },
@@ -105,31 +117,43 @@ export const tools: readonly Tool[] = [
       schemas: {
         "200": {
           "properties": {
-            "trafficAnomalies": {
-              "items": {
-                "properties": {
-                  "clientCountryAlpha2": {
-                    "type": "string"
+            "result": {
+              "properties": {
+                "trafficAnomalies": {
+                  "items": {
+                    "properties": {
+                      "clientCountryAlpha2": {
+                        "type": "string"
+                      },
+                      "clientCountryName": {
+                        "type": "string"
+                      },
+                      "value": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "clientCountryAlpha2",
+                      "clientCountryName",
+                      "value"
+                    ],
+                    "type": "object"
                   },
-                  "clientCountryName": {
-                    "type": "string"
-                  },
-                  "value": {
-                    "type": "string"
-                  }
-                },
-                "required": [
-                  "clientCountryAlpha2",
-                  "clientCountryName",
-                  "value"
-                ],
-                "type": "object"
+                  "type": "array"
+                }
               },
-              "type": "array"
+              "required": [
+                "trafficAnomalies"
+              ],
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
             }
           },
           "required": [
-            "trafficAnomalies"
+            "result",
+            "success"
           ],
           "type": "object"
         },

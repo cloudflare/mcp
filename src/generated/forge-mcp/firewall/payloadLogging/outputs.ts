@@ -17,3 +17,22 @@ export const firewall_payload_logging_key_output: JsonSchema = {
   ],
   "type": "object"
 };
+
+/**
+ * The schema of `firewall_payload_logging_key_response_single` in responses.
+ */
+export const firewall_payload_logging_key_response_single_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/firewall_api-response-common"
+    },
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/firewall_payload_logging_key"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};

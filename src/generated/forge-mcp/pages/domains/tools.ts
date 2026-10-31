@@ -3,15 +3,13 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
+  pages_api_response_collection_output,
   pages_api_response_common_failure_output,
+  pages_api_response_common_output,
   pages_messages_output,
 } from "../outputs.js";
-import {
-  pages_domain_name_output,
-  pages_domain_output,
-  pages_domain_validation_data_output,
-  pages_domain_verification_data_output,
-} from "./outputs.js";
+import { pages_identifier, pages_project_name } from "../schemas.js";
+import { pages_domain_name_output, pages_domain_output } from "./outputs.js";
 import { pages_domain_name } from "./schemas.js";
 
 /**
@@ -26,8 +24,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/pages_identifier",
+          "description": "Identifier."
         },
         "body": {
           "properties": {
@@ -42,8 +40,8 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "project_name": {
-          "description": "Name of the Pages project. Must begin with a lowercase letter or digit and contain only lowercase letters, digits, and hyphens.",
-          "type": "string"
+          "$ref": "#/$defs/pages_project_name",
+          "description": "Name of the Pages project. Must begin with a lowercase letter or digit and contain only lowercase letters, digits, and hyphens."
         }
       },
       required: [
@@ -53,15 +51,32 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "pages_domain_name": pages_domain_name,
+        "pages_identifier": pages_identifier,
+        "pages_project_name": pages_project_name,
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/pages_domain",
+      "allOf": [
+        {
+          "$ref": "#/$defs/pages_api-response-common"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/pages_domain"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        }
+      ],
       $defs: {
+        "pages_api-response-common": pages_api_response_common_output,
         "pages_domain": pages_domain_output,
         "pages_domain_name": pages_domain_name_output,
-        "pages_domain_validation_data": pages_domain_validation_data_output,
-        "pages_domain_verification_data": pages_domain_verification_data_output,
+        "pages_messages": pages_messages_output,
       },
     },
     annotations: {
@@ -81,18 +96,32 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/pages_domain"
+          "allOf": [
+            {
+              "$ref": "#/$defs/pages_api-response-common"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/pages_domain"
+                }
+              },
+              "required": [
+                "result"
+              ],
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/pages_api-response-common-failure"
         }
       },
       $defs: {
+        "pages_api-response-common": pages_api_response_common_output,
         "pages_api-response-common-failure": pages_api_response_common_failure_output,
         "pages_domain": pages_domain_output,
         "pages_domain_name": pages_domain_name_output,
-        "pages_domain_validation_data": pages_domain_validation_data_output,
-        "pages_domain_verification_data": pages_domain_verification_data_output,
         "pages_messages": pages_messages_output,
       },
     },
@@ -109,16 +138,16 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/pages_identifier",
+          "description": "Identifier."
         },
         "domain_name": {
-          "description": "Fully qualified domain name for the Pages project, such as `example.com`.",
-          "type": "string"
+          "$ref": "#/$defs/pages_domain_name",
+          "description": "Fully qualified domain name for the Pages project, such as `example.com`."
         },
         "project_name": {
-          "description": "Name of the Pages project. Must begin with a lowercase letter or digit and contain only lowercase letters, digits, and hyphens.",
-          "type": "string"
+          "$ref": "#/$defs/pages_project_name",
+          "description": "Name of the Pages project. Must begin with a lowercase letter or digit and contain only lowercase letters, digits, and hyphens."
         }
       },
       required: [
@@ -126,16 +155,40 @@ export const tools: readonly Tool[] = [
         "project_name",
         "domain_name"
       ],
+      $defs: {
+        "pages_domain_name": pages_domain_name,
+        "pages_identifier": pages_identifier,
+        "pages_project_name": pages_project_name,
+      },
     },
     outputSchema: {
-      "oneOf": [
+      "allOf": [
         {
-          "type": "object"
+          "$ref": "#/$defs/pages_api-response-common"
         },
         {
-          "type": "null"
+          "properties": {
+            "result": {
+              "oneOf": [
+                {
+                  "type": "object"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
         }
       ],
+      $defs: {
+        "pages_api-response-common": pages_api_response_common_output,
+        "pages_messages": pages_messages_output,
+      },
     },
     annotations: {
       "destructiveHint": true,
@@ -154,12 +207,27 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "oneOf": [
+          "allOf": [
             {
-              "type": "object"
+              "$ref": "#/$defs/pages_api-response-common"
             },
             {
-              "type": "null"
+              "properties": {
+                "result": {
+                  "oneOf": [
+                    {
+                      "type": "object"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                }
+              },
+              "required": [
+                "result"
+              ],
+              "type": "object"
             }
           ]
         },
@@ -168,6 +236,7 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
+        "pages_api-response-common": pages_api_response_common_output,
         "pages_api-response-common-failure": pages_api_response_common_failure_output,
         "pages_messages": pages_messages_output,
       },
@@ -184,16 +253,16 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/pages_identifier",
+          "description": "Identifier."
         },
         "domain_name": {
-          "description": "Fully qualified domain name for the Pages project, such as `example.com`.",
-          "type": "string"
+          "$ref": "#/$defs/pages_domain_name",
+          "description": "Fully qualified domain name for the Pages project, such as `example.com`."
         },
         "project_name": {
-          "description": "Name of the Pages project. Must begin with a lowercase letter or digit and contain only lowercase letters, digits, and hyphens.",
-          "type": "string"
+          "$ref": "#/$defs/pages_project_name",
+          "description": "Name of the Pages project. Must begin with a lowercase letter or digit and contain only lowercase letters, digits, and hyphens."
         }
       },
       required: [
@@ -201,14 +270,34 @@ export const tools: readonly Tool[] = [
         "project_name",
         "domain_name"
       ],
+      $defs: {
+        "pages_domain_name": pages_domain_name,
+        "pages_identifier": pages_identifier,
+        "pages_project_name": pages_project_name,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/pages_domain",
+      "allOf": [
+        {
+          "$ref": "#/$defs/pages_api-response-common"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/pages_domain"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        }
+      ],
       $defs: {
+        "pages_api-response-common": pages_api_response_common_output,
         "pages_domain": pages_domain_output,
         "pages_domain_name": pages_domain_name_output,
-        "pages_domain_validation_data": pages_domain_validation_data_output,
-        "pages_domain_verification_data": pages_domain_verification_data_output,
+        "pages_messages": pages_messages_output,
       },
     },
     annotations: {
@@ -229,18 +318,32 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/pages_domain"
+          "allOf": [
+            {
+              "$ref": "#/$defs/pages_api-response-common"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/pages_domain"
+                }
+              },
+              "required": [
+                "result"
+              ],
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/pages_api-response-common-failure"
         }
       },
       $defs: {
+        "pages_api-response-common": pages_api_response_common_output,
         "pages_api-response-common-failure": pages_api_response_common_failure_output,
         "pages_domain": pages_domain_output,
         "pages_domain_name": pages_domain_name_output,
-        "pages_domain_validation_data": pages_domain_validation_data_output,
-        "pages_domain_verification_data": pages_domain_verification_data_output,
         "pages_messages": pages_messages_output,
       },
     },
@@ -256,57 +359,49 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/pages_identifier",
+          "description": "Identifier."
         },
         "project_name": {
-          "description": "Name of the Pages project. Must begin with a lowercase letter or digit and contain only lowercase letters, digits, and hyphens.",
-          "type": "string"
+          "$ref": "#/$defs/pages_project_name",
+          "description": "Name of the Pages project. Must begin with a lowercase letter or digit and contain only lowercase letters, digits, and hyphens."
         }
       },
       required: [
         "account_id",
         "project_name"
       ],
+      $defs: {
+        "pages_identifier": pages_identifier,
+        "pages_project_name": pages_project_name,
+      },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "$ref": "#/$defs/pages_domain"
-          },
-          "type": "array"
+      "allOf": [
+        {
+          "$ref": "#/$defs/pages_api-response-collection"
         },
-        "result_info": {
+        {
           "properties": {
-            "count": {
-              "type": "number"
-            },
-            "page": {
-              "type": "number"
-            },
-            "per_page": {
-              "type": "number"
-            },
-            "total_count": {
-              "type": "number"
-            },
-            "total_pages": {
-              "type": "number"
+            "result": {
+              "items": {
+                "$ref": "#/$defs/pages_domain"
+              },
+              "type": "array"
             }
           },
+          "required": [
+            "result"
+          ],
           "type": "object"
         }
-      },
-      "required": [
-        "result"
       ],
-      "type": "object",
       $defs: {
+        "pages_api-response-collection": pages_api_response_collection_output,
+        "pages_api-response-common": pages_api_response_common_output,
         "pages_domain": pages_domain_output,
         "pages_domain_name": pages_domain_name_output,
-        "pages_domain_validation_data": pages_domain_validation_data_output,
-        "pages_domain_verification_data": pages_domain_verification_data_output,
+        "pages_messages": pages_messages_output,
       },
     },
     annotations: {
@@ -327,49 +422,36 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "items": {
-                "$ref": "#/$defs/pages_domain"
-              },
-              "type": "array"
+          "allOf": [
+            {
+              "$ref": "#/$defs/pages_api-response-collection"
             },
-            "result_info": {
+            {
               "properties": {
-                "count": {
-                  "type": "number"
-                },
-                "page": {
-                  "type": "number"
-                },
-                "per_page": {
-                  "type": "number"
-                },
-                "total_count": {
-                  "type": "number"
-                },
-                "total_pages": {
-                  "type": "number"
+                "result": {
+                  "items": {
+                    "$ref": "#/$defs/pages_domain"
+                  },
+                  "type": "array"
                 }
               },
+              "required": [
+                "result"
+              ],
               "type": "object"
             }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/pages_api-response-common-failure"
         }
       },
       $defs: {
+        "pages_api-response-collection": pages_api_response_collection_output,
+        "pages_api-response-common": pages_api_response_common_output,
         "pages_api-response-common-failure": pages_api_response_common_failure_output,
         "pages_domain": pages_domain_output,
         "pages_domain_name": pages_domain_name_output,
-        "pages_domain_validation_data": pages_domain_validation_data_output,
-        "pages_domain_verification_data": pages_domain_verification_data_output,
         "pages_messages": pages_messages_output,
       },
     },

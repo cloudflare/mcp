@@ -69,12 +69,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "com.cloudflare.api.account.flagship.app.evaluate"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.api.account.flagship.app.evaluate": {
-            "name": "com_cloudflare_api_account_flagship_app_evaluate"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": true,

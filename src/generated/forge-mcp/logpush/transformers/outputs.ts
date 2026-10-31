@@ -53,6 +53,30 @@ export const logpush_transformer_dataset_output: JsonSchema = {
 };
 
 /**
+ * The schema of `logpush_transformer_delete_response` in responses.
+ */
+export const logpush_transformer_delete_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/logpush_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "properties": {
+            "id": {
+              "type": "integer"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
  * The schema of `logpush_transformer_description` in responses.
  */
 export const logpush_transformer_description_output: JsonSchema = {
@@ -96,4 +120,74 @@ export const logpush_transformer_job_ref_output: JsonSchema = {
  */
 export const logpush_transformer_name_output: JsonSchema = {
   "type": "string"
+};
+
+/**
+ * The schema of `logpush_transformer_preview_response` in responses.
+ */
+export const logpush_transformer_preview_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/logpush_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "oneOf": [
+            {
+              "items": {
+                "type": "object"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `logpush_transformer_response_collection` in responses.
+ */
+export const logpush_transformer_response_collection_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/logpush_api-response-common"
+    },
+    {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/logpush_transformer"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `logpush_transformer_response_single` in responses.
+ */
+export const logpush_transformer_response_single_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/logpush_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/logpush_transformer"
+        }
+      },
+      "type": "object"
+    }
+  ]
 };

@@ -155,12 +155,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "com.cloudflare.api.account.aig"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.api.account.aig": {
-            "name": "com_cloudflare_api_account_aig"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": true,
@@ -250,159 +245,7 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
-        "cached": {
-          "type": "boolean"
-        },
-        "cost": {
-          "type": "number"
-        },
-        "created_at": {
-          "format": "date-time",
-          "type": "string"
-        },
-        "custom_cost": {
-          "type": "boolean"
-        },
-        "duration": {
-          "type": "integer"
-        },
-        "id": {
-          "type": "string"
-        },
-        "metadata": {
-          "type": "string"
-        },
-        "model": {
-          "type": "string"
-        },
-        "model_type": {
-          "type": "string"
-        },
-        "path": {
-          "type": "string"
-        },
-        "provider": {
-          "type": "string"
-        },
-        "request_content_type": {
-          "type": "string"
-        },
-        "request_head": {
-          "oneOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "request_head_complete": {
-          "type": "boolean"
-        },
-        "request_size": {
-          "type": "integer"
-        },
-        "request_type": {
-          "type": "string"
-        },
-        "response_content_type": {
-          "type": "string"
-        },
-        "response_head": {
-          "oneOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "response_head_complete": {
-          "type": "boolean"
-        },
-        "response_size": {
-          "type": "integer"
-        },
-        "status_code": {
-          "type": "integer"
-        },
-        "step": {
-          "type": "integer"
-        },
-        "success": {
-          "type": "boolean"
-        },
-        "tokens_in": {
-          "oneOf": [
-            {
-              "type": "integer"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "tokens_out": {
-          "oneOf": [
-            {
-              "type": "integer"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        }
-      },
-      "required": [
-        "cached",
-        "created_at",
-        "duration",
-        "id",
-        "model",
-        "path",
-        "provider",
-        "success",
-        "tokens_in",
-        "tokens_out"
-      ],
-      "type": "object",
-    },
-    annotations: {
-      "destructiveHint": false,
-      "idempotentHint": true,
-      "openWorldHint": true,
-      "readOnlyHint": true,
-      "title": "Get Gateway Log Detail"
-    },
-    method: "GET",
-    path: "/accounts/{account_id}/ai-gateway/gateways/{gateway_id}/logs/{id}",
-    extensions: {
-      "x-api-token-group": [
-        "AI Gateway Write",
-        "AI Gateway Read"
-      ],
-      "x-cfPermissionsRequired": {
-        "enum": [
-          "com.cloudflare.api.account.aig"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.api.account.aig": {
-            "name": "com_cloudflare_api_account_aig"
-          }
-        }
-      },
-      "x-cfPlanAvailability": {
-        "business": true,
-        "enterprise": true,
-        "free": true,
-        "pro": true
-      }
-    },
-    responses: {
-      schemas: {
-        "200": {
+        "result": {
           "properties": {
             "cached": {
               "type": "boolean"
@@ -523,6 +366,177 @@ export const tools: readonly Tool[] = [
           ],
           "type": "object"
         },
+        "success": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "result",
+        "success"
+      ],
+      "type": "object",
+    },
+    annotations: {
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": true,
+      "readOnlyHint": true,
+      "title": "Get Gateway Log Detail"
+    },
+    method: "GET",
+    path: "/accounts/{account_id}/ai-gateway/gateways/{gateway_id}/logs/{id}",
+    extensions: {
+      "x-api-token-group": [
+        "AI Gateway Write",
+        "AI Gateway Read"
+      ],
+      "x-cfPermissionsRequired": {
+        "enum": [
+          "com.cloudflare.api.account.aig"
+        ]
+      },
+      "x-cfPlanAvailability": {
+        "business": true,
+        "enterprise": true,
+        "free": true,
+        "pro": true
+      }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "properties": {
+                "cached": {
+                  "type": "boolean"
+                },
+                "cost": {
+                  "type": "number"
+                },
+                "created_at": {
+                  "format": "date-time",
+                  "type": "string"
+                },
+                "custom_cost": {
+                  "type": "boolean"
+                },
+                "duration": {
+                  "type": "integer"
+                },
+                "id": {
+                  "type": "string"
+                },
+                "metadata": {
+                  "type": "string"
+                },
+                "model": {
+                  "type": "string"
+                },
+                "model_type": {
+                  "type": "string"
+                },
+                "path": {
+                  "type": "string"
+                },
+                "provider": {
+                  "type": "string"
+                },
+                "request_content_type": {
+                  "type": "string"
+                },
+                "request_head": {
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "request_head_complete": {
+                  "type": "boolean"
+                },
+                "request_size": {
+                  "type": "integer"
+                },
+                "request_type": {
+                  "type": "string"
+                },
+                "response_content_type": {
+                  "type": "string"
+                },
+                "response_head": {
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "response_head_complete": {
+                  "type": "boolean"
+                },
+                "response_size": {
+                  "type": "integer"
+                },
+                "status_code": {
+                  "type": "integer"
+                },
+                "step": {
+                  "type": "integer"
+                },
+                "success": {
+                  "type": "boolean"
+                },
+                "tokens_in": {
+                  "oneOf": [
+                    {
+                      "type": "integer"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "tokens_out": {
+                  "oneOf": [
+                    {
+                      "type": "integer"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                }
+              },
+              "required": [
+                "cached",
+                "created_at",
+                "duration",
+                "id",
+                "model",
+                "path",
+                "provider",
+                "success",
+                "tokens_in",
+                "tokens_out"
+              ],
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "result",
+            "success"
+          ],
+          "type": "object"
+        },
         "404": {
           "properties": {
             "errors": {
@@ -603,12 +617,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "com.cloudflare.api.account.aig"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.api.account.aig": {
-            "name": "com_cloudflare_api_account_aig"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": true,
@@ -702,12 +711,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "com.cloudflare.api.account.aig"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.api.account.aig": {
-            "name": "com_cloudflare_api_account_aig"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": true,
@@ -1099,10 +1103,15 @@ export const tools: readonly Tool[] = [
             }
           },
           "type": "object"
+        },
+        "success": {
+          "type": "boolean"
         }
       },
       "required": [
-        "result"
+        "result",
+        "result_info",
+        "success"
       ],
       "type": "object",
     },
@@ -1123,12 +1132,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "com.cloudflare.api.account.aig"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.api.account.aig": {
-            "name": "com_cloudflare_api_account_aig"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": true,
@@ -1279,10 +1283,15 @@ export const tools: readonly Tool[] = [
                 }
               },
               "type": "object"
+            },
+            "success": {
+              "type": "boolean"
             }
           },
           "required": [
-            "result"
+            "result",
+            "result_info",
+            "success"
           ],
           "type": "object"
         },
@@ -1425,6 +1434,18 @@ export const tools: readonly Tool[] = [
       ],
     },
     outputSchema: {
+      "properties": {
+        "result": {
+          "type": "object"
+        },
+        "success": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "result",
+        "success"
+      ],
       "type": "object",
     },
     annotations: {
@@ -1443,12 +1464,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "com.cloudflare.api.account.aig"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.api.account.aig": {
-            "name": "com_cloudflare_api_account_aig"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": true,
@@ -1460,6 +1476,18 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
+          "properties": {
+            "result": {
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "result",
+            "success"
+          ],
           "type": "object"
         },
         "404": {

@@ -4,6 +4,49 @@
 import type { JsonSchema } from "../_/tool.js";
 
 /**
+ * The schema of `vectorize_api-response-common` in responses.
+ */
+export const vectorize_api_response_common_output: JsonSchema = {
+  "properties": {
+    "errors": {
+      "$ref": "#/$defs/vectorize_messages"
+    },
+    "messages": {
+      "$ref": "#/$defs/vectorize_messages"
+    },
+    "result": {
+      "anyOf": [
+        {
+          "type": "object"
+        },
+        {
+          "items": {
+            "type": "object"
+          },
+          "type": "array"
+        },
+        {
+          "type": "string"
+        }
+      ]
+    },
+    "success": {
+      "enum": [
+        true
+      ],
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "errors",
+    "messages",
+    "result",
+    "success"
+  ],
+  "type": "object"
+};
+
+/**
  * The schema of `vectorize_api-response-common-failure` in responses.
  */
 export const vectorize_api_response_common_failure_output: JsonSchema = {
@@ -31,6 +74,35 @@ export const vectorize_api_response_common_failure_output: JsonSchema = {
     "success"
   ],
   "type": "object"
+};
+
+/**
+ * The schema of `vectorize_api-response-single` in responses.
+ */
+export const vectorize_api_response_single_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/vectorize_api-response-common"
+    },
+    {
+      "properties": {
+        "result": {
+          "anyOf": [
+            {
+              "type": "object"
+            },
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "type": "object"
+    }
+  ]
 };
 
 /**
@@ -281,57 +353,50 @@ export const vectorize_index_query_v2_response_output: JsonSchema = {
     },
     "matches": {
       "items": {
-        "$ref": "#/$defs/vectorize_index-query-v2-response_matchesItem"
-      },
-      "type": "array"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `vectorize_index-query-v2-response_matchesItem` in responses.
- */
-export const vectorize_index_query_v2_response_matchesItem_output: JsonSchema = {
-  "properties": {
-    "id": {
-      "$ref": "#/$defs/vectorize_vector-identifier"
-    },
-    "metadata": {
-      "oneOf": [
-        {
-          "type": "object"
-        },
-        {
-          "type": "null"
-        }
-      ]
-    },
-    "namespace": {
-      "oneOf": [
-        {
-          "type": "string"
-        },
-        {
-          "type": "null"
-        }
-      ]
-    },
-    "score": {
-      "type": "number"
-    },
-    "values": {
-      "oneOf": [
-        {
-          "items": {
+        "properties": {
+          "id": {
+            "$ref": "#/$defs/vectorize_vector-identifier"
+          },
+          "metadata": {
+            "oneOf": [
+              {
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "namespace": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "score": {
             "type": "number"
           },
-          "type": "array"
+          "values": {
+            "oneOf": [
+              {
+                "items": {
+                  "type": "number"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
         },
-        {
-          "type": "null"
-        }
-      ]
+        "type": "object"
+      },
+      "type": "array"
     }
   },
   "type": "object"

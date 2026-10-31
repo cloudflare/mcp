@@ -5,7 +5,6 @@ import { type Tool, pathParam } from "../_/tool.js";
 import {
   cache_purge_api_response_common_failure_output,
   cache_purge_api_response_single_id_output,
-  cache_purge_api_response_single_id_result_output,
   cache_purge_identifier_output,
   cache_purge_messages_output,
 } from "./outputs.js";
@@ -16,7 +15,7 @@ import {
   cache_purge_FlexPurgeByTags,
   cache_purge_SingleFile,
   cache_purge_SingleFileWithUrlAndHeaders,
-  cache_purge_SingleFileWithUrlAndHeaders_filesItem,
+  cache_purge_identifier,
 } from "./schemas.js";
 
 /**
@@ -53,8 +52,8 @@ export const tools: readonly Tool[] = [
           ]
         },
         "zone_id": {
-          "description": "The zone ID.",
-          "type": "string"
+          "$ref": "#/$defs/cache-purge_identifier",
+          "description": "The zone ID."
         }
       },
       required: [
@@ -68,14 +67,15 @@ export const tools: readonly Tool[] = [
         "cache-purge_FlexPurgeByTags": cache_purge_FlexPurgeByTags,
         "cache-purge_SingleFile": cache_purge_SingleFile,
         "cache-purge_SingleFileWithUrlAndHeaders": cache_purge_SingleFileWithUrlAndHeaders,
-        "cache-purge_SingleFileWithUrlAndHeaders_filesItem": cache_purge_SingleFileWithUrlAndHeaders_filesItem,
+        "cache-purge_identifier": cache_purge_identifier,
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/cache-purge_api-response-single-id_result",
+      "$ref": "#/$defs/cache-purge_api-response-single-id",
       $defs: {
-        "cache-purge_api-response-single-id_result": cache_purge_api_response_single_id_result_output,
+        "cache-purge_api-response-single-id": cache_purge_api_response_single_id_output,
         "cache-purge_identifier": cache_purge_identifier_output,
+        "cache-purge_messages": cache_purge_messages_output,
       },
     },
     annotations: {
@@ -90,7 +90,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/cache-purge_api-response-single-id_result"
+          "$ref": "#/$defs/cache-purge_api-response-single-id"
         },
         "4XX": {
           "allOf": [
@@ -106,7 +106,6 @@ export const tools: readonly Tool[] = [
       $defs: {
         "cache-purge_api-response-common-failure": cache_purge_api_response_common_failure_output,
         "cache-purge_api-response-single-id": cache_purge_api_response_single_id_output,
-        "cache-purge_api-response-single-id_result": cache_purge_api_response_single_id_result_output,
         "cache-purge_identifier": cache_purge_identifier_output,
         "cache-purge_messages": cache_purge_messages_output,
       },
@@ -146,12 +145,12 @@ export const tools: readonly Tool[] = [
           ]
         },
         "environment_id": {
-          "description": "The environment ID, from Version Management.",
-          "type": "string"
+          "$ref": "#/$defs/cache-purge_identifier",
+          "description": "The environment ID, from Version Management."
         },
         "zone_id": {
-          "description": "The zone ID.",
-          "type": "string"
+          "$ref": "#/$defs/cache-purge_identifier",
+          "description": "The zone ID."
         }
       },
       required: [
@@ -166,14 +165,15 @@ export const tools: readonly Tool[] = [
         "cache-purge_FlexPurgeByTags": cache_purge_FlexPurgeByTags,
         "cache-purge_SingleFile": cache_purge_SingleFile,
         "cache-purge_SingleFileWithUrlAndHeaders": cache_purge_SingleFileWithUrlAndHeaders,
-        "cache-purge_SingleFileWithUrlAndHeaders_filesItem": cache_purge_SingleFileWithUrlAndHeaders_filesItem,
+        "cache-purge_identifier": cache_purge_identifier,
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/cache-purge_api-response-single-id_result",
+      "$ref": "#/$defs/cache-purge_api-response-single-id",
       $defs: {
-        "cache-purge_api-response-single-id_result": cache_purge_api_response_single_id_result_output,
+        "cache-purge_api-response-single-id": cache_purge_api_response_single_id_output,
         "cache-purge_identifier": cache_purge_identifier_output,
+        "cache-purge_messages": cache_purge_messages_output,
       },
     },
     annotations: {
@@ -193,7 +193,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/cache-purge_api-response-single-id_result"
+          "$ref": "#/$defs/cache-purge_api-response-single-id"
         },
         "4XX": {
           "allOf": [
@@ -209,7 +209,6 @@ export const tools: readonly Tool[] = [
       $defs: {
         "cache-purge_api-response-common-failure": cache_purge_api_response_common_failure_output,
         "cache-purge_api-response-single-id": cache_purge_api_response_single_id_output,
-        "cache-purge_api-response-single-id_result": cache_purge_api_response_single_id_result_output,
         "cache-purge_identifier": cache_purge_identifier_output,
         "cache-purge_messages": cache_purge_messages_output,
       },
@@ -249,8 +248,8 @@ export const tools: readonly Tool[] = [
           ]
         },
         "zone_id": {
-          "description": "The zone ID.",
-          "type": "string"
+          "$ref": "#/$defs/cache-purge_identifier",
+          "description": "The zone ID."
         }
       },
       required: [
@@ -264,14 +263,15 @@ export const tools: readonly Tool[] = [
         "cache-purge_FlexPurgeByTags": cache_purge_FlexPurgeByTags,
         "cache-purge_SingleFile": cache_purge_SingleFile,
         "cache-purge_SingleFileWithUrlAndHeaders": cache_purge_SingleFileWithUrlAndHeaders,
-        "cache-purge_SingleFileWithUrlAndHeaders_filesItem": cache_purge_SingleFileWithUrlAndHeaders_filesItem,
+        "cache-purge_identifier": cache_purge_identifier,
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/cache-purge_api-response-single-id_result",
+      "$ref": "#/$defs/cache-purge_api-response-single-id",
       $defs: {
-        "cache-purge_api-response-single-id_result": cache_purge_api_response_single_id_result_output,
+        "cache-purge_api-response-single-id": cache_purge_api_response_single_id_output,
         "cache-purge_identifier": cache_purge_identifier_output,
+        "cache-purge_messages": cache_purge_messages_output,
       },
     },
     annotations: {
@@ -290,18 +290,13 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "#cache_purge:edit"
-        ],
-        "x-fern-enum": {
-          "#cache_purge:edit": {
-            "name": "cache_purge_edit"
-          }
-        }
+        ]
       }
     },
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/cache-purge_api-response-single-id_result"
+          "$ref": "#/$defs/cache-purge_api-response-single-id"
         },
         "4XX": {
           "allOf": [
@@ -317,7 +312,6 @@ export const tools: readonly Tool[] = [
       $defs: {
         "cache-purge_api-response-common-failure": cache_purge_api_response_common_failure_output,
         "cache-purge_api-response-single-id": cache_purge_api_response_single_id_output,
-        "cache-purge_api-response-single-id_result": cache_purge_api_response_single_id_result_output,
         "cache-purge_identifier": cache_purge_identifier_output,
         "cache-purge_messages": cache_purge_messages_output,
       },
@@ -357,12 +351,12 @@ export const tools: readonly Tool[] = [
           ]
         },
         "environment_id": {
-          "description": "The environment ID, from Version Management.",
-          "type": "string"
+          "$ref": "#/$defs/cache-purge_identifier",
+          "description": "The environment ID, from Version Management."
         },
         "zone_id": {
-          "description": "The zone ID.",
-          "type": "string"
+          "$ref": "#/$defs/cache-purge_identifier",
+          "description": "The zone ID."
         }
       },
       required: [
@@ -377,14 +371,15 @@ export const tools: readonly Tool[] = [
         "cache-purge_FlexPurgeByTags": cache_purge_FlexPurgeByTags,
         "cache-purge_SingleFile": cache_purge_SingleFile,
         "cache-purge_SingleFileWithUrlAndHeaders": cache_purge_SingleFileWithUrlAndHeaders,
-        "cache-purge_SingleFileWithUrlAndHeaders_filesItem": cache_purge_SingleFileWithUrlAndHeaders_filesItem,
+        "cache-purge_identifier": cache_purge_identifier,
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/cache-purge_api-response-single-id_result",
+      "$ref": "#/$defs/cache-purge_api-response-single-id",
       $defs: {
-        "cache-purge_api-response-single-id_result": cache_purge_api_response_single_id_result_output,
+        "cache-purge_api-response-single-id": cache_purge_api_response_single_id_output,
         "cache-purge_identifier": cache_purge_identifier_output,
+        "cache-purge_messages": cache_purge_messages_output,
       },
     },
     annotations: {
@@ -403,18 +398,13 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "#cache_purge:edit"
-        ],
-        "x-fern-enum": {
-          "#cache_purge:edit": {
-            "name": "cache_purge_edit"
-          }
-        }
+        ]
       }
     },
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/cache-purge_api-response-single-id_result"
+          "$ref": "#/$defs/cache-purge_api-response-single-id"
         },
         "4XX": {
           "allOf": [
@@ -430,7 +420,6 @@ export const tools: readonly Tool[] = [
       $defs: {
         "cache-purge_api-response-common-failure": cache_purge_api_response_common_failure_output,
         "cache-purge_api-response-single-id": cache_purge_api_response_single_id_output,
-        "cache-purge_api-response-single-id_result": cache_purge_api_response_single_id_result_output,
         "cache-purge_identifier": cache_purge_identifier_output,
         "cache-purge_messages": cache_purge_messages_output,
       },

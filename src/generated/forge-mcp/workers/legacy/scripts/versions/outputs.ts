@@ -7,147 +7,107 @@ import type { JsonSchema } from "../../../../_/tool.js";
  * The schema of `workers_version-item-full` in responses.
  */
 export const workers_version_item_full_output: JsonSchema = {
-  "properties": {
-    "id": {
-      "type": "string"
+  "allOf": [
+    {
+      "$ref": "#/$defs/workers_version-item-short"
     },
-    "metadata": {
-      "$ref": "#/$defs/workers_version-item-short_metadata"
-    },
-    "number": {
-      "type": "number"
-    },
-    "resources": {
-      "$ref": "#/$defs/workers_version-item-full_resources"
-    }
-  },
-  "required": [
-    "resources"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `workers_version-item-full_resources` in responses.
- */
-export const workers_version_item_full_resources_output: JsonSchema = {
-  "properties": {
-    "bindings": {
-      "allOf": [
-        {
-          "$ref": "#/$defs/workers_bindings"
-        },
-        {
-          "items": {
-            "$ref": "#/$defs/workers_binding_item"
+    {
+      "properties": {
+        "resources": {
+          "properties": {
+            "bindings": {
+              "allOf": [
+                {
+                  "$ref": "#/$defs/workers_bindings"
+                },
+                {
+                  "items": {
+                    "$ref": "#/$defs/workers_binding_item"
+                  },
+                  "type": "array"
+                }
+              ]
+            },
+            "script": {
+              "properties": {
+                "etag": {
+                  "type": "string"
+                },
+                "handlers": {
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                "last_deployed_from": {
+                  "type": "string"
+                },
+                "named_handlers": {
+                  "items": {
+                    "properties": {
+                      "handlers": {
+                        "items": {
+                          "type": "string"
+                        },
+                        "type": "array"
+                      },
+                      "name": {
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
+                  },
+                  "type": "array"
+                }
+              },
+              "type": "object"
+            },
+            "script_runtime": {
+              "properties": {
+                "compatibility_date": {
+                  "type": "string"
+                },
+                "compatibility_flags": {
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                "exports": {
+                  "$ref": "#/$defs/workers_exports_config_map"
+                },
+                "limits": {
+                  "properties": {
+                    "cpu_ms": {
+                      "type": "integer"
+                    }
+                  },
+                  "type": "object"
+                },
+                "migration_tag": {
+                  "type": "string"
+                },
+                "usage_model": {
+                  "enum": [
+                    "bundled",
+                    "unbound",
+                    "standard"
+                  ],
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
           },
-          "type": "array"
+          "type": "object"
         }
-      ]
-    },
-    "script": {
-      "$ref": "#/$defs/workers_version-item-full_resources_script"
-    },
-    "script_runtime": {
-      "$ref": "#/$defs/workers_version-item-full_resources_script_runtime"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `workers_version-item-full_resources_script` in responses.
- */
-export const workers_version_item_full_resources_script_output: JsonSchema = {
-  "properties": {
-    "etag": {
-      "type": "string"
-    },
-    "handlers": {
-      "items": {
-        "type": "string"
       },
-      "type": "array"
-    },
-    "last_deployed_from": {
-      "type": "string"
-    },
-    "named_handlers": {
-      "items": {
-        "$ref": "#/$defs/workers_version-item-full_resources_script_named_handlersItem"
-      },
-      "type": "array"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `workers_version-item-full_resources_script_named_handlersItem`
- * in responses.
- */
-export const workers_version_item_full_resources_script_named_handlersItem_output: JsonSchema = {
-  "properties": {
-    "handlers": {
-      "items": {
-        "type": "string"
-      },
-      "type": "array"
-    },
-    "name": {
-      "type": "string"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `workers_version-item-full_resources_script_runtime` in
- * responses.
- */
-export const workers_version_item_full_resources_script_runtime_output: JsonSchema = {
-  "properties": {
-    "compatibility_date": {
-      "type": "string"
-    },
-    "compatibility_flags": {
-      "items": {
-        "type": "string"
-      },
-      "type": "array"
-    },
-    "exports": {
-      "$ref": "#/$defs/workers_exports_config_map"
-    },
-    "limits": {
-      "$ref": "#/$defs/workers_version-item-full_resources_script_runtime_limits"
-    },
-    "migration_tag": {
-      "type": "string"
-    },
-    "usage_model": {
-      "enum": [
-        "bundled",
-        "unbound",
-        "standard"
+      "required": [
+        "resources"
       ],
-      "type": "string"
+      "type": "object"
     }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `workers_version-item-full_resources_script_runtime_limits` in
- * responses.
- */
-export const workers_version_item_full_resources_script_runtime_limits_output: JsonSchema = {
-  "properties": {
-    "cpu_ms": {
-      "type": "integer"
-    }
-  },
-  "type": "object"
+  ]
 };
 
 /**
@@ -159,7 +119,40 @@ export const workers_version_item_short_output: JsonSchema = {
       "type": "string"
     },
     "metadata": {
-      "$ref": "#/$defs/workers_version-item-short_metadata"
+      "properties": {
+        "author_email": {
+          "type": "string"
+        },
+        "author_id": {
+          "type": "string"
+        },
+        "created_on": {
+          "type": "string"
+        },
+        "hasPreview": {
+          "type": "boolean"
+        },
+        "modified_on": {
+          "type": "string"
+        },
+        "source": {
+          "enum": [
+            "unknown",
+            "api",
+            "wrangler",
+            "terraform",
+            "dash",
+            "cf_cli",
+            "dash_template",
+            "integration",
+            "quick_editor",
+            "playground",
+            "workersci"
+          ],
+          "type": "string"
+        }
+      },
+      "type": "object"
     },
     "number": {
       "type": "number"
@@ -169,116 +162,53 @@ export const workers_version_item_short_output: JsonSchema = {
 };
 
 /**
- * The schema of `workers_version-item-short_metadata` in responses.
- */
-export const workers_version_item_short_metadata_output: JsonSchema = {
-  "properties": {
-    "author_email": {
-      "type": "string"
-    },
-    "author_id": {
-      "type": "string"
-    },
-    "created_on": {
-      "type": "string"
-    },
-    "hasPreview": {
-      "type": "boolean"
-    },
-    "modified_on": {
-      "type": "string"
-    },
-    "source": {
-      "enum": [
-        "unknown",
-        "api",
-        "wrangler",
-        "terraform",
-        "dash",
-        "cf_cli",
-        "dash_template",
-        "integration",
-        "quick_editor",
-        "playground",
-        "workersci"
-      ],
-      "type": "string"
-    }
-  },
-  "type": "object"
-};
-
-/**
  * The schema of `workers_versions-list-response` in responses.
  */
 export const workers_versions_list_response_output: JsonSchema = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/workers_messages"
+  "allOf": [
+    {
+      "$ref": "#/$defs/workers_api-response-common"
     },
-    "messages": {
-      "$ref": "#/$defs/workers_messages"
-    },
-    "result": {
-      "$ref": "#/$defs/workers_versions-list-response_result"
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
-    }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "success",
-    "result"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `workers_versions-list-response_result` in responses.
- */
-export const workers_versions_list_response_result_output: JsonSchema = {
-  "properties": {
-    "items": {
-      "items": {
-        "$ref": "#/$defs/workers_version-item-short"
+    {
+      "properties": {
+        "result": {
+          "properties": {
+            "items": {
+              "items": {
+                "$ref": "#/$defs/workers_version-item-short"
+              },
+              "type": "array"
+            }
+          },
+          "type": "object"
+        }
       },
-      "type": "array"
+      "required": [
+        "result"
+      ],
+      "type": "object"
     }
-  },
-  "type": "object"
+  ]
 };
 
 /**
  * The schema of `workers_versions-single-response` in responses.
  */
 export const workers_versions_single_response_output: JsonSchema = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/workers_messages"
+  "allOf": [
+    {
+      "$ref": "#/$defs/workers_api-response-common"
     },
-    "messages": {
-      "$ref": "#/$defs/workers_messages"
-    },
-    "result": {
-      "$ref": "#/$defs/workers_version-item-full"
-    },
-    "success": {
-      "enum": [
-        true
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/workers_version-item-full"
+        }
+      },
+      "required": [
+        "result"
       ],
-      "type": "boolean"
+      "type": "object"
     }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "success",
-    "result"
-  ],
-  "type": "object"
+  ]
 };

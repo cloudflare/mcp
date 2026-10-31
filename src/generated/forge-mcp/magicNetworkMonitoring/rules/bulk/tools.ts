@@ -4,9 +4,12 @@
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
   magic_visibility_mnm_api_response_common_failure_output,
+  magic_visibility_mnm_api_response_common_output,
   magic_visibility_mnm_messages_output,
 } from "../../outputs.js";
+import { magic_visibility_mnm_account_identifier } from "../../schemas.js";
 import {
+  magic_visibility_mnm_api_response_collection_output,
   magic_visibility_mnm_mnm_rule_automatic_advertisement_output,
   magic_visibility_mnm_mnm_rule_bandwidth_threshold_output,
   magic_visibility_mnm_mnm_rule_duration_output,
@@ -50,7 +53,7 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "type": "string"
+          "$ref": "#/$defs/magic-visibility-mnm_account_identifier"
         },
         "body": {
           "items": {
@@ -66,6 +69,7 @@ export const tools: readonly Tool[] = [
         "body"
       ],
       $defs: {
+        "magic-visibility-mnm_account_identifier": magic_visibility_mnm_account_identifier,
         "magic-visibility-mnm_mnm_rule_automatic_advertisement": magic_visibility_mnm_mnm_rule_automatic_advertisement,
         "magic-visibility-mnm_mnm_rule_bandwidth_threshold": magic_visibility_mnm_mnm_rule_bandwidth_threshold,
         "magic-visibility-mnm_mnm_rule_create": magic_visibility_mnm_mnm_rule_create,
@@ -81,29 +85,11 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "oneOf": [
-            {
-              "items": {
-                "$ref": "#/$defs/magic-visibility-mnm_mnm_rule"
-              },
-              "type": "array"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "result_info": {
-          "$ref": "#/$defs/magic-visibility-mnm_result_info"
-        }
-      },
-      "required": [
-        "result"
-      ],
-      "type": "object",
+      "$ref": "#/$defs/magic-visibility-mnm_mnm_rules_collection_response",
       $defs: {
+        "magic-visibility-mnm_api-response-collection": magic_visibility_mnm_api_response_collection_output,
+        "magic-visibility-mnm_api-response-common": magic_visibility_mnm_api_response_common_output,
+        "magic-visibility-mnm_messages": magic_visibility_mnm_messages_output,
         "magic-visibility-mnm_mnm_rule": magic_visibility_mnm_mnm_rule_output,
         "magic-visibility-mnm_mnm_rule_automatic_advertisement": magic_visibility_mnm_mnm_rule_automatic_advertisement_output,
         "magic-visibility-mnm_mnm_rule_bandwidth_threshold": magic_visibility_mnm_mnm_rule_bandwidth_threshold_output,
@@ -116,6 +102,7 @@ export const tools: readonly Tool[] = [
         "magic-visibility-mnm_mnm_rule_type": magic_visibility_mnm_mnm_rule_type_output,
         "magic-visibility-mnm_mnm_rule_zscore_sensitivity": magic_visibility_mnm_mnm_rule_zscore_sensitivity_output,
         "magic-visibility-mnm_mnm_rule_zscore_target": magic_visibility_mnm_mnm_rule_zscore_target_output,
+        "magic-visibility-mnm_mnm_rules_collection_response": magic_visibility_mnm_mnm_rules_collection_response_output,
         "magic-visibility-mnm_result_info": magic_visibility_mnm_result_info_output,
         "magic-visibility-mnm_rule_identifier": magic_visibility_mnm_rule_identifier_output,
       },
@@ -137,28 +124,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "oneOf": [
-                {
-                  "items": {
-                    "$ref": "#/$defs/magic-visibility-mnm_mnm_rule"
-                  },
-                  "type": "array"
-                },
-                {
-                  "type": "null"
-                }
-              ]
-            },
-            "result_info": {
-              "$ref": "#/$defs/magic-visibility-mnm_result_info"
-            }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/magic-visibility-mnm_mnm_rules_collection_response"
         },
         "4XX": {
           "allOf": [
@@ -172,6 +138,8 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
+        "magic-visibility-mnm_api-response-collection": magic_visibility_mnm_api_response_collection_output,
+        "magic-visibility-mnm_api-response-common": magic_visibility_mnm_api_response_common_output,
         "magic-visibility-mnm_api-response-common-failure": magic_visibility_mnm_api_response_common_failure_output,
         "magic-visibility-mnm_messages": magic_visibility_mnm_messages_output,
         "magic-visibility-mnm_mnm_rule": magic_visibility_mnm_mnm_rule_output,
@@ -204,7 +172,7 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "type": "string"
+          "$ref": "#/$defs/magic-visibility-mnm_account_identifier"
         },
         "body": {
           "items": {
@@ -220,6 +188,7 @@ export const tools: readonly Tool[] = [
         "body"
       ],
       $defs: {
+        "magic-visibility-mnm_account_identifier": magic_visibility_mnm_account_identifier,
         "magic-visibility-mnm_mnm_rule_automatic_advertisement": magic_visibility_mnm_mnm_rule_automatic_advertisement,
         "magic-visibility-mnm_mnm_rule_bandwidth_threshold": magic_visibility_mnm_mnm_rule_bandwidth_threshold,
         "magic-visibility-mnm_mnm_rule_create": magic_visibility_mnm_mnm_rule_create,
@@ -235,29 +204,11 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "oneOf": [
-            {
-              "items": {
-                "$ref": "#/$defs/magic-visibility-mnm_mnm_rule"
-              },
-              "type": "array"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "result_info": {
-          "$ref": "#/$defs/magic-visibility-mnm_result_info"
-        }
-      },
-      "required": [
-        "result"
-      ],
-      "type": "object",
+      "$ref": "#/$defs/magic-visibility-mnm_mnm_rules_collection_response",
       $defs: {
+        "magic-visibility-mnm_api-response-collection": magic_visibility_mnm_api_response_collection_output,
+        "magic-visibility-mnm_api-response-common": magic_visibility_mnm_api_response_common_output,
+        "magic-visibility-mnm_messages": magic_visibility_mnm_messages_output,
         "magic-visibility-mnm_mnm_rule": magic_visibility_mnm_mnm_rule_output,
         "magic-visibility-mnm_mnm_rule_automatic_advertisement": magic_visibility_mnm_mnm_rule_automatic_advertisement_output,
         "magic-visibility-mnm_mnm_rule_bandwidth_threshold": magic_visibility_mnm_mnm_rule_bandwidth_threshold_output,
@@ -270,6 +221,7 @@ export const tools: readonly Tool[] = [
         "magic-visibility-mnm_mnm_rule_type": magic_visibility_mnm_mnm_rule_type_output,
         "magic-visibility-mnm_mnm_rule_zscore_sensitivity": magic_visibility_mnm_mnm_rule_zscore_sensitivity_output,
         "magic-visibility-mnm_mnm_rule_zscore_target": magic_visibility_mnm_mnm_rule_zscore_target_output,
+        "magic-visibility-mnm_mnm_rules_collection_response": magic_visibility_mnm_mnm_rules_collection_response_output,
         "magic-visibility-mnm_result_info": magic_visibility_mnm_result_info_output,
         "magic-visibility-mnm_rule_identifier": magic_visibility_mnm_rule_identifier_output,
       },
@@ -292,28 +244,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "oneOf": [
-                {
-                  "items": {
-                    "$ref": "#/$defs/magic-visibility-mnm_mnm_rule"
-                  },
-                  "type": "array"
-                },
-                {
-                  "type": "null"
-                }
-              ]
-            },
-            "result_info": {
-              "$ref": "#/$defs/magic-visibility-mnm_result_info"
-            }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/magic-visibility-mnm_mnm_rules_collection_response"
         },
         "4XX": {
           "allOf": [
@@ -327,6 +258,8 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
+        "magic-visibility-mnm_api-response-collection": magic_visibility_mnm_api_response_collection_output,
+        "magic-visibility-mnm_api-response-common": magic_visibility_mnm_api_response_common_output,
         "magic-visibility-mnm_api-response-common-failure": magic_visibility_mnm_api_response_common_failure_output,
         "magic-visibility-mnm_messages": magic_visibility_mnm_messages_output,
         "magic-visibility-mnm_mnm_rule": magic_visibility_mnm_mnm_rule_output,

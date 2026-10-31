@@ -3,7 +3,9 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
+  email_security_api_response_collection_output,
   email_security_api_response_common_failure_output,
+  email_security_api_response_common_output,
   email_security_messages_output,
 } from "../outputs.js";
 import {
@@ -98,20 +100,37 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "properties": {
-        "results": {
-          "items": {
-            "$ref": "#/$defs/email-security_SubmissionResult"
+      "allOf": [
+        {
+          "$ref": "#/$defs/email-security_api-response-common"
+        },
+        {
+          "properties": {
+            "result": {
+              "properties": {
+                "results": {
+                  "items": {
+                    "$ref": "#/$defs/email-security_SubmissionResult"
+                  },
+                  "type": "array"
+                }
+              },
+              "required": [
+                "results"
+              ],
+              "type": "object"
+            }
           },
-          "type": "array"
+          "required": [
+            "result"
+          ],
+          "type": "object"
         }
-      },
-      "required": [
-        "results"
       ],
-      "type": "object",
       $defs: {
         "email-security_SubmissionResult": email_security_SubmissionResult_output,
+        "email-security_api-response-common": email_security_api_response_common_output,
+        "email-security_messages": email_security_messages_output,
       },
     },
     annotations: {
@@ -129,18 +148,33 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "202": {
-          "properties": {
-            "results": {
-              "items": {
-                "$ref": "#/$defs/email-security_SubmissionResult"
+          "allOf": [
+            {
+              "$ref": "#/$defs/email-security_api-response-common"
+            },
+            {
+              "properties": {
+                "result": {
+                  "properties": {
+                    "results": {
+                      "items": {
+                        "$ref": "#/$defs/email-security_SubmissionResult"
+                      },
+                      "type": "array"
+                    }
+                  },
+                  "required": [
+                    "results"
+                  ],
+                  "type": "object"
+                }
               },
-              "type": "array"
+              "required": [
+                "result"
+              ],
+              "type": "object"
             }
-          },
-          "required": [
-            "results"
-          ],
-          "type": "object"
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/email-security_api-response-common-failure"
@@ -148,6 +182,7 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "email-security_SubmissionResult": email_security_SubmissionResult_output,
+        "email-security_api-response-common": email_security_api_response_common_output,
         "email-security_api-response-common-failure": email_security_api_response_common_failure_output,
         "email-security_messages": email_security_messages_output,
       },
@@ -262,40 +297,30 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "$ref": "#/$defs/email-security_Submission"
-          },
-          "type": "array"
+      "allOf": [
+        {
+          "$ref": "#/$defs/email-security_api-response-collection"
         },
-        "result_info": {
+        {
           "properties": {
-            "count": {
-              "type": "number"
-            },
-            "page": {
-              "type": "number"
-            },
-            "per_page": {
-              "type": "number"
-            },
-            "total_count": {
-              "type": "number"
+            "result": {
+              "items": {
+                "$ref": "#/$defs/email-security_Submission"
+              },
+              "type": "array"
             }
           },
           "type": "object"
         }
-      },
-      "required": [
-        "result"
       ],
-      "type": "object",
       $defs: {
         "email-security_CustomerStatus": email_security_CustomerStatus_output,
         "email-security_OptionalSubmissionDisposition": email_security_OptionalSubmissionDisposition_output,
         "email-security_Submission": email_security_Submission_output,
         "email-security_SubmissionDisposition": email_security_SubmissionDisposition_output,
+        "email-security_api-response-collection": email_security_api_response_collection_output,
+        "email-security_api-response-common": email_security_api_response_common_output,
+        "email-security_messages": email_security_messages_output,
       },
     },
     annotations: {
@@ -314,35 +339,22 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "items": {
-                "$ref": "#/$defs/email-security_Submission"
-              },
-              "type": "array"
+          "allOf": [
+            {
+              "$ref": "#/$defs/email-security_api-response-collection"
             },
-            "result_info": {
+            {
               "properties": {
-                "count": {
-                  "type": "number"
-                },
-                "page": {
-                  "type": "number"
-                },
-                "per_page": {
-                  "type": "number"
-                },
-                "total_count": {
-                  "type": "number"
+                "result": {
+                  "items": {
+                    "$ref": "#/$defs/email-security_Submission"
+                  },
+                  "type": "array"
                 }
               },
               "type": "object"
             }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/email-security_api-response-common-failure"
@@ -353,6 +365,8 @@ export const tools: readonly Tool[] = [
         "email-security_OptionalSubmissionDisposition": email_security_OptionalSubmissionDisposition_output,
         "email-security_Submission": email_security_Submission_output,
         "email-security_SubmissionDisposition": email_security_SubmissionDisposition_output,
+        "email-security_api-response-collection": email_security_api_response_collection_output,
+        "email-security_api-response-common": email_security_api_response_common_output,
         "email-security_api-response-common-failure": email_security_api_response_common_failure_output,
         "email-security_messages": email_security_messages_output,
       },

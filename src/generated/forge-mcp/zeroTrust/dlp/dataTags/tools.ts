@@ -5,12 +5,12 @@ import { type Tool, pathParam } from "../../../_/tool.js";
 import {
   dlp_Empty_output,
   dlp_api_response_common_failure_output,
+  dlp_api_response_single_output,
   dlp_messages_output,
 } from "../../outputs.js";
 import { dlp_DataTag_output } from "../outputs.js";
-import { dlp_NewDataTag } from "../schemas.js";
+import { dlp_DataTagUpdate, dlp_NewDataTag } from "../schemas.js";
 import { dlp_DataTagArray_output } from "./outputs.js";
-import { dlp_DataTagUpdate } from "./schemas.js";
 
 /**
  * The tools of `zero_trust.dlp.data_tags`.
@@ -45,9 +45,23 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/dlp_DataTag",
+      "allOf": [
+        {
+          "$ref": "#/$defs/dlp_api-response-single"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/dlp_DataTag"
+            }
+          },
+          "type": "object"
+        }
+      ],
       $defs: {
         "dlp_DataTag": dlp_DataTag_output,
+        "dlp_api-response-single": dlp_api_response_single_output,
+        "dlp_messages": dlp_messages_output,
       },
     },
     annotations: {
@@ -67,7 +81,19 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/dlp_DataTag"
+          "allOf": [
+            {
+              "$ref": "#/$defs/dlp_api-response-single"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/dlp_DataTag"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/dlp_api-response-common-failure"
@@ -76,6 +102,7 @@ export const tools: readonly Tool[] = [
       $defs: {
         "dlp_DataTag": dlp_DataTag_output,
         "dlp_api-response-common-failure": dlp_api_response_common_failure_output,
+        "dlp_api-response-single": dlp_api_response_single_output,
         "dlp_messages": dlp_messages_output,
       },
     },
@@ -110,9 +137,23 @@ export const tools: readonly Tool[] = [
       ],
     },
     outputSchema: {
-      "$ref": "#/$defs/dlp_Empty",
+      "allOf": [
+        {
+          "$ref": "#/$defs/dlp_api-response-single"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/dlp_Empty"
+            }
+          },
+          "type": "object"
+        }
+      ],
       $defs: {
         "dlp_Empty": dlp_Empty_output,
+        "dlp_api-response-single": dlp_api_response_single_output,
+        "dlp_messages": dlp_messages_output,
       },
     },
     annotations: {
@@ -132,7 +173,19 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/dlp_Empty"
+          "allOf": [
+            {
+              "$ref": "#/$defs/dlp_api-response-single"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/dlp_Empty"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/dlp_api-response-common-failure"
@@ -141,6 +194,7 @@ export const tools: readonly Tool[] = [
       $defs: {
         "dlp_Empty": dlp_Empty_output,
         "dlp_api-response-common-failure": dlp_api_response_common_failure_output,
+        "dlp_api-response-single": dlp_api_response_single_output,
         "dlp_messages": dlp_messages_output,
       },
     },
@@ -174,9 +228,23 @@ export const tools: readonly Tool[] = [
       ],
     },
     outputSchema: {
-      "$ref": "#/$defs/dlp_DataTag",
+      "allOf": [
+        {
+          "$ref": "#/$defs/dlp_api-response-single"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/dlp_DataTag"
+            }
+          },
+          "type": "object"
+        }
+      ],
       $defs: {
         "dlp_DataTag": dlp_DataTag_output,
+        "dlp_api-response-single": dlp_api_response_single_output,
+        "dlp_messages": dlp_messages_output,
       },
     },
     annotations: {
@@ -197,7 +265,19 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/dlp_DataTag"
+          "allOf": [
+            {
+              "$ref": "#/$defs/dlp_api-response-single"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/dlp_DataTag"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/dlp_api-response-common-failure"
@@ -206,6 +286,7 @@ export const tools: readonly Tool[] = [
       $defs: {
         "dlp_DataTag": dlp_DataTag_output,
         "dlp_api-response-common-failure": dlp_api_response_common_failure_output,
+        "dlp_api-response-single": dlp_api_response_single_output,
         "dlp_messages": dlp_messages_output,
       },
     },
@@ -234,21 +315,24 @@ export const tools: readonly Tool[] = [
       ],
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "$ref": "#/$defs/dlp_DataTagArray"
+      "allOf": [
+        {
+          "$ref": "#/$defs/dlp_api-response-single"
         },
-        "result_info": {
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/dlp_DataTagArray"
+            }
+          },
           "type": "object"
         }
-      },
-      "required": [
-        "result"
       ],
-      "type": "object",
       $defs: {
         "dlp_DataTag": dlp_DataTag_output,
         "dlp_DataTagArray": dlp_DataTagArray_output,
+        "dlp_api-response-single": dlp_api_response_single_output,
+        "dlp_messages": dlp_messages_output,
       },
     },
     annotations: {
@@ -269,18 +353,19 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "$ref": "#/$defs/dlp_DataTagArray"
+          "allOf": [
+            {
+              "$ref": "#/$defs/dlp_api-response-single"
             },
-            "result_info": {
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/dlp_DataTagArray"
+                }
+              },
               "type": "object"
             }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/dlp_api-response-common-failure"
@@ -290,6 +375,7 @@ export const tools: readonly Tool[] = [
         "dlp_DataTag": dlp_DataTag_output,
         "dlp_DataTagArray": dlp_DataTagArray_output,
         "dlp_api-response-common-failure": dlp_api_response_common_failure_output,
+        "dlp_api-response-single": dlp_api_response_single_output,
         "dlp_messages": dlp_messages_output,
       },
     },
@@ -331,9 +417,23 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/dlp_DataTag",
+      "allOf": [
+        {
+          "$ref": "#/$defs/dlp_api-response-single"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/dlp_DataTag"
+            }
+          },
+          "type": "object"
+        }
+      ],
       $defs: {
         "dlp_DataTag": dlp_DataTag_output,
+        "dlp_api-response-single": dlp_api_response_single_output,
+        "dlp_messages": dlp_messages_output,
       },
     },
     annotations: {
@@ -353,7 +453,19 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/dlp_DataTag"
+          "allOf": [
+            {
+              "$ref": "#/$defs/dlp_api-response-single"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/dlp_DataTag"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/dlp_api-response-common-failure"
@@ -362,6 +474,7 @@ export const tools: readonly Tool[] = [
       $defs: {
         "dlp_DataTag": dlp_DataTag_output,
         "dlp_api-response-common-failure": dlp_api_response_common_failure_output,
+        "dlp_api-response-single": dlp_api_response_single_output,
         "dlp_messages": dlp_messages_output,
       },
     },

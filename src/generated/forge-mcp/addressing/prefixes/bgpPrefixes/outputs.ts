@@ -164,59 +164,39 @@ export const addressing_on_demand_locked_2_output: JsonSchema = {
  * The schema of `addressing_response_collection_bgp` in responses.
  */
 export const addressing_response_collection_bgp_output: JsonSchema = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/addressing_messages"
+  "allOf": [
+    {
+      "$ref": "#/$defs/addressing_api-response-single"
     },
-    "messages": {
-      "$ref": "#/$defs/addressing_messages"
-    },
-    "result": {
-      "items": {
-        "$ref": "#/$defs/addressing_ipam-bgp-prefixes"
+    {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/addressing_ipam-bgp-prefixes"
+          },
+          "type": "array"
+        }
       },
-      "type": "array"
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
+      "type": "object"
     }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "success"
-  ],
-  "type": "object"
+  ]
 };
 
 /**
  * The schema of `addressing_single_response_bgp` in responses.
  */
 export const addressing_single_response_bgp_output: JsonSchema = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/addressing_messages"
+  "allOf": [
+    {
+      "$ref": "#/$defs/addressing_api-response-single"
     },
-    "messages": {
-      "$ref": "#/$defs/addressing_messages"
-    },
-    "result": {
-      "$ref": "#/$defs/addressing_ipam-bgp-prefixes"
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/addressing_ipam-bgp-prefixes"
+        }
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "success"
-  ],
-  "type": "object"
+  ]
 };

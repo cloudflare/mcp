@@ -39,33 +39,20 @@ export const zero_trust_gateway_dns_destination_ip_pair_output: JsonSchema = {
  * The schema of `zero-trust-gateway_response_collection-2` in responses.
  */
 export const zero_trust_gateway_response_collection_2_output: JsonSchema = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/zero-trust-gateway_messages"
+  "allOf": [
+    {
+      "$ref": "#/$defs/zero-trust-gateway_api-response-collection"
     },
-    "messages": {
-      "$ref": "#/$defs/zero-trust-gateway_messages"
-    },
-    "result": {
-      "items": {
-        "$ref": "#/$defs/zero-trust-gateway_dns_destination_ip_pair"
+    {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/zero-trust-gateway_dns_destination_ip_pair"
+          },
+          "type": "array"
+        }
       },
-      "type": "array"
-    },
-    "result_info": {
-      "$ref": "#/$defs/zero-trust-gateway_result_info"
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
+      "type": "object"
     }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "success"
-  ],
-  "type": "object"
+  ]
 };

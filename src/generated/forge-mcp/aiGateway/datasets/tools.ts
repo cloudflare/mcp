@@ -101,127 +101,7 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
-        "created_at": {
-          "format": "date-time",
-          "type": "string"
-        },
-        "enable": {
-          "type": "boolean"
-        },
-        "filters": {
-          "items": {
-            "properties": {
-              "key": {
-                "enum": [
-                  "created_at",
-                  "request_content_type",
-                  "response_content_type",
-                  "success",
-                  "cached",
-                  "provider",
-                  "model",
-                  "cost",
-                  "tokens",
-                  "tokens_in",
-                  "tokens_out",
-                  "duration",
-                  "feedback"
-                ],
-                "type": "string"
-              },
-              "operator": {
-                "enum": [
-                  "eq",
-                  "contains",
-                  "lt",
-                  "gt"
-                ],
-                "type": "string"
-              },
-              "value": {
-                "items": {
-                  "anyOf": [
-                    {
-                      "type": "string"
-                    },
-                    {
-                      "type": "number"
-                    },
-                    {
-                      "type": "boolean"
-                    }
-                  ]
-                },
-                "type": "array"
-              }
-            },
-            "required": [
-              "key",
-              "operator",
-              "value"
-            ],
-            "type": "object"
-          },
-          "type": "array"
-        },
-        "gateway_id": {
-          "type": "string"
-        },
-        "id": {
-          "type": "string"
-        },
-        "modified_at": {
-          "format": "date-time",
-          "type": "string"
-        },
-        "name": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "created_at",
-        "enable",
-        "filters",
-        "gateway_id",
-        "id",
-        "modified_at",
-        "name"
-      ],
-      "type": "object",
-    },
-    annotations: {
-      "destructiveHint": false,
-      "idempotentHint": false,
-      "openWorldHint": true,
-      "readOnlyHint": false,
-      "title": "Create a dataset (deprecated)"
-    },
-    method: "POST",
-    path: "/accounts/{account_id}/ai-gateway/gateways/{gateway_id}/datasets",
-    extensions: {
-      "x-api-token-group": [
-        "AI Gateway Write"
-      ],
-      "x-cfPermissionsRequired": {
-        "enum": [
-          "com.cloudflare.api.account.aig"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.api.account.aig": {
-            "name": "com_cloudflare_api_account_aig"
-          }
-        }
-      },
-      "x-cfPlanAvailability": {
-        "business": true,
-        "enterprise": true,
-        "free": true,
-        "pro": true
-      }
-    },
-    responses: {
-      schemas: {
-        "200": {
+        "result": {
           "properties": {
             "created_at": {
               "format": "date-time",
@@ -308,6 +188,145 @@ export const tools: readonly Tool[] = [
             "id",
             "modified_at",
             "name"
+          ],
+          "type": "object"
+        },
+        "success": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "result",
+        "success"
+      ],
+      "type": "object",
+    },
+    annotations: {
+      "destructiveHint": false,
+      "idempotentHint": false,
+      "openWorldHint": true,
+      "readOnlyHint": false,
+      "title": "Create a dataset (deprecated)"
+    },
+    method: "POST",
+    path: "/accounts/{account_id}/ai-gateway/gateways/{gateway_id}/datasets",
+    extensions: {
+      "x-api-token-group": [
+        "AI Gateway Write"
+      ],
+      "x-cfPermissionsRequired": {
+        "enum": [
+          "com.cloudflare.api.account.aig"
+        ]
+      },
+      "x-cfPlanAvailability": {
+        "business": true,
+        "enterprise": true,
+        "free": true,
+        "pro": true
+      }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "properties": {
+                "created_at": {
+                  "format": "date-time",
+                  "type": "string"
+                },
+                "enable": {
+                  "type": "boolean"
+                },
+                "filters": {
+                  "items": {
+                    "properties": {
+                      "key": {
+                        "enum": [
+                          "created_at",
+                          "request_content_type",
+                          "response_content_type",
+                          "success",
+                          "cached",
+                          "provider",
+                          "model",
+                          "cost",
+                          "tokens",
+                          "tokens_in",
+                          "tokens_out",
+                          "duration",
+                          "feedback"
+                        ],
+                        "type": "string"
+                      },
+                      "operator": {
+                        "enum": [
+                          "eq",
+                          "contains",
+                          "lt",
+                          "gt"
+                        ],
+                        "type": "string"
+                      },
+                      "value": {
+                        "items": {
+                          "anyOf": [
+                            {
+                              "type": "string"
+                            },
+                            {
+                              "type": "number"
+                            },
+                            {
+                              "type": "boolean"
+                            }
+                          ]
+                        },
+                        "type": "array"
+                      }
+                    },
+                    "required": [
+                      "key",
+                      "operator",
+                      "value"
+                    ],
+                    "type": "object"
+                  },
+                  "type": "array"
+                },
+                "gateway_id": {
+                  "type": "string"
+                },
+                "id": {
+                  "type": "string"
+                },
+                "modified_at": {
+                  "format": "date-time",
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "created_at",
+                "enable",
+                "filters",
+                "gateway_id",
+                "id",
+                "modified_at",
+                "name"
+              ],
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "result",
+            "success"
           ],
           "type": "object"
         },
@@ -381,127 +400,7 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
-        "created_at": {
-          "format": "date-time",
-          "type": "string"
-        },
-        "enable": {
-          "type": "boolean"
-        },
-        "filters": {
-          "items": {
-            "properties": {
-              "key": {
-                "enum": [
-                  "created_at",
-                  "request_content_type",
-                  "response_content_type",
-                  "success",
-                  "cached",
-                  "provider",
-                  "model",
-                  "cost",
-                  "tokens",
-                  "tokens_in",
-                  "tokens_out",
-                  "duration",
-                  "feedback"
-                ],
-                "type": "string"
-              },
-              "operator": {
-                "enum": [
-                  "eq",
-                  "contains",
-                  "lt",
-                  "gt"
-                ],
-                "type": "string"
-              },
-              "value": {
-                "items": {
-                  "anyOf": [
-                    {
-                      "type": "string"
-                    },
-                    {
-                      "type": "number"
-                    },
-                    {
-                      "type": "boolean"
-                    }
-                  ]
-                },
-                "type": "array"
-              }
-            },
-            "required": [
-              "key",
-              "operator",
-              "value"
-            ],
-            "type": "object"
-          },
-          "type": "array"
-        },
-        "gateway_id": {
-          "type": "string"
-        },
-        "id": {
-          "type": "string"
-        },
-        "modified_at": {
-          "format": "date-time",
-          "type": "string"
-        },
-        "name": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "created_at",
-        "enable",
-        "filters",
-        "gateway_id",
-        "id",
-        "modified_at",
-        "name"
-      ],
-      "type": "object",
-    },
-    annotations: {
-      "destructiveHint": true,
-      "idempotentHint": true,
-      "openWorldHint": true,
-      "readOnlyHint": false,
-      "title": "Delete a dataset (deprecated)"
-    },
-    method: "DELETE",
-    path: "/accounts/{account_id}/ai-gateway/gateways/{gateway_id}/datasets/{id}",
-    extensions: {
-      "x-api-token-group": [
-        "AI Gateway Write"
-      ],
-      "x-cfPermissionsRequired": {
-        "enum": [
-          "com.cloudflare.api.account.aig"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.api.account.aig": {
-            "name": "com_cloudflare_api_account_aig"
-          }
-        }
-      },
-      "x-cfPlanAvailability": {
-        "business": true,
-        "enterprise": true,
-        "free": true,
-        "pro": true
-      }
-    },
-    responses: {
-      schemas: {
-        "200": {
+        "result": {
           "properties": {
             "created_at": {
               "format": "date-time",
@@ -588,6 +487,145 @@ export const tools: readonly Tool[] = [
             "id",
             "modified_at",
             "name"
+          ],
+          "type": "object"
+        },
+        "success": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "result",
+        "success"
+      ],
+      "type": "object",
+    },
+    annotations: {
+      "destructiveHint": true,
+      "idempotentHint": true,
+      "openWorldHint": true,
+      "readOnlyHint": false,
+      "title": "Delete a dataset (deprecated)"
+    },
+    method: "DELETE",
+    path: "/accounts/{account_id}/ai-gateway/gateways/{gateway_id}/datasets/{id}",
+    extensions: {
+      "x-api-token-group": [
+        "AI Gateway Write"
+      ],
+      "x-cfPermissionsRequired": {
+        "enum": [
+          "com.cloudflare.api.account.aig"
+        ]
+      },
+      "x-cfPlanAvailability": {
+        "business": true,
+        "enterprise": true,
+        "free": true,
+        "pro": true
+      }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "properties": {
+                "created_at": {
+                  "format": "date-time",
+                  "type": "string"
+                },
+                "enable": {
+                  "type": "boolean"
+                },
+                "filters": {
+                  "items": {
+                    "properties": {
+                      "key": {
+                        "enum": [
+                          "created_at",
+                          "request_content_type",
+                          "response_content_type",
+                          "success",
+                          "cached",
+                          "provider",
+                          "model",
+                          "cost",
+                          "tokens",
+                          "tokens_in",
+                          "tokens_out",
+                          "duration",
+                          "feedback"
+                        ],
+                        "type": "string"
+                      },
+                      "operator": {
+                        "enum": [
+                          "eq",
+                          "contains",
+                          "lt",
+                          "gt"
+                        ],
+                        "type": "string"
+                      },
+                      "value": {
+                        "items": {
+                          "anyOf": [
+                            {
+                              "type": "string"
+                            },
+                            {
+                              "type": "number"
+                            },
+                            {
+                              "type": "boolean"
+                            }
+                          ]
+                        },
+                        "type": "array"
+                      }
+                    },
+                    "required": [
+                      "key",
+                      "operator",
+                      "value"
+                    ],
+                    "type": "object"
+                  },
+                  "type": "array"
+                },
+                "gateway_id": {
+                  "type": "string"
+                },
+                "id": {
+                  "type": "string"
+                },
+                "modified_at": {
+                  "format": "date-time",
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "created_at",
+                "enable",
+                "filters",
+                "gateway_id",
+                "id",
+                "modified_at",
+                "name"
+              ],
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "result",
+            "success"
           ],
           "type": "object"
         },
@@ -653,128 +691,7 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
-        "created_at": {
-          "format": "date-time",
-          "type": "string"
-        },
-        "enable": {
-          "type": "boolean"
-        },
-        "filters": {
-          "items": {
-            "properties": {
-              "key": {
-                "enum": [
-                  "created_at",
-                  "request_content_type",
-                  "response_content_type",
-                  "success",
-                  "cached",
-                  "provider",
-                  "model",
-                  "cost",
-                  "tokens",
-                  "tokens_in",
-                  "tokens_out",
-                  "duration",
-                  "feedback"
-                ],
-                "type": "string"
-              },
-              "operator": {
-                "enum": [
-                  "eq",
-                  "contains",
-                  "lt",
-                  "gt"
-                ],
-                "type": "string"
-              },
-              "value": {
-                "items": {
-                  "anyOf": [
-                    {
-                      "type": "string"
-                    },
-                    {
-                      "type": "number"
-                    },
-                    {
-                      "type": "boolean"
-                    }
-                  ]
-                },
-                "type": "array"
-              }
-            },
-            "required": [
-              "key",
-              "operator",
-              "value"
-            ],
-            "type": "object"
-          },
-          "type": "array"
-        },
-        "gateway_id": {
-          "type": "string"
-        },
-        "id": {
-          "type": "string"
-        },
-        "modified_at": {
-          "format": "date-time",
-          "type": "string"
-        },
-        "name": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "created_at",
-        "enable",
-        "filters",
-        "gateway_id",
-        "id",
-        "modified_at",
-        "name"
-      ],
-      "type": "object",
-    },
-    annotations: {
-      "destructiveHint": false,
-      "idempotentHint": true,
-      "openWorldHint": true,
-      "readOnlyHint": true,
-      "title": "Get a dataset (deprecated)"
-    },
-    method: "GET",
-    path: "/accounts/{account_id}/ai-gateway/gateways/{gateway_id}/datasets/{id}",
-    extensions: {
-      "x-api-token-group": [
-        "AI Gateway Write",
-        "AI Gateway Read"
-      ],
-      "x-cfPermissionsRequired": {
-        "enum": [
-          "com.cloudflare.api.account.aig"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.api.account.aig": {
-            "name": "com_cloudflare_api_account_aig"
-          }
-        }
-      },
-      "x-cfPlanAvailability": {
-        "business": true,
-        "enterprise": true,
-        "free": true,
-        "pro": true
-      }
-    },
-    responses: {
-      schemas: {
-        "200": {
+        "result": {
           "properties": {
             "created_at": {
               "format": "date-time",
@@ -861,6 +778,146 @@ export const tools: readonly Tool[] = [
             "id",
             "modified_at",
             "name"
+          ],
+          "type": "object"
+        },
+        "success": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "result",
+        "success"
+      ],
+      "type": "object",
+    },
+    annotations: {
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": true,
+      "readOnlyHint": true,
+      "title": "Get a dataset (deprecated)"
+    },
+    method: "GET",
+    path: "/accounts/{account_id}/ai-gateway/gateways/{gateway_id}/datasets/{id}",
+    extensions: {
+      "x-api-token-group": [
+        "AI Gateway Write",
+        "AI Gateway Read"
+      ],
+      "x-cfPermissionsRequired": {
+        "enum": [
+          "com.cloudflare.api.account.aig"
+        ]
+      },
+      "x-cfPlanAvailability": {
+        "business": true,
+        "enterprise": true,
+        "free": true,
+        "pro": true
+      }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "properties": {
+                "created_at": {
+                  "format": "date-time",
+                  "type": "string"
+                },
+                "enable": {
+                  "type": "boolean"
+                },
+                "filters": {
+                  "items": {
+                    "properties": {
+                      "key": {
+                        "enum": [
+                          "created_at",
+                          "request_content_type",
+                          "response_content_type",
+                          "success",
+                          "cached",
+                          "provider",
+                          "model",
+                          "cost",
+                          "tokens",
+                          "tokens_in",
+                          "tokens_out",
+                          "duration",
+                          "feedback"
+                        ],
+                        "type": "string"
+                      },
+                      "operator": {
+                        "enum": [
+                          "eq",
+                          "contains",
+                          "lt",
+                          "gt"
+                        ],
+                        "type": "string"
+                      },
+                      "value": {
+                        "items": {
+                          "anyOf": [
+                            {
+                              "type": "string"
+                            },
+                            {
+                              "type": "number"
+                            },
+                            {
+                              "type": "boolean"
+                            }
+                          ]
+                        },
+                        "type": "array"
+                      }
+                    },
+                    "required": [
+                      "key",
+                      "operator",
+                      "value"
+                    ],
+                    "type": "object"
+                  },
+                  "type": "array"
+                },
+                "gateway_id": {
+                  "type": "string"
+                },
+                "id": {
+                  "type": "string"
+                },
+                "modified_at": {
+                  "format": "date-time",
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "created_at",
+                "enable",
+                "filters",
+                "gateway_id",
+                "id",
+                "modified_at",
+                "name"
+              ],
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "result",
+            "success"
           ],
           "type": "object"
         },
@@ -1033,12 +1090,13 @@ export const tools: readonly Tool[] = [
           },
           "type": "array"
         },
-        "result_info": {
-          "type": "object"
+        "success": {
+          "type": "boolean"
         }
       },
       "required": [
-        "result"
+        "result",
+        "success"
       ],
       "type": "object",
     },
@@ -1059,12 +1117,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "com.cloudflare.api.account.aig"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.api.account.aig": {
-            "name": "com_cloudflare_api_account_aig"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": true,
@@ -1170,12 +1223,13 @@ export const tools: readonly Tool[] = [
               },
               "type": "array"
             },
-            "result_info": {
-              "type": "object"
+            "success": {
+              "type": "boolean"
             }
           },
           "required": [
-            "result"
+            "result",
+            "success"
           ],
           "type": "object"
         },
@@ -1320,127 +1374,7 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
-        "created_at": {
-          "format": "date-time",
-          "type": "string"
-        },
-        "enable": {
-          "type": "boolean"
-        },
-        "filters": {
-          "items": {
-            "properties": {
-              "key": {
-                "enum": [
-                  "created_at",
-                  "request_content_type",
-                  "response_content_type",
-                  "success",
-                  "cached",
-                  "provider",
-                  "model",
-                  "cost",
-                  "tokens",
-                  "tokens_in",
-                  "tokens_out",
-                  "duration",
-                  "feedback"
-                ],
-                "type": "string"
-              },
-              "operator": {
-                "enum": [
-                  "eq",
-                  "contains",
-                  "lt",
-                  "gt"
-                ],
-                "type": "string"
-              },
-              "value": {
-                "items": {
-                  "anyOf": [
-                    {
-                      "type": "string"
-                    },
-                    {
-                      "type": "number"
-                    },
-                    {
-                      "type": "boolean"
-                    }
-                  ]
-                },
-                "type": "array"
-              }
-            },
-            "required": [
-              "key",
-              "operator",
-              "value"
-            ],
-            "type": "object"
-          },
-          "type": "array"
-        },
-        "gateway_id": {
-          "type": "string"
-        },
-        "id": {
-          "type": "string"
-        },
-        "modified_at": {
-          "format": "date-time",
-          "type": "string"
-        },
-        "name": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "created_at",
-        "enable",
-        "filters",
-        "gateway_id",
-        "id",
-        "modified_at",
-        "name"
-      ],
-      "type": "object",
-    },
-    annotations: {
-      "destructiveHint": true,
-      "idempotentHint": true,
-      "openWorldHint": true,
-      "readOnlyHint": false,
-      "title": "Update a dataset (deprecated)"
-    },
-    method: "PUT",
-    path: "/accounts/{account_id}/ai-gateway/gateways/{gateway_id}/datasets/{id}",
-    extensions: {
-      "x-api-token-group": [
-        "AI Gateway Write"
-      ],
-      "x-cfPermissionsRequired": {
-        "enum": [
-          "com.cloudflare.api.account.aig"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.api.account.aig": {
-            "name": "com_cloudflare_api_account_aig"
-          }
-        }
-      },
-      "x-cfPlanAvailability": {
-        "business": true,
-        "enterprise": true,
-        "free": true,
-        "pro": true
-      }
-    },
-    responses: {
-      schemas: {
-        "200": {
+        "result": {
           "properties": {
             "created_at": {
               "format": "date-time",
@@ -1527,6 +1461,145 @@ export const tools: readonly Tool[] = [
             "id",
             "modified_at",
             "name"
+          ],
+          "type": "object"
+        },
+        "success": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "result",
+        "success"
+      ],
+      "type": "object",
+    },
+    annotations: {
+      "destructiveHint": true,
+      "idempotentHint": true,
+      "openWorldHint": true,
+      "readOnlyHint": false,
+      "title": "Update a dataset (deprecated)"
+    },
+    method: "PUT",
+    path: "/accounts/{account_id}/ai-gateway/gateways/{gateway_id}/datasets/{id}",
+    extensions: {
+      "x-api-token-group": [
+        "AI Gateway Write"
+      ],
+      "x-cfPermissionsRequired": {
+        "enum": [
+          "com.cloudflare.api.account.aig"
+        ]
+      },
+      "x-cfPlanAvailability": {
+        "business": true,
+        "enterprise": true,
+        "free": true,
+        "pro": true
+      }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "properties": {
+                "created_at": {
+                  "format": "date-time",
+                  "type": "string"
+                },
+                "enable": {
+                  "type": "boolean"
+                },
+                "filters": {
+                  "items": {
+                    "properties": {
+                      "key": {
+                        "enum": [
+                          "created_at",
+                          "request_content_type",
+                          "response_content_type",
+                          "success",
+                          "cached",
+                          "provider",
+                          "model",
+                          "cost",
+                          "tokens",
+                          "tokens_in",
+                          "tokens_out",
+                          "duration",
+                          "feedback"
+                        ],
+                        "type": "string"
+                      },
+                      "operator": {
+                        "enum": [
+                          "eq",
+                          "contains",
+                          "lt",
+                          "gt"
+                        ],
+                        "type": "string"
+                      },
+                      "value": {
+                        "items": {
+                          "anyOf": [
+                            {
+                              "type": "string"
+                            },
+                            {
+                              "type": "number"
+                            },
+                            {
+                              "type": "boolean"
+                            }
+                          ]
+                        },
+                        "type": "array"
+                      }
+                    },
+                    "required": [
+                      "key",
+                      "operator",
+                      "value"
+                    ],
+                    "type": "object"
+                  },
+                  "type": "array"
+                },
+                "gateway_id": {
+                  "type": "string"
+                },
+                "id": {
+                  "type": "string"
+                },
+                "modified_at": {
+                  "format": "date-time",
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "created_at",
+                "enable",
+                "filters",
+                "gateway_id",
+                "id",
+                "modified_at",
+                "name"
+              ],
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "result",
+            "success"
           ],
           "type": "object"
         },

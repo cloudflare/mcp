@@ -94,7 +94,20 @@ export const cache_purge_SingleFileWithUrlAndHeaders: JsonSchema = {
     "files": {
       "description": "URLs with the request headers your cache key uses. Use this form when your cache key includes request headers, or the visitor's device type, country, or language: send the header values each URL was cached with, such as `CF-Device-Type`, `CF-IPCountry`, or `Accept-Language`.\n\nWhen you send the `Origin` header, include the scheme and hostname. Include the port unless it is the default for the scheme: 80 for `http`, 443 for `https`.\n\nSee [Purge by single-file](https://developers.cloudflare.com/cache/how-to/purge-cache/purge-by-single-file/).\n",
       "items": {
-        "$ref": "#/$defs/cache-purge_SingleFileWithUrlAndHeaders_filesItem"
+        "properties": {
+          "headers": {
+            "additionalProperties": {
+              "type": "string"
+            },
+            "description": "Request headers and the values the content was cached with.",
+            "type": "object"
+          },
+          "url": {
+            "description": "Full URL of the content.",
+            "type": "string"
+          }
+        },
+        "type": "object"
       },
       "type": "array"
     }
@@ -103,21 +116,8 @@ export const cache_purge_SingleFileWithUrlAndHeaders: JsonSchema = {
 };
 
 /**
- * The schema of `cache-purge_SingleFileWithUrlAndHeaders_filesItem`.
+ * The schema of `cache-purge_identifier`.
  */
-export const cache_purge_SingleFileWithUrlAndHeaders_filesItem: JsonSchema = {
-  "properties": {
-    "headers": {
-      "additionalProperties": {
-        "type": "string"
-      },
-      "description": "Request headers and the values the content was cached with.",
-      "type": "object"
-    },
-    "url": {
-      "description": "Full URL of the content.",
-      "type": "string"
-    }
-  },
-  "type": "object"
+export const cache_purge_identifier: JsonSchema = {
+  "type": "string"
 };

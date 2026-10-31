@@ -50,7 +50,15 @@ export const posture_api_Webhook_output: JsonSchema = {
     },
     "headers": {
       "items": {
-        "$ref": "#/$defs/posture-api_Webhook_headersItem"
+        "properties": {
+          "key": {
+            "type": "string"
+          },
+          "value": {
+            "type": "string"
+          }
+        },
+        "type": "object"
       },
       "type": "array"
     },
@@ -90,16 +98,42 @@ export const posture_api_Webhook_output: JsonSchema = {
 };
 
 /**
- * The schema of `posture-api_Webhook_headersItem` in responses.
+ * The schema of `posture-api_webhook-list-response` in responses.
  */
-export const posture_api_Webhook_headersItem_output: JsonSchema = {
-  "properties": {
-    "key": {
-      "type": "string"
+export const posture_api_webhook_list_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/posture-api_api-response-common"
     },
-    "value": {
-      "type": "string"
+    {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/posture-api_Webhook"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
     }
-  },
-  "type": "object"
+  ]
+};
+
+/**
+ * The schema of `posture-api_webhook-response` in responses.
+ */
+export const posture_api_webhook_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/posture-api_api-response-common"
+    },
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/posture-api_Webhook"
+        }
+      },
+      "type": "object"
+    }
+  ]
 };

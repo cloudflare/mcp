@@ -73,3 +73,23 @@ export const tls_certificates_and_hostnames_custom_hostname_quota_output: JsonSc
   ],
   "type": "object"
 };
+
+/**
+ * The schema of `tls-certificates-and-hostnames_custom_hostname_quota_response`
+ * in responses.
+ */
+export const tls_certificates_and_hostnames_custom_hostname_quota_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/tls-certificates-and-hostnames_custom_hostname_api_response_common"
+    },
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/tls-certificates-and-hostnames_custom_hostname_quota"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};

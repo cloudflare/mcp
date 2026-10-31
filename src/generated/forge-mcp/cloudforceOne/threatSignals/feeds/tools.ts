@@ -91,138 +91,65 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
-        "category_id": {
-          "oneOf": [
-            {
-              "type": "string"
+        "errors": {
+          "items": {
+            "properties": {
+              "message": {
+                "type": "string"
+              }
             },
-            {
-              "type": "null"
-            }
-          ]
+            "required": [
+              "message"
+            ],
+            "type": "object"
+          },
+          "type": "array"
         },
-        "category_name": {
-          "oneOf": [
-            {
-              "type": "string"
+        "messages": {
+          "items": {
+            "properties": {
+              "code": {
+                "type": "number"
+              },
+              "custom_feed_count": {
+                "type": "integer"
+              },
+              "custom_feed_limit": {
+                "type": "integer"
+              },
+              "expected": {
+                "type": "string"
+              },
+              "message": {
+                "type": "string"
+              },
+              "path": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "reason": {
+                "enum": [
+                  "threat_signals_feed_limit",
+                  "free_custom_skills_disabled",
+                  "free_skill_run_disabled",
+                  "free_tier_reconciliation_in_progress",
+                  "free_tier_reconciliation_failed",
+                  "raw_content_expired",
+                  "curated_visibility_changed"
+                ],
+                "type": "string"
+              }
             },
-            {
-              "type": "null"
-            }
-          ]
+            "required": [
+              "message"
+            ],
+            "type": "object"
+          },
+          "type": "array"
         },
-        "created_at": {
-          "type": "string"
-        },
-        "curated_feed_id": {
-          "oneOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "display_name": {
-          "oneOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "enabled": {
-          "type": "boolean"
-        },
-        "id": {
-          "format": "uuid",
-          "type": "string"
-        },
-        "last_polled_at": {
-          "oneOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "poll_interval_s": {
-          "type": "integer"
-        },
-        "source_type": {
-          "type": "string"
-        },
-        "status": {
-          "type": "string"
-        },
-        "subscribed_at": {
-          "oneOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "title": {
-          "oneOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "updated_at": {
-          "type": "string"
-        },
-        "url": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "category_id",
-        "category_name",
-        "created_at",
-        "curated_feed_id",
-        "display_name",
-        "enabled",
-        "id",
-        "last_polled_at",
-        "poll_interval_s",
-        "source_type",
-        "status",
-        "subscribed_at",
-        "title",
-        "updated_at",
-        "url"
-      ],
-      "type": "object",
-    },
-    annotations: {
-      "destructiveHint": false,
-      "idempotentHint": false,
-      "openWorldHint": true,
-      "readOnlyHint": false,
-      "title": "Create Threat Signals feed"
-    },
-    method: "POST",
-    path: "/accounts/{account_id}/cloudforce-one/v2/threat-signals/feeds",
-    extensions: {
-      "x-api-token-group": [
-        "Cloudforce One Write"
-      ]
-    },
-    responses: {
-      schemas: {
-        "201": {
+        "result": {
           "properties": {
             "category_id": {
               "oneOf": [
@@ -336,6 +263,229 @@ export const tools: readonly Tool[] = [
             "title",
             "updated_at",
             "url"
+          ],
+          "type": "object"
+        },
+        "success": {
+          "enum": [
+            true
+          ],
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "errors",
+        "messages",
+        "result",
+        "success"
+      ],
+      "type": "object",
+    },
+    annotations: {
+      "destructiveHint": false,
+      "idempotentHint": false,
+      "openWorldHint": true,
+      "readOnlyHint": false,
+      "title": "Create Threat Signals feed"
+    },
+    method: "POST",
+    path: "/accounts/{account_id}/cloudforce-one/v2/threat-signals/feeds",
+    extensions: {
+      "x-api-token-group": [
+        "Cloudforce One Write"
+      ]
+    },
+    responses: {
+      schemas: {
+        "201": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "messages": {
+              "items": {
+                "properties": {
+                  "code": {
+                    "type": "number"
+                  },
+                  "custom_feed_count": {
+                    "type": "integer"
+                  },
+                  "custom_feed_limit": {
+                    "type": "integer"
+                  },
+                  "expected": {
+                    "type": "string"
+                  },
+                  "message": {
+                    "type": "string"
+                  },
+                  "path": {
+                    "items": {
+                      "type": "string"
+                    },
+                    "type": "array"
+                  },
+                  "reason": {
+                    "enum": [
+                      "threat_signals_feed_limit",
+                      "free_custom_skills_disabled",
+                      "free_skill_run_disabled",
+                      "free_tier_reconciliation_in_progress",
+                      "free_tier_reconciliation_failed",
+                      "raw_content_expired",
+                      "curated_visibility_changed"
+                    ],
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result": {
+              "properties": {
+                "category_id": {
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "category_name": {
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "created_at": {
+                  "type": "string"
+                },
+                "curated_feed_id": {
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "display_name": {
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "enabled": {
+                  "type": "boolean"
+                },
+                "id": {
+                  "format": "uuid",
+                  "type": "string"
+                },
+                "last_polled_at": {
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "poll_interval_s": {
+                  "type": "integer"
+                },
+                "source_type": {
+                  "type": "string"
+                },
+                "status": {
+                  "type": "string"
+                },
+                "subscribed_at": {
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "title": {
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "updated_at": {
+                  "type": "string"
+                },
+                "url": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "category_id",
+                "category_name",
+                "created_at",
+                "curated_feed_id",
+                "display_name",
+                "enabled",
+                "id",
+                "last_polled_at",
+                "poll_interval_s",
+                "source_type",
+                "status",
+                "subscribed_at",
+                "title",
+                "updated_at",
+                "url"
+              ],
+              "type": "object"
+            },
+            "success": {
+              "enum": [
+                true
+              ],
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "messages",
+            "result",
+            "success"
           ],
           "type": "object"
         },
@@ -693,138 +843,65 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
-        "category_id": {
-          "oneOf": [
-            {
-              "type": "string"
+        "errors": {
+          "items": {
+            "properties": {
+              "message": {
+                "type": "string"
+              }
             },
-            {
-              "type": "null"
-            }
-          ]
+            "required": [
+              "message"
+            ],
+            "type": "object"
+          },
+          "type": "array"
         },
-        "category_name": {
-          "oneOf": [
-            {
-              "type": "string"
+        "messages": {
+          "items": {
+            "properties": {
+              "code": {
+                "type": "number"
+              },
+              "custom_feed_count": {
+                "type": "integer"
+              },
+              "custom_feed_limit": {
+                "type": "integer"
+              },
+              "expected": {
+                "type": "string"
+              },
+              "message": {
+                "type": "string"
+              },
+              "path": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "reason": {
+                "enum": [
+                  "threat_signals_feed_limit",
+                  "free_custom_skills_disabled",
+                  "free_skill_run_disabled",
+                  "free_tier_reconciliation_in_progress",
+                  "free_tier_reconciliation_failed",
+                  "raw_content_expired",
+                  "curated_visibility_changed"
+                ],
+                "type": "string"
+              }
             },
-            {
-              "type": "null"
-            }
-          ]
+            "required": [
+              "message"
+            ],
+            "type": "object"
+          },
+          "type": "array"
         },
-        "created_at": {
-          "type": "string"
-        },
-        "curated_feed_id": {
-          "oneOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "display_name": {
-          "oneOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "enabled": {
-          "type": "boolean"
-        },
-        "id": {
-          "format": "uuid",
-          "type": "string"
-        },
-        "last_polled_at": {
-          "oneOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "poll_interval_s": {
-          "type": "integer"
-        },
-        "source_type": {
-          "type": "string"
-        },
-        "status": {
-          "type": "string"
-        },
-        "subscribed_at": {
-          "oneOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "title": {
-          "oneOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "updated_at": {
-          "type": "string"
-        },
-        "url": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "category_id",
-        "category_name",
-        "created_at",
-        "curated_feed_id",
-        "display_name",
-        "enabled",
-        "id",
-        "last_polled_at",
-        "poll_interval_s",
-        "source_type",
-        "status",
-        "subscribed_at",
-        "title",
-        "updated_at",
-        "url"
-      ],
-      "type": "object",
-    },
-    annotations: {
-      "destructiveHint": true,
-      "idempotentHint": true,
-      "openWorldHint": true,
-      "readOnlyHint": false,
-      "title": "Delete Threat Signals feed"
-    },
-    method: "DELETE",
-    path: "/accounts/{account_id}/cloudforce-one/v2/threat-signals/feeds/{feed_id}",
-    extensions: {
-      "x-api-token-group": [
-        "Cloudforce One Write"
-      ]
-    },
-    responses: {
-      schemas: {
-        "200": {
+        "result": {
           "properties": {
             "category_id": {
               "oneOf": [
@@ -938,6 +1015,229 @@ export const tools: readonly Tool[] = [
             "title",
             "updated_at",
             "url"
+          ],
+          "type": "object"
+        },
+        "success": {
+          "enum": [
+            true
+          ],
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "errors",
+        "messages",
+        "result",
+        "success"
+      ],
+      "type": "object",
+    },
+    annotations: {
+      "destructiveHint": true,
+      "idempotentHint": true,
+      "openWorldHint": true,
+      "readOnlyHint": false,
+      "title": "Delete Threat Signals feed"
+    },
+    method: "DELETE",
+    path: "/accounts/{account_id}/cloudforce-one/v2/threat-signals/feeds/{feed_id}",
+    extensions: {
+      "x-api-token-group": [
+        "Cloudforce One Write"
+      ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "messages": {
+              "items": {
+                "properties": {
+                  "code": {
+                    "type": "number"
+                  },
+                  "custom_feed_count": {
+                    "type": "integer"
+                  },
+                  "custom_feed_limit": {
+                    "type": "integer"
+                  },
+                  "expected": {
+                    "type": "string"
+                  },
+                  "message": {
+                    "type": "string"
+                  },
+                  "path": {
+                    "items": {
+                      "type": "string"
+                    },
+                    "type": "array"
+                  },
+                  "reason": {
+                    "enum": [
+                      "threat_signals_feed_limit",
+                      "free_custom_skills_disabled",
+                      "free_skill_run_disabled",
+                      "free_tier_reconciliation_in_progress",
+                      "free_tier_reconciliation_failed",
+                      "raw_content_expired",
+                      "curated_visibility_changed"
+                    ],
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result": {
+              "properties": {
+                "category_id": {
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "category_name": {
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "created_at": {
+                  "type": "string"
+                },
+                "curated_feed_id": {
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "display_name": {
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "enabled": {
+                  "type": "boolean"
+                },
+                "id": {
+                  "format": "uuid",
+                  "type": "string"
+                },
+                "last_polled_at": {
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "poll_interval_s": {
+                  "type": "integer"
+                },
+                "source_type": {
+                  "type": "string"
+                },
+                "status": {
+                  "type": "string"
+                },
+                "subscribed_at": {
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "title": {
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "updated_at": {
+                  "type": "string"
+                },
+                "url": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "category_id",
+                "category_name",
+                "created_at",
+                "curated_feed_id",
+                "display_name",
+                "enabled",
+                "id",
+                "last_polled_at",
+                "poll_interval_s",
+                "source_type",
+                "status",
+                "subscribed_at",
+                "title",
+                "updated_at",
+                "url"
+              ],
+              "type": "object"
+            },
+            "success": {
+              "enum": [
+                true
+              ],
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "messages",
+            "result",
+            "success"
           ],
           "type": "object"
         },
@@ -1060,174 +1360,65 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
-        "count": {
-          "type": "integer"
-        },
-        "custom_feed_count": {
-          "type": "integer"
-        },
-        "custom_feed_limit": {
-          "type": "integer"
-        },
-        "feeds": {
+        "errors": {
           "items": {
             "properties": {
-              "category_id": {
-                "oneOf": [
-                  {
-                    "type": "string"
-                  },
-                  {
-                    "type": "null"
-                  }
-                ]
-              },
-              "category_name": {
-                "oneOf": [
-                  {
-                    "type": "string"
-                  },
-                  {
-                    "type": "null"
-                  }
-                ]
-              },
-              "created_at": {
-                "type": "string"
-              },
-              "curated_feed_id": {
-                "oneOf": [
-                  {
-                    "type": "string"
-                  },
-                  {
-                    "type": "null"
-                  }
-                ]
-              },
-              "display_name": {
-                "oneOf": [
-                  {
-                    "type": "string"
-                  },
-                  {
-                    "type": "null"
-                  }
-                ]
-              },
-              "enabled": {
-                "type": "boolean"
-              },
-              "id": {
-                "format": "uuid",
-                "type": "string"
-              },
-              "last_polled_at": {
-                "oneOf": [
-                  {
-                    "type": "string"
-                  },
-                  {
-                    "type": "null"
-                  }
-                ]
-              },
-              "poll_interval_s": {
-                "type": "integer"
-              },
-              "source_type": {
-                "type": "string"
-              },
-              "status": {
-                "type": "string"
-              },
-              "subscribed_at": {
-                "oneOf": [
-                  {
-                    "type": "string"
-                  },
-                  {
-                    "type": "null"
-                  }
-                ]
-              },
-              "title": {
-                "oneOf": [
-                  {
-                    "type": "string"
-                  },
-                  {
-                    "type": "null"
-                  }
-                ]
-              },
-              "updated_at": {
-                "type": "string"
-              },
-              "url": {
+              "message": {
                 "type": "string"
               }
             },
             "required": [
-              "category_id",
-              "category_name",
-              "created_at",
-              "curated_feed_id",
-              "display_name",
-              "enabled",
-              "id",
-              "last_polled_at",
-              "poll_interval_s",
-              "source_type",
-              "status",
-              "subscribed_at",
-              "title",
-              "updated_at",
-              "url"
+              "message"
             ],
             "type": "object"
           },
           "type": "array"
         },
-        "page": {
-          "type": "integer"
+        "messages": {
+          "items": {
+            "properties": {
+              "code": {
+                "type": "number"
+              },
+              "custom_feed_count": {
+                "type": "integer"
+              },
+              "custom_feed_limit": {
+                "type": "integer"
+              },
+              "expected": {
+                "type": "string"
+              },
+              "message": {
+                "type": "string"
+              },
+              "path": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "reason": {
+                "enum": [
+                  "threat_signals_feed_limit",
+                  "free_custom_skills_disabled",
+                  "free_skill_run_disabled",
+                  "free_tier_reconciliation_in_progress",
+                  "free_tier_reconciliation_failed",
+                  "raw_content_expired",
+                  "curated_visibility_changed"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "message"
+            ],
+            "type": "object"
+          },
+          "type": "array"
         },
-        "per_page": {
-          "type": "integer"
-        },
-        "total_count": {
-          "type": "integer"
-        }
-      },
-      "required": [
-        "count",
-        "custom_feed_count",
-        "custom_feed_limit",
-        "feeds",
-        "page",
-        "per_page",
-        "total_count"
-      ],
-      "type": "object",
-    },
-    annotations: {
-      "destructiveHint": false,
-      "idempotentHint": true,
-      "openWorldHint": true,
-      "readOnlyHint": true,
-      "title": "List Threat Signals feeds"
-    },
-    method: "GET",
-    path: "/accounts/{account_id}/cloudforce-one/v2/threat-signals/feeds",
-    extensions: {
-      "x-api-token-group": [
-        "Cloudforce One Write",
-        "Cloudforce One Read"
-      ]
-    },
-    responses: {
-      schemas: {
-        "200": {
+        "result": {
           "properties": {
             "count": {
               "type": "integer"
@@ -1376,6 +1567,265 @@ export const tools: readonly Tool[] = [
             "page",
             "per_page",
             "total_count"
+          ],
+          "type": "object"
+        },
+        "success": {
+          "enum": [
+            true
+          ],
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "errors",
+        "messages",
+        "result",
+        "success"
+      ],
+      "type": "object",
+    },
+    annotations: {
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": true,
+      "readOnlyHint": true,
+      "title": "List Threat Signals feeds"
+    },
+    method: "GET",
+    path: "/accounts/{account_id}/cloudforce-one/v2/threat-signals/feeds",
+    extensions: {
+      "x-api-token-group": [
+        "Cloudforce One Write",
+        "Cloudforce One Read"
+      ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "messages": {
+              "items": {
+                "properties": {
+                  "code": {
+                    "type": "number"
+                  },
+                  "custom_feed_count": {
+                    "type": "integer"
+                  },
+                  "custom_feed_limit": {
+                    "type": "integer"
+                  },
+                  "expected": {
+                    "type": "string"
+                  },
+                  "message": {
+                    "type": "string"
+                  },
+                  "path": {
+                    "items": {
+                      "type": "string"
+                    },
+                    "type": "array"
+                  },
+                  "reason": {
+                    "enum": [
+                      "threat_signals_feed_limit",
+                      "free_custom_skills_disabled",
+                      "free_skill_run_disabled",
+                      "free_tier_reconciliation_in_progress",
+                      "free_tier_reconciliation_failed",
+                      "raw_content_expired",
+                      "curated_visibility_changed"
+                    ],
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result": {
+              "properties": {
+                "count": {
+                  "type": "integer"
+                },
+                "custom_feed_count": {
+                  "type": "integer"
+                },
+                "custom_feed_limit": {
+                  "type": "integer"
+                },
+                "feeds": {
+                  "items": {
+                    "properties": {
+                      "category_id": {
+                        "oneOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "category_name": {
+                        "oneOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "created_at": {
+                        "type": "string"
+                      },
+                      "curated_feed_id": {
+                        "oneOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "display_name": {
+                        "oneOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "enabled": {
+                        "type": "boolean"
+                      },
+                      "id": {
+                        "format": "uuid",
+                        "type": "string"
+                      },
+                      "last_polled_at": {
+                        "oneOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "poll_interval_s": {
+                        "type": "integer"
+                      },
+                      "source_type": {
+                        "type": "string"
+                      },
+                      "status": {
+                        "type": "string"
+                      },
+                      "subscribed_at": {
+                        "oneOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "title": {
+                        "oneOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "updated_at": {
+                        "type": "string"
+                      },
+                      "url": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "category_id",
+                      "category_name",
+                      "created_at",
+                      "curated_feed_id",
+                      "display_name",
+                      "enabled",
+                      "id",
+                      "last_polled_at",
+                      "poll_interval_s",
+                      "source_type",
+                      "status",
+                      "subscribed_at",
+                      "title",
+                      "updated_at",
+                      "url"
+                    ],
+                    "type": "object"
+                  },
+                  "type": "array"
+                },
+                "page": {
+                  "type": "integer"
+                },
+                "per_page": {
+                  "type": "integer"
+                },
+                "total_count": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "count",
+                "custom_feed_count",
+                "custom_feed_limit",
+                "feeds",
+                "page",
+                "per_page",
+                "total_count"
+              ],
+              "type": "object"
+            },
+            "success": {
+              "enum": [
+                true
+              ],
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "messages",
+            "result",
+            "success"
           ],
           "type": "object"
         },
@@ -1537,66 +1987,20 @@ export const tools: readonly Tool[] = [
     outputSchema: {
       "properties": {
         "errors": {
-          "type": "number"
-        },
-        "feeds": {
           "items": {
             "properties": {
-              "feed_enabled": {
-                "type": "boolean"
-              },
-              "feed_id": {
-                "format": "uuid",
-                "type": "string"
-              },
-              "status": {
-                "enum": [
-                  "workflow_created",
-                  "error"
-                ],
-                "type": "string"
-              },
-              "workflow_id": {
+              "message": {
                 "type": "string"
               }
             },
             "required": [
-              "feed_id",
-              "status",
-              "workflow_id"
+              "message"
             ],
             "type": "object"
           },
           "type": "array"
         },
-        "triggered": {
-          "type": "number"
-        }
-      },
-      "required": [
-        "errors",
-        "feeds",
-        "triggered"
-      ],
-      "type": "object",
-    },
-    annotations: {
-      "destructiveHint": false,
-      "idempotentHint": false,
-      "openWorldHint": true,
-      "readOnlyHint": false,
-      "title": "Trigger Threat Signals feed poll"
-    },
-    method: "POST",
-    path: "/accounts/{account_id}/cloudforce-one/v2/threat-signals/feeds/poll",
-    extensions: {
-      "x-api-token-group": [
-        "Cloudforce One Write"
-      ]
-    },
-    responses: {
-      schemas: {
-        "200": {
+        "result": {
           "properties": {
             "errors": {
               "type": "number"
@@ -1639,6 +2043,112 @@ export const tools: readonly Tool[] = [
             "errors",
             "feeds",
             "triggered"
+          ],
+          "type": "object"
+        },
+        "success": {
+          "enum": [
+            true
+          ],
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "errors",
+        "result",
+        "success"
+      ],
+      "type": "object",
+    },
+    annotations: {
+      "destructiveHint": false,
+      "idempotentHint": false,
+      "openWorldHint": true,
+      "readOnlyHint": false,
+      "title": "Trigger Threat Signals feed poll"
+    },
+    method: "POST",
+    path: "/accounts/{account_id}/cloudforce-one/v2/threat-signals/feeds/poll",
+    extensions: {
+      "x-api-token-group": [
+        "Cloudforce One Write"
+      ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result": {
+              "properties": {
+                "errors": {
+                  "type": "number"
+                },
+                "feeds": {
+                  "items": {
+                    "properties": {
+                      "feed_enabled": {
+                        "type": "boolean"
+                      },
+                      "feed_id": {
+                        "format": "uuid",
+                        "type": "string"
+                      },
+                      "status": {
+                        "enum": [
+                          "workflow_created",
+                          "error"
+                        ],
+                        "type": "string"
+                      },
+                      "workflow_id": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "feed_id",
+                      "status",
+                      "workflow_id"
+                    ],
+                    "type": "object"
+                  },
+                  "type": "array"
+                },
+                "triggered": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "errors",
+                "feeds",
+                "triggered"
+              ],
+              "type": "object"
+            },
+            "success": {
+              "enum": [
+                true
+              ],
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "result",
+            "success"
           ],
           "type": "object"
         },
@@ -1731,138 +2241,65 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
-        "category_id": {
-          "oneOf": [
-            {
-              "type": "string"
+        "errors": {
+          "items": {
+            "properties": {
+              "message": {
+                "type": "string"
+              }
             },
-            {
-              "type": "null"
-            }
-          ]
+            "required": [
+              "message"
+            ],
+            "type": "object"
+          },
+          "type": "array"
         },
-        "category_name": {
-          "oneOf": [
-            {
-              "type": "string"
+        "messages": {
+          "items": {
+            "properties": {
+              "code": {
+                "type": "number"
+              },
+              "custom_feed_count": {
+                "type": "integer"
+              },
+              "custom_feed_limit": {
+                "type": "integer"
+              },
+              "expected": {
+                "type": "string"
+              },
+              "message": {
+                "type": "string"
+              },
+              "path": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "reason": {
+                "enum": [
+                  "threat_signals_feed_limit",
+                  "free_custom_skills_disabled",
+                  "free_skill_run_disabled",
+                  "free_tier_reconciliation_in_progress",
+                  "free_tier_reconciliation_failed",
+                  "raw_content_expired",
+                  "curated_visibility_changed"
+                ],
+                "type": "string"
+              }
             },
-            {
-              "type": "null"
-            }
-          ]
+            "required": [
+              "message"
+            ],
+            "type": "object"
+          },
+          "type": "array"
         },
-        "created_at": {
-          "type": "string"
-        },
-        "curated_feed_id": {
-          "oneOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "display_name": {
-          "oneOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "enabled": {
-          "type": "boolean"
-        },
-        "id": {
-          "format": "uuid",
-          "type": "string"
-        },
-        "last_polled_at": {
-          "oneOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "poll_interval_s": {
-          "type": "integer"
-        },
-        "source_type": {
-          "type": "string"
-        },
-        "status": {
-          "type": "string"
-        },
-        "subscribed_at": {
-          "oneOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "title": {
-          "oneOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "updated_at": {
-          "type": "string"
-        },
-        "url": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "category_id",
-        "category_name",
-        "created_at",
-        "curated_feed_id",
-        "display_name",
-        "enabled",
-        "id",
-        "last_polled_at",
-        "poll_interval_s",
-        "source_type",
-        "status",
-        "subscribed_at",
-        "title",
-        "updated_at",
-        "url"
-      ],
-      "type": "object",
-    },
-    annotations: {
-      "destructiveHint": false,
-      "idempotentHint": false,
-      "openWorldHint": true,
-      "readOnlyHint": false,
-      "title": "Update Threat Signals feed"
-    },
-    method: "PATCH",
-    path: "/accounts/{account_id}/cloudforce-one/v2/threat-signals/feeds/{feed_id}",
-    extensions: {
-      "x-api-token-group": [
-        "Cloudforce One Write"
-      ]
-    },
-    responses: {
-      schemas: {
-        "200": {
+        "result": {
           "properties": {
             "category_id": {
               "oneOf": [
@@ -1976,6 +2413,229 @@ export const tools: readonly Tool[] = [
             "title",
             "updated_at",
             "url"
+          ],
+          "type": "object"
+        },
+        "success": {
+          "enum": [
+            true
+          ],
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "errors",
+        "messages",
+        "result",
+        "success"
+      ],
+      "type": "object",
+    },
+    annotations: {
+      "destructiveHint": false,
+      "idempotentHint": false,
+      "openWorldHint": true,
+      "readOnlyHint": false,
+      "title": "Update Threat Signals feed"
+    },
+    method: "PATCH",
+    path: "/accounts/{account_id}/cloudforce-one/v2/threat-signals/feeds/{feed_id}",
+    extensions: {
+      "x-api-token-group": [
+        "Cloudforce One Write"
+      ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "messages": {
+              "items": {
+                "properties": {
+                  "code": {
+                    "type": "number"
+                  },
+                  "custom_feed_count": {
+                    "type": "integer"
+                  },
+                  "custom_feed_limit": {
+                    "type": "integer"
+                  },
+                  "expected": {
+                    "type": "string"
+                  },
+                  "message": {
+                    "type": "string"
+                  },
+                  "path": {
+                    "items": {
+                      "type": "string"
+                    },
+                    "type": "array"
+                  },
+                  "reason": {
+                    "enum": [
+                      "threat_signals_feed_limit",
+                      "free_custom_skills_disabled",
+                      "free_skill_run_disabled",
+                      "free_tier_reconciliation_in_progress",
+                      "free_tier_reconciliation_failed",
+                      "raw_content_expired",
+                      "curated_visibility_changed"
+                    ],
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result": {
+              "properties": {
+                "category_id": {
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "category_name": {
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "created_at": {
+                  "type": "string"
+                },
+                "curated_feed_id": {
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "display_name": {
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "enabled": {
+                  "type": "boolean"
+                },
+                "id": {
+                  "format": "uuid",
+                  "type": "string"
+                },
+                "last_polled_at": {
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "poll_interval_s": {
+                  "type": "integer"
+                },
+                "source_type": {
+                  "type": "string"
+                },
+                "status": {
+                  "type": "string"
+                },
+                "subscribed_at": {
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "title": {
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "updated_at": {
+                  "type": "string"
+                },
+                "url": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "category_id",
+                "category_name",
+                "created_at",
+                "curated_feed_id",
+                "display_name",
+                "enabled",
+                "id",
+                "last_polled_at",
+                "poll_interval_s",
+                "source_type",
+                "status",
+                "subscribed_at",
+                "title",
+                "updated_at",
+                "url"
+              ],
+              "type": "object"
+            },
+            "success": {
+              "enum": [
+                true
+              ],
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "messages",
+            "result",
+            "success"
           ],
           "type": "object"
         },

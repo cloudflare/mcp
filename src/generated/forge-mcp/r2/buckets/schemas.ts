@@ -18,11 +18,3 @@ export const r2_bucket_location: JsonSchema = {
   ],
   "type": "string"
 };
-
-/**
- * The schema of `r2_bucket_name`.
- */
-export const r2_bucket_name: JsonSchema = {
-  "description": "Name of the bucket.",
-  "type": "string"
-};

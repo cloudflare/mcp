@@ -65,3 +65,39 @@ export const security_center_auditLog_output: JsonSchema = {
   },
   "type": "object"
 };
+
+/**
+ * The schema of `security-center_auditLogResponse` in responses.
+ */
+export const security_center_auditLogResponse_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/security-center_api-response-common"
+    },
+    {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/security-center_auditLog"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "properties": {
+            "count": {
+              "type": "integer"
+            },
+            "cursor": {
+              "type": "string"
+            },
+            "per_page": {
+              "type": "integer"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};

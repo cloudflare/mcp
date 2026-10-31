@@ -3,17 +3,23 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
+  client_side_security_api_get_response_collection_output,
+  client_side_security_api_list_response_collection_output,
   client_side_security_api_response_common_failure_output,
+  client_side_security_api_response_common_output,
   client_side_security_id_output,
   client_side_security_messages_output,
   client_side_security_result_info_output,
 } from "../outputs.js";
+import { client_side_security_id } from "../schemas.js";
 import {
   client_side_security_cryptomining_score_output,
   client_side_security_dataflow_score_output,
   client_side_security_fetched_at_output,
+  client_side_security_get_zone_script_response_output,
   client_side_security_hash_output,
   client_side_security_js_integrity_score_output,
+  client_side_security_list_zone_scripts_response_output,
   client_side_security_magecart_score_output,
   client_side_security_malware_score_output,
   client_side_security_obfuscation_score_output,
@@ -33,52 +39,37 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "script_id": {
-          "description": "Identifier",
-          "type": "string"
+          "$ref": "#/$defs/client-side-security_id",
+          "description": "Identifier"
         },
         "zone_id": {
-          "description": "Identifier",
-          "type": "string"
+          "$ref": "#/$defs/client-side-security_id",
+          "description": "Identifier"
         }
       },
       required: [
         "zone_id",
         "script_id"
       ],
+      $defs: {
+        "client-side-security_id": client_side_security_id,
+      },
     },
     outputSchema: {
-      "allOf": [
-        {
-          "$ref": "#/$defs/client-side-security_script"
-        },
-        {
-          "properties": {
-            "versions": {
-              "oneOf": [
-                {
-                  "items": {
-                    "$ref": "#/$defs/client-side-security_version"
-                  },
-                  "type": "array"
-                },
-                {
-                  "type": "null"
-                }
-              ]
-            }
-          },
-          "type": "object"
-        }
-      ],
+      "$ref": "#/$defs/client-side-security_get-zone-script-response",
       $defs: {
+        "client-side-security_api-get-response-collection": client_side_security_api_get_response_collection_output,
+        "client-side-security_api-response-common": client_side_security_api_response_common_output,
         "client-side-security_cryptomining_score": client_side_security_cryptomining_score_output,
         "client-side-security_dataflow_score": client_side_security_dataflow_score_output,
         "client-side-security_fetched_at": client_side_security_fetched_at_output,
+        "client-side-security_get-zone-script-response": client_side_security_get_zone_script_response_output,
         "client-side-security_hash": client_side_security_hash_output,
         "client-side-security_id": client_side_security_id_output,
         "client-side-security_js_integrity_score": client_side_security_js_integrity_score_output,
         "client-side-security_magecart_score": client_side_security_magecart_score_output,
         "client-side-security_malware_score": client_side_security_malware_score_output,
+        "client-side-security_messages": client_side_security_messages_output,
         "client-side-security_obfuscation_score": client_side_security_obfuscation_score_output,
         "client-side-security_script": client_side_security_script_output,
         "client-side-security_version": client_side_security_version_output,
@@ -112,39 +103,20 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "allOf": [
-            {
-              "$ref": "#/$defs/client-side-security_script"
-            },
-            {
-              "properties": {
-                "versions": {
-                  "oneOf": [
-                    {
-                      "items": {
-                        "$ref": "#/$defs/client-side-security_version"
-                      },
-                      "type": "array"
-                    },
-                    {
-                      "type": "null"
-                    }
-                  ]
-                }
-              },
-              "type": "object"
-            }
-          ]
+          "$ref": "#/$defs/client-side-security_get-zone-script-response"
         },
         "4XX": {
           "$ref": "#/$defs/client-side-security_api-response-common-failure"
         }
       },
       $defs: {
+        "client-side-security_api-get-response-collection": client_side_security_api_get_response_collection_output,
+        "client-side-security_api-response-common": client_side_security_api_response_common_output,
         "client-side-security_api-response-common-failure": client_side_security_api_response_common_failure_output,
         "client-side-security_cryptomining_score": client_side_security_cryptomining_score_output,
         "client-side-security_dataflow_score": client_side_security_dataflow_score_output,
         "client-side-security_fetched_at": client_side_security_fetched_at_output,
+        "client-side-security_get-zone-script-response": client_side_security_get_zone_script_response_output,
         "client-side-security_hash": client_side_security_hash_output,
         "client-side-security_id": client_side_security_id_output,
         "client-side-security_js_integrity_score": client_side_security_js_integrity_score_output,
@@ -233,39 +205,32 @@ export const tools: readonly Tool[] = [
           "type": "string"
         },
         "zone_id": {
-          "description": "Identifier",
-          "type": "string"
+          "$ref": "#/$defs/client-side-security_id",
+          "description": "Identifier"
         }
       },
       required: [
         "zone_id"
       ],
+      $defs: {
+        "client-side-security_id": client_side_security_id,
+      },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "$ref": "#/$defs/client-side-security_script"
-          },
-          "type": "array"
-        },
-        "result_info": {
-          "$ref": "#/$defs/client-side-security_result_info"
-        }
-      },
-      "required": [
-        "result"
-      ],
-      "type": "object",
+      "$ref": "#/$defs/client-side-security_list-zone-scripts-response",
       $defs: {
+        "client-side-security_api-list-response-collection": client_side_security_api_list_response_collection_output,
+        "client-side-security_api-response-common": client_side_security_api_response_common_output,
         "client-side-security_cryptomining_score": client_side_security_cryptomining_score_output,
         "client-side-security_dataflow_score": client_side_security_dataflow_score_output,
         "client-side-security_fetched_at": client_side_security_fetched_at_output,
         "client-side-security_hash": client_side_security_hash_output,
         "client-side-security_id": client_side_security_id_output,
         "client-side-security_js_integrity_score": client_side_security_js_integrity_score_output,
+        "client-side-security_list-zone-scripts-response": client_side_security_list_zone_scripts_response_output,
         "client-side-security_magecart_score": client_side_security_magecart_score_output,
         "client-side-security_malware_score": client_side_security_malware_score_output,
+        "client-side-security_messages": client_side_security_messages_output,
         "client-side-security_obfuscation_score": client_side_security_obfuscation_score_output,
         "client-side-security_result_info": client_side_security_result_info_output,
         "client-side-security_script": client_side_security_script_output,
@@ -299,27 +264,15 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "items": {
-                "$ref": "#/$defs/client-side-security_script"
-              },
-              "type": "array"
-            },
-            "result_info": {
-              "$ref": "#/$defs/client-side-security_result_info"
-            }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/client-side-security_list-zone-scripts-response"
         },
         "4XX": {
           "$ref": "#/$defs/client-side-security_api-response-common-failure"
         }
       },
       $defs: {
+        "client-side-security_api-list-response-collection": client_side_security_api_list_response_collection_output,
+        "client-side-security_api-response-common": client_side_security_api_response_common_output,
         "client-side-security_api-response-common-failure": client_side_security_api_response_common_failure_output,
         "client-side-security_cryptomining_score": client_side_security_cryptomining_score_output,
         "client-side-security_dataflow_score": client_side_security_dataflow_score_output,
@@ -327,6 +280,7 @@ export const tools: readonly Tool[] = [
         "client-side-security_hash": client_side_security_hash_output,
         "client-side-security_id": client_side_security_id_output,
         "client-side-security_js_integrity_score": client_side_security_js_integrity_score_output,
+        "client-side-security_list-zone-scripts-response": client_side_security_list_zone_scripts_response_output,
         "client-side-security_magecart_score": client_side_security_magecart_score_output,
         "client-side-security_malware_score": client_side_security_malware_score_output,
         "client-side-security_messages": client_side_security_messages_output,

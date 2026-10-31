@@ -4,10 +4,13 @@
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
   load_balancing_api_response_common_failure_output,
+  load_balancing_api_response_common_output,
+  load_balancing_api_response_single_output,
+  load_balancing_health_details_output,
   load_balancing_identifier_output,
   load_balancing_messages_output,
-  load_balancing_origin_health_ip_output,
   load_balancing_origin_health_output,
+  load_balancing_preview_response_output,
 } from "../../../outputs.js";
 import {
   load_balancing_allow_insecure,
@@ -25,9 +28,11 @@ import {
   load_balancing_port,
   load_balancing_probe_zone,
   load_balancing_retries,
+  load_balancing_schemas_identifier,
   load_balancing_timeout,
   load_balancing_type,
 } from "../../../schemas.js";
+import { load_balancing_components_schemas_identifier } from "../../schemas.js";
 
 /**
  * The tools of `load_balancers.pools.health`.
@@ -41,14 +46,14 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/load-balancing_components-schemas-identifier",
+          "description": "Identifier."
         },
         "body": {
           "$ref": "#/$defs/load-balancing_monitor-editable"
         },
         "pool_id": {
-          "type": "string"
+          "$ref": "#/$defs/load-balancing_schemas-identifier"
         }
       },
       required: [
@@ -58,6 +63,7 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "load-balancing_allow_insecure": load_balancing_allow_insecure,
+        "load-balancing_components-schemas-identifier": load_balancing_components_schemas_identifier,
         "load-balancing_consecutive_down": load_balancing_consecutive_down,
         "load-balancing_consecutive_up": load_balancing_consecutive_up,
         "load-balancing_description": load_balancing_description,
@@ -72,25 +78,19 @@ export const tools: readonly Tool[] = [
         "load-balancing_port": load_balancing_port,
         "load-balancing_probe_zone": load_balancing_probe_zone,
         "load-balancing_retries": load_balancing_retries,
+        "load-balancing_schemas-identifier": load_balancing_schemas_identifier,
         "load-balancing_timeout": load_balancing_timeout,
         "load-balancing_type": load_balancing_type,
       },
     },
     outputSchema: {
-      "properties": {
-        "pools": {
-          "additionalProperties": {
-            "type": "string"
-          },
-          "type": "object"
-        },
-        "preview_id": {
-          "$ref": "#/$defs/load-balancing_identifier"
-        }
-      },
-      "type": "object",
+      "$ref": "#/$defs/load-balancing_preview_response",
       $defs: {
+        "load-balancing_api-response-common": load_balancing_api_response_common_output,
+        "load-balancing_api-response-single": load_balancing_api_response_single_output,
         "load-balancing_identifier": load_balancing_identifier_output,
+        "load-balancing_messages": load_balancing_messages_output,
+        "load-balancing_preview_response": load_balancing_preview_response_output,
       },
     },
     annotations: {
@@ -105,27 +105,19 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "pools": {
-              "additionalProperties": {
-                "type": "string"
-              },
-              "type": "object"
-            },
-            "preview_id": {
-              "$ref": "#/$defs/load-balancing_identifier"
-            }
-          },
-          "type": "object"
+          "$ref": "#/$defs/load-balancing_preview_response"
         },
         "4XX": {
           "$ref": "#/$defs/load-balancing_api-response-common-failure"
         }
       },
       $defs: {
+        "load-balancing_api-response-common": load_balancing_api_response_common_output,
         "load-balancing_api-response-common-failure": load_balancing_api_response_common_failure_output,
+        "load-balancing_api-response-single": load_balancing_api_response_single_output,
         "load-balancing_identifier": load_balancing_identifier_output,
         "load-balancing_messages": load_balancing_messages_output,
+        "load-balancing_preview_response": load_balancing_preview_response_output,
       },
     },
     request: (args) => ({
@@ -141,42 +133,30 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/load-balancing_components-schemas-identifier",
+          "description": "Identifier."
         },
         "pool_id": {
-          "type": "string"
+          "$ref": "#/$defs/load-balancing_schemas-identifier"
         }
       },
       required: [
         "account_id",
         "pool_id"
       ],
+      $defs: {
+        "load-balancing_components-schemas-identifier": load_balancing_components_schemas_identifier,
+        "load-balancing_schemas-identifier": load_balancing_schemas_identifier,
+      },
     },
     outputSchema: {
-      "properties": {
-        "pool_id": {
-          "type": "string"
-        },
-        "pop_health": {
-          "properties": {
-            "healthy": {
-              "type": "boolean"
-            },
-            "origins": {
-              "items": {
-                "$ref": "#/$defs/load-balancing_origin-health"
-              },
-              "type": "array"
-            }
-          },
-          "type": "object"
-        }
-      },
-      "type": "object",
+      "$ref": "#/$defs/load-balancing_health_details",
       $defs: {
+        "load-balancing_api-response-common": load_balancing_api_response_common_output,
+        "load-balancing_api-response-single": load_balancing_api_response_single_output,
+        "load-balancing_health_details": load_balancing_health_details_output,
+        "load-balancing_messages": load_balancing_messages_output,
         "load-balancing_origin-health": load_balancing_origin_health_output,
-        "load-balancing_origin-health_ip": load_balancing_origin_health_ip_output,
       },
     },
     annotations: {
@@ -197,36 +177,19 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "pool_id": {
-              "type": "string"
-            },
-            "pop_health": {
-              "properties": {
-                "healthy": {
-                  "type": "boolean"
-                },
-                "origins": {
-                  "items": {
-                    "$ref": "#/$defs/load-balancing_origin-health"
-                  },
-                  "type": "array"
-                }
-              },
-              "type": "object"
-            }
-          },
-          "type": "object"
+          "$ref": "#/$defs/load-balancing_health_details"
         },
         "4XX": {
           "$ref": "#/$defs/load-balancing_api-response-common-failure"
         }
       },
       $defs: {
+        "load-balancing_api-response-common": load_balancing_api_response_common_output,
         "load-balancing_api-response-common-failure": load_balancing_api_response_common_failure_output,
+        "load-balancing_api-response-single": load_balancing_api_response_single_output,
+        "load-balancing_health_details": load_balancing_health_details_output,
         "load-balancing_messages": load_balancing_messages_output,
         "load-balancing_origin-health": load_balancing_origin_health_output,
-        "load-balancing_origin-health_ip": load_balancing_origin_health_ip_output,
       },
     },
     request: (args) => ({

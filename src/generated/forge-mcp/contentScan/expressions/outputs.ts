@@ -4,6 +4,36 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
+ * The schema of `waf-product-api-bundle_api-response-collection-2` in
+ * responses.
+ */
+export const waf_product_api_bundle_api_response_collection_2_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/waf-product-api-bundle_api-response-common-2"
+    },
+    {
+      "properties": {
+        "result": {
+          "oneOf": [
+            {
+              "items": {
+                "type": "object"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
  * The schema of `waf-product-api-bundle_custom-scan` in responses.
  */
 export const waf_product_api_bundle_custom_scan_output: JsonSchema = {
@@ -37,31 +67,20 @@ export const waf_product_api_bundle_custom_scan_payload_output: JsonSchema = {
  * responses.
  */
 export const waf_product_api_bundle_response_custom_scan_collection_output: JsonSchema = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/waf-product-api-bundle_messages"
+  "allOf": [
+    {
+      "$ref": "#/$defs/waf-product-api-bundle_api-response-collection-2"
     },
-    "messages": {
-      "$ref": "#/$defs/waf-product-api-bundle_messages"
-    },
-    "result": {
-      "items": {
-        "$ref": "#/$defs/waf-product-api-bundle_custom-scan"
+    {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/waf-product-api-bundle_custom-scan"
+          },
+          "type": "array"
+        }
       },
-      "type": "array"
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
+      "type": "object"
     }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "result",
-    "success"
-  ],
-  "type": "object"
+  ]
 };

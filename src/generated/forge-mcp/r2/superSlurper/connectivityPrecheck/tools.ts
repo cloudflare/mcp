@@ -6,6 +6,7 @@ import {
   r2_slurper_api_v4_error_output,
   r2_slurper_api_v4_failure_output,
   r2_slurper_api_v4_message_output,
+  r2_slurper_api_v4_success_output,
 } from "../outputs.js";
 import {
   r2_slurper_GCSLikeCredsSchema,
@@ -52,9 +53,24 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/r2-slurper_ConnectivityResponse",
+      "allOf": [
+        {
+          "$ref": "#/$defs/r2-slurper_api-v4-success"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/r2-slurper_ConnectivityResponse"
+            }
+          },
+          "type": "object"
+        }
+      ],
       $defs: {
         "r2-slurper_ConnectivityResponse": r2_slurper_ConnectivityResponse_output,
+        "r2-slurper_api-v4-error": r2_slurper_api_v4_error_output,
+        "r2-slurper_api-v4-message": r2_slurper_api_v4_message_output,
+        "r2-slurper_api-v4-success": r2_slurper_api_v4_success_output,
       },
     },
     annotations: {
@@ -69,7 +85,19 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/r2-slurper_ConnectivityResponse"
+          "allOf": [
+            {
+              "$ref": "#/$defs/r2-slurper_api-v4-success"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/r2-slurper_ConnectivityResponse"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/r2-slurper_api-v4-failure"
@@ -80,6 +108,7 @@ export const tools: readonly Tool[] = [
         "r2-slurper_api-v4-error": r2_slurper_api_v4_error_output,
         "r2-slurper_api-v4-failure": r2_slurper_api_v4_failure_output,
         "r2-slurper_api-v4-message": r2_slurper_api_v4_message_output,
+        "r2-slurper_api-v4-success": r2_slurper_api_v4_success_output,
       },
     },
     request: (args) => ({
@@ -112,9 +141,24 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/r2-slurper_ConnectivityResponse",
+      "allOf": [
+        {
+          "$ref": "#/$defs/r2-slurper_api-v4-success"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/r2-slurper_ConnectivityResponse"
+            }
+          },
+          "type": "object"
+        }
+      ],
       $defs: {
         "r2-slurper_ConnectivityResponse": r2_slurper_ConnectivityResponse_output,
+        "r2-slurper_api-v4-error": r2_slurper_api_v4_error_output,
+        "r2-slurper_api-v4-message": r2_slurper_api_v4_message_output,
+        "r2-slurper_api-v4-success": r2_slurper_api_v4_success_output,
       },
     },
     annotations: {
@@ -129,7 +173,19 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/r2-slurper_ConnectivityResponse"
+          "allOf": [
+            {
+              "$ref": "#/$defs/r2-slurper_api-v4-success"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/r2-slurper_ConnectivityResponse"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/r2-slurper_api-v4-failure"
@@ -140,6 +196,7 @@ export const tools: readonly Tool[] = [
         "r2-slurper_api-v4-error": r2_slurper_api_v4_error_output,
         "r2-slurper_api-v4-failure": r2_slurper_api_v4_failure_output,
         "r2-slurper_api-v4-message": r2_slurper_api_v4_message_output,
+        "r2-slurper_api-v4-success": r2_slurper_api_v4_success_output,
       },
     },
     request: (args) => ({

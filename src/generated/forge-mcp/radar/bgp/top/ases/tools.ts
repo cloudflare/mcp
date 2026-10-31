@@ -86,87 +86,7 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
-        "meta": {
-          "properties": {
-            "dateRange": {
-              "items": {
-                "properties": {
-                  "endTime": {
-                    "format": "date-time",
-                    "type": "string"
-                  },
-                  "startTime": {
-                    "format": "date-time",
-                    "type": "string"
-                  }
-                },
-                "required": [
-                  "endTime",
-                  "startTime"
-                ],
-                "type": "object"
-              },
-              "type": "array"
-            }
-          },
-          "required": [
-            "dateRange"
-          ],
-          "type": "object"
-        },
-        "top_0": {
-          "items": {
-            "properties": {
-              "ASName": {
-                "type": "string"
-              },
-              "asn": {
-                "type": "integer"
-              },
-              "value": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "ASName",
-              "asn",
-              "value"
-            ],
-            "type": "object"
-          },
-          "type": "array"
-        }
-      },
-      "required": [
-        "meta",
-        "top_0"
-      ],
-      "type": "object",
-    },
-    annotations: {
-      "destructiveHint": false,
-      "idempotentHint": true,
-      "openWorldHint": true,
-      "readOnlyHint": true,
-      "title": "Get top ASes by BGP updates"
-    },
-    method: "GET",
-    path: "/radar/bgp/top/ases",
-    extensions: {
-      "x-api-token-group": [
-        "User Details Write",
-        "User Details Read"
-      ],
-      "x-cfPlanAvailability": {
-        "business": true,
-        "enterprise": true,
-        "free": true,
-        "pro": true
-      }
-    },
-    responses: {
-      schemas: {
-        "200": {
+        "result": {
           "properties": {
             "meta": {
               "properties": {
@@ -222,6 +142,110 @@ export const tools: readonly Tool[] = [
           "required": [
             "meta",
             "top_0"
+          ],
+          "type": "object"
+        },
+        "success": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "result",
+        "success"
+      ],
+      "type": "object",
+    },
+    annotations: {
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": true,
+      "readOnlyHint": true,
+      "title": "Get top ASes by BGP updates"
+    },
+    method: "GET",
+    path: "/radar/bgp/top/ases",
+    extensions: {
+      "x-api-token-group": [
+        "User Details Write",
+        "User Details Read"
+      ],
+      "x-cfPlanAvailability": {
+        "business": true,
+        "enterprise": true,
+        "free": true,
+        "pro": true
+      }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "properties": {
+                "meta": {
+                  "properties": {
+                    "dateRange": {
+                      "items": {
+                        "properties": {
+                          "endTime": {
+                            "format": "date-time",
+                            "type": "string"
+                          },
+                          "startTime": {
+                            "format": "date-time",
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "endTime",
+                          "startTime"
+                        ],
+                        "type": "object"
+                      },
+                      "type": "array"
+                    }
+                  },
+                  "required": [
+                    "dateRange"
+                  ],
+                  "type": "object"
+                },
+                "top_0": {
+                  "items": {
+                    "properties": {
+                      "ASName": {
+                        "type": "string"
+                      },
+                      "asn": {
+                        "type": "integer"
+                      },
+                      "value": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "ASName",
+                      "asn",
+                      "value"
+                    ],
+                    "type": "object"
+                  },
+                  "type": "array"
+                }
+              },
+              "required": [
+                "meta",
+                "top_0"
+              ],
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "result",
+            "success"
           ],
           "type": "object"
         },
@@ -299,82 +323,7 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
-        "asns": {
-          "items": {
-            "properties": {
-              "asn": {
-                "type": "integer"
-              },
-              "country": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "pfxs_count": {
-                "type": "integer"
-              }
-            },
-            "required": [
-              "asn",
-              "country",
-              "name",
-              "pfxs_count"
-            ],
-            "type": "object"
-          },
-          "type": "array"
-        },
-        "meta": {
-          "properties": {
-            "data_time": {
-              "type": "string"
-            },
-            "query_time": {
-              "type": "string"
-            },
-            "total_peers": {
-              "type": "integer"
-            }
-          },
-          "required": [
-            "data_time",
-            "query_time",
-            "total_peers"
-          ],
-          "type": "object"
-        }
-      },
-      "required": [
-        "asns",
-        "meta"
-      ],
-      "type": "object",
-    },
-    annotations: {
-      "destructiveHint": false,
-      "idempotentHint": true,
-      "openWorldHint": true,
-      "readOnlyHint": true,
-      "title": "Get top ASes by prefix count"
-    },
-    method: "GET",
-    path: "/radar/bgp/top/ases/prefixes",
-    extensions: {
-      "x-api-token-group": [
-        "User Details Write",
-        "User Details Read"
-      ],
-      "x-cfPlanAvailability": {
-        "business": true,
-        "enterprise": true,
-        "free": true,
-        "pro": true
-      }
-    },
-    responses: {
-      schemas: {
-        "200": {
+        "result": {
           "properties": {
             "asns": {
               "items": {
@@ -425,6 +374,105 @@ export const tools: readonly Tool[] = [
           "required": [
             "asns",
             "meta"
+          ],
+          "type": "object"
+        },
+        "success": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "result",
+        "success"
+      ],
+      "type": "object",
+    },
+    annotations: {
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": true,
+      "readOnlyHint": true,
+      "title": "Get top ASes by prefix count"
+    },
+    method: "GET",
+    path: "/radar/bgp/top/ases/prefixes",
+    extensions: {
+      "x-api-token-group": [
+        "User Details Write",
+        "User Details Read"
+      ],
+      "x-cfPlanAvailability": {
+        "business": true,
+        "enterprise": true,
+        "free": true,
+        "pro": true
+      }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "properties": {
+                "asns": {
+                  "items": {
+                    "properties": {
+                      "asn": {
+                        "type": "integer"
+                      },
+                      "country": {
+                        "type": "string"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "pfxs_count": {
+                        "type": "integer"
+                      }
+                    },
+                    "required": [
+                      "asn",
+                      "country",
+                      "name",
+                      "pfxs_count"
+                    ],
+                    "type": "object"
+                  },
+                  "type": "array"
+                },
+                "meta": {
+                  "properties": {
+                    "data_time": {
+                      "type": "string"
+                    },
+                    "query_time": {
+                      "type": "string"
+                    },
+                    "total_peers": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "data_time",
+                    "query_time",
+                    "total_peers"
+                  ],
+                  "type": "object"
+                }
+              },
+              "required": [
+                "asns",
+                "meta"
+              ],
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "result",
+            "success"
           ],
           "type": "object"
         },

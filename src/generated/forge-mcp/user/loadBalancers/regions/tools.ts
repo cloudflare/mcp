@@ -4,7 +4,10 @@
 import type { Tool } from "../../../_/tool.js";
 import {
   load_balancing_api_response_common_failure_output,
+  load_balancing_api_response_common_output,
+  load_balancing_api_response_single_output,
   load_balancing_messages_output,
+  load_balancing_region_components_schemas_response_collection_output,
 } from "../../../outputs.js";
 import { load_balancing_subdivision_code_a2 } from "../../../schemas.js";
 
@@ -33,7 +36,13 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "type": "object",
+      "$ref": "#/$defs/load-balancing_region_components-schemas-response_collection",
+      $defs: {
+        "load-balancing_api-response-common": load_balancing_api_response_common_output,
+        "load-balancing_api-response-single": load_balancing_api_response_single_output,
+        "load-balancing_messages": load_balancing_messages_output,
+        "load-balancing_region_components-schemas-response_collection": load_balancing_region_components_schemas_response_collection_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -53,15 +62,18 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "type": "object"
+          "$ref": "#/$defs/load-balancing_region_components-schemas-response_collection"
         },
         "4XX": {
           "$ref": "#/$defs/load-balancing_api-response-common-failure"
         }
       },
       $defs: {
+        "load-balancing_api-response-common": load_balancing_api_response_common_output,
         "load-balancing_api-response-common-failure": load_balancing_api_response_common_failure_output,
+        "load-balancing_api-response-single": load_balancing_api_response_single_output,
         "load-balancing_messages": load_balancing_messages_output,
+        "load-balancing_region_components-schemas-response_collection": load_balancing_region_components_schemas_response_collection_output,
       },
     },
     request: (args) => ({

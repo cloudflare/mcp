@@ -86,28 +86,82 @@ export const cloudflare_k2_K2StreamHttpInput_output: JsonSchema = {
 };
 
 /**
- * The schema of `cloudflare-k2_K2StreamListResponse_result_info` in responses.
+ * The schema of `cloudflare-k2_K2StreamListResponse` in responses.
  */
-export const cloudflare_k2_K2StreamListResponse_result_info_output: JsonSchema = {
+export const cloudflare_k2_K2StreamListResponse_output: JsonSchema = {
   "properties": {
-    "count": {
-      "type": "number"
+    "errors": {
+      "$ref": "#/$defs/cloudflare-k2_workers-k2-messages"
     },
-    "page": {
-      "type": "number"
+    "messages": {
+      "$ref": "#/$defs/cloudflare-k2_workers-k2-messages"
     },
-    "per_page": {
-      "type": "number"
+    "result": {
+      "items": {
+        "$ref": "#/$defs/cloudflare-k2_K2Stream"
+      },
+      "type": "array"
     },
-    "total_count": {
-      "type": "number"
+    "result_info": {
+      "properties": {
+        "count": {
+          "type": "number"
+        },
+        "page": {
+          "type": "number"
+        },
+        "per_page": {
+          "type": "number"
+        },
+        "total_count": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "count",
+        "page",
+        "per_page",
+        "total_count"
+      ],
+      "type": "object"
+    },
+    "success": {
+      "$ref": "#/$defs/cloudflare-k2_workers-k2-common-success"
     }
   },
   "required": [
-    "count",
-    "page",
-    "per_page",
-    "total_count"
+    "errors",
+    "messages",
+    "result",
+    "result_info",
+    "success"
+  ],
+  "type": "object"
+};
+
+/**
+ * The schema of `cloudflare-k2_K2StreamResponse` in responses.
+ */
+export const cloudflare_k2_K2StreamResponse_output: JsonSchema = {
+  "properties": {
+    "errors": {
+      "$ref": "#/$defs/cloudflare-k2_workers-k2-messages"
+    },
+    "messages": {
+      "$ref": "#/$defs/cloudflare-k2_workers-k2-messages"
+    },
+    "result": {
+      "$ref": "#/$defs/cloudflare-k2_K2Stream"
+    },
+    "success": {
+      "$ref": "#/$defs/cloudflare-k2_workers-k2-common-success"
+    }
+  },
+  "required": [
+    "errors",
+    "messages",
+    "result",
+    "success"
   ],
   "type": "object"
 };
@@ -146,6 +200,34 @@ export const cloudflare_k2_K2StreamWorkerBindingInput_output: JsonSchema = {
       "type": "object"
     }
   ]
+};
+
+/**
+ * The schema of `cloudflare-k2_workers-k2-common-success` in responses.
+ */
+export const cloudflare_k2_workers_k2_common_success_output: JsonSchema = {
+  "type": "boolean"
+};
+
+/**
+ * The schema of `cloudflare-k2_workers-k2-messages` in responses.
+ */
+export const cloudflare_k2_workers_k2_messages_output: JsonSchema = {
+  "items": {
+    "properties": {
+      "code": {
+        "type": "integer"
+      },
+      "message": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "message"
+    ],
+    "type": "object"
+  },
+  "type": "array"
 };
 
 /**

@@ -4,16 +4,16 @@
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
   workers_api_response_common_failure_output,
+  workers_api_response_common_output,
+  workers_create_assets_upload_session_response_output,
   workers_messages_output,
 } from "../../../outputs.js";
 import {
   workers_create_assets_upload_session_object,
+  workers_identifier,
   workers_manifest_value,
+  workers_script_name,
 } from "../../../schemas.js";
-import {
-  workers_create_assets_upload_session_response_output,
-  workers_create_assets_upload_session_response_result_output,
-} from "./outputs.js";
 
 /**
  * The tools of `workers.assets.upload`.
@@ -27,15 +27,15 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/workers_identifier",
+          "description": "Identifier."
         },
         "body": {
           "$ref": "#/$defs/workers_create-assets-upload-session-object"
         },
         "script_name": {
-          "description": "Name of the script.",
-          "type": "string"
+          "$ref": "#/$defs/workers_script_name",
+          "description": "Name of the script."
         }
       },
       required: [
@@ -45,25 +45,18 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "workers_create-assets-upload-session-object": workers_create_assets_upload_session_object,
+        "workers_identifier": workers_identifier,
         "workers_manifest-value": workers_manifest_value,
+        "workers_script_name": workers_script_name,
       },
     },
     outputSchema: {
-      "properties": {
-        "buckets": {
-          "items": {
-            "items": {
-              "type": "string"
-            },
-            "type": "array"
-          },
-          "type": "array"
-        },
-        "jwt": {
-          "type": "string"
-        }
+      "$ref": "#/$defs/workers_create-assets-upload-session-response",
+      $defs: {
+        "workers_api-response-common": workers_api_response_common_output,
+        "workers_create-assets-upload-session-response": workers_create_assets_upload_session_response_output,
+        "workers_messages": workers_messages_output,
       },
-      "type": "object",
     },
     annotations: {
       "destructiveHint": false,
@@ -85,21 +78,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "buckets": {
-              "items": {
-                "items": {
-                  "type": "string"
-                },
-                "type": "array"
-              },
-              "type": "array"
-            },
-            "jwt": {
-              "type": "string"
-            }
-          },
-          "type": "object"
+          "$ref": "#/$defs/workers_create-assets-upload-session-response"
         },
         "4XX": {
           "allOf": [
@@ -113,9 +92,9 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
+        "workers_api-response-common": workers_api_response_common_output,
         "workers_api-response-common-failure": workers_api_response_common_failure_output,
         "workers_create-assets-upload-session-response": workers_create_assets_upload_session_response_output,
-        "workers_create-assets-upload-session-response_result": workers_create_assets_upload_session_response_result_output,
         "workers_messages": workers_messages_output,
       },
     },

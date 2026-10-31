@@ -38,41 +38,65 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
-        "created_at": {
-          "format": "date-time",
-          "type": "string"
+        "errors": {
+          "items": {
+            "properties": {
+              "code": {
+                "type": "number"
+              },
+              "documentation_url": {
+                "type": "string"
+              },
+              "message": {
+                "type": "string"
+              },
+              "source": {
+                "properties": {
+                  "pointer": {
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              }
+            },
+            "required": [
+              "code",
+              "message"
+            ],
+            "type": "object"
+          },
+          "type": "array"
         },
-        "id": {
-          "type": "string"
+        "messages": {
+          "items": {
+            "properties": {
+              "code": {
+                "type": "number"
+              },
+              "documentation_url": {
+                "type": "string"
+              },
+              "message": {
+                "type": "string"
+              },
+              "source": {
+                "properties": {
+                  "pointer": {
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              }
+            },
+            "required": [
+              "code",
+              "message"
+            ],
+            "type": "object"
+          },
+          "type": "array"
         },
-        "name": {
-          "type": "string"
-        },
-        "updated_at": {
-          "format": "date-time",
-          "type": "string"
-        }
-      },
-      "required": [
-        "created_at",
-        "id",
-        "name",
-        "updated_at"
-      ],
-      "type": "object",
-    },
-    annotations: {
-      "destructiveHint": false,
-      "idempotentHint": false,
-      "openWorldHint": true,
-      "readOnlyHint": false,
-      "title": "Create a namespace"
-    },
-    method: "POST",
-    path: "/accounts/{account_id}/agent-memory/namespaces",
-    responses: {
-      schemas: {
-        "201": {
+        "result": {
           "properties": {
             "created_at": {
               "format": "date-time",
@@ -94,6 +118,132 @@ export const tools: readonly Tool[] = [
             "id",
             "name",
             "updated_at"
+          ],
+          "type": "object"
+        },
+        "success": {
+          "enum": [
+            true
+          ],
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "errors",
+        "messages",
+        "result",
+        "success"
+      ],
+      "type": "object",
+    },
+    annotations: {
+      "destructiveHint": false,
+      "idempotentHint": false,
+      "openWorldHint": true,
+      "readOnlyHint": false,
+      "title": "Create a namespace"
+    },
+    method: "POST",
+    path: "/accounts/{account_id}/agent-memory/namespaces",
+    responses: {
+      schemas: {
+        "201": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "code": {
+                    "type": "number"
+                  },
+                  "documentation_url": {
+                    "type": "string"
+                  },
+                  "message": {
+                    "type": "string"
+                  },
+                  "source": {
+                    "properties": {
+                      "pointer": {
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "messages": {
+              "items": {
+                "properties": {
+                  "code": {
+                    "type": "number"
+                  },
+                  "documentation_url": {
+                    "type": "string"
+                  },
+                  "message": {
+                    "type": "string"
+                  },
+                  "source": {
+                    "properties": {
+                      "pointer": {
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result": {
+              "properties": {
+                "created_at": {
+                  "format": "date-time",
+                  "type": "string"
+                },
+                "id": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "updated_at": {
+                  "format": "date-time",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "created_at",
+                "id",
+                "name",
+                "updated_at"
+              ],
+              "type": "object"
+            },
+            "success": {
+              "enum": [
+                true
+              ],
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "messages",
+            "result",
+            "success"
           ],
           "type": "object"
         },
@@ -222,66 +372,65 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
-        "content": {
-          "type": "string"
-        },
-        "createdAt": {
-          "format": "date-time",
-          "type": "string"
-        },
-        "id": {
-          "type": "string"
-        },
-        "sessionId": {
-          "oneOf": [
-            {
-              "type": "string"
+        "errors": {
+          "items": {
+            "properties": {
+              "code": {
+                "type": "number"
+              },
+              "documentation_url": {
+                "type": "string"
+              },
+              "message": {
+                "type": "string"
+              },
+              "source": {
+                "properties": {
+                  "pointer": {
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              }
             },
-            {
-              "type": "null"
-            }
-          ]
+            "required": [
+              "code",
+              "message"
+            ],
+            "type": "object"
+          },
+          "type": "array"
         },
-        "summary": {
-          "type": "string"
+        "messages": {
+          "items": {
+            "properties": {
+              "code": {
+                "type": "number"
+              },
+              "documentation_url": {
+                "type": "string"
+              },
+              "message": {
+                "type": "string"
+              },
+              "source": {
+                "properties": {
+                  "pointer": {
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              }
+            },
+            "required": [
+              "code",
+              "message"
+            ],
+            "type": "object"
+          },
+          "type": "array"
         },
-        "type": {
-          "enum": [
-            "fact",
-            "event",
-            "instruction",
-            "task"
-          ],
-          "type": "string"
-        },
-        "updatedAt": {
-          "format": "date-time",
-          "type": "string"
-        }
-      },
-      "required": [
-        "content",
-        "createdAt",
-        "id",
-        "sessionId",
-        "summary",
-        "type",
-        "updatedAt"
-      ],
-      "type": "object",
-    },
-    annotations: {
-      "destructiveHint": true,
-      "idempotentHint": true,
-      "openWorldHint": true,
-      "readOnlyHint": false,
-      "title": "Delete a memory"
-    },
-    method: "DELETE",
-    path: "/accounts/{account_id}/agent-memory/namespaces/{namespace_name}/profiles/{profile_name}/memories/{memory_id}",
-    responses: {
-      schemas: {
-        "200": {
+        "result": {
           "properties": {
             "content": {
               "type": "string"
@@ -328,6 +477,157 @@ export const tools: readonly Tool[] = [
             "summary",
             "type",
             "updatedAt"
+          ],
+          "type": "object"
+        },
+        "success": {
+          "enum": [
+            true
+          ],
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "errors",
+        "messages",
+        "result",
+        "success"
+      ],
+      "type": "object",
+    },
+    annotations: {
+      "destructiveHint": true,
+      "idempotentHint": true,
+      "openWorldHint": true,
+      "readOnlyHint": false,
+      "title": "Delete a memory"
+    },
+    method: "DELETE",
+    path: "/accounts/{account_id}/agent-memory/namespaces/{namespace_name}/profiles/{profile_name}/memories/{memory_id}",
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "code": {
+                    "type": "number"
+                  },
+                  "documentation_url": {
+                    "type": "string"
+                  },
+                  "message": {
+                    "type": "string"
+                  },
+                  "source": {
+                    "properties": {
+                      "pointer": {
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "messages": {
+              "items": {
+                "properties": {
+                  "code": {
+                    "type": "number"
+                  },
+                  "documentation_url": {
+                    "type": "string"
+                  },
+                  "message": {
+                    "type": "string"
+                  },
+                  "source": {
+                    "properties": {
+                      "pointer": {
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result": {
+              "properties": {
+                "content": {
+                  "type": "string"
+                },
+                "createdAt": {
+                  "format": "date-time",
+                  "type": "string"
+                },
+                "id": {
+                  "type": "string"
+                },
+                "sessionId": {
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "summary": {
+                  "type": "string"
+                },
+                "type": {
+                  "enum": [
+                    "fact",
+                    "event",
+                    "instruction",
+                    "task"
+                  ],
+                  "type": "string"
+                },
+                "updatedAt": {
+                  "format": "date-time",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "content",
+                "createdAt",
+                "id",
+                "sessionId",
+                "summary",
+                "type",
+                "updatedAt"
+              ],
+              "type": "object"
+            },
+            "success": {
+              "enum": [
+                true
+              ],
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "messages",
+            "result",
+            "success"
           ],
           "type": "object"
         },
@@ -444,14 +744,89 @@ export const tools: readonly Tool[] = [
       ],
     },
     outputSchema: {
-      "oneOf": [
-        {
-          "type": "object"
+      "properties": {
+        "errors": {
+          "items": {
+            "properties": {
+              "code": {
+                "type": "number"
+              },
+              "documentation_url": {
+                "type": "string"
+              },
+              "message": {
+                "type": "string"
+              },
+              "source": {
+                "properties": {
+                  "pointer": {
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              }
+            },
+            "required": [
+              "code",
+              "message"
+            ],
+            "type": "object"
+          },
+          "type": "array"
         },
-        {
-          "type": "null"
+        "messages": {
+          "items": {
+            "properties": {
+              "code": {
+                "type": "number"
+              },
+              "documentation_url": {
+                "type": "string"
+              },
+              "message": {
+                "type": "string"
+              },
+              "source": {
+                "properties": {
+                  "pointer": {
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              }
+            },
+            "required": [
+              "code",
+              "message"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "result": {
+          "oneOf": [
+            {
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "success": {
+          "enum": [
+            true
+          ],
+          "type": "boolean"
         }
+      },
+      "required": [
+        "errors",
+        "messages",
+        "result",
+        "success"
       ],
+      "type": "object",
     },
     annotations: {
       "destructiveHint": true,
@@ -465,14 +840,89 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "oneOf": [
-            {
-              "type": "object"
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "code": {
+                    "type": "number"
+                  },
+                  "documentation_url": {
+                    "type": "string"
+                  },
+                  "message": {
+                    "type": "string"
+                  },
+                  "source": {
+                    "properties": {
+                      "pointer": {
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
             },
-            {
-              "type": "null"
+            "messages": {
+              "items": {
+                "properties": {
+                  "code": {
+                    "type": "number"
+                  },
+                  "documentation_url": {
+                    "type": "string"
+                  },
+                  "message": {
+                    "type": "string"
+                  },
+                  "source": {
+                    "properties": {
+                      "pointer": {
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result": {
+              "oneOf": [
+                {
+                  "type": "object"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "success": {
+              "enum": [
+                true
+              ],
+              "type": "boolean"
             }
-          ]
+          },
+          "required": [
+            "errors",
+            "messages",
+            "result",
+            "success"
+          ],
+          "type": "object"
         },
         "4XX": {
           "properties": {
@@ -592,14 +1042,89 @@ export const tools: readonly Tool[] = [
       ],
     },
     outputSchema: {
-      "oneOf": [
-        {
-          "type": "object"
+      "properties": {
+        "errors": {
+          "items": {
+            "properties": {
+              "code": {
+                "type": "number"
+              },
+              "documentation_url": {
+                "type": "string"
+              },
+              "message": {
+                "type": "string"
+              },
+              "source": {
+                "properties": {
+                  "pointer": {
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              }
+            },
+            "required": [
+              "code",
+              "message"
+            ],
+            "type": "object"
+          },
+          "type": "array"
         },
-        {
-          "type": "null"
+        "messages": {
+          "items": {
+            "properties": {
+              "code": {
+                "type": "number"
+              },
+              "documentation_url": {
+                "type": "string"
+              },
+              "message": {
+                "type": "string"
+              },
+              "source": {
+                "properties": {
+                  "pointer": {
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              }
+            },
+            "required": [
+              "code",
+              "message"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "result": {
+          "oneOf": [
+            {
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "success": {
+          "enum": [
+            true
+          ],
+          "type": "boolean"
         }
+      },
+      "required": [
+        "errors",
+        "messages",
+        "result",
+        "success"
       ],
+      "type": "object",
     },
     annotations: {
       "destructiveHint": true,
@@ -613,14 +1138,89 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "oneOf": [
-            {
-              "type": "object"
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "code": {
+                    "type": "number"
+                  },
+                  "documentation_url": {
+                    "type": "string"
+                  },
+                  "message": {
+                    "type": "string"
+                  },
+                  "source": {
+                    "properties": {
+                      "pointer": {
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
             },
-            {
-              "type": "null"
+            "messages": {
+              "items": {
+                "properties": {
+                  "code": {
+                    "type": "number"
+                  },
+                  "documentation_url": {
+                    "type": "string"
+                  },
+                  "message": {
+                    "type": "string"
+                  },
+                  "source": {
+                    "properties": {
+                      "pointer": {
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result": {
+              "oneOf": [
+                {
+                  "type": "object"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "success": {
+              "enum": [
+                true
+              ],
+              "type": "boolean"
             }
-          ]
+          },
+          "required": [
+            "errors",
+            "messages",
+            "result",
+            "success"
+          ],
+          "type": "object"
         },
         "4XX": {
           "properties": {
@@ -745,14 +1345,89 @@ export const tools: readonly Tool[] = [
       ],
     },
     outputSchema: {
-      "oneOf": [
-        {
-          "type": "object"
+      "properties": {
+        "errors": {
+          "items": {
+            "properties": {
+              "code": {
+                "type": "number"
+              },
+              "documentation_url": {
+                "type": "string"
+              },
+              "message": {
+                "type": "string"
+              },
+              "source": {
+                "properties": {
+                  "pointer": {
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              }
+            },
+            "required": [
+              "code",
+              "message"
+            ],
+            "type": "object"
+          },
+          "type": "array"
         },
-        {
-          "type": "null"
+        "messages": {
+          "items": {
+            "properties": {
+              "code": {
+                "type": "number"
+              },
+              "documentation_url": {
+                "type": "string"
+              },
+              "message": {
+                "type": "string"
+              },
+              "source": {
+                "properties": {
+                  "pointer": {
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              }
+            },
+            "required": [
+              "code",
+              "message"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "result": {
+          "oneOf": [
+            {
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "success": {
+          "enum": [
+            true
+          ],
+          "type": "boolean"
         }
+      },
+      "required": [
+        "errors",
+        "messages",
+        "result",
+        "success"
       ],
+      "type": "object",
     },
     annotations: {
       "destructiveHint": true,
@@ -766,14 +1441,89 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "oneOf": [
-            {
-              "type": "object"
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "code": {
+                    "type": "number"
+                  },
+                  "documentation_url": {
+                    "type": "string"
+                  },
+                  "message": {
+                    "type": "string"
+                  },
+                  "source": {
+                    "properties": {
+                      "pointer": {
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
             },
-            {
-              "type": "null"
+            "messages": {
+              "items": {
+                "properties": {
+                  "code": {
+                    "type": "number"
+                  },
+                  "documentation_url": {
+                    "type": "string"
+                  },
+                  "message": {
+                    "type": "string"
+                  },
+                  "source": {
+                    "properties": {
+                      "pointer": {
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result": {
+              "oneOf": [
+                {
+                  "type": "object"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "success": {
+              "enum": [
+                true
+              ],
+              "type": "boolean"
             }
-          ]
+          },
+          "required": [
+            "errors",
+            "messages",
+            "result",
+            "success"
+          ],
+          "type": "object"
         },
         "4XX": {
           "properties": {
@@ -899,66 +1649,65 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
-        "content": {
-          "type": "string"
-        },
-        "createdAt": {
-          "format": "date-time",
-          "type": "string"
-        },
-        "id": {
-          "type": "string"
-        },
-        "sessionId": {
-          "oneOf": [
-            {
-              "type": "string"
+        "errors": {
+          "items": {
+            "properties": {
+              "code": {
+                "type": "number"
+              },
+              "documentation_url": {
+                "type": "string"
+              },
+              "message": {
+                "type": "string"
+              },
+              "source": {
+                "properties": {
+                  "pointer": {
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              }
             },
-            {
-              "type": "null"
-            }
-          ]
+            "required": [
+              "code",
+              "message"
+            ],
+            "type": "object"
+          },
+          "type": "array"
         },
-        "summary": {
-          "type": "string"
+        "messages": {
+          "items": {
+            "properties": {
+              "code": {
+                "type": "number"
+              },
+              "documentation_url": {
+                "type": "string"
+              },
+              "message": {
+                "type": "string"
+              },
+              "source": {
+                "properties": {
+                  "pointer": {
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              }
+            },
+            "required": [
+              "code",
+              "message"
+            ],
+            "type": "object"
+          },
+          "type": "array"
         },
-        "type": {
-          "enum": [
-            "fact",
-            "event",
-            "instruction",
-            "task"
-          ],
-          "type": "string"
-        },
-        "updatedAt": {
-          "format": "date-time",
-          "type": "string"
-        }
-      },
-      "required": [
-        "content",
-        "createdAt",
-        "id",
-        "sessionId",
-        "summary",
-        "type",
-        "updatedAt"
-      ],
-      "type": "object",
-    },
-    annotations: {
-      "destructiveHint": false,
-      "idempotentHint": true,
-      "openWorldHint": true,
-      "readOnlyHint": true,
-      "title": "Get a memory"
-    },
-    method: "GET",
-    path: "/accounts/{account_id}/agent-memory/namespaces/{namespace_name}/profiles/{profile_name}/memories/{memory_id}",
-    responses: {
-      schemas: {
-        "200": {
+        "result": {
           "properties": {
             "content": {
               "type": "string"
@@ -1005,6 +1754,157 @@ export const tools: readonly Tool[] = [
             "summary",
             "type",
             "updatedAt"
+          ],
+          "type": "object"
+        },
+        "success": {
+          "enum": [
+            true
+          ],
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "errors",
+        "messages",
+        "result",
+        "success"
+      ],
+      "type": "object",
+    },
+    annotations: {
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": true,
+      "readOnlyHint": true,
+      "title": "Get a memory"
+    },
+    method: "GET",
+    path: "/accounts/{account_id}/agent-memory/namespaces/{namespace_name}/profiles/{profile_name}/memories/{memory_id}",
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "code": {
+                    "type": "number"
+                  },
+                  "documentation_url": {
+                    "type": "string"
+                  },
+                  "message": {
+                    "type": "string"
+                  },
+                  "source": {
+                    "properties": {
+                      "pointer": {
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "messages": {
+              "items": {
+                "properties": {
+                  "code": {
+                    "type": "number"
+                  },
+                  "documentation_url": {
+                    "type": "string"
+                  },
+                  "message": {
+                    "type": "string"
+                  },
+                  "source": {
+                    "properties": {
+                      "pointer": {
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result": {
+              "properties": {
+                "content": {
+                  "type": "string"
+                },
+                "createdAt": {
+                  "format": "date-time",
+                  "type": "string"
+                },
+                "id": {
+                  "type": "string"
+                },
+                "sessionId": {
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "summary": {
+                  "type": "string"
+                },
+                "type": {
+                  "enum": [
+                    "fact",
+                    "event",
+                    "instruction",
+                    "task"
+                  ],
+                  "type": "string"
+                },
+                "updatedAt": {
+                  "format": "date-time",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "content",
+                "createdAt",
+                "id",
+                "sessionId",
+                "summary",
+                "type",
+                "updatedAt"
+              ],
+              "type": "object"
+            },
+            "success": {
+              "enum": [
+                true
+              ],
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "messages",
+            "result",
+            "success"
           ],
           "type": "object"
         },
@@ -1122,41 +2022,65 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
-        "created_at": {
-          "format": "date-time",
-          "type": "string"
+        "errors": {
+          "items": {
+            "properties": {
+              "code": {
+                "type": "number"
+              },
+              "documentation_url": {
+                "type": "string"
+              },
+              "message": {
+                "type": "string"
+              },
+              "source": {
+                "properties": {
+                  "pointer": {
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              }
+            },
+            "required": [
+              "code",
+              "message"
+            ],
+            "type": "object"
+          },
+          "type": "array"
         },
-        "id": {
-          "type": "string"
+        "messages": {
+          "items": {
+            "properties": {
+              "code": {
+                "type": "number"
+              },
+              "documentation_url": {
+                "type": "string"
+              },
+              "message": {
+                "type": "string"
+              },
+              "source": {
+                "properties": {
+                  "pointer": {
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              }
+            },
+            "required": [
+              "code",
+              "message"
+            ],
+            "type": "object"
+          },
+          "type": "array"
         },
-        "name": {
-          "type": "string"
-        },
-        "updated_at": {
-          "format": "date-time",
-          "type": "string"
-        }
-      },
-      "required": [
-        "created_at",
-        "id",
-        "name",
-        "updated_at"
-      ],
-      "type": "object",
-    },
-    annotations: {
-      "destructiveHint": false,
-      "idempotentHint": true,
-      "openWorldHint": true,
-      "readOnlyHint": true,
-      "title": "Get a namespace"
-    },
-    method: "GET",
-    path: "/accounts/{account_id}/agent-memory/namespaces/{namespace_name}",
-    responses: {
-      schemas: {
-        "200": {
+        "result": {
           "properties": {
             "created_at": {
               "format": "date-time",
@@ -1178,6 +2102,132 @@ export const tools: readonly Tool[] = [
             "id",
             "name",
             "updated_at"
+          ],
+          "type": "object"
+        },
+        "success": {
+          "enum": [
+            true
+          ],
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "errors",
+        "messages",
+        "result",
+        "success"
+      ],
+      "type": "object",
+    },
+    annotations: {
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": true,
+      "readOnlyHint": true,
+      "title": "Get a namespace"
+    },
+    method: "GET",
+    path: "/accounts/{account_id}/agent-memory/namespaces/{namespace_name}",
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "code": {
+                    "type": "number"
+                  },
+                  "documentation_url": {
+                    "type": "string"
+                  },
+                  "message": {
+                    "type": "string"
+                  },
+                  "source": {
+                    "properties": {
+                      "pointer": {
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "messages": {
+              "items": {
+                "properties": {
+                  "code": {
+                    "type": "number"
+                  },
+                  "documentation_url": {
+                    "type": "string"
+                  },
+                  "message": {
+                    "type": "string"
+                  },
+                  "source": {
+                    "properties": {
+                      "pointer": {
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result": {
+              "properties": {
+                "created_at": {
+                  "format": "date-time",
+                  "type": "string"
+                },
+                "id": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "updated_at": {
+                  "format": "date-time",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "created_at",
+                "id",
+                "name",
+                "updated_at"
+              ],
+              "type": "object"
+            },
+            "success": {
+              "enum": [
+                true
+              ],
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "messages",
+            "result",
+            "success"
           ],
           "type": "object"
         },
@@ -1350,14 +2400,89 @@ export const tools: readonly Tool[] = [
       ],
     },
     outputSchema: {
-      "oneOf": [
-        {
-          "type": "object"
+      "properties": {
+        "errors": {
+          "items": {
+            "properties": {
+              "code": {
+                "type": "number"
+              },
+              "documentation_url": {
+                "type": "string"
+              },
+              "message": {
+                "type": "string"
+              },
+              "source": {
+                "properties": {
+                  "pointer": {
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              }
+            },
+            "required": [
+              "code",
+              "message"
+            ],
+            "type": "object"
+          },
+          "type": "array"
         },
-        {
-          "type": "null"
+        "messages": {
+          "items": {
+            "properties": {
+              "code": {
+                "type": "number"
+              },
+              "documentation_url": {
+                "type": "string"
+              },
+              "message": {
+                "type": "string"
+              },
+              "source": {
+                "properties": {
+                  "pointer": {
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              }
+            },
+            "required": [
+              "code",
+              "message"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "result": {
+          "oneOf": [
+            {
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "success": {
+          "enum": [
+            true
+          ],
+          "type": "boolean"
         }
+      },
+      "required": [
+        "errors",
+        "messages",
+        "result",
+        "success"
       ],
+      "type": "object",
     },
     annotations: {
       "destructiveHint": false,
@@ -1371,14 +2496,89 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "oneOf": [
-            {
-              "type": "object"
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "code": {
+                    "type": "number"
+                  },
+                  "documentation_url": {
+                    "type": "string"
+                  },
+                  "message": {
+                    "type": "string"
+                  },
+                  "source": {
+                    "properties": {
+                      "pointer": {
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
             },
-            {
-              "type": "null"
+            "messages": {
+              "items": {
+                "properties": {
+                  "code": {
+                    "type": "number"
+                  },
+                  "documentation_url": {
+                    "type": "string"
+                  },
+                  "message": {
+                    "type": "string"
+                  },
+                  "source": {
+                    "properties": {
+                      "pointer": {
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result": {
+              "oneOf": [
+                {
+                  "type": "object"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "success": {
+              "enum": [
+                true
+              ],
+              "type": "boolean"
             }
-          ]
+          },
+          "required": [
+            "errors",
+            "messages",
+            "result",
+            "success"
+          ],
+          "type": "object"
         },
         "4XX": {
           "properties": {
@@ -1522,6 +2722,64 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
+        "errors": {
+          "items": {
+            "properties": {
+              "code": {
+                "type": "number"
+              },
+              "documentation_url": {
+                "type": "string"
+              },
+              "message": {
+                "type": "string"
+              },
+              "source": {
+                "properties": {
+                  "pointer": {
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              }
+            },
+            "required": [
+              "code",
+              "message"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "messages": {
+          "items": {
+            "properties": {
+              "code": {
+                "type": "number"
+              },
+              "documentation_url": {
+                "type": "string"
+              },
+              "message": {
+                "type": "string"
+              },
+              "source": {
+                "properties": {
+                  "pointer": {
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              }
+            },
+            "required": [
+              "code",
+              "message"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
         "result": {
           "items": {
             "properties": {
@@ -1584,10 +2842,19 @@ export const tools: readonly Tool[] = [
             }
           },
           "type": "object"
+        },
+        "success": {
+          "enum": [
+            true
+          ],
+          "type": "boolean"
         }
       },
       "required": [
-        "result"
+        "errors",
+        "messages",
+        "result",
+        "success"
       ],
       "type": "object",
     },
@@ -1604,6 +2871,64 @@ export const tools: readonly Tool[] = [
       schemas: {
         "200": {
           "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "code": {
+                    "type": "number"
+                  },
+                  "documentation_url": {
+                    "type": "string"
+                  },
+                  "message": {
+                    "type": "string"
+                  },
+                  "source": {
+                    "properties": {
+                      "pointer": {
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "messages": {
+              "items": {
+                "properties": {
+                  "code": {
+                    "type": "number"
+                  },
+                  "documentation_url": {
+                    "type": "string"
+                  },
+                  "message": {
+                    "type": "string"
+                  },
+                  "source": {
+                    "properties": {
+                      "pointer": {
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
             "result": {
               "items": {
                 "properties": {
@@ -1666,10 +2991,19 @@ export const tools: readonly Tool[] = [
                 }
               },
               "type": "object"
+            },
+            "success": {
+              "enum": [
+                true
+              ],
+              "type": "boolean"
             }
           },
           "required": [
-            "result"
+            "errors",
+            "messages",
+            "result",
+            "success"
           ],
           "type": "object"
         },
@@ -1812,6 +3146,64 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
+        "errors": {
+          "items": {
+            "properties": {
+              "code": {
+                "type": "number"
+              },
+              "documentation_url": {
+                "type": "string"
+              },
+              "message": {
+                "type": "string"
+              },
+              "source": {
+                "properties": {
+                  "pointer": {
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              }
+            },
+            "required": [
+              "code",
+              "message"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "messages": {
+          "items": {
+            "properties": {
+              "code": {
+                "type": "number"
+              },
+              "documentation_url": {
+                "type": "string"
+              },
+              "message": {
+                "type": "string"
+              },
+              "source": {
+                "properties": {
+                  "pointer": {
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              }
+            },
+            "required": [
+              "code",
+              "message"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
         "result": {
           "items": {
             "properties": {
@@ -1853,10 +3245,19 @@ export const tools: readonly Tool[] = [
             }
           },
           "type": "object"
+        },
+        "success": {
+          "enum": [
+            true
+          ],
+          "type": "boolean"
         }
       },
       "required": [
-        "result"
+        "errors",
+        "messages",
+        "result",
+        "success"
       ],
       "type": "object",
     },
@@ -1873,6 +3274,64 @@ export const tools: readonly Tool[] = [
       schemas: {
         "200": {
           "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "code": {
+                    "type": "number"
+                  },
+                  "documentation_url": {
+                    "type": "string"
+                  },
+                  "message": {
+                    "type": "string"
+                  },
+                  "source": {
+                    "properties": {
+                      "pointer": {
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "messages": {
+              "items": {
+                "properties": {
+                  "code": {
+                    "type": "number"
+                  },
+                  "documentation_url": {
+                    "type": "string"
+                  },
+                  "message": {
+                    "type": "string"
+                  },
+                  "source": {
+                    "properties": {
+                      "pointer": {
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
             "result": {
               "items": {
                 "properties": {
@@ -1914,10 +3373,19 @@ export const tools: readonly Tool[] = [
                 }
               },
               "type": "object"
+            },
+            "success": {
+              "enum": [
+                true
+              ],
+              "type": "boolean"
             }
           },
           "required": [
-            "result"
+            "errors",
+            "messages",
+            "result",
+            "success"
           ],
           "type": "object"
         },
@@ -2049,6 +3517,64 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
+        "errors": {
+          "items": {
+            "properties": {
+              "code": {
+                "type": "number"
+              },
+              "documentation_url": {
+                "type": "string"
+              },
+              "message": {
+                "type": "string"
+              },
+              "source": {
+                "properties": {
+                  "pointer": {
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              }
+            },
+            "required": [
+              "code",
+              "message"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "messages": {
+          "items": {
+            "properties": {
+              "code": {
+                "type": "number"
+              },
+              "documentation_url": {
+                "type": "string"
+              },
+              "message": {
+                "type": "string"
+              },
+              "source": {
+                "properties": {
+                  "pointer": {
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              }
+            },
+            "required": [
+              "code",
+              "message"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
         "result": {
           "items": {
             "properties": {
@@ -2081,10 +3607,19 @@ export const tools: readonly Tool[] = [
             }
           },
           "type": "object"
+        },
+        "success": {
+          "enum": [
+            true
+          ],
+          "type": "boolean"
         }
       },
       "required": [
-        "result"
+        "errors",
+        "messages",
+        "result",
+        "success"
       ],
       "type": "object",
     },
@@ -2101,6 +3636,64 @@ export const tools: readonly Tool[] = [
       schemas: {
         "200": {
           "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "code": {
+                    "type": "number"
+                  },
+                  "documentation_url": {
+                    "type": "string"
+                  },
+                  "message": {
+                    "type": "string"
+                  },
+                  "source": {
+                    "properties": {
+                      "pointer": {
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "messages": {
+              "items": {
+                "properties": {
+                  "code": {
+                    "type": "number"
+                  },
+                  "documentation_url": {
+                    "type": "string"
+                  },
+                  "message": {
+                    "type": "string"
+                  },
+                  "source": {
+                    "properties": {
+                      "pointer": {
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
             "result": {
               "items": {
                 "properties": {
@@ -2133,10 +3726,19 @@ export const tools: readonly Tool[] = [
                 }
               },
               "type": "object"
+            },
+            "success": {
+              "enum": [
+                true
+              ],
+              "type": "boolean"
             }
           },
           "required": [
-            "result"
+            "errors",
+            "messages",
+            "result",
+            "success"
           ],
           "type": "object"
         },
@@ -2298,64 +3900,65 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
-        "answer": {
-          "type": "string"
-        },
-        "candidates": {
+        "errors": {
           "items": {
             "properties": {
-              "id": {
-                "type": "string"
-              },
-              "score": {
+              "code": {
                 "type": "number"
               },
-              "sessionId": {
-                "oneOf": [
-                  {
-                    "type": "string"
-                  },
-                  {
-                    "type": "null"
-                  }
-                ]
-              },
-              "summary": {
+              "documentation_url": {
                 "type": "string"
+              },
+              "message": {
+                "type": "string"
+              },
+              "source": {
+                "properties": {
+                  "pointer": {
+                    "type": "string"
+                  }
+                },
+                "type": "object"
               }
             },
             "required": [
-              "id",
-              "score",
-              "sessionId",
-              "summary"
+              "code",
+              "message"
             ],
             "type": "object"
           },
           "type": "array"
         },
-        "count": {
-          "type": "number"
-        }
-      },
-      "required": [
-        "candidates",
-        "count"
-      ],
-      "type": "object",
-    },
-    annotations: {
-      "destructiveHint": false,
-      "idempotentHint": false,
-      "openWorldHint": true,
-      "readOnlyHint": false,
-      "title": "Recall memories"
-    },
-    method: "POST",
-    path: "/accounts/{account_id}/agent-memory/namespaces/{namespace_name}/profiles/{profile_name}/recall",
-    responses: {
-      schemas: {
-        "200": {
+        "messages": {
+          "items": {
+            "properties": {
+              "code": {
+                "type": "number"
+              },
+              "documentation_url": {
+                "type": "string"
+              },
+              "message": {
+                "type": "string"
+              },
+              "source": {
+                "properties": {
+                  "pointer": {
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              }
+            },
+            "required": [
+              "code",
+              "message"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "result": {
           "properties": {
             "answer": {
               "type": "string"
@@ -2400,6 +4003,155 @@ export const tools: readonly Tool[] = [
           "required": [
             "candidates",
             "count"
+          ],
+          "type": "object"
+        },
+        "success": {
+          "enum": [
+            true
+          ],
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "errors",
+        "messages",
+        "result",
+        "success"
+      ],
+      "type": "object",
+    },
+    annotations: {
+      "destructiveHint": false,
+      "idempotentHint": false,
+      "openWorldHint": true,
+      "readOnlyHint": false,
+      "title": "Recall memories"
+    },
+    method: "POST",
+    path: "/accounts/{account_id}/agent-memory/namespaces/{namespace_name}/profiles/{profile_name}/recall",
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "code": {
+                    "type": "number"
+                  },
+                  "documentation_url": {
+                    "type": "string"
+                  },
+                  "message": {
+                    "type": "string"
+                  },
+                  "source": {
+                    "properties": {
+                      "pointer": {
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "messages": {
+              "items": {
+                "properties": {
+                  "code": {
+                    "type": "number"
+                  },
+                  "documentation_url": {
+                    "type": "string"
+                  },
+                  "message": {
+                    "type": "string"
+                  },
+                  "source": {
+                    "properties": {
+                      "pointer": {
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result": {
+              "properties": {
+                "answer": {
+                  "type": "string"
+                },
+                "candidates": {
+                  "items": {
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "score": {
+                        "type": "number"
+                      },
+                      "sessionId": {
+                        "oneOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "summary": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "id",
+                      "score",
+                      "sessionId",
+                      "summary"
+                    ],
+                    "type": "object"
+                  },
+                  "type": "array"
+                },
+                "count": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "candidates",
+                "count"
+              ],
+              "type": "object"
+            },
+            "success": {
+              "enum": [
+                true
+              ],
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "messages",
+            "result",
+            "success"
           ],
           "type": "object"
         },
@@ -2547,66 +4299,65 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
-        "content": {
-          "type": "string"
-        },
-        "createdAt": {
-          "format": "date-time",
-          "type": "string"
-        },
-        "id": {
-          "type": "string"
-        },
-        "sessionId": {
-          "oneOf": [
-            {
-              "type": "string"
+        "errors": {
+          "items": {
+            "properties": {
+              "code": {
+                "type": "number"
+              },
+              "documentation_url": {
+                "type": "string"
+              },
+              "message": {
+                "type": "string"
+              },
+              "source": {
+                "properties": {
+                  "pointer": {
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              }
             },
-            {
-              "type": "null"
-            }
-          ]
+            "required": [
+              "code",
+              "message"
+            ],
+            "type": "object"
+          },
+          "type": "array"
         },
-        "summary": {
-          "type": "string"
+        "messages": {
+          "items": {
+            "properties": {
+              "code": {
+                "type": "number"
+              },
+              "documentation_url": {
+                "type": "string"
+              },
+              "message": {
+                "type": "string"
+              },
+              "source": {
+                "properties": {
+                  "pointer": {
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              }
+            },
+            "required": [
+              "code",
+              "message"
+            ],
+            "type": "object"
+          },
+          "type": "array"
         },
-        "type": {
-          "enum": [
-            "fact",
-            "event",
-            "instruction",
-            "task"
-          ],
-          "type": "string"
-        },
-        "updatedAt": {
-          "format": "date-time",
-          "type": "string"
-        }
-      },
-      "required": [
-        "content",
-        "createdAt",
-        "id",
-        "sessionId",
-        "summary",
-        "type",
-        "updatedAt"
-      ],
-      "type": "object",
-    },
-    annotations: {
-      "destructiveHint": false,
-      "idempotentHint": false,
-      "openWorldHint": true,
-      "readOnlyHint": false,
-      "title": "Remember a memory"
-    },
-    method: "POST",
-    path: "/accounts/{account_id}/agent-memory/namespaces/{namespace_name}/profiles/{profile_name}/remember",
-    responses: {
-      schemas: {
-        "200": {
+        "result": {
           "properties": {
             "content": {
               "type": "string"
@@ -2653,6 +4404,157 @@ export const tools: readonly Tool[] = [
             "summary",
             "type",
             "updatedAt"
+          ],
+          "type": "object"
+        },
+        "success": {
+          "enum": [
+            true
+          ],
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "errors",
+        "messages",
+        "result",
+        "success"
+      ],
+      "type": "object",
+    },
+    annotations: {
+      "destructiveHint": false,
+      "idempotentHint": false,
+      "openWorldHint": true,
+      "readOnlyHint": false,
+      "title": "Remember a memory"
+    },
+    method: "POST",
+    path: "/accounts/{account_id}/agent-memory/namespaces/{namespace_name}/profiles/{profile_name}/remember",
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "code": {
+                    "type": "number"
+                  },
+                  "documentation_url": {
+                    "type": "string"
+                  },
+                  "message": {
+                    "type": "string"
+                  },
+                  "source": {
+                    "properties": {
+                      "pointer": {
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "messages": {
+              "items": {
+                "properties": {
+                  "code": {
+                    "type": "number"
+                  },
+                  "documentation_url": {
+                    "type": "string"
+                  },
+                  "message": {
+                    "type": "string"
+                  },
+                  "source": {
+                    "properties": {
+                      "pointer": {
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result": {
+              "properties": {
+                "content": {
+                  "type": "string"
+                },
+                "createdAt": {
+                  "format": "date-time",
+                  "type": "string"
+                },
+                "id": {
+                  "type": "string"
+                },
+                "sessionId": {
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "summary": {
+                  "type": "string"
+                },
+                "type": {
+                  "enum": [
+                    "fact",
+                    "event",
+                    "instruction",
+                    "task"
+                  ],
+                  "type": "string"
+                },
+                "updatedAt": {
+                  "format": "date-time",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "content",
+                "createdAt",
+                "id",
+                "sessionId",
+                "summary",
+                "type",
+                "updatedAt"
+              ],
+              "type": "object"
+            },
+            "success": {
+              "enum": [
+                true
+              ],
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "messages",
+            "result",
+            "success"
           ],
           "type": "object"
         },
@@ -2793,12 +4695,87 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
-        "summary": {
-          "type": "string"
+        "errors": {
+          "items": {
+            "properties": {
+              "code": {
+                "type": "number"
+              },
+              "documentation_url": {
+                "type": "string"
+              },
+              "message": {
+                "type": "string"
+              },
+              "source": {
+                "properties": {
+                  "pointer": {
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              }
+            },
+            "required": [
+              "code",
+              "message"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "messages": {
+          "items": {
+            "properties": {
+              "code": {
+                "type": "number"
+              },
+              "documentation_url": {
+                "type": "string"
+              },
+              "message": {
+                "type": "string"
+              },
+              "source": {
+                "properties": {
+                  "pointer": {
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              }
+            },
+            "required": [
+              "code",
+              "message"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "result": {
+          "properties": {
+            "summary": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "summary"
+          ],
+          "type": "object"
+        },
+        "success": {
+          "enum": [
+            true
+          ],
+          "type": "boolean"
         }
       },
       "required": [
-        "summary"
+        "errors",
+        "messages",
+        "result",
+        "success"
       ],
       "type": "object",
     },
@@ -2815,12 +4792,87 @@ export const tools: readonly Tool[] = [
       schemas: {
         "200": {
           "properties": {
-            "summary": {
-              "type": "string"
+            "errors": {
+              "items": {
+                "properties": {
+                  "code": {
+                    "type": "number"
+                  },
+                  "documentation_url": {
+                    "type": "string"
+                  },
+                  "message": {
+                    "type": "string"
+                  },
+                  "source": {
+                    "properties": {
+                      "pointer": {
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "messages": {
+              "items": {
+                "properties": {
+                  "code": {
+                    "type": "number"
+                  },
+                  "documentation_url": {
+                    "type": "string"
+                  },
+                  "message": {
+                    "type": "string"
+                  },
+                  "source": {
+                    "properties": {
+                      "pointer": {
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result": {
+              "properties": {
+                "summary": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "summary"
+              ],
+              "type": "object"
+            },
+            "success": {
+              "enum": [
+                true
+              ],
+              "type": "boolean"
             }
           },
           "required": [
-            "summary"
+            "errors",
+            "messages",
+            "result",
+            "success"
           ],
           "type": "object"
         },

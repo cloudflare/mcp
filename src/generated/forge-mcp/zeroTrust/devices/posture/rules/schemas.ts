@@ -163,7 +163,17 @@ export const teams_devices_client_certificate_v2_input_request: JsonSchema = {
       "type": "array"
     },
     "locations": {
-      "$ref": "#/$defs/teams-devices_client_certificate_v2_input_request_locations"
+      "properties": {
+        "paths": {
+          "$ref": "#/$defs/teams-devices_paths",
+          "description": "List of paths to check for client certificate on linux."
+        },
+        "trust_stores": {
+          "$ref": "#/$defs/teams-devices_trust_stores",
+          "description": "List of trust stores to check for client certificate."
+        }
+      },
+      "type": "object"
     },
     "operating_system": {
       "description": "Operating System.",
@@ -187,23 +197,6 @@ export const teams_devices_client_certificate_v2_input_request: JsonSchema = {
     "check_private_key",
     "operating_system"
   ],
-  "type": "object"
-};
-
-/**
- * The schema of `teams-devices_client_certificate_v2_input_request_locations`.
- */
-export const teams_devices_client_certificate_v2_input_request_locations: JsonSchema = {
-  "properties": {
-    "paths": {
-      "$ref": "#/$defs/teams-devices_paths",
-      "description": "List of paths to check for client certificate on linux."
-    },
-    "trust_stores": {
-      "$ref": "#/$defs/teams-devices_trust_stores",
-      "description": "List of trust stores to check for client certificate."
-    }
-  },
   "type": "object"
 };
 

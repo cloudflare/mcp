@@ -4,6 +4,22 @@
 import type { JsonSchema } from "../_/tool.js";
 
 /**
+ * The schema of `calls_account_identifier`.
+ */
+export const calls_account_identifier: JsonSchema = {
+  "description": "The account identifier tag.",
+  "type": "string"
+};
+
+/**
+ * The schema of `calls_identifier`.
+ */
+export const calls_identifier: JsonSchema = {
+  "description": "A Cloudflare-generated unique identifier for a item.",
+  "type": "string"
+};
+
+/**
  * The schema of `calls_name`.
  */
 export const calls_name: JsonSchema = {

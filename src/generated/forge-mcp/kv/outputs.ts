@@ -36,6 +36,32 @@ export const workers_kv_any_output: JsonSchema = {
 };
 
 /**
+ * The schema of `workers-kv_api-response-common` in responses.
+ */
+export const workers_kv_api_response_common_output: JsonSchema = {
+  "properties": {
+    "errors": {
+      "$ref": "#/$defs/workers-kv_messages"
+    },
+    "messages": {
+      "$ref": "#/$defs/workers-kv_messages"
+    },
+    "success": {
+      "enum": [
+        true
+      ],
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "errors",
+    "messages",
+    "success"
+  ],
+  "type": "object"
+};
+
+/**
  * The schema of `workers-kv_api-response-common-failure` in responses.
  */
 export const workers_kv_api_response_common_failure_output: JsonSchema = {
@@ -73,10 +99,43 @@ export const workers_kv_api_response_common_failure_output: JsonSchema = {
 };
 
 /**
+ * The schema of `workers-kv_api-response-common-no-result` in responses.
+ */
+export const workers_kv_api_response_common_no_result_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/workers-kv_api-response-common"
+    },
+    {
+      "properties": {
+        "result": {
+          "oneOf": [
+            {
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
  * The schema of `workers-kv_expiration` in responses.
  */
 export const workers_kv_expiration_output: JsonSchema = {
   "type": "number"
+};
+
+/**
+ * The schema of `workers-kv_key_name` in responses.
+ */
+export const workers_kv_key_name_output: JsonSchema = {
+  "type": "string"
 };
 
 /**
@@ -106,4 +165,11 @@ export const workers_kv_messages_output: JsonSchema = {
     "type": "object"
   },
   "type": "array"
+};
+
+/**
+ * The schema of `workers-kv_namespace_identifier` in responses.
+ */
+export const workers_kv_namespace_identifier_output: JsonSchema = {
+  "type": "string"
 };

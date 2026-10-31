@@ -35,3 +35,63 @@ export const pay_per_crawl_ZonesCanBeEnabledPayload_output: JsonSchema = {
   },
   "type": "object"
 };
+
+/**
+ * The schema of `pay-per-crawl_getZoneCanBeEnabledResponse` in responses.
+ */
+export const pay_per_crawl_getZoneCanBeEnabledResponse_output: JsonSchema = {
+  "properties": {
+    "errors": {
+      "items": {
+        "$ref": "#/$defs/pay-per-crawl_Msg"
+      },
+      "type": "array"
+    },
+    "messages": {
+      "items": {
+        "$ref": "#/$defs/pay-per-crawl_Msg"
+      },
+      "type": "array"
+    },
+    "result": {
+      "$ref": "#/$defs/pay-per-crawl_DaricZoneCanBeEnabled"
+    },
+    "result_info": {
+      "$ref": "#/$defs/pay-per-crawl_ResultInfo"
+    },
+    "success": {
+      "type": "boolean"
+    }
+  },
+  "type": "object"
+};
+
+/**
+ * The schema of `pay-per-crawl_queryZonesCanBeEnabledResponse` in responses.
+ */
+export const pay_per_crawl_queryZonesCanBeEnabledResponse_output: JsonSchema = {
+  "properties": {
+    "errors": {
+      "items": {
+        "$ref": "#/$defs/pay-per-crawl_Msg"
+      },
+      "type": "array"
+    },
+    "messages": {
+      "items": {
+        "$ref": "#/$defs/pay-per-crawl_Msg"
+      },
+      "type": "array"
+    },
+    "result": {
+      "$ref": "#/$defs/pay-per-crawl_ZonesCanBeEnabledPayload"
+    },
+    "result_info": {
+      "$ref": "#/$defs/pay-per-crawl_ResultInfo"
+    },
+    "success": {
+      "type": "boolean"
+    }
+  },
+  "type": "object"
+};

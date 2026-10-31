@@ -57,146 +57,21 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
-        "indicators": {
+        "errors": {
           "items": {
             "properties": {
-              "article_id": {
-                "format": "uuid",
-                "type": "string"
-              },
-              "article_title": {
-                "oneOf": [
-                  {
-                    "type": "string"
-                  },
-                  {
-                    "type": "null"
-                  }
-                ]
-              },
-              "dataset_id": {
-                "oneOf": [
-                  {
-                    "type": "string"
-                  },
-                  {
-                    "type": "null"
-                  }
-                ]
-              },
-              "feed_display_name": {
-                "oneOf": [
-                  {
-                    "type": "string"
-                  },
-                  {
-                    "type": "null"
-                  }
-                ]
-              },
-              "feed_id": {
-                "format": "uuid",
-                "type": "string"
-              },
-              "id": {
-                "format": "uuid",
-                "type": "string"
-              },
-              "type": {
-                "type": "string"
-              },
-              "value": {
+              "message": {
                 "type": "string"
               }
             },
             "required": [
-              "article_id",
-              "article_title",
-              "dataset_id",
-              "feed_display_name",
-              "feed_id",
-              "id",
-              "type",
-              "value"
+              "message"
             ],
             "type": "object"
           },
           "type": "array"
         },
-        "pagination": {
-          "properties": {
-            "count": {
-              "type": "integer"
-            },
-            "cursor": {
-              "oneOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ]
-            },
-            "has_more": {
-              "type": "boolean"
-            },
-            "page": {
-              "type": "integer"
-            },
-            "per_page": {
-              "type": "integer"
-            },
-            "total_count": {
-              "oneOf": [
-                {
-                  "type": "integer"
-                },
-                {
-                  "type": "null"
-                }
-              ]
-            },
-            "total_count_is_exact": {
-              "type": "boolean"
-            }
-          },
-          "required": [
-            "count",
-            "cursor",
-            "has_more",
-            "page",
-            "per_page",
-            "total_count",
-            "total_count_is_exact"
-          ],
-          "type": "object"
-        }
-      },
-      "required": [
-        "indicators",
-        "pagination"
-      ],
-      "type": "object",
-    },
-    annotations: {
-      "destructiveHint": false,
-      "idempotentHint": true,
-      "openWorldHint": true,
-      "readOnlyHint": true,
-      "title": "List Threat Signals article indicators"
-    },
-    method: "GET",
-    path: "/accounts/{account_id}/cloudforce-one/v2/threat-signals/indicators",
-    extensions: {
-      "x-api-token-group": [
-        "Cloudforce One Write",
-        "Cloudforce One Read"
-      ]
-    },
-    responses: {
-      schemas: {
-        "200": {
+        "result": {
           "properties": {
             "indicators": {
               "items": {
@@ -317,6 +192,191 @@ export const tools: readonly Tool[] = [
           "required": [
             "indicators",
             "pagination"
+          ],
+          "type": "object"
+        },
+        "success": {
+          "enum": [
+            true
+          ],
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "errors",
+        "result",
+        "success"
+      ],
+      "type": "object",
+    },
+    annotations: {
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": true,
+      "readOnlyHint": true,
+      "title": "List Threat Signals article indicators"
+    },
+    method: "GET",
+    path: "/accounts/{account_id}/cloudforce-one/v2/threat-signals/indicators",
+    extensions: {
+      "x-api-token-group": [
+        "Cloudforce One Write",
+        "Cloudforce One Read"
+      ]
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result": {
+              "properties": {
+                "indicators": {
+                  "items": {
+                    "properties": {
+                      "article_id": {
+                        "format": "uuid",
+                        "type": "string"
+                      },
+                      "article_title": {
+                        "oneOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "dataset_id": {
+                        "oneOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "feed_display_name": {
+                        "oneOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "feed_id": {
+                        "format": "uuid",
+                        "type": "string"
+                      },
+                      "id": {
+                        "format": "uuid",
+                        "type": "string"
+                      },
+                      "type": {
+                        "type": "string"
+                      },
+                      "value": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "article_id",
+                      "article_title",
+                      "dataset_id",
+                      "feed_display_name",
+                      "feed_id",
+                      "id",
+                      "type",
+                      "value"
+                    ],
+                    "type": "object"
+                  },
+                  "type": "array"
+                },
+                "pagination": {
+                  "properties": {
+                    "count": {
+                      "type": "integer"
+                    },
+                    "cursor": {
+                      "oneOf": [
+                        {
+                          "type": "string"
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    },
+                    "has_more": {
+                      "type": "boolean"
+                    },
+                    "page": {
+                      "type": "integer"
+                    },
+                    "per_page": {
+                      "type": "integer"
+                    },
+                    "total_count": {
+                      "oneOf": [
+                        {
+                          "type": "integer"
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    },
+                    "total_count_is_exact": {
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "count",
+                    "cursor",
+                    "has_more",
+                    "page",
+                    "per_page",
+                    "total_count",
+                    "total_count_is_exact"
+                  ],
+                  "type": "object"
+                }
+              },
+              "required": [
+                "indicators",
+                "pagination"
+              ],
+              "type": "object"
+            },
+            "success": {
+              "enum": [
+                true
+              ],
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "result",
+            "success"
           ],
           "type": "object"
         },

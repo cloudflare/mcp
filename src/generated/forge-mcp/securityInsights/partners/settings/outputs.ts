@@ -17,3 +17,58 @@ export const security_center_partnerSettings_output: JsonSchema = {
   ],
   "type": "object"
 };
+
+/**
+ * The schema of `security-center_partnerSettingsGetResponse` in responses.
+ */
+export const security_center_partnerSettingsGetResponse_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/security-center_api-response-common"
+    },
+    {
+      "properties": {
+        "result": {
+          "properties": {
+            "enabled": {
+              "type": "boolean"
+            },
+            "resolution_status": {
+              "enum": [
+                "resolved",
+                "not_found",
+                "no_zones",
+                "pending"
+              ],
+              "type": "string"
+            }
+          },
+          "required": [
+            "enabled"
+          ],
+          "type": "object"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `security-center_partnerSettingsPostResponse` in responses.
+ */
+export const security_center_partnerSettingsPostResponse_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/security-center_api-response-common"
+    },
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/security-center_partnerSettings"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};

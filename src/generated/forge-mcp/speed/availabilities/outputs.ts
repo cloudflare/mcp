@@ -9,7 +9,34 @@ import type { JsonSchema } from "../../_/tool.js";
 export const observatory_availabilities_output: JsonSchema = {
   "properties": {
     "quota": {
-      "$ref": "#/$defs/observatory_availabilities_quota"
+      "properties": {
+        "plan": {
+          "type": "string"
+        },
+        "quotasPerPlan": {
+          "properties": {
+            "value": {
+              "$ref": "#/$defs/observatory_plan-properties-info"
+            }
+          },
+          "type": "object"
+        },
+        "remainingSchedules": {
+          "type": "number"
+        },
+        "remainingTests": {
+          "type": "number"
+        },
+        "scheduleQuotasPerPlan": {
+          "properties": {
+            "value": {
+              "$ref": "#/$defs/observatory_plan-properties-info"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
     },
     "regions": {
       "items": {
@@ -18,92 +45,55 @@ export const observatory_availabilities_output: JsonSchema = {
       "type": "array"
     },
     "regionsPerPlan": {
-      "$ref": "#/$defs/observatory_availabilities_regionsPerPlan"
+      "properties": {
+        "business": {
+          "items": {
+            "$ref": "#/$defs/observatory_labeled_region"
+          },
+          "type": "array"
+        },
+        "enterprise": {
+          "items": {
+            "$ref": "#/$defs/observatory_labeled_region"
+          },
+          "type": "array"
+        },
+        "free": {
+          "items": {
+            "$ref": "#/$defs/observatory_labeled_region"
+          },
+          "type": "array"
+        },
+        "pro": {
+          "items": {
+            "$ref": "#/$defs/observatory_labeled_region"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
     }
   },
   "type": "object"
 };
 
 /**
- * The schema of `observatory_availabilities_quota` in responses.
+ * The schema of `observatory_availabilities-response` in responses.
  */
-export const observatory_availabilities_quota_output: JsonSchema = {
-  "properties": {
-    "plan": {
-      "type": "string"
+export const observatory_availabilities_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/observatory_api-response-single"
     },
-    "quotasPerPlan": {
-      "$ref": "#/$defs/observatory_availabilities_quota_quotasPerPlan"
-    },
-    "remainingSchedules": {
-      "type": "number"
-    },
-    "remainingTests": {
-      "type": "number"
-    },
-    "scheduleQuotasPerPlan": {
-      "$ref": "#/$defs/observatory_availabilities_quota_scheduleQuotasPerPlan"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `observatory_availabilities_quota_quotasPerPlan` in responses.
- */
-export const observatory_availabilities_quota_quotasPerPlan_output: JsonSchema = {
-  "properties": {
-    "value": {
-      "$ref": "#/$defs/observatory_plan-properties-info"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `observatory_availabilities_quota_scheduleQuotasPerPlan` in
- * responses.
- */
-export const observatory_availabilities_quota_scheduleQuotasPerPlan_output: JsonSchema = {
-  "properties": {
-    "value": {
-      "$ref": "#/$defs/observatory_plan-properties-info"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `observatory_availabilities_regionsPerPlan` in responses.
- */
-export const observatory_availabilities_regionsPerPlan_output: JsonSchema = {
-  "properties": {
-    "business": {
-      "items": {
-        "$ref": "#/$defs/observatory_labeled_region"
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/observatory_availabilities"
+        }
       },
-      "type": "array"
-    },
-    "enterprise": {
-      "items": {
-        "$ref": "#/$defs/observatory_labeled_region"
-      },
-      "type": "array"
-    },
-    "free": {
-      "items": {
-        "$ref": "#/$defs/observatory_labeled_region"
-      },
-      "type": "array"
-    },
-    "pro": {
-      "items": {
-        "$ref": "#/$defs/observatory_labeled_region"
-      },
-      "type": "array"
+      "type": "object"
     }
-  },
-  "type": "object"
+  ]
 };
 
 /**

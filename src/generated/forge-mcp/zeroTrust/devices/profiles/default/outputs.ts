@@ -89,3 +89,22 @@ export const teams_devices_default_device_settings_policy_output: JsonSchema = {
   },
   "type": "object"
 };
+
+/**
+ * The schema of `teams-devices_default_device_settings_response` in responses.
+ */
+export const teams_devices_default_device_settings_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/teams-devices_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/teams-devices_default_device_settings_policy"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};

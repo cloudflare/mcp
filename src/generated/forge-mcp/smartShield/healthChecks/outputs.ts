@@ -11,6 +11,38 @@ export const smartshield_address_output: JsonSchema = {
 };
 
 /**
+ * The schema of `smartshield_api-response-collection` in responses.
+ */
+export const smartshield_api_response_collection_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/smartshield_api-response-common"
+    },
+    {
+      "properties": {
+        "result": {
+          "oneOf": [
+            {
+              "items": {
+                "type": "object"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "result_info": {
+          "$ref": "#/$defs/smartshield_result_info"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
  * The schema of `smartshield_check_regions` in responses.
  */
 export const smartshield_check_regions_output: JsonSchema = {
@@ -202,13 +234,6 @@ export const smartshield_http_config_output: JsonSchema = {
 };
 
 /**
- * The schema of `smartshield_identifier` in responses.
- */
-export const smartshield_identifier_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `smartshield_interval` in responses.
  */
 export const smartshield_interval_output: JsonSchema = {
@@ -220,6 +245,28 @@ export const smartshield_interval_output: JsonSchema = {
  */
 export const smartshield_name_output: JsonSchema = {
   "type": "string"
+};
+
+/**
+ * The schema of `smartshield_response_collection` in responses.
+ */
+export const smartshield_response_collection_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/smartshield_api-response-collection"
+    },
+    {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/smartshield_healthchecks"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    }
+  ]
 };
 
 /**
@@ -248,6 +295,49 @@ export const smartshield_result_info_output: JsonSchema = {
  */
 export const smartshield_retries_output: JsonSchema = {
   "type": "integer"
+};
+
+/**
+ * The schema of `smartshield_single_hc_id_response` in responses.
+ */
+export const smartshield_single_hc_id_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/smartshield_api-response-common"
+    },
+    {
+      "properties": {
+        "result": {
+          "properties": {
+            "id": {
+              "$ref": "#/$defs/smartshield_identifier"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `smartshield_single_hc_response` in responses.
+ */
+export const smartshield_single_hc_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/smartshield_api-response-common"
+    },
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/smartshield_healthchecks"
+        }
+      },
+      "type": "object"
+    }
+  ]
 };
 
 /**

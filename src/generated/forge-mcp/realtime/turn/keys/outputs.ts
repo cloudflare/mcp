@@ -11,6 +11,28 @@ export const calls_turn_key_output: JsonSchema = {
 };
 
 /**
+ * The schema of `calls_turn_key_collection` in responses.
+ */
+export const calls_turn_key_collection_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/calls_api-response-common"
+    },
+    {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/calls_turn_key_object"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
  * The schema of `calls_turn_key_name` in responses.
  */
 export const calls_turn_key_name_output: JsonSchema = {
@@ -42,6 +64,44 @@ export const calls_turn_key_object_output: JsonSchema = {
     "uid"
   ],
   "type": "object"
+};
+
+/**
+ * The schema of `calls_turn_key_response_single` in responses.
+ */
+export const calls_turn_key_response_single_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/calls_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/calls_turn_key_object"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `calls_turn_key_single_with_secret` in responses.
+ */
+export const calls_turn_key_single_with_secret_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/calls_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/calls_turn_key_with_key"
+        }
+      },
+      "type": "object"
+    }
+  ]
 };
 
 /**

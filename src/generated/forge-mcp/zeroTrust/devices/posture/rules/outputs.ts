@@ -142,7 +142,15 @@ export const teams_devices_client_certificate_v2_input_request_output: JsonSchem
       "type": "array"
     },
     "locations": {
-      "$ref": "#/$defs/teams-devices_client_certificate_v2_input_request_locations"
+      "properties": {
+        "paths": {
+          "$ref": "#/$defs/teams-devices_paths"
+        },
+        "trust_stores": {
+          "$ref": "#/$defs/teams-devices_trust_stores"
+        }
+      },
+      "type": "object"
     },
     "operating_system": {
       "enum": [
@@ -164,22 +172,6 @@ export const teams_devices_client_certificate_v2_input_request_output: JsonSchem
     "check_private_key",
     "operating_system"
   ],
-  "type": "object"
-};
-
-/**
- * The schema of `teams-devices_client_certificate_v2_input_request_locations`
- * in responses.
- */
-export const teams_devices_client_certificate_v2_input_request_locations_output: JsonSchema = {
-  "properties": {
-    "paths": {
-      "$ref": "#/$defs/teams-devices_paths"
-    },
-    "trust_stores": {
-      "$ref": "#/$defs/teams-devices_trust_stores"
-    }
-  },
   "type": "object"
 };
 
@@ -425,6 +417,30 @@ export const teams_devices_firewall_input_request_output: JsonSchema = {
 };
 
 /**
+ * The schema of `teams-devices_id_response` in responses.
+ */
+export const teams_devices_id_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/teams-devices_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "properties": {
+            "id": {
+              "$ref": "#/$defs/teams-devices_uuid"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
  * The schema of `teams-devices_input` in responses.
  */
 export const teams_devices_input_output: JsonSchema = {
@@ -664,6 +680,28 @@ export const teams_devices_requireAll_output: JsonSchema = {
 };
 
 /**
+ * The schema of `teams-devices_response_collection` in responses.
+ */
+export const teams_devices_response_collection_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/teams-devices_api-response-collection"
+    },
+    {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/teams-devices_device-posture-rules"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
  * The schema of `teams-devices_schedule` in responses.
  */
 export const teams_devices_schedule_output: JsonSchema = {
@@ -753,6 +791,25 @@ export const teams_devices_sentinelone_s2s_input_request_output: JsonSchema = {
     "connection_id"
   ],
   "type": "object"
+};
+
+/**
+ * The schema of `teams-devices_single_response` in responses.
+ */
+export const teams_devices_single_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/teams-devices_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/teams-devices_device-posture-rules"
+        }
+      },
+      "type": "object"
+    }
+  ]
 };
 
 /**

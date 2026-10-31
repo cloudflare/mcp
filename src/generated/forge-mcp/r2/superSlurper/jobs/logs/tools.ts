@@ -6,6 +6,7 @@ import {
   r2_slurper_api_v4_error_output,
   r2_slurper_api_v4_failure_output,
   r2_slurper_api_v4_message_output,
+  r2_slurper_api_v4_success_output,
 } from "../../outputs.js";
 import { r2_slurper_JobLogResponse_output } from "./outputs.js";
 
@@ -39,23 +40,27 @@ export const tools: readonly Tool[] = [
       ],
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "$ref": "#/$defs/r2-slurper_JobLogResponse"
-          },
-          "type": "array"
+      "allOf": [
+        {
+          "$ref": "#/$defs/r2-slurper_api-v4-success"
         },
-        "result_info": {
+        {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/r2-slurper_JobLogResponse"
+              },
+              "type": "array"
+            }
+          },
           "type": "object"
         }
-      },
-      "required": [
-        "result"
       ],
-      "type": "object",
       $defs: {
         "r2-slurper_JobLogResponse": r2_slurper_JobLogResponse_output,
+        "r2-slurper_api-v4-error": r2_slurper_api_v4_error_output,
+        "r2-slurper_api-v4-message": r2_slurper_api_v4_message_output,
+        "r2-slurper_api-v4-success": r2_slurper_api_v4_success_output,
       },
     },
     annotations: {
@@ -70,21 +75,22 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "items": {
-                "$ref": "#/$defs/r2-slurper_JobLogResponse"
-              },
-              "type": "array"
+          "allOf": [
+            {
+              "$ref": "#/$defs/r2-slurper_api-v4-success"
             },
-            "result_info": {
+            {
+              "properties": {
+                "result": {
+                  "items": {
+                    "$ref": "#/$defs/r2-slurper_JobLogResponse"
+                  },
+                  "type": "array"
+                }
+              },
               "type": "object"
             }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/r2-slurper_api-v4-failure"
@@ -95,6 +101,7 @@ export const tools: readonly Tool[] = [
         "r2-slurper_api-v4-error": r2_slurper_api_v4_error_output,
         "r2-slurper_api-v4-failure": r2_slurper_api_v4_failure_output,
         "r2-slurper_api-v4-message": r2_slurper_api_v4_message_output,
+        "r2-slurper_api-v4-success": r2_slurper_api_v4_success_output,
       },
     },
     request: (args) => ({

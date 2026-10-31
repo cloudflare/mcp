@@ -5,10 +5,10 @@ import { type Tool, pathParam } from "../../../_/tool.js";
 import {
   lists_api_response_common_failure_output,
   lists_api_response_common_output,
-  lists_api_response_common_result_output,
   lists_messages_output,
   lists_operation_id_output,
 } from "../outputs.js";
+import { lists_account_id, lists_operation_id } from "../schemas.js";
 import {
   lists_bulk_operation_completed_output,
   lists_bulk_operation_failed_output,
@@ -30,34 +30,35 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "The Account ID for this resource.",
-          "type": "string"
+          "$ref": "#/$defs/lists_account_id",
+          "description": "The Account ID for this resource."
         },
         "operation_id": {
-          "description": "The unique operation ID of the asynchronous action.",
-          "type": "string"
+          "$ref": "#/$defs/lists_operation_id",
+          "description": "The unique operation ID of the asynchronous action."
         }
       },
       required: [
         "account_id",
         "operation_id"
       ],
+      $defs: {
+        "lists_account_id": lists_account_id,
+        "lists_operation_id": lists_operation_id,
+      },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "$ref": "#/$defs/lists_api-response-common_result"
-        },
-        "result_info": {
-          "type": "object"
-        }
-      },
-      "required": [
-        "result"
-      ],
-      "type": "object",
+      "$ref": "#/$defs/lists_bulk-operation-response-single",
       $defs: {
-        "lists_api-response-common_result": lists_api_response_common_result_output,
+        "lists_api-response-common": lists_api_response_common_output,
+        "lists_bulk-operation-response-single": lists_bulk_operation_response_single_output,
+        "lists_bulk_operation_completed": lists_bulk_operation_completed_output,
+        "lists_bulk_operation_failed": lists_bulk_operation_failed_output,
+        "lists_bulk_operation_pending_or_running": lists_bulk_operation_pending_or_running_output,
+        "lists_completed": lists_completed_output,
+        "lists_messages": lists_messages_output,
+        "lists_operation": lists_operation_output,
+        "lists_operation_id": lists_operation_id_output,
       },
     },
     annotations: {
@@ -84,18 +85,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "$ref": "#/$defs/lists_api-response-common_result"
-            },
-            "result_info": {
-              "type": "object"
-            }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/lists_bulk-operation-response-single"
         },
         "4XX": {
           "allOf": [
@@ -111,7 +101,6 @@ export const tools: readonly Tool[] = [
       $defs: {
         "lists_api-response-common": lists_api_response_common_output,
         "lists_api-response-common-failure": lists_api_response_common_failure_output,
-        "lists_api-response-common_result": lists_api_response_common_result_output,
         "lists_bulk-operation-response-single": lists_bulk_operation_response_single_output,
         "lists_bulk_operation_completed": lists_bulk_operation_completed_output,
         "lists_bulk_operation_failed": lists_bulk_operation_failed_output,

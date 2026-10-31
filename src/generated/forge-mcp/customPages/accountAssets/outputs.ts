@@ -47,3 +47,44 @@ export const custom_pages_custom_asset_output: JsonSchema = {
   },
   "type": "object"
 };
+
+/**
+ * The schema of `custom-pages_custom_asset_result` in responses.
+ */
+export const custom_pages_custom_asset_result_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/custom-pages_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/custom-pages_custom_asset"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `custom-pages_custom_asset_result_list` in responses.
+ */
+export const custom_pages_custom_asset_result_list_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/custom-pages_api-response-collection"
+    },
+    {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/custom-pages_custom_asset"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};

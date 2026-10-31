@@ -94,3 +94,25 @@ export const access_ip_output: JsonSchema = {
 export const access_ray_id_output: JsonSchema = {
   "type": "string"
 };
+
+/**
+ * The schema of `access_response_collection-12` in responses.
+ */
+export const access_response_collection_12_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/access_api-response-common"
+    },
+    {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/access_access-requests"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};

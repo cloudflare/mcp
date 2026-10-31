@@ -4,28 +4,35 @@
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
   registrar_api_api_response_common_failure_output,
+  registrar_api_api_response_common_output,
   registrar_api_messages_output,
 } from "../outputs.js";
+import { registrar_api_identifier } from "../schemas.js";
 import {
   registrar_api_cursor_result_info_output,
+  registrar_api_domain_check_response_output,
   registrar_api_domain_check_result_output,
   registrar_api_domain_name_output,
+  registrar_api_domain_search_response_output,
   registrar_api_domain_search_result_output,
   registrar_api_domain_transfer_check_reason_output,
+  registrar_api_domain_transfer_check_response_output,
   registrar_api_domain_transfer_check_result_output,
-  registrar_api_domain_transfer_check_result_reasonsItem_output,
+  registrar_api_pricing_base_output,
   registrar_api_pricing_registration_output,
   registrar_api_pricing_transfer_output,
   registrar_api_registration_output,
+  registrar_api_registration_response_collection_output,
+  registrar_api_registration_response_single_output,
   registrar_api_workflow_error_output,
   registrar_api_workflow_links_output,
   registrar_api_workflow_status_output,
+  registrar_api_workflow_status_response_single_output,
 } from "./outputs.js";
 import {
   registrar_api_domain_check_request,
   registrar_api_domain_name,
   registrar_api_domain_transfer_check_request,
-  registrar_api_domain_transfer_check_request_domainsItem,
   registrar_api_registration_contact,
   registrar_api_registration_contact_address,
   registrar_api_registration_contact_postal_info,
@@ -47,8 +54,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Cloudflare account ID. Required for all Registrar API operations.",
-          "type": "string"
+          "$ref": "#/$defs/registrar-api_identifier",
+          "description": "Cloudflare account ID. Required for all Registrar API operations."
         },
         "body": {
           "$ref": "#/$defs/registrar-api_domain_check_request",
@@ -61,23 +68,17 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "registrar-api_domain_check_request": registrar_api_domain_check_request,
+        "registrar-api_identifier": registrar_api_identifier,
       },
     },
     outputSchema: {
-      "properties": {
-        "domains": {
-          "items": {
-            "$ref": "#/$defs/registrar-api_domain_check_result"
-          },
-          "type": "array"
-        }
-      },
-      "required": [
-        "domains"
-      ],
-      "type": "object",
+      "$ref": "#/$defs/registrar-api_domain_check_response",
       $defs: {
+        "registrar-api_api-response-common": registrar_api_api_response_common_output,
+        "registrar-api_domain_check_response": registrar_api_domain_check_response_output,
         "registrar-api_domain_check_result": registrar_api_domain_check_result_output,
+        "registrar-api_messages": registrar_api_messages_output,
+        "registrar-api_pricing_base": registrar_api_pricing_base_output,
         "registrar-api_pricing_registration": registrar_api_pricing_registration_output,
       },
     },
@@ -100,27 +101,19 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "domains": {
-              "items": {
-                "$ref": "#/$defs/registrar-api_domain_check_result"
-              },
-              "type": "array"
-            }
-          },
-          "required": [
-            "domains"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/registrar-api_domain_check_response"
         },
         "400": {
           "$ref": "#/$defs/registrar-api_api-response-common-failure"
         }
       },
       $defs: {
+        "registrar-api_api-response-common": registrar_api_api_response_common_output,
         "registrar-api_api-response-common-failure": registrar_api_api_response_common_failure_output,
+        "registrar-api_domain_check_response": registrar_api_domain_check_response_output,
         "registrar-api_domain_check_result": registrar_api_domain_check_result_output,
         "registrar-api_messages": registrar_api_messages_output,
+        "registrar-api_pricing_base": registrar_api_pricing_base_output,
         "registrar-api_pricing_registration": registrar_api_pricing_registration_output,
       },
     },
@@ -137,8 +130,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Cloudflare account ID. Required for all Registrar API operations.",
-          "type": "string"
+          "$ref": "#/$defs/registrar-api_identifier",
+          "description": "Cloudflare account ID. Required for all Registrar API operations."
         },
         "body": {
           "$ref": "#/$defs/registrar-api_registration_create_request"
@@ -154,6 +147,7 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "registrar-api_domain_name": registrar_api_domain_name,
+        "registrar-api_identifier": registrar_api_identifier,
         "registrar-api_registration_contact": registrar_api_registration_contact,
         "registrar-api_registration_contact_address": registrar_api_registration_contact_address,
         "registrar-api_registration_contact_postal_info": registrar_api_registration_contact_postal_info,
@@ -162,8 +156,11 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/registrar-api_workflow_status",
+      "$ref": "#/$defs/registrar-api_workflow-status-response-single",
       $defs: {
+        "registrar-api_api-response-common": registrar_api_api_response_common_output,
+        "registrar-api_messages": registrar_api_messages_output,
+        "registrar-api_workflow-status-response-single": registrar_api_workflow_status_response_single_output,
         "registrar-api_workflow_error": registrar_api_workflow_error_output,
         "registrar-api_workflow_links": registrar_api_workflow_links_output,
         "registrar-api_workflow_status": registrar_api_workflow_status_output,
@@ -181,18 +178,20 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "201": {
-          "$ref": "#/$defs/registrar-api_workflow_status"
+          "$ref": "#/$defs/registrar-api_workflow-status-response-single"
         },
         "202": {
-          "$ref": "#/$defs/registrar-api_workflow_status"
+          "$ref": "#/$defs/registrar-api_workflow-status-response-single"
         },
         "4XX": {
           "$ref": "#/$defs/registrar-api_api-response-common-failure"
         }
       },
       $defs: {
+        "registrar-api_api-response-common": registrar_api_api_response_common_output,
         "registrar-api_api-response-common-failure": registrar_api_api_response_common_failure_output,
         "registrar-api_messages": registrar_api_messages_output,
+        "registrar-api_workflow-status-response-single": registrar_api_workflow_status_response_single_output,
         "registrar-api_workflow_error": registrar_api_workflow_error_output,
         "registrar-api_workflow_links": registrar_api_workflow_links_output,
         "registrar-api_workflow_status": registrar_api_workflow_status_output,
@@ -214,24 +213,31 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Cloudflare account ID.",
-          "type": "string"
+          "$ref": "#/$defs/registrar-api_identifier",
+          "description": "Cloudflare account ID."
         },
         "domain_name": {
-          "description": "Domain name to retrieve.",
-          "type": "string"
+          "$ref": "#/$defs/registrar-api_domain_name",
+          "description": "Domain name to retrieve."
         }
       },
       required: [
         "account_id",
         "domain_name"
       ],
+      $defs: {
+        "registrar-api_domain_name": registrar_api_domain_name,
+        "registrar-api_identifier": registrar_api_identifier,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/registrar-api_registration",
+      "$ref": "#/$defs/registrar-api_registration-response-single",
       $defs: {
+        "registrar-api_api-response-common": registrar_api_api_response_common_output,
         "registrar-api_domain_name": registrar_api_domain_name_output,
+        "registrar-api_messages": registrar_api_messages_output,
         "registrar-api_registration": registrar_api_registration_output,
+        "registrar-api_registration-response-single": registrar_api_registration_response_single_output,
       },
     },
     annotations: {
@@ -246,17 +252,19 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/registrar-api_registration"
+          "$ref": "#/$defs/registrar-api_registration-response-single"
         },
         "4XX": {
           "$ref": "#/$defs/registrar-api_api-response-common-failure"
         }
       },
       $defs: {
+        "registrar-api_api-response-common": registrar_api_api_response_common_output,
         "registrar-api_api-response-common-failure": registrar_api_api_response_common_failure_output,
         "registrar-api_domain_name": registrar_api_domain_name_output,
         "registrar-api_messages": registrar_api_messages_output,
         "registrar-api_registration": registrar_api_registration_output,
+        "registrar-api_registration-response-single": registrar_api_registration_response_single_output,
       },
     },
     request: (args) => ({
@@ -271,22 +279,29 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Cloudflare account ID. Required for all Registrar API operations.",
-          "type": "string"
+          "$ref": "#/$defs/registrar-api_identifier",
+          "description": "Cloudflare account ID. Required for all Registrar API operations."
         },
         "domain_name": {
-          "description": "Provides a fully qualified domain name (FQDN), including the extension\n(e.g., `example.com`, `mybrand.app`). The domain name uniquely identifies\na registration. Cloudflare permits only one registration per domain, making\nthe domain name a natural idempotency key for registration requests.\n",
-          "type": "string"
+          "$ref": "#/$defs/registrar-api_domain_name",
+          "description": "Provides a fully qualified domain name (FQDN), including the extension\n(e.g., `example.com`, `mybrand.app`). The domain name uniquely identifies\na registration. Cloudflare permits only one registration per domain, making\nthe domain name a natural idempotency key for registration requests.\n"
         }
       },
       required: [
         "account_id",
         "domain_name"
       ],
+      $defs: {
+        "registrar-api_domain_name": registrar_api_domain_name,
+        "registrar-api_identifier": registrar_api_identifier,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/registrar-api_workflow_status",
+      "$ref": "#/$defs/registrar-api_workflow-status-response-single",
       $defs: {
+        "registrar-api_api-response-common": registrar_api_api_response_common_output,
+        "registrar-api_messages": registrar_api_messages_output,
+        "registrar-api_workflow-status-response-single": registrar_api_workflow_status_response_single_output,
         "registrar-api_workflow_error": registrar_api_workflow_error_output,
         "registrar-api_workflow_links": registrar_api_workflow_links_output,
         "registrar-api_workflow_status": registrar_api_workflow_status_output,
@@ -304,15 +319,17 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/registrar-api_workflow_status"
+          "$ref": "#/$defs/registrar-api_workflow-status-response-single"
         },
         "4XX": {
           "$ref": "#/$defs/registrar-api_api-response-common-failure"
         }
       },
       $defs: {
+        "registrar-api_api-response-common": registrar_api_api_response_common_output,
         "registrar-api_api-response-common-failure": registrar_api_api_response_common_failure_output,
         "registrar-api_messages": registrar_api_messages_output,
+        "registrar-api_workflow-status-response-single": registrar_api_workflow_status_response_single_output,
         "registrar-api_workflow_error": registrar_api_workflow_error_output,
         "registrar-api_workflow_links": registrar_api_workflow_links_output,
         "registrar-api_workflow_status": registrar_api_workflow_status_output,
@@ -330,22 +347,29 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Cloudflare account ID. Required for all Registrar API operations.",
-          "type": "string"
+          "$ref": "#/$defs/registrar-api_identifier",
+          "description": "Cloudflare account ID. Required for all Registrar API operations."
         },
         "domain_name": {
-          "description": "Provides a fully qualified domain name (FQDN), including the extension\n(e.g., `example.com`, `mybrand.app`). The domain name uniquely identifies\na registration. Cloudflare permits only one registration per domain, making\nthe domain name a natural idempotency key for registration requests.\n",
-          "type": "string"
+          "$ref": "#/$defs/registrar-api_domain_name",
+          "description": "Provides a fully qualified domain name (FQDN), including the extension\n(e.g., `example.com`, `mybrand.app`). The domain name uniquely identifies\na registration. Cloudflare permits only one registration per domain, making\nthe domain name a natural idempotency key for registration requests.\n"
         }
       },
       required: [
         "account_id",
         "domain_name"
       ],
+      $defs: {
+        "registrar-api_domain_name": registrar_api_domain_name,
+        "registrar-api_identifier": registrar_api_identifier,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/registrar-api_workflow_status",
+      "$ref": "#/$defs/registrar-api_workflow-status-response-single",
       $defs: {
+        "registrar-api_api-response-common": registrar_api_api_response_common_output,
+        "registrar-api_messages": registrar_api_messages_output,
+        "registrar-api_workflow-status-response-single": registrar_api_workflow_status_response_single_output,
         "registrar-api_workflow_error": registrar_api_workflow_error_output,
         "registrar-api_workflow_links": registrar_api_workflow_links_output,
         "registrar-api_workflow_status": registrar_api_workflow_status_output,
@@ -363,15 +387,17 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/registrar-api_workflow_status"
+          "$ref": "#/$defs/registrar-api_workflow-status-response-single"
         },
         "4XX": {
           "$ref": "#/$defs/registrar-api_api-response-common-failure"
         }
       },
       $defs: {
+        "registrar-api_api-response-common": registrar_api_api_response_common_output,
         "registrar-api_api-response-common-failure": registrar_api_api_response_common_failure_output,
         "registrar-api_messages": registrar_api_messages_output,
+        "registrar-api_workflow-status-response-single": registrar_api_workflow_status_response_single_output,
         "registrar-api_workflow_error": registrar_api_workflow_error_output,
         "registrar-api_workflow_links": registrar_api_workflow_links_output,
         "registrar-api_workflow_status": registrar_api_workflow_status_output,
@@ -389,22 +415,29 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Cloudflare account ID.",
-          "type": "string"
+          "$ref": "#/$defs/registrar-api_identifier",
+          "description": "Cloudflare account ID."
         },
         "domain_name": {
-          "description": "Provides a fully qualified domain name (FQDN), including the extension\n(e.g., `example.com`, `mybrand.app`). The domain name uniquely identifies\na registration. Cloudflare permits only one registration per domain, making\nthe domain name a natural idempotency key for registration requests.\n",
-          "type": "string"
+          "$ref": "#/$defs/registrar-api_domain_name",
+          "description": "Provides a fully qualified domain name (FQDN), including the extension\n(e.g., `example.com`, `mybrand.app`). The domain name uniquely identifies\na registration. Cloudflare permits only one registration per domain, making\nthe domain name a natural idempotency key for registration requests.\n"
         }
       },
       required: [
         "account_id",
         "domain_name"
       ],
+      $defs: {
+        "registrar-api_domain_name": registrar_api_domain_name,
+        "registrar-api_identifier": registrar_api_identifier,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/registrar-api_workflow_status",
+      "$ref": "#/$defs/registrar-api_workflow-status-response-single",
       $defs: {
+        "registrar-api_api-response-common": registrar_api_api_response_common_output,
+        "registrar-api_messages": registrar_api_messages_output,
+        "registrar-api_workflow-status-response-single": registrar_api_workflow_status_response_single_output,
         "registrar-api_workflow_error": registrar_api_workflow_error_output,
         "registrar-api_workflow_links": registrar_api_workflow_links_output,
         "registrar-api_workflow_status": registrar_api_workflow_status_output,
@@ -422,15 +455,17 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/registrar-api_workflow_status"
+          "$ref": "#/$defs/registrar-api_workflow-status-response-single"
         },
         "4XX": {
           "$ref": "#/$defs/registrar-api_api-response-common-failure"
         }
       },
       $defs: {
+        "registrar-api_api-response-common": registrar_api_api_response_common_output,
         "registrar-api_api-response-common-failure": registrar_api_api_response_common_failure_output,
         "registrar-api_messages": registrar_api_messages_output,
+        "registrar-api_workflow-status-response-single": registrar_api_workflow_status_response_single_output,
         "registrar-api_workflow_error": registrar_api_workflow_error_output,
         "registrar-api_workflow_links": registrar_api_workflow_links_output,
         "registrar-api_workflow_status": registrar_api_workflow_status_output,
@@ -448,8 +483,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Cloudflare account ID.",
-          "type": "string"
+          "$ref": "#/$defs/registrar-api_identifier",
+          "description": "Cloudflare account ID."
         },
         "cursor": {
           "description": "Opaque token from a previous response's `result_info.cursor`.\nPass this value to fetch the next page of results. Omit (or\npass an empty string) for the first page.\n",
@@ -483,27 +518,19 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+      $defs: {
+        "registrar-api_identifier": registrar_api_identifier,
+      },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "$ref": "#/$defs/registrar-api_registration"
-          },
-          "type": "array"
-        },
-        "result_info": {
-          "$ref": "#/$defs/registrar-api_cursor_result_info"
-        }
-      },
-      "required": [
-        "result"
-      ],
-      "type": "object",
+      "$ref": "#/$defs/registrar-api_registration-response-collection",
       $defs: {
+        "registrar-api_api-response-common": registrar_api_api_response_common_output,
         "registrar-api_cursor_result_info": registrar_api_cursor_result_info_output,
         "registrar-api_domain_name": registrar_api_domain_name_output,
+        "registrar-api_messages": registrar_api_messages_output,
         "registrar-api_registration": registrar_api_registration_output,
+        "registrar-api_registration-response-collection": registrar_api_registration_response_collection_output,
       },
     },
     annotations: {
@@ -518,32 +545,20 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "items": {
-                "$ref": "#/$defs/registrar-api_registration"
-              },
-              "type": "array"
-            },
-            "result_info": {
-              "$ref": "#/$defs/registrar-api_cursor_result_info"
-            }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/registrar-api_registration-response-collection"
         },
         "4XX": {
           "$ref": "#/$defs/registrar-api_api-response-common-failure"
         }
       },
       $defs: {
+        "registrar-api_api-response-common": registrar_api_api_response_common_output,
         "registrar-api_api-response-common-failure": registrar_api_api_response_common_failure_output,
         "registrar-api_cursor_result_info": registrar_api_cursor_result_info_output,
         "registrar-api_domain_name": registrar_api_domain_name_output,
         "registrar-api_messages": registrar_api_messages_output,
         "registrar-api_registration": registrar_api_registration_output,
+        "registrar-api_registration-response-collection": registrar_api_registration_response_collection_output,
       },
     },
     request: (args) => ({
@@ -564,8 +579,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Cloudflare account ID. Required for all Registrar API operations.",
-          "type": "string"
+          "$ref": "#/$defs/registrar-api_identifier",
+          "description": "Cloudflare account ID. Required for all Registrar API operations."
         },
         "extensions": {
           "description": "Limits results to specific domain extensions from the supported set. If not specified,\nreturns results across all supported extensions. Extensions not in the supported\nset are silently ignored.\n",
@@ -589,22 +604,18 @@ export const tools: readonly Tool[] = [
         "account_id",
         "query"
       ],
+      $defs: {
+        "registrar-api_identifier": registrar_api_identifier,
+      },
     },
     outputSchema: {
-      "properties": {
-        "domains": {
-          "items": {
-            "$ref": "#/$defs/registrar-api_domain_search_result"
-          },
-          "type": "array"
-        }
-      },
-      "required": [
-        "domains"
-      ],
-      "type": "object",
+      "$ref": "#/$defs/registrar-api_domain_search_response",
       $defs: {
+        "registrar-api_api-response-common": registrar_api_api_response_common_output,
+        "registrar-api_domain_search_response": registrar_api_domain_search_response_output,
         "registrar-api_domain_search_result": registrar_api_domain_search_result_output,
+        "registrar-api_messages": registrar_api_messages_output,
+        "registrar-api_pricing_base": registrar_api_pricing_base_output,
         "registrar-api_pricing_registration": registrar_api_pricing_registration_output,
       },
     },
@@ -620,27 +631,19 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "domains": {
-              "items": {
-                "$ref": "#/$defs/registrar-api_domain_search_result"
-              },
-              "type": "array"
-            }
-          },
-          "required": [
-            "domains"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/registrar-api_domain_search_response"
         },
         "400": {
           "$ref": "#/$defs/registrar-api_api-response-common-failure"
         }
       },
       $defs: {
+        "registrar-api_api-response-common": registrar_api_api_response_common_output,
         "registrar-api_api-response-common-failure": registrar_api_api_response_common_failure_output,
+        "registrar-api_domain_search_response": registrar_api_domain_search_response_output,
         "registrar-api_domain_search_result": registrar_api_domain_search_result_output,
         "registrar-api_messages": registrar_api_messages_output,
+        "registrar-api_pricing_base": registrar_api_pricing_base_output,
         "registrar-api_pricing_registration": registrar_api_pricing_registration_output,
       },
     },
@@ -661,8 +664,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Cloudflare account ID. Required for all Registrar API operations.",
-          "type": "string"
+          "$ref": "#/$defs/registrar-api_identifier",
+          "description": "Cloudflare account ID. Required for all Registrar API operations."
         },
         "body": {
           "$ref": "#/$defs/registrar-api_domain_transfer_check_request",
@@ -675,26 +678,18 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "registrar-api_domain_transfer_check_request": registrar_api_domain_transfer_check_request,
-        "registrar-api_domain_transfer_check_request_domainsItem": registrar_api_domain_transfer_check_request_domainsItem,
+        "registrar-api_identifier": registrar_api_identifier,
       },
     },
     outputSchema: {
-      "properties": {
-        "domains": {
-          "additionalProperties": {
-            "$ref": "#/$defs/registrar-api_domain_transfer_check_result"
-          },
-          "type": "object"
-        }
-      },
-      "required": [
-        "domains"
-      ],
-      "type": "object",
+      "$ref": "#/$defs/registrar-api_domain_transfer_check_response",
       $defs: {
+        "registrar-api_api-response-common": registrar_api_api_response_common_output,
         "registrar-api_domain_transfer_check_reason": registrar_api_domain_transfer_check_reason_output,
+        "registrar-api_domain_transfer_check_response": registrar_api_domain_transfer_check_response_output,
         "registrar-api_domain_transfer_check_result": registrar_api_domain_transfer_check_result_output,
-        "registrar-api_domain_transfer_check_result_reasonsItem": registrar_api_domain_transfer_check_result_reasonsItem_output,
+        "registrar-api_messages": registrar_api_messages_output,
+        "registrar-api_pricing_base": registrar_api_pricing_base_output,
         "registrar-api_pricing_transfer": registrar_api_pricing_transfer_output,
       },
     },
@@ -710,18 +705,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "domains": {
-              "additionalProperties": {
-                "$ref": "#/$defs/registrar-api_domain_transfer_check_result"
-              },
-              "type": "object"
-            }
-          },
-          "required": [
-            "domains"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/registrar-api_domain_transfer_check_response"
         },
         "400": {
           "$ref": "#/$defs/registrar-api_api-response-common-failure"
@@ -731,11 +715,13 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
+        "registrar-api_api-response-common": registrar_api_api_response_common_output,
         "registrar-api_api-response-common-failure": registrar_api_api_response_common_failure_output,
         "registrar-api_domain_transfer_check_reason": registrar_api_domain_transfer_check_reason_output,
+        "registrar-api_domain_transfer_check_response": registrar_api_domain_transfer_check_response_output,
         "registrar-api_domain_transfer_check_result": registrar_api_domain_transfer_check_result_output,
-        "registrar-api_domain_transfer_check_result_reasonsItem": registrar_api_domain_transfer_check_result_reasonsItem_output,
         "registrar-api_messages": registrar_api_messages_output,
+        "registrar-api_pricing_base": registrar_api_pricing_base_output,
         "registrar-api_pricing_transfer": registrar_api_pricing_transfer_output,
       },
     },
@@ -752,15 +738,15 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Cloudflare account ID. Required for all Registrar API operations.",
-          "type": "string"
+          "$ref": "#/$defs/registrar-api_identifier",
+          "description": "Cloudflare account ID. Required for all Registrar API operations."
         },
         "body": {
           "$ref": "#/$defs/registrar-api_transfer_in_create_request"
         },
         "domain_name": {
-          "description": "Domain name to transfer.",
-          "type": "string"
+          "$ref": "#/$defs/registrar-api_domain_name",
+          "description": "Domain name to transfer."
         },
         "prefer": {
           "description": "Set to `respond-async` to indicate a preference for asynchronous\nprocessing (RFC 7240).\n",
@@ -773,6 +759,8 @@ export const tools: readonly Tool[] = [
         "body"
       ],
       $defs: {
+        "registrar-api_domain_name": registrar_api_domain_name,
+        "registrar-api_identifier": registrar_api_identifier,
         "registrar-api_registration_contact": registrar_api_registration_contact,
         "registrar-api_registration_contact_address": registrar_api_registration_contact_address,
         "registrar-api_registration_contact_postal_info": registrar_api_registration_contact_postal_info,
@@ -781,8 +769,11 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/registrar-api_workflow_status",
+      "$ref": "#/$defs/registrar-api_workflow-status-response-single",
       $defs: {
+        "registrar-api_api-response-common": registrar_api_api_response_common_output,
+        "registrar-api_messages": registrar_api_messages_output,
+        "registrar-api_workflow-status-response-single": registrar_api_workflow_status_response_single_output,
         "registrar-api_workflow_error": registrar_api_workflow_error_output,
         "registrar-api_workflow_links": registrar_api_workflow_links_output,
         "registrar-api_workflow_status": registrar_api_workflow_status_output,
@@ -800,15 +791,17 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "202": {
-          "$ref": "#/$defs/registrar-api_workflow_status"
+          "$ref": "#/$defs/registrar-api_workflow-status-response-single"
         },
         "4XX": {
           "$ref": "#/$defs/registrar-api_api-response-common-failure"
         }
       },
       $defs: {
+        "registrar-api_api-response-common": registrar_api_api_response_common_output,
         "registrar-api_api-response-common-failure": registrar_api_api_response_common_failure_output,
         "registrar-api_messages": registrar_api_messages_output,
+        "registrar-api_workflow-status-response-single": registrar_api_workflow_status_response_single_output,
         "registrar-api_workflow_error": registrar_api_workflow_error_output,
         "registrar-api_workflow_links": registrar_api_workflow_links_output,
         "registrar-api_workflow_status": registrar_api_workflow_status_output,
@@ -830,15 +823,15 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Cloudflare account ID.",
-          "type": "string"
+          "$ref": "#/$defs/registrar-api_identifier",
+          "description": "Cloudflare account ID."
         },
         "body": {
           "$ref": "#/$defs/registrar-api_registration_update_request"
         },
         "domain_name": {
-          "description": "Domain name to update.",
-          "type": "string"
+          "$ref": "#/$defs/registrar-api_domain_name",
+          "description": "Domain name to update."
         },
         "prefer": {
           "description": "Set to `respond-async` to receive an immediate `202 Accepted` without\nwaiting for the operation to complete (RFC 7240).\n",
@@ -854,12 +847,17 @@ export const tools: readonly Tool[] = [
         "body"
       ],
       $defs: {
+        "registrar-api_domain_name": registrar_api_domain_name,
+        "registrar-api_identifier": registrar_api_identifier,
         "registrar-api_registration_update_request": registrar_api_registration_update_request,
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/registrar-api_workflow_status",
+      "$ref": "#/$defs/registrar-api_workflow-status-response-single",
       $defs: {
+        "registrar-api_api-response-common": registrar_api_api_response_common_output,
+        "registrar-api_messages": registrar_api_messages_output,
+        "registrar-api_workflow-status-response-single": registrar_api_workflow_status_response_single_output,
         "registrar-api_workflow_error": registrar_api_workflow_error_output,
         "registrar-api_workflow_links": registrar_api_workflow_links_output,
         "registrar-api_workflow_status": registrar_api_workflow_status_output,
@@ -877,18 +875,20 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/registrar-api_workflow_status"
+          "$ref": "#/$defs/registrar-api_workflow-status-response-single"
         },
         "202": {
-          "$ref": "#/$defs/registrar-api_workflow_status"
+          "$ref": "#/$defs/registrar-api_workflow-status-response-single"
         },
         "4XX": {
           "$ref": "#/$defs/registrar-api_api-response-common-failure"
         }
       },
       $defs: {
+        "registrar-api_api-response-common": registrar_api_api_response_common_output,
         "registrar-api_api-response-common-failure": registrar_api_api_response_common_failure_output,
         "registrar-api_messages": registrar_api_messages_output,
+        "registrar-api_workflow-status-response-single": registrar_api_workflow_status_response_single_output,
         "registrar-api_workflow_error": registrar_api_workflow_error_output,
         "registrar-api_workflow_links": registrar_api_workflow_links_output,
         "registrar-api_workflow_status": registrar_api_workflow_status_output,

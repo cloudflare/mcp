@@ -12,6 +12,36 @@ export const magic_visibility_pcaps_pcaps_ownership_challenge_output: JsonSchema
 };
 
 /**
+ * The schema of `magic-visibility-pcaps_pcaps_ownership_collection` in
+ * responses.
+ */
+export const magic_visibility_pcaps_pcaps_ownership_collection_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/magic-visibility-pcaps_api-response-collection"
+    },
+    {
+      "properties": {
+        "result": {
+          "oneOf": [
+            {
+              "items": {
+                "$ref": "#/$defs/magic-visibility-pcaps_pcaps_ownership_response"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
  * The schema of `magic-visibility-pcaps_pcaps_ownership_response` in responses.
  */
 export const magic_visibility_pcaps_pcaps_ownership_response_output: JsonSchema = {
@@ -48,4 +78,24 @@ export const magic_visibility_pcaps_pcaps_ownership_response_output: JsonSchema 
     "submitted"
   ],
   "type": "object"
+};
+
+/**
+ * The schema of `magic-visibility-pcaps_pcaps_ownership_single_response` in
+ * responses.
+ */
+export const magic_visibility_pcaps_pcaps_ownership_single_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/magic-visibility-pcaps_api-response-common"
+    },
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/magic-visibility-pcaps_pcaps_ownership_response"
+        }
+      },
+      "type": "object"
+    }
+  ]
 };

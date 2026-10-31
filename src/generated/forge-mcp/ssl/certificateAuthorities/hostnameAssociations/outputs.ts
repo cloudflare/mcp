@@ -4,6 +4,31 @@
 import type { JsonSchema } from "../../../_/tool.js";
 
 /**
+ * The schema of `tls-certificates-and-hostnames_hostname_associations_response`
+ * in responses.
+ */
+export const tls_certificates_and_hostnames_hostname_associations_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/tls-certificates-and-hostnames_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "properties": {
+            "hostnames": {
+              "$ref": "#/$defs/tls-certificates-and-hostnames_hostnames-2"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
  * The schema of `tls-certificates-and-hostnames_hostnames-2` in responses.
  */
 export const tls_certificates_and_hostnames_hostnames_2_output: JsonSchema = {

@@ -4,6 +4,8 @@
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
   stream_api_response_common_failure_output,
+  stream_api_response_common_output,
+  stream_api_response_single_output,
   stream_downloadedFrom_output,
   stream_height_output,
   stream_messages_output,
@@ -19,12 +21,18 @@ import {
   stream_width_output,
 } from "../outputs.js";
 import {
+  stream_account_identifier,
   stream_name,
   stream_opacity,
   stream_padding,
   stream_position,
   stream_scale,
+  stream_watermark_identifier,
 } from "../schemas.js";
+import {
+  stream_watermark_response_collection_output,
+  stream_watermark_response_single_output,
+} from "./outputs.js";
 
 /**
  * The tools of `stream.watermarks`.
@@ -38,8 +46,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "The account identifier tag.",
-          "type": "string"
+          "$ref": "#/$defs/stream_account_identifier",
+          "description": "The account identifier tag."
         },
         "body": {
           "properties": {
@@ -81,6 +89,7 @@ export const tools: readonly Tool[] = [
         "body"
       ],
       $defs: {
+        "stream_account_identifier": stream_account_identifier,
         "stream_name": stream_name,
         "stream_opacity": stream_opacity,
         "stream_padding": stream_padding,
@@ -89,10 +98,12 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/stream_watermarks",
+      "$ref": "#/$defs/stream_watermark_response_single",
       $defs: {
+        "stream_api-response-single": stream_api_response_single_output,
         "stream_downloadedFrom": stream_downloadedFrom_output,
         "stream_height": stream_height_output,
+        "stream_messages": stream_messages_output,
         "stream_name": stream_name_output,
         "stream_opacity": stream_opacity_output,
         "stream_padding": stream_padding_output,
@@ -100,6 +111,7 @@ export const tools: readonly Tool[] = [
         "stream_scale": stream_scale_output,
         "stream_watermark_created": stream_watermark_created_output,
         "stream_watermark_identifier": stream_watermark_identifier_output,
+        "stream_watermark_response_single": stream_watermark_response_single_output,
         "stream_watermark_size": stream_watermark_size_output,
         "stream_watermarks": stream_watermarks_output,
         "stream_width": stream_width_output,
@@ -122,7 +134,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/stream_watermarks"
+          "$ref": "#/$defs/stream_watermark_response_single"
         },
         "4XX": {
           "$ref": "#/$defs/stream_api-response-common-failure"
@@ -130,6 +142,7 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "stream_api-response-common-failure": stream_api_response_common_failure_output,
+        "stream_api-response-single": stream_api_response_single_output,
         "stream_downloadedFrom": stream_downloadedFrom_output,
         "stream_height": stream_height_output,
         "stream_messages": stream_messages_output,
@@ -140,6 +153,7 @@ export const tools: readonly Tool[] = [
         "stream_scale": stream_scale_output,
         "stream_watermark_created": stream_watermark_created_output,
         "stream_watermark_identifier": stream_watermark_identifier_output,
+        "stream_watermark_response_single": stream_watermark_response_single_output,
         "stream_watermark_size": stream_watermark_size_output,
         "stream_watermarks": stream_watermarks_output,
         "stream_width": stream_width_output,
@@ -158,21 +172,41 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "The account identifier tag.",
-          "type": "string"
+          "$ref": "#/$defs/stream_account_identifier",
+          "description": "The account identifier tag."
         },
         "identifier": {
-          "description": "The unique identifier for a watermark profile.",
-          "type": "string"
+          "$ref": "#/$defs/stream_watermark_identifier",
+          "description": "The unique identifier for a watermark profile."
         }
       },
       required: [
         "account_id",
         "identifier"
       ],
+      $defs: {
+        "stream_account_identifier": stream_account_identifier,
+        "stream_watermark_identifier": stream_watermark_identifier,
+      },
     },
     outputSchema: {
-      "type": "string",
+      "allOf": [
+        {
+          "$ref": "#/$defs/stream_api-response-single"
+        },
+        {
+          "properties": {
+            "result": {
+              "type": "string"
+            }
+          },
+          "type": "object"
+        }
+      ],
+      $defs: {
+        "stream_api-response-single": stream_api_response_single_output,
+        "stream_messages": stream_messages_output,
+      },
     },
     annotations: {
       "destructiveHint": true,
@@ -191,7 +225,19 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "type": "string"
+          "allOf": [
+            {
+              "$ref": "#/$defs/stream_api-response-single"
+            },
+            {
+              "properties": {
+                "result": {
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/stream_api-response-common-failure"
@@ -199,6 +245,7 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "stream_api-response-common-failure": stream_api_response_common_failure_output,
+        "stream_api-response-single": stream_api_response_single_output,
         "stream_messages": stream_messages_output,
       },
     },
@@ -214,24 +261,30 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "The account identifier tag.",
-          "type": "string"
+          "$ref": "#/$defs/stream_account_identifier",
+          "description": "The account identifier tag."
         },
         "identifier": {
-          "description": "The unique identifier for a watermark profile.",
-          "type": "string"
+          "$ref": "#/$defs/stream_watermark_identifier",
+          "description": "The unique identifier for a watermark profile."
         }
       },
       required: [
         "account_id",
         "identifier"
       ],
+      $defs: {
+        "stream_account_identifier": stream_account_identifier,
+        "stream_watermark_identifier": stream_watermark_identifier,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/stream_watermarks",
+      "$ref": "#/$defs/stream_watermark_response_single",
       $defs: {
+        "stream_api-response-single": stream_api_response_single_output,
         "stream_downloadedFrom": stream_downloadedFrom_output,
         "stream_height": stream_height_output,
+        "stream_messages": stream_messages_output,
         "stream_name": stream_name_output,
         "stream_opacity": stream_opacity_output,
         "stream_padding": stream_padding_output,
@@ -239,6 +292,7 @@ export const tools: readonly Tool[] = [
         "stream_scale": stream_scale_output,
         "stream_watermark_created": stream_watermark_created_output,
         "stream_watermark_identifier": stream_watermark_identifier_output,
+        "stream_watermark_response_single": stream_watermark_response_single_output,
         "stream_watermark_size": stream_watermark_size_output,
         "stream_watermarks": stream_watermarks_output,
         "stream_width": stream_width_output,
@@ -262,7 +316,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/stream_watermarks"
+          "$ref": "#/$defs/stream_watermark_response_single"
         },
         "4XX": {
           "$ref": "#/$defs/stream_api-response-common-failure"
@@ -270,6 +324,7 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "stream_api-response-common-failure": stream_api_response_common_failure_output,
+        "stream_api-response-single": stream_api_response_single_output,
         "stream_downloadedFrom": stream_downloadedFrom_output,
         "stream_height": stream_height_output,
         "stream_messages": stream_messages_output,
@@ -280,6 +335,7 @@ export const tools: readonly Tool[] = [
         "stream_scale": stream_scale_output,
         "stream_watermark_created": stream_watermark_created_output,
         "stream_watermark_identifier": stream_watermark_identifier_output,
+        "stream_watermark_response_single": stream_watermark_response_single_output,
         "stream_watermark_size": stream_watermark_size_output,
         "stream_watermarks": stream_watermarks_output,
         "stream_width": stream_width_output,
@@ -297,33 +353,24 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "The account identifier tag.",
-          "type": "string"
+          "$ref": "#/$defs/stream_account_identifier",
+          "description": "The account identifier tag."
         }
       },
       required: [
         "account_id"
       ],
+      $defs: {
+        "stream_account_identifier": stream_account_identifier,
+      },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "$ref": "#/$defs/stream_watermarks"
-          },
-          "type": "array"
-        },
-        "result_info": {
-          "type": "object"
-        }
-      },
-      "required": [
-        "result"
-      ],
-      "type": "object",
+      "$ref": "#/$defs/stream_watermark_response_collection",
       $defs: {
+        "stream_api-response-common": stream_api_response_common_output,
         "stream_downloadedFrom": stream_downloadedFrom_output,
         "stream_height": stream_height_output,
+        "stream_messages": stream_messages_output,
         "stream_name": stream_name_output,
         "stream_opacity": stream_opacity_output,
         "stream_padding": stream_padding_output,
@@ -331,6 +378,7 @@ export const tools: readonly Tool[] = [
         "stream_scale": stream_scale_output,
         "stream_watermark_created": stream_watermark_created_output,
         "stream_watermark_identifier": stream_watermark_identifier_output,
+        "stream_watermark_response_collection": stream_watermark_response_collection_output,
         "stream_watermark_size": stream_watermark_size_output,
         "stream_watermarks": stream_watermarks_output,
         "stream_width": stream_width_output,
@@ -354,27 +402,14 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "items": {
-                "$ref": "#/$defs/stream_watermarks"
-              },
-              "type": "array"
-            },
-            "result_info": {
-              "type": "object"
-            }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/stream_watermark_response_collection"
         },
         "4XX": {
           "$ref": "#/$defs/stream_api-response-common-failure"
         }
       },
       $defs: {
+        "stream_api-response-common": stream_api_response_common_output,
         "stream_api-response-common-failure": stream_api_response_common_failure_output,
         "stream_downloadedFrom": stream_downloadedFrom_output,
         "stream_height": stream_height_output,
@@ -386,6 +421,7 @@ export const tools: readonly Tool[] = [
         "stream_scale": stream_scale_output,
         "stream_watermark_created": stream_watermark_created_output,
         "stream_watermark_identifier": stream_watermark_identifier_output,
+        "stream_watermark_response_collection": stream_watermark_response_collection_output,
         "stream_watermark_size": stream_watermark_size_output,
         "stream_watermarks": stream_watermarks_output,
         "stream_width": stream_width_output,

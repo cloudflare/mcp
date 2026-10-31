@@ -50,3 +50,25 @@ export const posture_api_ContentAsset_output: JsonSchema = {
   ],
   "type": "object"
 };
+
+/**
+ * The schema of `posture-api_PaginatedContentAssetList` in responses.
+ */
+export const posture_api_PaginatedContentAssetList_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/posture-api_api-response-collection"
+    },
+    {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/posture-api_ContentAsset"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};

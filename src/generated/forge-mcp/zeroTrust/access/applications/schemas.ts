@@ -115,11 +115,76 @@ export const access_allowed_origins: JsonSchema = {
 };
 
 /**
+ * The schema of `access_app_id`.
+ */
+export const access_app_id: JsonSchema = {
+  "oneOf": [
+    {
+      "$ref": "#/$defs/access_identifier"
+    },
+    {
+      "$ref": "#/$defs/access_uuid"
+    }
+  ]
+};
+
+/**
  * The schema of `access_app_launcher_logo_url`.
  */
 export const access_app_launcher_logo_url: JsonSchema = {
   "description": "The image URL of the logo shown in the App Launcher header.",
   "type": "string"
+};
+
+/**
+ * The schema of `access_app_launcher_props`.
+ */
+export const access_app_launcher_props: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/access_feature_app_props"
+    },
+    {
+      "properties": {
+        "app_launcher_logo_url": {
+          "$ref": "#/$defs/access_app_launcher_logo_url",
+          "description": "The image URL of the logo shown in the App Launcher header."
+        },
+        "bg_color": {
+          "$ref": "#/$defs/access_bg_color",
+          "description": "The background color of the App Launcher page."
+        },
+        "footer_links": {
+          "$ref": "#/$defs/access_footer_links",
+          "description": "The links in the App Launcher footer."
+        },
+        "header_bg_color": {
+          "$ref": "#/$defs/access_header_bg_color",
+          "description": "The background color of the App Launcher header."
+        },
+        "landing_page_design": {
+          "$ref": "#/$defs/access_landing_page_design",
+          "description": "The design of the App Launcher landing page shown to users when they log in."
+        },
+        "skip_app_launcher_login_page": {
+          "$ref": "#/$defs/access_skip_app_launcher_login_page",
+          "default": false,
+          "description": "Determines when to skip the App Launcher landing page."
+        },
+        "type": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/access_type"
+            },
+            {
+              "type": "string"
+            }
+          ]
+        }
+      },
+      "type": "object"
+    }
+  ]
 };
 
 /**
@@ -173,6 +238,65 @@ export const access_app_policy_request: JsonSchema = {
 };
 
 /**
+ * The schema of `access_app_req_embedded_policies`.
+ */
+export const access_app_req_embedded_policies: JsonSchema = {
+  "properties": {
+    "policies": {
+      "description": "The policies that Access applies to the application, in ascending order of precedence. Items can reference existing policies or create new policies exclusive to the application. Reusable and inline policies are mutually exclusive.",
+      "items": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/access_app_policy_link"
+          },
+          {
+            "allOf": [
+              {
+                "type": "string"
+              },
+              {
+                "$ref": "#/$defs/access_uuid-2"
+              }
+            ]
+          },
+          {
+            "allOf": [
+              {
+                "properties": {
+                  "id": {
+                    "$ref": "#/$defs/access_uuid-2",
+                    "description": "The UUID of the policy"
+                  }
+                },
+                "type": "object"
+              },
+              {
+                "$ref": "#/$defs/access_app_policy_request"
+              }
+            ]
+          }
+        ]
+      },
+      "type": "array"
+    }
+  },
+  "type": "object"
+};
+
+/**
+ * The schema of `access_app_req_embedded_scim_config`.
+ */
+export const access_app_req_embedded_scim_config: JsonSchema = {
+  "properties": {
+    "scim_config": {
+      "$ref": "#/$defs/access_scim_config",
+      "description": "Configuration for provisioning to this application via SCIM. This is currently in closed beta."
+    }
+  },
+  "type": "object"
+};
+
+/**
  * The schema of `access_app_request`.
  */
 export const access_app_request: JsonSchema = {
@@ -181,1590 +305,180 @@ export const access_app_request: JsonSchema = {
       "$ref": "#/$defs/access_end_user_props"
     },
     {
-      "properties": {
-        "allow_authenticate_via_warp": {
-          "$ref": "#/$defs/access_allow_authenticate_via_warp-2",
-          "description": "When set to true, users can authenticate to this application using their WARP session.  When set to false this application will always require direct IdP authentication. This setting always overrides the organization setting for WARP authentication."
+      "allOf": [
+        {
+          "$ref": "#/$defs/access_self_hosted_props"
         },
-        "allow_iframe": {
-          "$ref": "#/$defs/access_allow_iframe",
-          "description": "Enables loading application content in an iFrame."
+        {
+          "$ref": "#/$defs/access_app_req_embedded_policies"
         },
-        "allowed_idps": {
-          "$ref": "#/$defs/access_allowed_idps",
-          "description": "The identity providers your users can select when connecting to this application. Defaults to all IdPs configured in your account."
-        },
-        "app_launcher_visible": {
-          "$ref": "#/$defs/access_app_launcher_visible",
-          "default": true,
-          "description": "Displays the application in the App Launcher."
-        },
-        "auto_redirect_to_identity": {
-          "$ref": "#/$defs/access_auto_redirect_to_identity-2",
-          "default": false,
-          "description": "When set to `true`, users skip the identity provider selection step during login. You must specify only one identity provider in allowed_idps."
-        },
-        "cors_headers": {
-          "$ref": "#/$defs/access_cors_headers"
-        },
-        "custom_deny_message": {
-          "$ref": "#/$defs/access_custom_deny_message",
-          "description": "The custom error message shown to a user when they are denied access to the application."
-        },
-        "custom_deny_url": {
-          "$ref": "#/$defs/access_custom_deny_url",
-          "description": "The custom URL a user is redirected to when they are denied access to the application when failing identity-based rules."
-        },
-        "custom_non_identity_deny_url": {
-          "$ref": "#/$defs/access_custom_non_identity_deny_url",
-          "description": "The custom URL a user is redirected to when they are denied access to the application when failing non-identity rules."
-        },
-        "custom_pages": {
-          "$ref": "#/$defs/access_custom_pages-2",
-          "description": "The custom pages that will be displayed when applicable for this application"
-        },
-        "destinations": {
-          "$ref": "#/$defs/access_destinations",
-          "default": [],
-          "description": "List of destinations secured by Access. This supersedes `self_hosted_domains` to allow for more flexibility in defining different types of domains. If `destinations` are provided, then `self_hosted_domains` will be ignored.\n"
-        },
-        "domain": {
-          "$ref": "#/$defs/access_domain",
-          "description": "The primary hostname and path secured by Access. This domain will be displayed if the app is visible in the App Launcher."
-        },
-        "eager_redirect_cookie_setting": {
-          "$ref": "#/$defs/access_eager_redirect_cookie_setting",
-          "default": true,
-          "description": "Preemptively sets the Access session cookie on every hostname in a multi-hostname self-hosted application during the initial redirect chain, rather than setting it lazily on first visit. Defaults to true. Set to false to disable the eager redirect cookie behavior."
-        },
-        "enable_binding_cookie": {
-          "$ref": "#/$defs/access_enable_binding_cookie",
-          "default": false,
-          "description": "Enables the binding cookie, which increases security against compromised authorization tokens and CSRF attacks."
-        },
-        "http_only_cookie_attribute": {
-          "$ref": "#/$defs/access_http_only_cookie_attribute",
-          "default": true,
-          "description": "Enables the HttpOnly cookie attribute, which increases security against XSS attacks."
-        },
-        "logo_url": {
-          "$ref": "#/$defs/access_logo_url",
-          "description": "The image URL for the logo shown in the App Launcher dashboard."
-        },
-        "mfa_config": {
-          "$ref": "#/$defs/access_mfa_config",
-          "description": "Configures multi-factor authentication (MFA) settings."
-        },
-        "name": {
-          "$ref": "#/$defs/access_name-8",
-          "description": "The name of the application."
-        },
-        "oauth_configuration": {
-          "$ref": "#/$defs/access_oauth_configuration",
-          "description": "**Beta:** Optional configuration for managing an OAuth authorization flow controlled by Access. When set, Access will act as the OAuth authorization server for this application. Only compatible with OAuth clients that support [RFC 8707](https://datatracker.ietf.org/doc/html/rfc8707) (Resource Indicators for OAuth 2.0). This feature is currently in beta.\n"
-        },
-        "options_preflight_bypass": {
-          "$ref": "#/$defs/access_options_preflight_bypass",
-          "description": "Allows options preflight requests to bypass Access authentication and go directly to the origin. Cannot turn on if cors_headers is set."
-        },
-        "path_cookie_attribute": {
-          "$ref": "#/$defs/access_path_cookie_attribute",
-          "default": false,
-          "description": "Enables cookie paths to scope an application's JWT to the application path. If disabled, the JWT will scope to the hostname by default"
-        },
-        "policies": {
-          "description": "The policies that Access applies to the application, in ascending order of precedence. Items can reference existing policies or create new policies exclusive to the application. Reusable and inline policies are mutually exclusive.",
-          "items": {
-            "oneOf": [
-              {
-                "$ref": "#/$defs/access_app_policy_link"
-              },
-              {
-                "allOf": [
-                  {
-                    "type": "string"
-                  },
-                  {
-                    "$ref": "#/$defs/access_uuid-2"
-                  }
-                ]
-              },
-              {
-                "allOf": [
-                  {
-                    "properties": {
-                      "id": {
-                        "$ref": "#/$defs/access_uuid-2",
-                        "description": "The UUID of the policy"
-                      }
-                    },
-                    "type": "object"
-                  },
-                  {
-                    "$ref": "#/$defs/access_app_policy_request"
-                  }
-                ]
-              }
-            ]
-          },
-          "type": "array"
-        },
-        "read_service_tokens_from_header": {
-          "$ref": "#/$defs/access_read_service_tokens_from_header",
-          "description": "Allows matching Access Service Tokens passed HTTP in a single header with this name.\nThis works as an alternative to the (CF-Access-Client-Id, CF-Access-Client-Secret) pair of headers.\nThe header value will be interpreted as a json object similar to:\n  {\n    \"cf-access-client-id\": \"88bf3b6d86161464f6509f7219099e57.access.example.com\",\n    \"cf-access-client-secret\": \"bdd31cbc4dec990953e39163fbbb194c93313ca9f0a6e420346af9d326b1d2a5\"\n  }\n"
-        },
-        "same_site_cookie_attribute": {
-          "$ref": "#/$defs/access_same_site_cookie_attribute",
-          "description": "Sets the SameSite cookie setting, which provides increased security against CSRF attacks."
-        },
-        "scim_config": {
-          "$ref": "#/$defs/access_scim_config",
-          "description": "Configuration for provisioning to this application via SCIM. This is currently in closed beta."
-        },
-        "self_hosted_domains": {
-          "$ref": "#/$defs/access_self_hosted_domains",
-          "default": [],
-          "description": "List of public domains that Access will secure. This field is deprecated in favor of `destinations` and will be supported until **November 21, 2025.** If `destinations` are provided, then `self_hosted_domains` will be ignored.\n"
-        },
-        "service_auth_401_redirect": {
-          "$ref": "#/$defs/access_service_auth_401_redirect",
-          "description": "Returns a 401 status code when the request is blocked by a Service Auth policy."
-        },
-        "session_duration": {
-          "$ref": "#/$defs/access_session_duration-2",
-          "default": "24h",
-          "description": "The amount of time that tokens issued for this application will be valid. Must be in the format `300ms` or `2h45m`. Valid time units are: ns, us (or µs), ms, s, m, h."
-        },
-        "skip_interstitial": {
-          "$ref": "#/$defs/access_skip_interstitial",
-          "description": "Enables automatic authentication through cloudflared."
-        },
-        "tags": {
-          "$ref": "#/$defs/access_tags",
-          "default": [],
-          "description": "The tags you want assigned to an application. Tags are used to filter applications in the App Launcher dashboard."
-        },
-        "type": {
-          "allOf": [
-            {
-              "$ref": "#/$defs/access_type"
-            },
-            {
-              "type": "string"
-            }
-          ]
-        },
-        "use_clientless_isolation_app_launcher_url": {
-          "$ref": "#/$defs/access_use_clientless_isolation_app_launcher_url",
-          "default": false,
-          "description": "Determines if users can access this application via a clientless browser isolation URL.\nThis allows users to access private domains without connecting to Gateway. The option requires\nClientless Browser Isolation to be set up with policies that allow users of this application.\n"
+        {
+          "$ref": "#/$defs/access_app_req_embedded_scim_config"
         }
-      },
-      "required": [
-        "domain",
-        "type"
-      ],
-      "type": "object"
+      ]
     },
     {
-      "properties": {
-        "allowed_idps": {
-          "$ref": "#/$defs/access_allowed_idps",
-          "description": "The identity providers your users can select when connecting to this application. Defaults to all IdPs configured in your account."
+      "allOf": [
+        {
+          "$ref": "#/$defs/access_saas_props"
         },
-        "app_launcher_visible": {
-          "$ref": "#/$defs/access_app_launcher_visible",
-          "default": true,
-          "description": "Displays the application in the App Launcher."
+        {
+          "$ref": "#/$defs/access_app_req_embedded_policies"
         },
-        "auto_redirect_to_identity": {
-          "$ref": "#/$defs/access_auto_redirect_to_identity-2",
-          "default": false,
-          "description": "When set to `true`, users skip the identity provider selection step during login. You must specify only one identity provider in allowed_idps."
-        },
-        "custom_pages": {
-          "$ref": "#/$defs/access_custom_pages-2",
-          "description": "The custom pages that will be displayed when applicable for this application"
-        },
-        "logo_url": {
-          "$ref": "#/$defs/access_logo_url",
-          "description": "The image URL for the logo shown in the App Launcher dashboard."
-        },
-        "name": {
-          "$ref": "#/$defs/access_name-8",
-          "description": "The name of the application."
-        },
-        "policies": {
-          "description": "The policies that Access applies to the application, in ascending order of precedence. Items can reference existing policies or create new policies exclusive to the application. Reusable and inline policies are mutually exclusive.",
-          "items": {
-            "oneOf": [
-              {
-                "$ref": "#/$defs/access_app_policy_link"
-              },
-              {
-                "allOf": [
-                  {
-                    "type": "string"
-                  },
-                  {
-                    "$ref": "#/$defs/access_uuid-2"
-                  }
-                ]
-              },
-              {
-                "allOf": [
-                  {
-                    "properties": {
-                      "id": {
-                        "$ref": "#/$defs/access_uuid-2",
-                        "description": "The UUID of the policy"
-                      }
-                    },
-                    "type": "object"
-                  },
-                  {
-                    "$ref": "#/$defs/access_app_policy_request"
-                  }
-                ]
-              }
-            ]
-          },
-          "type": "array"
-        },
-        "saas_app": {
-          "oneOf": [
-            {
-              "$ref": "#/$defs/access_saml_saas_app"
-            },
-            {
-              "$ref": "#/$defs/access_oidc_saas_app"
-            }
-          ]
-        },
-        "scim_config": {
-          "$ref": "#/$defs/access_scim_config",
-          "description": "Configuration for provisioning to this application via SCIM. This is currently in closed beta."
-        },
-        "tags": {
-          "$ref": "#/$defs/access_tags",
-          "default": [],
-          "description": "The tags you want assigned to an application. Tags are used to filter applications in the App Launcher dashboard."
-        },
-        "type": {
-          "allOf": [
-            {
-              "$ref": "#/$defs/access_type"
-            },
-            {
-              "type": "string"
-            }
-          ]
+        {
+          "$ref": "#/$defs/access_app_req_embedded_scim_config"
         }
-      },
-      "type": "object"
+      ]
     },
     {
-      "properties": {
-        "allow_authenticate_via_warp": {
-          "$ref": "#/$defs/access_allow_authenticate_via_warp-2",
-          "description": "When set to true, users can authenticate to this application using their WARP session.  When set to false this application will always require direct IdP authentication. This setting always overrides the organization setting for WARP authentication."
+      "allOf": [
+        {
+          "$ref": "#/$defs/access_ssh_props"
         },
-        "allow_iframe": {
-          "$ref": "#/$defs/access_allow_iframe",
-          "description": "Enables loading application content in an iFrame."
+        {
+          "$ref": "#/$defs/access_app_req_embedded_policies"
         },
-        "allowed_idps": {
-          "$ref": "#/$defs/access_allowed_idps",
-          "description": "The identity providers your users can select when connecting to this application. Defaults to all IdPs configured in your account."
-        },
-        "app_launcher_visible": {
-          "$ref": "#/$defs/access_app_launcher_visible",
-          "default": true,
-          "description": "Displays the application in the App Launcher."
-        },
-        "auto_redirect_to_identity": {
-          "$ref": "#/$defs/access_auto_redirect_to_identity-2",
-          "default": false,
-          "description": "When set to `true`, users skip the identity provider selection step during login. You must specify only one identity provider in allowed_idps."
-        },
-        "cors_headers": {
-          "$ref": "#/$defs/access_cors_headers"
-        },
-        "custom_deny_message": {
-          "$ref": "#/$defs/access_custom_deny_message",
-          "description": "The custom error message shown to a user when they are denied access to the application."
-        },
-        "custom_deny_url": {
-          "$ref": "#/$defs/access_custom_deny_url",
-          "description": "The custom URL a user is redirected to when they are denied access to the application when failing identity-based rules."
-        },
-        "custom_non_identity_deny_url": {
-          "$ref": "#/$defs/access_custom_non_identity_deny_url",
-          "description": "The custom URL a user is redirected to when they are denied access to the application when failing non-identity rules."
-        },
-        "custom_pages": {
-          "$ref": "#/$defs/access_custom_pages-2",
-          "description": "The custom pages that will be displayed when applicable for this application"
-        },
-        "destinations": {
-          "$ref": "#/$defs/access_destinations",
-          "default": [],
-          "description": "List of destinations secured by Access. This supersedes `self_hosted_domains` to allow for more flexibility in defining different types of domains. If `destinations` are provided, then `self_hosted_domains` will be ignored.\n"
-        },
-        "domain": {
-          "$ref": "#/$defs/access_domain",
-          "description": "The primary hostname and path secured by Access. This domain will be displayed if the app is visible in the App Launcher."
-        },
-        "eager_redirect_cookie_setting": {
-          "$ref": "#/$defs/access_eager_redirect_cookie_setting",
-          "default": true,
-          "description": "Preemptively sets the Access session cookie on every hostname in a multi-hostname self-hosted application during the initial redirect chain, rather than setting it lazily on first visit. Defaults to true. Set to false to disable the eager redirect cookie behavior."
-        },
-        "enable_binding_cookie": {
-          "$ref": "#/$defs/access_enable_binding_cookie",
-          "default": false,
-          "description": "Enables the binding cookie, which increases security against compromised authorization tokens and CSRF attacks."
-        },
-        "http_only_cookie_attribute": {
-          "$ref": "#/$defs/access_http_only_cookie_attribute",
-          "default": true,
-          "description": "Enables the HttpOnly cookie attribute, which increases security against XSS attacks."
-        },
-        "logo_url": {
-          "$ref": "#/$defs/access_logo_url",
-          "description": "The image URL for the logo shown in the App Launcher dashboard."
-        },
-        "mfa_config": {
-          "$ref": "#/$defs/access_mfa_config",
-          "description": "Configures multi-factor authentication (MFA) settings."
-        },
-        "name": {
-          "$ref": "#/$defs/access_name-8",
-          "description": "The name of the application."
-        },
-        "oauth_configuration": {
-          "$ref": "#/$defs/access_oauth_configuration",
-          "description": "**Beta:** Optional configuration for managing an OAuth authorization flow controlled by Access. When set, Access will act as the OAuth authorization server for this application. Only compatible with OAuth clients that support [RFC 8707](https://datatracker.ietf.org/doc/html/rfc8707) (Resource Indicators for OAuth 2.0). This feature is currently in beta.\n"
-        },
-        "options_preflight_bypass": {
-          "$ref": "#/$defs/access_options_preflight_bypass",
-          "description": "Allows options preflight requests to bypass Access authentication and go directly to the origin. Cannot turn on if cors_headers is set."
-        },
-        "path_cookie_attribute": {
-          "$ref": "#/$defs/access_path_cookie_attribute",
-          "default": false,
-          "description": "Enables cookie paths to scope an application's JWT to the application path. If disabled, the JWT will scope to the hostname by default"
-        },
-        "policies": {
-          "description": "The policies that Access applies to the application, in ascending order of precedence. Items can reference existing policies or create new policies exclusive to the application. Reusable and inline policies are mutually exclusive.",
-          "items": {
-            "oneOf": [
-              {
-                "$ref": "#/$defs/access_app_policy_link"
-              },
-              {
-                "allOf": [
-                  {
-                    "type": "string"
-                  },
-                  {
-                    "$ref": "#/$defs/access_uuid-2"
-                  }
-                ]
-              },
-              {
-                "allOf": [
-                  {
-                    "properties": {
-                      "id": {
-                        "$ref": "#/$defs/access_uuid-2",
-                        "description": "The UUID of the policy"
-                      }
-                    },
-                    "type": "object"
-                  },
-                  {
-                    "$ref": "#/$defs/access_app_policy_request"
-                  }
-                ]
-              }
-            ]
-          },
-          "type": "array"
-        },
-        "read_service_tokens_from_header": {
-          "$ref": "#/$defs/access_read_service_tokens_from_header",
-          "description": "Allows matching Access Service Tokens passed HTTP in a single header with this name.\nThis works as an alternative to the (CF-Access-Client-Id, CF-Access-Client-Secret) pair of headers.\nThe header value will be interpreted as a json object similar to:\n  {\n    \"cf-access-client-id\": \"88bf3b6d86161464f6509f7219099e57.access.example.com\",\n    \"cf-access-client-secret\": \"bdd31cbc4dec990953e39163fbbb194c93313ca9f0a6e420346af9d326b1d2a5\"\n  }\n"
-        },
-        "same_site_cookie_attribute": {
-          "$ref": "#/$defs/access_same_site_cookie_attribute",
-          "description": "Sets the SameSite cookie setting, which provides increased security against CSRF attacks."
-        },
-        "scim_config": {
-          "$ref": "#/$defs/access_scim_config",
-          "description": "Configuration for provisioning to this application via SCIM. This is currently in closed beta."
-        },
-        "self_hosted_domains": {
-          "$ref": "#/$defs/access_self_hosted_domains",
-          "default": [],
-          "description": "List of public domains that Access will secure. This field is deprecated in favor of `destinations` and will be supported until **November 21, 2025.** If `destinations` are provided, then `self_hosted_domains` will be ignored.\n"
-        },
-        "service_auth_401_redirect": {
-          "$ref": "#/$defs/access_service_auth_401_redirect",
-          "description": "Returns a 401 status code when the request is blocked by a Service Auth policy."
-        },
-        "session_duration": {
-          "$ref": "#/$defs/access_session_duration-2",
-          "default": "24h",
-          "description": "The amount of time that tokens issued for this application will be valid. Must be in the format `300ms` or `2h45m`. Valid time units are: ns, us (or µs), ms, s, m, h."
-        },
-        "skip_interstitial": {
-          "$ref": "#/$defs/access_skip_interstitial",
-          "description": "Enables automatic authentication through cloudflared."
-        },
-        "tags": {
-          "$ref": "#/$defs/access_tags",
-          "default": [],
-          "description": "The tags you want assigned to an application. Tags are used to filter applications in the App Launcher dashboard."
-        },
-        "type": {
-          "allOf": [
-            {
-              "$ref": "#/$defs/access_type"
-            },
-            {
-              "type": "string"
-            }
-          ]
-        },
-        "use_clientless_isolation_app_launcher_url": {
-          "$ref": "#/$defs/access_use_clientless_isolation_app_launcher_url",
-          "default": false,
-          "description": "Determines if users can access this application via a clientless browser isolation URL.\nThis allows users to access private domains without connecting to Gateway. The option requires\nClientless Browser Isolation to be set up with policies that allow users of this application.\n"
+        {
+          "$ref": "#/$defs/access_app_req_embedded_scim_config"
         }
-      },
-      "required": [
-        "domain",
-        "type"
-      ],
-      "type": "object"
+      ]
     },
     {
-      "properties": {
-        "allow_authenticate_via_warp": {
-          "$ref": "#/$defs/access_allow_authenticate_via_warp-2",
-          "description": "When set to true, users can authenticate to this application using their WARP session.  When set to false this application will always require direct IdP authentication. This setting always overrides the organization setting for WARP authentication."
+      "allOf": [
+        {
+          "$ref": "#/$defs/access_vnc_props"
         },
-        "allow_iframe": {
-          "$ref": "#/$defs/access_allow_iframe",
-          "description": "Enables loading application content in an iFrame."
+        {
+          "$ref": "#/$defs/access_app_req_embedded_policies"
         },
-        "allowed_idps": {
-          "$ref": "#/$defs/access_allowed_idps",
-          "description": "The identity providers your users can select when connecting to this application. Defaults to all IdPs configured in your account."
-        },
-        "app_launcher_visible": {
-          "$ref": "#/$defs/access_app_launcher_visible",
-          "default": true,
-          "description": "Displays the application in the App Launcher."
-        },
-        "auto_redirect_to_identity": {
-          "$ref": "#/$defs/access_auto_redirect_to_identity-2",
-          "default": false,
-          "description": "When set to `true`, users skip the identity provider selection step during login. You must specify only one identity provider in allowed_idps."
-        },
-        "cors_headers": {
-          "$ref": "#/$defs/access_cors_headers"
-        },
-        "custom_deny_message": {
-          "$ref": "#/$defs/access_custom_deny_message",
-          "description": "The custom error message shown to a user when they are denied access to the application."
-        },
-        "custom_deny_url": {
-          "$ref": "#/$defs/access_custom_deny_url",
-          "description": "The custom URL a user is redirected to when they are denied access to the application when failing identity-based rules."
-        },
-        "custom_non_identity_deny_url": {
-          "$ref": "#/$defs/access_custom_non_identity_deny_url",
-          "description": "The custom URL a user is redirected to when they are denied access to the application when failing non-identity rules."
-        },
-        "custom_pages": {
-          "$ref": "#/$defs/access_custom_pages-2",
-          "description": "The custom pages that will be displayed when applicable for this application"
-        },
-        "destinations": {
-          "$ref": "#/$defs/access_destinations",
-          "default": [],
-          "description": "List of destinations secured by Access. This supersedes `self_hosted_domains` to allow for more flexibility in defining different types of domains. If `destinations` are provided, then `self_hosted_domains` will be ignored.\n"
-        },
-        "domain": {
-          "$ref": "#/$defs/access_domain",
-          "description": "The primary hostname and path secured by Access. This domain will be displayed if the app is visible in the App Launcher."
-        },
-        "eager_redirect_cookie_setting": {
-          "$ref": "#/$defs/access_eager_redirect_cookie_setting",
-          "default": true,
-          "description": "Preemptively sets the Access session cookie on every hostname in a multi-hostname self-hosted application during the initial redirect chain, rather than setting it lazily on first visit. Defaults to true. Set to false to disable the eager redirect cookie behavior."
-        },
-        "enable_binding_cookie": {
-          "$ref": "#/$defs/access_enable_binding_cookie",
-          "default": false,
-          "description": "Enables the binding cookie, which increases security against compromised authorization tokens and CSRF attacks."
-        },
-        "http_only_cookie_attribute": {
-          "$ref": "#/$defs/access_http_only_cookie_attribute",
-          "default": true,
-          "description": "Enables the HttpOnly cookie attribute, which increases security against XSS attacks."
-        },
-        "logo_url": {
-          "$ref": "#/$defs/access_logo_url",
-          "description": "The image URL for the logo shown in the App Launcher dashboard."
-        },
-        "mfa_config": {
-          "$ref": "#/$defs/access_mfa_config",
-          "description": "Configures multi-factor authentication (MFA) settings."
-        },
-        "name": {
-          "$ref": "#/$defs/access_name-8",
-          "description": "The name of the application."
-        },
-        "oauth_configuration": {
-          "$ref": "#/$defs/access_oauth_configuration",
-          "description": "**Beta:** Optional configuration for managing an OAuth authorization flow controlled by Access. When set, Access will act as the OAuth authorization server for this application. Only compatible with OAuth clients that support [RFC 8707](https://datatracker.ietf.org/doc/html/rfc8707) (Resource Indicators for OAuth 2.0). This feature is currently in beta.\n"
-        },
-        "options_preflight_bypass": {
-          "$ref": "#/$defs/access_options_preflight_bypass",
-          "description": "Allows options preflight requests to bypass Access authentication and go directly to the origin. Cannot turn on if cors_headers is set."
-        },
-        "path_cookie_attribute": {
-          "$ref": "#/$defs/access_path_cookie_attribute",
-          "default": false,
-          "description": "Enables cookie paths to scope an application's JWT to the application path. If disabled, the JWT will scope to the hostname by default"
-        },
-        "policies": {
-          "description": "The policies that Access applies to the application, in ascending order of precedence. Items can reference existing policies or create new policies exclusive to the application. Reusable and inline policies are mutually exclusive.",
-          "items": {
-            "oneOf": [
-              {
-                "$ref": "#/$defs/access_app_policy_link"
-              },
-              {
-                "allOf": [
-                  {
-                    "type": "string"
-                  },
-                  {
-                    "$ref": "#/$defs/access_uuid-2"
-                  }
-                ]
-              },
-              {
-                "allOf": [
-                  {
-                    "properties": {
-                      "id": {
-                        "$ref": "#/$defs/access_uuid-2",
-                        "description": "The UUID of the policy"
-                      }
-                    },
-                    "type": "object"
-                  },
-                  {
-                    "$ref": "#/$defs/access_app_policy_request"
-                  }
-                ]
-              }
-            ]
-          },
-          "type": "array"
-        },
-        "read_service_tokens_from_header": {
-          "$ref": "#/$defs/access_read_service_tokens_from_header",
-          "description": "Allows matching Access Service Tokens passed HTTP in a single header with this name.\nThis works as an alternative to the (CF-Access-Client-Id, CF-Access-Client-Secret) pair of headers.\nThe header value will be interpreted as a json object similar to:\n  {\n    \"cf-access-client-id\": \"88bf3b6d86161464f6509f7219099e57.access.example.com\",\n    \"cf-access-client-secret\": \"bdd31cbc4dec990953e39163fbbb194c93313ca9f0a6e420346af9d326b1d2a5\"\n  }\n"
-        },
-        "same_site_cookie_attribute": {
-          "$ref": "#/$defs/access_same_site_cookie_attribute",
-          "description": "Sets the SameSite cookie setting, which provides increased security against CSRF attacks."
-        },
-        "scim_config": {
-          "$ref": "#/$defs/access_scim_config",
-          "description": "Configuration for provisioning to this application via SCIM. This is currently in closed beta."
-        },
-        "self_hosted_domains": {
-          "$ref": "#/$defs/access_self_hosted_domains",
-          "default": [],
-          "description": "List of public domains that Access will secure. This field is deprecated in favor of `destinations` and will be supported until **November 21, 2025.** If `destinations` are provided, then `self_hosted_domains` will be ignored.\n"
-        },
-        "service_auth_401_redirect": {
-          "$ref": "#/$defs/access_service_auth_401_redirect",
-          "description": "Returns a 401 status code when the request is blocked by a Service Auth policy."
-        },
-        "session_duration": {
-          "$ref": "#/$defs/access_session_duration-2",
-          "default": "24h",
-          "description": "The amount of time that tokens issued for this application will be valid. Must be in the format `300ms` or `2h45m`. Valid time units are: ns, us (or µs), ms, s, m, h."
-        },
-        "skip_interstitial": {
-          "$ref": "#/$defs/access_skip_interstitial",
-          "description": "Enables automatic authentication through cloudflared."
-        },
-        "tags": {
-          "$ref": "#/$defs/access_tags",
-          "default": [],
-          "description": "The tags you want assigned to an application. Tags are used to filter applications in the App Launcher dashboard."
-        },
-        "type": {
-          "allOf": [
-            {
-              "$ref": "#/$defs/access_type"
-            },
-            {
-              "type": "string"
-            }
-          ]
-        },
-        "use_clientless_isolation_app_launcher_url": {
-          "$ref": "#/$defs/access_use_clientless_isolation_app_launcher_url",
-          "default": false,
-          "description": "Determines if users can access this application via a clientless browser isolation URL.\nThis allows users to access private domains without connecting to Gateway. The option requires\nClientless Browser Isolation to be set up with policies that allow users of this application.\n"
+        {
+          "$ref": "#/$defs/access_app_req_embedded_scim_config"
         }
-      },
-      "required": [
-        "domain",
-        "type"
-      ],
-      "type": "object"
+      ]
     },
     {
-      "properties": {
-        "allowed_idps": {
-          "$ref": "#/$defs/access_allowed_idps",
-          "description": "The identity providers your users can select when connecting to this application. Defaults to all IdPs configured in your account."
+      "allOf": [
+        {
+          "$ref": "#/$defs/access_app_launcher_props"
         },
-        "app_launcher_logo_url": {
-          "$ref": "#/$defs/access_app_launcher_logo_url",
-          "description": "The image URL of the logo shown in the App Launcher header."
-        },
-        "auto_redirect_to_identity": {
-          "$ref": "#/$defs/access_auto_redirect_to_identity-2",
-          "default": false,
-          "description": "When set to `true`, users skip the identity provider selection step during login. You must specify only one identity provider in allowed_idps."
-        },
-        "bg_color": {
-          "$ref": "#/$defs/access_bg_color",
-          "description": "The background color of the App Launcher page."
-        },
-        "custom_deny_url": {
-          "$ref": "#/$defs/access_custom_deny_url",
-          "description": "The custom URL a user is redirected to when they are denied access to the application when failing identity-based rules."
-        },
-        "custom_non_identity_deny_url": {
-          "$ref": "#/$defs/access_custom_non_identity_deny_url",
-          "description": "The custom URL a user is redirected to when they are denied access to the application when failing non-identity rules."
-        },
-        "custom_pages": {
-          "$ref": "#/$defs/access_custom_pages-2",
-          "description": "The custom pages that will be displayed when applicable for this application"
-        },
-        "footer_links": {
-          "$ref": "#/$defs/access_footer_links",
-          "description": "The links in the App Launcher footer."
-        },
-        "header_bg_color": {
-          "$ref": "#/$defs/access_header_bg_color",
-          "description": "The background color of the App Launcher header."
-        },
-        "landing_page_design": {
-          "$ref": "#/$defs/access_landing_page_design",
-          "description": "The design of the App Launcher landing page shown to users when they log in."
-        },
-        "policies": {
-          "description": "The policies that Access applies to the application, in ascending order of precedence. Items can reference existing policies or create new policies exclusive to the application. Reusable and inline policies are mutually exclusive.",
-          "items": {
-            "oneOf": [
-              {
-                "$ref": "#/$defs/access_app_policy_link"
-              },
-              {
-                "allOf": [
-                  {
-                    "type": "string"
-                  },
-                  {
-                    "$ref": "#/$defs/access_uuid-2"
-                  }
-                ]
-              },
-              {
-                "allOf": [
-                  {
-                    "properties": {
-                      "id": {
-                        "$ref": "#/$defs/access_uuid-2",
-                        "description": "The UUID of the policy"
-                      }
-                    },
-                    "type": "object"
-                  },
-                  {
-                    "$ref": "#/$defs/access_app_policy_request"
-                  }
-                ]
-              }
-            ]
-          },
-          "type": "array"
-        },
-        "session_duration": {
-          "$ref": "#/$defs/access_session_duration-2",
-          "default": "24h",
-          "description": "The amount of time that tokens issued for this application will be valid. Must be in the format `300ms` or `2h45m`. Valid time units are: ns, us (or µs), ms, s, m, h."
-        },
-        "skip_app_launcher_login_page": {
-          "$ref": "#/$defs/access_skip_app_launcher_login_page",
-          "default": false,
-          "description": "Determines when to skip the App Launcher landing page."
-        },
-        "type": {
-          "allOf": [
-            {
-              "$ref": "#/$defs/access_type"
-            },
-            {
-              "type": "string"
-            }
-          ]
+        {
+          "$ref": "#/$defs/access_app_req_embedded_policies"
         }
-      },
-      "required": [
-        "type"
-      ],
-      "type": "object"
+      ]
     },
     {
-      "properties": {
-        "allowed_idps": {
-          "$ref": "#/$defs/access_allowed_idps",
-          "description": "The identity providers your users can select when connecting to this application. Defaults to all IdPs configured in your account."
+      "allOf": [
+        {
+          "$ref": "#/$defs/access_warp_props"
         },
-        "auto_redirect_to_identity": {
-          "$ref": "#/$defs/access_auto_redirect_to_identity-2",
-          "default": false,
-          "description": "When set to `true`, users skip the identity provider selection step during login. You must specify only one identity provider in allowed_idps."
-        },
-        "custom_deny_url": {
-          "$ref": "#/$defs/access_custom_deny_url",
-          "description": "The custom URL a user is redirected to when they are denied access to the application when failing identity-based rules."
-        },
-        "custom_non_identity_deny_url": {
-          "$ref": "#/$defs/access_custom_non_identity_deny_url",
-          "description": "The custom URL a user is redirected to when they are denied access to the application when failing non-identity rules."
-        },
-        "custom_pages": {
-          "$ref": "#/$defs/access_custom_pages-2",
-          "description": "The custom pages that will be displayed when applicable for this application"
-        },
-        "policies": {
-          "description": "The policies that Access applies to the application, in ascending order of precedence. Items can reference existing policies or create new policies exclusive to the application. Reusable and inline policies are mutually exclusive.",
-          "items": {
-            "oneOf": [
-              {
-                "$ref": "#/$defs/access_app_policy_link"
-              },
-              {
-                "allOf": [
-                  {
-                    "type": "string"
-                  },
-                  {
-                    "$ref": "#/$defs/access_uuid-2"
-                  }
-                ]
-              },
-              {
-                "allOf": [
-                  {
-                    "properties": {
-                      "id": {
-                        "$ref": "#/$defs/access_uuid-2",
-                        "description": "The UUID of the policy"
-                      }
-                    },
-                    "type": "object"
-                  },
-                  {
-                    "$ref": "#/$defs/access_app_policy_request"
-                  }
-                ]
-              }
-            ]
-          },
-          "type": "array"
-        },
-        "session_duration": {
-          "$ref": "#/$defs/access_session_duration-2",
-          "default": "24h",
-          "description": "The amount of time that tokens issued for this application will be valid. Must be in the format `300ms` or `2h45m`. Valid time units are: ns, us (or µs), ms, s, m, h."
-        },
-        "type": {
-          "allOf": [
-            {
-              "$ref": "#/$defs/access_type"
-            },
-            {
-              "type": "string"
-            }
-          ]
+        {
+          "$ref": "#/$defs/access_app_req_embedded_policies"
         }
-      },
-      "required": [
-        "type"
-      ],
-      "type": "object"
+      ]
     },
     {
-      "properties": {
-        "allowed_idps": {
-          "$ref": "#/$defs/access_allowed_idps",
-          "description": "The identity providers your users can select when connecting to this application. Defaults to all IdPs configured in your account."
+      "allOf": [
+        {
+          "$ref": "#/$defs/access_biso_props"
         },
-        "auto_redirect_to_identity": {
-          "$ref": "#/$defs/access_auto_redirect_to_identity-2",
-          "default": false,
-          "description": "When set to `true`, users skip the identity provider selection step during login. You must specify only one identity provider in allowed_idps."
-        },
-        "custom_deny_url": {
-          "$ref": "#/$defs/access_custom_deny_url",
-          "description": "The custom URL a user is redirected to when they are denied access to the application when failing identity-based rules."
-        },
-        "custom_non_identity_deny_url": {
-          "$ref": "#/$defs/access_custom_non_identity_deny_url",
-          "description": "The custom URL a user is redirected to when they are denied access to the application when failing non-identity rules."
-        },
-        "custom_pages": {
-          "$ref": "#/$defs/access_custom_pages-2",
-          "description": "The custom pages that will be displayed when applicable for this application"
-        },
-        "policies": {
-          "description": "The policies that Access applies to the application, in ascending order of precedence. Items can reference existing policies or create new policies exclusive to the application. Reusable and inline policies are mutually exclusive.",
-          "items": {
-            "oneOf": [
-              {
-                "$ref": "#/$defs/access_app_policy_link"
-              },
-              {
-                "allOf": [
-                  {
-                    "type": "string"
-                  },
-                  {
-                    "$ref": "#/$defs/access_uuid-2"
-                  }
-                ]
-              },
-              {
-                "allOf": [
-                  {
-                    "properties": {
-                      "id": {
-                        "$ref": "#/$defs/access_uuid-2",
-                        "description": "The UUID of the policy"
-                      }
-                    },
-                    "type": "object"
-                  },
-                  {
-                    "$ref": "#/$defs/access_app_policy_request"
-                  }
-                ]
-              }
-            ]
-          },
-          "type": "array"
-        },
-        "session_duration": {
-          "$ref": "#/$defs/access_session_duration-2",
-          "default": "24h",
-          "description": "The amount of time that tokens issued for this application will be valid. Must be in the format `300ms` or `2h45m`. Valid time units are: ns, us (or µs), ms, s, m, h."
-        },
-        "type": {
-          "allOf": [
-            {
-              "$ref": "#/$defs/access_type"
-            },
-            {
-              "type": "string"
-            }
-          ]
+        {
+          "$ref": "#/$defs/access_app_req_embedded_policies"
         }
-      },
-      "required": [
-        "type"
-      ],
-      "type": "object"
+      ]
     },
     {
-      "properties": {
-        "allowed_idps": {
-          "$ref": "#/$defs/access_allowed_idps",
-          "description": "The identity providers your users can select when connecting to this application. Defaults to all IdPs configured in your account."
+      "allOf": [
+        {
+          "$ref": "#/$defs/access_proxy_endpoint_props"
         },
-        "auto_redirect_to_identity": {
-          "$ref": "#/$defs/access_auto_redirect_to_identity-2",
-          "default": false,
-          "description": "When set to `true`, users skip the identity provider selection step during login. You must specify only one identity provider in allowed_idps."
-        },
-        "custom_deny_url": {
-          "$ref": "#/$defs/access_custom_deny_url",
-          "description": "The custom URL a user is redirected to when they are denied access to the application when failing identity-based rules."
-        },
-        "custom_non_identity_deny_url": {
-          "$ref": "#/$defs/access_custom_non_identity_deny_url",
-          "description": "The custom URL a user is redirected to when they are denied access to the application when failing non-identity rules."
-        },
-        "custom_pages": {
-          "$ref": "#/$defs/access_custom_pages-2",
-          "description": "The custom pages that will be displayed when applicable for this application"
-        },
-        "domain": {
-          "description": "The proxy endpoint domain in the format: 10 alphanumeric characters followed by .proxy.cloudflare-gateway.com",
-          "type": "string"
-        },
-        "name": {
-          "default": "Gateway Proxy",
-          "type": "string"
-        },
-        "policies": {
-          "description": "The policies that Access applies to the application, in ascending order of precedence. Items can reference existing policies or create new policies exclusive to the application. Reusable and inline policies are mutually exclusive.",
-          "items": {
-            "oneOf": [
-              {
-                "$ref": "#/$defs/access_app_policy_link"
-              },
-              {
-                "allOf": [
-                  {
-                    "type": "string"
-                  },
-                  {
-                    "$ref": "#/$defs/access_uuid-2"
-                  }
-                ]
-              },
-              {
-                "allOf": [
-                  {
-                    "properties": {
-                      "id": {
-                        "$ref": "#/$defs/access_uuid-2",
-                        "description": "The UUID of the policy"
-                      }
-                    },
-                    "type": "object"
-                  },
-                  {
-                    "$ref": "#/$defs/access_app_policy_request"
-                  }
-                ]
-              }
-            ]
-          },
-          "type": "array"
-        },
-        "session_duration": {
-          "$ref": "#/$defs/access_session_duration-2",
-          "default": "24h",
-          "description": "The amount of time that tokens issued for this application will be valid. Must be in the format `300ms` or `2h45m`. Valid time units are: ns, us (or µs), ms, s, m, h."
-        },
-        "type": {
-          "allOf": [
-            {
-              "$ref": "#/$defs/access_type"
-            },
-            {
-              "type": "string"
-            }
-          ]
+        {
+          "$ref": "#/$defs/access_app_req_embedded_policies"
         }
-      },
-      "required": [
-        "type"
-      ],
-      "type": "object"
+      ]
     },
     {
-      "properties": {
-        "app_launcher_visible": {
-          "$ref": "#/$defs/access_app_launcher_visible",
-          "default": true,
-          "description": "Displays the application in the App Launcher."
+      "allOf": [
+        {
+          "$ref": "#/$defs/access_bookmark_props"
         },
-        "domain": {
-          "description": "The URL or domain of the bookmark.",
-          "type": "string"
-        },
-        "logo_url": {
-          "$ref": "#/$defs/access_logo_url",
-          "description": "The image URL for the logo shown in the App Launcher dashboard."
-        },
-        "name": {
-          "$ref": "#/$defs/access_name-8",
-          "description": "The name of the application."
-        },
-        "policies": {
-          "description": "The policies that Access applies to the application, in ascending order of precedence. Items can reference existing policies or create new policies exclusive to the application. Reusable and inline policies are mutually exclusive.",
-          "items": {
-            "oneOf": [
-              {
-                "$ref": "#/$defs/access_app_policy_link"
-              },
-              {
-                "allOf": [
-                  {
-                    "type": "string"
-                  },
-                  {
-                    "$ref": "#/$defs/access_uuid-2"
-                  }
-                ]
-              },
-              {
-                "allOf": [
-                  {
-                    "properties": {
-                      "id": {
-                        "$ref": "#/$defs/access_uuid-2",
-                        "description": "The UUID of the policy"
-                      }
-                    },
-                    "type": "object"
-                  },
-                  {
-                    "$ref": "#/$defs/access_app_policy_request"
-                  }
-                ]
-              }
-            ]
-          },
-          "type": "array"
-        },
-        "tags": {
-          "$ref": "#/$defs/access_tags",
-          "default": [],
-          "description": "The tags you want assigned to an application. Tags are used to filter applications in the App Launcher dashboard."
-        },
-        "type": {
-          "allOf": [
-            {
-              "$ref": "#/$defs/access_type"
-            },
-            {
-              "type": "string"
-            }
-          ]
+        {
+          "$ref": "#/$defs/access_app_req_embedded_policies"
         }
-      },
-      "type": "object"
+      ]
     },
     {
-      "properties": {
-        "mfa_config": {
-          "$ref": "#/$defs/access_infra_mfa_config",
-          "description": "Configures multi-factor authentication (MFA) settings for infrastructure applications."
+      "allOf": [
+        {
+          "$ref": "#/$defs/access_infra_props"
         },
-        "name": {
-          "$ref": "#/$defs/access_name-8",
-          "description": "The name of the application."
-        },
-        "policies": {
-          "description": "The policies that Access applies to the application.",
-          "items": {
-            "$ref": "#/$defs/access_infra_policy_req"
-          },
-          "type": "array"
-        },
-        "session_duration": {
-          "default": "24h",
-          "description": "The maximum duration of a connection to this application's targets. Connections are terminated once it elapses. Must be in the format `30m` or `2h45m`, in whole seconds. Valid time units are: s, m, h.",
-          "type": "string"
-        },
-        "target_criteria": {
-          "items": {
-            "$ref": "#/$defs/access_target_criteria_infra_app"
-          },
-          "type": "array"
-        },
-        "type": {
-          "allOf": [
-            {
-              "$ref": "#/$defs/access_type"
-            },
-            {
-              "type": "string"
-            }
-          ]
+        {
+          "$ref": "#/$defs/access_infra_app_req_embedded_policies"
         }
-      },
-      "required": [
-        "type",
-        "target_criteria"
-      ],
-      "type": "object"
+      ]
     },
     {
-      "properties": {
-        "allow_authenticate_via_warp": {
-          "$ref": "#/$defs/access_allow_authenticate_via_warp-2",
-          "description": "When set to true, users can authenticate to this application using their WARP session.  When set to false this application will always require direct IdP authentication. This setting always overrides the organization setting for WARP authentication."
+      "allOf": [
+        {
+          "$ref": "#/$defs/access_rdp_props"
         },
-        "allow_iframe": {
-          "$ref": "#/$defs/access_allow_iframe",
-          "description": "Enables loading application content in an iFrame."
-        },
-        "allowed_idps": {
-          "$ref": "#/$defs/access_allowed_idps",
-          "description": "The identity providers your users can select when connecting to this application. Defaults to all IdPs configured in your account."
-        },
-        "app_launcher_visible": {
-          "$ref": "#/$defs/access_app_launcher_visible",
-          "default": true,
-          "description": "Displays the application in the App Launcher."
-        },
-        "auto_redirect_to_identity": {
-          "$ref": "#/$defs/access_auto_redirect_to_identity-2",
-          "default": false,
-          "description": "When set to `true`, users skip the identity provider selection step during login. You must specify only one identity provider in allowed_idps."
-        },
-        "cors_headers": {
-          "$ref": "#/$defs/access_cors_headers"
-        },
-        "custom_deny_message": {
-          "$ref": "#/$defs/access_custom_deny_message",
-          "description": "The custom error message shown to a user when they are denied access to the application."
-        },
-        "custom_deny_url": {
-          "$ref": "#/$defs/access_custom_deny_url",
-          "description": "The custom URL a user is redirected to when they are denied access to the application when failing identity-based rules."
-        },
-        "custom_non_identity_deny_url": {
-          "$ref": "#/$defs/access_custom_non_identity_deny_url",
-          "description": "The custom URL a user is redirected to when they are denied access to the application when failing non-identity rules."
-        },
-        "custom_pages": {
-          "$ref": "#/$defs/access_custom_pages-2",
-          "description": "The custom pages that will be displayed when applicable for this application"
-        },
-        "destinations": {
-          "$ref": "#/$defs/access_destinations",
-          "default": [],
-          "description": "List of destinations secured by Access. This supersedes `self_hosted_domains` to allow for more flexibility in defining different types of domains. If `destinations` are provided, then `self_hosted_domains` will be ignored.\n"
-        },
-        "domain": {
-          "$ref": "#/$defs/access_domain",
-          "description": "The primary hostname and path secured by Access. This domain will be displayed if the app is visible in the App Launcher."
-        },
-        "eager_redirect_cookie_setting": {
-          "$ref": "#/$defs/access_eager_redirect_cookie_setting",
-          "default": true,
-          "description": "Preemptively sets the Access session cookie on every hostname in a multi-hostname self-hosted application during the initial redirect chain, rather than setting it lazily on first visit. Defaults to true. Set to false to disable the eager redirect cookie behavior."
-        },
-        "enable_binding_cookie": {
-          "$ref": "#/$defs/access_enable_binding_cookie",
-          "default": false,
-          "description": "Enables the binding cookie, which increases security against compromised authorization tokens and CSRF attacks."
-        },
-        "http_only_cookie_attribute": {
-          "$ref": "#/$defs/access_http_only_cookie_attribute",
-          "default": true,
-          "description": "Enables the HttpOnly cookie attribute, which increases security against XSS attacks."
-        },
-        "logo_url": {
-          "$ref": "#/$defs/access_logo_url",
-          "description": "The image URL for the logo shown in the App Launcher dashboard."
-        },
-        "mfa_config": {
-          "$ref": "#/$defs/access_mfa_config",
-          "description": "Configures multi-factor authentication (MFA) settings."
-        },
-        "name": {
-          "$ref": "#/$defs/access_name-8",
-          "description": "The name of the application."
-        },
-        "oauth_configuration": {
-          "$ref": "#/$defs/access_oauth_configuration",
-          "description": "**Beta:** Optional configuration for managing an OAuth authorization flow controlled by Access. When set, Access will act as the OAuth authorization server for this application. Only compatible with OAuth clients that support [RFC 8707](https://datatracker.ietf.org/doc/html/rfc8707) (Resource Indicators for OAuth 2.0). This feature is currently in beta.\n"
-        },
-        "options_preflight_bypass": {
-          "$ref": "#/$defs/access_options_preflight_bypass",
-          "description": "Allows options preflight requests to bypass Access authentication and go directly to the origin. Cannot turn on if cors_headers is set."
-        },
-        "path_cookie_attribute": {
-          "$ref": "#/$defs/access_path_cookie_attribute",
-          "default": false,
-          "description": "Enables cookie paths to scope an application's JWT to the application path. If disabled, the JWT will scope to the hostname by default"
-        },
-        "policies": {
-          "description": "The policies that Access applies to the application, in ascending order of precedence. Items can reference existing policies or create new policies exclusive to the application. Reusable and inline policies are mutually exclusive.",
-          "items": {
-            "oneOf": [
-              {
-                "$ref": "#/$defs/access_app_policy_link"
-              },
-              {
-                "allOf": [
-                  {
-                    "type": "string"
-                  },
-                  {
-                    "$ref": "#/$defs/access_uuid-2"
-                  }
-                ]
-              },
-              {
-                "allOf": [
-                  {
-                    "properties": {
-                      "id": {
-                        "$ref": "#/$defs/access_uuid-2",
-                        "description": "The UUID of the policy"
-                      }
-                    },
-                    "type": "object"
-                  },
-                  {
-                    "$ref": "#/$defs/access_app_policy_request"
-                  }
-                ]
-              }
-            ]
-          },
-          "type": "array"
-        },
-        "read_service_tokens_from_header": {
-          "$ref": "#/$defs/access_read_service_tokens_from_header",
-          "description": "Allows matching Access Service Tokens passed HTTP in a single header with this name.\nThis works as an alternative to the (CF-Access-Client-Id, CF-Access-Client-Secret) pair of headers.\nThe header value will be interpreted as a json object similar to:\n  {\n    \"cf-access-client-id\": \"88bf3b6d86161464f6509f7219099e57.access.example.com\",\n    \"cf-access-client-secret\": \"bdd31cbc4dec990953e39163fbbb194c93313ca9f0a6e420346af9d326b1d2a5\"\n  }\n"
-        },
-        "same_site_cookie_attribute": {
-          "$ref": "#/$defs/access_same_site_cookie_attribute",
-          "description": "Sets the SameSite cookie setting, which provides increased security against CSRF attacks."
-        },
-        "scim_config": {
-          "$ref": "#/$defs/access_scim_config",
-          "description": "Configuration for provisioning to this application via SCIM. This is currently in closed beta."
-        },
-        "self_hosted_domains": {
-          "$ref": "#/$defs/access_self_hosted_domains",
-          "default": [],
-          "description": "List of public domains that Access will secure. This field is deprecated in favor of `destinations` and will be supported until **November 21, 2025.** If `destinations` are provided, then `self_hosted_domains` will be ignored.\n"
-        },
-        "service_auth_401_redirect": {
-          "$ref": "#/$defs/access_service_auth_401_redirect",
-          "description": "Returns a 401 status code when the request is blocked by a Service Auth policy."
-        },
-        "session_duration": {
-          "$ref": "#/$defs/access_session_duration-2",
-          "default": "24h",
-          "description": "The amount of time that tokens issued for this application will be valid. Must be in the format `300ms` or `2h45m`. Valid time units are: ns, us (or µs), ms, s, m, h."
-        },
-        "skip_interstitial": {
-          "$ref": "#/$defs/access_skip_interstitial",
-          "description": "Enables automatic authentication through cloudflared."
-        },
-        "tags": {
-          "$ref": "#/$defs/access_tags",
-          "default": [],
-          "description": "The tags you want assigned to an application. Tags are used to filter applications in the App Launcher dashboard."
-        },
-        "target_criteria": {
-          "items": {
-            "$ref": "#/$defs/access_target_criteria_self_hosted_app"
-          },
-          "type": "array"
-        },
-        "type": {
-          "allOf": [
-            {
-              "$ref": "#/$defs/access_type"
-            },
-            {
-              "type": "string"
-            }
-          ]
-        },
-        "use_clientless_isolation_app_launcher_url": {
-          "$ref": "#/$defs/access_use_clientless_isolation_app_launcher_url",
-          "default": false,
-          "description": "Determines if users can access this application via a clientless browser isolation URL.\nThis allows users to access private domains without connecting to Gateway. The option requires\nClientless Browser Isolation to be set up with policies that allow users of this application.\n"
+        {
+          "$ref": "#/$defs/access_app_req_embedded_policies"
         }
-      },
-      "required": [
-        "target_criteria",
-        "domain",
-        "type"
-      ],
-      "type": "object"
+      ]
     },
     {
-      "properties": {
-        "allow_authenticate_via_warp": {
-          "$ref": "#/$defs/access_allow_authenticate_via_warp-2",
-          "description": "When set to true, users can authenticate to this application using their WARP session.  When set to false this application will always require direct IdP authentication. This setting always overrides the organization setting for WARP authentication."
+      "allOf": [
+        {
+          "$ref": "#/$defs/access_mcp_props"
         },
-        "allowed_idps": {
-          "$ref": "#/$defs/access_allowed_idps",
-          "description": "The identity providers your users can select when connecting to this application. Defaults to all IdPs configured in your account."
-        },
-        "auto_redirect_to_identity": {
-          "$ref": "#/$defs/access_auto_redirect_to_identity-2",
-          "default": false,
-          "description": "When set to `true`, users skip the identity provider selection step during login. You must specify only one identity provider in allowed_idps."
-        },
-        "custom_deny_message": {
-          "$ref": "#/$defs/access_custom_deny_message",
-          "description": "The custom error message shown to a user when they are denied access to the application."
-        },
-        "custom_deny_url": {
-          "$ref": "#/$defs/access_custom_deny_url",
-          "description": "The custom URL a user is redirected to when they are denied access to the application when failing identity-based rules."
-        },
-        "custom_non_identity_deny_url": {
-          "$ref": "#/$defs/access_custom_non_identity_deny_url",
-          "description": "The custom URL a user is redirected to when they are denied access to the application when failing non-identity rules."
-        },
-        "custom_pages": {
-          "$ref": "#/$defs/access_custom_pages-2",
-          "description": "The custom pages that will be displayed when applicable for this application"
-        },
-        "destinations": {
-          "$ref": "#/$defs/access_destinations",
-          "default": [],
-          "description": "List of destinations secured by Access. This supersedes `self_hosted_domains` to allow for more flexibility in defining different types of domains. If `destinations` are provided, then `self_hosted_domains` will be ignored.\n"
-        },
-        "http_only_cookie_attribute": {
-          "$ref": "#/$defs/access_http_only_cookie_attribute",
-          "default": true,
-          "description": "Enables the HttpOnly cookie attribute, which increases security against XSS attacks."
-        },
-        "logo_url": {
-          "$ref": "#/$defs/access_logo_url",
-          "description": "The image URL for the logo shown in the App Launcher dashboard."
-        },
-        "name": {
-          "$ref": "#/$defs/access_name-8",
-          "description": "The name of the application."
-        },
-        "oauth_configuration": {
-          "$ref": "#/$defs/access_oauth_configuration",
-          "description": "**Beta:** Optional configuration for managing an OAuth authorization flow controlled by Access. When set, Access will act as the OAuth authorization server for this application. Only compatible with OAuth clients that support [RFC 8707](https://datatracker.ietf.org/doc/html/rfc8707) (Resource Indicators for OAuth 2.0). This feature is currently in beta.\n"
-        },
-        "options_preflight_bypass": {
-          "$ref": "#/$defs/access_options_preflight_bypass",
-          "description": "Allows options preflight requests to bypass Access authentication and go directly to the origin. Cannot turn on if cors_headers is set."
-        },
-        "policies": {
-          "description": "The policies that Access applies to the application, in ascending order of precedence. Items can reference existing policies or create new policies exclusive to the application. Reusable and inline policies are mutually exclusive.",
-          "items": {
-            "oneOf": [
-              {
-                "$ref": "#/$defs/access_app_policy_link"
-              },
-              {
-                "allOf": [
-                  {
-                    "type": "string"
-                  },
-                  {
-                    "$ref": "#/$defs/access_uuid-2"
-                  }
-                ]
-              },
-              {
-                "allOf": [
-                  {
-                    "properties": {
-                      "id": {
-                        "$ref": "#/$defs/access_uuid-2",
-                        "description": "The UUID of the policy"
-                      }
-                    },
-                    "type": "object"
-                  },
-                  {
-                    "$ref": "#/$defs/access_app_policy_request"
-                  }
-                ]
-              }
-            ]
-          },
-          "type": "array"
-        },
-        "same_site_cookie_attribute": {
-          "$ref": "#/$defs/access_same_site_cookie_attribute",
-          "description": "Sets the SameSite cookie setting, which provides increased security against CSRF attacks."
-        },
-        "scim_config": {
-          "$ref": "#/$defs/access_scim_config",
-          "description": "Configuration for provisioning to this application via SCIM. This is currently in closed beta."
-        },
-        "session_duration": {
-          "$ref": "#/$defs/access_session_duration-2",
-          "default": "24h",
-          "description": "The amount of time that tokens issued for this application will be valid. Must be in the format `300ms` or `2h45m`. Valid time units are: ns, us (or µs), ms, s, m, h."
-        },
-        "tags": {
-          "$ref": "#/$defs/access_tags",
-          "default": [],
-          "description": "The tags you want assigned to an application. Tags are used to filter applications in the App Launcher dashboard."
-        },
-        "type": {
-          "allOf": [
-            {
-              "$ref": "#/$defs/access_type"
-            },
-            {
-              "type": "string"
-            }
-          ]
+        {
+          "$ref": "#/$defs/access_app_req_embedded_policies"
         }
-      },
-      "required": [
-        "type"
-      ],
-      "type": "object"
+      ]
     },
     {
-      "properties": {
-        "allow_authenticate_via_warp": {
-          "$ref": "#/$defs/access_allow_authenticate_via_warp-2",
-          "description": "When set to true, users can authenticate to this application using their WARP session.  When set to false this application will always require direct IdP authentication. This setting always overrides the organization setting for WARP authentication."
+      "allOf": [
+        {
+          "$ref": "#/$defs/access_mcp_portal_props"
         },
-        "allowed_idps": {
-          "$ref": "#/$defs/access_allowed_idps",
-          "description": "The identity providers your users can select when connecting to this application. Defaults to all IdPs configured in your account."
-        },
-        "auto_redirect_to_identity": {
-          "$ref": "#/$defs/access_auto_redirect_to_identity-2",
-          "default": false,
-          "description": "When set to `true`, users skip the identity provider selection step during login. You must specify only one identity provider in allowed_idps."
-        },
-        "custom_deny_message": {
-          "$ref": "#/$defs/access_custom_deny_message",
-          "description": "The custom error message shown to a user when they are denied access to the application."
-        },
-        "custom_deny_url": {
-          "$ref": "#/$defs/access_custom_deny_url",
-          "description": "The custom URL a user is redirected to when they are denied access to the application when failing identity-based rules."
-        },
-        "custom_non_identity_deny_url": {
-          "$ref": "#/$defs/access_custom_non_identity_deny_url",
-          "description": "The custom URL a user is redirected to when they are denied access to the application when failing non-identity rules."
-        },
-        "custom_pages": {
-          "$ref": "#/$defs/access_custom_pages-2",
-          "description": "The custom pages that will be displayed when applicable for this application"
-        },
-        "destinations": {
-          "$ref": "#/$defs/access_destinations",
-          "default": [],
-          "description": "List of destinations secured by Access. This supersedes `self_hosted_domains` to allow for more flexibility in defining different types of domains. If `destinations` are provided, then `self_hosted_domains` will be ignored.\n"
-        },
-        "domain": {
-          "$ref": "#/$defs/access_domain",
-          "description": "The primary hostname and path secured by Access. This domain will be displayed if the app is visible in the App Launcher."
-        },
-        "http_only_cookie_attribute": {
-          "$ref": "#/$defs/access_http_only_cookie_attribute",
-          "default": true,
-          "description": "Enables the HttpOnly cookie attribute, which increases security against XSS attacks."
-        },
-        "logo_url": {
-          "$ref": "#/$defs/access_logo_url",
-          "description": "The image URL for the logo shown in the App Launcher dashboard."
-        },
-        "name": {
-          "$ref": "#/$defs/access_name-8",
-          "description": "The name of the application."
-        },
-        "oauth_configuration": {
-          "$ref": "#/$defs/access_oauth_configuration",
-          "description": "**Beta:** Optional configuration for managing an OAuth authorization flow controlled by Access. When set, Access will act as the OAuth authorization server for this application. Only compatible with OAuth clients that support [RFC 8707](https://datatracker.ietf.org/doc/html/rfc8707) (Resource Indicators for OAuth 2.0). This feature is currently in beta.\n"
-        },
-        "options_preflight_bypass": {
-          "$ref": "#/$defs/access_options_preflight_bypass",
-          "description": "Allows options preflight requests to bypass Access authentication and go directly to the origin. Cannot turn on if cors_headers is set."
-        },
-        "policies": {
-          "description": "The policies that Access applies to the application, in ascending order of precedence. Items can reference existing policies or create new policies exclusive to the application. Reusable and inline policies are mutually exclusive.",
-          "items": {
-            "oneOf": [
-              {
-                "$ref": "#/$defs/access_app_policy_link"
-              },
-              {
-                "allOf": [
-                  {
-                    "type": "string"
-                  },
-                  {
-                    "$ref": "#/$defs/access_uuid-2"
-                  }
-                ]
-              },
-              {
-                "allOf": [
-                  {
-                    "properties": {
-                      "id": {
-                        "$ref": "#/$defs/access_uuid-2",
-                        "description": "The UUID of the policy"
-                      }
-                    },
-                    "type": "object"
-                  },
-                  {
-                    "$ref": "#/$defs/access_app_policy_request"
-                  }
-                ]
-              }
-            ]
-          },
-          "type": "array"
-        },
-        "same_site_cookie_attribute": {
-          "$ref": "#/$defs/access_same_site_cookie_attribute",
-          "description": "Sets the SameSite cookie setting, which provides increased security against CSRF attacks."
-        },
-        "scim_config": {
-          "$ref": "#/$defs/access_scim_config",
-          "description": "Configuration for provisioning to this application via SCIM. This is currently in closed beta."
-        },
-        "session_duration": {
-          "$ref": "#/$defs/access_session_duration-2",
-          "default": "24h",
-          "description": "The amount of time that tokens issued for this application will be valid. Must be in the format `300ms` or `2h45m`. Valid time units are: ns, us (or µs), ms, s, m, h."
-        },
-        "tags": {
-          "$ref": "#/$defs/access_tags",
-          "default": [],
-          "description": "The tags you want assigned to an application. Tags are used to filter applications in the App Launcher dashboard."
-        },
-        "type": {
-          "allOf": [
-            {
-              "$ref": "#/$defs/access_type"
-            },
-            {
-              "type": "string"
-            }
-          ]
+        {
+          "$ref": "#/$defs/access_app_req_embedded_policies"
         }
-      },
-      "required": [
-        "type"
-      ],
-      "type": "object"
+      ]
     }
   ]
+};
+
+/**
+ * The schema of `access_app_resp_embedded_target_criteria_infra`.
+ */
+export const access_app_resp_embedded_target_criteria_infra: JsonSchema = {
+  "description": "Contains the targets secured by the application.",
+  "properties": {
+    "target_criteria": {
+      "items": {
+        "$ref": "#/$defs/access_target_criteria_infra_app"
+      },
+      "type": "array"
+    }
+  },
+  "type": "object"
+};
+
+/**
+ * The schema of `access_app_resp_embedded_target_criteria_self_hosted`.
+ */
+export const access_app_resp_embedded_target_criteria_self_hosted: JsonSchema = {
+  "description": "Contains the targets secured by the application.",
+  "properties": {
+    "target_criteria": {
+      "items": {
+        "$ref": "#/$defs/access_target_criteria_self_hosted_app"
+      },
+      "type": "array"
+    }
+  },
+  "type": "object"
 };
 
 /**
@@ -1781,6 +495,74 @@ export const access_auto_redirect_to_identity_2: JsonSchema = {
 export const access_bg_color: JsonSchema = {
   "description": "The background color of the App Launcher page.",
   "type": "string"
+};
+
+/**
+ * The schema of `access_biso_props`.
+ */
+export const access_biso_props: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/access_feature_app_props"
+    },
+    {
+      "properties": {
+        "type": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/access_type"
+            },
+            {
+              "type": "string"
+            }
+          ]
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `access_bookmark_props`.
+ */
+export const access_bookmark_props: JsonSchema = {
+  "description": "Bookmark application",
+  "properties": {
+    "app_launcher_visible": {
+      "$ref": "#/$defs/access_app_launcher_visible",
+      "default": true,
+      "description": "Displays the application in the App Launcher."
+    },
+    "domain": {
+      "description": "The URL or domain of the bookmark.",
+      "type": "string"
+    },
+    "logo_url": {
+      "$ref": "#/$defs/access_logo_url",
+      "description": "The image URL for the logo shown in the App Launcher dashboard."
+    },
+    "name": {
+      "$ref": "#/$defs/access_name-8",
+      "description": "The name of the application."
+    },
+    "tags": {
+      "$ref": "#/$defs/access_tags-2",
+      "default": [],
+      "description": "The tags you want assigned to an application. Tags are used to filter applications in the App Launcher dashboard."
+    },
+    "type": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/access_type"
+        },
+        {
+          "type": "string"
+        }
+      ]
+    }
+  },
+  "type": "object"
 };
 
 /**
@@ -2201,26 +983,24 @@ export const access_end_user_destinations: JsonSchema = {
  * The schema of `access_end_user_oauth_configuration`.
  */
 export const access_end_user_oauth_configuration: JsonSchema = {
-  "description": "**Beta:** Optional configuration for managing an OAuth authorization flow controlled by Access. When set, Access will act as the OAuth authorization server for this application. Only compatible with OAuth clients that support [RFC 8707](https://datatracker.ietf.org/doc/html/rfc8707) (Resource Indicators for OAuth 2.0). This feature is currently in beta.\n",
-  "properties": {
-    "dynamic_client_registration": {
-      "$ref": "#/$defs/access_oauth_configuration_dynamic_client_registration",
-      "description": "Settings for OAuth dynamic client registration."
+  "allOf": [
+    {
+      "$ref": "#/$defs/access_oauth_configuration"
     },
-    "enabled": {
-      "default": true,
-      "description": "Managed OAuth is required for end user applications and cannot be disabled.",
-      "enum": [
-        true
-      ],
-      "type": "boolean"
-    },
-    "grant": {
-      "$ref": "#/$defs/access_oauth_configuration_grant",
-      "description": "Settings for OAuth grant behavior."
+    {
+      "properties": {
+        "enabled": {
+          "default": true,
+          "description": "Managed OAuth is required for end user applications and cannot be disabled.",
+          "enum": [
+            true
+          ],
+          "type": "boolean"
+        }
+      },
+      "type": "object"
     }
-  },
-  "type": "object"
+  ]
 };
 
 /**
@@ -2273,8 +1053,7 @@ export const access_end_user_props: JsonSchema = {
       "description": "The name of the application."
     },
     "oauth_configuration": {
-      "$ref": "#/$defs/access_end_user_oauth_configuration",
-      "description": "**Beta:** Optional configuration for managing an OAuth authorization flow controlled by Access. When set, Access will act as the OAuth authorization server for this application. Only compatible with OAuth clients that support [RFC 8707](https://datatracker.ietf.org/doc/html/rfc8707) (Resource Indicators for OAuth 2.0). This feature is currently in beta.\n"
+      "$ref": "#/$defs/access_end_user_oauth_configuration"
     },
     "self_hosted_domains": {
       "$ref": "#/$defs/access_self_hosted_domains",
@@ -2366,6 +1145,56 @@ export const access_end_user_worker_destination: JsonSchema = {
 };
 
 /**
+ * The schema of `access_feature_app_props`.
+ */
+export const access_feature_app_props: JsonSchema = {
+  "properties": {
+    "allowed_idps": {
+      "$ref": "#/$defs/access_allowed_idps",
+      "description": "The identity providers your users can select when connecting to this application. Defaults to all IdPs configured in your account."
+    },
+    "auto_redirect_to_identity": {
+      "$ref": "#/$defs/access_auto_redirect_to_identity-2",
+      "default": false,
+      "description": "When set to `true`, users skip the identity provider selection step during login. You must specify only one identity provider in allowed_idps."
+    },
+    "custom_deny_url": {
+      "$ref": "#/$defs/access_custom_deny_url",
+      "description": "The custom URL a user is redirected to when they are denied access to the application when failing identity-based rules."
+    },
+    "custom_non_identity_deny_url": {
+      "$ref": "#/$defs/access_custom_non_identity_deny_url",
+      "description": "The custom URL a user is redirected to when they are denied access to the application when failing non-identity rules."
+    },
+    "custom_pages": {
+      "$ref": "#/$defs/access_custom_pages-2",
+      "description": "The custom pages that will be displayed when applicable for this application"
+    },
+    "domain": {
+      "$ref": "#/$defs/access_domain",
+      "description": "The primary hostname and path secured by Access. This domain will be displayed if the app is visible in the App Launcher."
+    },
+    "name": {
+      "$ref": "#/$defs/access_name-8",
+      "description": "The name of the application."
+    },
+    "session_duration": {
+      "$ref": "#/$defs/access_session_duration-2",
+      "default": "24h",
+      "description": "The amount of time that tokens issued for this application will be valid. Must be in the format `300ms` or `2h45m`. Valid time units are: ns, us (or µs), ms, s, m, h."
+    },
+    "type": {
+      "$ref": "#/$defs/access_type",
+      "description": "The application type."
+    }
+  },
+  "required": [
+    "type"
+  ],
+  "type": "object"
+};
+
+/**
  * The schema of `access_footer_links`.
  */
 export const access_footer_links: JsonSchema = {
@@ -2412,6 +1241,22 @@ export const access_http_only_cookie_attribute: JsonSchema = {
 export const access_image_url: JsonSchema = {
   "description": "The URL of the image shown on the landing page.",
   "type": "string"
+};
+
+/**
+ * The schema of `access_infra_app_req_embedded_policies`.
+ */
+export const access_infra_app_req_embedded_policies: JsonSchema = {
+  "properties": {
+    "policies": {
+      "description": "The policies that Access applies to the application.",
+      "items": {
+        "$ref": "#/$defs/access_infra_policy_req"
+      },
+      "type": "array"
+    }
+  },
+  "type": "object"
 };
 
 /**
@@ -2468,6 +1313,46 @@ export const access_infra_policy_req: JsonSchema = {
 };
 
 /**
+ * The schema of `access_infra_props`.
+ */
+export const access_infra_props: JsonSchema = {
+  "allOf": [
+    {
+      "properties": {
+        "mfa_config": {
+          "$ref": "#/$defs/access_infra_mfa_config",
+          "description": "Configures multi-factor authentication (MFA) settings for infrastructure applications."
+        },
+        "name": {
+          "$ref": "#/$defs/access_name-8",
+          "description": "The name of the application."
+        },
+        "session_duration": {
+          "default": "24h",
+          "description": "The maximum duration of a connection to this application's targets. Connections are terminated once it elapses. Must be in the format `30m` or `2h45m`, in whole seconds. Valid time units are: s, m, h.",
+          "type": "string"
+        },
+        "type": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/access_type"
+            },
+            {
+              "type": "string"
+            }
+          ]
+        }
+      },
+      "type": "object"
+    },
+    {
+      "$ref": "#/$defs/access_app_resp_embedded_target_criteria_infra"
+    }
+  ],
+  "description": "Infrastructure Application"
+};
+
+/**
  * The schema of `access_landing_page_design`.
  */
 export const access_landing_page_design: JsonSchema = {
@@ -2515,6 +1400,202 @@ export const access_max_age: JsonSchema = {
 };
 
 /**
+ * The schema of `access_mcp_portal_props`.
+ */
+export const access_mcp_portal_props: JsonSchema = {
+  "description": "MCP Server Portal Application",
+  "properties": {
+    "allow_authenticate_via_warp": {
+      "$ref": "#/$defs/access_allow_authenticate_via_warp-2",
+      "description": "When set to true, users can authenticate to this application using their WARP session.  When set to false this application will always require direct IdP authentication. This setting always overrides the organization setting for WARP authentication."
+    },
+    "allowed_idps": {
+      "$ref": "#/$defs/access_allowed_idps",
+      "description": "The identity providers your users can select when connecting to this application. Defaults to all IdPs configured in your account."
+    },
+    "auto_redirect_to_identity": {
+      "$ref": "#/$defs/access_auto_redirect_to_identity-2",
+      "default": false,
+      "description": "When set to `true`, users skip the identity provider selection step during login. You must specify only one identity provider in allowed_idps."
+    },
+    "custom_deny_message": {
+      "$ref": "#/$defs/access_custom_deny_message",
+      "description": "The custom error message shown to a user when they are denied access to the application."
+    },
+    "custom_deny_url": {
+      "$ref": "#/$defs/access_custom_deny_url",
+      "description": "The custom URL a user is redirected to when they are denied access to the application when failing identity-based rules."
+    },
+    "custom_non_identity_deny_url": {
+      "$ref": "#/$defs/access_custom_non_identity_deny_url",
+      "description": "The custom URL a user is redirected to when they are denied access to the application when failing non-identity rules."
+    },
+    "custom_pages": {
+      "$ref": "#/$defs/access_custom_pages-2",
+      "description": "The custom pages that will be displayed when applicable for this application"
+    },
+    "destinations": {
+      "$ref": "#/$defs/access_destinations",
+      "default": [],
+      "description": "List of destinations secured by Access. This supersedes `self_hosted_domains` to allow for more flexibility in defining different types of domains. If `destinations` are provided, then `self_hosted_domains` will be ignored.\n"
+    },
+    "domain": {
+      "$ref": "#/$defs/access_domain",
+      "description": "The primary hostname and path secured by Access. This domain will be displayed if the app is visible in the App Launcher."
+    },
+    "http_only_cookie_attribute": {
+      "$ref": "#/$defs/access_http_only_cookie_attribute",
+      "default": true,
+      "description": "Enables the HttpOnly cookie attribute, which increases security against XSS attacks."
+    },
+    "logo_url": {
+      "$ref": "#/$defs/access_logo_url",
+      "description": "The image URL for the logo shown in the App Launcher dashboard."
+    },
+    "name": {
+      "$ref": "#/$defs/access_name-8",
+      "description": "The name of the application."
+    },
+    "oauth_configuration": {
+      "$ref": "#/$defs/access_oauth_configuration",
+      "description": "**Beta:** Optional configuration for managing an OAuth authorization flow controlled by Access. When set, Access will act as the OAuth authorization server for this application. Only compatible with OAuth clients that support [RFC 8707](https://datatracker.ietf.org/doc/html/rfc8707) (Resource Indicators for OAuth 2.0). This feature is currently in beta.\n"
+    },
+    "options_preflight_bypass": {
+      "$ref": "#/$defs/access_options_preflight_bypass",
+      "description": "Allows options preflight requests to bypass Access authentication and go directly to the origin. Cannot turn on if cors_headers is set."
+    },
+    "same_site_cookie_attribute": {
+      "$ref": "#/$defs/access_same_site_cookie_attribute",
+      "description": "Sets the SameSite cookie setting, which provides increased security against CSRF attacks."
+    },
+    "scim_config": {
+      "$ref": "#/$defs/access_scim_config",
+      "description": "Configuration for provisioning to this application via SCIM. This is currently in closed beta."
+    },
+    "session_duration": {
+      "$ref": "#/$defs/access_session_duration-2",
+      "default": "24h",
+      "description": "The amount of time that tokens issued for this application will be valid. Must be in the format `300ms` or `2h45m`. Valid time units are: ns, us (or µs), ms, s, m, h."
+    },
+    "tags": {
+      "$ref": "#/$defs/access_tags-2",
+      "default": [],
+      "description": "The tags you want assigned to an application. Tags are used to filter applications in the App Launcher dashboard."
+    },
+    "type": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/access_type"
+        },
+        {
+          "type": "string"
+        }
+      ]
+    }
+  },
+  "required": [
+    "type"
+  ],
+  "type": "object"
+};
+
+/**
+ * The schema of `access_mcp_props`.
+ */
+export const access_mcp_props: JsonSchema = {
+  "description": "MCP Server Application",
+  "properties": {
+    "allow_authenticate_via_warp": {
+      "$ref": "#/$defs/access_allow_authenticate_via_warp-2",
+      "description": "When set to true, users can authenticate to this application using their WARP session.  When set to false this application will always require direct IdP authentication. This setting always overrides the organization setting for WARP authentication."
+    },
+    "allowed_idps": {
+      "$ref": "#/$defs/access_allowed_idps",
+      "description": "The identity providers your users can select when connecting to this application. Defaults to all IdPs configured in your account."
+    },
+    "auto_redirect_to_identity": {
+      "$ref": "#/$defs/access_auto_redirect_to_identity-2",
+      "default": false,
+      "description": "When set to `true`, users skip the identity provider selection step during login. You must specify only one identity provider in allowed_idps."
+    },
+    "custom_deny_message": {
+      "$ref": "#/$defs/access_custom_deny_message",
+      "description": "The custom error message shown to a user when they are denied access to the application."
+    },
+    "custom_deny_url": {
+      "$ref": "#/$defs/access_custom_deny_url",
+      "description": "The custom URL a user is redirected to when they are denied access to the application when failing identity-based rules."
+    },
+    "custom_non_identity_deny_url": {
+      "$ref": "#/$defs/access_custom_non_identity_deny_url",
+      "description": "The custom URL a user is redirected to when they are denied access to the application when failing non-identity rules."
+    },
+    "custom_pages": {
+      "$ref": "#/$defs/access_custom_pages-2",
+      "description": "The custom pages that will be displayed when applicable for this application"
+    },
+    "destinations": {
+      "$ref": "#/$defs/access_destinations",
+      "default": [],
+      "description": "List of destinations secured by Access. This supersedes `self_hosted_domains` to allow for more flexibility in defining different types of domains. If `destinations` are provided, then `self_hosted_domains` will be ignored.\n"
+    },
+    "http_only_cookie_attribute": {
+      "$ref": "#/$defs/access_http_only_cookie_attribute",
+      "default": true,
+      "description": "Enables the HttpOnly cookie attribute, which increases security against XSS attacks."
+    },
+    "logo_url": {
+      "$ref": "#/$defs/access_logo_url",
+      "description": "The image URL for the logo shown in the App Launcher dashboard."
+    },
+    "name": {
+      "$ref": "#/$defs/access_name-8",
+      "description": "The name of the application."
+    },
+    "oauth_configuration": {
+      "$ref": "#/$defs/access_oauth_configuration",
+      "description": "**Beta:** Optional configuration for managing an OAuth authorization flow controlled by Access. When set, Access will act as the OAuth authorization server for this application. Only compatible with OAuth clients that support [RFC 8707](https://datatracker.ietf.org/doc/html/rfc8707) (Resource Indicators for OAuth 2.0). This feature is currently in beta.\n"
+    },
+    "options_preflight_bypass": {
+      "$ref": "#/$defs/access_options_preflight_bypass",
+      "description": "Allows options preflight requests to bypass Access authentication and go directly to the origin. Cannot turn on if cors_headers is set."
+    },
+    "same_site_cookie_attribute": {
+      "$ref": "#/$defs/access_same_site_cookie_attribute",
+      "description": "Sets the SameSite cookie setting, which provides increased security against CSRF attacks."
+    },
+    "scim_config": {
+      "$ref": "#/$defs/access_scim_config",
+      "description": "Configuration for provisioning to this application via SCIM. This is currently in closed beta."
+    },
+    "session_duration": {
+      "$ref": "#/$defs/access_session_duration-2",
+      "default": "24h",
+      "description": "The amount of time that tokens issued for this application will be valid. Must be in the format `300ms` or `2h45m`. Valid time units are: ns, us (or µs), ms, s, m, h."
+    },
+    "tags": {
+      "$ref": "#/$defs/access_tags-2",
+      "default": [],
+      "description": "The tags you want assigned to an application. Tags are used to filter applications in the App Launcher dashboard."
+    },
+    "type": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/access_type"
+        },
+        {
+          "type": "string"
+        }
+      ]
+    }
+  },
+  "required": [
+    "type"
+  ],
+  "type": "object"
+};
+
+/**
  * The schema of `access_message`.
  */
 export const access_message: JsonSchema = {
@@ -2537,8 +1618,29 @@ export const access_oauth_configuration: JsonSchema = {
   "description": "**Beta:** Optional configuration for managing an OAuth authorization flow controlled by Access. When set, Access will act as the OAuth authorization server for this application. Only compatible with OAuth clients that support [RFC 8707](https://datatracker.ietf.org/doc/html/rfc8707) (Resource Indicators for OAuth 2.0). This feature is currently in beta.\n",
   "properties": {
     "dynamic_client_registration": {
-      "$ref": "#/$defs/access_oauth_configuration_dynamic_client_registration",
-      "description": "Settings for OAuth dynamic client registration."
+      "description": "Settings for OAuth dynamic client registration.",
+      "properties": {
+        "allow_any_on_localhost": {
+          "description": "Allows any client with redirect URIs on localhost.",
+          "type": "boolean"
+        },
+        "allow_any_on_loopback": {
+          "description": "Allows any client with redirect URIs on 127.0.0.1.",
+          "type": "boolean"
+        },
+        "allowed_uris": {
+          "description": "The URIs that are allowed as redirect URIs for dynamically registered clients. HTTP and HTTPS paths may end in `/*` to match all sub-paths. Custom-scheme URIs must be explicitly configured and match exactly.\n",
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "enabled": {
+          "description": "Whether dynamic client registration is enabled.",
+          "type": "boolean"
+        }
+      },
+      "type": "object"
     },
     "enabled": {
       "default": true,
@@ -2546,55 +1648,18 @@ export const access_oauth_configuration: JsonSchema = {
       "type": "boolean"
     },
     "grant": {
-      "$ref": "#/$defs/access_oauth_configuration_grant",
-      "description": "Settings for OAuth grant behavior."
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `access_oauth_configuration_dynamic_client_registration`.
- */
-export const access_oauth_configuration_dynamic_client_registration: JsonSchema = {
-  "description": "Settings for OAuth dynamic client registration.",
-  "properties": {
-    "allow_any_on_localhost": {
-      "description": "Allows any client with redirect URIs on localhost.",
-      "type": "boolean"
-    },
-    "allow_any_on_loopback": {
-      "description": "Allows any client with redirect URIs on 127.0.0.1.",
-      "type": "boolean"
-    },
-    "allowed_uris": {
-      "description": "The URIs that are allowed as redirect URIs for dynamically registered clients. HTTP and HTTPS paths may end in `/*` to match all sub-paths. Custom-scheme URIs must be explicitly configured and match exactly.\n",
-      "items": {
-        "type": "string"
+      "description": "Settings for OAuth grant behavior.",
+      "properties": {
+        "access_token_lifetime": {
+          "description": "The lifetime of the access token. Must be in the format `300ms` or `2h45m`. Valid time units are ns, us (or µs), ms, s, m, h.",
+          "type": "string"
+        },
+        "session_duration": {
+          "description": "The duration of the OAuth session. Must be in the format `300ms` or `2h45m`. Valid time units are ns, us (or µs), ms, s, m, h.",
+          "type": "string"
+        }
       },
-      "type": "array"
-    },
-    "enabled": {
-      "description": "Whether dynamic client registration is enabled.",
-      "type": "boolean"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `access_oauth_configuration_grant`.
- */
-export const access_oauth_configuration_grant: JsonSchema = {
-  "description": "Settings for OAuth grant behavior.",
-  "properties": {
-    "access_token_lifetime": {
-      "description": "The lifetime of the access token. Must be in the format `300ms` or `2h45m`. Valid time units are ns, us (or µs), ms, s, m, h.",
-      "type": "string"
-    },
-    "session_duration": {
-      "description": "The duration of the OAuth session. Must be in the format `300ms` or `2h45m`. Valid time units are ns, us (or µs), ms, s, m, h.",
-      "type": "string"
+      "type": "object"
     }
   },
   "type": "object"
@@ -2639,7 +1704,43 @@ export const access_oidc_saas_app: JsonSchema = {
     },
     "custom_claims": {
       "items": {
-        "$ref": "#/$defs/access_oidc_saas_app_custom_claimsItem"
+        "properties": {
+          "name": {
+            "description": "The name of the claim.",
+            "type": "string"
+          },
+          "required": {
+            "description": "If the claim is required when building an OIDC token.",
+            "type": "boolean"
+          },
+          "scope": {
+            "description": "The scope of the claim.",
+            "enum": [
+              "groups",
+              "profile",
+              "email",
+              "openid"
+            ],
+            "type": "string"
+          },
+          "source": {
+            "properties": {
+              "name": {
+                "description": "The name of the IdP claim.",
+                "type": "string"
+              },
+              "name_by_idp": {
+                "additionalProperties": {
+                  "type": "string"
+                },
+                "description": "A mapping from IdP ID to claim name.",
+                "type": "object"
+              }
+            },
+            "type": "object"
+          }
+        },
+        "type": "object"
       },
       "type": "array"
     },
@@ -2662,7 +1763,17 @@ export const access_oidc_saas_app: JsonSchema = {
       "type": "string"
     },
     "hybrid_and_implicit_options": {
-      "$ref": "#/$defs/access_oidc_saas_app_hybrid_and_implicit_options"
+      "properties": {
+        "return_access_token_from_authorization_endpoint": {
+          "description": "If an Access Token should be returned from the OIDC Authorization endpoint",
+          "type": "boolean"
+        },
+        "return_id_token_from_authorization_endpoint": {
+          "description": "If an ID Token should be returned from the OIDC Authorization endpoint",
+          "type": "boolean"
+        }
+      },
+      "type": "object"
     },
     "public_key": {
       "description": "The Access public certificate that will be used to verify your identity.",
@@ -2676,7 +1787,13 @@ export const access_oidc_saas_app: JsonSchema = {
       "type": "array"
     },
     "refresh_token_options": {
-      "$ref": "#/$defs/access_oidc_saas_app_refresh_token_options"
+      "properties": {
+        "lifetime": {
+          "description": "How long a refresh token will be valid for after creation. Valid units are m,h,d. Must be longer than 1m.",
+          "type": "string"
+        }
+      },
+      "type": "object"
     },
     "scopes": {
       "description": "Define the user information shared with access, \"offline_access\" scope will be automatically enabled if refresh tokens are enabled",
@@ -2699,86 +1816,6 @@ export const access_oidc_saas_app: JsonSchema = {
 };
 
 /**
- * The schema of `access_oidc_saas_app_custom_claimsItem`.
- */
-export const access_oidc_saas_app_custom_claimsItem: JsonSchema = {
-  "properties": {
-    "name": {
-      "description": "The name of the claim.",
-      "type": "string"
-    },
-    "required": {
-      "description": "If the claim is required when building an OIDC token.",
-      "type": "boolean"
-    },
-    "scope": {
-      "description": "The scope of the claim.",
-      "enum": [
-        "groups",
-        "profile",
-        "email",
-        "openid"
-      ],
-      "type": "string"
-    },
-    "source": {
-      "$ref": "#/$defs/access_oidc_saas_app_custom_claimsItem_source"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `access_oidc_saas_app_custom_claimsItem_source`.
- */
-export const access_oidc_saas_app_custom_claimsItem_source: JsonSchema = {
-  "properties": {
-    "name": {
-      "description": "The name of the IdP claim.",
-      "type": "string"
-    },
-    "name_by_idp": {
-      "additionalProperties": {
-        "type": "string"
-      },
-      "description": "A mapping from IdP ID to claim name.",
-      "type": "object"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `access_oidc_saas_app_hybrid_and_implicit_options`.
- */
-export const access_oidc_saas_app_hybrid_and_implicit_options: JsonSchema = {
-  "properties": {
-    "return_access_token_from_authorization_endpoint": {
-      "description": "If an Access Token should be returned from the OIDC Authorization endpoint",
-      "type": "boolean"
-    },
-    "return_id_token_from_authorization_endpoint": {
-      "description": "If an ID Token should be returned from the OIDC Authorization endpoint",
-      "type": "boolean"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `access_oidc_saas_app_refresh_token_options`.
- */
-export const access_oidc_saas_app_refresh_token_options: JsonSchema = {
-  "properties": {
-    "lifetime": {
-      "description": "How long a refresh token will be valid for after creation. Valid units are m,h,d. Must be longer than 1m.",
-      "type": "string"
-    }
-  },
-  "type": "object"
-};
-
-/**
  * The schema of `access_options_preflight_bypass`.
  */
 export const access_options_preflight_bypass: JsonSchema = {
@@ -2792,6 +1829,14 @@ export const access_options_preflight_bypass: JsonSchema = {
 export const access_path_cookie_attribute: JsonSchema = {
   "description": "Enables cookie paths to scope an application's JWT to the application path. If disabled, the JWT will scope to the hostname by default",
   "type": "boolean"
+};
+
+/**
+ * The schema of `access_port`.
+ */
+export const access_port: JsonSchema = {
+  "description": "The port that the targets use for the chosen communication protocol. A port cannot be assigned to multiple protocols.",
+  "type": "integer"
 };
 
 /**
@@ -2825,11 +1870,139 @@ export const access_protocol_self_hosted_app: JsonSchema = {
 };
 
 /**
+ * The schema of `access_proxy_endpoint_props`.
+ */
+export const access_proxy_endpoint_props: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/access_feature_app_props"
+    },
+    {
+      "properties": {
+        "domain": {
+          "description": "The proxy endpoint domain in the format: 10 alphanumeric characters followed by .proxy.cloudflare-gateway.com",
+          "type": "string"
+        },
+        "name": {
+          "default": "Gateway Proxy",
+          "type": "string"
+        },
+        "type": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/access_type"
+            },
+            {
+              "type": "string"
+            }
+          ]
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `access_rdp_props`.
+ */
+export const access_rdp_props: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/access_app_resp_embedded_target_criteria_self_hosted"
+    },
+    {
+      "$ref": "#/$defs/access_self_hosted_props"
+    },
+    {
+      "properties": {
+        "type": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/access_type"
+            },
+            {
+              "type": "string"
+            }
+          ]
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
  * The schema of `access_read_service_tokens_from_header`.
  */
 export const access_read_service_tokens_from_header: JsonSchema = {
   "description": "Allows matching Access Service Tokens passed HTTP in a single header with this name.\nThis works as an alternative to the (CF-Access-Client-Id, CF-Access-Client-Secret) pair of headers.\nThe header value will be interpreted as a json object similar to:\n  {\n    \"cf-access-client-id\": \"88bf3b6d86161464f6509f7219099e57.access.example.com\",\n    \"cf-access-client-secret\": \"bdd31cbc4dec990953e39163fbbb194c93313ca9f0a6e420346af9d326b1d2a5\"\n  }\n",
   "type": "string"
+};
+
+/**
+ * The schema of `access_saas_props`.
+ */
+export const access_saas_props: JsonSchema = {
+  "description": "SaaS Application",
+  "properties": {
+    "allowed_idps": {
+      "$ref": "#/$defs/access_allowed_idps",
+      "description": "The identity providers your users can select when connecting to this application. Defaults to all IdPs configured in your account."
+    },
+    "app_launcher_visible": {
+      "$ref": "#/$defs/access_app_launcher_visible",
+      "default": true,
+      "description": "Displays the application in the App Launcher."
+    },
+    "auto_redirect_to_identity": {
+      "$ref": "#/$defs/access_auto_redirect_to_identity-2",
+      "default": false,
+      "description": "When set to `true`, users skip the identity provider selection step during login. You must specify only one identity provider in allowed_idps."
+    },
+    "custom_pages": {
+      "$ref": "#/$defs/access_custom_pages-2",
+      "description": "The custom pages that will be displayed when applicable for this application"
+    },
+    "logo_url": {
+      "$ref": "#/$defs/access_logo_url",
+      "description": "The image URL for the logo shown in the App Launcher dashboard."
+    },
+    "name": {
+      "$ref": "#/$defs/access_name-8",
+      "description": "The name of the application."
+    },
+    "saas_app": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/access_saml_saas_app"
+        },
+        {
+          "$ref": "#/$defs/access_oidc_saas_app"
+        }
+      ]
+    },
+    "scim_config": {
+      "$ref": "#/$defs/access_scim_config",
+      "description": "Configuration for provisioning to this application via SCIM. This is currently in closed beta."
+    },
+    "tags": {
+      "$ref": "#/$defs/access_tags-2",
+      "default": [],
+      "description": "The tags you want assigned to an application. Tags are used to filter applications in the App Launcher dashboard."
+    },
+    "type": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/access_type"
+        },
+        {
+          "type": "string"
+        }
+      ]
+    }
+  },
+  "type": "object"
 };
 
 /**
@@ -2863,7 +2036,56 @@ export const access_saml_saas_app: JsonSchema = {
     },
     "custom_attributes": {
       "items": {
-        "$ref": "#/$defs/access_saml_saas_app_custom_attributesItem"
+        "properties": {
+          "friendly_name": {
+            "description": "The SAML FriendlyName of the attribute.",
+            "type": "string"
+          },
+          "name": {
+            "description": "The name of the attribute.",
+            "type": "string"
+          },
+          "name_format": {
+            "description": "A globally unique name for an identity or service provider.",
+            "enum": [
+              "urn:oasis:names:tc:SAML:2.0:attrname-format:unspecified",
+              "urn:oasis:names:tc:SAML:2.0:attrname-format:basic",
+              "urn:oasis:names:tc:SAML:2.0:attrname-format:uri"
+            ],
+            "type": "string"
+          },
+          "required": {
+            "description": "If the attribute is required when building a SAML assertion.",
+            "type": "boolean"
+          },
+          "source": {
+            "properties": {
+              "name": {
+                "description": "The name of the IdP attribute.",
+                "type": "string"
+              },
+              "name_by_idp": {
+                "description": "A mapping from IdP ID to attribute name.",
+                "items": {
+                  "properties": {
+                    "idp_id": {
+                      "description": "The UID of the IdP.",
+                      "type": "string"
+                    },
+                    "source_name": {
+                      "description": "The name of the IdP provided attribute.",
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                },
+                "type": "array"
+              }
+            },
+            "type": "object"
+          }
+        },
+        "type": "object"
       },
       "type": "array"
     },
@@ -2911,84 +2133,20 @@ export const access_saml_saas_app: JsonSchema = {
 };
 
 /**
- * The schema of `access_saml_saas_app_custom_attributesItem`.
- */
-export const access_saml_saas_app_custom_attributesItem: JsonSchema = {
-  "properties": {
-    "friendly_name": {
-      "description": "The SAML FriendlyName of the attribute.",
-      "type": "string"
-    },
-    "name": {
-      "description": "The name of the attribute.",
-      "type": "string"
-    },
-    "name_format": {
-      "description": "A globally unique name for an identity or service provider.",
-      "enum": [
-        "urn:oasis:names:tc:SAML:2.0:attrname-format:unspecified",
-        "urn:oasis:names:tc:SAML:2.0:attrname-format:basic",
-        "urn:oasis:names:tc:SAML:2.0:attrname-format:uri"
-      ],
-      "type": "string"
-    },
-    "required": {
-      "description": "If the attribute is required when building a SAML assertion.",
-      "type": "boolean"
-    },
-    "source": {
-      "$ref": "#/$defs/access_saml_saas_app_custom_attributesItem_source"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `access_saml_saas_app_custom_attributesItem_source`.
- */
-export const access_saml_saas_app_custom_attributesItem_source: JsonSchema = {
-  "properties": {
-    "name": {
-      "description": "The name of the IdP attribute.",
-      "type": "string"
-    },
-    "name_by_idp": {
-      "description": "A mapping from IdP ID to attribute name.",
-      "items": {
-        "$ref": "#/$defs/access_saml_saas_app_custom_attributesItem_source_name_by_idpItem"
-      },
-      "type": "array"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of
- * `access_saml_saas_app_custom_attributesItem_source_name_by_idpItem`.
- */
-export const access_saml_saas_app_custom_attributesItem_source_name_by_idpItem: JsonSchema = {
-  "properties": {
-    "idp_id": {
-      "description": "The UID of the IdP.",
-      "type": "string"
-    },
-    "source_name": {
-      "description": "The name of the IdP provided attribute.",
-      "type": "string"
-    }
-  },
-  "type": "object"
-};
-
-/**
  * The schema of `access_scim_config`.
  */
 export const access_scim_config: JsonSchema = {
   "description": "Configuration for provisioning to this application via SCIM. This is currently in closed beta.",
   "properties": {
     "authentication": {
-      "$ref": "#/$defs/access_scim_config_authentication"
+      "oneOf": [
+        {
+          "$ref": "#/$defs/access_scim_config_single_authentication"
+        },
+        {
+          "$ref": "#/$defs/access_scim_config_multi_authentication"
+        }
+      ]
     },
     "deactivate_on_delete": {
       "description": "If false, propagates DELETE requests to the target application for SCIM resources. If true, sets 'active' to false on the SCIM resource. Note: Some targets do not support DELETE operations.",
@@ -3019,20 +2177,6 @@ export const access_scim_config: JsonSchema = {
     "remote_uri"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `access_scim_config_authentication`.
- */
-export const access_scim_config_authentication: JsonSchema = {
-  "oneOf": [
-    {
-      "$ref": "#/$defs/access_scim_config_single_authentication"
-    },
-    {
-      "$ref": "#/$defs/access_scim_config_multi_authentication"
-    }
-  ]
 };
 
 /**
@@ -3182,8 +2326,22 @@ export const access_scim_config_mapping: JsonSchema = {
       "type": "string"
     },
     "operations": {
-      "$ref": "#/$defs/access_scim_config_mapping_operations",
-      "description": "Whether or not this mapping applies to creates, updates, or deletes."
+      "description": "Whether or not this mapping applies to creates, updates, or deletes.",
+      "properties": {
+        "create": {
+          "description": "Whether or not this mapping applies to create (POST) operations.",
+          "type": "boolean"
+        },
+        "delete": {
+          "description": "Whether or not this mapping applies to DELETE operations.",
+          "type": "boolean"
+        },
+        "update": {
+          "description": "Whether or not this mapping applies to update (PATCH/PUT) operations.",
+          "type": "boolean"
+        }
+      },
+      "type": "object"
     },
     "schema": {
       "description": "Which SCIM resource type this mapping applies to.",
@@ -3205,28 +2363,6 @@ export const access_scim_config_mapping: JsonSchema = {
   "required": [
     "schema"
   ],
-  "type": "object"
-};
-
-/**
- * The schema of `access_scim_config_mapping_operations`.
- */
-export const access_scim_config_mapping_operations: JsonSchema = {
-  "description": "Whether or not this mapping applies to creates, updates, or deletes.",
-  "properties": {
-    "create": {
-      "description": "Whether or not this mapping applies to create (POST) operations.",
-      "type": "boolean"
-    },
-    "delete": {
-      "description": "Whether or not this mapping applies to DELETE operations.",
-      "type": "boolean"
-    },
-    "update": {
-      "description": "Whether or not this mapping applies to update (PATCH/PUT) operations.",
-      "type": "boolean"
-    }
-  },
   "type": "object"
 };
 
@@ -3274,6 +2410,160 @@ export const access_self_hosted_domains: JsonSchema = {
 };
 
 /**
+ * The schema of `access_self_hosted_props`.
+ */
+export const access_self_hosted_props: JsonSchema = {
+  "description": "Self Hosted Application",
+  "properties": {
+    "allow_authenticate_via_warp": {
+      "$ref": "#/$defs/access_allow_authenticate_via_warp-2",
+      "description": "When set to true, users can authenticate to this application using their WARP session.  When set to false this application will always require direct IdP authentication. This setting always overrides the organization setting for WARP authentication."
+    },
+    "allow_iframe": {
+      "$ref": "#/$defs/access_allow_iframe",
+      "description": "Enables loading application content in an iFrame."
+    },
+    "allowed_idps": {
+      "$ref": "#/$defs/access_allowed_idps",
+      "description": "The identity providers your users can select when connecting to this application. Defaults to all IdPs configured in your account."
+    },
+    "app_launcher_visible": {
+      "$ref": "#/$defs/access_app_launcher_visible",
+      "default": true,
+      "description": "Displays the application in the App Launcher."
+    },
+    "auto_redirect_to_identity": {
+      "$ref": "#/$defs/access_auto_redirect_to_identity-2",
+      "default": false,
+      "description": "When set to `true`, users skip the identity provider selection step during login. You must specify only one identity provider in allowed_idps."
+    },
+    "cors_headers": {
+      "$ref": "#/$defs/access_cors_headers"
+    },
+    "custom_deny_message": {
+      "$ref": "#/$defs/access_custom_deny_message",
+      "description": "The custom error message shown to a user when they are denied access to the application."
+    },
+    "custom_deny_url": {
+      "$ref": "#/$defs/access_custom_deny_url",
+      "description": "The custom URL a user is redirected to when they are denied access to the application when failing identity-based rules."
+    },
+    "custom_non_identity_deny_url": {
+      "$ref": "#/$defs/access_custom_non_identity_deny_url",
+      "description": "The custom URL a user is redirected to when they are denied access to the application when failing non-identity rules."
+    },
+    "custom_pages": {
+      "$ref": "#/$defs/access_custom_pages-2",
+      "description": "The custom pages that will be displayed when applicable for this application"
+    },
+    "destinations": {
+      "$ref": "#/$defs/access_destinations",
+      "default": [],
+      "description": "List of destinations secured by Access. This supersedes `self_hosted_domains` to allow for more flexibility in defining different types of domains. If `destinations` are provided, then `self_hosted_domains` will be ignored.\n"
+    },
+    "domain": {
+      "$ref": "#/$defs/access_domain",
+      "description": "The primary hostname and path secured by Access. This domain will be displayed if the app is visible in the App Launcher."
+    },
+    "eager_redirect_cookie_setting": {
+      "$ref": "#/$defs/access_eager_redirect_cookie_setting",
+      "default": true,
+      "description": "Preemptively sets the Access session cookie on every hostname in a multi-hostname self-hosted application during the initial redirect chain, rather than setting it lazily on first visit. Defaults to true. Set to false to disable the eager redirect cookie behavior."
+    },
+    "enable_binding_cookie": {
+      "$ref": "#/$defs/access_enable_binding_cookie",
+      "default": false,
+      "description": "Enables the binding cookie, which increases security against compromised authorization tokens and CSRF attacks."
+    },
+    "http_only_cookie_attribute": {
+      "$ref": "#/$defs/access_http_only_cookie_attribute",
+      "default": true,
+      "description": "Enables the HttpOnly cookie attribute, which increases security against XSS attacks."
+    },
+    "logo_url": {
+      "$ref": "#/$defs/access_logo_url",
+      "description": "The image URL for the logo shown in the App Launcher dashboard."
+    },
+    "mfa_config": {
+      "$ref": "#/$defs/access_mfa_config",
+      "description": "Configures multi-factor authentication (MFA) settings."
+    },
+    "name": {
+      "$ref": "#/$defs/access_name-8",
+      "description": "The name of the application."
+    },
+    "oauth_configuration": {
+      "$ref": "#/$defs/access_oauth_configuration",
+      "description": "**Beta:** Optional configuration for managing an OAuth authorization flow controlled by Access. When set, Access will act as the OAuth authorization server for this application. Only compatible with OAuth clients that support [RFC 8707](https://datatracker.ietf.org/doc/html/rfc8707) (Resource Indicators for OAuth 2.0). This feature is currently in beta.\n"
+    },
+    "options_preflight_bypass": {
+      "$ref": "#/$defs/access_options_preflight_bypass",
+      "description": "Allows options preflight requests to bypass Access authentication and go directly to the origin. Cannot turn on if cors_headers is set."
+    },
+    "path_cookie_attribute": {
+      "$ref": "#/$defs/access_path_cookie_attribute",
+      "default": false,
+      "description": "Enables cookie paths to scope an application's JWT to the application path. If disabled, the JWT will scope to the hostname by default"
+    },
+    "read_service_tokens_from_header": {
+      "$ref": "#/$defs/access_read_service_tokens_from_header",
+      "description": "Allows matching Access Service Tokens passed HTTP in a single header with this name.\nThis works as an alternative to the (CF-Access-Client-Id, CF-Access-Client-Secret) pair of headers.\nThe header value will be interpreted as a json object similar to:\n  {\n    \"cf-access-client-id\": \"88bf3b6d86161464f6509f7219099e57.access.example.com\",\n    \"cf-access-client-secret\": \"bdd31cbc4dec990953e39163fbbb194c93313ca9f0a6e420346af9d326b1d2a5\"\n  }\n"
+    },
+    "same_site_cookie_attribute": {
+      "$ref": "#/$defs/access_same_site_cookie_attribute",
+      "description": "Sets the SameSite cookie setting, which provides increased security against CSRF attacks."
+    },
+    "scim_config": {
+      "$ref": "#/$defs/access_scim_config",
+      "description": "Configuration for provisioning to this application via SCIM. This is currently in closed beta."
+    },
+    "self_hosted_domains": {
+      "$ref": "#/$defs/access_self_hosted_domains",
+      "default": [],
+      "description": "List of public domains that Access will secure. This field is deprecated in favor of `destinations` and will be supported until **November 21, 2025.** If `destinations` are provided, then `self_hosted_domains` will be ignored.\n"
+    },
+    "service_auth_401_redirect": {
+      "$ref": "#/$defs/access_service_auth_401_redirect",
+      "description": "Returns a 401 status code when the request is blocked by a Service Auth policy."
+    },
+    "session_duration": {
+      "$ref": "#/$defs/access_session_duration-2",
+      "default": "24h",
+      "description": "The amount of time that tokens issued for this application will be valid. Must be in the format `300ms` or `2h45m`. Valid time units are: ns, us (or µs), ms, s, m, h."
+    },
+    "skip_interstitial": {
+      "$ref": "#/$defs/access_skip_interstitial",
+      "description": "Enables automatic authentication through cloudflared."
+    },
+    "tags": {
+      "$ref": "#/$defs/access_tags-2",
+      "default": [],
+      "description": "The tags you want assigned to an application. Tags are used to filter applications in the App Launcher dashboard."
+    },
+    "type": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/access_type"
+        },
+        {
+          "type": "string"
+        }
+      ]
+    },
+    "use_clientless_isolation_app_launcher_url": {
+      "$ref": "#/$defs/access_use_clientless_isolation_app_launcher_url",
+      "default": false,
+      "description": "Determines if users can access this application via a clientless browser isolation URL.\nThis allows users to access private domains without connecting to Gateway. The option requires\nClientless Browser Isolation to be set up with policies that allow users of this application.\n"
+    }
+  },
+  "required": [
+    "domain",
+    "type"
+  ],
+  "type": "object"
+};
+
+/**
  * The schema of `access_service_auth_401_redirect`.
  */
 export const access_service_auth_401_redirect: JsonSchema = {
@@ -3306,9 +2596,35 @@ export const access_skip_interstitial: JsonSchema = {
 };
 
 /**
- * The schema of `access_tags`.
+ * The schema of `access_ssh_props`.
  */
-export const access_tags: JsonSchema = {
+export const access_ssh_props: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/access_self_hosted_props"
+    },
+    {
+      "properties": {
+        "type": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/access_type"
+            },
+            {
+              "type": "string"
+            }
+          ]
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `access_tags-2`.
+ */
+export const access_tags_2: JsonSchema = {
   "description": "The tags you want assigned to an application. Tags are used to filter applications in the App Launcher dashboard.",
   "items": {
     "type": "string"
@@ -3317,17 +2633,58 @@ export const access_tags: JsonSchema = {
 };
 
 /**
+ * The schema of `access_target_attributes`.
+ */
+export const access_target_attributes: JsonSchema = {
+  "additionalProperties": {
+    "items": {
+      "type": "string"
+    },
+    "type": "array"
+  },
+  "deprecated": true,
+  "description": "Contains a map of target attribute keys to target attribute values.",
+  "type": "object"
+};
+
+/**
+ * The schema of `access_target_criteria_base`.
+ */
+export const access_target_criteria_base: JsonSchema = {
+  "description": "Defines targets covered by the application. Use either the legacy top-level target_attributes format or the rule format, but not both. The rule format requires include; require and exclude are optional.",
+  "properties": {
+    "exclude": {
+      "$ref": "#/$defs/access_target_rule",
+      "description": "Target is excluded when any selector in this rule matches."
+    },
+    "include": {
+      "$ref": "#/$defs/access_target_rule",
+      "description": "Target matches when any selector in this rule matches."
+    },
+    "port": {
+      "$ref": "#/$defs/access_port"
+    },
+    "require": {
+      "$ref": "#/$defs/access_target_rule",
+      "description": "Target matches only when every selector in this rule matches."
+    },
+    "target_attributes": {
+      "$ref": "#/$defs/access_target_attributes"
+    }
+  },
+  "required": [
+    "port"
+  ],
+  "type": "object"
+};
+
+/**
  * The schema of `access_target_criteria_infra_app`.
  */
 export const access_target_criteria_infra_app: JsonSchema = {
-  "oneOf": [
+  "allOf": [
     {
-      "properties": {
-        "protocol": {
-          "$ref": "#/$defs/access_protocol_infra_app"
-        }
-      },
-      "type": "object"
+      "$ref": "#/$defs/access_target_criteria_base"
     },
     {
       "properties": {
@@ -3344,14 +2701,9 @@ export const access_target_criteria_infra_app: JsonSchema = {
  * The schema of `access_target_criteria_self_hosted_app`.
  */
 export const access_target_criteria_self_hosted_app: JsonSchema = {
-  "oneOf": [
+  "allOf": [
     {
-      "properties": {
-        "protocol": {
-          "$ref": "#/$defs/access_protocol_self_hosted_app"
-        }
-      },
-      "type": "object"
+      "$ref": "#/$defs/access_target_criteria_base"
     },
     {
       "properties": {
@@ -3362,6 +2714,49 @@ export const access_target_criteria_self_hosted_app: JsonSchema = {
       "type": "object"
     }
   ]
+};
+
+/**
+ * The schema of `access_target_rule`.
+ */
+export const access_target_rule: JsonSchema = {
+  "description": "Selectors within an include, require, or exclude rule. At least one of target_attributes or tags must be non-empty.",
+  "properties": {
+    "tags": {
+      "additionalProperties": {
+        "items": {
+          "type": "string"
+        },
+        "maxItems": 50,
+        "minItems": 1,
+        "type": "array"
+      },
+      "description": "Map of target tag keys to values. Values within a key are OR'd.",
+      "type": "object"
+    },
+    "target_attributes": {
+      "$ref": "#/$defs/access_target_rule_attributes"
+    }
+  },
+  "type": "object"
+};
+
+/**
+ * The schema of `access_target_rule_attributes`.
+ */
+export const access_target_rule_attributes: JsonSchema = {
+  "description": "Hostname selector map for include, require, or exclude rules. This is distinct from the deprecated top-level target_attributes field and only supports the hostname key.",
+  "properties": {
+    "hostname": {
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 5000,
+      "minItems": 1,
+      "type": "array"
+    }
+  },
+  "type": "object"
 };
 
 /**
@@ -3414,4 +2809,56 @@ export const access_usernames: JsonSchema = {
     "type": "string"
   },
   "type": "array"
+};
+
+/**
+ * The schema of `access_vnc_props`.
+ */
+export const access_vnc_props: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/access_self_hosted_props"
+    },
+    {
+      "properties": {
+        "type": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/access_type"
+            },
+            {
+              "type": "string"
+            }
+          ]
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `access_warp_props`.
+ */
+export const access_warp_props: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/access_feature_app_props"
+    },
+    {
+      "properties": {
+        "type": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/access_type"
+            },
+            {
+              "type": "string"
+            }
+          ]
+        }
+      },
+      "type": "object"
+    }
+  ]
 };

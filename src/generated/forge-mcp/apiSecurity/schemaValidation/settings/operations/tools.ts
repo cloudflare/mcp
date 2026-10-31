@@ -3,6 +3,7 @@
 
 import { type Tool, pathParam } from "../../../../_/tool.js";
 import {
+  api_shield_api_response_collection_output,
   api_shield_api_response_common_failure_output,
   api_shield_api_response_common_output,
   api_shield_messages_output,
@@ -15,14 +16,9 @@ import {
   api_shield_uuid,
 } from "../../../../schemas.js";
 import {
-  api_shield_api_response_collection_output,
-  api_shield_api_response_collection_result_info_output,
-} from "../../../outputs.js";
-import {
   api_shield_per_operation_setting_change_base_output,
   api_shield_per_operation_setting_output,
 } from "./outputs.js";
-import { api_shield_per_operation_settings_bulk_edit_value } from "./schemas.js";
 
 /**
  * The tools of `api_security.schema_validation.settings.operations`.
@@ -37,7 +33,25 @@ export const tools: readonly Tool[] = [
       properties: {
         "body": {
           "additionalProperties": {
-            "$ref": "#/$defs/api-shield_per_operation_settings_bulk_edit_value"
+            "properties": {
+              "mitigation_action": {
+                "description": "Mitigation actions are as follows:\n* `log` - log request when request does not conform to schema * `block` - deny access to the site when request does not conform to schema * `none` - skip running schema validation * null - clears any existing per-operation setting\n",
+                "oneOf": [
+                  {
+                    "enum": [
+                      "none",
+                      "log",
+                      "block"
+                    ],
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              }
+            },
+            "type": "object"
           },
           "type": "object"
         },
@@ -52,7 +66,6 @@ export const tools: readonly Tool[] = [
       $defs: {
         "api-shield_identifier": api_shield_identifier,
         "api-shield_identifier-2": api_shield_identifier_2,
-        "api-shield_per_operation_settings_bulk_edit_value": api_shield_per_operation_settings_bulk_edit_value,
       },
     },
     outputSchema: {
@@ -400,7 +413,7 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "api-shield_api-response-collection": api_shield_api_response_collection_output,
-        "api-shield_api-response-collection_result_info": api_shield_api_response_collection_result_info_output,
+        "api-shield_api-response-common": api_shield_api_response_common_output,
         "api-shield_messages": api_shield_messages_output,
         "api-shield_per_operation_setting": api_shield_per_operation_setting_output,
         "api-shield_uuid": api_shield_uuid_output,
@@ -453,7 +466,7 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "api-shield_api-response-collection": api_shield_api_response_collection_output,
-        "api-shield_api-response-collection_result_info": api_shield_api_response_collection_result_info_output,
+        "api-shield_api-response-common": api_shield_api_response_common_output,
         "api-shield_api-response-common-failure": api_shield_api_response_common_failure_output,
         "api-shield_messages": api_shield_messages_output,
         "api-shield_per_operation_setting": api_shield_per_operation_setting_output,

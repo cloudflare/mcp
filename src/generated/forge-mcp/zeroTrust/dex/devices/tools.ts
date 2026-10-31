@@ -3,7 +3,9 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
+  digital_experience_monitoring_api_response_collection_output,
   digital_experience_monitoring_api_response_common_failure_output,
+  digital_experience_monitoring_api_response_common_output,
   digital_experience_monitoring_colo_output,
   digital_experience_monitoring_messages_output,
   digital_experience_monitoring_platform_output,
@@ -12,6 +14,7 @@ import {
   digital_experience_monitoring_version_output,
 } from "../outputs.js";
 import {
+  digital_experience_monitoring_account_identifier,
   digital_experience_monitoring_colo,
   digital_experience_monitoring_platform,
   digital_experience_monitoring_status,
@@ -22,11 +25,11 @@ import {
   digital_experience_monitoring_cpu_pct_by_app_output,
   digital_experience_monitoring_device_output,
   digital_experience_monitoring_directional_stat_output,
+  digital_experience_monitoring_fleet_status_devices_response_output,
   digital_experience_monitoring_mode_output,
   digital_experience_monitoring_personEmail_output,
   digital_experience_monitoring_ram_used_pct_by_app_output,
   digital_experience_monitoring_rtt_stats_output,
-  digital_experience_monitoring_schemas_ip_info_location_output,
   digital_experience_monitoring_schemas_ip_info_output,
   digital_experience_monitoring_tunnel_stats_output,
 } from "./outputs.js";
@@ -53,16 +56,16 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Unique Cloudflare account ID.",
-          "type": "string"
+          "$ref": "#/$defs/digital-experience-monitoring_account_identifier",
+          "description": "Unique Cloudflare account ID."
         },
         "colo": {
           "$ref": "#/$defs/digital-experience-monitoring_colo",
           "description": "List of data centers to filter results."
         },
         "device_id": {
-          "description": "Device-specific ID, given as UUID.",
-          "type": "string"
+          "$ref": "#/$defs/digital-experience-monitoring_device_id",
+          "description": "Device-specific ID, given as UUID."
         },
         "since_minutes": {
           "$ref": "#/$defs/digital-experience-monitoring_since_minutes",
@@ -81,7 +84,9 @@ export const tools: readonly Tool[] = [
         "since_minutes"
       ],
       $defs: {
+        "digital-experience-monitoring_account_identifier": digital_experience_monitoring_account_identifier,
         "digital-experience-monitoring_colo": digital_experience_monitoring_colo,
+        "digital-experience-monitoring_device_id": digital_experience_monitoring_device_id,
         "digital-experience-monitoring_since_minutes": digital_experience_monitoring_since_minutes,
         "digital-experience-monitoring_time_now": digital_experience_monitoring_time_now,
       },
@@ -99,7 +104,6 @@ export const tools: readonly Tool[] = [
         "digital-experience-monitoring_ram_used_pct_by_app": digital_experience_monitoring_ram_used_pct_by_app_output,
         "digital-experience-monitoring_rtt_stats": digital_experience_monitoring_rtt_stats_output,
         "digital-experience-monitoring_schemas-ip_info": digital_experience_monitoring_schemas_ip_info_output,
-        "digital-experience-monitoring_schemas-ip_info_location": digital_experience_monitoring_schemas_ip_info_location_output,
         "digital-experience-monitoring_status": digital_experience_monitoring_status_output,
         "digital-experience-monitoring_timestamp": digital_experience_monitoring_timestamp_output,
         "digital-experience-monitoring_tunnel_stats": digital_experience_monitoring_tunnel_stats_output,
@@ -145,7 +149,6 @@ export const tools: readonly Tool[] = [
         "digital-experience-monitoring_ram_used_pct_by_app": digital_experience_monitoring_ram_used_pct_by_app_output,
         "digital-experience-monitoring_rtt_stats": digital_experience_monitoring_rtt_stats_output,
         "digital-experience-monitoring_schemas-ip_info": digital_experience_monitoring_schemas_ip_info_output,
-        "digital-experience-monitoring_schemas-ip_info_location": digital_experience_monitoring_schemas_ip_info_location_output,
         "digital-experience-monitoring_status": digital_experience_monitoring_status_output,
         "digital-experience-monitoring_timestamp": digital_experience_monitoring_timestamp_output,
         "digital-experience-monitoring_tunnel_stats": digital_experience_monitoring_tunnel_stats_output,
@@ -169,8 +172,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Unique Cloudflare account ID.",
-          "type": "string"
+          "$ref": "#/$defs/digital-experience-monitoring_account_identifier",
+          "description": "Unique Cloudflare account ID."
         },
         "colo": {
           "$ref": "#/$defs/digital-experience-monitoring_colo",
@@ -232,6 +235,7 @@ export const tools: readonly Tool[] = [
         "per_page"
       ],
       $defs: {
+        "digital-experience-monitoring_account_identifier": digital_experience_monitoring_account_identifier,
         "digital-experience-monitoring_colo": digital_experience_monitoring_colo,
         "digital-experience-monitoring_device_id": digital_experience_monitoring_device_id,
         "digital-experience-monitoring_mode": digital_experience_monitoring_mode,
@@ -246,50 +250,22 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "$ref": "#/$defs/digital-experience-monitoring_device"
-          },
-          "type": "array"
-        },
-        "result_info": {
-          "properties": {
-            "count": {
-              "type": "number"
-            },
-            "page": {
-              "type": "number"
-            },
-            "per_page": {
-              "type": "number"
-            },
-            "total_count": {
-              "type": "number"
-            },
-            "total_pages": {
-              "type": "number"
-            }
-          },
-          "type": "object"
-        }
-      },
-      "required": [
-        "result"
-      ],
-      "type": "object",
+      "$ref": "#/$defs/digital-experience-monitoring_fleet_status_devices_response",
       $defs: {
+        "digital-experience-monitoring_api-response-collection": digital_experience_monitoring_api_response_collection_output,
+        "digital-experience-monitoring_api-response-common": digital_experience_monitoring_api_response_common_output,
         "digital-experience-monitoring_colo": digital_experience_monitoring_colo_output,
         "digital-experience-monitoring_cpu_pct_by_app": digital_experience_monitoring_cpu_pct_by_app_output,
         "digital-experience-monitoring_device": digital_experience_monitoring_device_output,
         "digital-experience-monitoring_directional_stat": digital_experience_monitoring_directional_stat_output,
+        "digital-experience-monitoring_fleet_status_devices_response": digital_experience_monitoring_fleet_status_devices_response_output,
+        "digital-experience-monitoring_messages": digital_experience_monitoring_messages_output,
         "digital-experience-monitoring_mode": digital_experience_monitoring_mode_output,
         "digital-experience-monitoring_personEmail": digital_experience_monitoring_personEmail_output,
         "digital-experience-monitoring_platform": digital_experience_monitoring_platform_output,
         "digital-experience-monitoring_ram_used_pct_by_app": digital_experience_monitoring_ram_used_pct_by_app_output,
         "digital-experience-monitoring_rtt_stats": digital_experience_monitoring_rtt_stats_output,
         "digital-experience-monitoring_schemas-ip_info": digital_experience_monitoring_schemas_ip_info_output,
-        "digital-experience-monitoring_schemas-ip_info_location": digital_experience_monitoring_schemas_ip_info_location_output,
         "digital-experience-monitoring_status": digital_experience_monitoring_status_output,
         "digital-experience-monitoring_timestamp": digital_experience_monitoring_timestamp_output,
         "digital-experience-monitoring_tunnel_stats": digital_experience_monitoring_tunnel_stats_output,
@@ -316,49 +292,21 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "items": {
-                "$ref": "#/$defs/digital-experience-monitoring_device"
-              },
-              "type": "array"
-            },
-            "result_info": {
-              "properties": {
-                "count": {
-                  "type": "number"
-                },
-                "page": {
-                  "type": "number"
-                },
-                "per_page": {
-                  "type": "number"
-                },
-                "total_count": {
-                  "type": "number"
-                },
-                "total_pages": {
-                  "type": "number"
-                }
-              },
-              "type": "object"
-            }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/digital-experience-monitoring_fleet_status_devices_response"
         },
         "4XX": {
           "$ref": "#/$defs/digital-experience-monitoring_api-response-common-failure"
         }
       },
       $defs: {
+        "digital-experience-monitoring_api-response-collection": digital_experience_monitoring_api_response_collection_output,
+        "digital-experience-monitoring_api-response-common": digital_experience_monitoring_api_response_common_output,
         "digital-experience-monitoring_api-response-common-failure": digital_experience_monitoring_api_response_common_failure_output,
         "digital-experience-monitoring_colo": digital_experience_monitoring_colo_output,
         "digital-experience-monitoring_cpu_pct_by_app": digital_experience_monitoring_cpu_pct_by_app_output,
         "digital-experience-monitoring_device": digital_experience_monitoring_device_output,
         "digital-experience-monitoring_directional_stat": digital_experience_monitoring_directional_stat_output,
+        "digital-experience-monitoring_fleet_status_devices_response": digital_experience_monitoring_fleet_status_devices_response_output,
         "digital-experience-monitoring_messages": digital_experience_monitoring_messages_output,
         "digital-experience-monitoring_mode": digital_experience_monitoring_mode_output,
         "digital-experience-monitoring_personEmail": digital_experience_monitoring_personEmail_output,
@@ -366,7 +314,6 @@ export const tools: readonly Tool[] = [
         "digital-experience-monitoring_ram_used_pct_by_app": digital_experience_monitoring_ram_used_pct_by_app_output,
         "digital-experience-monitoring_rtt_stats": digital_experience_monitoring_rtt_stats_output,
         "digital-experience-monitoring_schemas-ip_info": digital_experience_monitoring_schemas_ip_info_output,
-        "digital-experience-monitoring_schemas-ip_info_location": digital_experience_monitoring_schemas_ip_info_location_output,
         "digital-experience-monitoring_status": digital_experience_monitoring_status_output,
         "digital-experience-monitoring_timestamp": digital_experience_monitoring_timestamp_output,
         "digital-experience-monitoring_tunnel_stats": digital_experience_monitoring_tunnel_stats_output,

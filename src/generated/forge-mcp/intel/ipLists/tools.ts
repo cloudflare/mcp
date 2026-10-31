@@ -3,10 +3,13 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
+  intel_api_response_collection_output,
   intel_api_response_common_failure_output,
+  intel_api_response_common_output,
   intel_messages_output,
   intel_result_info_output,
 } from "../outputs.js";
+import { intel_identifier } from "../schemas.js";
 import {
   intel_components_schemas_response_output,
   intel_ip_list_output,
@@ -24,32 +27,25 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/intel_identifier",
+          "description": "Identifier."
         }
       },
       required: [
         "account_id"
       ],
+      $defs: {
+        "intel_identifier": intel_identifier,
+      },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "$ref": "#/$defs/intel_ip-list"
-          },
-          "type": "array"
-        },
-        "result_info": {
-          "$ref": "#/$defs/intel_result_info"
-        }
-      },
-      "required": [
-        "result"
-      ],
-      "type": "object",
+      "$ref": "#/$defs/intel_components-schemas-response",
       $defs: {
+        "intel_api-response-collection": intel_api_response_collection_output,
+        "intel_api-response-common": intel_api_response_common_output,
+        "intel_components-schemas-response": intel_components_schemas_response_output,
         "intel_ip-list": intel_ip_list_output,
+        "intel_messages": intel_messages_output,
         "intel_result_info": intel_result_info_output,
       },
     },
@@ -71,21 +67,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "items": {
-                "$ref": "#/$defs/intel_ip-list"
-              },
-              "type": "array"
-            },
-            "result_info": {
-              "$ref": "#/$defs/intel_result_info"
-            }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/intel_components-schemas-response"
         },
         "4XX": {
           "allOf": [
@@ -99,6 +81,8 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
+        "intel_api-response-collection": intel_api_response_collection_output,
+        "intel_api-response-common": intel_api_response_common_output,
         "intel_api-response-common-failure": intel_api_response_common_failure_output,
         "intel_components-schemas-response": intel_components_schemas_response_output,
         "intel_ip-list": intel_ip_list_output,

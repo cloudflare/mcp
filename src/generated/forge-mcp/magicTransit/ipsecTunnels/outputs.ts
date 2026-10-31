@@ -144,10 +144,73 @@ export const magic_ipsec_tunnel_name_output: JsonSchema = {
 };
 
 /**
+ * The schema of `magic_ipsec_tunnels_psk_response` in responses.
+ */
+export const magic_ipsec_tunnels_psk_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/magic_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "properties": {
+            "successfully_applied_psks": {
+              "additionalProperties": {
+                "$ref": "#/$defs/magic_ipsec_tunnel_applied_psk"
+              },
+              "type": "object"
+            },
+            "unapplied_psks": {
+              "additionalProperties": {
+                "type": "string"
+              },
+              "type": "object"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
  * The schema of `magic_psk` in responses.
  */
 export const magic_psk_output: JsonSchema = {
   "type": "string"
+};
+
+/**
+ * The schema of `magic_psk_generation_response` in responses.
+ */
+export const magic_psk_generation_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/magic_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "properties": {
+            "ipsec_tunnel_id": {
+              "$ref": "#/$defs/magic_identifier"
+            },
+            "psk": {
+              "$ref": "#/$defs/magic_psk"
+            },
+            "psk_metadata": {
+              "$ref": "#/$defs/magic_psk_metadata"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
+    }
+  ]
 };
 
 /**
@@ -167,4 +230,159 @@ export const magic_psk_metadata_output: JsonSchema = {
  */
 export const magic_replay_protection_output: JsonSchema = {
   "type": "boolean"
+};
+
+/**
+ * The schema of `magic_schemas-create_ipsec_tunnel_response` in responses.
+ */
+export const magic_schemas_create_ipsec_tunnel_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/magic_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/magic_ipsec-tunnel"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `magic_schemas-modified_tunnels_collection_response` in
+ * responses.
+ */
+export const magic_schemas_modified_tunnels_collection_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/magic_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "properties": {
+            "modified": {
+              "type": "boolean"
+            },
+            "modified_ipsec_tunnels": {
+              "items": {
+                "$ref": "#/$defs/magic_ipsec-tunnel"
+              },
+              "type": "array"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `magic_schemas-tunnel_deleted_response` in responses.
+ */
+export const magic_schemas_tunnel_deleted_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/magic_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "properties": {
+            "deleted": {
+              "type": "boolean"
+            },
+            "deleted_ipsec_tunnel": {
+              "$ref": "#/$defs/magic_ipsec-tunnel"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `magic_schemas-tunnel_modified_response` in responses.
+ */
+export const magic_schemas_tunnel_modified_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/magic_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "properties": {
+            "modified": {
+              "type": "boolean"
+            },
+            "modified_ipsec_tunnel": {
+              "$ref": "#/$defs/magic_ipsec-tunnel"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `magic_schemas-tunnel_single_response` in responses.
+ */
+export const magic_schemas_tunnel_single_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/magic_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "properties": {
+            "ipsec_tunnel": {
+              "$ref": "#/$defs/magic_ipsec-tunnel"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `magic_schemas-tunnels_collection_response` in responses.
+ */
+export const magic_schemas_tunnels_collection_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/magic_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "properties": {
+            "ipsec_tunnels": {
+              "items": {
+                "$ref": "#/$defs/magic_ipsec-tunnel"
+              },
+              "type": "array"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
+    }
+  ]
 };

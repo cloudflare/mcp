@@ -4,6 +4,14 @@
 import type { JsonSchema } from "../_/tool.js";
 
 /**
+ * The schema of `precursor_identifier`.
+ */
+export const precursor_identifier: JsonSchema = {
+  "description": "Identifier.",
+  "type": "string"
+};
+
+/**
  * The schema of `precursor_precursor_config`.
  */
 export const precursor_precursor_config: JsonSchema = {

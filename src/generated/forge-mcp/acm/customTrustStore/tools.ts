@@ -3,24 +3,31 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
+  tls_certificates_and_hostnames_api_response_collection_output,
   tls_certificates_and_hostnames_api_response_common_failure_output,
+  tls_certificates_and_hostnames_api_response_common_output,
+  tls_certificates_and_hostnames_api_response_single_output,
   tls_certificates_and_hostnames_expires_on_2_output,
   tls_certificates_and_hostnames_issuer_output,
   tls_certificates_and_hostnames_messages_output,
   tls_certificates_and_hostnames_signature_output,
   tls_certificates_and_hostnames_uploaded_on_output,
 } from "../../outputs.js";
+import { tls_certificates_and_hostnames_identifier } from "../../schemas.js";
 import {
   tls_certificates_and_hostnames_certificate_3_output,
   tls_certificates_and_hostnames_custom_trust_store_identifier_output,
   tls_certificates_and_hostnames_custom_trust_store_output,
   tls_certificates_and_hostnames_custom_trust_store_response_collection_output,
-  tls_certificates_and_hostnames_custom_trust_store_response_collection_result_info_output,
+  tls_certificates_and_hostnames_custom_trust_store_response_id_only_output,
   tls_certificates_and_hostnames_custom_trust_store_response_single_output,
   tls_certificates_and_hostnames_status_7_output,
   tls_certificates_and_hostnames_updated_at_2_output,
 } from "./outputs.js";
-import { tls_certificates_and_hostnames_certificate_3 } from "./schemas.js";
+import {
+  tls_certificates_and_hostnames_certificate_3,
+  tls_certificates_and_hostnames_custom_trust_store_identifier,
+} from "./schemas.js";
 
 /**
  * The tools of `acm.custom_trust_store`.
@@ -46,8 +53,8 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "zone_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/tls-certificates-and-hostnames_identifier",
+          "description": "Identifier."
         }
       },
       required: [
@@ -56,16 +63,20 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "tls-certificates-and-hostnames_certificate-3": tls_certificates_and_hostnames_certificate_3,
+        "tls-certificates-and-hostnames_identifier": tls_certificates_and_hostnames_identifier,
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_custom-trust-store",
+      "$ref": "#/$defs/tls-certificates-and-hostnames_custom_trust_store_response_single",
       $defs: {
+        "tls-certificates-and-hostnames_api-response-single": tls_certificates_and_hostnames_api_response_single_output,
         "tls-certificates-and-hostnames_certificate-3": tls_certificates_and_hostnames_certificate_3_output,
         "tls-certificates-and-hostnames_custom-trust-store": tls_certificates_and_hostnames_custom_trust_store_output,
         "tls-certificates-and-hostnames_custom_trust_store_identifier": tls_certificates_and_hostnames_custom_trust_store_identifier_output,
+        "tls-certificates-and-hostnames_custom_trust_store_response_single": tls_certificates_and_hostnames_custom_trust_store_response_single_output,
         "tls-certificates-and-hostnames_expires_on-2": tls_certificates_and_hostnames_expires_on_2_output,
         "tls-certificates-and-hostnames_issuer": tls_certificates_and_hostnames_issuer_output,
+        "tls-certificates-and-hostnames_messages": tls_certificates_and_hostnames_messages_output,
         "tls-certificates-and-hostnames_signature": tls_certificates_and_hostnames_signature_output,
         "tls-certificates-and-hostnames_status-7": tls_certificates_and_hostnames_status_7_output,
         "tls-certificates-and-hostnames_updated_at-2": tls_certificates_and_hostnames_updated_at_2_output,
@@ -89,15 +100,7 @@ export const tools: readonly Tool[] = [
         "enum": [
           "#ssl:read",
           "#ssl:edit"
-        ],
-        "x-fern-enum": {
-          "#ssl:edit": {
-            "name": "ssl_edit"
-          },
-          "#ssl:read": {
-            "name": "ssl_read"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": true,
@@ -109,7 +112,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/tls-certificates-and-hostnames_custom-trust-store"
+          "$ref": "#/$defs/tls-certificates-and-hostnames_custom_trust_store_response_single"
         },
         "4XX": {
           "allOf": [
@@ -124,6 +127,7 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "tls-certificates-and-hostnames_api-response-common-failure": tls_certificates_and_hostnames_api_response_common_failure_output,
+        "tls-certificates-and-hostnames_api-response-single": tls_certificates_and_hostnames_api_response_single_output,
         "tls-certificates-and-hostnames_certificate-3": tls_certificates_and_hostnames_certificate_3_output,
         "tls-certificates-and-hostnames_custom-trust-store": tls_certificates_and_hostnames_custom_trust_store_output,
         "tls-certificates-and-hostnames_custom_trust_store_identifier": tls_certificates_and_hostnames_custom_trust_store_identifier_output,
@@ -150,28 +154,30 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "custom_origin_trust_store_id": {
-          "description": "Certificate identifier tag.",
-          "type": "string"
+          "$ref": "#/$defs/tls-certificates-and-hostnames_custom_trust_store_identifier",
+          "description": "Certificate identifier tag."
         },
         "zone_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/tls-certificates-and-hostnames_identifier",
+          "description": "Identifier."
         }
       },
       required: [
         "zone_id",
         "custom_origin_trust_store_id"
       ],
+      $defs: {
+        "tls-certificates-and-hostnames_custom_trust_store_identifier": tls_certificates_and_hostnames_custom_trust_store_identifier,
+        "tls-certificates-and-hostnames_identifier": tls_certificates_and_hostnames_identifier,
+      },
     },
     outputSchema: {
-      "properties": {
-        "id": {
-          "$ref": "#/$defs/tls-certificates-and-hostnames_custom_trust_store_identifier"
-        }
-      },
-      "type": "object",
+      "$ref": "#/$defs/tls-certificates-and-hostnames_custom_trust_store_response_id_only",
       $defs: {
+        "tls-certificates-and-hostnames_api-response-single": tls_certificates_and_hostnames_api_response_single_output,
         "tls-certificates-and-hostnames_custom_trust_store_identifier": tls_certificates_and_hostnames_custom_trust_store_identifier_output,
+        "tls-certificates-and-hostnames_custom_trust_store_response_id_only": tls_certificates_and_hostnames_custom_trust_store_response_id_only_output,
+        "tls-certificates-and-hostnames_messages": tls_certificates_and_hostnames_messages_output,
       },
     },
     annotations: {
@@ -191,15 +197,7 @@ export const tools: readonly Tool[] = [
         "enum": [
           "#ssl:read",
           "#ssl:edit"
-        ],
-        "x-fern-enum": {
-          "#ssl:edit": {
-            "name": "ssl_edit"
-          },
-          "#ssl:read": {
-            "name": "ssl_read"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": true,
@@ -211,12 +209,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "id": {
-              "$ref": "#/$defs/tls-certificates-and-hostnames_custom_trust_store_identifier"
-            }
-          },
-          "type": "object"
+          "$ref": "#/$defs/tls-certificates-and-hostnames_custom_trust_store_response_id_only"
         },
         "4XX": {
           "allOf": [
@@ -231,7 +224,9 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "tls-certificates-and-hostnames_api-response-common-failure": tls_certificates_and_hostnames_api_response_common_failure_output,
+        "tls-certificates-and-hostnames_api-response-single": tls_certificates_and_hostnames_api_response_single_output,
         "tls-certificates-and-hostnames_custom_trust_store_identifier": tls_certificates_and_hostnames_custom_trust_store_identifier_output,
+        "tls-certificates-and-hostnames_custom_trust_store_response_id_only": tls_certificates_and_hostnames_custom_trust_store_response_id_only_output,
         "tls-certificates-and-hostnames_messages": tls_certificates_and_hostnames_messages_output,
       },
     },
@@ -247,27 +242,34 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "custom_origin_trust_store_id": {
-          "description": "Certificate identifier tag.",
-          "type": "string"
+          "$ref": "#/$defs/tls-certificates-and-hostnames_custom_trust_store_identifier",
+          "description": "Certificate identifier tag."
         },
         "zone_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/tls-certificates-and-hostnames_identifier",
+          "description": "Identifier."
         }
       },
       required: [
         "zone_id",
         "custom_origin_trust_store_id"
       ],
+      $defs: {
+        "tls-certificates-and-hostnames_custom_trust_store_identifier": tls_certificates_and_hostnames_custom_trust_store_identifier,
+        "tls-certificates-and-hostnames_identifier": tls_certificates_and_hostnames_identifier,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_custom-trust-store",
+      "$ref": "#/$defs/tls-certificates-and-hostnames_custom_trust_store_response_single",
       $defs: {
+        "tls-certificates-and-hostnames_api-response-single": tls_certificates_and_hostnames_api_response_single_output,
         "tls-certificates-and-hostnames_certificate-3": tls_certificates_and_hostnames_certificate_3_output,
         "tls-certificates-and-hostnames_custom-trust-store": tls_certificates_and_hostnames_custom_trust_store_output,
         "tls-certificates-and-hostnames_custom_trust_store_identifier": tls_certificates_and_hostnames_custom_trust_store_identifier_output,
+        "tls-certificates-and-hostnames_custom_trust_store_response_single": tls_certificates_and_hostnames_custom_trust_store_response_single_output,
         "tls-certificates-and-hostnames_expires_on-2": tls_certificates_and_hostnames_expires_on_2_output,
         "tls-certificates-and-hostnames_issuer": tls_certificates_and_hostnames_issuer_output,
+        "tls-certificates-and-hostnames_messages": tls_certificates_and_hostnames_messages_output,
         "tls-certificates-and-hostnames_signature": tls_certificates_and_hostnames_signature_output,
         "tls-certificates-and-hostnames_status-7": tls_certificates_and_hostnames_status_7_output,
         "tls-certificates-and-hostnames_updated_at-2": tls_certificates_and_hostnames_updated_at_2_output,
@@ -291,12 +293,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "#ssl:read"
-        ],
-        "x-fern-enum": {
-          "#ssl:read": {
-            "name": "ssl_read"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": true,
@@ -308,7 +305,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/tls-certificates-and-hostnames_custom-trust-store"
+          "$ref": "#/$defs/tls-certificates-and-hostnames_custom_trust_store_response_single"
         },
         "4XX": {
           "allOf": [
@@ -323,6 +320,7 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "tls-certificates-and-hostnames_api-response-common-failure": tls_certificates_and_hostnames_api_response_common_failure_output,
+        "tls-certificates-and-hostnames_api-response-single": tls_certificates_and_hostnames_api_response_single_output,
         "tls-certificates-and-hostnames_certificate-3": tls_certificates_and_hostnames_certificate_3_output,
         "tls-certificates-and-hostnames_custom-trust-store": tls_certificates_and_hostnames_custom_trust_store_output,
         "tls-certificates-and-hostnames_custom_trust_store_identifier": tls_certificates_and_hostnames_custom_trust_store_identifier_output,
@@ -366,53 +364,29 @@ export const tools: readonly Tool[] = [
           "type": "number"
         },
         "zone_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/tls-certificates-and-hostnames_identifier",
+          "description": "Identifier."
         }
       },
       required: [
         "zone_id"
       ],
+      $defs: {
+        "tls-certificates-and-hostnames_identifier": tls_certificates_and_hostnames_identifier,
+      },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "$ref": "#/$defs/tls-certificates-and-hostnames_custom-trust-store"
-          },
-          "type": "array"
-        },
-        "result_info": {
-          "properties": {
-            "count": {
-              "type": "number"
-            },
-            "page": {
-              "type": "number"
-            },
-            "per_page": {
-              "type": "number"
-            },
-            "total_count": {
-              "type": "number"
-            },
-            "total_pages": {
-              "type": "number"
-            }
-          },
-          "type": "object"
-        }
-      },
-      "required": [
-        "result"
-      ],
-      "type": "object",
+      "$ref": "#/$defs/tls-certificates-and-hostnames_custom_trust_store_response_collection",
       $defs: {
+        "tls-certificates-and-hostnames_api-response-collection": tls_certificates_and_hostnames_api_response_collection_output,
+        "tls-certificates-and-hostnames_api-response-common": tls_certificates_and_hostnames_api_response_common_output,
         "tls-certificates-and-hostnames_certificate-3": tls_certificates_and_hostnames_certificate_3_output,
         "tls-certificates-and-hostnames_custom-trust-store": tls_certificates_and_hostnames_custom_trust_store_output,
         "tls-certificates-and-hostnames_custom_trust_store_identifier": tls_certificates_and_hostnames_custom_trust_store_identifier_output,
+        "tls-certificates-and-hostnames_custom_trust_store_response_collection": tls_certificates_and_hostnames_custom_trust_store_response_collection_output,
         "tls-certificates-and-hostnames_expires_on-2": tls_certificates_and_hostnames_expires_on_2_output,
         "tls-certificates-and-hostnames_issuer": tls_certificates_and_hostnames_issuer_output,
+        "tls-certificates-and-hostnames_messages": tls_certificates_and_hostnames_messages_output,
         "tls-certificates-and-hostnames_signature": tls_certificates_and_hostnames_signature_output,
         "tls-certificates-and-hostnames_status-7": tls_certificates_and_hostnames_status_7_output,
         "tls-certificates-and-hostnames_updated_at-2": tls_certificates_and_hostnames_updated_at_2_output,
@@ -436,12 +410,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "#ssl:read"
-        ],
-        "x-fern-enum": {
-          "#ssl:read": {
-            "name": "ssl_read"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": true,
@@ -453,38 +422,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "items": {
-                "$ref": "#/$defs/tls-certificates-and-hostnames_custom-trust-store"
-              },
-              "type": "array"
-            },
-            "result_info": {
-              "properties": {
-                "count": {
-                  "type": "number"
-                },
-                "page": {
-                  "type": "number"
-                },
-                "per_page": {
-                  "type": "number"
-                },
-                "total_count": {
-                  "type": "number"
-                },
-                "total_pages": {
-                  "type": "number"
-                }
-              },
-              "type": "object"
-            }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/tls-certificates-and-hostnames_custom_trust_store_response_collection"
         },
         "4XX": {
           "allOf": [
@@ -498,12 +436,13 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
+        "tls-certificates-and-hostnames_api-response-collection": tls_certificates_and_hostnames_api_response_collection_output,
+        "tls-certificates-and-hostnames_api-response-common": tls_certificates_and_hostnames_api_response_common_output,
         "tls-certificates-and-hostnames_api-response-common-failure": tls_certificates_and_hostnames_api_response_common_failure_output,
         "tls-certificates-and-hostnames_certificate-3": tls_certificates_and_hostnames_certificate_3_output,
         "tls-certificates-and-hostnames_custom-trust-store": tls_certificates_and_hostnames_custom_trust_store_output,
         "tls-certificates-and-hostnames_custom_trust_store_identifier": tls_certificates_and_hostnames_custom_trust_store_identifier_output,
         "tls-certificates-and-hostnames_custom_trust_store_response_collection": tls_certificates_and_hostnames_custom_trust_store_response_collection_output,
-        "tls-certificates-and-hostnames_custom_trust_store_response_collection_result_info": tls_certificates_and_hostnames_custom_trust_store_response_collection_result_info_output,
         "tls-certificates-and-hostnames_expires_on-2": tls_certificates_and_hostnames_expires_on_2_output,
         "tls-certificates-and-hostnames_issuer": tls_certificates_and_hostnames_issuer_output,
         "tls-certificates-and-hostnames_messages": tls_certificates_and_hostnames_messages_output,

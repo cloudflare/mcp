@@ -111,7 +111,17 @@ export const workers_observability_filter_leaf_output: JsonSchema = {
       "type": "string"
     },
     "value": {
-      "$ref": "#/$defs/workers-observability_filter_leaf_value"
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "number"
+        },
+        {
+          "type": "boolean"
+        }
+      ]
     }
   },
   "required": [
@@ -120,23 +130,6 @@ export const workers_observability_filter_leaf_output: JsonSchema = {
     "type"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `workers-observability_filter_leaf_value` in responses.
- */
-export const workers_observability_filter_leaf_value_output: JsonSchema = {
-  "anyOf": [
-    {
-      "type": "string"
-    },
-    {
-      "type": "number"
-    },
-    {
-      "type": "boolean"
-    }
-  ]
 };
 
 /**
@@ -240,7 +233,238 @@ export const workers_observability_query_output: JsonSchema = {
       "type": "string"
     },
     "parameters": {
-      "$ref": "#/$defs/workers-observability_query_parameters"
+      "properties": {
+        "calculations": {
+          "items": {
+            "oneOf": [
+              {
+                "properties": {
+                  "alias": {
+                    "type": "string"
+                  },
+                  "key": {
+                    "type": "string"
+                  },
+                  "keyType": {
+                    "enum": [
+                      "string",
+                      "number",
+                      "boolean"
+                    ],
+                    "type": "string"
+                  },
+                  "operator": {
+                    "enum": [
+                      "count",
+                      "COUNT"
+                    ],
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "operator"
+                ],
+                "type": "object"
+              },
+              {
+                "properties": {
+                  "alias": {
+                    "type": "string"
+                  },
+                  "key": {
+                    "type": "string"
+                  },
+                  "keyType": {
+                    "enum": [
+                      "string",
+                      "number",
+                      "boolean"
+                    ],
+                    "type": "string"
+                  },
+                  "operator": {
+                    "enum": [
+                      "uniq",
+                      "max",
+                      "min",
+                      "sum",
+                      "avg",
+                      "median",
+                      "p001",
+                      "p01",
+                      "p05",
+                      "p10",
+                      "p25",
+                      "p75",
+                      "p90",
+                      "p95",
+                      "p99",
+                      "p999",
+                      "stddev",
+                      "variance",
+                      "COUNT_DISTINCT",
+                      "MAX",
+                      "MIN",
+                      "SUM",
+                      "AVG",
+                      "MEDIAN",
+                      "P001",
+                      "P01",
+                      "P05",
+                      "P10",
+                      "P25",
+                      "P75",
+                      "P90",
+                      "P95",
+                      "P99",
+                      "P999",
+                      "STDDEV",
+                      "VARIANCE"
+                    ],
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "key",
+                  "operator"
+                ],
+                "type": "object"
+              }
+            ]
+          },
+          "type": "array"
+        },
+        "datasets": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "filterCombination": {
+          "enum": [
+            "and",
+            "or",
+            "AND",
+            "OR"
+          ],
+          "type": "string"
+        },
+        "filters": {
+          "items": {
+            "$ref": "#/$defs/workers-observability_filter_node"
+          },
+          "type": "array"
+        },
+        "groupBys": {
+          "items": {
+            "properties": {
+              "type": {
+                "enum": [
+                  "string",
+                  "number",
+                  "boolean"
+                ],
+                "type": "string"
+              },
+              "value": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "type",
+              "value"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "havings": {
+          "items": {
+            "properties": {
+              "key": {
+                "type": "string"
+              },
+              "operation": {
+                "enum": [
+                  "eq",
+                  "neq",
+                  "gt",
+                  "gte",
+                  "lt",
+                  "lte"
+                ],
+                "type": "string"
+              },
+              "value": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "key",
+              "operation",
+              "value"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "limit": {
+          "type": "integer"
+        },
+        "needle": {
+          "properties": {
+            "isRegex": {
+              "type": "boolean"
+            },
+            "matchCase": {
+              "type": "boolean"
+            },
+            "value": {
+              "allOf": [
+                {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "boolean"
+                    }
+                  ]
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            }
+          },
+          "required": [
+            "value"
+          ],
+          "type": "object"
+        },
+        "orderBy": {
+          "properties": {
+            "order": {
+              "enum": [
+                "asc",
+                "desc"
+              ],
+              "type": "string"
+            },
+            "value": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "value"
+          ],
+          "type": "object"
+        }
+      },
+      "type": "object"
     },
     "updated": {
       "format": "date-time",
@@ -265,293 +489,388 @@ export const workers_observability_query_output: JsonSchema = {
 };
 
 /**
- * The schema of `workers-observability_query_parameters` in responses.
- */
-export const workers_observability_query_parameters_output: JsonSchema = {
-  "properties": {
-    "calculations": {
-      "items": {
-        "oneOf": [
-          {
-            "properties": {
-              "alias": {
-                "type": "string"
-              },
-              "key": {
-                "type": "string"
-              },
-              "keyType": {
-                "enum": [
-                  "string",
-                  "number",
-                  "boolean"
-                ],
-                "type": "string"
-              },
-              "operator": {
-                "enum": [
-                  "count",
-                  "COUNT"
-                ],
-                "type": "string"
-              }
-            },
-            "required": [
-              "operator"
-            ],
-            "type": "object"
-          },
-          {
-            "properties": {
-              "alias": {
-                "type": "string"
-              },
-              "key": {
-                "type": "string"
-              },
-              "keyType": {
-                "enum": [
-                  "string",
-                  "number",
-                  "boolean"
-                ],
-                "type": "string"
-              },
-              "operator": {
-                "enum": [
-                  "uniq",
-                  "max",
-                  "min",
-                  "sum",
-                  "avg",
-                  "median",
-                  "p001",
-                  "p01",
-                  "p05",
-                  "p10",
-                  "p25",
-                  "p75",
-                  "p90",
-                  "p95",
-                  "p99",
-                  "p999",
-                  "stddev",
-                  "variance",
-                  "COUNT_DISTINCT",
-                  "MAX",
-                  "MIN",
-                  "SUM",
-                  "AVG",
-                  "MEDIAN",
-                  "P001",
-                  "P01",
-                  "P05",
-                  "P10",
-                  "P25",
-                  "P75",
-                  "P90",
-                  "P95",
-                  "P99",
-                  "P999",
-                  "STDDEV",
-                  "VARIANCE"
-                ],
-                "type": "string"
-              }
-            },
-            "required": [
-              "key",
-              "operator"
-            ],
-            "type": "object"
-          }
-        ]
-      },
-      "type": "array"
-    },
-    "datasets": {
-      "items": {
-        "type": "string"
-      },
-      "type": "array"
-    },
-    "filterCombination": {
-      "enum": [
-        "and",
-        "or",
-        "AND",
-        "OR"
-      ],
-      "type": "string"
-    },
-    "filters": {
-      "items": {
-        "$ref": "#/$defs/workers-observability_filter_node"
-      },
-      "type": "array"
-    },
-    "groupBys": {
-      "items": {
-        "$ref": "#/$defs/workers-observability_query_parameters_groupBysItem"
-      },
-      "type": "array"
-    },
-    "havings": {
-      "items": {
-        "$ref": "#/$defs/workers-observability_query_parameters_havingsItem"
-      },
-      "type": "array"
-    },
-    "limit": {
-      "type": "integer"
-    },
-    "needle": {
-      "$ref": "#/$defs/workers-observability_query_parameters_needle"
-    },
-    "orderBy": {
-      "$ref": "#/$defs/workers-observability_query_parameters_orderBy"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `workers-observability_query_parameters_groupBysItem` in
- * responses.
- */
-export const workers_observability_query_parameters_groupBysItem_output: JsonSchema = {
-  "properties": {
-    "type": {
-      "enum": [
-        "string",
-        "number",
-        "boolean"
-      ],
-      "type": "string"
-    },
-    "value": {
-      "type": "string"
-    }
-  },
-  "required": [
-    "type",
-    "value"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `workers-observability_query_parameters_havingsItem` in
- * responses.
- */
-export const workers_observability_query_parameters_havingsItem_output: JsonSchema = {
-  "properties": {
-    "key": {
-      "type": "string"
-    },
-    "operation": {
-      "enum": [
-        "eq",
-        "neq",
-        "gt",
-        "gte",
-        "lt",
-        "lte"
-      ],
-      "type": "string"
-    },
-    "value": {
-      "type": "number"
-    }
-  },
-  "required": [
-    "key",
-    "operation",
-    "value"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `workers-observability_query_parameters_needle` in responses.
- */
-export const workers_observability_query_parameters_needle_output: JsonSchema = {
-  "properties": {
-    "isRegex": {
-      "type": "boolean"
-    },
-    "matchCase": {
-      "type": "boolean"
-    },
-    "value": {
-      "allOf": [
-        {
-          "anyOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "number"
-            },
-            {
-              "type": "boolean"
-            }
-          ]
-        },
-        {
-          "type": "string"
-        }
-      ]
-    }
-  },
-  "required": [
-    "value"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `workers-observability_query_parameters_orderBy` in responses.
- */
-export const workers_observability_query_parameters_orderBy_output: JsonSchema = {
-  "properties": {
-    "order": {
-      "enum": [
-        "asc",
-        "desc"
-      ],
-      "type": "string"
-    },
-    "value": {
-      "type": "string"
-    }
-  },
-  "required": [
-    "value"
-  ],
-  "type": "object"
-};
-
-/**
  * The schema of `workers-observability_query_results` in responses.
  */
 export const workers_observability_query_results_output: JsonSchema = {
   "properties": {
     "agents": {
       "items": {
-        "$ref": "#/$defs/workers-observability_query_results_agentsItem"
+        "properties": {
+          "agentId": {
+            "type": "string"
+          },
+          "agentName": {
+            "type": "string"
+          },
+          "conversationId": {
+            "type": "string"
+          },
+          "errors": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "id": {
+            "type": "string"
+          },
+          "inputTokens": {
+            "type": "number"
+          },
+          "models": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "outputTokens": {
+            "type": "number"
+          },
+          "providers": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "services": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "spans": {
+            "type": "number"
+          },
+          "status": {
+            "enum": [
+              "completed",
+              "error"
+            ],
+            "type": "string"
+          },
+          "traceDurationMs": {
+            "type": "number"
+          },
+          "traceEndMs": {
+            "type": "number"
+          },
+          "traceId": {
+            "type": "string"
+          },
+          "traceStartMs": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "errors",
+          "id",
+          "models",
+          "providers",
+          "services",
+          "spans",
+          "status",
+          "traceDurationMs",
+          "traceEndMs",
+          "traceId",
+          "traceStartMs"
+        ],
+        "type": "object"
       },
       "type": "array"
     },
     "calculations": {
       "items": {
-        "$ref": "#/$defs/workers-observability_query_results_calculationsItem"
+        "properties": {
+          "aggregates": {
+            "items": {
+              "properties": {
+                "count": {
+                  "type": "number"
+                },
+                "groups": {
+                  "items": {
+                    "properties": {
+                      "key": {
+                        "type": "string"
+                      },
+                      "value": {
+                        "anyOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "boolean"
+                          }
+                        ]
+                      }
+                    },
+                    "required": [
+                      "key",
+                      "value"
+                    ],
+                    "type": "object"
+                  },
+                  "type": "array"
+                },
+                "interval": {
+                  "type": "number"
+                },
+                "sampleInterval": {
+                  "type": "number"
+                },
+                "value": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "count",
+                "interval",
+                "sampleInterval",
+                "value"
+              ],
+              "type": "object"
+            },
+            "type": "array"
+          },
+          "alias": {
+            "type": "string"
+          },
+          "calculation": {
+            "type": "string"
+          },
+          "series": {
+            "items": {
+              "properties": {
+                "data": {
+                  "items": {
+                    "properties": {
+                      "count": {
+                        "type": "number"
+                      },
+                      "firstSeen": {
+                        "type": "string"
+                      },
+                      "groups": {
+                        "items": {
+                          "properties": {
+                            "key": {
+                              "type": "string"
+                            },
+                            "value": {
+                              "anyOf": [
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "number"
+                                },
+                                {
+                                  "type": "boolean"
+                                }
+                              ]
+                            }
+                          },
+                          "required": [
+                            "key",
+                            "value"
+                          ],
+                          "type": "object"
+                        },
+                        "type": "array"
+                      },
+                      "interval": {
+                        "type": "number"
+                      },
+                      "lastSeen": {
+                        "type": "string"
+                      },
+                      "sampleInterval": {
+                        "type": "number"
+                      },
+                      "value": {
+                        "type": "number"
+                      }
+                    },
+                    "required": [
+                      "count",
+                      "interval",
+                      "sampleInterval",
+                      "value"
+                    ],
+                    "type": "object"
+                  },
+                  "type": "array"
+                },
+                "time": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "data",
+                "time"
+              ],
+              "type": "object"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "aggregates",
+          "calculation",
+          "series"
+        ],
+        "type": "object"
       },
       "type": "array"
     },
     "compare": {
       "items": {
-        "$ref": "#/$defs/workers-observability_query_results_compareItem"
+        "properties": {
+          "aggregates": {
+            "items": {
+              "properties": {
+                "count": {
+                  "type": "number"
+                },
+                "groups": {
+                  "items": {
+                    "properties": {
+                      "key": {
+                        "type": "string"
+                      },
+                      "value": {
+                        "anyOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "boolean"
+                          }
+                        ]
+                      }
+                    },
+                    "required": [
+                      "key",
+                      "value"
+                    ],
+                    "type": "object"
+                  },
+                  "type": "array"
+                },
+                "interval": {
+                  "type": "number"
+                },
+                "sampleInterval": {
+                  "type": "number"
+                },
+                "value": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "count",
+                "interval",
+                "sampleInterval",
+                "value"
+              ],
+              "type": "object"
+            },
+            "type": "array"
+          },
+          "alias": {
+            "type": "string"
+          },
+          "calculation": {
+            "type": "string"
+          },
+          "series": {
+            "items": {
+              "properties": {
+                "data": {
+                  "items": {
+                    "properties": {
+                      "count": {
+                        "type": "number"
+                      },
+                      "firstSeen": {
+                        "type": "string"
+                      },
+                      "groups": {
+                        "items": {
+                          "properties": {
+                            "key": {
+                              "type": "string"
+                            },
+                            "value": {
+                              "anyOf": [
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "number"
+                                },
+                                {
+                                  "type": "boolean"
+                                }
+                              ]
+                            }
+                          },
+                          "required": [
+                            "key",
+                            "value"
+                          ],
+                          "type": "object"
+                        },
+                        "type": "array"
+                      },
+                      "interval": {
+                        "type": "number"
+                      },
+                      "lastSeen": {
+                        "type": "string"
+                      },
+                      "sampleInterval": {
+                        "type": "number"
+                      },
+                      "value": {
+                        "type": "number"
+                      }
+                    },
+                    "required": [
+                      "count",
+                      "interval",
+                      "sampleInterval",
+                      "value"
+                    ],
+                    "type": "object"
+                  },
+                  "type": "array"
+                },
+                "time": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "data",
+                "time"
+              ],
+              "type": "object"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "aggregates",
+          "calculation",
+          "series"
+        ],
+        "type": "object"
       },
       "type": "array"
     },
@@ -559,7 +878,117 @@ export const workers_observability_query_results_output: JsonSchema = {
       "$ref": "#/$defs/workers-observability_distribution_result"
     },
     "events": {
-      "$ref": "#/$defs/workers-observability_query_results_events"
+      "properties": {
+        "count": {
+          "type": "number"
+        },
+        "events": {
+          "items": {
+            "$ref": "#/$defs/workers-observability_telemetry_event"
+          },
+          "type": "array"
+        },
+        "fields": {
+          "items": {
+            "properties": {
+              "key": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "key",
+              "type"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "series": {
+          "items": {
+            "properties": {
+              "data": {
+                "items": {
+                  "properties": {
+                    "aggregates": {
+                      "properties": {
+                        "_count": {
+                          "type": "integer"
+                        },
+                        "_firstSeen": {
+                          "type": "string"
+                        },
+                        "_interval": {
+                          "type": "number"
+                        },
+                        "_lastSeen": {
+                          "type": "string"
+                        },
+                        "bin": {
+                          "type": "object"
+                        }
+                      },
+                      "required": [
+                        "_count",
+                        "_interval"
+                      ],
+                      "type": "object"
+                    },
+                    "count": {
+                      "type": "number"
+                    },
+                    "errors": {
+                      "type": "number"
+                    },
+                    "groups": {
+                      "additionalProperties": {
+                        "anyOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "boolean"
+                          }
+                        ]
+                      },
+                      "type": "object"
+                    },
+                    "interval": {
+                      "type": "number"
+                    },
+                    "sampleInterval": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "aggregates",
+                    "count",
+                    "interval",
+                    "sampleInterval"
+                  ],
+                  "type": "object"
+                },
+                "type": "array"
+              },
+              "time": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "data",
+              "time"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
     },
     "invocations": {
       "additionalProperties": {
@@ -578,7 +1007,52 @@ export const workers_observability_query_results_output: JsonSchema = {
     },
     "traces": {
       "items": {
-        "$ref": "#/$defs/workers-observability_query_results_tracesItem"
+        "properties": {
+          "errors": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "rootSpanName": {
+            "type": "string"
+          },
+          "rootTransactionName": {
+            "type": "string"
+          },
+          "service": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "spans": {
+            "type": "number"
+          },
+          "traceDurationMs": {
+            "type": "number"
+          },
+          "traceEndMs": {
+            "type": "number"
+          },
+          "traceId": {
+            "type": "string"
+          },
+          "traceStartMs": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "rootSpanName",
+          "rootTransactionName",
+          "service",
+          "spans",
+          "traceDurationMs",
+          "traceEndMs",
+          "traceId",
+          "traceStartMs"
+        ],
+        "type": "object"
       },
       "type": "array"
     }
@@ -586,719 +1060,6 @@ export const workers_observability_query_results_output: JsonSchema = {
   "required": [
     "run",
     "statistics"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `workers-observability_query_results_agentsItem` in responses.
- */
-export const workers_observability_query_results_agentsItem_output: JsonSchema = {
-  "properties": {
-    "agentId": {
-      "type": "string"
-    },
-    "agentName": {
-      "type": "string"
-    },
-    "conversationId": {
-      "type": "string"
-    },
-    "errors": {
-      "items": {
-        "type": "string"
-      },
-      "type": "array"
-    },
-    "id": {
-      "type": "string"
-    },
-    "inputTokens": {
-      "type": "number"
-    },
-    "models": {
-      "items": {
-        "type": "string"
-      },
-      "type": "array"
-    },
-    "outputTokens": {
-      "type": "number"
-    },
-    "providers": {
-      "items": {
-        "type": "string"
-      },
-      "type": "array"
-    },
-    "services": {
-      "items": {
-        "type": "string"
-      },
-      "type": "array"
-    },
-    "spans": {
-      "type": "number"
-    },
-    "status": {
-      "enum": [
-        "completed",
-        "error"
-      ],
-      "type": "string"
-    },
-    "traceDurationMs": {
-      "type": "number"
-    },
-    "traceEndMs": {
-      "type": "number"
-    },
-    "traceId": {
-      "type": "string"
-    },
-    "traceStartMs": {
-      "type": "number"
-    }
-  },
-  "required": [
-    "errors",
-    "id",
-    "models",
-    "providers",
-    "services",
-    "spans",
-    "status",
-    "traceDurationMs",
-    "traceEndMs",
-    "traceId",
-    "traceStartMs"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `workers-observability_query_results_calculationsItem` in
- * responses.
- */
-export const workers_observability_query_results_calculationsItem_output: JsonSchema = {
-  "properties": {
-    "aggregates": {
-      "items": {
-        "$ref": "#/$defs/workers-observability_query_results_calculationsItem_aggregatesItem"
-      },
-      "type": "array"
-    },
-    "alias": {
-      "type": "string"
-    },
-    "calculation": {
-      "type": "string"
-    },
-    "series": {
-      "items": {
-        "$ref": "#/$defs/workers-observability_query_results_calculationsItem_seriesItem"
-      },
-      "type": "array"
-    }
-  },
-  "required": [
-    "aggregates",
-    "calculation",
-    "series"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of
- * `workers-observability_query_results_calculationsItem_aggregatesItem` in
- * responses.
- */
-export const workers_observability_query_results_calculationsItem_aggregatesItem_output: JsonSchema = {
-  "properties": {
-    "count": {
-      "type": "number"
-    },
-    "groups": {
-      "items": {
-        "$ref": "#/$defs/workers-observability_query_results_calculationsItem_aggregatesItem_groupsItem"
-      },
-      "type": "array"
-    },
-    "interval": {
-      "type": "number"
-    },
-    "sampleInterval": {
-      "type": "number"
-    },
-    "value": {
-      "type": "number"
-    }
-  },
-  "required": [
-    "count",
-    "interval",
-    "sampleInterval",
-    "value"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of
- * `workers-observability_query_results_calculationsItem_aggregatesItem_groupsItem`
- * in responses.
- */
-export const workers_observability_query_results_calculationsItem_aggregatesItem_groupsItem_output: JsonSchema = {
-  "properties": {
-    "key": {
-      "type": "string"
-    },
-    "value": {
-      "$ref": "#/$defs/workers-observability_query_results_calculationsItem_aggregatesItem_groupsItem_value"
-    }
-  },
-  "required": [
-    "key",
-    "value"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of
- * `workers-observability_query_results_calculationsItem_aggregatesItem_groupsItem_value`
- * in responses.
- */
-export const workers_observability_query_results_calculationsItem_aggregatesItem_groupsItem_value_output: JsonSchema = {
-  "anyOf": [
-    {
-      "type": "string"
-    },
-    {
-      "type": "number"
-    },
-    {
-      "type": "boolean"
-    }
-  ]
-};
-
-/**
- * The schema of
- * `workers-observability_query_results_calculationsItem_seriesItem` in
- * responses.
- */
-export const workers_observability_query_results_calculationsItem_seriesItem_output: JsonSchema = {
-  "properties": {
-    "data": {
-      "items": {
-        "$ref": "#/$defs/workers-observability_query_results_calculationsItem_seriesItem_dataItem"
-      },
-      "type": "array"
-    },
-    "time": {
-      "type": "string"
-    }
-  },
-  "required": [
-    "data",
-    "time"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of
- * `workers-observability_query_results_calculationsItem_seriesItem_dataItem` in
- * responses.
- */
-export const workers_observability_query_results_calculationsItem_seriesItem_dataItem_output: JsonSchema = {
-  "properties": {
-    "count": {
-      "type": "number"
-    },
-    "firstSeen": {
-      "type": "string"
-    },
-    "groups": {
-      "items": {
-        "$ref": "#/$defs/workers-observability_query_results_calculationsItem_seriesItem_dataItem_groupsItem"
-      },
-      "type": "array"
-    },
-    "interval": {
-      "type": "number"
-    },
-    "lastSeen": {
-      "type": "string"
-    },
-    "sampleInterval": {
-      "type": "number"
-    },
-    "value": {
-      "type": "number"
-    }
-  },
-  "required": [
-    "count",
-    "interval",
-    "sampleInterval",
-    "value"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of
- * `workers-observability_query_results_calculationsItem_seriesItem_dataItem_groupsItem`
- * in responses.
- */
-export const workers_observability_query_results_calculationsItem_seriesItem_dataItem_groupsItem_output: JsonSchema = {
-  "properties": {
-    "key": {
-      "type": "string"
-    },
-    "value": {
-      "$ref": "#/$defs/workers-observability_query_results_calculationsItem_seriesItem_dataItem_groupsItem_value"
-    }
-  },
-  "required": [
-    "key",
-    "value"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of
- * `workers-observability_query_results_calculationsItem_seriesItem_dataItem_groupsItem_value`
- * in responses.
- */
-export const workers_observability_query_results_calculationsItem_seriesItem_dataItem_groupsItem_value_output: JsonSchema = {
-  "anyOf": [
-    {
-      "type": "string"
-    },
-    {
-      "type": "number"
-    },
-    {
-      "type": "boolean"
-    }
-  ]
-};
-
-/**
- * The schema of `workers-observability_query_results_compareItem` in responses.
- */
-export const workers_observability_query_results_compareItem_output: JsonSchema = {
-  "properties": {
-    "aggregates": {
-      "items": {
-        "$ref": "#/$defs/workers-observability_query_results_compareItem_aggregatesItem"
-      },
-      "type": "array"
-    },
-    "alias": {
-      "type": "string"
-    },
-    "calculation": {
-      "type": "string"
-    },
-    "series": {
-      "items": {
-        "$ref": "#/$defs/workers-observability_query_results_compareItem_seriesItem"
-      },
-      "type": "array"
-    }
-  },
-  "required": [
-    "aggregates",
-    "calculation",
-    "series"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of
- * `workers-observability_query_results_compareItem_aggregatesItem` in
- * responses.
- */
-export const workers_observability_query_results_compareItem_aggregatesItem_output: JsonSchema = {
-  "properties": {
-    "count": {
-      "type": "number"
-    },
-    "groups": {
-      "items": {
-        "$ref": "#/$defs/workers-observability_query_results_compareItem_aggregatesItem_groupsItem"
-      },
-      "type": "array"
-    },
-    "interval": {
-      "type": "number"
-    },
-    "sampleInterval": {
-      "type": "number"
-    },
-    "value": {
-      "type": "number"
-    }
-  },
-  "required": [
-    "count",
-    "interval",
-    "sampleInterval",
-    "value"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of
- * `workers-observability_query_results_compareItem_aggregatesItem_groupsItem`
- * in responses.
- */
-export const workers_observability_query_results_compareItem_aggregatesItem_groupsItem_output: JsonSchema = {
-  "properties": {
-    "key": {
-      "type": "string"
-    },
-    "value": {
-      "$ref": "#/$defs/workers-observability_query_results_compareItem_aggregatesItem_groupsItem_value"
-    }
-  },
-  "required": [
-    "key",
-    "value"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of
- * `workers-observability_query_results_compareItem_aggregatesItem_groupsItem_value`
- * in responses.
- */
-export const workers_observability_query_results_compareItem_aggregatesItem_groupsItem_value_output: JsonSchema = {
-  "anyOf": [
-    {
-      "type": "string"
-    },
-    {
-      "type": "number"
-    },
-    {
-      "type": "boolean"
-    }
-  ]
-};
-
-/**
- * The schema of `workers-observability_query_results_compareItem_seriesItem` in
- * responses.
- */
-export const workers_observability_query_results_compareItem_seriesItem_output: JsonSchema = {
-  "properties": {
-    "data": {
-      "items": {
-        "$ref": "#/$defs/workers-observability_query_results_compareItem_seriesItem_dataItem"
-      },
-      "type": "array"
-    },
-    "time": {
-      "type": "string"
-    }
-  },
-  "required": [
-    "data",
-    "time"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of
- * `workers-observability_query_results_compareItem_seriesItem_dataItem` in
- * responses.
- */
-export const workers_observability_query_results_compareItem_seriesItem_dataItem_output: JsonSchema = {
-  "properties": {
-    "count": {
-      "type": "number"
-    },
-    "firstSeen": {
-      "type": "string"
-    },
-    "groups": {
-      "items": {
-        "$ref": "#/$defs/workers-observability_query_results_compareItem_seriesItem_dataItem_groupsItem"
-      },
-      "type": "array"
-    },
-    "interval": {
-      "type": "number"
-    },
-    "lastSeen": {
-      "type": "string"
-    },
-    "sampleInterval": {
-      "type": "number"
-    },
-    "value": {
-      "type": "number"
-    }
-  },
-  "required": [
-    "count",
-    "interval",
-    "sampleInterval",
-    "value"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of
- * `workers-observability_query_results_compareItem_seriesItem_dataItem_groupsItem`
- * in responses.
- */
-export const workers_observability_query_results_compareItem_seriesItem_dataItem_groupsItem_output: JsonSchema = {
-  "properties": {
-    "key": {
-      "type": "string"
-    },
-    "value": {
-      "$ref": "#/$defs/workers-observability_query_results_compareItem_seriesItem_dataItem_groupsItem_value"
-    }
-  },
-  "required": [
-    "key",
-    "value"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of
- * `workers-observability_query_results_compareItem_seriesItem_dataItem_groupsItem_value`
- * in responses.
- */
-export const workers_observability_query_results_compareItem_seriesItem_dataItem_groupsItem_value_output: JsonSchema = {
-  "anyOf": [
-    {
-      "type": "string"
-    },
-    {
-      "type": "number"
-    },
-    {
-      "type": "boolean"
-    }
-  ]
-};
-
-/**
- * The schema of `workers-observability_query_results_events` in responses.
- */
-export const workers_observability_query_results_events_output: JsonSchema = {
-  "properties": {
-    "count": {
-      "type": "number"
-    },
-    "events": {
-      "items": {
-        "$ref": "#/$defs/workers-observability_telemetry_event"
-      },
-      "type": "array"
-    },
-    "fields": {
-      "items": {
-        "$ref": "#/$defs/workers-observability_query_results_events_fieldsItem"
-      },
-      "type": "array"
-    },
-    "series": {
-      "items": {
-        "$ref": "#/$defs/workers-observability_query_results_events_seriesItem"
-      },
-      "type": "array"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `workers-observability_query_results_events_fieldsItem` in
- * responses.
- */
-export const workers_observability_query_results_events_fieldsItem_output: JsonSchema = {
-  "properties": {
-    "key": {
-      "type": "string"
-    },
-    "type": {
-      "type": "string"
-    }
-  },
-  "required": [
-    "key",
-    "type"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `workers-observability_query_results_events_seriesItem` in
- * responses.
- */
-export const workers_observability_query_results_events_seriesItem_output: JsonSchema = {
-  "properties": {
-    "data": {
-      "items": {
-        "$ref": "#/$defs/workers-observability_query_results_events_seriesItem_dataItem"
-      },
-      "type": "array"
-    },
-    "time": {
-      "type": "string"
-    }
-  },
-  "required": [
-    "data",
-    "time"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of
- * `workers-observability_query_results_events_seriesItem_dataItem` in
- * responses.
- */
-export const workers_observability_query_results_events_seriesItem_dataItem_output: JsonSchema = {
-  "properties": {
-    "aggregates": {
-      "$ref": "#/$defs/workers-observability_query_results_events_seriesItem_dataItem_aggregates"
-    },
-    "count": {
-      "type": "number"
-    },
-    "errors": {
-      "type": "number"
-    },
-    "groups": {
-      "additionalProperties": {
-        "anyOf": [
-          {
-            "type": "string"
-          },
-          {
-            "type": "number"
-          },
-          {
-            "type": "boolean"
-          }
-        ]
-      },
-      "type": "object"
-    },
-    "interval": {
-      "type": "number"
-    },
-    "sampleInterval": {
-      "type": "number"
-    }
-  },
-  "required": [
-    "aggregates",
-    "count",
-    "interval",
-    "sampleInterval"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of
- * `workers-observability_query_results_events_seriesItem_dataItem_aggregates`
- * in responses.
- */
-export const workers_observability_query_results_events_seriesItem_dataItem_aggregates_output: JsonSchema = {
-  "properties": {
-    "_count": {
-      "type": "integer"
-    },
-    "_firstSeen": {
-      "type": "string"
-    },
-    "_interval": {
-      "type": "number"
-    },
-    "_lastSeen": {
-      "type": "string"
-    },
-    "bin": {
-      "type": "object"
-    }
-  },
-  "required": [
-    "_count",
-    "_interval"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `workers-observability_query_results_tracesItem` in responses.
- */
-export const workers_observability_query_results_tracesItem_output: JsonSchema = {
-  "properties": {
-    "errors": {
-      "items": {
-        "type": "string"
-      },
-      "type": "array"
-    },
-    "rootSpanName": {
-      "type": "string"
-    },
-    "rootTransactionName": {
-      "type": "string"
-    },
-    "service": {
-      "items": {
-        "type": "string"
-      },
-      "type": "array"
-    },
-    "spans": {
-      "type": "number"
-    },
-    "traceDurationMs": {
-      "type": "number"
-    },
-    "traceEndMs": {
-      "type": "number"
-    },
-    "traceId": {
-      "type": "string"
-    },
-    "traceStartMs": {
-      "type": "number"
-    }
-  },
-  "required": [
-    "rootSpanName",
-    "rootTransactionName",
-    "service",
-    "spans",
-    "traceDurationMs",
-    "traceEndMs",
-    "traceId",
-    "traceStartMs"
   ],
   "type": "object"
 };
@@ -1358,7 +1119,26 @@ export const workers_observability_query_run_output: JsonSchema = {
       ]
     },
     "statistics": {
-      "$ref": "#/$defs/workers-observability_query_run_statistics"
+      "properties": {
+        "abr_level": {
+          "type": "number"
+        },
+        "bytes_read": {
+          "type": "number"
+        },
+        "elapsed": {
+          "type": "number"
+        },
+        "rows_read": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "bytes_read",
+        "elapsed",
+        "rows_read"
+      ],
+      "type": "object"
     },
     "status": {
       "enum": [
@@ -1368,7 +1148,19 @@ export const workers_observability_query_run_output: JsonSchema = {
       "type": "string"
     },
     "timeframe": {
-      "$ref": "#/$defs/workers-observability_query_run_timeframe"
+      "properties": {
+        "from": {
+          "type": "integer"
+        },
+        "to": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "from",
+        "to"
+      ],
+      "type": "object"
     },
     "updated": {
       "type": "string"
@@ -1391,51 +1183,6 @@ export const workers_observability_query_run_output: JsonSchema = {
 };
 
 /**
- * The schema of `workers-observability_query_run_statistics` in responses.
- */
-export const workers_observability_query_run_statistics_output: JsonSchema = {
-  "properties": {
-    "abr_level": {
-      "type": "number"
-    },
-    "bytes_read": {
-      "type": "number"
-    },
-    "elapsed": {
-      "type": "number"
-    },
-    "rows_read": {
-      "type": "number"
-    }
-  },
-  "required": [
-    "bytes_read",
-    "elapsed",
-    "rows_read"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `workers-observability_query_run_timeframe` in responses.
- */
-export const workers_observability_query_run_timeframe_output: JsonSchema = {
-  "properties": {
-    "from": {
-      "type": "integer"
-    },
-    "to": {
-      "type": "integer"
-    }
-  },
-  "required": [
-    "from",
-    "to"
-  ],
-  "type": "object"
-};
-
-/**
  * The schema of `workers-observability_telemetry_event` in responses.
  */
 export const workers_observability_telemetry_event_output: JsonSchema = {
@@ -1444,16 +1191,358 @@ export const workers_observability_telemetry_event_output: JsonSchema = {
       "type": "object"
     },
     "$metadata": {
-      "$ref": "#/$defs/workers-observability_telemetry_event__metadata"
+      "properties": {
+        "account": {
+          "type": "string"
+        },
+        "cloudService": {
+          "type": "string"
+        },
+        "coldStart": {
+          "type": "integer"
+        },
+        "cost": {
+          "type": "integer"
+        },
+        "duration": {
+          "type": "integer"
+        },
+        "endTime": {
+          "type": "integer"
+        },
+        "endTimeNs": {
+          "type": "string"
+        },
+        "error": {
+          "type": "string"
+        },
+        "errorTemplate": {
+          "type": "string"
+        },
+        "eventSize": {
+          "type": "integer"
+        },
+        "fingerprint": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "level": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        },
+        "messageTemplate": {
+          "type": "string"
+        },
+        "metricName": {
+          "type": "string"
+        },
+        "origin": {
+          "type": "string"
+        },
+        "parentSpanId": {
+          "type": "string"
+        },
+        "provider": {
+          "type": "string"
+        },
+        "rayId": {
+          "type": "string"
+        },
+        "region": {
+          "type": "string"
+        },
+        "requestId": {
+          "type": "string"
+        },
+        "service": {
+          "type": "string"
+        },
+        "spanId": {
+          "type": "string"
+        },
+        "spanName": {
+          "type": "string"
+        },
+        "spanStatus": {
+          "enum": [
+            "unset",
+            "ok",
+            "error"
+          ],
+          "type": "string"
+        },
+        "spanStatusMessage": {
+          "type": "string"
+        },
+        "stackId": {
+          "type": "string"
+        },
+        "startTime": {
+          "type": "integer"
+        },
+        "startTimeNs": {
+          "type": "string"
+        },
+        "statusCode": {
+          "type": "integer"
+        },
+        "timestampNs": {
+          "type": "string"
+        },
+        "traceDuration": {
+          "type": "integer"
+        },
+        "traceId": {
+          "type": "string"
+        },
+        "transactionName": {
+          "type": "string"
+        },
+        "trigger": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id"
+      ],
+      "type": "object"
     },
     "$workers": {
-      "$ref": "#/$defs/workers-observability_telemetry_event__workers"
+      "anyOf": [
+        {
+          "properties": {
+            "durableObjectId": {
+              "type": "string"
+            },
+            "entrypoint": {
+              "type": "string"
+            },
+            "event": {
+              "type": "object"
+            },
+            "eventType": {
+              "enum": [
+                "fetch",
+                "scheduled",
+                "alarm",
+                "cron",
+                "queue",
+                "email",
+                "tail",
+                "rpc",
+                "jsrpc",
+                "websocket",
+                "workflow",
+                "unknown"
+              ],
+              "type": "string"
+            },
+            "executionModel": {
+              "enum": [
+                "durableObject",
+                "stateless"
+              ],
+              "type": "string"
+            },
+            "outcome": {
+              "type": "string"
+            },
+            "preview": {
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "slug": {
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            "requestId": {
+              "type": "string"
+            },
+            "scriptName": {
+              "type": "string"
+            },
+            "scriptVersion": {
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "tag": {
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            "spanId": {
+              "type": "string"
+            },
+            "traceId": {
+              "type": "string"
+            },
+            "truncated": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "eventType",
+            "scriptName"
+          ],
+          "type": "object"
+        },
+        {
+          "properties": {
+            "cpuTimeMs": {
+              "type": "number"
+            },
+            "diagnosticsChannelEvents": {
+              "items": {
+                "properties": {
+                  "channel": {
+                    "type": "string"
+                  },
+                  "message": {
+                    "type": "string"
+                  },
+                  "timestamp": {
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "channel",
+                  "message",
+                  "timestamp"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "dispatchNamespace": {
+              "type": "string"
+            },
+            "durableObjectId": {
+              "type": "string"
+            },
+            "entrypoint": {
+              "type": "string"
+            },
+            "event": {
+              "type": "object"
+            },
+            "eventType": {
+              "enum": [
+                "fetch",
+                "scheduled",
+                "alarm",
+                "cron",
+                "queue",
+                "email",
+                "tail",
+                "rpc",
+                "jsrpc",
+                "websocket",
+                "workflow",
+                "unknown"
+              ],
+              "type": "string"
+            },
+            "executionModel": {
+              "enum": [
+                "durableObject",
+                "stateless"
+              ],
+              "type": "string"
+            },
+            "outcome": {
+              "type": "string"
+            },
+            "preview": {
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "slug": {
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            "requestId": {
+              "type": "string"
+            },
+            "scriptName": {
+              "type": "string"
+            },
+            "scriptVersion": {
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "tag": {
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            "spanId": {
+              "type": "string"
+            },
+            "traceId": {
+              "type": "string"
+            },
+            "truncated": {
+              "type": "boolean"
+            },
+            "wallTimeMs": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "cpuTimeMs",
+            "eventType",
+            "outcome",
+            "scriptName",
+            "wallTimeMs"
+          ],
+          "type": "object"
+        }
+      ]
     },
     "dataset": {
       "type": "string"
     },
     "source": {
-      "$ref": "#/$defs/workers-observability_telemetry_event_source"
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "object"
+        }
+      ]
     },
     "timestamp": {
       "type": "integer"
@@ -1466,356 +1555,4 @@ export const workers_observability_telemetry_event_output: JsonSchema = {
     "timestamp"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `workers-observability_telemetry_event_$metadata` in responses.
- */
-export const workers_observability_telemetry_event__metadata_output: JsonSchema = {
-  "properties": {
-    "account": {
-      "type": "string"
-    },
-    "cloudService": {
-      "type": "string"
-    },
-    "coldStart": {
-      "type": "integer"
-    },
-    "cost": {
-      "type": "integer"
-    },
-    "duration": {
-      "type": "integer"
-    },
-    "endTime": {
-      "type": "integer"
-    },
-    "endTimeNs": {
-      "type": "string"
-    },
-    "error": {
-      "type": "string"
-    },
-    "errorTemplate": {
-      "type": "string"
-    },
-    "eventSize": {
-      "type": "integer"
-    },
-    "fingerprint": {
-      "type": "string"
-    },
-    "id": {
-      "type": "string"
-    },
-    "level": {
-      "type": "string"
-    },
-    "message": {
-      "type": "string"
-    },
-    "messageTemplate": {
-      "type": "string"
-    },
-    "metricName": {
-      "type": "string"
-    },
-    "origin": {
-      "type": "string"
-    },
-    "parentSpanId": {
-      "type": "string"
-    },
-    "provider": {
-      "type": "string"
-    },
-    "rayId": {
-      "type": "string"
-    },
-    "region": {
-      "type": "string"
-    },
-    "requestId": {
-      "type": "string"
-    },
-    "service": {
-      "type": "string"
-    },
-    "spanId": {
-      "type": "string"
-    },
-    "spanName": {
-      "type": "string"
-    },
-    "stackId": {
-      "type": "string"
-    },
-    "startTime": {
-      "type": "integer"
-    },
-    "startTimeNs": {
-      "type": "string"
-    },
-    "statusCode": {
-      "type": "integer"
-    },
-    "timestampNs": {
-      "type": "string"
-    },
-    "traceDuration": {
-      "type": "integer"
-    },
-    "traceId": {
-      "type": "string"
-    },
-    "transactionName": {
-      "type": "string"
-    },
-    "trigger": {
-      "type": "string"
-    },
-    "type": {
-      "type": "string"
-    },
-    "url": {
-      "type": "string"
-    }
-  },
-  "required": [
-    "id"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `workers-observability_telemetry_event_$workers` in responses.
- */
-export const workers_observability_telemetry_event__workers_output: JsonSchema = {
-  "anyOf": [
-    {
-      "properties": {
-        "durableObjectId": {
-          "type": "string"
-        },
-        "entrypoint": {
-          "type": "string"
-        },
-        "event": {
-          "type": "object"
-        },
-        "eventType": {
-          "enum": [
-            "fetch",
-            "scheduled",
-            "alarm",
-            "cron",
-            "queue",
-            "email",
-            "tail",
-            "rpc",
-            "jsrpc",
-            "websocket",
-            "workflow",
-            "unknown"
-          ],
-          "type": "string"
-        },
-        "executionModel": {
-          "enum": [
-            "durableObject",
-            "stateless"
-          ],
-          "type": "string"
-        },
-        "outcome": {
-          "type": "string"
-        },
-        "preview": {
-          "properties": {
-            "id": {
-              "type": "string"
-            },
-            "name": {
-              "type": "string"
-            },
-            "slug": {
-              "type": "string"
-            }
-          },
-          "type": "object"
-        },
-        "requestId": {
-          "type": "string"
-        },
-        "scriptName": {
-          "type": "string"
-        },
-        "scriptVersion": {
-          "properties": {
-            "id": {
-              "type": "string"
-            },
-            "message": {
-              "type": "string"
-            },
-            "tag": {
-              "type": "string"
-            }
-          },
-          "type": "object"
-        },
-        "spanId": {
-          "type": "string"
-        },
-        "traceId": {
-          "type": "string"
-        },
-        "truncated": {
-          "type": "boolean"
-        }
-      },
-      "required": [
-        "eventType",
-        "scriptName"
-      ],
-      "type": "object"
-    },
-    {
-      "properties": {
-        "cpuTimeMs": {
-          "type": "number"
-        },
-        "diagnosticsChannelEvents": {
-          "items": {
-            "properties": {
-              "channel": {
-                "type": "string"
-              },
-              "message": {
-                "type": "string"
-              },
-              "timestamp": {
-                "type": "number"
-              }
-            },
-            "required": [
-              "channel",
-              "message",
-              "timestamp"
-            ],
-            "type": "object"
-          },
-          "type": "array"
-        },
-        "dispatchNamespace": {
-          "type": "string"
-        },
-        "durableObjectId": {
-          "type": "string"
-        },
-        "entrypoint": {
-          "type": "string"
-        },
-        "event": {
-          "type": "object"
-        },
-        "eventType": {
-          "enum": [
-            "fetch",
-            "scheduled",
-            "alarm",
-            "cron",
-            "queue",
-            "email",
-            "tail",
-            "rpc",
-            "jsrpc",
-            "websocket",
-            "workflow",
-            "unknown"
-          ],
-          "type": "string"
-        },
-        "executionModel": {
-          "enum": [
-            "durableObject",
-            "stateless"
-          ],
-          "type": "string"
-        },
-        "outcome": {
-          "type": "string"
-        },
-        "preview": {
-          "properties": {
-            "id": {
-              "type": "string"
-            },
-            "name": {
-              "type": "string"
-            },
-            "slug": {
-              "type": "string"
-            }
-          },
-          "type": "object"
-        },
-        "requestId": {
-          "type": "string"
-        },
-        "scriptName": {
-          "type": "string"
-        },
-        "scriptVersion": {
-          "properties": {
-            "id": {
-              "type": "string"
-            },
-            "message": {
-              "type": "string"
-            },
-            "tag": {
-              "type": "string"
-            }
-          },
-          "type": "object"
-        },
-        "spanId": {
-          "type": "string"
-        },
-        "traceId": {
-          "type": "string"
-        },
-        "truncated": {
-          "type": "boolean"
-        },
-        "wallTimeMs": {
-          "type": "number"
-        }
-      },
-      "required": [
-        "cpuTimeMs",
-        "eventType",
-        "outcome",
-        "scriptName",
-        "wallTimeMs"
-      ],
-      "type": "object"
-    }
-  ]
-};
-
-/**
- * The schema of `workers-observability_telemetry_event_source` in responses.
- */
-export const workers_observability_telemetry_event_source_output: JsonSchema = {
-  "anyOf": [
-    {
-      "type": "string"
-    },
-    {
-      "type": "object"
-    }
-  ]
 };

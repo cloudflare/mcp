@@ -10,7 +10,6 @@ import {
   mq_batch_size_output,
   mq_consumer_response_output,
   mq_http_consumer_response_output,
-  mq_http_consumer_response_settings_output,
   mq_identifier_output,
   mq_max_concurrency_output,
   mq_max_retries_output,
@@ -20,10 +19,10 @@ import {
   mq_script_name_output,
   mq_visibility_timeout_output,
   mq_worker_consumer_response_output,
-  mq_worker_consumer_response_settings_output,
 } from "../outputs.js";
 import {
   mq_batch_size,
+  mq_identifier,
   mq_max_concurrency,
   mq_max_retries,
   mq_max_wait_time,
@@ -35,9 +34,7 @@ import {
 import {
   mq_consumer_request,
   mq_http_consumer_request,
-  mq_http_consumer_request_settings,
   mq_worker_consumer_request,
-  mq_worker_consumer_request_settings,
 } from "./schemas.js";
 
 /**
@@ -52,15 +49,15 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "A Resource identifier.",
-          "type": "string"
+          "$ref": "#/$defs/mq_identifier",
+          "description": "A Resource identifier."
         },
         "body": {
           "$ref": "#/$defs/mq_consumer-request"
         },
         "queue_id": {
-          "description": "A Resource identifier.",
-          "type": "string"
+          "$ref": "#/$defs/mq_identifier",
+          "description": "A Resource identifier."
         }
       },
       required: [
@@ -71,7 +68,7 @@ export const tools: readonly Tool[] = [
         "mq_batch-size": mq_batch_size,
         "mq_consumer-request": mq_consumer_request,
         "mq_http-consumer-request": mq_http_consumer_request,
-        "mq_http-consumer-request_settings": mq_http_consumer_request_settings,
+        "mq_identifier": mq_identifier,
         "mq_max-concurrency": mq_max_concurrency,
         "mq_max-retries": mq_max_retries,
         "mq_max-wait-time": mq_max_wait_time,
@@ -80,16 +77,29 @@ export const tools: readonly Tool[] = [
         "mq_script-name": mq_script_name,
         "mq_visibility-timeout": mq_visibility_timeout,
         "mq_worker-consumer-request": mq_worker_consumer_request,
-        "mq_worker-consumer-request_settings": mq_worker_consumer_request_settings,
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/mq_consumer-response",
+      "allOf": [
+        {
+          "$ref": "#/$defs/mq_api-v4-success"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/mq_consumer-response"
+            }
+          },
+          "type": "object"
+        }
+      ],
       $defs: {
+        "mq_api-v4-error": mq_api_v4_error_output,
+        "mq_api-v4-message": mq_api_v4_message_output,
+        "mq_api-v4-success": mq_api_v4_success_output,
         "mq_batch-size": mq_batch_size_output,
         "mq_consumer-response": mq_consumer_response_output,
         "mq_http-consumer-response": mq_http_consumer_response_output,
-        "mq_http-consumer-response_settings": mq_http_consumer_response_settings_output,
         "mq_identifier": mq_identifier_output,
         "mq_max-concurrency": mq_max_concurrency_output,
         "mq_max-retries": mq_max_retries_output,
@@ -99,7 +109,6 @@ export const tools: readonly Tool[] = [
         "mq_script-name": mq_script_name_output,
         "mq_visibility-timeout": mq_visibility_timeout_output,
         "mq_worker-consumer-response": mq_worker_consumer_response_output,
-        "mq_worker-consumer-response_settings": mq_worker_consumer_response_settings_output,
       },
     },
     annotations: {
@@ -119,18 +128,25 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "com.cloudflare.edge.worker.queue.create"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.edge.worker.queue.create": {
-            "name": "com_cloudflare_edge_worker_queue_create"
-          }
-        }
+        ]
       }
     },
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/mq_consumer-response"
+          "allOf": [
+            {
+              "$ref": "#/$defs/mq_api-v4-success"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/mq_consumer-response"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/mq_api-v4-failure"
@@ -140,10 +156,10 @@ export const tools: readonly Tool[] = [
         "mq_api-v4-error": mq_api_v4_error_output,
         "mq_api-v4-failure": mq_api_v4_failure_output,
         "mq_api-v4-message": mq_api_v4_message_output,
+        "mq_api-v4-success": mq_api_v4_success_output,
         "mq_batch-size": mq_batch_size_output,
         "mq_consumer-response": mq_consumer_response_output,
         "mq_http-consumer-response": mq_http_consumer_response_output,
-        "mq_http-consumer-response_settings": mq_http_consumer_response_settings_output,
         "mq_identifier": mq_identifier_output,
         "mq_max-concurrency": mq_max_concurrency_output,
         "mq_max-retries": mq_max_retries_output,
@@ -153,7 +169,6 @@ export const tools: readonly Tool[] = [
         "mq_script-name": mq_script_name_output,
         "mq_visibility-timeout": mq_visibility_timeout_output,
         "mq_worker-consumer-response": mq_worker_consumer_response_output,
-        "mq_worker-consumer-response_settings": mq_worker_consumer_response_settings_output,
       },
     },
     request: (args) => ({
@@ -169,16 +184,16 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "A Resource identifier.",
-          "type": "string"
+          "$ref": "#/$defs/mq_identifier",
+          "description": "A Resource identifier."
         },
         "consumer_id": {
-          "description": "A Resource identifier.",
-          "type": "string"
+          "$ref": "#/$defs/mq_identifier",
+          "description": "A Resource identifier."
         },
         "queue_id": {
-          "description": "A Resource identifier.",
-          "type": "string"
+          "$ref": "#/$defs/mq_identifier",
+          "description": "A Resource identifier."
         }
       },
       required: [
@@ -186,6 +201,9 @@ export const tools: readonly Tool[] = [
         "queue_id",
         "consumer_id"
       ],
+      $defs: {
+        "mq_identifier": mq_identifier,
+      },
     },
     outputSchema: {
       "$ref": "#/$defs/mq_api-v4-success",
@@ -212,12 +230,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "com.cloudflare.edge.worker.queue.delete"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.edge.worker.queue.delete": {
-            "name": "com_cloudflare_edge_worker_queue_delete"
-          }
-        }
+        ]
       }
     },
     responses: {
@@ -248,16 +261,16 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "A Resource identifier.",
-          "type": "string"
+          "$ref": "#/$defs/mq_identifier",
+          "description": "A Resource identifier."
         },
         "consumer_id": {
-          "description": "A Resource identifier.",
-          "type": "string"
+          "$ref": "#/$defs/mq_identifier",
+          "description": "A Resource identifier."
         },
         "queue_id": {
-          "description": "A Resource identifier.",
-          "type": "string"
+          "$ref": "#/$defs/mq_identifier",
+          "description": "A Resource identifier."
         }
       },
       required: [
@@ -265,14 +278,31 @@ export const tools: readonly Tool[] = [
         "queue_id",
         "consumer_id"
       ],
+      $defs: {
+        "mq_identifier": mq_identifier,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/mq_consumer-response",
+      "allOf": [
+        {
+          "$ref": "#/$defs/mq_api-v4-success"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/mq_consumer-response"
+            }
+          },
+          "type": "object"
+        }
+      ],
       $defs: {
+        "mq_api-v4-error": mq_api_v4_error_output,
+        "mq_api-v4-message": mq_api_v4_message_output,
+        "mq_api-v4-success": mq_api_v4_success_output,
         "mq_batch-size": mq_batch_size_output,
         "mq_consumer-response": mq_consumer_response_output,
         "mq_http-consumer-response": mq_http_consumer_response_output,
-        "mq_http-consumer-response_settings": mq_http_consumer_response_settings_output,
         "mq_identifier": mq_identifier_output,
         "mq_max-concurrency": mq_max_concurrency_output,
         "mq_max-retries": mq_max_retries_output,
@@ -282,7 +312,6 @@ export const tools: readonly Tool[] = [
         "mq_script-name": mq_script_name_output,
         "mq_visibility-timeout": mq_visibility_timeout_output,
         "mq_worker-consumer-response": mq_worker_consumer_response_output,
-        "mq_worker-consumer-response_settings": mq_worker_consumer_response_settings_output,
       },
     },
     annotations: {
@@ -304,18 +333,25 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "com.cloudflare.edge.worker.queue.read"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.edge.worker.queue.read": {
-            "name": "com_cloudflare_edge_worker_queue_read"
-          }
-        }
+        ]
       }
     },
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/mq_consumer-response"
+          "allOf": [
+            {
+              "$ref": "#/$defs/mq_api-v4-success"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/mq_consumer-response"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/mq_api-v4-failure"
@@ -325,10 +361,10 @@ export const tools: readonly Tool[] = [
         "mq_api-v4-error": mq_api_v4_error_output,
         "mq_api-v4-failure": mq_api_v4_failure_output,
         "mq_api-v4-message": mq_api_v4_message_output,
+        "mq_api-v4-success": mq_api_v4_success_output,
         "mq_batch-size": mq_batch_size_output,
         "mq_consumer-response": mq_consumer_response_output,
         "mq_http-consumer-response": mq_http_consumer_response_output,
-        "mq_http-consumer-response_settings": mq_http_consumer_response_settings_output,
         "mq_identifier": mq_identifier_output,
         "mq_max-concurrency": mq_max_concurrency_output,
         "mq_max-retries": mq_max_retries_output,
@@ -338,7 +374,6 @@ export const tools: readonly Tool[] = [
         "mq_script-name": mq_script_name_output,
         "mq_visibility-timeout": mq_visibility_timeout_output,
         "mq_worker-consumer-response": mq_worker_consumer_response_output,
-        "mq_worker-consumer-response_settings": mq_worker_consumer_response_settings_output,
       },
     },
     request: (args) => ({
@@ -353,40 +388,46 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "A Resource identifier.",
-          "type": "string"
+          "$ref": "#/$defs/mq_identifier",
+          "description": "A Resource identifier."
         },
         "queue_id": {
-          "description": "A Resource identifier.",
-          "type": "string"
+          "$ref": "#/$defs/mq_identifier",
+          "description": "A Resource identifier."
         }
       },
       required: [
         "account_id",
         "queue_id"
       ],
+      $defs: {
+        "mq_identifier": mq_identifier,
+      },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "$ref": "#/$defs/mq_consumer-response"
-          },
-          "type": "array"
+      "allOf": [
+        {
+          "$ref": "#/$defs/mq_api-v4-success"
         },
-        "result_info": {
+        {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/mq_consumer-response"
+              },
+              "type": "array"
+            }
+          },
           "type": "object"
         }
-      },
-      "required": [
-        "result"
       ],
-      "type": "object",
       $defs: {
+        "mq_api-v4-error": mq_api_v4_error_output,
+        "mq_api-v4-message": mq_api_v4_message_output,
+        "mq_api-v4-success": mq_api_v4_success_output,
         "mq_batch-size": mq_batch_size_output,
         "mq_consumer-response": mq_consumer_response_output,
         "mq_http-consumer-response": mq_http_consumer_response_output,
-        "mq_http-consumer-response_settings": mq_http_consumer_response_settings_output,
         "mq_identifier": mq_identifier_output,
         "mq_max-concurrency": mq_max_concurrency_output,
         "mq_max-retries": mq_max_retries_output,
@@ -396,7 +437,6 @@ export const tools: readonly Tool[] = [
         "mq_script-name": mq_script_name_output,
         "mq_visibility-timeout": mq_visibility_timeout_output,
         "mq_worker-consumer-response": mq_worker_consumer_response_output,
-        "mq_worker-consumer-response_settings": mq_worker_consumer_response_settings_output,
       },
     },
     annotations: {
@@ -418,32 +458,28 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "com.cloudflare.edge.worker.queue.list"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.edge.worker.queue.list": {
-            "name": "com_cloudflare_edge_worker_queue_list"
-          }
-        }
+        ]
       }
     },
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "items": {
-                "$ref": "#/$defs/mq_consumer-response"
-              },
-              "type": "array"
+          "allOf": [
+            {
+              "$ref": "#/$defs/mq_api-v4-success"
             },
-            "result_info": {
+            {
+              "properties": {
+                "result": {
+                  "items": {
+                    "$ref": "#/$defs/mq_consumer-response"
+                  },
+                  "type": "array"
+                }
+              },
               "type": "object"
             }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/mq_api-v4-failure"
@@ -453,10 +489,10 @@ export const tools: readonly Tool[] = [
         "mq_api-v4-error": mq_api_v4_error_output,
         "mq_api-v4-failure": mq_api_v4_failure_output,
         "mq_api-v4-message": mq_api_v4_message_output,
+        "mq_api-v4-success": mq_api_v4_success_output,
         "mq_batch-size": mq_batch_size_output,
         "mq_consumer-response": mq_consumer_response_output,
         "mq_http-consumer-response": mq_http_consumer_response_output,
-        "mq_http-consumer-response_settings": mq_http_consumer_response_settings_output,
         "mq_identifier": mq_identifier_output,
         "mq_max-concurrency": mq_max_concurrency_output,
         "mq_max-retries": mq_max_retries_output,
@@ -466,7 +502,6 @@ export const tools: readonly Tool[] = [
         "mq_script-name": mq_script_name_output,
         "mq_visibility-timeout": mq_visibility_timeout_output,
         "mq_worker-consumer-response": mq_worker_consumer_response_output,
-        "mq_worker-consumer-response_settings": mq_worker_consumer_response_settings_output,
       },
     },
     request: (args) => ({
@@ -481,19 +516,19 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "A Resource identifier.",
-          "type": "string"
+          "$ref": "#/$defs/mq_identifier",
+          "description": "A Resource identifier."
         },
         "body": {
           "$ref": "#/$defs/mq_consumer-request"
         },
         "consumer_id": {
-          "description": "A Resource identifier.",
-          "type": "string"
+          "$ref": "#/$defs/mq_identifier",
+          "description": "A Resource identifier."
         },
         "queue_id": {
-          "description": "A Resource identifier.",
-          "type": "string"
+          "$ref": "#/$defs/mq_identifier",
+          "description": "A Resource identifier."
         }
       },
       required: [
@@ -506,7 +541,7 @@ export const tools: readonly Tool[] = [
         "mq_batch-size": mq_batch_size,
         "mq_consumer-request": mq_consumer_request,
         "mq_http-consumer-request": mq_http_consumer_request,
-        "mq_http-consumer-request_settings": mq_http_consumer_request_settings,
+        "mq_identifier": mq_identifier,
         "mq_max-concurrency": mq_max_concurrency,
         "mq_max-retries": mq_max_retries,
         "mq_max-wait-time": mq_max_wait_time,
@@ -515,16 +550,29 @@ export const tools: readonly Tool[] = [
         "mq_script-name": mq_script_name,
         "mq_visibility-timeout": mq_visibility_timeout,
         "mq_worker-consumer-request": mq_worker_consumer_request,
-        "mq_worker-consumer-request_settings": mq_worker_consumer_request_settings,
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/mq_consumer-response",
+      "allOf": [
+        {
+          "$ref": "#/$defs/mq_api-v4-success"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/mq_consumer-response"
+            }
+          },
+          "type": "object"
+        }
+      ],
       $defs: {
+        "mq_api-v4-error": mq_api_v4_error_output,
+        "mq_api-v4-message": mq_api_v4_message_output,
+        "mq_api-v4-success": mq_api_v4_success_output,
         "mq_batch-size": mq_batch_size_output,
         "mq_consumer-response": mq_consumer_response_output,
         "mq_http-consumer-response": mq_http_consumer_response_output,
-        "mq_http-consumer-response_settings": mq_http_consumer_response_settings_output,
         "mq_identifier": mq_identifier_output,
         "mq_max-concurrency": mq_max_concurrency_output,
         "mq_max-retries": mq_max_retries_output,
@@ -534,7 +582,6 @@ export const tools: readonly Tool[] = [
         "mq_script-name": mq_script_name_output,
         "mq_visibility-timeout": mq_visibility_timeout_output,
         "mq_worker-consumer-response": mq_worker_consumer_response_output,
-        "mq_worker-consumer-response_settings": mq_worker_consumer_response_settings_output,
       },
     },
     annotations: {
@@ -554,18 +601,25 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "com.cloudflare.edge.worker.queue.update"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.edge.worker.queue.update": {
-            "name": "com_cloudflare_edge_worker_queue_update"
-          }
-        }
+        ]
       }
     },
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/mq_consumer-response"
+          "allOf": [
+            {
+              "$ref": "#/$defs/mq_api-v4-success"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/mq_consumer-response"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/mq_api-v4-failure"
@@ -575,10 +629,10 @@ export const tools: readonly Tool[] = [
         "mq_api-v4-error": mq_api_v4_error_output,
         "mq_api-v4-failure": mq_api_v4_failure_output,
         "mq_api-v4-message": mq_api_v4_message_output,
+        "mq_api-v4-success": mq_api_v4_success_output,
         "mq_batch-size": mq_batch_size_output,
         "mq_consumer-response": mq_consumer_response_output,
         "mq_http-consumer-response": mq_http_consumer_response_output,
-        "mq_http-consumer-response_settings": mq_http_consumer_response_settings_output,
         "mq_identifier": mq_identifier_output,
         "mq_max-concurrency": mq_max_concurrency_output,
         "mq_max-retries": mq_max_retries_output,
@@ -588,7 +642,6 @@ export const tools: readonly Tool[] = [
         "mq_script-name": mq_script_name_output,
         "mq_visibility-timeout": mq_visibility_timeout_output,
         "mq_worker-consumer-response": mq_worker_consumer_response_output,
-        "mq_worker-consumer-response_settings": mq_worker_consumer_response_settings_output,
       },
     },
     request: (args) => ({

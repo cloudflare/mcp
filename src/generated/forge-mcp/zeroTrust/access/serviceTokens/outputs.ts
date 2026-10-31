@@ -4,13 +4,6 @@
 import type { JsonSchema } from "../../../_/tool.js";
 
 /**
- * The schema of `access_client_id` in responses.
- */
-export const access_client_id_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
  * The schema of `access_client_secret` in responses.
  */
 export const access_client_secret_output: JsonSchema = {
@@ -18,103 +11,71 @@ export const access_client_secret_output: JsonSchema = {
 };
 
 /**
- * The schema of `access_duration` in responses.
+ * The schema of `access_create_response` in responses.
  */
-export const access_duration_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `access_enabled` in responses.
- */
-export const access_enabled_output: JsonSchema = {
-  "type": "boolean"
-};
-
-/**
- * The schema of `access_leak_report_url` in responses.
- */
-export const access_leak_report_url_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `access_leak_reported_at` in responses.
- */
-export const access_leak_reported_at_output: JsonSchema = {
-  "format": "date-time",
-  "type": "string"
-};
-
-/**
- * The schema of `access_leak_reporter` in responses.
- */
-export const access_leak_reporter_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `access_name-2` in responses.
- */
-export const access_name_2_output: JsonSchema = {
-  "type": "string"
-};
-
-/**
- * The schema of `access_service-tokens` in responses.
- */
-export const access_service_tokens_output: JsonSchema = {
-  "properties": {
-    "client_id": {
-      "$ref": "#/$defs/access_client_id"
+export const access_create_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/access_api-response-single"
     },
-    "created_at": {
-      "$ref": "#/$defs/access_created_at"
-    },
-    "duration": {
-      "$ref": "#/$defs/access_duration"
-    },
-    "enabled": {
-      "$ref": "#/$defs/access_enabled"
-    },
-    "expires_at": {
-      "$ref": "#/$defs/access_timestamp"
-    },
-    "id": {
-      "allOf": [
-        {
-          "type": "string"
-        },
-        {
-          "$ref": "#/$defs/access_uuid"
+    {
+      "properties": {
+        "result": {
+          "properties": {
+            "client_id": {
+              "$ref": "#/$defs/access_client_id"
+            },
+            "client_secret": {
+              "$ref": "#/$defs/access_client_secret"
+            },
+            "created_at": {
+              "$ref": "#/$defs/access_created_at"
+            },
+            "duration": {
+              "$ref": "#/$defs/access_duration"
+            },
+            "enabled": {
+              "$ref": "#/$defs/access_enabled"
+            },
+            "id": {
+              "type": "string"
+            },
+            "name": {
+              "$ref": "#/$defs/access_name-2"
+            },
+            "tags": {
+              "$ref": "#/$defs/access_tags"
+            },
+            "updated_at": {
+              "$ref": "#/$defs/access_updated_at"
+            }
+          },
+          "type": "object"
         }
-      ]
-    },
-    "last_seen_at": {
-      "allOf": [
-        {
-          "type": "string"
-        },
-        {
-          "$ref": "#/$defs/access_timestamp"
-        }
-      ]
-    },
-    "leak_report_url": {
-      "$ref": "#/$defs/access_leak_report_url"
-    },
-    "leak_reported_at": {
-      "$ref": "#/$defs/access_leak_reported_at"
-    },
-    "leak_reporter": {
-      "$ref": "#/$defs/access_leak_reporter"
-    },
-    "name": {
-      "$ref": "#/$defs/access_name-2"
-    },
-    "updated_at": {
-      "$ref": "#/$defs/access_updated_at"
+      },
+      "type": "object"
     }
-  },
-  "type": "object"
+  ]
+};
+
+/**
+ * The schema of `access_response_collection-4` in responses.
+ */
+export const access_response_collection_4_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/access_api-response-collection"
+    },
+    {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/access_service-tokens"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    }
+  ]
 };

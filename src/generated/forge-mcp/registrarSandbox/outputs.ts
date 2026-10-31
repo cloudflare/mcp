@@ -4,6 +4,49 @@
 import type { JsonSchema } from "../_/tool.js";
 
 /**
+ * The schema of `registrar-api-sandbox_api-response-common` in responses.
+ */
+export const registrar_api_sandbox_api_response_common_output: JsonSchema = {
+  "properties": {
+    "errors": {
+      "$ref": "#/$defs/registrar-api-sandbox_messages"
+    },
+    "messages": {
+      "$ref": "#/$defs/registrar-api-sandbox_messages"
+    },
+    "result": {
+      "anyOf": [
+        {
+          "type": "object"
+        },
+        {
+          "items": {
+            "type": "object"
+          },
+          "type": "array"
+        },
+        {
+          "type": "string"
+        }
+      ]
+    },
+    "success": {
+      "enum": [
+        true
+      ],
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "errors",
+    "messages",
+    "result",
+    "success"
+  ],
+  "type": "object"
+};
+
+/**
  * The schema of `registrar-api-sandbox_api-response-common-failure` in
  * responses.
  */

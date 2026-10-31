@@ -4,6 +4,32 @@
 import type { JsonSchema } from "../_/tool.js";
 
 /**
+ * The schema of `magic-transit_api-response-common` in responses.
+ */
+export const magic_transit_api_response_common_output: JsonSchema = {
+  "properties": {
+    "errors": {
+      "$ref": "#/$defs/magic-transit_messages"
+    },
+    "messages": {
+      "$ref": "#/$defs/magic-transit_messages"
+    },
+    "success": {
+      "enum": [
+        true
+      ],
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "errors",
+    "messages",
+    "success"
+  ],
+  "type": "object"
+};
+
+/**
  * The schema of `magic-transit_api-response-common-failure` in responses.
  */
 export const magic_transit_api_response_common_failure_output: JsonSchema = {

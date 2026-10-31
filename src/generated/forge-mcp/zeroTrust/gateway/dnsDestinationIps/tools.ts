@@ -6,7 +6,12 @@ import {
   zero_trust_gateway_api_response_common_failure_output,
   zero_trust_gateway_messages_output,
 } from "../../outputs.js";
-import { zero_trust_gateway_result_info_output } from "../outputs.js";
+import {
+  zero_trust_gateway_api_response_collection_output,
+  zero_trust_gateway_api_response_common_output,
+  zero_trust_gateway_result_info_output,
+} from "../outputs.js";
+import { zero_trust_gateway_identifier } from "../schemas.js";
 import {
   zero_trust_gateway_dns_destination_ip_pair_output,
   zero_trust_gateway_response_collection_2_output,
@@ -24,32 +29,25 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Specify the Cloudflare account identifier.",
-          "type": "string"
+          "$ref": "#/$defs/zero-trust-gateway_identifier",
+          "description": "Specify the Cloudflare account identifier."
         }
       },
       required: [
         "account_id"
       ],
+      $defs: {
+        "zero-trust-gateway_identifier": zero_trust_gateway_identifier,
+      },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "$ref": "#/$defs/zero-trust-gateway_dns_destination_ip_pair"
-          },
-          "type": "array"
-        },
-        "result_info": {
-          "$ref": "#/$defs/zero-trust-gateway_result_info"
-        }
-      },
-      "required": [
-        "result"
-      ],
-      "type": "object",
+      "$ref": "#/$defs/zero-trust-gateway_response_collection-2",
       $defs: {
+        "zero-trust-gateway_api-response-collection": zero_trust_gateway_api_response_collection_output,
+        "zero-trust-gateway_api-response-common": zero_trust_gateway_api_response_common_output,
         "zero-trust-gateway_dns_destination_ip_pair": zero_trust_gateway_dns_destination_ip_pair_output,
+        "zero-trust-gateway_messages": zero_trust_gateway_messages_output,
+        "zero-trust-gateway_response_collection-2": zero_trust_gateway_response_collection_2_output,
         "zero-trust-gateway_result_info": zero_trust_gateway_result_info_output,
       },
     },
@@ -72,21 +70,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "items": {
-                "$ref": "#/$defs/zero-trust-gateway_dns_destination_ip_pair"
-              },
-              "type": "array"
-            },
-            "result_info": {
-              "$ref": "#/$defs/zero-trust-gateway_result_info"
-            }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/zero-trust-gateway_response_collection-2"
         },
         "4XX": {
           "allOf": [
@@ -100,6 +84,8 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
+        "zero-trust-gateway_api-response-collection": zero_trust_gateway_api_response_collection_output,
+        "zero-trust-gateway_api-response-common": zero_trust_gateway_api_response_common_output,
         "zero-trust-gateway_api-response-common-failure": zero_trust_gateway_api_response_common_failure_output,
         "zero-trust-gateway_dns_destination_ip_pair": zero_trust_gateway_dns_destination_ip_pair_output,
         "zero-trust-gateway_messages": zero_trust_gateway_messages_output,

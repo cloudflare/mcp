@@ -3,17 +3,22 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
+  load_balancing_api_paginated_response_collection_output,
   load_balancing_api_response_common_failure_output,
+  load_balancing_api_response_common_output,
+  load_balancing_api_response_single_output,
   load_balancing_messages_output,
   load_balancing_networks_output,
   load_balancing_result_info_output,
   load_balancing_timestamp_output,
 } from "../../outputs.js";
 import { load_balancing_networks } from "../../schemas.js";
+import { load_balancing_components_schemas_identifier } from "../schemas.js";
 import {
   load_balancing_adaptive_routing_output,
   load_balancing_components_schemas_description_output,
   load_balancing_components_schemas_enabled_output,
+  load_balancing_components_schemas_id_response_output,
   load_balancing_components_schemas_name_output,
   load_balancing_components_schemas_zone_name_output,
   load_balancing_country_pools_output,
@@ -21,6 +26,8 @@ import {
   load_balancing_fallback_pool_output,
   load_balancing_fixed_response_output,
   load_balancing_load_balancer_components_schemas_identifier_output,
+  load_balancing_load_balancer_components_schemas_response_collection_output,
+  load_balancing_load_balancer_components_schemas_single_response_output,
   load_balancing_load_balancer_output,
   load_balancing_location_strategy_output,
   load_balancing_match_output,
@@ -52,6 +59,7 @@ import {
   load_balancing_default_pools,
   load_balancing_fallback_pool,
   load_balancing_fixed_response,
+  load_balancing_load_balancer_components_schemas_identifier,
   load_balancing_load_balancer_editable,
   load_balancing_location_strategy,
   load_balancing_pool_default_weight,
@@ -90,8 +98,8 @@ export const tools: readonly Tool[] = [
           "type": "string"
         },
         "account_or_zone_id": {
-          "description": "The account ID or zone ID, as selected by account_or_zone.",
-          "type": "string"
+          "$ref": "#/$defs/load-balancing_components-schemas-identifier",
+          "description": "The account ID or zone ID, as selected by account_or_zone."
         },
         "body": {
           "properties": {
@@ -193,6 +201,7 @@ export const tools: readonly Tool[] = [
         "load-balancing_adaptive_routing": load_balancing_adaptive_routing,
         "load-balancing_components-schemas-description": load_balancing_components_schemas_description,
         "load-balancing_components-schemas-enabled": load_balancing_components_schemas_enabled,
+        "load-balancing_components-schemas-identifier": load_balancing_components_schemas_identifier,
         "load-balancing_components-schemas-name": load_balancing_components_schemas_name,
         "load-balancing_country_pools": load_balancing_country_pools,
         "load-balancing_default_pools": load_balancing_default_pools,
@@ -217,9 +226,11 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/load-balancing_load-balancer",
+      "$ref": "#/$defs/load-balancing_load-balancer_components-schemas-single_response",
       $defs: {
         "load-balancing_adaptive_routing": load_balancing_adaptive_routing_output,
+        "load-balancing_api-response-common": load_balancing_api_response_common_output,
+        "load-balancing_api-response-single": load_balancing_api_response_single_output,
         "load-balancing_components-schemas-description": load_balancing_components_schemas_description_output,
         "load-balancing_components-schemas-enabled": load_balancing_components_schemas_enabled_output,
         "load-balancing_components-schemas-name": load_balancing_components_schemas_name_output,
@@ -230,8 +241,10 @@ export const tools: readonly Tool[] = [
         "load-balancing_fixed_response": load_balancing_fixed_response_output,
         "load-balancing_load-balancer": load_balancing_load_balancer_output,
         "load-balancing_load-balancer_components-schemas-identifier": load_balancing_load_balancer_components_schemas_identifier_output,
+        "load-balancing_load-balancer_components-schemas-single_response": load_balancing_load_balancer_components_schemas_single_response_output,
         "load-balancing_location_strategy": load_balancing_location_strategy_output,
         "load-balancing_match": load_balancing_match_output,
+        "load-balancing_messages": load_balancing_messages_output,
         "load-balancing_networks": load_balancing_networks_output,
         "load-balancing_pool_default_weight": load_balancing_pool_default_weight_output,
         "load-balancing_pool_set": load_balancing_pool_set_output,
@@ -271,7 +284,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/load-balancing_load-balancer"
+          "$ref": "#/$defs/load-balancing_load-balancer_components-schemas-single_response"
         },
         "4XX": {
           "$ref": "#/$defs/load-balancing_api-response-common-failure"
@@ -279,7 +292,9 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "load-balancing_adaptive_routing": load_balancing_adaptive_routing_output,
+        "load-balancing_api-response-common": load_balancing_api_response_common_output,
         "load-balancing_api-response-common-failure": load_balancing_api_response_common_failure_output,
+        "load-balancing_api-response-single": load_balancing_api_response_single_output,
         "load-balancing_components-schemas-description": load_balancing_components_schemas_description_output,
         "load-balancing_components-schemas-enabled": load_balancing_components_schemas_enabled_output,
         "load-balancing_components-schemas-name": load_balancing_components_schemas_name_output,
@@ -290,6 +305,7 @@ export const tools: readonly Tool[] = [
         "load-balancing_fixed_response": load_balancing_fixed_response_output,
         "load-balancing_load-balancer": load_balancing_load_balancer_output,
         "load-balancing_load-balancer_components-schemas-identifier": load_balancing_load_balancer_components_schemas_identifier_output,
+        "load-balancing_load-balancer_components-schemas-single_response": load_balancing_load_balancer_components_schemas_single_response_output,
         "load-balancing_location_strategy": load_balancing_location_strategy_output,
         "load-balancing_match": load_balancing_match_output,
         "load-balancing_messages": load_balancing_messages_output,
@@ -336,11 +352,11 @@ export const tools: readonly Tool[] = [
           "type": "string"
         },
         "account_or_zone_id": {
-          "description": "The account ID or zone ID, as selected by account_or_zone.",
-          "type": "string"
+          "$ref": "#/$defs/load-balancing_components-schemas-identifier",
+          "description": "The account ID or zone ID, as selected by account_or_zone."
         },
         "load_balancer_id": {
-          "type": "string"
+          "$ref": "#/$defs/load-balancing_load-balancer_components-schemas-identifier"
         }
       },
       required: [
@@ -348,16 +364,19 @@ export const tools: readonly Tool[] = [
         "account_or_zone_id",
         "load_balancer_id"
       ],
+      $defs: {
+        "load-balancing_components-schemas-identifier": load_balancing_components_schemas_identifier,
+        "load-balancing_load-balancer_components-schemas-identifier": load_balancing_load_balancer_components_schemas_identifier,
+      },
     },
     outputSchema: {
-      "properties": {
-        "id": {
-          "$ref": "#/$defs/load-balancing_load-balancer_components-schemas-identifier"
-        }
-      },
-      "type": "object",
+      "$ref": "#/$defs/load-balancing_components-schemas-id_response",
       $defs: {
+        "load-balancing_api-response-common": load_balancing_api_response_common_output,
+        "load-balancing_api-response-single": load_balancing_api_response_single_output,
+        "load-balancing_components-schemas-id_response": load_balancing_components_schemas_id_response_output,
         "load-balancing_load-balancer_components-schemas-identifier": load_balancing_load_balancer_components_schemas_identifier_output,
+        "load-balancing_messages": load_balancing_messages_output,
       },
     },
     annotations: {
@@ -377,19 +396,17 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "id": {
-              "$ref": "#/$defs/load-balancing_load-balancer_components-schemas-identifier"
-            }
-          },
-          "type": "object"
+          "$ref": "#/$defs/load-balancing_components-schemas-id_response"
         },
         "4XX": {
           "$ref": "#/$defs/load-balancing_api-response-common-failure"
         }
       },
       $defs: {
+        "load-balancing_api-response-common": load_balancing_api_response_common_output,
         "load-balancing_api-response-common-failure": load_balancing_api_response_common_failure_output,
+        "load-balancing_api-response-single": load_balancing_api_response_single_output,
+        "load-balancing_components-schemas-id_response": load_balancing_components_schemas_id_response_output,
         "load-balancing_load-balancer_components-schemas-identifier": load_balancing_load_balancer_components_schemas_identifier_output,
         "load-balancing_messages": load_balancing_messages_output,
       },
@@ -414,14 +431,14 @@ export const tools: readonly Tool[] = [
           "type": "string"
         },
         "account_or_zone_id": {
-          "description": "The account ID or zone ID, as selected by account_or_zone.",
-          "type": "string"
+          "$ref": "#/$defs/load-balancing_components-schemas-identifier",
+          "description": "The account ID or zone ID, as selected by account_or_zone."
         },
         "body": {
           "$ref": "#/$defs/load-balancing_load-balancer-editable"
         },
         "load_balancer_id": {
-          "type": "string"
+          "$ref": "#/$defs/load-balancing_load-balancer_components-schemas-identifier"
         }
       },
       required: [
@@ -434,12 +451,14 @@ export const tools: readonly Tool[] = [
         "load-balancing_adaptive_routing": load_balancing_adaptive_routing,
         "load-balancing_components-schemas-description": load_balancing_components_schemas_description,
         "load-balancing_components-schemas-enabled": load_balancing_components_schemas_enabled,
+        "load-balancing_components-schemas-identifier": load_balancing_components_schemas_identifier,
         "load-balancing_components-schemas-name": load_balancing_components_schemas_name,
         "load-balancing_country_pools": load_balancing_country_pools,
         "load-balancing_default_pools": load_balancing_default_pools,
         "load-balancing_fallback_pool": load_balancing_fallback_pool,
         "load-balancing_fixed_response": load_balancing_fixed_response,
         "load-balancing_load-balancer-editable": load_balancing_load_balancer_editable,
+        "load-balancing_load-balancer_components-schemas-identifier": load_balancing_load_balancer_components_schemas_identifier,
         "load-balancing_location_strategy": load_balancing_location_strategy,
         "load-balancing_networks": load_balancing_networks,
         "load-balancing_pool_default_weight": load_balancing_pool_default_weight,
@@ -459,9 +478,11 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/load-balancing_load-balancer",
+      "$ref": "#/$defs/load-balancing_load-balancer_components-schemas-single_response",
       $defs: {
         "load-balancing_adaptive_routing": load_balancing_adaptive_routing_output,
+        "load-balancing_api-response-common": load_balancing_api_response_common_output,
+        "load-balancing_api-response-single": load_balancing_api_response_single_output,
         "load-balancing_components-schemas-description": load_balancing_components_schemas_description_output,
         "load-balancing_components-schemas-enabled": load_balancing_components_schemas_enabled_output,
         "load-balancing_components-schemas-name": load_balancing_components_schemas_name_output,
@@ -472,8 +493,10 @@ export const tools: readonly Tool[] = [
         "load-balancing_fixed_response": load_balancing_fixed_response_output,
         "load-balancing_load-balancer": load_balancing_load_balancer_output,
         "load-balancing_load-balancer_components-schemas-identifier": load_balancing_load_balancer_components_schemas_identifier_output,
+        "load-balancing_load-balancer_components-schemas-single_response": load_balancing_load_balancer_components_schemas_single_response_output,
         "load-balancing_location_strategy": load_balancing_location_strategy_output,
         "load-balancing_match": load_balancing_match_output,
+        "load-balancing_messages": load_balancing_messages_output,
         "load-balancing_networks": load_balancing_networks_output,
         "load-balancing_pool_default_weight": load_balancing_pool_default_weight_output,
         "load-balancing_pool_set": load_balancing_pool_set_output,
@@ -513,7 +536,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/load-balancing_load-balancer"
+          "$ref": "#/$defs/load-balancing_load-balancer_components-schemas-single_response"
         },
         "4XX": {
           "$ref": "#/$defs/load-balancing_api-response-common-failure"
@@ -521,7 +544,9 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "load-balancing_adaptive_routing": load_balancing_adaptive_routing_output,
+        "load-balancing_api-response-common": load_balancing_api_response_common_output,
         "load-balancing_api-response-common-failure": load_balancing_api_response_common_failure_output,
+        "load-balancing_api-response-single": load_balancing_api_response_single_output,
         "load-balancing_components-schemas-description": load_balancing_components_schemas_description_output,
         "load-balancing_components-schemas-enabled": load_balancing_components_schemas_enabled_output,
         "load-balancing_components-schemas-name": load_balancing_components_schemas_name_output,
@@ -532,6 +557,7 @@ export const tools: readonly Tool[] = [
         "load-balancing_fixed_response": load_balancing_fixed_response_output,
         "load-balancing_load-balancer": load_balancing_load_balancer_output,
         "load-balancing_load-balancer_components-schemas-identifier": load_balancing_load_balancer_components_schemas_identifier_output,
+        "load-balancing_load-balancer_components-schemas-single_response": load_balancing_load_balancer_components_schemas_single_response_output,
         "load-balancing_location_strategy": load_balancing_location_strategy_output,
         "load-balancing_match": load_balancing_match_output,
         "load-balancing_messages": load_balancing_messages_output,
@@ -578,11 +604,11 @@ export const tools: readonly Tool[] = [
           "type": "string"
         },
         "account_or_zone_id": {
-          "description": "The account ID or zone ID, as selected by account_or_zone.",
-          "type": "string"
+          "$ref": "#/$defs/load-balancing_components-schemas-identifier",
+          "description": "The account ID or zone ID, as selected by account_or_zone."
         },
         "load_balancer_id": {
-          "type": "string"
+          "$ref": "#/$defs/load-balancing_load-balancer_components-schemas-identifier"
         }
       },
       required: [
@@ -590,11 +616,17 @@ export const tools: readonly Tool[] = [
         "account_or_zone_id",
         "load_balancer_id"
       ],
+      $defs: {
+        "load-balancing_components-schemas-identifier": load_balancing_components_schemas_identifier,
+        "load-balancing_load-balancer_components-schemas-identifier": load_balancing_load_balancer_components_schemas_identifier,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/load-balancing_load-balancer",
+      "$ref": "#/$defs/load-balancing_load-balancer_components-schemas-single_response",
       $defs: {
         "load-balancing_adaptive_routing": load_balancing_adaptive_routing_output,
+        "load-balancing_api-response-common": load_balancing_api_response_common_output,
+        "load-balancing_api-response-single": load_balancing_api_response_single_output,
         "load-balancing_components-schemas-description": load_balancing_components_schemas_description_output,
         "load-balancing_components-schemas-enabled": load_balancing_components_schemas_enabled_output,
         "load-balancing_components-schemas-name": load_balancing_components_schemas_name_output,
@@ -605,8 +637,10 @@ export const tools: readonly Tool[] = [
         "load-balancing_fixed_response": load_balancing_fixed_response_output,
         "load-balancing_load-balancer": load_balancing_load_balancer_output,
         "load-balancing_load-balancer_components-schemas-identifier": load_balancing_load_balancer_components_schemas_identifier_output,
+        "load-balancing_load-balancer_components-schemas-single_response": load_balancing_load_balancer_components_schemas_single_response_output,
         "load-balancing_location_strategy": load_balancing_location_strategy_output,
         "load-balancing_match": load_balancing_match_output,
+        "load-balancing_messages": load_balancing_messages_output,
         "load-balancing_networks": load_balancing_networks_output,
         "load-balancing_pool_default_weight": load_balancing_pool_default_weight_output,
         "load-balancing_pool_set": load_balancing_pool_set_output,
@@ -647,7 +681,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/load-balancing_load-balancer"
+          "$ref": "#/$defs/load-balancing_load-balancer_components-schemas-single_response"
         },
         "4XX": {
           "$ref": "#/$defs/load-balancing_api-response-common-failure"
@@ -655,7 +689,9 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "load-balancing_adaptive_routing": load_balancing_adaptive_routing_output,
+        "load-balancing_api-response-common": load_balancing_api_response_common_output,
         "load-balancing_api-response-common-failure": load_balancing_api_response_common_failure_output,
+        "load-balancing_api-response-single": load_balancing_api_response_single_output,
         "load-balancing_components-schemas-description": load_balancing_components_schemas_description_output,
         "load-balancing_components-schemas-enabled": load_balancing_components_schemas_enabled_output,
         "load-balancing_components-schemas-name": load_balancing_components_schemas_name_output,
@@ -666,6 +702,7 @@ export const tools: readonly Tool[] = [
         "load-balancing_fixed_response": load_balancing_fixed_response_output,
         "load-balancing_load-balancer": load_balancing_load_balancer_output,
         "load-balancing_load-balancer_components-schemas-identifier": load_balancing_load_balancer_components_schemas_identifier_output,
+        "load-balancing_load-balancer_components-schemas-single_response": load_balancing_load_balancer_components_schemas_single_response_output,
         "load-balancing_location_strategy": load_balancing_location_strategy_output,
         "load-balancing_match": load_balancing_match_output,
         "load-balancing_messages": load_balancing_messages_output,
@@ -711,33 +748,24 @@ export const tools: readonly Tool[] = [
           "type": "string"
         },
         "account_or_zone_id": {
-          "description": "The account ID or zone ID, as selected by account_or_zone.",
-          "type": "string"
+          "$ref": "#/$defs/load-balancing_components-schemas-identifier",
+          "description": "The account ID or zone ID, as selected by account_or_zone."
         }
       },
       required: [
         "account_or_zone",
         "account_or_zone_id"
       ],
+      $defs: {
+        "load-balancing_components-schemas-identifier": load_balancing_components_schemas_identifier,
+      },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "$ref": "#/$defs/load-balancing_load-balancer"
-          },
-          "type": "array"
-        },
-        "result_info": {
-          "$ref": "#/$defs/load-balancing_result_info"
-        }
-      },
-      "required": [
-        "result"
-      ],
-      "type": "object",
+      "$ref": "#/$defs/load-balancing_load-balancer_components-schemas-response_collection",
       $defs: {
         "load-balancing_adaptive_routing": load_balancing_adaptive_routing_output,
+        "load-balancing_api-paginated-response-collection": load_balancing_api_paginated_response_collection_output,
+        "load-balancing_api-response-common": load_balancing_api_response_common_output,
         "load-balancing_components-schemas-description": load_balancing_components_schemas_description_output,
         "load-balancing_components-schemas-enabled": load_balancing_components_schemas_enabled_output,
         "load-balancing_components-schemas-name": load_balancing_components_schemas_name_output,
@@ -748,8 +776,10 @@ export const tools: readonly Tool[] = [
         "load-balancing_fixed_response": load_balancing_fixed_response_output,
         "load-balancing_load-balancer": load_balancing_load_balancer_output,
         "load-balancing_load-balancer_components-schemas-identifier": load_balancing_load_balancer_components_schemas_identifier_output,
+        "load-balancing_load-balancer_components-schemas-response_collection": load_balancing_load_balancer_components_schemas_response_collection_output,
         "load-balancing_location_strategy": load_balancing_location_strategy_output,
         "load-balancing_match": load_balancing_match_output,
+        "load-balancing_messages": load_balancing_messages_output,
         "load-balancing_networks": load_balancing_networks_output,
         "load-balancing_pool_default_weight": load_balancing_pool_default_weight_output,
         "load-balancing_pool_set": load_balancing_pool_set_output,
@@ -791,21 +821,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "items": {
-                "$ref": "#/$defs/load-balancing_load-balancer"
-              },
-              "type": "array"
-            },
-            "result_info": {
-              "$ref": "#/$defs/load-balancing_result_info"
-            }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/load-balancing_load-balancer_components-schemas-response_collection"
         },
         "4XX": {
           "$ref": "#/$defs/load-balancing_api-response-common-failure"
@@ -813,6 +829,8 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "load-balancing_adaptive_routing": load_balancing_adaptive_routing_output,
+        "load-balancing_api-paginated-response-collection": load_balancing_api_paginated_response_collection_output,
+        "load-balancing_api-response-common": load_balancing_api_response_common_output,
         "load-balancing_api-response-common-failure": load_balancing_api_response_common_failure_output,
         "load-balancing_components-schemas-description": load_balancing_components_schemas_description_output,
         "load-balancing_components-schemas-enabled": load_balancing_components_schemas_enabled_output,
@@ -824,6 +842,7 @@ export const tools: readonly Tool[] = [
         "load-balancing_fixed_response": load_balancing_fixed_response_output,
         "load-balancing_load-balancer": load_balancing_load_balancer_output,
         "load-balancing_load-balancer_components-schemas-identifier": load_balancing_load_balancer_components_schemas_identifier_output,
+        "load-balancing_load-balancer_components-schemas-response_collection": load_balancing_load_balancer_components_schemas_response_collection_output,
         "load-balancing_location_strategy": load_balancing_location_strategy_output,
         "load-balancing_match": load_balancing_match_output,
         "load-balancing_messages": load_balancing_messages_output,
@@ -870,8 +889,8 @@ export const tools: readonly Tool[] = [
           "type": "string"
         },
         "account_or_zone_id": {
-          "description": "The account ID or zone ID, as selected by account_or_zone.",
-          "type": "string"
+          "$ref": "#/$defs/load-balancing_components-schemas-identifier",
+          "description": "The account ID or zone ID, as selected by account_or_zone."
         },
         "body": {
           "properties": {
@@ -964,7 +983,7 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "load_balancer_id": {
-          "type": "string"
+          "$ref": "#/$defs/load-balancing_load-balancer_components-schemas-identifier"
         }
       },
       required: [
@@ -977,11 +996,13 @@ export const tools: readonly Tool[] = [
         "load-balancing_adaptive_routing": load_balancing_adaptive_routing,
         "load-balancing_components-schemas-description": load_balancing_components_schemas_description,
         "load-balancing_components-schemas-enabled": load_balancing_components_schemas_enabled,
+        "load-balancing_components-schemas-identifier": load_balancing_components_schemas_identifier,
         "load-balancing_components-schemas-name": load_balancing_components_schemas_name,
         "load-balancing_country_pools": load_balancing_country_pools,
         "load-balancing_default_pools": load_balancing_default_pools,
         "load-balancing_fallback_pool": load_balancing_fallback_pool,
         "load-balancing_fixed_response": load_balancing_fixed_response,
+        "load-balancing_load-balancer_components-schemas-identifier": load_balancing_load_balancer_components_schemas_identifier,
         "load-balancing_location_strategy": load_balancing_location_strategy,
         "load-balancing_networks": load_balancing_networks,
         "load-balancing_pool_default_weight": load_balancing_pool_default_weight,
@@ -1001,9 +1022,11 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/load-balancing_load-balancer",
+      "$ref": "#/$defs/load-balancing_load-balancer_components-schemas-single_response",
       $defs: {
         "load-balancing_adaptive_routing": load_balancing_adaptive_routing_output,
+        "load-balancing_api-response-common": load_balancing_api_response_common_output,
+        "load-balancing_api-response-single": load_balancing_api_response_single_output,
         "load-balancing_components-schemas-description": load_balancing_components_schemas_description_output,
         "load-balancing_components-schemas-enabled": load_balancing_components_schemas_enabled_output,
         "load-balancing_components-schemas-name": load_balancing_components_schemas_name_output,
@@ -1014,8 +1037,10 @@ export const tools: readonly Tool[] = [
         "load-balancing_fixed_response": load_balancing_fixed_response_output,
         "load-balancing_load-balancer": load_balancing_load_balancer_output,
         "load-balancing_load-balancer_components-schemas-identifier": load_balancing_load_balancer_components_schemas_identifier_output,
+        "load-balancing_load-balancer_components-schemas-single_response": load_balancing_load_balancer_components_schemas_single_response_output,
         "load-balancing_location_strategy": load_balancing_location_strategy_output,
         "load-balancing_match": load_balancing_match_output,
+        "load-balancing_messages": load_balancing_messages_output,
         "load-balancing_networks": load_balancing_networks_output,
         "load-balancing_pool_default_weight": load_balancing_pool_default_weight_output,
         "load-balancing_pool_set": load_balancing_pool_set_output,
@@ -1055,7 +1080,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/load-balancing_load-balancer"
+          "$ref": "#/$defs/load-balancing_load-balancer_components-schemas-single_response"
         },
         "4XX": {
           "$ref": "#/$defs/load-balancing_api-response-common-failure"
@@ -1063,7 +1088,9 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "load-balancing_adaptive_routing": load_balancing_adaptive_routing_output,
+        "load-balancing_api-response-common": load_balancing_api_response_common_output,
         "load-balancing_api-response-common-failure": load_balancing_api_response_common_failure_output,
+        "load-balancing_api-response-single": load_balancing_api_response_single_output,
         "load-balancing_components-schemas-description": load_balancing_components_schemas_description_output,
         "load-balancing_components-schemas-enabled": load_balancing_components_schemas_enabled_output,
         "load-balancing_components-schemas-name": load_balancing_components_schemas_name_output,
@@ -1074,6 +1101,7 @@ export const tools: readonly Tool[] = [
         "load-balancing_fixed_response": load_balancing_fixed_response_output,
         "load-balancing_load-balancer": load_balancing_load_balancer_output,
         "load-balancing_load-balancer_components-schemas-identifier": load_balancing_load_balancer_components_schemas_identifier_output,
+        "load-balancing_load-balancer_components-schemas-single_response": load_balancing_load_balancer_components_schemas_single_response_output,
         "load-balancing_location_strategy": load_balancing_location_strategy_output,
         "load-balancing_match": load_balancing_match_output,
         "load-balancing_messages": load_balancing_messages_output,

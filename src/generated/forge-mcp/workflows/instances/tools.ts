@@ -85,94 +85,44 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
-        "id": {
-          "type": "string"
-        },
-        "status": {
-          "enum": [
-            "queued",
-            "running",
-            "paused",
-            "errored",
-            "terminated",
-            "complete",
-            "waitingForPause",
-            "waiting",
-            "rollingBack"
-          ],
-          "type": "string"
-        },
-        "trigger_source": {
-          "enum": [
-            "unknown",
-            "api",
-            "binding",
-            "event",
-            "cron"
-          ],
-          "type": "string"
-        },
-        "version_id": {
-          "format": "uuid",
-          "type": "string"
-        },
-        "workflow_id": {
-          "format": "uuid",
-          "type": "string"
-        }
-      },
-      "required": [
-        "id",
-        "status",
-        "version_id",
-        "workflow_id"
-      ],
-      "type": "object",
-    },
-    annotations: {
-      "destructiveHint": false,
-      "idempotentHint": false,
-      "openWorldHint": true,
-      "readOnlyHint": false,
-      "title": "Create a new workflow instance"
-    },
-    method: "POST",
-    path: "/accounts/{account_id}/workflows/{workflow_name}/instances",
-    extensions: {
-      "x-api-token-group": [
-        "Workers Scripts Write"
-      ],
-      "x-cfPermissionsRequired": {
-        "enum": [
-          "com.cloudflare.api.workers.write",
-          "com.cloudflare.api.workers.read"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.api.workers.read": {
-            "name": "com_cloudflare_api_workers_read"
+        "errors": {
+          "items": {
+            "properties": {
+              "code": {
+                "type": "number"
+              },
+              "message": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "code",
+              "message"
+            ],
+            "type": "object"
           },
-          "com.cloudflare.api.workers.write": {
-            "name": "com_cloudflare_api_workers_write"
-          }
-        }
-      },
-      "x-cfPlanAvailability": {
-        "business": true,
-        "enterprise": true,
-        "free": true,
-        "pro": true
-      },
-      "x-forge-params": {
-        "params": {
-          "fromFile": {
-            "format": "json"
-          }
-        }
-      }
-    },
-    responses: {
-      schemas: {
-        "200": {
+          "maxItems": 0,
+          "type": "array"
+        },
+        "messages": {
+          "items": {
+            "properties": {
+              "code": {
+                "type": "number"
+              },
+              "message": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "code",
+              "message"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "result": {
           "properties": {
             "id": {
               "type": "string"
@@ -215,6 +165,212 @@ export const tools: readonly Tool[] = [
             "status",
             "version_id",
             "workflow_id"
+          ],
+          "type": "object"
+        },
+        "result_info": {
+          "properties": {
+            "count": {
+              "type": "number"
+            },
+            "cursor": {
+              "type": "string"
+            },
+            "page": {
+              "type": "number"
+            },
+            "per_page": {
+              "type": "number"
+            },
+            "total_count": {
+              "type": "number"
+            },
+            "total_pages": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "count",
+            "per_page",
+            "total_count"
+          ],
+          "type": "object"
+        },
+        "success": {
+          "enum": [
+            true
+          ],
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "errors",
+        "messages",
+        "result",
+        "success"
+      ],
+      "type": "object",
+    },
+    annotations: {
+      "destructiveHint": false,
+      "idempotentHint": false,
+      "openWorldHint": true,
+      "readOnlyHint": false,
+      "title": "Create a new workflow instance"
+    },
+    method: "POST",
+    path: "/accounts/{account_id}/workflows/{workflow_name}/instances",
+    extensions: {
+      "x-api-token-group": [
+        "Workers Scripts Write"
+      ],
+      "x-cfPermissionsRequired": {
+        "enum": [
+          "com.cloudflare.api.workers.write",
+          "com.cloudflare.api.workers.read"
+        ]
+      },
+      "x-cfPlanAvailability": {
+        "business": true,
+        "enterprise": true,
+        "free": true,
+        "pro": true
+      },
+      "x-forge-params": {
+        "params": {
+          "fromFile": {
+            "format": "json"
+          }
+        }
+      }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "code": {
+                    "type": "number"
+                  },
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message"
+                ],
+                "type": "object"
+              },
+              "maxItems": 0,
+              "type": "array"
+            },
+            "messages": {
+              "items": {
+                "properties": {
+                  "code": {
+                    "type": "number"
+                  },
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result": {
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "status": {
+                  "enum": [
+                    "queued",
+                    "running",
+                    "paused",
+                    "errored",
+                    "terminated",
+                    "complete",
+                    "waitingForPause",
+                    "waiting",
+                    "rollingBack"
+                  ],
+                  "type": "string"
+                },
+                "trigger_source": {
+                  "enum": [
+                    "unknown",
+                    "api",
+                    "binding",
+                    "event",
+                    "cron"
+                  ],
+                  "type": "string"
+                },
+                "version_id": {
+                  "format": "uuid",
+                  "type": "string"
+                },
+                "workflow_id": {
+                  "format": "uuid",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "id",
+                "status",
+                "version_id",
+                "workflow_id"
+              ],
+              "type": "object"
+            },
+            "result_info": {
+              "properties": {
+                "count": {
+                  "type": "number"
+                },
+                "cursor": {
+                  "type": "string"
+                },
+                "page": {
+                  "type": "number"
+                },
+                "per_page": {
+                  "type": "number"
+                },
+                "total_count": {
+                  "type": "number"
+                },
+                "total_pages": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "count",
+                "per_page",
+                "total_count"
+              ],
+              "type": "object"
+            },
+            "success": {
+              "enum": [
+                true
+              ],
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "messages",
+            "result",
+            "success"
           ],
           "type": "object"
         },
@@ -339,17 +495,99 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
-        "instanceId": {
-          "type": "string"
+        "errors": {
+          "items": {
+            "properties": {
+              "code": {
+                "type": "number"
+              },
+              "message": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "code",
+              "message"
+            ],
+            "type": "object"
+          },
+          "maxItems": 0,
+          "type": "array"
         },
-        "timestamp": {
-          "format": "date-time",
-          "type": "string"
+        "messages": {
+          "items": {
+            "properties": {
+              "code": {
+                "type": "number"
+              },
+              "message": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "code",
+              "message"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "result": {
+          "properties": {
+            "instanceId": {
+              "type": "string"
+            },
+            "timestamp": {
+              "format": "date-time",
+              "type": "string"
+            }
+          },
+          "required": [
+            "instanceId",
+            "timestamp"
+          ],
+          "type": "object"
+        },
+        "result_info": {
+          "properties": {
+            "count": {
+              "type": "number"
+            },
+            "cursor": {
+              "type": "string"
+            },
+            "page": {
+              "type": "number"
+            },
+            "per_page": {
+              "type": "number"
+            },
+            "total_count": {
+              "type": "number"
+            },
+            "total_pages": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "count",
+            "per_page",
+            "total_count"
+          ],
+          "type": "object"
+        },
+        "success": {
+          "enum": [
+            true
+          ],
+          "type": "boolean"
         }
       },
       "required": [
-        "instanceId",
-        "timestamp"
+        "errors",
+        "messages",
+        "result",
+        "success"
       ],
       "type": "object",
     },
@@ -370,15 +608,7 @@ export const tools: readonly Tool[] = [
         "enum": [
           "com.cloudflare.api.workers.write",
           "com.cloudflare.api.workers.read"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.api.workers.read": {
-            "name": "com_cloudflare_api_workers_read"
-          },
-          "com.cloudflare.api.workers.write": {
-            "name": "com_cloudflare_api_workers_write"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": true,
@@ -391,17 +621,99 @@ export const tools: readonly Tool[] = [
       schemas: {
         "200": {
           "properties": {
-            "instanceId": {
-              "type": "string"
+            "errors": {
+              "items": {
+                "properties": {
+                  "code": {
+                    "type": "number"
+                  },
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message"
+                ],
+                "type": "object"
+              },
+              "maxItems": 0,
+              "type": "array"
             },
-            "timestamp": {
-              "format": "date-time",
-              "type": "string"
+            "messages": {
+              "items": {
+                "properties": {
+                  "code": {
+                    "type": "number"
+                  },
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result": {
+              "properties": {
+                "instanceId": {
+                  "type": "string"
+                },
+                "timestamp": {
+                  "format": "date-time",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "instanceId",
+                "timestamp"
+              ],
+              "type": "object"
+            },
+            "result_info": {
+              "properties": {
+                "count": {
+                  "type": "number"
+                },
+                "cursor": {
+                  "type": "string"
+                },
+                "page": {
+                  "type": "number"
+                },
+                "per_page": {
+                  "type": "number"
+                },
+                "total_count": {
+                  "type": "number"
+                },
+                "total_pages": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "count",
+                "per_page",
+                "total_count"
+              ],
+              "type": "object"
+            },
+            "success": {
+              "enum": [
+                true
+              ],
+              "type": "boolean"
             }
           },
           "required": [
-            "instanceId",
-            "timestamp"
+            "errors",
+            "messages",
+            "result",
+            "success"
           ],
           "type": "object"
         },
@@ -479,6 +791,7 @@ export const tools: readonly Tool[] = [
           "type": "string"
         },
         "simple": {
+          "default": "false",
           "description": "When true, omits step details and returns only metadata with step_count.",
           "enum": [
             "true",
@@ -498,558 +811,44 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
-        "end": {
-          "oneOf": [
-            {
-              "format": "date-time",
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "error": {
-          "oneOf": [
-            {
-              "properties": {
-                "message": {
-                  "type": "string"
-                },
-                "name": {
-                  "type": "string"
-                }
-              },
-              "required": [
-                "message",
-                "name"
-              ],
-              "type": "object"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "output": {
-          "anyOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "number"
-            }
-          ]
-        },
-        "params": {
-          "type": "object"
-        },
-        "queued": {
-          "format": "date-time",
-          "type": "string"
-        },
-        "rollback": {
-          "oneOf": [
-            {
-              "properties": {
-                "error": {
-                  "oneOf": [
-                    {
-                      "properties": {
-                        "message": {
-                          "type": "string"
-                        },
-                        "name": {
-                          "type": "string"
-                        }
-                      },
-                      "required": [
-                        "message",
-                        "name"
-                      ],
-                      "type": "object"
-                    },
-                    {
-                      "type": "null"
-                    }
-                  ]
-                },
-                "outcome": {
-                  "enum": [
-                    "complete",
-                    "failed"
-                  ],
-                  "type": "string"
-                }
-              },
-              "required": [
-                "error",
-                "outcome"
-              ],
-              "type": "object"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "schedule": {
-          "properties": {
-            "cron": {
-              "type": "string"
-            },
-            "scheduledTime": {
-              "type": "number"
-            }
-          },
-          "required": [
-            "cron",
-            "scheduledTime"
-          ],
-          "type": "object"
-        },
-        "start": {
-          "oneOf": [
-            {
-              "format": "date-time",
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "status": {
-          "enum": [
-            "queued",
-            "running",
-            "paused",
-            "errored",
-            "terminated",
-            "complete",
-            "waitingForPause",
-            "waiting",
-            "rollingBack"
-          ],
-          "type": "string"
-        },
-        "step_count": {
-          "type": "integer"
-        },
-        "steps": {
+        "errors": {
           "items": {
-            "anyOf": [
-              {
-                "properties": {
-                  "attempts": {
-                    "items": {
-                      "properties": {
-                        "end": {
-                          "oneOf": [
-                            {
-                              "format": "date-time",
-                              "type": "string"
-                            },
-                            {
-                              "type": "null"
-                            }
-                          ]
-                        },
-                        "error": {
-                          "oneOf": [
-                            {
-                              "properties": {
-                                "message": {
-                                  "type": "string"
-                                },
-                                "name": {
-                                  "type": "string"
-                                }
-                              },
-                              "required": [
-                                "message",
-                                "name"
-                              ],
-                              "type": "object"
-                            },
-                            {
-                              "type": "null"
-                            }
-                          ]
-                        },
-                        "start": {
-                          "format": "date-time",
-                          "type": "string"
-                        },
-                        "success": {
-                          "oneOf": [
-                            {
-                              "type": "boolean"
-                            },
-                            {
-                              "type": "null"
-                            }
-                          ]
-                        }
-                      },
-                      "required": [
-                        "end",
-                        "error",
-                        "start",
-                        "success"
-                      ],
-                      "type": "object"
-                    },
-                    "type": "array"
-                  },
-                  "config": {
-                    "properties": {
-                      "retries": {
-                        "properties": {
-                          "backoff": {
-                            "enum": [
-                              "constant",
-                              "linear",
-                              "exponential"
-                            ],
-                            "type": "string"
-                          },
-                          "delay": {
-                            "anyOf": [
-                              {
-                                "type": "string"
-                              },
-                              {
-                                "type": "number"
-                              }
-                            ]
-                          },
-                          "limit": {
-                            "type": "number"
-                          }
-                        },
-                        "required": [
-                          "delay",
-                          "limit"
-                        ],
-                        "type": "object"
-                      },
-                      "sensitive": {
-                        "enum": [
-                          "output"
-                        ],
-                        "type": "string"
-                      },
-                      "timeout": {
-                        "anyOf": [
-                          {
-                            "type": "string"
-                          },
-                          {
-                            "type": "number"
-                          }
-                        ]
-                      }
-                    },
-                    "required": [
-                      "retries",
-                      "timeout"
-                    ],
-                    "type": "object"
-                  },
-                  "end": {
-                    "oneOf": [
-                      {
-                        "format": "date-time",
-                        "type": "string"
-                      },
-                      {
-                        "type": "null"
-                      }
-                    ]
-                  },
-                  "name": {
-                    "type": "string"
-                  },
-                  "output": {
-                    "oneOf": [
-                      {
-                        "type": "string"
-                      },
-                      {
-                        "type": "null"
-                      }
-                    ]
-                  },
-                  "start": {
-                    "format": "date-time",
-                    "type": "string"
-                  },
-                  "success": {
-                    "oneOf": [
-                      {
-                        "type": "boolean"
-                      },
-                      {
-                        "type": "null"
-                      }
-                    ]
-                  },
-                  "type": {
-                    "enum": [
-                      "step",
-                      "rollback"
-                    ],
-                    "type": "string"
-                  }
-                },
-                "required": [
-                  "attempts",
-                  "config",
-                  "end",
-                  "name",
-                  "output",
-                  "start",
-                  "success",
-                  "type"
-                ],
-                "type": "object"
+            "properties": {
+              "code": {
+                "type": "number"
               },
-              {
-                "properties": {
-                  "end": {
-                    "format": "date-time",
-                    "type": "string"
-                  },
-                  "error": {
-                    "oneOf": [
-                      {
-                        "properties": {
-                          "message": {
-                            "type": "string"
-                          },
-                          "name": {
-                            "type": "string"
-                          }
-                        },
-                        "required": [
-                          "message",
-                          "name"
-                        ],
-                        "type": "object"
-                      },
-                      {
-                        "type": "null"
-                      }
-                    ]
-                  },
-                  "finished": {
-                    "type": "boolean"
-                  },
-                  "name": {
-                    "type": "string"
-                  },
-                  "start": {
-                    "format": "date-time",
-                    "type": "string"
-                  },
-                  "type": {
-                    "enum": [
-                      "sleep"
-                    ],
-                    "type": "string"
-                  }
-                },
-                "required": [
-                  "end",
-                  "error",
-                  "finished",
-                  "name",
-                  "start",
-                  "type"
-                ],
-                "type": "object"
-              },
-              {
-                "properties": {
-                  "trigger": {
-                    "properties": {
-                      "source": {
-                        "type": "string"
-                      }
-                    },
-                    "required": [
-                      "source"
-                    ],
-                    "type": "object"
-                  },
-                  "type": {
-                    "enum": [
-                      "termination"
-                    ],
-                    "type": "string"
-                  }
-                },
-                "required": [
-                  "trigger",
-                  "type"
-                ],
-                "type": "object"
-              },
-              {
-                "properties": {
-                  "end": {
-                    "format": "date-time",
-                    "type": "string"
-                  },
-                  "error": {
-                    "oneOf": [
-                      {
-                        "properties": {
-                          "message": {
-                            "type": "string"
-                          },
-                          "name": {
-                            "type": "string"
-                          }
-                        },
-                        "required": [
-                          "message",
-                          "name"
-                        ],
-                        "type": "object"
-                      },
-                      {
-                        "type": "null"
-                      }
-                    ]
-                  },
-                  "event_type": {
-                    "type": "string"
-                  },
-                  "finished": {
-                    "type": "boolean"
-                  },
-                  "name": {
-                    "type": "string"
-                  },
-                  "output": {
-                    "type": "string"
-                  },
-                  "start": {
-                    "format": "date-time",
-                    "type": "string"
-                  },
-                  "type": {
-                    "enum": [
-                      "waitForEvent"
-                    ],
-                    "type": "string"
-                  }
-                },
-                "required": [
-                  "end",
-                  "error",
-                  "finished",
-                  "name",
-                  "start",
-                  "type"
-                ],
-                "type": "object"
+              "message": {
+                "type": "string"
               }
-            ]
+            },
+            "required": [
+              "code",
+              "message"
+            ],
+            "type": "object"
+          },
+          "maxItems": 0,
+          "type": "array"
+        },
+        "messages": {
+          "items": {
+            "properties": {
+              "code": {
+                "type": "number"
+              },
+              "message": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "code",
+              "message"
+            ],
+            "type": "object"
           },
           "type": "array"
         },
-        "success": {
-          "oneOf": [
-            {
-              "type": "boolean"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "trigger": {
-          "properties": {
-            "source": {
-              "enum": [
-                "unknown",
-                "api",
-                "binding",
-                "event",
-                "cron"
-              ],
-              "type": "string"
-            }
-          },
-          "required": [
-            "source"
-          ],
-          "type": "object"
-        },
-        "versionId": {
-          "format": "uuid",
-          "type": "string"
-        }
-      },
-      "required": [
-        "end",
-        "error",
-        "output",
-        "params",
-        "queued",
-        "rollback",
-        "start",
-        "status",
-        "step_count",
-        "steps",
-        "success",
-        "trigger",
-        "versionId"
-      ],
-      "type": "object",
-    },
-    annotations: {
-      "destructiveHint": false,
-      "idempotentHint": true,
-      "openWorldHint": true,
-      "readOnlyHint": true,
-      "title": "Get logs and status from instance"
-    },
-    method: "GET",
-    path: "/accounts/{account_id}/workflows/{workflow_name}/instances/{instance_id}",
-    extensions: {
-      "x-api-token-group": [
-        "Workers Tail Read",
-        "Workers Scripts Write",
-        "Workers Scripts Read"
-      ],
-      "x-cfPermissionsRequired": {
-        "enum": [
-          "com.cloudflare.api.workers.write",
-          "com.cloudflare.api.workers.read"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.api.workers.read": {
-            "name": "com_cloudflare_api_workers_read"
-          },
-          "com.cloudflare.api.workers.write": {
-            "name": "com_cloudflare_api_workers_write"
-          }
-        }
-      },
-      "x-cfPlanAvailability": {
-        "business": true,
-        "enterprise": true,
-        "free": true,
-        "pro": true
-      }
-    },
-    responses: {
-      schemas: {
-        "200": {
+        "result": {
           "properties": {
             "end": {
               "oneOf": [
@@ -1564,6 +1363,676 @@ export const tools: readonly Tool[] = [
           ],
           "type": "object"
         },
+        "result_info": {
+          "properties": {
+            "count": {
+              "type": "number"
+            },
+            "cursor": {
+              "type": "string"
+            },
+            "page": {
+              "type": "number"
+            },
+            "per_page": {
+              "type": "number"
+            },
+            "total_count": {
+              "type": "number"
+            },
+            "total_pages": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "count",
+            "per_page",
+            "total_count"
+          ],
+          "type": "object"
+        },
+        "success": {
+          "enum": [
+            true
+          ],
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "errors",
+        "messages",
+        "result",
+        "success"
+      ],
+      "type": "object",
+    },
+    annotations: {
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": true,
+      "readOnlyHint": true,
+      "title": "Get logs and status from instance"
+    },
+    method: "GET",
+    path: "/accounts/{account_id}/workflows/{workflow_name}/instances/{instance_id}",
+    extensions: {
+      "x-api-token-group": [
+        "Workers Tail Read",
+        "Workers Scripts Write",
+        "Workers Scripts Read"
+      ],
+      "x-cfPermissionsRequired": {
+        "enum": [
+          "com.cloudflare.api.workers.write",
+          "com.cloudflare.api.workers.read"
+        ]
+      },
+      "x-cfPlanAvailability": {
+        "business": true,
+        "enterprise": true,
+        "free": true,
+        "pro": true
+      }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "code": {
+                    "type": "number"
+                  },
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message"
+                ],
+                "type": "object"
+              },
+              "maxItems": 0,
+              "type": "array"
+            },
+            "messages": {
+              "items": {
+                "properties": {
+                  "code": {
+                    "type": "number"
+                  },
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result": {
+              "properties": {
+                "end": {
+                  "oneOf": [
+                    {
+                      "format": "date-time",
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "error": {
+                  "oneOf": [
+                    {
+                      "properties": {
+                        "message": {
+                          "type": "string"
+                        },
+                        "name": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "message",
+                        "name"
+                      ],
+                      "type": "object"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "output": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "number"
+                    }
+                  ]
+                },
+                "params": {
+                  "type": "object"
+                },
+                "queued": {
+                  "format": "date-time",
+                  "type": "string"
+                },
+                "rollback": {
+                  "oneOf": [
+                    {
+                      "properties": {
+                        "error": {
+                          "oneOf": [
+                            {
+                              "properties": {
+                                "message": {
+                                  "type": "string"
+                                },
+                                "name": {
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "message",
+                                "name"
+                              ],
+                              "type": "object"
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        },
+                        "outcome": {
+                          "enum": [
+                            "complete",
+                            "failed"
+                          ],
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "error",
+                        "outcome"
+                      ],
+                      "type": "object"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "schedule": {
+                  "properties": {
+                    "cron": {
+                      "type": "string"
+                    },
+                    "scheduledTime": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "cron",
+                    "scheduledTime"
+                  ],
+                  "type": "object"
+                },
+                "start": {
+                  "oneOf": [
+                    {
+                      "format": "date-time",
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "status": {
+                  "enum": [
+                    "queued",
+                    "running",
+                    "paused",
+                    "errored",
+                    "terminated",
+                    "complete",
+                    "waitingForPause",
+                    "waiting",
+                    "rollingBack"
+                  ],
+                  "type": "string"
+                },
+                "step_count": {
+                  "type": "integer"
+                },
+                "steps": {
+                  "items": {
+                    "anyOf": [
+                      {
+                        "properties": {
+                          "attempts": {
+                            "items": {
+                              "properties": {
+                                "end": {
+                                  "oneOf": [
+                                    {
+                                      "format": "date-time",
+                                      "type": "string"
+                                    },
+                                    {
+                                      "type": "null"
+                                    }
+                                  ]
+                                },
+                                "error": {
+                                  "oneOf": [
+                                    {
+                                      "properties": {
+                                        "message": {
+                                          "type": "string"
+                                        },
+                                        "name": {
+                                          "type": "string"
+                                        }
+                                      },
+                                      "required": [
+                                        "message",
+                                        "name"
+                                      ],
+                                      "type": "object"
+                                    },
+                                    {
+                                      "type": "null"
+                                    }
+                                  ]
+                                },
+                                "start": {
+                                  "format": "date-time",
+                                  "type": "string"
+                                },
+                                "success": {
+                                  "oneOf": [
+                                    {
+                                      "type": "boolean"
+                                    },
+                                    {
+                                      "type": "null"
+                                    }
+                                  ]
+                                }
+                              },
+                              "required": [
+                                "end",
+                                "error",
+                                "start",
+                                "success"
+                              ],
+                              "type": "object"
+                            },
+                            "type": "array"
+                          },
+                          "config": {
+                            "properties": {
+                              "retries": {
+                                "properties": {
+                                  "backoff": {
+                                    "enum": [
+                                      "constant",
+                                      "linear",
+                                      "exponential"
+                                    ],
+                                    "type": "string"
+                                  },
+                                  "delay": {
+                                    "anyOf": [
+                                      {
+                                        "type": "string"
+                                      },
+                                      {
+                                        "type": "number"
+                                      }
+                                    ]
+                                  },
+                                  "limit": {
+                                    "type": "number"
+                                  }
+                                },
+                                "required": [
+                                  "delay",
+                                  "limit"
+                                ],
+                                "type": "object"
+                              },
+                              "sensitive": {
+                                "enum": [
+                                  "output"
+                                ],
+                                "type": "string"
+                              },
+                              "timeout": {
+                                "anyOf": [
+                                  {
+                                    "type": "string"
+                                  },
+                                  {
+                                    "type": "number"
+                                  }
+                                ]
+                              }
+                            },
+                            "required": [
+                              "retries",
+                              "timeout"
+                            ],
+                            "type": "object"
+                          },
+                          "end": {
+                            "oneOf": [
+                              {
+                                "format": "date-time",
+                                "type": "string"
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ]
+                          },
+                          "name": {
+                            "type": "string"
+                          },
+                          "output": {
+                            "oneOf": [
+                              {
+                                "type": "string"
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ]
+                          },
+                          "start": {
+                            "format": "date-time",
+                            "type": "string"
+                          },
+                          "success": {
+                            "oneOf": [
+                              {
+                                "type": "boolean"
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ]
+                          },
+                          "type": {
+                            "enum": [
+                              "step",
+                              "rollback"
+                            ],
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "attempts",
+                          "config",
+                          "end",
+                          "name",
+                          "output",
+                          "start",
+                          "success",
+                          "type"
+                        ],
+                        "type": "object"
+                      },
+                      {
+                        "properties": {
+                          "end": {
+                            "format": "date-time",
+                            "type": "string"
+                          },
+                          "error": {
+                            "oneOf": [
+                              {
+                                "properties": {
+                                  "message": {
+                                    "type": "string"
+                                  },
+                                  "name": {
+                                    "type": "string"
+                                  }
+                                },
+                                "required": [
+                                  "message",
+                                  "name"
+                                ],
+                                "type": "object"
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ]
+                          },
+                          "finished": {
+                            "type": "boolean"
+                          },
+                          "name": {
+                            "type": "string"
+                          },
+                          "start": {
+                            "format": "date-time",
+                            "type": "string"
+                          },
+                          "type": {
+                            "enum": [
+                              "sleep"
+                            ],
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "end",
+                          "error",
+                          "finished",
+                          "name",
+                          "start",
+                          "type"
+                        ],
+                        "type": "object"
+                      },
+                      {
+                        "properties": {
+                          "trigger": {
+                            "properties": {
+                              "source": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "source"
+                            ],
+                            "type": "object"
+                          },
+                          "type": {
+                            "enum": [
+                              "termination"
+                            ],
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "trigger",
+                          "type"
+                        ],
+                        "type": "object"
+                      },
+                      {
+                        "properties": {
+                          "end": {
+                            "format": "date-time",
+                            "type": "string"
+                          },
+                          "error": {
+                            "oneOf": [
+                              {
+                                "properties": {
+                                  "message": {
+                                    "type": "string"
+                                  },
+                                  "name": {
+                                    "type": "string"
+                                  }
+                                },
+                                "required": [
+                                  "message",
+                                  "name"
+                                ],
+                                "type": "object"
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ]
+                          },
+                          "event_type": {
+                            "type": "string"
+                          },
+                          "finished": {
+                            "type": "boolean"
+                          },
+                          "name": {
+                            "type": "string"
+                          },
+                          "output": {
+                            "type": "string"
+                          },
+                          "start": {
+                            "format": "date-time",
+                            "type": "string"
+                          },
+                          "type": {
+                            "enum": [
+                              "waitForEvent"
+                            ],
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "end",
+                          "error",
+                          "finished",
+                          "name",
+                          "start",
+                          "type"
+                        ],
+                        "type": "object"
+                      }
+                    ]
+                  },
+                  "type": "array"
+                },
+                "success": {
+                  "oneOf": [
+                    {
+                      "type": "boolean"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "trigger": {
+                  "properties": {
+                    "source": {
+                      "enum": [
+                        "unknown",
+                        "api",
+                        "binding",
+                        "event",
+                        "cron"
+                      ],
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "source"
+                  ],
+                  "type": "object"
+                },
+                "versionId": {
+                  "format": "uuid",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "end",
+                "error",
+                "output",
+                "params",
+                "queued",
+                "rollback",
+                "start",
+                "status",
+                "step_count",
+                "steps",
+                "success",
+                "trigger",
+                "versionId"
+              ],
+              "type": "object"
+            },
+            "result_info": {
+              "properties": {
+                "count": {
+                  "type": "number"
+                },
+                "cursor": {
+                  "type": "string"
+                },
+                "page": {
+                  "type": "number"
+                },
+                "per_page": {
+                  "type": "number"
+                },
+                "total_count": {
+                  "type": "number"
+                },
+                "total_pages": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "count",
+                "per_page",
+                "total_count"
+              ],
+              "type": "object"
+            },
+            "success": {
+              "enum": [
+                true
+              ],
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "messages",
+            "result",
+            "success"
+          ],
+          "type": "object"
+        },
         "400": {
           "properties": {
             "errors": {
@@ -1727,6 +2196,43 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
+        "errors": {
+          "items": {
+            "properties": {
+              "code": {
+                "type": "number"
+              },
+              "message": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "code",
+              "message"
+            ],
+            "type": "object"
+          },
+          "maxItems": 0,
+          "type": "array"
+        },
+        "messages": {
+          "items": {
+            "properties": {
+              "code": {
+                "type": "number"
+              },
+              "message": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "code",
+              "message"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
         "result": {
           "items": {
             "properties": {
@@ -1837,10 +2343,19 @@ export const tools: readonly Tool[] = [
             "total_count"
           ],
           "type": "object"
+        },
+        "success": {
+          "enum": [
+            true
+          ],
+          "type": "boolean"
         }
       },
       "required": [
-        "result"
+        "errors",
+        "messages",
+        "result",
+        "success"
       ],
       "type": "object",
     },
@@ -1863,15 +2378,7 @@ export const tools: readonly Tool[] = [
         "enum": [
           "com.cloudflare.api.workers.write",
           "com.cloudflare.api.workers.read"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.api.workers.read": {
-            "name": "com_cloudflare_api_workers_read"
-          },
-          "com.cloudflare.api.workers.write": {
-            "name": "com_cloudflare_api_workers_write"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": true,
@@ -1884,6 +2391,43 @@ export const tools: readonly Tool[] = [
       schemas: {
         "200": {
           "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "code": {
+                    "type": "number"
+                  },
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message"
+                ],
+                "type": "object"
+              },
+              "maxItems": 0,
+              "type": "array"
+            },
+            "messages": {
+              "items": {
+                "properties": {
+                  "code": {
+                    "type": "number"
+                  },
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
             "result": {
               "items": {
                 "properties": {
@@ -1994,10 +2538,19 @@ export const tools: readonly Tool[] = [
                 "total_count"
               ],
               "type": "object"
+            },
+            "success": {
+              "enum": [
+                true
+              ],
+              "type": "boolean"
             }
           },
           "required": [
-            "result"
+            "errors",
+            "messages",
+            "result",
+            "success"
           ],
           "type": "object"
         },
@@ -2218,28 +2771,110 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
-        "status": {
-          "enum": [
-            "queued",
-            "running",
-            "paused",
-            "errored",
-            "terminated",
-            "complete",
-            "waitingForPause",
-            "waiting",
-            "rollingBack"
-          ],
-          "type": "string"
+        "errors": {
+          "items": {
+            "properties": {
+              "code": {
+                "type": "number"
+              },
+              "message": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "code",
+              "message"
+            ],
+            "type": "object"
+          },
+          "maxItems": 0,
+          "type": "array"
         },
-        "timestamp": {
-          "format": "date-time",
-          "type": "string"
+        "messages": {
+          "items": {
+            "properties": {
+              "code": {
+                "type": "number"
+              },
+              "message": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "code",
+              "message"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "result": {
+          "properties": {
+            "status": {
+              "enum": [
+                "queued",
+                "running",
+                "paused",
+                "errored",
+                "terminated",
+                "complete",
+                "waitingForPause",
+                "waiting",
+                "rollingBack"
+              ],
+              "type": "string"
+            },
+            "timestamp": {
+              "format": "date-time",
+              "type": "string"
+            }
+          },
+          "required": [
+            "status",
+            "timestamp"
+          ],
+          "type": "object"
+        },
+        "result_info": {
+          "properties": {
+            "count": {
+              "type": "number"
+            },
+            "cursor": {
+              "type": "string"
+            },
+            "page": {
+              "type": "number"
+            },
+            "per_page": {
+              "type": "number"
+            },
+            "total_count": {
+              "type": "number"
+            },
+            "total_pages": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "count",
+            "per_page",
+            "total_count"
+          ],
+          "type": "object"
+        },
+        "success": {
+          "enum": [
+            true
+          ],
+          "type": "boolean"
         }
       },
       "required": [
-        "status",
-        "timestamp"
+        "errors",
+        "messages",
+        "result",
+        "success"
       ],
       "type": "object",
     },
@@ -2270,28 +2905,110 @@ export const tools: readonly Tool[] = [
       schemas: {
         "200": {
           "properties": {
-            "status": {
-              "enum": [
-                "queued",
-                "running",
-                "paused",
-                "errored",
-                "terminated",
-                "complete",
-                "waitingForPause",
-                "waiting",
-                "rollingBack"
-              ],
-              "type": "string"
+            "errors": {
+              "items": {
+                "properties": {
+                  "code": {
+                    "type": "number"
+                  },
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message"
+                ],
+                "type": "object"
+              },
+              "maxItems": 0,
+              "type": "array"
             },
-            "timestamp": {
-              "format": "date-time",
-              "type": "string"
+            "messages": {
+              "items": {
+                "properties": {
+                  "code": {
+                    "type": "number"
+                  },
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result": {
+              "properties": {
+                "status": {
+                  "enum": [
+                    "queued",
+                    "running",
+                    "paused",
+                    "errored",
+                    "terminated",
+                    "complete",
+                    "waitingForPause",
+                    "waiting",
+                    "rollingBack"
+                  ],
+                  "type": "string"
+                },
+                "timestamp": {
+                  "format": "date-time",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "status",
+                "timestamp"
+              ],
+              "type": "object"
+            },
+            "result_info": {
+              "properties": {
+                "count": {
+                  "type": "number"
+                },
+                "cursor": {
+                  "type": "string"
+                },
+                "page": {
+                  "type": "number"
+                },
+                "per_page": {
+                  "type": "number"
+                },
+                "total_count": {
+                  "type": "number"
+                },
+                "total_pages": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "count",
+                "per_page",
+                "total_count"
+              ],
+              "type": "object"
+            },
+            "success": {
+              "enum": [
+                true
+              ],
+              "type": "boolean"
             }
           },
           "required": [
-            "status",
-            "timestamp"
+            "errors",
+            "messages",
+            "result",
+            "success"
           ],
           "type": "object"
         },
@@ -2548,28 +3265,110 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
-        "status": {
-          "enum": [
-            "queued",
-            "running",
-            "paused",
-            "errored",
-            "terminated",
-            "complete",
-            "waitingForPause",
-            "waiting",
-            "rollingBack"
-          ],
-          "type": "string"
+        "errors": {
+          "items": {
+            "properties": {
+              "code": {
+                "type": "number"
+              },
+              "message": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "code",
+              "message"
+            ],
+            "type": "object"
+          },
+          "maxItems": 0,
+          "type": "array"
         },
-        "timestamp": {
-          "format": "date-time",
-          "type": "string"
+        "messages": {
+          "items": {
+            "properties": {
+              "code": {
+                "type": "number"
+              },
+              "message": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "code",
+              "message"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "result": {
+          "properties": {
+            "status": {
+              "enum": [
+                "queued",
+                "running",
+                "paused",
+                "errored",
+                "terminated",
+                "complete",
+                "waitingForPause",
+                "waiting",
+                "rollingBack"
+              ],
+              "type": "string"
+            },
+            "timestamp": {
+              "format": "date-time",
+              "type": "string"
+            }
+          },
+          "required": [
+            "status",
+            "timestamp"
+          ],
+          "type": "object"
+        },
+        "result_info": {
+          "properties": {
+            "count": {
+              "type": "number"
+            },
+            "cursor": {
+              "type": "string"
+            },
+            "page": {
+              "type": "number"
+            },
+            "per_page": {
+              "type": "number"
+            },
+            "total_count": {
+              "type": "number"
+            },
+            "total_pages": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "count",
+            "per_page",
+            "total_count"
+          ],
+          "type": "object"
+        },
+        "success": {
+          "enum": [
+            true
+          ],
+          "type": "boolean"
         }
       },
       "required": [
-        "status",
-        "timestamp"
+        "errors",
+        "messages",
+        "result",
+        "success"
       ],
       "type": "object",
     },
@@ -2597,28 +3396,110 @@ export const tools: readonly Tool[] = [
       schemas: {
         "200": {
           "properties": {
-            "status": {
-              "enum": [
-                "queued",
-                "running",
-                "paused",
-                "errored",
-                "terminated",
-                "complete",
-                "waitingForPause",
-                "waiting",
-                "rollingBack"
-              ],
-              "type": "string"
+            "errors": {
+              "items": {
+                "properties": {
+                  "code": {
+                    "type": "number"
+                  },
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message"
+                ],
+                "type": "object"
+              },
+              "maxItems": 0,
+              "type": "array"
             },
-            "timestamp": {
-              "format": "date-time",
-              "type": "string"
+            "messages": {
+              "items": {
+                "properties": {
+                  "code": {
+                    "type": "number"
+                  },
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result": {
+              "properties": {
+                "status": {
+                  "enum": [
+                    "queued",
+                    "running",
+                    "paused",
+                    "errored",
+                    "terminated",
+                    "complete",
+                    "waitingForPause",
+                    "waiting",
+                    "rollingBack"
+                  ],
+                  "type": "string"
+                },
+                "timestamp": {
+                  "format": "date-time",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "status",
+                "timestamp"
+              ],
+              "type": "object"
+            },
+            "result_info": {
+              "properties": {
+                "count": {
+                  "type": "number"
+                },
+                "cursor": {
+                  "type": "string"
+                },
+                "page": {
+                  "type": "number"
+                },
+                "per_page": {
+                  "type": "number"
+                },
+                "total_count": {
+                  "type": "number"
+                },
+                "total_pages": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "count",
+                "per_page",
+                "total_count"
+              ],
+              "type": "object"
+            },
+            "success": {
+              "enum": [
+                true
+              ],
+              "type": "boolean"
             }
           },
           "required": [
-            "status",
-            "timestamp"
+            "errors",
+            "messages",
+            "result",
+            "success"
           ],
           "type": "object"
         },
@@ -2875,28 +3756,110 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
-        "status": {
-          "enum": [
-            "queued",
-            "running",
-            "paused",
-            "errored",
-            "terminated",
-            "complete",
-            "waitingForPause",
-            "waiting",
-            "rollingBack"
-          ],
-          "type": "string"
+        "errors": {
+          "items": {
+            "properties": {
+              "code": {
+                "type": "number"
+              },
+              "message": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "code",
+              "message"
+            ],
+            "type": "object"
+          },
+          "maxItems": 0,
+          "type": "array"
         },
-        "timestamp": {
-          "format": "date-time",
-          "type": "string"
+        "messages": {
+          "items": {
+            "properties": {
+              "code": {
+                "type": "number"
+              },
+              "message": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "code",
+              "message"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "result": {
+          "properties": {
+            "status": {
+              "enum": [
+                "queued",
+                "running",
+                "paused",
+                "errored",
+                "terminated",
+                "complete",
+                "waitingForPause",
+                "waiting",
+                "rollingBack"
+              ],
+              "type": "string"
+            },
+            "timestamp": {
+              "format": "date-time",
+              "type": "string"
+            }
+          },
+          "required": [
+            "status",
+            "timestamp"
+          ],
+          "type": "object"
+        },
+        "result_info": {
+          "properties": {
+            "count": {
+              "type": "number"
+            },
+            "cursor": {
+              "type": "string"
+            },
+            "page": {
+              "type": "number"
+            },
+            "per_page": {
+              "type": "number"
+            },
+            "total_count": {
+              "type": "number"
+            },
+            "total_pages": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "count",
+            "per_page",
+            "total_count"
+          ],
+          "type": "object"
+        },
+        "success": {
+          "enum": [
+            true
+          ],
+          "type": "boolean"
         }
       },
       "required": [
-        "status",
-        "timestamp"
+        "errors",
+        "messages",
+        "result",
+        "success"
       ],
       "type": "object",
     },
@@ -2927,28 +3890,110 @@ export const tools: readonly Tool[] = [
       schemas: {
         "200": {
           "properties": {
-            "status": {
-              "enum": [
-                "queued",
-                "running",
-                "paused",
-                "errored",
-                "terminated",
-                "complete",
-                "waitingForPause",
-                "waiting",
-                "rollingBack"
-              ],
-              "type": "string"
+            "errors": {
+              "items": {
+                "properties": {
+                  "code": {
+                    "type": "number"
+                  },
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message"
+                ],
+                "type": "object"
+              },
+              "maxItems": 0,
+              "type": "array"
             },
-            "timestamp": {
-              "format": "date-time",
-              "type": "string"
+            "messages": {
+              "items": {
+                "properties": {
+                  "code": {
+                    "type": "number"
+                  },
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result": {
+              "properties": {
+                "status": {
+                  "enum": [
+                    "queued",
+                    "running",
+                    "paused",
+                    "errored",
+                    "terminated",
+                    "complete",
+                    "waitingForPause",
+                    "waiting",
+                    "rollingBack"
+                  ],
+                  "type": "string"
+                },
+                "timestamp": {
+                  "format": "date-time",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "status",
+                "timestamp"
+              ],
+              "type": "object"
+            },
+            "result_info": {
+              "properties": {
+                "count": {
+                  "type": "number"
+                },
+                "cursor": {
+                  "type": "string"
+                },
+                "page": {
+                  "type": "number"
+                },
+                "per_page": {
+                  "type": "number"
+                },
+                "total_count": {
+                  "type": "number"
+                },
+                "total_pages": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "count",
+                "per_page",
+                "total_count"
+              ],
+              "type": "object"
+            },
+            "success": {
+              "enum": [
+                true
+              ],
+              "type": "boolean"
             }
           },
           "required": [
-            "status",
-            "timestamp"
+            "errors",
+            "messages",
+            "result",
+            "success"
           ],
           "type": "object"
         },
@@ -3205,28 +4250,110 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
-        "status": {
-          "enum": [
-            "queued",
-            "running",
-            "paused",
-            "errored",
-            "terminated",
-            "complete",
-            "waitingForPause",
-            "waiting",
-            "rollingBack"
-          ],
-          "type": "string"
+        "errors": {
+          "items": {
+            "properties": {
+              "code": {
+                "type": "number"
+              },
+              "message": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "code",
+              "message"
+            ],
+            "type": "object"
+          },
+          "maxItems": 0,
+          "type": "array"
         },
-        "timestamp": {
-          "format": "date-time",
-          "type": "string"
+        "messages": {
+          "items": {
+            "properties": {
+              "code": {
+                "type": "number"
+              },
+              "message": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "code",
+              "message"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "result": {
+          "properties": {
+            "status": {
+              "enum": [
+                "queued",
+                "running",
+                "paused",
+                "errored",
+                "terminated",
+                "complete",
+                "waitingForPause",
+                "waiting",
+                "rollingBack"
+              ],
+              "type": "string"
+            },
+            "timestamp": {
+              "format": "date-time",
+              "type": "string"
+            }
+          },
+          "required": [
+            "status",
+            "timestamp"
+          ],
+          "type": "object"
+        },
+        "result_info": {
+          "properties": {
+            "count": {
+              "type": "number"
+            },
+            "cursor": {
+              "type": "string"
+            },
+            "page": {
+              "type": "number"
+            },
+            "per_page": {
+              "type": "number"
+            },
+            "total_count": {
+              "type": "number"
+            },
+            "total_pages": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "count",
+            "per_page",
+            "total_count"
+          ],
+          "type": "object"
+        },
+        "success": {
+          "enum": [
+            true
+          ],
+          "type": "boolean"
         }
       },
       "required": [
-        "status",
-        "timestamp"
+        "errors",
+        "messages",
+        "result",
+        "success"
       ],
       "type": "object",
     },
@@ -3254,28 +4381,110 @@ export const tools: readonly Tool[] = [
       schemas: {
         "200": {
           "properties": {
-            "status": {
-              "enum": [
-                "queued",
-                "running",
-                "paused",
-                "errored",
-                "terminated",
-                "complete",
-                "waitingForPause",
-                "waiting",
-                "rollingBack"
-              ],
-              "type": "string"
+            "errors": {
+              "items": {
+                "properties": {
+                  "code": {
+                    "type": "number"
+                  },
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message"
+                ],
+                "type": "object"
+              },
+              "maxItems": 0,
+              "type": "array"
             },
-            "timestamp": {
-              "format": "date-time",
-              "type": "string"
+            "messages": {
+              "items": {
+                "properties": {
+                  "code": {
+                    "type": "number"
+                  },
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result": {
+              "properties": {
+                "status": {
+                  "enum": [
+                    "queued",
+                    "running",
+                    "paused",
+                    "errored",
+                    "terminated",
+                    "complete",
+                    "waitingForPause",
+                    "waiting",
+                    "rollingBack"
+                  ],
+                  "type": "string"
+                },
+                "timestamp": {
+                  "format": "date-time",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "status",
+                "timestamp"
+              ],
+              "type": "object"
+            },
+            "result_info": {
+              "properties": {
+                "count": {
+                  "type": "number"
+                },
+                "cursor": {
+                  "type": "string"
+                },
+                "page": {
+                  "type": "number"
+                },
+                "per_page": {
+                  "type": "number"
+                },
+                "total_count": {
+                  "type": "number"
+                },
+                "total_pages": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "count",
+                "per_page",
+                "total_count"
+              ],
+              "type": "object"
+            },
+            "success": {
+              "enum": [
+                true
+              ],
+              "type": "boolean"
             }
           },
           "required": [
-            "status",
-            "timestamp"
+            "errors",
+            "messages",
+            "result",
+            "success"
           ],
           "type": "object"
         },

@@ -3,10 +3,17 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
+  email_api_response_collection_output,
+  email_api_response_common_output,
+  email_api_response_single_output,
   email_dns_record_output,
-  email_dns_record_ttl_output,
+  email_dns_settings_response_collection_output,
+  email_messages_output,
 } from "../../../outputs.js";
+import { email_identifier } from "../../../schemas.js";
 import { email_sending_subdomain_config_error_output } from "../outputs.js";
+import { email_sending_subdomain_identifier } from "../schemas.js";
+import { email_sending_subdomain_dns_status_response_output } from "./outputs.js";
 
 /**
  * The tools of `email_sending.subdomains.dns`.
@@ -20,48 +27,31 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "subdomain_id": {
-          "description": "Sending subdomain identifier.",
-          "type": "string"
+          "$ref": "#/$defs/email_sending_subdomain_identifier",
+          "description": "Sending subdomain identifier."
         },
         "zone_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/email_identifier",
+          "description": "Identifier."
         }
       },
       required: [
         "zone_id",
         "subdomain_id"
       ],
+      $defs: {
+        "email_identifier": email_identifier,
+        "email_sending_subdomain_identifier": email_sending_subdomain_identifier,
+      },
     },
     outputSchema: {
-      "properties": {
-        "errors": {
-          "items": {
-            "$ref": "#/$defs/email_sending_subdomain_config_error"
-          },
-          "type": "array"
-        },
-        "records": {
-          "items": {
-            "$ref": "#/$defs/email_dns_record"
-          },
-          "type": "array"
-        },
-        "status": {
-          "enum": [
-            "ready",
-            "unconfigured",
-            "unlocked",
-            "misconfigured"
-          ],
-          "type": "string"
-        }
-      },
-      "type": "object",
+      "$ref": "#/$defs/email_sending_subdomain_dns_status_response",
       $defs: {
+        "email_api-response-single": email_api_response_single_output,
         "email_dns_record": email_dns_record_output,
-        "email_dns_record_ttl": email_dns_record_ttl_output,
+        "email_messages": email_messages_output,
         "email_sending_subdomain_config_error": email_sending_subdomain_config_error_output,
+        "email_sending_subdomain_dns_status_response": email_sending_subdomain_dns_status_response_output,
       },
     },
     annotations: {
@@ -77,12 +67,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "com.cloudflare.api.account.email.sending.create"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.api.account.email.sending.create": {
-            "name": "com_cloudflare_api_account_email_sending_create"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": true,
@@ -94,30 +79,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "errors": {
-              "items": {
-                "$ref": "#/$defs/email_sending_subdomain_config_error"
-              },
-              "type": "array"
-            },
-            "records": {
-              "items": {
-                "$ref": "#/$defs/email_dns_record"
-              },
-              "type": "array"
-            },
-            "status": {
-              "enum": [
-                "ready",
-                "unconfigured",
-                "unlocked",
-                "misconfigured"
-              ],
-              "type": "string"
-            }
-          },
-          "type": "object"
+          "$ref": "#/$defs/email_sending_subdomain_dns_status_response"
         },
         "400": null,
         "403": null,
@@ -125,9 +87,11 @@ export const tools: readonly Tool[] = [
         "409": null
       },
       $defs: {
+        "email_api-response-single": email_api_response_single_output,
         "email_dns_record": email_dns_record_output,
-        "email_dns_record_ttl": email_dns_record_ttl_output,
+        "email_messages": email_messages_output,
         "email_sending_subdomain_config_error": email_sending_subdomain_config_error_output,
+        "email_sending_subdomain_dns_status_response": email_sending_subdomain_dns_status_response_output,
       },
     },
     request: (args) => ({
@@ -142,55 +106,31 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "subdomain_id": {
-          "description": "Sending subdomain identifier.",
-          "type": "string"
+          "$ref": "#/$defs/email_sending_subdomain_identifier",
+          "description": "Sending subdomain identifier."
         },
         "zone_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/email_identifier",
+          "description": "Identifier."
         }
       },
       required: [
         "zone_id",
         "subdomain_id"
       ],
+      $defs: {
+        "email_identifier": email_identifier,
+        "email_sending_subdomain_identifier": email_sending_subdomain_identifier,
+      },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "$ref": "#/$defs/email_dns_record"
-          },
-          "type": "array"
-        },
-        "result_info": {
-          "properties": {
-            "count": {
-              "type": "number"
-            },
-            "page": {
-              "type": "number"
-            },
-            "per_page": {
-              "type": "number"
-            },
-            "total_count": {
-              "type": "number"
-            },
-            "total_pages": {
-              "type": "number"
-            }
-          },
-          "type": "object"
-        }
-      },
-      "required": [
-        "result"
-      ],
-      "type": "object",
+      "$ref": "#/$defs/email_dns_settings_response_collection",
       $defs: {
+        "email_api-response-collection": email_api_response_collection_output,
+        "email_api-response-common": email_api_response_common_output,
         "email_dns_record": email_dns_record_output,
-        "email_dns_record_ttl": email_dns_record_ttl_output,
+        "email_dns_settings_response_collection": email_dns_settings_response_collection_output,
+        "email_messages": email_messages_output,
       },
     },
     annotations: {
@@ -206,12 +146,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "com.cloudflare.api.account.email.sending.read"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.api.account.email.sending.read": {
-            "name": "com_cloudflare_api_account_email_sending_read"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": true,
@@ -223,44 +158,16 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "items": {
-                "$ref": "#/$defs/email_dns_record"
-              },
-              "type": "array"
-            },
-            "result_info": {
-              "properties": {
-                "count": {
-                  "type": "number"
-                },
-                "page": {
-                  "type": "number"
-                },
-                "per_page": {
-                  "type": "number"
-                },
-                "total_count": {
-                  "type": "number"
-                },
-                "total_pages": {
-                  "type": "number"
-                }
-              },
-              "type": "object"
-            }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/email_dns_settings_response_collection"
         },
         "404": null
       },
       $defs: {
+        "email_api-response-collection": email_api_response_collection_output,
+        "email_api-response-common": email_api_response_common_output,
         "email_dns_record": email_dns_record_output,
-        "email_dns_record_ttl": email_dns_record_ttl_output,
+        "email_dns_settings_response_collection": email_dns_settings_response_collection_output,
+        "email_messages": email_messages_output,
       },
     },
     request: (args) => ({
@@ -275,48 +182,31 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "subdomain_id": {
-          "description": "Sending subdomain identifier.",
-          "type": "string"
+          "$ref": "#/$defs/email_sending_subdomain_identifier",
+          "description": "Sending subdomain identifier."
         },
         "zone_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/email_identifier",
+          "description": "Identifier."
         }
       },
       required: [
         "zone_id",
         "subdomain_id"
       ],
+      $defs: {
+        "email_identifier": email_identifier,
+        "email_sending_subdomain_identifier": email_sending_subdomain_identifier,
+      },
     },
     outputSchema: {
-      "properties": {
-        "errors": {
-          "items": {
-            "$ref": "#/$defs/email_sending_subdomain_config_error"
-          },
-          "type": "array"
-        },
-        "records": {
-          "items": {
-            "$ref": "#/$defs/email_dns_record"
-          },
-          "type": "array"
-        },
-        "status": {
-          "enum": [
-            "ready",
-            "unconfigured",
-            "unlocked",
-            "misconfigured"
-          ],
-          "type": "string"
-        }
-      },
-      "type": "object",
+      "$ref": "#/$defs/email_sending_subdomain_dns_status_response",
       $defs: {
+        "email_api-response-single": email_api_response_single_output,
         "email_dns_record": email_dns_record_output,
-        "email_dns_record_ttl": email_dns_record_ttl_output,
+        "email_messages": email_messages_output,
         "email_sending_subdomain_config_error": email_sending_subdomain_config_error_output,
+        "email_sending_subdomain_dns_status_response": email_sending_subdomain_dns_status_response_output,
       },
     },
     annotations: {
@@ -332,12 +222,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "com.cloudflare.api.account.email.sending.read"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.api.account.email.sending.read": {
-            "name": "com_cloudflare_api_account_email_sending_read"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": true,
@@ -349,38 +234,17 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "errors": {
-              "items": {
-                "$ref": "#/$defs/email_sending_subdomain_config_error"
-              },
-              "type": "array"
-            },
-            "records": {
-              "items": {
-                "$ref": "#/$defs/email_dns_record"
-              },
-              "type": "array"
-            },
-            "status": {
-              "enum": [
-                "ready",
-                "unconfigured",
-                "unlocked",
-                "misconfigured"
-              ],
-              "type": "string"
-            }
-          },
-          "type": "object"
+          "$ref": "#/$defs/email_sending_subdomain_dns_status_response"
         },
         "400": null,
         "404": null
       },
       $defs: {
+        "email_api-response-single": email_api_response_single_output,
         "email_dns_record": email_dns_record_output,
-        "email_dns_record_ttl": email_dns_record_ttl_output,
+        "email_messages": email_messages_output,
         "email_sending_subdomain_config_error": email_sending_subdomain_config_error_output,
+        "email_sending_subdomain_dns_status_response": email_sending_subdomain_dns_status_response_output,
       },
     },
     request: (args) => ({

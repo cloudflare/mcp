@@ -14,27 +14,17 @@ export const intel_asn_output: JsonSchema = {
  * The schema of `intel_asn_components-schemas-response` in responses.
  */
 export const intel_asn_components_schemas_response_output: JsonSchema = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/intel_schemas-messages"
+  "allOf": [
+    {
+      "$ref": "#/$defs/intel_api-response-single"
     },
-    "messages": {
-      "$ref": "#/$defs/intel_schemas-messages"
-    },
-    "result": {
-      "$ref": "#/$defs/intel_asn"
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/intel_asn"
+        }
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "success"
-  ],
-  "type": "object"
+  ]
 };

@@ -33,11 +33,52 @@ export const iam_invited_on_output: JsonSchema = {
 };
 
 /**
+ * The schema of `iam_schemas-collection_invite_response` in responses.
+ */
+export const iam_schemas_collection_invite_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/iam_api-response-collection"
+    },
+    {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/iam_user_invite"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
  * The schema of `iam_schemas-expires_on` in responses.
  */
 export const iam_schemas_expires_on_output: JsonSchema = {
   "format": "date-time",
   "type": "string"
+};
+
+/**
+ * The schema of `iam_single_invite_response` in responses.
+ */
+export const iam_single_invite_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/iam_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/iam_user_invite"
+        }
+      },
+      "type": "object"
+    }
+  ]
 };
 
 /**

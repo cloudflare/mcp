@@ -7,29 +7,19 @@ import type { JsonSchema } from "../../../_/tool.js";
  * The schema of `custom-indicator-feeds_create_provider_response` in responses.
  */
 export const custom_indicator_feeds_create_provider_response_output: JsonSchema = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/custom-indicator-feeds_messages-2"
+  "allOf": [
+    {
+      "$ref": "#/$defs/custom-indicator-feeds_api-response-single"
     },
-    "messages": {
-      "$ref": "#/$defs/custom-indicator-feeds_messages-2"
-    },
-    "result": {
-      "$ref": "#/$defs/custom-indicator-feeds_create_provider_result"
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/custom-indicator-feeds_create_provider_result"
+        }
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "success"
-  ],
-  "type": "object"
+  ]
 };
 
 /**

@@ -4,9 +4,15 @@
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
   teams_devices_api_response_common_failure_output,
+  teams_devices_api_response_common_output,
+  teams_devices_api_response_single_output,
   teams_devices_messages_output,
 } from "../outputs.js";
-import { teams_devices_zero_trust_account_device_settings_output } from "./outputs.js";
+import { teams_devices_identifier } from "../schemas.js";
+import {
+  teams_devices_zero_trust_account_device_settings_output,
+  teams_devices_zero_trust_account_device_settings_response_output,
+} from "./outputs.js";
 import { teams_devices_zero_trust_account_device_settings } from "./schemas.js";
 
 /**
@@ -21,17 +27,24 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "type": "string"
+          "$ref": "#/$defs/teams-devices_identifier"
         }
       },
       required: [
         "account_id"
       ],
+      $defs: {
+        "teams-devices_identifier": teams_devices_identifier,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/teams-devices_zero-trust-account-device-settings",
+      "$ref": "#/$defs/teams-devices_zero-trust-account-device-settings-response",
       $defs: {
+        "teams-devices_api-response-common": teams_devices_api_response_common_output,
+        "teams-devices_api-response-single": teams_devices_api_response_single_output,
+        "teams-devices_messages": teams_devices_messages_output,
         "teams-devices_zero-trust-account-device-settings": teams_devices_zero_trust_account_device_settings_output,
+        "teams-devices_zero-trust-account-device-settings-response": teams_devices_zero_trust_account_device_settings_response_output,
       },
     },
     annotations: {
@@ -51,16 +64,19 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/teams-devices_zero-trust-account-device-settings"
+          "$ref": "#/$defs/teams-devices_zero-trust-account-device-settings-response"
         },
         "4XX": {
           "$ref": "#/$defs/teams-devices_api-response-common-failure"
         }
       },
       $defs: {
+        "teams-devices_api-response-common": teams_devices_api_response_common_output,
         "teams-devices_api-response-common-failure": teams_devices_api_response_common_failure_output,
+        "teams-devices_api-response-single": teams_devices_api_response_single_output,
         "teams-devices_messages": teams_devices_messages_output,
         "teams-devices_zero-trust-account-device-settings": teams_devices_zero_trust_account_device_settings_output,
+        "teams-devices_zero-trust-account-device-settings-response": teams_devices_zero_trust_account_device_settings_response_output,
       },
     },
     request: (args) => ({
@@ -75,17 +91,24 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "type": "string"
+          "$ref": "#/$defs/teams-devices_identifier"
         }
       },
       required: [
         "account_id"
       ],
+      $defs: {
+        "teams-devices_identifier": teams_devices_identifier,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/teams-devices_zero-trust-account-device-settings",
+      "$ref": "#/$defs/teams-devices_zero-trust-account-device-settings-response",
       $defs: {
+        "teams-devices_api-response-common": teams_devices_api_response_common_output,
+        "teams-devices_api-response-single": teams_devices_api_response_single_output,
+        "teams-devices_messages": teams_devices_messages_output,
         "teams-devices_zero-trust-account-device-settings": teams_devices_zero_trust_account_device_settings_output,
+        "teams-devices_zero-trust-account-device-settings-response": teams_devices_zero_trust_account_device_settings_response_output,
       },
     },
     annotations: {
@@ -100,16 +123,19 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/teams-devices_zero-trust-account-device-settings"
+          "$ref": "#/$defs/teams-devices_zero-trust-account-device-settings-response"
         },
         "4XX": {
           "$ref": "#/$defs/teams-devices_api-response-common-failure"
         }
       },
       $defs: {
+        "teams-devices_api-response-common": teams_devices_api_response_common_output,
         "teams-devices_api-response-common-failure": teams_devices_api_response_common_failure_output,
+        "teams-devices_api-response-single": teams_devices_api_response_single_output,
         "teams-devices_messages": teams_devices_messages_output,
         "teams-devices_zero-trust-account-device-settings": teams_devices_zero_trust_account_device_settings_output,
+        "teams-devices_zero-trust-account-device-settings-response": teams_devices_zero_trust_account_device_settings_response_output,
       },
     },
     request: (args) => ({
@@ -124,7 +150,7 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "type": "string"
+          "$ref": "#/$defs/teams-devices_identifier"
         },
         "body": {
           "$ref": "#/$defs/teams-devices_zero-trust-account-device-settings"
@@ -135,13 +161,18 @@ export const tools: readonly Tool[] = [
         "body"
       ],
       $defs: {
+        "teams-devices_identifier": teams_devices_identifier,
         "teams-devices_zero-trust-account-device-settings": teams_devices_zero_trust_account_device_settings,
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/teams-devices_zero-trust-account-device-settings",
+      "$ref": "#/$defs/teams-devices_zero-trust-account-device-settings-response",
       $defs: {
+        "teams-devices_api-response-common": teams_devices_api_response_common_output,
+        "teams-devices_api-response-single": teams_devices_api_response_single_output,
+        "teams-devices_messages": teams_devices_messages_output,
         "teams-devices_zero-trust-account-device-settings": teams_devices_zero_trust_account_device_settings_output,
+        "teams-devices_zero-trust-account-device-settings-response": teams_devices_zero_trust_account_device_settings_response_output,
       },
     },
     annotations: {
@@ -161,16 +192,19 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/teams-devices_zero-trust-account-device-settings"
+          "$ref": "#/$defs/teams-devices_zero-trust-account-device-settings-response"
         },
         "4XX": {
           "$ref": "#/$defs/teams-devices_api-response-common-failure"
         }
       },
       $defs: {
+        "teams-devices_api-response-common": teams_devices_api_response_common_output,
         "teams-devices_api-response-common-failure": teams_devices_api_response_common_failure_output,
+        "teams-devices_api-response-single": teams_devices_api_response_single_output,
         "teams-devices_messages": teams_devices_messages_output,
         "teams-devices_zero-trust-account-device-settings": teams_devices_zero_trust_account_device_settings_output,
+        "teams-devices_zero-trust-account-device-settings-response": teams_devices_zero_trust_account_device_settings_response_output,
       },
     },
     request: (args) => ({

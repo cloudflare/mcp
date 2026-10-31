@@ -2,6 +2,14 @@
 /* eslint-disable */
 
 import { type Tool, pathParam } from "../../../../_/tool.js";
+import {
+  realtimekit_GenericErrorResponse_output,
+  realtimekit_ValidationIssue_output,
+} from "../../outputs.js";
+import {
+  realtimekit_account_identifier,
+  realtimekit_app_id,
+} from "../../schemas.js";
 import { realtimekit_PeerEvent_output } from "../outputs.js";
 import {
   realtimekit_AudioConsumerStatsCumulative_output,
@@ -15,25 +23,14 @@ import {
   realtimekit_PeerReportDeviceUpdate_output,
   realtimekit_PeerReportDevice_output,
   realtimekit_PeerReportEvent_output,
-  realtimekit_PeerReportMetadata_browser_metadata_output,
-  realtimekit_PeerReportMetadata_candidate_pairs_output,
-  realtimekit_PeerReportMetadata_device_info_output,
-  realtimekit_PeerReportMetadata_ip_information_asn_output,
-  realtimekit_PeerReportMetadata_ip_information_output,
-  realtimekit_PeerReportMetadata_native_metadata_output,
   realtimekit_PeerReportMetadata_output,
-  realtimekit_PeerReportMetadata_pc_metadataItem_output,
-  realtimekit_PeerReportMetadata_selected_device_updatesItem_output,
   realtimekit_PeerReportQuality_output,
   realtimekit_PeerReport_output,
   realtimekit_PercentileStats_output,
-  realtimekit_VideoConsumerStatsCumulative_issues_output,
   realtimekit_VideoConsumerStatsCumulative_output,
   realtimekit_VideoConsumerStats_output,
-  realtimekit_VideoProducerStatsCumulative_issues_output,
   realtimekit_VideoProducerStatsCumulative_output,
   realtimekit_VideoProducerStats_output,
-  realtimekit_VideoProducerStats_quality_limitation_durations_output,
 } from "./outputs.js";
 
 /**
@@ -48,12 +45,12 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "The account identifier tag.",
-          "type": "string"
+          "$ref": "#/$defs/realtimekit_account_identifier",
+          "description": "The account identifier tag."
         },
         "app_id": {
-          "description": "The app identifier tag.",
-          "type": "string"
+          "$ref": "#/$defs/realtimekit_app_id",
+          "description": "The app identifier tag."
         },
         "filters": {
           "description": "Filter to apply to the peer report.",
@@ -82,6 +79,10 @@ export const tools: readonly Tool[] = [
         "app_id",
         "peer_id"
       ],
+      $defs: {
+        "realtimekit_account_identifier": realtimekit_account_identifier,
+        "realtimekit_app_id": realtimekit_app_id,
+      },
     },
     outputSchema: {
       "properties": {
@@ -113,23 +114,12 @@ export const tools: readonly Tool[] = [
         "realtimekit_PeerReportDeviceUpdate": realtimekit_PeerReportDeviceUpdate_output,
         "realtimekit_PeerReportEvent": realtimekit_PeerReportEvent_output,
         "realtimekit_PeerReportMetadata": realtimekit_PeerReportMetadata_output,
-        "realtimekit_PeerReportMetadata_browser_metadata": realtimekit_PeerReportMetadata_browser_metadata_output,
-        "realtimekit_PeerReportMetadata_candidate_pairs": realtimekit_PeerReportMetadata_candidate_pairs_output,
-        "realtimekit_PeerReportMetadata_device_info": realtimekit_PeerReportMetadata_device_info_output,
-        "realtimekit_PeerReportMetadata_ip_information": realtimekit_PeerReportMetadata_ip_information_output,
-        "realtimekit_PeerReportMetadata_ip_information_asn": realtimekit_PeerReportMetadata_ip_information_asn_output,
-        "realtimekit_PeerReportMetadata_native_metadata": realtimekit_PeerReportMetadata_native_metadata_output,
-        "realtimekit_PeerReportMetadata_pc_metadataItem": realtimekit_PeerReportMetadata_pc_metadataItem_output,
-        "realtimekit_PeerReportMetadata_selected_device_updatesItem": realtimekit_PeerReportMetadata_selected_device_updatesItem_output,
         "realtimekit_PeerReportQuality": realtimekit_PeerReportQuality_output,
         "realtimekit_PercentileStats": realtimekit_PercentileStats_output,
         "realtimekit_VideoConsumerStats": realtimekit_VideoConsumerStats_output,
         "realtimekit_VideoConsumerStatsCumulative": realtimekit_VideoConsumerStatsCumulative_output,
-        "realtimekit_VideoConsumerStatsCumulative_issues": realtimekit_VideoConsumerStatsCumulative_issues_output,
         "realtimekit_VideoProducerStats": realtimekit_VideoProducerStats_output,
         "realtimekit_VideoProducerStatsCumulative": realtimekit_VideoProducerStatsCumulative_output,
-        "realtimekit_VideoProducerStatsCumulative_issues": realtimekit_VideoProducerStatsCumulative_issues_output,
-        "realtimekit_VideoProducerStats_quality_limitation_durations": realtimekit_VideoProducerStats_quality_limitation_durations_output,
       },
     },
     annotations: {
@@ -164,6 +154,9 @@ export const tools: readonly Tool[] = [
             }
           },
           "type": "object"
+        },
+        "4XX": {
+          "$ref": "#/$defs/realtimekit_GenericErrorResponse"
         }
       },
       $defs: {
@@ -172,6 +165,7 @@ export const tools: readonly Tool[] = [
         "realtimekit_AudioProducerStats": realtimekit_AudioProducerStats_output,
         "realtimekit_AudioProducerStatsCumulative": realtimekit_AudioProducerStatsCumulative_output,
         "realtimekit_CandidatePairStats": realtimekit_CandidatePairStats_output,
+        "realtimekit_GenericErrorResponse": realtimekit_GenericErrorResponse_output,
         "realtimekit_LatencyCumulative": realtimekit_LatencyCumulative_output,
         "realtimekit_PacketLossCumulative": realtimekit_PacketLossCumulative_output,
         "realtimekit_PeerEvent": realtimekit_PeerEvent_output,
@@ -181,23 +175,13 @@ export const tools: readonly Tool[] = [
         "realtimekit_PeerReportDeviceUpdate": realtimekit_PeerReportDeviceUpdate_output,
         "realtimekit_PeerReportEvent": realtimekit_PeerReportEvent_output,
         "realtimekit_PeerReportMetadata": realtimekit_PeerReportMetadata_output,
-        "realtimekit_PeerReportMetadata_browser_metadata": realtimekit_PeerReportMetadata_browser_metadata_output,
-        "realtimekit_PeerReportMetadata_candidate_pairs": realtimekit_PeerReportMetadata_candidate_pairs_output,
-        "realtimekit_PeerReportMetadata_device_info": realtimekit_PeerReportMetadata_device_info_output,
-        "realtimekit_PeerReportMetadata_ip_information": realtimekit_PeerReportMetadata_ip_information_output,
-        "realtimekit_PeerReportMetadata_ip_information_asn": realtimekit_PeerReportMetadata_ip_information_asn_output,
-        "realtimekit_PeerReportMetadata_native_metadata": realtimekit_PeerReportMetadata_native_metadata_output,
-        "realtimekit_PeerReportMetadata_pc_metadataItem": realtimekit_PeerReportMetadata_pc_metadataItem_output,
-        "realtimekit_PeerReportMetadata_selected_device_updatesItem": realtimekit_PeerReportMetadata_selected_device_updatesItem_output,
         "realtimekit_PeerReportQuality": realtimekit_PeerReportQuality_output,
         "realtimekit_PercentileStats": realtimekit_PercentileStats_output,
+        "realtimekit_ValidationIssue": realtimekit_ValidationIssue_output,
         "realtimekit_VideoConsumerStats": realtimekit_VideoConsumerStats_output,
         "realtimekit_VideoConsumerStatsCumulative": realtimekit_VideoConsumerStatsCumulative_output,
-        "realtimekit_VideoConsumerStatsCumulative_issues": realtimekit_VideoConsumerStatsCumulative_issues_output,
         "realtimekit_VideoProducerStats": realtimekit_VideoProducerStats_output,
         "realtimekit_VideoProducerStatsCumulative": realtimekit_VideoProducerStatsCumulative_output,
-        "realtimekit_VideoProducerStatsCumulative_issues": realtimekit_VideoProducerStatsCumulative_issues_output,
-        "realtimekit_VideoProducerStats_quality_limitation_durations": realtimekit_VideoProducerStats_quality_limitation_durations_output,
       },
     },
     request: (args) => ({

@@ -3,9 +3,17 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
+  cloudflare_k2_workers_k2_common_success_output,
+  cloudflare_k2_workers_k2_messages_output,
+} from "../outputs.js";
+import {
+  cloudflare_k2_workers_k2_account_id,
+  cloudflare_k2_workers_k2_stream_id,
+} from "../schemas.js";
+import {
   cloudflare_k2_K2ConsumerLag_output,
+  cloudflare_k2_K2MonitoredSubscriptionListResponse_output,
   cloudflare_k2_K2MonitoredSubscription_output,
-  cloudflare_k2_K2MonitoredSubscription_start_at_output,
 } from "./outputs.js";
 
 /**
@@ -20,39 +28,31 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Specifies the public ID of the account.",
-          "type": "string"
+          "$ref": "#/$defs/cloudflare-k2_workers-k2-account-id",
+          "description": "Specifies the public ID of the account."
         },
         "stream_id": {
-          "description": "Specifies the public ID of the K2 stream.",
-          "type": "string"
+          "$ref": "#/$defs/cloudflare-k2_workers-k2-stream-id",
+          "description": "Specifies the public ID of the K2 stream."
         }
       },
       required: [
         "account_id",
         "stream_id"
       ],
+      $defs: {
+        "cloudflare-k2_workers-k2-account-id": cloudflare_k2_workers_k2_account_id,
+        "cloudflare-k2_workers-k2-stream-id": cloudflare_k2_workers_k2_stream_id,
+      },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "$ref": "#/$defs/cloudflare-k2_K2MonitoredSubscription"
-          },
-          "type": "array"
-        },
-        "result_info": {
-          "type": "object"
-        }
-      },
-      "required": [
-        "result"
-      ],
-      "type": "object",
+      "$ref": "#/$defs/cloudflare-k2_K2MonitoredSubscriptionListResponse",
       $defs: {
         "cloudflare-k2_K2ConsumerLag": cloudflare_k2_K2ConsumerLag_output,
         "cloudflare-k2_K2MonitoredSubscription": cloudflare_k2_K2MonitoredSubscription_output,
-        "cloudflare-k2_K2MonitoredSubscription_start_at": cloudflare_k2_K2MonitoredSubscription_start_at_output,
+        "cloudflare-k2_K2MonitoredSubscriptionListResponse": cloudflare_k2_K2MonitoredSubscriptionListResponse_output,
+        "cloudflare-k2_workers-k2-common-success": cloudflare_k2_workers_k2_common_success_output,
+        "cloudflare-k2_workers-k2-messages": cloudflare_k2_workers_k2_messages_output,
       },
     },
     annotations: {
@@ -75,21 +75,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "items": {
-                "$ref": "#/$defs/cloudflare-k2_K2MonitoredSubscription"
-              },
-              "type": "array"
-            },
-            "result_info": {
-              "type": "object"
-            }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/cloudflare-k2_K2MonitoredSubscriptionListResponse"
         },
         "4XX": null,
         "5XX": null
@@ -97,7 +83,9 @@ export const tools: readonly Tool[] = [
       $defs: {
         "cloudflare-k2_K2ConsumerLag": cloudflare_k2_K2ConsumerLag_output,
         "cloudflare-k2_K2MonitoredSubscription": cloudflare_k2_K2MonitoredSubscription_output,
-        "cloudflare-k2_K2MonitoredSubscription_start_at": cloudflare_k2_K2MonitoredSubscription_start_at_output,
+        "cloudflare-k2_K2MonitoredSubscriptionListResponse": cloudflare_k2_K2MonitoredSubscriptionListResponse_output,
+        "cloudflare-k2_workers-k2-common-success": cloudflare_k2_workers_k2_common_success_output,
+        "cloudflare-k2_workers-k2-messages": cloudflare_k2_workers_k2_messages_output,
       },
     },
     request: (args) => ({

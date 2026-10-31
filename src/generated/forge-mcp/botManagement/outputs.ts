@@ -4,6 +4,42 @@
 import type { JsonSchema } from "../_/tool.js";
 
 /**
+ * The schema of `bot-management_ai_agent_action` in responses.
+ */
+export const bot_management_ai_agent_action_output: JsonSchema = {
+  "enum": [
+    "disabled",
+    "block",
+    "only_on_ad_pages"
+  ],
+  "type": "string"
+};
+
+/**
+ * The schema of `bot-management_ai_agents` in responses.
+ */
+export const bot_management_ai_agents_output: JsonSchema = {
+  "properties": {
+    "anthropic_agent": {
+      "$ref": "#/$defs/bot-management_ai_agent_action"
+    },
+    "google_agent": {
+      "$ref": "#/$defs/bot-management_ai_agent_action"
+    },
+    "instinct": {
+      "$ref": "#/$defs/bot-management_ai_agent_action"
+    },
+    "muse": {
+      "$ref": "#/$defs/bot-management_ai_agent_action"
+    },
+    "openai_agent": {
+      "$ref": "#/$defs/bot-management_ai_agent_action"
+    }
+  },
+  "type": "object"
+};
+
+/**
  * The schema of `bot-management_ai_bots_migration_opt_out` in responses.
  */
 export const bot_management_ai_bots_migration_opt_out_output: JsonSchema = {
@@ -90,6 +126,32 @@ export const bot_management_api_response_common_failure_output: JsonSchema = {
 };
 
 /**
+ * The schema of `bot-management_api-response-single` in responses.
+ */
+export const bot_management_api_response_single_output: JsonSchema = {
+  "properties": {
+    "errors": {
+      "$ref": "#/$defs/bot-management_messages"
+    },
+    "messages": {
+      "$ref": "#/$defs/bot-management_messages"
+    },
+    "success": {
+      "enum": [
+        true
+      ],
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "errors",
+    "messages",
+    "success"
+  ],
+  "type": "object"
+};
+
+/**
  * The schema of `bot-management_auto_update_model` in responses.
  */
 export const bot_management_auto_update_model_output: JsonSchema = {
@@ -101,6 +163,9 @@ export const bot_management_auto_update_model_output: JsonSchema = {
  */
 export const bot_management_base_config_output: JsonSchema = {
   "properties": {
+    "ai_agents": {
+      "$ref": "#/$defs/bot-management_ai_agents"
+    },
     "ai_bots_migration_opt_out": {
       "$ref": "#/$defs/bot-management_ai_bots_migration_opt_out"
     },
@@ -234,6 +299,38 @@ export const bot_management_bot_fight_mode_config_output: JsonSchema = {
             }
           },
           "type": "object"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `bot-management_bot_management_response_body` in responses.
+ */
+export const bot_management_bot_management_response_body_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/bot-management_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/bot-management_bot_fight_mode_config"
+            },
+            {
+              "$ref": "#/$defs/bot-management_sbfm_definitely_config"
+            },
+            {
+              "$ref": "#/$defs/bot-management_sbfm_likely_config"
+            },
+            {
+              "$ref": "#/$defs/bot-management_bm_subscription_config"
+            }
+          ]
         }
       },
       "type": "object"

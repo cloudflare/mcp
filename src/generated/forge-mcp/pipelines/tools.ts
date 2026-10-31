@@ -6,7 +6,12 @@ import {
   cloudflare_pipelines_PipelineEdge_output,
   cloudflare_pipelines_PipelineGraph_output,
   cloudflare_pipelines_PipelineNode_output,
+  cloudflare_pipelines_worker_pipelines_common_success_output,
 } from "./outputs.js";
+import {
+  cloudflare_pipelines_workers_pipelines_account_id,
+  cloudflare_pipelines_workers_pipelines_pipeline_id,
+} from "./schemas.js";
 
 /**
  * The tools of `pipelines`.
@@ -20,8 +25,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Specifies the public ID of the account.",
-          "type": "string"
+          "$ref": "#/$defs/cloudflare-pipelines_workers-pipelines-account-id",
+          "description": "Specifies the public ID of the account."
         },
         "body": {
           "properties": {
@@ -44,61 +49,13 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+      $defs: {
+        "cloudflare-pipelines_workers-pipelines-account-id": cloudflare_pipelines_workers_pipelines_account_id,
+      },
     },
     outputSchema: {
       "properties": {
-        "created_at": {
-          "type": "string"
-        },
-        "id": {
-          "type": "string"
-        },
-        "modified_at": {
-          "type": "string"
-        },
-        "name": {
-          "type": "string"
-        },
-        "sql": {
-          "type": "string"
-        },
-        "status": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "created_at",
-        "id",
-        "modified_at",
-        "name",
-        "sql",
-        "status"
-      ],
-      "type": "object",
-    },
-    annotations: {
-      "destructiveHint": false,
-      "idempotentHint": false,
-      "openWorldHint": true,
-      "readOnlyHint": false,
-      "title": "Create Pipeline"
-    },
-    method: "POST",
-    path: "/accounts/{account_id}/pipelines/v1/pipelines",
-    extensions: {
-      "x-api-token-group": [
-        "Pipelines Write"
-      ],
-      "x-cfPlanAvailability": {
-        "business": true,
-        "enterprise": true,
-        "free": false,
-        "pro": true
-      }
-    },
-    responses: {
-      schemas: {
-        "200": {
+        "result": {
           "properties": {
             "created_at": {
               "type": "string"
@@ -129,7 +86,88 @@ export const tools: readonly Tool[] = [
           ],
           "type": "object"
         },
+        "success": {
+          "$ref": "#/$defs/cloudflare-pipelines_worker-pipelines-common-success"
+        }
+      },
+      "required": [
+        "result",
+        "success"
+      ],
+      "type": "object",
+      $defs: {
+        "cloudflare-pipelines_worker-pipelines-common-success": cloudflare_pipelines_worker_pipelines_common_success_output,
+      },
+    },
+    annotations: {
+      "destructiveHint": false,
+      "idempotentHint": false,
+      "openWorldHint": true,
+      "readOnlyHint": false,
+      "title": "Create Pipeline"
+    },
+    method: "POST",
+    path: "/accounts/{account_id}/pipelines/v1/pipelines",
+    extensions: {
+      "x-api-token-group": [
+        "Pipelines Write"
+      ],
+      "x-cfPlanAvailability": {
+        "business": true,
+        "enterprise": true,
+        "free": false,
+        "pro": true
+      }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "properties": {
+                "created_at": {
+                  "type": "string"
+                },
+                "id": {
+                  "type": "string"
+                },
+                "modified_at": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "sql": {
+                  "type": "string"
+                },
+                "status": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "created_at",
+                "id",
+                "modified_at",
+                "name",
+                "sql",
+                "status"
+              ],
+              "type": "object"
+            },
+            "success": {
+              "$ref": "#/$defs/cloudflare-pipelines_worker-pipelines-common-success"
+            }
+          },
+          "required": [
+            "result",
+            "success"
+          ],
+          "type": "object"
+        },
         "4XX": null
+      },
+      $defs: {
+        "cloudflare-pipelines_worker-pipelines-common-success": cloudflare_pipelines_worker_pipelines_common_success_output,
       },
     },
     request: (args) => ({
@@ -145,21 +183,40 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Specifies the public ID of the account.",
-          "type": "string"
+          "$ref": "#/$defs/cloudflare-pipelines_workers-pipelines-account-id",
+          "description": "Specifies the public ID of the account."
         },
         "pipeline_id": {
-          "description": "Specifies the public ID of the pipeline.",
-          "type": "string"
+          "$ref": "#/$defs/cloudflare-pipelines_workers-pipelines-pipeline-id",
+          "description": "Specifies the public ID of the pipeline."
         }
       },
       required: [
         "account_id",
         "pipeline_id"
       ],
+      $defs: {
+        "cloudflare-pipelines_workers-pipelines-account-id": cloudflare_pipelines_workers_pipelines_account_id,
+        "cloudflare-pipelines_workers-pipelines-pipeline-id": cloudflare_pipelines_workers_pipelines_pipeline_id,
+      },
     },
     outputSchema: {
+      "properties": {
+        "result": {
+          "type": "object"
+        },
+        "success": {
+          "$ref": "#/$defs/cloudflare-pipelines_worker-pipelines-common-success"
+        }
+      },
+      "required": [
+        "result",
+        "success"
+      ],
       "type": "object",
+      $defs: {
+        "cloudflare-pipelines_worker-pipelines-common-success": cloudflare_pipelines_worker_pipelines_common_success_output,
+      },
     },
     annotations: {
       "destructiveHint": true,
@@ -181,9 +238,24 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
+          "properties": {
+            "result": {
+              "type": "object"
+            },
+            "success": {
+              "$ref": "#/$defs/cloudflare-pipelines_worker-pipelines-common-success"
+            }
+          },
+          "required": [
+            "result",
+            "success"
+          ],
           "type": "object"
         },
         "4XX": null
+      },
+      $defs: {
+        "cloudflare-pipelines_worker-pipelines-common-success": cloudflare_pipelines_worker_pipelines_common_success_output,
       },
     },
     request: (args) => ({
@@ -198,112 +270,26 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Specifies the public ID of the account.",
-          "type": "string"
+          "$ref": "#/$defs/cloudflare-pipelines_workers-pipelines-account-id",
+          "description": "Specifies the public ID of the account."
         },
         "pipeline_id": {
-          "description": "Specifies the public ID of the pipeline.",
-          "type": "string"
+          "$ref": "#/$defs/cloudflare-pipelines_workers-pipelines-pipeline-id",
+          "description": "Specifies the public ID of the pipeline."
         }
       },
       required: [
         "account_id",
         "pipeline_id"
       ],
+      $defs: {
+        "cloudflare-pipelines_workers-pipelines-account-id": cloudflare_pipelines_workers_pipelines_account_id,
+        "cloudflare-pipelines_workers-pipelines-pipeline-id": cloudflare_pipelines_workers_pipelines_pipeline_id,
+      },
     },
     outputSchema: {
       "properties": {
-        "created_at": {
-          "type": "string"
-        },
-        "failure_reason": {
-          "type": "string"
-        },
-        "id": {
-          "type": "string"
-        },
-        "modified_at": {
-          "type": "string"
-        },
-        "name": {
-          "type": "string"
-        },
-        "sql": {
-          "type": "string"
-        },
-        "status": {
-          "type": "string"
-        },
-        "tables": {
-          "items": {
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "latest": {
-                "type": "integer"
-              },
-              "name": {
-                "type": "string"
-              },
-              "type": {
-                "enum": [
-                  "stream",
-                  "sink"
-                ],
-                "type": "string"
-              },
-              "version": {
-                "type": "integer"
-              }
-            },
-            "required": [
-              "id",
-              "latest",
-              "name",
-              "type",
-              "version"
-            ],
-            "type": "object"
-          },
-          "type": "array"
-        }
-      },
-      "required": [
-        "created_at",
-        "id",
-        "modified_at",
-        "name",
-        "sql",
-        "status",
-        "tables"
-      ],
-      "type": "object",
-    },
-    annotations: {
-      "destructiveHint": false,
-      "idempotentHint": true,
-      "openWorldHint": true,
-      "readOnlyHint": true,
-      "title": "Get Pipeline Details"
-    },
-    method: "GET",
-    path: "/accounts/{account_id}/pipelines/v1/pipelines/{pipeline_id}",
-    extensions: {
-      "x-api-token-group": [
-        "Pipelines Write",
-        "Pipelines Read"
-      ],
-      "x-cfPlanAvailability": {
-        "business": true,
-        "enterprise": true,
-        "free": false,
-        "pro": true
-      }
-    },
-    responses: {
-      schemas: {
-        "200": {
+        "result": {
           "properties": {
             "created_at": {
               "type": "string"
@@ -372,7 +358,127 @@ export const tools: readonly Tool[] = [
           ],
           "type": "object"
         },
+        "success": {
+          "$ref": "#/$defs/cloudflare-pipelines_worker-pipelines-common-success"
+        }
+      },
+      "required": [
+        "result",
+        "success"
+      ],
+      "type": "object",
+      $defs: {
+        "cloudflare-pipelines_worker-pipelines-common-success": cloudflare_pipelines_worker_pipelines_common_success_output,
+      },
+    },
+    annotations: {
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": true,
+      "readOnlyHint": true,
+      "title": "Get Pipeline Details"
+    },
+    method: "GET",
+    path: "/accounts/{account_id}/pipelines/v1/pipelines/{pipeline_id}",
+    extensions: {
+      "x-api-token-group": [
+        "Pipelines Write",
+        "Pipelines Read"
+      ],
+      "x-cfPlanAvailability": {
+        "business": true,
+        "enterprise": true,
+        "free": false,
+        "pro": true
+      }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "properties": {
+                "created_at": {
+                  "type": "string"
+                },
+                "failure_reason": {
+                  "type": "string"
+                },
+                "id": {
+                  "type": "string"
+                },
+                "modified_at": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "sql": {
+                  "type": "string"
+                },
+                "status": {
+                  "type": "string"
+                },
+                "tables": {
+                  "items": {
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "latest": {
+                        "type": "integer"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "type": {
+                        "enum": [
+                          "stream",
+                          "sink"
+                        ],
+                        "type": "string"
+                      },
+                      "version": {
+                        "type": "integer"
+                      }
+                    },
+                    "required": [
+                      "id",
+                      "latest",
+                      "name",
+                      "type",
+                      "version"
+                    ],
+                    "type": "object"
+                  },
+                  "type": "array"
+                }
+              },
+              "required": [
+                "created_at",
+                "id",
+                "modified_at",
+                "name",
+                "sql",
+                "status",
+                "tables"
+              ],
+              "type": "object"
+            },
+            "success": {
+              "$ref": "#/$defs/cloudflare-pipelines_worker-pipelines-common-success"
+            }
+          },
+          "required": [
+            "result",
+            "success"
+          ],
+          "type": "object"
+        },
         "4XX": null
+      },
+      $defs: {
+        "cloudflare-pipelines_worker-pipelines-common-success": cloudflare_pipelines_worker_pipelines_common_success_output,
       },
     },
     request: (args) => ({
@@ -387,8 +493,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Specifies the public ID of the account.",
-          "type": "string"
+          "$ref": "#/$defs/cloudflare-pipelines_workers-pipelines-account-id",
+          "description": "Specifies the public ID of the account."
         },
         "name": {
           "description": "Filters pipelines by name (case-insensitive substring).",
@@ -405,6 +511,9 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+      $defs: {
+        "cloudflare-pipelines_workers-pipelines-account-id": cloudflare_pipelines_workers_pipelines_account_id,
+      },
     },
     outputSchema: {
       "properties": {
@@ -464,12 +573,20 @@ export const tools: readonly Tool[] = [
             "total_count"
           ],
           "type": "object"
+        },
+        "success": {
+          "$ref": "#/$defs/cloudflare-pipelines_worker-pipelines-common-success"
         }
       },
       "required": [
-        "result"
+        "result",
+        "result_info",
+        "success"
       ],
       "type": "object",
+      $defs: {
+        "cloudflare-pipelines_worker-pipelines-common-success": cloudflare_pipelines_worker_pipelines_common_success_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -552,14 +669,22 @@ export const tools: readonly Tool[] = [
                 "total_count"
               ],
               "type": "object"
+            },
+            "success": {
+              "$ref": "#/$defs/cloudflare-pipelines_worker-pipelines-common-success"
             }
           },
           "required": [
-            "result"
+            "result",
+            "result_info",
+            "success"
           ],
           "type": "object"
         },
         "4XX": null
+      },
+      $defs: {
+        "cloudflare-pipelines_worker-pipelines-common-success": cloudflare_pipelines_worker_pipelines_common_success_output,
       },
     },
     request: (args) => ({
@@ -579,8 +704,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Specifies the public ID of the account.",
-          "type": "string"
+          "$ref": "#/$defs/cloudflare-pipelines_workers-pipelines-account-id",
+          "description": "Specifies the public ID of the account."
         },
         "body": {
           "properties": {
@@ -598,72 +723,13 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+      $defs: {
+        "cloudflare-pipelines_workers-pipelines-account-id": cloudflare_pipelines_workers_pipelines_account_id,
+      },
     },
     outputSchema: {
       "properties": {
-        "graph": {
-          "$ref": "#/$defs/cloudflare-pipelines_PipelineGraph"
-        },
-        "tables": {
-          "additionalProperties": {
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "type": {
-                "type": "string"
-              },
-              "version": {
-                "type": "number"
-              }
-            },
-            "required": [
-              "id",
-              "name",
-              "type",
-              "version"
-            ],
-            "type": "object"
-          },
-          "type": "object"
-        }
-      },
-      "required": [
-        "tables"
-      ],
-      "type": "object",
-      $defs: {
-        "cloudflare-pipelines_PipelineEdge": cloudflare_pipelines_PipelineEdge_output,
-        "cloudflare-pipelines_PipelineGraph": cloudflare_pipelines_PipelineGraph_output,
-        "cloudflare-pipelines_PipelineNode": cloudflare_pipelines_PipelineNode_output,
-      },
-    },
-    annotations: {
-      "destructiveHint": false,
-      "idempotentHint": false,
-      "openWorldHint": true,
-      "readOnlyHint": false,
-      "title": "Validate SQL"
-    },
-    method: "POST",
-    path: "/accounts/{account_id}/pipelines/v1/validate_sql",
-    extensions: {
-      "x-api-token-group": [
-        "Pipelines Write"
-      ],
-      "x-cfPlanAvailability": {
-        "business": true,
-        "enterprise": true,
-        "free": false,
-        "pro": true
-      }
-    },
-    responses: {
-      schemas: {
-        "200": {
+        "result": {
           "properties": {
             "graph": {
               "$ref": "#/$defs/cloudflare-pipelines_PipelineGraph"
@@ -697,6 +763,93 @@ export const tools: readonly Tool[] = [
           },
           "required": [
             "tables"
+          ],
+          "type": "object"
+        },
+        "success": {
+          "$ref": "#/$defs/cloudflare-pipelines_worker-pipelines-common-success"
+        }
+      },
+      "required": [
+        "result",
+        "success"
+      ],
+      "type": "object",
+      $defs: {
+        "cloudflare-pipelines_PipelineEdge": cloudflare_pipelines_PipelineEdge_output,
+        "cloudflare-pipelines_PipelineGraph": cloudflare_pipelines_PipelineGraph_output,
+        "cloudflare-pipelines_PipelineNode": cloudflare_pipelines_PipelineNode_output,
+        "cloudflare-pipelines_worker-pipelines-common-success": cloudflare_pipelines_worker_pipelines_common_success_output,
+      },
+    },
+    annotations: {
+      "destructiveHint": false,
+      "idempotentHint": false,
+      "openWorldHint": true,
+      "readOnlyHint": false,
+      "title": "Validate SQL"
+    },
+    method: "POST",
+    path: "/accounts/{account_id}/pipelines/v1/validate_sql",
+    extensions: {
+      "x-api-token-group": [
+        "Pipelines Write"
+      ],
+      "x-cfPlanAvailability": {
+        "business": true,
+        "enterprise": true,
+        "free": false,
+        "pro": true
+      }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "properties": {
+                "graph": {
+                  "$ref": "#/$defs/cloudflare-pipelines_PipelineGraph"
+                },
+                "tables": {
+                  "additionalProperties": {
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "type": {
+                        "type": "string"
+                      },
+                      "version": {
+                        "type": "number"
+                      }
+                    },
+                    "required": [
+                      "id",
+                      "name",
+                      "type",
+                      "version"
+                    ],
+                    "type": "object"
+                  },
+                  "type": "object"
+                }
+              },
+              "required": [
+                "tables"
+              ],
+              "type": "object"
+            },
+            "success": {
+              "$ref": "#/$defs/cloudflare-pipelines_worker-pipelines-common-success"
+            }
+          },
+          "required": [
+            "result",
+            "success"
           ],
           "type": "object"
         },
@@ -811,6 +964,7 @@ export const tools: readonly Tool[] = [
         "cloudflare-pipelines_PipelineEdge": cloudflare_pipelines_PipelineEdge_output,
         "cloudflare-pipelines_PipelineGraph": cloudflare_pipelines_PipelineGraph_output,
         "cloudflare-pipelines_PipelineNode": cloudflare_pipelines_PipelineNode_output,
+        "cloudflare-pipelines_worker-pipelines-common-success": cloudflare_pipelines_worker_pipelines_common_success_output,
       },
     },
     request: (args) => ({

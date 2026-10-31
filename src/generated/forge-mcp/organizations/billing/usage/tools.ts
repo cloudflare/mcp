@@ -6,6 +6,7 @@ import {
   billable_usage_api_api_response_common_failure_output,
   billable_usage_api_cost_and_usage_data_output,
   billable_usage_api_message_output,
+  billable_usage_api_v2_usage_response_output,
 } from "../../../outputs.js";
 import { billable_usage_api_identifier } from "../../../schemas.js";
 
@@ -43,23 +44,11 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "$ref": "#/$defs/billable-usage-api_cost_and_usage_data"
-          },
-          "type": "array"
-        },
-        "result_info": {
-          "type": "object"
-        }
-      },
-      "required": [
-        "result"
-      ],
-      "type": "object",
+      "$ref": "#/$defs/billable-usage-api_v2_usage_response",
       $defs: {
         "billable-usage-api_cost_and_usage_data": billable_usage_api_cost_and_usage_data_output,
+        "billable-usage-api_message": billable_usage_api_message_output,
+        "billable-usage-api_v2_usage_response": billable_usage_api_v2_usage_response_output,
       },
     },
     annotations: {
@@ -82,21 +71,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "items": {
-                "$ref": "#/$defs/billable-usage-api_cost_and_usage_data"
-              },
-              "type": "array"
-            },
-            "result_info": {
-              "type": "object"
-            }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/billable-usage-api_v2_usage_response"
         },
         "4XX": {
           "$ref": "#/$defs/billable-usage-api_api-response-common-failure"
@@ -106,6 +81,7 @@ export const tools: readonly Tool[] = [
         "billable-usage-api_api-response-common-failure": billable_usage_api_api_response_common_failure_output,
         "billable-usage-api_cost_and_usage_data": billable_usage_api_cost_and_usage_data_output,
         "billable-usage-api_message": billable_usage_api_message_output,
+        "billable-usage-api_v2_usage_response": billable_usage_api_v2_usage_response_output,
       },
     },
     request: (args) => ({

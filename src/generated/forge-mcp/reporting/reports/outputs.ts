@@ -9,7 +9,43 @@ import type { JsonSchema } from "../../_/tool.js";
 export const reports_ApplicationSecurityReportV1_output: JsonSchema = {
   "properties": {
     "input": {
-      "$ref": "#/$defs/reports_ApplicationSecurityReportV1_input"
+      "properties": {
+        "time_range": {
+          "properties": {
+            "end_time": {
+              "oneOf": [
+                {
+                  "format": "date-time",
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "start_time": {
+              "oneOf": [
+                {
+                  "format": "date-time",
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            }
+          },
+          "required": [
+            "end_time",
+            "start_time"
+          ],
+          "type": "object"
+        }
+      },
+      "required": [
+        "time_range"
+      ],
+      "type": "object"
     },
     "output": {
       "$ref": "#/$defs/reports_ApplicationSecurityReportV1Data"
@@ -34,7 +70,95 @@ export const reports_ApplicationSecurityReportV1Data_output: JsonSchema = {
       "type": "string"
     },
     "industry": {
-      "$ref": "#/$defs/reports_ApplicationSecurityReportV1Data_industry"
+      "enum": [
+        "unknown",
+        "unsupported",
+        "accounting",
+        "adult_entertainment",
+        "agriculture",
+        "airlines_aviation_aerospace",
+        "animation_design",
+        "apparel_fashion",
+        "architecture_planning",
+        "automotive",
+        "banking_financial_services",
+        "broadcast_media",
+        "building_materials_construction",
+        "business_services_supplies_equipment",
+        "computer_hardware",
+        "computer_software",
+        "construction_civil_engineering",
+        "consumer_electronics",
+        "consumer_goods",
+        "consumer_services",
+        "cosmetics",
+        "cryptocurrency",
+        "cyber_security",
+        "defense_space",
+        "e_learning",
+        "education_academia",
+        "education_management",
+        "entertainment",
+        "environmental_services",
+        "events_services",
+        "facilities_services",
+        "fine_art_luxury_goods_jewelry",
+        "food_beverage",
+        "furniture",
+        "gambling_casinos",
+        "gaming",
+        "government",
+        "health_wellness_fitness",
+        "holding_companies_conglomerates",
+        "human_resources_staffing_recruiting",
+        "information_technology_services",
+        "insurance",
+        "international_public_affairs",
+        "international_trade_development",
+        "internet",
+        "investment_management",
+        "law_firms_legal_services",
+        "leisure_travel_tourism",
+        "logistics_supply_chain_import_export",
+        "management_consulting",
+        "manufacturing_machinery_technology_engineering",
+        "maritime",
+        "market_research",
+        "marketing_advertising",
+        "media_production_publishing",
+        "medical_devices_healthcare_software_services",
+        "medical_practices_clinics_hospitals_health_care",
+        "military_law_enforcement",
+        "mining_minerals_metals",
+        "motion_pictures_and_film",
+        "museums_libraries",
+        "music_art",
+        "newspapers",
+        "nonprofit",
+        "oil_energy_utilities_waste",
+        "organizations_local_business",
+        "outsourcing_offshoring",
+        "pharmaceuticals_biotechnology_alternative_medicine",
+        "photographic_optical_equipment",
+        "political_organization",
+        "print_digital_media",
+        "professional_training_coaching",
+        "real_estate",
+        "religious_institutions",
+        "renewables_environment",
+        "research_think_tanks",
+        "restaurants",
+        "retail",
+        "security_services_investigations",
+        "social_impact_and_community_services",
+        "sporting_goods",
+        "supermarkets_groceries",
+        "telecommunications_service_providers_and_carriers",
+        "transportation_shipping_packaging_delivery",
+        "travel_lodging_hospitality",
+        "wholesale"
+      ],
+      "type": "string"
     },
     "industry_percentile": {
       "oneOf": [
@@ -47,40 +171,196 @@ export const reports_ApplicationSecurityReportV1Data_output: JsonSchema = {
       ]
     },
     "time_range": {
-      "$ref": "#/$defs/reports_ApplicationSecurityReportV1Data_time_range"
+      "properties": {
+        "end_time": {
+          "oneOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "start_time": {
+          "oneOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "end_time",
+        "start_time"
+      ],
+      "type": "object"
     },
     "top_countries_by_mitigated_requests": {
       "items": {
-        "$ref": "#/$defs/reports_ApplicationSecurityReportV1Data_top_countries_by_mitigated_requestsItem"
+        "properties": {
+          "count": {
+            "type": "integer"
+          },
+          "country_alpha2": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "count",
+          "country_alpha2"
+        ],
+        "type": "object"
       },
       "type": "array"
     },
     "top_countries_by_served_requests": {
       "items": {
-        "$ref": "#/$defs/reports_ApplicationSecurityReportV1Data_top_countries_by_served_requestsItem"
+        "properties": {
+          "count": {
+            "type": "integer"
+          },
+          "country_alpha2": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "count",
+          "country_alpha2"
+        ],
+        "type": "object"
       },
       "type": "array"
     },
     "top_hostnames_by_mitigated_requests": {
       "items": {
-        "$ref": "#/$defs/reports_ApplicationSecurityReportV1Data_top_hostnames_by_mitigated_requestsItem"
+        "properties": {
+          "count": {
+            "type": "integer"
+          },
+          "hostname": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "count",
+          "hostname"
+        ],
+        "type": "object"
       },
       "type": "array"
     },
     "top_rules_by_mitigated_requests": {
       "items": {
-        "$ref": "#/$defs/reports_ApplicationSecurityReportV1Data_top_rules_by_mitigated_requestsItem"
+        "properties": {
+          "count": {
+            "type": "integer"
+          },
+          "description": {
+            "type": "string"
+          },
+          "kind": {
+            "enum": [
+              "unknown",
+              "custom",
+              "managed"
+            ],
+            "type": "string"
+          },
+          "rule_id": {
+            "type": "string"
+          },
+          "ruleset_id": {
+            "type": "string"
+          },
+          "source": {
+            "enum": [
+              "unknown",
+              "asn",
+              "country",
+              "ip",
+              "ip_range",
+              "security_level",
+              "zone_lockdown",
+              "waf",
+              "firewall_rules",
+              "ua_block",
+              "rate_limit",
+              "bic",
+              "hot",
+              "l7_ddos",
+              "validation",
+              "bot_fight",
+              "api_shield",
+              "bot_management",
+              "dlp",
+              "firewall_managed",
+              "firewall_custom",
+              "api_shield_schema_validation",
+              "api_shield_token_validation",
+              "api_shield_sequence_mitigation"
+            ],
+            "type": "string"
+          }
+        },
+        "required": [
+          "count",
+          "description",
+          "kind",
+          "rule_id",
+          "ruleset_id",
+          "source"
+        ],
+        "type": "object"
       },
       "type": "array"
     },
     "total_requests": {
-      "$ref": "#/$defs/reports_ApplicationSecurityReportV1Data_total_requests"
+      "properties": {
+        "count": {
+          "type": "integer"
+        },
+        "percent_change": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "count"
+      ],
+      "type": "object"
     },
     "total_requests_mitigated": {
-      "$ref": "#/$defs/reports_ApplicationSecurityReportV1Data_total_requests_mitigated"
+      "properties": {
+        "count": {
+          "type": "integer"
+        },
+        "percent_change": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "count"
+      ],
+      "type": "object"
     },
     "total_requests_served": {
-      "$ref": "#/$defs/reports_ApplicationSecurityReportV1Data_total_requests_served"
+      "properties": {
+        "count": {
+          "type": "integer"
+        },
+        "percent_change": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "count"
+      ],
+      "type": "object"
     },
     "total_zones": {
       "type": "integer"
@@ -104,396 +384,6 @@ export const reports_ApplicationSecurityReportV1Data_output: JsonSchema = {
     "total_requests_served",
     "total_zones",
     "total_zones_analyzed"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `reports_ApplicationSecurityReportV1Data_industry` in
- * responses.
- */
-export const reports_ApplicationSecurityReportV1Data_industry_output: JsonSchema = {
-  "enum": [
-    "unknown",
-    "unsupported",
-    "accounting",
-    "adult_entertainment",
-    "agriculture",
-    "airlines_aviation_aerospace",
-    "animation_design",
-    "apparel_fashion",
-    "architecture_planning",
-    "automotive",
-    "banking_financial_services",
-    "broadcast_media",
-    "building_materials_construction",
-    "business_services_supplies_equipment",
-    "computer_hardware",
-    "computer_software",
-    "construction_civil_engineering",
-    "consumer_electronics",
-    "consumer_goods",
-    "consumer_services",
-    "cosmetics",
-    "cryptocurrency",
-    "cyber_security",
-    "defense_space",
-    "e_learning",
-    "education_academia",
-    "education_management",
-    "entertainment",
-    "environmental_services",
-    "events_services",
-    "facilities_services",
-    "fine_art_luxury_goods_jewelry",
-    "food_beverage",
-    "furniture",
-    "gambling_casinos",
-    "gaming",
-    "government",
-    "health_wellness_fitness",
-    "holding_companies_conglomerates",
-    "human_resources_staffing_recruiting",
-    "information_technology_services",
-    "insurance",
-    "international_public_affairs",
-    "international_trade_development",
-    "internet",
-    "investment_management",
-    "law_firms_legal_services",
-    "leisure_travel_tourism",
-    "logistics_supply_chain_import_export",
-    "management_consulting",
-    "manufacturing_machinery_technology_engineering",
-    "maritime",
-    "market_research",
-    "marketing_advertising",
-    "media_production_publishing",
-    "medical_devices_healthcare_software_services",
-    "medical_practices_clinics_hospitals_health_care",
-    "military_law_enforcement",
-    "mining_minerals_metals",
-    "motion_pictures_and_film",
-    "museums_libraries",
-    "music_art",
-    "newspapers",
-    "nonprofit",
-    "oil_energy_utilities_waste",
-    "organizations_local_business",
-    "outsourcing_offshoring",
-    "pharmaceuticals_biotechnology_alternative_medicine",
-    "photographic_optical_equipment",
-    "political_organization",
-    "print_digital_media",
-    "professional_training_coaching",
-    "real_estate",
-    "religious_institutions",
-    "renewables_environment",
-    "research_think_tanks",
-    "restaurants",
-    "retail",
-    "security_services_investigations",
-    "social_impact_and_community_services",
-    "sporting_goods",
-    "supermarkets_groceries",
-    "telecommunications_service_providers_and_carriers",
-    "transportation_shipping_packaging_delivery",
-    "travel_lodging_hospitality",
-    "wholesale"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `reports_ApplicationSecurityReportV1Data_time_range` in
- * responses.
- */
-export const reports_ApplicationSecurityReportV1Data_time_range_output: JsonSchema = {
-  "properties": {
-    "end_time": {
-      "oneOf": [
-        {
-          "format": "date-time",
-          "type": "string"
-        },
-        {
-          "type": "null"
-        }
-      ]
-    },
-    "start_time": {
-      "oneOf": [
-        {
-          "format": "date-time",
-          "type": "string"
-        },
-        {
-          "type": "null"
-        }
-      ]
-    }
-  },
-  "required": [
-    "end_time",
-    "start_time"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of
- * `reports_ApplicationSecurityReportV1Data_top_countries_by_mitigated_requestsItem`
- * in responses.
- */
-export const reports_ApplicationSecurityReportV1Data_top_countries_by_mitigated_requestsItem_output: JsonSchema = {
-  "properties": {
-    "count": {
-      "type": "integer"
-    },
-    "country_alpha2": {
-      "type": "string"
-    }
-  },
-  "required": [
-    "count",
-    "country_alpha2"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of
- * `reports_ApplicationSecurityReportV1Data_top_countries_by_served_requestsItem`
- * in responses.
- */
-export const reports_ApplicationSecurityReportV1Data_top_countries_by_served_requestsItem_output: JsonSchema = {
-  "properties": {
-    "count": {
-      "type": "integer"
-    },
-    "country_alpha2": {
-      "type": "string"
-    }
-  },
-  "required": [
-    "count",
-    "country_alpha2"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of
- * `reports_ApplicationSecurityReportV1Data_top_hostnames_by_mitigated_requestsItem`
- * in responses.
- */
-export const reports_ApplicationSecurityReportV1Data_top_hostnames_by_mitigated_requestsItem_output: JsonSchema = {
-  "properties": {
-    "count": {
-      "type": "integer"
-    },
-    "hostname": {
-      "type": "string"
-    }
-  },
-  "required": [
-    "count",
-    "hostname"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of
- * `reports_ApplicationSecurityReportV1Data_top_rules_by_mitigated_requestsItem`
- * in responses.
- */
-export const reports_ApplicationSecurityReportV1Data_top_rules_by_mitigated_requestsItem_output: JsonSchema = {
-  "properties": {
-    "count": {
-      "type": "integer"
-    },
-    "description": {
-      "type": "string"
-    },
-    "kind": {
-      "$ref": "#/$defs/reports_ApplicationSecurityReportV1Data_top_rules_by_mitigated_requestsItem_kind"
-    },
-    "rule_id": {
-      "type": "string"
-    },
-    "ruleset_id": {
-      "type": "string"
-    },
-    "source": {
-      "$ref": "#/$defs/reports_ApplicationSecurityReportV1Data_top_rules_by_mitigated_requestsItem_source"
-    }
-  },
-  "required": [
-    "count",
-    "description",
-    "kind",
-    "rule_id",
-    "ruleset_id",
-    "source"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of
- * `reports_ApplicationSecurityReportV1Data_top_rules_by_mitigated_requestsItem_kind`
- * in responses.
- */
-export const reports_ApplicationSecurityReportV1Data_top_rules_by_mitigated_requestsItem_kind_output: JsonSchema = {
-  "enum": [
-    "unknown",
-    "custom",
-    "managed"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of
- * `reports_ApplicationSecurityReportV1Data_top_rules_by_mitigated_requestsItem_source`
- * in responses.
- */
-export const reports_ApplicationSecurityReportV1Data_top_rules_by_mitigated_requestsItem_source_output: JsonSchema = {
-  "enum": [
-    "unknown",
-    "asn",
-    "country",
-    "ip",
-    "ip_range",
-    "security_level",
-    "zone_lockdown",
-    "waf",
-    "firewall_rules",
-    "ua_block",
-    "rate_limit",
-    "bic",
-    "hot",
-    "l7_ddos",
-    "validation",
-    "bot_fight",
-    "api_shield",
-    "bot_management",
-    "dlp",
-    "firewall_managed",
-    "firewall_custom",
-    "api_shield_schema_validation",
-    "api_shield_token_validation",
-    "api_shield_sequence_mitigation"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `reports_ApplicationSecurityReportV1Data_total_requests` in
- * responses.
- */
-export const reports_ApplicationSecurityReportV1Data_total_requests_output: JsonSchema = {
-  "properties": {
-    "count": {
-      "type": "integer"
-    },
-    "percent_change": {
-      "type": "number"
-    }
-  },
-  "required": [
-    "count"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of
- * `reports_ApplicationSecurityReportV1Data_total_requests_mitigated` in
- * responses.
- */
-export const reports_ApplicationSecurityReportV1Data_total_requests_mitigated_output: JsonSchema = {
-  "properties": {
-    "count": {
-      "type": "integer"
-    },
-    "percent_change": {
-      "type": "number"
-    }
-  },
-  "required": [
-    "count"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `reports_ApplicationSecurityReportV1Data_total_requests_served`
- * in responses.
- */
-export const reports_ApplicationSecurityReportV1Data_total_requests_served_output: JsonSchema = {
-  "properties": {
-    "count": {
-      "type": "integer"
-    },
-    "percent_change": {
-      "type": "number"
-    }
-  },
-  "required": [
-    "count"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `reports_ApplicationSecurityReportV1_input` in responses.
- */
-export const reports_ApplicationSecurityReportV1_input_output: JsonSchema = {
-  "properties": {
-    "time_range": {
-      "$ref": "#/$defs/reports_ApplicationSecurityReportV1_input_time_range"
-    }
-  },
-  "required": [
-    "time_range"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `reports_ApplicationSecurityReportV1_input_time_range` in
- * responses.
- */
-export const reports_ApplicationSecurityReportV1_input_time_range_output: JsonSchema = {
-  "properties": {
-    "end_time": {
-      "oneOf": [
-        {
-          "format": "date-time",
-          "type": "string"
-        },
-        {
-          "type": "null"
-        }
-      ]
-    },
-    "start_time": {
-      "oneOf": [
-        {
-          "format": "date-time",
-          "type": "string"
-        },
-        {
-          "type": "null"
-        }
-      ]
-    }
-  },
-  "required": [
-    "end_time",
-    "start_time"
   ],
   "type": "object"
 };
@@ -527,20 +417,98 @@ export const reports_GetReportResponse_output: JsonSchema = {
           "type": "integer"
         },
         "reason": {
-          "$ref": "#/$defs/reports_GetReportResponse_reason"
+          "enum": [
+            "unspecified",
+            "invalid_entitlements",
+            "policy_disabled"
+          ],
+          "type": "string"
         },
         "report": {
-          "$ref": "#/$defs/reports_GetReportResponse_report"
+          "properties": {
+            "type": {
+              "enum": [
+                "application_security_report_v1"
+              ],
+              "type": "string"
+            },
+            "value": {
+              "$ref": "#/$defs/reports_ApplicationSecurityReportV1"
+            }
+          },
+          "required": [
+            "type",
+            "value"
+          ],
+          "type": "object"
         },
         "report_id": {
           "format": "uuid",
           "type": "string"
         },
         "report_settings": {
-          "$ref": "#/$defs/reports_GetReportResponse_report_settings"
+          "properties": {
+            "type": {
+              "enum": [
+                "application_security_report_v1"
+              ],
+              "type": "string"
+            },
+            "value": {
+              "properties": {
+                "time_range": {
+                  "properties": {
+                    "end_time": {
+                      "oneOf": [
+                        {
+                          "format": "date-time",
+                          "type": "string"
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    },
+                    "start_time": {
+                      "oneOf": [
+                        {
+                          "format": "date-time",
+                          "type": "string"
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    }
+                  },
+                  "required": [
+                    "end_time",
+                    "start_time"
+                  ],
+                  "type": "object"
+                }
+              },
+              "required": [
+                "time_range"
+              ],
+              "type": "object"
+            }
+          },
+          "required": [
+            "type",
+            "value"
+          ],
+          "type": "object"
         },
         "report_status": {
-          "$ref": "#/$defs/reports_GetReportResponse_report_status"
+          "enum": [
+            "unspecified",
+            "scheduled",
+            "generating",
+            "finished",
+            "cancelled"
+          ],
+          "type": "string"
         },
         "scheduled_for": {
           "oneOf": [
@@ -584,267 +552,209 @@ export const reports_GetReportResponse_output: JsonSchema = {
 };
 
 /**
- * The schema of `reports_GetReportResponse_reason` in responses.
+ * The schema of `reports_ReportSingleResponse` in responses.
  */
-export const reports_GetReportResponse_reason_output: JsonSchema = {
-  "enum": [
-    "unspecified",
-    "invalid_entitlements",
-    "policy_disabled"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `reports_GetReportResponse_report` in responses.
- */
-export const reports_GetReportResponse_report_output: JsonSchema = {
+export const reports_ReportSingleResponse_output: JsonSchema = {
   "properties": {
-    "type": {
-      "enum": [
-        "application_security_report_v1"
-      ],
-      "type": "string"
-    },
-    "value": {
-      "$ref": "#/$defs/reports_ApplicationSecurityReportV1"
-    }
-  },
-  "required": [
-    "type",
-    "value"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `reports_GetReportResponse_report_settings` in responses.
- */
-export const reports_GetReportResponse_report_settings_output: JsonSchema = {
-  "properties": {
-    "type": {
-      "enum": [
-        "application_security_report_v1"
-      ],
-      "type": "string"
-    },
-    "value": {
-      "properties": {
-        "time_range": {
-          "properties": {
-            "end_time": {
-              "oneOf": [
-                {
-                  "format": "date-time",
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ]
-            },
-            "start_time": {
-              "oneOf": [
-                {
-                  "format": "date-time",
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ]
-            }
-          },
-          "required": [
-            "end_time",
-            "start_time"
-          ],
-          "type": "object"
-        }
+    "errors": {
+      "items": {
+        "$ref": "#/$defs/reports_Error"
       },
-      "required": [
-        "time_range"
-      ],
-      "type": "object"
-    }
-  },
-  "required": [
-    "type",
-    "value"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `reports_GetReportResponse_report_status` in responses.
- */
-export const reports_GetReportResponse_report_status_output: JsonSchema = {
-  "enum": [
-    "unspecified",
-    "scheduled",
-    "generating",
-    "finished",
-    "cancelled"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `reports_ReportsListResponse_resultItem` in responses.
- */
-export const reports_ReportsListResponse_resultItem_output: JsonSchema = {
-  "properties": {
-    "generated_on": {
-      "oneOf": [
-        {
-          "type": "string"
-        },
-        {
-          "type": "null"
-        }
-      ]
+      "type": "array"
     },
-    "generation_id": {
-      "format": "uuid",
-      "type": "string"
-    },
-    "policy_id": {
-      "format": "uuid",
-      "type": "string"
-    },
-    "policy_version": {
-      "type": "integer"
-    },
-    "reason": {
-      "$ref": "#/$defs/reports_ReportsListResponse_resultItem_reason"
-    },
-    "report_id": {
-      "format": "uuid",
-      "type": "string"
-    },
-    "report_settings": {
-      "$ref": "#/$defs/reports_ReportsListResponse_resultItem_report_settings"
-    },
-    "report_status": {
-      "$ref": "#/$defs/reports_ReportsListResponse_resultItem_report_status"
-    },
-    "scheduled_for": {
-      "oneOf": [
-        {
-          "format": "date-time",
-          "type": "string"
-        },
-        {
-          "type": "null"
-        }
-      ]
-    },
-    "scheduled_on": {
-      "oneOf": [
-        {
-          "format": "date-time",
-          "type": "string"
-        },
-        {
-          "type": "null"
-        }
-      ]
-    }
-  },
-  "required": [
-    "generation_id",
-    "policy_id",
-    "policy_version",
-    "report_id",
-    "report_status",
-    "scheduled_for",
-    "scheduled_on"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `reports_ReportsListResponse_resultItem_reason` in responses.
- */
-export const reports_ReportsListResponse_resultItem_reason_output: JsonSchema = {
-  "enum": [
-    "unspecified",
-    "invalid_entitlements",
-    "policy_disabled"
-  ],
-  "type": "string"
-};
-
-/**
- * The schema of `reports_ReportsListResponse_resultItem_report_settings` in
- * responses.
- */
-export const reports_ReportsListResponse_resultItem_report_settings_output: JsonSchema = {
-  "properties": {
-    "type": {
-      "enum": [
-        "application_security_report_v1"
-      ],
-      "type": "string"
-    },
-    "value": {
-      "properties": {
-        "time_range": {
-          "properties": {
-            "end_time": {
-              "oneOf": [
-                {
-                  "format": "date-time",
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ]
-            },
-            "start_time": {
-              "oneOf": [
-                {
-                  "format": "date-time",
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ]
-            }
-          },
-          "required": [
-            "end_time",
-            "start_time"
-          ],
-          "type": "object"
-        }
+    "messages": {
+      "items": {
+        "$ref": "#/$defs/reports_Message"
       },
-      "required": [
-        "time_range"
+      "type": "array"
+    },
+    "result": {
+      "$ref": "#/$defs/reports_GetReportResponse"
+    },
+    "success": {
+      "enum": [
+        true
       ],
-      "type": "object"
+      "type": "boolean"
     }
   },
   "required": [
-    "type",
-    "value"
+    "result",
+    "success"
   ],
   "type": "object"
 };
 
 /**
- * The schema of `reports_ReportsListResponse_resultItem_report_status` in
- * responses.
+ * The schema of `reports_ReportsListResponse` in responses.
  */
-export const reports_ReportsListResponse_resultItem_report_status_output: JsonSchema = {
-  "enum": [
-    "unspecified",
-    "scheduled",
-    "generating",
-    "finished",
-    "cancelled"
+export const reports_ReportsListResponse_output: JsonSchema = {
+  "properties": {
+    "errors": {
+      "items": {
+        "$ref": "#/$defs/reports_Error"
+      },
+      "type": "array"
+    },
+    "messages": {
+      "items": {
+        "$ref": "#/$defs/reports_Message"
+      },
+      "type": "array"
+    },
+    "result": {
+      "oneOf": [
+        {
+          "items": {
+            "properties": {
+              "generated_on": {
+                "oneOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "generation_id": {
+                "format": "uuid",
+                "type": "string"
+              },
+              "policy_id": {
+                "format": "uuid",
+                "type": "string"
+              },
+              "policy_version": {
+                "type": "integer"
+              },
+              "reason": {
+                "enum": [
+                  "unspecified",
+                  "invalid_entitlements",
+                  "policy_disabled"
+                ],
+                "type": "string"
+              },
+              "report_id": {
+                "format": "uuid",
+                "type": "string"
+              },
+              "report_settings": {
+                "properties": {
+                  "type": {
+                    "enum": [
+                      "application_security_report_v1"
+                    ],
+                    "type": "string"
+                  },
+                  "value": {
+                    "properties": {
+                      "time_range": {
+                        "properties": {
+                          "end_time": {
+                            "oneOf": [
+                              {
+                                "format": "date-time",
+                                "type": "string"
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ]
+                          },
+                          "start_time": {
+                            "oneOf": [
+                              {
+                                "format": "date-time",
+                                "type": "string"
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ]
+                          }
+                        },
+                        "required": [
+                          "end_time",
+                          "start_time"
+                        ],
+                        "type": "object"
+                      }
+                    },
+                    "required": [
+                      "time_range"
+                    ],
+                    "type": "object"
+                  }
+                },
+                "required": [
+                  "type",
+                  "value"
+                ],
+                "type": "object"
+              },
+              "report_status": {
+                "enum": [
+                  "unspecified",
+                  "scheduled",
+                  "generating",
+                  "finished",
+                  "cancelled"
+                ],
+                "type": "string"
+              },
+              "scheduled_for": {
+                "oneOf": [
+                  {
+                    "format": "date-time",
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "scheduled_on": {
+                "oneOf": [
+                  {
+                    "format": "date-time",
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              }
+            },
+            "required": [
+              "generation_id",
+              "policy_id",
+              "policy_version",
+              "report_id",
+              "report_status",
+              "scheduled_for",
+              "scheduled_on"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "success": {
+      "enum": [
+        true
+      ],
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "result",
+    "success"
   ],
-  "type": "string"
+  "type": "object"
 };

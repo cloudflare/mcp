@@ -103,6 +103,66 @@ export const access_name_11_output: JsonSchema = {
 };
 
 /**
+ * The schema of `access_response_collection-11` in responses.
+ */
+export const access_response_collection_11_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/access_api-response-collection"
+    },
+    {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/access_custom_page_without_html"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `access_single_response-12` in responses.
+ */
+export const access_single_response_12_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/access_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/access_custom_page"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `access_single_response_without_html` in responses.
+ */
+export const access_single_response_without_html_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/access_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/access_custom_page_without_html"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
  * The schema of `access_template_violation` in responses.
  */
 export const access_template_violation_output: JsonSchema = {
@@ -141,29 +201,19 @@ export const access_type_2_output: JsonSchema = {
  * The schema of `access_validate_response` in responses.
  */
 export const access_validate_response_output: JsonSchema = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/access_messages"
+  "allOf": [
+    {
+      "$ref": "#/$defs/access_api-response-single"
     },
-    "messages": {
-      "$ref": "#/$defs/access_messages"
-    },
-    "result": {
-      "$ref": "#/$defs/access_validation_result"
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/access_validation_result"
+        }
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "success"
-  ],
-  "type": "object"
+  ]
 };
 
 /**

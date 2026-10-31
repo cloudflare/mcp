@@ -15,7 +15,15 @@ export const cloudforce_one_events_FieldDefinition: JsonSchema = {
       "type": "array"
     },
     "annotations": {
-      "$ref": "#/$defs/cloudforce-one-events_FieldDefinition_annotations"
+      "properties": {
+        "confidence": {
+          "type": "boolean"
+        },
+        "tlp": {
+          "type": "boolean"
+        }
+      },
+      "type": "object"
     },
     "deprecated": {
       "description": "Marks a field as unavailable for new values while retaining its definition for historical values.",
@@ -77,7 +85,18 @@ export const cloudforce_one_events_FieldDefinition: JsonSchema = {
       "type": "integer"
     },
     "numberConstraint": {
-      "$ref": "#/$defs/cloudforce-one-events_FieldDefinition_numberConstraint"
+      "properties": {
+        "integer": {
+          "type": "boolean"
+        },
+        "max": {
+          "type": "number"
+        },
+        "min": {
+          "type": "number"
+        }
+      },
+      "type": "object"
     },
     "properties": {
       "additionalProperties": {
@@ -94,38 +113,5 @@ export const cloudforce_one_events_FieldDefinition: JsonSchema = {
     "key",
     "kind"
   ],
-  "type": "object"
-};
-
-/**
- * The schema of `cloudforce-one-events_FieldDefinition_annotations`.
- */
-export const cloudforce_one_events_FieldDefinition_annotations: JsonSchema = {
-  "properties": {
-    "confidence": {
-      "type": "boolean"
-    },
-    "tlp": {
-      "type": "boolean"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `cloudforce-one-events_FieldDefinition_numberConstraint`.
- */
-export const cloudforce_one_events_FieldDefinition_numberConstraint: JsonSchema = {
-  "properties": {
-    "integer": {
-      "type": "boolean"
-    },
-    "max": {
-      "type": "number"
-    },
-    "min": {
-      "type": "number"
-    }
-  },
   "type": "object"
 };

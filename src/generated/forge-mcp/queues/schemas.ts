@@ -12,6 +12,14 @@ export const mq_batch_size: JsonSchema = {
 };
 
 /**
+ * The schema of `mq_identifier`.
+ */
+export const mq_identifier: JsonSchema = {
+  "description": "A Resource identifier.",
+  "type": "string"
+};
+
+/**
  * The schema of `mq_jurisdiction`.
  */
 export const mq_jurisdiction: JsonSchema = {

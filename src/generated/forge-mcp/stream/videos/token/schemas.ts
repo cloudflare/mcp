@@ -66,8 +66,15 @@ export const stream_signed_token_request: JsonSchema = {
       "type": "integer"
     },
     "flags": {
-      "$ref": "#/$defs/stream_signed_token_request_flags",
-      "description": "Optional flags for the signed token."
+      "description": "Optional flags for the signed token.",
+      "properties": {
+        "original": {
+          "default": false,
+          "description": "Whether to return the original video without transformations.",
+          "type": "boolean"
+        }
+      },
+      "type": "object"
     },
     "id": {
       "description": "The optional ID of a Stream signing key. If present, the `pem` field is also required.",
@@ -80,21 +87,6 @@ export const stream_signed_token_request: JsonSchema = {
     "pem": {
       "description": "The optional base64 encoded private key in PEM format associated with a Stream signing key. If present, the `id` field is also required.",
       "type": "string"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `stream_signed_token_request_flags`.
- */
-export const stream_signed_token_request_flags: JsonSchema = {
-  "description": "Optional flags for the signed token.",
-  "properties": {
-    "original": {
-      "default": false,
-      "description": "Whether to return the original video without transformations.",
-      "type": "boolean"
     }
   },
   "type": "object"

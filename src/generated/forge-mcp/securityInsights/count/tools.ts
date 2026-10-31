@@ -4,10 +4,13 @@
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
   security_center_api_response_common_failure_output,
+  security_center_api_response_common_output,
   security_center_messages_output,
+  security_center_valueCountsResponse_output,
 } from "../../outputs.js";
 import {
   security_center_dismissed,
+  security_center_identifier,
   security_center_issueClass,
   security_center_issueClasses,
   security_center_issueType,
@@ -19,6 +22,7 @@ import {
   security_center_subject,
   security_center_subjects,
 } from "../../schemas.js";
+import { security_center_partnerInsightCountResponse_output } from "./outputs.js";
 
 /**
  * The tools of `security_insights.count`.
@@ -40,8 +44,8 @@ export const tools: readonly Tool[] = [
           "type": "string"
         },
         "account_or_zone_id": {
-          "description": "The account ID or zone ID, as selected by account_or_zone.",
-          "type": "string"
+          "$ref": "#/$defs/security-center_identifier",
+          "description": "The account ID or zone ID, as selected by account_or_zone."
         },
         "dismissed": {
           "$ref": "#/$defs/security-center_dismissed"
@@ -86,6 +90,7 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "security-center_dismissed": security_center_dismissed,
+        "security-center_identifier": security_center_identifier,
         "security-center_issueClass": security_center_issueClass,
         "security-center_issueClasses": security_center_issueClasses,
         "security-center_issueType": security_center_issueType,
@@ -99,29 +104,12 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "properties": {
-              "count": {
-                "type": "integer"
-              },
-              "value": {
-                "type": "string"
-              }
-            },
-            "type": "object"
-          },
-          "type": "array"
-        },
-        "result_info": {
-          "type": "object"
-        }
+      "$ref": "#/$defs/security-center_valueCountsResponse",
+      $defs: {
+        "security-center_api-response-common": security_center_api_response_common_output,
+        "security-center_messages": security_center_messages_output,
+        "security-center_valueCountsResponse": security_center_valueCountsResponse_output,
       },
-      "required": [
-        "result"
-      ],
-      "type": "object",
     },
     annotations: {
       "destructiveHint": false,
@@ -135,37 +123,17 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "items": {
-                "properties": {
-                  "count": {
-                    "type": "integer"
-                  },
-                  "value": {
-                    "type": "string"
-                  }
-                },
-                "type": "object"
-              },
-              "type": "array"
-            },
-            "result_info": {
-              "type": "object"
-            }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/security-center_valueCountsResponse"
         },
         "4XX": {
           "$ref": "#/$defs/security-center_api-response-common-failure"
         }
       },
       $defs: {
+        "security-center_api-response-common": security_center_api_response_common_output,
         "security-center_api-response-common-failure": security_center_api_response_common_failure_output,
         "security-center_messages": security_center_messages_output,
+        "security-center_valueCountsResponse": security_center_valueCountsResponse_output,
       },
     },
     request: (args) => ({
@@ -202,8 +170,8 @@ export const tools: readonly Tool[] = [
           "type": "string"
         },
         "account_or_zone_id": {
-          "description": "The account ID or zone ID, as selected by account_or_zone.",
-          "type": "string"
+          "$ref": "#/$defs/security-center_identifier",
+          "description": "The account ID or zone ID, as selected by account_or_zone."
         },
         "source": {
           "enum": [
@@ -217,17 +185,17 @@ export const tools: readonly Tool[] = [
         "account_or_zone_id",
         "source"
       ],
+      $defs: {
+        "security-center_identifier": security_center_identifier,
+      },
     },
     outputSchema: {
-      "properties": {
-        "count": {
-          "type": "integer"
-        }
+      "$ref": "#/$defs/security-center_partnerInsightCountResponse",
+      $defs: {
+        "security-center_api-response-common": security_center_api_response_common_output,
+        "security-center_messages": security_center_messages_output,
+        "security-center_partnerInsightCountResponse": security_center_partnerInsightCountResponse_output,
       },
-      "required": [
-        "count"
-      ],
-      "type": "object",
     },
     annotations: {
       "destructiveHint": false,
@@ -241,23 +209,17 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "count": {
-              "type": "integer"
-            }
-          },
-          "required": [
-            "count"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/security-center_partnerInsightCountResponse"
         },
         "4XX": {
           "$ref": "#/$defs/security-center_api-response-common-failure"
         }
       },
       $defs: {
+        "security-center_api-response-common": security_center_api_response_common_output,
         "security-center_api-response-common-failure": security_center_api_response_common_failure_output,
         "security-center_messages": security_center_messages_output,
+        "security-center_partnerInsightCountResponse": security_center_partnerInsightCountResponse_output,
       },
     },
     request: (args) => ({
@@ -283,8 +245,8 @@ export const tools: readonly Tool[] = [
           "type": "string"
         },
         "account_or_zone_id": {
-          "description": "The account ID or zone ID, as selected by account_or_zone.",
-          "type": "string"
+          "$ref": "#/$defs/security-center_identifier",
+          "description": "The account ID or zone ID, as selected by account_or_zone."
         },
         "dismissed": {
           "$ref": "#/$defs/security-center_dismissed"
@@ -329,6 +291,7 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "security-center_dismissed": security_center_dismissed,
+        "security-center_identifier": security_center_identifier,
         "security-center_issueClass": security_center_issueClass,
         "security-center_issueClasses": security_center_issueClasses,
         "security-center_issueType": security_center_issueType,
@@ -342,29 +305,12 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "properties": {
-              "count": {
-                "type": "integer"
-              },
-              "value": {
-                "type": "string"
-              }
-            },
-            "type": "object"
-          },
-          "type": "array"
-        },
-        "result_info": {
-          "type": "object"
-        }
+      "$ref": "#/$defs/security-center_valueCountsResponse",
+      $defs: {
+        "security-center_api-response-common": security_center_api_response_common_output,
+        "security-center_messages": security_center_messages_output,
+        "security-center_valueCountsResponse": security_center_valueCountsResponse_output,
       },
-      "required": [
-        "result"
-      ],
-      "type": "object",
     },
     annotations: {
       "destructiveHint": false,
@@ -378,37 +324,17 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "items": {
-                "properties": {
-                  "count": {
-                    "type": "integer"
-                  },
-                  "value": {
-                    "type": "string"
-                  }
-                },
-                "type": "object"
-              },
-              "type": "array"
-            },
-            "result_info": {
-              "type": "object"
-            }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/security-center_valueCountsResponse"
         },
         "4XX": {
           "$ref": "#/$defs/security-center_api-response-common-failure"
         }
       },
       $defs: {
+        "security-center_api-response-common": security_center_api_response_common_output,
         "security-center_api-response-common-failure": security_center_api_response_common_failure_output,
         "security-center_messages": security_center_messages_output,
+        "security-center_valueCountsResponse": security_center_valueCountsResponse_output,
       },
     },
     request: (args) => ({
@@ -445,8 +371,8 @@ export const tools: readonly Tool[] = [
           "type": "string"
         },
         "account_or_zone_id": {
-          "description": "The account ID or zone ID, as selected by account_or_zone.",
-          "type": "string"
+          "$ref": "#/$defs/security-center_identifier",
+          "description": "The account ID or zone ID, as selected by account_or_zone."
         },
         "dismissed": {
           "$ref": "#/$defs/security-center_dismissed"
@@ -491,6 +417,7 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "security-center_dismissed": security_center_dismissed,
+        "security-center_identifier": security_center_identifier,
         "security-center_issueClass": security_center_issueClass,
         "security-center_issueClasses": security_center_issueClasses,
         "security-center_issueType": security_center_issueType,
@@ -504,29 +431,12 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "properties": {
-              "count": {
-                "type": "integer"
-              },
-              "value": {
-                "type": "string"
-              }
-            },
-            "type": "object"
-          },
-          "type": "array"
-        },
-        "result_info": {
-          "type": "object"
-        }
+      "$ref": "#/$defs/security-center_valueCountsResponse",
+      $defs: {
+        "security-center_api-response-common": security_center_api_response_common_output,
+        "security-center_messages": security_center_messages_output,
+        "security-center_valueCountsResponse": security_center_valueCountsResponse_output,
       },
-      "required": [
-        "result"
-      ],
-      "type": "object",
     },
     annotations: {
       "destructiveHint": false,
@@ -540,37 +450,17 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "items": {
-                "properties": {
-                  "count": {
-                    "type": "integer"
-                  },
-                  "value": {
-                    "type": "string"
-                  }
-                },
-                "type": "object"
-              },
-              "type": "array"
-            },
-            "result_info": {
-              "type": "object"
-            }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/security-center_valueCountsResponse"
         },
         "4XX": {
           "$ref": "#/$defs/security-center_api-response-common-failure"
         }
       },
       $defs: {
+        "security-center_api-response-common": security_center_api_response_common_output,
         "security-center_api-response-common-failure": security_center_api_response_common_failure_output,
         "security-center_messages": security_center_messages_output,
+        "security-center_valueCountsResponse": security_center_valueCountsResponse_output,
       },
     },
     request: (args) => ({

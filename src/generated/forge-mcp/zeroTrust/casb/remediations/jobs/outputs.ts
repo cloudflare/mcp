@@ -21,7 +21,25 @@ export const posture_api_CreateRemediationJobResponse_output: JsonSchema = {
       "type": "array"
     },
     "result": {
-      "$ref": "#/$defs/posture-api_CreateRemediationJobResponse_result"
+      "properties": {
+        "created": {
+          "items": {
+            "$ref": "#/$defs/posture-api_RemediationJob"
+          },
+          "type": "array"
+        },
+        "failed": {
+          "items": {
+            "$ref": "#/$defs/posture-api_RemediationJobFailure"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "created",
+        "failed"
+      ],
+      "type": "object"
     },
     "success": {
       "type": "boolean"
@@ -37,59 +55,66 @@ export const posture_api_CreateRemediationJobResponse_output: JsonSchema = {
 };
 
 /**
- * The schema of `posture-api_CreateRemediationJobResponse_result` in responses.
+ * The schema of `posture-api_PaginatedRemediationJobList` in responses.
  */
-export const posture_api_CreateRemediationJobResponse_result_output: JsonSchema = {
+export const posture_api_PaginatedRemediationJobList_output: JsonSchema = {
   "properties": {
-    "created": {
+    "errors": {
+      "items": {
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "messages": {
+      "items": {
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "result": {
       "items": {
         "$ref": "#/$defs/posture-api_RemediationJob"
       },
       "type": "array"
     },
-    "failed": {
-      "items": {
-        "$ref": "#/$defs/posture-api_RemediationJobFailure"
+    "result_info": {
+      "properties": {
+        "count": {
+          "type": "integer"
+        },
+        "cursor": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "page": {
+          "type": "integer"
+        },
+        "per_page": {
+          "type": "integer"
+        },
+        "total_count": {
+          "type": "integer"
+        }
       },
-      "type": "array"
+      "type": "object"
+    },
+    "success": {
+      "type": "boolean"
     }
   },
   "required": [
-    "created",
-    "failed"
+    "errors",
+    "messages",
+    "result",
+    "result_info",
+    "success"
   ],
-  "type": "object"
-};
-
-/**
- * The schema of `posture-api_PaginatedRemediationJobList_result_info` in
- * responses.
- */
-export const posture_api_PaginatedRemediationJobList_result_info_output: JsonSchema = {
-  "properties": {
-    "count": {
-      "type": "integer"
-    },
-    "cursor": {
-      "oneOf": [
-        {
-          "type": "string"
-        },
-        {
-          "type": "null"
-        }
-      ]
-    },
-    "page": {
-      "type": "integer"
-    },
-    "per_page": {
-      "type": "integer"
-    },
-    "total_count": {
-      "type": "integer"
-    }
-  },
   "type": "object"
 };
 
@@ -268,7 +293,17 @@ export const posture_api_RemediationJobAssetField_output: JsonSchema = {
       "type": "string"
     },
     "value": {
-      "$ref": "#/$defs/posture-api_RemediationJobAssetField_value"
+      "oneOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "number"
+        },
+        {
+          "type": "boolean"
+        }
+      ]
     }
   },
   "required": [
@@ -276,23 +311,6 @@ export const posture_api_RemediationJobAssetField_output: JsonSchema = {
     "value"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `posture-api_RemediationJobAssetField_value` in responses.
- */
-export const posture_api_RemediationJobAssetField_value_output: JsonSchema = {
-  "oneOf": [
-    {
-      "type": "string"
-    },
-    {
-      "type": "number"
-    },
-    {
-      "type": "boolean"
-    }
-  ]
 };
 
 /**

@@ -82,58 +82,20 @@ export const waitingroom_rule_version_output: JsonSchema = {
  * The schema of `waitingroom_rules_response_collection` in responses.
  */
 export const waitingroom_rules_response_collection_output: JsonSchema = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/waitingroom_messages"
+  "allOf": [
+    {
+      "$ref": "#/$defs/waitingroom_api-response-collection"
     },
-    "messages": {
-      "$ref": "#/$defs/waitingroom_messages"
-    },
-    "result": {
-      "items": {
-        "$ref": "#/$defs/waitingroom_rule_result"
+    {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/waitingroom_rule_result"
+          },
+          "type": "array"
+        }
       },
-      "type": "array"
-    },
-    "result_info": {
-      "$ref": "#/$defs/waitingroom_rules_response_collection_result_info"
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
+      "type": "object"
     }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "success"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `waitingroom_rules_response_collection_result_info` in
- * responses.
- */
-export const waitingroom_rules_response_collection_result_info_output: JsonSchema = {
-  "properties": {
-    "count": {
-      "type": "number"
-    },
-    "page": {
-      "type": "number"
-    },
-    "per_page": {
-      "type": "number"
-    },
-    "total_count": {
-      "type": "number"
-    },
-    "total_pages": {
-      "type": "number"
-    }
-  },
-  "type": "object"
+  ]
 };

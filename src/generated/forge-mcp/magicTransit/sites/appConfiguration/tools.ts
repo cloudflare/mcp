@@ -5,6 +5,8 @@ import { type Tool, pathParam } from "../../../_/tool.js";
 import {
   magic_account_app_id_output,
   magic_api_response_common_failure_output,
+  magic_apps_response_array_output,
+  magic_apps_response_object_output,
   magic_identifier_output,
   magic_managed_app_id_output,
   magic_messages_output,
@@ -18,6 +20,8 @@ import {
   magic_app_breakout_output,
   magic_app_breakout_preferred_wans_output,
   magic_app_config_output,
+  magic_app_config_single_response_output,
+  magic_app_configs_collection_response_output,
   magic_app_priority_output,
 } from "./outputs.js";
 import {
@@ -40,15 +44,15 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier",
-          "type": "string"
+          "$ref": "#/$defs/magic_identifier",
+          "description": "Identifier"
         },
         "body": {
           "$ref": "#/$defs/magic_app_config_add_single_request"
         },
         "site_id": {
-          "description": "Identifier",
-          "type": "string"
+          "$ref": "#/$defs/magic_identifier",
+          "description": "Identifier"
         }
       },
       required: [
@@ -67,15 +71,18 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/magic_app_config",
+      "$ref": "#/$defs/magic_app_config_single_response",
       $defs: {
         "magic_account_app_id": magic_account_app_id_output,
         "magic_app_breakout": magic_app_breakout_output,
         "magic_app_breakout_preferred_wans": magic_app_breakout_preferred_wans_output,
         "magic_app_config": magic_app_config_output,
+        "magic_app_config_single_response": magic_app_config_single_response_output,
         "magic_app_priority": magic_app_priority_output,
+        "magic_apps-response-object": magic_apps_response_object_output,
         "magic_identifier": magic_identifier_output,
         "magic_managed_app_id": magic_managed_app_id_output,
+        "magic_messages": magic_messages_output,
       },
     },
     annotations: {
@@ -102,7 +109,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "201": {
-          "$ref": "#/$defs/magic_app_config"
+          "$ref": "#/$defs/magic_app_config_single_response"
         },
         "4XX": {
           "$ref": "#/$defs/magic_api-response-common-failure"
@@ -114,7 +121,9 @@ export const tools: readonly Tool[] = [
         "magic_app_breakout": magic_app_breakout_output,
         "magic_app_breakout_preferred_wans": magic_app_breakout_preferred_wans_output,
         "magic_app_config": magic_app_config_output,
+        "magic_app_config_single_response": magic_app_config_single_response_output,
         "magic_app_priority": magic_app_priority_output,
+        "magic_apps-response-object": magic_apps_response_object_output,
         "magic_identifier": magic_identifier_output,
         "magic_managed_app_id": magic_managed_app_id_output,
         "magic_messages": magic_messages_output,
@@ -133,16 +142,16 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier",
-          "type": "string"
+          "$ref": "#/$defs/magic_identifier",
+          "description": "Identifier"
         },
         "app_config_id": {
-          "description": "Identifier",
-          "type": "string"
+          "$ref": "#/$defs/magic_identifier",
+          "description": "Identifier"
         },
         "site_id": {
-          "description": "Identifier",
-          "type": "string"
+          "$ref": "#/$defs/magic_identifier",
+          "description": "Identifier"
         }
       },
       required: [
@@ -150,17 +159,23 @@ export const tools: readonly Tool[] = [
         "site_id",
         "app_config_id"
       ],
+      $defs: {
+        "magic_identifier": magic_identifier,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/magic_app_config",
+      "$ref": "#/$defs/magic_app_config_single_response",
       $defs: {
         "magic_account_app_id": magic_account_app_id_output,
         "magic_app_breakout": magic_app_breakout_output,
         "magic_app_breakout_preferred_wans": magic_app_breakout_preferred_wans_output,
         "magic_app_config": magic_app_config_output,
+        "magic_app_config_single_response": magic_app_config_single_response_output,
         "magic_app_priority": magic_app_priority_output,
+        "magic_apps-response-object": magic_apps_response_object_output,
         "magic_identifier": magic_identifier_output,
         "magic_managed_app_id": magic_managed_app_id_output,
+        "magic_messages": magic_messages_output,
       },
     },
     annotations: {
@@ -187,7 +202,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/magic_app_config"
+          "$ref": "#/$defs/magic_app_config_single_response"
         },
         "4XX": {
           "$ref": "#/$defs/magic_api-response-common-failure"
@@ -199,7 +214,9 @@ export const tools: readonly Tool[] = [
         "magic_app_breakout": magic_app_breakout_output,
         "magic_app_breakout_preferred_wans": magic_app_breakout_preferred_wans_output,
         "magic_app_config": magic_app_config_output,
+        "magic_app_config_single_response": magic_app_config_single_response_output,
         "magic_app_priority": magic_app_priority_output,
+        "magic_apps-response-object": magic_apps_response_object_output,
         "magic_identifier": magic_identifier_output,
         "magic_managed_app_id": magic_managed_app_id_output,
         "magic_messages": magic_messages_output,
@@ -217,43 +234,35 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier",
-          "type": "string"
+          "$ref": "#/$defs/magic_identifier",
+          "description": "Identifier"
         },
         "site_id": {
-          "description": "Identifier",
-          "type": "string"
+          "$ref": "#/$defs/magic_identifier",
+          "description": "Identifier"
         }
       },
       required: [
         "account_id",
         "site_id"
       ],
+      $defs: {
+        "magic_identifier": magic_identifier,
+      },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "$ref": "#/$defs/magic_app_config"
-          },
-          "type": "array"
-        },
-        "result_info": {
-          "type": "object"
-        }
-      },
-      "required": [
-        "result"
-      ],
-      "type": "object",
+      "$ref": "#/$defs/magic_app_configs_collection_response",
       $defs: {
         "magic_account_app_id": magic_account_app_id_output,
         "magic_app_breakout": magic_app_breakout_output,
         "magic_app_breakout_preferred_wans": magic_app_breakout_preferred_wans_output,
         "magic_app_config": magic_app_config_output,
+        "magic_app_configs_collection_response": magic_app_configs_collection_response_output,
         "magic_app_priority": magic_app_priority_output,
+        "magic_apps-response-array": magic_apps_response_array_output,
         "magic_identifier": magic_identifier_output,
         "magic_managed_app_id": magic_managed_app_id_output,
+        "magic_messages": magic_messages_output,
       },
     },
     annotations: {
@@ -282,21 +291,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "items": {
-                "$ref": "#/$defs/magic_app_config"
-              },
-              "type": "array"
-            },
-            "result_info": {
-              "type": "object"
-            }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/magic_app_configs_collection_response"
         },
         "4XX": {
           "$ref": "#/$defs/magic_api-response-common-failure"
@@ -308,7 +303,9 @@ export const tools: readonly Tool[] = [
         "magic_app_breakout": magic_app_breakout_output,
         "magic_app_breakout_preferred_wans": magic_app_breakout_preferred_wans_output,
         "magic_app_config": magic_app_config_output,
+        "magic_app_configs_collection_response": magic_app_configs_collection_response_output,
         "magic_app_priority": magic_app_priority_output,
+        "magic_apps-response-array": magic_apps_response_array_output,
         "magic_identifier": magic_identifier_output,
         "magic_managed_app_id": magic_managed_app_id_output,
         "magic_messages": magic_messages_output,
@@ -326,19 +323,19 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier",
-          "type": "string"
+          "$ref": "#/$defs/magic_identifier",
+          "description": "Identifier"
         },
         "app_config_id": {
-          "description": "Identifier",
-          "type": "string"
+          "$ref": "#/$defs/magic_identifier",
+          "description": "Identifier"
         },
         "body": {
           "$ref": "#/$defs/magic_app_config_update_request"
         },
         "site_id": {
-          "description": "Identifier",
-          "type": "string"
+          "$ref": "#/$defs/magic_identifier",
+          "description": "Identifier"
         }
       },
       required: [
@@ -358,15 +355,18 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/magic_app_config",
+      "$ref": "#/$defs/magic_app_config_single_response",
       $defs: {
         "magic_account_app_id": magic_account_app_id_output,
         "magic_app_breakout": magic_app_breakout_output,
         "magic_app_breakout_preferred_wans": magic_app_breakout_preferred_wans_output,
         "magic_app_config": magic_app_config_output,
+        "magic_app_config_single_response": magic_app_config_single_response_output,
         "magic_app_priority": magic_app_priority_output,
+        "magic_apps-response-object": magic_apps_response_object_output,
         "magic_identifier": magic_identifier_output,
         "magic_managed_app_id": magic_managed_app_id_output,
+        "magic_messages": magic_messages_output,
       },
     },
     annotations: {
@@ -393,7 +393,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/magic_app_config"
+          "$ref": "#/$defs/magic_app_config_single_response"
         },
         "4XX": {
           "$ref": "#/$defs/magic_api-response-common-failure"
@@ -405,7 +405,9 @@ export const tools: readonly Tool[] = [
         "magic_app_breakout": magic_app_breakout_output,
         "magic_app_breakout_preferred_wans": magic_app_breakout_preferred_wans_output,
         "magic_app_config": magic_app_config_output,
+        "magic_app_config_single_response": magic_app_config_single_response_output,
         "magic_app_priority": magic_app_priority_output,
+        "magic_apps-response-object": magic_apps_response_object_output,
         "magic_identifier": magic_identifier_output,
         "magic_managed_app_id": magic_managed_app_id_output,
         "magic_messages": magic_messages_output,

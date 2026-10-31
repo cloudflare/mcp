@@ -4,9 +4,9 @@
 import type { JsonSchema } from "../../../_/tool.js";
 
 /**
- * The schema of `dos_ExpressionFilterUpdate`.
+ * The schema of `advanced-ddos-protection_ExpressionFilterUpdate`.
  */
-export const dos_ExpressionFilterUpdate: JsonSchema = {
+export const advanced_ddos_protection_ExpressionFilterUpdate: JsonSchema = {
   "properties": {
     "expression": {
       "description": "The new filter expression. Optional.",
@@ -21,9 +21,9 @@ export const dos_ExpressionFilterUpdate: JsonSchema = {
 };
 
 /**
- * The schema of `dos_NewExpressionFilter`.
+ * The schema of `advanced-ddos-protection_NewExpressionFilter`.
  */
-export const dos_NewExpressionFilter: JsonSchema = {
+export const advanced_ddos_protection_NewExpressionFilter: JsonSchema = {
   "properties": {
     "expression": {
       "description": "The filter expression.",

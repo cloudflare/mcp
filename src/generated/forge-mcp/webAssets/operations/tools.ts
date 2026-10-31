@@ -3,28 +3,22 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
+  api_shield_api_response_collection_output,
   api_shield_api_response_common_failure_output,
   api_shield_api_response_common_output,
   api_shield_auth_id_tokens_output,
+  api_shield_basic_operation_output,
   api_shield_confidence_intervals_bounds_output,
   api_shield_data_points_output,
   api_shield_endpoint_output,
   api_shield_host_output,
   api_shield_messages_output,
   api_shield_method_output,
-  api_shield_operation_feature_api_routing_api_routing_output,
   api_shield_operation_feature_api_routing_output,
-  api_shield_operation_feature_confidence_intervals_confidence_intervals_output,
-  api_shield_operation_feature_confidence_intervals_confidence_intervals_suggested_threshold_confidence_intervals_output,
-  api_shield_operation_feature_confidence_intervals_confidence_intervals_suggested_threshold_output,
   api_shield_operation_feature_confidence_intervals_output,
   api_shield_operation_feature_parameter_schemas_output,
-  api_shield_operation_feature_parameter_schemas_parameter_schemas_output,
   api_shield_operation_feature_schema_info_output,
-  api_shield_operation_feature_schema_info_schema_info_active_schema_output,
-  api_shield_operation_feature_schema_info_schema_info_output,
   api_shield_operation_feature_thresholds_output,
-  api_shield_operation_feature_thresholds_thresholds_output,
   api_shield_operation_features_output,
   api_shield_operation_output,
   api_shield_p50_output,
@@ -33,6 +27,7 @@ import {
   api_shield_parameter_schemas_definition_output,
   api_shield_period_seconds_output,
   api_shield_requests_output,
+  api_shield_standard_operation_output,
   api_shield_suggested_threshold_output,
   api_shield_timestamp_2_output,
   api_shield_timestamp_output,
@@ -50,8 +45,11 @@ import {
   api_shield_uuid_2,
 } from "../../schemas.js";
 import {
+  api_shield_multiple_operation_response_output,
+  api_shield_multiple_operation_response_paginated_output,
   api_shield_operation_schema_fragment_output,
   api_shield_operation_schemas_output,
+  api_shield_single_operation_response_output,
 } from "./outputs.js";
 import { api_shield_object_with_operation_id } from "./schemas.js";
 
@@ -90,42 +88,24 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "$ref": "#/$defs/api-shield_operation"
-          },
-          "type": "array"
-        },
-        "result_info": {
-          "type": "object"
-        }
-      },
-      "required": [
-        "result"
-      ],
-      "type": "object",
+      "$ref": "#/$defs/api-shield_multiple-operation-response",
       $defs: {
+        "api-shield_api-response-common": api_shield_api_response_common_output,
         "api-shield_auth_id_tokens": api_shield_auth_id_tokens_output,
+        "api-shield_basic_operation": api_shield_basic_operation_output,
         "api-shield_confidence_intervals_bounds": api_shield_confidence_intervals_bounds_output,
         "api-shield_data_points": api_shield_data_points_output,
         "api-shield_endpoint": api_shield_endpoint_output,
         "api-shield_host": api_shield_host_output,
+        "api-shield_messages": api_shield_messages_output,
         "api-shield_method": api_shield_method_output,
+        "api-shield_multiple-operation-response": api_shield_multiple_operation_response_output,
         "api-shield_operation": api_shield_operation_output,
         "api-shield_operation_feature_api_routing": api_shield_operation_feature_api_routing_output,
-        "api-shield_operation_feature_api_routing_api_routing": api_shield_operation_feature_api_routing_api_routing_output,
         "api-shield_operation_feature_confidence_intervals": api_shield_operation_feature_confidence_intervals_output,
-        "api-shield_operation_feature_confidence_intervals_confidence_intervals": api_shield_operation_feature_confidence_intervals_confidence_intervals_output,
-        "api-shield_operation_feature_confidence_intervals_confidence_intervals_suggested_threshold": api_shield_operation_feature_confidence_intervals_confidence_intervals_suggested_threshold_output,
-        "api-shield_operation_feature_confidence_intervals_confidence_intervals_suggested_threshold_confidence_intervals": api_shield_operation_feature_confidence_intervals_confidence_intervals_suggested_threshold_confidence_intervals_output,
         "api-shield_operation_feature_parameter_schemas": api_shield_operation_feature_parameter_schemas_output,
-        "api-shield_operation_feature_parameter_schemas_parameter_schemas": api_shield_operation_feature_parameter_schemas_parameter_schemas_output,
         "api-shield_operation_feature_schema_info": api_shield_operation_feature_schema_info_output,
-        "api-shield_operation_feature_schema_info_schema_info": api_shield_operation_feature_schema_info_schema_info_output,
-        "api-shield_operation_feature_schema_info_schema_info_active_schema": api_shield_operation_feature_schema_info_schema_info_active_schema_output,
         "api-shield_operation_feature_thresholds": api_shield_operation_feature_thresholds_output,
-        "api-shield_operation_feature_thresholds_thresholds": api_shield_operation_feature_thresholds_thresholds_output,
         "api-shield_operation_features": api_shield_operation_features_output,
         "api-shield_p50": api_shield_p50_output,
         "api-shield_p90": api_shield_p90_output,
@@ -133,6 +113,7 @@ export const tools: readonly Tool[] = [
         "api-shield_parameter_schemas_definition": api_shield_parameter_schemas_definition_output,
         "api-shield_period_seconds": api_shield_period_seconds_output,
         "api-shield_requests": api_shield_requests_output,
+        "api-shield_standard_operation": api_shield_standard_operation_output,
         "api-shield_suggested_threshold": api_shield_suggested_threshold_output,
         "api-shield_timestamp": api_shield_timestamp_output,
         "api-shield_timestamp-2": api_shield_timestamp_2_output,
@@ -158,49 +139,30 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "items": {
-                "$ref": "#/$defs/api-shield_operation"
-              },
-              "type": "array"
-            },
-            "result_info": {
-              "type": "object"
-            }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/api-shield_multiple-operation-response"
         },
         "4XX": {
           "$ref": "#/$defs/api-shield_api-response-common-failure"
         }
       },
       $defs: {
+        "api-shield_api-response-common": api_shield_api_response_common_output,
         "api-shield_api-response-common-failure": api_shield_api_response_common_failure_output,
         "api-shield_auth_id_tokens": api_shield_auth_id_tokens_output,
+        "api-shield_basic_operation": api_shield_basic_operation_output,
         "api-shield_confidence_intervals_bounds": api_shield_confidence_intervals_bounds_output,
         "api-shield_data_points": api_shield_data_points_output,
         "api-shield_endpoint": api_shield_endpoint_output,
         "api-shield_host": api_shield_host_output,
         "api-shield_messages": api_shield_messages_output,
         "api-shield_method": api_shield_method_output,
+        "api-shield_multiple-operation-response": api_shield_multiple_operation_response_output,
         "api-shield_operation": api_shield_operation_output,
         "api-shield_operation_feature_api_routing": api_shield_operation_feature_api_routing_output,
-        "api-shield_operation_feature_api_routing_api_routing": api_shield_operation_feature_api_routing_api_routing_output,
         "api-shield_operation_feature_confidence_intervals": api_shield_operation_feature_confidence_intervals_output,
-        "api-shield_operation_feature_confidence_intervals_confidence_intervals": api_shield_operation_feature_confidence_intervals_confidence_intervals_output,
-        "api-shield_operation_feature_confidence_intervals_confidence_intervals_suggested_threshold": api_shield_operation_feature_confidence_intervals_confidence_intervals_suggested_threshold_output,
-        "api-shield_operation_feature_confidence_intervals_confidence_intervals_suggested_threshold_confidence_intervals": api_shield_operation_feature_confidence_intervals_confidence_intervals_suggested_threshold_confidence_intervals_output,
         "api-shield_operation_feature_parameter_schemas": api_shield_operation_feature_parameter_schemas_output,
-        "api-shield_operation_feature_parameter_schemas_parameter_schemas": api_shield_operation_feature_parameter_schemas_parameter_schemas_output,
         "api-shield_operation_feature_schema_info": api_shield_operation_feature_schema_info_output,
-        "api-shield_operation_feature_schema_info_schema_info": api_shield_operation_feature_schema_info_schema_info_output,
-        "api-shield_operation_feature_schema_info_schema_info_active_schema": api_shield_operation_feature_schema_info_schema_info_active_schema_output,
         "api-shield_operation_feature_thresholds": api_shield_operation_feature_thresholds_output,
-        "api-shield_operation_feature_thresholds_thresholds": api_shield_operation_feature_thresholds_thresholds_output,
         "api-shield_operation_features": api_shield_operation_features_output,
         "api-shield_p50": api_shield_p50_output,
         "api-shield_p90": api_shield_p90_output,
@@ -208,6 +170,7 @@ export const tools: readonly Tool[] = [
         "api-shield_parameter_schemas_definition": api_shield_parameter_schemas_definition_output,
         "api-shield_period_seconds": api_shield_period_seconds_output,
         "api-shield_requests": api_shield_requests_output,
+        "api-shield_standard_operation": api_shield_standard_operation_output,
         "api-shield_suggested_threshold": api_shield_suggested_threshold_output,
         "api-shield_timestamp": api_shield_timestamp_output,
         "api-shield_timestamp-2": api_shield_timestamp_2_output,
@@ -319,40 +282,23 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "allOf": [
-        {
-          "$ref": "#/$defs/api-shield_operation"
-        },
-        {
-          "properties": {
-            "schemas": {
-              "$ref": "#/$defs/api-shield_operation_schemas"
-            }
-          },
-          "type": "object"
-        }
-      ],
+      "$ref": "#/$defs/api-shield_single-operation-response",
       $defs: {
+        "api-shield_api-response-common": api_shield_api_response_common_output,
         "api-shield_auth_id_tokens": api_shield_auth_id_tokens_output,
+        "api-shield_basic_operation": api_shield_basic_operation_output,
         "api-shield_confidence_intervals_bounds": api_shield_confidence_intervals_bounds_output,
         "api-shield_data_points": api_shield_data_points_output,
         "api-shield_endpoint": api_shield_endpoint_output,
         "api-shield_host": api_shield_host_output,
+        "api-shield_messages": api_shield_messages_output,
         "api-shield_method": api_shield_method_output,
         "api-shield_operation": api_shield_operation_output,
         "api-shield_operation_feature_api_routing": api_shield_operation_feature_api_routing_output,
-        "api-shield_operation_feature_api_routing_api_routing": api_shield_operation_feature_api_routing_api_routing_output,
         "api-shield_operation_feature_confidence_intervals": api_shield_operation_feature_confidence_intervals_output,
-        "api-shield_operation_feature_confidence_intervals_confidence_intervals": api_shield_operation_feature_confidence_intervals_confidence_intervals_output,
-        "api-shield_operation_feature_confidence_intervals_confidence_intervals_suggested_threshold": api_shield_operation_feature_confidence_intervals_confidence_intervals_suggested_threshold_output,
-        "api-shield_operation_feature_confidence_intervals_confidence_intervals_suggested_threshold_confidence_intervals": api_shield_operation_feature_confidence_intervals_confidence_intervals_suggested_threshold_confidence_intervals_output,
         "api-shield_operation_feature_parameter_schemas": api_shield_operation_feature_parameter_schemas_output,
-        "api-shield_operation_feature_parameter_schemas_parameter_schemas": api_shield_operation_feature_parameter_schemas_parameter_schemas_output,
         "api-shield_operation_feature_schema_info": api_shield_operation_feature_schema_info_output,
-        "api-shield_operation_feature_schema_info_schema_info": api_shield_operation_feature_schema_info_schema_info_output,
-        "api-shield_operation_feature_schema_info_schema_info_active_schema": api_shield_operation_feature_schema_info_schema_info_active_schema_output,
         "api-shield_operation_feature_thresholds": api_shield_operation_feature_thresholds_output,
-        "api-shield_operation_feature_thresholds_thresholds": api_shield_operation_feature_thresholds_thresholds_output,
         "api-shield_operation_features": api_shield_operation_features_output,
         "api-shield_operation_schema_fragment": api_shield_operation_schema_fragment_output,
         "api-shield_operation_schemas": api_shield_operation_schemas_output,
@@ -362,6 +308,8 @@ export const tools: readonly Tool[] = [
         "api-shield_parameter_schemas_definition": api_shield_parameter_schemas_definition_output,
         "api-shield_period_seconds": api_shield_period_seconds_output,
         "api-shield_requests": api_shield_requests_output,
+        "api-shield_single-operation-response": api_shield_single_operation_response_output,
+        "api-shield_standard_operation": api_shield_standard_operation_output,
         "api-shield_suggested_threshold": api_shield_suggested_threshold_output,
         "api-shield_timestamp": api_shield_timestamp_output,
         "api-shield_timestamp-2": api_shield_timestamp_2_output,
@@ -387,27 +335,17 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "allOf": [
-            {
-              "$ref": "#/$defs/api-shield_operation"
-            },
-            {
-              "properties": {
-                "schemas": {
-                  "$ref": "#/$defs/api-shield_operation_schemas"
-                }
-              },
-              "type": "object"
-            }
-          ]
+          "$ref": "#/$defs/api-shield_single-operation-response"
         },
         "4XX": {
           "$ref": "#/$defs/api-shield_api-response-common-failure"
         }
       },
       $defs: {
+        "api-shield_api-response-common": api_shield_api_response_common_output,
         "api-shield_api-response-common-failure": api_shield_api_response_common_failure_output,
         "api-shield_auth_id_tokens": api_shield_auth_id_tokens_output,
+        "api-shield_basic_operation": api_shield_basic_operation_output,
         "api-shield_confidence_intervals_bounds": api_shield_confidence_intervals_bounds_output,
         "api-shield_data_points": api_shield_data_points_output,
         "api-shield_endpoint": api_shield_endpoint_output,
@@ -416,18 +354,10 @@ export const tools: readonly Tool[] = [
         "api-shield_method": api_shield_method_output,
         "api-shield_operation": api_shield_operation_output,
         "api-shield_operation_feature_api_routing": api_shield_operation_feature_api_routing_output,
-        "api-shield_operation_feature_api_routing_api_routing": api_shield_operation_feature_api_routing_api_routing_output,
         "api-shield_operation_feature_confidence_intervals": api_shield_operation_feature_confidence_intervals_output,
-        "api-shield_operation_feature_confidence_intervals_confidence_intervals": api_shield_operation_feature_confidence_intervals_confidence_intervals_output,
-        "api-shield_operation_feature_confidence_intervals_confidence_intervals_suggested_threshold": api_shield_operation_feature_confidence_intervals_confidence_intervals_suggested_threshold_output,
-        "api-shield_operation_feature_confidence_intervals_confidence_intervals_suggested_threshold_confidence_intervals": api_shield_operation_feature_confidence_intervals_confidence_intervals_suggested_threshold_confidence_intervals_output,
         "api-shield_operation_feature_parameter_schemas": api_shield_operation_feature_parameter_schemas_output,
-        "api-shield_operation_feature_parameter_schemas_parameter_schemas": api_shield_operation_feature_parameter_schemas_parameter_schemas_output,
         "api-shield_operation_feature_schema_info": api_shield_operation_feature_schema_info_output,
-        "api-shield_operation_feature_schema_info_schema_info": api_shield_operation_feature_schema_info_schema_info_output,
-        "api-shield_operation_feature_schema_info_schema_info_active_schema": api_shield_operation_feature_schema_info_schema_info_active_schema_output,
         "api-shield_operation_feature_thresholds": api_shield_operation_feature_thresholds_output,
-        "api-shield_operation_feature_thresholds_thresholds": api_shield_operation_feature_thresholds_thresholds_output,
         "api-shield_operation_features": api_shield_operation_features_output,
         "api-shield_operation_schema_fragment": api_shield_operation_schema_fragment_output,
         "api-shield_operation_schemas": api_shield_operation_schemas_output,
@@ -437,6 +367,8 @@ export const tools: readonly Tool[] = [
         "api-shield_parameter_schemas_definition": api_shield_parameter_schemas_definition_output,
         "api-shield_period_seconds": api_shield_period_seconds_output,
         "api-shield_requests": api_shield_requests_output,
+        "api-shield_single-operation-response": api_shield_single_operation_response_output,
+        "api-shield_standard_operation": api_shield_standard_operation_output,
         "api-shield_suggested_threshold": api_shield_suggested_threshold_output,
         "api-shield_timestamp": api_shield_timestamp_output,
         "api-shield_timestamp-2": api_shield_timestamp_2_output,
@@ -559,40 +491,23 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "allOf": [
-        {
-          "$ref": "#/$defs/api-shield_operation"
-        },
-        {
-          "properties": {
-            "schemas": {
-              "$ref": "#/$defs/api-shield_operation_schemas"
-            }
-          },
-          "type": "object"
-        }
-      ],
+      "$ref": "#/$defs/api-shield_single-operation-response",
       $defs: {
+        "api-shield_api-response-common": api_shield_api_response_common_output,
         "api-shield_auth_id_tokens": api_shield_auth_id_tokens_output,
+        "api-shield_basic_operation": api_shield_basic_operation_output,
         "api-shield_confidence_intervals_bounds": api_shield_confidence_intervals_bounds_output,
         "api-shield_data_points": api_shield_data_points_output,
         "api-shield_endpoint": api_shield_endpoint_output,
         "api-shield_host": api_shield_host_output,
+        "api-shield_messages": api_shield_messages_output,
         "api-shield_method": api_shield_method_output,
         "api-shield_operation": api_shield_operation_output,
         "api-shield_operation_feature_api_routing": api_shield_operation_feature_api_routing_output,
-        "api-shield_operation_feature_api_routing_api_routing": api_shield_operation_feature_api_routing_api_routing_output,
         "api-shield_operation_feature_confidence_intervals": api_shield_operation_feature_confidence_intervals_output,
-        "api-shield_operation_feature_confidence_intervals_confidence_intervals": api_shield_operation_feature_confidence_intervals_confidence_intervals_output,
-        "api-shield_operation_feature_confidence_intervals_confidence_intervals_suggested_threshold": api_shield_operation_feature_confidence_intervals_confidence_intervals_suggested_threshold_output,
-        "api-shield_operation_feature_confidence_intervals_confidence_intervals_suggested_threshold_confidence_intervals": api_shield_operation_feature_confidence_intervals_confidence_intervals_suggested_threshold_confidence_intervals_output,
         "api-shield_operation_feature_parameter_schemas": api_shield_operation_feature_parameter_schemas_output,
-        "api-shield_operation_feature_parameter_schemas_parameter_schemas": api_shield_operation_feature_parameter_schemas_parameter_schemas_output,
         "api-shield_operation_feature_schema_info": api_shield_operation_feature_schema_info_output,
-        "api-shield_operation_feature_schema_info_schema_info": api_shield_operation_feature_schema_info_schema_info_output,
-        "api-shield_operation_feature_schema_info_schema_info_active_schema": api_shield_operation_feature_schema_info_schema_info_active_schema_output,
         "api-shield_operation_feature_thresholds": api_shield_operation_feature_thresholds_output,
-        "api-shield_operation_feature_thresholds_thresholds": api_shield_operation_feature_thresholds_thresholds_output,
         "api-shield_operation_features": api_shield_operation_features_output,
         "api-shield_operation_schema_fragment": api_shield_operation_schema_fragment_output,
         "api-shield_operation_schemas": api_shield_operation_schemas_output,
@@ -602,6 +517,8 @@ export const tools: readonly Tool[] = [
         "api-shield_parameter_schemas_definition": api_shield_parameter_schemas_definition_output,
         "api-shield_period_seconds": api_shield_period_seconds_output,
         "api-shield_requests": api_shield_requests_output,
+        "api-shield_single-operation-response": api_shield_single_operation_response_output,
+        "api-shield_standard_operation": api_shield_standard_operation_output,
         "api-shield_suggested_threshold": api_shield_suggested_threshold_output,
         "api-shield_timestamp": api_shield_timestamp_output,
         "api-shield_timestamp-2": api_shield_timestamp_2_output,
@@ -629,27 +546,17 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "allOf": [
-            {
-              "$ref": "#/$defs/api-shield_operation"
-            },
-            {
-              "properties": {
-                "schemas": {
-                  "$ref": "#/$defs/api-shield_operation_schemas"
-                }
-              },
-              "type": "object"
-            }
-          ]
+          "$ref": "#/$defs/api-shield_single-operation-response"
         },
         "4XX": {
           "$ref": "#/$defs/api-shield_api-response-common-failure"
         }
       },
       $defs: {
+        "api-shield_api-response-common": api_shield_api_response_common_output,
         "api-shield_api-response-common-failure": api_shield_api_response_common_failure_output,
         "api-shield_auth_id_tokens": api_shield_auth_id_tokens_output,
+        "api-shield_basic_operation": api_shield_basic_operation_output,
         "api-shield_confidence_intervals_bounds": api_shield_confidence_intervals_bounds_output,
         "api-shield_data_points": api_shield_data_points_output,
         "api-shield_endpoint": api_shield_endpoint_output,
@@ -658,18 +565,10 @@ export const tools: readonly Tool[] = [
         "api-shield_method": api_shield_method_output,
         "api-shield_operation": api_shield_operation_output,
         "api-shield_operation_feature_api_routing": api_shield_operation_feature_api_routing_output,
-        "api-shield_operation_feature_api_routing_api_routing": api_shield_operation_feature_api_routing_api_routing_output,
         "api-shield_operation_feature_confidence_intervals": api_shield_operation_feature_confidence_intervals_output,
-        "api-shield_operation_feature_confidence_intervals_confidence_intervals": api_shield_operation_feature_confidence_intervals_confidence_intervals_output,
-        "api-shield_operation_feature_confidence_intervals_confidence_intervals_suggested_threshold": api_shield_operation_feature_confidence_intervals_confidence_intervals_suggested_threshold_output,
-        "api-shield_operation_feature_confidence_intervals_confidence_intervals_suggested_threshold_confidence_intervals": api_shield_operation_feature_confidence_intervals_confidence_intervals_suggested_threshold_confidence_intervals_output,
         "api-shield_operation_feature_parameter_schemas": api_shield_operation_feature_parameter_schemas_output,
-        "api-shield_operation_feature_parameter_schemas_parameter_schemas": api_shield_operation_feature_parameter_schemas_parameter_schemas_output,
         "api-shield_operation_feature_schema_info": api_shield_operation_feature_schema_info_output,
-        "api-shield_operation_feature_schema_info_schema_info": api_shield_operation_feature_schema_info_schema_info_output,
-        "api-shield_operation_feature_schema_info_schema_info_active_schema": api_shield_operation_feature_schema_info_schema_info_active_schema_output,
         "api-shield_operation_feature_thresholds": api_shield_operation_feature_thresholds_output,
-        "api-shield_operation_feature_thresholds_thresholds": api_shield_operation_feature_thresholds_thresholds_output,
         "api-shield_operation_features": api_shield_operation_features_output,
         "api-shield_operation_schema_fragment": api_shield_operation_schema_fragment_output,
         "api-shield_operation_schemas": api_shield_operation_schemas_output,
@@ -679,6 +578,8 @@ export const tools: readonly Tool[] = [
         "api-shield_parameter_schemas_definition": api_shield_parameter_schemas_definition_output,
         "api-shield_period_seconds": api_shield_period_seconds_output,
         "api-shield_requests": api_shield_requests_output,
+        "api-shield_single-operation-response": api_shield_single_operation_response_output,
+        "api-shield_standard_operation": api_shield_standard_operation_output,
         "api-shield_suggested_threshold": api_shield_suggested_threshold_output,
         "api-shield_timestamp": api_shield_timestamp_output,
         "api-shield_timestamp-2": api_shield_timestamp_2_output,
@@ -773,59 +674,25 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "$ref": "#/$defs/api-shield_operation"
-          },
-          "type": "array"
-        },
-        "result_info": {
-          "properties": {
-            "count": {
-              "type": "number"
-            },
-            "page": {
-              "type": "number"
-            },
-            "per_page": {
-              "type": "number"
-            },
-            "total_count": {
-              "type": "number"
-            },
-            "total_pages": {
-              "type": "number"
-            }
-          },
-          "type": "object"
-        }
-      },
-      "required": [
-        "result"
-      ],
-      "type": "object",
+      "$ref": "#/$defs/api-shield_multiple-operation-response-paginated",
       $defs: {
+        "api-shield_api-response-collection": api_shield_api_response_collection_output,
+        "api-shield_api-response-common": api_shield_api_response_common_output,
         "api-shield_auth_id_tokens": api_shield_auth_id_tokens_output,
+        "api-shield_basic_operation": api_shield_basic_operation_output,
         "api-shield_confidence_intervals_bounds": api_shield_confidence_intervals_bounds_output,
         "api-shield_data_points": api_shield_data_points_output,
         "api-shield_endpoint": api_shield_endpoint_output,
         "api-shield_host": api_shield_host_output,
+        "api-shield_messages": api_shield_messages_output,
         "api-shield_method": api_shield_method_output,
+        "api-shield_multiple-operation-response-paginated": api_shield_multiple_operation_response_paginated_output,
         "api-shield_operation": api_shield_operation_output,
         "api-shield_operation_feature_api_routing": api_shield_operation_feature_api_routing_output,
-        "api-shield_operation_feature_api_routing_api_routing": api_shield_operation_feature_api_routing_api_routing_output,
         "api-shield_operation_feature_confidence_intervals": api_shield_operation_feature_confidence_intervals_output,
-        "api-shield_operation_feature_confidence_intervals_confidence_intervals": api_shield_operation_feature_confidence_intervals_confidence_intervals_output,
-        "api-shield_operation_feature_confidence_intervals_confidence_intervals_suggested_threshold": api_shield_operation_feature_confidence_intervals_confidence_intervals_suggested_threshold_output,
-        "api-shield_operation_feature_confidence_intervals_confidence_intervals_suggested_threshold_confidence_intervals": api_shield_operation_feature_confidence_intervals_confidence_intervals_suggested_threshold_confidence_intervals_output,
         "api-shield_operation_feature_parameter_schemas": api_shield_operation_feature_parameter_schemas_output,
-        "api-shield_operation_feature_parameter_schemas_parameter_schemas": api_shield_operation_feature_parameter_schemas_parameter_schemas_output,
         "api-shield_operation_feature_schema_info": api_shield_operation_feature_schema_info_output,
-        "api-shield_operation_feature_schema_info_schema_info": api_shield_operation_feature_schema_info_schema_info_output,
-        "api-shield_operation_feature_schema_info_schema_info_active_schema": api_shield_operation_feature_schema_info_schema_info_active_schema_output,
         "api-shield_operation_feature_thresholds": api_shield_operation_feature_thresholds_output,
-        "api-shield_operation_feature_thresholds_thresholds": api_shield_operation_feature_thresholds_thresholds_output,
         "api-shield_operation_features": api_shield_operation_features_output,
         "api-shield_p50": api_shield_p50_output,
         "api-shield_p90": api_shield_p90_output,
@@ -833,6 +700,7 @@ export const tools: readonly Tool[] = [
         "api-shield_parameter_schemas_definition": api_shield_parameter_schemas_definition_output,
         "api-shield_period_seconds": api_shield_period_seconds_output,
         "api-shield_requests": api_shield_requests_output,
+        "api-shield_standard_operation": api_shield_standard_operation_output,
         "api-shield_suggested_threshold": api_shield_suggested_threshold_output,
         "api-shield_timestamp": api_shield_timestamp_output,
         "api-shield_timestamp-2": api_shield_timestamp_2_output,
@@ -860,66 +728,31 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "items": {
-                "$ref": "#/$defs/api-shield_operation"
-              },
-              "type": "array"
-            },
-            "result_info": {
-              "properties": {
-                "count": {
-                  "type": "number"
-                },
-                "page": {
-                  "type": "number"
-                },
-                "per_page": {
-                  "type": "number"
-                },
-                "total_count": {
-                  "type": "number"
-                },
-                "total_pages": {
-                  "type": "number"
-                }
-              },
-              "type": "object"
-            }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/api-shield_multiple-operation-response-paginated"
         },
         "4XX": {
           "$ref": "#/$defs/api-shield_api-response-common-failure"
         }
       },
       $defs: {
+        "api-shield_api-response-collection": api_shield_api_response_collection_output,
+        "api-shield_api-response-common": api_shield_api_response_common_output,
         "api-shield_api-response-common-failure": api_shield_api_response_common_failure_output,
         "api-shield_auth_id_tokens": api_shield_auth_id_tokens_output,
+        "api-shield_basic_operation": api_shield_basic_operation_output,
         "api-shield_confidence_intervals_bounds": api_shield_confidence_intervals_bounds_output,
         "api-shield_data_points": api_shield_data_points_output,
         "api-shield_endpoint": api_shield_endpoint_output,
         "api-shield_host": api_shield_host_output,
         "api-shield_messages": api_shield_messages_output,
         "api-shield_method": api_shield_method_output,
+        "api-shield_multiple-operation-response-paginated": api_shield_multiple_operation_response_paginated_output,
         "api-shield_operation": api_shield_operation_output,
         "api-shield_operation_feature_api_routing": api_shield_operation_feature_api_routing_output,
-        "api-shield_operation_feature_api_routing_api_routing": api_shield_operation_feature_api_routing_api_routing_output,
         "api-shield_operation_feature_confidence_intervals": api_shield_operation_feature_confidence_intervals_output,
-        "api-shield_operation_feature_confidence_intervals_confidence_intervals": api_shield_operation_feature_confidence_intervals_confidence_intervals_output,
-        "api-shield_operation_feature_confidence_intervals_confidence_intervals_suggested_threshold": api_shield_operation_feature_confidence_intervals_confidence_intervals_suggested_threshold_output,
-        "api-shield_operation_feature_confidence_intervals_confidence_intervals_suggested_threshold_confidence_intervals": api_shield_operation_feature_confidence_intervals_confidence_intervals_suggested_threshold_confidence_intervals_output,
         "api-shield_operation_feature_parameter_schemas": api_shield_operation_feature_parameter_schemas_output,
-        "api-shield_operation_feature_parameter_schemas_parameter_schemas": api_shield_operation_feature_parameter_schemas_parameter_schemas_output,
         "api-shield_operation_feature_schema_info": api_shield_operation_feature_schema_info_output,
-        "api-shield_operation_feature_schema_info_schema_info": api_shield_operation_feature_schema_info_schema_info_output,
-        "api-shield_operation_feature_schema_info_schema_info_active_schema": api_shield_operation_feature_schema_info_schema_info_active_schema_output,
         "api-shield_operation_feature_thresholds": api_shield_operation_feature_thresholds_output,
-        "api-shield_operation_feature_thresholds_thresholds": api_shield_operation_feature_thresholds_thresholds_output,
         "api-shield_operation_features": api_shield_operation_features_output,
         "api-shield_p50": api_shield_p50_output,
         "api-shield_p90": api_shield_p90_output,
@@ -927,6 +760,7 @@ export const tools: readonly Tool[] = [
         "api-shield_parameter_schemas_definition": api_shield_parameter_schemas_definition_output,
         "api-shield_period_seconds": api_shield_period_seconds_output,
         "api-shield_requests": api_shield_requests_output,
+        "api-shield_standard_operation": api_shield_standard_operation_output,
         "api-shield_suggested_threshold": api_shield_suggested_threshold_output,
         "api-shield_timestamp": api_shield_timestamp_output,
         "api-shield_timestamp-2": api_shield_timestamp_2_output,

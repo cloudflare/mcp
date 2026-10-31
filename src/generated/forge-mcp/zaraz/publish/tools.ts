@@ -4,8 +4,10 @@
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
   zaraz_api_response_common_failure_output,
+  zaraz_api_response_common_output,
   zaraz_messages_output,
 } from "../outputs.js";
+import { zaraz_identifier } from "../schemas.js";
 
 /**
  * The tools of `zaraz.publish`.
@@ -22,16 +24,35 @@ export const tools: readonly Tool[] = [
           "type": "string"
         },
         "zone_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/zaraz_identifier",
+          "description": "Identifier."
         }
       },
       required: [
         "zone_id"
       ],
+      $defs: {
+        "zaraz_identifier": zaraz_identifier,
+      },
     },
     outputSchema: {
-      "type": "string",
+      "allOf": [
+        {
+          "$ref": "#/$defs/zaraz_api-response-common"
+        },
+        {
+          "properties": {
+            "result": {
+              "type": "string"
+            }
+          },
+          "type": "object"
+        }
+      ],
+      $defs: {
+        "zaraz_api-response-common": zaraz_api_response_common_output,
+        "zaraz_messages": zaraz_messages_output,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -49,24 +70,32 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "#zaraz:publish"
-        ],
-        "x-fern-enum": {
-          "#zaraz:publish": {
-            "name": "zaraz_publish"
-          }
-        }
+        ]
       }
     },
     responses: {
       schemas: {
         "200": {
-          "type": "string"
+          "allOf": [
+            {
+              "$ref": "#/$defs/zaraz_api-response-common"
+            },
+            {
+              "properties": {
+                "result": {
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/zaraz_api-response-common-failure"
         }
       },
       $defs: {
+        "zaraz_api-response-common": zaraz_api_response_common_output,
         "zaraz_api-response-common-failure": zaraz_api_response_common_failure_output,
         "zaraz_messages": zaraz_messages_output,
       },

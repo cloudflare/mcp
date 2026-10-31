@@ -48,6 +48,160 @@ export const workers_ErrorInternalServer_output: JsonSchema = {
 };
 
 /**
+ * The schema of `workers_ErrorMissingParam` in responses.
+ */
+export const workers_ErrorMissingParam_output: JsonSchema = {
+  "properties": {
+    "code": {
+      "enum": [
+        10003
+      ],
+      "type": "integer"
+    },
+    "message": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "code",
+    "message"
+  ],
+  "type": "object"
+};
+
+/**
+ * The schema of `workers_ErrorWorkerInvalid` in responses.
+ */
+export const workers_ErrorWorkerInvalid_output: JsonSchema = {
+  "properties": {
+    "code": {
+      "enum": [
+        10021
+      ],
+      "type": "integer"
+    },
+    "message": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "code",
+    "message"
+  ],
+  "type": "object"
+};
+
+/**
+ * The schema of `workers_ErrorWorkerLimit` in responses.
+ */
+export const workers_ErrorWorkerLimit_output: JsonSchema = {
+  "properties": {
+    "code": {
+      "enum": [
+        10037
+      ],
+      "type": "integer"
+    },
+    "message": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "code",
+    "message"
+  ],
+  "type": "object"
+};
+
+/**
+ * The schema of `workers_ErrorWorkerNameConflict` in responses.
+ */
+export const workers_ErrorWorkerNameConflict_output: JsonSchema = {
+  "properties": {
+    "code": {
+      "enum": [
+        10040
+      ],
+      "type": "integer"
+    },
+    "message": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "code",
+    "message"
+  ],
+  "type": "object"
+};
+
+/**
+ * The schema of `workers_ErrorWorkerNameInvalid` in responses.
+ */
+export const workers_ErrorWorkerNameInvalid_output: JsonSchema = {
+  "properties": {
+    "code": {
+      "enum": [
+        10016
+      ],
+      "type": "integer"
+    },
+    "message": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "code",
+    "message"
+  ],
+  "type": "object"
+};
+
+/**
+ * The schema of `workers_ErrorWorkerNamePreviewLengthLimit` in responses.
+ */
+export const workers_ErrorWorkerNamePreviewLengthLimit_output: JsonSchema = {
+  "properties": {
+    "code": {
+      "enum": [
+        100315
+      ],
+      "type": "integer"
+    },
+    "message": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "code",
+    "message"
+  ],
+  "type": "object"
+};
+
+/**
+ * The schema of `workers_ErrorWorkerNameSubdomainLengthLimit` in responses.
+ */
+export const workers_ErrorWorkerNameSubdomainLengthLimit_output: JsonSchema = {
+  "properties": {
+    "code": {
+      "enum": [
+        100132
+      ],
+      "type": "integer"
+    },
+    "message": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "code",
+    "message"
+  ],
+  "type": "object"
+};
+
+/**
  * The schema of `workers_ErrorWorkerNotFound` in responses.
  */
 export const workers_ErrorWorkerNotFound_output: JsonSchema = {
@@ -55,6 +209,95 @@ export const workers_ErrorWorkerNotFound_output: JsonSchema = {
     "code": {
       "enum": [
         10007
+      ],
+      "type": "integer"
+    },
+    "message": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "code",
+    "message"
+  ],
+  "type": "object"
+};
+
+/**
+ * The schema of `workers_ErrorWorkerObservabilitySamplingRateInvalid` in
+ * responses.
+ */
+export const workers_ErrorWorkerObservabilitySamplingRateInvalid_output: JsonSchema = {
+  "properties": {
+    "code": {
+      "enum": [
+        100308
+      ],
+      "type": "integer"
+    },
+    "message": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "code",
+    "message"
+  ],
+  "type": "object"
+};
+
+/**
+ * The schema of `workers_ErrorWorkerTagInvalid` in responses.
+ */
+export const workers_ErrorWorkerTagInvalid_output: JsonSchema = {
+  "properties": {
+    "code": {
+      "enum": [
+        100134
+      ],
+      "type": "integer"
+    },
+    "message": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "code",
+    "message"
+  ],
+  "type": "object"
+};
+
+/**
+ * The schema of `workers_ErrorWorkerTagLengthLimit` in responses.
+ */
+export const workers_ErrorWorkerTagLengthLimit_output: JsonSchema = {
+  "properties": {
+    "code": {
+      "enum": [
+        100102
+      ],
+      "type": "integer"
+    },
+    "message": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "code",
+    "message"
+  ],
+  "type": "object"
+};
+
+/**
+ * The schema of `workers_ErrorWorkerTagLimit` in responses.
+ */
+export const workers_ErrorWorkerTagLimit_output: JsonSchema = {
+  "properties": {
+    "code": {
+      "enum": [
+        100103
       ],
       "type": "integer"
     },
@@ -94,26 +337,19 @@ export const workers_PreviewsBaseConfig_output: JsonSchema = {
     },
     "tail_consumers": {
       "items": {
-        "$ref": "#/$defs/workers_PreviewsBaseConfig_tail_consumersItem"
+        "properties": {
+          "name": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "name"
+        ],
+        "type": "object"
       },
       "type": "array"
     }
   },
-  "type": "object"
-};
-
-/**
- * The schema of `workers_PreviewsBaseConfig_tail_consumersItem` in responses.
- */
-export const workers_PreviewsBaseConfig_tail_consumersItem_output: JsonSchema = {
-  "properties": {
-    "name": {
-      "type": "string"
-    }
-  },
-  "required": [
-    "name"
-  ],
   "type": "object"
 };
 
@@ -147,16 +383,244 @@ export const workers_Worker_output: JsonSchema = {
       "type": "string"
     },
     "observability": {
-      "$ref": "#/$defs/workers_Worker_observability"
+      "properties": {
+        "enabled": {
+          "type": "boolean"
+        },
+        "head_sampling_rate": {
+          "type": "number"
+        },
+        "issues": {
+          "oneOf": [
+            {
+              "properties": {
+                "enabled": {
+                  "type": "boolean"
+                }
+              },
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "logs": {
+          "properties": {
+            "destinations": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "enabled": {
+              "type": "boolean"
+            },
+            "head_sampling_rate": {
+              "type": "number"
+            },
+            "invocation_logs": {
+              "type": "boolean"
+            },
+            "persist": {
+              "type": "boolean"
+            }
+          },
+          "type": "object"
+        },
+        "redact_query_string": {
+          "type": "boolean"
+        },
+        "traces": {
+          "properties": {
+            "destinations": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "enabled": {
+              "type": "boolean"
+            },
+            "head_sampling_rate": {
+              "type": "number"
+            },
+            "persist": {
+              "type": "boolean"
+            },
+            "propagation_policy": {
+              "oneOf": [
+                {
+                  "enum": [
+                    "authenticated",
+                    "accept"
+                  ],
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
     },
     "previews_base_config": {
       "$ref": "#/$defs/workers_PreviewsBaseConfig"
     },
     "references": {
-      "$ref": "#/$defs/workers_Worker_references"
+      "properties": {
+        "dispatch_namespace_outbounds": {
+          "items": {
+            "properties": {
+              "namespace_id": {
+                "type": "string"
+              },
+              "namespace_name": {
+                "type": "string"
+              },
+              "worker_id": {
+                "type": "string"
+              },
+              "worker_name": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "namespace_id",
+              "namespace_name",
+              "worker_id",
+              "worker_name"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "domains": {
+          "items": {
+            "properties": {
+              "certificate_id": {
+                "type": "string"
+              },
+              "hostname": {
+                "type": "string"
+              },
+              "id": {
+                "type": "string"
+              },
+              "zone_id": {
+                "type": "string"
+              },
+              "zone_name": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "certificate_id",
+              "hostname",
+              "id",
+              "zone_id",
+              "zone_name"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "durable_objects": {
+          "items": {
+            "properties": {
+              "namespace_id": {
+                "type": "string"
+              },
+              "namespace_name": {
+                "type": "string"
+              },
+              "worker_id": {
+                "type": "string"
+              },
+              "worker_name": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "namespace_id",
+              "namespace_name",
+              "worker_id",
+              "worker_name"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "queues": {
+          "items": {
+            "properties": {
+              "queue_consumer_id": {
+                "type": "string"
+              },
+              "queue_id": {
+                "type": "string"
+              },
+              "queue_name": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "queue_consumer_id",
+              "queue_id",
+              "queue_name"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "workers": {
+          "items": {
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "name"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "dispatch_namespace_outbounds",
+        "domains",
+        "durable_objects",
+        "queues",
+        "workers"
+      ],
+      "type": "object"
     },
     "subdomain": {
-      "$ref": "#/$defs/workers_Worker_subdomain"
+      "properties": {
+        "enabled": {
+          "type": "boolean"
+        },
+        "preview_url_suffix": {
+          "type": "string"
+        },
+        "previews_enabled": {
+          "type": "boolean"
+        },
+        "url": {
+          "type": "string"
+        }
+      },
+      "type": "object"
     },
     "tags": {
       "items": {
@@ -167,7 +631,15 @@ export const workers_Worker_output: JsonSchema = {
     },
     "tail_consumers": {
       "items": {
-        "$ref": "#/$defs/workers_Worker_tail_consumersItem"
+        "properties": {
+          "name": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "name"
+        ],
+        "type": "object"
       },
       "type": "array"
     },
@@ -187,327 +659,6 @@ export const workers_Worker_output: JsonSchema = {
     "tags",
     "tail_consumers",
     "updated_on"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `workers_Worker_observability` in responses.
- */
-export const workers_Worker_observability_output: JsonSchema = {
-  "properties": {
-    "enabled": {
-      "type": "boolean"
-    },
-    "head_sampling_rate": {
-      "type": "number"
-    },
-    "issues": {
-      "$ref": "#/$defs/workers_Worker_observability_issues"
-    },
-    "logs": {
-      "$ref": "#/$defs/workers_Worker_observability_logs"
-    },
-    "redact_query_string": {
-      "type": "boolean"
-    },
-    "traces": {
-      "$ref": "#/$defs/workers_Worker_observability_traces"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `workers_Worker_observability_issues` in responses.
- */
-export const workers_Worker_observability_issues_output: JsonSchema = {
-  "oneOf": [
-    {
-      "properties": {
-        "enabled": {
-          "type": "boolean"
-        }
-      },
-      "type": "object"
-    },
-    {
-      "type": "null"
-    }
-  ]
-};
-
-/**
- * The schema of `workers_Worker_observability_logs` in responses.
- */
-export const workers_Worker_observability_logs_output: JsonSchema = {
-  "properties": {
-    "destinations": {
-      "items": {
-        "type": "string"
-      },
-      "type": "array"
-    },
-    "enabled": {
-      "type": "boolean"
-    },
-    "head_sampling_rate": {
-      "type": "number"
-    },
-    "invocation_logs": {
-      "type": "boolean"
-    },
-    "persist": {
-      "type": "boolean"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `workers_Worker_observability_traces` in responses.
- */
-export const workers_Worker_observability_traces_output: JsonSchema = {
-  "properties": {
-    "destinations": {
-      "items": {
-        "type": "string"
-      },
-      "type": "array"
-    },
-    "enabled": {
-      "type": "boolean"
-    },
-    "head_sampling_rate": {
-      "type": "number"
-    },
-    "persist": {
-      "type": "boolean"
-    },
-    "propagation_policy": {
-      "oneOf": [
-        {
-          "enum": [
-            "authenticated",
-            "accept"
-          ],
-          "type": "string"
-        },
-        {
-          "type": "null"
-        }
-      ]
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `workers_Worker_references` in responses.
- */
-export const workers_Worker_references_output: JsonSchema = {
-  "properties": {
-    "dispatch_namespace_outbounds": {
-      "items": {
-        "$ref": "#/$defs/workers_Worker_references_dispatch_namespace_outboundsItem"
-      },
-      "type": "array"
-    },
-    "domains": {
-      "items": {
-        "$ref": "#/$defs/workers_Worker_references_domainsItem"
-      },
-      "type": "array"
-    },
-    "durable_objects": {
-      "items": {
-        "$ref": "#/$defs/workers_Worker_references_durable_objectsItem"
-      },
-      "type": "array"
-    },
-    "queues": {
-      "items": {
-        "$ref": "#/$defs/workers_Worker_references_queuesItem"
-      },
-      "type": "array"
-    },
-    "workers": {
-      "items": {
-        "$ref": "#/$defs/workers_Worker_references_workersItem"
-      },
-      "type": "array"
-    }
-  },
-  "required": [
-    "dispatch_namespace_outbounds",
-    "domains",
-    "durable_objects",
-    "queues",
-    "workers"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `workers_Worker_references_dispatch_namespace_outboundsItem` in
- * responses.
- */
-export const workers_Worker_references_dispatch_namespace_outboundsItem_output: JsonSchema = {
-  "properties": {
-    "namespace_id": {
-      "type": "string"
-    },
-    "namespace_name": {
-      "type": "string"
-    },
-    "worker_id": {
-      "type": "string"
-    },
-    "worker_name": {
-      "type": "string"
-    }
-  },
-  "required": [
-    "namespace_id",
-    "namespace_name",
-    "worker_id",
-    "worker_name"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `workers_Worker_references_domainsItem` in responses.
- */
-export const workers_Worker_references_domainsItem_output: JsonSchema = {
-  "properties": {
-    "certificate_id": {
-      "type": "string"
-    },
-    "hostname": {
-      "type": "string"
-    },
-    "id": {
-      "type": "string"
-    },
-    "zone_id": {
-      "type": "string"
-    },
-    "zone_name": {
-      "type": "string"
-    }
-  },
-  "required": [
-    "certificate_id",
-    "hostname",
-    "id",
-    "zone_id",
-    "zone_name"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `workers_Worker_references_durable_objectsItem` in responses.
- */
-export const workers_Worker_references_durable_objectsItem_output: JsonSchema = {
-  "properties": {
-    "namespace_id": {
-      "type": "string"
-    },
-    "namespace_name": {
-      "type": "string"
-    },
-    "worker_id": {
-      "type": "string"
-    },
-    "worker_name": {
-      "type": "string"
-    }
-  },
-  "required": [
-    "namespace_id",
-    "namespace_name",
-    "worker_id",
-    "worker_name"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `workers_Worker_references_queuesItem` in responses.
- */
-export const workers_Worker_references_queuesItem_output: JsonSchema = {
-  "properties": {
-    "queue_consumer_id": {
-      "type": "string"
-    },
-    "queue_id": {
-      "type": "string"
-    },
-    "queue_name": {
-      "type": "string"
-    }
-  },
-  "required": [
-    "queue_consumer_id",
-    "queue_id",
-    "queue_name"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `workers_Worker_references_workersItem` in responses.
- */
-export const workers_Worker_references_workersItem_output: JsonSchema = {
-  "properties": {
-    "id": {
-      "type": "string"
-    },
-    "name": {
-      "type": "string"
-    }
-  },
-  "required": [
-    "id",
-    "name"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `workers_Worker_subdomain` in responses.
- */
-export const workers_Worker_subdomain_output: JsonSchema = {
-  "properties": {
-    "enabled": {
-      "type": "boolean"
-    },
-    "preview_url_suffix": {
-      "type": "string"
-    },
-    "previews_enabled": {
-      "type": "boolean"
-    },
-    "url": {
-      "type": "string"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `workers_Worker_tail_consumersItem` in responses.
- */
-export const workers_Worker_tail_consumersItem_output: JsonSchema = {
-  "properties": {
-    "name": {
-      "type": "string"
-    }
-  },
-  "required": [
-    "name"
   ],
   "type": "object"
 };
@@ -574,100 +725,79 @@ export const workers_observability_output: JsonSchema = {
       "type": "number"
     },
     "issues": {
-      "$ref": "#/$defs/workers_observability_issues"
-    },
-    "logs": {
-      "$ref": "#/$defs/workers_observability_logs"
-    },
-    "redact_query_string": {
-      "type": "boolean"
-    },
-    "traces": {
-      "$ref": "#/$defs/workers_observability_traces"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `workers_observability_issues` in responses.
- */
-export const workers_observability_issues_output: JsonSchema = {
-  "oneOf": [
-    {
-      "properties": {
-        "enabled": {
-          "type": "boolean"
-        }
-      },
-      "type": "object"
-    },
-    {
-      "type": "null"
-    }
-  ]
-};
-
-/**
- * The schema of `workers_observability_logs` in responses.
- */
-export const workers_observability_logs_output: JsonSchema = {
-  "properties": {
-    "destinations": {
-      "items": {
-        "type": "string"
-      },
-      "type": "array"
-    },
-    "enabled": {
-      "type": "boolean"
-    },
-    "head_sampling_rate": {
-      "type": "number"
-    },
-    "invocation_logs": {
-      "type": "boolean"
-    },
-    "persist": {
-      "type": "boolean"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `workers_observability_traces` in responses.
- */
-export const workers_observability_traces_output: JsonSchema = {
-  "properties": {
-    "destinations": {
-      "items": {
-        "type": "string"
-      },
-      "type": "array"
-    },
-    "enabled": {
-      "type": "boolean"
-    },
-    "head_sampling_rate": {
-      "type": "number"
-    },
-    "persist": {
-      "type": "boolean"
-    },
-    "propagation_policy": {
       "oneOf": [
         {
-          "enum": [
-            "authenticated",
-            "accept"
-          ],
-          "type": "string"
+          "properties": {
+            "enabled": {
+              "type": "boolean"
+            }
+          },
+          "type": "object"
         },
         {
           "type": "null"
         }
       ]
+    },
+    "logs": {
+      "properties": {
+        "destinations": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "enabled": {
+          "type": "boolean"
+        },
+        "head_sampling_rate": {
+          "type": "number"
+        },
+        "invocation_logs": {
+          "type": "boolean"
+        },
+        "persist": {
+          "type": "boolean"
+        }
+      },
+      "type": "object"
+    },
+    "redact_query_string": {
+      "type": "boolean"
+    },
+    "traces": {
+      "properties": {
+        "destinations": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "enabled": {
+          "type": "boolean"
+        },
+        "head_sampling_rate": {
+          "type": "number"
+        },
+        "persist": {
+          "type": "boolean"
+        },
+        "propagation_policy": {
+          "oneOf": [
+            {
+              "enum": [
+                "authenticated",
+                "accept"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "type": "object"
     }
   },
   "type": "object"

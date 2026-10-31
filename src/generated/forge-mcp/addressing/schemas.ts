@@ -4,6 +4,14 @@
 import type { JsonSchema } from "../_/tool.js";
 
 /**
+ * The schema of `addressing_account_identifier`.
+ */
+export const addressing_account_identifier: JsonSchema = {
+  "description": "Identifier of a Cloudflare account.",
+  "type": "string"
+};
+
+/**
  * The schema of `addressing_loa_document_identifier`.
  */
 export const addressing_loa_document_identifier: JsonSchema = {

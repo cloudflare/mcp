@@ -9,95 +9,81 @@ import type { JsonSchema } from "../../../_/tool.js";
 export const r2_sippy_output: JsonSchema = {
   "properties": {
     "destination": {
-      "$ref": "#/$defs/r2_sippy_destination"
+      "properties": {
+        "accessKeyId": {
+          "type": "string"
+        },
+        "account": {
+          "type": "string"
+        },
+        "bucket": {
+          "type": "string"
+        },
+        "provider": {
+          "enum": [
+            "r2"
+          ],
+          "type": "string"
+        }
+      },
+      "type": "object"
     },
     "enabled": {
       "type": "boolean"
     },
     "source": {
-      "$ref": "#/$defs/r2_sippy_source"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `r2_sippy_destination` in responses.
- */
-export const r2_sippy_destination_output: JsonSchema = {
-  "properties": {
-    "accessKeyId": {
-      "type": "string"
-    },
-    "account": {
-      "type": "string"
-    },
-    "bucket": {
-      "type": "string"
-    },
-    "provider": {
-      "enum": [
-        "r2"
-      ],
-      "type": "string"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `r2_sippy_source` in responses.
- */
-export const r2_sippy_source_output: JsonSchema = {
-  "properties": {
-    "bucket": {
-      "oneOf": [
-        {
+      "properties": {
+        "bucket": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "bucketUrl": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "container": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "provider": {
+          "enum": [
+            "aws",
+            "gcs",
+            "s3",
+            "azure"
+          ],
           "type": "string"
         },
-        {
-          "type": "null"
+        "region": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
         }
-      ]
-    },
-    "bucketUrl": {
-      "oneOf": [
-        {
-          "type": "string"
-        },
-        {
-          "type": "null"
-        }
-      ]
-    },
-    "container": {
-      "oneOf": [
-        {
-          "type": "string"
-        },
-        {
-          "type": "null"
-        }
-      ]
-    },
-    "provider": {
-      "enum": [
-        "aws",
-        "gcs",
-        "s3",
-        "azure"
-      ],
-      "type": "string"
-    },
-    "region": {
-      "oneOf": [
-        {
-          "type": "string"
-        },
-        {
-          "type": "null"
-        }
-      ]
+      },
+      "type": "object"
     }
   },
   "type": "object"

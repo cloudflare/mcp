@@ -4,11 +4,14 @@
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
   logcontrol_api_response_common_failure_output,
+  logcontrol_api_response_single_output,
   logcontrol_messages_output,
 } from "../outputs.js";
+import { logcontrol_identifier } from "../schemas.js";
 import {
   logcontrol_flag_output,
   logcontrol_retention_flag_output,
+  logcontrol_retention_flag_response_single_output,
 } from "./outputs.js";
 import { logcontrol_flag, logcontrol_retention_flag } from "./schemas.js";
 
@@ -27,8 +30,8 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/logcontrol_retention_flag"
         },
         "zone_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/logcontrol_identifier",
+          "description": "Identifier."
         }
       },
       required: [
@@ -37,14 +40,18 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "logcontrol_flag": logcontrol_flag,
+        "logcontrol_identifier": logcontrol_identifier,
         "logcontrol_retention_flag": logcontrol_retention_flag,
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/logcontrol_retention_flag",
+      "$ref": "#/$defs/logcontrol_retention_flag_response_single",
       $defs: {
+        "logcontrol_api-response-single": logcontrol_api_response_single_output,
         "logcontrol_flag": logcontrol_flag_output,
+        "logcontrol_messages": logcontrol_messages_output,
         "logcontrol_retention_flag": logcontrol_retention_flag_output,
+        "logcontrol_retention_flag_response_single": logcontrol_retention_flag_response_single_output,
       },
     },
     annotations: {
@@ -63,12 +70,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "#logs:edit"
-        ],
-        "x-fern-enum": {
-          "#logs:edit": {
-            "name": "logs_edit"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": false,
@@ -80,7 +82,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/logcontrol_retention_flag"
+          "$ref": "#/$defs/logcontrol_retention_flag_response_single"
         },
         "4XX": {
           "$ref": "#/$defs/logcontrol_api-response-common-failure"
@@ -88,9 +90,11 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "logcontrol_api-response-common-failure": logcontrol_api_response_common_failure_output,
+        "logcontrol_api-response-single": logcontrol_api_response_single_output,
         "logcontrol_flag": logcontrol_flag_output,
         "logcontrol_messages": logcontrol_messages_output,
         "logcontrol_retention_flag": logcontrol_retention_flag_output,
+        "logcontrol_retention_flag_response_single": logcontrol_retention_flag_response_single_output,
       },
     },
     request: (args) => ({
@@ -106,19 +110,25 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "zone_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/logcontrol_identifier",
+          "description": "Identifier."
         }
       },
       required: [
         "zone_id"
       ],
+      $defs: {
+        "logcontrol_identifier": logcontrol_identifier,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/logcontrol_retention_flag",
+      "$ref": "#/$defs/logcontrol_retention_flag_response_single",
       $defs: {
+        "logcontrol_api-response-single": logcontrol_api_response_single_output,
         "logcontrol_flag": logcontrol_flag_output,
+        "logcontrol_messages": logcontrol_messages_output,
         "logcontrol_retention_flag": logcontrol_retention_flag_output,
+        "logcontrol_retention_flag_response_single": logcontrol_retention_flag_response_single_output,
       },
     },
     annotations: {
@@ -139,15 +149,7 @@ export const tools: readonly Tool[] = [
         "enum": [
           "#logs:read",
           "#analytics:read"
-        ],
-        "x-fern-enum": {
-          "#analytics:read": {
-            "name": "analytics_read"
-          },
-          "#logs:read": {
-            "name": "logs_read"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": false,
@@ -159,7 +161,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/logcontrol_retention_flag"
+          "$ref": "#/$defs/logcontrol_retention_flag_response_single"
         },
         "4XX": {
           "$ref": "#/$defs/logcontrol_api-response-common-failure"
@@ -167,9 +169,11 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "logcontrol_api-response-common-failure": logcontrol_api_response_common_failure_output,
+        "logcontrol_api-response-single": logcontrol_api_response_single_output,
         "logcontrol_flag": logcontrol_flag_output,
         "logcontrol_messages": logcontrol_messages_output,
         "logcontrol_retention_flag": logcontrol_retention_flag_output,
+        "logcontrol_retention_flag_response_single": logcontrol_retention_flag_response_single_output,
       },
     },
     request: (args) => ({

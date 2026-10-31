@@ -70,76 +70,7 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
-        "meta": {
-          "properties": {
-            "dataTime": {
-              "format": "date-time",
-              "type": "string"
-            },
-            "queryTime": {
-              "format": "date-time",
-              "type": "string"
-            }
-          },
-          "required": [
-            "dataTime",
-            "queryTime"
-          ],
-          "type": "object"
-        },
-        "serie_0": {
-          "properties": {
-            "timestamps": {
-              "items": {
-                "format": "date-time",
-                "type": "string"
-              },
-              "type": "array"
-            },
-            "values": {
-              "items": {
-                "type": "string"
-              },
-              "type": "array"
-            }
-          },
-          "required": [
-            "timestamps",
-            "values"
-          ],
-          "type": "object"
-        }
-      },
-      "required": [
-        "meta",
-        "serie_0"
-      ],
-      "type": "object",
-    },
-    annotations: {
-      "destructiveHint": false,
-      "idempotentHint": true,
-      "openWorldHint": true,
-      "readOnlyHint": true,
-      "title": "Get RPKI ROA deployment time series"
-    },
-    method: "GET",
-    path: "/radar/bgp/rpki/roas/timeseries",
-    extensions: {
-      "x-api-token-group": [
-        "User Details Write",
-        "User Details Read"
-      ],
-      "x-cfPlanAvailability": {
-        "business": true,
-        "enterprise": true,
-        "free": true,
-        "pro": true
-      }
-    },
-    responses: {
-      schemas: {
-        "200": {
+        "result": {
           "properties": {
             "meta": {
               "properties": {
@@ -184,6 +115,99 @@ export const tools: readonly Tool[] = [
           "required": [
             "meta",
             "serie_0"
+          ],
+          "type": "object"
+        },
+        "success": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "result",
+        "success"
+      ],
+      "type": "object",
+    },
+    annotations: {
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": true,
+      "readOnlyHint": true,
+      "title": "Get RPKI ROA deployment time series"
+    },
+    method: "GET",
+    path: "/radar/bgp/rpki/roas/timeseries",
+    extensions: {
+      "x-api-token-group": [
+        "User Details Write",
+        "User Details Read"
+      ],
+      "x-cfPlanAvailability": {
+        "business": true,
+        "enterprise": true,
+        "free": true,
+        "pro": true
+      }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "properties": {
+                "meta": {
+                  "properties": {
+                    "dataTime": {
+                      "format": "date-time",
+                      "type": "string"
+                    },
+                    "queryTime": {
+                      "format": "date-time",
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "dataTime",
+                    "queryTime"
+                  ],
+                  "type": "object"
+                },
+                "serie_0": {
+                  "properties": {
+                    "timestamps": {
+                      "items": {
+                        "format": "date-time",
+                        "type": "string"
+                      },
+                      "type": "array"
+                    },
+                    "values": {
+                      "items": {
+                        "type": "string"
+                      },
+                      "type": "array"
+                    }
+                  },
+                  "required": [
+                    "timestamps",
+                    "values"
+                  ],
+                  "type": "object"
+                }
+              },
+              "required": [
+                "meta",
+                "serie_0"
+              ],
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "result",
+            "success"
           ],
           "type": "object"
         },

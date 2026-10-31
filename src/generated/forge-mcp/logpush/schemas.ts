@@ -103,6 +103,22 @@ export const logpush_frequency: JsonSchema = {
 };
 
 /**
+ * The schema of `logpush_id`.
+ */
+export const logpush_id: JsonSchema = {
+  "description": "Unique id of the job.",
+  "type": "integer"
+};
+
+/**
+ * The schema of `logpush_identifier`.
+ */
+export const logpush_identifier: JsonSchema = {
+  "description": "Identifier.",
+  "type": "string"
+};
+
+/**
  * The schema of `logpush_kind`.
  */
 export const logpush_kind: JsonSchema = {

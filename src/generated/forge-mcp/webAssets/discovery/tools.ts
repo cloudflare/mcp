@@ -4,6 +4,7 @@
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
   api_shield_api_response_common_failure_output,
+  api_shield_api_response_common_output,
   api_shield_messages_output,
   api_shield_timestamp_2_output,
   api_shield_timestamp_output,
@@ -15,7 +16,6 @@ import {
 import {
   api_shield_openapi_output,
   api_shield_schema_response_discovery_output,
-  api_shield_schema_response_discovery_result_output,
 } from "./outputs.js";
 
 /**
@@ -42,24 +42,12 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "properties": {
-        "schemas": {
-          "items": {
-            "$ref": "#/$defs/api-shield_openapi"
-          },
-          "type": "array"
-        },
-        "timestamp": {
-          "$ref": "#/$defs/api-shield_timestamp-2"
-        }
-      },
-      "required": [
-        "schemas",
-        "timestamp"
-      ],
-      "type": "object",
+      "$ref": "#/$defs/api-shield_schema_response_discovery",
       $defs: {
+        "api-shield_api-response-common": api_shield_api_response_common_output,
+        "api-shield_messages": api_shield_messages_output,
         "api-shield_openapi": api_shield_openapi_output,
+        "api-shield_schema_response_discovery": api_shield_schema_response_discovery_output,
         "api-shield_timestamp": api_shield_timestamp_output,
         "api-shield_timestamp-2": api_shield_timestamp_2_output,
       },
@@ -84,22 +72,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "schemas": {
-              "items": {
-                "$ref": "#/$defs/api-shield_openapi"
-              },
-              "type": "array"
-            },
-            "timestamp": {
-              "$ref": "#/$defs/api-shield_timestamp-2"
-            }
-          },
-          "required": [
-            "schemas",
-            "timestamp"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/api-shield_schema_response_discovery"
         },
         "4XX": {
           "allOf": [
@@ -113,11 +86,11 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
+        "api-shield_api-response-common": api_shield_api_response_common_output,
         "api-shield_api-response-common-failure": api_shield_api_response_common_failure_output,
         "api-shield_messages": api_shield_messages_output,
         "api-shield_openapi": api_shield_openapi_output,
         "api-shield_schema_response_discovery": api_shield_schema_response_discovery_output,
-        "api-shield_schema_response_discovery_result": api_shield_schema_response_discovery_result_output,
         "api-shield_timestamp": api_shield_timestamp_output,
         "api-shield_timestamp-2": api_shield_timestamp_2_output,
       },

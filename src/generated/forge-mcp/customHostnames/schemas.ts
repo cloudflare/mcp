@@ -52,6 +52,14 @@ export const tls_certificates_and_hostnames_custom_cert_bundle: JsonSchema = {
 };
 
 /**
+ * The schema of `tls-certificates-and-hostnames_custom_hostname_identifier`.
+ */
+export const tls_certificates_and_hostnames_custom_hostname_identifier: JsonSchema = {
+  "description": "Custom hostname identifier tag.",
+  "type": "string"
+};
+
+/**
  * The schema of `tls-certificates-and-hostnames_custom_metadata`.
  */
 export const tls_certificates_and_hostnames_custom_metadata: JsonSchema = {

@@ -4,10 +4,12 @@
 import { type Tool, pathParam } from "../_/tool.js";
 import {
   stream_api_response_common_failure_output,
+  stream_api_response_single_output,
   stream_creator_output,
   stream_messages_output,
+  stream_storage_use_response_output,
 } from "./outputs.js";
-import { stream_creator } from "./schemas.js";
+import { stream_account_identifier, stream_creator } from "./schemas.js";
 
 /**
  * The tools of `stream`.
@@ -21,8 +23,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "The account identifier tag.",
-          "type": "string"
+          "$ref": "#/$defs/stream_account_identifier",
+          "description": "The account identifier tag."
         },
         "creator": {
           "$ref": "#/$defs/stream_creator",
@@ -33,27 +35,17 @@ export const tools: readonly Tool[] = [
         "account_id"
       ],
       $defs: {
+        "stream_account_identifier": stream_account_identifier,
         "stream_creator": stream_creator,
       },
     },
     outputSchema: {
-      "properties": {
-        "creator": {
-          "$ref": "#/$defs/stream_creator"
-        },
-        "totalStorageMinutes": {
-          "type": "number"
-        },
-        "totalStorageMinutesLimit": {
-          "type": "integer"
-        },
-        "videoCount": {
-          "type": "integer"
-        }
-      },
-      "type": "object",
+      "$ref": "#/$defs/stream_storage_use_response",
       $defs: {
+        "stream_api-response-single": stream_api_response_single_output,
         "stream_creator": stream_creator_output,
+        "stream_messages": stream_messages_output,
+        "stream_storage_use_response": stream_storage_use_response_output,
       },
     },
     annotations: {
@@ -74,21 +66,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "creator": {
-              "$ref": "#/$defs/stream_creator"
-            },
-            "totalStorageMinutes": {
-              "type": "number"
-            },
-            "totalStorageMinutesLimit": {
-              "type": "integer"
-            },
-            "videoCount": {
-              "type": "integer"
-            }
-          },
-          "type": "object"
+          "$ref": "#/$defs/stream_storage_use_response"
         },
         "4XX": {
           "$ref": "#/$defs/stream_api-response-common-failure"
@@ -96,8 +74,10 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "stream_api-response-common-failure": stream_api_response_common_failure_output,
+        "stream_api-response-single": stream_api_response_single_output,
         "stream_creator": stream_creator_output,
         "stream_messages": stream_messages_output,
+        "stream_storage_use_response": stream_storage_use_response_output,
       },
     },
     request: (args) => ({

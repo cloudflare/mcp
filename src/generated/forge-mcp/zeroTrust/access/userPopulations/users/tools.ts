@@ -4,6 +4,7 @@
 import { type Tool, pathParam } from "../../../../_/tool.js";
 import {
   access_api_response_common_failure_output,
+  access_api_response_single_output,
   access_messages_output,
 } from "../../../outputs.js";
 import { access_identifier, access_uuid } from "../../../schemas.js";
@@ -11,15 +12,16 @@ import {
   access_scim_email_output,
   access_scim_meta_output,
   access_scim_name_output,
+  access_scim_user_collection_response_output,
   access_scim_user_list_response_output,
   access_scim_user_output,
+  access_scim_user_single_response_output,
 } from "./outputs.js";
 import {
   access_scim_email,
   access_scim_meta,
   access_scim_name,
   access_scim_patch_request,
-  access_scim_patch_request_OperationsItem,
   access_scim_user,
 } from "./schemas.js";
 
@@ -61,12 +63,15 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/access_scim_user",
+      "$ref": "#/$defs/access_scim_user_single_response",
       $defs: {
+        "access_api-response-single": access_api_response_single_output,
+        "access_messages": access_messages_output,
         "access_scim_email": access_scim_email_output,
         "access_scim_meta": access_scim_meta_output,
         "access_scim_name": access_scim_name_output,
         "access_scim_user": access_scim_user_output,
+        "access_scim_user_single_response": access_scim_user_single_response_output,
       },
     },
     annotations: {
@@ -81,7 +86,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "201": {
-          "$ref": "#/$defs/access_scim_user"
+          "$ref": "#/$defs/access_scim_user_single_response"
         },
         "4XX": {
           "$ref": "#/$defs/access_api-response-common-failure"
@@ -89,11 +94,13 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "access_api-response-common-failure": access_api_response_common_failure_output,
+        "access_api-response-single": access_api_response_single_output,
         "access_messages": access_messages_output,
         "access_scim_email": access_scim_email_output,
         "access_scim_meta": access_scim_meta_output,
         "access_scim_name": access_scim_name_output,
         "access_scim_user": access_scim_user_output,
+        "access_scim_user_single_response": access_scim_user_single_response_output,
       },
     },
     request: (args) => ({
@@ -195,12 +202,15 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/access_scim_user",
+      "$ref": "#/$defs/access_scim_user_single_response",
       $defs: {
+        "access_api-response-single": access_api_response_single_output,
+        "access_messages": access_messages_output,
         "access_scim_email": access_scim_email_output,
         "access_scim_meta": access_scim_meta_output,
         "access_scim_name": access_scim_name_output,
         "access_scim_user": access_scim_user_output,
+        "access_scim_user_single_response": access_scim_user_single_response_output,
       },
     },
     annotations: {
@@ -215,7 +225,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/access_scim_user"
+          "$ref": "#/$defs/access_scim_user_single_response"
         },
         "4XX": {
           "$ref": "#/$defs/access_api-response-common-failure"
@@ -223,11 +233,13 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "access_api-response-common-failure": access_api_response_common_failure_output,
+        "access_api-response-single": access_api_response_single_output,
         "access_messages": access_messages_output,
         "access_scim_email": access_scim_email_output,
         "access_scim_meta": access_scim_meta_output,
         "access_scim_name": access_scim_name_output,
         "access_scim_user": access_scim_user_output,
+        "access_scim_user_single_response": access_scim_user_single_response_output,
       },
     },
     request: (args) => ({
@@ -285,12 +297,15 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/access_scim_user_list_response",
+      "$ref": "#/$defs/access_scim_user_collection_response",
       $defs: {
+        "access_api-response-single": access_api_response_single_output,
+        "access_messages": access_messages_output,
         "access_scim_email": access_scim_email_output,
         "access_scim_meta": access_scim_meta_output,
         "access_scim_name": access_scim_name_output,
         "access_scim_user": access_scim_user_output,
+        "access_scim_user_collection_response": access_scim_user_collection_response_output,
         "access_scim_user_list_response": access_scim_user_list_response_output,
       },
     },
@@ -306,7 +321,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/access_scim_user_list_response"
+          "$ref": "#/$defs/access_scim_user_collection_response"
         },
         "4XX": {
           "$ref": "#/$defs/access_api-response-common-failure"
@@ -314,11 +329,13 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "access_api-response-common-failure": access_api_response_common_failure_output,
+        "access_api-response-single": access_api_response_single_output,
         "access_messages": access_messages_output,
         "access_scim_email": access_scim_email_output,
         "access_scim_meta": access_scim_meta_output,
         "access_scim_name": access_scim_name_output,
         "access_scim_user": access_scim_user_output,
+        "access_scim_user_collection_response": access_scim_user_collection_response_output,
         "access_scim_user_list_response": access_scim_user_list_response_output,
       },
     },
@@ -372,12 +389,15 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/access_scim_user",
+      "$ref": "#/$defs/access_scim_user_single_response",
       $defs: {
+        "access_api-response-single": access_api_response_single_output,
+        "access_messages": access_messages_output,
         "access_scim_email": access_scim_email_output,
         "access_scim_meta": access_scim_meta_output,
         "access_scim_name": access_scim_name_output,
         "access_scim_user": access_scim_user_output,
+        "access_scim_user_single_response": access_scim_user_single_response_output,
       },
     },
     annotations: {
@@ -392,7 +412,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/access_scim_user"
+          "$ref": "#/$defs/access_scim_user_single_response"
         },
         "4XX": {
           "$ref": "#/$defs/access_api-response-common-failure"
@@ -400,11 +420,13 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "access_api-response-common-failure": access_api_response_common_failure_output,
+        "access_api-response-single": access_api_response_single_output,
         "access_messages": access_messages_output,
         "access_scim_email": access_scim_email_output,
         "access_scim_meta": access_scim_meta_output,
         "access_scim_name": access_scim_name_output,
         "access_scim_user": access_scim_user_output,
+        "access_scim_user_single_response": access_scim_user_single_response_output,
       },
     },
     request: (args) => ({
@@ -444,17 +466,19 @@ export const tools: readonly Tool[] = [
       $defs: {
         "access_identifier": access_identifier,
         "access_scim_patch_request": access_scim_patch_request,
-        "access_scim_patch_request_OperationsItem": access_scim_patch_request_OperationsItem,
         "access_uuid": access_uuid,
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/access_scim_user",
+      "$ref": "#/$defs/access_scim_user_single_response",
       $defs: {
+        "access_api-response-single": access_api_response_single_output,
+        "access_messages": access_messages_output,
         "access_scim_email": access_scim_email_output,
         "access_scim_meta": access_scim_meta_output,
         "access_scim_name": access_scim_name_output,
         "access_scim_user": access_scim_user_output,
+        "access_scim_user_single_response": access_scim_user_single_response_output,
       },
     },
     annotations: {
@@ -469,7 +493,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/access_scim_user"
+          "$ref": "#/$defs/access_scim_user_single_response"
         },
         "4XX": {
           "$ref": "#/$defs/access_api-response-common-failure"
@@ -477,11 +501,13 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "access_api-response-common-failure": access_api_response_common_failure_output,
+        "access_api-response-single": access_api_response_single_output,
         "access_messages": access_messages_output,
         "access_scim_email": access_scim_email_output,
         "access_scim_meta": access_scim_meta_output,
         "access_scim_name": access_scim_name_output,
         "access_scim_user": access_scim_user_output,
+        "access_scim_user_single_response": access_scim_user_single_response_output,
       },
     },
     request: (args) => ({

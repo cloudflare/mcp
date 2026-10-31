@@ -3,15 +3,22 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
+  magic_visibility_pcaps_api_response_collection_output,
   magic_visibility_pcaps_api_response_common_failure_output,
+  magic_visibility_pcaps_api_response_common_output,
   magic_visibility_pcaps_messages_output,
   magic_visibility_pcaps_pcaps_destination_conf_output,
   magic_visibility_pcaps_result_info_output,
 } from "../outputs.js";
-import { magic_visibility_pcaps_pcaps_destination_conf } from "../schemas.js";
+import {
+  magic_visibility_pcaps_identifier,
+  magic_visibility_pcaps_pcaps_destination_conf,
+} from "../schemas.js";
 import {
   magic_visibility_pcaps_pcaps_ownership_challenge_output,
+  magic_visibility_pcaps_pcaps_ownership_collection_output,
   magic_visibility_pcaps_pcaps_ownership_response_output,
+  magic_visibility_pcaps_pcaps_ownership_single_response_output,
 } from "./outputs.js";
 import {
   magic_visibility_pcaps_pcaps_ownership_challenge,
@@ -31,8 +38,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/magic-visibility-pcaps_identifier",
+          "description": "Identifier."
         },
         "body": {
           "$ref": "#/$defs/magic-visibility-pcaps_pcaps_ownership_request"
@@ -43,16 +50,20 @@ export const tools: readonly Tool[] = [
         "body"
       ],
       $defs: {
+        "magic-visibility-pcaps_identifier": magic_visibility_pcaps_identifier,
         "magic-visibility-pcaps_pcaps_destination_conf": magic_visibility_pcaps_pcaps_destination_conf,
         "magic-visibility-pcaps_pcaps_ownership_request": magic_visibility_pcaps_pcaps_ownership_request,
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/magic-visibility-pcaps_pcaps_ownership_response",
+      "$ref": "#/$defs/magic-visibility-pcaps_pcaps_ownership_single_response",
       $defs: {
+        "magic-visibility-pcaps_api-response-common": magic_visibility_pcaps_api_response_common_output,
+        "magic-visibility-pcaps_messages": magic_visibility_pcaps_messages_output,
         "magic-visibility-pcaps_pcaps_destination_conf": magic_visibility_pcaps_pcaps_destination_conf_output,
         "magic-visibility-pcaps_pcaps_ownership_challenge": magic_visibility_pcaps_pcaps_ownership_challenge_output,
         "magic-visibility-pcaps_pcaps_ownership_response": magic_visibility_pcaps_pcaps_ownership_response_output,
+        "magic-visibility-pcaps_pcaps_ownership_single_response": magic_visibility_pcaps_pcaps_ownership_single_response_output,
       },
     },
     annotations: {
@@ -78,7 +89,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/magic-visibility-pcaps_pcaps_ownership_response"
+          "$ref": "#/$defs/magic-visibility-pcaps_pcaps_ownership_single_response"
         },
         "4XX": {
           "$ref": "#/$defs/magic-visibility-pcaps_api-response-common-failure"
@@ -88,11 +99,13 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
+        "magic-visibility-pcaps_api-response-common": magic_visibility_pcaps_api_response_common_output,
         "magic-visibility-pcaps_api-response-common-failure": magic_visibility_pcaps_api_response_common_failure_output,
         "magic-visibility-pcaps_messages": magic_visibility_pcaps_messages_output,
         "magic-visibility-pcaps_pcaps_destination_conf": magic_visibility_pcaps_pcaps_destination_conf_output,
         "magic-visibility-pcaps_pcaps_ownership_challenge": magic_visibility_pcaps_pcaps_ownership_challenge_output,
         "magic-visibility-pcaps_pcaps_ownership_response": magic_visibility_pcaps_pcaps_ownership_response_output,
+        "magic-visibility-pcaps_pcaps_ownership_single_response": magic_visibility_pcaps_pcaps_ownership_single_response_output,
       },
     },
     request: (args) => ({
@@ -108,18 +121,21 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/magic-visibility-pcaps_identifier",
+          "description": "Identifier."
         },
         "ownership_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/magic-visibility-pcaps_identifier",
+          "description": "Identifier."
         }
       },
       required: [
         "account_id",
         "ownership_id"
       ],
+      $defs: {
+        "magic-visibility-pcaps_identifier": magic_visibility_pcaps_identifier,
+      },
     },
     annotations: {
       "destructiveHint": true,
@@ -168,40 +184,26 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/magic-visibility-pcaps_identifier",
+          "description": "Identifier."
         }
       },
       required: [
         "account_id"
       ],
+      $defs: {
+        "magic-visibility-pcaps_identifier": magic_visibility_pcaps_identifier,
+      },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "oneOf": [
-            {
-              "items": {
-                "$ref": "#/$defs/magic-visibility-pcaps_pcaps_ownership_response"
-              },
-              "type": "array"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "result_info": {
-          "$ref": "#/$defs/magic-visibility-pcaps_result_info"
-        }
-      },
-      "required": [
-        "result"
-      ],
-      "type": "object",
+      "$ref": "#/$defs/magic-visibility-pcaps_pcaps_ownership_collection",
       $defs: {
+        "magic-visibility-pcaps_api-response-collection": magic_visibility_pcaps_api_response_collection_output,
+        "magic-visibility-pcaps_api-response-common": magic_visibility_pcaps_api_response_common_output,
+        "magic-visibility-pcaps_messages": magic_visibility_pcaps_messages_output,
         "magic-visibility-pcaps_pcaps_destination_conf": magic_visibility_pcaps_pcaps_destination_conf_output,
         "magic-visibility-pcaps_pcaps_ownership_challenge": magic_visibility_pcaps_pcaps_ownership_challenge_output,
+        "magic-visibility-pcaps_pcaps_ownership_collection": magic_visibility_pcaps_pcaps_ownership_collection_output,
         "magic-visibility-pcaps_pcaps_ownership_response": magic_visibility_pcaps_pcaps_ownership_response_output,
         "magic-visibility-pcaps_result_info": magic_visibility_pcaps_result_info_output,
       },
@@ -230,28 +232,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "oneOf": [
-                {
-                  "items": {
-                    "$ref": "#/$defs/magic-visibility-pcaps_pcaps_ownership_response"
-                  },
-                  "type": "array"
-                },
-                {
-                  "type": "null"
-                }
-              ]
-            },
-            "result_info": {
-              "$ref": "#/$defs/magic-visibility-pcaps_result_info"
-            }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/magic-visibility-pcaps_pcaps_ownership_collection"
         },
         "4XX": {
           "$ref": "#/$defs/magic-visibility-pcaps_api-response-common-failure"
@@ -261,10 +242,13 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
+        "magic-visibility-pcaps_api-response-collection": magic_visibility_pcaps_api_response_collection_output,
+        "magic-visibility-pcaps_api-response-common": magic_visibility_pcaps_api_response_common_output,
         "magic-visibility-pcaps_api-response-common-failure": magic_visibility_pcaps_api_response_common_failure_output,
         "magic-visibility-pcaps_messages": magic_visibility_pcaps_messages_output,
         "magic-visibility-pcaps_pcaps_destination_conf": magic_visibility_pcaps_pcaps_destination_conf_output,
         "magic-visibility-pcaps_pcaps_ownership_challenge": magic_visibility_pcaps_pcaps_ownership_challenge_output,
+        "magic-visibility-pcaps_pcaps_ownership_collection": magic_visibility_pcaps_pcaps_ownership_collection_output,
         "magic-visibility-pcaps_pcaps_ownership_response": magic_visibility_pcaps_pcaps_ownership_response_output,
         "magic-visibility-pcaps_result_info": magic_visibility_pcaps_result_info_output,
       },
@@ -281,8 +265,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/magic-visibility-pcaps_identifier",
+          "description": "Identifier."
         },
         "body": {
           "$ref": "#/$defs/magic-visibility-pcaps_pcaps_ownership_validate_request"
@@ -293,17 +277,21 @@ export const tools: readonly Tool[] = [
         "body"
       ],
       $defs: {
+        "magic-visibility-pcaps_identifier": magic_visibility_pcaps_identifier,
         "magic-visibility-pcaps_pcaps_destination_conf": magic_visibility_pcaps_pcaps_destination_conf,
         "magic-visibility-pcaps_pcaps_ownership_challenge": magic_visibility_pcaps_pcaps_ownership_challenge,
         "magic-visibility-pcaps_pcaps_ownership_validate_request": magic_visibility_pcaps_pcaps_ownership_validate_request,
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/magic-visibility-pcaps_pcaps_ownership_response",
+      "$ref": "#/$defs/magic-visibility-pcaps_pcaps_ownership_single_response",
       $defs: {
+        "magic-visibility-pcaps_api-response-common": magic_visibility_pcaps_api_response_common_output,
+        "magic-visibility-pcaps_messages": magic_visibility_pcaps_messages_output,
         "magic-visibility-pcaps_pcaps_destination_conf": magic_visibility_pcaps_pcaps_destination_conf_output,
         "magic-visibility-pcaps_pcaps_ownership_challenge": magic_visibility_pcaps_pcaps_ownership_challenge_output,
         "magic-visibility-pcaps_pcaps_ownership_response": magic_visibility_pcaps_pcaps_ownership_response_output,
+        "magic-visibility-pcaps_pcaps_ownership_single_response": magic_visibility_pcaps_pcaps_ownership_single_response_output,
       },
     },
     annotations: {
@@ -329,7 +317,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/magic-visibility-pcaps_pcaps_ownership_response"
+          "$ref": "#/$defs/magic-visibility-pcaps_pcaps_ownership_single_response"
         },
         "4XX": {
           "$ref": "#/$defs/magic-visibility-pcaps_api-response-common-failure"
@@ -339,11 +327,13 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
+        "magic-visibility-pcaps_api-response-common": magic_visibility_pcaps_api_response_common_output,
         "magic-visibility-pcaps_api-response-common-failure": magic_visibility_pcaps_api_response_common_failure_output,
         "magic-visibility-pcaps_messages": magic_visibility_pcaps_messages_output,
         "magic-visibility-pcaps_pcaps_destination_conf": magic_visibility_pcaps_pcaps_destination_conf_output,
         "magic-visibility-pcaps_pcaps_ownership_challenge": magic_visibility_pcaps_pcaps_ownership_challenge_output,
         "magic-visibility-pcaps_pcaps_ownership_response": magic_visibility_pcaps_pcaps_ownership_response_output,
+        "magic-visibility-pcaps_pcaps_ownership_single_response": magic_visibility_pcaps_pcaps_ownership_single_response_output,
       },
     },
     request: (args) => ({

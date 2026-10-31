@@ -5,19 +5,23 @@ import { type Tool, pathParam } from "../../_/tool.js";
 import {
   magic_account_app_id_output,
   magic_api_response_common_failure_output,
+  magic_apps_response_array_output,
+  magic_apps_response_object_output,
   magic_cidr_output,
   magic_managed_app_id_output,
   magic_messages_output,
 } from "../outputs.js";
-import { magic_cidr } from "../schemas.js";
+import { magic_cidr, magic_identifier } from "../schemas.js";
 import {
   magic_account_app_output,
   magic_app_hostnames_output,
   magic_app_name_output,
   magic_app_output,
+  magic_app_single_response_output,
   magic_app_source_subnets_output,
   magic_app_subnets_output,
   magic_app_type_output,
+  magic_apps_collection_response_output,
   magic_managed_app_output,
 } from "./outputs.js";
 import {
@@ -42,8 +46,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier",
-          "type": "string"
+          "$ref": "#/$defs/magic_identifier",
+          "description": "Identifier"
         },
         "body": {
           "$ref": "#/$defs/magic_app_add_single_request"
@@ -61,19 +65,23 @@ export const tools: readonly Tool[] = [
         "magic_app_subnets": magic_app_subnets,
         "magic_app_type": magic_app_type,
         "magic_cidr": magic_cidr,
+        "magic_identifier": magic_identifier,
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/magic_account_app",
+      "$ref": "#/$defs/magic_app_single_response",
       $defs: {
         "magic_account_app": magic_account_app_output,
         "magic_account_app_id": magic_account_app_id_output,
         "magic_app_hostnames": magic_app_hostnames_output,
         "magic_app_name": magic_app_name_output,
+        "magic_app_single_response": magic_app_single_response_output,
         "magic_app_source_subnets": magic_app_source_subnets_output,
         "magic_app_subnets": magic_app_subnets_output,
         "magic_app_type": magic_app_type_output,
+        "magic_apps-response-object": magic_apps_response_object_output,
         "magic_cidr": magic_cidr_output,
+        "magic_messages": magic_messages_output,
       },
     },
     annotations: {
@@ -100,7 +108,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "201": {
-          "$ref": "#/$defs/magic_account_app"
+          "$ref": "#/$defs/magic_app_single_response"
         },
         "4XX": {
           "$ref": "#/$defs/magic_api-response-common-failure"
@@ -112,9 +120,11 @@ export const tools: readonly Tool[] = [
         "magic_api-response-common-failure": magic_api_response_common_failure_output,
         "magic_app_hostnames": magic_app_hostnames_output,
         "magic_app_name": magic_app_name_output,
+        "magic_app_single_response": magic_app_single_response_output,
         "magic_app_source_subnets": magic_app_source_subnets_output,
         "magic_app_subnets": magic_app_subnets_output,
         "magic_app_type": magic_app_type_output,
+        "magic_apps-response-object": magic_apps_response_object_output,
         "magic_cidr": magic_cidr_output,
         "magic_messages": magic_messages_output,
       },
@@ -132,30 +142,36 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_app_id": {
-          "description": "Identifier",
-          "type": "string"
+          "$ref": "#/$defs/magic_identifier",
+          "description": "Identifier"
         },
         "account_id": {
-          "description": "Identifier",
-          "type": "string"
+          "$ref": "#/$defs/magic_identifier",
+          "description": "Identifier"
         }
       },
       required: [
         "account_id",
         "account_app_id"
       ],
+      $defs: {
+        "magic_identifier": magic_identifier,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/magic_account_app",
+      "$ref": "#/$defs/magic_app_single_response",
       $defs: {
         "magic_account_app": magic_account_app_output,
         "magic_account_app_id": magic_account_app_id_output,
         "magic_app_hostnames": magic_app_hostnames_output,
         "magic_app_name": magic_app_name_output,
+        "magic_app_single_response": magic_app_single_response_output,
         "magic_app_source_subnets": magic_app_source_subnets_output,
         "magic_app_subnets": magic_app_subnets_output,
         "magic_app_type": magic_app_type_output,
+        "magic_apps-response-object": magic_apps_response_object_output,
         "magic_cidr": magic_cidr_output,
+        "magic_messages": magic_messages_output,
       },
     },
     annotations: {
@@ -182,7 +198,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/magic_account_app"
+          "$ref": "#/$defs/magic_app_single_response"
         },
         "4XX": {
           "$ref": "#/$defs/magic_api-response-common-failure"
@@ -194,9 +210,11 @@ export const tools: readonly Tool[] = [
         "magic_api-response-common-failure": magic_api_response_common_failure_output,
         "magic_app_hostnames": magic_app_hostnames_output,
         "magic_app_name": magic_app_name_output,
+        "magic_app_single_response": magic_app_single_response_output,
         "magic_app_source_subnets": magic_app_source_subnets_output,
         "magic_app_subnets": magic_app_subnets_output,
         "magic_app_type": magic_app_type_output,
+        "magic_apps-response-object": magic_apps_response_object_output,
         "magic_cidr": magic_cidr_output,
         "magic_messages": magic_messages_output,
       },
@@ -213,30 +231,19 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier",
-          "type": "string"
+          "$ref": "#/$defs/magic_identifier",
+          "description": "Identifier"
         }
       },
       required: [
         "account_id"
       ],
+      $defs: {
+        "magic_identifier": magic_identifier,
+      },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "$ref": "#/$defs/magic_app"
-          },
-          "type": "array"
-        },
-        "result_info": {
-          "type": "object"
-        }
-      },
-      "required": [
-        "result"
-      ],
-      "type": "object",
+      "$ref": "#/$defs/magic_apps_collection_response",
       $defs: {
         "magic_account_app": magic_account_app_output,
         "magic_account_app_id": magic_account_app_id_output,
@@ -246,9 +253,12 @@ export const tools: readonly Tool[] = [
         "magic_app_source_subnets": magic_app_source_subnets_output,
         "magic_app_subnets": magic_app_subnets_output,
         "magic_app_type": magic_app_type_output,
+        "magic_apps-response-array": magic_apps_response_array_output,
+        "magic_apps_collection_response": magic_apps_collection_response_output,
         "magic_cidr": magic_cidr_output,
         "magic_managed_app": magic_managed_app_output,
         "magic_managed_app_id": magic_managed_app_id_output,
+        "magic_messages": magic_messages_output,
       },
     },
     annotations: {
@@ -277,21 +287,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "items": {
-                "$ref": "#/$defs/magic_app"
-              },
-              "type": "array"
-            },
-            "result_info": {
-              "type": "object"
-            }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/magic_apps_collection_response"
         },
         "4XX": {
           "$ref": "#/$defs/magic_api-response-common-failure"
@@ -307,6 +303,8 @@ export const tools: readonly Tool[] = [
         "magic_app_source_subnets": magic_app_source_subnets_output,
         "magic_app_subnets": magic_app_subnets_output,
         "magic_app_type": magic_app_type_output,
+        "magic_apps-response-array": magic_apps_response_array_output,
+        "magic_apps_collection_response": magic_apps_collection_response_output,
         "magic_cidr": magic_cidr_output,
         "magic_managed_app": magic_managed_app_output,
         "magic_managed_app_id": magic_managed_app_id_output,
@@ -325,12 +323,12 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_app_id": {
-          "description": "Identifier",
-          "type": "string"
+          "$ref": "#/$defs/magic_identifier",
+          "description": "Identifier"
         },
         "account_id": {
-          "description": "Identifier",
-          "type": "string"
+          "$ref": "#/$defs/magic_identifier",
+          "description": "Identifier"
         },
         "body": {
           "$ref": "#/$defs/magic_app_update_request"
@@ -349,19 +347,23 @@ export const tools: readonly Tool[] = [
         "magic_app_type": magic_app_type,
         "magic_app_update_request": magic_app_update_request,
         "magic_cidr": magic_cidr,
+        "magic_identifier": magic_identifier,
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/magic_account_app",
+      "$ref": "#/$defs/magic_app_single_response",
       $defs: {
         "magic_account_app": magic_account_app_output,
         "magic_account_app_id": magic_account_app_id_output,
         "magic_app_hostnames": magic_app_hostnames_output,
         "magic_app_name": magic_app_name_output,
+        "magic_app_single_response": magic_app_single_response_output,
         "magic_app_source_subnets": magic_app_source_subnets_output,
         "magic_app_subnets": magic_app_subnets_output,
         "magic_app_type": magic_app_type_output,
+        "magic_apps-response-object": magic_apps_response_object_output,
         "magic_cidr": magic_cidr_output,
+        "magic_messages": magic_messages_output,
       },
     },
     annotations: {
@@ -388,7 +390,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/magic_account_app"
+          "$ref": "#/$defs/magic_app_single_response"
         },
         "4XX": {
           "$ref": "#/$defs/magic_api-response-common-failure"
@@ -400,9 +402,11 @@ export const tools: readonly Tool[] = [
         "magic_api-response-common-failure": magic_api_response_common_failure_output,
         "magic_app_hostnames": magic_app_hostnames_output,
         "magic_app_name": magic_app_name_output,
+        "magic_app_single_response": magic_app_single_response_output,
         "magic_app_source_subnets": magic_app_source_subnets_output,
         "magic_app_subnets": magic_app_subnets_output,
         "magic_app_type": magic_app_type_output,
+        "magic_apps-response-object": magic_apps_response_object_output,
         "magic_cidr": magic_cidr_output,
         "magic_messages": magic_messages_output,
       },

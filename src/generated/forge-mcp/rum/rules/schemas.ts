@@ -44,35 +44,28 @@ export const rum_modify_rules_request: JsonSchema = {
     "rules": {
       "description": "A list of rules to create or update.",
       "items": {
-        "$ref": "#/$defs/rum_modify-rules-request_rulesItem"
-      },
-      "type": "array"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `rum_modify-rules-request_rulesItem`.
- */
-export const rum_modify_rules_request_rulesItem: JsonSchema = {
-  "properties": {
-    "host": {
-      "type": "string"
-    },
-    "id": {
-      "$ref": "#/$defs/rum_rule_identifier",
-      "description": "The Web Analytics rule identifier."
-    },
-    "inclusive": {
-      "type": "boolean"
-    },
-    "is_paused": {
-      "type": "boolean"
-    },
-    "paths": {
-      "items": {
-        "type": "string"
+        "properties": {
+          "host": {
+            "type": "string"
+          },
+          "id": {
+            "$ref": "#/$defs/rum_rule_identifier",
+            "description": "The Web Analytics rule identifier."
+          },
+          "inclusive": {
+            "type": "boolean"
+          },
+          "is_paused": {
+            "type": "boolean"
+          },
+          "paths": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          }
+        },
+        "type": "object"
       },
       "type": "array"
     }

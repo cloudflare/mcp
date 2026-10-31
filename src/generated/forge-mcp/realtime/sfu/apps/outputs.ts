@@ -31,6 +31,66 @@ export const calls_app_output: JsonSchema = {
 };
 
 /**
+ * The schema of `calls_app_response_collection` in responses.
+ */
+export const calls_app_response_collection_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/calls_api-response-common"
+    },
+    {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/calls_app"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `calls_app_response_single` in responses.
+ */
+export const calls_app_response_single_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/calls_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/calls_app"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `calls_app_response_single_with_secret` in responses.
+ */
+export const calls_app_response_single_with_secret_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/calls_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/calls_app_with_secret"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
  * The schema of `calls_app_with_secret` in responses.
  */
 export const calls_app_with_secret_output: JsonSchema = {

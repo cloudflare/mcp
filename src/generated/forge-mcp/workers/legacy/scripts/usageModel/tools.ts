@@ -4,11 +4,19 @@
 import { type Tool, pathParam } from "../../../../_/tool.js";
 import {
   workers_api_response_common_failure_output,
+  workers_api_response_common_output,
   workers_messages_output,
   workers_usage_model_output,
 } from "../../../../outputs.js";
-import { workers_usage_model } from "../../../../schemas.js";
-import { workers_user_limits_output } from "./outputs.js";
+import {
+  workers_identifier,
+  workers_script_name,
+  workers_usage_model,
+} from "../../../../schemas.js";
+import {
+  workers_usage_model_response_output,
+  workers_user_limits_output,
+} from "./outputs.js";
 import { workers_user_limits } from "./schemas.js";
 
 /**
@@ -23,30 +31,29 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/workers_identifier",
+          "description": "Identifier."
         },
         "script_name": {
-          "description": "Name of the script.",
-          "type": "string"
+          "$ref": "#/$defs/workers_script_name",
+          "description": "Name of the script."
         }
       },
       required: [
         "account_id",
         "script_name"
       ],
+      $defs: {
+        "workers_identifier": workers_identifier,
+        "workers_script_name": workers_script_name,
+      },
     },
     outputSchema: {
-      "properties": {
-        "usage_model": {
-          "$ref": "#/$defs/workers_usage_model"
-        },
-        "user_limits": {
-          "$ref": "#/$defs/workers_user_limits"
-        }
-      },
-      "type": "object",
+      "$ref": "#/$defs/workers_usage-model-response",
       $defs: {
+        "workers_api-response-common": workers_api_response_common_output,
+        "workers_messages": workers_messages_output,
+        "workers_usage-model-response": workers_usage_model_response_output,
         "workers_usage_model": workers_usage_model_output,
         "workers_user_limits": workers_user_limits_output,
       },
@@ -81,23 +88,17 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "usage_model": {
-              "$ref": "#/$defs/workers_usage_model"
-            },
-            "user_limits": {
-              "$ref": "#/$defs/workers_user_limits"
-            }
-          },
-          "type": "object"
+          "$ref": "#/$defs/workers_usage-model-response"
         },
         "4XX": {
           "$ref": "#/$defs/workers_api-response-common-failure"
         }
       },
       $defs: {
+        "workers_api-response-common": workers_api_response_common_output,
         "workers_api-response-common-failure": workers_api_response_common_failure_output,
         "workers_messages": workers_messages_output,
+        "workers_usage-model-response": workers_usage_model_response_output,
         "workers_usage_model": workers_usage_model_output,
         "workers_user_limits": workers_user_limits_output,
       },
@@ -114,8 +115,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/workers_identifier",
+          "description": "Identifier."
         },
         "body": {
           "properties": {
@@ -132,8 +133,8 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "script_name": {
-          "description": "Name of the script.",
-          "type": "string"
+          "$ref": "#/$defs/workers_script_name",
+          "description": "Name of the script."
         }
       },
       required: [
@@ -142,21 +143,18 @@ export const tools: readonly Tool[] = [
         "body"
       ],
       $defs: {
+        "workers_identifier": workers_identifier,
+        "workers_script_name": workers_script_name,
         "workers_usage_model": workers_usage_model,
         "workers_user_limits": workers_user_limits,
       },
     },
     outputSchema: {
-      "properties": {
-        "usage_model": {
-          "$ref": "#/$defs/workers_usage_model"
-        },
-        "user_limits": {
-          "$ref": "#/$defs/workers_user_limits"
-        }
-      },
-      "type": "object",
+      "$ref": "#/$defs/workers_usage-model-response",
       $defs: {
+        "workers_api-response-common": workers_api_response_common_output,
+        "workers_messages": workers_messages_output,
+        "workers_usage-model-response": workers_usage_model_response_output,
         "workers_usage_model": workers_usage_model_output,
         "workers_user_limits": workers_user_limits_output,
       },
@@ -185,23 +183,17 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "usage_model": {
-              "$ref": "#/$defs/workers_usage_model"
-            },
-            "user_limits": {
-              "$ref": "#/$defs/workers_user_limits"
-            }
-          },
-          "type": "object"
+          "$ref": "#/$defs/workers_usage-model-response"
         },
         "4XX": {
           "$ref": "#/$defs/workers_api-response-common-failure"
         }
       },
       $defs: {
+        "workers_api-response-common": workers_api_response_common_output,
         "workers_api-response-common-failure": workers_api_response_common_failure_output,
         "workers_messages": workers_messages_output,
+        "workers_usage-model-response": workers_usage_model_response_output,
         "workers_usage_model": workers_usage_model_output,
         "workers_user_limits": workers_user_limits_output,
       },

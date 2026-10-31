@@ -11,6 +11,28 @@ export const workers_dispatch_namespace_name_output: JsonSchema = {
 };
 
 /**
+ * The schema of `workers_namespace-list-response` in responses.
+ */
+export const workers_namespace_list_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/workers_api-response-common"
+    },
+    {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/workers_namespace-response"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
  * The schema of `workers_namespace-response` in responses.
  */
 export const workers_namespace_response_output: JsonSchema = {
@@ -41,6 +63,25 @@ export const workers_namespace_response_output: JsonSchema = {
     }
   },
   "type": "object"
+};
+
+/**
+ * The schema of `workers_namespace-single-response` in responses.
+ */
+export const workers_namespace_single_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/workers_api-response-common"
+    },
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/workers_namespace-response"
+        }
+      },
+      "type": "object"
+    }
+  ]
 };
 
 /**

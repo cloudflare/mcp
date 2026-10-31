@@ -4,6 +4,47 @@
 import type { JsonSchema } from "../../../_/tool.js";
 
 /**
+ * The schema of `access_response_collection-3` in responses.
+ */
+export const access_response_collection_3_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/access_api-response-collection"
+    },
+    {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/access_user_population"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `access_single_response-5` in responses.
+ */
+export const access_single_response_5_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/access_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/access_user_population"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
  * The schema of `access_user_population` in responses.
  */
 export const access_user_population_output: JsonSchema = {

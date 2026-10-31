@@ -3,7 +3,10 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
+  email_security_api_response_collection_output,
   email_security_api_response_common_failure_output,
+  email_security_api_response_common_output,
+  email_security_api_response_single_output,
   email_security_messages_output,
   email_security_timestamp_output,
 } from "../outputs.js";
@@ -49,10 +52,24 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/email-security_SendingDomainRestriction",
+      "allOf": [
+        {
+          "$ref": "#/$defs/email-security_api-response-single"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/email-security_SendingDomainRestriction"
+            }
+          },
+          "type": "object"
+        }
+      ],
       $defs: {
         "email-security_SendingDomainRestriction": email_security_SendingDomainRestriction_output,
         "email-security_SendingDomainRestrictionId": email_security_SendingDomainRestrictionId_output,
+        "email-security_api-response-single": email_security_api_response_single_output,
+        "email-security_messages": email_security_messages_output,
         "email-security_timestamp": email_security_timestamp_output,
       },
     },
@@ -74,7 +91,19 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "201": {
-          "$ref": "#/$defs/email-security_SendingDomainRestriction"
+          "allOf": [
+            {
+              "$ref": "#/$defs/email-security_api-response-single"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/email-security_SendingDomainRestriction"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/email-security_api-response-common-failure"
@@ -84,6 +113,7 @@ export const tools: readonly Tool[] = [
         "email-security_SendingDomainRestriction": email_security_SendingDomainRestriction_output,
         "email-security_SendingDomainRestrictionId": email_security_SendingDomainRestrictionId_output,
         "email-security_api-response-common-failure": email_security_api_response_common_failure_output,
+        "email-security_api-response-single": email_security_api_response_single_output,
         "email-security_messages": email_security_messages_output,
         "email-security_timestamp": email_security_timestamp_output,
       },
@@ -119,10 +149,24 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/email-security_DeletedSendingDomainRestriction",
+      "allOf": [
+        {
+          "$ref": "#/$defs/email-security_api-response-single"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/email-security_DeletedSendingDomainRestriction"
+            }
+          },
+          "type": "object"
+        }
+      ],
       $defs: {
         "email-security_DeletedSendingDomainRestriction": email_security_DeletedSendingDomainRestriction_output,
         "email-security_SendingDomainRestrictionId": email_security_SendingDomainRestrictionId_output,
+        "email-security_api-response-single": email_security_api_response_single_output,
+        "email-security_messages": email_security_messages_output,
       },
     },
     annotations: {
@@ -143,7 +187,19 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/email-security_DeletedSendingDomainRestriction"
+          "allOf": [
+            {
+              "$ref": "#/$defs/email-security_api-response-single"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/email-security_DeletedSendingDomainRestriction"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/email-security_api-response-common-failure"
@@ -153,6 +209,7 @@ export const tools: readonly Tool[] = [
         "email-security_DeletedSendingDomainRestriction": email_security_DeletedSendingDomainRestriction_output,
         "email-security_SendingDomainRestrictionId": email_security_SendingDomainRestrictionId_output,
         "email-security_api-response-common-failure": email_security_api_response_common_failure_output,
+        "email-security_api-response-single": email_security_api_response_single_output,
         "email-security_messages": email_security_messages_output,
       },
     },
@@ -191,10 +248,24 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/email-security_SendingDomainRestriction",
+      "allOf": [
+        {
+          "$ref": "#/$defs/email-security_api-response-single"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/email-security_SendingDomainRestriction"
+            }
+          },
+          "type": "object"
+        }
+      ],
       $defs: {
         "email-security_SendingDomainRestriction": email_security_SendingDomainRestriction_output,
         "email-security_SendingDomainRestrictionId": email_security_SendingDomainRestrictionId_output,
+        "email-security_api-response-single": email_security_api_response_single_output,
+        "email-security_messages": email_security_messages_output,
         "email-security_timestamp": email_security_timestamp_output,
       },
     },
@@ -216,7 +287,19 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/email-security_SendingDomainRestriction"
+          "allOf": [
+            {
+              "$ref": "#/$defs/email-security_api-response-single"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/email-security_SendingDomainRestriction"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/email-security_api-response-common-failure"
@@ -226,6 +309,7 @@ export const tools: readonly Tool[] = [
         "email-security_SendingDomainRestriction": email_security_SendingDomainRestriction_output,
         "email-security_SendingDomainRestrictionId": email_security_SendingDomainRestrictionId_output,
         "email-security_api-response-common-failure": email_security_api_response_common_failure_output,
+        "email-security_api-response-single": email_security_api_response_single_output,
         "email-security_messages": email_security_messages_output,
         "email-security_timestamp": email_security_timestamp_output,
       },
@@ -261,10 +345,24 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/email-security_SendingDomainRestriction",
+      "allOf": [
+        {
+          "$ref": "#/$defs/email-security_api-response-single"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/email-security_SendingDomainRestriction"
+            }
+          },
+          "type": "object"
+        }
+      ],
       $defs: {
         "email-security_SendingDomainRestriction": email_security_SendingDomainRestriction_output,
         "email-security_SendingDomainRestrictionId": email_security_SendingDomainRestrictionId_output,
+        "email-security_api-response-single": email_security_api_response_single_output,
+        "email-security_messages": email_security_messages_output,
         "email-security_timestamp": email_security_timestamp_output,
       },
     },
@@ -287,7 +385,19 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/email-security_SendingDomainRestriction"
+          "allOf": [
+            {
+              "$ref": "#/$defs/email-security_api-response-single"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/email-security_SendingDomainRestriction"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/email-security_api-response-common-failure"
@@ -297,6 +407,7 @@ export const tools: readonly Tool[] = [
         "email-security_SendingDomainRestriction": email_security_SendingDomainRestriction_output,
         "email-security_SendingDomainRestrictionId": email_security_SendingDomainRestrictionId_output,
         "email-security_api-response-common-failure": email_security_api_response_common_failure_output,
+        "email-security_api-response-single": email_security_api_response_single_output,
         "email-security_messages": email_security_messages_output,
         "email-security_timestamp": email_security_timestamp_output,
       },
@@ -355,36 +466,26 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "$ref": "#/$defs/email-security_SendingDomainRestrictionList"
+      "allOf": [
+        {
+          "$ref": "#/$defs/email-security_api-response-collection"
         },
-        "result_info": {
+        {
           "properties": {
-            "count": {
-              "type": "number"
-            },
-            "page": {
-              "type": "number"
-            },
-            "per_page": {
-              "type": "number"
-            },
-            "total_count": {
-              "type": "number"
+            "result": {
+              "$ref": "#/$defs/email-security_SendingDomainRestrictionList"
             }
           },
           "type": "object"
         }
-      },
-      "required": [
-        "result"
       ],
-      "type": "object",
       $defs: {
         "email-security_SendingDomainRestriction": email_security_SendingDomainRestriction_output,
         "email-security_SendingDomainRestrictionId": email_security_SendingDomainRestrictionId_output,
         "email-security_SendingDomainRestrictionList": email_security_SendingDomainRestrictionList_output,
+        "email-security_api-response-collection": email_security_api_response_collection_output,
+        "email-security_api-response-common": email_security_api_response_common_output,
+        "email-security_messages": email_security_messages_output,
         "email-security_timestamp": email_security_timestamp_output,
       },
     },
@@ -407,32 +508,19 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "$ref": "#/$defs/email-security_SendingDomainRestrictionList"
+          "allOf": [
+            {
+              "$ref": "#/$defs/email-security_api-response-collection"
             },
-            "result_info": {
+            {
               "properties": {
-                "count": {
-                  "type": "number"
-                },
-                "page": {
-                  "type": "number"
-                },
-                "per_page": {
-                  "type": "number"
-                },
-                "total_count": {
-                  "type": "number"
+                "result": {
+                  "$ref": "#/$defs/email-security_SendingDomainRestrictionList"
                 }
               },
               "type": "object"
             }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/email-security_api-response-common-failure"
@@ -442,6 +530,8 @@ export const tools: readonly Tool[] = [
         "email-security_SendingDomainRestriction": email_security_SendingDomainRestriction_output,
         "email-security_SendingDomainRestrictionId": email_security_SendingDomainRestrictionId_output,
         "email-security_SendingDomainRestrictionList": email_security_SendingDomainRestrictionList_output,
+        "email-security_api-response-collection": email_security_api_response_collection_output,
+        "email-security_api-response-common": email_security_api_response_common_output,
         "email-security_api-response-common-failure": email_security_api_response_common_failure_output,
         "email-security_messages": email_security_messages_output,
         "email-security_timestamp": email_security_timestamp_output,

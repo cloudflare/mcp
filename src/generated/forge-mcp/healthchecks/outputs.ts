@@ -11,6 +11,81 @@ export const healthchecks_address_output: JsonSchema = {
 };
 
 /**
+ * The schema of `healthchecks_api-response-collection` in responses.
+ */
+export const healthchecks_api_response_collection_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/healthchecks_api-response-common"
+    },
+    {
+      "properties": {
+        "result": {
+          "oneOf": [
+            {
+              "items": {
+                "type": "object"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "result_info": {
+          "$ref": "#/$defs/healthchecks_result_info"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `healthchecks_api-response-common` in responses.
+ */
+export const healthchecks_api_response_common_output: JsonSchema = {
+  "properties": {
+    "errors": {
+      "$ref": "#/$defs/healthchecks_messages"
+    },
+    "messages": {
+      "$ref": "#/$defs/healthchecks_messages"
+    },
+    "result": {
+      "anyOf": [
+        {
+          "type": "object"
+        },
+        {
+          "items": {
+            "type": "object"
+          },
+          "type": "array"
+        },
+        {
+          "type": "string"
+        }
+      ]
+    },
+    "success": {
+      "enum": [
+        true
+      ],
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "errors",
+    "messages",
+    "result",
+    "success"
+  ],
+  "type": "object"
+};
+
+/**
  * The schema of `healthchecks_api-response-common-failure` in responses.
  */
 export const healthchecks_api_response_common_failure_output: JsonSchema = {
@@ -38,6 +113,32 @@ export const healthchecks_api_response_common_failure_output: JsonSchema = {
     "success"
   ],
   "type": "object"
+};
+
+/**
+ * The schema of `healthchecks_api-response-single` in responses.
+ */
+export const healthchecks_api_response_single_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/healthchecks_api-response-common"
+    },
+    {
+      "properties": {
+        "result": {
+          "oneOf": [
+            {
+              "type": "object"
+            },
+            {
+              "type": "string"
+            }
+          ]
+        }
+      },
+      "type": "object"
+    }
+  ]
 };
 
 /**
@@ -232,6 +333,30 @@ export const healthchecks_http_config_output: JsonSchema = {
 };
 
 /**
+ * The schema of `healthchecks_id_response` in responses.
+ */
+export const healthchecks_id_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/healthchecks_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "properties": {
+            "id": {
+              "$ref": "#/$defs/healthchecks_identifier"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
  * The schema of `healthchecks_identifier` in responses.
  */
 export const healthchecks_identifier_output: JsonSchema = {
@@ -275,6 +400,28 @@ export const healthchecks_name_output: JsonSchema = {
 };
 
 /**
+ * The schema of `healthchecks_response_collection` in responses.
+ */
+export const healthchecks_response_collection_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/healthchecks_api-response-collection"
+    },
+    {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/healthchecks_healthchecks"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
  * The schema of `healthchecks_result_info` in responses.
  */
 export const healthchecks_result_info_output: JsonSchema = {
@@ -300,6 +447,25 @@ export const healthchecks_result_info_output: JsonSchema = {
  */
 export const healthchecks_retries_output: JsonSchema = {
   "type": "integer"
+};
+
+/**
+ * The schema of `healthchecks_single_response` in responses.
+ */
+export const healthchecks_single_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/healthchecks_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/healthchecks_healthchecks"
+        }
+      },
+      "type": "object"
+    }
+  ]
 };
 
 /**

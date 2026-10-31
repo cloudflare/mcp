@@ -7,40 +7,25 @@ import type { JsonSchema } from "../../_/tool.js";
  * The schema of `zones_0rtt` in responses.
  */
 export const zones_0rtt_output: JsonSchema = {
-  "properties": {
-    "editable": {
-      "enum": [
-        true,
-        false
-      ],
-      "type": "boolean"
+  "allOf": [
+    {
+      "$ref": "#/$defs/zones_base"
     },
-    "id": {
-      "enum": [
-        "0rtt"
-      ],
-      "type": "string"
-    },
-    "modified_on": {
-      "oneOf": [
-        {
-          "format": "date-time",
+    {
+      "properties": {
+        "id": {
+          "enum": [
+            "0rtt"
+          ],
           "type": "string"
         },
-        {
-          "type": "null"
+        "value": {
+          "$ref": "#/$defs/zones_0rtt_value"
         }
-      ]
-    },
-    "value": {
-      "$ref": "#/$defs/zones_0rtt_value"
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "id",
-    "value"
-  ],
-  "type": "object"
+  ]
 };
 
 /**
@@ -58,40 +43,25 @@ export const zones_0rtt_value_output: JsonSchema = {
  * The schema of `zones_advanced_ddos` in responses.
  */
 export const zones_advanced_ddos_output: JsonSchema = {
-  "properties": {
-    "editable": {
-      "enum": [
-        true,
-        false
-      ],
-      "type": "boolean"
+  "allOf": [
+    {
+      "$ref": "#/$defs/zones_base"
     },
-    "id": {
-      "enum": [
-        "advanced_ddos"
-      ],
-      "type": "string"
-    },
-    "modified_on": {
-      "oneOf": [
-        {
-          "format": "date-time",
+    {
+      "properties": {
+        "id": {
+          "enum": [
+            "advanced_ddos"
+          ],
           "type": "string"
         },
-        {
-          "type": "null"
+        "value": {
+          "$ref": "#/$defs/zones_advanced_ddos_value"
         }
-      ]
-    },
-    "value": {
-      "$ref": "#/$defs/zones_advanced_ddos_value"
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "id",
-    "value"
-  ],
-  "type": "object"
+  ]
 };
 
 /**
@@ -109,40 +79,25 @@ export const zones_advanced_ddos_value_output: JsonSchema = {
  * The schema of `zones_always_online` in responses.
  */
 export const zones_always_online_output: JsonSchema = {
-  "properties": {
-    "editable": {
-      "enum": [
-        true,
-        false
-      ],
-      "type": "boolean"
+  "allOf": [
+    {
+      "$ref": "#/$defs/zones_base"
     },
-    "id": {
-      "enum": [
-        "always_online"
-      ],
-      "type": "string"
-    },
-    "modified_on": {
-      "oneOf": [
-        {
-          "format": "date-time",
+    {
+      "properties": {
+        "id": {
+          "enum": [
+            "always_online"
+          ],
           "type": "string"
         },
-        {
-          "type": "null"
+        "value": {
+          "$ref": "#/$defs/zones_always_online_value"
         }
-      ]
-    },
-    "value": {
-      "$ref": "#/$defs/zones_always_online_value"
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "id",
-    "value"
-  ],
-  "type": "object"
+  ]
 };
 
 /**
@@ -160,40 +115,25 @@ export const zones_always_online_value_output: JsonSchema = {
  * The schema of `zones_always_use_https-2` in responses.
  */
 export const zones_always_use_https_2_output: JsonSchema = {
-  "properties": {
-    "editable": {
-      "enum": [
-        true,
-        false
-      ],
-      "type": "boolean"
+  "allOf": [
+    {
+      "$ref": "#/$defs/zones_base"
     },
-    "id": {
-      "enum": [
-        "always_use_https"
-      ],
-      "type": "string"
-    },
-    "modified_on": {
-      "oneOf": [
-        {
-          "format": "date-time",
+    {
+      "properties": {
+        "id": {
+          "enum": [
+            "always_use_https"
+          ],
           "type": "string"
         },
-        {
-          "type": "null"
+        "value": {
+          "$ref": "#/$defs/zones_always_use_https_value"
         }
-      ]
-    },
-    "value": {
-      "$ref": "#/$defs/zones_always_use_https_value"
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "id",
-    "value"
-  ],
-  "type": "object"
+  ]
 };
 
 /**
@@ -205,6 +145,29 @@ export const zones_always_use_https_value_output: JsonSchema = {
     "off"
   ],
   "type": "string"
+};
+
+/**
+ * The schema of `zones_api-response-common-4` in responses.
+ */
+export const zones_api_response_common_4_output: JsonSchema = {
+  "properties": {
+    "errors": {
+      "$ref": "#/$defs/zones_messages"
+    },
+    "messages": {
+      "$ref": "#/$defs/zones_messages"
+    },
+    "success": {
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "errors",
+    "messages",
+    "success"
+  ],
+  "type": "object"
 };
 
 /**
@@ -245,40 +208,25 @@ export const zones_api_response_common_failure_3_output: JsonSchema = {
  * The schema of `zones_automatic_https_rewrites-2` in responses.
  */
 export const zones_automatic_https_rewrites_2_output: JsonSchema = {
-  "properties": {
-    "editable": {
-      "enum": [
-        true,
-        false
-      ],
-      "type": "boolean"
+  "allOf": [
+    {
+      "$ref": "#/$defs/zones_base"
     },
-    "id": {
-      "enum": [
-        "automatic_https_rewrites"
-      ],
-      "type": "string"
-    },
-    "modified_on": {
-      "oneOf": [
-        {
-          "format": "date-time",
+    {
+      "properties": {
+        "id": {
+          "enum": [
+            "automatic_https_rewrites"
+          ],
           "type": "string"
         },
-        {
-          "type": "null"
+        "value": {
+          "$ref": "#/$defs/zones_automatic_https_rewrites_value"
         }
-      ]
-    },
-    "value": {
-      "$ref": "#/$defs/zones_automatic_https_rewrites_value"
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "id",
-    "value"
-  ],
-  "type": "object"
+  ]
 };
 
 /**
@@ -331,9 +279,9 @@ export const zones_automatic_platform_optimization_output: JsonSchema = {
 };
 
 /**
- * The schema of `zones_brotli` in responses.
+ * The schema of `zones_base` in responses.
  */
-export const zones_brotli_output: JsonSchema = {
+export const zones_base_output: JsonSchema = {
   "properties": {
     "editable": {
       "enum": [
@@ -343,9 +291,6 @@ export const zones_brotli_output: JsonSchema = {
       "type": "boolean"
     },
     "id": {
-      "enum": [
-        "brotli"
-      ],
       "type": "string"
     },
     "modified_on": {
@@ -360,7 +305,26 @@ export const zones_brotli_output: JsonSchema = {
       ]
     },
     "value": {
-      "$ref": "#/$defs/zones_brotli_value"
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "number"
+        },
+        {
+          "type": "boolean"
+        },
+        {
+          "type": "object"
+        },
+        {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        }
+      ]
     }
   },
   "required": [
@@ -368,6 +332,31 @@ export const zones_brotli_output: JsonSchema = {
     "value"
   ],
   "type": "object"
+};
+
+/**
+ * The schema of `zones_brotli` in responses.
+ */
+export const zones_brotli_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/zones_base"
+    },
+    {
+      "properties": {
+        "id": {
+          "enum": [
+            "brotli"
+          ],
+          "type": "string"
+        },
+        "value": {
+          "$ref": "#/$defs/zones_brotli_value"
+        }
+      },
+      "type": "object"
+    }
+  ]
 };
 
 /**
@@ -385,40 +374,25 @@ export const zones_brotli_value_output: JsonSchema = {
  * The schema of `zones_browser_cache_ttl-2` in responses.
  */
 export const zones_browser_cache_ttl_2_output: JsonSchema = {
-  "properties": {
-    "editable": {
-      "enum": [
-        true,
-        false
-      ],
-      "type": "boolean"
+  "allOf": [
+    {
+      "$ref": "#/$defs/zones_base"
     },
-    "id": {
-      "enum": [
-        "browser_cache_ttl"
-      ],
-      "type": "string"
-    },
-    "modified_on": {
-      "oneOf": [
-        {
-          "format": "date-time",
+    {
+      "properties": {
+        "id": {
+          "enum": [
+            "browser_cache_ttl"
+          ],
           "type": "string"
         },
-        {
-          "type": "null"
+        "value": {
+          "$ref": "#/$defs/zones_browser_cache_ttl_value"
         }
-      ]
-    },
-    "value": {
-      "$ref": "#/$defs/zones_browser_cache_ttl_value"
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "id",
-    "value"
-  ],
-  "type": "object"
+  ]
 };
 
 /**
@@ -432,40 +406,25 @@ export const zones_browser_cache_ttl_value_output: JsonSchema = {
  * The schema of `zones_browser_check-2` in responses.
  */
 export const zones_browser_check_2_output: JsonSchema = {
-  "properties": {
-    "editable": {
-      "enum": [
-        true,
-        false
-      ],
-      "type": "boolean"
+  "allOf": [
+    {
+      "$ref": "#/$defs/zones_base"
     },
-    "id": {
-      "enum": [
-        "browser_check"
-      ],
-      "type": "string"
-    },
-    "modified_on": {
-      "oneOf": [
-        {
-          "format": "date-time",
+    {
+      "properties": {
+        "id": {
+          "enum": [
+            "browser_check"
+          ],
           "type": "string"
         },
-        {
-          "type": "null"
+        "value": {
+          "$ref": "#/$defs/zones_browser_check_value"
         }
-      ]
-    },
-    "value": {
-      "$ref": "#/$defs/zones_browser_check_value"
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "id",
-    "value"
-  ],
-  "type": "object"
+  ]
 };
 
 /**
@@ -483,32 +442,25 @@ export const zones_browser_check_value_output: JsonSchema = {
  * The schema of `zones_cache-rules_aegis` in responses.
  */
 export const zones_cache_rules_aegis_output: JsonSchema = {
-  "properties": {
-    "id": {
-      "enum": [
-        "aegis"
-      ],
-      "type": "string"
+  "allOf": [
+    {
+      "$ref": "#/$defs/zones_cache-rules_base"
     },
-    "modified_on": {
-      "oneOf": [
-        {
-          "format": "date-time",
+    {
+      "properties": {
+        "id": {
+          "enum": [
+            "aegis"
+          ],
           "type": "string"
         },
-        {
-          "type": "null"
+        "value": {
+          "$ref": "#/$defs/zones_cache-rules_aegis_value"
         }
-      ]
-    },
-    "value": {
-      "$ref": "#/$defs/zones_cache-rules_aegis_value"
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "id"
-  ],
-  "type": "object"
+  ]
 };
 
 /**
@@ -527,14 +479,11 @@ export const zones_cache_rules_aegis_value_output: JsonSchema = {
 };
 
 /**
- * The schema of `zones_cache-rules_origin_h2_max_streams` in responses.
+ * The schema of `zones_cache-rules_base` in responses.
  */
-export const zones_cache_rules_origin_h2_max_streams_output: JsonSchema = {
+export const zones_cache_rules_base_output: JsonSchema = {
   "properties": {
     "id": {
-      "enum": [
-        "origin_h2_max_streams"
-      ],
       "type": "string"
     },
     "modified_on": {
@@ -547,15 +496,37 @@ export const zones_cache_rules_origin_h2_max_streams_output: JsonSchema = {
           "type": "null"
         }
       ]
-    },
-    "value": {
-      "$ref": "#/$defs/zones_cache-rules_origin_h2_max_streams_value"
     }
   },
   "required": [
     "id"
   ],
   "type": "object"
+};
+
+/**
+ * The schema of `zones_cache-rules_origin_h2_max_streams` in responses.
+ */
+export const zones_cache_rules_origin_h2_max_streams_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/zones_cache-rules_base"
+    },
+    {
+      "properties": {
+        "id": {
+          "enum": [
+            "origin_h2_max_streams"
+          ],
+          "type": "string"
+        },
+        "value": {
+          "$ref": "#/$defs/zones_cache-rules_origin_h2_max_streams_value"
+        }
+      },
+      "type": "object"
+    }
+  ]
 };
 
 /**
@@ -569,32 +540,25 @@ export const zones_cache_rules_origin_h2_max_streams_value_output: JsonSchema = 
  * The schema of `zones_cache-rules_origin_max_http_version` in responses.
  */
 export const zones_cache_rules_origin_max_http_version_output: JsonSchema = {
-  "properties": {
-    "id": {
-      "enum": [
-        "origin_max_http_version"
-      ],
-      "type": "string"
+  "allOf": [
+    {
+      "$ref": "#/$defs/zones_cache-rules_base"
     },
-    "modified_on": {
-      "oneOf": [
-        {
-          "format": "date-time",
+    {
+      "properties": {
+        "id": {
+          "enum": [
+            "origin_max_http_version"
+          ],
           "type": "string"
         },
-        {
-          "type": "null"
+        "value": {
+          "$ref": "#/$defs/zones_cache-rules_origin_max_http_version_value"
         }
-      ]
-    },
-    "value": {
-      "$ref": "#/$defs/zones_cache-rules_origin_max_http_version_value"
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "id"
-  ],
-  "type": "object"
+  ]
 };
 
 /**
@@ -612,40 +576,25 @@ export const zones_cache_rules_origin_max_http_version_value_output: JsonSchema 
  * The schema of `zones_cache_level-2` in responses.
  */
 export const zones_cache_level_2_output: JsonSchema = {
-  "properties": {
-    "editable": {
-      "enum": [
-        true,
-        false
-      ],
-      "type": "boolean"
+  "allOf": [
+    {
+      "$ref": "#/$defs/zones_base"
     },
-    "id": {
-      "enum": [
-        "cache_level"
-      ],
-      "type": "string"
-    },
-    "modified_on": {
-      "oneOf": [
-        {
-          "format": "date-time",
+    {
+      "properties": {
+        "id": {
+          "enum": [
+            "cache_level"
+          ],
           "type": "string"
         },
-        {
-          "type": "null"
+        "value": {
+          "$ref": "#/$defs/zones_cache_level_value"
         }
-      ]
-    },
-    "value": {
-      "$ref": "#/$defs/zones_cache_level_value"
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "id",
-    "value"
-  ],
-  "type": "object"
+  ]
 };
 
 /**
@@ -664,40 +613,25 @@ export const zones_cache_level_value_output: JsonSchema = {
  * The schema of `zones_challenge_ttl` in responses.
  */
 export const zones_challenge_ttl_output: JsonSchema = {
-  "properties": {
-    "editable": {
-      "enum": [
-        true,
-        false
-      ],
-      "type": "boolean"
+  "allOf": [
+    {
+      "$ref": "#/$defs/zones_base"
     },
-    "id": {
-      "enum": [
-        "challenge_ttl"
-      ],
-      "type": "string"
-    },
-    "modified_on": {
-      "oneOf": [
-        {
-          "format": "date-time",
+    {
+      "properties": {
+        "id": {
+          "enum": [
+            "challenge_ttl"
+          ],
           "type": "string"
         },
-        {
-          "type": "null"
+        "value": {
+          "$ref": "#/$defs/zones_challenge_ttl_value"
         }
-      ]
-    },
-    "value": {
-      "$ref": "#/$defs/zones_challenge_ttl_value"
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "id",
-    "value"
-  ],
-  "type": "object"
+  ]
 };
 
 /**
@@ -727,40 +661,25 @@ export const zones_challenge_ttl_value_output: JsonSchema = {
  * The schema of `zones_china_network_enabled` in responses.
  */
 export const zones_china_network_enabled_output: JsonSchema = {
-  "properties": {
-    "editable": {
-      "enum": [
-        true,
-        false
-      ],
-      "type": "boolean"
+  "allOf": [
+    {
+      "$ref": "#/$defs/zones_base"
     },
-    "id": {
-      "enum": [
-        "china_network_enabled"
-      ],
-      "type": "string"
-    },
-    "modified_on": {
-      "oneOf": [
-        {
-          "format": "date-time",
+    {
+      "properties": {
+        "id": {
+          "enum": [
+            "china_network_enabled"
+          ],
           "type": "string"
         },
-        {
-          "type": "null"
+        "value": {
+          "$ref": "#/$defs/zones_china_network_enabled_value"
         }
-      ]
-    },
-    "value": {
-      "$ref": "#/$defs/zones_china_network_enabled_value"
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "id",
-    "value"
-  ],
-  "type": "object"
+  ]
 };
 
 /**
@@ -778,40 +697,25 @@ export const zones_china_network_enabled_value_output: JsonSchema = {
  * The schema of `zones_ciphers` in responses.
  */
 export const zones_ciphers_output: JsonSchema = {
-  "properties": {
-    "editable": {
-      "enum": [
-        true,
-        false
-      ],
-      "type": "boolean"
+  "allOf": [
+    {
+      "$ref": "#/$defs/zones_base"
     },
-    "id": {
-      "enum": [
-        "ciphers"
-      ],
-      "type": "string"
-    },
-    "modified_on": {
-      "oneOf": [
-        {
-          "format": "date-time",
+    {
+      "properties": {
+        "id": {
+          "enum": [
+            "ciphers"
+          ],
           "type": "string"
         },
-        {
-          "type": "null"
+        "value": {
+          "$ref": "#/$defs/zones_ciphers_value"
         }
-      ]
-    },
-    "value": {
-      "$ref": "#/$defs/zones_ciphers_value"
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "id",
-    "value"
-  ],
-  "type": "object"
+  ]
 };
 
 /**
@@ -828,40 +732,25 @@ export const zones_ciphers_value_output: JsonSchema = {
  * The schema of `zones_cname_flattening` in responses.
  */
 export const zones_cname_flattening_output: JsonSchema = {
-  "properties": {
-    "editable": {
-      "enum": [
-        true,
-        false
-      ],
-      "type": "boolean"
+  "allOf": [
+    {
+      "$ref": "#/$defs/zones_base"
     },
-    "id": {
-      "enum": [
-        "cname_flattening"
-      ],
-      "type": "string"
-    },
-    "modified_on": {
-      "oneOf": [
-        {
-          "format": "date-time",
+    {
+      "properties": {
+        "id": {
+          "enum": [
+            "cname_flattening"
+          ],
           "type": "string"
         },
-        {
-          "type": "null"
+        "value": {
+          "$ref": "#/$defs/zones_cname_flattening_value"
         }
-      ]
-    },
-    "value": {
-      "$ref": "#/$defs/zones_cname_flattening_value"
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "id",
-    "value"
-  ],
-  "type": "object"
+  ]
 };
 
 /**
@@ -879,40 +768,25 @@ export const zones_cname_flattening_value_output: JsonSchema = {
  * The schema of `zones_content_converter` in responses.
  */
 export const zones_content_converter_output: JsonSchema = {
-  "properties": {
-    "editable": {
-      "enum": [
-        true,
-        false
-      ],
-      "type": "boolean"
+  "allOf": [
+    {
+      "$ref": "#/$defs/zones_base"
     },
-    "id": {
-      "enum": [
-        "content_converter"
-      ],
-      "type": "string"
-    },
-    "modified_on": {
-      "oneOf": [
-        {
-          "format": "date-time",
+    {
+      "properties": {
+        "id": {
+          "enum": [
+            "content_converter"
+          ],
           "type": "string"
         },
-        {
-          "type": "null"
+        "value": {
+          "$ref": "#/$defs/zones_content_converter_value"
         }
-      ]
-    },
-    "value": {
-      "$ref": "#/$defs/zones_content_converter_value"
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "id",
-    "value"
-  ],
-  "type": "object"
+  ]
 };
 
 /**
@@ -930,43 +804,28 @@ export const zones_content_converter_value_output: JsonSchema = {
  * The schema of `zones_development_mode` in responses.
  */
 export const zones_development_mode_output: JsonSchema = {
-  "properties": {
-    "editable": {
-      "enum": [
-        true,
-        false
-      ],
-      "type": "boolean"
+  "allOf": [
+    {
+      "$ref": "#/$defs/zones_base"
     },
-    "id": {
-      "enum": [
-        "development_mode"
-      ],
-      "type": "string"
-    },
-    "modified_on": {
-      "oneOf": [
-        {
-          "format": "date-time",
+    {
+      "properties": {
+        "id": {
+          "enum": [
+            "development_mode"
+          ],
           "type": "string"
         },
-        {
-          "type": "null"
+        "time_remaining": {
+          "type": "number"
+        },
+        "value": {
+          "$ref": "#/$defs/zones_development_mode_value"
         }
-      ]
-    },
-    "time_remaining": {
-      "type": "number"
-    },
-    "value": {
-      "$ref": "#/$defs/zones_development_mode_value"
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "id",
-    "value"
-  ],
-  "type": "object"
+  ]
 };
 
 /**
@@ -984,40 +843,25 @@ export const zones_development_mode_value_output: JsonSchema = {
  * The schema of `zones_early_hints` in responses.
  */
 export const zones_early_hints_output: JsonSchema = {
-  "properties": {
-    "editable": {
-      "enum": [
-        true,
-        false
-      ],
-      "type": "boolean"
+  "allOf": [
+    {
+      "$ref": "#/$defs/zones_base"
     },
-    "id": {
-      "enum": [
-        "early_hints"
-      ],
-      "type": "string"
-    },
-    "modified_on": {
-      "oneOf": [
-        {
-          "format": "date-time",
+    {
+      "properties": {
+        "id": {
+          "enum": [
+            "early_hints"
+          ],
           "type": "string"
         },
-        {
-          "type": "null"
+        "value": {
+          "$ref": "#/$defs/zones_early_hints_value"
         }
-      ]
-    },
-    "value": {
-      "$ref": "#/$defs/zones_early_hints_value"
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "id",
-    "value"
-  ],
-  "type": "object"
+  ]
 };
 
 /**
@@ -1035,40 +879,25 @@ export const zones_early_hints_value_output: JsonSchema = {
  * The schema of `zones_edge_cache_ttl-2` in responses.
  */
 export const zones_edge_cache_ttl_2_output: JsonSchema = {
-  "properties": {
-    "editable": {
-      "enum": [
-        true,
-        false
-      ],
-      "type": "boolean"
+  "allOf": [
+    {
+      "$ref": "#/$defs/zones_base"
     },
-    "id": {
-      "enum": [
-        "edge_cache_ttl"
-      ],
-      "type": "string"
-    },
-    "modified_on": {
-      "oneOf": [
-        {
-          "format": "date-time",
+    {
+      "properties": {
+        "id": {
+          "enum": [
+            "edge_cache_ttl"
+          ],
           "type": "string"
         },
-        {
-          "type": "null"
+        "value": {
+          "$ref": "#/$defs/zones_edge_cache_ttl_value"
         }
-      ]
-    },
-    "value": {
-      "$ref": "#/$defs/zones_edge_cache_ttl_value"
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "id",
-    "value"
-  ],
-  "type": "object"
+  ]
 };
 
 /**
@@ -1105,40 +934,25 @@ export const zones_edge_cache_ttl_value_output: JsonSchema = {
  * The schema of `zones_email_obfuscation-2` in responses.
  */
 export const zones_email_obfuscation_2_output: JsonSchema = {
-  "properties": {
-    "editable": {
-      "enum": [
-        true,
-        false
-      ],
-      "type": "boolean"
+  "allOf": [
+    {
+      "$ref": "#/$defs/zones_base"
     },
-    "id": {
-      "enum": [
-        "email_obfuscation"
-      ],
-      "type": "string"
-    },
-    "modified_on": {
-      "oneOf": [
-        {
-          "format": "date-time",
+    {
+      "properties": {
+        "id": {
+          "enum": [
+            "email_obfuscation"
+          ],
           "type": "string"
         },
-        {
-          "type": "null"
+        "value": {
+          "$ref": "#/$defs/zones_email_obfuscation_value"
         }
-      ]
-    },
-    "value": {
-      "$ref": "#/$defs/zones_email_obfuscation_value"
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "id",
-    "value"
-  ],
-  "type": "object"
+  ]
 };
 
 /**
@@ -1156,40 +970,25 @@ export const zones_email_obfuscation_value_output: JsonSchema = {
  * The schema of `zones_h2_prioritization` in responses.
  */
 export const zones_h2_prioritization_output: JsonSchema = {
-  "properties": {
-    "editable": {
-      "enum": [
-        true,
-        false
-      ],
-      "type": "boolean"
+  "allOf": [
+    {
+      "$ref": "#/$defs/zones_base"
     },
-    "id": {
-      "enum": [
-        "h2_prioritization"
-      ],
-      "type": "string"
-    },
-    "modified_on": {
-      "oneOf": [
-        {
-          "format": "date-time",
+    {
+      "properties": {
+        "id": {
+          "enum": [
+            "h2_prioritization"
+          ],
           "type": "string"
         },
-        {
-          "type": "null"
+        "value": {
+          "$ref": "#/$defs/zones_h2_prioritization_value"
         }
-      ]
-    },
-    "value": {
-      "$ref": "#/$defs/zones_h2_prioritization_value"
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "id",
-    "value"
-  ],
-  "type": "object"
+  ]
 };
 
 /**
@@ -1208,40 +1007,25 @@ export const zones_h2_prioritization_value_output: JsonSchema = {
  * The schema of `zones_hotlink_protection` in responses.
  */
 export const zones_hotlink_protection_output: JsonSchema = {
-  "properties": {
-    "editable": {
-      "enum": [
-        true,
-        false
-      ],
-      "type": "boolean"
+  "allOf": [
+    {
+      "$ref": "#/$defs/zones_base"
     },
-    "id": {
-      "enum": [
-        "hotlink_protection"
-      ],
-      "type": "string"
-    },
-    "modified_on": {
-      "oneOf": [
-        {
-          "format": "date-time",
+    {
+      "properties": {
+        "id": {
+          "enum": [
+            "hotlink_protection"
+          ],
           "type": "string"
         },
-        {
-          "type": "null"
+        "value": {
+          "$ref": "#/$defs/zones_hotlink_protection_value"
         }
-      ]
-    },
-    "value": {
-      "$ref": "#/$defs/zones_hotlink_protection_value"
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "id",
-    "value"
-  ],
-  "type": "object"
+  ]
 };
 
 /**
@@ -1259,40 +1043,25 @@ export const zones_hotlink_protection_value_output: JsonSchema = {
  * The schema of `zones_http2` in responses.
  */
 export const zones_http2_output: JsonSchema = {
-  "properties": {
-    "editable": {
-      "enum": [
-        true,
-        false
-      ],
-      "type": "boolean"
+  "allOf": [
+    {
+      "$ref": "#/$defs/zones_base"
     },
-    "id": {
-      "enum": [
-        "http2"
-      ],
-      "type": "string"
-    },
-    "modified_on": {
-      "oneOf": [
-        {
-          "format": "date-time",
+    {
+      "properties": {
+        "id": {
+          "enum": [
+            "http2"
+          ],
           "type": "string"
         },
-        {
-          "type": "null"
+        "value": {
+          "$ref": "#/$defs/zones_http2_value"
         }
-      ]
-    },
-    "value": {
-      "$ref": "#/$defs/zones_http2_value"
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "id",
-    "value"
-  ],
-  "type": "object"
+  ]
 };
 
 /**
@@ -1310,40 +1079,25 @@ export const zones_http2_value_output: JsonSchema = {
  * The schema of `zones_http3` in responses.
  */
 export const zones_http3_output: JsonSchema = {
-  "properties": {
-    "editable": {
-      "enum": [
-        true,
-        false
-      ],
-      "type": "boolean"
+  "allOf": [
+    {
+      "$ref": "#/$defs/zones_base"
     },
-    "id": {
-      "enum": [
-        "http3"
-      ],
-      "type": "string"
-    },
-    "modified_on": {
-      "oneOf": [
-        {
-          "format": "date-time",
+    {
+      "properties": {
+        "id": {
+          "enum": [
+            "http3"
+          ],
           "type": "string"
         },
-        {
-          "type": "null"
+        "value": {
+          "$ref": "#/$defs/zones_http3_value"
         }
-      ]
-    },
-    "value": {
-      "$ref": "#/$defs/zones_http3_value"
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "id",
-    "value"
-  ],
-  "type": "object"
+  ]
 };
 
 /**
@@ -1361,40 +1115,25 @@ export const zones_http3_value_output: JsonSchema = {
  * The schema of `zones_image_resizing` in responses.
  */
 export const zones_image_resizing_output: JsonSchema = {
-  "properties": {
-    "editable": {
-      "enum": [
-        true,
-        false
-      ],
-      "type": "boolean"
+  "allOf": [
+    {
+      "$ref": "#/$defs/zones_base"
     },
-    "id": {
-      "enum": [
-        "image_resizing"
-      ],
-      "type": "string"
-    },
-    "modified_on": {
-      "oneOf": [
-        {
-          "format": "date-time",
+    {
+      "properties": {
+        "id": {
+          "enum": [
+            "image_resizing"
+          ],
           "type": "string"
         },
-        {
-          "type": "null"
+        "value": {
+          "$ref": "#/$defs/zones_image_resizing_value"
         }
-      ]
-    },
-    "value": {
-      "$ref": "#/$defs/zones_image_resizing_value"
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "id",
-    "value"
-  ],
-  "type": "object"
+  ]
 };
 
 /**
@@ -1413,40 +1152,25 @@ export const zones_image_resizing_value_output: JsonSchema = {
  * The schema of `zones_ip_geolocation-2` in responses.
  */
 export const zones_ip_geolocation_2_output: JsonSchema = {
-  "properties": {
-    "editable": {
-      "enum": [
-        true,
-        false
-      ],
-      "type": "boolean"
+  "allOf": [
+    {
+      "$ref": "#/$defs/zones_base"
     },
-    "id": {
-      "enum": [
-        "ip_geolocation"
-      ],
-      "type": "string"
-    },
-    "modified_on": {
-      "oneOf": [
-        {
-          "format": "date-time",
+    {
+      "properties": {
+        "id": {
+          "enum": [
+            "ip_geolocation"
+          ],
           "type": "string"
         },
-        {
-          "type": "null"
+        "value": {
+          "$ref": "#/$defs/zones_ip_geolocation_value"
         }
-      ]
-    },
-    "value": {
-      "$ref": "#/$defs/zones_ip_geolocation_value"
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "id",
-    "value"
-  ],
-  "type": "object"
+  ]
 };
 
 /**
@@ -1464,40 +1188,25 @@ export const zones_ip_geolocation_value_output: JsonSchema = {
  * The schema of `zones_ipv6` in responses.
  */
 export const zones_ipv6_output: JsonSchema = {
-  "properties": {
-    "editable": {
-      "enum": [
-        true,
-        false
-      ],
-      "type": "boolean"
+  "allOf": [
+    {
+      "$ref": "#/$defs/zones_base"
     },
-    "id": {
-      "enum": [
-        "ipv6"
-      ],
-      "type": "string"
-    },
-    "modified_on": {
-      "oneOf": [
-        {
-          "format": "date-time",
+    {
+      "properties": {
+        "id": {
+          "enum": [
+            "ipv6"
+          ],
           "type": "string"
         },
-        {
-          "type": "null"
+        "value": {
+          "$ref": "#/$defs/zones_ipv6_value"
         }
-      ]
-    },
-    "value": {
-      "$ref": "#/$defs/zones_ipv6_value"
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "id",
-    "value"
-  ],
-  "type": "object"
+  ]
 };
 
 /**
@@ -1515,40 +1224,25 @@ export const zones_ipv6_value_output: JsonSchema = {
  * The schema of `zones_max_upload` in responses.
  */
 export const zones_max_upload_output: JsonSchema = {
-  "properties": {
-    "editable": {
-      "enum": [
-        true,
-        false
-      ],
-      "type": "boolean"
+  "allOf": [
+    {
+      "$ref": "#/$defs/zones_base"
     },
-    "id": {
-      "enum": [
-        "max_upload"
-      ],
-      "type": "string"
-    },
-    "modified_on": {
-      "oneOf": [
-        {
-          "format": "date-time",
+    {
+      "properties": {
+        "id": {
+          "enum": [
+            "max_upload"
+          ],
           "type": "string"
         },
-        {
-          "type": "null"
+        "value": {
+          "$ref": "#/$defs/zones_max_upload_value"
         }
-      ]
-    },
-    "value": {
-      "$ref": "#/$defs/zones_max_upload_value"
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "id",
-    "value"
-  ],
-  "type": "object"
+  ]
 };
 
 /**
@@ -1590,40 +1284,25 @@ export const zones_max_upload_value_output: JsonSchema = {
  * The schema of `zones_min_tls_version` in responses.
  */
 export const zones_min_tls_version_output: JsonSchema = {
-  "properties": {
-    "editable": {
-      "enum": [
-        true,
-        false
-      ],
-      "type": "boolean"
+  "allOf": [
+    {
+      "$ref": "#/$defs/zones_base"
     },
-    "id": {
-      "enum": [
-        "min_tls_version"
-      ],
-      "type": "string"
-    },
-    "modified_on": {
-      "oneOf": [
-        {
-          "format": "date-time",
+    {
+      "properties": {
+        "id": {
+          "enum": [
+            "min_tls_version"
+          ],
           "type": "string"
         },
-        {
-          "type": "null"
+        "value": {
+          "$ref": "#/$defs/zones_min_tls_version_value"
         }
-      ]
-    },
-    "value": {
-      "$ref": "#/$defs/zones_min_tls_version_value"
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "id",
-    "value"
-  ],
-  "type": "object"
+  ]
 };
 
 /**
@@ -1643,40 +1322,25 @@ export const zones_min_tls_version_value_output: JsonSchema = {
  * The schema of `zones_mirage-2` in responses.
  */
 export const zones_mirage_2_output: JsonSchema = {
-  "properties": {
-    "editable": {
-      "enum": [
-        true,
-        false
-      ],
-      "type": "boolean"
+  "allOf": [
+    {
+      "$ref": "#/$defs/zones_base"
     },
-    "id": {
-      "enum": [
-        "mirage"
-      ],
-      "type": "string"
-    },
-    "modified_on": {
-      "oneOf": [
-        {
-          "format": "date-time",
+    {
+      "properties": {
+        "id": {
+          "enum": [
+            "mirage"
+          ],
           "type": "string"
         },
-        {
-          "type": "null"
+        "value": {
+          "$ref": "#/$defs/zones_mirage_value"
         }
-      ]
-    },
-    "value": {
-      "$ref": "#/$defs/zones_mirage_value"
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "id",
-    "value"
-  ],
-  "type": "object"
+  ]
 };
 
 /**
@@ -1694,40 +1358,25 @@ export const zones_mirage_value_output: JsonSchema = {
  * The schema of `zones_nel` in responses.
  */
 export const zones_nel_output: JsonSchema = {
-  "properties": {
-    "editable": {
-      "enum": [
-        true,
-        false
-      ],
-      "type": "boolean"
+  "allOf": [
+    {
+      "$ref": "#/$defs/zones_base"
     },
-    "id": {
-      "enum": [
-        "nel"
-      ],
-      "type": "string"
-    },
-    "modified_on": {
-      "oneOf": [
-        {
-          "format": "date-time",
+    {
+      "properties": {
+        "id": {
+          "enum": [
+            "nel"
+          ],
           "type": "string"
         },
-        {
-          "type": "null"
+        "value": {
+          "$ref": "#/$defs/zones_nel_value"
         }
-      ]
-    },
-    "value": {
-      "$ref": "#/$defs/zones_nel_value"
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "id",
-    "value"
-  ],
-  "type": "object"
+  ]
 };
 
 /**
@@ -1746,40 +1395,25 @@ export const zones_nel_value_output: JsonSchema = {
  * The schema of `zones_opportunistic_encryption-2` in responses.
  */
 export const zones_opportunistic_encryption_2_output: JsonSchema = {
-  "properties": {
-    "editable": {
-      "enum": [
-        true,
-        false
-      ],
-      "type": "boolean"
+  "allOf": [
+    {
+      "$ref": "#/$defs/zones_base"
     },
-    "id": {
-      "enum": [
-        "opportunistic_encryption"
-      ],
-      "type": "string"
-    },
-    "modified_on": {
-      "oneOf": [
-        {
-          "format": "date-time",
+    {
+      "properties": {
+        "id": {
+          "enum": [
+            "opportunistic_encryption"
+          ],
           "type": "string"
         },
-        {
-          "type": "null"
+        "value": {
+          "$ref": "#/$defs/zones_opportunistic_encryption_value"
         }
-      ]
-    },
-    "value": {
-      "$ref": "#/$defs/zones_opportunistic_encryption_value"
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "id",
-    "value"
-  ],
-  "type": "object"
+  ]
 };
 
 /**
@@ -1797,40 +1431,25 @@ export const zones_opportunistic_encryption_value_output: JsonSchema = {
  * The schema of `zones_opportunistic_onion` in responses.
  */
 export const zones_opportunistic_onion_output: JsonSchema = {
-  "properties": {
-    "editable": {
-      "enum": [
-        true,
-        false
-      ],
-      "type": "boolean"
+  "allOf": [
+    {
+      "$ref": "#/$defs/zones_base"
     },
-    "id": {
-      "enum": [
-        "opportunistic_onion"
-      ],
-      "type": "string"
-    },
-    "modified_on": {
-      "oneOf": [
-        {
-          "format": "date-time",
+    {
+      "properties": {
+        "id": {
+          "enum": [
+            "opportunistic_onion"
+          ],
           "type": "string"
         },
-        {
-          "type": "null"
+        "value": {
+          "$ref": "#/$defs/zones_opportunistic_onion_value"
         }
-      ]
-    },
-    "value": {
-      "$ref": "#/$defs/zones_opportunistic_onion_value"
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "id",
-    "value"
-  ],
-  "type": "object"
+  ]
 };
 
 /**
@@ -1848,40 +1467,25 @@ export const zones_opportunistic_onion_value_output: JsonSchema = {
  * The schema of `zones_orange_to_orange` in responses.
  */
 export const zones_orange_to_orange_output: JsonSchema = {
-  "properties": {
-    "editable": {
-      "enum": [
-        true,
-        false
-      ],
-      "type": "boolean"
+  "allOf": [
+    {
+      "$ref": "#/$defs/zones_base"
     },
-    "id": {
-      "enum": [
-        "orange_to_orange"
-      ],
-      "type": "string"
-    },
-    "modified_on": {
-      "oneOf": [
-        {
-          "format": "date-time",
+    {
+      "properties": {
+        "id": {
+          "enum": [
+            "orange_to_orange"
+          ],
           "type": "string"
         },
-        {
-          "type": "null"
+        "value": {
+          "$ref": "#/$defs/zones_orange_to_orange_value"
         }
-      ]
-    },
-    "value": {
-      "$ref": "#/$defs/zones_orange_to_orange_value"
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "id",
-    "value"
-  ],
-  "type": "object"
+  ]
 };
 
 /**
@@ -1899,40 +1503,25 @@ export const zones_orange_to_orange_value_output: JsonSchema = {
  * The schema of `zones_origin_error_page_pass_thru-2` in responses.
  */
 export const zones_origin_error_page_pass_thru_2_output: JsonSchema = {
-  "properties": {
-    "editable": {
-      "enum": [
-        true,
-        false
-      ],
-      "type": "boolean"
+  "allOf": [
+    {
+      "$ref": "#/$defs/zones_base"
     },
-    "id": {
-      "enum": [
-        "origin_error_page_pass_thru"
-      ],
-      "type": "string"
-    },
-    "modified_on": {
-      "oneOf": [
-        {
-          "format": "date-time",
+    {
+      "properties": {
+        "id": {
+          "enum": [
+            "origin_error_page_pass_thru"
+          ],
           "type": "string"
         },
-        {
-          "type": "null"
+        "value": {
+          "$ref": "#/$defs/zones_origin_error_page_pass_thru_value"
         }
-      ]
-    },
-    "value": {
-      "$ref": "#/$defs/zones_origin_error_page_pass_thru_value"
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "id",
-    "value"
-  ],
-  "type": "object"
+  ]
 };
 
 /**
@@ -1950,40 +1539,25 @@ export const zones_origin_error_page_pass_thru_value_output: JsonSchema = {
  * The schema of `zones_polish-2` in responses.
  */
 export const zones_polish_2_output: JsonSchema = {
-  "properties": {
-    "editable": {
-      "enum": [
-        true,
-        false
-      ],
-      "type": "boolean"
+  "allOf": [
+    {
+      "$ref": "#/$defs/zones_base"
     },
-    "id": {
-      "enum": [
-        "polish"
-      ],
-      "type": "string"
-    },
-    "modified_on": {
-      "oneOf": [
-        {
-          "format": "date-time",
+    {
+      "properties": {
+        "id": {
+          "enum": [
+            "polish"
+          ],
           "type": "string"
         },
-        {
-          "type": "null"
+        "value": {
+          "$ref": "#/$defs/zones_polish_value"
         }
-      ]
-    },
-    "value": {
-      "$ref": "#/$defs/zones_polish_value"
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "id",
-    "value"
-  ],
-  "type": "object"
+  ]
 };
 
 /**
@@ -2002,40 +1576,25 @@ export const zones_polish_value_output: JsonSchema = {
  * The schema of `zones_pre_render` in responses.
  */
 export const zones_pre_render_output: JsonSchema = {
-  "properties": {
-    "editable": {
-      "enum": [
-        true,
-        false
-      ],
-      "type": "boolean"
+  "allOf": [
+    {
+      "$ref": "#/$defs/zones_base"
     },
-    "id": {
-      "enum": [
-        "pre_render"
-      ],
-      "type": "string"
-    },
-    "modified_on": {
-      "oneOf": [
-        {
-          "format": "date-time",
+    {
+      "properties": {
+        "id": {
+          "enum": [
+            "pre_render"
+          ],
           "type": "string"
         },
-        {
-          "type": "null"
+        "value": {
+          "$ref": "#/$defs/zones_pre_render_value"
         }
-      ]
-    },
-    "value": {
-      "$ref": "#/$defs/zones_pre_render_value"
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "id",
-    "value"
-  ],
-  "type": "object"
+  ]
 };
 
 /**
@@ -2053,40 +1612,25 @@ export const zones_pre_render_value_output: JsonSchema = {
  * The schema of `zones_prefetch_preload` in responses.
  */
 export const zones_prefetch_preload_output: JsonSchema = {
-  "properties": {
-    "editable": {
-      "enum": [
-        true,
-        false
-      ],
-      "type": "boolean"
+  "allOf": [
+    {
+      "$ref": "#/$defs/zones_base"
     },
-    "id": {
-      "enum": [
-        "prefetch_preload"
-      ],
-      "type": "string"
-    },
-    "modified_on": {
-      "oneOf": [
-        {
-          "format": "date-time",
+    {
+      "properties": {
+        "id": {
+          "enum": [
+            "prefetch_preload"
+          ],
           "type": "string"
         },
-        {
-          "type": "null"
+        "value": {
+          "$ref": "#/$defs/zones_prefetch_preload_value"
         }
-      ]
-    },
-    "value": {
-      "$ref": "#/$defs/zones_prefetch_preload_value"
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "id",
-    "value"
-  ],
-  "type": "object"
+  ]
 };
 
 /**
@@ -2104,40 +1648,25 @@ export const zones_prefetch_preload_value_output: JsonSchema = {
  * The schema of `zones_privacy_pass` in responses.
  */
 export const zones_privacy_pass_output: JsonSchema = {
-  "properties": {
-    "editable": {
-      "enum": [
-        true,
-        false
-      ],
-      "type": "boolean"
+  "allOf": [
+    {
+      "$ref": "#/$defs/zones_base"
     },
-    "id": {
-      "enum": [
-        "privacy_pass"
-      ],
-      "type": "string"
-    },
-    "modified_on": {
-      "oneOf": [
-        {
-          "format": "date-time",
+    {
+      "properties": {
+        "id": {
+          "enum": [
+            "privacy_pass"
+          ],
           "type": "string"
         },
-        {
-          "type": "null"
+        "value": {
+          "$ref": "#/$defs/zones_privacy_pass_value"
         }
-      ]
-    },
-    "value": {
-      "$ref": "#/$defs/zones_privacy_pass_value"
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "id",
-    "value"
-  ],
-  "type": "object"
+  ]
 };
 
 /**
@@ -2155,40 +1684,25 @@ export const zones_privacy_pass_value_output: JsonSchema = {
  * The schema of `zones_proxy_read_timeout` in responses.
  */
 export const zones_proxy_read_timeout_output: JsonSchema = {
-  "properties": {
-    "editable": {
-      "enum": [
-        true,
-        false
-      ],
-      "type": "boolean"
+  "allOf": [
+    {
+      "$ref": "#/$defs/zones_base"
     },
-    "id": {
-      "enum": [
-        "proxy_read_timeout"
-      ],
-      "type": "string"
-    },
-    "modified_on": {
-      "oneOf": [
-        {
-          "format": "date-time",
+    {
+      "properties": {
+        "id": {
+          "enum": [
+            "proxy_read_timeout"
+          ],
           "type": "string"
         },
-        {
-          "type": "null"
+        "value": {
+          "$ref": "#/$defs/zones_proxy_read_timeout_value"
         }
-      ]
-    },
-    "value": {
-      "$ref": "#/$defs/zones_proxy_read_timeout_value"
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "id",
-    "value"
-  ],
-  "type": "object"
+  ]
 };
 
 /**
@@ -2202,40 +1716,25 @@ export const zones_proxy_read_timeout_value_output: JsonSchema = {
  * The schema of `zones_pseudo_ipv4` in responses.
  */
 export const zones_pseudo_ipv4_output: JsonSchema = {
-  "properties": {
-    "editable": {
-      "enum": [
-        true,
-        false
-      ],
-      "type": "boolean"
+  "allOf": [
+    {
+      "$ref": "#/$defs/zones_base"
     },
-    "id": {
-      "enum": [
-        "pseudo_ipv4"
-      ],
-      "type": "string"
-    },
-    "modified_on": {
-      "oneOf": [
-        {
-          "format": "date-time",
+    {
+      "properties": {
+        "id": {
+          "enum": [
+            "pseudo_ipv4"
+          ],
           "type": "string"
         },
-        {
-          "type": "null"
+        "value": {
+          "$ref": "#/$defs/zones_pseudo_ipv4_value"
         }
-      ]
-    },
-    "value": {
-      "$ref": "#/$defs/zones_pseudo_ipv4_value"
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "id",
-    "value"
-  ],
-  "type": "object"
+  ]
 };
 
 /**
@@ -2254,40 +1753,25 @@ export const zones_pseudo_ipv4_value_output: JsonSchema = {
  * The schema of `zones_redirects_for_ai_training` in responses.
  */
 export const zones_redirects_for_ai_training_output: JsonSchema = {
-  "properties": {
-    "editable": {
-      "enum": [
-        true,
-        false
-      ],
-      "type": "boolean"
+  "allOf": [
+    {
+      "$ref": "#/$defs/zones_base"
     },
-    "id": {
-      "enum": [
-        "redirects_for_ai_training"
-      ],
-      "type": "string"
-    },
-    "modified_on": {
-      "oneOf": [
-        {
-          "format": "date-time",
+    {
+      "properties": {
+        "id": {
+          "enum": [
+            "redirects_for_ai_training"
+          ],
           "type": "string"
         },
-        {
-          "type": "null"
+        "value": {
+          "$ref": "#/$defs/zones_redirects_for_ai_training_value"
         }
-      ]
-    },
-    "value": {
-      "$ref": "#/$defs/zones_redirects_for_ai_training_value"
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "id",
-    "value"
-  ],
-  "type": "object"
+  ]
 };
 
 /**
@@ -2305,40 +1789,25 @@ export const zones_redirects_for_ai_training_value_output: JsonSchema = {
  * The schema of `zones_replace_insecure_js` in responses.
  */
 export const zones_replace_insecure_js_output: JsonSchema = {
-  "properties": {
-    "editable": {
-      "enum": [
-        true,
-        false
-      ],
-      "type": "boolean"
+  "allOf": [
+    {
+      "$ref": "#/$defs/zones_base"
     },
-    "id": {
-      "enum": [
-        "replace_insecure_js"
-      ],
-      "type": "string"
-    },
-    "modified_on": {
-      "oneOf": [
-        {
-          "format": "date-time",
+    {
+      "properties": {
+        "id": {
+          "enum": [
+            "replace_insecure_js"
+          ],
           "type": "string"
         },
-        {
-          "type": "null"
+        "value": {
+          "$ref": "#/$defs/zones_replace_insecure_js_value"
         }
-      ]
-    },
-    "value": {
-      "$ref": "#/$defs/zones_replace_insecure_js_value"
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "id",
-    "value"
-  ],
-  "type": "object"
+  ]
 };
 
 /**
@@ -2356,40 +1825,25 @@ export const zones_replace_insecure_js_value_output: JsonSchema = {
  * The schema of `zones_response_buffering-2` in responses.
  */
 export const zones_response_buffering_2_output: JsonSchema = {
-  "properties": {
-    "editable": {
-      "enum": [
-        true,
-        false
-      ],
-      "type": "boolean"
+  "allOf": [
+    {
+      "$ref": "#/$defs/zones_base"
     },
-    "id": {
-      "enum": [
-        "response_buffering"
-      ],
-      "type": "string"
-    },
-    "modified_on": {
-      "oneOf": [
-        {
-          "format": "date-time",
+    {
+      "properties": {
+        "id": {
+          "enum": [
+            "response_buffering"
+          ],
           "type": "string"
         },
-        {
-          "type": "null"
+        "value": {
+          "$ref": "#/$defs/zones_response_buffering_value"
         }
-      ]
-    },
-    "value": {
-      "$ref": "#/$defs/zones_response_buffering_value"
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "id",
-    "value"
-  ],
-  "type": "object"
+  ]
 };
 
 /**
@@ -2407,40 +1861,25 @@ export const zones_response_buffering_value_output: JsonSchema = {
  * The schema of `zones_rocket_loader-2` in responses.
  */
 export const zones_rocket_loader_2_output: JsonSchema = {
-  "properties": {
-    "editable": {
-      "enum": [
-        true,
-        false
-      ],
-      "type": "boolean"
+  "allOf": [
+    {
+      "$ref": "#/$defs/zones_base"
     },
-    "id": {
-      "enum": [
-        "rocket_loader"
-      ],
-      "type": "string"
-    },
-    "modified_on": {
-      "oneOf": [
-        {
-          "format": "date-time",
+    {
+      "properties": {
+        "id": {
+          "enum": [
+            "rocket_loader"
+          ],
           "type": "string"
         },
-        {
-          "type": "null"
+        "value": {
+          "$ref": "#/$defs/zones_rocket_loader_value"
         }
-      ]
-    },
-    "value": {
-      "$ref": "#/$defs/zones_rocket_loader_value"
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "id",
-    "value"
-  ],
-  "type": "object"
+  ]
 };
 
 /**
@@ -2458,80 +1897,50 @@ export const zones_rocket_loader_value_output: JsonSchema = {
  * The schema of `zones_schemas-automatic_platform_optimization` in responses.
  */
 export const zones_schemas_automatic_platform_optimization_output: JsonSchema = {
-  "properties": {
-    "editable": {
-      "enum": [
-        true,
-        false
-      ],
-      "type": "boolean"
+  "allOf": [
+    {
+      "$ref": "#/$defs/zones_base"
     },
-    "id": {
-      "enum": [
-        "automatic_platform_optimization"
-      ],
-      "type": "string"
-    },
-    "modified_on": {
-      "oneOf": [
-        {
-          "format": "date-time",
+    {
+      "properties": {
+        "id": {
+          "enum": [
+            "automatic_platform_optimization"
+          ],
           "type": "string"
         },
-        {
-          "type": "null"
+        "value": {
+          "$ref": "#/$defs/zones_automatic_platform_optimization"
         }
-      ]
-    },
-    "value": {
-      "$ref": "#/$defs/zones_automatic_platform_optimization"
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "id",
-    "value"
-  ],
-  "type": "object"
+  ]
 };
 
 /**
  * The schema of `zones_search_for_agents` in responses.
  */
 export const zones_search_for_agents_output: JsonSchema = {
-  "properties": {
-    "editable": {
-      "enum": [
-        true,
-        false
-      ],
-      "type": "boolean"
+  "allOf": [
+    {
+      "$ref": "#/$defs/zones_base"
     },
-    "id": {
-      "enum": [
-        "search_for_agents"
-      ],
-      "type": "string"
-    },
-    "modified_on": {
-      "oneOf": [
-        {
-          "format": "date-time",
+    {
+      "properties": {
+        "id": {
+          "enum": [
+            "search_for_agents"
+          ],
           "type": "string"
         },
-        {
-          "type": "null"
+        "value": {
+          "$ref": "#/$defs/zones_search_for_agents_value"
         }
-      ]
-    },
-    "value": {
-      "$ref": "#/$defs/zones_search_for_agents_value"
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "id",
-    "value"
-  ],
-  "type": "object"
+  ]
 };
 
 /**
@@ -2549,40 +1958,25 @@ export const zones_search_for_agents_value_output: JsonSchema = {
  * The schema of `zones_security_header` in responses.
  */
 export const zones_security_header_output: JsonSchema = {
-  "properties": {
-    "editable": {
-      "enum": [
-        true,
-        false
-      ],
-      "type": "boolean"
+  "allOf": [
+    {
+      "$ref": "#/$defs/zones_base"
     },
-    "id": {
-      "enum": [
-        "security_header"
-      ],
-      "type": "string"
-    },
-    "modified_on": {
-      "oneOf": [
-        {
-          "format": "date-time",
+    {
+      "properties": {
+        "id": {
+          "enum": [
+            "security_header"
+          ],
           "type": "string"
         },
-        {
-          "type": "null"
+        "value": {
+          "$ref": "#/$defs/zones_security_header_value"
         }
-      ]
-    },
-    "value": {
-      "$ref": "#/$defs/zones_security_header_value"
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "id",
-    "value"
-  ],
-  "type": "object"
+  ]
 };
 
 /**
@@ -2591,32 +1985,24 @@ export const zones_security_header_output: JsonSchema = {
 export const zones_security_header_value_output: JsonSchema = {
   "properties": {
     "strict_transport_security": {
-      "$ref": "#/$defs/zones_security_header_value_strict_transport_security"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `zones_security_header_value_strict_transport_security` in
- * responses.
- */
-export const zones_security_header_value_strict_transport_security_output: JsonSchema = {
-  "properties": {
-    "enabled": {
-      "type": "boolean"
-    },
-    "include_subdomains": {
-      "type": "boolean"
-    },
-    "max_age": {
-      "type": "number"
-    },
-    "nosniff": {
-      "type": "boolean"
-    },
-    "preload": {
-      "type": "boolean"
+      "properties": {
+        "enabled": {
+          "type": "boolean"
+        },
+        "include_subdomains": {
+          "type": "boolean"
+        },
+        "max_age": {
+          "type": "number"
+        },
+        "nosniff": {
+          "type": "boolean"
+        },
+        "preload": {
+          "type": "boolean"
+        }
+      },
+      "type": "object"
     }
   },
   "type": "object"
@@ -2626,40 +2012,25 @@ export const zones_security_header_value_strict_transport_security_output: JsonS
  * The schema of `zones_security_level-2` in responses.
  */
 export const zones_security_level_2_output: JsonSchema = {
-  "properties": {
-    "editable": {
-      "enum": [
-        true,
-        false
-      ],
-      "type": "boolean"
+  "allOf": [
+    {
+      "$ref": "#/$defs/zones_base"
     },
-    "id": {
-      "enum": [
-        "security_level"
-      ],
-      "type": "string"
-    },
-    "modified_on": {
-      "oneOf": [
-        {
-          "format": "date-time",
+    {
+      "properties": {
+        "id": {
+          "enum": [
+            "security_level"
+          ],
           "type": "string"
         },
-        {
-          "type": "null"
+        "value": {
+          "$ref": "#/$defs/zones_security_level_value"
         }
-      ]
-    },
-    "value": {
-      "$ref": "#/$defs/zones_security_level_value"
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "id",
-    "value"
-  ],
-  "type": "object"
+  ]
 };
 
 /**
@@ -2681,40 +2052,25 @@ export const zones_security_level_value_output: JsonSchema = {
  * The schema of `zones_server_side_exclude` in responses.
  */
 export const zones_server_side_exclude_output: JsonSchema = {
-  "properties": {
-    "editable": {
-      "enum": [
-        true,
-        false
-      ],
-      "type": "boolean"
+  "allOf": [
+    {
+      "$ref": "#/$defs/zones_base"
     },
-    "id": {
-      "enum": [
-        "server_side_exclude"
-      ],
-      "type": "string"
-    },
-    "modified_on": {
-      "oneOf": [
-        {
-          "format": "date-time",
+    {
+      "properties": {
+        "id": {
+          "enum": [
+            "server_side_exclude"
+          ],
           "type": "string"
         },
-        {
-          "type": "null"
+        "value": {
+          "$ref": "#/$defs/zones_server_side_exclude_value"
         }
-      ]
-    },
-    "value": {
-      "$ref": "#/$defs/zones_server_side_exclude_value"
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "id",
-    "value"
-  ],
-  "type": "object"
+  ]
 };
 
 /**
@@ -2941,40 +2297,25 @@ export const zones_setting_output: JsonSchema = {
  * The schema of `zones_sha1_support` in responses.
  */
 export const zones_sha1_support_output: JsonSchema = {
-  "properties": {
-    "editable": {
-      "enum": [
-        true,
-        false
-      ],
-      "type": "boolean"
+  "allOf": [
+    {
+      "$ref": "#/$defs/zones_base"
     },
-    "id": {
-      "enum": [
-        "sha1_support"
-      ],
-      "type": "string"
-    },
-    "modified_on": {
-      "oneOf": [
-        {
-          "format": "date-time",
+    {
+      "properties": {
+        "id": {
+          "enum": [
+            "sha1_support"
+          ],
           "type": "string"
         },
-        {
-          "type": "null"
+        "value": {
+          "$ref": "#/$defs/zones_sha1_support_value"
         }
-      ]
-    },
-    "value": {
-      "$ref": "#/$defs/zones_sha1_support_value"
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "id",
-    "value"
-  ],
-  "type": "object"
+  ]
 };
 
 /**
@@ -2992,40 +2333,25 @@ export const zones_sha1_support_value_output: JsonSchema = {
  * The schema of `zones_sort_query_string_for_cache-2` in responses.
  */
 export const zones_sort_query_string_for_cache_2_output: JsonSchema = {
-  "properties": {
-    "editable": {
-      "enum": [
-        true,
-        false
-      ],
-      "type": "boolean"
+  "allOf": [
+    {
+      "$ref": "#/$defs/zones_base"
     },
-    "id": {
-      "enum": [
-        "sort_query_string_for_cache"
-      ],
-      "type": "string"
-    },
-    "modified_on": {
-      "oneOf": [
-        {
-          "format": "date-time",
+    {
+      "properties": {
+        "id": {
+          "enum": [
+            "sort_query_string_for_cache"
+          ],
           "type": "string"
         },
-        {
-          "type": "null"
+        "value": {
+          "$ref": "#/$defs/zones_sort_query_string_for_cache_value"
         }
-      ]
-    },
-    "value": {
-      "$ref": "#/$defs/zones_sort_query_string_for_cache_value"
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "id",
-    "value"
-  ],
-  "type": "object"
+  ]
 };
 
 /**
@@ -3043,40 +2369,25 @@ export const zones_sort_query_string_for_cache_value_output: JsonSchema = {
  * The schema of `zones_ssl-2` in responses.
  */
 export const zones_ssl_2_output: JsonSchema = {
-  "properties": {
-    "editable": {
-      "enum": [
-        true,
-        false
-      ],
-      "type": "boolean"
+  "allOf": [
+    {
+      "$ref": "#/$defs/zones_base"
     },
-    "id": {
-      "enum": [
-        "ssl"
-      ],
-      "type": "string"
-    },
-    "modified_on": {
-      "oneOf": [
-        {
-          "format": "date-time",
+    {
+      "properties": {
+        "id": {
+          "enum": [
+            "ssl"
+          ],
           "type": "string"
         },
-        {
-          "type": "null"
+        "value": {
+          "$ref": "#/$defs/zones_ssl_value"
         }
-      ]
-    },
-    "value": {
-      "$ref": "#/$defs/zones_ssl_value"
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "id",
-    "value"
-  ],
-  "type": "object"
+  ]
 };
 
 /**
@@ -3121,40 +2432,25 @@ export const zones_ssl_value_output: JsonSchema = {
  * The schema of `zones_tls_1_2_only` in responses.
  */
 export const zones_tls_1_2_only_output: JsonSchema = {
-  "properties": {
-    "editable": {
-      "enum": [
-        true,
-        false
-      ],
-      "type": "boolean"
+  "allOf": [
+    {
+      "$ref": "#/$defs/zones_base"
     },
-    "id": {
-      "enum": [
-        "tls_1_2_only"
-      ],
-      "type": "string"
-    },
-    "modified_on": {
-      "oneOf": [
-        {
-          "format": "date-time",
+    {
+      "properties": {
+        "id": {
+          "enum": [
+            "tls_1_2_only"
+          ],
           "type": "string"
         },
-        {
-          "type": "null"
+        "value": {
+          "$ref": "#/$defs/zones_tls_1_2_only_value"
         }
-      ]
-    },
-    "value": {
-      "$ref": "#/$defs/zones_tls_1_2_only_value"
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "id",
-    "value"
-  ],
-  "type": "object"
+  ]
 };
 
 /**
@@ -3172,40 +2468,25 @@ export const zones_tls_1_2_only_value_output: JsonSchema = {
  * The schema of `zones_tls_1_3` in responses.
  */
 export const zones_tls_1_3_output: JsonSchema = {
-  "properties": {
-    "editable": {
-      "enum": [
-        true,
-        false
-      ],
-      "type": "boolean"
+  "allOf": [
+    {
+      "$ref": "#/$defs/zones_base"
     },
-    "id": {
-      "enum": [
-        "tls_1_3"
-      ],
-      "type": "string"
-    },
-    "modified_on": {
-      "oneOf": [
-        {
-          "format": "date-time",
+    {
+      "properties": {
+        "id": {
+          "enum": [
+            "tls_1_3"
+          ],
           "type": "string"
         },
-        {
-          "type": "null"
+        "value": {
+          "$ref": "#/$defs/zones_tls_1_3_value"
         }
-      ]
-    },
-    "value": {
-      "$ref": "#/$defs/zones_tls_1_3_value"
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "id",
-    "value"
-  ],
-  "type": "object"
+  ]
 };
 
 /**
@@ -3224,40 +2505,25 @@ export const zones_tls_1_3_value_output: JsonSchema = {
  * The schema of `zones_tls_client_auth` in responses.
  */
 export const zones_tls_client_auth_output: JsonSchema = {
-  "properties": {
-    "editable": {
-      "enum": [
-        true,
-        false
-      ],
-      "type": "boolean"
+  "allOf": [
+    {
+      "$ref": "#/$defs/zones_base"
     },
-    "id": {
-      "enum": [
-        "tls_client_auth"
-      ],
-      "type": "string"
-    },
-    "modified_on": {
-      "oneOf": [
-        {
-          "format": "date-time",
+    {
+      "properties": {
+        "id": {
+          "enum": [
+            "tls_client_auth"
+          ],
           "type": "string"
         },
-        {
-          "type": "null"
+        "value": {
+          "$ref": "#/$defs/zones_tls_client_auth_value"
         }
-      ]
-    },
-    "value": {
-      "$ref": "#/$defs/zones_tls_client_auth_value"
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "id",
-    "value"
-  ],
-  "type": "object"
+  ]
 };
 
 /**
@@ -3275,80 +2541,50 @@ export const zones_tls_client_auth_value_output: JsonSchema = {
  * The schema of `zones_transformations` in responses.
  */
 export const zones_transformations_output: JsonSchema = {
-  "properties": {
-    "editable": {
-      "enum": [
-        true,
-        false
-      ],
-      "type": "boolean"
+  "allOf": [
+    {
+      "$ref": "#/$defs/zones_base"
     },
-    "id": {
-      "enum": [
-        "transformations"
-      ],
-      "type": "string"
-    },
-    "modified_on": {
-      "oneOf": [
-        {
-          "format": "date-time",
+    {
+      "properties": {
+        "id": {
+          "enum": [
+            "transformations"
+          ],
           "type": "string"
         },
-        {
-          "type": "null"
+        "value": {
+          "$ref": "#/$defs/zones_image_resizing_value"
         }
-      ]
-    },
-    "value": {
-      "$ref": "#/$defs/zones_image_resizing_value"
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "id",
-    "value"
-  ],
-  "type": "object"
+  ]
 };
 
 /**
  * The schema of `zones_transformations_allowed_origins` in responses.
  */
 export const zones_transformations_allowed_origins_output: JsonSchema = {
-  "properties": {
-    "editable": {
-      "enum": [
-        true,
-        false
-      ],
-      "type": "boolean"
+  "allOf": [
+    {
+      "$ref": "#/$defs/zones_base"
     },
-    "id": {
-      "enum": [
-        "transformations_allowed_origins"
-      ],
-      "type": "string"
-    },
-    "modified_on": {
-      "oneOf": [
-        {
-          "format": "date-time",
+    {
+      "properties": {
+        "id": {
+          "enum": [
+            "transformations_allowed_origins"
+          ],
           "type": "string"
         },
-        {
-          "type": "null"
+        "value": {
+          "$ref": "#/$defs/zones_transformations_allowed_origins_value"
         }
-      ]
-    },
-    "value": {
-      "$ref": "#/$defs/zones_transformations_allowed_origins_value"
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "id",
-    "value"
-  ],
-  "type": "object"
+  ]
 };
 
 /**
@@ -3362,40 +2598,25 @@ export const zones_transformations_allowed_origins_value_output: JsonSchema = {
  * The schema of `zones_true_client_ip_header-2` in responses.
  */
 export const zones_true_client_ip_header_2_output: JsonSchema = {
-  "properties": {
-    "editable": {
-      "enum": [
-        true,
-        false
-      ],
-      "type": "boolean"
+  "allOf": [
+    {
+      "$ref": "#/$defs/zones_base"
     },
-    "id": {
-      "enum": [
-        "true_client_ip_header"
-      ],
-      "type": "string"
-    },
-    "modified_on": {
-      "oneOf": [
-        {
-          "format": "date-time",
+    {
+      "properties": {
+        "id": {
+          "enum": [
+            "true_client_ip_header"
+          ],
           "type": "string"
         },
-        {
-          "type": "null"
+        "value": {
+          "$ref": "#/$defs/zones_true_client_ip_header_value"
         }
-      ]
-    },
-    "value": {
-      "$ref": "#/$defs/zones_true_client_ip_header_value"
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "id",
-    "value"
-  ],
-  "type": "object"
+  ]
 };
 
 /**
@@ -3413,40 +2634,25 @@ export const zones_true_client_ip_header_value_output: JsonSchema = {
  * The schema of `zones_waf-2` in responses.
  */
 export const zones_waf_2_output: JsonSchema = {
-  "properties": {
-    "editable": {
-      "enum": [
-        true,
-        false
-      ],
-      "type": "boolean"
+  "allOf": [
+    {
+      "$ref": "#/$defs/zones_base"
     },
-    "id": {
-      "enum": [
-        "waf"
-      ],
-      "type": "string"
-    },
-    "modified_on": {
-      "oneOf": [
-        {
-          "format": "date-time",
+    {
+      "properties": {
+        "id": {
+          "enum": [
+            "waf"
+          ],
           "type": "string"
         },
-        {
-          "type": "null"
+        "value": {
+          "$ref": "#/$defs/zones_waf_value"
         }
-      ]
-    },
-    "value": {
-      "$ref": "#/$defs/zones_waf_value"
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "id",
-    "value"
-  ],
-  "type": "object"
+  ]
 };
 
 /**
@@ -3464,40 +2670,25 @@ export const zones_waf_value_output: JsonSchema = {
  * The schema of `zones_webmcp_enabled` in responses.
  */
 export const zones_webmcp_enabled_output: JsonSchema = {
-  "properties": {
-    "editable": {
-      "enum": [
-        true,
-        false
-      ],
-      "type": "boolean"
+  "allOf": [
+    {
+      "$ref": "#/$defs/zones_base"
     },
-    "id": {
-      "enum": [
-        "webmcp_enabled"
-      ],
-      "type": "string"
-    },
-    "modified_on": {
-      "oneOf": [
-        {
-          "format": "date-time",
+    {
+      "properties": {
+        "id": {
+          "enum": [
+            "webmcp_enabled"
+          ],
           "type": "string"
         },
-        {
-          "type": "null"
+        "value": {
+          "$ref": "#/$defs/zones_webmcp_enabled_value"
         }
-      ]
-    },
-    "value": {
-      "$ref": "#/$defs/zones_webmcp_enabled_value"
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "id",
-    "value"
-  ],
-  "type": "object"
+  ]
 };
 
 /**
@@ -3515,40 +2706,25 @@ export const zones_webmcp_enabled_value_output: JsonSchema = {
  * The schema of `zones_webmcp_mcp_url` in responses.
  */
 export const zones_webmcp_mcp_url_output: JsonSchema = {
-  "properties": {
-    "editable": {
-      "enum": [
-        true,
-        false
-      ],
-      "type": "boolean"
+  "allOf": [
+    {
+      "$ref": "#/$defs/zones_base"
     },
-    "id": {
-      "enum": [
-        "webmcp_mcp_url"
-      ],
-      "type": "string"
-    },
-    "modified_on": {
-      "oneOf": [
-        {
-          "format": "date-time",
+    {
+      "properties": {
+        "id": {
+          "enum": [
+            "webmcp_mcp_url"
+          ],
           "type": "string"
         },
-        {
-          "type": "null"
+        "value": {
+          "$ref": "#/$defs/zones_webmcp_mcp_url_value"
         }
-      ]
-    },
-    "value": {
-      "$ref": "#/$defs/zones_webmcp_mcp_url_value"
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "id",
-    "value"
-  ],
-  "type": "object"
+  ]
 };
 
 /**
@@ -3562,40 +2738,25 @@ export const zones_webmcp_mcp_url_value_output: JsonSchema = {
  * The schema of `zones_webmcp_packs` in responses.
  */
 export const zones_webmcp_packs_output: JsonSchema = {
-  "properties": {
-    "editable": {
-      "enum": [
-        true,
-        false
-      ],
-      "type": "boolean"
+  "allOf": [
+    {
+      "$ref": "#/$defs/zones_base"
     },
-    "id": {
-      "enum": [
-        "webmcp_packs"
-      ],
-      "type": "string"
-    },
-    "modified_on": {
-      "oneOf": [
-        {
-          "format": "date-time",
+    {
+      "properties": {
+        "id": {
+          "enum": [
+            "webmcp_packs"
+          ],
           "type": "string"
         },
-        {
-          "type": "null"
+        "value": {
+          "$ref": "#/$defs/zones_webmcp_packs_value"
         }
-      ]
-    },
-    "value": {
-      "$ref": "#/$defs/zones_webmcp_packs_value"
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "id",
-    "value"
-  ],
-  "type": "object"
+  ]
 };
 
 /**
@@ -3609,40 +2770,25 @@ export const zones_webmcp_packs_value_output: JsonSchema = {
  * The schema of `zones_webp` in responses.
  */
 export const zones_webp_output: JsonSchema = {
-  "properties": {
-    "editable": {
-      "enum": [
-        true,
-        false
-      ],
-      "type": "boolean"
+  "allOf": [
+    {
+      "$ref": "#/$defs/zones_base"
     },
-    "id": {
-      "enum": [
-        "webp"
-      ],
-      "type": "string"
-    },
-    "modified_on": {
-      "oneOf": [
-        {
-          "format": "date-time",
+    {
+      "properties": {
+        "id": {
+          "enum": [
+            "webp"
+          ],
           "type": "string"
         },
-        {
-          "type": "null"
+        "value": {
+          "$ref": "#/$defs/zones_webp_value"
         }
-      ]
-    },
-    "value": {
-      "$ref": "#/$defs/zones_webp_value"
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "id",
-    "value"
-  ],
-  "type": "object"
+  ]
 };
 
 /**
@@ -3660,40 +2806,25 @@ export const zones_webp_value_output: JsonSchema = {
  * The schema of `zones_websockets` in responses.
  */
 export const zones_websockets_output: JsonSchema = {
-  "properties": {
-    "editable": {
-      "enum": [
-        true,
-        false
-      ],
-      "type": "boolean"
+  "allOf": [
+    {
+      "$ref": "#/$defs/zones_base"
     },
-    "id": {
-      "enum": [
-        "websockets"
-      ],
-      "type": "string"
-    },
-    "modified_on": {
-      "oneOf": [
-        {
-          "format": "date-time",
+    {
+      "properties": {
+        "id": {
+          "enum": [
+            "websockets"
+          ],
           "type": "string"
         },
-        {
-          "type": "null"
+        "value": {
+          "$ref": "#/$defs/zones_websockets_value"
         }
-      ]
-    },
-    "value": {
-      "$ref": "#/$defs/zones_websockets_value"
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "id",
-    "value"
-  ],
-  "type": "object"
+  ]
 };
 
 /**

@@ -4,105 +4,6 @@
 import type { JsonSchema } from "../../../_/tool.js";
 
 /**
- * The schema of `posture-api_BaseFindingType` in responses.
- */
-export const posture_api_BaseFindingType_output: JsonSchema = {
-  "properties": {
-    "applies_to_all_integrations": {
-      "type": "boolean"
-    },
-    "asset_class": {
-      "type": "string"
-    },
-    "asset_vendor": {
-      "allOf": [
-        {
-          "$ref": "#/$defs/posture-api_FindingTypeVendorsEnum"
-        },
-        {
-          "type": "string"
-        }
-      ]
-    },
-    "category": {
-      "$ref": "#/$defs/posture-api_FindingCategory"
-    },
-    "created_at": {
-      "format": "date-time",
-      "type": "string"
-    },
-    "description": {
-      "oneOf": [
-        {
-          "type": "string"
-        },
-        {
-          "type": "null"
-        }
-      ]
-    },
-    "expression": {
-      "type": "string"
-    },
-    "id": {
-      "format": "uuid",
-      "type": "string"
-    },
-    "integration_ids": {
-      "items": {
-        "format": "uuid",
-        "type": "string"
-      },
-      "type": "array"
-    },
-    "match_count": {
-      "type": "integer"
-    },
-    "name": {
-      "type": "string"
-    },
-    "origin": {
-      "enum": [
-        "system",
-        "custom"
-      ],
-      "type": "string"
-    },
-    "quarantined": {
-      "type": "boolean"
-    },
-    "severity": {
-      "allOf": [
-        {
-          "$ref": "#/$defs/posture-api_SeverityEnum"
-        },
-        {
-          "type": "string"
-        }
-      ]
-    },
-    "updated_at": {
-      "format": "date-time",
-      "type": "string"
-    },
-    "vendor": {
-      "type": "string"
-    },
-    "version": {
-      "type": "integer"
-    }
-  },
-  "required": [
-    "category",
-    "id",
-    "name",
-    "severity",
-    "vendor"
-  ],
-  "type": "object"
-};
-
-/**
  * The schema of `posture-api_FindingTypeValidationError` in responses.
  */
 export const posture_api_FindingTypeValidationError_output: JsonSchema = {
@@ -131,6 +32,25 @@ export const posture_api_FindingTypeValidationError_output: JsonSchema = {
     "message"
   ],
   "type": "object"
+};
+
+/**
+ * The schema of `posture-api_ValidateFindingTypeResponse` in responses.
+ */
+export const posture_api_ValidateFindingTypeResponse_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/posture-api_api-response-common"
+    },
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/posture-api_ValidateFindingTypeResult"
+        }
+      },
+      "type": "object"
+    }
+  ]
 };
 
 /**
@@ -261,4 +181,64 @@ export const posture_api_custom_finding_type_response_output: JsonSchema = {
     "version"
   ],
   "type": "object"
+};
+
+/**
+ * The schema of `posture-api_custom-finding-type-single-response` in responses.
+ */
+export const posture_api_custom_finding_type_single_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/posture-api_api-response-common"
+    },
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/posture-api_custom-finding-type-response"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `posture-api_finding-type-response` in responses.
+ */
+export const posture_api_finding_type_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/posture-api_api-response-common"
+    },
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/posture-api_BaseFindingType"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `posture-api_paginated-finding-type-list` in responses.
+ */
+export const posture_api_paginated_finding_type_list_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/posture-api_api-response-collection"
+    },
+    {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/posture-api_BaseFindingType"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    }
+  ]
 };

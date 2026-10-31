@@ -9,10 +9,71 @@ import type { JsonSchema } from "../../_/tool.js";
 export const workers_Version_output: JsonSchema = {
   "properties": {
     "annotations": {
-      "$ref": "#/$defs/workers_Version_annotations"
+      "properties": {
+        "workers/message": {
+          "type": "string"
+        },
+        "workers/tag": {
+          "type": "string"
+        },
+        "workers/triggered_by": {
+          "type": "string"
+        }
+      },
+      "type": "object"
     },
     "assets": {
-      "$ref": "#/$defs/workers_Version_assets"
+      "properties": {
+        "config": {
+          "properties": {
+            "base_path": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "html_handling": {
+              "enum": [
+                "auto-trailing-slash",
+                "force-trailing-slash",
+                "drop-trailing-slash",
+                "none"
+              ],
+              "type": "string"
+            },
+            "not_found_handling": {
+              "enum": [
+                "none",
+                "404-page",
+                "single-page-application"
+              ],
+              "type": "string"
+            },
+            "run_worker_first": {
+              "oneOf": [
+                {
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                {
+                  "type": "boolean"
+                }
+              ]
+            }
+          },
+          "type": "object"
+        },
+        "jwt": {
+          "type": "string"
+        }
+      },
+      "type": "object"
     },
     "author_email": {
       "type": "string"
@@ -50,7 +111,15 @@ export const workers_Version_output: JsonSchema = {
       "type": "string"
     },
     "limits": {
-      "$ref": "#/$defs/workers_Version_limits"
+      "properties": {
+        "cpu_ms": {
+          "type": "integer"
+        },
+        "subrequests": {
+          "type": "integer"
+        }
+      },
+      "type": "object"
     },
     "main_module": {
       "type": "string"
@@ -59,11 +128,35 @@ export const workers_Version_output: JsonSchema = {
       "type": "string"
     },
     "migrations": {
-      "$ref": "#/$defs/workers_Version_migrations"
+      "oneOf": [
+        {
+          "$ref": "#/$defs/workers_single_step_migrations"
+        },
+        {
+          "$ref": "#/$defs/workers_multiple_step_migrations"
+        }
+      ]
     },
     "modules": {
       "items": {
-        "$ref": "#/$defs/workers_Version_modulesItem"
+        "properties": {
+          "content_base64": {
+            "contentEncoding": "base64",
+            "type": "string"
+          },
+          "content_type": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "content_base64",
+          "content_type",
+          "name"
+        ],
+        "type": "object"
       },
       "type": "array"
     },
@@ -72,7 +165,23 @@ export const workers_Version_output: JsonSchema = {
     },
     "package_dependencies": {
       "items": {
-        "$ref": "#/$defs/workers_Version_package_dependenciesItem"
+        "properties": {
+          "installedVersion": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "packageJsonVersion": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "installedVersion",
+          "name",
+          "packageJsonVersion"
+        ],
+        "type": "object"
       },
       "type": "array"
     },
@@ -105,171 +214,6 @@ export const workers_Version_output: JsonSchema = {
     "id",
     "number",
     "urls"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `workers_Version_annotations` in responses.
- */
-export const workers_Version_annotations_output: JsonSchema = {
-  "properties": {
-    "workers/message": {
-      "type": "string"
-    },
-    "workers/tag": {
-      "type": "string"
-    },
-    "workers/triggered_by": {
-      "type": "string"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `workers_Version_assets` in responses.
- */
-export const workers_Version_assets_output: JsonSchema = {
-  "properties": {
-    "config": {
-      "$ref": "#/$defs/workers_Version_assets_config"
-    },
-    "jwt": {
-      "type": "string"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `workers_Version_assets_config` in responses.
- */
-export const workers_Version_assets_config_output: JsonSchema = {
-  "properties": {
-    "base_path": {
-      "oneOf": [
-        {
-          "type": "string"
-        },
-        {
-          "type": "null"
-        }
-      ]
-    },
-    "html_handling": {
-      "enum": [
-        "auto-trailing-slash",
-        "force-trailing-slash",
-        "drop-trailing-slash",
-        "none"
-      ],
-      "type": "string"
-    },
-    "not_found_handling": {
-      "enum": [
-        "none",
-        "404-page",
-        "single-page-application"
-      ],
-      "type": "string"
-    },
-    "run_worker_first": {
-      "$ref": "#/$defs/workers_Version_assets_config_run_worker_first"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `workers_Version_assets_config_run_worker_first` in responses.
- */
-export const workers_Version_assets_config_run_worker_first_output: JsonSchema = {
-  "oneOf": [
-    {
-      "items": {
-        "type": "string"
-      },
-      "type": "array"
-    },
-    {
-      "type": "boolean"
-    }
-  ]
-};
-
-/**
- * The schema of `workers_Version_limits` in responses.
- */
-export const workers_Version_limits_output: JsonSchema = {
-  "properties": {
-    "cpu_ms": {
-      "type": "integer"
-    },
-    "subrequests": {
-      "type": "integer"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `workers_Version_migrations` in responses.
- */
-export const workers_Version_migrations_output: JsonSchema = {
-  "oneOf": [
-    {
-      "$ref": "#/$defs/workers_single_step_migrations"
-    },
-    {
-      "$ref": "#/$defs/workers_multiple_step_migrations"
-    }
-  ]
-};
-
-/**
- * The schema of `workers_Version_modulesItem` in responses.
- */
-export const workers_Version_modulesItem_output: JsonSchema = {
-  "properties": {
-    "content_base64": {
-      "contentEncoding": "base64",
-      "type": "string"
-    },
-    "content_type": {
-      "type": "string"
-    },
-    "name": {
-      "type": "string"
-    }
-  },
-  "required": [
-    "content_base64",
-    "content_type",
-    "name"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `workers_Version_package_dependenciesItem` in responses.
- */
-export const workers_Version_package_dependenciesItem_output: JsonSchema = {
-  "properties": {
-    "installedVersion": {
-      "type": "string"
-    },
-    "name": {
-      "type": "string"
-    },
-    "packageJsonVersion": {
-      "type": "string"
-    }
-  },
-  "required": [
-    "installedVersion",
-    "name",
-    "packageJsonVersion"
   ],
   "type": "object"
 };

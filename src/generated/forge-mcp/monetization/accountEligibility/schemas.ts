@@ -4,6 +4,14 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
+ * The schema of `monetization_account-identifier`.
+ */
+export const monetization_account_identifier: JsonSchema = {
+  "description": "The unique ID of the account.",
+  "type": "string"
+};
+
+/**
  * The schema of `monetization_monetization-account-eligibility-check-input`.
  */
 export const monetization_monetization_account_eligibility_check_input: JsonSchema = {

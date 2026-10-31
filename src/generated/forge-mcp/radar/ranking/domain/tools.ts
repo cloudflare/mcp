@@ -67,123 +67,7 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
-        "details_0": {
-          "properties": {
-            "bucket": {
-              "type": "string"
-            },
-            "categories": {
-              "items": {
-                "properties": {
-                  "id": {
-                    "type": "integer"
-                  },
-                  "name": {
-                    "type": "string"
-                  },
-                  "superCategoryId": {
-                    "type": "integer"
-                  }
-                },
-                "required": [
-                  "id",
-                  "name",
-                  "superCategoryId"
-                ],
-                "type": "object"
-              },
-              "type": "array"
-            },
-            "rank": {
-              "type": "integer"
-            },
-            "top_locations": {
-              "items": {
-                "properties": {
-                  "locationCode": {
-                    "type": "string"
-                  },
-                  "locationName": {
-                    "type": "string"
-                  },
-                  "rank": {
-                    "type": "integer"
-                  }
-                },
-                "required": [
-                  "locationCode",
-                  "locationName",
-                  "rank"
-                ],
-                "type": "object"
-              },
-              "type": "array"
-            }
-          },
-          "required": [
-            "categories"
-          ],
-          "type": "object"
-        },
-        "meta": {
-          "properties": {
-            "dateRange": {
-              "items": {
-                "properties": {
-                  "endTime": {
-                    "format": "date-time",
-                    "type": "string"
-                  },
-                  "startTime": {
-                    "format": "date-time",
-                    "type": "string"
-                  }
-                },
-                "required": [
-                  "endTime",
-                  "startTime"
-                ],
-                "type": "object"
-              },
-              "type": "array"
-            }
-          },
-          "required": [
-            "dateRange"
-          ],
-          "type": "object"
-        }
-      },
-      "required": [
-        "details_0",
-        "meta"
-      ],
-      "type": "object",
-    },
-    annotations: {
-      "destructiveHint": false,
-      "idempotentHint": true,
-      "openWorldHint": true,
-      "readOnlyHint": true,
-      "title": "Get domain rank details"
-    },
-    method: "GET",
-    path: "/radar/ranking/domain/{domain}",
-    extensions: {
-      "x-api-token-group": [
-        "User Details Write",
-        "User Details Read"
-      ],
-      "x-cfPlanAvailability": {
-        "business": true,
-        "enterprise": true,
-        "free": true,
-        "pro": true
-      }
-    },
-    responses: {
-      schemas: {
-        "200": {
+        "result": {
           "properties": {
             "details_0": {
               "properties": {
@@ -275,6 +159,146 @@ export const tools: readonly Tool[] = [
           "required": [
             "details_0",
             "meta"
+          ],
+          "type": "object"
+        },
+        "success": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "result",
+        "success"
+      ],
+      "type": "object",
+    },
+    annotations: {
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": true,
+      "readOnlyHint": true,
+      "title": "Get domain rank details"
+    },
+    method: "GET",
+    path: "/radar/ranking/domain/{domain}",
+    extensions: {
+      "x-api-token-group": [
+        "User Details Write",
+        "User Details Read"
+      ],
+      "x-cfPlanAvailability": {
+        "business": true,
+        "enterprise": true,
+        "free": true,
+        "pro": true
+      }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "properties": {
+                "details_0": {
+                  "properties": {
+                    "bucket": {
+                      "type": "string"
+                    },
+                    "categories": {
+                      "items": {
+                        "properties": {
+                          "id": {
+                            "type": "integer"
+                          },
+                          "name": {
+                            "type": "string"
+                          },
+                          "superCategoryId": {
+                            "type": "integer"
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "name",
+                          "superCategoryId"
+                        ],
+                        "type": "object"
+                      },
+                      "type": "array"
+                    },
+                    "rank": {
+                      "type": "integer"
+                    },
+                    "top_locations": {
+                      "items": {
+                        "properties": {
+                          "locationCode": {
+                            "type": "string"
+                          },
+                          "locationName": {
+                            "type": "string"
+                          },
+                          "rank": {
+                            "type": "integer"
+                          }
+                        },
+                        "required": [
+                          "locationCode",
+                          "locationName",
+                          "rank"
+                        ],
+                        "type": "object"
+                      },
+                      "type": "array"
+                    }
+                  },
+                  "required": [
+                    "categories"
+                  ],
+                  "type": "object"
+                },
+                "meta": {
+                  "properties": {
+                    "dateRange": {
+                      "items": {
+                        "properties": {
+                          "endTime": {
+                            "format": "date-time",
+                            "type": "string"
+                          },
+                          "startTime": {
+                            "format": "date-time",
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "endTime",
+                          "startTime"
+                        ],
+                        "type": "object"
+                      },
+                      "type": "array"
+                    }
+                  },
+                  "required": [
+                    "dateRange"
+                  ],
+                  "type": "object"
+                }
+              },
+              "required": [
+                "details_0",
+                "meta"
+              ],
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "result",
+            "success"
           ],
           "type": "object"
         },

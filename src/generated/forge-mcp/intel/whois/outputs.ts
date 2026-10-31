@@ -35,6 +35,32 @@ export const cloudforce_one_whois_api_response_common_failure_output: JsonSchema
 };
 
 /**
+ * The schema of `cloudforce-one-whois_api-response-single` in responses.
+ */
+export const cloudforce_one_whois_api_response_single_output: JsonSchema = {
+  "properties": {
+    "errors": {
+      "$ref": "#/$defs/cloudforce-one-whois_schemas-messages"
+    },
+    "messages": {
+      "$ref": "#/$defs/cloudforce-one-whois_schemas-messages"
+    },
+    "success": {
+      "enum": [
+        true
+      ],
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "errors",
+    "messages",
+    "success"
+  ],
+  "type": "object"
+};
+
+/**
  * The schema of `cloudforce-one-whois_domain_name` in responses.
  */
 export const cloudforce_one_whois_domain_name_output: JsonSchema = {
@@ -100,29 +126,19 @@ export const cloudforce_one_whois_schemas_messages_output: JsonSchema = {
  * The schema of `cloudforce-one-whois_schemas-single_response` in responses.
  */
 export const cloudforce_one_whois_schemas_single_response_output: JsonSchema = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/cloudforce-one-whois_schemas-messages"
+  "allOf": [
+    {
+      "$ref": "#/$defs/cloudforce-one-whois_api-response-single"
     },
-    "messages": {
-      "$ref": "#/$defs/cloudforce-one-whois_schemas-messages"
-    },
-    "result": {
-      "$ref": "#/$defs/cloudforce-one-whois_whois"
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/cloudforce-one-whois_whois"
+        }
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "success"
-  ],
-  "type": "object"
+  ]
 };
 
 /**

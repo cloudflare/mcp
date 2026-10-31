@@ -4,9 +4,11 @@
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
   workers_api_response_common_failure_output,
+  workers_api_response_common_output,
   workers_identifier_output,
   workers_messages_output,
 } from "../../outputs.js";
+import { workers_identifier } from "../../schemas.js";
 import { workers_route_output } from "../outputs.js";
 import { workers_route } from "../schemas.js";
 
@@ -25,8 +27,8 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/workers_route"
         },
         "zone_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/workers_identifier",
+          "description": "Identifier."
         }
       },
       required: [
@@ -34,13 +36,31 @@ export const tools: readonly Tool[] = [
         "body"
       ],
       $defs: {
+        "workers_identifier": workers_identifier,
         "workers_route": workers_route,
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/workers_route",
+      "allOf": [
+        {
+          "$ref": "#/$defs/workers_api-response-common"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/workers_route"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        }
+      ],
       $defs: {
+        "workers_api-response-common": workers_api_response_common_output,
         "workers_identifier": workers_identifier_output,
+        "workers_messages": workers_messages_output,
         "workers_route": workers_route_output,
       },
     },
@@ -64,13 +84,29 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/workers_route"
+          "allOf": [
+            {
+              "$ref": "#/$defs/workers_api-response-common"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/workers_route"
+                }
+              },
+              "required": [
+                "result"
+              ],
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/workers_api-response-common-failure"
         }
       },
       $defs: {
+        "workers_api-response-common": workers_api_response_common_output,
         "workers_api-response-common-failure": workers_api_response_common_failure_output,
         "workers_identifier": workers_identifier_output,
         "workers_messages": workers_messages_output,
@@ -90,28 +126,48 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "route_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/workers_identifier",
+          "description": "Identifier."
         },
         "zone_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/workers_identifier",
+          "description": "Identifier."
         }
       },
       required: [
         "zone_id",
         "route_id"
       ],
+      $defs: {
+        "workers_identifier": workers_identifier,
+      },
     },
     outputSchema: {
-      "properties": {
-        "id": {
-          "$ref": "#/$defs/workers_identifier"
+      "allOf": [
+        {
+          "$ref": "#/$defs/workers_api-response-common"
+        },
+        {
+          "properties": {
+            "result": {
+              "properties": {
+                "id": {
+                  "$ref": "#/$defs/workers_identifier"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
         }
-      },
-      "type": "object",
+      ],
       $defs: {
+        "workers_api-response-common": workers_api_response_common_output,
         "workers_identifier": workers_identifier_output,
+        "workers_messages": workers_messages_output,
       },
     },
     annotations: {
@@ -134,18 +190,34 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "id": {
-              "$ref": "#/$defs/workers_identifier"
+          "allOf": [
+            {
+              "$ref": "#/$defs/workers_api-response-common"
+            },
+            {
+              "properties": {
+                "result": {
+                  "properties": {
+                    "id": {
+                      "$ref": "#/$defs/workers_identifier"
+                    }
+                  },
+                  "type": "object"
+                }
+              },
+              "required": [
+                "result"
+              ],
+              "type": "object"
             }
-          },
-          "type": "object"
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/workers_api-response-common-failure"
         }
       },
       $defs: {
+        "workers_api-response-common": workers_api_response_common_output,
         "workers_api-response-common-failure": workers_api_response_common_failure_output,
         "workers_identifier": workers_identifier_output,
         "workers_messages": workers_messages_output,
@@ -163,23 +235,43 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "route_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/workers_identifier",
+          "description": "Identifier."
         },
         "zone_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/workers_identifier",
+          "description": "Identifier."
         }
       },
       required: [
         "zone_id",
         "route_id"
       ],
+      $defs: {
+        "workers_identifier": workers_identifier,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/workers_route",
+      "allOf": [
+        {
+          "$ref": "#/$defs/workers_api-response-common"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/workers_route"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        }
+      ],
       $defs: {
+        "workers_api-response-common": workers_api_response_common_output,
         "workers_identifier": workers_identifier_output,
+        "workers_messages": workers_messages_output,
         "workers_route": workers_route_output,
       },
     },
@@ -204,13 +296,29 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/workers_route"
+          "allOf": [
+            {
+              "$ref": "#/$defs/workers_api-response-common"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/workers_route"
+                }
+              },
+              "required": [
+                "result"
+              ],
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/workers_api-response-common-failure"
         }
       },
       $defs: {
+        "workers_api-response-common": workers_api_response_common_output,
         "workers_api-response-common-failure": workers_api_response_common_failure_output,
         "workers_identifier": workers_identifier_output,
         "workers_messages": workers_messages_output,
@@ -229,32 +337,41 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "zone_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/workers_identifier",
+          "description": "Identifier."
         }
       },
       required: [
         "zone_id"
       ],
+      $defs: {
+        "workers_identifier": workers_identifier,
+      },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "$ref": "#/$defs/workers_route"
-          },
-          "type": "array"
+      "allOf": [
+        {
+          "$ref": "#/$defs/workers_api-response-common"
         },
-        "result_info": {
+        {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/workers_route"
+              },
+              "type": "array"
+            }
+          },
+          "required": [
+            "result"
+          ],
           "type": "object"
         }
-      },
-      "required": [
-        "result"
       ],
-      "type": "object",
       $defs: {
+        "workers_api-response-common": workers_api_response_common_output,
         "workers_identifier": workers_identifier_output,
+        "workers_messages": workers_messages_output,
         "workers_route": workers_route_output,
       },
     },
@@ -279,27 +396,32 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "items": {
-                "$ref": "#/$defs/workers_route"
-              },
-              "type": "array"
+          "allOf": [
+            {
+              "$ref": "#/$defs/workers_api-response-common"
             },
-            "result_info": {
+            {
+              "properties": {
+                "result": {
+                  "items": {
+                    "$ref": "#/$defs/workers_route"
+                  },
+                  "type": "array"
+                }
+              },
+              "required": [
+                "result"
+              ],
               "type": "object"
             }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/workers_api-response-common-failure"
         }
       },
       $defs: {
+        "workers_api-response-common": workers_api_response_common_output,
         "workers_api-response-common-failure": workers_api_response_common_failure_output,
         "workers_identifier": workers_identifier_output,
         "workers_messages": workers_messages_output,
@@ -321,12 +443,12 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/workers_route"
         },
         "route_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/workers_identifier",
+          "description": "Identifier."
         },
         "zone_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/workers_identifier",
+          "description": "Identifier."
         }
       },
       required: [
@@ -335,13 +457,31 @@ export const tools: readonly Tool[] = [
         "body"
       ],
       $defs: {
+        "workers_identifier": workers_identifier,
         "workers_route": workers_route,
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/workers_route",
+      "allOf": [
+        {
+          "$ref": "#/$defs/workers_api-response-common"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/workers_route"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        }
+      ],
       $defs: {
+        "workers_api-response-common": workers_api_response_common_output,
         "workers_identifier": workers_identifier_output,
+        "workers_messages": workers_messages_output,
         "workers_route": workers_route_output,
       },
     },
@@ -365,13 +505,29 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/workers_route"
+          "allOf": [
+            {
+              "$ref": "#/$defs/workers_api-response-common"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/workers_route"
+                }
+              },
+              "required": [
+                "result"
+              ],
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/workers_api-response-common-failure"
         }
       },
       $defs: {
+        "workers_api-response-common": workers_api_response_common_output,
         "workers_api-response-common-failure": workers_api_response_common_failure_output,
         "workers_identifier": workers_identifier_output,
         "workers_messages": workers_messages_output,

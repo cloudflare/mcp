@@ -83,6 +83,82 @@ export const iam_schemas_permissions_output: JsonSchema = {
 };
 
 /**
+ * The schema of `iam_single_user_response` in responses.
+ */
+export const iam_single_user_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/iam_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "properties": {
+            "betas": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "country": {
+              "$ref": "#/$defs/iam_country"
+            },
+            "email": {
+              "type": "string"
+            },
+            "first_name": {
+              "$ref": "#/$defs/iam_first_name"
+            },
+            "has_business_zones": {
+              "type": "boolean"
+            },
+            "has_enterprise_zones": {
+              "type": "boolean"
+            },
+            "has_pro_zones": {
+              "type": "boolean"
+            },
+            "id": {
+              "type": "string"
+            },
+            "last_name": {
+              "$ref": "#/$defs/iam_last_name"
+            },
+            "organizations": {
+              "items": {
+                "$ref": "#/$defs/iam_organization"
+              },
+              "type": "array"
+            },
+            "suspended": {
+              "type": "boolean"
+            },
+            "telephone": {
+              "$ref": "#/$defs/iam_telephone"
+            },
+            "two_factor_authentication_enabled": {
+              "$ref": "#/$defs/iam_two_factor_authentication_enabled"
+            },
+            "two_factor_authentication_locked": {
+              "$ref": "#/$defs/iam_two_factor_authentication_locked"
+            },
+            "zipcode": {
+              "$ref": "#/$defs/iam_zipcode"
+            }
+          },
+          "required": [
+            "email",
+            "id"
+          ],
+          "type": "object"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
  * The schema of `iam_telephone` in responses.
  */
 export const iam_telephone_output: JsonSchema = {

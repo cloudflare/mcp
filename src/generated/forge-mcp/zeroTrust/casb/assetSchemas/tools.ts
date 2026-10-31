@@ -9,6 +9,8 @@ import {
 } from "../outputs.js";
 import {
   posture_api_AssetSchemaDetail_output,
+  posture_api_AssetSchemaListResponse_output,
+  posture_api_AssetSchemaResponse_output,
   posture_api_AssetSchemaSummary_output,
   posture_api_AssetSchemaVendorGroup_output,
 } from "./outputs.js";
@@ -39,9 +41,12 @@ export const tools: readonly Tool[] = [
       ],
     },
     outputSchema: {
-      "$ref": "#/$defs/posture-api_AssetSchemaDetail",
+      "$ref": "#/$defs/posture-api_AssetSchemaResponse",
       $defs: {
         "posture-api_AssetSchemaDetail": posture_api_AssetSchemaDetail_output,
+        "posture-api_AssetSchemaResponse": posture_api_AssetSchemaResponse_output,
+        "posture-api_api-response-common": posture_api_api_response_common_output,
+        "posture-api_messages": posture_api_messages_output,
       },
     },
     annotations: {
@@ -62,7 +67,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/posture-api_AssetSchemaDetail"
+          "$ref": "#/$defs/posture-api_AssetSchemaResponse"
         },
         "401": {
           "$ref": "#/$defs/posture-api_error-response"
@@ -79,6 +84,7 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "posture-api_AssetSchemaDetail": posture_api_AssetSchemaDetail_output,
+        "posture-api_AssetSchemaResponse": posture_api_AssetSchemaResponse_output,
         "posture-api_api-response-common": posture_api_api_response_common_output,
         "posture-api_error-response": posture_api_error_response_output,
         "posture-api_messages": posture_api_messages_output,
@@ -128,24 +134,13 @@ export const tools: readonly Tool[] = [
       ],
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "$ref": "#/$defs/posture-api_AssetSchemaVendorGroup"
-          },
-          "type": "array"
-        },
-        "result_info": {
-          "type": "object"
-        }
-      },
-      "required": [
-        "result"
-      ],
-      "type": "object",
+      "$ref": "#/$defs/posture-api_AssetSchemaListResponse",
       $defs: {
+        "posture-api_AssetSchemaListResponse": posture_api_AssetSchemaListResponse_output,
         "posture-api_AssetSchemaSummary": posture_api_AssetSchemaSummary_output,
         "posture-api_AssetSchemaVendorGroup": posture_api_AssetSchemaVendorGroup_output,
+        "posture-api_api-response-common": posture_api_api_response_common_output,
+        "posture-api_messages": posture_api_messages_output,
       },
     },
     annotations: {
@@ -166,21 +161,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "items": {
-                "$ref": "#/$defs/posture-api_AssetSchemaVendorGroup"
-              },
-              "type": "array"
-            },
-            "result_info": {
-              "type": "object"
-            }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/posture-api_AssetSchemaListResponse"
         },
         "400": {
           "$ref": "#/$defs/posture-api_error-response"
@@ -196,6 +177,7 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
+        "posture-api_AssetSchemaListResponse": posture_api_AssetSchemaListResponse_output,
         "posture-api_AssetSchemaSummary": posture_api_AssetSchemaSummary_output,
         "posture-api_AssetSchemaVendorGroup": posture_api_AssetSchemaVendorGroup_output,
         "posture-api_api-response-common": posture_api_api_response_common_output,

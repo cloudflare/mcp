@@ -4,37 +4,28 @@
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
   zaraz_api_response_common_failure_output,
+  zaraz_api_response_common_output,
+  zaraz_base_mc_output,
+  zaraz_base_tool_output,
   zaraz_click_listener_rule_output,
-  zaraz_click_listener_rule_settings_output,
-  zaraz_custom_managed_component_neoEventsItem_output,
   zaraz_custom_managed_component_output,
-  zaraz_custom_managed_component_worker_output,
   zaraz_element_visibility_rule_output,
-  zaraz_element_visibility_rule_settings_output,
   zaraz_form_submission_rule_output,
-  zaraz_form_submission_rule_settings_output,
   zaraz_load_rule_output,
-  zaraz_managed_component_neoEventsItem_output,
   zaraz_managed_component_output,
   zaraz_messages_output,
   zaraz_scroll_depth_rule_output,
-  zaraz_scroll_depth_rule_settings_output,
   zaraz_secret_variable_output,
   zaraz_string_variable_output,
   zaraz_timer_rule_output,
-  zaraz_timer_rule_settings_output,
   zaraz_variable_match_rule_output,
-  zaraz_variable_match_rule_settings_output,
   zaraz_worker_variable_output,
-  zaraz_worker_variable_value_output,
-  zaraz_zaraz_config_base_analytics_output,
-  zaraz_zaraz_config_base_consent_buttonTextTranslations_output,
-  zaraz_zaraz_config_base_consent_output,
-  zaraz_zaraz_config_base_settings_contextEnricher_output,
-  zaraz_zaraz_config_base_settings_output,
+  zaraz_zaraz_config_base_output,
   zaraz_zaraz_config_return_output,
 } from "../../outputs.js";
-import { zaraz_history_configs_response_value_output } from "./outputs.js";
+import { zaraz_identifier } from "../../schemas.js";
+import { zaraz_zaraz_config_row_base_output } from "../outputs.js";
+import { zaraz_zaraz_config_history_response_output } from "./outputs.js";
 
 /**
  * The tools of `zaraz.history.configs`.
@@ -55,50 +46,41 @@ export const tools: readonly Tool[] = [
           "type": "array"
         },
         "zone_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/zaraz_identifier",
+          "description": "Identifier."
         }
       },
       required: [
         "zone_id",
         "ids"
       ],
+      $defs: {
+        "zaraz_identifier": zaraz_identifier,
+      },
     },
     outputSchema: {
-      "additionalProperties": {
-        "$ref": "#/$defs/zaraz_history_configs_response_value"
-      },
-      "type": "object",
+      "$ref": "#/$defs/zaraz_zaraz-config-history-response",
       $defs: {
+        "zaraz_api-response-common": zaraz_api_response_common_output,
+        "zaraz_base-mc": zaraz_base_mc_output,
+        "zaraz_base-tool": zaraz_base_tool_output,
         "zaraz_click-listener-rule": zaraz_click_listener_rule_output,
-        "zaraz_click-listener-rule_settings": zaraz_click_listener_rule_settings_output,
         "zaraz_custom-managed-component": zaraz_custom_managed_component_output,
-        "zaraz_custom-managed-component_neoEventsItem": zaraz_custom_managed_component_neoEventsItem_output,
-        "zaraz_custom-managed-component_worker": zaraz_custom_managed_component_worker_output,
         "zaraz_element-visibility-rule": zaraz_element_visibility_rule_output,
-        "zaraz_element-visibility-rule_settings": zaraz_element_visibility_rule_settings_output,
         "zaraz_form-submission-rule": zaraz_form_submission_rule_output,
-        "zaraz_form-submission-rule_settings": zaraz_form_submission_rule_settings_output,
-        "zaraz_history_configs_response_value": zaraz_history_configs_response_value_output,
         "zaraz_load-rule": zaraz_load_rule_output,
         "zaraz_managed-component": zaraz_managed_component_output,
-        "zaraz_managed-component_neoEventsItem": zaraz_managed_component_neoEventsItem_output,
+        "zaraz_messages": zaraz_messages_output,
         "zaraz_scroll-depth-rule": zaraz_scroll_depth_rule_output,
-        "zaraz_scroll-depth-rule_settings": zaraz_scroll_depth_rule_settings_output,
         "zaraz_secret_variable": zaraz_secret_variable_output,
         "zaraz_string_variable": zaraz_string_variable_output,
         "zaraz_timer-rule": zaraz_timer_rule_output,
-        "zaraz_timer-rule_settings": zaraz_timer_rule_settings_output,
         "zaraz_variable-match-rule": zaraz_variable_match_rule_output,
-        "zaraz_variable-match-rule_settings": zaraz_variable_match_rule_settings_output,
         "zaraz_worker_variable": zaraz_worker_variable_output,
-        "zaraz_worker_variable_value": zaraz_worker_variable_value_output,
-        "zaraz_zaraz-config-base_analytics": zaraz_zaraz_config_base_analytics_output,
-        "zaraz_zaraz-config-base_consent": zaraz_zaraz_config_base_consent_output,
-        "zaraz_zaraz-config-base_consent_buttonTextTranslations": zaraz_zaraz_config_base_consent_buttonTextTranslations_output,
-        "zaraz_zaraz-config-base_settings": zaraz_zaraz_config_base_settings_output,
-        "zaraz_zaraz-config-base_settings_contextEnricher": zaraz_zaraz_config_base_settings_contextEnricher_output,
+        "zaraz_zaraz-config-base": zaraz_zaraz_config_base_output,
+        "zaraz_zaraz-config-history-response": zaraz_zaraz_config_history_response_output,
         "zaraz_zaraz-config-return": zaraz_zaraz_config_return_output,
+        "zaraz_zaraz-config-row-base": zaraz_zaraz_config_row_base_output,
       },
     },
     annotations: {
@@ -120,47 +102,34 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "additionalProperties": {
-            "$ref": "#/$defs/zaraz_history_configs_response_value"
-          },
-          "type": "object"
+          "$ref": "#/$defs/zaraz_zaraz-config-history-response"
         },
         "4XX": {
           "$ref": "#/$defs/zaraz_api-response-common-failure"
         }
       },
       $defs: {
+        "zaraz_api-response-common": zaraz_api_response_common_output,
         "zaraz_api-response-common-failure": zaraz_api_response_common_failure_output,
+        "zaraz_base-mc": zaraz_base_mc_output,
+        "zaraz_base-tool": zaraz_base_tool_output,
         "zaraz_click-listener-rule": zaraz_click_listener_rule_output,
-        "zaraz_click-listener-rule_settings": zaraz_click_listener_rule_settings_output,
         "zaraz_custom-managed-component": zaraz_custom_managed_component_output,
-        "zaraz_custom-managed-component_neoEventsItem": zaraz_custom_managed_component_neoEventsItem_output,
-        "zaraz_custom-managed-component_worker": zaraz_custom_managed_component_worker_output,
         "zaraz_element-visibility-rule": zaraz_element_visibility_rule_output,
-        "zaraz_element-visibility-rule_settings": zaraz_element_visibility_rule_settings_output,
         "zaraz_form-submission-rule": zaraz_form_submission_rule_output,
-        "zaraz_form-submission-rule_settings": zaraz_form_submission_rule_settings_output,
-        "zaraz_history_configs_response_value": zaraz_history_configs_response_value_output,
         "zaraz_load-rule": zaraz_load_rule_output,
         "zaraz_managed-component": zaraz_managed_component_output,
-        "zaraz_managed-component_neoEventsItem": zaraz_managed_component_neoEventsItem_output,
         "zaraz_messages": zaraz_messages_output,
         "zaraz_scroll-depth-rule": zaraz_scroll_depth_rule_output,
-        "zaraz_scroll-depth-rule_settings": zaraz_scroll_depth_rule_settings_output,
         "zaraz_secret_variable": zaraz_secret_variable_output,
         "zaraz_string_variable": zaraz_string_variable_output,
         "zaraz_timer-rule": zaraz_timer_rule_output,
-        "zaraz_timer-rule_settings": zaraz_timer_rule_settings_output,
         "zaraz_variable-match-rule": zaraz_variable_match_rule_output,
-        "zaraz_variable-match-rule_settings": zaraz_variable_match_rule_settings_output,
         "zaraz_worker_variable": zaraz_worker_variable_output,
-        "zaraz_worker_variable_value": zaraz_worker_variable_value_output,
-        "zaraz_zaraz-config-base_analytics": zaraz_zaraz_config_base_analytics_output,
-        "zaraz_zaraz-config-base_consent": zaraz_zaraz_config_base_consent_output,
-        "zaraz_zaraz-config-base_consent_buttonTextTranslations": zaraz_zaraz_config_base_consent_buttonTextTranslations_output,
-        "zaraz_zaraz-config-base_settings": zaraz_zaraz_config_base_settings_output,
-        "zaraz_zaraz-config-base_settings_contextEnricher": zaraz_zaraz_config_base_settings_contextEnricher_output,
+        "zaraz_zaraz-config-base": zaraz_zaraz_config_base_output,
+        "zaraz_zaraz-config-history-response": zaraz_zaraz_config_history_response_output,
         "zaraz_zaraz-config-return": zaraz_zaraz_config_return_output,
+        "zaraz_zaraz-config-row-base": zaraz_zaraz_config_row_base_output,
       },
     },
     request: (args) => ({

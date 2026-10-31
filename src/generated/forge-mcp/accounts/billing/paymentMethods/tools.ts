@@ -3,11 +3,19 @@
 
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
+  bill_subs_api_api_response_collection_output,
   bill_subs_api_api_response_common_failure_output,
+  bill_subs_api_api_response_common_output,
+  bill_subs_api_api_response_single_output,
   bill_subs_api_messages_output,
   bill_subs_api_result_info_output,
 } from "../../../outputs.js";
-import { bill_subs_api_payment_method_output } from "./outputs.js";
+import { bill_subs_api_identifier } from "../../../schemas.js";
+import {
+  bill_subs_api_payment_method_output,
+  bill_subs_api_payment_method_response_collection_output,
+  bill_subs_api_payment_method_response_single_output,
+} from "./outputs.js";
 import { bill_subs_api_payment_method } from "./schemas.js";
 
 /**
@@ -22,8 +30,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier",
-          "type": "string"
+          "$ref": "#/$defs/bill-subs-api_identifier",
+          "description": "Identifier"
         },
         "body": {
           "$ref": "#/$defs/bill-subs-api_payment_method"
@@ -34,13 +42,18 @@ export const tools: readonly Tool[] = [
         "body"
       ],
       $defs: {
+        "bill-subs-api_identifier": bill_subs_api_identifier,
         "bill-subs-api_payment_method": bill_subs_api_payment_method,
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/bill-subs-api_payment_method",
+      "$ref": "#/$defs/bill-subs-api_payment_method_response_single",
       $defs: {
+        "bill-subs-api_api-response-common": bill_subs_api_api_response_common_output,
+        "bill-subs-api_api-response-single": bill_subs_api_api_response_single_output,
+        "bill-subs-api_messages": bill_subs_api_messages_output,
         "bill-subs-api_payment_method": bill_subs_api_payment_method_output,
+        "bill-subs-api_payment_method_response_single": bill_subs_api_payment_method_response_single_output,
       },
     },
     annotations: {
@@ -60,15 +73,7 @@ export const tools: readonly Tool[] = [
         "enum": [
           "#billing:read",
           "#billing:edit"
-        ],
-        "x-fern-enum": {
-          "#billing:edit": {
-            "name": "billing_edit"
-          },
-          "#billing:read": {
-            "name": "billing_read"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": true,
@@ -80,16 +85,19 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/bill-subs-api_payment_method"
+          "$ref": "#/$defs/bill-subs-api_payment_method_response_single"
         },
         "4XX": {
           "$ref": "#/$defs/bill-subs-api_api-response-common-failure"
         }
       },
       $defs: {
+        "bill-subs-api_api-response-common": bill_subs_api_api_response_common_output,
         "bill-subs-api_api-response-common-failure": bill_subs_api_api_response_common_failure_output,
+        "bill-subs-api_api-response-single": bill_subs_api_api_response_single_output,
         "bill-subs-api_messages": bill_subs_api_messages_output,
         "bill-subs-api_payment_method": bill_subs_api_payment_method_output,
+        "bill-subs-api_payment_method_response_single": bill_subs_api_payment_method_response_single_output,
       },
     },
     request: (args) => ({
@@ -105,18 +113,21 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier",
-          "type": "string"
+          "$ref": "#/$defs/bill-subs-api_identifier",
+          "description": "Identifier"
         },
         "payment_method_id": {
-          "description": "Payment method identifier.",
-          "type": "string"
+          "$ref": "#/$defs/bill-subs-api_identifier",
+          "description": "Payment method identifier."
         }
       },
       required: [
         "account_id",
         "payment_method_id"
       ],
+      $defs: {
+        "bill-subs-api_identifier": bill_subs_api_identifier,
+      },
     },
     annotations: {
       "destructiveHint": true,
@@ -134,12 +145,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "#billing:edit"
-        ],
-        "x-fern-enum": {
-          "#billing:edit": {
-            "name": "billing_edit"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": true,
@@ -151,17 +157,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "anyOf": [
-            {
-              "type": "object"
-            },
-            {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ]
+          "$ref": "#/$defs/bill-subs-api_api-response-single"
         },
         "204": null,
         "4XX": {
@@ -169,7 +165,9 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
+        "bill-subs-api_api-response-common": bill_subs_api_api_response_common_output,
         "bill-subs-api_api-response-common-failure": bill_subs_api_api_response_common_failure_output,
+        "bill-subs-api_api-response-single": bill_subs_api_api_response_single_output,
         "bill-subs-api_messages": bill_subs_api_messages_output,
       },
     },
@@ -185,23 +183,30 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier",
-          "type": "string"
+          "$ref": "#/$defs/bill-subs-api_identifier",
+          "description": "Identifier"
         },
         "payment_method_id": {
-          "description": "Payment method identifier.",
-          "type": "string"
+          "$ref": "#/$defs/bill-subs-api_identifier",
+          "description": "Payment method identifier."
         }
       },
       required: [
         "account_id",
         "payment_method_id"
       ],
+      $defs: {
+        "bill-subs-api_identifier": bill_subs_api_identifier,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/bill-subs-api_payment_method",
+      "$ref": "#/$defs/bill-subs-api_payment_method_response_single",
       $defs: {
+        "bill-subs-api_api-response-common": bill_subs_api_api_response_common_output,
+        "bill-subs-api_api-response-single": bill_subs_api_api_response_single_output,
+        "bill-subs-api_messages": bill_subs_api_messages_output,
         "bill-subs-api_payment_method": bill_subs_api_payment_method_output,
+        "bill-subs-api_payment_method_response_single": bill_subs_api_payment_method_response_single_output,
       },
     },
     annotations: {
@@ -221,12 +226,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "#billing:read"
-        ],
-        "x-fern-enum": {
-          "#billing:read": {
-            "name": "billing_read"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": true,
@@ -238,16 +238,19 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/bill-subs-api_payment_method"
+          "$ref": "#/$defs/bill-subs-api_payment_method_response_single"
         },
         "4XX": {
           "$ref": "#/$defs/bill-subs-api_api-response-common-failure"
         }
       },
       $defs: {
+        "bill-subs-api_api-response-common": bill_subs_api_api_response_common_output,
         "bill-subs-api_api-response-common-failure": bill_subs_api_api_response_common_failure_output,
+        "bill-subs-api_api-response-single": bill_subs_api_api_response_single_output,
         "bill-subs-api_messages": bill_subs_api_messages_output,
         "bill-subs-api_payment_method": bill_subs_api_payment_method_output,
+        "bill-subs-api_payment_method_response_single": bill_subs_api_payment_method_response_single_output,
       },
     },
     request: (args) => ({
@@ -262,8 +265,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier",
-          "type": "string"
+          "$ref": "#/$defs/bill-subs-api_identifier",
+          "description": "Identifier"
         },
         "page": {
           "default": 1,
@@ -279,25 +282,18 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+      $defs: {
+        "bill-subs-api_identifier": bill_subs_api_identifier,
+      },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "$ref": "#/$defs/bill-subs-api_payment_method"
-          },
-          "type": "array"
-        },
-        "result_info": {
-          "$ref": "#/$defs/bill-subs-api_result_info"
-        }
-      },
-      "required": [
-        "result"
-      ],
-      "type": "object",
+      "$ref": "#/$defs/bill-subs-api_payment_method_response_collection",
       $defs: {
+        "bill-subs-api_api-response-collection": bill_subs_api_api_response_collection_output,
+        "bill-subs-api_api-response-common": bill_subs_api_api_response_common_output,
+        "bill-subs-api_messages": bill_subs_api_messages_output,
         "bill-subs-api_payment_method": bill_subs_api_payment_method_output,
+        "bill-subs-api_payment_method_response_collection": bill_subs_api_payment_method_response_collection_output,
         "bill-subs-api_result_info": bill_subs_api_result_info_output,
       },
     },
@@ -318,12 +314,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "#billing:read"
-        ],
-        "x-fern-enum": {
-          "#billing:read": {
-            "name": "billing_read"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": true,
@@ -335,30 +326,19 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "items": {
-                "$ref": "#/$defs/bill-subs-api_payment_method"
-              },
-              "type": "array"
-            },
-            "result_info": {
-              "$ref": "#/$defs/bill-subs-api_result_info"
-            }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/bill-subs-api_payment_method_response_collection"
         },
         "4XX": {
           "$ref": "#/$defs/bill-subs-api_api-response-common-failure"
         }
       },
       $defs: {
+        "bill-subs-api_api-response-collection": bill_subs_api_api_response_collection_output,
+        "bill-subs-api_api-response-common": bill_subs_api_api_response_common_output,
         "bill-subs-api_api-response-common-failure": bill_subs_api_api_response_common_failure_output,
         "bill-subs-api_messages": bill_subs_api_messages_output,
         "bill-subs-api_payment_method": bill_subs_api_payment_method_output,
+        "bill-subs-api_payment_method_response_collection": bill_subs_api_payment_method_response_collection_output,
         "bill-subs-api_result_info": bill_subs_api_result_info_output,
       },
     },
@@ -378,18 +358,21 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier",
-          "type": "string"
+          "$ref": "#/$defs/bill-subs-api_identifier",
+          "description": "Identifier"
         },
         "payment_method_id": {
-          "description": "Payment method identifier.",
-          "type": "string"
+          "$ref": "#/$defs/bill-subs-api_identifier",
+          "description": "Payment method identifier."
         }
       },
       required: [
         "account_id",
         "payment_method_id"
       ],
+      $defs: {
+        "bill-subs-api_identifier": bill_subs_api_identifier,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -408,15 +391,7 @@ export const tools: readonly Tool[] = [
         "enum": [
           "#billing:read",
           "#billing:edit"
-        ],
-        "x-fern-enum": {
-          "#billing:edit": {
-            "name": "billing_edit"
-          },
-          "#billing:read": {
-            "name": "billing_read"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": true,
@@ -428,17 +403,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "anyOf": [
-            {
-              "type": "object"
-            },
-            {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ]
+          "$ref": "#/$defs/bill-subs-api_api-response-single"
         },
         "204": null,
         "4XX": {
@@ -446,7 +411,9 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
+        "bill-subs-api_api-response-common": bill_subs_api_api_response_common_output,
         "bill-subs-api_api-response-common-failure": bill_subs_api_api_response_common_failure_output,
+        "bill-subs-api_api-response-single": bill_subs_api_api_response_single_output,
         "bill-subs-api_messages": bill_subs_api_messages_output,
       },
     },
@@ -462,15 +429,15 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier",
-          "type": "string"
+          "$ref": "#/$defs/bill-subs-api_identifier",
+          "description": "Identifier"
         },
         "body": {
           "$ref": "#/$defs/bill-subs-api_payment_method"
         },
         "payment_method_id": {
-          "description": "Payment method identifier.",
-          "type": "string"
+          "$ref": "#/$defs/bill-subs-api_identifier",
+          "description": "Payment method identifier."
         }
       },
       required: [
@@ -479,13 +446,18 @@ export const tools: readonly Tool[] = [
         "body"
       ],
       $defs: {
+        "bill-subs-api_identifier": bill_subs_api_identifier,
         "bill-subs-api_payment_method": bill_subs_api_payment_method,
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/bill-subs-api_payment_method",
+      "$ref": "#/$defs/bill-subs-api_payment_method_response_single",
       $defs: {
+        "bill-subs-api_api-response-common": bill_subs_api_api_response_common_output,
+        "bill-subs-api_api-response-single": bill_subs_api_api_response_single_output,
+        "bill-subs-api_messages": bill_subs_api_messages_output,
         "bill-subs-api_payment_method": bill_subs_api_payment_method_output,
+        "bill-subs-api_payment_method_response_single": bill_subs_api_payment_method_response_single_output,
       },
     },
     annotations: {
@@ -505,15 +477,7 @@ export const tools: readonly Tool[] = [
         "enum": [
           "#billing:read",
           "#billing:edit"
-        ],
-        "x-fern-enum": {
-          "#billing:edit": {
-            "name": "billing_edit"
-          },
-          "#billing:read": {
-            "name": "billing_read"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": true,
@@ -525,16 +489,19 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/bill-subs-api_payment_method"
+          "$ref": "#/$defs/bill-subs-api_payment_method_response_single"
         },
         "4XX": {
           "$ref": "#/$defs/bill-subs-api_api-response-common-failure"
         }
       },
       $defs: {
+        "bill-subs-api_api-response-common": bill_subs_api_api_response_common_output,
         "bill-subs-api_api-response-common-failure": bill_subs_api_api_response_common_failure_output,
+        "bill-subs-api_api-response-single": bill_subs_api_api_response_single_output,
         "bill-subs-api_messages": bill_subs_api_messages_output,
         "bill-subs-api_payment_method": bill_subs_api_payment_method_output,
+        "bill-subs-api_payment_method_response_single": bill_subs_api_payment_method_response_single_output,
       },
     },
     request: (args) => ({

@@ -71,6 +71,14 @@ export const fraud_fraud_settings: JsonSchema = {
 };
 
 /**
+ * The schema of `fraud_identifier`.
+ */
+export const fraud_identifier: JsonSchema = {
+  "description": "Identifier.",
+  "type": "string"
+};
+
+/**
  * The schema of `fraud_user_profiles_status`.
  */
 export const fraud_user_profiles_status: JsonSchema = {

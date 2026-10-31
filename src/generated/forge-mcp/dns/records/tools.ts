@@ -4,52 +4,47 @@
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
   dns_records_api_response_common_failure_output,
+  dns_records_api_response_single_output,
+  dns_records_identifier_output,
   dns_records_messages_output,
 } from "../outputs.js";
+import { dns_records_identifier } from "../schemas.js";
 import {
   dns_records_AAAARecord_output,
   dns_records_ARecord_output,
-  dns_records_CAARecord_data_output,
   dns_records_CAARecord_output,
-  dns_records_CERTRecord_data_output,
   dns_records_CERTRecord_output,
   dns_records_CNAMERecord_output,
-  dns_records_CNAMERecord_settings_output,
-  dns_records_DNSKEYRecord_data_output,
   dns_records_DNSKEYRecord_output,
-  dns_records_DSRecord_data_output,
   dns_records_DSRecord_output,
-  dns_records_HTTPSRecord_data_output,
   dns_records_HTTPSRecord_output,
-  dns_records_LOCRecord_data_output,
   dns_records_LOCRecord_output,
   dns_records_MXRecord_output,
-  dns_records_NAPTRRecord_data_output,
   dns_records_NAPTRRecord_output,
   dns_records_NSRecord_output,
   dns_records_OPENPGPKEYRecord_output,
   dns_records_PTRRecord_output,
-  dns_records_SMIMEARecord_data_output,
   dns_records_SMIMEARecord_output,
-  dns_records_SRVRecord_data_output,
   dns_records_SRVRecord_output,
-  dns_records_SSHFPRecord_data_output,
   dns_records_SSHFPRecord_output,
-  dns_records_SVCBRecord_data_output,
   dns_records_SVCBRecord_output,
-  dns_records_TLSARecord_data_output,
   dns_records_TLSARecord_output,
   dns_records_TXTRecord_output,
-  dns_records_URIRecord_data_output,
   dns_records_URIRecord_output,
+  dns_records_api_response_collection_output,
   dns_records_api_response_common_output,
   dns_records_comment_output,
   dns_records_dns_record_response_output,
+  dns_records_dns_record_shared_fields_output,
   dns_records_dns_record_with_data_output,
   dns_records_dns_record_without_data_output,
   dns_records_dns_response_batch_object_output,
+  dns_records_dns_response_batch_output,
+  dns_records_dns_response_collection_output,
   dns_records_dns_response_review_scan_object_output,
-  dns_records_identifier_output,
+  dns_records_dns_response_review_scan_output,
+  dns_records_dns_response_single_output,
+  dns_records_dns_response_trigger_scan_output,
   dns_records_name_output,
   dns_records_priority_output,
   dns_records_proxied_output,
@@ -61,51 +56,39 @@ import {
   dns_records_AAAARecord,
   dns_records_ARecord,
   dns_records_CAARecord,
-  dns_records_CAARecord_data,
   dns_records_CERTRecord,
-  dns_records_CERTRecord_data,
   dns_records_CNAMERecord,
-  dns_records_CNAMERecord_settings,
   dns_records_DNSKEYRecord,
-  dns_records_DNSKEYRecord_data,
   dns_records_DSRecord,
-  dns_records_DSRecord_data,
   dns_records_HTTPSRecord,
-  dns_records_HTTPSRecord_data,
   dns_records_LOCRecord,
-  dns_records_LOCRecord_data,
   dns_records_MXRecord,
   dns_records_NAPTRRecord,
-  dns_records_NAPTRRecord_data,
   dns_records_NSRecord,
   dns_records_OPENPGPKEYRecord,
   dns_records_PTRRecord,
   dns_records_SMIMEARecord,
-  dns_records_SMIMEARecord_data,
   dns_records_SRVRecord,
-  dns_records_SRVRecord_data,
   dns_records_SSHFPRecord,
-  dns_records_SSHFPRecord_data,
   dns_records_SVCBRecord,
-  dns_records_SVCBRecord_data,
   dns_records_TLSARecord,
-  dns_records_TLSARecord_data,
   dns_records_TXTRecord,
   dns_records_URIRecord,
-  dns_records_URIRecord_data,
   dns_records_comment,
   dns_records_direction,
   dns_records_dns_record_batch_delete,
   dns_records_dns_record_batch_patch,
+  dns_records_dns_record_batch_post,
   dns_records_dns_record_batch_put,
   dns_records_dns_record_patch,
   dns_records_dns_record_post,
+  dns_records_dns_record_scan_batch_accept,
   dns_records_dns_record_scan_batch_reject,
+  dns_records_dns_record_shared_fields,
   dns_records_dns_record_with_data,
   dns_records_dns_record_without_data,
   dns_records_dns_request_batch_object,
   dns_records_dns_request_review_scan_object,
-  dns_records_identifier,
   dns_records_match,
   dns_records_name,
   dns_records_order,
@@ -141,8 +124,8 @@ export const tools: readonly Tool[] = [
           "type": "boolean"
         },
         "zone_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/dns-records_identifier",
+          "description": "Identifier."
         }
       },
       required: [
@@ -153,44 +136,32 @@ export const tools: readonly Tool[] = [
         "dns-records_AAAARecord": dns_records_AAAARecord,
         "dns-records_ARecord": dns_records_ARecord,
         "dns-records_CAARecord": dns_records_CAARecord,
-        "dns-records_CAARecord_data": dns_records_CAARecord_data,
         "dns-records_CERTRecord": dns_records_CERTRecord,
-        "dns-records_CERTRecord_data": dns_records_CERTRecord_data,
         "dns-records_CNAMERecord": dns_records_CNAMERecord,
-        "dns-records_CNAMERecord_settings": dns_records_CNAMERecord_settings,
         "dns-records_DNSKEYRecord": dns_records_DNSKEYRecord,
-        "dns-records_DNSKEYRecord_data": dns_records_DNSKEYRecord_data,
         "dns-records_DSRecord": dns_records_DSRecord,
-        "dns-records_DSRecord_data": dns_records_DSRecord_data,
         "dns-records_HTTPSRecord": dns_records_HTTPSRecord,
-        "dns-records_HTTPSRecord_data": dns_records_HTTPSRecord_data,
         "dns-records_LOCRecord": dns_records_LOCRecord,
-        "dns-records_LOCRecord_data": dns_records_LOCRecord_data,
         "dns-records_MXRecord": dns_records_MXRecord,
         "dns-records_NAPTRRecord": dns_records_NAPTRRecord,
-        "dns-records_NAPTRRecord_data": dns_records_NAPTRRecord_data,
         "dns-records_NSRecord": dns_records_NSRecord,
         "dns-records_OPENPGPKEYRecord": dns_records_OPENPGPKEYRecord,
         "dns-records_PTRRecord": dns_records_PTRRecord,
         "dns-records_SMIMEARecord": dns_records_SMIMEARecord,
-        "dns-records_SMIMEARecord_data": dns_records_SMIMEARecord_data,
         "dns-records_SRVRecord": dns_records_SRVRecord,
-        "dns-records_SRVRecord_data": dns_records_SRVRecord_data,
         "dns-records_SSHFPRecord": dns_records_SSHFPRecord,
-        "dns-records_SSHFPRecord_data": dns_records_SSHFPRecord_data,
         "dns-records_SVCBRecord": dns_records_SVCBRecord,
-        "dns-records_SVCBRecord_data": dns_records_SVCBRecord_data,
         "dns-records_TLSARecord": dns_records_TLSARecord,
-        "dns-records_TLSARecord_data": dns_records_TLSARecord_data,
         "dns-records_TXTRecord": dns_records_TXTRecord,
         "dns-records_URIRecord": dns_records_URIRecord,
-        "dns-records_URIRecord_data": dns_records_URIRecord_data,
         "dns-records_comment": dns_records_comment,
         "dns-records_dns-record-batch-delete": dns_records_dns_record_batch_delete,
         "dns-records_dns-record-batch-patch": dns_records_dns_record_batch_patch,
+        "dns-records_dns-record-batch-post": dns_records_dns_record_batch_post,
         "dns-records_dns-record-batch-put": dns_records_dns_record_batch_put,
         "dns-records_dns-record-patch": dns_records_dns_record_patch,
         "dns-records_dns-record-post": dns_records_dns_record_post,
+        "dns-records_dns-record-shared-fields": dns_records_dns_record_shared_fields,
         "dns-records_dns-record-with-data": dns_records_dns_record_with_data,
         "dns-records_dns-record-without-data": dns_records_dns_record_without_data,
         "dns-records_dns-request-batch-object": dns_records_dns_request_batch_object,
@@ -204,49 +175,39 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/dns-records_dns-response-batch-object",
+      "$ref": "#/$defs/dns-records_dns_response_batch",
       $defs: {
         "dns-records_AAAARecord": dns_records_AAAARecord_output,
         "dns-records_ARecord": dns_records_ARecord_output,
         "dns-records_CAARecord": dns_records_CAARecord_output,
-        "dns-records_CAARecord_data": dns_records_CAARecord_data_output,
         "dns-records_CERTRecord": dns_records_CERTRecord_output,
-        "dns-records_CERTRecord_data": dns_records_CERTRecord_data_output,
         "dns-records_CNAMERecord": dns_records_CNAMERecord_output,
-        "dns-records_CNAMERecord_settings": dns_records_CNAMERecord_settings_output,
         "dns-records_DNSKEYRecord": dns_records_DNSKEYRecord_output,
-        "dns-records_DNSKEYRecord_data": dns_records_DNSKEYRecord_data_output,
         "dns-records_DSRecord": dns_records_DSRecord_output,
-        "dns-records_DSRecord_data": dns_records_DSRecord_data_output,
         "dns-records_HTTPSRecord": dns_records_HTTPSRecord_output,
-        "dns-records_HTTPSRecord_data": dns_records_HTTPSRecord_data_output,
         "dns-records_LOCRecord": dns_records_LOCRecord_output,
-        "dns-records_LOCRecord_data": dns_records_LOCRecord_data_output,
         "dns-records_MXRecord": dns_records_MXRecord_output,
         "dns-records_NAPTRRecord": dns_records_NAPTRRecord_output,
-        "dns-records_NAPTRRecord_data": dns_records_NAPTRRecord_data_output,
         "dns-records_NSRecord": dns_records_NSRecord_output,
         "dns-records_OPENPGPKEYRecord": dns_records_OPENPGPKEYRecord_output,
         "dns-records_PTRRecord": dns_records_PTRRecord_output,
         "dns-records_SMIMEARecord": dns_records_SMIMEARecord_output,
-        "dns-records_SMIMEARecord_data": dns_records_SMIMEARecord_data_output,
         "dns-records_SRVRecord": dns_records_SRVRecord_output,
-        "dns-records_SRVRecord_data": dns_records_SRVRecord_data_output,
         "dns-records_SSHFPRecord": dns_records_SSHFPRecord_output,
-        "dns-records_SSHFPRecord_data": dns_records_SSHFPRecord_data_output,
         "dns-records_SVCBRecord": dns_records_SVCBRecord_output,
-        "dns-records_SVCBRecord_data": dns_records_SVCBRecord_data_output,
         "dns-records_TLSARecord": dns_records_TLSARecord_output,
-        "dns-records_TLSARecord_data": dns_records_TLSARecord_data_output,
         "dns-records_TXTRecord": dns_records_TXTRecord_output,
         "dns-records_URIRecord": dns_records_URIRecord_output,
-        "dns-records_URIRecord_data": dns_records_URIRecord_data_output,
+        "dns-records_api-response-single": dns_records_api_response_single_output,
         "dns-records_comment": dns_records_comment_output,
         "dns-records_dns-record-response": dns_records_dns_record_response_output,
+        "dns-records_dns-record-shared-fields": dns_records_dns_record_shared_fields_output,
         "dns-records_dns-record-with-data": dns_records_dns_record_with_data_output,
         "dns-records_dns-record-without-data": dns_records_dns_record_without_data_output,
         "dns-records_dns-response-batch-object": dns_records_dns_response_batch_object_output,
+        "dns-records_dns_response_batch": dns_records_dns_response_batch_output,
         "dns-records_identifier": dns_records_identifier_output,
+        "dns-records_messages": dns_records_messages_output,
         "dns-records_name": dns_records_name_output,
         "dns-records_priority": dns_records_priority_output,
         "dns-records_proxied": dns_records_proxied_output,
@@ -271,12 +232,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "#dns_records:batch"
-        ],
-        "x-fern-enum": {
-          "#dns_records:batch": {
-            "name": "dns_records_batch"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": true,
@@ -288,7 +244,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/dns-records_dns-response-batch-object"
+          "$ref": "#/$defs/dns-records_dns_response_batch"
         },
         "4XX": {
           "$ref": "#/$defs/dns-records_api-response-common-failure"
@@ -298,44 +254,33 @@ export const tools: readonly Tool[] = [
         "dns-records_AAAARecord": dns_records_AAAARecord_output,
         "dns-records_ARecord": dns_records_ARecord_output,
         "dns-records_CAARecord": dns_records_CAARecord_output,
-        "dns-records_CAARecord_data": dns_records_CAARecord_data_output,
         "dns-records_CERTRecord": dns_records_CERTRecord_output,
-        "dns-records_CERTRecord_data": dns_records_CERTRecord_data_output,
         "dns-records_CNAMERecord": dns_records_CNAMERecord_output,
-        "dns-records_CNAMERecord_settings": dns_records_CNAMERecord_settings_output,
         "dns-records_DNSKEYRecord": dns_records_DNSKEYRecord_output,
-        "dns-records_DNSKEYRecord_data": dns_records_DNSKEYRecord_data_output,
         "dns-records_DSRecord": dns_records_DSRecord_output,
-        "dns-records_DSRecord_data": dns_records_DSRecord_data_output,
         "dns-records_HTTPSRecord": dns_records_HTTPSRecord_output,
-        "dns-records_HTTPSRecord_data": dns_records_HTTPSRecord_data_output,
         "dns-records_LOCRecord": dns_records_LOCRecord_output,
-        "dns-records_LOCRecord_data": dns_records_LOCRecord_data_output,
         "dns-records_MXRecord": dns_records_MXRecord_output,
         "dns-records_NAPTRRecord": dns_records_NAPTRRecord_output,
-        "dns-records_NAPTRRecord_data": dns_records_NAPTRRecord_data_output,
         "dns-records_NSRecord": dns_records_NSRecord_output,
         "dns-records_OPENPGPKEYRecord": dns_records_OPENPGPKEYRecord_output,
         "dns-records_PTRRecord": dns_records_PTRRecord_output,
         "dns-records_SMIMEARecord": dns_records_SMIMEARecord_output,
-        "dns-records_SMIMEARecord_data": dns_records_SMIMEARecord_data_output,
         "dns-records_SRVRecord": dns_records_SRVRecord_output,
-        "dns-records_SRVRecord_data": dns_records_SRVRecord_data_output,
         "dns-records_SSHFPRecord": dns_records_SSHFPRecord_output,
-        "dns-records_SSHFPRecord_data": dns_records_SSHFPRecord_data_output,
         "dns-records_SVCBRecord": dns_records_SVCBRecord_output,
-        "dns-records_SVCBRecord_data": dns_records_SVCBRecord_data_output,
         "dns-records_TLSARecord": dns_records_TLSARecord_output,
-        "dns-records_TLSARecord_data": dns_records_TLSARecord_data_output,
         "dns-records_TXTRecord": dns_records_TXTRecord_output,
         "dns-records_URIRecord": dns_records_URIRecord_output,
-        "dns-records_URIRecord_data": dns_records_URIRecord_data_output,
         "dns-records_api-response-common-failure": dns_records_api_response_common_failure_output,
+        "dns-records_api-response-single": dns_records_api_response_single_output,
         "dns-records_comment": dns_records_comment_output,
         "dns-records_dns-record-response": dns_records_dns_record_response_output,
+        "dns-records_dns-record-shared-fields": dns_records_dns_record_shared_fields_output,
         "dns-records_dns-record-with-data": dns_records_dns_record_with_data_output,
         "dns-records_dns-record-without-data": dns_records_dns_record_without_data_output,
         "dns-records_dns-response-batch-object": dns_records_dns_response_batch_object_output,
+        "dns-records_dns_response_batch": dns_records_dns_response_batch_output,
         "dns-records_identifier": dns_records_identifier_output,
         "dns-records_messages": dns_records_messages_output,
         "dns-records_name": dns_records_name_output,
@@ -370,8 +315,8 @@ export const tools: readonly Tool[] = [
           "type": "boolean"
         },
         "zone_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/dns-records_identifier",
+          "description": "Identifier."
         }
       },
       required: [
@@ -382,42 +327,30 @@ export const tools: readonly Tool[] = [
         "dns-records_AAAARecord": dns_records_AAAARecord,
         "dns-records_ARecord": dns_records_ARecord,
         "dns-records_CAARecord": dns_records_CAARecord,
-        "dns-records_CAARecord_data": dns_records_CAARecord_data,
         "dns-records_CERTRecord": dns_records_CERTRecord,
-        "dns-records_CERTRecord_data": dns_records_CERTRecord_data,
         "dns-records_CNAMERecord": dns_records_CNAMERecord,
-        "dns-records_CNAMERecord_settings": dns_records_CNAMERecord_settings,
         "dns-records_DNSKEYRecord": dns_records_DNSKEYRecord,
-        "dns-records_DNSKEYRecord_data": dns_records_DNSKEYRecord_data,
         "dns-records_DSRecord": dns_records_DSRecord,
-        "dns-records_DSRecord_data": dns_records_DSRecord_data,
         "dns-records_HTTPSRecord": dns_records_HTTPSRecord,
-        "dns-records_HTTPSRecord_data": dns_records_HTTPSRecord_data,
         "dns-records_LOCRecord": dns_records_LOCRecord,
-        "dns-records_LOCRecord_data": dns_records_LOCRecord_data,
         "dns-records_MXRecord": dns_records_MXRecord,
         "dns-records_NAPTRRecord": dns_records_NAPTRRecord,
-        "dns-records_NAPTRRecord_data": dns_records_NAPTRRecord_data,
         "dns-records_NSRecord": dns_records_NSRecord,
         "dns-records_OPENPGPKEYRecord": dns_records_OPENPGPKEYRecord,
         "dns-records_PTRRecord": dns_records_PTRRecord,
         "dns-records_SMIMEARecord": dns_records_SMIMEARecord,
-        "dns-records_SMIMEARecord_data": dns_records_SMIMEARecord_data,
         "dns-records_SRVRecord": dns_records_SRVRecord,
-        "dns-records_SRVRecord_data": dns_records_SRVRecord_data,
         "dns-records_SSHFPRecord": dns_records_SSHFPRecord,
-        "dns-records_SSHFPRecord_data": dns_records_SSHFPRecord_data,
         "dns-records_SVCBRecord": dns_records_SVCBRecord,
-        "dns-records_SVCBRecord_data": dns_records_SVCBRecord_data,
         "dns-records_TLSARecord": dns_records_TLSARecord,
-        "dns-records_TLSARecord_data": dns_records_TLSARecord_data,
         "dns-records_TXTRecord": dns_records_TXTRecord,
         "dns-records_URIRecord": dns_records_URIRecord,
-        "dns-records_URIRecord_data": dns_records_URIRecord_data,
         "dns-records_comment": dns_records_comment,
         "dns-records_dns-record-post": dns_records_dns_record_post,
+        "dns-records_dns-record-shared-fields": dns_records_dns_record_shared_fields,
         "dns-records_dns-record-with-data": dns_records_dns_record_with_data,
         "dns-records_dns-record-without-data": dns_records_dns_record_without_data,
+        "dns-records_identifier": dns_records_identifier,
         "dns-records_name": dns_records_name,
         "dns-records_priority": dns_records_priority,
         "dns-records_proxied": dns_records_proxied,
@@ -427,48 +360,38 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/dns-records_dns-record-response",
+      "$ref": "#/$defs/dns-records_dns_response_single",
       $defs: {
         "dns-records_AAAARecord": dns_records_AAAARecord_output,
         "dns-records_ARecord": dns_records_ARecord_output,
         "dns-records_CAARecord": dns_records_CAARecord_output,
-        "dns-records_CAARecord_data": dns_records_CAARecord_data_output,
         "dns-records_CERTRecord": dns_records_CERTRecord_output,
-        "dns-records_CERTRecord_data": dns_records_CERTRecord_data_output,
         "dns-records_CNAMERecord": dns_records_CNAMERecord_output,
-        "dns-records_CNAMERecord_settings": dns_records_CNAMERecord_settings_output,
         "dns-records_DNSKEYRecord": dns_records_DNSKEYRecord_output,
-        "dns-records_DNSKEYRecord_data": dns_records_DNSKEYRecord_data_output,
         "dns-records_DSRecord": dns_records_DSRecord_output,
-        "dns-records_DSRecord_data": dns_records_DSRecord_data_output,
         "dns-records_HTTPSRecord": dns_records_HTTPSRecord_output,
-        "dns-records_HTTPSRecord_data": dns_records_HTTPSRecord_data_output,
         "dns-records_LOCRecord": dns_records_LOCRecord_output,
-        "dns-records_LOCRecord_data": dns_records_LOCRecord_data_output,
         "dns-records_MXRecord": dns_records_MXRecord_output,
         "dns-records_NAPTRRecord": dns_records_NAPTRRecord_output,
-        "dns-records_NAPTRRecord_data": dns_records_NAPTRRecord_data_output,
         "dns-records_NSRecord": dns_records_NSRecord_output,
         "dns-records_OPENPGPKEYRecord": dns_records_OPENPGPKEYRecord_output,
         "dns-records_PTRRecord": dns_records_PTRRecord_output,
         "dns-records_SMIMEARecord": dns_records_SMIMEARecord_output,
-        "dns-records_SMIMEARecord_data": dns_records_SMIMEARecord_data_output,
         "dns-records_SRVRecord": dns_records_SRVRecord_output,
-        "dns-records_SRVRecord_data": dns_records_SRVRecord_data_output,
         "dns-records_SSHFPRecord": dns_records_SSHFPRecord_output,
-        "dns-records_SSHFPRecord_data": dns_records_SSHFPRecord_data_output,
         "dns-records_SVCBRecord": dns_records_SVCBRecord_output,
-        "dns-records_SVCBRecord_data": dns_records_SVCBRecord_data_output,
         "dns-records_TLSARecord": dns_records_TLSARecord_output,
-        "dns-records_TLSARecord_data": dns_records_TLSARecord_data_output,
         "dns-records_TXTRecord": dns_records_TXTRecord_output,
         "dns-records_URIRecord": dns_records_URIRecord_output,
-        "dns-records_URIRecord_data": dns_records_URIRecord_data_output,
+        "dns-records_api-response-single": dns_records_api_response_single_output,
         "dns-records_comment": dns_records_comment_output,
         "dns-records_dns-record-response": dns_records_dns_record_response_output,
+        "dns-records_dns-record-shared-fields": dns_records_dns_record_shared_fields_output,
         "dns-records_dns-record-with-data": dns_records_dns_record_with_data_output,
         "dns-records_dns-record-without-data": dns_records_dns_record_without_data_output,
+        "dns-records_dns_response_single": dns_records_dns_response_single_output,
         "dns-records_identifier": dns_records_identifier_output,
+        "dns-records_messages": dns_records_messages_output,
         "dns-records_name": dns_records_name_output,
         "dns-records_priority": dns_records_priority_output,
         "dns-records_proxied": dns_records_proxied_output,
@@ -493,12 +416,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "#dns_records:edit"
-        ],
-        "x-fern-enum": {
-          "#dns_records:edit": {
-            "name": "dns_records_edit"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": true,
@@ -510,7 +428,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/dns-records_dns-record-response"
+          "$ref": "#/$defs/dns-records_dns_response_single"
         },
         "4XX": {
           "$ref": "#/$defs/dns-records_api-response-common-failure"
@@ -520,43 +438,32 @@ export const tools: readonly Tool[] = [
         "dns-records_AAAARecord": dns_records_AAAARecord_output,
         "dns-records_ARecord": dns_records_ARecord_output,
         "dns-records_CAARecord": dns_records_CAARecord_output,
-        "dns-records_CAARecord_data": dns_records_CAARecord_data_output,
         "dns-records_CERTRecord": dns_records_CERTRecord_output,
-        "dns-records_CERTRecord_data": dns_records_CERTRecord_data_output,
         "dns-records_CNAMERecord": dns_records_CNAMERecord_output,
-        "dns-records_CNAMERecord_settings": dns_records_CNAMERecord_settings_output,
         "dns-records_DNSKEYRecord": dns_records_DNSKEYRecord_output,
-        "dns-records_DNSKEYRecord_data": dns_records_DNSKEYRecord_data_output,
         "dns-records_DSRecord": dns_records_DSRecord_output,
-        "dns-records_DSRecord_data": dns_records_DSRecord_data_output,
         "dns-records_HTTPSRecord": dns_records_HTTPSRecord_output,
-        "dns-records_HTTPSRecord_data": dns_records_HTTPSRecord_data_output,
         "dns-records_LOCRecord": dns_records_LOCRecord_output,
-        "dns-records_LOCRecord_data": dns_records_LOCRecord_data_output,
         "dns-records_MXRecord": dns_records_MXRecord_output,
         "dns-records_NAPTRRecord": dns_records_NAPTRRecord_output,
-        "dns-records_NAPTRRecord_data": dns_records_NAPTRRecord_data_output,
         "dns-records_NSRecord": dns_records_NSRecord_output,
         "dns-records_OPENPGPKEYRecord": dns_records_OPENPGPKEYRecord_output,
         "dns-records_PTRRecord": dns_records_PTRRecord_output,
         "dns-records_SMIMEARecord": dns_records_SMIMEARecord_output,
-        "dns-records_SMIMEARecord_data": dns_records_SMIMEARecord_data_output,
         "dns-records_SRVRecord": dns_records_SRVRecord_output,
-        "dns-records_SRVRecord_data": dns_records_SRVRecord_data_output,
         "dns-records_SSHFPRecord": dns_records_SSHFPRecord_output,
-        "dns-records_SSHFPRecord_data": dns_records_SSHFPRecord_data_output,
         "dns-records_SVCBRecord": dns_records_SVCBRecord_output,
-        "dns-records_SVCBRecord_data": dns_records_SVCBRecord_data_output,
         "dns-records_TLSARecord": dns_records_TLSARecord_output,
-        "dns-records_TLSARecord_data": dns_records_TLSARecord_data_output,
         "dns-records_TXTRecord": dns_records_TXTRecord_output,
         "dns-records_URIRecord": dns_records_URIRecord_output,
-        "dns-records_URIRecord_data": dns_records_URIRecord_data_output,
         "dns-records_api-response-common-failure": dns_records_api_response_common_failure_output,
+        "dns-records_api-response-single": dns_records_api_response_single_output,
         "dns-records_comment": dns_records_comment_output,
         "dns-records_dns-record-response": dns_records_dns_record_response_output,
+        "dns-records_dns-record-shared-fields": dns_records_dns_record_shared_fields_output,
         "dns-records_dns-record-with-data": dns_records_dns_record_with_data_output,
         "dns-records_dns-record-without-data": dns_records_dns_record_without_data_output,
+        "dns-records_dns_response_single": dns_records_dns_response_single_output,
         "dns-records_identifier": dns_records_identifier_output,
         "dns-records_messages": dns_records_messages_output,
         "dns-records_name": dns_records_name_output,
@@ -583,18 +490,21 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "dns_record_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/dns-records_identifier",
+          "description": "Identifier."
         },
         "zone_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/dns-records_identifier",
+          "description": "Identifier."
         }
       },
       required: [
         "zone_id",
         "dns_record_id"
       ],
+      $defs: {
+        "dns-records_identifier": dns_records_identifier,
+      },
     },
     outputSchema: {
       "properties": {
@@ -628,12 +538,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "#dns_records:edit"
-        ],
-        "x-fern-enum": {
-          "#dns_records:edit": {
-            "name": "dns_records_edit"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": true,
@@ -699,8 +604,8 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/dns-records_dns-record-patch"
         },
         "dns_record_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/dns-records_identifier",
+          "description": "Identifier."
         },
         "include_shadow_metadata": {
           "default": false,
@@ -708,8 +613,8 @@ export const tools: readonly Tool[] = [
           "type": "boolean"
         },
         "zone_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/dns-records_identifier",
+          "description": "Identifier."
         }
       },
       required: [
@@ -721,42 +626,30 @@ export const tools: readonly Tool[] = [
         "dns-records_AAAARecord": dns_records_AAAARecord,
         "dns-records_ARecord": dns_records_ARecord,
         "dns-records_CAARecord": dns_records_CAARecord,
-        "dns-records_CAARecord_data": dns_records_CAARecord_data,
         "dns-records_CERTRecord": dns_records_CERTRecord,
-        "dns-records_CERTRecord_data": dns_records_CERTRecord_data,
         "dns-records_CNAMERecord": dns_records_CNAMERecord,
-        "dns-records_CNAMERecord_settings": dns_records_CNAMERecord_settings,
         "dns-records_DNSKEYRecord": dns_records_DNSKEYRecord,
-        "dns-records_DNSKEYRecord_data": dns_records_DNSKEYRecord_data,
         "dns-records_DSRecord": dns_records_DSRecord,
-        "dns-records_DSRecord_data": dns_records_DSRecord_data,
         "dns-records_HTTPSRecord": dns_records_HTTPSRecord,
-        "dns-records_HTTPSRecord_data": dns_records_HTTPSRecord_data,
         "dns-records_LOCRecord": dns_records_LOCRecord,
-        "dns-records_LOCRecord_data": dns_records_LOCRecord_data,
         "dns-records_MXRecord": dns_records_MXRecord,
         "dns-records_NAPTRRecord": dns_records_NAPTRRecord,
-        "dns-records_NAPTRRecord_data": dns_records_NAPTRRecord_data,
         "dns-records_NSRecord": dns_records_NSRecord,
         "dns-records_OPENPGPKEYRecord": dns_records_OPENPGPKEYRecord,
         "dns-records_PTRRecord": dns_records_PTRRecord,
         "dns-records_SMIMEARecord": dns_records_SMIMEARecord,
-        "dns-records_SMIMEARecord_data": dns_records_SMIMEARecord_data,
         "dns-records_SRVRecord": dns_records_SRVRecord,
-        "dns-records_SRVRecord_data": dns_records_SRVRecord_data,
         "dns-records_SSHFPRecord": dns_records_SSHFPRecord,
-        "dns-records_SSHFPRecord_data": dns_records_SSHFPRecord_data,
         "dns-records_SVCBRecord": dns_records_SVCBRecord,
-        "dns-records_SVCBRecord_data": dns_records_SVCBRecord_data,
         "dns-records_TLSARecord": dns_records_TLSARecord,
-        "dns-records_TLSARecord_data": dns_records_TLSARecord_data,
         "dns-records_TXTRecord": dns_records_TXTRecord,
         "dns-records_URIRecord": dns_records_URIRecord,
-        "dns-records_URIRecord_data": dns_records_URIRecord_data,
         "dns-records_comment": dns_records_comment,
         "dns-records_dns-record-patch": dns_records_dns_record_patch,
+        "dns-records_dns-record-shared-fields": dns_records_dns_record_shared_fields,
         "dns-records_dns-record-with-data": dns_records_dns_record_with_data,
         "dns-records_dns-record-without-data": dns_records_dns_record_without_data,
+        "dns-records_identifier": dns_records_identifier,
         "dns-records_name": dns_records_name,
         "dns-records_priority": dns_records_priority,
         "dns-records_proxied": dns_records_proxied,
@@ -766,48 +659,38 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/dns-records_dns-record-response",
+      "$ref": "#/$defs/dns-records_dns_response_single",
       $defs: {
         "dns-records_AAAARecord": dns_records_AAAARecord_output,
         "dns-records_ARecord": dns_records_ARecord_output,
         "dns-records_CAARecord": dns_records_CAARecord_output,
-        "dns-records_CAARecord_data": dns_records_CAARecord_data_output,
         "dns-records_CERTRecord": dns_records_CERTRecord_output,
-        "dns-records_CERTRecord_data": dns_records_CERTRecord_data_output,
         "dns-records_CNAMERecord": dns_records_CNAMERecord_output,
-        "dns-records_CNAMERecord_settings": dns_records_CNAMERecord_settings_output,
         "dns-records_DNSKEYRecord": dns_records_DNSKEYRecord_output,
-        "dns-records_DNSKEYRecord_data": dns_records_DNSKEYRecord_data_output,
         "dns-records_DSRecord": dns_records_DSRecord_output,
-        "dns-records_DSRecord_data": dns_records_DSRecord_data_output,
         "dns-records_HTTPSRecord": dns_records_HTTPSRecord_output,
-        "dns-records_HTTPSRecord_data": dns_records_HTTPSRecord_data_output,
         "dns-records_LOCRecord": dns_records_LOCRecord_output,
-        "dns-records_LOCRecord_data": dns_records_LOCRecord_data_output,
         "dns-records_MXRecord": dns_records_MXRecord_output,
         "dns-records_NAPTRRecord": dns_records_NAPTRRecord_output,
-        "dns-records_NAPTRRecord_data": dns_records_NAPTRRecord_data_output,
         "dns-records_NSRecord": dns_records_NSRecord_output,
         "dns-records_OPENPGPKEYRecord": dns_records_OPENPGPKEYRecord_output,
         "dns-records_PTRRecord": dns_records_PTRRecord_output,
         "dns-records_SMIMEARecord": dns_records_SMIMEARecord_output,
-        "dns-records_SMIMEARecord_data": dns_records_SMIMEARecord_data_output,
         "dns-records_SRVRecord": dns_records_SRVRecord_output,
-        "dns-records_SRVRecord_data": dns_records_SRVRecord_data_output,
         "dns-records_SSHFPRecord": dns_records_SSHFPRecord_output,
-        "dns-records_SSHFPRecord_data": dns_records_SSHFPRecord_data_output,
         "dns-records_SVCBRecord": dns_records_SVCBRecord_output,
-        "dns-records_SVCBRecord_data": dns_records_SVCBRecord_data_output,
         "dns-records_TLSARecord": dns_records_TLSARecord_output,
-        "dns-records_TLSARecord_data": dns_records_TLSARecord_data_output,
         "dns-records_TXTRecord": dns_records_TXTRecord_output,
         "dns-records_URIRecord": dns_records_URIRecord_output,
-        "dns-records_URIRecord_data": dns_records_URIRecord_data_output,
+        "dns-records_api-response-single": dns_records_api_response_single_output,
         "dns-records_comment": dns_records_comment_output,
         "dns-records_dns-record-response": dns_records_dns_record_response_output,
+        "dns-records_dns-record-shared-fields": dns_records_dns_record_shared_fields_output,
         "dns-records_dns-record-with-data": dns_records_dns_record_with_data_output,
         "dns-records_dns-record-without-data": dns_records_dns_record_without_data_output,
+        "dns-records_dns_response_single": dns_records_dns_response_single_output,
         "dns-records_identifier": dns_records_identifier_output,
+        "dns-records_messages": dns_records_messages_output,
         "dns-records_name": dns_records_name_output,
         "dns-records_priority": dns_records_priority_output,
         "dns-records_proxied": dns_records_proxied_output,
@@ -832,12 +715,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "#dns_records:edit"
-        ],
-        "x-fern-enum": {
-          "#dns_records:edit": {
-            "name": "dns_records_edit"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": true,
@@ -849,7 +727,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/dns-records_dns-record-response"
+          "$ref": "#/$defs/dns-records_dns_response_single"
         },
         "4XX": {
           "$ref": "#/$defs/dns-records_api-response-common-failure"
@@ -859,43 +737,32 @@ export const tools: readonly Tool[] = [
         "dns-records_AAAARecord": dns_records_AAAARecord_output,
         "dns-records_ARecord": dns_records_ARecord_output,
         "dns-records_CAARecord": dns_records_CAARecord_output,
-        "dns-records_CAARecord_data": dns_records_CAARecord_data_output,
         "dns-records_CERTRecord": dns_records_CERTRecord_output,
-        "dns-records_CERTRecord_data": dns_records_CERTRecord_data_output,
         "dns-records_CNAMERecord": dns_records_CNAMERecord_output,
-        "dns-records_CNAMERecord_settings": dns_records_CNAMERecord_settings_output,
         "dns-records_DNSKEYRecord": dns_records_DNSKEYRecord_output,
-        "dns-records_DNSKEYRecord_data": dns_records_DNSKEYRecord_data_output,
         "dns-records_DSRecord": dns_records_DSRecord_output,
-        "dns-records_DSRecord_data": dns_records_DSRecord_data_output,
         "dns-records_HTTPSRecord": dns_records_HTTPSRecord_output,
-        "dns-records_HTTPSRecord_data": dns_records_HTTPSRecord_data_output,
         "dns-records_LOCRecord": dns_records_LOCRecord_output,
-        "dns-records_LOCRecord_data": dns_records_LOCRecord_data_output,
         "dns-records_MXRecord": dns_records_MXRecord_output,
         "dns-records_NAPTRRecord": dns_records_NAPTRRecord_output,
-        "dns-records_NAPTRRecord_data": dns_records_NAPTRRecord_data_output,
         "dns-records_NSRecord": dns_records_NSRecord_output,
         "dns-records_OPENPGPKEYRecord": dns_records_OPENPGPKEYRecord_output,
         "dns-records_PTRRecord": dns_records_PTRRecord_output,
         "dns-records_SMIMEARecord": dns_records_SMIMEARecord_output,
-        "dns-records_SMIMEARecord_data": dns_records_SMIMEARecord_data_output,
         "dns-records_SRVRecord": dns_records_SRVRecord_output,
-        "dns-records_SRVRecord_data": dns_records_SRVRecord_data_output,
         "dns-records_SSHFPRecord": dns_records_SSHFPRecord_output,
-        "dns-records_SSHFPRecord_data": dns_records_SSHFPRecord_data_output,
         "dns-records_SVCBRecord": dns_records_SVCBRecord_output,
-        "dns-records_SVCBRecord_data": dns_records_SVCBRecord_data_output,
         "dns-records_TLSARecord": dns_records_TLSARecord_output,
-        "dns-records_TLSARecord_data": dns_records_TLSARecord_data_output,
         "dns-records_TXTRecord": dns_records_TXTRecord_output,
         "dns-records_URIRecord": dns_records_URIRecord_output,
-        "dns-records_URIRecord_data": dns_records_URIRecord_data_output,
         "dns-records_api-response-common-failure": dns_records_api_response_common_failure_output,
+        "dns-records_api-response-single": dns_records_api_response_single_output,
         "dns-records_comment": dns_records_comment_output,
         "dns-records_dns-record-response": dns_records_dns_record_response_output,
+        "dns-records_dns-record-shared-fields": dns_records_dns_record_shared_fields_output,
         "dns-records_dns-record-with-data": dns_records_dns_record_with_data_output,
         "dns-records_dns-record-without-data": dns_records_dns_record_without_data_output,
+        "dns-records_dns_response_single": dns_records_dns_response_single_output,
         "dns-records_identifier": dns_records_identifier_output,
         "dns-records_messages": dns_records_messages_output,
         "dns-records_name": dns_records_name_output,
@@ -922,13 +789,16 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "zone_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/dns-records_identifier",
+          "description": "Identifier."
         }
       },
       required: [
         "zone_id"
       ],
+      $defs: {
+        "dns-records_identifier": dns_records_identifier,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -947,12 +817,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "#dns_records:read"
-        ],
-        "x-fern-enum": {
-          "#dns_records:read": {
-            "name": "dns_records_read"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": true,
@@ -985,8 +850,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "dns_record_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/dns-records_identifier",
+          "description": "Identifier."
         },
         "include_shadow_metadata": {
           "default": false,
@@ -994,58 +859,51 @@ export const tools: readonly Tool[] = [
           "type": "boolean"
         },
         "zone_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/dns-records_identifier",
+          "description": "Identifier."
         }
       },
       required: [
         "zone_id",
         "dns_record_id"
       ],
+      $defs: {
+        "dns-records_identifier": dns_records_identifier,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/dns-records_dns-record-response",
+      "$ref": "#/$defs/dns-records_dns_response_single",
       $defs: {
         "dns-records_AAAARecord": dns_records_AAAARecord_output,
         "dns-records_ARecord": dns_records_ARecord_output,
         "dns-records_CAARecord": dns_records_CAARecord_output,
-        "dns-records_CAARecord_data": dns_records_CAARecord_data_output,
         "dns-records_CERTRecord": dns_records_CERTRecord_output,
-        "dns-records_CERTRecord_data": dns_records_CERTRecord_data_output,
         "dns-records_CNAMERecord": dns_records_CNAMERecord_output,
-        "dns-records_CNAMERecord_settings": dns_records_CNAMERecord_settings_output,
         "dns-records_DNSKEYRecord": dns_records_DNSKEYRecord_output,
-        "dns-records_DNSKEYRecord_data": dns_records_DNSKEYRecord_data_output,
         "dns-records_DSRecord": dns_records_DSRecord_output,
-        "dns-records_DSRecord_data": dns_records_DSRecord_data_output,
         "dns-records_HTTPSRecord": dns_records_HTTPSRecord_output,
-        "dns-records_HTTPSRecord_data": dns_records_HTTPSRecord_data_output,
         "dns-records_LOCRecord": dns_records_LOCRecord_output,
-        "dns-records_LOCRecord_data": dns_records_LOCRecord_data_output,
         "dns-records_MXRecord": dns_records_MXRecord_output,
         "dns-records_NAPTRRecord": dns_records_NAPTRRecord_output,
-        "dns-records_NAPTRRecord_data": dns_records_NAPTRRecord_data_output,
         "dns-records_NSRecord": dns_records_NSRecord_output,
         "dns-records_OPENPGPKEYRecord": dns_records_OPENPGPKEYRecord_output,
         "dns-records_PTRRecord": dns_records_PTRRecord_output,
         "dns-records_SMIMEARecord": dns_records_SMIMEARecord_output,
-        "dns-records_SMIMEARecord_data": dns_records_SMIMEARecord_data_output,
         "dns-records_SRVRecord": dns_records_SRVRecord_output,
-        "dns-records_SRVRecord_data": dns_records_SRVRecord_data_output,
         "dns-records_SSHFPRecord": dns_records_SSHFPRecord_output,
-        "dns-records_SSHFPRecord_data": dns_records_SSHFPRecord_data_output,
         "dns-records_SVCBRecord": dns_records_SVCBRecord_output,
-        "dns-records_SVCBRecord_data": dns_records_SVCBRecord_data_output,
         "dns-records_TLSARecord": dns_records_TLSARecord_output,
-        "dns-records_TLSARecord_data": dns_records_TLSARecord_data_output,
         "dns-records_TXTRecord": dns_records_TXTRecord_output,
         "dns-records_URIRecord": dns_records_URIRecord_output,
-        "dns-records_URIRecord_data": dns_records_URIRecord_data_output,
+        "dns-records_api-response-single": dns_records_api_response_single_output,
         "dns-records_comment": dns_records_comment_output,
         "dns-records_dns-record-response": dns_records_dns_record_response_output,
+        "dns-records_dns-record-shared-fields": dns_records_dns_record_shared_fields_output,
         "dns-records_dns-record-with-data": dns_records_dns_record_with_data_output,
         "dns-records_dns-record-without-data": dns_records_dns_record_without_data_output,
+        "dns-records_dns_response_single": dns_records_dns_response_single_output,
         "dns-records_identifier": dns_records_identifier_output,
+        "dns-records_messages": dns_records_messages_output,
         "dns-records_name": dns_records_name_output,
         "dns-records_priority": dns_records_priority_output,
         "dns-records_proxied": dns_records_proxied_output,
@@ -1071,12 +929,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "#dns_records:read"
-        ],
-        "x-fern-enum": {
-          "#dns_records:read": {
-            "name": "dns_records_read"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": true,
@@ -1088,7 +941,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/dns-records_dns-record-response"
+          "$ref": "#/$defs/dns-records_dns_response_single"
         },
         "4XX": {
           "$ref": "#/$defs/dns-records_api-response-common-failure"
@@ -1098,43 +951,32 @@ export const tools: readonly Tool[] = [
         "dns-records_AAAARecord": dns_records_AAAARecord_output,
         "dns-records_ARecord": dns_records_ARecord_output,
         "dns-records_CAARecord": dns_records_CAARecord_output,
-        "dns-records_CAARecord_data": dns_records_CAARecord_data_output,
         "dns-records_CERTRecord": dns_records_CERTRecord_output,
-        "dns-records_CERTRecord_data": dns_records_CERTRecord_data_output,
         "dns-records_CNAMERecord": dns_records_CNAMERecord_output,
-        "dns-records_CNAMERecord_settings": dns_records_CNAMERecord_settings_output,
         "dns-records_DNSKEYRecord": dns_records_DNSKEYRecord_output,
-        "dns-records_DNSKEYRecord_data": dns_records_DNSKEYRecord_data_output,
         "dns-records_DSRecord": dns_records_DSRecord_output,
-        "dns-records_DSRecord_data": dns_records_DSRecord_data_output,
         "dns-records_HTTPSRecord": dns_records_HTTPSRecord_output,
-        "dns-records_HTTPSRecord_data": dns_records_HTTPSRecord_data_output,
         "dns-records_LOCRecord": dns_records_LOCRecord_output,
-        "dns-records_LOCRecord_data": dns_records_LOCRecord_data_output,
         "dns-records_MXRecord": dns_records_MXRecord_output,
         "dns-records_NAPTRRecord": dns_records_NAPTRRecord_output,
-        "dns-records_NAPTRRecord_data": dns_records_NAPTRRecord_data_output,
         "dns-records_NSRecord": dns_records_NSRecord_output,
         "dns-records_OPENPGPKEYRecord": dns_records_OPENPGPKEYRecord_output,
         "dns-records_PTRRecord": dns_records_PTRRecord_output,
         "dns-records_SMIMEARecord": dns_records_SMIMEARecord_output,
-        "dns-records_SMIMEARecord_data": dns_records_SMIMEARecord_data_output,
         "dns-records_SRVRecord": dns_records_SRVRecord_output,
-        "dns-records_SRVRecord_data": dns_records_SRVRecord_data_output,
         "dns-records_SSHFPRecord": dns_records_SSHFPRecord_output,
-        "dns-records_SSHFPRecord_data": dns_records_SSHFPRecord_data_output,
         "dns-records_SVCBRecord": dns_records_SVCBRecord_output,
-        "dns-records_SVCBRecord_data": dns_records_SVCBRecord_data_output,
         "dns-records_TLSARecord": dns_records_TLSARecord_output,
-        "dns-records_TLSARecord_data": dns_records_TLSARecord_data_output,
         "dns-records_TXTRecord": dns_records_TXTRecord_output,
         "dns-records_URIRecord": dns_records_URIRecord_output,
-        "dns-records_URIRecord_data": dns_records_URIRecord_data_output,
         "dns-records_api-response-common-failure": dns_records_api_response_common_failure_output,
+        "dns-records_api-response-single": dns_records_api_response_single_output,
         "dns-records_comment": dns_records_comment_output,
         "dns-records_dns-record-response": dns_records_dns_record_response_output,
+        "dns-records_dns-record-shared-fields": dns_records_dns_record_shared_fields_output,
         "dns-records_dns-record-with-data": dns_records_dns_record_with_data_output,
         "dns-records_dns-record-without-data": dns_records_dns_record_without_data_output,
+        "dns-records_dns_response_single": dns_records_dns_response_single_output,
         "dns-records_identifier": dns_records_identifier_output,
         "dns-records_messages": dns_records_messages_output,
         "dns-records_name": dns_records_name_output,
@@ -1312,8 +1154,8 @@ export const tools: readonly Tool[] = [
           "description": "Record type."
         },
         "zone_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/dns-records_identifier",
+          "description": "Identifier."
         }
       },
       required: [
@@ -1321,6 +1163,7 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "dns-records_direction": dns_records_direction,
+        "dns-records_identifier": dns_records_identifier,
         "dns-records_match": dns_records_match,
         "dns-records_order": dns_records_order,
         "dns-records_page": dns_records_page,
@@ -1332,79 +1175,39 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "$ref": "#/$defs/dns-records_dns-record-response"
-          },
-          "type": "array"
-        },
-        "result_info": {
-          "properties": {
-            "count": {
-              "type": "number"
-            },
-            "page": {
-              "type": "number"
-            },
-            "per_page": {
-              "type": "number"
-            },
-            "total_count": {
-              "type": "number"
-            },
-            "total_pages": {
-              "type": "number"
-            }
-          },
-          "type": "object"
-        }
-      },
-      "required": [
-        "result"
-      ],
-      "type": "object",
+      "$ref": "#/$defs/dns-records_dns_response_collection",
       $defs: {
         "dns-records_AAAARecord": dns_records_AAAARecord_output,
         "dns-records_ARecord": dns_records_ARecord_output,
         "dns-records_CAARecord": dns_records_CAARecord_output,
-        "dns-records_CAARecord_data": dns_records_CAARecord_data_output,
         "dns-records_CERTRecord": dns_records_CERTRecord_output,
-        "dns-records_CERTRecord_data": dns_records_CERTRecord_data_output,
         "dns-records_CNAMERecord": dns_records_CNAMERecord_output,
-        "dns-records_CNAMERecord_settings": dns_records_CNAMERecord_settings_output,
         "dns-records_DNSKEYRecord": dns_records_DNSKEYRecord_output,
-        "dns-records_DNSKEYRecord_data": dns_records_DNSKEYRecord_data_output,
         "dns-records_DSRecord": dns_records_DSRecord_output,
-        "dns-records_DSRecord_data": dns_records_DSRecord_data_output,
         "dns-records_HTTPSRecord": dns_records_HTTPSRecord_output,
-        "dns-records_HTTPSRecord_data": dns_records_HTTPSRecord_data_output,
         "dns-records_LOCRecord": dns_records_LOCRecord_output,
-        "dns-records_LOCRecord_data": dns_records_LOCRecord_data_output,
         "dns-records_MXRecord": dns_records_MXRecord_output,
         "dns-records_NAPTRRecord": dns_records_NAPTRRecord_output,
-        "dns-records_NAPTRRecord_data": dns_records_NAPTRRecord_data_output,
         "dns-records_NSRecord": dns_records_NSRecord_output,
         "dns-records_OPENPGPKEYRecord": dns_records_OPENPGPKEYRecord_output,
         "dns-records_PTRRecord": dns_records_PTRRecord_output,
         "dns-records_SMIMEARecord": dns_records_SMIMEARecord_output,
-        "dns-records_SMIMEARecord_data": dns_records_SMIMEARecord_data_output,
         "dns-records_SRVRecord": dns_records_SRVRecord_output,
-        "dns-records_SRVRecord_data": dns_records_SRVRecord_data_output,
         "dns-records_SSHFPRecord": dns_records_SSHFPRecord_output,
-        "dns-records_SSHFPRecord_data": dns_records_SSHFPRecord_data_output,
         "dns-records_SVCBRecord": dns_records_SVCBRecord_output,
-        "dns-records_SVCBRecord_data": dns_records_SVCBRecord_data_output,
         "dns-records_TLSARecord": dns_records_TLSARecord_output,
-        "dns-records_TLSARecord_data": dns_records_TLSARecord_data_output,
         "dns-records_TXTRecord": dns_records_TXTRecord_output,
         "dns-records_URIRecord": dns_records_URIRecord_output,
-        "dns-records_URIRecord_data": dns_records_URIRecord_data_output,
+        "dns-records_api-response-collection": dns_records_api_response_collection_output,
+        "dns-records_api-response-common": dns_records_api_response_common_output,
         "dns-records_comment": dns_records_comment_output,
         "dns-records_dns-record-response": dns_records_dns_record_response_output,
+        "dns-records_dns-record-shared-fields": dns_records_dns_record_shared_fields_output,
         "dns-records_dns-record-with-data": dns_records_dns_record_with_data_output,
         "dns-records_dns-record-without-data": dns_records_dns_record_without_data_output,
+        "dns-records_dns_response_collection": dns_records_dns_response_collection_output,
         "dns-records_identifier": dns_records_identifier_output,
+        "dns-records_messages": dns_records_messages_output,
         "dns-records_name": dns_records_name_output,
         "dns-records_priority": dns_records_priority_output,
         "dns-records_proxied": dns_records_proxied_output,
@@ -1430,12 +1233,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "#dns_records:read"
-        ],
-        "x-fern-enum": {
-          "#dns_records:read": {
-            "name": "dns_records_read"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": true,
@@ -1452,38 +1250,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "items": {
-                "$ref": "#/$defs/dns-records_dns-record-response"
-              },
-              "type": "array"
-            },
-            "result_info": {
-              "properties": {
-                "count": {
-                  "type": "number"
-                },
-                "page": {
-                  "type": "number"
-                },
-                "per_page": {
-                  "type": "number"
-                },
-                "total_count": {
-                  "type": "number"
-                },
-                "total_pages": {
-                  "type": "number"
-                }
-              },
-              "type": "object"
-            }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/dns-records_dns_response_collection"
         },
         "4XX": {
           "$ref": "#/$defs/dns-records_api-response-common-failure"
@@ -1493,43 +1260,33 @@ export const tools: readonly Tool[] = [
         "dns-records_AAAARecord": dns_records_AAAARecord_output,
         "dns-records_ARecord": dns_records_ARecord_output,
         "dns-records_CAARecord": dns_records_CAARecord_output,
-        "dns-records_CAARecord_data": dns_records_CAARecord_data_output,
         "dns-records_CERTRecord": dns_records_CERTRecord_output,
-        "dns-records_CERTRecord_data": dns_records_CERTRecord_data_output,
         "dns-records_CNAMERecord": dns_records_CNAMERecord_output,
-        "dns-records_CNAMERecord_settings": dns_records_CNAMERecord_settings_output,
         "dns-records_DNSKEYRecord": dns_records_DNSKEYRecord_output,
-        "dns-records_DNSKEYRecord_data": dns_records_DNSKEYRecord_data_output,
         "dns-records_DSRecord": dns_records_DSRecord_output,
-        "dns-records_DSRecord_data": dns_records_DSRecord_data_output,
         "dns-records_HTTPSRecord": dns_records_HTTPSRecord_output,
-        "dns-records_HTTPSRecord_data": dns_records_HTTPSRecord_data_output,
         "dns-records_LOCRecord": dns_records_LOCRecord_output,
-        "dns-records_LOCRecord_data": dns_records_LOCRecord_data_output,
         "dns-records_MXRecord": dns_records_MXRecord_output,
         "dns-records_NAPTRRecord": dns_records_NAPTRRecord_output,
-        "dns-records_NAPTRRecord_data": dns_records_NAPTRRecord_data_output,
         "dns-records_NSRecord": dns_records_NSRecord_output,
         "dns-records_OPENPGPKEYRecord": dns_records_OPENPGPKEYRecord_output,
         "dns-records_PTRRecord": dns_records_PTRRecord_output,
         "dns-records_SMIMEARecord": dns_records_SMIMEARecord_output,
-        "dns-records_SMIMEARecord_data": dns_records_SMIMEARecord_data_output,
         "dns-records_SRVRecord": dns_records_SRVRecord_output,
-        "dns-records_SRVRecord_data": dns_records_SRVRecord_data_output,
         "dns-records_SSHFPRecord": dns_records_SSHFPRecord_output,
-        "dns-records_SSHFPRecord_data": dns_records_SSHFPRecord_data_output,
         "dns-records_SVCBRecord": dns_records_SVCBRecord_output,
-        "dns-records_SVCBRecord_data": dns_records_SVCBRecord_data_output,
         "dns-records_TLSARecord": dns_records_TLSARecord_output,
-        "dns-records_TLSARecord_data": dns_records_TLSARecord_data_output,
         "dns-records_TXTRecord": dns_records_TXTRecord_output,
         "dns-records_URIRecord": dns_records_URIRecord_output,
-        "dns-records_URIRecord_data": dns_records_URIRecord_data_output,
+        "dns-records_api-response-collection": dns_records_api_response_collection_output,
+        "dns-records_api-response-common": dns_records_api_response_common_output,
         "dns-records_api-response-common-failure": dns_records_api_response_common_failure_output,
         "dns-records_comment": dns_records_comment_output,
         "dns-records_dns-record-response": dns_records_dns_record_response_output,
+        "dns-records_dns-record-shared-fields": dns_records_dns_record_shared_fields_output,
         "dns-records_dns-record-with-data": dns_records_dns_record_with_data_output,
         "dns-records_dns-record-without-data": dns_records_dns_record_without_data_output,
+        "dns-records_dns_response_collection": dns_records_dns_response_collection_output,
         "dns-records_identifier": dns_records_identifier_output,
         "dns-records_messages": dns_records_messages_output,
         "dns-records_name": dns_records_name_output,
@@ -1590,88 +1347,51 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "zone_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/dns-records_identifier",
+          "description": "Identifier."
         }
       },
       required: [
         "zone_id"
       ],
+      $defs: {
+        "dns-records_identifier": dns_records_identifier,
+      },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "$ref": "#/$defs/dns-records_dns-record-response"
-          },
-          "type": "array"
-        },
-        "result_info": {
-          "properties": {
-            "count": {
-              "type": "number"
-            },
-            "page": {
-              "type": "number"
-            },
-            "per_page": {
-              "type": "number"
-            },
-            "total_count": {
-              "type": "number"
-            },
-            "total_pages": {
-              "type": "number"
-            }
-          },
-          "type": "object"
-        }
-      },
-      "required": [
-        "result"
-      ],
-      "type": "object",
+      "$ref": "#/$defs/dns-records_dns_response_collection",
       $defs: {
         "dns-records_AAAARecord": dns_records_AAAARecord_output,
         "dns-records_ARecord": dns_records_ARecord_output,
         "dns-records_CAARecord": dns_records_CAARecord_output,
-        "dns-records_CAARecord_data": dns_records_CAARecord_data_output,
         "dns-records_CERTRecord": dns_records_CERTRecord_output,
-        "dns-records_CERTRecord_data": dns_records_CERTRecord_data_output,
         "dns-records_CNAMERecord": dns_records_CNAMERecord_output,
-        "dns-records_CNAMERecord_settings": dns_records_CNAMERecord_settings_output,
         "dns-records_DNSKEYRecord": dns_records_DNSKEYRecord_output,
-        "dns-records_DNSKEYRecord_data": dns_records_DNSKEYRecord_data_output,
         "dns-records_DSRecord": dns_records_DSRecord_output,
-        "dns-records_DSRecord_data": dns_records_DSRecord_data_output,
         "dns-records_HTTPSRecord": dns_records_HTTPSRecord_output,
-        "dns-records_HTTPSRecord_data": dns_records_HTTPSRecord_data_output,
         "dns-records_LOCRecord": dns_records_LOCRecord_output,
-        "dns-records_LOCRecord_data": dns_records_LOCRecord_data_output,
         "dns-records_MXRecord": dns_records_MXRecord_output,
         "dns-records_NAPTRRecord": dns_records_NAPTRRecord_output,
-        "dns-records_NAPTRRecord_data": dns_records_NAPTRRecord_data_output,
         "dns-records_NSRecord": dns_records_NSRecord_output,
         "dns-records_OPENPGPKEYRecord": dns_records_OPENPGPKEYRecord_output,
         "dns-records_PTRRecord": dns_records_PTRRecord_output,
         "dns-records_SMIMEARecord": dns_records_SMIMEARecord_output,
-        "dns-records_SMIMEARecord_data": dns_records_SMIMEARecord_data_output,
         "dns-records_SRVRecord": dns_records_SRVRecord_output,
-        "dns-records_SRVRecord_data": dns_records_SRVRecord_data_output,
         "dns-records_SSHFPRecord": dns_records_SSHFPRecord_output,
-        "dns-records_SSHFPRecord_data": dns_records_SSHFPRecord_data_output,
         "dns-records_SVCBRecord": dns_records_SVCBRecord_output,
-        "dns-records_SVCBRecord_data": dns_records_SVCBRecord_data_output,
         "dns-records_TLSARecord": dns_records_TLSARecord_output,
-        "dns-records_TLSARecord_data": dns_records_TLSARecord_data_output,
         "dns-records_TXTRecord": dns_records_TXTRecord_output,
         "dns-records_URIRecord": dns_records_URIRecord_output,
-        "dns-records_URIRecord_data": dns_records_URIRecord_data_output,
+        "dns-records_api-response-collection": dns_records_api_response_collection_output,
+        "dns-records_api-response-common": dns_records_api_response_common_output,
         "dns-records_comment": dns_records_comment_output,
         "dns-records_dns-record-response": dns_records_dns_record_response_output,
+        "dns-records_dns-record-shared-fields": dns_records_dns_record_shared_fields_output,
         "dns-records_dns-record-with-data": dns_records_dns_record_with_data_output,
         "dns-records_dns-record-without-data": dns_records_dns_record_without_data_output,
+        "dns-records_dns_response_collection": dns_records_dns_response_collection_output,
         "dns-records_identifier": dns_records_identifier_output,
+        "dns-records_messages": dns_records_messages_output,
         "dns-records_name": dns_records_name_output,
         "dns-records_priority": dns_records_priority_output,
         "dns-records_proxied": dns_records_proxied_output,
@@ -1697,12 +1417,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "#dns_records:read"
-        ],
-        "x-fern-enum": {
-          "#dns_records:read": {
-            "name": "dns_records_read"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": true,
@@ -1714,38 +1429,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "items": {
-                "$ref": "#/$defs/dns-records_dns-record-response"
-              },
-              "type": "array"
-            },
-            "result_info": {
-              "properties": {
-                "count": {
-                  "type": "number"
-                },
-                "page": {
-                  "type": "number"
-                },
-                "per_page": {
-                  "type": "number"
-                },
-                "total_count": {
-                  "type": "number"
-                },
-                "total_pages": {
-                  "type": "number"
-                }
-              },
-              "type": "object"
-            }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/dns-records_dns_response_collection"
         },
         "4XX": {
           "$ref": "#/$defs/dns-records_api-response-common-failure"
@@ -1755,43 +1439,33 @@ export const tools: readonly Tool[] = [
         "dns-records_AAAARecord": dns_records_AAAARecord_output,
         "dns-records_ARecord": dns_records_ARecord_output,
         "dns-records_CAARecord": dns_records_CAARecord_output,
-        "dns-records_CAARecord_data": dns_records_CAARecord_data_output,
         "dns-records_CERTRecord": dns_records_CERTRecord_output,
-        "dns-records_CERTRecord_data": dns_records_CERTRecord_data_output,
         "dns-records_CNAMERecord": dns_records_CNAMERecord_output,
-        "dns-records_CNAMERecord_settings": dns_records_CNAMERecord_settings_output,
         "dns-records_DNSKEYRecord": dns_records_DNSKEYRecord_output,
-        "dns-records_DNSKEYRecord_data": dns_records_DNSKEYRecord_data_output,
         "dns-records_DSRecord": dns_records_DSRecord_output,
-        "dns-records_DSRecord_data": dns_records_DSRecord_data_output,
         "dns-records_HTTPSRecord": dns_records_HTTPSRecord_output,
-        "dns-records_HTTPSRecord_data": dns_records_HTTPSRecord_data_output,
         "dns-records_LOCRecord": dns_records_LOCRecord_output,
-        "dns-records_LOCRecord_data": dns_records_LOCRecord_data_output,
         "dns-records_MXRecord": dns_records_MXRecord_output,
         "dns-records_NAPTRRecord": dns_records_NAPTRRecord_output,
-        "dns-records_NAPTRRecord_data": dns_records_NAPTRRecord_data_output,
         "dns-records_NSRecord": dns_records_NSRecord_output,
         "dns-records_OPENPGPKEYRecord": dns_records_OPENPGPKEYRecord_output,
         "dns-records_PTRRecord": dns_records_PTRRecord_output,
         "dns-records_SMIMEARecord": dns_records_SMIMEARecord_output,
-        "dns-records_SMIMEARecord_data": dns_records_SMIMEARecord_data_output,
         "dns-records_SRVRecord": dns_records_SRVRecord_output,
-        "dns-records_SRVRecord_data": dns_records_SRVRecord_data_output,
         "dns-records_SSHFPRecord": dns_records_SSHFPRecord_output,
-        "dns-records_SSHFPRecord_data": dns_records_SSHFPRecord_data_output,
         "dns-records_SVCBRecord": dns_records_SVCBRecord_output,
-        "dns-records_SVCBRecord_data": dns_records_SVCBRecord_data_output,
         "dns-records_TLSARecord": dns_records_TLSARecord_output,
-        "dns-records_TLSARecord_data": dns_records_TLSARecord_data_output,
         "dns-records_TXTRecord": dns_records_TXTRecord_output,
         "dns-records_URIRecord": dns_records_URIRecord_output,
-        "dns-records_URIRecord_data": dns_records_URIRecord_data_output,
+        "dns-records_api-response-collection": dns_records_api_response_collection_output,
+        "dns-records_api-response-common": dns_records_api_response_common_output,
         "dns-records_api-response-common-failure": dns_records_api_response_common_failure_output,
         "dns-records_comment": dns_records_comment_output,
         "dns-records_dns-record-response": dns_records_dns_record_response_output,
+        "dns-records_dns-record-shared-fields": dns_records_dns_record_shared_fields_output,
         "dns-records_dns-record-with-data": dns_records_dns_record_with_data_output,
         "dns-records_dns-record-without-data": dns_records_dns_record_without_data_output,
+        "dns-records_dns_response_collection": dns_records_dns_response_collection_output,
         "dns-records_identifier": dns_records_identifier_output,
         "dns-records_messages": dns_records_messages_output,
         "dns-records_name": dns_records_name_output,
@@ -1817,8 +1491,8 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/dns-records_dns-request-review-scan-object"
         },
         "zone_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/dns-records_identifier",
+          "description": "Identifier."
         }
       },
       required: [
@@ -1829,41 +1503,29 @@ export const tools: readonly Tool[] = [
         "dns-records_AAAARecord": dns_records_AAAARecord,
         "dns-records_ARecord": dns_records_ARecord,
         "dns-records_CAARecord": dns_records_CAARecord,
-        "dns-records_CAARecord_data": dns_records_CAARecord_data,
         "dns-records_CERTRecord": dns_records_CERTRecord,
-        "dns-records_CERTRecord_data": dns_records_CERTRecord_data,
         "dns-records_CNAMERecord": dns_records_CNAMERecord,
-        "dns-records_CNAMERecord_settings": dns_records_CNAMERecord_settings,
         "dns-records_DNSKEYRecord": dns_records_DNSKEYRecord,
-        "dns-records_DNSKEYRecord_data": dns_records_DNSKEYRecord_data,
         "dns-records_DSRecord": dns_records_DSRecord,
-        "dns-records_DSRecord_data": dns_records_DSRecord_data,
         "dns-records_HTTPSRecord": dns_records_HTTPSRecord,
-        "dns-records_HTTPSRecord_data": dns_records_HTTPSRecord_data,
         "dns-records_LOCRecord": dns_records_LOCRecord,
-        "dns-records_LOCRecord_data": dns_records_LOCRecord_data,
         "dns-records_MXRecord": dns_records_MXRecord,
         "dns-records_NAPTRRecord": dns_records_NAPTRRecord,
-        "dns-records_NAPTRRecord_data": dns_records_NAPTRRecord_data,
         "dns-records_NSRecord": dns_records_NSRecord,
         "dns-records_OPENPGPKEYRecord": dns_records_OPENPGPKEYRecord,
         "dns-records_PTRRecord": dns_records_PTRRecord,
         "dns-records_SMIMEARecord": dns_records_SMIMEARecord,
-        "dns-records_SMIMEARecord_data": dns_records_SMIMEARecord_data,
         "dns-records_SRVRecord": dns_records_SRVRecord,
-        "dns-records_SRVRecord_data": dns_records_SRVRecord_data,
         "dns-records_SSHFPRecord": dns_records_SSHFPRecord,
-        "dns-records_SSHFPRecord_data": dns_records_SSHFPRecord_data,
         "dns-records_SVCBRecord": dns_records_SVCBRecord,
-        "dns-records_SVCBRecord_data": dns_records_SVCBRecord_data,
         "dns-records_TLSARecord": dns_records_TLSARecord,
-        "dns-records_TLSARecord_data": dns_records_TLSARecord_data,
         "dns-records_TXTRecord": dns_records_TXTRecord,
         "dns-records_URIRecord": dns_records_URIRecord,
-        "dns-records_URIRecord_data": dns_records_URIRecord_data,
         "dns-records_comment": dns_records_comment,
         "dns-records_dns-record-patch": dns_records_dns_record_patch,
+        "dns-records_dns-record-scan-batch-accept": dns_records_dns_record_scan_batch_accept,
         "dns-records_dns-record-scan-batch-reject": dns_records_dns_record_scan_batch_reject,
+        "dns-records_dns-record-shared-fields": dns_records_dns_record_shared_fields,
         "dns-records_dns-record-with-data": dns_records_dns_record_with_data,
         "dns-records_dns-record-without-data": dns_records_dns_record_without_data,
         "dns-records_dns-request-review-scan-object": dns_records_dns_request_review_scan_object,
@@ -1877,49 +1539,39 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/dns-records_dns-response-review-scan-object",
+      "$ref": "#/$defs/dns-records_dns_response_review_scan",
       $defs: {
         "dns-records_AAAARecord": dns_records_AAAARecord_output,
         "dns-records_ARecord": dns_records_ARecord_output,
         "dns-records_CAARecord": dns_records_CAARecord_output,
-        "dns-records_CAARecord_data": dns_records_CAARecord_data_output,
         "dns-records_CERTRecord": dns_records_CERTRecord_output,
-        "dns-records_CERTRecord_data": dns_records_CERTRecord_data_output,
         "dns-records_CNAMERecord": dns_records_CNAMERecord_output,
-        "dns-records_CNAMERecord_settings": dns_records_CNAMERecord_settings_output,
         "dns-records_DNSKEYRecord": dns_records_DNSKEYRecord_output,
-        "dns-records_DNSKEYRecord_data": dns_records_DNSKEYRecord_data_output,
         "dns-records_DSRecord": dns_records_DSRecord_output,
-        "dns-records_DSRecord_data": dns_records_DSRecord_data_output,
         "dns-records_HTTPSRecord": dns_records_HTTPSRecord_output,
-        "dns-records_HTTPSRecord_data": dns_records_HTTPSRecord_data_output,
         "dns-records_LOCRecord": dns_records_LOCRecord_output,
-        "dns-records_LOCRecord_data": dns_records_LOCRecord_data_output,
         "dns-records_MXRecord": dns_records_MXRecord_output,
         "dns-records_NAPTRRecord": dns_records_NAPTRRecord_output,
-        "dns-records_NAPTRRecord_data": dns_records_NAPTRRecord_data_output,
         "dns-records_NSRecord": dns_records_NSRecord_output,
         "dns-records_OPENPGPKEYRecord": dns_records_OPENPGPKEYRecord_output,
         "dns-records_PTRRecord": dns_records_PTRRecord_output,
         "dns-records_SMIMEARecord": dns_records_SMIMEARecord_output,
-        "dns-records_SMIMEARecord_data": dns_records_SMIMEARecord_data_output,
         "dns-records_SRVRecord": dns_records_SRVRecord_output,
-        "dns-records_SRVRecord_data": dns_records_SRVRecord_data_output,
         "dns-records_SSHFPRecord": dns_records_SSHFPRecord_output,
-        "dns-records_SSHFPRecord_data": dns_records_SSHFPRecord_data_output,
         "dns-records_SVCBRecord": dns_records_SVCBRecord_output,
-        "dns-records_SVCBRecord_data": dns_records_SVCBRecord_data_output,
         "dns-records_TLSARecord": dns_records_TLSARecord_output,
-        "dns-records_TLSARecord_data": dns_records_TLSARecord_data_output,
         "dns-records_TXTRecord": dns_records_TXTRecord_output,
         "dns-records_URIRecord": dns_records_URIRecord_output,
-        "dns-records_URIRecord_data": dns_records_URIRecord_data_output,
+        "dns-records_api-response-single": dns_records_api_response_single_output,
         "dns-records_comment": dns_records_comment_output,
         "dns-records_dns-record-response": dns_records_dns_record_response_output,
+        "dns-records_dns-record-shared-fields": dns_records_dns_record_shared_fields_output,
         "dns-records_dns-record-with-data": dns_records_dns_record_with_data_output,
         "dns-records_dns-record-without-data": dns_records_dns_record_without_data_output,
         "dns-records_dns-response-review-scan-object": dns_records_dns_response_review_scan_object_output,
+        "dns-records_dns_response_review_scan": dns_records_dns_response_review_scan_output,
         "dns-records_identifier": dns_records_identifier_output,
+        "dns-records_messages": dns_records_messages_output,
         "dns-records_name": dns_records_name_output,
         "dns-records_priority": dns_records_priority_output,
         "dns-records_proxied": dns_records_proxied_output,
@@ -1944,12 +1596,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "#dns_records:edit"
-        ],
-        "x-fern-enum": {
-          "#dns_records:edit": {
-            "name": "dns_records_edit"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": true,
@@ -1961,7 +1608,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/dns-records_dns-response-review-scan-object"
+          "$ref": "#/$defs/dns-records_dns_response_review_scan"
         },
         "4XX": {
           "$ref": "#/$defs/dns-records_api-response-common-failure"
@@ -1971,44 +1618,33 @@ export const tools: readonly Tool[] = [
         "dns-records_AAAARecord": dns_records_AAAARecord_output,
         "dns-records_ARecord": dns_records_ARecord_output,
         "dns-records_CAARecord": dns_records_CAARecord_output,
-        "dns-records_CAARecord_data": dns_records_CAARecord_data_output,
         "dns-records_CERTRecord": dns_records_CERTRecord_output,
-        "dns-records_CERTRecord_data": dns_records_CERTRecord_data_output,
         "dns-records_CNAMERecord": dns_records_CNAMERecord_output,
-        "dns-records_CNAMERecord_settings": dns_records_CNAMERecord_settings_output,
         "dns-records_DNSKEYRecord": dns_records_DNSKEYRecord_output,
-        "dns-records_DNSKEYRecord_data": dns_records_DNSKEYRecord_data_output,
         "dns-records_DSRecord": dns_records_DSRecord_output,
-        "dns-records_DSRecord_data": dns_records_DSRecord_data_output,
         "dns-records_HTTPSRecord": dns_records_HTTPSRecord_output,
-        "dns-records_HTTPSRecord_data": dns_records_HTTPSRecord_data_output,
         "dns-records_LOCRecord": dns_records_LOCRecord_output,
-        "dns-records_LOCRecord_data": dns_records_LOCRecord_data_output,
         "dns-records_MXRecord": dns_records_MXRecord_output,
         "dns-records_NAPTRRecord": dns_records_NAPTRRecord_output,
-        "dns-records_NAPTRRecord_data": dns_records_NAPTRRecord_data_output,
         "dns-records_NSRecord": dns_records_NSRecord_output,
         "dns-records_OPENPGPKEYRecord": dns_records_OPENPGPKEYRecord_output,
         "dns-records_PTRRecord": dns_records_PTRRecord_output,
         "dns-records_SMIMEARecord": dns_records_SMIMEARecord_output,
-        "dns-records_SMIMEARecord_data": dns_records_SMIMEARecord_data_output,
         "dns-records_SRVRecord": dns_records_SRVRecord_output,
-        "dns-records_SRVRecord_data": dns_records_SRVRecord_data_output,
         "dns-records_SSHFPRecord": dns_records_SSHFPRecord_output,
-        "dns-records_SSHFPRecord_data": dns_records_SSHFPRecord_data_output,
         "dns-records_SVCBRecord": dns_records_SVCBRecord_output,
-        "dns-records_SVCBRecord_data": dns_records_SVCBRecord_data_output,
         "dns-records_TLSARecord": dns_records_TLSARecord_output,
-        "dns-records_TLSARecord_data": dns_records_TLSARecord_data_output,
         "dns-records_TXTRecord": dns_records_TXTRecord_output,
         "dns-records_URIRecord": dns_records_URIRecord_output,
-        "dns-records_URIRecord_data": dns_records_URIRecord_data_output,
         "dns-records_api-response-common-failure": dns_records_api_response_common_failure_output,
+        "dns-records_api-response-single": dns_records_api_response_single_output,
         "dns-records_comment": dns_records_comment_output,
         "dns-records_dns-record-response": dns_records_dns_record_response_output,
+        "dns-records_dns-record-shared-fields": dns_records_dns_record_shared_fields_output,
         "dns-records_dns-record-with-data": dns_records_dns_record_with_data_output,
         "dns-records_dns-record-without-data": dns_records_dns_record_without_data_output,
         "dns-records_dns-response-review-scan-object": dns_records_dns_response_review_scan_object_output,
+        "dns-records_dns_response_review_scan": dns_records_dns_response_review_scan_output,
         "dns-records_identifier": dns_records_identifier_output,
         "dns-records_messages": dns_records_messages_output,
         "dns-records_name": dns_records_name_output,
@@ -2032,18 +1668,21 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "zone_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/dns-records_identifier",
+          "description": "Identifier."
         }
       },
       required: [
         "zone_id"
       ],
+      $defs: {
+        "dns-records_identifier": dns_records_identifier,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/dns-records_api-response-common",
+      "$ref": "#/$defs/dns-records_dns_response_trigger_scan",
       $defs: {
-        "dns-records_api-response-common": dns_records_api_response_common_output,
+        "dns-records_dns_response_trigger_scan": dns_records_dns_response_trigger_scan_output,
         "dns-records_messages": dns_records_messages_output,
       },
     },
@@ -2063,12 +1702,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "#dns_records:edit"
-        ],
-        "x-fern-enum": {
-          "#dns_records:edit": {
-            "name": "dns_records_edit"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": true,
@@ -2080,15 +1714,15 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/dns-records_api-response-common"
+          "$ref": "#/$defs/dns-records_dns_response_trigger_scan"
         },
         "4XX": {
           "$ref": "#/$defs/dns-records_api-response-common-failure"
         }
       },
       $defs: {
-        "dns-records_api-response-common": dns_records_api_response_common_output,
         "dns-records_api-response-common-failure": dns_records_api_response_common_failure_output,
+        "dns-records_dns_response_trigger_scan": dns_records_dns_response_trigger_scan_output,
         "dns-records_messages": dns_records_messages_output,
       },
     },
@@ -2107,8 +1741,8 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/dns-records_dns-record-post"
         },
         "dns_record_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/dns-records_identifier",
+          "description": "Identifier."
         },
         "include_shadow_metadata": {
           "default": false,
@@ -2116,8 +1750,8 @@ export const tools: readonly Tool[] = [
           "type": "boolean"
         },
         "zone_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/dns-records_identifier",
+          "description": "Identifier."
         }
       },
       required: [
@@ -2129,42 +1763,30 @@ export const tools: readonly Tool[] = [
         "dns-records_AAAARecord": dns_records_AAAARecord,
         "dns-records_ARecord": dns_records_ARecord,
         "dns-records_CAARecord": dns_records_CAARecord,
-        "dns-records_CAARecord_data": dns_records_CAARecord_data,
         "dns-records_CERTRecord": dns_records_CERTRecord,
-        "dns-records_CERTRecord_data": dns_records_CERTRecord_data,
         "dns-records_CNAMERecord": dns_records_CNAMERecord,
-        "dns-records_CNAMERecord_settings": dns_records_CNAMERecord_settings,
         "dns-records_DNSKEYRecord": dns_records_DNSKEYRecord,
-        "dns-records_DNSKEYRecord_data": dns_records_DNSKEYRecord_data,
         "dns-records_DSRecord": dns_records_DSRecord,
-        "dns-records_DSRecord_data": dns_records_DSRecord_data,
         "dns-records_HTTPSRecord": dns_records_HTTPSRecord,
-        "dns-records_HTTPSRecord_data": dns_records_HTTPSRecord_data,
         "dns-records_LOCRecord": dns_records_LOCRecord,
-        "dns-records_LOCRecord_data": dns_records_LOCRecord_data,
         "dns-records_MXRecord": dns_records_MXRecord,
         "dns-records_NAPTRRecord": dns_records_NAPTRRecord,
-        "dns-records_NAPTRRecord_data": dns_records_NAPTRRecord_data,
         "dns-records_NSRecord": dns_records_NSRecord,
         "dns-records_OPENPGPKEYRecord": dns_records_OPENPGPKEYRecord,
         "dns-records_PTRRecord": dns_records_PTRRecord,
         "dns-records_SMIMEARecord": dns_records_SMIMEARecord,
-        "dns-records_SMIMEARecord_data": dns_records_SMIMEARecord_data,
         "dns-records_SRVRecord": dns_records_SRVRecord,
-        "dns-records_SRVRecord_data": dns_records_SRVRecord_data,
         "dns-records_SSHFPRecord": dns_records_SSHFPRecord,
-        "dns-records_SSHFPRecord_data": dns_records_SSHFPRecord_data,
         "dns-records_SVCBRecord": dns_records_SVCBRecord,
-        "dns-records_SVCBRecord_data": dns_records_SVCBRecord_data,
         "dns-records_TLSARecord": dns_records_TLSARecord,
-        "dns-records_TLSARecord_data": dns_records_TLSARecord_data,
         "dns-records_TXTRecord": dns_records_TXTRecord,
         "dns-records_URIRecord": dns_records_URIRecord,
-        "dns-records_URIRecord_data": dns_records_URIRecord_data,
         "dns-records_comment": dns_records_comment,
         "dns-records_dns-record-post": dns_records_dns_record_post,
+        "dns-records_dns-record-shared-fields": dns_records_dns_record_shared_fields,
         "dns-records_dns-record-with-data": dns_records_dns_record_with_data,
         "dns-records_dns-record-without-data": dns_records_dns_record_without_data,
+        "dns-records_identifier": dns_records_identifier,
         "dns-records_name": dns_records_name,
         "dns-records_priority": dns_records_priority,
         "dns-records_proxied": dns_records_proxied,
@@ -2174,48 +1796,38 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/dns-records_dns-record-response",
+      "$ref": "#/$defs/dns-records_dns_response_single",
       $defs: {
         "dns-records_AAAARecord": dns_records_AAAARecord_output,
         "dns-records_ARecord": dns_records_ARecord_output,
         "dns-records_CAARecord": dns_records_CAARecord_output,
-        "dns-records_CAARecord_data": dns_records_CAARecord_data_output,
         "dns-records_CERTRecord": dns_records_CERTRecord_output,
-        "dns-records_CERTRecord_data": dns_records_CERTRecord_data_output,
         "dns-records_CNAMERecord": dns_records_CNAMERecord_output,
-        "dns-records_CNAMERecord_settings": dns_records_CNAMERecord_settings_output,
         "dns-records_DNSKEYRecord": dns_records_DNSKEYRecord_output,
-        "dns-records_DNSKEYRecord_data": dns_records_DNSKEYRecord_data_output,
         "dns-records_DSRecord": dns_records_DSRecord_output,
-        "dns-records_DSRecord_data": dns_records_DSRecord_data_output,
         "dns-records_HTTPSRecord": dns_records_HTTPSRecord_output,
-        "dns-records_HTTPSRecord_data": dns_records_HTTPSRecord_data_output,
         "dns-records_LOCRecord": dns_records_LOCRecord_output,
-        "dns-records_LOCRecord_data": dns_records_LOCRecord_data_output,
         "dns-records_MXRecord": dns_records_MXRecord_output,
         "dns-records_NAPTRRecord": dns_records_NAPTRRecord_output,
-        "dns-records_NAPTRRecord_data": dns_records_NAPTRRecord_data_output,
         "dns-records_NSRecord": dns_records_NSRecord_output,
         "dns-records_OPENPGPKEYRecord": dns_records_OPENPGPKEYRecord_output,
         "dns-records_PTRRecord": dns_records_PTRRecord_output,
         "dns-records_SMIMEARecord": dns_records_SMIMEARecord_output,
-        "dns-records_SMIMEARecord_data": dns_records_SMIMEARecord_data_output,
         "dns-records_SRVRecord": dns_records_SRVRecord_output,
-        "dns-records_SRVRecord_data": dns_records_SRVRecord_data_output,
         "dns-records_SSHFPRecord": dns_records_SSHFPRecord_output,
-        "dns-records_SSHFPRecord_data": dns_records_SSHFPRecord_data_output,
         "dns-records_SVCBRecord": dns_records_SVCBRecord_output,
-        "dns-records_SVCBRecord_data": dns_records_SVCBRecord_data_output,
         "dns-records_TLSARecord": dns_records_TLSARecord_output,
-        "dns-records_TLSARecord_data": dns_records_TLSARecord_data_output,
         "dns-records_TXTRecord": dns_records_TXTRecord_output,
         "dns-records_URIRecord": dns_records_URIRecord_output,
-        "dns-records_URIRecord_data": dns_records_URIRecord_data_output,
+        "dns-records_api-response-single": dns_records_api_response_single_output,
         "dns-records_comment": dns_records_comment_output,
         "dns-records_dns-record-response": dns_records_dns_record_response_output,
+        "dns-records_dns-record-shared-fields": dns_records_dns_record_shared_fields_output,
         "dns-records_dns-record-with-data": dns_records_dns_record_with_data_output,
         "dns-records_dns-record-without-data": dns_records_dns_record_without_data_output,
+        "dns-records_dns_response_single": dns_records_dns_response_single_output,
         "dns-records_identifier": dns_records_identifier_output,
+        "dns-records_messages": dns_records_messages_output,
         "dns-records_name": dns_records_name_output,
         "dns-records_priority": dns_records_priority_output,
         "dns-records_proxied": dns_records_proxied_output,
@@ -2240,12 +1852,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "#dns_records:edit"
-        ],
-        "x-fern-enum": {
-          "#dns_records:edit": {
-            "name": "dns_records_edit"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": true,
@@ -2257,7 +1864,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/dns-records_dns-record-response"
+          "$ref": "#/$defs/dns-records_dns_response_single"
         },
         "4XX": {
           "$ref": "#/$defs/dns-records_api-response-common-failure"
@@ -2267,43 +1874,32 @@ export const tools: readonly Tool[] = [
         "dns-records_AAAARecord": dns_records_AAAARecord_output,
         "dns-records_ARecord": dns_records_ARecord_output,
         "dns-records_CAARecord": dns_records_CAARecord_output,
-        "dns-records_CAARecord_data": dns_records_CAARecord_data_output,
         "dns-records_CERTRecord": dns_records_CERTRecord_output,
-        "dns-records_CERTRecord_data": dns_records_CERTRecord_data_output,
         "dns-records_CNAMERecord": dns_records_CNAMERecord_output,
-        "dns-records_CNAMERecord_settings": dns_records_CNAMERecord_settings_output,
         "dns-records_DNSKEYRecord": dns_records_DNSKEYRecord_output,
-        "dns-records_DNSKEYRecord_data": dns_records_DNSKEYRecord_data_output,
         "dns-records_DSRecord": dns_records_DSRecord_output,
-        "dns-records_DSRecord_data": dns_records_DSRecord_data_output,
         "dns-records_HTTPSRecord": dns_records_HTTPSRecord_output,
-        "dns-records_HTTPSRecord_data": dns_records_HTTPSRecord_data_output,
         "dns-records_LOCRecord": dns_records_LOCRecord_output,
-        "dns-records_LOCRecord_data": dns_records_LOCRecord_data_output,
         "dns-records_MXRecord": dns_records_MXRecord_output,
         "dns-records_NAPTRRecord": dns_records_NAPTRRecord_output,
-        "dns-records_NAPTRRecord_data": dns_records_NAPTRRecord_data_output,
         "dns-records_NSRecord": dns_records_NSRecord_output,
         "dns-records_OPENPGPKEYRecord": dns_records_OPENPGPKEYRecord_output,
         "dns-records_PTRRecord": dns_records_PTRRecord_output,
         "dns-records_SMIMEARecord": dns_records_SMIMEARecord_output,
-        "dns-records_SMIMEARecord_data": dns_records_SMIMEARecord_data_output,
         "dns-records_SRVRecord": dns_records_SRVRecord_output,
-        "dns-records_SRVRecord_data": dns_records_SRVRecord_data_output,
         "dns-records_SSHFPRecord": dns_records_SSHFPRecord_output,
-        "dns-records_SSHFPRecord_data": dns_records_SSHFPRecord_data_output,
         "dns-records_SVCBRecord": dns_records_SVCBRecord_output,
-        "dns-records_SVCBRecord_data": dns_records_SVCBRecord_data_output,
         "dns-records_TLSARecord": dns_records_TLSARecord_output,
-        "dns-records_TLSARecord_data": dns_records_TLSARecord_data_output,
         "dns-records_TXTRecord": dns_records_TXTRecord_output,
         "dns-records_URIRecord": dns_records_URIRecord_output,
-        "dns-records_URIRecord_data": dns_records_URIRecord_data_output,
         "dns-records_api-response-common-failure": dns_records_api_response_common_failure_output,
+        "dns-records_api-response-single": dns_records_api_response_single_output,
         "dns-records_comment": dns_records_comment_output,
         "dns-records_dns-record-response": dns_records_dns_record_response_output,
+        "dns-records_dns-record-shared-fields": dns_records_dns_record_shared_fields_output,
         "dns-records_dns-record-with-data": dns_records_dns_record_with_data_output,
         "dns-records_dns-record-without-data": dns_records_dns_record_without_data_output,
+        "dns-records_dns_response_single": dns_records_dns_response_single_output,
         "dns-records_identifier": dns_records_identifier_output,
         "dns-records_messages": dns_records_messages_output,
         "dns-records_name": dns_records_name_output,

@@ -20,6 +20,14 @@ export const tls_certificates_and_hostnames_certificates_2: JsonSchema = {
 };
 
 /**
+ * The schema of `tls-certificates-and-hostnames_mtls_certificate_identifier`.
+ */
+export const tls_certificates_and_hostnames_mtls_certificate_identifier: JsonSchema = {
+  "description": "Certificate identifier tag.",
+  "type": "string"
+};
+
+/**
  * The schema of `tls-certificates-and-hostnames_name-2`.
  */
 export const tls_certificates_and_hostnames_name_2: JsonSchema = {

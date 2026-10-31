@@ -4,13 +4,13 @@
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
   stream_api_response_common_failure_output,
+  stream_api_response_single_output,
   stream_messages_output,
 } from "../../outputs.js";
-import {
-  stream_accessRules,
-  stream_signed_token_request,
-  stream_signed_token_request_flags,
-} from "./schemas.js";
+import { stream_account_identifier } from "../../schemas.js";
+import { stream_identifier } from "../schemas.js";
+import { stream_signed_token_response_output } from "./outputs.js";
+import { stream_accessRules, stream_signed_token_request } from "./schemas.js";
 
 /**
  * The tools of `stream.videos.token`.
@@ -24,15 +24,15 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "The account identifier tag.",
-          "type": "string"
+          "$ref": "#/$defs/stream_account_identifier",
+          "description": "The account identifier tag."
         },
         "body": {
           "$ref": "#/$defs/stream_signed_token_request"
         },
         "identifier": {
-          "description": "A Cloudflare-generated unique identifier for a media item.",
-          "type": "string"
+          "$ref": "#/$defs/stream_identifier",
+          "description": "A Cloudflare-generated unique identifier for a media item."
         }
       },
       required: [
@@ -42,17 +42,18 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "stream_accessRules": stream_accessRules,
+        "stream_account_identifier": stream_account_identifier,
+        "stream_identifier": stream_identifier,
         "stream_signed_token_request": stream_signed_token_request,
-        "stream_signed_token_request_flags": stream_signed_token_request_flags,
       },
     },
     outputSchema: {
-      "properties": {
-        "token": {
-          "type": "string"
-        }
+      "$ref": "#/$defs/stream_signed_token_response",
+      $defs: {
+        "stream_api-response-single": stream_api_response_single_output,
+        "stream_messages": stream_messages_output,
+        "stream_signed_token_response": stream_signed_token_response_output,
       },
-      "type": "object",
     },
     annotations: {
       "destructiveHint": true,
@@ -66,12 +67,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "token": {
-              "type": "string"
-            }
-          },
-          "type": "object"
+          "$ref": "#/$defs/stream_signed_token_response"
         },
         "4XX": {
           "$ref": "#/$defs/stream_api-response-common-failure"
@@ -79,7 +75,9 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "stream_api-response-common-failure": stream_api_response_common_failure_output,
+        "stream_api-response-single": stream_api_response_single_output,
         "stream_messages": stream_messages_output,
+        "stream_signed_token_response": stream_signed_token_response_output,
       },
     },
     request: (args) => ({

@@ -4,10 +4,13 @@
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
   api_shield_api_response_common_failure_output,
+  api_shield_api_response_common_output,
+  api_shield_basic_operation_output,
   api_shield_endpoint_output,
   api_shield_host_output,
   api_shield_messages_output,
   api_shield_method_output,
+  api_shield_standard_operation_output,
   api_shield_timestamp_2_output,
   api_shield_timestamp_output,
   api_shield_uuid_2_output,
@@ -29,19 +32,12 @@ import {
 import {
   api_shield_label_name,
   api_shield_operation_id_selector,
-  api_shield_operation_id_selector_include,
 } from "../../schemas.js";
 import { api_shield_operation_with_labels_only_output } from "./outputs.js";
 import {
   api_shield_bulk_delete_labels_on_operation_request,
-  api_shield_bulk_delete_labels_on_operation_request_managed,
-  api_shield_bulk_delete_labels_on_operation_request_user,
   api_shield_bulk_post_labels_on_operation_request,
-  api_shield_bulk_post_labels_on_operation_request_managed,
-  api_shield_bulk_post_labels_on_operation_request_user,
   api_shield_bulk_put_labels_on_operation_request,
-  api_shield_bulk_put_labels_on_operation_request_managed,
-  api_shield_bulk_put_labels_on_operation_request_user,
   api_shield_delete_labels_on_operation_request,
   api_shield_post_labels_on_operation_request,
   api_shield_put_labels_on_operation_request,
@@ -71,34 +67,37 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "api-shield_bulk_post_labels_on_operation_request": api_shield_bulk_post_labels_on_operation_request,
-        "api-shield_bulk_post_labels_on_operation_request_managed": api_shield_bulk_post_labels_on_operation_request_managed,
-        "api-shield_bulk_post_labels_on_operation_request_user": api_shield_bulk_post_labels_on_operation_request_user,
         "api-shield_identifier": api_shield_identifier,
         "api-shield_identifier-2": api_shield_identifier_2,
         "api-shield_label_name": api_shield_label_name,
         "api-shield_operation_id_selector": api_shield_operation_id_selector,
-        "api-shield_operation_id_selector_include": api_shield_operation_id_selector_include,
         "api-shield_uuid": api_shield_uuid,
         "api-shield_uuid-2": api_shield_uuid_2,
       },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "$ref": "#/$defs/api-shield_operation_with_labels_only"
-          },
-          "type": "array"
+      "allOf": [
+        {
+          "$ref": "#/$defs/api-shield_api-response-common"
         },
-        "result_info": {
+        {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/api-shield_operation_with_labels_only"
+              },
+              "type": "array"
+            }
+          },
+          "required": [
+            "result"
+          ],
           "type": "object"
         }
-      },
-      "required": [
-        "result"
       ],
-      "type": "object",
       $defs: {
+        "api-shield_api-response-common": api_shield_api_response_common_output,
+        "api-shield_basic_operation": api_shield_basic_operation_output,
         "api-shield_endpoint": api_shield_endpoint_output,
         "api-shield_host": api_shield_host_output,
         "api-shield_label": api_shield_label_output,
@@ -106,8 +105,10 @@ export const tools: readonly Tool[] = [
         "api-shield_label_metadata": api_shield_label_metadata_output,
         "api-shield_label_name": api_shield_label_name_output,
         "api-shield_label_source": api_shield_label_source_output,
+        "api-shield_messages": api_shield_messages_output,
         "api-shield_method": api_shield_method_output,
         "api-shield_operation_with_labels_only": api_shield_operation_with_labels_only_output,
+        "api-shield_standard_operation": api_shield_standard_operation_output,
         "api-shield_timestamp": api_shield_timestamp_output,
         "api-shield_timestamp-2": api_shield_timestamp_2_output,
         "api-shield_uuid": api_shield_uuid_output,
@@ -132,28 +133,34 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "items": {
-                "$ref": "#/$defs/api-shield_operation_with_labels_only"
-              },
-              "type": "array"
+          "allOf": [
+            {
+              "$ref": "#/$defs/api-shield_api-response-common"
             },
-            "result_info": {
+            {
+              "properties": {
+                "result": {
+                  "items": {
+                    "$ref": "#/$defs/api-shield_operation_with_labels_only"
+                  },
+                  "type": "array"
+                }
+              },
+              "required": [
+                "result"
+              ],
               "type": "object"
             }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/api-shield_api-response-common-failure"
         }
       },
       $defs: {
+        "api-shield_api-response-common": api_shield_api_response_common_output,
         "api-shield_api-response-common-failure": api_shield_api_response_common_failure_output,
+        "api-shield_basic_operation": api_shield_basic_operation_output,
         "api-shield_endpoint": api_shield_endpoint_output,
         "api-shield_host": api_shield_host_output,
         "api-shield_label": api_shield_label_output,
@@ -164,6 +171,7 @@ export const tools: readonly Tool[] = [
         "api-shield_messages": api_shield_messages_output,
         "api-shield_method": api_shield_method_output,
         "api-shield_operation_with_labels_only": api_shield_operation_with_labels_only_output,
+        "api-shield_standard_operation": api_shield_standard_operation_output,
         "api-shield_timestamp": api_shield_timestamp_output,
         "api-shield_timestamp-2": api_shield_timestamp_2_output,
         "api-shield_uuid": api_shield_uuid_output,
@@ -195,34 +203,37 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "api-shield_bulk_delete_labels_on_operation_request": api_shield_bulk_delete_labels_on_operation_request,
-        "api-shield_bulk_delete_labels_on_operation_request_managed": api_shield_bulk_delete_labels_on_operation_request_managed,
-        "api-shield_bulk_delete_labels_on_operation_request_user": api_shield_bulk_delete_labels_on_operation_request_user,
         "api-shield_identifier": api_shield_identifier,
         "api-shield_identifier-2": api_shield_identifier_2,
         "api-shield_label_name": api_shield_label_name,
         "api-shield_operation_id_selector": api_shield_operation_id_selector,
-        "api-shield_operation_id_selector_include": api_shield_operation_id_selector_include,
         "api-shield_uuid": api_shield_uuid,
         "api-shield_uuid-2": api_shield_uuid_2,
       },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "$ref": "#/$defs/api-shield_operation_with_labels_only"
-          },
-          "type": "array"
+      "allOf": [
+        {
+          "$ref": "#/$defs/api-shield_api-response-common"
         },
-        "result_info": {
+        {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/api-shield_operation_with_labels_only"
+              },
+              "type": "array"
+            }
+          },
+          "required": [
+            "result"
+          ],
           "type": "object"
         }
-      },
-      "required": [
-        "result"
       ],
-      "type": "object",
       $defs: {
+        "api-shield_api-response-common": api_shield_api_response_common_output,
+        "api-shield_basic_operation": api_shield_basic_operation_output,
         "api-shield_endpoint": api_shield_endpoint_output,
         "api-shield_host": api_shield_host_output,
         "api-shield_label": api_shield_label_output,
@@ -230,8 +241,10 @@ export const tools: readonly Tool[] = [
         "api-shield_label_metadata": api_shield_label_metadata_output,
         "api-shield_label_name": api_shield_label_name_output,
         "api-shield_label_source": api_shield_label_source_output,
+        "api-shield_messages": api_shield_messages_output,
         "api-shield_method": api_shield_method_output,
         "api-shield_operation_with_labels_only": api_shield_operation_with_labels_only_output,
+        "api-shield_standard_operation": api_shield_standard_operation_output,
         "api-shield_timestamp": api_shield_timestamp_output,
         "api-shield_timestamp-2": api_shield_timestamp_2_output,
         "api-shield_uuid": api_shield_uuid_output,
@@ -256,28 +269,34 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "items": {
-                "$ref": "#/$defs/api-shield_operation_with_labels_only"
-              },
-              "type": "array"
+          "allOf": [
+            {
+              "$ref": "#/$defs/api-shield_api-response-common"
             },
-            "result_info": {
+            {
+              "properties": {
+                "result": {
+                  "items": {
+                    "$ref": "#/$defs/api-shield_operation_with_labels_only"
+                  },
+                  "type": "array"
+                }
+              },
+              "required": [
+                "result"
+              ],
               "type": "object"
             }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/api-shield_api-response-common-failure"
         }
       },
       $defs: {
+        "api-shield_api-response-common": api_shield_api_response_common_output,
         "api-shield_api-response-common-failure": api_shield_api_response_common_failure_output,
+        "api-shield_basic_operation": api_shield_basic_operation_output,
         "api-shield_endpoint": api_shield_endpoint_output,
         "api-shield_host": api_shield_host_output,
         "api-shield_label": api_shield_label_output,
@@ -288,6 +307,7 @@ export const tools: readonly Tool[] = [
         "api-shield_messages": api_shield_messages_output,
         "api-shield_method": api_shield_method_output,
         "api-shield_operation_with_labels_only": api_shield_operation_with_labels_only_output,
+        "api-shield_standard_operation": api_shield_standard_operation_output,
         "api-shield_timestamp": api_shield_timestamp_output,
         "api-shield_timestamp-2": api_shield_timestamp_2_output,
         "api-shield_uuid": api_shield_uuid_output,
@@ -319,34 +339,37 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "api-shield_bulk_put_labels_on_operation_request": api_shield_bulk_put_labels_on_operation_request,
-        "api-shield_bulk_put_labels_on_operation_request_managed": api_shield_bulk_put_labels_on_operation_request_managed,
-        "api-shield_bulk_put_labels_on_operation_request_user": api_shield_bulk_put_labels_on_operation_request_user,
         "api-shield_identifier": api_shield_identifier,
         "api-shield_identifier-2": api_shield_identifier_2,
         "api-shield_label_name": api_shield_label_name,
         "api-shield_operation_id_selector": api_shield_operation_id_selector,
-        "api-shield_operation_id_selector_include": api_shield_operation_id_selector_include,
         "api-shield_uuid": api_shield_uuid,
         "api-shield_uuid-2": api_shield_uuid_2,
       },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "$ref": "#/$defs/api-shield_operation_with_labels_only"
-          },
-          "type": "array"
+      "allOf": [
+        {
+          "$ref": "#/$defs/api-shield_api-response-common"
         },
-        "result_info": {
+        {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/api-shield_operation_with_labels_only"
+              },
+              "type": "array"
+            }
+          },
+          "required": [
+            "result"
+          ],
           "type": "object"
         }
-      },
-      "required": [
-        "result"
       ],
-      "type": "object",
       $defs: {
+        "api-shield_api-response-common": api_shield_api_response_common_output,
+        "api-shield_basic_operation": api_shield_basic_operation_output,
         "api-shield_endpoint": api_shield_endpoint_output,
         "api-shield_host": api_shield_host_output,
         "api-shield_label": api_shield_label_output,
@@ -354,8 +377,10 @@ export const tools: readonly Tool[] = [
         "api-shield_label_metadata": api_shield_label_metadata_output,
         "api-shield_label_name": api_shield_label_name_output,
         "api-shield_label_source": api_shield_label_source_output,
+        "api-shield_messages": api_shield_messages_output,
         "api-shield_method": api_shield_method_output,
         "api-shield_operation_with_labels_only": api_shield_operation_with_labels_only_output,
+        "api-shield_standard_operation": api_shield_standard_operation_output,
         "api-shield_timestamp": api_shield_timestamp_output,
         "api-shield_timestamp-2": api_shield_timestamp_2_output,
         "api-shield_uuid": api_shield_uuid_output,
@@ -380,28 +405,34 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "items": {
-                "$ref": "#/$defs/api-shield_operation_with_labels_only"
-              },
-              "type": "array"
+          "allOf": [
+            {
+              "$ref": "#/$defs/api-shield_api-response-common"
             },
-            "result_info": {
+            {
+              "properties": {
+                "result": {
+                  "items": {
+                    "$ref": "#/$defs/api-shield_operation_with_labels_only"
+                  },
+                  "type": "array"
+                }
+              },
+              "required": [
+                "result"
+              ],
               "type": "object"
             }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/api-shield_api-response-common-failure"
         }
       },
       $defs: {
+        "api-shield_api-response-common": api_shield_api_response_common_output,
         "api-shield_api-response-common-failure": api_shield_api_response_common_failure_output,
+        "api-shield_basic_operation": api_shield_basic_operation_output,
         "api-shield_endpoint": api_shield_endpoint_output,
         "api-shield_host": api_shield_host_output,
         "api-shield_label": api_shield_label_output,
@@ -412,6 +443,7 @@ export const tools: readonly Tool[] = [
         "api-shield_messages": api_shield_messages_output,
         "api-shield_method": api_shield_method_output,
         "api-shield_operation_with_labels_only": api_shield_operation_with_labels_only_output,
+        "api-shield_standard_operation": api_shield_standard_operation_output,
         "api-shield_timestamp": api_shield_timestamp_output,
         "api-shield_timestamp-2": api_shield_timestamp_2_output,
         "api-shield_uuid": api_shield_uuid_output,
@@ -455,8 +487,25 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/api-shield_operation_with_labels_only",
+      "allOf": [
+        {
+          "$ref": "#/$defs/api-shield_api-response-common"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/api-shield_operation_with_labels_only"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        }
+      ],
       $defs: {
+        "api-shield_api-response-common": api_shield_api_response_common_output,
+        "api-shield_basic_operation": api_shield_basic_operation_output,
         "api-shield_endpoint": api_shield_endpoint_output,
         "api-shield_host": api_shield_host_output,
         "api-shield_label": api_shield_label_output,
@@ -464,8 +513,10 @@ export const tools: readonly Tool[] = [
         "api-shield_label_metadata": api_shield_label_metadata_output,
         "api-shield_label_name": api_shield_label_name_output,
         "api-shield_label_source": api_shield_label_source_output,
+        "api-shield_messages": api_shield_messages_output,
         "api-shield_method": api_shield_method_output,
         "api-shield_operation_with_labels_only": api_shield_operation_with_labels_only_output,
+        "api-shield_standard_operation": api_shield_standard_operation_output,
         "api-shield_timestamp": api_shield_timestamp_output,
         "api-shield_timestamp-2": api_shield_timestamp_2_output,
         "api-shield_uuid": api_shield_uuid_output,
@@ -490,14 +541,31 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/api-shield_operation_with_labels_only"
+          "allOf": [
+            {
+              "$ref": "#/$defs/api-shield_api-response-common"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/api-shield_operation_with_labels_only"
+                }
+              },
+              "required": [
+                "result"
+              ],
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/api-shield_api-response-common-failure"
         }
       },
       $defs: {
+        "api-shield_api-response-common": api_shield_api_response_common_output,
         "api-shield_api-response-common-failure": api_shield_api_response_common_failure_output,
+        "api-shield_basic_operation": api_shield_basic_operation_output,
         "api-shield_endpoint": api_shield_endpoint_output,
         "api-shield_host": api_shield_host_output,
         "api-shield_label": api_shield_label_output,
@@ -508,6 +576,7 @@ export const tools: readonly Tool[] = [
         "api-shield_messages": api_shield_messages_output,
         "api-shield_method": api_shield_method_output,
         "api-shield_operation_with_labels_only": api_shield_operation_with_labels_only_output,
+        "api-shield_standard_operation": api_shield_standard_operation_output,
         "api-shield_timestamp": api_shield_timestamp_output,
         "api-shield_timestamp-2": api_shield_timestamp_2_output,
         "api-shield_uuid": api_shield_uuid_output,
@@ -551,8 +620,25 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/api-shield_operation_with_labels_only",
+      "allOf": [
+        {
+          "$ref": "#/$defs/api-shield_api-response-common"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/api-shield_operation_with_labels_only"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        }
+      ],
       $defs: {
+        "api-shield_api-response-common": api_shield_api_response_common_output,
+        "api-shield_basic_operation": api_shield_basic_operation_output,
         "api-shield_endpoint": api_shield_endpoint_output,
         "api-shield_host": api_shield_host_output,
         "api-shield_label": api_shield_label_output,
@@ -560,8 +646,10 @@ export const tools: readonly Tool[] = [
         "api-shield_label_metadata": api_shield_label_metadata_output,
         "api-shield_label_name": api_shield_label_name_output,
         "api-shield_label_source": api_shield_label_source_output,
+        "api-shield_messages": api_shield_messages_output,
         "api-shield_method": api_shield_method_output,
         "api-shield_operation_with_labels_only": api_shield_operation_with_labels_only_output,
+        "api-shield_standard_operation": api_shield_standard_operation_output,
         "api-shield_timestamp": api_shield_timestamp_output,
         "api-shield_timestamp-2": api_shield_timestamp_2_output,
         "api-shield_uuid": api_shield_uuid_output,
@@ -586,14 +674,31 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/api-shield_operation_with_labels_only"
+          "allOf": [
+            {
+              "$ref": "#/$defs/api-shield_api-response-common"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/api-shield_operation_with_labels_only"
+                }
+              },
+              "required": [
+                "result"
+              ],
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/api-shield_api-response-common-failure"
         }
       },
       $defs: {
+        "api-shield_api-response-common": api_shield_api_response_common_output,
         "api-shield_api-response-common-failure": api_shield_api_response_common_failure_output,
+        "api-shield_basic_operation": api_shield_basic_operation_output,
         "api-shield_endpoint": api_shield_endpoint_output,
         "api-shield_host": api_shield_host_output,
         "api-shield_label": api_shield_label_output,
@@ -604,6 +709,7 @@ export const tools: readonly Tool[] = [
         "api-shield_messages": api_shield_messages_output,
         "api-shield_method": api_shield_method_output,
         "api-shield_operation_with_labels_only": api_shield_operation_with_labels_only_output,
+        "api-shield_standard_operation": api_shield_standard_operation_output,
         "api-shield_timestamp": api_shield_timestamp_output,
         "api-shield_timestamp-2": api_shield_timestamp_2_output,
         "api-shield_uuid": api_shield_uuid_output,
@@ -647,8 +753,25 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/api-shield_operation_with_labels_only",
+      "allOf": [
+        {
+          "$ref": "#/$defs/api-shield_api-response-common"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/api-shield_operation_with_labels_only"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        }
+      ],
       $defs: {
+        "api-shield_api-response-common": api_shield_api_response_common_output,
+        "api-shield_basic_operation": api_shield_basic_operation_output,
         "api-shield_endpoint": api_shield_endpoint_output,
         "api-shield_host": api_shield_host_output,
         "api-shield_label": api_shield_label_output,
@@ -656,8 +779,10 @@ export const tools: readonly Tool[] = [
         "api-shield_label_metadata": api_shield_label_metadata_output,
         "api-shield_label_name": api_shield_label_name_output,
         "api-shield_label_source": api_shield_label_source_output,
+        "api-shield_messages": api_shield_messages_output,
         "api-shield_method": api_shield_method_output,
         "api-shield_operation_with_labels_only": api_shield_operation_with_labels_only_output,
+        "api-shield_standard_operation": api_shield_standard_operation_output,
         "api-shield_timestamp": api_shield_timestamp_output,
         "api-shield_timestamp-2": api_shield_timestamp_2_output,
         "api-shield_uuid": api_shield_uuid_output,
@@ -682,14 +807,31 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/api-shield_operation_with_labels_only"
+          "allOf": [
+            {
+              "$ref": "#/$defs/api-shield_api-response-common"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/api-shield_operation_with_labels_only"
+                }
+              },
+              "required": [
+                "result"
+              ],
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/api-shield_api-response-common-failure"
         }
       },
       $defs: {
+        "api-shield_api-response-common": api_shield_api_response_common_output,
         "api-shield_api-response-common-failure": api_shield_api_response_common_failure_output,
+        "api-shield_basic_operation": api_shield_basic_operation_output,
         "api-shield_endpoint": api_shield_endpoint_output,
         "api-shield_host": api_shield_host_output,
         "api-shield_label": api_shield_label_output,
@@ -700,6 +842,7 @@ export const tools: readonly Tool[] = [
         "api-shield_messages": api_shield_messages_output,
         "api-shield_method": api_shield_method_output,
         "api-shield_operation_with_labels_only": api_shield_operation_with_labels_only_output,
+        "api-shield_standard_operation": api_shield_standard_operation_output,
         "api-shield_timestamp": api_shield_timestamp_output,
         "api-shield_timestamp-2": api_shield_timestamp_2_output,
         "api-shield_uuid": api_shield_uuid_output,

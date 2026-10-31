@@ -4,6 +4,46 @@
 import type { JsonSchema } from "../../../../_/tool.js";
 
 /**
+ * The schema of `posture-api_CreateWebhookJobsResponse` in responses.
+ */
+export const posture_api_CreateWebhookJobsResponse_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/posture-api_api-response-common"
+    },
+    {
+      "properties": {
+        "result": {
+          "properties": {
+            "created": {
+              "items": {
+                "$ref": "#/$defs/posture-api_WebhookJob"
+              },
+              "type": "array"
+            },
+            "failed": {
+              "items": {
+                "$ref": "#/$defs/posture-api_WebhookJobFailure"
+              },
+              "type": "array"
+            }
+          },
+          "required": [
+            "created",
+            "failed"
+          ],
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object"
+    }
+  ]
+};
+
+/**
  * The schema of `posture-api_WebhookJob` in responses.
  */
 export const posture_api_WebhookJob_output: JsonSchema = {

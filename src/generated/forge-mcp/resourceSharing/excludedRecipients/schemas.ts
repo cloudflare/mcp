@@ -20,6 +20,14 @@ export const resource_sharing_create_share_excluded_recipient_request: JsonSchem
 };
 
 /**
+ * The schema of `resource-sharing_excluded_recipient_id`.
+ */
+export const resource_sharing_excluded_recipient_id: JsonSchema = {
+  "description": "Share Excluded Recipient identifier tag.",
+  "type": "string"
+};
+
+/**
  * The schema of `resource-sharing_update_share_excluded_recipients_request`.
  */
 export const resource_sharing_update_share_excluded_recipients_request: JsonSchema = {

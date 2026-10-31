@@ -4,6 +4,14 @@
 import type { JsonSchema } from "./_/tool.js";
 
 /**
+ * The schema of `aaa_identifier`.
+ */
+export const aaa_identifier: JsonSchema = {
+  "description": "Identifier",
+  "type": "string"
+};
+
+/**
  * The schema of `analytics-sql_SqlQueryAccountScope`.
  */
 export const analytics_sql_SqlQueryAccountScope: JsonSchema = {
@@ -25,8 +33,31 @@ export const analytics_sql_SqlQueryAccountScope: JsonSchema = {
 export const analytics_sql_SqlQueryRequest: JsonSchema = {
   "properties": {
     "params": {
-      "$ref": "#/$defs/analytics-sql_SqlQueryRequest_params",
-      "description": "Positional array values for `$1`, `$2`, and similar placeholders, or named object values for placeholders such as `$status`.\n"
+      "description": "Positional array values for `$1`, `$2`, and similar placeholders, or named object values for placeholders such as `$status`.\n",
+      "oneOf": [
+        {
+          "items": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              },
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "type": "array"
+        },
+        {
+          "type": "object"
+        }
+      ]
     },
     "query": {
       "description": "SQL query to execute. A trailing FORMAT selects JSON, JSONEachRow, TabSeparated, or TSV output on any dataset.\n",
@@ -44,22 +75,6 @@ export const analytics_sql_SqlQueryRequest: JsonSchema = {
     "query"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `analytics-sql_SqlQueryRequest_params`.
- */
-export const analytics_sql_SqlQueryRequest_params: JsonSchema = {
-  "description": "Positional array values for `$1`, `$2`, and similar placeholders, or named object values for placeholders such as `$status`.\n",
-  "oneOf": [
-    {
-      "items": {},
-      "type": "array"
-    },
-    {
-      "type": "object"
-    }
-  ]
 };
 
 /**
@@ -284,6 +299,14 @@ export const bill_subs_api_frequency: JsonSchema = {
 };
 
 /**
+ * The schema of `bill-subs-api_identifier`.
+ */
+export const bill_subs_api_identifier: JsonSchema = {
+  "description": "Identifier",
+  "type": "string"
+};
+
+/**
  * The schema of `bill-subs-api_install_id`.
  */
 export const bill_subs_api_install_id: JsonSchema = {
@@ -334,13 +357,28 @@ export const bill_subs_api_rate_plan: JsonSchema = {
 };
 
 /**
+ * The schema of `bill-subs-api_schemas-identifier`.
+ */
+export const bill_subs_api_schemas_identifier: JsonSchema = {
+  "description": "Subscription identifier tag.",
+  "type": "string"
+};
+
+/**
  * The schema of `bill-subs-api_subscription-v2`.
  */
 export const bill_subs_api_subscription_v2: JsonSchema = {
   "properties": {
     "app": {
-      "$ref": "#/$defs/bill-subs-api_subscription-v2_app",
-      "description": "Cloudflare Apps Marketplace is sunset. This field is retained for legacy grandfathered app subscriptions only."
+      "deprecated": true,
+      "description": "Cloudflare Apps Marketplace is sunset. This field is retained for legacy grandfathered app subscriptions only.",
+      "properties": {
+        "install_id": {
+          "$ref": "#/$defs/bill-subs-api_install_id",
+          "description": "app install id."
+        }
+      },
+      "type": "object"
     },
     "component_values": {
       "$ref": "#/$defs/bill-subs-api_component_values",
@@ -356,21 +394,6 @@ export const bill_subs_api_subscription_v2: JsonSchema = {
     },
     "zone": {
       "$ref": "#/$defs/bill-subs-api_zone"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `bill-subs-api_subscription-v2_app`.
- */
-export const bill_subs_api_subscription_v2_app: JsonSchema = {
-  "deprecated": true,
-  "description": "Cloudflare Apps Marketplace is sunset. This field is retained for legacy grandfathered app subscriptions only.",
-  "properties": {
-    "install_id": {
-      "$ref": "#/$defs/bill-subs-api_install_id",
-      "description": "app install id."
     }
   },
   "type": "object"
@@ -779,6 +802,14 @@ export const builds_trigger_uuid: JsonSchema = {
 };
 
 /**
+ * The schema of `cache-settings_identifier`.
+ */
+export const cache_settings_identifier: JsonSchema = {
+  "description": "Identifier.",
+  "type": "string"
+};
+
+/**
  * The schema of `dns-custom-nameservers_CustomNSInput`.
  */
 export const dns_custom_nameservers_CustomNSInput: JsonSchema = {
@@ -814,6 +845,14 @@ export const dns_custom_nameservers_ns_name: JsonSchema = {
 export const dns_custom_nameservers_ns_set: JsonSchema = {
   "description": "The number of the set that this name server belongs to.",
   "type": "number"
+};
+
+/**
+ * The schema of `email_identifier`.
+ */
+export const email_identifier: JsonSchema = {
+  "description": "Identifier.",
+  "type": "string"
 };
 
 /**
@@ -954,6 +993,38 @@ export const firewall_notes: JsonSchema = {
 };
 
 /**
+ * The schema of `firewall_rule`.
+ */
+export const firewall_rule: JsonSchema = {
+  "properties": {
+    "configuration": {
+      "$ref": "#/$defs/firewall_configuration",
+      "description": "The rule configuration."
+    },
+    "mode": {
+      "$ref": "#/$defs/firewall_schemas-mode"
+    },
+    "notes": {
+      "$ref": "#/$defs/firewall_notes",
+      "description": "An informative summary of the rule, typically used as a reminder or explanation."
+    }
+  },
+  "required": [
+    "configuration",
+    "mode"
+  ],
+  "type": "object"
+};
+
+/**
+ * The schema of `firewall_rule_identifier`.
+ */
+export const firewall_rule_identifier: JsonSchema = {
+  "description": "Unique identifier for a rule.",
+  "type": "string"
+};
+
+/**
  * The schema of `firewall_schemas-mode`.
  */
 export const firewall_schemas_mode: JsonSchema = {
@@ -992,30 +1063,11 @@ export const iam_account_type: JsonSchema = {
 };
 
 /**
- * The schema of `iam_account_managed_by`.
+ * The schema of `iam_account_identifier`.
  */
-export const iam_account_managed_by: JsonSchema = {
-  "description": "Parent container details",
-  "type": "object"
-};
-
-/**
- * The schema of `iam_account_settings`.
- */
-export const iam_account_settings: JsonSchema = {
-  "description": "Account settings",
-  "properties": {
-    "abuse_contact_email": {
-      "description": "Sets an abuse contact email to notify for abuse reports.",
-      "type": "string"
-    },
-    "enforce_twofactor": {
-      "default": false,
-      "description": "Indicates whether membership in this account requires that\nTwo-Factor Authentication is enabled",
-      "type": "boolean"
-    }
-  },
-  "type": "object"
+export const iam_account_identifier: JsonSchema = {
+  "$ref": "#/$defs/iam_common_components-schemas-identifier",
+  "description": "Account identifier tag."
 };
 
 /**
@@ -1157,6 +1209,14 @@ export const iam_last_name: JsonSchema = {
 };
 
 /**
+ * The schema of `iam_membership_components-schemas-identifier`.
+ */
+export const iam_membership_components_schemas_identifier: JsonSchema = {
+  "description": "Membership identifier tag.",
+  "type": "string"
+};
+
+/**
  * The schema of `iam_name`.
  */
 export const iam_name: JsonSchema = {
@@ -1184,56 +1244,48 @@ export const iam_permission_group: JsonSchema = {
       "type": "string"
     },
     "meta": {
-      "$ref": "#/$defs/iam_permission_group_meta",
-      "description": "Attributes associated to the permission group."
+      "description": "Attributes associated to the permission group.",
+      "properties": {
+        "category": {
+          "description": "A category used to group permission groups.",
+          "type": "string"
+        },
+        "deprecated": {
+          "description": "Indicates whether the permission group is deprecated.",
+          "type": "string"
+        },
+        "description": {
+          "description": "Additional information about the permission group.",
+          "type": "string"
+        },
+        "editable": {
+          "description": "Indicates whether the permission group can be edited.",
+          "type": "string"
+        },
+        "eol_at": {
+          "description": "The planned end-of-life date and time, when provided.",
+          "format": "date-time",
+          "type": "string"
+        },
+        "label": {
+          "description": "A label identifying the permission group.",
+          "type": "string"
+        },
+        "scopes": {
+          "description": "The scope associated with the permission group.",
+          "type": "string"
+        },
+        "visibility": {
+          "description": "Indicates the permission group's availability or visibility.",
+          "type": "string"
+        }
+      },
+      "type": "object"
     }
   },
   "required": [
     "id"
   ],
-  "type": "object"
-};
-
-/**
- * The schema of `iam_permission_group_meta`.
- */
-export const iam_permission_group_meta: JsonSchema = {
-  "description": "Attributes associated to the permission group.",
-  "properties": {
-    "category": {
-      "description": "A category used to group permission groups.",
-      "type": "string"
-    },
-    "deprecated": {
-      "description": "Indicates whether the permission group is deprecated.",
-      "type": "string"
-    },
-    "description": {
-      "description": "Additional information about the permission group.",
-      "type": "string"
-    },
-    "editable": {
-      "description": "Indicates whether the permission group can be edited.",
-      "type": "string"
-    },
-    "eol_at": {
-      "description": "The planned end-of-life date and time, when provided.",
-      "format": "date-time",
-      "type": "string"
-    },
-    "label": {
-      "description": "A label identifying the permission group.",
-      "type": "string"
-    },
-    "scopes": {
-      "description": "The scope associated with the permission group.",
-      "type": "string"
-    },
-    "visibility": {
-      "description": "Indicates the permission group's availability or visibility.",
-      "type": "string"
-    }
-  },
   "type": "object"
 };
 
@@ -1416,6 +1468,14 @@ export const iam_token_body: JsonSchema = {
 };
 
 /**
+ * The schema of `iam_token_identifier`.
+ */
+export const iam_token_identifier: JsonSchema = {
+  "description": "Token identifier tag.",
+  "type": "string"
+};
+
+/**
  * The schema of `iam_token_policies`.
  */
 export const iam_token_policies: JsonSchema = {
@@ -1436,6 +1496,14 @@ export const iam_token_status: JsonSchema = {
     "disabled",
     "expired"
   ],
+  "type": "string"
+};
+
+/**
+ * The schema of `infra_AccountTag`.
+ */
+export const infra_AccountTag: JsonSchema = {
+  "description": "Account identifier",
   "type": "string"
 };
 
@@ -1632,6 +1700,13 @@ export const load_balancing_health_sources: JsonSchema = {
       "type": "null"
     }
   ]
+};
+
+/**
+ * The schema of `load-balancing_identifier`.
+ */
+export const load_balancing_identifier: JsonSchema = {
+  "type": "string"
 };
 
 /**
@@ -2110,24 +2185,84 @@ export const load_balancing_weight: JsonSchema = {
 };
 
 /**
- * The schema of `organizations-api_Organization`.
+ * The schema of `mconn-telemetry_account_id`.
  */
-export const organizations_api_Organization: JsonSchema = {
-  "description": "References an Organization in the Cloudflare data model.",
+export const mconn_telemetry_account_id: JsonSchema = {
+  "description": "Account identifier",
+  "type": "string"
+};
+
+/**
+ * The schema of `mconn_account_id`.
+ */
+export const mconn_account_id: JsonSchema = {
+  "type": "string"
+};
+
+/**
+ * The schema of `mconn_uuid`.
+ */
+export const mconn_uuid: JsonSchema = {
+  "type": "string"
+};
+
+/**
+ * The schema of `organizations-api_ModifyProfileRequest`.
+ */
+export const organizations_api_ModifyProfileRequest: JsonSchema = {
+  "description": "Partial business profile update. Omitted, empty, or null fields remain unchanged. At least\none of business name, address, phone, or email must be non-empty.",
   "properties": {
-    "name": {
-      "type": "string"
+    "business_address": {
+      "oneOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
-    "parent": {
-      "$ref": "#/$defs/organizations-api_Organization_parent"
+    "business_email": {
+      "oneOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
-    "profile": {
-      "$ref": "#/$defs/organizations-api_Profile"
+    "business_name": {
+      "oneOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "business_phone": {
+      "oneOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "external_metadata": {
+      "oneOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
     }
   },
-  "required": [
-    "name"
-  ],
   "type": "object"
 };
 
@@ -2140,49 +2275,19 @@ export const organizations_api_OrganizationID: JsonSchema = {
 };
 
 /**
- * The schema of `organizations-api_Organization_parent`.
+ * The schema of `r2-data-catalog_account-id`.
  */
-export const organizations_api_Organization_parent: JsonSchema = {
-  "properties": {
-    "id": {
-      "$ref": "#/$defs/organizations-api_OrganizationID"
-    }
-  },
-  "required": [
-    "id"
-  ],
-  "type": "object"
+export const r2_data_catalog_account_id: JsonSchema = {
+  "description": "Use this to identify the account.",
+  "type": "string"
 };
 
 /**
- * The schema of `organizations-api_Profile`.
+ * The schema of `r2-data-catalog_bucket-name`.
  */
-export const organizations_api_Profile: JsonSchema = {
-  "properties": {
-    "business_address": {
-      "type": "string"
-    },
-    "business_email": {
-      "type": "string"
-    },
-    "business_name": {
-      "type": "string"
-    },
-    "business_phone": {
-      "type": "string"
-    },
-    "external_metadata": {
-      "type": "string"
-    }
-  },
-  "required": [
-    "business_address",
-    "business_email",
-    "business_name",
-    "business_phone",
-    "external_metadata"
-  ],
-  "type": "object"
+export const r2_data_catalog_bucket_name: JsonSchema = {
+  "description": "Specifies the R2 bucket name.",
+  "type": "string"
 };
 
 /**
@@ -2373,6 +2478,14 @@ export const resource_sharing_organization_id: JsonSchema = {
 };
 
 /**
+ * The schema of `resource-sharing_resource_id`.
+ */
+export const resource_sharing_resource_id: JsonSchema = {
+  "description": "Share Resource identifier.",
+  "type": "string"
+};
+
+/**
  * The schema of `resource-sharing_resource_meta`.
  */
 export const resource_sharing_resource_meta: JsonSchema = {
@@ -2419,6 +2532,14 @@ export const resource_sharing_resource_type: JsonSchema = {
 };
 
 /**
+ * The schema of `resource-sharing_share_id`.
+ */
+export const resource_sharing_share_id: JsonSchema = {
+  "description": "Share identifier tag.",
+  "type": "string"
+};
+
+/**
  * The schema of `resource-sharing_share_kind`.
  */
 export const resource_sharing_share_kind: JsonSchema = {
@@ -2461,10 +2582,34 @@ export const resource_sharing_share_target_type: JsonSchema = {
 };
 
 /**
+ * The schema of `rulesets_ZoneId`.
+ */
+export const rulesets_ZoneId: JsonSchema = {
+  "description": "The unique ID of the zone.",
+  "type": "string"
+};
+
+/**
+ * The schema of `rum_identifier`.
+ */
+export const rum_identifier: JsonSchema = {
+  "description": "Identifier.",
+  "type": "string"
+};
+
+/**
  * The schema of `security-center_dismissed`.
  */
 export const security_center_dismissed: JsonSchema = {
   "type": "boolean"
+};
+
+/**
+ * The schema of `security-center_identifier`.
+ */
+export const security_center_identifier: JsonSchema = {
+  "description": "Identifier.",
+  "type": "string"
 };
 
 /**
@@ -2610,6 +2755,30 @@ export const security_center_userClassification: JsonSchema = {
 };
 
 /**
+ * The schema of `speed_identifier`.
+ */
+export const speed_identifier: JsonSchema = {
+  "description": "Identifier.",
+  "type": "string"
+};
+
+/**
+ * The schema of `tls-certificates-and-hostnames_identifier`.
+ */
+export const tls_certificates_and_hostnames_identifier: JsonSchema = {
+  "description": "Identifier.",
+  "type": "string"
+};
+
+/**
+ * The schema of `tunnel_account_id`.
+ */
+export const tunnel_account_id: JsonSchema = {
+  "description": "Cloudflare account ID",
+  "type": "string"
+};
+
+/**
  * The schema of `tunnel_client_id`.
  */
 export const tunnel_client_id: JsonSchema = {
@@ -2635,6 +2804,21 @@ export const tunnel_config_src: JsonSchema = {
  */
 export const tunnel_existed_at: JsonSchema = {
   "description": "If provided, include only resources that were created (and not deleted) before this time. URL encoded.",
+  "type": "string"
+};
+
+/**
+ * The schema of `tunnel_identifier`.
+ */
+export const tunnel_identifier: JsonSchema = {
+  "description": "Identifier.",
+  "type": "string"
+};
+
+/**
+ * The schema of `tunnel_ip`.
+ */
+export const tunnel_ip: JsonSchema = {
   "type": "string"
 };
 
@@ -2672,6 +2856,15 @@ export const tunnel_status: JsonSchema = {
  * The schema of `tunnel_tunnel_id`.
  */
 export const tunnel_tunnel_id: JsonSchema = {
+  "description": "UUID of the tunnel.",
+  "format": "uuid",
+  "type": "string"
+};
+
+/**
+ * The schema of `tunnel_tunnel_id-2`.
+ */
+export const tunnel_tunnel_id_2: JsonSchema = {
   "description": "UUID of the tunnel.",
   "format": "uuid",
   "type": "string"
@@ -2719,6 +2912,14 @@ export const tunnel_tunnel_types: JsonSchema = {
     "$ref": "#/$defs/tunnel_tunnel_type"
   },
   "type": "array"
+};
+
+/**
+ * The schema of `usage-analytics_identifier`.
+ */
+export const usage_analytics_identifier: JsonSchema = {
+  "description": "Cloudflare resource identifier.",
+  "type": "string"
 };
 
 /**
@@ -3122,8 +3323,44 @@ export const workers_binding_kind_dispatch_namespace: JsonSchema = {
       "type": "string"
     },
     "outbound": {
-      "$ref": "#/$defs/workers_binding_kind_dispatch_namespace_outbound",
-      "description": "Outbound worker."
+      "description": "Outbound worker.",
+      "properties": {
+        "params": {
+          "description": "Pass information from the Dispatch Worker to the Outbound Worker through the parameters.",
+          "items": {
+            "properties": {
+              "name": {
+                "description": "Name of the parameter.",
+                "type": "string"
+              }
+            },
+            "required": [
+              "name"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "worker": {
+          "description": "Outbound worker.",
+          "properties": {
+            "entrypoint": {
+              "description": "Entrypoint to invoke on the outbound worker.",
+              "type": "string"
+            },
+            "environment": {
+              "description": "Environment of the outbound worker.",
+              "type": "string"
+            },
+            "service": {
+              "description": "Name of the outbound worker.",
+              "type": "string"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
     },
     "type": {
       "description": "The kind of resource that the binding provides.",
@@ -3138,65 +3375,6 @@ export const workers_binding_kind_dispatch_namespace: JsonSchema = {
     "namespace",
     "type"
   ],
-  "type": "object"
-};
-
-/**
- * The schema of `workers_binding_kind_dispatch_namespace_outbound`.
- */
-export const workers_binding_kind_dispatch_namespace_outbound: JsonSchema = {
-  "description": "Outbound worker.",
-  "properties": {
-    "params": {
-      "description": "Pass information from the Dispatch Worker to the Outbound Worker through the parameters.",
-      "items": {
-        "$ref": "#/$defs/workers_binding_kind_dispatch_namespace_outbound_paramsItem"
-      },
-      "type": "array"
-    },
-    "worker": {
-      "$ref": "#/$defs/workers_binding_kind_dispatch_namespace_outbound_worker",
-      "description": "Outbound worker."
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `workers_binding_kind_dispatch_namespace_outbound_paramsItem`.
- */
-export const workers_binding_kind_dispatch_namespace_outbound_paramsItem: JsonSchema = {
-  "properties": {
-    "name": {
-      "description": "Name of the parameter.",
-      "type": "string"
-    }
-  },
-  "required": [
-    "name"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `workers_binding_kind_dispatch_namespace_outbound_worker`.
- */
-export const workers_binding_kind_dispatch_namespace_outbound_worker: JsonSchema = {
-  "description": "Outbound worker.",
-  "properties": {
-    "entrypoint": {
-      "description": "Entrypoint to invoke on the outbound worker.",
-      "type": "string"
-    },
-    "environment": {
-      "description": "Environment of the outbound worker.",
-      "type": "string"
-    },
-    "service": {
-      "description": "Name of the outbound worker.",
-      "type": "string"
-    }
-  },
   "type": "object"
 };
 
@@ -3675,8 +3853,26 @@ export const workers_binding_kind_ratelimit: JsonSchema = {
       "type": "string"
     },
     "simple": {
-      "$ref": "#/$defs/workers_binding_kind_ratelimit_simple",
-      "description": "The rate limit configuration."
+      "description": "The rate limit configuration.",
+      "properties": {
+        "limit": {
+          "description": "The limit (requests per period).",
+          "type": "number"
+        },
+        "mitigation_timeout": {
+          "description": "Duration in seconds to apply the mitigation action after the rate limit is exceeded. Valid values are 0 (disabled), 10, or multiples of 60 up to 86400. Must be greater than or equal to the period when non-zero.\n",
+          "type": "integer"
+        },
+        "period": {
+          "description": "The period in seconds.",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "limit",
+        "period"
+      ],
+      "type": "object"
     },
     "type": {
       "description": "The kind of resource that the binding provides.",
@@ -3691,32 +3887,6 @@ export const workers_binding_kind_ratelimit: JsonSchema = {
     "namespace_id",
     "simple",
     "type"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `workers_binding_kind_ratelimit_simple`.
- */
-export const workers_binding_kind_ratelimit_simple: JsonSchema = {
-  "description": "The rate limit configuration.",
-  "properties": {
-    "limit": {
-      "description": "The limit (requests per period).",
-      "type": "number"
-    },
-    "mitigation_timeout": {
-      "description": "Duration in seconds to apply the mitigation action after the rate limit is exceeded. Valid values are 0 (disabled), 10, or multiples of 60 up to 86400. Must be greater than or equal to the period when non-zero.\n",
-      "type": "integer"
-    },
-    "period": {
-      "description": "The period in seconds.",
-      "type": "integer"
-    }
-  },
-  "required": [
-    "limit",
-    "period"
   ],
   "type": "object"
 };
@@ -4019,7 +4189,7 @@ export const workers_binding_kind_version_metadata: JsonSchema = {
 export const workers_binding_kind_vpc_network: JsonSchema = {
   "properties": {
     "identity": {
-      "description": "Enables Gateway identity for the binding. Requires network_id to be \"cf1:network\" and cannot be combined with tunnel_id.\n",
+      "description": "Enables Gateway identity for the binding. Requires network_id to be \"cf1:network\" and cannot be combined with tunnel_id or an explicit \"cf1:vnet:<UUID>\" network_id.\n",
       "enum": [
         "runtime-email-alpha"
       ],
@@ -4030,7 +4200,7 @@ export const workers_binding_kind_vpc_network: JsonSchema = {
       "description": "A JavaScript variable name for the binding."
     },
     "network_id": {
-      "description": "Identifier of the network to bind to. Only \"cf1:network\" is currently supported. Mutually exclusive with tunnel_id.\n",
+      "description": "Identifier of the network to bind to. Use \"cf1:network\" to select the account's default virtual network at runtime, or \"cf1:vnet:<UUID>\" to select an explicit virtual network in the Worker's account. Mutually exclusive with tunnel_id.\n",
       "type": "string"
     },
     "tunnel_id": {
@@ -4188,6 +4358,55 @@ export const workers_cache_options: JsonSchema = {
     "enabled"
   ],
   "type": "object"
+};
+
+/**
+ * The schema of `workers_code_update_strategy`.
+ */
+export const workers_code_update_strategy: JsonSchema = {
+  "oneOf": [
+    {
+      "properties": {
+        "mode": {
+          "description": "Apply Durable Object code updates immediately.",
+          "enum": [
+            "immediate"
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "mode"
+      ],
+      "type": "object"
+    },
+    {
+      "properties": {
+        "max_delay": {
+          "description": "Set the maximum number of seconds to wait before forcing the update. When omitted, the default maximum delay applies.",
+          "oneOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "mode": {
+          "description": "Allow active Durable Objects to hibernate before updating their code.",
+          "enum": [
+            "deferred"
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "mode"
+      ],
+      "type": "object"
+    }
+  ]
 };
 
 /**
@@ -4761,6 +4980,14 @@ export const workers_exports_reconciliation_warning: JsonSchema = {
 };
 
 /**
+ * The schema of `workers_identifier`.
+ */
+export const workers_identifier: JsonSchema = {
+  "description": "Identifier.",
+  "type": "string"
+};
+
+/**
  * The schema of `workers_limits`.
  */
 export const workers_limits: JsonSchema = {
@@ -4836,49 +5063,35 @@ export const workers_migration_step: JsonSchema = {
     "renamed_classes": {
       "description": "A list of classes with Durable Object namespaces that were renamed.",
       "items": {
-        "$ref": "#/$defs/workers_migration_step_renamed_classesItem"
+        "properties": {
+          "from": {
+            "type": "string"
+          },
+          "to": {
+            "type": "string"
+          }
+        },
+        "type": "object"
       },
       "type": "array"
     },
     "transferred_classes": {
       "description": "A list of transfers for Durable Object namespaces from a different Worker and class to a class defined in this Worker.",
       "items": {
-        "$ref": "#/$defs/workers_migration_step_transferred_classesItem"
+        "properties": {
+          "from": {
+            "type": "string"
+          },
+          "from_script": {
+            "type": "string"
+          },
+          "to": {
+            "type": "string"
+          }
+        },
+        "type": "object"
       },
       "type": "array"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `workers_migration_step_renamed_classesItem`.
- */
-export const workers_migration_step_renamed_classesItem: JsonSchema = {
-  "properties": {
-    "from": {
-      "type": "string"
-    },
-    "to": {
-      "type": "string"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `workers_migration_step_transferred_classesItem`.
- */
-export const workers_migration_step_transferred_classesItem: JsonSchema = {
-  "properties": {
-    "from": {
-      "type": "string"
-    },
-    "from_script": {
-      "type": "string"
-    },
-    "to": {
-      "type": "string"
     }
   },
   "type": "object"
@@ -4905,24 +5118,23 @@ export const workers_migration_tag_conditions: JsonSchema = {
  * The schema of `workers_multiple_step_migrations`.
  */
 export const workers_multiple_step_migrations: JsonSchema = {
-  "properties": {
-    "new_tag": {
-      "description": "Tag to set as the latest migration tag.",
-      "type": "string"
+  "allOf": [
+    {
+      "$ref": "#/$defs/workers_migration_tag_conditions"
     },
-    "old_tag": {
-      "description": "Tag used to verify against the latest migration tag for this Worker. If they don't match, the upload is rejected.",
-      "type": "string"
-    },
-    "steps": {
-      "description": "Migrations to apply in order.",
-      "items": {
-        "$ref": "#/$defs/workers_migration_step"
+    {
+      "properties": {
+        "steps": {
+          "description": "Migrations to apply in order.",
+          "items": {
+            "$ref": "#/$defs/workers_migration_step"
+          },
+          "type": "array"
+        }
       },
-      "type": "array"
+      "type": "object"
     }
-  },
-  "type": "object"
+  ]
 };
 
 /**
@@ -4955,12 +5167,69 @@ export const workers_observability_2: JsonSchema = {
       ]
     },
     "issues": {
-      "$ref": "#/$defs/workers_observability-2_issues",
-      "description": "Real-time Issues settings for the Worker."
+      "description": "Real-time Issues settings for the Worker.",
+      "oneOf": [
+        {
+          "properties": {
+            "enabled": {
+              "description": "Whether real-time Issues are enabled for the Worker.",
+              "type": "boolean"
+            }
+          },
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
     "logs": {
-      "$ref": "#/$defs/workers_observability-2_logs",
-      "description": "Log settings for the Worker."
+      "description": "Log settings for the Worker.",
+      "oneOf": [
+        {
+          "properties": {
+            "destinations": {
+              "description": "A list of destinations where logs will be exported to.",
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "enabled": {
+              "description": "Whether logs are enabled for the Worker.",
+              "type": "boolean"
+            },
+            "head_sampling_rate": {
+              "description": "The sampling rate for logs. From 0 to 1 (1 = 100%, 0.1 = 10%). Default is 1.",
+              "oneOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "invocation_logs": {
+              "description": "Whether [invocation logs](https://developers.cloudflare.com/workers/observability/logs/workers-logs/#invocation-logs) are enabled for the Worker.",
+              "type": "boolean"
+            },
+            "persist": {
+              "default": true,
+              "description": "Whether log persistence is enabled for the Worker.",
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "enabled",
+            "invocation_logs"
+          ],
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
     "redact_query_string": {
       "default": false,
@@ -4968,146 +5237,65 @@ export const workers_observability_2: JsonSchema = {
       "type": "boolean"
     },
     "traces": {
-      "$ref": "#/$defs/workers_observability-2_traces",
-      "description": "Trace settings for the Worker."
+      "description": "Trace settings for the Worker.",
+      "oneOf": [
+        {
+          "properties": {
+            "destinations": {
+              "description": "A list of destinations where traces will be exported to.",
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "enabled": {
+              "description": "Whether traces are enabled for the Worker.",
+              "type": "boolean"
+            },
+            "head_sampling_rate": {
+              "description": "The sampling rate for traces. From 0 to 1 (1 = 100%, 0.1 = 10%). Default is 1.",
+              "oneOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "persist": {
+              "default": true,
+              "description": "Whether trace persistence is enabled for the Worker.",
+              "type": "boolean"
+            },
+            "propagation_policy": {
+              "description": "Controls how inbound trace context (traceparent/tracestate) headers on incoming requests are handled. \"authenticated\" honors inbound trace context only when accompanied by a valid trace auth token. \"accept\" unconditionally accepts inbound trace context. Requires the trace propagation feature to be enabled. Returns null when the trace propagation feature is not enabled for the account.",
+              "oneOf": [
+                {
+                  "enum": [
+                    "authenticated",
+                    "accept"
+                  ],
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            }
+          },
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ]
     }
   },
   "required": [
     "enabled"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `workers_observability-2_issues`.
- */
-export const workers_observability_2_issues: JsonSchema = {
-  "description": "Real-time Issues settings for the Worker.",
-  "oneOf": [
-    {
-      "properties": {
-        "enabled": {
-          "description": "Whether real-time Issues are enabled for the Worker.",
-          "type": "boolean"
-        }
-      },
-      "type": "object"
-    },
-    {
-      "type": "null"
-    }
-  ]
-};
-
-/**
- * The schema of `workers_observability-2_logs`.
- */
-export const workers_observability_2_logs: JsonSchema = {
-  "description": "Log settings for the Worker.",
-  "oneOf": [
-    {
-      "properties": {
-        "destinations": {
-          "description": "A list of destinations where logs will be exported to.",
-          "items": {
-            "type": "string"
-          },
-          "type": "array"
-        },
-        "enabled": {
-          "description": "Whether logs are enabled for the Worker.",
-          "type": "boolean"
-        },
-        "head_sampling_rate": {
-          "description": "The sampling rate for logs. From 0 to 1 (1 = 100%, 0.1 = 10%). Default is 1.",
-          "oneOf": [
-            {
-              "type": "number"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "invocation_logs": {
-          "description": "Whether [invocation logs](https://developers.cloudflare.com/workers/observability/logs/workers-logs/#invocation-logs) are enabled for the Worker.",
-          "type": "boolean"
-        },
-        "persist": {
-          "default": true,
-          "description": "Whether log persistence is enabled for the Worker.",
-          "type": "boolean"
-        }
-      },
-      "required": [
-        "enabled",
-        "invocation_logs"
-      ],
-      "type": "object"
-    },
-    {
-      "type": "null"
-    }
-  ]
-};
-
-/**
- * The schema of `workers_observability-2_traces`.
- */
-export const workers_observability_2_traces: JsonSchema = {
-  "description": "Trace settings for the Worker.",
-  "oneOf": [
-    {
-      "properties": {
-        "destinations": {
-          "description": "A list of destinations where traces will be exported to.",
-          "items": {
-            "type": "string"
-          },
-          "type": "array"
-        },
-        "enabled": {
-          "description": "Whether traces are enabled for the Worker.",
-          "type": "boolean"
-        },
-        "head_sampling_rate": {
-          "description": "The sampling rate for traces. From 0 to 1 (1 = 100%, 0.1 = 10%). Default is 1.",
-          "oneOf": [
-            {
-              "type": "number"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "persist": {
-          "default": true,
-          "description": "Whether trace persistence is enabled for the Worker.",
-          "type": "boolean"
-        },
-        "propagation_policy": {
-          "description": "Controls how inbound trace context (traceparent/tracestate) headers on incoming requests are handled. \"authenticated\" honors inbound trace context only when accompanied by a valid trace auth token. \"accept\" unconditionally accepts inbound trace context. Requires the trace propagation feature to be enabled. Returns null when the trace propagation feature is not enabled for the account.",
-          "oneOf": [
-            {
-              "enum": [
-                "authenticated",
-                "accept"
-              ],
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        }
-      },
-      "type": "object"
-    },
-    {
-      "type": "null"
-    }
-  ]
 };
 
 /**
@@ -5301,6 +5489,14 @@ export const workers_placement_target: JsonSchema = {
 };
 
 /**
+ * The schema of `workers_script_name`.
+ */
+export const workers_script_name: JsonSchema = {
+  "description": "Name of the script.",
+  "type": "string"
+};
+
+/**
  * The schema of `workers_secret`.
  */
 export const workers_secret: JsonSchema = {
@@ -5341,6 +5537,14 @@ export const workers_secret_patch_request: JsonSchema = {
     }
   },
   "type": "object"
+};
+
+/**
+ * The schema of `workers_secret_name`.
+ */
+export const workers_secret_name: JsonSchema = {
+  "description": "A JavaScript variable name for the secret binding.",
+  "type": "string"
 };
 
 /**
@@ -5460,4 +5664,12 @@ export const workers_worker_export: JsonSchema = {
     "type"
   ],
   "type": "object"
+};
+
+/**
+ * The schema of `zones_identifier-2`.
+ */
+export const zones_identifier_2: JsonSchema = {
+  "description": "Identifier.",
+  "type": "string"
 };

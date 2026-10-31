@@ -4,6 +4,8 @@
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
   workers_api_response_common_failure_output,
+  workers_api_response_common_output,
+  workers_api_response_null_result_output,
   workers_cache_options_output,
   workers_compatibility_date_output,
   workers_compatibility_flag_output,
@@ -26,15 +28,11 @@ import {
   workers_logpush_output,
   workers_messages_output,
   workers_modified_on_output,
-  workers_observability_2_issues_output,
-  workers_observability_2_logs_output,
   workers_observability_2_output,
-  workers_observability_2_traces_output,
   workers_placement_info_output,
   workers_placement_mode_output,
   workers_placement_status_output,
   workers_placement_target_output,
-  workers_script_response_named_handlersItem_output,
   workers_script_response_output,
   workers_tag_output,
   workers_tags_output,
@@ -43,7 +41,9 @@ import {
   workers_usage_model_output,
   workers_worker_export_output,
 } from "../../../outputs.js";
+import { workers_identifier, workers_script_name } from "../../../schemas.js";
 import { workers_route_output } from "../../outputs.js";
+import { workers_script_response_collection_output } from "./outputs.js";
 
 /**
  * The tools of `workers.legacy.scripts`.
@@ -57,25 +57,34 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/workers_identifier",
+          "description": "Identifier."
         },
         "delete_with_references": {
           "description": "If true, delete the Worker even when other Workers still reference it. Service bindings in those Workers may be left broken. Durable Object namespaces implemented by the deleted Worker are deleted even if other Workers reference them.",
           "type": "boolean"
         },
         "script_name": {
-          "description": "Name of the script.",
-          "type": "string"
+          "$ref": "#/$defs/workers_script_name",
+          "description": "Name of the script."
         }
       },
       required: [
         "account_id",
         "script_name"
       ],
+      $defs: {
+        "workers_identifier": workers_identifier,
+        "workers_script_name": workers_script_name,
+      },
     },
     outputSchema: {
-      "type": "null",
+      "$ref": "#/$defs/workers_api-response-null-result",
+      $defs: {
+        "workers_api-response-common": workers_api_response_common_output,
+        "workers_api-response-null-result": workers_api_response_null_result_output,
+        "workers_messages": workers_messages_output,
+      },
     },
     annotations: {
       "destructiveHint": true,
@@ -99,14 +108,16 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "type": "null"
+          "$ref": "#/$defs/workers_api-response-null-result"
         },
         "4XX": {
           "$ref": "#/$defs/workers_api-response-common-failure"
         }
       },
       $defs: {
+        "workers_api-response-common": workers_api_response_common_output,
         "workers_api-response-common-failure": workers_api_response_common_failure_output,
+        "workers_api-response-null-result": workers_api_response_null_result_output,
         "workers_messages": workers_messages_output,
       },
     },
@@ -125,18 +136,22 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/workers_identifier",
+          "description": "Identifier."
         },
         "script_name": {
-          "description": "Name of the script.",
-          "type": "string"
+          "$ref": "#/$defs/workers_script_name",
+          "description": "Name of the script."
         }
       },
       required: [
         "account_id",
         "script_name"
       ],
+      $defs: {
+        "workers_identifier": workers_identifier,
+        "workers_script_name": workers_script_name,
+      },
     },
     annotations: {
       "destructiveHint": false,
@@ -187,8 +202,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/workers_identifier",
+          "description": "Identifier."
         },
         "tags": {
           "description": "Filter scripts by tags. Format: comma-separated list of tag:allowed pairs where allowed is 'yes' or 'no'.",
@@ -198,46 +213,14 @@ export const tools: readonly Tool[] = [
       required: [
         "account_id"
       ],
+      $defs: {
+        "workers_identifier": workers_identifier,
+      },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "allOf": [
-              {
-                "$ref": "#/$defs/workers_script-response"
-              },
-              {
-                "properties": {
-                  "routes": {
-                    "oneOf": [
-                      {
-                        "items": {
-                          "$ref": "#/$defs/workers_route"
-                        },
-                        "type": "array"
-                      },
-                      {
-                        "type": "null"
-                      }
-                    ]
-                  }
-                },
-                "type": "object"
-              }
-            ]
-          },
-          "type": "array"
-        },
-        "result_info": {
-          "type": "object"
-        }
-      },
-      "required": [
-        "result"
-      ],
-      "type": "object",
+      "$ref": "#/$defs/workers_script-response-collection",
       $defs: {
+        "workers_api-response-common": workers_api_response_common_output,
         "workers_cache_options": workers_cache_options_output,
         "workers_compatibility_date": workers_compatibility_date_output,
         "workers_compatibility_flag": workers_compatibility_flag_output,
@@ -258,18 +241,16 @@ export const tools: readonly Tool[] = [
         "workers_has_modules": workers_has_modules_output,
         "workers_identifier": workers_identifier_output,
         "workers_logpush": workers_logpush_output,
+        "workers_messages": workers_messages_output,
         "workers_modified_on": workers_modified_on_output,
         "workers_observability-2": workers_observability_2_output,
-        "workers_observability-2_issues": workers_observability_2_issues_output,
-        "workers_observability-2_logs": workers_observability_2_logs_output,
-        "workers_observability-2_traces": workers_observability_2_traces_output,
         "workers_placement_info": workers_placement_info_output,
         "workers_placement_mode": workers_placement_mode_output,
         "workers_placement_status": workers_placement_status_output,
         "workers_placement_target": workers_placement_target_output,
         "workers_route": workers_route_output,
         "workers_script-response": workers_script_response_output,
-        "workers_script-response_named_handlersItem": workers_script_response_named_handlersItem_output,
+        "workers_script-response-collection": workers_script_response_collection_output,
         "workers_tag": workers_tag_output,
         "workers_tags": workers_tags_output,
         "workers_tail_consumers": workers_tail_consumers_output,
@@ -308,49 +289,14 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "items": {
-                "allOf": [
-                  {
-                    "$ref": "#/$defs/workers_script-response"
-                  },
-                  {
-                    "properties": {
-                      "routes": {
-                        "oneOf": [
-                          {
-                            "items": {
-                              "$ref": "#/$defs/workers_route"
-                            },
-                            "type": "array"
-                          },
-                          {
-                            "type": "null"
-                          }
-                        ]
-                      }
-                    },
-                    "type": "object"
-                  }
-                ]
-              },
-              "type": "array"
-            },
-            "result_info": {
-              "type": "object"
-            }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/workers_script-response-collection"
         },
         "4XX": {
           "$ref": "#/$defs/workers_api-response-common-failure"
         }
       },
       $defs: {
+        "workers_api-response-common": workers_api_response_common_output,
         "workers_api-response-common-failure": workers_api_response_common_failure_output,
         "workers_cache_options": workers_cache_options_output,
         "workers_compatibility_date": workers_compatibility_date_output,
@@ -375,16 +321,13 @@ export const tools: readonly Tool[] = [
         "workers_messages": workers_messages_output,
         "workers_modified_on": workers_modified_on_output,
         "workers_observability-2": workers_observability_2_output,
-        "workers_observability-2_issues": workers_observability_2_issues_output,
-        "workers_observability-2_logs": workers_observability_2_logs_output,
-        "workers_observability-2_traces": workers_observability_2_traces_output,
         "workers_placement_info": workers_placement_info_output,
         "workers_placement_mode": workers_placement_mode_output,
         "workers_placement_status": workers_placement_status_output,
         "workers_placement_target": workers_placement_target_output,
         "workers_route": workers_route_output,
         "workers_script-response": workers_script_response_output,
-        "workers_script-response_named_handlersItem": workers_script_response_named_handlersItem_output,
+        "workers_script-response-collection": workers_script_response_collection_output,
         "workers_tag": workers_tag_output,
         "workers_tags": workers_tags_output,
         "workers_tail_consumers": workers_tail_consumers_output,

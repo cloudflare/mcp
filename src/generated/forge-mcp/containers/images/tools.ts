@@ -6,6 +6,7 @@ import {
   cc_Image_output,
   cc_Messages_output,
   cc_V4BaseErrorResponse_output,
+  cc_V4BaseResponse_output,
 } from "../outputs.js";
 import { cc_Image } from "../schemas.js";
 import {
@@ -43,11 +44,28 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/cc_ContainerImagePreparation",
+      "allOf": [
+        {
+          "$ref": "#/$defs/cc_V4BaseResponse"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/cc_ContainerImagePreparation"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        }
+      ],
       $defs: {
         "cc_ContainerImagePreparation": cc_ContainerImagePreparation_output,
         "cc_ContainerImagePreparationStatus": cc_ContainerImagePreparationStatus_output,
         "cc_Image": cc_Image_output,
+        "cc_Messages": cc_Messages_output,
+        "cc_V4BaseResponse": cc_V4BaseResponse_output,
       },
     },
     annotations: {
@@ -62,10 +80,40 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/cc_ContainerImagePreparation"
+          "allOf": [
+            {
+              "$ref": "#/$defs/cc_V4BaseResponse"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/cc_ContainerImagePreparation"
+                }
+              },
+              "required": [
+                "result"
+              ],
+              "type": "object"
+            }
+          ]
         },
         "202": {
-          "$ref": "#/$defs/cc_ContainerImagePreparation"
+          "allOf": [
+            {
+              "$ref": "#/$defs/cc_V4BaseResponse"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/cc_ContainerImagePreparation"
+                }
+              },
+              "required": [
+                "result"
+              ],
+              "type": "object"
+            }
+          ]
         },
         "400": {
           "$ref": "#/$defs/cc_V4BaseErrorResponse"
@@ -86,6 +134,7 @@ export const tools: readonly Tool[] = [
         "cc_Image": cc_Image_output,
         "cc_Messages": cc_Messages_output,
         "cc_V4BaseErrorResponse": cc_V4BaseErrorResponse_output,
+        "cc_V4BaseResponse": cc_V4BaseResponse_output,
       },
     },
     request: (args) => ({

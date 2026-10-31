@@ -30,74 +30,25 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
-        "duration": {
-          "type": "number"
-        },
-        "events": {
-          "additionalProperties": {
-            "items": {
-              "additionalProperties": {
-                "oneOf": [
-                  {
-                    "type": "object"
-                  },
-                  {
-                    "type": "null"
-                  }
-                ]
+        "errors": {
+          "items": {
+            "properties": {
+              "code": {
+                "type": "number"
               },
-              "type": "object"
+              "message": {
+                "type": "string"
+              }
             },
-            "type": "array"
+            "required": [
+              "code",
+              "message"
+            ],
+            "type": "object"
           },
-          "type": "object"
+          "type": "array"
         },
-        "sessionId": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "duration",
-        "events",
-        "sessionId"
-      ],
-      "type": "object",
-    },
-    annotations: {
-      "destructiveHint": false,
-      "idempotentHint": true,
-      "openWorldHint": true,
-      "readOnlyHint": true,
-      "title": "Get recording data."
-    },
-    method: "GET",
-    path: "/accounts/{account_id}/browser-rendering/recording/{session_id}",
-    extensions: {
-      "x-api-token-group": [
-        "Browser Rendering Write",
-        "Browser Rendering Read"
-      ],
-      "x-cfPermissionsRequired": {
-        "enum": [
-          "com.cloudflare.api.account.brapi.read"
-        ],
-        "type": "string",
-        "x-fern-enum": {
-          "com.cloudflare.api.account.brapi.read": {
-            "name": "com_cloudflare_api_account_brapi_read"
-          }
-        }
-      },
-      "x-cfPlanAvailability": {
-        "business": true,
-        "enterprise": true,
-        "free": true,
-        "pro": true
-      }
-    },
-    responses: {
-      schemas: {
-        "200": {
+        "result": {
           "properties": {
             "duration": {
               "type": "number"
@@ -129,6 +80,110 @@ export const tools: readonly Tool[] = [
             "duration",
             "events",
             "sessionId"
+          ],
+          "type": "object"
+        },
+        "success": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "result",
+        "success"
+      ],
+      "type": "object",
+    },
+    annotations: {
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": true,
+      "readOnlyHint": true,
+      "title": "Get recording data."
+    },
+    method: "GET",
+    path: "/accounts/{account_id}/browser-rendering/recording/{session_id}",
+    extensions: {
+      "x-api-token-group": [
+        "Browser Rendering Write",
+        "Browser Rendering Read"
+      ],
+      "x-cfPermissionsRequired": {
+        "enum": [
+          "com.cloudflare.api.account.brapi.read"
+        ],
+        "type": "string"
+      },
+      "x-cfPlanAvailability": {
+        "business": true,
+        "enterprise": true,
+        "free": true,
+        "pro": true
+      }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "code": {
+                    "type": "number"
+                  },
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result": {
+              "properties": {
+                "duration": {
+                  "type": "number"
+                },
+                "events": {
+                  "additionalProperties": {
+                    "items": {
+                      "additionalProperties": {
+                        "oneOf": [
+                          {
+                            "type": "object"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "type": "object"
+                    },
+                    "type": "array"
+                  },
+                  "type": "object"
+                },
+                "sessionId": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "duration",
+                "events",
+                "sessionId"
+              ],
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "result",
+            "success"
           ],
           "type": "object"
         },

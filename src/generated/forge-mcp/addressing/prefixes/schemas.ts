@@ -34,3 +34,11 @@ export const addressing_description: JsonSchema = {
   "description": "Description of the prefix.",
   "type": "string"
 };
+
+/**
+ * The schema of `addressing_prefix_identifier`.
+ */
+export const addressing_prefix_identifier: JsonSchema = {
+  "description": "Identifier of an IP Prefix.",
+  "type": "string"
+};

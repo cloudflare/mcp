@@ -7,1398 +7,871 @@ import type { JsonSchema } from "../../_/tool.js";
  * The schema of `dns-records_AAAARecord`.
  */
 export const dns_records_AAAARecord: JsonSchema = {
-  "description": "AAAA Record",
-  "properties": {
-    "comment": {
-      "$ref": "#/$defs/dns-records_comment",
-      "description": "Comments or notes about the DNS record. This field has no effect on DNS responses."
+  "allOf": [
+    {
+      "$ref": "#/$defs/dns-records_dns-record-shared-fields"
     },
-    "content": {
-      "description": "A valid IPv6 address.",
-      "type": "string"
-    },
-    "name": {
-      "$ref": "#/$defs/dns-records_name",
-      "description": "Complete DNS record name, including the zone name, in Punycode."
-    },
-    "private_routing": {
-      "default": false,
-      "description": "Enables private network routing to the origin.",
-      "type": "boolean"
-    },
-    "proxied": {
-      "$ref": "#/$defs/dns-records_proxied",
-      "default": false,
-      "description": "Whether the record is receiving the performance and security benefits of Cloudflare."
-    },
-    "settings": {
-      "$ref": "#/$defs/dns-records_settings",
-      "description": "Settings for the DNS record."
-    },
-    "tags": {
-      "$ref": "#/$defs/dns-records_tags",
-      "default": [],
-      "description": "Custom tags for the DNS record. This field has no effect on DNS responses."
-    },
-    "ttl": {
-      "$ref": "#/$defs/dns-records_ttl",
-      "default": 1,
-      "description": "Time To Live (TTL) of the DNS record in seconds. Setting to 1 means 'automatic'. Value must be between 60 and 86400, with the minimum reduced to 30 for Enterprise zones."
-    },
-    "type": {
-      "description": "Record type.",
-      "enum": [
-        "AAAA"
-      ],
-      "type": "string"
+    {
+      "properties": {
+        "content": {
+          "description": "A valid IPv6 address.",
+          "type": "string"
+        },
+        "private_routing": {
+          "default": false,
+          "description": "Enables private network routing to the origin.",
+          "type": "boolean"
+        },
+        "type": {
+          "description": "Record type.",
+          "enum": [
+            "AAAA"
+          ],
+          "type": "string"
+        }
+      },
+      "type": "object"
     }
-  },
-  "type": "object"
+  ],
+  "description": "AAAA Record"
 };
 
 /**
  * The schema of `dns-records_ARecord`.
  */
 export const dns_records_ARecord: JsonSchema = {
-  "description": "A Record",
-  "properties": {
-    "comment": {
-      "$ref": "#/$defs/dns-records_comment",
-      "description": "Comments or notes about the DNS record. This field has no effect on DNS responses."
+  "allOf": [
+    {
+      "$ref": "#/$defs/dns-records_dns-record-shared-fields"
     },
-    "content": {
-      "description": "A valid IPv4 address.",
-      "type": "string"
-    },
-    "name": {
-      "$ref": "#/$defs/dns-records_name",
-      "description": "Complete DNS record name, including the zone name, in Punycode."
-    },
-    "private_routing": {
-      "default": false,
-      "description": "Enables private network routing to the origin.",
-      "type": "boolean"
-    },
-    "proxied": {
-      "$ref": "#/$defs/dns-records_proxied",
-      "default": false,
-      "description": "Whether the record is receiving the performance and security benefits of Cloudflare."
-    },
-    "settings": {
-      "$ref": "#/$defs/dns-records_settings",
-      "description": "Settings for the DNS record."
-    },
-    "tags": {
-      "$ref": "#/$defs/dns-records_tags",
-      "default": [],
-      "description": "Custom tags for the DNS record. This field has no effect on DNS responses."
-    },
-    "ttl": {
-      "$ref": "#/$defs/dns-records_ttl",
-      "default": 1,
-      "description": "Time To Live (TTL) of the DNS record in seconds. Setting to 1 means 'automatic'. Value must be between 60 and 86400, with the minimum reduced to 30 for Enterprise zones."
-    },
-    "type": {
-      "description": "Record type.",
-      "enum": [
-        "A"
-      ],
-      "type": "string"
+    {
+      "properties": {
+        "content": {
+          "description": "A valid IPv4 address.",
+          "type": "string"
+        },
+        "private_routing": {
+          "default": false,
+          "description": "Enables private network routing to the origin.",
+          "type": "boolean"
+        },
+        "type": {
+          "description": "Record type.",
+          "enum": [
+            "A"
+          ],
+          "type": "string"
+        }
+      },
+      "type": "object"
     }
-  },
-  "type": "object"
+  ],
+  "description": "A Record"
 };
 
 /**
  * The schema of `dns-records_CAARecord`.
  */
 export const dns_records_CAARecord: JsonSchema = {
-  "description": "CAA Record",
-  "properties": {
-    "comment": {
-      "$ref": "#/$defs/dns-records_comment",
-      "description": "Comments or notes about the DNS record. This field has no effect on DNS responses."
+  "allOf": [
+    {
+      "$ref": "#/$defs/dns-records_dns-record-shared-fields"
     },
-    "data": {
-      "$ref": "#/$defs/dns-records_CAARecord_data",
-      "description": "Components of a CAA record."
-    },
-    "name": {
-      "$ref": "#/$defs/dns-records_name",
-      "description": "Complete DNS record name, including the zone name, in Punycode."
-    },
-    "proxied": {
-      "$ref": "#/$defs/dns-records_proxied",
-      "default": false,
-      "description": "Whether the record is receiving the performance and security benefits of Cloudflare."
-    },
-    "settings": {
-      "$ref": "#/$defs/dns-records_settings",
-      "description": "Settings for the DNS record."
-    },
-    "tags": {
-      "$ref": "#/$defs/dns-records_tags",
-      "default": [],
-      "description": "Custom tags for the DNS record. This field has no effect on DNS responses."
-    },
-    "ttl": {
-      "$ref": "#/$defs/dns-records_ttl",
-      "default": 1,
-      "description": "Time To Live (TTL) of the DNS record in seconds. Setting to 1 means 'automatic'. Value must be between 60 and 86400, with the minimum reduced to 30 for Enterprise zones."
-    },
-    "type": {
-      "description": "Record type.",
-      "enum": [
-        "CAA"
-      ],
-      "type": "string"
+    {
+      "properties": {
+        "data": {
+          "description": "Components of a CAA record.",
+          "properties": {
+            "flags": {
+              "description": "Flags for the CAA record.",
+              "type": "number"
+            },
+            "tag": {
+              "description": "Name of the property controlled by this record (e.g.: issue, issuewild, iodef).",
+              "type": "string"
+            },
+            "value": {
+              "description": "Value of the record. This field's semantics depend on the chosen tag.",
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        "type": {
+          "description": "Record type.",
+          "enum": [
+            "CAA"
+          ],
+          "type": "string"
+        }
+      },
+      "type": "object"
     }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `dns-records_CAARecord_data`.
- */
-export const dns_records_CAARecord_data: JsonSchema = {
-  "description": "Components of a CAA record.",
-  "properties": {
-    "flags": {
-      "description": "Flags for the CAA record.",
-      "type": "number"
-    },
-    "tag": {
-      "description": "Name of the property controlled by this record (e.g.: issue, issuewild, iodef).",
-      "type": "string"
-    },
-    "value": {
-      "description": "Value of the record. This field's semantics depend on the chosen tag.",
-      "type": "string"
-    }
-  },
-  "type": "object"
+  ],
+  "description": "CAA Record"
 };
 
 /**
  * The schema of `dns-records_CERTRecord`.
  */
 export const dns_records_CERTRecord: JsonSchema = {
-  "description": "CERT Record",
-  "properties": {
-    "comment": {
-      "$ref": "#/$defs/dns-records_comment",
-      "description": "Comments or notes about the DNS record. This field has no effect on DNS responses."
+  "allOf": [
+    {
+      "$ref": "#/$defs/dns-records_dns-record-shared-fields"
     },
-    "data": {
-      "$ref": "#/$defs/dns-records_CERTRecord_data",
-      "description": "Components of a CERT record."
-    },
-    "name": {
-      "$ref": "#/$defs/dns-records_name",
-      "description": "Complete DNS record name, including the zone name, in Punycode."
-    },
-    "proxied": {
-      "$ref": "#/$defs/dns-records_proxied",
-      "default": false,
-      "description": "Whether the record is receiving the performance and security benefits of Cloudflare."
-    },
-    "settings": {
-      "$ref": "#/$defs/dns-records_settings",
-      "description": "Settings for the DNS record."
-    },
-    "tags": {
-      "$ref": "#/$defs/dns-records_tags",
-      "default": [],
-      "description": "Custom tags for the DNS record. This field has no effect on DNS responses."
-    },
-    "ttl": {
-      "$ref": "#/$defs/dns-records_ttl",
-      "default": 1,
-      "description": "Time To Live (TTL) of the DNS record in seconds. Setting to 1 means 'automatic'. Value must be between 60 and 86400, with the minimum reduced to 30 for Enterprise zones."
-    },
-    "type": {
-      "description": "Record type.",
-      "enum": [
-        "CERT"
-      ],
-      "type": "string"
+    {
+      "properties": {
+        "data": {
+          "description": "Components of a CERT record.",
+          "properties": {
+            "algorithm": {
+              "description": "Algorithm.",
+              "type": "number"
+            },
+            "certificate": {
+              "description": "Certificate.",
+              "type": "string"
+            },
+            "key_tag": {
+              "description": "Key Tag.",
+              "type": "number"
+            },
+            "type": {
+              "description": "Type.",
+              "type": "number"
+            }
+          },
+          "type": "object"
+        },
+        "type": {
+          "description": "Record type.",
+          "enum": [
+            "CERT"
+          ],
+          "type": "string"
+        }
+      },
+      "type": "object"
     }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `dns-records_CERTRecord_data`.
- */
-export const dns_records_CERTRecord_data: JsonSchema = {
-  "description": "Components of a CERT record.",
-  "properties": {
-    "algorithm": {
-      "description": "Algorithm.",
-      "type": "number"
-    },
-    "certificate": {
-      "description": "Certificate.",
-      "type": "string"
-    },
-    "key_tag": {
-      "description": "Key Tag.",
-      "type": "number"
-    },
-    "type": {
-      "description": "Type.",
-      "type": "number"
-    }
-  },
-  "type": "object"
+  ],
+  "description": "CERT Record"
 };
 
 /**
  * The schema of `dns-records_CNAMERecord`.
  */
 export const dns_records_CNAMERecord: JsonSchema = {
-  "description": "CNAME Record",
-  "properties": {
-    "comment": {
-      "$ref": "#/$defs/dns-records_comment",
-      "description": "Comments or notes about the DNS record. This field has no effect on DNS responses."
+  "allOf": [
+    {
+      "$ref": "#/$defs/dns-records_dns-record-shared-fields"
     },
-    "content": {
-      "description": "A valid hostname. Must not match the record's name.",
-      "type": "string"
-    },
-    "name": {
-      "$ref": "#/$defs/dns-records_name",
-      "description": "Complete DNS record name, including the zone name, in Punycode."
-    },
-    "proxied": {
-      "$ref": "#/$defs/dns-records_proxied",
-      "default": false,
-      "description": "Whether the record is receiving the performance and security benefits of Cloudflare."
-    },
-    "settings": {
-      "$ref": "#/$defs/dns-records_CNAMERecord_settings"
-    },
-    "tags": {
-      "$ref": "#/$defs/dns-records_tags",
-      "default": [],
-      "description": "Custom tags for the DNS record. This field has no effect on DNS responses."
-    },
-    "ttl": {
-      "$ref": "#/$defs/dns-records_ttl",
-      "default": 1,
-      "description": "Time To Live (TTL) of the DNS record in seconds. Setting to 1 means 'automatic'. Value must be between 60 and 86400, with the minimum reduced to 30 for Enterprise zones."
-    },
-    "type": {
-      "description": "Record type.",
-      "enum": [
-        "CNAME"
-      ],
-      "type": "string"
+    {
+      "properties": {
+        "content": {
+          "description": "A valid hostname. Must not match the record's name.",
+          "type": "string"
+        },
+        "settings": {
+          "properties": {
+            "flatten_cname": {
+              "default": false,
+              "description": "If enabled, causes the CNAME record to be resolved externally and the resulting address records (e.g., A and AAAA) to be returned instead of the CNAME record itself. This setting is unavailable for proxied records, since they are always flattened.",
+              "type": "boolean"
+            }
+          },
+          "type": "object"
+        },
+        "type": {
+          "description": "Record type.",
+          "enum": [
+            "CNAME"
+          ],
+          "type": "string"
+        }
+      },
+      "type": "object"
     }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `dns-records_CNAMERecord_settings`.
- */
-export const dns_records_CNAMERecord_settings: JsonSchema = {
-  "properties": {
-    "flatten_cname": {
-      "default": false,
-      "description": "If enabled, causes the CNAME record to be resolved externally and the resulting address records (e.g., A and AAAA) to be returned instead of the CNAME record itself. This setting is unavailable for proxied records, since they are always flattened.",
-      "type": "boolean"
-    }
-  },
-  "type": "object"
+  ],
+  "description": "CNAME Record"
 };
 
 /**
  * The schema of `dns-records_DNSKEYRecord`.
  */
 export const dns_records_DNSKEYRecord: JsonSchema = {
-  "description": "DNSKEY Record",
-  "properties": {
-    "comment": {
-      "$ref": "#/$defs/dns-records_comment",
-      "description": "Comments or notes about the DNS record. This field has no effect on DNS responses."
+  "allOf": [
+    {
+      "$ref": "#/$defs/dns-records_dns-record-shared-fields"
     },
-    "data": {
-      "$ref": "#/$defs/dns-records_DNSKEYRecord_data",
-      "description": "Components of a DNSKEY record."
-    },
-    "name": {
-      "$ref": "#/$defs/dns-records_name",
-      "description": "Complete DNS record name, including the zone name, in Punycode."
-    },
-    "proxied": {
-      "$ref": "#/$defs/dns-records_proxied",
-      "default": false,
-      "description": "Whether the record is receiving the performance and security benefits of Cloudflare."
-    },
-    "settings": {
-      "$ref": "#/$defs/dns-records_settings",
-      "description": "Settings for the DNS record."
-    },
-    "tags": {
-      "$ref": "#/$defs/dns-records_tags",
-      "default": [],
-      "description": "Custom tags for the DNS record. This field has no effect on DNS responses."
-    },
-    "ttl": {
-      "$ref": "#/$defs/dns-records_ttl",
-      "default": 1,
-      "description": "Time To Live (TTL) of the DNS record in seconds. Setting to 1 means 'automatic'. Value must be between 60 and 86400, with the minimum reduced to 30 for Enterprise zones."
-    },
-    "type": {
-      "description": "Record type.",
-      "enum": [
-        "DNSKEY"
-      ],
-      "type": "string"
+    {
+      "properties": {
+        "data": {
+          "description": "Components of a DNSKEY record.",
+          "properties": {
+            "algorithm": {
+              "description": "Algorithm.",
+              "type": "number"
+            },
+            "flags": {
+              "description": "Flags.",
+              "type": "number"
+            },
+            "protocol": {
+              "description": "Protocol.",
+              "type": "number"
+            },
+            "public_key": {
+              "description": "Public Key.",
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        "type": {
+          "description": "Record type.",
+          "enum": [
+            "DNSKEY"
+          ],
+          "type": "string"
+        }
+      },
+      "type": "object"
     }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `dns-records_DNSKEYRecord_data`.
- */
-export const dns_records_DNSKEYRecord_data: JsonSchema = {
-  "description": "Components of a DNSKEY record.",
-  "properties": {
-    "algorithm": {
-      "description": "Algorithm.",
-      "type": "number"
-    },
-    "flags": {
-      "description": "Flags.",
-      "type": "number"
-    },
-    "protocol": {
-      "description": "Protocol.",
-      "type": "number"
-    },
-    "public_key": {
-      "description": "Public Key.",
-      "type": "string"
-    }
-  },
-  "type": "object"
+  ],
+  "description": "DNSKEY Record"
 };
 
 /**
  * The schema of `dns-records_DSRecord`.
  */
 export const dns_records_DSRecord: JsonSchema = {
-  "description": "DS Record",
-  "properties": {
-    "comment": {
-      "$ref": "#/$defs/dns-records_comment",
-      "description": "Comments or notes about the DNS record. This field has no effect on DNS responses."
+  "allOf": [
+    {
+      "$ref": "#/$defs/dns-records_dns-record-shared-fields"
     },
-    "data": {
-      "$ref": "#/$defs/dns-records_DSRecord_data",
-      "description": "Components of a DS record."
-    },
-    "name": {
-      "$ref": "#/$defs/dns-records_name",
-      "description": "Complete DNS record name, including the zone name, in Punycode."
-    },
-    "proxied": {
-      "$ref": "#/$defs/dns-records_proxied",
-      "default": false,
-      "description": "Whether the record is receiving the performance and security benefits of Cloudflare."
-    },
-    "settings": {
-      "$ref": "#/$defs/dns-records_settings",
-      "description": "Settings for the DNS record."
-    },
-    "tags": {
-      "$ref": "#/$defs/dns-records_tags",
-      "default": [],
-      "description": "Custom tags for the DNS record. This field has no effect on DNS responses."
-    },
-    "ttl": {
-      "$ref": "#/$defs/dns-records_ttl",
-      "default": 1,
-      "description": "Time To Live (TTL) of the DNS record in seconds. Setting to 1 means 'automatic'. Value must be between 60 and 86400, with the minimum reduced to 30 for Enterprise zones."
-    },
-    "type": {
-      "description": "Record type.",
-      "enum": [
-        "DS"
-      ],
-      "type": "string"
+    {
+      "properties": {
+        "data": {
+          "description": "Components of a DS record.",
+          "properties": {
+            "algorithm": {
+              "description": "Algorithm.",
+              "type": "number"
+            },
+            "digest": {
+              "description": "Digest.",
+              "type": "string"
+            },
+            "digest_type": {
+              "description": "Digest Type.",
+              "type": "number"
+            },
+            "key_tag": {
+              "description": "Key Tag.",
+              "type": "number"
+            }
+          },
+          "type": "object"
+        },
+        "type": {
+          "description": "Record type.",
+          "enum": [
+            "DS"
+          ],
+          "type": "string"
+        }
+      },
+      "type": "object"
     }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `dns-records_DSRecord_data`.
- */
-export const dns_records_DSRecord_data: JsonSchema = {
-  "description": "Components of a DS record.",
-  "properties": {
-    "algorithm": {
-      "description": "Algorithm.",
-      "type": "number"
-    },
-    "digest": {
-      "description": "Digest.",
-      "type": "string"
-    },
-    "digest_type": {
-      "description": "Digest Type.",
-      "type": "number"
-    },
-    "key_tag": {
-      "description": "Key Tag.",
-      "type": "number"
-    }
-  },
-  "type": "object"
+  ],
+  "description": "DS Record"
 };
 
 /**
  * The schema of `dns-records_HTTPSRecord`.
  */
 export const dns_records_HTTPSRecord: JsonSchema = {
-  "description": "HTTPS Record",
-  "properties": {
-    "comment": {
-      "$ref": "#/$defs/dns-records_comment",
-      "description": "Comments or notes about the DNS record. This field has no effect on DNS responses."
+  "allOf": [
+    {
+      "$ref": "#/$defs/dns-records_dns-record-shared-fields"
     },
-    "data": {
-      "$ref": "#/$defs/dns-records_HTTPSRecord_data",
-      "description": "Components of a HTTPS record."
-    },
-    "name": {
-      "$ref": "#/$defs/dns-records_name",
-      "description": "Complete DNS record name, including the zone name, in Punycode."
-    },
-    "proxied": {
-      "$ref": "#/$defs/dns-records_proxied",
-      "default": false,
-      "description": "Whether the record is receiving the performance and security benefits of Cloudflare."
-    },
-    "settings": {
-      "$ref": "#/$defs/dns-records_settings",
-      "description": "Settings for the DNS record."
-    },
-    "tags": {
-      "$ref": "#/$defs/dns-records_tags",
-      "default": [],
-      "description": "Custom tags for the DNS record. This field has no effect on DNS responses."
-    },
-    "ttl": {
-      "$ref": "#/$defs/dns-records_ttl",
-      "default": 1,
-      "description": "Time To Live (TTL) of the DNS record in seconds. Setting to 1 means 'automatic'. Value must be between 60 and 86400, with the minimum reduced to 30 for Enterprise zones."
-    },
-    "type": {
-      "description": "Record type.",
-      "enum": [
-        "HTTPS"
-      ],
-      "type": "string"
+    {
+      "properties": {
+        "data": {
+          "description": "Components of a HTTPS record.",
+          "properties": {
+            "priority": {
+              "description": "Priority.",
+              "type": "number"
+            },
+            "target": {
+              "description": "Target.",
+              "type": "string"
+            },
+            "value": {
+              "description": "Value.",
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        "type": {
+          "description": "Record type.",
+          "enum": [
+            "HTTPS"
+          ],
+          "type": "string"
+        }
+      },
+      "type": "object"
     }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `dns-records_HTTPSRecord_data`.
- */
-export const dns_records_HTTPSRecord_data: JsonSchema = {
-  "description": "Components of a HTTPS record.",
-  "properties": {
-    "priority": {
-      "description": "Priority.",
-      "type": "number"
-    },
-    "target": {
-      "description": "Target.",
-      "type": "string"
-    },
-    "value": {
-      "description": "Value.",
-      "type": "string"
-    }
-  },
-  "type": "object"
+  ],
+  "description": "HTTPS Record"
 };
 
 /**
  * The schema of `dns-records_LOCRecord`.
  */
 export const dns_records_LOCRecord: JsonSchema = {
-  "description": "LOC Record",
-  "properties": {
-    "comment": {
-      "$ref": "#/$defs/dns-records_comment",
-      "description": "Comments or notes about the DNS record. This field has no effect on DNS responses."
+  "allOf": [
+    {
+      "$ref": "#/$defs/dns-records_dns-record-shared-fields"
     },
-    "data": {
-      "$ref": "#/$defs/dns-records_LOCRecord_data",
-      "description": "Components of a LOC record."
-    },
-    "name": {
-      "$ref": "#/$defs/dns-records_name",
-      "description": "Complete DNS record name, including the zone name, in Punycode."
-    },
-    "proxied": {
-      "$ref": "#/$defs/dns-records_proxied",
-      "default": false,
-      "description": "Whether the record is receiving the performance and security benefits of Cloudflare."
-    },
-    "settings": {
-      "$ref": "#/$defs/dns-records_settings",
-      "description": "Settings for the DNS record."
-    },
-    "tags": {
-      "$ref": "#/$defs/dns-records_tags",
-      "default": [],
-      "description": "Custom tags for the DNS record. This field has no effect on DNS responses."
-    },
-    "ttl": {
-      "$ref": "#/$defs/dns-records_ttl",
-      "default": 1,
-      "description": "Time To Live (TTL) of the DNS record in seconds. Setting to 1 means 'automatic'. Value must be between 60 and 86400, with the minimum reduced to 30 for Enterprise zones."
-    },
-    "type": {
-      "description": "Record type.",
-      "enum": [
-        "LOC"
-      ],
-      "type": "string"
+    {
+      "properties": {
+        "data": {
+          "description": "Components of a LOC record.",
+          "properties": {
+            "altitude": {
+              "description": "Altitude of location in meters.",
+              "type": "number"
+            },
+            "lat_degrees": {
+              "description": "Degrees of latitude.",
+              "type": "number"
+            },
+            "lat_direction": {
+              "description": "Latitude direction.",
+              "enum": [
+                "N",
+                "S"
+              ],
+              "type": "string"
+            },
+            "lat_minutes": {
+              "description": "Minutes of latitude.",
+              "type": "number"
+            },
+            "lat_seconds": {
+              "description": "Seconds of latitude.",
+              "type": "number"
+            },
+            "long_degrees": {
+              "description": "Degrees of longitude.",
+              "type": "number"
+            },
+            "long_direction": {
+              "description": "Longitude direction.",
+              "enum": [
+                "E",
+                "W"
+              ],
+              "type": "string"
+            },
+            "long_minutes": {
+              "description": "Minutes of longitude.",
+              "type": "number"
+            },
+            "long_seconds": {
+              "description": "Seconds of longitude.",
+              "type": "number"
+            },
+            "precision_horz": {
+              "description": "Horizontal precision of location.",
+              "type": "number"
+            },
+            "precision_vert": {
+              "description": "Vertical precision of location.",
+              "type": "number"
+            },
+            "size": {
+              "description": "Size of location in meters.",
+              "type": "number"
+            }
+          },
+          "type": "object"
+        },
+        "type": {
+          "description": "Record type.",
+          "enum": [
+            "LOC"
+          ],
+          "type": "string"
+        }
+      },
+      "type": "object"
     }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `dns-records_LOCRecord_data`.
- */
-export const dns_records_LOCRecord_data: JsonSchema = {
-  "description": "Components of a LOC record.",
-  "properties": {
-    "altitude": {
-      "description": "Altitude of location in meters.",
-      "type": "number"
-    },
-    "lat_degrees": {
-      "description": "Degrees of latitude.",
-      "type": "number"
-    },
-    "lat_direction": {
-      "description": "Latitude direction.",
-      "enum": [
-        "N",
-        "S"
-      ],
-      "type": "string"
-    },
-    "lat_minutes": {
-      "description": "Minutes of latitude.",
-      "type": "number"
-    },
-    "lat_seconds": {
-      "description": "Seconds of latitude.",
-      "type": "number"
-    },
-    "long_degrees": {
-      "description": "Degrees of longitude.",
-      "type": "number"
-    },
-    "long_direction": {
-      "description": "Longitude direction.",
-      "enum": [
-        "E",
-        "W"
-      ],
-      "type": "string"
-    },
-    "long_minutes": {
-      "description": "Minutes of longitude.",
-      "type": "number"
-    },
-    "long_seconds": {
-      "description": "Seconds of longitude.",
-      "type": "number"
-    },
-    "precision_horz": {
-      "description": "Horizontal precision of location.",
-      "type": "number"
-    },
-    "precision_vert": {
-      "description": "Vertical precision of location.",
-      "type": "number"
-    },
-    "size": {
-      "description": "Size of location in meters.",
-      "type": "number"
-    }
-  },
-  "type": "object"
+  ],
+  "description": "LOC Record"
 };
 
 /**
  * The schema of `dns-records_MXRecord`.
  */
 export const dns_records_MXRecord: JsonSchema = {
-  "description": "MX Record",
-  "properties": {
-    "comment": {
-      "$ref": "#/$defs/dns-records_comment",
-      "description": "Comments or notes about the DNS record. This field has no effect on DNS responses."
+  "allOf": [
+    {
+      "$ref": "#/$defs/dns-records_dns-record-shared-fields"
     },
-    "content": {
-      "description": "A valid mail server hostname.",
-      "type": "string"
-    },
-    "name": {
-      "$ref": "#/$defs/dns-records_name",
-      "description": "Complete DNS record name, including the zone name, in Punycode."
-    },
-    "priority": {
-      "$ref": "#/$defs/dns-records_priority"
-    },
-    "proxied": {
-      "$ref": "#/$defs/dns-records_proxied",
-      "default": false,
-      "description": "Whether the record is receiving the performance and security benefits of Cloudflare."
-    },
-    "settings": {
-      "$ref": "#/$defs/dns-records_settings",
-      "description": "Settings for the DNS record."
-    },
-    "tags": {
-      "$ref": "#/$defs/dns-records_tags",
-      "default": [],
-      "description": "Custom tags for the DNS record. This field has no effect on DNS responses."
-    },
-    "ttl": {
-      "$ref": "#/$defs/dns-records_ttl",
-      "default": 1,
-      "description": "Time To Live (TTL) of the DNS record in seconds. Setting to 1 means 'automatic'. Value must be between 60 and 86400, with the minimum reduced to 30 for Enterprise zones."
-    },
-    "type": {
-      "description": "Record type.",
-      "enum": [
-        "MX"
-      ],
-      "type": "string"
+    {
+      "properties": {
+        "content": {
+          "description": "A valid mail server hostname.",
+          "type": "string"
+        },
+        "priority": {
+          "$ref": "#/$defs/dns-records_priority"
+        },
+        "type": {
+          "description": "Record type.",
+          "enum": [
+            "MX"
+          ],
+          "type": "string"
+        }
+      },
+      "type": "object"
     }
-  },
-  "type": "object"
+  ],
+  "description": "MX Record"
 };
 
 /**
  * The schema of `dns-records_NAPTRRecord`.
  */
 export const dns_records_NAPTRRecord: JsonSchema = {
-  "description": "NAPTR Record",
-  "properties": {
-    "comment": {
-      "$ref": "#/$defs/dns-records_comment",
-      "description": "Comments or notes about the DNS record. This field has no effect on DNS responses."
+  "allOf": [
+    {
+      "$ref": "#/$defs/dns-records_dns-record-shared-fields"
     },
-    "data": {
-      "$ref": "#/$defs/dns-records_NAPTRRecord_data",
-      "description": "Components of a NAPTR record."
-    },
-    "name": {
-      "$ref": "#/$defs/dns-records_name",
-      "description": "Complete DNS record name, including the zone name, in Punycode."
-    },
-    "proxied": {
-      "$ref": "#/$defs/dns-records_proxied",
-      "default": false,
-      "description": "Whether the record is receiving the performance and security benefits of Cloudflare."
-    },
-    "settings": {
-      "$ref": "#/$defs/dns-records_settings",
-      "description": "Settings for the DNS record."
-    },
-    "tags": {
-      "$ref": "#/$defs/dns-records_tags",
-      "default": [],
-      "description": "Custom tags for the DNS record. This field has no effect on DNS responses."
-    },
-    "ttl": {
-      "$ref": "#/$defs/dns-records_ttl",
-      "default": 1,
-      "description": "Time To Live (TTL) of the DNS record in seconds. Setting to 1 means 'automatic'. Value must be between 60 and 86400, with the minimum reduced to 30 for Enterprise zones."
-    },
-    "type": {
-      "description": "Record type.",
-      "enum": [
-        "NAPTR"
-      ],
-      "type": "string"
+    {
+      "properties": {
+        "data": {
+          "description": "Components of a NAPTR record.",
+          "properties": {
+            "flags": {
+              "description": "Flags.",
+              "type": "string"
+            },
+            "order": {
+              "description": "Order.",
+              "type": "number"
+            },
+            "preference": {
+              "description": "Preference.",
+              "type": "number"
+            },
+            "regex": {
+              "description": "Regex.",
+              "type": "string"
+            },
+            "replacement": {
+              "description": "Replacement.",
+              "type": "string"
+            },
+            "service": {
+              "description": "Service.",
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        "type": {
+          "description": "Record type.",
+          "enum": [
+            "NAPTR"
+          ],
+          "type": "string"
+        }
+      },
+      "type": "object"
     }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `dns-records_NAPTRRecord_data`.
- */
-export const dns_records_NAPTRRecord_data: JsonSchema = {
-  "description": "Components of a NAPTR record.",
-  "properties": {
-    "flags": {
-      "description": "Flags.",
-      "type": "string"
-    },
-    "order": {
-      "description": "Order.",
-      "type": "number"
-    },
-    "preference": {
-      "description": "Preference.",
-      "type": "number"
-    },
-    "regex": {
-      "description": "Regex.",
-      "type": "string"
-    },
-    "replacement": {
-      "description": "Replacement.",
-      "type": "string"
-    },
-    "service": {
-      "description": "Service.",
-      "type": "string"
-    }
-  },
-  "type": "object"
+  ],
+  "description": "NAPTR Record"
 };
 
 /**
  * The schema of `dns-records_NSRecord`.
  */
 export const dns_records_NSRecord: JsonSchema = {
-  "description": "NS Record",
-  "properties": {
-    "comment": {
-      "$ref": "#/$defs/dns-records_comment",
-      "description": "Comments or notes about the DNS record. This field has no effect on DNS responses."
+  "allOf": [
+    {
+      "$ref": "#/$defs/dns-records_dns-record-shared-fields"
     },
-    "content": {
-      "description": "A valid name server host name.",
-      "type": "string"
-    },
-    "name": {
-      "$ref": "#/$defs/dns-records_name",
-      "description": "Complete DNS record name, including the zone name, in Punycode."
-    },
-    "proxied": {
-      "$ref": "#/$defs/dns-records_proxied",
-      "default": false,
-      "description": "Whether the record is receiving the performance and security benefits of Cloudflare."
-    },
-    "settings": {
-      "$ref": "#/$defs/dns-records_settings",
-      "description": "Settings for the DNS record."
-    },
-    "tags": {
-      "$ref": "#/$defs/dns-records_tags",
-      "default": [],
-      "description": "Custom tags for the DNS record. This field has no effect on DNS responses."
-    },
-    "ttl": {
-      "$ref": "#/$defs/dns-records_ttl",
-      "default": 1,
-      "description": "Time To Live (TTL) of the DNS record in seconds. Setting to 1 means 'automatic'. Value must be between 60 and 86400, with the minimum reduced to 30 for Enterprise zones."
-    },
-    "type": {
-      "description": "Record type.",
-      "enum": [
-        "NS"
-      ],
-      "type": "string"
+    {
+      "properties": {
+        "content": {
+          "description": "A valid name server host name.",
+          "type": "string"
+        },
+        "type": {
+          "description": "Record type.",
+          "enum": [
+            "NS"
+          ],
+          "type": "string"
+        }
+      },
+      "type": "object"
     }
-  },
-  "type": "object"
+  ],
+  "description": "NS Record"
 };
 
 /**
  * The schema of `dns-records_OPENPGPKEYRecord`.
  */
 export const dns_records_OPENPGPKEYRecord: JsonSchema = {
-  "description": "OPENPGPKEY Record",
-  "properties": {
-    "comment": {
-      "$ref": "#/$defs/dns-records_comment",
-      "description": "Comments or notes about the DNS record. This field has no effect on DNS responses."
+  "allOf": [
+    {
+      "$ref": "#/$defs/dns-records_dns-record-shared-fields"
     },
-    "content": {
-      "description": "A single Base64-encoded OpenPGP Transferable Public Key (RFC 4880 Section 11.1)",
-      "type": "string"
-    },
-    "name": {
-      "$ref": "#/$defs/dns-records_name",
-      "description": "Complete DNS record name, including the zone name, in Punycode."
-    },
-    "proxied": {
-      "$ref": "#/$defs/dns-records_proxied",
-      "default": false,
-      "description": "Whether the record is receiving the performance and security benefits of Cloudflare."
-    },
-    "settings": {
-      "$ref": "#/$defs/dns-records_settings",
-      "description": "Settings for the DNS record."
-    },
-    "tags": {
-      "$ref": "#/$defs/dns-records_tags",
-      "default": [],
-      "description": "Custom tags for the DNS record. This field has no effect on DNS responses."
-    },
-    "ttl": {
-      "$ref": "#/$defs/dns-records_ttl",
-      "default": 1,
-      "description": "Time To Live (TTL) of the DNS record in seconds. Setting to 1 means 'automatic'. Value must be between 60 and 86400, with the minimum reduced to 30 for Enterprise zones."
-    },
-    "type": {
-      "description": "Record type.",
-      "enum": [
-        "OPENPGPKEY"
-      ],
-      "type": "string"
+    {
+      "properties": {
+        "content": {
+          "description": "A single Base64-encoded OpenPGP Transferable Public Key (RFC 4880 Section 11.1)",
+          "type": "string"
+        },
+        "type": {
+          "description": "Record type.",
+          "enum": [
+            "OPENPGPKEY"
+          ],
+          "type": "string"
+        }
+      },
+      "type": "object"
     }
-  },
-  "type": "object"
+  ],
+  "description": "OPENPGPKEY Record"
 };
 
 /**
  * The schema of `dns-records_PTRRecord`.
  */
 export const dns_records_PTRRecord: JsonSchema = {
-  "description": "PTR Record",
-  "properties": {
-    "comment": {
-      "$ref": "#/$defs/dns-records_comment",
-      "description": "Comments or notes about the DNS record. This field has no effect on DNS responses."
+  "allOf": [
+    {
+      "$ref": "#/$defs/dns-records_dns-record-shared-fields"
     },
-    "content": {
-      "description": "Domain name pointing to the address.",
-      "type": "string"
-    },
-    "name": {
-      "$ref": "#/$defs/dns-records_name",
-      "description": "Complete DNS record name, including the zone name, in Punycode."
-    },
-    "proxied": {
-      "$ref": "#/$defs/dns-records_proxied",
-      "default": false,
-      "description": "Whether the record is receiving the performance and security benefits of Cloudflare."
-    },
-    "settings": {
-      "$ref": "#/$defs/dns-records_settings",
-      "description": "Settings for the DNS record."
-    },
-    "tags": {
-      "$ref": "#/$defs/dns-records_tags",
-      "default": [],
-      "description": "Custom tags for the DNS record. This field has no effect on DNS responses."
-    },
-    "ttl": {
-      "$ref": "#/$defs/dns-records_ttl",
-      "default": 1,
-      "description": "Time To Live (TTL) of the DNS record in seconds. Setting to 1 means 'automatic'. Value must be between 60 and 86400, with the minimum reduced to 30 for Enterprise zones."
-    },
-    "type": {
-      "description": "Record type.",
-      "enum": [
-        "PTR"
-      ],
-      "type": "string"
+    {
+      "properties": {
+        "content": {
+          "description": "Domain name pointing to the address.",
+          "type": "string"
+        },
+        "type": {
+          "description": "Record type.",
+          "enum": [
+            "PTR"
+          ],
+          "type": "string"
+        }
+      },
+      "type": "object"
     }
-  },
-  "type": "object"
+  ],
+  "description": "PTR Record"
 };
 
 /**
  * The schema of `dns-records_SMIMEARecord`.
  */
 export const dns_records_SMIMEARecord: JsonSchema = {
-  "description": "SMIMEA Record",
-  "properties": {
-    "comment": {
-      "$ref": "#/$defs/dns-records_comment",
-      "description": "Comments or notes about the DNS record. This field has no effect on DNS responses."
+  "allOf": [
+    {
+      "$ref": "#/$defs/dns-records_dns-record-shared-fields"
     },
-    "data": {
-      "$ref": "#/$defs/dns-records_SMIMEARecord_data",
-      "description": "Components of a SMIMEA record."
-    },
-    "name": {
-      "$ref": "#/$defs/dns-records_name",
-      "description": "Complete DNS record name, including the zone name, in Punycode."
-    },
-    "proxied": {
-      "$ref": "#/$defs/dns-records_proxied",
-      "default": false,
-      "description": "Whether the record is receiving the performance and security benefits of Cloudflare."
-    },
-    "settings": {
-      "$ref": "#/$defs/dns-records_settings",
-      "description": "Settings for the DNS record."
-    },
-    "tags": {
-      "$ref": "#/$defs/dns-records_tags",
-      "default": [],
-      "description": "Custom tags for the DNS record. This field has no effect on DNS responses."
-    },
-    "ttl": {
-      "$ref": "#/$defs/dns-records_ttl",
-      "default": 1,
-      "description": "Time To Live (TTL) of the DNS record in seconds. Setting to 1 means 'automatic'. Value must be between 60 and 86400, with the minimum reduced to 30 for Enterprise zones."
-    },
-    "type": {
-      "description": "Record type.",
-      "enum": [
-        "SMIMEA"
-      ],
-      "type": "string"
+    {
+      "properties": {
+        "data": {
+          "description": "Components of a SMIMEA record.",
+          "properties": {
+            "certificate": {
+              "description": "Certificate.",
+              "type": "string"
+            },
+            "matching_type": {
+              "description": "Matching Type.",
+              "type": "number"
+            },
+            "selector": {
+              "description": "Selector.",
+              "type": "number"
+            },
+            "usage": {
+              "description": "Usage.",
+              "type": "number"
+            }
+          },
+          "type": "object"
+        },
+        "type": {
+          "description": "Record type.",
+          "enum": [
+            "SMIMEA"
+          ],
+          "type": "string"
+        }
+      },
+      "type": "object"
     }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `dns-records_SMIMEARecord_data`.
- */
-export const dns_records_SMIMEARecord_data: JsonSchema = {
-  "description": "Components of a SMIMEA record.",
-  "properties": {
-    "certificate": {
-      "description": "Certificate.",
-      "type": "string"
-    },
-    "matching_type": {
-      "description": "Matching Type.",
-      "type": "number"
-    },
-    "selector": {
-      "description": "Selector.",
-      "type": "number"
-    },
-    "usage": {
-      "description": "Usage.",
-      "type": "number"
-    }
-  },
-  "type": "object"
+  ],
+  "description": "SMIMEA Record"
 };
 
 /**
  * The schema of `dns-records_SRVRecord`.
  */
 export const dns_records_SRVRecord: JsonSchema = {
-  "description": "SRV Record",
-  "properties": {
-    "comment": {
-      "$ref": "#/$defs/dns-records_comment",
-      "description": "Comments or notes about the DNS record. This field has no effect on DNS responses."
+  "allOf": [
+    {
+      "$ref": "#/$defs/dns-records_dns-record-shared-fields"
     },
-    "data": {
-      "$ref": "#/$defs/dns-records_SRVRecord_data",
-      "description": "Components of a SRV record."
-    },
-    "name": {
-      "$ref": "#/$defs/dns-records_name",
-      "description": "Complete DNS record name, including the zone name, in Punycode."
-    },
-    "proxied": {
-      "$ref": "#/$defs/dns-records_proxied",
-      "default": false,
-      "description": "Whether the record is receiving the performance and security benefits of Cloudflare."
-    },
-    "settings": {
-      "$ref": "#/$defs/dns-records_settings",
-      "description": "Settings for the DNS record."
-    },
-    "tags": {
-      "$ref": "#/$defs/dns-records_tags",
-      "default": [],
-      "description": "Custom tags for the DNS record. This field has no effect on DNS responses."
-    },
-    "ttl": {
-      "$ref": "#/$defs/dns-records_ttl",
-      "default": 1,
-      "description": "Time To Live (TTL) of the DNS record in seconds. Setting to 1 means 'automatic'. Value must be between 60 and 86400, with the minimum reduced to 30 for Enterprise zones."
-    },
-    "type": {
-      "description": "Record type.",
-      "enum": [
-        "SRV"
-      ],
-      "type": "string"
+    {
+      "properties": {
+        "data": {
+          "description": "Components of a SRV record.",
+          "properties": {
+            "port": {
+              "description": "The port of the service.",
+              "type": "number"
+            },
+            "priority": {
+              "$ref": "#/$defs/dns-records_priority"
+            },
+            "target": {
+              "description": "A valid hostname.",
+              "type": "string"
+            },
+            "weight": {
+              "description": "The record weight.",
+              "type": "number"
+            }
+          },
+          "type": "object"
+        },
+        "type": {
+          "description": "Record type.",
+          "enum": [
+            "SRV"
+          ],
+          "type": "string"
+        }
+      },
+      "type": "object"
     }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `dns-records_SRVRecord_data`.
- */
-export const dns_records_SRVRecord_data: JsonSchema = {
-  "description": "Components of a SRV record.",
-  "properties": {
-    "port": {
-      "description": "The port of the service.",
-      "type": "number"
-    },
-    "priority": {
-      "$ref": "#/$defs/dns-records_priority"
-    },
-    "target": {
-      "description": "A valid hostname.",
-      "type": "string"
-    },
-    "weight": {
-      "description": "The record weight.",
-      "type": "number"
-    }
-  },
-  "type": "object"
+  ],
+  "description": "SRV Record"
 };
 
 /**
  * The schema of `dns-records_SSHFPRecord`.
  */
 export const dns_records_SSHFPRecord: JsonSchema = {
-  "description": "SSHFP Record",
-  "properties": {
-    "comment": {
-      "$ref": "#/$defs/dns-records_comment",
-      "description": "Comments or notes about the DNS record. This field has no effect on DNS responses."
+  "allOf": [
+    {
+      "$ref": "#/$defs/dns-records_dns-record-shared-fields"
     },
-    "data": {
-      "$ref": "#/$defs/dns-records_SSHFPRecord_data",
-      "description": "Components of a SSHFP record."
-    },
-    "name": {
-      "$ref": "#/$defs/dns-records_name",
-      "description": "Complete DNS record name, including the zone name, in Punycode."
-    },
-    "proxied": {
-      "$ref": "#/$defs/dns-records_proxied",
-      "default": false,
-      "description": "Whether the record is receiving the performance and security benefits of Cloudflare."
-    },
-    "settings": {
-      "$ref": "#/$defs/dns-records_settings",
-      "description": "Settings for the DNS record."
-    },
-    "tags": {
-      "$ref": "#/$defs/dns-records_tags",
-      "default": [],
-      "description": "Custom tags for the DNS record. This field has no effect on DNS responses."
-    },
-    "ttl": {
-      "$ref": "#/$defs/dns-records_ttl",
-      "default": 1,
-      "description": "Time To Live (TTL) of the DNS record in seconds. Setting to 1 means 'automatic'. Value must be between 60 and 86400, with the minimum reduced to 30 for Enterprise zones."
-    },
-    "type": {
-      "description": "Record type.",
-      "enum": [
-        "SSHFP"
-      ],
-      "type": "string"
+    {
+      "properties": {
+        "data": {
+          "description": "Components of a SSHFP record.",
+          "properties": {
+            "algorithm": {
+              "description": "Algorithm.",
+              "type": "number"
+            },
+            "fingerprint": {
+              "description": "Fingerprint.",
+              "type": "string"
+            },
+            "type": {
+              "description": "Type.",
+              "type": "number"
+            }
+          },
+          "type": "object"
+        },
+        "type": {
+          "description": "Record type.",
+          "enum": [
+            "SSHFP"
+          ],
+          "type": "string"
+        }
+      },
+      "type": "object"
     }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `dns-records_SSHFPRecord_data`.
- */
-export const dns_records_SSHFPRecord_data: JsonSchema = {
-  "description": "Components of a SSHFP record.",
-  "properties": {
-    "algorithm": {
-      "description": "Algorithm.",
-      "type": "number"
-    },
-    "fingerprint": {
-      "description": "Fingerprint.",
-      "type": "string"
-    },
-    "type": {
-      "description": "Type.",
-      "type": "number"
-    }
-  },
-  "type": "object"
+  ],
+  "description": "SSHFP Record"
 };
 
 /**
  * The schema of `dns-records_SVCBRecord`.
  */
 export const dns_records_SVCBRecord: JsonSchema = {
-  "description": "SVCB Record",
-  "properties": {
-    "comment": {
-      "$ref": "#/$defs/dns-records_comment",
-      "description": "Comments or notes about the DNS record. This field has no effect on DNS responses."
+  "allOf": [
+    {
+      "$ref": "#/$defs/dns-records_dns-record-shared-fields"
     },
-    "data": {
-      "$ref": "#/$defs/dns-records_SVCBRecord_data",
-      "description": "Components of a SVCB record."
-    },
-    "name": {
-      "$ref": "#/$defs/dns-records_name",
-      "description": "Complete DNS record name, including the zone name, in Punycode."
-    },
-    "proxied": {
-      "$ref": "#/$defs/dns-records_proxied",
-      "default": false,
-      "description": "Whether the record is receiving the performance and security benefits of Cloudflare."
-    },
-    "settings": {
-      "$ref": "#/$defs/dns-records_settings",
-      "description": "Settings for the DNS record."
-    },
-    "tags": {
-      "$ref": "#/$defs/dns-records_tags",
-      "default": [],
-      "description": "Custom tags for the DNS record. This field has no effect on DNS responses."
-    },
-    "ttl": {
-      "$ref": "#/$defs/dns-records_ttl",
-      "default": 1,
-      "description": "Time To Live (TTL) of the DNS record in seconds. Setting to 1 means 'automatic'. Value must be between 60 and 86400, with the minimum reduced to 30 for Enterprise zones."
-    },
-    "type": {
-      "description": "Record type.",
-      "enum": [
-        "SVCB"
-      ],
-      "type": "string"
+    {
+      "properties": {
+        "data": {
+          "description": "Components of a SVCB record.",
+          "properties": {
+            "priority": {
+              "description": "Priority.",
+              "type": "number"
+            },
+            "target": {
+              "description": "Target.",
+              "type": "string"
+            },
+            "value": {
+              "description": "Value.",
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        "type": {
+          "description": "Record type.",
+          "enum": [
+            "SVCB"
+          ],
+          "type": "string"
+        }
+      },
+      "type": "object"
     }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `dns-records_SVCBRecord_data`.
- */
-export const dns_records_SVCBRecord_data: JsonSchema = {
-  "description": "Components of a SVCB record.",
-  "properties": {
-    "priority": {
-      "description": "Priority.",
-      "type": "number"
-    },
-    "target": {
-      "description": "Target.",
-      "type": "string"
-    },
-    "value": {
-      "description": "Value.",
-      "type": "string"
-    }
-  },
-  "type": "object"
+  ],
+  "description": "SVCB Record"
 };
 
 /**
  * The schema of `dns-records_TLSARecord`.
  */
 export const dns_records_TLSARecord: JsonSchema = {
-  "description": "TLSA Record",
-  "properties": {
-    "comment": {
-      "$ref": "#/$defs/dns-records_comment",
-      "description": "Comments or notes about the DNS record. This field has no effect on DNS responses."
+  "allOf": [
+    {
+      "$ref": "#/$defs/dns-records_dns-record-shared-fields"
     },
-    "data": {
-      "$ref": "#/$defs/dns-records_TLSARecord_data",
-      "description": "Components of a TLSA record."
-    },
-    "name": {
-      "$ref": "#/$defs/dns-records_name",
-      "description": "Complete DNS record name, including the zone name, in Punycode."
-    },
-    "proxied": {
-      "$ref": "#/$defs/dns-records_proxied",
-      "default": false,
-      "description": "Whether the record is receiving the performance and security benefits of Cloudflare."
-    },
-    "settings": {
-      "$ref": "#/$defs/dns-records_settings",
-      "description": "Settings for the DNS record."
-    },
-    "tags": {
-      "$ref": "#/$defs/dns-records_tags",
-      "default": [],
-      "description": "Custom tags for the DNS record. This field has no effect on DNS responses."
-    },
-    "ttl": {
-      "$ref": "#/$defs/dns-records_ttl",
-      "default": 1,
-      "description": "Time To Live (TTL) of the DNS record in seconds. Setting to 1 means 'automatic'. Value must be between 60 and 86400, with the minimum reduced to 30 for Enterprise zones."
-    },
-    "type": {
-      "description": "Record type.",
-      "enum": [
-        "TLSA"
-      ],
-      "type": "string"
+    {
+      "properties": {
+        "data": {
+          "description": "Components of a TLSA record.",
+          "properties": {
+            "certificate": {
+              "description": "Certificate.",
+              "type": "string"
+            },
+            "matching_type": {
+              "description": "Matching Type.",
+              "type": "number"
+            },
+            "selector": {
+              "description": "Selector.",
+              "type": "number"
+            },
+            "usage": {
+              "description": "Usage.",
+              "type": "number"
+            }
+          },
+          "type": "object"
+        },
+        "type": {
+          "description": "Record type.",
+          "enum": [
+            "TLSA"
+          ],
+          "type": "string"
+        }
+      },
+      "type": "object"
     }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `dns-records_TLSARecord_data`.
- */
-export const dns_records_TLSARecord_data: JsonSchema = {
-  "description": "Components of a TLSA record.",
-  "properties": {
-    "certificate": {
-      "description": "Certificate.",
-      "type": "string"
-    },
-    "matching_type": {
-      "description": "Matching Type.",
-      "type": "number"
-    },
-    "selector": {
-      "description": "Selector.",
-      "type": "number"
-    },
-    "usage": {
-      "description": "Usage.",
-      "type": "number"
-    }
-  },
-  "type": "object"
+  ],
+  "description": "TLSA Record"
 };
 
 /**
  * The schema of `dns-records_TXTRecord`.
  */
 export const dns_records_TXTRecord: JsonSchema = {
-  "description": "TXT Record",
-  "properties": {
-    "comment": {
-      "$ref": "#/$defs/dns-records_comment",
-      "description": "Comments or notes about the DNS record. This field has no effect on DNS responses."
+  "allOf": [
+    {
+      "$ref": "#/$defs/dns-records_dns-record-shared-fields"
     },
-    "content": {
-      "description": "Text content for the record. The content must consist of quoted \"character strings\" (RFC 1035), each with a length of up to 255 bytes. Strings exceeding this allowed maximum length are automatically split.\n\nLearn more at <https://www.cloudflare.com/learning/dns/dns-records/dns-txt-record/>.",
-      "type": "string"
-    },
-    "name": {
-      "$ref": "#/$defs/dns-records_name",
-      "description": "Complete DNS record name, including the zone name, in Punycode."
-    },
-    "proxied": {
-      "$ref": "#/$defs/dns-records_proxied",
-      "default": false,
-      "description": "Whether the record is receiving the performance and security benefits of Cloudflare."
-    },
-    "settings": {
-      "$ref": "#/$defs/dns-records_settings",
-      "description": "Settings for the DNS record."
-    },
-    "tags": {
-      "$ref": "#/$defs/dns-records_tags",
-      "default": [],
-      "description": "Custom tags for the DNS record. This field has no effect on DNS responses."
-    },
-    "ttl": {
-      "$ref": "#/$defs/dns-records_ttl",
-      "default": 1,
-      "description": "Time To Live (TTL) of the DNS record in seconds. Setting to 1 means 'automatic'. Value must be between 60 and 86400, with the minimum reduced to 30 for Enterprise zones."
-    },
-    "type": {
-      "description": "Record type.",
-      "enum": [
-        "TXT"
-      ],
-      "type": "string"
+    {
+      "properties": {
+        "content": {
+          "description": "Text content for the record. The content must consist of quoted \"character strings\" (RFC 1035), each with a length of up to 255 bytes. Strings exceeding this allowed maximum length are automatically split.\n\nLearn more at <https://www.cloudflare.com/learning/dns/dns-records/dns-txt-record/>.",
+          "type": "string"
+        },
+        "type": {
+          "description": "Record type.",
+          "enum": [
+            "TXT"
+          ],
+          "type": "string"
+        }
+      },
+      "type": "object"
     }
-  },
-  "type": "object"
+  ],
+  "description": "TXT Record"
 };
 
 /**
  * The schema of `dns-records_URIRecord`.
  */
 export const dns_records_URIRecord: JsonSchema = {
-  "description": "URI Record",
-  "properties": {
-    "comment": {
-      "$ref": "#/$defs/dns-records_comment",
-      "description": "Comments or notes about the DNS record. This field has no effect on DNS responses."
+  "allOf": [
+    {
+      "$ref": "#/$defs/dns-records_dns-record-shared-fields"
     },
-    "data": {
-      "$ref": "#/$defs/dns-records_URIRecord_data",
-      "description": "Components of a URI record."
-    },
-    "name": {
-      "$ref": "#/$defs/dns-records_name",
-      "description": "Complete DNS record name, including the zone name, in Punycode."
-    },
-    "priority": {
-      "$ref": "#/$defs/dns-records_priority"
-    },
-    "proxied": {
-      "$ref": "#/$defs/dns-records_proxied",
-      "default": false,
-      "description": "Whether the record is receiving the performance and security benefits of Cloudflare."
-    },
-    "settings": {
-      "$ref": "#/$defs/dns-records_settings",
-      "description": "Settings for the DNS record."
-    },
-    "tags": {
-      "$ref": "#/$defs/dns-records_tags",
-      "default": [],
-      "description": "Custom tags for the DNS record. This field has no effect on DNS responses."
-    },
-    "ttl": {
-      "$ref": "#/$defs/dns-records_ttl",
-      "default": 1,
-      "description": "Time To Live (TTL) of the DNS record in seconds. Setting to 1 means 'automatic'. Value must be between 60 and 86400, with the minimum reduced to 30 for Enterprise zones."
-    },
-    "type": {
-      "description": "Record type.",
-      "enum": [
-        "URI"
-      ],
-      "type": "string"
+    {
+      "properties": {
+        "data": {
+          "description": "Components of a URI record.",
+          "properties": {
+            "target": {
+              "description": "The record content.",
+              "type": "string"
+            },
+            "weight": {
+              "description": "The record weight.",
+              "type": "number"
+            }
+          },
+          "type": "object"
+        },
+        "priority": {
+          "$ref": "#/$defs/dns-records_priority"
+        },
+        "type": {
+          "description": "Record type.",
+          "enum": [
+            "URI"
+          ],
+          "type": "string"
+        }
+      },
+      "type": "object"
     }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `dns-records_URIRecord_data`.
- */
-export const dns_records_URIRecord_data: JsonSchema = {
-  "description": "Components of a URI record.",
-  "properties": {
-    "target": {
-      "description": "The record content.",
-      "type": "string"
-    },
-    "weight": {
-      "description": "The record weight.",
-      "type": "number"
-    }
-  },
-  "type": "object"
+  ],
+  "description": "URI Record"
 };
 
 /**
@@ -1458,6 +931,13 @@ export const dns_records_dns_record_batch_patch: JsonSchema = {
 };
 
 /**
+ * The schema of `dns-records_dns-record-batch-post`.
+ */
+export const dns_records_dns_record_batch_post: JsonSchema = {
+  "$ref": "#/$defs/dns-records_dns-record-post"
+};
+
+/**
  * The schema of `dns-records_dns-record-batch-put`.
  */
 export const dns_records_dns_record_batch_put: JsonSchema = {
@@ -1509,6 +989,13 @@ export const dns_records_dns_record_post: JsonSchema = {
 };
 
 /**
+ * The schema of `dns-records_dns-record-scan-batch-accept`.
+ */
+export const dns_records_dns_record_scan_batch_accept: JsonSchema = {
+  "$ref": "#/$defs/dns-records_dns-record-patch"
+};
+
+/**
  * The schema of `dns-records_dns-record-scan-batch-reject`.
  */
 export const dns_records_dns_record_scan_batch_reject: JsonSchema = {
@@ -1516,6 +1003,42 @@ export const dns_records_dns_record_scan_batch_reject: JsonSchema = {
     "id": {
       "$ref": "#/$defs/dns-records_identifier",
       "description": "Identifier."
+    }
+  },
+  "type": "object"
+};
+
+/**
+ * The schema of `dns-records_dns-record-shared-fields`.
+ */
+export const dns_records_dns_record_shared_fields: JsonSchema = {
+  "properties": {
+    "comment": {
+      "$ref": "#/$defs/dns-records_comment",
+      "description": "Comments or notes about the DNS record. This field has no effect on DNS responses."
+    },
+    "name": {
+      "$ref": "#/$defs/dns-records_name",
+      "description": "Complete DNS record name, including the zone name, in Punycode."
+    },
+    "proxied": {
+      "$ref": "#/$defs/dns-records_proxied",
+      "default": false,
+      "description": "Whether the record is receiving the performance and security benefits of Cloudflare."
+    },
+    "settings": {
+      "$ref": "#/$defs/dns-records_settings",
+      "description": "Settings for the DNS record."
+    },
+    "tags": {
+      "$ref": "#/$defs/dns-records_tags",
+      "default": [],
+      "description": "Custom tags for the DNS record. This field has no effect on DNS responses."
+    },
+    "ttl": {
+      "$ref": "#/$defs/dns-records_ttl",
+      "default": 1,
+      "description": "Time To Live (TTL) of the DNS record in seconds. Setting to 1 means 'automatic'. Value must be between 60 and 86400, with the minimum reduced to 30 for Enterprise zones."
     }
   },
   "type": "object"
@@ -1619,7 +1142,7 @@ export const dns_records_dns_request_batch_object: JsonSchema = {
     },
     "posts": {
       "items": {
-        "$ref": "#/$defs/dns-records_dns-record-post"
+        "$ref": "#/$defs/dns-records_dns-record-batch-post"
       },
       "type": "array"
     },
@@ -1640,7 +1163,7 @@ export const dns_records_dns_request_review_scan_object: JsonSchema = {
   "properties": {
     "accepts": {
       "items": {
-        "$ref": "#/$defs/dns-records_dns-record-patch"
+        "$ref": "#/$defs/dns-records_dns-record-scan-batch-accept"
       },
       "type": "array"
     },
@@ -1652,14 +1175,6 @@ export const dns_records_dns_request_review_scan_object: JsonSchema = {
     }
   },
   "type": "object"
-};
-
-/**
- * The schema of `dns-records_identifier`.
- */
-export const dns_records_identifier: JsonSchema = {
-  "description": "Identifier.",
-  "type": "string"
 };
 
 /**

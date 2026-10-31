@@ -81,61 +81,22 @@ export const tls_certificates_and_hostnames_custom_csr_identifier_output: JsonSc
  * responses.
  */
 export const tls_certificates_and_hostnames_custom_csr_response_collection_2_output: JsonSchema = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_messages"
+  "allOf": [
+    {
+      "$ref": "#/$defs/tls-certificates-and-hostnames_api-response-collection"
     },
-    "messages": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_messages"
-    },
-    "result": {
-      "items": {
-        "$ref": "#/$defs/tls-certificates-and-hostnames_custom_csr-2"
+    {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/tls-certificates-and-hostnames_custom_csr-2"
+          },
+          "type": "array"
+        }
       },
-      "type": "array"
-    },
-    "result_info": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_custom_csr_response_collection-2_result_info"
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
+      "type": "object"
     }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "success"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of
- * `tls-certificates-and-hostnames_custom_csr_response_collection-2_result_info`
- * in responses.
- */
-export const tls_certificates_and_hostnames_custom_csr_response_collection_2_result_info_output: JsonSchema = {
-  "properties": {
-    "count": {
-      "type": "number"
-    },
-    "page": {
-      "type": "number"
-    },
-    "per_page": {
-      "type": "number"
-    },
-    "total_count": {
-      "type": "number"
-    },
-    "total_pages": {
-      "type": "number"
-    }
-  },
-  "type": "object"
+  ]
 };
 
 /**
@@ -143,43 +104,24 @@ export const tls_certificates_and_hostnames_custom_csr_response_collection_2_res
  * responses.
  */
 export const tls_certificates_and_hostnames_custom_csr_response_id_only_output: JsonSchema = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_messages"
+  "allOf": [
+    {
+      "$ref": "#/$defs/tls-certificates-and-hostnames_api-response-single"
     },
-    "messages": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_messages"
-    },
-    "result": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_custom_csr_response_id_only_result"
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
+    {
+      "properties": {
+        "result": {
+          "properties": {
+            "id": {
+              "$ref": "#/$defs/tls-certificates-and-hostnames_custom_csr_identifier"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "success"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of
- * `tls-certificates-and-hostnames_custom_csr_response_id_only_result` in
- * responses.
- */
-export const tls_certificates_and_hostnames_custom_csr_response_id_only_result_output: JsonSchema = {
-  "properties": {
-    "id": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_custom_csr_identifier"
-    }
-  },
-  "type": "object"
+  ]
 };
 
 /**
@@ -187,27 +129,17 @@ export const tls_certificates_and_hostnames_custom_csr_response_id_only_result_o
  * in responses.
  */
 export const tls_certificates_and_hostnames_custom_csr_response_single_2_output: JsonSchema = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_messages"
+  "allOf": [
+    {
+      "$ref": "#/$defs/tls-certificates-and-hostnames_api-response-single"
     },
-    "messages": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_messages"
-    },
-    "result": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_custom_csr-2"
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/tls-certificates-and-hostnames_custom_csr-2"
+        }
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "success"
-  ],
-  "type": "object"
+  ]
 };

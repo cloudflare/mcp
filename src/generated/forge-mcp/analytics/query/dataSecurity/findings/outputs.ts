@@ -4,6 +4,39 @@
 import type { JsonSchema } from "../../../../_/tool.js";
 
 /**
+ * The schema of `art_DataSecurityFindingsTimeseriesResponse` in responses.
+ */
+export const art_DataSecurityFindingsTimeseriesResponse_output: JsonSchema = {
+  "properties": {
+    "errors": {
+      "items": {
+        "$ref": "#/$defs/art_APIError"
+      },
+      "type": "array"
+    },
+    "messages": {
+      "items": {
+        "$ref": "#/$defs/art_APIMessage"
+      },
+      "type": "array"
+    },
+    "result": {
+      "$ref": "#/$defs/art_DataSecurityFindingsTimeseriesResult"
+    },
+    "success": {
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "errors",
+    "messages",
+    "result",
+    "success"
+  ],
+  "type": "object"
+};
+
+/**
  * The schema of `art_DataSecurityFindingsTimeseriesResult` in responses.
  */
 export const art_DataSecurityFindingsTimeseriesResult_output: JsonSchema = {

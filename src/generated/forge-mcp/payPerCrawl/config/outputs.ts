@@ -34,3 +34,33 @@ export const pay_per_crawl_DaricConfig_output: JsonSchema = {
   },
   "type": "object"
 };
+
+/**
+ * The schema of `pay-per-crawl_getConfigResponse` in responses.
+ */
+export const pay_per_crawl_getConfigResponse_output: JsonSchema = {
+  "properties": {
+    "errors": {
+      "items": {
+        "$ref": "#/$defs/pay-per-crawl_Msg"
+      },
+      "type": "array"
+    },
+    "messages": {
+      "items": {
+        "$ref": "#/$defs/pay-per-crawl_Msg"
+      },
+      "type": "array"
+    },
+    "result": {
+      "$ref": "#/$defs/pay-per-crawl_DaricConfig"
+    },
+    "result_info": {
+      "$ref": "#/$defs/pay-per-crawl_ResultInfo"
+    },
+    "success": {
+      "type": "boolean"
+    }
+  },
+  "type": "object"
+};

@@ -4,9 +4,11 @@
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
   zone_activation_api_response_common_failure_output,
+  zone_activation_api_response_single_output,
   zone_activation_identifier_output,
   zone_activation_messages_output,
 } from "./outputs.js";
+import { zone_activation_identifier } from "./schemas.js";
 
 /**
  * The tools of `zones.activation_check`.
@@ -20,23 +22,40 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "zone_id": {
-          "description": "Zone ID",
-          "type": "string"
+          "$ref": "#/$defs/zone-activation_identifier",
+          "description": "Zone ID"
         }
       },
       required: [
         "zone_id"
       ],
+      $defs: {
+        "zone-activation_identifier": zone_activation_identifier,
+      },
     },
     outputSchema: {
-      "properties": {
-        "id": {
-          "$ref": "#/$defs/zone-activation_identifier"
+      "allOf": [
+        {
+          "$ref": "#/$defs/zone-activation_api-response-single"
+        },
+        {
+          "properties": {
+            "result": {
+              "properties": {
+                "id": {
+                  "$ref": "#/$defs/zone-activation_identifier"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "type": "object"
         }
-      },
-      "type": "object",
+      ],
       $defs: {
+        "zone-activation_api-response-single": zone_activation_api_response_single_output,
         "zone-activation_identifier": zone_activation_identifier_output,
+        "zone-activation_messages": zone_activation_messages_output,
       },
     },
     annotations: {
@@ -56,12 +75,24 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "id": {
-              "$ref": "#/$defs/zone-activation_identifier"
+          "allOf": [
+            {
+              "$ref": "#/$defs/zone-activation_api-response-single"
+            },
+            {
+              "properties": {
+                "result": {
+                  "properties": {
+                    "id": {
+                      "$ref": "#/$defs/zone-activation_identifier"
+                    }
+                  },
+                  "type": "object"
+                }
+              },
+              "type": "object"
             }
-          },
-          "type": "object"
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/zone-activation_api-response-common-failure"
@@ -69,6 +100,7 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "zone-activation_api-response-common-failure": zone_activation_api_response_common_failure_output,
+        "zone-activation_api-response-single": zone_activation_api_response_single_output,
         "zone-activation_identifier": zone_activation_identifier_output,
         "zone-activation_messages": zone_activation_messages_output,
       },

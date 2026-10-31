@@ -4,7 +4,6 @@
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
   analytics_sql_ApiErrorResponse_output,
-  analytics_sql_ClickHouseJsonQueryResponse_metaItem_output,
   analytics_sql_ClickHouseJsonQueryResponse_output,
   analytics_sql_GatewayApiErrorResponse_output,
   analytics_sql_LogExplorerQueryResponse_output,
@@ -14,7 +13,6 @@ import {
 import {
   analytics_sql_SqlQueryAccountScope,
   analytics_sql_SqlQueryRequest,
-  analytics_sql_SqlQueryRequest_params,
   analytics_sql_SqlQueryScope,
   analytics_sql_SqlQueryTimeRange,
   analytics_sql_SqlQueryZoneScope,
@@ -31,7 +29,7 @@ export const tools: readonly Tool[] = [
     inputSchema: {
       type: "object",
       properties: {
-        "account_tag": {
+        "account_id": {
           "description": "Account that authorizes and scopes the request.",
           "type": "string"
         },
@@ -41,7 +39,7 @@ export const tools: readonly Tool[] = [
         }
       },
       required: [
-        "account_tag",
+        "account_id",
         "query"
       ],
     },
@@ -59,7 +57,6 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "analytics-sql_ClickHouseJsonQueryResponse": analytics_sql_ClickHouseJsonQueryResponse_output,
-        "analytics-sql_ClickHouseJsonQueryResponse_metaItem": analytics_sql_ClickHouseJsonQueryResponse_metaItem_output,
         "analytics-sql_LogExplorerQueryResponse": analytics_sql_LogExplorerQueryResponse_output,
         "analytics-sql_SqlQueryResponse": analytics_sql_SqlQueryResponse_output,
         "analytics-sql_SqlQueryStatistics": analytics_sql_SqlQueryStatistics_output,
@@ -73,7 +70,7 @@ export const tools: readonly Tool[] = [
       "title": "Query analytics datasets"
     },
     method: "GET",
-    path: "/accounts/{account_tag}/analytics/sql",
+    path: "/accounts/{account_id}/analytics/sql",
     extensions: {
       "x-api-token-group": [
         "Account Analytics Read"
@@ -118,7 +115,6 @@ export const tools: readonly Tool[] = [
       $defs: {
         "analytics-sql_ApiErrorResponse": analytics_sql_ApiErrorResponse_output,
         "analytics-sql_ClickHouseJsonQueryResponse": analytics_sql_ClickHouseJsonQueryResponse_output,
-        "analytics-sql_ClickHouseJsonQueryResponse_metaItem": analytics_sql_ClickHouseJsonQueryResponse_metaItem_output,
         "analytics-sql_GatewayApiErrorResponse": analytics_sql_GatewayApiErrorResponse_output,
         "analytics-sql_LogExplorerQueryResponse": analytics_sql_LogExplorerQueryResponse_output,
         "analytics-sql_SqlQueryResponse": analytics_sql_SqlQueryResponse_output,
@@ -126,7 +122,7 @@ export const tools: readonly Tool[] = [
       },
     },
     request: (args) => ({
-      path: `/accounts/${pathParam(args, "account_tag")}/analytics/sql`,
+      path: `/accounts/${pathParam(args, "account_id")}/analytics/sql`,
       query: [
         ["query", args["query"], true],
       ],
@@ -139,7 +135,7 @@ export const tools: readonly Tool[] = [
     inputSchema: {
       type: "object",
       properties: {
-        "account_tag": {
+        "account_id": {
           "description": "Account that authorizes and scopes the request.",
           "type": "string"
         },
@@ -148,13 +144,12 @@ export const tools: readonly Tool[] = [
         }
       },
       required: [
-        "account_tag",
+        "account_id",
         "body"
       ],
       $defs: {
         "analytics-sql_SqlQueryAccountScope": analytics_sql_SqlQueryAccountScope,
         "analytics-sql_SqlQueryRequest": analytics_sql_SqlQueryRequest,
-        "analytics-sql_SqlQueryRequest_params": analytics_sql_SqlQueryRequest_params,
         "analytics-sql_SqlQueryScope": analytics_sql_SqlQueryScope,
         "analytics-sql_SqlQueryTimeRange": analytics_sql_SqlQueryTimeRange,
         "analytics-sql_SqlQueryZoneScope": analytics_sql_SqlQueryZoneScope,
@@ -174,7 +169,6 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "analytics-sql_ClickHouseJsonQueryResponse": analytics_sql_ClickHouseJsonQueryResponse_output,
-        "analytics-sql_ClickHouseJsonQueryResponse_metaItem": analytics_sql_ClickHouseJsonQueryResponse_metaItem_output,
         "analytics-sql_LogExplorerQueryResponse": analytics_sql_LogExplorerQueryResponse_output,
         "analytics-sql_SqlQueryResponse": analytics_sql_SqlQueryResponse_output,
         "analytics-sql_SqlQueryStatistics": analytics_sql_SqlQueryStatistics_output,
@@ -188,7 +182,7 @@ export const tools: readonly Tool[] = [
       "title": "Query analytics datasets"
     },
     method: "POST",
-    path: "/accounts/{account_tag}/analytics/sql",
+    path: "/accounts/{account_id}/analytics/sql",
     extensions: {
       "x-api-token-group": [
         "Account Analytics Read"
@@ -233,7 +227,6 @@ export const tools: readonly Tool[] = [
       $defs: {
         "analytics-sql_ApiErrorResponse": analytics_sql_ApiErrorResponse_output,
         "analytics-sql_ClickHouseJsonQueryResponse": analytics_sql_ClickHouseJsonQueryResponse_output,
-        "analytics-sql_ClickHouseJsonQueryResponse_metaItem": analytics_sql_ClickHouseJsonQueryResponse_metaItem_output,
         "analytics-sql_GatewayApiErrorResponse": analytics_sql_GatewayApiErrorResponse_output,
         "analytics-sql_LogExplorerQueryResponse": analytics_sql_LogExplorerQueryResponse_output,
         "analytics-sql_SqlQueryResponse": analytics_sql_SqlQueryResponse_output,
@@ -241,7 +234,7 @@ export const tools: readonly Tool[] = [
       },
     },
     request: (args) => ({
-      path: `/accounts/${pathParam(args, "account_tag")}/analytics/sql`,
+      path: `/accounts/${pathParam(args, "account_id")}/analytics/sql`,
       body: { value: args["body"], mediaType: "application/json" },
     }),
   },

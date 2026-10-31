@@ -4,9 +4,14 @@
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
   bill_subs_api_api_response_common_failure_output,
+  bill_subs_api_api_response_common_output,
+  bill_subs_api_api_response_single_output,
+  bill_subs_api_billing_response_single_output,
   bill_subs_api_components_schemas_identifier_output,
   bill_subs_api_messages_output,
 } from "../../outputs.js";
+import { bill_subs_api_identifier } from "../../schemas.js";
+import { bill_subs_api_payment_intent_response_single_output } from "./outputs.js";
 import { bill_subs_api_billing_profile_request } from "./schemas.js";
 
 /**
@@ -21,8 +26,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier",
-          "type": "string"
+          "$ref": "#/$defs/bill-subs-api_identifier",
+          "description": "Identifier"
         },
         "body": {
           "$ref": "#/$defs/bill-subs-api_billing_profile_request"
@@ -34,131 +39,17 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "bill-subs-api_billing_profile_request": bill_subs_api_billing_profile_request,
+        "bill-subs-api_identifier": bill_subs_api_identifier,
       },
     },
     outputSchema: {
-      "properties": {
-        "account_type": {
-          "type": "string"
-        },
-        "address": {
-          "type": "string"
-        },
-        "address2": {
-          "type": "string"
-        },
-        "balance": {
-          "type": "string"
-        },
-        "card_expiry_month": {
-          "type": "integer"
-        },
-        "card_expiry_year": {
-          "type": "integer"
-        },
-        "card_number": {
-          "type": "string"
-        },
-        "city": {
-          "type": "string"
-        },
-        "company": {
-          "type": "string"
-        },
-        "country": {
-          "type": "string"
-        },
-        "created_on": {
-          "format": "date-time",
-          "type": "string"
-        },
-        "device_data": {
-          "type": "string"
-        },
-        "edited_on": {
-          "format": "date-time",
-          "type": "string"
-        },
-        "enterprise_billing_email": {
-          "type": "string"
-        },
-        "enterprise_primary_email": {
-          "type": "string"
-        },
-        "first_name": {
-          "type": "string"
-        },
-        "id": {
-          "$ref": "#/$defs/bill-subs-api_components-schemas-identifier"
-        },
-        "is_partner": {
-          "type": "boolean"
-        },
-        "last_name": {
-          "type": "string"
-        },
-        "next_bill_date": {
-          "format": "date-time",
-          "type": "string"
-        },
-        "payment_address": {
-          "type": "string"
-        },
-        "payment_address2": {
-          "type": "string"
-        },
-        "payment_city": {
-          "type": "string"
-        },
-        "payment_country": {
-          "type": "string"
-        },
-        "payment_email": {
-          "type": "string"
-        },
-        "payment_first_name": {
-          "type": "string"
-        },
-        "payment_gateway": {
-          "type": "string"
-        },
-        "payment_last_name": {
-          "type": "string"
-        },
-        "payment_nonce": {
-          "type": "string"
-        },
-        "payment_state": {
-          "type": "string"
-        },
-        "payment_zipcode": {
-          "type": "string"
-        },
-        "primary_email": {
-          "type": "string"
-        },
-        "state": {
-          "type": "string"
-        },
-        "tax_id_type": {
-          "type": "string"
-        },
-        "telephone": {
-          "type": "string"
-        },
-        "validation_code": {
-          "type": "string"
-        },
-        "vat": {
-          "type": "string"
-        },
-        "zipcode": {
-          "type": "string"
-        }
-      },
-      "type": "object",
+      "$ref": "#/$defs/bill-subs-api_billing_response_single",
       $defs: {
+        "bill-subs-api_api-response-common": bill_subs_api_api_response_common_output,
+        "bill-subs-api_api-response-single": bill_subs_api_api_response_single_output,
+        "bill-subs-api_billing_response_single": bill_subs_api_billing_response_single_output,
         "bill-subs-api_components-schemas-identifier": bill_subs_api_components_schemas_identifier_output,
+        "bill-subs-api_messages": bill_subs_api_messages_output,
       },
     },
     annotations: {
@@ -178,15 +69,7 @@ export const tools: readonly Tool[] = [
         "enum": [
           "#billing:read",
           "#billing:edit"
-        ],
-        "x-fern-enum": {
-          "#billing:edit": {
-            "name": "billing_edit"
-          },
-          "#billing:read": {
-            "name": "billing_read"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": true,
@@ -198,133 +81,17 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "account_type": {
-              "type": "string"
-            },
-            "address": {
-              "type": "string"
-            },
-            "address2": {
-              "type": "string"
-            },
-            "balance": {
-              "type": "string"
-            },
-            "card_expiry_month": {
-              "type": "integer"
-            },
-            "card_expiry_year": {
-              "type": "integer"
-            },
-            "card_number": {
-              "type": "string"
-            },
-            "city": {
-              "type": "string"
-            },
-            "company": {
-              "type": "string"
-            },
-            "country": {
-              "type": "string"
-            },
-            "created_on": {
-              "format": "date-time",
-              "type": "string"
-            },
-            "device_data": {
-              "type": "string"
-            },
-            "edited_on": {
-              "format": "date-time",
-              "type": "string"
-            },
-            "enterprise_billing_email": {
-              "type": "string"
-            },
-            "enterprise_primary_email": {
-              "type": "string"
-            },
-            "first_name": {
-              "type": "string"
-            },
-            "id": {
-              "$ref": "#/$defs/bill-subs-api_components-schemas-identifier"
-            },
-            "is_partner": {
-              "type": "boolean"
-            },
-            "last_name": {
-              "type": "string"
-            },
-            "next_bill_date": {
-              "format": "date-time",
-              "type": "string"
-            },
-            "payment_address": {
-              "type": "string"
-            },
-            "payment_address2": {
-              "type": "string"
-            },
-            "payment_city": {
-              "type": "string"
-            },
-            "payment_country": {
-              "type": "string"
-            },
-            "payment_email": {
-              "type": "string"
-            },
-            "payment_first_name": {
-              "type": "string"
-            },
-            "payment_gateway": {
-              "type": "string"
-            },
-            "payment_last_name": {
-              "type": "string"
-            },
-            "payment_nonce": {
-              "type": "string"
-            },
-            "payment_state": {
-              "type": "string"
-            },
-            "payment_zipcode": {
-              "type": "string"
-            },
-            "primary_email": {
-              "type": "string"
-            },
-            "state": {
-              "type": "string"
-            },
-            "tax_id_type": {
-              "type": "string"
-            },
-            "telephone": {
-              "type": "string"
-            },
-            "validation_code": {
-              "type": "string"
-            },
-            "vat": {
-              "type": "string"
-            },
-            "zipcode": {
-              "type": "string"
-            }
-          },
-          "type": "object"
+          "$ref": "#/$defs/bill-subs-api_billing_response_single"
         },
         "4XX": {
           "$ref": "#/$defs/bill-subs-api_api-response-common-failure"
         }
       },
       $defs: {
+        "bill-subs-api_api-response-common": bill_subs_api_api_response_common_output,
         "bill-subs-api_api-response-common-failure": bill_subs_api_api_response_common_failure_output,
+        "bill-subs-api_api-response-single": bill_subs_api_api_response_single_output,
+        "bill-subs-api_billing_response_single": bill_subs_api_billing_response_single_output,
         "bill-subs-api_components-schemas-identifier": bill_subs_api_components_schemas_identifier_output,
         "bill-subs-api_messages": bill_subs_api_messages_output,
       },
@@ -342,24 +109,25 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier",
-          "type": "string"
+          "$ref": "#/$defs/bill-subs-api_identifier",
+          "description": "Identifier"
         }
       },
       required: [
         "account_id"
       ],
+      $defs: {
+        "bill-subs-api_identifier": bill_subs_api_identifier,
+      },
     },
     outputSchema: {
-      "properties": {
-        "client_secret": {
-          "type": "string"
-        },
-        "intent_type": {
-          "type": "string"
-        }
+      "$ref": "#/$defs/bill-subs-api_payment_intent_response_single",
+      $defs: {
+        "bill-subs-api_api-response-common": bill_subs_api_api_response_common_output,
+        "bill-subs-api_api-response-single": bill_subs_api_api_response_single_output,
+        "bill-subs-api_messages": bill_subs_api_messages_output,
+        "bill-subs-api_payment_intent_response_single": bill_subs_api_payment_intent_response_single_output,
       },
-      "type": "object",
     },
     annotations: {
       "destructiveHint": false,
@@ -384,23 +152,18 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "client_secret": {
-              "type": "string"
-            },
-            "intent_type": {
-              "type": "string"
-            }
-          },
-          "type": "object"
+          "$ref": "#/$defs/bill-subs-api_payment_intent_response_single"
         },
         "4XX": {
           "$ref": "#/$defs/bill-subs-api_api-response-common-failure"
         }
       },
       $defs: {
+        "bill-subs-api_api-response-common": bill_subs_api_api_response_common_output,
         "bill-subs-api_api-response-common-failure": bill_subs_api_api_response_common_failure_output,
+        "bill-subs-api_api-response-single": bill_subs_api_api_response_single_output,
         "bill-subs-api_messages": bill_subs_api_messages_output,
+        "bill-subs-api_payment_intent_response_single": bill_subs_api_payment_intent_response_single_output,
       },
     },
     request: (args) => ({
@@ -415,13 +178,16 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier",
-          "type": "string"
+          "$ref": "#/$defs/bill-subs-api_identifier",
+          "description": "Identifier"
         }
       },
       required: [
         "account_id"
       ],
+      $defs: {
+        "bill-subs-api_identifier": bill_subs_api_identifier,
+      },
     },
     annotations: {
       "destructiveHint": true,
@@ -439,12 +205,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "#billing:edit"
-        ],
-        "x-fern-enum": {
-          "#billing:edit": {
-            "name": "billing_edit"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": true,
@@ -477,137 +238,25 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier",
-          "type": "string"
+          "$ref": "#/$defs/bill-subs-api_identifier",
+          "description": "Identifier"
         }
       },
       required: [
         "account_id"
       ],
+      $defs: {
+        "bill-subs-api_identifier": bill_subs_api_identifier,
+      },
     },
     outputSchema: {
-      "properties": {
-        "account_type": {
-          "type": "string"
-        },
-        "address": {
-          "type": "string"
-        },
-        "address2": {
-          "type": "string"
-        },
-        "balance": {
-          "type": "string"
-        },
-        "card_expiry_month": {
-          "type": "integer"
-        },
-        "card_expiry_year": {
-          "type": "integer"
-        },
-        "card_number": {
-          "type": "string"
-        },
-        "city": {
-          "type": "string"
-        },
-        "company": {
-          "type": "string"
-        },
-        "country": {
-          "type": "string"
-        },
-        "created_on": {
-          "format": "date-time",
-          "type": "string"
-        },
-        "device_data": {
-          "type": "string"
-        },
-        "edited_on": {
-          "format": "date-time",
-          "type": "string"
-        },
-        "enterprise_billing_email": {
-          "type": "string"
-        },
-        "enterprise_primary_email": {
-          "type": "string"
-        },
-        "first_name": {
-          "type": "string"
-        },
-        "id": {
-          "$ref": "#/$defs/bill-subs-api_components-schemas-identifier"
-        },
-        "is_partner": {
-          "type": "boolean"
-        },
-        "last_name": {
-          "type": "string"
-        },
-        "next_bill_date": {
-          "format": "date-time",
-          "type": "string"
-        },
-        "payment_address": {
-          "type": "string"
-        },
-        "payment_address2": {
-          "type": "string"
-        },
-        "payment_city": {
-          "type": "string"
-        },
-        "payment_country": {
-          "type": "string"
-        },
-        "payment_email": {
-          "type": "string"
-        },
-        "payment_first_name": {
-          "type": "string"
-        },
-        "payment_gateway": {
-          "type": "string"
-        },
-        "payment_last_name": {
-          "type": "string"
-        },
-        "payment_nonce": {
-          "type": "string"
-        },
-        "payment_state": {
-          "type": "string"
-        },
-        "payment_zipcode": {
-          "type": "string"
-        },
-        "primary_email": {
-          "type": "string"
-        },
-        "state": {
-          "type": "string"
-        },
-        "tax_id_type": {
-          "type": "string"
-        },
-        "telephone": {
-          "type": "string"
-        },
-        "validation_code": {
-          "type": "string"
-        },
-        "vat": {
-          "type": "string"
-        },
-        "zipcode": {
-          "type": "string"
-        }
-      },
-      "type": "object",
+      "$ref": "#/$defs/bill-subs-api_billing_response_single",
       $defs: {
+        "bill-subs-api_api-response-common": bill_subs_api_api_response_common_output,
+        "bill-subs-api_api-response-single": bill_subs_api_api_response_single_output,
+        "bill-subs-api_billing_response_single": bill_subs_api_billing_response_single_output,
         "bill-subs-api_components-schemas-identifier": bill_subs_api_components_schemas_identifier_output,
+        "bill-subs-api_messages": bill_subs_api_messages_output,
       },
     },
     annotations: {
@@ -627,12 +276,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "#billing:read"
-        ],
-        "x-fern-enum": {
-          "#billing:read": {
-            "name": "billing_read"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": true,
@@ -644,133 +288,17 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "account_type": {
-              "type": "string"
-            },
-            "address": {
-              "type": "string"
-            },
-            "address2": {
-              "type": "string"
-            },
-            "balance": {
-              "type": "string"
-            },
-            "card_expiry_month": {
-              "type": "integer"
-            },
-            "card_expiry_year": {
-              "type": "integer"
-            },
-            "card_number": {
-              "type": "string"
-            },
-            "city": {
-              "type": "string"
-            },
-            "company": {
-              "type": "string"
-            },
-            "country": {
-              "type": "string"
-            },
-            "created_on": {
-              "format": "date-time",
-              "type": "string"
-            },
-            "device_data": {
-              "type": "string"
-            },
-            "edited_on": {
-              "format": "date-time",
-              "type": "string"
-            },
-            "enterprise_billing_email": {
-              "type": "string"
-            },
-            "enterprise_primary_email": {
-              "type": "string"
-            },
-            "first_name": {
-              "type": "string"
-            },
-            "id": {
-              "$ref": "#/$defs/bill-subs-api_components-schemas-identifier"
-            },
-            "is_partner": {
-              "type": "boolean"
-            },
-            "last_name": {
-              "type": "string"
-            },
-            "next_bill_date": {
-              "format": "date-time",
-              "type": "string"
-            },
-            "payment_address": {
-              "type": "string"
-            },
-            "payment_address2": {
-              "type": "string"
-            },
-            "payment_city": {
-              "type": "string"
-            },
-            "payment_country": {
-              "type": "string"
-            },
-            "payment_email": {
-              "type": "string"
-            },
-            "payment_first_name": {
-              "type": "string"
-            },
-            "payment_gateway": {
-              "type": "string"
-            },
-            "payment_last_name": {
-              "type": "string"
-            },
-            "payment_nonce": {
-              "type": "string"
-            },
-            "payment_state": {
-              "type": "string"
-            },
-            "payment_zipcode": {
-              "type": "string"
-            },
-            "primary_email": {
-              "type": "string"
-            },
-            "state": {
-              "type": "string"
-            },
-            "tax_id_type": {
-              "type": "string"
-            },
-            "telephone": {
-              "type": "string"
-            },
-            "validation_code": {
-              "type": "string"
-            },
-            "vat": {
-              "type": "string"
-            },
-            "zipcode": {
-              "type": "string"
-            }
-          },
-          "type": "object"
+          "$ref": "#/$defs/bill-subs-api_billing_response_single"
         },
         "4XX": {
           "$ref": "#/$defs/bill-subs-api_api-response-common-failure"
         }
       },
       $defs: {
+        "bill-subs-api_api-response-common": bill_subs_api_api_response_common_output,
         "bill-subs-api_api-response-common-failure": bill_subs_api_api_response_common_failure_output,
+        "bill-subs-api_api-response-single": bill_subs_api_api_response_single_output,
+        "bill-subs-api_billing_response_single": bill_subs_api_billing_response_single_output,
         "bill-subs-api_components-schemas-identifier": bill_subs_api_components_schemas_identifier_output,
         "bill-subs-api_messages": bill_subs_api_messages_output,
       },
@@ -787,8 +315,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier",
-          "type": "string"
+          "$ref": "#/$defs/bill-subs-api_identifier",
+          "description": "Identifier"
         },
         "body": {
           "$ref": "#/$defs/bill-subs-api_billing_profile_request"
@@ -800,131 +328,17 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "bill-subs-api_billing_profile_request": bill_subs_api_billing_profile_request,
+        "bill-subs-api_identifier": bill_subs_api_identifier,
       },
     },
     outputSchema: {
-      "properties": {
-        "account_type": {
-          "type": "string"
-        },
-        "address": {
-          "type": "string"
-        },
-        "address2": {
-          "type": "string"
-        },
-        "balance": {
-          "type": "string"
-        },
-        "card_expiry_month": {
-          "type": "integer"
-        },
-        "card_expiry_year": {
-          "type": "integer"
-        },
-        "card_number": {
-          "type": "string"
-        },
-        "city": {
-          "type": "string"
-        },
-        "company": {
-          "type": "string"
-        },
-        "country": {
-          "type": "string"
-        },
-        "created_on": {
-          "format": "date-time",
-          "type": "string"
-        },
-        "device_data": {
-          "type": "string"
-        },
-        "edited_on": {
-          "format": "date-time",
-          "type": "string"
-        },
-        "enterprise_billing_email": {
-          "type": "string"
-        },
-        "enterprise_primary_email": {
-          "type": "string"
-        },
-        "first_name": {
-          "type": "string"
-        },
-        "id": {
-          "$ref": "#/$defs/bill-subs-api_components-schemas-identifier"
-        },
-        "is_partner": {
-          "type": "boolean"
-        },
-        "last_name": {
-          "type": "string"
-        },
-        "next_bill_date": {
-          "format": "date-time",
-          "type": "string"
-        },
-        "payment_address": {
-          "type": "string"
-        },
-        "payment_address2": {
-          "type": "string"
-        },
-        "payment_city": {
-          "type": "string"
-        },
-        "payment_country": {
-          "type": "string"
-        },
-        "payment_email": {
-          "type": "string"
-        },
-        "payment_first_name": {
-          "type": "string"
-        },
-        "payment_gateway": {
-          "type": "string"
-        },
-        "payment_last_name": {
-          "type": "string"
-        },
-        "payment_nonce": {
-          "type": "string"
-        },
-        "payment_state": {
-          "type": "string"
-        },
-        "payment_zipcode": {
-          "type": "string"
-        },
-        "primary_email": {
-          "type": "string"
-        },
-        "state": {
-          "type": "string"
-        },
-        "tax_id_type": {
-          "type": "string"
-        },
-        "telephone": {
-          "type": "string"
-        },
-        "validation_code": {
-          "type": "string"
-        },
-        "vat": {
-          "type": "string"
-        },
-        "zipcode": {
-          "type": "string"
-        }
-      },
-      "type": "object",
+      "$ref": "#/$defs/bill-subs-api_billing_response_single",
       $defs: {
+        "bill-subs-api_api-response-common": bill_subs_api_api_response_common_output,
+        "bill-subs-api_api-response-single": bill_subs_api_api_response_single_output,
+        "bill-subs-api_billing_response_single": bill_subs_api_billing_response_single_output,
         "bill-subs-api_components-schemas-identifier": bill_subs_api_components_schemas_identifier_output,
+        "bill-subs-api_messages": bill_subs_api_messages_output,
       },
     },
     annotations: {
@@ -944,15 +358,7 @@ export const tools: readonly Tool[] = [
         "enum": [
           "#billing:read",
           "#billing:edit"
-        ],
-        "x-fern-enum": {
-          "#billing:edit": {
-            "name": "billing_edit"
-          },
-          "#billing:read": {
-            "name": "billing_read"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": true,
@@ -964,133 +370,17 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "account_type": {
-              "type": "string"
-            },
-            "address": {
-              "type": "string"
-            },
-            "address2": {
-              "type": "string"
-            },
-            "balance": {
-              "type": "string"
-            },
-            "card_expiry_month": {
-              "type": "integer"
-            },
-            "card_expiry_year": {
-              "type": "integer"
-            },
-            "card_number": {
-              "type": "string"
-            },
-            "city": {
-              "type": "string"
-            },
-            "company": {
-              "type": "string"
-            },
-            "country": {
-              "type": "string"
-            },
-            "created_on": {
-              "format": "date-time",
-              "type": "string"
-            },
-            "device_data": {
-              "type": "string"
-            },
-            "edited_on": {
-              "format": "date-time",
-              "type": "string"
-            },
-            "enterprise_billing_email": {
-              "type": "string"
-            },
-            "enterprise_primary_email": {
-              "type": "string"
-            },
-            "first_name": {
-              "type": "string"
-            },
-            "id": {
-              "$ref": "#/$defs/bill-subs-api_components-schemas-identifier"
-            },
-            "is_partner": {
-              "type": "boolean"
-            },
-            "last_name": {
-              "type": "string"
-            },
-            "next_bill_date": {
-              "format": "date-time",
-              "type": "string"
-            },
-            "payment_address": {
-              "type": "string"
-            },
-            "payment_address2": {
-              "type": "string"
-            },
-            "payment_city": {
-              "type": "string"
-            },
-            "payment_country": {
-              "type": "string"
-            },
-            "payment_email": {
-              "type": "string"
-            },
-            "payment_first_name": {
-              "type": "string"
-            },
-            "payment_gateway": {
-              "type": "string"
-            },
-            "payment_last_name": {
-              "type": "string"
-            },
-            "payment_nonce": {
-              "type": "string"
-            },
-            "payment_state": {
-              "type": "string"
-            },
-            "payment_zipcode": {
-              "type": "string"
-            },
-            "primary_email": {
-              "type": "string"
-            },
-            "state": {
-              "type": "string"
-            },
-            "tax_id_type": {
-              "type": "string"
-            },
-            "telephone": {
-              "type": "string"
-            },
-            "validation_code": {
-              "type": "string"
-            },
-            "vat": {
-              "type": "string"
-            },
-            "zipcode": {
-              "type": "string"
-            }
-          },
-          "type": "object"
+          "$ref": "#/$defs/bill-subs-api_billing_response_single"
         },
         "4XX": {
           "$ref": "#/$defs/bill-subs-api_api-response-common-failure"
         }
       },
       $defs: {
+        "bill-subs-api_api-response-common": bill_subs_api_api_response_common_output,
         "bill-subs-api_api-response-common-failure": bill_subs_api_api_response_common_failure_output,
+        "bill-subs-api_api-response-single": bill_subs_api_api_response_single_output,
+        "bill-subs-api_billing_response_single": bill_subs_api_billing_response_single_output,
         "bill-subs-api_components-schemas-identifier": bill_subs_api_components_schemas_identifier_output,
         "bill-subs-api_messages": bill_subs_api_messages_output,
       },
@@ -1108,8 +398,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier",
-          "type": "string"
+          "$ref": "#/$defs/bill-subs-api_identifier",
+          "description": "Identifier"
         },
         "body": {
           "properties": {
@@ -1130,130 +420,18 @@ export const tools: readonly Tool[] = [
         "account_id",
         "body"
       ],
+      $defs: {
+        "bill-subs-api_identifier": bill_subs_api_identifier,
+      },
     },
     outputSchema: {
-      "properties": {
-        "account_type": {
-          "type": "string"
-        },
-        "address": {
-          "type": "string"
-        },
-        "address2": {
-          "type": "string"
-        },
-        "balance": {
-          "type": "string"
-        },
-        "card_expiry_month": {
-          "type": "integer"
-        },
-        "card_expiry_year": {
-          "type": "integer"
-        },
-        "card_number": {
-          "type": "string"
-        },
-        "city": {
-          "type": "string"
-        },
-        "company": {
-          "type": "string"
-        },
-        "country": {
-          "type": "string"
-        },
-        "created_on": {
-          "format": "date-time",
-          "type": "string"
-        },
-        "device_data": {
-          "type": "string"
-        },
-        "edited_on": {
-          "format": "date-time",
-          "type": "string"
-        },
-        "enterprise_billing_email": {
-          "type": "string"
-        },
-        "enterprise_primary_email": {
-          "type": "string"
-        },
-        "first_name": {
-          "type": "string"
-        },
-        "id": {
-          "$ref": "#/$defs/bill-subs-api_components-schemas-identifier"
-        },
-        "is_partner": {
-          "type": "boolean"
-        },
-        "last_name": {
-          "type": "string"
-        },
-        "next_bill_date": {
-          "format": "date-time",
-          "type": "string"
-        },
-        "payment_address": {
-          "type": "string"
-        },
-        "payment_address2": {
-          "type": "string"
-        },
-        "payment_city": {
-          "type": "string"
-        },
-        "payment_country": {
-          "type": "string"
-        },
-        "payment_email": {
-          "type": "string"
-        },
-        "payment_first_name": {
-          "type": "string"
-        },
-        "payment_gateway": {
-          "type": "string"
-        },
-        "payment_last_name": {
-          "type": "string"
-        },
-        "payment_nonce": {
-          "type": "string"
-        },
-        "payment_state": {
-          "type": "string"
-        },
-        "payment_zipcode": {
-          "type": "string"
-        },
-        "primary_email": {
-          "type": "string"
-        },
-        "state": {
-          "type": "string"
-        },
-        "tax_id_type": {
-          "type": "string"
-        },
-        "telephone": {
-          "type": "string"
-        },
-        "validation_code": {
-          "type": "string"
-        },
-        "vat": {
-          "type": "string"
-        },
-        "zipcode": {
-          "type": "string"
-        }
-      },
-      "type": "object",
+      "$ref": "#/$defs/bill-subs-api_billing_response_single",
       $defs: {
+        "bill-subs-api_api-response-common": bill_subs_api_api_response_common_output,
+        "bill-subs-api_api-response-single": bill_subs_api_api_response_single_output,
+        "bill-subs-api_billing_response_single": bill_subs_api_billing_response_single_output,
         "bill-subs-api_components-schemas-identifier": bill_subs_api_components_schemas_identifier_output,
+        "bill-subs-api_messages": bill_subs_api_messages_output,
       },
     },
     annotations: {
@@ -1273,15 +451,7 @@ export const tools: readonly Tool[] = [
         "enum": [
           "#billing:read",
           "#billing:edit"
-        ],
-        "x-fern-enum": {
-          "#billing:edit": {
-            "name": "billing_edit"
-          },
-          "#billing:read": {
-            "name": "billing_read"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": true,
@@ -1293,133 +463,17 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "account_type": {
-              "type": "string"
-            },
-            "address": {
-              "type": "string"
-            },
-            "address2": {
-              "type": "string"
-            },
-            "balance": {
-              "type": "string"
-            },
-            "card_expiry_month": {
-              "type": "integer"
-            },
-            "card_expiry_year": {
-              "type": "integer"
-            },
-            "card_number": {
-              "type": "string"
-            },
-            "city": {
-              "type": "string"
-            },
-            "company": {
-              "type": "string"
-            },
-            "country": {
-              "type": "string"
-            },
-            "created_on": {
-              "format": "date-time",
-              "type": "string"
-            },
-            "device_data": {
-              "type": "string"
-            },
-            "edited_on": {
-              "format": "date-time",
-              "type": "string"
-            },
-            "enterprise_billing_email": {
-              "type": "string"
-            },
-            "enterprise_primary_email": {
-              "type": "string"
-            },
-            "first_name": {
-              "type": "string"
-            },
-            "id": {
-              "$ref": "#/$defs/bill-subs-api_components-schemas-identifier"
-            },
-            "is_partner": {
-              "type": "boolean"
-            },
-            "last_name": {
-              "type": "string"
-            },
-            "next_bill_date": {
-              "format": "date-time",
-              "type": "string"
-            },
-            "payment_address": {
-              "type": "string"
-            },
-            "payment_address2": {
-              "type": "string"
-            },
-            "payment_city": {
-              "type": "string"
-            },
-            "payment_country": {
-              "type": "string"
-            },
-            "payment_email": {
-              "type": "string"
-            },
-            "payment_first_name": {
-              "type": "string"
-            },
-            "payment_gateway": {
-              "type": "string"
-            },
-            "payment_last_name": {
-              "type": "string"
-            },
-            "payment_nonce": {
-              "type": "string"
-            },
-            "payment_state": {
-              "type": "string"
-            },
-            "payment_zipcode": {
-              "type": "string"
-            },
-            "primary_email": {
-              "type": "string"
-            },
-            "state": {
-              "type": "string"
-            },
-            "tax_id_type": {
-              "type": "string"
-            },
-            "telephone": {
-              "type": "string"
-            },
-            "validation_code": {
-              "type": "string"
-            },
-            "vat": {
-              "type": "string"
-            },
-            "zipcode": {
-              "type": "string"
-            }
-          },
-          "type": "object"
+          "$ref": "#/$defs/bill-subs-api_billing_response_single"
         },
         "4XX": {
           "$ref": "#/$defs/bill-subs-api_api-response-common-failure"
         }
       },
       $defs: {
+        "bill-subs-api_api-response-common": bill_subs_api_api_response_common_output,
         "bill-subs-api_api-response-common-failure": bill_subs_api_api_response_common_failure_output,
+        "bill-subs-api_api-response-single": bill_subs_api_api_response_single_output,
+        "bill-subs-api_billing_response_single": bill_subs_api_billing_response_single_output,
         "bill-subs-api_components-schemas-identifier": bill_subs_api_components_schemas_identifier_output,
         "bill-subs-api_messages": bill_subs_api_messages_output,
       },

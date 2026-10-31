@@ -27,6 +27,14 @@ export const vectorize_create_index_request: JsonSchema = {
 };
 
 /**
+ * The schema of `vectorize_identifier`.
+ */
+export const vectorize_identifier: JsonSchema = {
+  "description": "Identifier",
+  "type": "string"
+};
+
+/**
  * The schema of `vectorize_index-configuration`.
  */
 export const vectorize_index_configuration: JsonSchema = {

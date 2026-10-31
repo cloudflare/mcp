@@ -5,6 +5,7 @@ import { type Tool, pathParam } from "../../../_/tool.js";
 import {
   dlp_Empty_output,
   dlp_api_response_common_failure_output,
+  dlp_api_response_single_output,
   dlp_messages_output,
 } from "../../outputs.js";
 import { dlp_CustomPromptTopic_output } from "./outputs.js";
@@ -41,9 +42,23 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/dlp_CustomPromptTopic",
+      "allOf": [
+        {
+          "$ref": "#/$defs/dlp_api-response-single"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/dlp_CustomPromptTopic"
+            }
+          },
+          "type": "object"
+        }
+      ],
       $defs: {
         "dlp_CustomPromptTopic": dlp_CustomPromptTopic_output,
+        "dlp_api-response-single": dlp_api_response_single_output,
+        "dlp_messages": dlp_messages_output,
       },
     },
     annotations: {
@@ -66,7 +81,19 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/dlp_CustomPromptTopic"
+          "allOf": [
+            {
+              "$ref": "#/$defs/dlp_api-response-single"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/dlp_CustomPromptTopic"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/dlp_api-response-common-failure"
@@ -75,6 +102,7 @@ export const tools: readonly Tool[] = [
       $defs: {
         "dlp_CustomPromptTopic": dlp_CustomPromptTopic_output,
         "dlp_api-response-common-failure": dlp_api_response_common_failure_output,
+        "dlp_api-response-single": dlp_api_response_single_output,
         "dlp_messages": dlp_messages_output,
       },
     },
@@ -104,9 +132,23 @@ export const tools: readonly Tool[] = [
       ],
     },
     outputSchema: {
-      "$ref": "#/$defs/dlp_Empty",
+      "allOf": [
+        {
+          "$ref": "#/$defs/dlp_api-response-single"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/dlp_Empty"
+            }
+          },
+          "type": "object"
+        }
+      ],
       $defs: {
         "dlp_Empty": dlp_Empty_output,
+        "dlp_api-response-single": dlp_api_response_single_output,
+        "dlp_messages": dlp_messages_output,
       },
     },
     annotations: {
@@ -129,7 +171,19 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/dlp_Empty"
+          "allOf": [
+            {
+              "$ref": "#/$defs/dlp_api-response-single"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/dlp_Empty"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/dlp_api-response-common-failure"
@@ -138,6 +192,7 @@ export const tools: readonly Tool[] = [
       $defs: {
         "dlp_Empty": dlp_Empty_output,
         "dlp_api-response-common-failure": dlp_api_response_common_failure_output,
+        "dlp_api-response-single": dlp_api_response_single_output,
         "dlp_messages": dlp_messages_output,
       },
     },
@@ -166,9 +221,23 @@ export const tools: readonly Tool[] = [
       ],
     },
     outputSchema: {
-      "$ref": "#/$defs/dlp_CustomPromptTopic",
+      "allOf": [
+        {
+          "$ref": "#/$defs/dlp_api-response-single"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/dlp_CustomPromptTopic"
+            }
+          },
+          "type": "object"
+        }
+      ],
       $defs: {
         "dlp_CustomPromptTopic": dlp_CustomPromptTopic_output,
+        "dlp_api-response-single": dlp_api_response_single_output,
+        "dlp_messages": dlp_messages_output,
       },
     },
     annotations: {
@@ -189,7 +258,19 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/dlp_CustomPromptTopic"
+          "allOf": [
+            {
+              "$ref": "#/$defs/dlp_api-response-single"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/dlp_CustomPromptTopic"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/dlp_api-response-common-failure"
@@ -198,6 +279,7 @@ export const tools: readonly Tool[] = [
       $defs: {
         "dlp_CustomPromptTopic": dlp_CustomPromptTopic_output,
         "dlp_api-response-common-failure": dlp_api_response_common_failure_output,
+        "dlp_api-response-single": dlp_api_response_single_output,
         "dlp_messages": dlp_messages_output,
       },
     },
@@ -221,23 +303,26 @@ export const tools: readonly Tool[] = [
       ],
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "$ref": "#/$defs/dlp_CustomPromptTopic"
-          },
-          "type": "array"
+      "allOf": [
+        {
+          "$ref": "#/$defs/dlp_api-response-single"
         },
-        "result_info": {
+        {
+          "properties": {
+            "result": {
+              "items": {
+                "$ref": "#/$defs/dlp_CustomPromptTopic"
+              },
+              "type": "array"
+            }
+          },
           "type": "object"
         }
-      },
-      "required": [
-        "result"
       ],
-      "type": "object",
       $defs: {
         "dlp_CustomPromptTopic": dlp_CustomPromptTopic_output,
+        "dlp_api-response-single": dlp_api_response_single_output,
+        "dlp_messages": dlp_messages_output,
       },
     },
     annotations: {
@@ -258,21 +343,22 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "items": {
-                "$ref": "#/$defs/dlp_CustomPromptTopic"
-              },
-              "type": "array"
+          "allOf": [
+            {
+              "$ref": "#/$defs/dlp_api-response-single"
             },
-            "result_info": {
+            {
+              "properties": {
+                "result": {
+                  "items": {
+                    "$ref": "#/$defs/dlp_CustomPromptTopic"
+                  },
+                  "type": "array"
+                }
+              },
               "type": "object"
             }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/dlp_api-response-common-failure"
@@ -281,6 +367,7 @@ export const tools: readonly Tool[] = [
       $defs: {
         "dlp_CustomPromptTopic": dlp_CustomPromptTopic_output,
         "dlp_api-response-common-failure": dlp_api_response_common_failure_output,
+        "dlp_api-response-single": dlp_api_response_single_output,
         "dlp_messages": dlp_messages_output,
       },
     },
@@ -317,9 +404,23 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/dlp_CustomPromptTopic",
+      "allOf": [
+        {
+          "$ref": "#/$defs/dlp_api-response-single"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/dlp_CustomPromptTopic"
+            }
+          },
+          "type": "object"
+        }
+      ],
       $defs: {
         "dlp_CustomPromptTopic": dlp_CustomPromptTopic_output,
+        "dlp_api-response-single": dlp_api_response_single_output,
+        "dlp_messages": dlp_messages_output,
       },
     },
     annotations: {
@@ -342,7 +443,19 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/dlp_CustomPromptTopic"
+          "allOf": [
+            {
+              "$ref": "#/$defs/dlp_api-response-single"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/dlp_CustomPromptTopic"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/dlp_api-response-common-failure"
@@ -351,6 +464,7 @@ export const tools: readonly Tool[] = [
       $defs: {
         "dlp_CustomPromptTopic": dlp_CustomPromptTopic_output,
         "dlp_api-response-common-failure": dlp_api_response_common_failure_output,
+        "dlp_api-response-single": dlp_api_response_single_output,
         "dlp_messages": dlp_messages_output,
       },
     },

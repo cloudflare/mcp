@@ -79,6 +79,47 @@ export const magic_app_config_output: JsonSchema = {
 };
 
 /**
+ * The schema of `magic_app_config_single_response` in responses.
+ */
+export const magic_app_config_single_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/magic_apps-response-object"
+    },
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/magic_app_config"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `magic_app_configs_collection_response` in responses.
+ */
+export const magic_app_configs_collection_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/magic_apps-response-array"
+    },
+    {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/magic_app_config"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
  * The schema of `magic_app_priority` in responses.
  */
 export const magic_app_priority_output: JsonSchema = {

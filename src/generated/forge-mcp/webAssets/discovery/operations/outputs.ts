@@ -102,36 +102,78 @@ export const api_shield_discovery_operation_output: JsonSchema = {
 };
 
 /**
+ * The schema of `api-shield_patch_discoveries_response` in responses.
+ */
+export const api_shield_patch_discoveries_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/api-shield_api-response-common"
+    },
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/api-shield_api_discovery_patch_multiple_request"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `api-shield_patch_discovery_response` in responses.
+ */
+export const api_shield_patch_discovery_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/api-shield_api-response-common"
+    },
+    {
+      "properties": {
+        "result": {
+          "properties": {
+            "state": {
+              "$ref": "#/$defs/api-shield_api_discovery_state"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "required": [
+        "result"
+      ],
+      "type": "object"
+    }
+  ]
+};
+
+/**
  * The schema of `api-shield_traffic_stats` in responses.
  */
 export const api_shield_traffic_stats_output: JsonSchema = {
   "properties": {
     "traffic_stats": {
-      "$ref": "#/$defs/api-shield_traffic_stats_traffic_stats"
+      "properties": {
+        "last_updated": {
+          "$ref": "#/$defs/api-shield_timestamp-2"
+        },
+        "period_seconds": {
+          "type": "integer"
+        },
+        "requests": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "last_updated",
+        "period_seconds",
+        "requests"
+      ],
+      "type": "object"
     }
   },
-  "type": "object"
-};
-
-/**
- * The schema of `api-shield_traffic_stats_traffic_stats` in responses.
- */
-export const api_shield_traffic_stats_traffic_stats_output: JsonSchema = {
-  "properties": {
-    "last_updated": {
-      "$ref": "#/$defs/api-shield_timestamp-2"
-    },
-    "period_seconds": {
-      "type": "integer"
-    },
-    "requests": {
-      "type": "number"
-    }
-  },
-  "required": [
-    "last_updated",
-    "period_seconds",
-    "requests"
-  ],
   "type": "object"
 };

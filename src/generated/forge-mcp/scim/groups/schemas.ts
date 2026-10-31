@@ -25,6 +25,14 @@ export const iam_scim_group_create_request: JsonSchema = {
 };
 
 /**
+ * The schema of `iam_scim_group_identifier`.
+ */
+export const iam_scim_group_identifier: JsonSchema = {
+  "description": "The group identifier for a SCIM Group resource. For system groups this is prefixed `cloudflare-v1-<permissionGroupTag>`; for custom user groups this is a UUID-style tag.\n",
+  "type": "string"
+};
+
+/**
  * The schema of `iam_scim_group_patch_member_value`.
  */
 export const iam_scim_group_patch_member_value: JsonSchema = {
@@ -85,32 +93,24 @@ export const iam_scim_group_patch_operation: JsonSchema = {
       "type": "string"
     },
     "value": {
-      "$ref": "#/$defs/iam_scim_group_patch_operation_value",
-      "description": "The value(s) for the operation. For member add/replace operations, an array of member value objects. For `displayName` or `externalId` updates, a string value.\n"
+      "description": "The value(s) for the operation. For member add/replace operations, an array of member value objects. For `displayName` or `externalId` updates, a string value.\n",
+      "oneOf": [
+        {
+          "items": {
+            "$ref": "#/$defs/iam_scim_group_patch_member_value"
+          },
+          "type": "array"
+        },
+        {
+          "type": "string"
+        }
+      ]
     }
   },
   "required": [
     "op"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `iam_scim_group_patch_operation_value`.
- */
-export const iam_scim_group_patch_operation_value: JsonSchema = {
-  "description": "The value(s) for the operation. For member add/replace operations, an array of member value objects. For `displayName` or `externalId` updates, a string value.\n",
-  "oneOf": [
-    {
-      "items": {
-        "$ref": "#/$defs/iam_scim_group_patch_member_value"
-      },
-      "type": "array"
-    },
-    {
-      "type": "string"
-    }
-  ]
 };
 
 /**

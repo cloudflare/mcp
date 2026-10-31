@@ -4,9 +4,15 @@
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
   logpush_api_response_common_failure_output,
+  logpush_api_response_common_output,
   logpush_messages_output,
 } from "../../outputs.js";
-import { logpush_transformer_version_output } from "./outputs.js";
+import { logpush_identifier } from "../../schemas.js";
+import { logpush_transformer_identifier } from "../schemas.js";
+import {
+  logpush_transformer_version_output,
+  logpush_transformer_version_response_collection_output,
+} from "./outputs.js";
 
 /**
  * The tools of `logpush.transformers.versions`.
@@ -20,8 +26,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/logpush_identifier",
+          "description": "Identifier."
         },
         "limit": {
           "default": 10,
@@ -29,33 +35,26 @@ export const tools: readonly Tool[] = [
           "type": "integer"
         },
         "transformer_id": {
-          "description": "The transformer ID.",
-          "type": "string"
+          "$ref": "#/$defs/logpush_transformer_identifier",
+          "description": "The transformer ID."
         }
       },
       required: [
         "account_id",
         "transformer_id"
       ],
+      $defs: {
+        "logpush_identifier": logpush_identifier,
+        "logpush_transformer_identifier": logpush_transformer_identifier,
+      },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "$ref": "#/$defs/logpush_transformer_version"
-          },
-          "type": "array"
-        },
-        "result_info": {
-          "type": "object"
-        }
-      },
-      "required": [
-        "result"
-      ],
-      "type": "object",
+      "$ref": "#/$defs/logpush_transformer_version_response_collection",
       $defs: {
+        "logpush_api-response-common": logpush_api_response_common_output,
+        "logpush_messages": logpush_messages_output,
         "logpush_transformer_version": logpush_transformer_version_output,
+        "logpush_transformer_version_response_collection": logpush_transformer_version_response_collection_output,
       },
     },
     annotations: {
@@ -74,12 +73,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "#logs:edit"
-        ],
-        "x-fern-enum": {
-          "#logs:edit": {
-            "name": "logs_edit"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": false,
@@ -91,30 +85,18 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "items": {
-                "$ref": "#/$defs/logpush_transformer_version"
-              },
-              "type": "array"
-            },
-            "result_info": {
-              "type": "object"
-            }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/logpush_transformer_version_response_collection"
         },
         "4XX": {
           "$ref": "#/$defs/logpush_api-response-common-failure"
         }
       },
       $defs: {
+        "logpush_api-response-common": logpush_api_response_common_output,
         "logpush_api-response-common-failure": logpush_api_response_common_failure_output,
         "logpush_messages": logpush_messages_output,
         "logpush_transformer_version": logpush_transformer_version_output,
+        "logpush_transformer_version_response_collection": logpush_transformer_version_response_collection_output,
       },
     },
     request: (args) => ({

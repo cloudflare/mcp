@@ -65,6 +65,25 @@ export const magic_app_name_output: JsonSchema = {
 };
 
 /**
+ * The schema of `magic_app_single_response` in responses.
+ */
+export const magic_app_single_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/magic_apps-response-object"
+    },
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/magic_account_app"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
  * The schema of `magic_app_source_subnets` in responses.
  */
 export const magic_app_source_subnets_output: JsonSchema = {
@@ -103,6 +122,28 @@ export const magic_app_subnets_output: JsonSchema = {
  */
 export const magic_app_type_output: JsonSchema = {
   "type": "string"
+};
+
+/**
+ * The schema of `magic_apps_collection_response` in responses.
+ */
+export const magic_apps_collection_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/magic_apps-response-array"
+    },
+    {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/magic_app"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    }
+  ]
 };
 
 /**

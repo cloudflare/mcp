@@ -4,7 +4,9 @@
 import type { Tool } from "../../../_/tool.js";
 import {
   load_balancing_address_output,
+  load_balancing_api_paginated_response_collection_output,
   load_balancing_api_response_common_failure_output,
+  load_balancing_api_response_common_output,
   load_balancing_messages_output,
   load_balancing_result_info_output,
   load_balancing_schemas_enabled_output,
@@ -13,6 +15,7 @@ import {
 import { load_balancing_schemas_identifier } from "../../../schemas.js";
 import {
   load_balancing_analytics_output,
+  load_balancing_components_schemas_response_collection_output,
   load_balancing_origin_analytics_output,
   load_balancing_origin_changed_output,
   load_balancing_origin_failure_reason_output,
@@ -20,7 +23,7 @@ import {
   load_balancing_origin_ip_output,
 } from "./outputs.js";
 import {
-  load_balancing_origin_healthy_alt,
+  load_balancing_origin_healthy,
   load_balancing_pool_name,
   load_balancing_until,
 } from "./schemas.js";
@@ -37,7 +40,7 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "origin_healthy": {
-          "$ref": "#/$defs/load-balancing_origin_healthy_alt",
+          "$ref": "#/$defs/load-balancing_origin_healthy",
           "default": true,
           "description": "If true, filter events where the origin status is healthy. If false, filter events where the origin status is unhealthy."
         },
@@ -68,31 +71,21 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
-        "load-balancing_origin_healthy_alt": load_balancing_origin_healthy_alt,
+        "load-balancing_origin_healthy": load_balancing_origin_healthy,
         "load-balancing_pool_name": load_balancing_pool_name,
         "load-balancing_schemas-identifier": load_balancing_schemas_identifier,
         "load-balancing_until": load_balancing_until,
       },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "$ref": "#/$defs/load-balancing_analytics"
-          },
-          "type": "array"
-        },
-        "result_info": {
-          "$ref": "#/$defs/load-balancing_result_info"
-        }
-      },
-      "required": [
-        "result"
-      ],
-      "type": "object",
+      "$ref": "#/$defs/load-balancing_components-schemas-response_collection",
       $defs: {
         "load-balancing_address": load_balancing_address_output,
         "load-balancing_analytics": load_balancing_analytics_output,
+        "load-balancing_api-paginated-response-collection": load_balancing_api_paginated_response_collection_output,
+        "load-balancing_api-response-common": load_balancing_api_response_common_output,
+        "load-balancing_components-schemas-response_collection": load_balancing_components_schemas_response_collection_output,
+        "load-balancing_messages": load_balancing_messages_output,
         "load-balancing_origin-analytics": load_balancing_origin_analytics_output,
         "load-balancing_origin-changed": load_balancing_origin_changed_output,
         "load-balancing_origin-failure-reason": load_balancing_origin_failure_reason_output,
@@ -121,21 +114,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "items": {
-                "$ref": "#/$defs/load-balancing_analytics"
-              },
-              "type": "array"
-            },
-            "result_info": {
-              "$ref": "#/$defs/load-balancing_result_info"
-            }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/load-balancing_components-schemas-response_collection"
         },
         "4XX": {
           "$ref": "#/$defs/load-balancing_api-response-common-failure"
@@ -144,7 +123,10 @@ export const tools: readonly Tool[] = [
       $defs: {
         "load-balancing_address": load_balancing_address_output,
         "load-balancing_analytics": load_balancing_analytics_output,
+        "load-balancing_api-paginated-response-collection": load_balancing_api_paginated_response_collection_output,
+        "load-balancing_api-response-common": load_balancing_api_response_common_output,
         "load-balancing_api-response-common-failure": load_balancing_api_response_common_failure_output,
+        "load-balancing_components-schemas-response_collection": load_balancing_components_schemas_response_collection_output,
         "load-balancing_messages": load_balancing_messages_output,
         "load-balancing_origin-analytics": load_balancing_origin_analytics_output,
         "load-balancing_origin-changed": load_balancing_origin_changed_output,

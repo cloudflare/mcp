@@ -51,94 +51,44 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
-        "error": {
-          "oneOf": [
-            {
-              "properties": {
-                "message": {
-                  "type": "string"
-                },
-                "name": {
-                  "type": "string"
-                }
+        "errors": {
+          "items": {
+            "properties": {
+              "code": {
+                "type": "number"
               },
-              "required": [
-                "message",
-                "name"
-              ],
-              "type": "object"
+              "message": {
+                "type": "string"
+              }
             },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "event_type": {
-          "type": "string"
-        },
-        "output": {
-          "type": "object"
-        },
-        "status": {
-          "enum": [
-            "queued",
-            "running",
-            "paused",
-            "errored",
-            "terminated",
-            "complete",
-            "waitingForPause",
-            "waiting",
-            "rollingBack"
-          ],
-          "type": "string"
-        }
-      },
-      "required": [
-        "error",
-        "status"
-      ],
-      "type": "object",
-    },
-    annotations: {
-      "destructiveHint": false,
-      "idempotentHint": true,
-      "openWorldHint": true,
-      "readOnlyHint": true,
-      "title": "Get full step output from instance"
-    },
-    method: "GET",
-    path: "/accounts/{account_id}/workflows/{workflow_name}/instances/{instance_id}/step",
-    extensions: {
-      "x-api-token-group": [
-        "Workers Tail Read",
-        "Workers Scripts Write",
-        "Workers Scripts Read"
-      ],
-      "x-cfPermissionsRequired": {
-        "enum": [
-          "com.cloudflare.api.workers.write",
-          "com.cloudflare.api.workers.read"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.api.workers.read": {
-            "name": "com_cloudflare_api_workers_read"
+            "required": [
+              "code",
+              "message"
+            ],
+            "type": "object"
           },
-          "com.cloudflare.api.workers.write": {
-            "name": "com_cloudflare_api_workers_write"
-          }
-        }
-      },
-      "x-cfPlanAvailability": {
-        "business": true,
-        "enterprise": true,
-        "free": true,
-        "pro": true
-      }
-    },
-    responses: {
-      schemas: {
-        "200": {
+          "maxItems": 0,
+          "type": "array"
+        },
+        "messages": {
+          "items": {
+            "properties": {
+              "code": {
+                "type": "number"
+              },
+              "message": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "code",
+              "message"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "result": {
           "properties": {
             "error": {
               "oneOf": [
@@ -186,6 +136,212 @@ export const tools: readonly Tool[] = [
           "required": [
             "error",
             "status"
+          ],
+          "type": "object"
+        },
+        "result_info": {
+          "properties": {
+            "count": {
+              "type": "number"
+            },
+            "cursor": {
+              "type": "string"
+            },
+            "page": {
+              "type": "number"
+            },
+            "per_page": {
+              "type": "number"
+            },
+            "total_count": {
+              "type": "number"
+            },
+            "total_pages": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "count",
+            "per_page",
+            "total_count"
+          ],
+          "type": "object"
+        },
+        "success": {
+          "enum": [
+            true
+          ],
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "errors",
+        "messages",
+        "result",
+        "success"
+      ],
+      "type": "object",
+    },
+    annotations: {
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": true,
+      "readOnlyHint": true,
+      "title": "Get full step output from instance"
+    },
+    method: "GET",
+    path: "/accounts/{account_id}/workflows/{workflow_name}/instances/{instance_id}/step",
+    extensions: {
+      "x-api-token-group": [
+        "Workers Tail Read",
+        "Workers Scripts Write",
+        "Workers Scripts Read"
+      ],
+      "x-cfPermissionsRequired": {
+        "enum": [
+          "com.cloudflare.api.workers.write",
+          "com.cloudflare.api.workers.read"
+        ]
+      },
+      "x-cfPlanAvailability": {
+        "business": true,
+        "enterprise": true,
+        "free": true,
+        "pro": true
+      }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "errors": {
+              "items": {
+                "properties": {
+                  "code": {
+                    "type": "number"
+                  },
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message"
+                ],
+                "type": "object"
+              },
+              "maxItems": 0,
+              "type": "array"
+            },
+            "messages": {
+              "items": {
+                "properties": {
+                  "code": {
+                    "type": "number"
+                  },
+                  "message": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "result": {
+              "properties": {
+                "error": {
+                  "oneOf": [
+                    {
+                      "properties": {
+                        "message": {
+                          "type": "string"
+                        },
+                        "name": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "message",
+                        "name"
+                      ],
+                      "type": "object"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "event_type": {
+                  "type": "string"
+                },
+                "output": {
+                  "type": "object"
+                },
+                "status": {
+                  "enum": [
+                    "queued",
+                    "running",
+                    "paused",
+                    "errored",
+                    "terminated",
+                    "complete",
+                    "waitingForPause",
+                    "waiting",
+                    "rollingBack"
+                  ],
+                  "type": "string"
+                }
+              },
+              "required": [
+                "error",
+                "status"
+              ],
+              "type": "object"
+            },
+            "result_info": {
+              "properties": {
+                "count": {
+                  "type": "number"
+                },
+                "cursor": {
+                  "type": "string"
+                },
+                "page": {
+                  "type": "number"
+                },
+                "per_page": {
+                  "type": "number"
+                },
+                "total_count": {
+                  "type": "number"
+                },
+                "total_pages": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "count",
+                "per_page",
+                "total_count"
+              ],
+              "type": "object"
+            },
+            "success": {
+              "enum": [
+                true
+              ],
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "messages",
+            "result",
+            "success"
           ],
           "type": "object"
         },

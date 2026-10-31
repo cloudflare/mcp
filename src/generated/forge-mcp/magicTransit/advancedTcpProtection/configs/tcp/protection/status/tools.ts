@@ -3,11 +3,16 @@
 
 import { type Tool, pathParam } from "../../../../../../_/tool.js";
 import {
-  dos_api_response_common_failure_output,
-  dos_messages_output,
-} from "../../../../../../outputs.js";
-import { dos_ProtectionStatus_output } from "./outputs.js";
-import { dos_UpdateProtectionStatus } from "./schemas.js";
+  advanced_ddos_protection_api_response_common_failure_output,
+  advanced_ddos_protection_api_response_common_output,
+  advanced_ddos_protection_messages_output,
+} from "../../../../../outputs.js";
+import { advanced_ddos_protection_identifier } from "../../../../../schemas.js";
+import {
+  advanced_ddos_protection_ProtectionStatus_output,
+  advanced_ddos_protection_protection_status_response_output,
+} from "./outputs.js";
+import { advanced_ddos_protection_UpdateProtectionStatus } from "./schemas.js";
 
 /**
  * The tools of
@@ -22,18 +27,24 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "The account ID.",
-          "type": "string"
+          "$ref": "#/$defs/advanced-ddos-protection_identifier",
+          "description": "The account ID."
         }
       },
       required: [
         "account_id"
       ],
+      $defs: {
+        "advanced-ddos-protection_identifier": advanced_ddos_protection_identifier,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/dos_ProtectionStatus",
+      "$ref": "#/$defs/advanced-ddos-protection_protection-status-response",
       $defs: {
-        "dos_ProtectionStatus": dos_ProtectionStatus_output,
+        "advanced-ddos-protection_ProtectionStatus": advanced_ddos_protection_ProtectionStatus_output,
+        "advanced-ddos-protection_api-response-common": advanced_ddos_protection_api_response_common_output,
+        "advanced-ddos-protection_messages": advanced_ddos_protection_messages_output,
+        "advanced-ddos-protection_protection-status-response": advanced_ddos_protection_protection_status_response_output,
       },
     },
     annotations: {
@@ -54,16 +65,18 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/dos_ProtectionStatus"
+          "$ref": "#/$defs/advanced-ddos-protection_protection-status-response"
         },
         "4XX": {
-          "$ref": "#/$defs/dos_api-response-common-failure"
+          "$ref": "#/$defs/advanced-ddos-protection_api-response-common-failure"
         }
       },
       $defs: {
-        "dos_ProtectionStatus": dos_ProtectionStatus_output,
-        "dos_api-response-common-failure": dos_api_response_common_failure_output,
-        "dos_messages": dos_messages_output,
+        "advanced-ddos-protection_ProtectionStatus": advanced_ddos_protection_ProtectionStatus_output,
+        "advanced-ddos-protection_api-response-common": advanced_ddos_protection_api_response_common_output,
+        "advanced-ddos-protection_api-response-common-failure": advanced_ddos_protection_api_response_common_failure_output,
+        "advanced-ddos-protection_messages": advanced_ddos_protection_messages_output,
+        "advanced-ddos-protection_protection-status-response": advanced_ddos_protection_protection_status_response_output,
       },
     },
     request: (args) => ({
@@ -78,11 +91,11 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "The account ID.",
-          "type": "string"
+          "$ref": "#/$defs/advanced-ddos-protection_identifier",
+          "description": "The account ID."
         },
         "body": {
-          "$ref": "#/$defs/dos_UpdateProtectionStatus",
+          "$ref": "#/$defs/advanced-ddos-protection_UpdateProtectionStatus",
           "description": "The update to apply to the protection status."
         }
       },
@@ -91,13 +104,17 @@ export const tools: readonly Tool[] = [
         "body"
       ],
       $defs: {
-        "dos_UpdateProtectionStatus": dos_UpdateProtectionStatus,
+        "advanced-ddos-protection_UpdateProtectionStatus": advanced_ddos_protection_UpdateProtectionStatus,
+        "advanced-ddos-protection_identifier": advanced_ddos_protection_identifier,
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/dos_ProtectionStatus",
+      "$ref": "#/$defs/advanced-ddos-protection_protection-status-response",
       $defs: {
-        "dos_ProtectionStatus": dos_ProtectionStatus_output,
+        "advanced-ddos-protection_ProtectionStatus": advanced_ddos_protection_ProtectionStatus_output,
+        "advanced-ddos-protection_api-response-common": advanced_ddos_protection_api_response_common_output,
+        "advanced-ddos-protection_messages": advanced_ddos_protection_messages_output,
+        "advanced-ddos-protection_protection-status-response": advanced_ddos_protection_protection_status_response_output,
       },
     },
     annotations: {
@@ -117,16 +134,18 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/dos_ProtectionStatus"
+          "$ref": "#/$defs/advanced-ddos-protection_protection-status-response"
         },
         "4XX": {
-          "$ref": "#/$defs/dos_api-response-common-failure"
+          "$ref": "#/$defs/advanced-ddos-protection_api-response-common-failure"
         }
       },
       $defs: {
-        "dos_ProtectionStatus": dos_ProtectionStatus_output,
-        "dos_api-response-common-failure": dos_api_response_common_failure_output,
-        "dos_messages": dos_messages_output,
+        "advanced-ddos-protection_ProtectionStatus": advanced_ddos_protection_ProtectionStatus_output,
+        "advanced-ddos-protection_api-response-common": advanced_ddos_protection_api_response_common_output,
+        "advanced-ddos-protection_api-response-common-failure": advanced_ddos_protection_api_response_common_failure_output,
+        "advanced-ddos-protection_messages": advanced_ddos_protection_messages_output,
+        "advanced-ddos-protection_protection-status-response": advanced_ddos_protection_protection_status_response_output,
       },
     },
     request: (args) => ({

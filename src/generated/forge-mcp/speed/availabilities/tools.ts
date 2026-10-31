@@ -4,16 +4,15 @@
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
   observatory_api_response_common_failure_output,
+  observatory_api_response_single_output,
   observatory_labeled_region_output,
   observatory_messages_output,
   observatory_region_output,
 } from "../outputs.js";
+import { observatory_identifier } from "../schemas.js";
 import {
   observatory_availabilities_output,
-  observatory_availabilities_quota_output,
-  observatory_availabilities_quota_quotasPerPlan_output,
-  observatory_availabilities_quota_scheduleQuotasPerPlan_output,
-  observatory_availabilities_regionsPerPlan_output,
+  observatory_availabilities_response_output,
   observatory_plan_properties_info_output,
 } from "./outputs.js";
 
@@ -29,23 +28,25 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "zone_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/observatory_identifier",
+          "description": "Identifier."
         }
       },
       required: [
         "zone_id"
       ],
+      $defs: {
+        "observatory_identifier": observatory_identifier,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/observatory_availabilities",
+      "$ref": "#/$defs/observatory_availabilities-response",
       $defs: {
+        "observatory_api-response-single": observatory_api_response_single_output,
         "observatory_availabilities": observatory_availabilities_output,
-        "observatory_availabilities_quota": observatory_availabilities_quota_output,
-        "observatory_availabilities_quota_quotasPerPlan": observatory_availabilities_quota_quotasPerPlan_output,
-        "observatory_availabilities_quota_scheduleQuotasPerPlan": observatory_availabilities_quota_scheduleQuotasPerPlan_output,
-        "observatory_availabilities_regionsPerPlan": observatory_availabilities_regionsPerPlan_output,
+        "observatory_availabilities-response": observatory_availabilities_response_output,
         "observatory_labeled_region": observatory_labeled_region_output,
+        "observatory_messages": observatory_messages_output,
         "observatory_plan-properties-info": observatory_plan_properties_info_output,
         "observatory_region": observatory_region_output,
       },
@@ -74,7 +75,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/observatory_availabilities"
+          "$ref": "#/$defs/observatory_availabilities-response"
         },
         "4XX": {
           "$ref": "#/$defs/observatory_api-response-common-failure"
@@ -82,11 +83,9 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "observatory_api-response-common-failure": observatory_api_response_common_failure_output,
+        "observatory_api-response-single": observatory_api_response_single_output,
         "observatory_availabilities": observatory_availabilities_output,
-        "observatory_availabilities_quota": observatory_availabilities_quota_output,
-        "observatory_availabilities_quota_quotasPerPlan": observatory_availabilities_quota_quotasPerPlan_output,
-        "observatory_availabilities_quota_scheduleQuotasPerPlan": observatory_availabilities_quota_scheduleQuotasPerPlan_output,
-        "observatory_availabilities_regionsPerPlan": observatory_availabilities_regionsPerPlan_output,
+        "observatory_availabilities-response": observatory_availabilities_response_output,
         "observatory_labeled_region": observatory_labeled_region_output,
         "observatory_messages": observatory_messages_output,
         "observatory_plan-properties-info": observatory_plan_properties_info_output,

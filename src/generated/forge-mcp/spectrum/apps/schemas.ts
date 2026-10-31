@@ -7,75 +7,90 @@ import type { JsonSchema } from "../../_/tool.js";
  * The schema of `spectrum-config_app_config`.
  */
 export const spectrum_config_app_config: JsonSchema = {
-  "properties": {
-    "argo_smart_routing": {
-      "$ref": "#/$defs/spectrum-config_argo_smart_routing",
-      "default": false,
-      "description": "Enables Argo Smart Routing for this application.\nNotes: Only available for TCP or UDP applications with traffic_type set to \"direct\"."
+  "allOf": [
+    {
+      "$ref": "#/$defs/spectrum-config_base_app_config"
     },
-    "dns": {
-      "$ref": "#/$defs/spectrum-config_dns",
-      "description": "The name and type of DNS record for the Spectrum application."
-    },
-    "edge_ips": {
-      "$ref": "#/$defs/spectrum-config_edge_ips",
-      "default": {
-        "connectivity": "all",
-        "type": "dynamic"
+    {
+      "properties": {
+        "argo_smart_routing": {
+          "$ref": "#/$defs/spectrum-config_argo_smart_routing",
+          "default": false,
+          "description": "Enables Argo Smart Routing for this application.\nNotes: Only available for TCP or UDP applications with traffic_type set to \"direct\"."
+        },
+        "dns": {
+          "$ref": "#/$defs/spectrum-config_dns",
+          "description": "The name and type of DNS record for the Spectrum application."
+        },
+        "edge_ips": {
+          "$ref": "#/$defs/spectrum-config_edge_ips",
+          "default": {
+            "connectivity": "all",
+            "type": "dynamic"
+          },
+          "description": "The anycast edge IP configuration for the hostname of this application."
+        },
+        "ip_firewall": {
+          "$ref": "#/$defs/spectrum-config_ip_firewall",
+          "default": false,
+          "description": "Enables IP Access Rules for this application.\nNotes: Only available for TCP applications."
+        },
+        "origin_direct": {
+          "$ref": "#/$defs/spectrum-config_origin_direct",
+          "description": "List of origin IP addresses. Array may contain multiple IP addresses for load balancing."
+        },
+        "origin_dns": {
+          "$ref": "#/$defs/spectrum-config_origin_dns",
+          "description": "The name and type of DNS record for the Spectrum application."
+        },
+        "origin_port": {
+          "$ref": "#/$defs/spectrum-config_origin_port",
+          "description": "The destination port at the origin. Only specified in conjunction with origin_dns. May use an integer to specify a single origin port, for example `1000`, or a string to specify a range of origin ports, for example `\"1000-2000\"`.\nNotes: If specifying a port range, the number of ports in the range must match the number of ports specified in the \"protocol\" field."
+        },
+        "origin_worker_id": {
+          "$ref": "#/$defs/spectrum-config_origin_worker_id",
+          "description": "Optional Worker script tag (worker ID) to use as the application's origin. Only supported for TCP applications with traffic_type \"worker\"; mutually exclusive with origin_direct, origin_dns, origin_port, proxy_protocol, and argo_smart_routing. tls may only be \"off\" or \"flexible\"."
+        },
+        "protocol": {
+          "$ref": "#/$defs/spectrum-config_protocol",
+          "description": "The port configuration at Cloudflare's edge. May specify a single port, for example `\"tcp/1000\"`, or a range of ports, for example `\"tcp/1000-2000\"`."
+        },
+        "proxy_protocol": {
+          "$ref": "#/$defs/spectrum-config_proxy_protocol",
+          "default": "off",
+          "description": "Enables Proxy Protocol to the origin. Refer to [Enable Proxy protocol](https://developers.cloudflare.com/spectrum/getting-started/proxy-protocol/) for implementation details on PROXY Protocol V1, PROXY Protocol V2, and Simple Proxy Protocol."
+        },
+        "tls": {
+          "$ref": "#/$defs/spectrum-config_tls",
+          "default": "off",
+          "description": "The type of TLS termination associated with the application."
+        },
+        "traffic_type": {
+          "$ref": "#/$defs/spectrum-config_traffic_type",
+          "default": "direct",
+          "description": "Determines how data travels from the edge to your origin. When set to \"direct\", Spectrum will send traffic directly to your origin, and the application's type is derived from the `protocol`. When set to \"http\" or \"https\", Spectrum will apply Cloudflare's HTTP/HTTPS features as it sends traffic to your origin, and the application type matches this property exactly. When set to \"worker\", traffic is sent to the Worker specified by `origin_worker_id`."
+        },
+        "virtual_network_id": {
+          "$ref": "#/$defs/spectrum-config_virtual_network_id",
+          "description": "Optional UUID of a virtual network for routing origin traffic through tunnel virtual networks."
+        }
       },
-      "description": "The anycast edge IP configuration for the hostname of this application."
-    },
-    "ip_firewall": {
-      "$ref": "#/$defs/spectrum-config_ip_firewall",
-      "default": false,
-      "description": "Enables IP Access Rules for this application.\nNotes: Only available for TCP applications."
-    },
-    "origin_direct": {
-      "$ref": "#/$defs/spectrum-config_origin_direct",
-      "description": "List of origin IP addresses. Array may contain multiple IP addresses for load balancing."
-    },
-    "origin_dns": {
-      "$ref": "#/$defs/spectrum-config_origin_dns",
-      "description": "The name and type of DNS record for the Spectrum application."
-    },
-    "origin_port": {
-      "$ref": "#/$defs/spectrum-config_origin_port",
-      "description": "The destination port at the origin. Only specified in conjunction with origin_dns. May use an integer to specify a single origin port, for example `1000`, or a string to specify a range of origin ports, for example `\"1000-2000\"`.\nNotes: If specifying a port range, the number of ports in the range must match the number of ports specified in the \"protocol\" field."
-    },
-    "origin_worker_id": {
-      "$ref": "#/$defs/spectrum-config_origin_worker_id",
-      "description": "Optional Worker script tag (worker ID) to use as the application's origin. Only supported for TCP applications with traffic_type \"worker\"; mutually exclusive with origin_direct, origin_dns, origin_port, proxy_protocol, and argo_smart_routing. tls may only be \"off\" or \"flexible\"."
-    },
-    "protocol": {
-      "$ref": "#/$defs/spectrum-config_protocol",
-      "description": "The port configuration at Cloudflare's edge. May specify a single port, for example `\"tcp/1000\"`, or a range of ports, for example `\"tcp/1000-2000\"`."
-    },
-    "proxy_protocol": {
-      "$ref": "#/$defs/spectrum-config_proxy_protocol",
-      "default": "off",
-      "description": "Enables Proxy Protocol to the origin. Refer to [Enable Proxy protocol](https://developers.cloudflare.com/spectrum/getting-started/proxy-protocol/) for implementation details on PROXY Protocol V1, PROXY Protocol V2, and Simple Proxy Protocol."
-    },
-    "tls": {
-      "$ref": "#/$defs/spectrum-config_tls",
-      "default": "off",
-      "description": "The type of TLS termination associated with the application."
-    },
-    "traffic_type": {
-      "$ref": "#/$defs/spectrum-config_traffic_type",
-      "default": "direct",
-      "description": "Determines how data travels from the edge to your origin. When set to \"direct\", Spectrum will send traffic directly to your origin, and the application's type is derived from the `protocol`. When set to \"http\" or \"https\", Spectrum will apply Cloudflare's HTTP/HTTPS features as it sends traffic to your origin, and the application type matches this property exactly. When set to \"worker\", traffic is sent to the Worker specified by `origin_worker_id`."
-    },
-    "virtual_network_id": {
-      "$ref": "#/$defs/spectrum-config_virtual_network_id",
-      "description": "Optional UUID of a virtual network for routing origin traffic through tunnel virtual networks."
+      "required": [
+        "dns",
+        "protocol",
+        "traffic_type"
+      ],
+      "type": "object"
     }
-  },
-  "required": [
-    "dns",
-    "protocol",
-    "traffic_type"
-  ],
-  "type": "object"
+  ]
+};
+
+/**
+ * The schema of `spectrum-config_app_identifier`.
+ */
+export const spectrum_config_app_identifier: JsonSchema = {
+  "$ref": "#/$defs/spectrum-config_identifier",
+  "description": "App identifier."
 };
 
 /**
@@ -84,6 +99,13 @@ export const spectrum_config_app_config: JsonSchema = {
 export const spectrum_config_argo_smart_routing: JsonSchema = {
   "description": "Enables Argo Smart Routing for this application.\nNotes: Only available for TCP or UDP applications with traffic_type set to \"direct\".",
   "type": "boolean"
+};
+
+/**
+ * The schema of `spectrum-config_base_app_config`.
+ */
+export const spectrum_config_base_app_config: JsonSchema = {
+  "type": "object"
 };
 
 /**
@@ -271,25 +293,32 @@ export const spectrum_config_origin_worker_id: JsonSchema = {
  * The schema of `spectrum-config_paygo_app_config`.
  */
 export const spectrum_config_paygo_app_config: JsonSchema = {
-  "properties": {
-    "dns": {
-      "$ref": "#/$defs/spectrum-config_dns",
-      "description": "The name and type of DNS record for the Spectrum application."
+  "allOf": [
+    {
+      "$ref": "#/$defs/spectrum-config_base_app_config"
     },
-    "origin_direct": {
-      "$ref": "#/$defs/spectrum-config_origin_direct",
-      "description": "List of origin IP addresses. Array may contain multiple IP addresses for load balancing."
-    },
-    "protocol": {
-      "$ref": "#/$defs/spectrum-config_protocol",
-      "description": "The port configuration at Cloudflare's edge. May specify a single port, for example `\"tcp/1000\"`, or a range of ports, for example `\"tcp/1000-2000\"`."
+    {
+      "properties": {
+        "dns": {
+          "$ref": "#/$defs/spectrum-config_dns",
+          "description": "The name and type of DNS record for the Spectrum application."
+        },
+        "origin_direct": {
+          "$ref": "#/$defs/spectrum-config_origin_direct",
+          "description": "List of origin IP addresses. Array may contain multiple IP addresses for load balancing."
+        },
+        "protocol": {
+          "$ref": "#/$defs/spectrum-config_protocol",
+          "description": "The port configuration at Cloudflare's edge. May specify a single port, for example `\"tcp/1000\"`, or a range of ports, for example `\"tcp/1000-2000\"`."
+        }
+      },
+      "required": [
+        "dns",
+        "protocol"
+      ],
+      "type": "object"
     }
-  },
-  "required": [
-    "dns",
-    "protocol"
-  ],
-  "type": "object"
+  ]
 };
 
 /**

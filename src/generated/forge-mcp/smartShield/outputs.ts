@@ -4,6 +4,36 @@
 import type { JsonSchema } from "../_/tool.js";
 
 /**
+ * The schema of `smartshield_api-response-common` in responses.
+ */
+export const smartshield_api_response_common_output: JsonSchema = {
+  "properties": {
+    "errors": {
+      "$ref": "#/$defs/smartshield_messages"
+    },
+    "messages": {
+      "$ref": "#/$defs/smartshield_messages"
+    },
+    "result": {
+      "$ref": "#/$defs/smartshield_api-response-result"
+    },
+    "success": {
+      "enum": [
+        true
+      ],
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "errors",
+    "messages",
+    "result",
+    "success"
+  ],
+  "type": "object"
+};
+
+/**
  * The schema of `smartshield_api-response-common-failure` in responses.
  */
 export const smartshield_api_response_common_failure_output: JsonSchema = {
@@ -32,6 +62,33 @@ export const smartshield_api_response_common_failure_output: JsonSchema = {
 };
 
 /**
+ * The schema of `smartshield_api-response-result` in responses.
+ */
+export const smartshield_api_response_result_output: JsonSchema = {
+  "anyOf": [
+    {
+      "type": "object"
+    },
+    {
+      "items": {
+        "type": "object"
+      },
+      "type": "array"
+    },
+    {
+      "type": "string"
+    }
+  ]
+};
+
+/**
+ * The schema of `smartshield_identifier` in responses.
+ */
+export const smartshield_identifier_output: JsonSchema = {
+  "type": "string"
+};
+
+/**
  * The schema of `smartshield_messages` in responses.
  */
 export const smartshield_messages_output: JsonSchema = {
@@ -54,22 +111,122 @@ export const smartshield_messages_output: JsonSchema = {
 };
 
 /**
- * The schema of `smartshield_smart_shield_settings_cache_reserve` in responses.
+ * The schema of `smartshield_single_smart_shield_get_response` in responses.
  */
-export const smartshield_smart_shield_settings_cache_reserve_output: JsonSchema = {
+export const smartshield_single_smart_shield_get_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/smartshield_api-response-common"
+    },
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/smartshield_smart_shield_settings_get_response"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `smartshield_single_smart_shield_patch_response` in responses.
+ */
+export const smartshield_single_smart_shield_patch_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/smartshield_api-response-common"
+    },
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/smartshield_smart_shield_settings_patch_response"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `smartshield_smart_shield_settings` in responses.
+ */
+export const smartshield_smart_shield_settings_output: JsonSchema = {
   "properties": {
-    "editable": {
-      "type": "boolean"
+    "cache_reserve": {
+      "properties": {
+        "editable": {
+          "type": "boolean"
+        },
+        "id": {
+          "type": "string"
+        },
+        "value": {
+          "enum": [
+            "on",
+            "off"
+          ],
+          "type": "string"
+        }
+      },
+      "type": "object"
     },
-    "id": {
-      "type": "string"
+    "regional_tiered_cache": {
+      "properties": {
+        "editable": {
+          "type": "boolean"
+        },
+        "id": {
+          "type": "string"
+        },
+        "value": {
+          "enum": [
+            "on",
+            "off"
+          ],
+          "type": "string"
+        }
+      },
+      "type": "object"
     },
-    "value": {
-      "enum": [
-        "on",
-        "off"
-      ],
-      "type": "string"
+    "smart_routing": {
+      "properties": {
+        "editable": {
+          "type": "boolean"
+        },
+        "id": {
+          "type": "string"
+        },
+        "value": {
+          "enum": [
+            "on",
+            "off"
+          ],
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "smart_tiered_cache": {
+      "properties": {
+        "editable": {
+          "type": "boolean"
+        },
+        "id": {
+          "type": "string"
+        },
+        "modified_on": {
+          "type": "string"
+        },
+        "value": {
+          "enum": [
+            "on",
+            "off"
+          ],
+          "type": "string"
+        }
+      },
+      "type": "object"
     }
   },
   "type": "object"
@@ -79,31 +236,19 @@ export const smartshield_smart_shield_settings_cache_reserve_output: JsonSchema 
  * The schema of `smartshield_smart_shield_settings_get_response` in responses.
  */
 export const smartshield_smart_shield_settings_get_response_output: JsonSchema = {
-  "properties": {
-    "cache_reserve": {
-      "$ref": "#/$defs/smartshield_smart_shield_settings_cache_reserve"
+  "allOf": [
+    {
+      "$ref": "#/$defs/smartshield_smart_shield_settings"
     },
-    "healthchecks_count": {
-      "type": "integer"
-    },
-    "regional_tiered_cache": {
-      "$ref": "#/$defs/smartshield_smart_shield_settings_regional_tiered_cache"
-    },
-    "smart_routing": {
-      "$ref": "#/$defs/smartshield_smart_shield_settings_smart_routing"
-    },
-    "smart_tiered_cache": {
-      "$ref": "#/$defs/smartshield_smart_shield_settings_smart_tiered_cache"
+    {
+      "properties": {
+        "healthchecks_count": {
+          "type": "integer"
+        }
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "cache_reserve",
-    "regional_tiered_cache",
-    "smart_routing",
-    "smart_tiered_cache",
-    "healthchecks_count"
-  ],
-  "type": "object"
+  ]
 };
 
 /**
@@ -113,16 +258,79 @@ export const smartshield_smart_shield_settings_get_response_output: JsonSchema =
 export const smartshield_smart_shield_settings_patch_response_output: JsonSchema = {
   "properties": {
     "cache_reserve": {
-      "$ref": "#/$defs/smartshield_smart_shield_settings_patch_response_cache_reserve"
+      "properties": {
+        "editable": {
+          "type": "boolean"
+        },
+        "id": {
+          "type": "string"
+        },
+        "value": {
+          "enum": [
+            "on",
+            "off"
+          ],
+          "type": "string"
+        }
+      },
+      "type": "object"
     },
     "regional_tiered_cache": {
-      "$ref": "#/$defs/smartshield_smart_shield_settings_patch_response_regional_tiered_cache"
+      "properties": {
+        "editable": {
+          "type": "boolean"
+        },
+        "id": {
+          "type": "string"
+        },
+        "value": {
+          "enum": [
+            "on",
+            "off"
+          ],
+          "type": "string"
+        }
+      },
+      "type": "object"
     },
     "smart_routing": {
-      "$ref": "#/$defs/smartshield_smart_shield_settings_patch_response_smart_routing"
+      "properties": {
+        "editable": {
+          "type": "boolean"
+        },
+        "id": {
+          "type": "string"
+        },
+        "value": {
+          "enum": [
+            "on",
+            "off"
+          ],
+          "type": "string"
+        }
+      },
+      "type": "object"
     },
     "smart_tiered_cache": {
-      "$ref": "#/$defs/smartshield_smart_shield_settings_patch_response_smart_tiered_cache"
+      "properties": {
+        "editable": {
+          "type": "boolean"
+        },
+        "id": {
+          "type": "string"
+        },
+        "modified_on": {
+          "type": "string"
+        },
+        "value": {
+          "enum": [
+            "on",
+            "off"
+          ],
+          "type": "string"
+        }
+      },
+      "type": "object"
     }
   },
   "required": [
@@ -131,175 +339,5 @@ export const smartshield_smart_shield_settings_patch_response_output: JsonSchema
     "smart_routing",
     "smart_tiered_cache"
   ],
-  "type": "object"
-};
-
-/**
- * The schema of
- * `smartshield_smart_shield_settings_patch_response_cache_reserve` in
- * responses.
- */
-export const smartshield_smart_shield_settings_patch_response_cache_reserve_output: JsonSchema = {
-  "properties": {
-    "editable": {
-      "type": "boolean"
-    },
-    "id": {
-      "type": "string"
-    },
-    "value": {
-      "enum": [
-        "on",
-        "off"
-      ],
-      "type": "string"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of
- * `smartshield_smart_shield_settings_patch_response_regional_tiered_cache` in
- * responses.
- */
-export const smartshield_smart_shield_settings_patch_response_regional_tiered_cache_output: JsonSchema = {
-  "properties": {
-    "editable": {
-      "type": "boolean"
-    },
-    "id": {
-      "type": "string"
-    },
-    "value": {
-      "enum": [
-        "on",
-        "off"
-      ],
-      "type": "string"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of
- * `smartshield_smart_shield_settings_patch_response_smart_routing` in
- * responses.
- */
-export const smartshield_smart_shield_settings_patch_response_smart_routing_output: JsonSchema = {
-  "properties": {
-    "editable": {
-      "type": "boolean"
-    },
-    "id": {
-      "type": "string"
-    },
-    "value": {
-      "enum": [
-        "on",
-        "off"
-      ],
-      "type": "string"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of
- * `smartshield_smart_shield_settings_patch_response_smart_tiered_cache` in
- * responses.
- */
-export const smartshield_smart_shield_settings_patch_response_smart_tiered_cache_output: JsonSchema = {
-  "properties": {
-    "editable": {
-      "type": "boolean"
-    },
-    "id": {
-      "type": "string"
-    },
-    "modified_on": {
-      "type": "string"
-    },
-    "value": {
-      "enum": [
-        "on",
-        "off"
-      ],
-      "type": "string"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `smartshield_smart_shield_settings_regional_tiered_cache` in
- * responses.
- */
-export const smartshield_smart_shield_settings_regional_tiered_cache_output: JsonSchema = {
-  "properties": {
-    "editable": {
-      "type": "boolean"
-    },
-    "id": {
-      "type": "string"
-    },
-    "value": {
-      "enum": [
-        "on",
-        "off"
-      ],
-      "type": "string"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `smartshield_smart_shield_settings_smart_routing` in responses.
- */
-export const smartshield_smart_shield_settings_smart_routing_output: JsonSchema = {
-  "properties": {
-    "editable": {
-      "type": "boolean"
-    },
-    "id": {
-      "type": "string"
-    },
-    "value": {
-      "enum": [
-        "on",
-        "off"
-      ],
-      "type": "string"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `smartshield_smart_shield_settings_smart_tiered_cache` in
- * responses.
- */
-export const smartshield_smart_shield_settings_smart_tiered_cache_output: JsonSchema = {
-  "properties": {
-    "editable": {
-      "type": "boolean"
-    },
-    "id": {
-      "type": "string"
-    },
-    "modified_on": {
-      "type": "string"
-    },
-    "value": {
-      "enum": [
-        "on",
-        "off"
-      ],
-      "type": "string"
-    }
-  },
   "type": "object"
 };

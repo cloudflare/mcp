@@ -34,6 +34,53 @@ export const observatory_api_response_common_failure_output: JsonSchema = {
 };
 
 /**
+ * The schema of `observatory_api-response-single` in responses.
+ */
+export const observatory_api_response_single_output: JsonSchema = {
+  "properties": {
+    "errors": {
+      "$ref": "#/$defs/observatory_messages"
+    },
+    "messages": {
+      "$ref": "#/$defs/observatory_messages"
+    },
+    "success": {
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "errors",
+    "messages",
+    "success"
+  ],
+  "type": "object"
+};
+
+/**
+ * The schema of `observatory_count-response` in responses.
+ */
+export const observatory_count_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/observatory_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "properties": {
+            "count": {
+              "type": "number"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
  * The schema of `observatory_device_type` in responses.
  */
 export const observatory_device_type_output: JsonSchema = {
@@ -85,7 +132,18 @@ export const observatory_lighthouse_report_output: JsonSchema = {
       "$ref": "#/$defs/observatory_device_type"
     },
     "error": {
-      "$ref": "#/$defs/observatory_lighthouse_report_error"
+      "properties": {
+        "code": {
+          "$ref": "#/$defs/observatory_lighthouse_error_code"
+        },
+        "detail": {
+          "type": "string"
+        },
+        "finalDisplayedUrl": {
+          "type": "string"
+        }
+      },
+      "type": "object"
     },
     "fcp": {
       "type": "number"
@@ -113,24 +171,6 @@ export const observatory_lighthouse_report_output: JsonSchema = {
     },
     "tti": {
       "type": "number"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `observatory_lighthouse_report_error` in responses.
- */
-export const observatory_lighthouse_report_error_output: JsonSchema = {
-  "properties": {
-    "code": {
-      "$ref": "#/$defs/observatory_lighthouse_error_code"
-    },
-    "detail": {
-      "type": "string"
-    },
-    "finalDisplayedUrl": {
-      "type": "string"
     }
   },
   "type": "object"

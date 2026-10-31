@@ -96,6 +96,29 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
+        "pagination": {
+          "properties": {
+            "page": {
+              "type": "number"
+            },
+            "pageSize": {
+              "type": "number"
+            },
+            "total": {
+              "type": "number"
+            },
+            "totalPages": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "page",
+            "pageSize",
+            "total",
+            "totalPages"
+          ],
+          "type": "object"
+        },
         "result": {
           "items": {
             "properties": {
@@ -152,12 +175,14 @@ export const tools: readonly Tool[] = [
           },
           "type": "array"
         },
-        "result_info": {
-          "type": "object"
+        "success": {
+          "type": "string"
         }
       },
       "required": [
-        "result"
+        "pagination",
+        "result",
+        "success"
       ],
       "type": "object",
     },
@@ -180,6 +205,29 @@ export const tools: readonly Tool[] = [
       schemas: {
         "200": {
           "properties": {
+            "pagination": {
+              "properties": {
+                "page": {
+                  "type": "number"
+                },
+                "pageSize": {
+                  "type": "number"
+                },
+                "total": {
+                  "type": "number"
+                },
+                "totalPages": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "page",
+                "pageSize",
+                "total",
+                "totalPages"
+              ],
+              "type": "object"
+            },
             "result": {
               "items": {
                 "properties": {
@@ -236,12 +284,14 @@ export const tools: readonly Tool[] = [
               },
               "type": "array"
             },
-            "result_info": {
-              "type": "object"
+            "success": {
+              "type": "string"
             }
           },
           "required": [
-            "result"
+            "pagination",
+            "result",
+            "success"
           ],
           "type": "object"
         },
@@ -361,7 +411,14 @@ export const tools: readonly Tool[] = [
           "type": "string"
         },
         "investigation_id": {
-          "type": "string"
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
         },
         "is_free_request": {
           "type": "boolean"
@@ -566,7 +623,14 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "investigation_id": {
-              "type": "string"
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
             },
             "is_free_request": {
               "type": "boolean"
@@ -932,7 +996,14 @@ export const tools: readonly Tool[] = [
           "type": "string"
         },
         "investigation_id": {
-          "type": "string"
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
         },
         "is_free_request": {
           "type": "boolean"
@@ -1136,7 +1207,14 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "investigation_id": {
-              "type": "string"
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
             },
             "is_free_request": {
               "type": "boolean"
@@ -1487,7 +1565,14 @@ export const tools: readonly Tool[] = [
           "type": "string"
         },
         "investigation_id": {
-          "type": "string"
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
         },
         "is_free_request": {
           "type": "boolean"
@@ -1691,7 +1776,14 @@ export const tools: readonly Tool[] = [
               "type": "string"
             },
             "investigation_id": {
-              "type": "string"
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
             },
             "is_free_request": {
               "type": "boolean"

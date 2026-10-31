@@ -3,10 +3,10 @@
 
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
+  pages_api_response_collection_output,
   pages_api_response_common_failure_output,
+  pages_api_response_common_output,
   pages_build_config_output,
-  pages_deployment_deployment_trigger_metadata_output,
-  pages_deployment_deployment_trigger_output,
   pages_deployment_output,
   pages_env_vars_output,
   pages_messages_output,
@@ -18,6 +18,8 @@ import {
   pages_source_type_output,
   pages_stage_output,
 } from "../outputs.js";
+import { pages_identifier, pages_project_name } from "../schemas.js";
+import { pages_deployment_id } from "./schemas.js";
 
 /**
  * The tools of `pages.deployments`.
@@ -31,20 +33,20 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/pages_identifier",
+          "description": "Identifier."
         },
         "allow_aliased": {
           "description": "Allow deletion when a non-production deployment has an active alias.",
           "type": "boolean"
         },
         "deployment_id": {
-          "description": "UUID of the Pages deployment, as returned by deployment list or create operations.",
-          "type": "string"
+          "$ref": "#/$defs/pages_deployment_id",
+          "description": "UUID of the Pages deployment, as returned by deployment list or create operations."
         },
         "project_name": {
-          "description": "Name of the Pages project. Must begin with a lowercase letter or digit and contain only lowercase letters, digits, and hyphens.",
-          "type": "string"
+          "$ref": "#/$defs/pages_project_name",
+          "description": "Name of the Pages project. Must begin with a lowercase letter or digit and contain only lowercase letters, digits, and hyphens."
         }
       },
       required: [
@@ -52,16 +54,40 @@ export const tools: readonly Tool[] = [
         "project_name",
         "deployment_id"
       ],
+      $defs: {
+        "pages_deployment_id": pages_deployment_id,
+        "pages_identifier": pages_identifier,
+        "pages_project_name": pages_project_name,
+      },
     },
     outputSchema: {
-      "oneOf": [
+      "allOf": [
         {
-          "type": "object"
+          "$ref": "#/$defs/pages_api-response-common"
         },
         {
-          "type": "null"
+          "properties": {
+            "result": {
+              "oneOf": [
+                {
+                  "type": "object"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
         }
       ],
+      $defs: {
+        "pages_api-response-common": pages_api_response_common_output,
+        "pages_messages": pages_messages_output,
+      },
     },
     annotations: {
       "destructiveHint": true,
@@ -80,12 +106,27 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "oneOf": [
+          "allOf": [
             {
-              "type": "object"
+              "$ref": "#/$defs/pages_api-response-common"
             },
             {
-              "type": "null"
+              "properties": {
+                "result": {
+                  "oneOf": [
+                    {
+                      "type": "object"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                }
+              },
+              "required": [
+                "result"
+              ],
+              "type": "object"
             }
           ]
         },
@@ -94,6 +135,7 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
+        "pages_api-response-common": pages_api_response_common_output,
         "pages_api-response-common-failure": pages_api_response_common_failure_output,
         "pages_messages": pages_messages_output,
       },
@@ -113,16 +155,16 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/pages_identifier",
+          "description": "Identifier."
         },
         "deployment_id": {
-          "description": "UUID of the Pages deployment, as returned by deployment list or create operations.",
-          "type": "string"
+          "$ref": "#/$defs/pages_deployment_id",
+          "description": "UUID of the Pages deployment, as returned by deployment list or create operations."
         },
         "project_name": {
-          "description": "Name of the Pages project. Must begin with a lowercase letter or digit and contain only lowercase letters, digits, and hyphens.",
-          "type": "string"
+          "$ref": "#/$defs/pages_project_name",
+          "description": "Name of the Pages project. Must begin with a lowercase letter or digit and contain only lowercase letters, digits, and hyphens."
         }
       },
       required: [
@@ -130,15 +172,35 @@ export const tools: readonly Tool[] = [
         "project_name",
         "deployment_id"
       ],
+      $defs: {
+        "pages_deployment_id": pages_deployment_id,
+        "pages_identifier": pages_identifier,
+        "pages_project_name": pages_project_name,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/pages_deployment",
+      "allOf": [
+        {
+          "$ref": "#/$defs/pages_api-response-common"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/pages_deployment"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        }
+      ],
       $defs: {
+        "pages_api-response-common": pages_api_response_common_output,
         "pages_build_config": pages_build_config_output,
         "pages_deployment": pages_deployment_output,
-        "pages_deployment_deployment_trigger": pages_deployment_deployment_trigger_output,
-        "pages_deployment_deployment_trigger_metadata": pages_deployment_deployment_trigger_metadata_output,
         "pages_env_vars": pages_env_vars_output,
+        "pages_messages": pages_messages_output,
         "pages_plain_text_env_var": pages_plain_text_env_var_output,
         "pages_project_name": pages_project_name_output,
         "pages_secret_text_env_var": pages_secret_text_env_var_output,
@@ -166,18 +228,32 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/pages_deployment"
+          "allOf": [
+            {
+              "$ref": "#/$defs/pages_api-response-common"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/pages_deployment"
+                }
+              },
+              "required": [
+                "result"
+              ],
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/pages_api-response-common-failure"
         }
       },
       $defs: {
+        "pages_api-response-common": pages_api_response_common_output,
         "pages_api-response-common-failure": pages_api_response_common_failure_output,
         "pages_build_config": pages_build_config_output,
         "pages_deployment": pages_deployment_output,
-        "pages_deployment_deployment_trigger": pages_deployment_deployment_trigger_output,
-        "pages_deployment_deployment_trigger_metadata": pages_deployment_deployment_trigger_metadata_output,
         "pages_env_vars": pages_env_vars_output,
         "pages_messages": pages_messages_output,
         "pages_plain_text_env_var": pages_plain_text_env_var_output,
@@ -201,8 +277,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/pages_identifier",
+          "description": "Identifier."
         },
         "env": {
           "description": "Deployment environment to return. Valid values are `production` and `preview`.",
@@ -221,54 +297,46 @@ export const tools: readonly Tool[] = [
           "type": "integer"
         },
         "project_name": {
-          "description": "Name of the Pages project. Must begin with a lowercase letter or digit and contain only lowercase letters, digits, and hyphens.",
-          "type": "string"
+          "$ref": "#/$defs/pages_project_name",
+          "description": "Name of the Pages project. Must begin with a lowercase letter or digit and contain only lowercase letters, digits, and hyphens."
         }
       },
       required: [
         "account_id",
         "project_name"
       ],
+      $defs: {
+        "pages_identifier": pages_identifier,
+        "pages_project_name": pages_project_name,
+      },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "$ref": "#/$defs/pages_deployment"
-          },
-          "type": "array"
+      "allOf": [
+        {
+          "$ref": "#/$defs/pages_api-response-collection"
         },
-        "result_info": {
+        {
           "properties": {
-            "count": {
-              "type": "number"
-            },
-            "page": {
-              "type": "number"
-            },
-            "per_page": {
-              "type": "number"
-            },
-            "total_count": {
-              "type": "number"
-            },
-            "total_pages": {
-              "type": "number"
+            "result": {
+              "items": {
+                "$ref": "#/$defs/pages_deployment"
+              },
+              "type": "array"
             }
           },
+          "required": [
+            "result"
+          ],
           "type": "object"
         }
-      },
-      "required": [
-        "result"
       ],
-      "type": "object",
       $defs: {
+        "pages_api-response-collection": pages_api_response_collection_output,
+        "pages_api-response-common": pages_api_response_common_output,
         "pages_build_config": pages_build_config_output,
         "pages_deployment": pages_deployment_output,
-        "pages_deployment_deployment_trigger": pages_deployment_deployment_trigger_output,
-        "pages_deployment_deployment_trigger_metadata": pages_deployment_deployment_trigger_metadata_output,
         "pages_env_vars": pages_env_vars_output,
+        "pages_messages": pages_messages_output,
         "pages_plain_text_env_var": pages_plain_text_env_var_output,
         "pages_project_name": pages_project_name_output,
         "pages_secret_text_env_var": pages_secret_text_env_var_output,
@@ -296,49 +364,36 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "items": {
-                "$ref": "#/$defs/pages_deployment"
-              },
-              "type": "array"
+          "allOf": [
+            {
+              "$ref": "#/$defs/pages_api-response-collection"
             },
-            "result_info": {
+            {
               "properties": {
-                "count": {
-                  "type": "number"
-                },
-                "page": {
-                  "type": "number"
-                },
-                "per_page": {
-                  "type": "number"
-                },
-                "total_count": {
-                  "type": "number"
-                },
-                "total_pages": {
-                  "type": "number"
+                "result": {
+                  "items": {
+                    "$ref": "#/$defs/pages_deployment"
+                  },
+                  "type": "array"
                 }
               },
+              "required": [
+                "result"
+              ],
               "type": "object"
             }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/pages_api-response-common-failure"
         }
       },
       $defs: {
+        "pages_api-response-collection": pages_api_response_collection_output,
+        "pages_api-response-common": pages_api_response_common_output,
         "pages_api-response-common-failure": pages_api_response_common_failure_output,
         "pages_build_config": pages_build_config_output,
         "pages_deployment": pages_deployment_output,
-        "pages_deployment_deployment_trigger": pages_deployment_deployment_trigger_output,
-        "pages_deployment_deployment_trigger_metadata": pages_deployment_deployment_trigger_metadata_output,
         "pages_env_vars": pages_env_vars_output,
         "pages_messages": pages_messages_output,
         "pages_plain_text_env_var": pages_plain_text_env_var_output,
@@ -367,16 +422,16 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/pages_identifier",
+          "description": "Identifier."
         },
         "deployment_id": {
-          "description": "UUID of the Pages deployment, as returned by deployment list or create operations.",
-          "type": "string"
+          "$ref": "#/$defs/pages_deployment_id",
+          "description": "UUID of the Pages deployment, as returned by deployment list or create operations."
         },
         "project_name": {
-          "description": "Name of the Pages project. Must begin with a lowercase letter or digit and contain only lowercase letters, digits, and hyphens.",
-          "type": "string"
+          "$ref": "#/$defs/pages_project_name",
+          "description": "Name of the Pages project. Must begin with a lowercase letter or digit and contain only lowercase letters, digits, and hyphens."
         }
       },
       required: [
@@ -384,15 +439,35 @@ export const tools: readonly Tool[] = [
         "project_name",
         "deployment_id"
       ],
+      $defs: {
+        "pages_deployment_id": pages_deployment_id,
+        "pages_identifier": pages_identifier,
+        "pages_project_name": pages_project_name,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/pages_deployment",
+      "allOf": [
+        {
+          "$ref": "#/$defs/pages_api-response-common"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/pages_deployment"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        }
+      ],
       $defs: {
+        "pages_api-response-common": pages_api_response_common_output,
         "pages_build_config": pages_build_config_output,
         "pages_deployment": pages_deployment_output,
-        "pages_deployment_deployment_trigger": pages_deployment_deployment_trigger_output,
-        "pages_deployment_deployment_trigger_metadata": pages_deployment_deployment_trigger_metadata_output,
         "pages_env_vars": pages_env_vars_output,
+        "pages_messages": pages_messages_output,
         "pages_plain_text_env_var": pages_plain_text_env_var_output,
         "pages_project_name": pages_project_name_output,
         "pages_secret_text_env_var": pages_secret_text_env_var_output,
@@ -419,18 +494,32 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/pages_deployment"
+          "allOf": [
+            {
+              "$ref": "#/$defs/pages_api-response-common"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/pages_deployment"
+                }
+              },
+              "required": [
+                "result"
+              ],
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/pages_api-response-common-failure"
         }
       },
       $defs: {
+        "pages_api-response-common": pages_api_response_common_output,
         "pages_api-response-common-failure": pages_api_response_common_failure_output,
         "pages_build_config": pages_build_config_output,
         "pages_deployment": pages_deployment_output,
-        "pages_deployment_deployment_trigger": pages_deployment_deployment_trigger_output,
-        "pages_deployment_deployment_trigger_metadata": pages_deployment_deployment_trigger_metadata_output,
         "pages_env_vars": pages_env_vars_output,
         "pages_messages": pages_messages_output,
         "pages_plain_text_env_var": pages_plain_text_env_var_output,
@@ -454,16 +543,16 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/pages_identifier",
+          "description": "Identifier."
         },
         "deployment_id": {
-          "description": "UUID of the Pages deployment, as returned by deployment list or create operations.",
-          "type": "string"
+          "$ref": "#/$defs/pages_deployment_id",
+          "description": "UUID of the Pages deployment, as returned by deployment list or create operations."
         },
         "project_name": {
-          "description": "Name of the Pages project. Must begin with a lowercase letter or digit and contain only lowercase letters, digits, and hyphens.",
-          "type": "string"
+          "$ref": "#/$defs/pages_project_name",
+          "description": "Name of the Pages project. Must begin with a lowercase letter or digit and contain only lowercase letters, digits, and hyphens."
         }
       },
       required: [
@@ -471,15 +560,35 @@ export const tools: readonly Tool[] = [
         "project_name",
         "deployment_id"
       ],
+      $defs: {
+        "pages_deployment_id": pages_deployment_id,
+        "pages_identifier": pages_identifier,
+        "pages_project_name": pages_project_name,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/pages_deployment",
+      "allOf": [
+        {
+          "$ref": "#/$defs/pages_api-response-common"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/pages_deployment"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        }
+      ],
       $defs: {
+        "pages_api-response-common": pages_api_response_common_output,
         "pages_build_config": pages_build_config_output,
         "pages_deployment": pages_deployment_output,
-        "pages_deployment_deployment_trigger": pages_deployment_deployment_trigger_output,
-        "pages_deployment_deployment_trigger_metadata": pages_deployment_deployment_trigger_metadata_output,
         "pages_env_vars": pages_env_vars_output,
+        "pages_messages": pages_messages_output,
         "pages_plain_text_env_var": pages_plain_text_env_var_output,
         "pages_project_name": pages_project_name_output,
         "pages_secret_text_env_var": pages_secret_text_env_var_output,
@@ -506,18 +615,32 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/pages_deployment"
+          "allOf": [
+            {
+              "$ref": "#/$defs/pages_api-response-common"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/pages_deployment"
+                }
+              },
+              "required": [
+                "result"
+              ],
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/pages_api-response-common-failure"
         }
       },
       $defs: {
+        "pages_api-response-common": pages_api_response_common_output,
         "pages_api-response-common-failure": pages_api_response_common_failure_output,
         "pages_build_config": pages_build_config_output,
         "pages_deployment": pages_deployment_output,
-        "pages_deployment_deployment_trigger": pages_deployment_deployment_trigger_output,
-        "pages_deployment_deployment_trigger_metadata": pages_deployment_deployment_trigger_metadata_output,
         "pages_env_vars": pages_env_vars_output,
         "pages_messages": pages_messages_output,
         "pages_plain_text_env_var": pages_plain_text_env_var_output,

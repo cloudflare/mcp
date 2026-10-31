@@ -4,15 +4,52 @@
 import type { JsonSchema } from "../_/tool.js";
 
 /**
- * The schema of `dos_api-response-common` in responses.
+ * The schema of `advanced-ddos-protection_api-response-collection` in
+ * responses.
  */
-export const dos_api_response_common_output: JsonSchema = {
+export const advanced_ddos_protection_api_response_collection_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/advanced-ddos-protection_api-response-common"
+    },
+    {
+      "properties": {
+        "result_info": {
+          "properties": {
+            "count": {
+              "type": "number"
+            },
+            "page": {
+              "type": "number"
+            },
+            "per_page": {
+              "type": "number"
+            },
+            "total_count": {
+              "type": "number"
+            },
+            "total_pages": {
+              "type": "number"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `advanced-ddos-protection_api-response-common` in responses.
+ */
+export const advanced_ddos_protection_api_response_common_output: JsonSchema = {
   "properties": {
     "errors": {
-      "$ref": "#/$defs/dos_messages"
+      "$ref": "#/$defs/advanced-ddos-protection_messages"
     },
     "messages": {
-      "$ref": "#/$defs/dos_messages"
+      "$ref": "#/$defs/advanced-ddos-protection_messages"
     },
     "success": {
       "enum": [
@@ -30,10 +67,117 @@ export const dos_api_response_common_output: JsonSchema = {
 };
 
 /**
+ * The schema of `advanced-ddos-protection_api-response-common-failure` in
+ * responses.
+ */
+export const advanced_ddos_protection_api_response_common_failure_output: JsonSchema = {
+  "properties": {
+    "errors": {
+      "$ref": "#/$defs/advanced-ddos-protection_messages"
+    },
+    "messages": {
+      "$ref": "#/$defs/advanced-ddos-protection_messages"
+    },
+    "result": {
+      "type": "null"
+    },
+    "success": {
+      "enum": [
+        false
+      ],
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "errors",
+    "messages",
+    "result",
+    "success"
+  ],
+  "type": "object"
+};
+
+/**
+ * The schema of `advanced-ddos-protection_messages` in responses.
+ */
+export const advanced_ddos_protection_messages_output: JsonSchema = {
+  "items": {
+    "properties": {
+      "code": {
+        "type": "integer"
+      },
+      "documentation_url": {
+        "type": "string"
+      },
+      "message": {
+        "type": "string"
+      },
+      "source": {
+        "properties": {
+          "pointer": {
+            "type": "string"
+          }
+        },
+        "type": "object"
+      }
+    },
+    "required": [
+      "code",
+      "message"
+    ],
+    "type": "object"
+  },
+  "type": "array"
+};
+
+/**
  * The schema of `magic_account_app_id` in responses.
  */
 export const magic_account_app_id_output: JsonSchema = {
   "type": "string"
+};
+
+/**
+ * The schema of `magic_api-response-common` in responses.
+ */
+export const magic_api_response_common_output: JsonSchema = {
+  "properties": {
+    "errors": {
+      "$ref": "#/$defs/magic_messages"
+    },
+    "messages": {
+      "$ref": "#/$defs/magic_messages"
+    },
+    "result": {
+      "anyOf": [
+        {
+          "type": "object"
+        },
+        {
+          "items": {
+            "type": "object"
+          },
+          "type": "array"
+        },
+        {
+          "type": "string"
+        }
+      ]
+    },
+    "success": {
+      "enum": [
+        true
+      ],
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "errors",
+    "messages",
+    "result",
+    "success"
+  ],
+  "type": "object"
 };
 
 /**
@@ -53,6 +197,112 @@ export const magic_api_response_common_failure_output: JsonSchema = {
     "success": {
       "enum": [
         false
+      ],
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "errors",
+    "messages",
+    "result",
+    "success"
+  ],
+  "type": "object"
+};
+
+/**
+ * The schema of `magic_api-response-single` in responses.
+ */
+export const magic_api_response_single_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/magic_api-response-common"
+    },
+    {
+      "properties": {
+        "result": {
+          "anyOf": [
+            {
+              "type": "object"
+            },
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `magic_apps-response-array` in responses.
+ */
+export const magic_apps_response_array_output: JsonSchema = {
+  "properties": {
+    "errors": {
+      "$ref": "#/$defs/magic_messages"
+    },
+    "messages": {
+      "$ref": "#/$defs/magic_messages"
+    },
+    "result": {
+      "oneOf": [
+        {
+          "items": {
+            "type": "object"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "success": {
+      "enum": [
+        true
+      ],
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "errors",
+    "messages",
+    "result",
+    "success"
+  ],
+  "type": "object"
+};
+
+/**
+ * The schema of `magic_apps-response-object` in responses.
+ */
+export const magic_apps_response_object_output: JsonSchema = {
+  "properties": {
+    "errors": {
+      "$ref": "#/$defs/magic_messages"
+    },
+    "messages": {
+      "$ref": "#/$defs/magic_messages"
+    },
+    "result": {
+      "oneOf": [
+        {
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "success": {
+      "enum": [
+        true
       ],
       "type": "boolean"
     }
@@ -155,17 +405,40 @@ export const magic_cidr_output: JsonSchema = {
 };
 
 /**
- * The schema of `magic_health_check_base_target` in responses.
+ * The schema of `magic_health_check_base` in responses.
  */
-export const magic_health_check_base_target_output: JsonSchema = {
-  "oneOf": [
-    {
-      "$ref": "#/$defs/magic_health_check_target"
+export const magic_health_check_base_output: JsonSchema = {
+  "properties": {
+    "enabled": {
+      "type": "boolean"
     },
-    {
+    "rate": {
+      "enum": [
+        "low",
+        "mid",
+        "high"
+      ],
+      "type": "string"
+    },
+    "target": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/magic_health_check_target"
+        },
+        {
+          "type": "string"
+        }
+      ]
+    },
+    "type": {
+      "enum": [
+        "reply",
+        "request"
+      ],
       "type": "string"
     }
-  ]
+  },
+  "type": "object"
 };
 
 /**
@@ -260,35 +533,21 @@ export const magic_schemas_modified_on_output: JsonSchema = {
  * The schema of `magic_tunnel_health_check` in responses.
  */
 export const magic_tunnel_health_check_output: JsonSchema = {
-  "properties": {
-    "direction": {
-      "enum": [
-        "unidirectional",
-        "bidirectional"
-      ],
-      "type": "string"
+  "allOf": [
+    {
+      "$ref": "#/$defs/magic_health_check_base"
     },
-    "enabled": {
-      "type": "boolean"
-    },
-    "rate": {
-      "enum": [
-        "low",
-        "mid",
-        "high"
-      ],
-      "type": "string"
-    },
-    "target": {
-      "$ref": "#/$defs/magic_health_check_base_target"
-    },
-    "type": {
-      "enum": [
-        "reply",
-        "request"
-      ],
-      "type": "string"
+    {
+      "properties": {
+        "direction": {
+          "enum": [
+            "unidirectional",
+            "bidirectional"
+          ],
+          "type": "string"
+        }
+      },
+      "type": "object"
     }
-  },
-  "type": "object"
+  ]
 };

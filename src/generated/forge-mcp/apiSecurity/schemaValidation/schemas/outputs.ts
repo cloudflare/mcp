@@ -52,30 +52,22 @@ export const api_shield_public_schema_output: JsonSchema = {
  * The schema of `api-shield_public_schema_success_result` in responses.
  */
 export const api_shield_public_schema_success_result_output: JsonSchema = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/api-shield_messages"
+  "allOf": [
+    {
+      "$ref": "#/$defs/api-shield_api-response-common"
     },
-    "messages": {
-      "$ref": "#/$defs/api-shield_messages"
-    },
-    "result": {
-      "$ref": "#/$defs/api-shield_public_schema"
-    },
-    "success": {
-      "enum": [
-        true
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/api-shield_public_schema"
+        }
+      },
+      "required": [
+        "result"
       ],
-      "type": "boolean"
+      "type": "object"
     }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "success",
-    "result"
-  ],
-  "type": "object"
+  ]
 };
 
 /**
@@ -90,7 +82,22 @@ export const api_shield_schema_issue_notification_output: JsonSchema = {
       "type": "string"
     },
     "source": {
-      "$ref": "#/$defs/api-shield_schema_issue_notification_source"
+      "oneOf": [
+        {
+          "properties": {
+            "locations": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            }
+          },
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ]
     }
   },
   "required": [
@@ -98,26 +105,4 @@ export const api_shield_schema_issue_notification_output: JsonSchema = {
     "message"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `api-shield_schema_issue_notification_source` in responses.
- */
-export const api_shield_schema_issue_notification_source_output: JsonSchema = {
-  "oneOf": [
-    {
-      "properties": {
-        "locations": {
-          "items": {
-            "type": "string"
-          },
-          "type": "array"
-        }
-      },
-      "type": "object"
-    },
-    {
-      "type": "null"
-    }
-  ]
 };

@@ -353,78 +353,70 @@ export const zero_trust_gateway_gateway_account_settings: JsonSchema = {
   "description": "Specify account settings.",
   "properties": {
     "settings": {
-      "$ref": "#/$defs/zero-trust-gateway_gateway-account-settings_settings",
-      "description": "Specify account settings."
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `zero-trust-gateway_gateway-account-settings_settings`.
- */
-export const zero_trust_gateway_gateway_account_settings_settings: JsonSchema = {
-  "description": "Specify account settings.",
-  "properties": {
-    "activity_log": {
-      "$ref": "#/$defs/zero-trust-gateway_activity-log-settings",
-      "description": "Specify activity log settings."
-    },
-    "antivirus": {
-      "$ref": "#/$defs/zero-trust-gateway_anti-virus-settings",
-      "description": "Specify anti-virus settings."
-    },
-    "block_page": {
-      "$ref": "#/$defs/zero-trust-gateway_block-page-settings",
-      "description": "Specify block page layout settings."
-    },
-    "body_scanning": {
-      "$ref": "#/$defs/zero-trust-gateway_body-scanning-settings",
-      "description": "Specify the DLP inspection mode."
-    },
-    "browser_isolation": {
-      "$ref": "#/$defs/zero-trust-gateway_browser-isolation-settings",
-      "description": "Specify Clientless Browser Isolation settings."
-    },
-    "certificate": {
-      "$ref": "#/$defs/zero-trust-gateway_certificate-settings",
-      "description": "Specify certificate settings for Gateway TLS interception. If unset, the Cloudflare Root CA handles interception."
-    },
-    "custom_certificate": {
-      "$ref": "#/$defs/zero-trust-gateway_custom-certificate-settings",
-      "description": "Specify custom certificate settings for BYO-PKI. This field is deprecated; use `certificate` instead."
-    },
-    "extended_email_matching": {
-      "$ref": "#/$defs/zero-trust-gateway_extended-email-matching",
-      "description": "Configures user email settings for firewall policies. When you enable this, the system standardizes email addresses in the identity portion of the rule to match extended email variants in firewall policies. When you disable this setting, the system matches email addresses exactly as you provide them. Enable this setting if your email uses `.` or `+` modifiers."
-    },
-    "fips": {
-      "$ref": "#/$defs/zero-trust-gateway_fips-settings",
-      "description": "Specify FIPS settings."
-    },
-    "host_selector": {
-      "$ref": "#/$defs/zero-trust-gateway_host-selector-settings",
-      "description": "Enable host selection in egress policies."
-    },
-    "inspection": {
-      "$ref": "#/$defs/zero-trust-gateway_inspection-settings",
-      "description": "Define the proxy inspection mode."
-    },
-    "max_ttl_secs": {
-      "$ref": "#/$defs/zero-trust-gateway_max-ttl-secs",
-      "description": "Account-level cap on DNS response TTLs, in seconds. Gateway rewrites DNS responses so returned record TTLs do not exceed this value. Null means no cap. Each DNS location can inherit, override, or disable it through the location `max_ttl` setting."
-    },
-    "protocol_detection": {
-      "$ref": "#/$defs/zero-trust-gateway_protocol-detection",
-      "description": "Specify whether to detect protocols from the initial bytes of client traffic."
-    },
-    "sandbox": {
-      "$ref": "#/$defs/zero-trust-gateway_sandbox",
-      "description": "Specify whether to enable the sandbox."
-    },
-    "tls_decrypt": {
-      "$ref": "#/$defs/zero-trust-gateway_tls-settings",
-      "description": "Specify whether to inspect encrypted HTTP traffic."
+      "description": "Specify account settings.",
+      "properties": {
+        "activity_log": {
+          "$ref": "#/$defs/zero-trust-gateway_activity-log-settings",
+          "description": "Specify activity log settings."
+        },
+        "antivirus": {
+          "$ref": "#/$defs/zero-trust-gateway_anti-virus-settings",
+          "description": "Specify anti-virus settings."
+        },
+        "block_page": {
+          "$ref": "#/$defs/zero-trust-gateway_block-page-settings",
+          "description": "Specify block page layout settings."
+        },
+        "body_scanning": {
+          "$ref": "#/$defs/zero-trust-gateway_body-scanning-settings",
+          "description": "Specify the DLP inspection mode."
+        },
+        "browser_isolation": {
+          "$ref": "#/$defs/zero-trust-gateway_browser-isolation-settings",
+          "description": "Specify Clientless Browser Isolation settings."
+        },
+        "certificate": {
+          "$ref": "#/$defs/zero-trust-gateway_certificate-settings",
+          "description": "Specify certificate settings for Gateway TLS interception. If unset, the Cloudflare Root CA handles interception."
+        },
+        "custom_certificate": {
+          "$ref": "#/$defs/zero-trust-gateway_custom-certificate-settings",
+          "description": "Specify custom certificate settings for BYO-PKI. This field is deprecated; use `certificate` instead."
+        },
+        "extended_email_matching": {
+          "$ref": "#/$defs/zero-trust-gateway_extended-email-matching",
+          "description": "Configures user email settings for firewall policies. When you enable this, the system standardizes email addresses in the identity portion of the rule to match extended email variants in firewall policies. When you disable this setting, the system matches email addresses exactly as you provide them. Enable this setting if your email uses `.` or `+` modifiers."
+        },
+        "fips": {
+          "$ref": "#/$defs/zero-trust-gateway_fips-settings",
+          "description": "Specify FIPS settings."
+        },
+        "host_selector": {
+          "$ref": "#/$defs/zero-trust-gateway_host-selector-settings",
+          "description": "Enable host selection in egress policies."
+        },
+        "inspection": {
+          "$ref": "#/$defs/zero-trust-gateway_inspection-settings",
+          "description": "Define the proxy inspection mode."
+        },
+        "max_ttl_secs": {
+          "$ref": "#/$defs/zero-trust-gateway_max-ttl-secs",
+          "description": "Account-level cap on DNS response TTLs, in seconds. Gateway rewrites DNS responses so returned record TTLs do not exceed this value. Null means no cap. Each DNS location can inherit, override, or disable it through the location `max_ttl` setting."
+        },
+        "protocol_detection": {
+          "$ref": "#/$defs/zero-trust-gateway_protocol-detection",
+          "description": "Specify whether to detect protocols from the initial bytes of client traffic."
+        },
+        "sandbox": {
+          "$ref": "#/$defs/zero-trust-gateway_sandbox",
+          "description": "Specify whether to enable the sandbox."
+        },
+        "tls_decrypt": {
+          "$ref": "#/$defs/zero-trust-gateway_tls-settings",
+          "description": "Specify whether to inspect encrypted HTTP traffic."
+        }
+      },
+      "type": "object"
     }
   },
   "type": "object"

@@ -4,11 +4,16 @@
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
   smartshield_api_response_common_failure_output,
+  smartshield_api_response_common_output,
+  smartshield_api_response_result_output,
   smartshield_messages_output,
 } from "../outputs.js";
+import { smartshield_identifier } from "../schemas.js";
 import {
+  smartshield_base_output,
   smartshield_cache_reserve_clear_end_ts_output,
   smartshield_cache_reserve_clear_output,
+  smartshield_cache_reserve_clear_response_value_output,
   smartshield_cache_reserve_clear_start_ts_output,
   smartshield_cache_reserve_clear_state_output,
 } from "./outputs.js";
@@ -25,43 +30,36 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "zone_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/smartshield_identifier",
+          "description": "Identifier."
         }
       },
       required: [
         "zone_id"
       ],
+      $defs: {
+        "smartshield_identifier": smartshield_identifier,
+      },
     },
     outputSchema: {
       "allOf": [
         {
-          "$ref": "#/$defs/smartshield_cache_reserve_clear"
+          "$ref": "#/$defs/smartshield_api-response-common"
         },
         {
-          "properties": {
-            "end_ts": {
-              "$ref": "#/$defs/smartshield_cache_reserve_clear_end_ts"
-            },
-            "start_ts": {
-              "$ref": "#/$defs/smartshield_cache_reserve_clear_start_ts"
-            },
-            "state": {
-              "$ref": "#/$defs/smartshield_cache_reserve_clear_state"
-            }
-          },
-          "required": [
-            "start_ts",
-            "state"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/smartshield_cache_reserve_clear_response_value"
         }
       ],
       $defs: {
+        "smartshield_api-response-common": smartshield_api_response_common_output,
+        "smartshield_api-response-result": smartshield_api_response_result_output,
+        "smartshield_base": smartshield_base_output,
         "smartshield_cache_reserve_clear": smartshield_cache_reserve_clear_output,
         "smartshield_cache_reserve_clear_end_ts": smartshield_cache_reserve_clear_end_ts_output,
+        "smartshield_cache_reserve_clear_response_value": smartshield_cache_reserve_clear_response_value_output,
         "smartshield_cache_reserve_clear_start_ts": smartshield_cache_reserve_clear_start_ts_output,
         "smartshield_cache_reserve_clear_state": smartshield_cache_reserve_clear_state_output,
+        "smartshield_messages": smartshield_messages_output,
       },
     },
     annotations: {
@@ -81,12 +79,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "#zone_settings:edit"
-        ],
-        "x-fern-enum": {
-          "#zone_settings:edit": {
-            "name": "zone_settings_edit"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": true,
@@ -100,25 +93,10 @@ export const tools: readonly Tool[] = [
         "200": {
           "allOf": [
             {
-              "$ref": "#/$defs/smartshield_cache_reserve_clear"
+              "$ref": "#/$defs/smartshield_api-response-common"
             },
             {
-              "properties": {
-                "end_ts": {
-                  "$ref": "#/$defs/smartshield_cache_reserve_clear_end_ts"
-                },
-                "start_ts": {
-                  "$ref": "#/$defs/smartshield_cache_reserve_clear_start_ts"
-                },
-                "state": {
-                  "$ref": "#/$defs/smartshield_cache_reserve_clear_state"
-                }
-              },
-              "required": [
-                "start_ts",
-                "state"
-              ],
-              "type": "object"
+              "$ref": "#/$defs/smartshield_cache_reserve_clear_response_value"
             }
           ]
         },
@@ -127,9 +105,13 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
+        "smartshield_api-response-common": smartshield_api_response_common_output,
         "smartshield_api-response-common-failure": smartshield_api_response_common_failure_output,
+        "smartshield_api-response-result": smartshield_api_response_result_output,
+        "smartshield_base": smartshield_base_output,
         "smartshield_cache_reserve_clear": smartshield_cache_reserve_clear_output,
         "smartshield_cache_reserve_clear_end_ts": smartshield_cache_reserve_clear_end_ts_output,
+        "smartshield_cache_reserve_clear_response_value": smartshield_cache_reserve_clear_response_value_output,
         "smartshield_cache_reserve_clear_start_ts": smartshield_cache_reserve_clear_start_ts_output,
         "smartshield_cache_reserve_clear_state": smartshield_cache_reserve_clear_state_output,
         "smartshield_messages": smartshield_messages_output,
@@ -147,43 +129,36 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "zone_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/smartshield_identifier",
+          "description": "Identifier."
         }
       },
       required: [
         "zone_id"
       ],
+      $defs: {
+        "smartshield_identifier": smartshield_identifier,
+      },
     },
     outputSchema: {
       "allOf": [
         {
-          "$ref": "#/$defs/smartshield_cache_reserve_clear"
+          "$ref": "#/$defs/smartshield_api-response-common"
         },
         {
-          "properties": {
-            "end_ts": {
-              "$ref": "#/$defs/smartshield_cache_reserve_clear_end_ts"
-            },
-            "start_ts": {
-              "$ref": "#/$defs/smartshield_cache_reserve_clear_start_ts"
-            },
-            "state": {
-              "$ref": "#/$defs/smartshield_cache_reserve_clear_state"
-            }
-          },
-          "required": [
-            "start_ts",
-            "state"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/smartshield_cache_reserve_clear_response_value"
         }
       ],
       $defs: {
+        "smartshield_api-response-common": smartshield_api_response_common_output,
+        "smartshield_api-response-result": smartshield_api_response_result_output,
+        "smartshield_base": smartshield_base_output,
         "smartshield_cache_reserve_clear": smartshield_cache_reserve_clear_output,
         "smartshield_cache_reserve_clear_end_ts": smartshield_cache_reserve_clear_end_ts_output,
+        "smartshield_cache_reserve_clear_response_value": smartshield_cache_reserve_clear_response_value_output,
         "smartshield_cache_reserve_clear_start_ts": smartshield_cache_reserve_clear_start_ts_output,
         "smartshield_cache_reserve_clear_state": smartshield_cache_reserve_clear_state_output,
+        "smartshield_messages": smartshield_messages_output,
       },
     },
     annotations: {
@@ -205,12 +180,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "#zone_settings:read"
-        ],
-        "x-fern-enum": {
-          "#zone_settings:read": {
-            "name": "zone_settings_read"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": true,
@@ -224,25 +194,10 @@ export const tools: readonly Tool[] = [
         "200": {
           "allOf": [
             {
-              "$ref": "#/$defs/smartshield_cache_reserve_clear"
+              "$ref": "#/$defs/smartshield_api-response-common"
             },
             {
-              "properties": {
-                "end_ts": {
-                  "$ref": "#/$defs/smartshield_cache_reserve_clear_end_ts"
-                },
-                "start_ts": {
-                  "$ref": "#/$defs/smartshield_cache_reserve_clear_start_ts"
-                },
-                "state": {
-                  "$ref": "#/$defs/smartshield_cache_reserve_clear_state"
-                }
-              },
-              "required": [
-                "start_ts",
-                "state"
-              ],
-              "type": "object"
+              "$ref": "#/$defs/smartshield_cache_reserve_clear_response_value"
             }
           ]
         },
@@ -251,9 +206,13 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
+        "smartshield_api-response-common": smartshield_api_response_common_output,
         "smartshield_api-response-common-failure": smartshield_api_response_common_failure_output,
+        "smartshield_api-response-result": smartshield_api_response_result_output,
+        "smartshield_base": smartshield_base_output,
         "smartshield_cache_reserve_clear": smartshield_cache_reserve_clear_output,
         "smartshield_cache_reserve_clear_end_ts": smartshield_cache_reserve_clear_end_ts_output,
+        "smartshield_cache_reserve_clear_response_value": smartshield_cache_reserve_clear_response_value_output,
         "smartshield_cache_reserve_clear_start_ts": smartshield_cache_reserve_clear_start_ts_output,
         "smartshield_cache_reserve_clear_state": smartshield_cache_reserve_clear_state_output,
         "smartshield_messages": smartshield_messages_output,

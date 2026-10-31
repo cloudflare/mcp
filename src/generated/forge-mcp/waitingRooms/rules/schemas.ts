@@ -105,6 +105,14 @@ export const waitingroom_rule_expression: JsonSchema = {
 };
 
 /**
+ * The schema of `waitingroom_rule_id`.
+ */
+export const waitingroom_rule_id: JsonSchema = {
+  "description": "The ID of the rule.",
+  "type": "string"
+};
+
+/**
  * The schema of `waitingroom_rule_position`.
  */
 export const waitingroom_rule_position: JsonSchema = {

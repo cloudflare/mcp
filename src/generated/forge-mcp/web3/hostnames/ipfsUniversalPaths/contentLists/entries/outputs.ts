@@ -7,87 +7,41 @@ import type { JsonSchema } from "../../../../../_/tool.js";
  * The schema of `web3_content_list_entry_collection_response` in responses.
  */
 export const web3_content_list_entry_collection_response_output: JsonSchema = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/web3_messages"
+  "allOf": [
+    {
+      "$ref": "#/$defs/web3_api-response-collection"
     },
-    "messages": {
-      "$ref": "#/$defs/web3_messages"
-    },
-    "result": {
-      "$ref": "#/$defs/web3_content_list_entry_collection_response_result"
-    },
-    "result_info": {
-      "$ref": "#/$defs/web3_result_info"
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
+    {
+      "properties": {
+        "result": {
+          "properties": {
+            "entries": {
+              "$ref": "#/$defs/web3_content_list_entries"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "result",
-    "success"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `web3_content_list_entry_collection_response_result` in
- * responses.
- */
-export const web3_content_list_entry_collection_response_result_output: JsonSchema = {
-  "properties": {
-    "entries": {
-      "$ref": "#/$defs/web3_content_list_entries"
-    }
-  },
-  "type": "object"
+  ]
 };
 
 /**
  * The schema of `web3_content_list_entry_single_response` in responses.
  */
 export const web3_content_list_entry_single_response_output: JsonSchema = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/web3_messages"
+  "allOf": [
+    {
+      "$ref": "#/$defs/web3_api-response-single"
     },
-    "messages": {
-      "$ref": "#/$defs/web3_messages"
-    },
-    "result": {
-      "$ref": "#/$defs/web3_content_list_entry"
-    },
-    "result_info": {
-      "anyOf": [
-        {
-          "type": "object"
-        },
-        {
-          "type": "string"
-        },
-        {
-          "type": "null"
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/web3_content_list_entry"
         }
-      ]
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "result",
-    "success"
-  ],
-  "type": "object"
+  ]
 };

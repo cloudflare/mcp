@@ -52,46 +52,27 @@ export const tls_certificates_and_hostnames_signature_2_output: JsonSchema = {
  * responses.
  */
 export const tls_certificates_and_hostnames_ssl_validation_method_response_collection_output: JsonSchema = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_messages"
+  "allOf": [
+    {
+      "$ref": "#/$defs/tls-certificates-and-hostnames_api-response-single"
     },
-    "messages": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_messages"
-    },
-    "result": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_ssl_validation_method_response_collection_result"
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
+    {
+      "properties": {
+        "result": {
+          "properties": {
+            "status": {
+              "$ref": "#/$defs/tls-certificates-and-hostnames_status-6"
+            },
+            "validation_method": {
+              "$ref": "#/$defs/tls-certificates-and-hostnames_validation_method_definition"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "success"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of
- * `tls-certificates-and-hostnames_ssl_validation_method_response_collection_result`
- * in responses.
- */
-export const tls_certificates_and_hostnames_ssl_validation_method_response_collection_result_output: JsonSchema = {
-  "properties": {
-    "status": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_status-6"
-    },
-    "validation_method": {
-      "$ref": "#/$defs/tls-certificates-and-hostnames_validation_method_definition"
-    }
-  },
-  "type": "object"
+  ]
 };
 
 /**

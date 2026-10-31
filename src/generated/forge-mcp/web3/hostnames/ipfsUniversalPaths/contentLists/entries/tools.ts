@@ -3,14 +3,17 @@
 
 import { type Tool, pathParam } from "../../../../../_/tool.js";
 import {
+  web3_api_response_collection_output,
   web3_api_response_common_failure_output,
+  web3_api_response_common_output,
   web3_api_response_single_id_output,
-  web3_api_response_single_id_result_output,
+  web3_api_response_single_output,
   web3_identifier_output,
   web3_messages_output,
   web3_result_info_output,
   web3_timestamp_output,
 } from "../../../outputs.js";
+import { web3_identifier } from "../../../schemas.js";
 import {
   web3_content_list_entries_output,
   web3_content_list_entry_content_output,
@@ -25,7 +28,6 @@ import {
 } from "../schemas.js";
 import {
   web3_content_list_entry_collection_response_output,
-  web3_content_list_entry_collection_response_result_output,
   web3_content_list_entry_single_response_output,
 } from "./outputs.js";
 import { web3_content_list_entry_create_request } from "./schemas.js";
@@ -45,12 +47,12 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/web3_content_list_entry_create_request"
         },
         "identifier": {
-          "description": "Specify the identifier of the hostname.",
-          "type": "string"
+          "$ref": "#/$defs/web3_identifier",
+          "description": "Specify the identifier of the hostname."
         },
         "zone_id": {
-          "description": "Specify the identifier of the hostname.",
-          "type": "string"
+          "$ref": "#/$defs/web3_identifier",
+          "description": "Specify the identifier of the hostname."
         }
       },
       required: [
@@ -63,16 +65,21 @@ export const tools: readonly Tool[] = [
         "web3_content_list_entry_create_request": web3_content_list_entry_create_request,
         "web3_content_list_entry_description": web3_content_list_entry_description,
         "web3_content_list_entry_type": web3_content_list_entry_type,
+        "web3_identifier": web3_identifier,
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/web3_content_list_entry",
+      "$ref": "#/$defs/web3_content_list_entry_single_response",
       $defs: {
+        "web3_api-response-common": web3_api_response_common_output,
+        "web3_api-response-single": web3_api_response_single_output,
         "web3_content_list_entry": web3_content_list_entry_output,
         "web3_content_list_entry_content": web3_content_list_entry_content_output,
         "web3_content_list_entry_description": web3_content_list_entry_description_output,
+        "web3_content_list_entry_single_response": web3_content_list_entry_single_response_output,
         "web3_content_list_entry_type": web3_content_list_entry_type_output,
         "web3_identifier": web3_identifier_output,
+        "web3_messages": web3_messages_output,
         "web3_timestamp": web3_timestamp_output,
       },
     },
@@ -96,7 +103,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/web3_content_list_entry"
+          "$ref": "#/$defs/web3_content_list_entry_single_response"
         },
         "4XX": {
           "allOf": [
@@ -120,7 +127,9 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
+        "web3_api-response-common": web3_api_response_common_output,
         "web3_api-response-common-failure": web3_api_response_common_failure_output,
+        "web3_api-response-single": web3_api_response_single_output,
         "web3_content_list_entry": web3_content_list_entry_output,
         "web3_content_list_entry_content": web3_content_list_entry_content_output,
         "web3_content_list_entry_description": web3_content_list_entry_description_output,
@@ -143,44 +152,37 @@ export const tools: readonly Tool[] = [
     inputSchema: {
       type: "object",
       properties: {
+        "body": {},
         "content_list_entry_identifier": {
-          "description": "Specify the identifier of the hostname.",
-          "type": "string"
+          "$ref": "#/$defs/web3_identifier",
+          "description": "Specify the identifier of the hostname."
         },
         "identifier": {
-          "description": "Specify the identifier of the hostname.",
-          "type": "string"
+          "$ref": "#/$defs/web3_identifier",
+          "description": "Specify the identifier of the hostname."
         },
         "zone_id": {
-          "description": "Specify the identifier of the hostname.",
-          "type": "string"
+          "$ref": "#/$defs/web3_identifier",
+          "description": "Specify the identifier of the hostname."
         }
       },
       required: [
         "zone_id",
         "identifier",
-        "content_list_entry_identifier"
-      ],
-    },
-    outputSchema: {
-      "oneOf": [
-        {
-          "properties": {
-            "id": {
-              "$ref": "#/$defs/web3_identifier"
-            }
-          },
-          "required": [
-            "id"
-          ],
-          "type": "object"
-        },
-        {
-          "type": "null"
-        }
+        "content_list_entry_identifier",
+        "body"
       ],
       $defs: {
+        "web3_identifier": web3_identifier,
+      },
+    },
+    outputSchema: {
+      "$ref": "#/$defs/web3_api-response-single-id",
+      $defs: {
+        "web3_api-response-common": web3_api_response_common_output,
+        "web3_api-response-single-id": web3_api_response_single_id_output,
         "web3_identifier": web3_identifier_output,
+        "web3_messages": web3_messages_output,
       },
     },
     annotations: {
@@ -206,22 +208,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "oneOf": [
-            {
-              "properties": {
-                "id": {
-                  "$ref": "#/$defs/web3_identifier"
-                }
-              },
-              "required": [
-                "id"
-              ],
-              "type": "object"
-            },
-            {
-              "type": "null"
-            }
-          ]
+          "$ref": "#/$defs/web3_api-response-single-id"
         },
         "4XX": {
           "allOf": [
@@ -245,15 +232,16 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
+        "web3_api-response-common": web3_api_response_common_output,
         "web3_api-response-common-failure": web3_api_response_common_failure_output,
         "web3_api-response-single-id": web3_api_response_single_id_output,
-        "web3_api-response-single-id_result": web3_api_response_single_id_result_output,
         "web3_identifier": web3_identifier_output,
         "web3_messages": web3_messages_output,
       },
     },
     request: (args) => ({
       path: `/zones/${pathParam(args, "zone_id")}/web3/hostnames/${pathParam(args, "identifier")}/ipfs_universal_path/content_list/entries/${pathParam(args, "content_list_entry_identifier")}`,
+      body: { value: args["body"], mediaType: "application/json" },
     }),
   },
   {
@@ -264,16 +252,16 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "content_list_entry_identifier": {
-          "description": "Specify the identifier of the hostname.",
-          "type": "string"
+          "$ref": "#/$defs/web3_identifier",
+          "description": "Specify the identifier of the hostname."
         },
         "identifier": {
-          "description": "Specify the identifier of the hostname.",
-          "type": "string"
+          "$ref": "#/$defs/web3_identifier",
+          "description": "Specify the identifier of the hostname."
         },
         "zone_id": {
-          "description": "Specify the identifier of the hostname.",
-          "type": "string"
+          "$ref": "#/$defs/web3_identifier",
+          "description": "Specify the identifier of the hostname."
         }
       },
       required: [
@@ -281,15 +269,22 @@ export const tools: readonly Tool[] = [
         "identifier",
         "content_list_entry_identifier"
       ],
+      $defs: {
+        "web3_identifier": web3_identifier,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/web3_content_list_entry",
+      "$ref": "#/$defs/web3_content_list_entry_single_response",
       $defs: {
+        "web3_api-response-common": web3_api_response_common_output,
+        "web3_api-response-single": web3_api_response_single_output,
         "web3_content_list_entry": web3_content_list_entry_output,
         "web3_content_list_entry_content": web3_content_list_entry_content_output,
         "web3_content_list_entry_description": web3_content_list_entry_description_output,
+        "web3_content_list_entry_single_response": web3_content_list_entry_single_response_output,
         "web3_content_list_entry_type": web3_content_list_entry_type_output,
         "web3_identifier": web3_identifier_output,
+        "web3_messages": web3_messages_output,
         "web3_timestamp": web3_timestamp_output,
       },
     },
@@ -317,7 +312,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/web3_content_list_entry"
+          "$ref": "#/$defs/web3_content_list_entry_single_response"
         },
         "4XX": {
           "allOf": [
@@ -341,7 +336,9 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
+        "web3_api-response-common": web3_api_response_common_output,
         "web3_api-response-common-failure": web3_api_response_common_failure_output,
+        "web3_api-response-single": web3_api_response_single_output,
         "web3_content_list_entry": web3_content_list_entry_output,
         "web3_content_list_entry_content": web3_content_list_entry_content_output,
         "web3_content_list_entry_description": web3_content_list_entry_description_output,
@@ -364,33 +361,36 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "identifier": {
-          "description": "Specify the identifier of the hostname.",
-          "type": "string"
+          "$ref": "#/$defs/web3_identifier",
+          "description": "Specify the identifier of the hostname."
         },
         "zone_id": {
-          "description": "Specify the identifier of the hostname.",
-          "type": "string"
+          "$ref": "#/$defs/web3_identifier",
+          "description": "Specify the identifier of the hostname."
         }
       },
       required: [
         "zone_id",
         "identifier"
       ],
+      $defs: {
+        "web3_identifier": web3_identifier,
+      },
     },
     outputSchema: {
-      "properties": {
-        "entries": {
-          "$ref": "#/$defs/web3_content_list_entries"
-        }
-      },
-      "type": "object",
+      "$ref": "#/$defs/web3_content_list_entry_collection_response",
       $defs: {
+        "web3_api-response-collection": web3_api_response_collection_output,
+        "web3_api-response-common": web3_api_response_common_output,
         "web3_content_list_entries": web3_content_list_entries_output,
         "web3_content_list_entry": web3_content_list_entry_output,
+        "web3_content_list_entry_collection_response": web3_content_list_entry_collection_response_output,
         "web3_content_list_entry_content": web3_content_list_entry_content_output,
         "web3_content_list_entry_description": web3_content_list_entry_description_output,
         "web3_content_list_entry_type": web3_content_list_entry_type_output,
         "web3_identifier": web3_identifier_output,
+        "web3_messages": web3_messages_output,
+        "web3_result_info": web3_result_info_output,
         "web3_timestamp": web3_timestamp_output,
       },
     },
@@ -418,12 +418,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "entries": {
-              "$ref": "#/$defs/web3_content_list_entries"
-            }
-          },
-          "type": "object"
+          "$ref": "#/$defs/web3_content_list_entry_collection_response"
         },
         "4XX": {
           "allOf": [
@@ -447,11 +442,12 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
+        "web3_api-response-collection": web3_api_response_collection_output,
+        "web3_api-response-common": web3_api_response_common_output,
         "web3_api-response-common-failure": web3_api_response_common_failure_output,
         "web3_content_list_entries": web3_content_list_entries_output,
         "web3_content_list_entry": web3_content_list_entry_output,
         "web3_content_list_entry_collection_response": web3_content_list_entry_collection_response_output,
-        "web3_content_list_entry_collection_response_result": web3_content_list_entry_collection_response_result_output,
         "web3_content_list_entry_content": web3_content_list_entry_content_output,
         "web3_content_list_entry_description": web3_content_list_entry_description_output,
         "web3_content_list_entry_type": web3_content_list_entry_type_output,
@@ -476,16 +472,16 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/web3_content_list_entry_create_request"
         },
         "content_list_entry_identifier": {
-          "description": "Specify the identifier of the hostname.",
-          "type": "string"
+          "$ref": "#/$defs/web3_identifier",
+          "description": "Specify the identifier of the hostname."
         },
         "identifier": {
-          "description": "Specify the identifier of the hostname.",
-          "type": "string"
+          "$ref": "#/$defs/web3_identifier",
+          "description": "Specify the identifier of the hostname."
         },
         "zone_id": {
-          "description": "Specify the identifier of the hostname.",
-          "type": "string"
+          "$ref": "#/$defs/web3_identifier",
+          "description": "Specify the identifier of the hostname."
         }
       },
       required: [
@@ -499,16 +495,21 @@ export const tools: readonly Tool[] = [
         "web3_content_list_entry_create_request": web3_content_list_entry_create_request,
         "web3_content_list_entry_description": web3_content_list_entry_description,
         "web3_content_list_entry_type": web3_content_list_entry_type,
+        "web3_identifier": web3_identifier,
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/web3_content_list_entry",
+      "$ref": "#/$defs/web3_content_list_entry_single_response",
       $defs: {
+        "web3_api-response-common": web3_api_response_common_output,
+        "web3_api-response-single": web3_api_response_single_output,
         "web3_content_list_entry": web3_content_list_entry_output,
         "web3_content_list_entry_content": web3_content_list_entry_content_output,
         "web3_content_list_entry_description": web3_content_list_entry_description_output,
+        "web3_content_list_entry_single_response": web3_content_list_entry_single_response_output,
         "web3_content_list_entry_type": web3_content_list_entry_type_output,
         "web3_identifier": web3_identifier_output,
+        "web3_messages": web3_messages_output,
         "web3_timestamp": web3_timestamp_output,
       },
     },
@@ -535,7 +536,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/web3_content_list_entry"
+          "$ref": "#/$defs/web3_content_list_entry_single_response"
         },
         "4XX": {
           "allOf": [
@@ -559,7 +560,9 @@ export const tools: readonly Tool[] = [
         }
       },
       $defs: {
+        "web3_api-response-common": web3_api_response_common_output,
         "web3_api-response-common-failure": web3_api_response_common_failure_output,
+        "web3_api-response-single": web3_api_response_single_output,
         "web3_content_list_entry": web3_content_list_entry_output,
         "web3_content_list_entry_content": web3_content_list_entry_content_output,
         "web3_content_list_entry_description": web3_content_list_entry_description_output,

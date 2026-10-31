@@ -56,3 +56,25 @@ export const stream_label_output: JsonSchema = {
 export const stream_language_output: JsonSchema = {
   "type": "string"
 };
+
+/**
+ * The schema of `stream_language_response_collection` in responses.
+ */
+export const stream_language_response_collection_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/stream_api-response-common"
+    },
+    {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/stream_captions"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};

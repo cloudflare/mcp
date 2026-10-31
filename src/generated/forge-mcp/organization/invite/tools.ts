@@ -6,11 +6,12 @@ import {
   organizations_api_V4ErrorResponse_output,
   organizations_api_V4Message_output,
 } from "../../outputs.js";
+import { organizations_api_OrganizationID } from "../../schemas.js";
 import {
   organizations_api_MemberID_output,
   organizations_api_MemberSubjectUser_output,
-  organizations_api_Member_output,
 } from "../outputs.js";
+import { organizations_api_OrganizationInviteMember_output } from "./outputs.js";
 import { organizations_api_HandleOrganizationInviteRequest } from "./schemas.js";
 
 /**
@@ -33,8 +34,8 @@ export const tools: readonly Tool[] = [
           "type": "string"
         },
         "organization_id": {
-          "description": "The ID of the organization associated with the invitation.",
-          "type": "string"
+          "$ref": "#/$defs/organizations-api_OrganizationID",
+          "description": "The ID of the organization associated with the invitation."
         }
       },
       required: [
@@ -44,14 +45,46 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "organizations-api_HandleOrganizationInviteRequest": organizations_api_HandleOrganizationInviteRequest,
+        "organizations-api_OrganizationID": organizations_api_OrganizationID,
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/organizations-api_Member",
+      "properties": {
+        "errors": {
+          "items": {
+            "type": "object"
+          },
+          "maxItems": 0,
+          "type": "array"
+        },
+        "messages": {
+          "items": {
+            "$ref": "#/$defs/organizations-api_V4Message"
+          },
+          "type": "array"
+        },
+        "result": {
+          "$ref": "#/$defs/organizations-api_OrganizationInviteMember"
+        },
+        "success": {
+          "enum": [
+            true
+          ],
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "errors",
+        "messages",
+        "result",
+        "success"
+      ],
+      "type": "object",
       $defs: {
-        "organizations-api_Member": organizations_api_Member_output,
         "organizations-api_MemberID": organizations_api_MemberID_output,
         "organizations-api_MemberSubjectUser": organizations_api_MemberSubjectUser_output,
+        "organizations-api_OrganizationInviteMember": organizations_api_OrganizationInviteMember_output,
+        "organizations-api_V4Message": organizations_api_V4Message_output,
       },
     },
     annotations: {
@@ -66,16 +99,49 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/organizations-api_Member"
+          "properties": {
+            "errors": {
+              "items": {
+                "type": "object"
+              },
+              "maxItems": 0,
+              "type": "array"
+            },
+            "messages": {
+              "items": {
+                "$ref": "#/$defs/organizations-api_V4Message"
+              },
+              "type": "array"
+            },
+            "result": {
+              "$ref": "#/$defs/organizations-api_OrganizationInviteMember"
+            },
+            "success": {
+              "enum": [
+                true
+              ],
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "errors",
+            "messages",
+            "result",
+            "success"
+          ],
+          "type": "object"
         },
         "4XX": {
+          "$ref": "#/$defs/organizations-api_V4ErrorResponse"
+        },
+        "5XX": {
           "$ref": "#/$defs/organizations-api_V4ErrorResponse"
         }
       },
       $defs: {
-        "organizations-api_Member": organizations_api_Member_output,
         "organizations-api_MemberID": organizations_api_MemberID_output,
         "organizations-api_MemberSubjectUser": organizations_api_MemberSubjectUser_output,
+        "organizations-api_OrganizationInviteMember": organizations_api_OrganizationInviteMember_output,
         "organizations-api_V4ErrorResponse": organizations_api_V4ErrorResponse_output,
         "organizations-api_V4Message": organizations_api_V4Message_output,
       },

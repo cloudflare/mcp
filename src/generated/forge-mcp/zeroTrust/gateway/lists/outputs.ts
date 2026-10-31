@@ -49,29 +49,19 @@ export const zero_trust_gateway_items_output: JsonSchema = {
  * The schema of `zero-trust-gateway_list_single_response` in responses.
  */
 export const zero_trust_gateway_list_single_response_output: JsonSchema = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/zero-trust-gateway_messages"
+  "allOf": [
+    {
+      "$ref": "#/$defs/zero-trust-gateway_api-response-single"
     },
-    "messages": {
-      "$ref": "#/$defs/zero-trust-gateway_messages"
-    },
-    "result": {
-      "$ref": "#/$defs/zero-trust-gateway_lists"
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/zero-trust-gateway_lists"
+        }
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "success"
-  ],
-  "type": "object"
+  ]
 };
 
 /**
@@ -118,35 +108,22 @@ export const zero_trust_gateway_name_output: JsonSchema = {
  * The schema of `zero-trust-gateway_response_collection-3` in responses.
  */
 export const zero_trust_gateway_response_collection_3_output: JsonSchema = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/zero-trust-gateway_messages"
+  "allOf": [
+    {
+      "$ref": "#/$defs/zero-trust-gateway_api-response-collection"
     },
-    "messages": {
-      "$ref": "#/$defs/zero-trust-gateway_messages"
-    },
-    "result": {
-      "items": {
-        "$ref": "#/$defs/zero-trust-gateway_lists"
+    {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/zero-trust-gateway_lists"
+          },
+          "type": "array"
+        }
       },
-      "type": "array"
-    },
-    "result_info": {
-      "$ref": "#/$defs/zero-trust-gateway_result_info"
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
+      "type": "object"
     }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "success"
-  ],
-  "type": "object"
+  ]
 };
 
 /**
@@ -154,60 +131,42 @@ export const zero_trust_gateway_response_collection_3_output: JsonSchema = {
  * responses.
  */
 export const zero_trust_gateway_single_response_with_list_items_output: JsonSchema = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/zero-trust-gateway_messages"
+  "allOf": [
+    {
+      "$ref": "#/$defs/zero-trust-gateway_api-response-single"
     },
-    "messages": {
-      "$ref": "#/$defs/zero-trust-gateway_messages"
-    },
-    "result": {
-      "$ref": "#/$defs/zero-trust-gateway_single_response_with_list_items_result"
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
+    {
+      "properties": {
+        "result": {
+          "properties": {
+            "created_at": {
+              "$ref": "#/$defs/zero-trust-gateway_read_only_timestamp"
+            },
+            "description": {
+              "$ref": "#/$defs/zero-trust-gateway_description"
+            },
+            "id": {
+              "$ref": "#/$defs/zero-trust-gateway_uuid-2"
+            },
+            "items": {
+              "$ref": "#/$defs/zero-trust-gateway_items"
+            },
+            "name": {
+              "$ref": "#/$defs/zero-trust-gateway_name"
+            },
+            "type": {
+              "$ref": "#/$defs/zero-trust-gateway_type-2"
+            },
+            "updated_at": {
+              "$ref": "#/$defs/zero-trust-gateway_read_only_timestamp"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "success"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `zero-trust-gateway_single_response_with_list_items_result` in
- * responses.
- */
-export const zero_trust_gateway_single_response_with_list_items_result_output: JsonSchema = {
-  "properties": {
-    "created_at": {
-      "$ref": "#/$defs/zero-trust-gateway_read_only_timestamp"
-    },
-    "description": {
-      "$ref": "#/$defs/zero-trust-gateway_description"
-    },
-    "id": {
-      "$ref": "#/$defs/zero-trust-gateway_uuid-2"
-    },
-    "items": {
-      "$ref": "#/$defs/zero-trust-gateway_items"
-    },
-    "name": {
-      "$ref": "#/$defs/zero-trust-gateway_name"
-    },
-    "type": {
-      "$ref": "#/$defs/zero-trust-gateway_type-2"
-    },
-    "updated_at": {
-      "$ref": "#/$defs/zero-trust-gateway_read_only_timestamp"
-    }
-  },
-  "type": "object"
+  ]
 };
 
 /**

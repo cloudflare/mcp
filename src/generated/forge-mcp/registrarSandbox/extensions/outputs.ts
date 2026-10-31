@@ -9,7 +9,19 @@ import type { JsonSchema } from "../../_/tool.js";
 export const registrar_api_sandbox_extension_item_output: JsonSchema = {
   "properties": {
     "metadata": {
-      "$ref": "#/$defs/registrar-api-sandbox_extension-item_metadata"
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "tld": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "tld"
+      ],
+      "type": "object"
     },
     "registration_schema": {
       "type": "object"
@@ -27,20 +39,57 @@ export const registrar_api_sandbox_extension_item_output: JsonSchema = {
 };
 
 /**
- * The schema of `registrar-api-sandbox_extension-item_metadata` in responses.
+ * The schema of `registrar-api-sandbox_extension-response-collection` in
+ * responses.
  */
-export const registrar_api_sandbox_extension_item_metadata_output: JsonSchema = {
-  "properties": {
-    "name": {
-      "type": "string"
+export const registrar_api_sandbox_extension_response_collection_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/registrar-api-sandbox_api-response-common"
     },
-    "tld": {
-      "type": "string"
+    {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/registrar-api-sandbox_extension-item"
+          },
+          "type": "array"
+        },
+        "result_info": {
+          "properties": {
+            "count": {
+              "type": "integer"
+            },
+            "cursor": {
+              "type": "string"
+            },
+            "per_page": {
+              "type": "integer"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "name",
-    "tld"
-  ],
-  "type": "object"
+  ]
+};
+
+/**
+ * The schema of `registrar-api-sandbox_extension-response-single` in responses.
+ */
+export const registrar_api_sandbox_extension_response_single_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/registrar-api-sandbox_api-response-common"
+    },
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/registrar-api-sandbox_extension-item"
+        }
+      },
+      "type": "object"
+    }
+  ]
 };

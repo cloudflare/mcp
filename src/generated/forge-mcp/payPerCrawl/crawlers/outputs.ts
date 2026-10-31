@@ -100,15 +100,38 @@ export const pay_per_crawl_CrawlerEntry_output: JsonSchema = {
 };
 
 /**
- * The schema of `pay-per-crawl_listCrawlersResponse_result` in responses.
+ * The schema of `pay-per-crawl_listCrawlersResponse` in responses.
  */
-export const pay_per_crawl_listCrawlersResponse_result_output: JsonSchema = {
+export const pay_per_crawl_listCrawlersResponse_output: JsonSchema = {
   "properties": {
-    "crawlers": {
+    "errors": {
       "items": {
-        "$ref": "#/$defs/pay-per-crawl_CrawlerEntry"
+        "$ref": "#/$defs/pay-per-crawl_Msg"
       },
       "type": "array"
+    },
+    "messages": {
+      "items": {
+        "$ref": "#/$defs/pay-per-crawl_Msg"
+      },
+      "type": "array"
+    },
+    "result": {
+      "properties": {
+        "crawlers": {
+          "items": {
+            "$ref": "#/$defs/pay-per-crawl_CrawlerEntry"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "result_info": {
+      "$ref": "#/$defs/pay-per-crawl_ResultInfo"
+    },
+    "success": {
+      "type": "boolean"
     }
   },
   "type": "object"

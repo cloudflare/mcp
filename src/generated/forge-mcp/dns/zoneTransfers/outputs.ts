@@ -4,6 +4,68 @@
 import type { JsonSchema } from "../../_/tool.js";
 
 /**
+ * The schema of `secondary-dns_api-response-collection` in responses.
+ */
+export const secondary_dns_api_response_collection_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/secondary-dns_api-response-common"
+    },
+    {
+      "properties": {
+        "result_info": {
+          "properties": {
+            "count": {
+              "type": "number"
+            },
+            "page": {
+              "type": "number"
+            },
+            "per_page": {
+              "type": "number"
+            },
+            "total_count": {
+              "type": "number"
+            },
+            "total_pages": {
+              "type": "number"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
+ * The schema of `secondary-dns_api-response-common` in responses.
+ */
+export const secondary_dns_api_response_common_output: JsonSchema = {
+  "properties": {
+    "errors": {
+      "$ref": "#/$defs/secondary-dns_messages"
+    },
+    "messages": {
+      "$ref": "#/$defs/secondary-dns_messages"
+    },
+    "success": {
+      "enum": [
+        true
+      ],
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "errors",
+    "messages",
+    "success"
+  ],
+  "type": "object"
+};
+
+/**
  * The schema of `secondary-dns_api-response-common-failure` in responses.
  */
 export const secondary_dns_api_response_common_failure_output: JsonSchema = {
@@ -34,18 +96,15 @@ export const secondary_dns_api_response_common_failure_output: JsonSchema = {
 };
 
 /**
- * The schema of `secondary-dns_id_response` in responses.
+ * The schema of `secondary-dns_api-response-single` in responses.
  */
-export const secondary_dns_id_response_output: JsonSchema = {
+export const secondary_dns_api_response_single_output: JsonSchema = {
   "properties": {
     "errors": {
       "$ref": "#/$defs/secondary-dns_messages"
     },
     "messages": {
       "$ref": "#/$defs/secondary-dns_messages"
-    },
-    "result": {
-      "$ref": "#/$defs/secondary-dns_id_response_result"
     },
     "success": {
       "enum": [
@@ -60,59 +119,54 @@ export const secondary_dns_id_response_output: JsonSchema = {
     "success"
   ],
   "type": "object"
+};
+
+/**
+ * The schema of `secondary-dns_id_response` in responses.
+ */
+export const secondary_dns_id_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/secondary-dns_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "properties": {
+            "id": {
+              "$ref": "#/$defs/secondary-dns_identifier"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
+    }
+  ]
 };
 
 /**
  * The schema of `secondary-dns_id_response-3` in responses.
  */
 export const secondary_dns_id_response_3_output: JsonSchema = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/secondary-dns_messages"
+  "allOf": [
+    {
+      "$ref": "#/$defs/secondary-dns_api-response-single"
     },
-    "messages": {
-      "$ref": "#/$defs/secondary-dns_messages"
-    },
-    "result": {
-      "$ref": "#/$defs/secondary-dns_id_response-3_result"
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
+    {
+      "properties": {
+        "result": {
+          "properties": {
+            "id": {
+              "$ref": "#/$defs/secondary-dns_identifier-3"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "success"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `secondary-dns_id_response-3_result` in responses.
- */
-export const secondary_dns_id_response_3_result_output: JsonSchema = {
-  "properties": {
-    "id": {
-      "$ref": "#/$defs/secondary-dns_identifier-3"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `secondary-dns_id_response_result` in responses.
- */
-export const secondary_dns_id_response_result_output: JsonSchema = {
-  "properties": {
-    "id": {
-      "$ref": "#/$defs/secondary-dns_identifier"
-    }
-  },
-  "type": "object"
+  ]
 };
 
 /**

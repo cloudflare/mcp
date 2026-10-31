@@ -29,3 +29,22 @@ export const magic_netflow_config_output: JsonSchema = {
   ],
   "type": "object"
 };
+
+/**
+ * The schema of `magic_netflow_config_single_response` in responses.
+ */
+export const magic_netflow_config_single_response_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/magic_api-response-single"
+    },
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/magic_netflow_config"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};

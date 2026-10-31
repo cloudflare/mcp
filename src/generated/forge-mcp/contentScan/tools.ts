@@ -3,8 +3,12 @@
 
 import { type Tool, pathParam } from "../_/tool.js";
 import { waf_product_api_bundle_messages_output } from "../outputs.js";
+import { waf_product_api_bundle_identifier } from "../schemas.js";
 import {
+  waf_product_api_bundle_api_response_common_2_output,
   waf_product_api_bundle_api_response_common_failure_2_output,
+  waf_product_api_bundle_api_response_single_2_output,
+  waf_product_api_bundle_response_status_2_output,
   waf_product_api_bundle_status_2_output,
 } from "./outputs.js";
 
@@ -20,17 +24,24 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "zone_id": {
-          "description": "Defines an identifier.",
-          "type": "string"
+          "$ref": "#/$defs/waf-product-api-bundle_identifier",
+          "description": "Defines an identifier."
         }
       },
       required: [
         "zone_id"
       ],
+      $defs: {
+        "waf-product-api-bundle_identifier": waf_product_api_bundle_identifier,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/waf-product-api-bundle_status-2",
+      "$ref": "#/$defs/waf-product-api-bundle_response-status-2",
       $defs: {
+        "waf-product-api-bundle_api-response-common-2": waf_product_api_bundle_api_response_common_2_output,
+        "waf-product-api-bundle_api-response-single-2": waf_product_api_bundle_api_response_single_2_output,
+        "waf-product-api-bundle_messages": waf_product_api_bundle_messages_output,
+        "waf-product-api-bundle_response-status-2": waf_product_api_bundle_response_status_2_output,
         "waf-product-api-bundle_status-2": waf_product_api_bundle_status_2_output,
       },
     },
@@ -54,15 +65,18 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/waf-product-api-bundle_status-2"
+          "$ref": "#/$defs/waf-product-api-bundle_response-status-2"
         },
         "4XX": {
           "$ref": "#/$defs/waf-product-api-bundle_api-response-common-failure-2"
         }
       },
       $defs: {
+        "waf-product-api-bundle_api-response-common-2": waf_product_api_bundle_api_response_common_2_output,
         "waf-product-api-bundle_api-response-common-failure-2": waf_product_api_bundle_api_response_common_failure_2_output,
+        "waf-product-api-bundle_api-response-single-2": waf_product_api_bundle_api_response_single_2_output,
         "waf-product-api-bundle_messages": waf_product_api_bundle_messages_output,
+        "waf-product-api-bundle_response-status-2": waf_product_api_bundle_response_status_2_output,
         "waf-product-api-bundle_status-2": waf_product_api_bundle_status_2_output,
       },
     },
@@ -95,18 +109,25 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "zone_id": {
-          "description": "Defines an identifier.",
-          "type": "string"
+          "$ref": "#/$defs/waf-product-api-bundle_identifier",
+          "description": "Defines an identifier."
         }
       },
       required: [
         "zone_id",
         "body"
       ],
+      $defs: {
+        "waf-product-api-bundle_identifier": waf_product_api_bundle_identifier,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/waf-product-api-bundle_status-2",
+      "$ref": "#/$defs/waf-product-api-bundle_response-status-2",
       $defs: {
+        "waf-product-api-bundle_api-response-common-2": waf_product_api_bundle_api_response_common_2_output,
+        "waf-product-api-bundle_api-response-single-2": waf_product_api_bundle_api_response_single_2_output,
+        "waf-product-api-bundle_messages": waf_product_api_bundle_messages_output,
+        "waf-product-api-bundle_response-status-2": waf_product_api_bundle_response_status_2_output,
         "waf-product-api-bundle_status-2": waf_product_api_bundle_status_2_output,
       },
     },
@@ -128,15 +149,18 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/waf-product-api-bundle_status-2"
+          "$ref": "#/$defs/waf-product-api-bundle_response-status-2"
         },
         "4XX": {
           "$ref": "#/$defs/waf-product-api-bundle_api-response-common-failure-2"
         }
       },
       $defs: {
+        "waf-product-api-bundle_api-response-common-2": waf_product_api_bundle_api_response_common_2_output,
         "waf-product-api-bundle_api-response-common-failure-2": waf_product_api_bundle_api_response_common_failure_2_output,
+        "waf-product-api-bundle_api-response-single-2": waf_product_api_bundle_api_response_single_2_output,
         "waf-product-api-bundle_messages": waf_product_api_bundle_messages_output,
+        "waf-product-api-bundle_response-status-2": waf_product_api_bundle_response_status_2_output,
         "waf-product-api-bundle_status-2": waf_product_api_bundle_status_2_output,
       },
     },

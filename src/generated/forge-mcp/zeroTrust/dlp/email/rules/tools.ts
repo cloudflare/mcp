@@ -4,6 +4,7 @@
 import { type Tool, pathParam } from "../../../../_/tool.js";
 import {
   dlp_api_response_common_failure_output,
+  dlp_api_response_single_output,
   dlp_messages_output,
 } from "../../../outputs.js";
 import {
@@ -53,7 +54,19 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/dlp_EmailRule",
+      "allOf": [
+        {
+          "$ref": "#/$defs/dlp_api-response-single"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/dlp_EmailRule"
+            }
+          },
+          "type": "object"
+        }
+      ],
       $defs: {
         "dlp_EmailRule": dlp_EmailRule_output,
         "dlp_EmailRuleAction": dlp_EmailRuleAction_output,
@@ -61,6 +74,8 @@ export const tools: readonly Tool[] = [
         "dlp_EmailRuleOperator": dlp_EmailRuleOperator_output,
         "dlp_EmailRuleSelector": dlp_EmailRuleSelector_output,
         "dlp_EmailRuleValue": dlp_EmailRuleValue_output,
+        "dlp_api-response-single": dlp_api_response_single_output,
+        "dlp_messages": dlp_messages_output,
       },
     },
     annotations: {
@@ -80,7 +95,19 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/dlp_EmailRule"
+          "allOf": [
+            {
+              "$ref": "#/$defs/dlp_api-response-single"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/dlp_EmailRule"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/dlp_api-response-common-failure"
@@ -94,6 +121,7 @@ export const tools: readonly Tool[] = [
         "dlp_EmailRuleSelector": dlp_EmailRuleSelector_output,
         "dlp_EmailRuleValue": dlp_EmailRuleValue_output,
         "dlp_api-response-common-failure": dlp_api_response_common_failure_output,
+        "dlp_api-response-single": dlp_api_response_single_output,
         "dlp_messages": dlp_messages_output,
       },
     },
@@ -131,7 +159,19 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/dlp_EmailRule",
+      "allOf": [
+        {
+          "$ref": "#/$defs/dlp_api-response-single"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/dlp_EmailRule"
+            }
+          },
+          "type": "object"
+        }
+      ],
       $defs: {
         "dlp_EmailRule": dlp_EmailRule_output,
         "dlp_EmailRuleAction": dlp_EmailRuleAction_output,
@@ -139,6 +179,8 @@ export const tools: readonly Tool[] = [
         "dlp_EmailRuleOperator": dlp_EmailRuleOperator_output,
         "dlp_EmailRuleSelector": dlp_EmailRuleSelector_output,
         "dlp_EmailRuleValue": dlp_EmailRuleValue_output,
+        "dlp_api-response-single": dlp_api_response_single_output,
+        "dlp_messages": dlp_messages_output,
       },
     },
     annotations: {
@@ -158,7 +200,19 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/dlp_EmailRule"
+          "allOf": [
+            {
+              "$ref": "#/$defs/dlp_api-response-single"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/dlp_EmailRule"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/dlp_api-response-common-failure"
@@ -172,6 +226,7 @@ export const tools: readonly Tool[] = [
         "dlp_EmailRuleSelector": dlp_EmailRuleSelector_output,
         "dlp_EmailRuleValue": dlp_EmailRuleValue_output,
         "dlp_api-response-common-failure": dlp_api_response_common_failure_output,
+        "dlp_api-response-single": dlp_api_response_single_output,
         "dlp_messages": dlp_messages_output,
       },
     },
@@ -201,7 +256,19 @@ export const tools: readonly Tool[] = [
       ],
     },
     outputSchema: {
-      "$ref": "#/$defs/dlp_EmailRule",
+      "allOf": [
+        {
+          "$ref": "#/$defs/dlp_api-response-single"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/dlp_EmailRule"
+            }
+          },
+          "type": "object"
+        }
+      ],
       $defs: {
         "dlp_EmailRule": dlp_EmailRule_output,
         "dlp_EmailRuleAction": dlp_EmailRuleAction_output,
@@ -209,6 +276,8 @@ export const tools: readonly Tool[] = [
         "dlp_EmailRuleOperator": dlp_EmailRuleOperator_output,
         "dlp_EmailRuleSelector": dlp_EmailRuleSelector_output,
         "dlp_EmailRuleValue": dlp_EmailRuleValue_output,
+        "dlp_api-response-single": dlp_api_response_single_output,
+        "dlp_messages": dlp_messages_output,
       },
     },
     annotations: {
@@ -228,7 +297,19 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/dlp_EmailRule"
+          "allOf": [
+            {
+              "$ref": "#/$defs/dlp_api-response-single"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/dlp_EmailRule"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/dlp_api-response-common-failure"
@@ -242,6 +323,7 @@ export const tools: readonly Tool[] = [
         "dlp_EmailRuleSelector": dlp_EmailRuleSelector_output,
         "dlp_EmailRuleValue": dlp_EmailRuleValue_output,
         "dlp_api-response-common-failure": dlp_api_response_common_failure_output,
+        "dlp_api-response-single": dlp_api_response_single_output,
         "dlp_messages": dlp_messages_output,
       },
     },
@@ -270,7 +352,19 @@ export const tools: readonly Tool[] = [
       ],
     },
     outputSchema: {
-      "$ref": "#/$defs/dlp_EmailRule",
+      "allOf": [
+        {
+          "$ref": "#/$defs/dlp_api-response-single"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/dlp_EmailRule"
+            }
+          },
+          "type": "object"
+        }
+      ],
       $defs: {
         "dlp_EmailRule": dlp_EmailRule_output,
         "dlp_EmailRuleAction": dlp_EmailRuleAction_output,
@@ -278,6 +372,8 @@ export const tools: readonly Tool[] = [
         "dlp_EmailRuleOperator": dlp_EmailRuleOperator_output,
         "dlp_EmailRuleSelector": dlp_EmailRuleSelector_output,
         "dlp_EmailRuleValue": dlp_EmailRuleValue_output,
+        "dlp_api-response-single": dlp_api_response_single_output,
+        "dlp_messages": dlp_messages_output,
       },
     },
     annotations: {
@@ -298,7 +394,19 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/dlp_EmailRule"
+          "allOf": [
+            {
+              "$ref": "#/$defs/dlp_api-response-single"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/dlp_EmailRule"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/dlp_api-response-common-failure"
@@ -312,6 +420,7 @@ export const tools: readonly Tool[] = [
         "dlp_EmailRuleSelector": dlp_EmailRuleSelector_output,
         "dlp_EmailRuleValue": dlp_EmailRuleValue_output,
         "dlp_api-response-common-failure": dlp_api_response_common_failure_output,
+        "dlp_api-response-single": dlp_api_response_single_output,
         "dlp_messages": dlp_messages_output,
       },
     },
@@ -335,18 +444,19 @@ export const tools: readonly Tool[] = [
       ],
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "$ref": "#/$defs/dlp_EmailRuleArray"
+      "allOf": [
+        {
+          "$ref": "#/$defs/dlp_api-response-single"
         },
-        "result_info": {
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/dlp_EmailRuleArray"
+            }
+          },
           "type": "object"
         }
-      },
-      "required": [
-        "result"
       ],
-      "type": "object",
       $defs: {
         "dlp_EmailRule": dlp_EmailRule_output,
         "dlp_EmailRuleAction": dlp_EmailRuleAction_output,
@@ -355,6 +465,8 @@ export const tools: readonly Tool[] = [
         "dlp_EmailRuleOperator": dlp_EmailRuleOperator_output,
         "dlp_EmailRuleSelector": dlp_EmailRuleSelector_output,
         "dlp_EmailRuleValue": dlp_EmailRuleValue_output,
+        "dlp_api-response-single": dlp_api_response_single_output,
+        "dlp_messages": dlp_messages_output,
       },
     },
     annotations: {
@@ -375,18 +487,19 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "$ref": "#/$defs/dlp_EmailRuleArray"
+          "allOf": [
+            {
+              "$ref": "#/$defs/dlp_api-response-single"
             },
-            "result_info": {
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/dlp_EmailRuleArray"
+                }
+              },
               "type": "object"
             }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/dlp_api-response-common-failure"
@@ -401,6 +514,7 @@ export const tools: readonly Tool[] = [
         "dlp_EmailRuleSelector": dlp_EmailRuleSelector_output,
         "dlp_EmailRuleValue": dlp_EmailRuleValue_output,
         "dlp_api-response-common-failure": dlp_api_response_common_failure_output,
+        "dlp_api-response-single": dlp_api_response_single_output,
         "dlp_messages": dlp_messages_output,
       },
     },
@@ -442,7 +556,19 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/dlp_EmailRule",
+      "allOf": [
+        {
+          "$ref": "#/$defs/dlp_api-response-single"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/dlp_EmailRule"
+            }
+          },
+          "type": "object"
+        }
+      ],
       $defs: {
         "dlp_EmailRule": dlp_EmailRule_output,
         "dlp_EmailRuleAction": dlp_EmailRuleAction_output,
@@ -450,6 +576,8 @@ export const tools: readonly Tool[] = [
         "dlp_EmailRuleOperator": dlp_EmailRuleOperator_output,
         "dlp_EmailRuleSelector": dlp_EmailRuleSelector_output,
         "dlp_EmailRuleValue": dlp_EmailRuleValue_output,
+        "dlp_api-response-single": dlp_api_response_single_output,
+        "dlp_messages": dlp_messages_output,
       },
     },
     annotations: {
@@ -469,7 +597,19 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/dlp_EmailRule"
+          "allOf": [
+            {
+              "$ref": "#/$defs/dlp_api-response-single"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/dlp_EmailRule"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/dlp_api-response-common-failure"
@@ -483,6 +623,7 @@ export const tools: readonly Tool[] = [
         "dlp_EmailRuleSelector": dlp_EmailRuleSelector_output,
         "dlp_EmailRuleValue": dlp_EmailRuleValue_output,
         "dlp_api-response-common-failure": dlp_api_response_common_failure_output,
+        "dlp_api-response-single": dlp_api_response_single_output,
         "dlp_messages": dlp_messages_output,
       },
     },

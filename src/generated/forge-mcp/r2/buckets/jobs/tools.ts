@@ -6,16 +6,19 @@ import {
   r2_errors_output,
   r2_messages_output,
   r2_prefix_delete_job_output,
-  r2_prefix_delete_job_prefixDelete_output,
   r2_r2_bucket_job_status_output,
   r2_v4_response_failure_output,
+  r2_v4_response_output,
 } from "../../outputs.js";
-import { r2_r2_bucket_job_status } from "../../schemas.js";
+import {
+  r2_account_identifier,
+  r2_bucket_name,
+  r2_r2_bucket_job_status,
+} from "../../schemas.js";
 import {
   r2_r2_bucket_job_output,
   r2_r2_bucket_jobs_result_output,
   r2_storage_class_migration_job_output,
-  r2_storage_class_migration_job_storageClassMigration_output,
 } from "./outputs.js";
 import {
   r2_create_prefix_delete_job_request,
@@ -34,8 +37,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Cloudflare account ID that owns the R2 resource.",
-          "type": "string"
+          "$ref": "#/$defs/r2_account_identifier",
+          "description": "Cloudflare account ID that owns the R2 resource."
         },
         "body": {
           "oneOf": [
@@ -48,14 +51,15 @@ export const tools: readonly Tool[] = [
           ]
         },
         "bucket_name": {
-          "description": "Name of the bucket.",
-          "type": "string"
+          "$ref": "#/$defs/r2_bucket_name",
+          "description": "Name of the bucket."
         },
         "cf_r2_data_catalog_check": {
           "description": "For prefix-delete jobs, set this header to reject the request when R2 Data Catalog is enabled for the bucket.",
           "type": "string"
         },
         "cf_r2_jurisdiction": {
+          "default": "default",
           "description": "Jurisdiction where objects in this bucket are guaranteed to be stored.",
           "enum": [
             "default",
@@ -73,19 +77,34 @@ export const tools: readonly Tool[] = [
         "body"
       ],
       $defs: {
+        "r2_account_identifier": r2_account_identifier,
+        "r2_bucket_name": r2_bucket_name,
         "r2_create_prefix_delete_job_request": r2_create_prefix_delete_job_request,
         "r2_create_storage_class_migration_job_request": r2_create_storage_class_migration_job_request,
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/r2_r2_bucket_job",
+      "allOf": [
+        {
+          "$ref": "#/$defs/r2_v4_response"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/r2_r2_bucket_job"
+            }
+          },
+          "type": "object"
+        }
+      ],
       $defs: {
+        "r2_errors": r2_errors_output,
+        "r2_messages": r2_messages_output,
         "r2_prefix_delete_job": r2_prefix_delete_job_output,
-        "r2_prefix_delete_job_prefixDelete": r2_prefix_delete_job_prefixDelete_output,
         "r2_r2_bucket_job": r2_r2_bucket_job_output,
         "r2_r2_bucket_job_status": r2_r2_bucket_job_status_output,
         "r2_storage_class_migration_job": r2_storage_class_migration_job_output,
-        "r2_storage_class_migration_job_storageClassMigration": r2_storage_class_migration_job_storageClassMigration_output,
+        "r2_v4_response": r2_v4_response_output,
       },
     },
     annotations: {
@@ -105,7 +124,19 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/r2_r2_bucket_job"
+          "allOf": [
+            {
+              "$ref": "#/$defs/r2_v4_response"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/r2_r2_bucket_job"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "409": {
           "$ref": "#/$defs/r2_v4_response_failure"
@@ -121,11 +152,10 @@ export const tools: readonly Tool[] = [
         "r2_errors": r2_errors_output,
         "r2_messages": r2_messages_output,
         "r2_prefix_delete_job": r2_prefix_delete_job_output,
-        "r2_prefix_delete_job_prefixDelete": r2_prefix_delete_job_prefixDelete_output,
         "r2_r2_bucket_job": r2_r2_bucket_job_output,
         "r2_r2_bucket_job_status": r2_r2_bucket_job_status_output,
         "r2_storage_class_migration_job": r2_storage_class_migration_job_output,
-        "r2_storage_class_migration_job_storageClassMigration": r2_storage_class_migration_job_storageClassMigration_output,
+        "r2_v4_response": r2_v4_response_output,
         "r2_v4_response_failure": r2_v4_response_failure_output,
       },
     },
@@ -146,14 +176,15 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Cloudflare account ID that owns the R2 resource.",
-          "type": "string"
+          "$ref": "#/$defs/r2_account_identifier",
+          "description": "Cloudflare account ID that owns the R2 resource."
         },
         "bucket_name": {
-          "description": "Name of the bucket.",
-          "type": "string"
+          "$ref": "#/$defs/r2_bucket_name",
+          "description": "Name of the bucket."
         },
         "cf_r2_jurisdiction": {
+          "default": "default",
           "description": "Jurisdiction where objects in this bucket are guaranteed to be stored.",
           "enum": [
             "default",
@@ -174,16 +205,33 @@ export const tools: readonly Tool[] = [
         "bucket_name",
         "job_id"
       ],
+      $defs: {
+        "r2_account_identifier": r2_account_identifier,
+        "r2_bucket_name": r2_bucket_name,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/r2_r2_bucket_job",
+      "allOf": [
+        {
+          "$ref": "#/$defs/r2_v4_response"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/r2_r2_bucket_job"
+            }
+          },
+          "type": "object"
+        }
+      ],
       $defs: {
+        "r2_errors": r2_errors_output,
+        "r2_messages": r2_messages_output,
         "r2_prefix_delete_job": r2_prefix_delete_job_output,
-        "r2_prefix_delete_job_prefixDelete": r2_prefix_delete_job_prefixDelete_output,
         "r2_r2_bucket_job": r2_r2_bucket_job_output,
         "r2_r2_bucket_job_status": r2_r2_bucket_job_status_output,
         "r2_storage_class_migration_job": r2_storage_class_migration_job_output,
-        "r2_storage_class_migration_job_storageClassMigration": r2_storage_class_migration_job_storageClassMigration_output,
+        "r2_v4_response": r2_v4_response_output,
       },
     },
     annotations: {
@@ -199,18 +247,25 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "com.cloudflare.edge.r2.bucket.read"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.edge.r2.bucket.read": {
-            "name": "com_cloudflare_edge_r2_bucket_read"
-          }
-        }
+        ]
       }
     },
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/r2_r2_bucket_job"
+          "allOf": [
+            {
+              "$ref": "#/$defs/r2_v4_response"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/r2_r2_bucket_job"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/r2_v4_response_failure"
@@ -220,11 +275,10 @@ export const tools: readonly Tool[] = [
         "r2_errors": r2_errors_output,
         "r2_messages": r2_messages_output,
         "r2_prefix_delete_job": r2_prefix_delete_job_output,
-        "r2_prefix_delete_job_prefixDelete": r2_prefix_delete_job_prefixDelete_output,
         "r2_r2_bucket_job": r2_r2_bucket_job_output,
         "r2_r2_bucket_job_status": r2_r2_bucket_job_status_output,
         "r2_storage_class_migration_job": r2_storage_class_migration_job_output,
-        "r2_storage_class_migration_job_storageClassMigration": r2_storage_class_migration_job_storageClassMigration_output,
+        "r2_v4_response": r2_v4_response_output,
         "r2_v4_response_failure": r2_v4_response_failure_output,
       },
     },
@@ -243,14 +297,15 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Cloudflare account ID that owns the R2 resource.",
-          "type": "string"
+          "$ref": "#/$defs/r2_account_identifier",
+          "description": "Cloudflare account ID that owns the R2 resource."
         },
         "bucket_name": {
-          "description": "Name of the bucket.",
-          "type": "string"
+          "$ref": "#/$defs/r2_bucket_name",
+          "description": "Name of the bucket."
         },
         "cf_r2_jurisdiction": {
+          "default": "default",
           "description": "Jurisdiction where objects in this bucket are guaranteed to be stored.",
           "enum": [
             "default",
@@ -287,19 +342,34 @@ export const tools: readonly Tool[] = [
         "bucket_name"
       ],
       $defs: {
+        "r2_account_identifier": r2_account_identifier,
+        "r2_bucket_name": r2_bucket_name,
         "r2_r2_bucket_job_status": r2_r2_bucket_job_status,
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/r2_r2_bucket_jobs_result",
+      "allOf": [
+        {
+          "$ref": "#/$defs/r2_v4_response"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/r2_r2_bucket_jobs_result"
+            }
+          },
+          "type": "object"
+        }
+      ],
       $defs: {
+        "r2_errors": r2_errors_output,
+        "r2_messages": r2_messages_output,
         "r2_prefix_delete_job": r2_prefix_delete_job_output,
-        "r2_prefix_delete_job_prefixDelete": r2_prefix_delete_job_prefixDelete_output,
         "r2_r2_bucket_job": r2_r2_bucket_job_output,
         "r2_r2_bucket_job_status": r2_r2_bucket_job_status_output,
         "r2_r2_bucket_jobs_result": r2_r2_bucket_jobs_result_output,
         "r2_storage_class_migration_job": r2_storage_class_migration_job_output,
-        "r2_storage_class_migration_job_storageClassMigration": r2_storage_class_migration_job_storageClassMigration_output,
+        "r2_v4_response": r2_v4_response_output,
       },
     },
     annotations: {
@@ -315,18 +385,25 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "com.cloudflare.edge.r2.bucket.read"
-        ],
-        "x-fern-enum": {
-          "com.cloudflare.edge.r2.bucket.read": {
-            "name": "com_cloudflare_edge_r2_bucket_read"
-          }
-        }
+        ]
       }
     },
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/r2_r2_bucket_jobs_result"
+          "allOf": [
+            {
+              "$ref": "#/$defs/r2_v4_response"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/r2_r2_bucket_jobs_result"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/r2_v4_response_failure"
@@ -336,12 +413,11 @@ export const tools: readonly Tool[] = [
         "r2_errors": r2_errors_output,
         "r2_messages": r2_messages_output,
         "r2_prefix_delete_job": r2_prefix_delete_job_output,
-        "r2_prefix_delete_job_prefixDelete": r2_prefix_delete_job_prefixDelete_output,
         "r2_r2_bucket_job": r2_r2_bucket_job_output,
         "r2_r2_bucket_job_status": r2_r2_bucket_job_status_output,
         "r2_r2_bucket_jobs_result": r2_r2_bucket_jobs_result_output,
         "r2_storage_class_migration_job": r2_storage_class_migration_job_output,
-        "r2_storage_class_migration_job_storageClassMigration": r2_storage_class_migration_job_storageClassMigration_output,
+        "r2_v4_response": r2_v4_response_output,
         "r2_v4_response_failure": r2_v4_response_failure_output,
       },
     },

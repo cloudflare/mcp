@@ -12,7 +12,9 @@ import {
   posture_api_StatusEnum_output,
   posture_api_Vendor_output,
   posture_api_ZeroTrustProduct_output,
+  posture_api_api_response_collection_output,
   posture_api_api_response_common_output,
+  posture_api_export_job_response_output,
   posture_api_messages_output,
   posture_api_result_info_output,
 } from "../outputs.js";
@@ -20,12 +22,16 @@ import {
   posture_api_DirectionEnum,
   posture_api_VendorsEnum,
 } from "../schemas.js";
-import { posture_api_ContentAsset_output } from "./outputs.js";
+import {
+  posture_api_ContentAsset_output,
+  posture_api_PaginatedContentAssetList_output,
+} from "./outputs.js";
 import {
   posture_api_ContentExportRequest,
   posture_api_ContentOrder,
   posture_api_DLPProfile,
   posture_api_DLPProfileEntry,
+  posture_api_Order,
 } from "./schemas.js";
 
 /**
@@ -56,15 +62,19 @@ export const tools: readonly Tool[] = [
         "posture-api_DLPProfile": posture_api_DLPProfile,
         "posture-api_DLPProfileEntry": posture_api_DLPProfileEntry,
         "posture-api_DirectionEnum": posture_api_DirectionEnum,
+        "posture-api_Order": posture_api_Order,
         "posture-api_VendorsEnum": posture_api_VendorsEnum,
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/posture-api_ExportJob",
+      "$ref": "#/$defs/posture-api_export-job-response",
       $defs: {
         "posture-api_ExportJob": posture_api_ExportJob_output,
         "posture-api_ExportJobTypeEnum": posture_api_ExportJobTypeEnum_output,
         "posture-api_StatusEnum": posture_api_StatusEnum_output,
+        "posture-api_api-response-common": posture_api_api_response_common_output,
+        "posture-api_export-job-response": posture_api_export_job_response_output,
+        "posture-api_messages": posture_api_messages_output,
       },
     },
     annotations: {
@@ -85,7 +95,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/posture-api_ExportJob"
+          "$ref": "#/$defs/posture-api_export-job-response"
         },
         "400": null,
         "429": {
@@ -97,6 +107,7 @@ export const tools: readonly Tool[] = [
         "posture-api_ExportJobTypeEnum": posture_api_ExportJobTypeEnum_output,
         "posture-api_StatusEnum": posture_api_StatusEnum_output,
         "posture-api_api-response-common": posture_api_api_response_common_output,
+        "posture-api_export-job-response": posture_api_export_job_response_output,
         "posture-api_messages": posture_api_messages_output,
       },
     },
@@ -179,29 +190,18 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "$ref": "#/$defs/posture-api_ContentAsset"
-          },
-          "type": "array"
-        },
-        "result_info": {
-          "$ref": "#/$defs/posture-api_result-info"
-        }
-      },
-      "required": [
-        "result"
-      ],
-      "type": "object",
+      "$ref": "#/$defs/posture-api_PaginatedContentAssetList",
       $defs: {
         "posture-api_ContentAsset": posture_api_ContentAsset_output,
         "posture-api_CredentialHealthStatusEnum": posture_api_CredentialHealthStatusEnum_output,
         "posture-api_DlpContext": posture_api_DlpContext_output,
         "posture-api_IntegrationPolicy": posture_api_IntegrationPolicy_output,
         "posture-api_IntegrationSummary": posture_api_IntegrationSummary_output,
+        "posture-api_PaginatedContentAssetList": posture_api_PaginatedContentAssetList_output,
         "posture-api_Vendor": posture_api_Vendor_output,
         "posture-api_ZeroTrustProduct": posture_api_ZeroTrustProduct_output,
+        "posture-api_api-response-collection": posture_api_api_response_collection_output,
+        "posture-api_messages": posture_api_messages_output,
         "posture-api_result-info": posture_api_result_info_output,
       },
     },
@@ -223,21 +223,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "items": {
-                "$ref": "#/$defs/posture-api_ContentAsset"
-              },
-              "type": "array"
-            },
-            "result_info": {
-              "$ref": "#/$defs/posture-api_result-info"
-            }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/posture-api_PaginatedContentAssetList"
         },
         "400": null,
         "429": {
@@ -250,8 +236,10 @@ export const tools: readonly Tool[] = [
         "posture-api_DlpContext": posture_api_DlpContext_output,
         "posture-api_IntegrationPolicy": posture_api_IntegrationPolicy_output,
         "posture-api_IntegrationSummary": posture_api_IntegrationSummary_output,
+        "posture-api_PaginatedContentAssetList": posture_api_PaginatedContentAssetList_output,
         "posture-api_Vendor": posture_api_Vendor_output,
         "posture-api_ZeroTrustProduct": posture_api_ZeroTrustProduct_output,
+        "posture-api_api-response-collection": posture_api_api_response_collection_output,
         "posture-api_api-response-common": posture_api_api_response_common_output,
         "posture-api_messages": posture_api_messages_output,
         "posture-api_result-info": posture_api_result_info_output,

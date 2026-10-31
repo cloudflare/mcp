@@ -6,13 +6,16 @@ import {
   cws_DeletedResult_output,
   cws_ErrorResponse_output,
   cws_MessageSource_output,
+  cws_ResponseDeletedResult_output,
   cws_ResponseMessage_output,
   cws_ResultInfo_output,
 } from "../outputs.js";
 import {
   cws_JSONDocument_output,
   cws_JSONValue_output,
+  cws_PageResponseRegoMetadata_output,
   cws_RegoMetadata_output,
+  cws_ResponseRegoMetadata_output,
 } from "./outputs.js";
 import {
   cws_JSONDocument,
@@ -50,11 +53,14 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/cws_RegoMetadata",
+      "$ref": "#/$defs/cws_ResponseRegoMetadata",
       $defs: {
         "cws_JSONDocument": cws_JSONDocument_output,
         "cws_JSONValue": cws_JSONValue_output,
+        "cws_MessageSource": cws_MessageSource_output,
         "cws_RegoMetadata": cws_RegoMetadata_output,
+        "cws_ResponseMessage": cws_ResponseMessage_output,
+        "cws_ResponseRegoMetadata": cws_ResponseRegoMetadata_output,
       },
     },
     annotations: {
@@ -72,7 +78,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "201": {
-          "$ref": "#/$defs/cws_RegoMetadata"
+          "$ref": "#/$defs/cws_ResponseRegoMetadata"
         },
         "4XX": {
           "$ref": "#/$defs/cws_ErrorResponse"
@@ -88,6 +94,7 @@ export const tools: readonly Tool[] = [
         "cws_MessageSource": cws_MessageSource_output,
         "cws_RegoMetadata": cws_RegoMetadata_output,
         "cws_ResponseMessage": cws_ResponseMessage_output,
+        "cws_ResponseRegoMetadata": cws_ResponseRegoMetadata_output,
       },
     },
     request: (args) => ({
@@ -118,9 +125,12 @@ export const tools: readonly Tool[] = [
       ],
     },
     outputSchema: {
-      "$ref": "#/$defs/cws_DeletedResult",
+      "$ref": "#/$defs/cws_ResponseDeletedResult",
       $defs: {
         "cws_DeletedResult": cws_DeletedResult_output,
+        "cws_MessageSource": cws_MessageSource_output,
+        "cws_ResponseDeletedResult": cws_ResponseDeletedResult_output,
+        "cws_ResponseMessage": cws_ResponseMessage_output,
       },
     },
     annotations: {
@@ -138,7 +148,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/cws_DeletedResult"
+          "$ref": "#/$defs/cws_ResponseDeletedResult"
         },
         "4XX": {
           "$ref": "#/$defs/cws_ErrorResponse"
@@ -151,6 +161,7 @@ export const tools: readonly Tool[] = [
         "cws_DeletedResult": cws_DeletedResult_output,
         "cws_ErrorResponse": cws_ErrorResponse_output,
         "cws_MessageSource": cws_MessageSource_output,
+        "cws_ResponseDeletedResult": cws_ResponseDeletedResult_output,
         "cws_ResponseMessage": cws_ResponseMessage_output,
       },
     },
@@ -181,11 +192,14 @@ export const tools: readonly Tool[] = [
       ],
     },
     outputSchema: {
-      "$ref": "#/$defs/cws_RegoMetadata",
+      "$ref": "#/$defs/cws_ResponseRegoMetadata",
       $defs: {
         "cws_JSONDocument": cws_JSONDocument_output,
         "cws_JSONValue": cws_JSONValue_output,
+        "cws_MessageSource": cws_MessageSource_output,
         "cws_RegoMetadata": cws_RegoMetadata_output,
+        "cws_ResponseMessage": cws_ResponseMessage_output,
+        "cws_ResponseRegoMetadata": cws_ResponseRegoMetadata_output,
       },
     },
     annotations: {
@@ -203,7 +217,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/cws_RegoMetadata"
+          "$ref": "#/$defs/cws_ResponseRegoMetadata"
         },
         "4XX": {
           "$ref": "#/$defs/cws_ErrorResponse"
@@ -219,6 +233,7 @@ export const tools: readonly Tool[] = [
         "cws_MessageSource": cws_MessageSource_output,
         "cws_RegoMetadata": cws_RegoMetadata_output,
         "cws_ResponseMessage": cws_ResponseMessage_output,
+        "cws_ResponseRegoMetadata": cws_ResponseRegoMetadata_output,
       },
     },
     request: (args) => ({
@@ -278,32 +293,14 @@ export const tools: readonly Tool[] = [
       ],
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "oneOf": [
-            {
-              "items": {
-                "$ref": "#/$defs/cws_RegoMetadata"
-              },
-              "type": "array"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "result_info": {
-          "$ref": "#/$defs/cws_ResultInfo"
-        }
-      },
-      "required": [
-        "result"
-      ],
-      "type": "object",
+      "$ref": "#/$defs/cws_PageResponseRegoMetadata",
       $defs: {
         "cws_JSONDocument": cws_JSONDocument_output,
         "cws_JSONValue": cws_JSONValue_output,
+        "cws_MessageSource": cws_MessageSource_output,
+        "cws_PageResponseRegoMetadata": cws_PageResponseRegoMetadata_output,
         "cws_RegoMetadata": cws_RegoMetadata_output,
+        "cws_ResponseMessage": cws_ResponseMessage_output,
         "cws_ResultInfo": cws_ResultInfo_output,
       },
     },
@@ -322,28 +319,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "oneOf": [
-                {
-                  "items": {
-                    "$ref": "#/$defs/cws_RegoMetadata"
-                  },
-                  "type": "array"
-                },
-                {
-                  "type": "null"
-                }
-              ]
-            },
-            "result_info": {
-              "$ref": "#/$defs/cws_ResultInfo"
-            }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/cws_PageResponseRegoMetadata"
         },
         "4XX": {
           "$ref": "#/$defs/cws_ErrorResponse"
@@ -357,6 +333,7 @@ export const tools: readonly Tool[] = [
         "cws_JSONDocument": cws_JSONDocument_output,
         "cws_JSONValue": cws_JSONValue_output,
         "cws_MessageSource": cws_MessageSource_output,
+        "cws_PageResponseRegoMetadata": cws_PageResponseRegoMetadata_output,
         "cws_RegoMetadata": cws_RegoMetadata_output,
         "cws_ResponseMessage": cws_ResponseMessage_output,
         "cws_ResultInfo": cws_ResultInfo_output,
@@ -406,11 +383,14 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/cws_RegoMetadata",
+      "$ref": "#/$defs/cws_ResponseRegoMetadata",
       $defs: {
         "cws_JSONDocument": cws_JSONDocument_output,
         "cws_JSONValue": cws_JSONValue_output,
+        "cws_MessageSource": cws_MessageSource_output,
         "cws_RegoMetadata": cws_RegoMetadata_output,
+        "cws_ResponseMessage": cws_ResponseMessage_output,
+        "cws_ResponseRegoMetadata": cws_ResponseRegoMetadata_output,
       },
     },
     annotations: {
@@ -428,7 +408,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/cws_RegoMetadata"
+          "$ref": "#/$defs/cws_ResponseRegoMetadata"
         },
         "4XX": {
           "$ref": "#/$defs/cws_ErrorResponse"
@@ -444,6 +424,7 @@ export const tools: readonly Tool[] = [
         "cws_MessageSource": cws_MessageSource_output,
         "cws_RegoMetadata": cws_RegoMetadata_output,
         "cws_ResponseMessage": cws_ResponseMessage_output,
+        "cws_ResponseRegoMetadata": cws_ResponseRegoMetadata_output,
       },
     },
     request: (args) => ({

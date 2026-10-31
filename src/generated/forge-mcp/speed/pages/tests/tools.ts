@@ -4,10 +4,11 @@
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
   observatory_api_response_common_failure_output,
+  observatory_api_response_single_output,
+  observatory_count_response_output,
   observatory_device_type_output,
   observatory_labeled_region_output,
   observatory_lighthouse_error_code_output,
-  observatory_lighthouse_report_error_output,
   observatory_lighthouse_report_output,
   observatory_lighthouse_state_output,
   observatory_messages_output,
@@ -18,8 +19,17 @@ import {
   observatory_url_output,
   observatory_uuid_output,
 } from "../../outputs.js";
-import { observatory_region } from "../../schemas.js";
-import { observatory_result_info_output } from "./outputs.js";
+import {
+  observatory_identifier,
+  observatory_region,
+  observatory_url,
+} from "../../schemas.js";
+import { observatory_api_response_collection_output } from "../outputs.js";
+import {
+  observatory_page_test_response_collection_output,
+  observatory_page_test_response_single_output,
+  observatory_result_info_output,
+} from "./outputs.js";
 
 /**
  * The tools of `speed.pages.tests`.
@@ -48,12 +58,12 @@ export const tools: readonly Tool[] = [
           "type": "object"
         },
         "url": {
-          "description": "A URL.",
-          "type": "string"
+          "$ref": "#/$defs/observatory_url",
+          "description": "A URL."
         },
         "zone_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/observatory_identifier",
+          "description": "Identifier."
         }
       },
       required: [
@@ -61,18 +71,22 @@ export const tools: readonly Tool[] = [
         "url"
       ],
       $defs: {
+        "observatory_identifier": observatory_identifier,
         "observatory_region": observatory_region,
+        "observatory_url": observatory_url,
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/observatory_page_test",
+      "$ref": "#/$defs/observatory_page-test-response-single",
       $defs: {
+        "observatory_api-response-single": observatory_api_response_single_output,
         "observatory_device_type": observatory_device_type_output,
         "observatory_labeled_region": observatory_labeled_region_output,
         "observatory_lighthouse_error_code": observatory_lighthouse_error_code_output,
         "observatory_lighthouse_report": observatory_lighthouse_report_output,
-        "observatory_lighthouse_report_error": observatory_lighthouse_report_error_output,
         "observatory_lighthouse_state": observatory_lighthouse_state_output,
+        "observatory_messages": observatory_messages_output,
+        "observatory_page-test-response-single": observatory_page_test_response_single_output,
         "observatory_page_test": observatory_page_test_output,
         "observatory_region": observatory_region_output,
         "observatory_schedule_frequency": observatory_schedule_frequency_output,
@@ -104,7 +118,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/observatory_page_test"
+          "$ref": "#/$defs/observatory_page-test-response-single"
         },
         "4XX": {
           "$ref": "#/$defs/observatory_api-response-common-failure"
@@ -112,13 +126,14 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "observatory_api-response-common-failure": observatory_api_response_common_failure_output,
+        "observatory_api-response-single": observatory_api_response_single_output,
         "observatory_device_type": observatory_device_type_output,
         "observatory_labeled_region": observatory_labeled_region_output,
         "observatory_lighthouse_error_code": observatory_lighthouse_error_code_output,
         "observatory_lighthouse_report": observatory_lighthouse_report_output,
-        "observatory_lighthouse_report_error": observatory_lighthouse_report_error_output,
         "observatory_lighthouse_state": observatory_lighthouse_state_output,
         "observatory_messages": observatory_messages_output,
+        "observatory_page-test-response-single": observatory_page_test_response_single_output,
         "observatory_page_test": observatory_page_test_output,
         "observatory_region": observatory_region_output,
         "observatory_schedule_frequency": observatory_schedule_frequency_output,
@@ -150,12 +165,12 @@ export const tools: readonly Tool[] = [
           ]
         },
         "url": {
-          "description": "A URL.",
-          "type": "string"
+          "$ref": "#/$defs/observatory_url",
+          "description": "A URL."
         },
         "zone_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/observatory_identifier",
+          "description": "Identifier."
         }
       },
       required: [
@@ -163,16 +178,18 @@ export const tools: readonly Tool[] = [
         "url"
       ],
       $defs: {
+        "observatory_identifier": observatory_identifier,
         "observatory_region": observatory_region,
+        "observatory_url": observatory_url,
       },
     },
     outputSchema: {
-      "properties": {
-        "count": {
-          "type": "number"
-        }
+      "$ref": "#/$defs/observatory_count-response",
+      $defs: {
+        "observatory_api-response-single": observatory_api_response_single_output,
+        "observatory_count-response": observatory_count_response_output,
+        "observatory_messages": observatory_messages_output,
       },
-      "type": "object",
     },
     annotations: {
       "destructiveHint": true,
@@ -197,12 +214,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "count": {
-              "type": "number"
-            }
-          },
-          "type": "object"
+          "$ref": "#/$defs/observatory_count-response"
         },
         "4XX": {
           "$ref": "#/$defs/observatory_api-response-common-failure"
@@ -210,6 +222,8 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "observatory_api-response-common-failure": observatory_api_response_common_failure_output,
+        "observatory_api-response-single": observatory_api_response_single_output,
+        "observatory_count-response": observatory_count_response_output,
         "observatory_messages": observatory_messages_output,
       },
     },
@@ -231,12 +245,12 @@ export const tools: readonly Tool[] = [
           "type": "string"
         },
         "url": {
-          "description": "A URL.",
-          "type": "string"
+          "$ref": "#/$defs/observatory_url",
+          "description": "A URL."
         },
         "zone_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/observatory_identifier",
+          "description": "Identifier."
         }
       },
       required: [
@@ -244,16 +258,22 @@ export const tools: readonly Tool[] = [
         "url",
         "test_id"
       ],
+      $defs: {
+        "observatory_identifier": observatory_identifier,
+        "observatory_url": observatory_url,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/observatory_page_test",
+      "$ref": "#/$defs/observatory_page-test-response-single",
       $defs: {
+        "observatory_api-response-single": observatory_api_response_single_output,
         "observatory_device_type": observatory_device_type_output,
         "observatory_labeled_region": observatory_labeled_region_output,
         "observatory_lighthouse_error_code": observatory_lighthouse_error_code_output,
         "observatory_lighthouse_report": observatory_lighthouse_report_output,
-        "observatory_lighthouse_report_error": observatory_lighthouse_report_error_output,
         "observatory_lighthouse_state": observatory_lighthouse_state_output,
+        "observatory_messages": observatory_messages_output,
+        "observatory_page-test-response-single": observatory_page_test_response_single_output,
         "observatory_page_test": observatory_page_test_output,
         "observatory_region": observatory_region_output,
         "observatory_schedule_frequency": observatory_schedule_frequency_output,
@@ -286,7 +306,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/observatory_page_test"
+          "$ref": "#/$defs/observatory_page-test-response-single"
         },
         "4XX": {
           "$ref": "#/$defs/observatory_api-response-common-failure"
@@ -294,13 +314,14 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "observatory_api-response-common-failure": observatory_api_response_common_failure_output,
+        "observatory_api-response-single": observatory_api_response_single_output,
         "observatory_device_type": observatory_device_type_output,
         "observatory_labeled_region": observatory_labeled_region_output,
         "observatory_lighthouse_error_code": observatory_lighthouse_error_code_output,
         "observatory_lighthouse_report": observatory_lighthouse_report_output,
-        "observatory_lighthouse_report_error": observatory_lighthouse_report_error_output,
         "observatory_lighthouse_state": observatory_lighthouse_state_output,
         "observatory_messages": observatory_messages_output,
+        "observatory_page-test-response-single": observatory_page_test_response_single_output,
         "observatory_page_test": observatory_page_test_output,
         "observatory_region": observatory_region_output,
         "observatory_schedule_frequency": observatory_schedule_frequency_output,
@@ -339,12 +360,12 @@ export const tools: readonly Tool[] = [
           ]
         },
         "url": {
-          "description": "A URL.",
-          "type": "string"
+          "$ref": "#/$defs/observatory_url",
+          "description": "A URL."
         },
         "zone_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/observatory_identifier",
+          "description": "Identifier."
         }
       },
       required: [
@@ -352,32 +373,22 @@ export const tools: readonly Tool[] = [
         "url"
       ],
       $defs: {
+        "observatory_identifier": observatory_identifier,
         "observatory_region": observatory_region,
+        "observatory_url": observatory_url,
       },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "$ref": "#/$defs/observatory_page_test"
-          },
-          "type": "array"
-        },
-        "result_info": {
-          "$ref": "#/$defs/observatory_result_info"
-        }
-      },
-      "required": [
-        "result"
-      ],
-      "type": "object",
+      "$ref": "#/$defs/observatory_page-test-response-collection",
       $defs: {
+        "observatory_api-response-collection": observatory_api_response_collection_output,
         "observatory_device_type": observatory_device_type_output,
         "observatory_labeled_region": observatory_labeled_region_output,
         "observatory_lighthouse_error_code": observatory_lighthouse_error_code_output,
         "observatory_lighthouse_report": observatory_lighthouse_report_output,
-        "observatory_lighthouse_report_error": observatory_lighthouse_report_error_output,
         "observatory_lighthouse_state": observatory_lighthouse_state_output,
+        "observatory_messages": observatory_messages_output,
+        "observatory_page-test-response-collection": observatory_page_test_response_collection_output,
         "observatory_page_test": observatory_page_test_output,
         "observatory_region": observatory_region_output,
         "observatory_result_info": observatory_result_info_output,
@@ -411,35 +422,22 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "items": {
-                "$ref": "#/$defs/observatory_page_test"
-              },
-              "type": "array"
-            },
-            "result_info": {
-              "$ref": "#/$defs/observatory_result_info"
-            }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/observatory_page-test-response-collection"
         },
         "4XX": {
           "$ref": "#/$defs/observatory_api-response-common-failure"
         }
       },
       $defs: {
+        "observatory_api-response-collection": observatory_api_response_collection_output,
         "observatory_api-response-common-failure": observatory_api_response_common_failure_output,
         "observatory_device_type": observatory_device_type_output,
         "observatory_labeled_region": observatory_labeled_region_output,
         "observatory_lighthouse_error_code": observatory_lighthouse_error_code_output,
         "observatory_lighthouse_report": observatory_lighthouse_report_output,
-        "observatory_lighthouse_report_error": observatory_lighthouse_report_error_output,
         "observatory_lighthouse_state": observatory_lighthouse_state_output,
         "observatory_messages": observatory_messages_output,
+        "observatory_page-test-response-collection": observatory_page_test_response_collection_output,
         "observatory_page_test": observatory_page_test_output,
         "observatory_region": observatory_region_output,
         "observatory_result_info": observatory_result_info_output,

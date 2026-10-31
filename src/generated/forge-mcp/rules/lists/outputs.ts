@@ -44,7 +44,17 @@ export const lists_api_response_common_output: JsonSchema = {
       "$ref": "#/$defs/lists_messages"
     },
     "result": {
-      "$ref": "#/$defs/lists_api-response-common_result"
+      "anyOf": [
+        {
+          "type": "object"
+        },
+        {
+          "items": {
+            "type": "object"
+          },
+          "type": "array"
+        }
+      ]
     },
     "success": {
       "enum": [
@@ -90,23 +100,6 @@ export const lists_api_response_common_failure_output: JsonSchema = {
     "success"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `lists_api-response-common_result` in responses.
- */
-export const lists_api_response_common_result_output: JsonSchema = {
-  "anyOf": [
-    {
-      "type": "object"
-    },
-    {
-      "items": {
-        "type": "object"
-      },
-      "type": "array"
-    }
-  ]
 };
 
 /**

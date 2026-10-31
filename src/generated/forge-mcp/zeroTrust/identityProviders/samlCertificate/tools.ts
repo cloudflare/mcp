@@ -4,12 +4,15 @@
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
   access_api_response_common_failure_output,
+  access_api_response_single_output,
   access_messages_output,
 } from "../../outputs.js";
+import { access_identifier, access_uuid } from "../../schemas.js";
 import {
   access_saml_certificate_output,
   access_saml_certificate_set_output,
 } from "../outputs.js";
+import { access_saml_certificate_set_response_output } from "./outputs.js";
 
 /**
  * The tools of `zero_trust.identity_providers.saml_certificate`.
@@ -23,24 +26,31 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/access_identifier",
+          "description": "Identifier."
         },
         "identity_provider_id": {
-          "description": "UUID.",
-          "type": "string"
+          "$ref": "#/$defs/access_uuid",
+          "description": "UUID."
         }
       },
       required: [
         "account_id",
         "identity_provider_id"
       ],
+      $defs: {
+        "access_identifier": access_identifier,
+        "access_uuid": access_uuid,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/access_saml_certificate_set",
+      "$ref": "#/$defs/access_saml_certificate_set_response",
       $defs: {
+        "access_api-response-single": access_api_response_single_output,
+        "access_messages": access_messages_output,
         "access_saml_certificate": access_saml_certificate_output,
         "access_saml_certificate_set": access_saml_certificate_set_output,
+        "access_saml_certificate_set_response": access_saml_certificate_set_response_output,
       },
     },
     annotations: {
@@ -55,10 +65,10 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/access_saml_certificate_set"
+          "$ref": "#/$defs/access_saml_certificate_set_response"
         },
         "201": {
-          "$ref": "#/$defs/access_saml_certificate_set"
+          "$ref": "#/$defs/access_saml_certificate_set_response"
         },
         "403": {
           "$ref": "#/$defs/access_api-response-common-failure"
@@ -72,9 +82,11 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "access_api-response-common-failure": access_api_response_common_failure_output,
+        "access_api-response-single": access_api_response_single_output,
         "access_messages": access_messages_output,
         "access_saml_certificate": access_saml_certificate_output,
         "access_saml_certificate_set": access_saml_certificate_set_output,
+        "access_saml_certificate_set_response": access_saml_certificate_set_response_output,
       },
     },
     request: (args) => ({

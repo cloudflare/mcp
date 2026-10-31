@@ -78,57 +78,20 @@ export const addressing_modified_at_output: JsonSchema = {
  * The schema of `addressing_response_collection-4` in responses.
  */
 export const addressing_response_collection_4_output: JsonSchema = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/addressing_messages"
+  "allOf": [
+    {
+      "$ref": "#/$defs/addressing_api-response-collection"
     },
-    "messages": {
-      "$ref": "#/$defs/addressing_messages"
-    },
-    "result": {
-      "items": {
-        "$ref": "#/$defs/addressing_lease"
+    {
+      "properties": {
+        "result": {
+          "items": {
+            "$ref": "#/$defs/addressing_lease"
+          },
+          "type": "array"
+        }
       },
-      "type": "array"
-    },
-    "result_info": {
-      "$ref": "#/$defs/addressing_response_collection-4_result_info"
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
+      "type": "object"
     }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "success"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `addressing_response_collection-4_result_info` in responses.
- */
-export const addressing_response_collection_4_result_info_output: JsonSchema = {
-  "properties": {
-    "count": {
-      "type": "number"
-    },
-    "page": {
-      "type": "number"
-    },
-    "per_page": {
-      "type": "number"
-    },
-    "total_count": {
-      "type": "number"
-    },
-    "total_pages": {
-      "type": "number"
-    }
-  },
-  "type": "object"
+  ]
 };

@@ -4,11 +4,16 @@
 import { type Tool, pathParam } from "../../../../../_/tool.js";
 import {
   digital_experience_monitoring_api_response_common_failure_output,
+  digital_experience_monitoring_api_response_single_output,
   digital_experience_monitoring_messages_output,
 } from "../../../outputs.js";
+import { digital_experience_monitoring_account_identifier } from "../../../schemas.js";
 import { digital_experience_monitoring_since_minutes } from "../../schemas.js";
 import { digital_experience_monitoring_uniqueDevicesTotal_output } from "../outputs.js";
-import { digital_experience_monitoring_live_stat_output } from "./outputs.js";
+import {
+  digital_experience_monitoring_fleet_status_live_response_output,
+  digital_experience_monitoring_live_stat_output,
+} from "./outputs.js";
 
 /**
  * The tools of `zero_trust.dex.devices.aggregates.live`.
@@ -22,8 +27,8 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Unique Cloudflare account ID.",
-          "type": "string"
+          "$ref": "#/$defs/digital-experience-monitoring_account_identifier",
+          "description": "Unique Cloudflare account ID."
         },
         "since_minutes": {
           "$ref": "#/$defs/digital-experience-monitoring_since_minutes",
@@ -36,88 +41,17 @@ export const tools: readonly Tool[] = [
         "since_minutes"
       ],
       $defs: {
+        "digital-experience-monitoring_account_identifier": digital_experience_monitoring_account_identifier,
         "digital-experience-monitoring_since_minutes": digital_experience_monitoring_since_minutes,
       },
     },
     outputSchema: {
-      "properties": {
-        "deviceStats": {
-          "properties": {
-            "byColo": {
-              "oneOf": [
-                {
-                  "items": {
-                    "$ref": "#/$defs/digital-experience-monitoring_live_stat"
-                  },
-                  "type": "array"
-                },
-                {
-                  "type": "null"
-                }
-              ]
-            },
-            "byMode": {
-              "oneOf": [
-                {
-                  "items": {
-                    "$ref": "#/$defs/digital-experience-monitoring_live_stat"
-                  },
-                  "type": "array"
-                },
-                {
-                  "type": "null"
-                }
-              ]
-            },
-            "byPlatform": {
-              "oneOf": [
-                {
-                  "items": {
-                    "$ref": "#/$defs/digital-experience-monitoring_live_stat"
-                  },
-                  "type": "array"
-                },
-                {
-                  "type": "null"
-                }
-              ]
-            },
-            "byStatus": {
-              "oneOf": [
-                {
-                  "items": {
-                    "$ref": "#/$defs/digital-experience-monitoring_live_stat"
-                  },
-                  "type": "array"
-                },
-                {
-                  "type": "null"
-                }
-              ]
-            },
-            "byVersion": {
-              "oneOf": [
-                {
-                  "items": {
-                    "$ref": "#/$defs/digital-experience-monitoring_live_stat"
-                  },
-                  "type": "array"
-                },
-                {
-                  "type": "null"
-                }
-              ]
-            },
-            "uniqueDevicesTotal": {
-              "$ref": "#/$defs/digital-experience-monitoring_uniqueDevicesTotal"
-            }
-          },
-          "type": "object"
-        }
-      },
-      "type": "object",
+      "$ref": "#/$defs/digital-experience-monitoring_fleet_status_live_response",
       $defs: {
+        "digital-experience-monitoring_api-response-single": digital_experience_monitoring_api_response_single_output,
+        "digital-experience-monitoring_fleet_status_live_response": digital_experience_monitoring_fleet_status_live_response_output,
         "digital-experience-monitoring_live_stat": digital_experience_monitoring_live_stat_output,
+        "digital-experience-monitoring_messages": digital_experience_monitoring_messages_output,
         "digital-experience-monitoring_uniqueDevicesTotal": digital_experience_monitoring_uniqueDevicesTotal_output,
       },
     },
@@ -141,82 +75,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "deviceStats": {
-              "properties": {
-                "byColo": {
-                  "oneOf": [
-                    {
-                      "items": {
-                        "$ref": "#/$defs/digital-experience-monitoring_live_stat"
-                      },
-                      "type": "array"
-                    },
-                    {
-                      "type": "null"
-                    }
-                  ]
-                },
-                "byMode": {
-                  "oneOf": [
-                    {
-                      "items": {
-                        "$ref": "#/$defs/digital-experience-monitoring_live_stat"
-                      },
-                      "type": "array"
-                    },
-                    {
-                      "type": "null"
-                    }
-                  ]
-                },
-                "byPlatform": {
-                  "oneOf": [
-                    {
-                      "items": {
-                        "$ref": "#/$defs/digital-experience-monitoring_live_stat"
-                      },
-                      "type": "array"
-                    },
-                    {
-                      "type": "null"
-                    }
-                  ]
-                },
-                "byStatus": {
-                  "oneOf": [
-                    {
-                      "items": {
-                        "$ref": "#/$defs/digital-experience-monitoring_live_stat"
-                      },
-                      "type": "array"
-                    },
-                    {
-                      "type": "null"
-                    }
-                  ]
-                },
-                "byVersion": {
-                  "oneOf": [
-                    {
-                      "items": {
-                        "$ref": "#/$defs/digital-experience-monitoring_live_stat"
-                      },
-                      "type": "array"
-                    },
-                    {
-                      "type": "null"
-                    }
-                  ]
-                },
-                "uniqueDevicesTotal": {
-                  "$ref": "#/$defs/digital-experience-monitoring_uniqueDevicesTotal"
-                }
-              },
-              "type": "object"
-            }
-          },
-          "type": "object"
+          "$ref": "#/$defs/digital-experience-monitoring_fleet_status_live_response"
         },
         "4XX": {
           "$ref": "#/$defs/digital-experience-monitoring_api-response-common-failure"
@@ -224,6 +83,8 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "digital-experience-monitoring_api-response-common-failure": digital_experience_monitoring_api_response_common_failure_output,
+        "digital-experience-monitoring_api-response-single": digital_experience_monitoring_api_response_single_output,
+        "digital-experience-monitoring_fleet_status_live_response": digital_experience_monitoring_fleet_status_live_response_output,
         "digital-experience-monitoring_live_stat": digital_experience_monitoring_live_stat_output,
         "digital-experience-monitoring_messages": digital_experience_monitoring_messages_output,
         "digital-experience-monitoring_uniqueDevicesTotal": digital_experience_monitoring_uniqueDevicesTotal_output,

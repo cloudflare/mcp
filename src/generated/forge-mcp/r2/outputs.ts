@@ -4,6 +4,13 @@
 import type { JsonSchema } from "../_/tool.js";
 
 /**
+ * The schema of `r2_bucket_name` in responses.
+ */
+export const r2_bucket_name_output: JsonSchema = {
+  "type": "string"
+};
+
+/**
  * The schema of `r2_errors` in responses.
  */
 export const r2_errors_output: JsonSchema = {
@@ -54,7 +61,22 @@ export const r2_prefix_delete_job_output: JsonSchema = {
       "type": "string"
     },
     "prefixDelete": {
-      "$ref": "#/$defs/r2_prefix_delete_job_prefixDelete"
+      "properties": {
+        "deletedObjects": {
+          "type": "integer"
+        },
+        "isBucketClear": {
+          "type": "boolean"
+        },
+        "prefix": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "deletedObjects",
+        "prefix"
+      ],
+      "type": "object"
     },
     "startTime": {
       "format": "date-time",
@@ -70,28 +92,6 @@ export const r2_prefix_delete_job_output: JsonSchema = {
     "prefixDelete",
     "startTime",
     "status"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `r2_prefix_delete_job_prefixDelete` in responses.
- */
-export const r2_prefix_delete_job_prefixDelete_output: JsonSchema = {
-  "properties": {
-    "deletedObjects": {
-      "type": "integer"
-    },
-    "isBucketClear": {
-      "type": "boolean"
-    },
-    "prefix": {
-      "type": "string"
-    }
-  },
-  "required": [
-    "deletedObjects",
-    "prefix"
   ],
   "type": "object"
 };
@@ -119,6 +119,36 @@ export const r2_storage_class_output: JsonSchema = {
     "InfrequentAccess"
   ],
   "type": "string"
+};
+
+/**
+ * The schema of `r2_v4_response` in responses.
+ */
+export const r2_v4_response_output: JsonSchema = {
+  "properties": {
+    "errors": {
+      "$ref": "#/$defs/r2_errors"
+    },
+    "messages": {
+      "$ref": "#/$defs/r2_messages"
+    },
+    "result": {
+      "type": "object"
+    },
+    "success": {
+      "enum": [
+        true
+      ],
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "errors",
+    "messages",
+    "result",
+    "success"
+  ],
+  "type": "object"
 };
 
 /**

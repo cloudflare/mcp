@@ -19,52 +19,6 @@ export const organizations_api_DeleteOrganizationResult_output: JsonSchema = {
 };
 
 /**
- * The schema of `organizations-api_Member` in responses.
- */
-export const organizations_api_Member_output: JsonSchema = {
-  "properties": {
-    "create_time": {
-      "format": "date-time",
-      "type": "string"
-    },
-    "id": {
-      "$ref": "#/$defs/organizations-api_MemberID"
-    },
-    "meta": {
-      "additionalProperties": {
-        "type": "object"
-      },
-      "type": "object"
-    },
-    "status": {
-      "enum": [
-        "active",
-        "pending",
-        "rejected",
-        "canceled"
-      ],
-      "type": "string"
-    },
-    "update_time": {
-      "format": "date-time",
-      "type": "string"
-    },
-    "user": {
-      "$ref": "#/$defs/organizations-api_MemberSubjectUser"
-    }
-  },
-  "required": [
-    "create_time",
-    "id",
-    "meta",
-    "status",
-    "update_time",
-    "user"
-  ],
-  "type": "object"
-};
-
-/**
  * The schema of `organizations-api_MemberID` in responses.
  */
 export const organizations_api_MemberID_output: JsonSchema = {

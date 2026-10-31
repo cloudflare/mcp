@@ -25,71 +25,7 @@ export const tools: readonly Tool[] = [
     },
     outputSchema: {
       "properties": {
-        "bugs": {
-          "properties": {
-            "hrrFailure": {
-              "type": "boolean"
-            },
-            "splitClientHello": {
-              "type": "boolean"
-            },
-            "unknownKeyshare": {
-              "type": "boolean"
-            }
-          },
-          "required": [
-            "hrrFailure",
-            "splitClientHello",
-            "unknownKeyshare"
-          ],
-          "type": "object"
-        },
-        "host": {
-          "type": "string"
-        },
-        "kex": {
-          "type": "number"
-        },
-        "kexName": {
-          "type": "string"
-        },
-        "pq": {
-          "type": "boolean"
-        }
-      },
-      "required": [
-        "bugs",
-        "host",
-        "kex",
-        "kexName",
-        "pq"
-      ],
-      "type": "object",
-    },
-    annotations: {
-      "destructiveHint": false,
-      "idempotentHint": true,
-      "openWorldHint": true,
-      "readOnlyHint": true,
-      "title": "Check Post-Quantum TLS support"
-    },
-    method: "GET",
-    path: "/radar/post_quantum/tls/support",
-    extensions: {
-      "x-api-token-group": [
-        "User Details Write",
-        "User Details Read"
-      ],
-      "x-cfPlanAvailability": {
-        "business": true,
-        "enterprise": true,
-        "free": true,
-        "pro": true
-      }
-    },
-    responses: {
-      schemas: {
-        "200": {
+        "result": {
           "properties": {
             "bugs": {
               "properties": {
@@ -129,6 +65,94 @@ export const tools: readonly Tool[] = [
             "kex",
             "kexName",
             "pq"
+          ],
+          "type": "object"
+        },
+        "success": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "result",
+        "success"
+      ],
+      "type": "object",
+    },
+    annotations: {
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": true,
+      "readOnlyHint": true,
+      "title": "Check Post-Quantum TLS support"
+    },
+    method: "GET",
+    path: "/radar/post_quantum/tls/support",
+    extensions: {
+      "x-api-token-group": [
+        "User Details Write",
+        "User Details Read"
+      ],
+      "x-cfPlanAvailability": {
+        "business": true,
+        "enterprise": true,
+        "free": true,
+        "pro": true
+      }
+    },
+    responses: {
+      schemas: {
+        "200": {
+          "properties": {
+            "result": {
+              "properties": {
+                "bugs": {
+                  "properties": {
+                    "hrrFailure": {
+                      "type": "boolean"
+                    },
+                    "splitClientHello": {
+                      "type": "boolean"
+                    },
+                    "unknownKeyshare": {
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "hrrFailure",
+                    "splitClientHello",
+                    "unknownKeyshare"
+                  ],
+                  "type": "object"
+                },
+                "host": {
+                  "type": "string"
+                },
+                "kex": {
+                  "type": "number"
+                },
+                "kexName": {
+                  "type": "string"
+                },
+                "pq": {
+                  "type": "boolean"
+                }
+              },
+              "required": [
+                "bugs",
+                "host",
+                "kex",
+                "kexName",
+                "pq"
+              ],
+              "type": "object"
+            },
+            "success": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "result",
+            "success"
           ],
           "type": "object"
         },

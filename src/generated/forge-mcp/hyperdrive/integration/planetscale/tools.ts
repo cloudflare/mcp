@@ -4,8 +4,10 @@
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
   hyperdrive_api_response_common_failure_output,
+  hyperdrive_api_response_single_output,
   hyperdrive_messages_output,
 } from "../../outputs.js";
+import { hyperdrive_identifier } from "../../schemas.js";
 import { hyperdrive_hyperdrive_database_signature_response_output } from "./outputs.js";
 
 /**
@@ -20,18 +22,35 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "The Cloudflare account ID.",
-          "type": "string"
+          "$ref": "#/$defs/hyperdrive_identifier",
+          "description": "The Cloudflare account ID."
         }
       },
       required: [
         "account_id"
       ],
+      $defs: {
+        "hyperdrive_identifier": hyperdrive_identifier,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/hyperdrive_hyperdrive-database-signature-response",
+      "allOf": [
+        {
+          "$ref": "#/$defs/hyperdrive_api-response-single"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/hyperdrive_hyperdrive-database-signature-response"
+            }
+          },
+          "type": "object"
+        }
+      ],
       $defs: {
+        "hyperdrive_api-response-single": hyperdrive_api_response_single_output,
         "hyperdrive_hyperdrive-database-signature-response": hyperdrive_hyperdrive_database_signature_response_output,
+        "hyperdrive_messages": hyperdrive_messages_output,
       },
     },
     annotations: {
@@ -46,7 +65,19 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/hyperdrive_hyperdrive-database-signature-response"
+          "allOf": [
+            {
+              "$ref": "#/$defs/hyperdrive_api-response-single"
+            },
+            {
+              "properties": {
+                "result": {
+                  "$ref": "#/$defs/hyperdrive_hyperdrive-database-signature-response"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "4XX": {
           "$ref": "#/$defs/hyperdrive_api-response-common-failure"
@@ -54,6 +85,7 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "hyperdrive_api-response-common-failure": hyperdrive_api_response_common_failure_output,
+        "hyperdrive_api-response-single": hyperdrive_api_response_single_output,
         "hyperdrive_hyperdrive-database-signature-response": hyperdrive_hyperdrive_database_signature_response_output,
         "hyperdrive_messages": hyperdrive_messages_output,
       },

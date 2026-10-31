@@ -4,8 +4,8 @@
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
   secondary_dns_api_response_common_failure_output,
+  secondary_dns_api_response_single_output,
   secondary_dns_id_response_output,
-  secondary_dns_id_response_result_output,
   secondary_dns_identifier_output,
   secondary_dns_messages_output,
   secondary_dns_name_output,
@@ -21,7 +21,6 @@ import {
 import {
   secondary_dns_auto_refresh_seconds_output,
   secondary_dns_single_response_incoming_output,
-  secondary_dns_single_response_incoming_result_output,
 } from "./outputs.js";
 import {
   secondary_dns_auto_refresh_seconds,
@@ -43,7 +42,7 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/secondary-dns_dns-secondary-secondary-zone"
         },
         "zone_id": {
-          "type": "string"
+          "$ref": "#/$defs/secondary-dns_identifier"
         }
       },
       required: [
@@ -59,38 +58,15 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "properties": {
-        "auto_refresh_seconds": {
-          "$ref": "#/$defs/secondary-dns_auto_refresh_seconds"
-        },
-        "checked_time": {
-          "$ref": "#/$defs/secondary-dns_time"
-        },
-        "created_time": {
-          "$ref": "#/$defs/secondary-dns_time"
-        },
-        "id": {
-          "$ref": "#/$defs/secondary-dns_identifier"
-        },
-        "modified_time": {
-          "$ref": "#/$defs/secondary-dns_time"
-        },
-        "name": {
-          "$ref": "#/$defs/secondary-dns_name"
-        },
-        "peers": {
-          "$ref": "#/$defs/secondary-dns_peers"
-        },
-        "soa_serial": {
-          "$ref": "#/$defs/secondary-dns_soa_serial"
-        }
-      },
-      "type": "object",
+      "$ref": "#/$defs/secondary-dns_single_response_incoming",
       $defs: {
+        "secondary-dns_api-response-single": secondary_dns_api_response_single_output,
         "secondary-dns_auto_refresh_seconds": secondary_dns_auto_refresh_seconds_output,
         "secondary-dns_identifier": secondary_dns_identifier_output,
+        "secondary-dns_messages": secondary_dns_messages_output,
         "secondary-dns_name": secondary_dns_name_output,
         "secondary-dns_peers": secondary_dns_peers_output,
+        "secondary-dns_single_response_incoming": secondary_dns_single_response_incoming_output,
         "secondary-dns_soa_serial": secondary_dns_soa_serial_output,
         "secondary-dns_time": secondary_dns_time_output,
       },
@@ -120,33 +96,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "auto_refresh_seconds": {
-              "$ref": "#/$defs/secondary-dns_auto_refresh_seconds"
-            },
-            "checked_time": {
-              "$ref": "#/$defs/secondary-dns_time"
-            },
-            "created_time": {
-              "$ref": "#/$defs/secondary-dns_time"
-            },
-            "id": {
-              "$ref": "#/$defs/secondary-dns_identifier"
-            },
-            "modified_time": {
-              "$ref": "#/$defs/secondary-dns_time"
-            },
-            "name": {
-              "$ref": "#/$defs/secondary-dns_name"
-            },
-            "peers": {
-              "$ref": "#/$defs/secondary-dns_peers"
-            },
-            "soa_serial": {
-              "$ref": "#/$defs/secondary-dns_soa_serial"
-            }
-          },
-          "type": "object"
+          "$ref": "#/$defs/secondary-dns_single_response_incoming"
         },
         "4XX": {
           "allOf": [
@@ -161,13 +111,13 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "secondary-dns_api-response-common-failure": secondary_dns_api_response_common_failure_output,
+        "secondary-dns_api-response-single": secondary_dns_api_response_single_output,
         "secondary-dns_auto_refresh_seconds": secondary_dns_auto_refresh_seconds_output,
         "secondary-dns_identifier": secondary_dns_identifier_output,
         "secondary-dns_messages": secondary_dns_messages_output,
         "secondary-dns_name": secondary_dns_name_output,
         "secondary-dns_peers": secondary_dns_peers_output,
         "secondary-dns_single_response_incoming": secondary_dns_single_response_incoming_output,
-        "secondary-dns_single_response_incoming_result": secondary_dns_single_response_incoming_result_output,
         "secondary-dns_soa_serial": secondary_dns_soa_serial_output,
         "secondary-dns_time": secondary_dns_time_output,
       },
@@ -185,22 +135,23 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "zone_id": {
-          "type": "string"
+          "$ref": "#/$defs/secondary-dns_identifier"
         }
       },
       required: [
         "zone_id"
       ],
+      $defs: {
+        "secondary-dns_identifier": secondary_dns_identifier,
+      },
     },
     outputSchema: {
-      "properties": {
-        "id": {
-          "$ref": "#/$defs/secondary-dns_identifier"
-        }
-      },
-      "type": "object",
+      "$ref": "#/$defs/secondary-dns_id_response",
       $defs: {
+        "secondary-dns_api-response-single": secondary_dns_api_response_single_output,
+        "secondary-dns_id_response": secondary_dns_id_response_output,
         "secondary-dns_identifier": secondary_dns_identifier_output,
+        "secondary-dns_messages": secondary_dns_messages_output,
       },
     },
     annotations: {
@@ -228,12 +179,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "id": {
-              "$ref": "#/$defs/secondary-dns_identifier"
-            }
-          },
-          "type": "object"
+          "$ref": "#/$defs/secondary-dns_id_response"
         },
         "4XX": {
           "allOf": [
@@ -248,8 +194,8 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "secondary-dns_api-response-common-failure": secondary_dns_api_response_common_failure_output,
+        "secondary-dns_api-response-single": secondary_dns_api_response_single_output,
         "secondary-dns_id_response": secondary_dns_id_response_output,
-        "secondary-dns_id_response_result": secondary_dns_id_response_result_output,
         "secondary-dns_identifier": secondary_dns_identifier_output,
         "secondary-dns_messages": secondary_dns_messages_output,
       },
@@ -266,46 +212,26 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "zone_id": {
-          "type": "string"
+          "$ref": "#/$defs/secondary-dns_identifier"
         }
       },
       required: [
         "zone_id"
       ],
+      $defs: {
+        "secondary-dns_identifier": secondary_dns_identifier,
+      },
     },
     outputSchema: {
-      "properties": {
-        "auto_refresh_seconds": {
-          "$ref": "#/$defs/secondary-dns_auto_refresh_seconds"
-        },
-        "checked_time": {
-          "$ref": "#/$defs/secondary-dns_time"
-        },
-        "created_time": {
-          "$ref": "#/$defs/secondary-dns_time"
-        },
-        "id": {
-          "$ref": "#/$defs/secondary-dns_identifier"
-        },
-        "modified_time": {
-          "$ref": "#/$defs/secondary-dns_time"
-        },
-        "name": {
-          "$ref": "#/$defs/secondary-dns_name"
-        },
-        "peers": {
-          "$ref": "#/$defs/secondary-dns_peers"
-        },
-        "soa_serial": {
-          "$ref": "#/$defs/secondary-dns_soa_serial"
-        }
-      },
-      "type": "object",
+      "$ref": "#/$defs/secondary-dns_single_response_incoming",
       $defs: {
+        "secondary-dns_api-response-single": secondary_dns_api_response_single_output,
         "secondary-dns_auto_refresh_seconds": secondary_dns_auto_refresh_seconds_output,
         "secondary-dns_identifier": secondary_dns_identifier_output,
+        "secondary-dns_messages": secondary_dns_messages_output,
         "secondary-dns_name": secondary_dns_name_output,
         "secondary-dns_peers": secondary_dns_peers_output,
+        "secondary-dns_single_response_incoming": secondary_dns_single_response_incoming_output,
         "secondary-dns_soa_serial": secondary_dns_soa_serial_output,
         "secondary-dns_time": secondary_dns_time_output,
       },
@@ -337,33 +263,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "auto_refresh_seconds": {
-              "$ref": "#/$defs/secondary-dns_auto_refresh_seconds"
-            },
-            "checked_time": {
-              "$ref": "#/$defs/secondary-dns_time"
-            },
-            "created_time": {
-              "$ref": "#/$defs/secondary-dns_time"
-            },
-            "id": {
-              "$ref": "#/$defs/secondary-dns_identifier"
-            },
-            "modified_time": {
-              "$ref": "#/$defs/secondary-dns_time"
-            },
-            "name": {
-              "$ref": "#/$defs/secondary-dns_name"
-            },
-            "peers": {
-              "$ref": "#/$defs/secondary-dns_peers"
-            },
-            "soa_serial": {
-              "$ref": "#/$defs/secondary-dns_soa_serial"
-            }
-          },
-          "type": "object"
+          "$ref": "#/$defs/secondary-dns_single_response_incoming"
         },
         "4XX": {
           "allOf": [
@@ -378,13 +278,13 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "secondary-dns_api-response-common-failure": secondary_dns_api_response_common_failure_output,
+        "secondary-dns_api-response-single": secondary_dns_api_response_single_output,
         "secondary-dns_auto_refresh_seconds": secondary_dns_auto_refresh_seconds_output,
         "secondary-dns_identifier": secondary_dns_identifier_output,
         "secondary-dns_messages": secondary_dns_messages_output,
         "secondary-dns_name": secondary_dns_name_output,
         "secondary-dns_peers": secondary_dns_peers_output,
         "secondary-dns_single_response_incoming": secondary_dns_single_response_incoming_output,
-        "secondary-dns_single_response_incoming_result": secondary_dns_single_response_incoming_result_output,
         "secondary-dns_soa_serial": secondary_dns_soa_serial_output,
         "secondary-dns_time": secondary_dns_time_output,
       },
@@ -404,7 +304,7 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/secondary-dns_dns-secondary-secondary-zone"
         },
         "zone_id": {
-          "type": "string"
+          "$ref": "#/$defs/secondary-dns_identifier"
         }
       },
       required: [
@@ -420,38 +320,15 @@ export const tools: readonly Tool[] = [
       },
     },
     outputSchema: {
-      "properties": {
-        "auto_refresh_seconds": {
-          "$ref": "#/$defs/secondary-dns_auto_refresh_seconds"
-        },
-        "checked_time": {
-          "$ref": "#/$defs/secondary-dns_time"
-        },
-        "created_time": {
-          "$ref": "#/$defs/secondary-dns_time"
-        },
-        "id": {
-          "$ref": "#/$defs/secondary-dns_identifier"
-        },
-        "modified_time": {
-          "$ref": "#/$defs/secondary-dns_time"
-        },
-        "name": {
-          "$ref": "#/$defs/secondary-dns_name"
-        },
-        "peers": {
-          "$ref": "#/$defs/secondary-dns_peers"
-        },
-        "soa_serial": {
-          "$ref": "#/$defs/secondary-dns_soa_serial"
-        }
-      },
-      "type": "object",
+      "$ref": "#/$defs/secondary-dns_single_response_incoming",
       $defs: {
+        "secondary-dns_api-response-single": secondary_dns_api_response_single_output,
         "secondary-dns_auto_refresh_seconds": secondary_dns_auto_refresh_seconds_output,
         "secondary-dns_identifier": secondary_dns_identifier_output,
+        "secondary-dns_messages": secondary_dns_messages_output,
         "secondary-dns_name": secondary_dns_name_output,
         "secondary-dns_peers": secondary_dns_peers_output,
+        "secondary-dns_single_response_incoming": secondary_dns_single_response_incoming_output,
         "secondary-dns_soa_serial": secondary_dns_soa_serial_output,
         "secondary-dns_time": secondary_dns_time_output,
       },
@@ -481,33 +358,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "auto_refresh_seconds": {
-              "$ref": "#/$defs/secondary-dns_auto_refresh_seconds"
-            },
-            "checked_time": {
-              "$ref": "#/$defs/secondary-dns_time"
-            },
-            "created_time": {
-              "$ref": "#/$defs/secondary-dns_time"
-            },
-            "id": {
-              "$ref": "#/$defs/secondary-dns_identifier"
-            },
-            "modified_time": {
-              "$ref": "#/$defs/secondary-dns_time"
-            },
-            "name": {
-              "$ref": "#/$defs/secondary-dns_name"
-            },
-            "peers": {
-              "$ref": "#/$defs/secondary-dns_peers"
-            },
-            "soa_serial": {
-              "$ref": "#/$defs/secondary-dns_soa_serial"
-            }
-          },
-          "type": "object"
+          "$ref": "#/$defs/secondary-dns_single_response_incoming"
         },
         "4XX": {
           "allOf": [
@@ -522,13 +373,13 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "secondary-dns_api-response-common-failure": secondary_dns_api_response_common_failure_output,
+        "secondary-dns_api-response-single": secondary_dns_api_response_single_output,
         "secondary-dns_auto_refresh_seconds": secondary_dns_auto_refresh_seconds_output,
         "secondary-dns_identifier": secondary_dns_identifier_output,
         "secondary-dns_messages": secondary_dns_messages_output,
         "secondary-dns_name": secondary_dns_name_output,
         "secondary-dns_peers": secondary_dns_peers_output,
         "secondary-dns_single_response_incoming": secondary_dns_single_response_incoming_output,
-        "secondary-dns_single_response_incoming_result": secondary_dns_single_response_incoming_result_output,
         "secondary-dns_soa_serial": secondary_dns_soa_serial_output,
         "secondary-dns_time": secondary_dns_time_output,
       },

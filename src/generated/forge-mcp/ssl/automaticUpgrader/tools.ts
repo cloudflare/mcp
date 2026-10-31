@@ -4,9 +4,11 @@
 import { type Tool, pathParam } from "../../_/tool.js";
 import {
   cache_api_response_common_failure_output,
+  cache_api_response_single_id_output,
   cache_messages_output,
   cache_result_output,
 } from "../outputs.js";
+import { cache_identifier } from "../schemas.js";
 import { cache_schemas_patch, cache_schemas_value } from "./schemas.js";
 
 /**
@@ -21,16 +23,21 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "zone_id": {
-          "type": "string"
+          "$ref": "#/$defs/cache_identifier"
         }
       },
       required: [
         "zone_id"
       ],
+      $defs: {
+        "cache_identifier": cache_identifier,
+      },
     },
     outputSchema: {
-      "$ref": "#/$defs/cache_result",
+      "$ref": "#/$defs/cache_api-response-single-id",
       $defs: {
+        "cache_api-response-single-id": cache_api_response_single_id_output,
+        "cache_messages": cache_messages_output,
         "cache_result": cache_result_output,
       },
     },
@@ -53,12 +60,7 @@ export const tools: readonly Tool[] = [
       "x-cfPermissionsRequired": {
         "enum": [
           "#zone_settings:read"
-        ],
-        "x-fern-enum": {
-          "#zone_settings:read": {
-            "name": "zone_settings_read"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": true,
@@ -70,7 +72,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/cache_result"
+          "$ref": "#/$defs/cache_api-response-single-id"
         },
         "4XX": {
           "$ref": "#/$defs/cache_api-response-common-failure"
@@ -78,6 +80,7 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "cache_api-response-common-failure": cache_api_response_common_failure_output,
+        "cache_api-response-single-id": cache_api_response_single_id_output,
         "cache_messages": cache_messages_output,
         "cache_result": cache_result_output,
       },
@@ -97,7 +100,7 @@ export const tools: readonly Tool[] = [
           "$ref": "#/$defs/cache_schemas_patch"
         },
         "zone_id": {
-          "type": "string"
+          "$ref": "#/$defs/cache_identifier"
         }
       },
       required: [
@@ -105,13 +108,16 @@ export const tools: readonly Tool[] = [
         "body"
       ],
       $defs: {
+        "cache_identifier": cache_identifier,
         "cache_schemas_patch": cache_schemas_patch,
         "cache_schemas_value": cache_schemas_value,
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/cache_result",
+      "$ref": "#/$defs/cache_api-response-single-id",
       $defs: {
+        "cache_api-response-single-id": cache_api_response_single_id_output,
+        "cache_messages": cache_messages_output,
         "cache_result": cache_result_output,
       },
     },
@@ -133,15 +139,7 @@ export const tools: readonly Tool[] = [
         "enum": [
           "#zone_settings:read",
           "#zone_settings:edit"
-        ],
-        "x-fern-enum": {
-          "#zone_settings:edit": {
-            "name": "zone_settings_edit"
-          },
-          "#zone_settings:read": {
-            "name": "zone_settings_read"
-          }
-        }
+        ]
       },
       "x-cfPlanAvailability": {
         "business": true,
@@ -153,7 +151,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/cache_result"
+          "$ref": "#/$defs/cache_api-response-single-id"
         },
         "4XX": {
           "$ref": "#/$defs/cache_api-response-common-failure"
@@ -161,6 +159,7 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "cache_api-response-common-failure": cache_api_response_common_failure_output,
+        "cache_api-response-single-id": cache_api_response_single_id_output,
         "cache_messages": cache_messages_output,
         "cache_result": cache_result_output,
       },

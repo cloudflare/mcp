@@ -10,7 +10,43 @@ export const cloudforce_one_EmailRuleArrayCondition: JsonSchema = {
   "properties": {
     "conditions": {
       "items": {
-        "$ref": "#/$defs/cloudforce-one_EmailRuleArrayCondition_conditionsItem"
+        "properties": {
+          "operator": {
+            "enum": [
+              "==",
+              "!=",
+              ">",
+              ">=",
+              "<",
+              "<=",
+              "contains",
+              "matches"
+            ],
+            "type": "string"
+          },
+          "subfield": {
+            "type": "string"
+          },
+          "value": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              },
+              {
+                "type": "boolean"
+              }
+            ]
+          }
+        },
+        "required": [
+          "operator",
+          "subfield",
+          "value"
+        ],
+        "type": "object"
       },
       "maxItems": 20,
       "minItems": 1,
@@ -40,56 +76,6 @@ export const cloudforce_one_EmailRuleArrayCondition: JsonSchema = {
     "type"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `cloudforce-one_EmailRuleArrayCondition_conditionsItem`.
- */
-export const cloudforce_one_EmailRuleArrayCondition_conditionsItem: JsonSchema = {
-  "properties": {
-    "operator": {
-      "enum": [
-        "==",
-        "!=",
-        ">",
-        ">=",
-        "<",
-        "<=",
-        "contains",
-        "matches"
-      ],
-      "type": "string"
-    },
-    "subfield": {
-      "type": "string"
-    },
-    "value": {
-      "$ref": "#/$defs/cloudforce-one_EmailRuleArrayCondition_conditionsItem_value"
-    }
-  },
-  "required": [
-    "operator",
-    "subfield",
-    "value"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `cloudforce-one_EmailRuleArrayCondition_conditionsItem_value`.
- */
-export const cloudforce_one_EmailRuleArrayCondition_conditionsItem_value: JsonSchema = {
-  "oneOf": [
-    {
-      "type": "string"
-    },
-    {
-      "type": "number"
-    },
-    {
-      "type": "boolean"
-    }
-  ]
 };
 
 /**
@@ -186,7 +172,14 @@ export const cloudforce_one_EmailRuleHeaderCondition: JsonSchema = {
       "type": "string"
     },
     "value": {
-      "$ref": "#/$defs/cloudforce-one_EmailRuleHeaderCondition_value"
+      "oneOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "number"
+        }
+      ]
     }
   },
   "required": [
@@ -197,20 +190,6 @@ export const cloudforce_one_EmailRuleHeaderCondition: JsonSchema = {
     "value"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `cloudforce-one_EmailRuleHeaderCondition_value`.
- */
-export const cloudforce_one_EmailRuleHeaderCondition_value: JsonSchema = {
-  "oneOf": [
-    {
-      "type": "string"
-    },
-    {
-      "type": "number"
-    }
-  ]
 };
 
 /**
@@ -241,7 +220,17 @@ export const cloudforce_one_EmailRuleScalarCondition: JsonSchema = {
       "type": "string"
     },
     "value": {
-      "$ref": "#/$defs/cloudforce-one_EmailRuleScalarCondition_value"
+      "oneOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "number"
+        },
+        {
+          "type": "boolean"
+        }
+      ]
     }
   },
   "required": [
@@ -251,21 +240,4 @@ export const cloudforce_one_EmailRuleScalarCondition: JsonSchema = {
     "value"
   ],
   "type": "object"
-};
-
-/**
- * The schema of `cloudforce-one_EmailRuleScalarCondition_value`.
- */
-export const cloudforce_one_EmailRuleScalarCondition_value: JsonSchema = {
-  "oneOf": [
-    {
-      "type": "string"
-    },
-    {
-      "type": "number"
-    },
-    {
-      "type": "boolean"
-    }
-  ]
 };

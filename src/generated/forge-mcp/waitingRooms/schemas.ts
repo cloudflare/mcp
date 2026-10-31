@@ -160,6 +160,14 @@ export const waitingroom_host: JsonSchema = {
 };
 
 /**
+ * The schema of `waitingroom_identifier`.
+ */
+export const waitingroom_identifier: JsonSchema = {
+  "description": "Identifier.",
+  "type": "string"
+};
+
+/**
  * The schema of `waitingroom_json_response_enabled`.
  */
 export const waitingroom_json_response_enabled: JsonSchema = {
@@ -387,5 +395,12 @@ export const waitingroom_turnstile_mode: JsonSchema = {
     "visible_non_interactive",
     "visible_managed"
   ],
+  "type": "string"
+};
+
+/**
+ * The schema of `waitingroom_waiting_room_id`.
+ */
+export const waitingroom_waiting_room_id: JsonSchema = {
   "type": "string"
 };

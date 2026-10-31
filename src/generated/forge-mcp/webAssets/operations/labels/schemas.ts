@@ -9,51 +9,37 @@ import type { JsonSchema } from "../../../_/tool.js";
 export const api_shield_bulk_delete_labels_on_operation_request: JsonSchema = {
   "properties": {
     "managed": {
-      "$ref": "#/$defs/api-shield_bulk_delete_labels_on_operation_request_managed"
+      "properties": {
+        "labels": {
+          "description": "List of managed label names.",
+          "items": {
+            "$ref": "#/$defs/api-shield_label_name"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
     },
     "selector": {
       "$ref": "#/$defs/api-shield_operation_id_selector",
       "description": "Operation IDs selector"
     },
     "user": {
-      "$ref": "#/$defs/api-shield_bulk_delete_labels_on_operation_request_user"
+      "properties": {
+        "labels": {
+          "description": "List of user label names.",
+          "items": {
+            "$ref": "#/$defs/api-shield_label_name"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
     }
   },
   "required": [
     "selector"
   ],
-  "type": "object"
-};
-
-/**
- * The schema of `api-shield_bulk_delete_labels_on_operation_request_managed`.
- */
-export const api_shield_bulk_delete_labels_on_operation_request_managed: JsonSchema = {
-  "properties": {
-    "labels": {
-      "description": "List of managed label names.",
-      "items": {
-        "$ref": "#/$defs/api-shield_label_name"
-      },
-      "type": "array"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `api-shield_bulk_delete_labels_on_operation_request_user`.
- */
-export const api_shield_bulk_delete_labels_on_operation_request_user: JsonSchema = {
-  "properties": {
-    "labels": {
-      "description": "List of user label names.",
-      "items": {
-        "$ref": "#/$defs/api-shield_label_name"
-      },
-      "type": "array"
-    }
-  },
   "type": "object"
 };
 
@@ -63,14 +49,34 @@ export const api_shield_bulk_delete_labels_on_operation_request_user: JsonSchema
 export const api_shield_bulk_post_labels_on_operation_request: JsonSchema = {
   "properties": {
     "managed": {
-      "$ref": "#/$defs/api-shield_bulk_post_labels_on_operation_request_managed"
+      "properties": {
+        "labels": {
+          "description": "List of managed label names.",
+          "items": {
+            "$ref": "#/$defs/api-shield_label_name"
+          },
+          "minItems": 1,
+          "type": "array"
+        }
+      },
+      "type": "object"
     },
     "selector": {
       "$ref": "#/$defs/api-shield_operation_id_selector",
       "description": "Operation IDs selector"
     },
     "user": {
-      "$ref": "#/$defs/api-shield_bulk_post_labels_on_operation_request_user"
+      "properties": {
+        "labels": {
+          "description": "List of user label names.",
+          "items": {
+            "$ref": "#/$defs/api-shield_label_name"
+          },
+          "minItems": 1,
+          "type": "array"
+        }
+      },
+      "type": "object"
     }
   },
   "required": [
@@ -80,101 +86,51 @@ export const api_shield_bulk_post_labels_on_operation_request: JsonSchema = {
 };
 
 /**
- * The schema of `api-shield_bulk_post_labels_on_operation_request_managed`.
- */
-export const api_shield_bulk_post_labels_on_operation_request_managed: JsonSchema = {
-  "properties": {
-    "labels": {
-      "description": "List of managed label names.",
-      "items": {
-        "$ref": "#/$defs/api-shield_label_name"
-      },
-      "minItems": 1,
-      "type": "array"
-    }
-  },
-  "type": "object"
-};
-
-/**
- * The schema of `api-shield_bulk_post_labels_on_operation_request_user`.
- */
-export const api_shield_bulk_post_labels_on_operation_request_user: JsonSchema = {
-  "properties": {
-    "labels": {
-      "description": "List of user label names.",
-      "items": {
-        "$ref": "#/$defs/api-shield_label_name"
-      },
-      "minItems": 1,
-      "type": "array"
-    }
-  },
-  "type": "object"
-};
-
-/**
  * The schema of `api-shield_bulk_put_labels_on_operation_request`.
  */
 export const api_shield_bulk_put_labels_on_operation_request: JsonSchema = {
   "properties": {
     "managed": {
-      "$ref": "#/$defs/api-shield_bulk_put_labels_on_operation_request_managed",
-      "description": "Managed labels to replace for all affected operations"
+      "description": "Managed labels to replace for all affected operations",
+      "properties": {
+        "labels": {
+          "description": "List of managed label names. Providing an empty array will result in all managed labels being removed from all affected operations",
+          "items": {
+            "$ref": "#/$defs/api-shield_label_name"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "labels"
+      ],
+      "type": "object"
     },
     "selector": {
       "$ref": "#/$defs/api-shield_operation_id_selector",
       "description": "Operation IDs selector"
     },
     "user": {
-      "$ref": "#/$defs/api-shield_bulk_put_labels_on_operation_request_user",
-      "description": "User labels to replace for all affected operations"
+      "description": "User labels to replace for all affected operations",
+      "properties": {
+        "labels": {
+          "description": "List of user label names. Providing an empty array will result in all user labels being removed from all affected operations",
+          "items": {
+            "$ref": "#/$defs/api-shield_label_name"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "labels"
+      ],
+      "type": "object"
     }
   },
   "required": [
     "managed",
     "selector",
     "user"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `api-shield_bulk_put_labels_on_operation_request_managed`.
- */
-export const api_shield_bulk_put_labels_on_operation_request_managed: JsonSchema = {
-  "description": "Managed labels to replace for all affected operations",
-  "properties": {
-    "labels": {
-      "description": "List of managed label names. Providing an empty array will result in all managed labels being removed from all affected operations",
-      "items": {
-        "$ref": "#/$defs/api-shield_label_name"
-      },
-      "type": "array"
-    }
-  },
-  "required": [
-    "labels"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `api-shield_bulk_put_labels_on_operation_request_user`.
- */
-export const api_shield_bulk_put_labels_on_operation_request_user: JsonSchema = {
-  "description": "User labels to replace for all affected operations",
-  "properties": {
-    "labels": {
-      "description": "List of user label names. Providing an empty array will result in all user labels being removed from all affected operations",
-      "items": {
-        "$ref": "#/$defs/api-shield_label_name"
-      },
-      "type": "array"
-    }
-  },
-  "required": [
-    "labels"
   ],
   "type": "object"
 };

@@ -114,3 +114,11 @@ export const digital_experience_monitoring_dex_target_policy: JsonSchema = {
   ],
   "type": "object"
 };
+
+/**
+ * The schema of `digital-experience-monitoring_schemas-test-id`.
+ */
+export const digital_experience_monitoring_schemas_test_id: JsonSchema = {
+  "description": "The unique identifier for the test.",
+  "type": "string"
+};

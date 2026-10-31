@@ -39,10 +39,60 @@ export const pages_domain_output: JsonSchema = {
       "type": "string"
     },
     "validation_data": {
-      "$ref": "#/$defs/pages_domain_validation_data"
+      "properties": {
+        "error_message": {
+          "type": "string"
+        },
+        "method": {
+          "enum": [
+            "http",
+            "txt"
+          ],
+          "type": "string"
+        },
+        "status": {
+          "enum": [
+            "initializing",
+            "pending",
+            "active",
+            "deactivated",
+            "error"
+          ],
+          "type": "string"
+        },
+        "txt_name": {
+          "type": "string"
+        },
+        "txt_value": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "method",
+        "status"
+      ],
+      "type": "object"
     },
     "verification_data": {
-      "$ref": "#/$defs/pages_domain_verification_data"
+      "properties": {
+        "error_message": {
+          "type": "string"
+        },
+        "status": {
+          "enum": [
+            "pending",
+            "active",
+            "deactivated",
+            "blocked",
+            "error"
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "status"
+      ],
+      "type": "object"
     },
     "zone_tag": {
       "type": "string"
@@ -67,68 +117,4 @@ export const pages_domain_output: JsonSchema = {
  */
 export const pages_domain_name_output: JsonSchema = {
   "type": "string"
-};
-
-/**
- * The schema of `pages_domain_validation_data` in responses.
- */
-export const pages_domain_validation_data_output: JsonSchema = {
-  "properties": {
-    "error_message": {
-      "type": "string"
-    },
-    "method": {
-      "enum": [
-        "http",
-        "txt"
-      ],
-      "type": "string"
-    },
-    "status": {
-      "enum": [
-        "initializing",
-        "pending",
-        "active",
-        "deactivated",
-        "error"
-      ],
-      "type": "string"
-    },
-    "txt_name": {
-      "type": "string"
-    },
-    "txt_value": {
-      "type": "string"
-    }
-  },
-  "required": [
-    "method",
-    "status"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `pages_domain_verification_data` in responses.
- */
-export const pages_domain_verification_data_output: JsonSchema = {
-  "properties": {
-    "error_message": {
-      "type": "string"
-    },
-    "status": {
-      "enum": [
-        "pending",
-        "active",
-        "deactivated",
-        "blocked",
-        "error"
-      ],
-      "type": "string"
-    }
-  },
-  "required": [
-    "status"
-  ],
-  "type": "object"
 };

@@ -4,6 +4,25 @@
 import type { JsonSchema } from "../../../_/tool.js";
 
 /**
+ * The schema of `stream_addAudioTrackResponse` in responses.
+ */
+export const stream_addAudioTrackResponse_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/stream_api-response-common"
+    },
+    {
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/stream_additionalAudio"
+        }
+      },
+      "type": "object"
+    }
+  ]
+};
+
+/**
  * The schema of `stream_additionalAudio` in responses.
  */
 export const stream_additionalAudio_output: JsonSchema = {
@@ -51,30 +70,28 @@ export const stream_audio_state_output: JsonSchema = {
 };
 
 /**
- * The schema of `stream_deleted_response` in responses.
+ * The schema of `stream_listAudioTrackResponse` in responses.
  */
-export const stream_deleted_response_output: JsonSchema = {
-  "properties": {
-    "errors": {
-      "$ref": "#/$defs/stream_messages"
+export const stream_listAudioTrackResponse_output: JsonSchema = {
+  "allOf": [
+    {
+      "$ref": "#/$defs/stream_api-response-common"
     },
-    "messages": {
-      "$ref": "#/$defs/stream_messages"
-    },
-    "result": {
-      "type": "string"
-    },
-    "success": {
-      "enum": [
-        true
-      ],
-      "type": "boolean"
+    {
+      "properties": {
+        "result": {
+          "properties": {
+            "audio": {
+              "items": {
+                "$ref": "#/$defs/stream_additionalAudio"
+              },
+              "type": "array"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
     }
-  },
-  "required": [
-    "errors",
-    "messages",
-    "success"
-  ],
-  "type": "object"
+  ]
 };

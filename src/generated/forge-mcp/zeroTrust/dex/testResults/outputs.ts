@@ -90,33 +90,25 @@ export const digital_experience_monitoring_test_stat_over_time_output: JsonSchem
     },
     "slots": {
       "items": {
-        "$ref": "#/$defs/digital-experience-monitoring_test_stat_over_time_slotsItem"
+        "properties": {
+          "timestamp": {
+            "type": "string"
+          },
+          "value": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "timestamp",
+          "value"
+        ],
+        "type": "object"
       },
       "type": "array"
     }
   },
   "required": [
     "slots"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of `digital-experience-monitoring_test_stat_over_time_slotsItem`
- * in responses.
- */
-export const digital_experience_monitoring_test_stat_over_time_slotsItem_output: JsonSchema = {
-  "properties": {
-    "timestamp": {
-      "type": "string"
-    },
-    "value": {
-      "type": "integer"
-    }
-  },
-  "required": [
-    "timestamp",
-    "value"
   ],
   "type": "object"
 };
@@ -159,34 +151,25 @@ export const digital_experience_monitoring_test_stat_pct_over_time_output: JsonS
     },
     "slots": {
       "items": {
-        "$ref": "#/$defs/digital-experience-monitoring_test_stat_pct_over_time_slotsItem"
+        "properties": {
+          "timestamp": {
+            "type": "string"
+          },
+          "value": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "timestamp",
+          "value"
+        ],
+        "type": "object"
       },
       "type": "array"
     }
   },
   "required": [
     "slots"
-  ],
-  "type": "object"
-};
-
-/**
- * The schema of
- * `digital-experience-monitoring_test_stat_pct_over_time_slotsItem` in
- * responses.
- */
-export const digital_experience_monitoring_test_stat_pct_over_time_slotsItem_output: JsonSchema = {
-  "properties": {
-    "timestamp": {
-      "type": "string"
-    },
-    "value": {
-      "type": "number"
-    }
-  },
-  "required": [
-    "timestamp",
-    "value"
   ],
   "type": "object"
 };

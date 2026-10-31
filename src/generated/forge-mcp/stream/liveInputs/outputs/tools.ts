@@ -4,18 +4,25 @@
 import { type Tool, pathParam } from "../../../_/tool.js";
 import {
   stream_api_response_common_failure_output,
+  stream_api_response_common_output,
+  stream_api_response_single_output,
   stream_messages_output,
 } from "../../outputs.js";
+import { stream_identifier_2 } from "../../schemas.js";
+import { stream_live_input_identifier } from "../schemas.js";
 import {
   stream_output_enabled_output,
   stream_output_identifier_output,
   stream_output_output,
+  stream_output_response_collection_output,
+  stream_output_response_single_output,
   stream_output_streamKey_output,
   stream_output_url_output,
 } from "./outputs.js";
 import {
   stream_create_output_request,
   stream_output_enabled,
+  stream_output_identifier,
   stream_output_streamKey,
   stream_output_url,
   stream_update_output_request,
@@ -33,15 +40,15 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/stream_identifier-2",
+          "description": "Identifier."
         },
         "body": {
           "$ref": "#/$defs/stream_create_output_request"
         },
         "live_input_identifier": {
-          "description": "A unique identifier for a live input.",
-          "type": "string"
+          "$ref": "#/$defs/stream_live_input_identifier",
+          "description": "A unique identifier for a live input."
         }
       },
       required: [
@@ -51,17 +58,22 @@ export const tools: readonly Tool[] = [
       ],
       $defs: {
         "stream_create_output_request": stream_create_output_request,
+        "stream_identifier-2": stream_identifier_2,
+        "stream_live_input_identifier": stream_live_input_identifier,
         "stream_output_enabled": stream_output_enabled,
         "stream_output_streamKey": stream_output_streamKey,
         "stream_output_url": stream_output_url,
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/stream_output",
+      "$ref": "#/$defs/stream_output_response_single",
       $defs: {
+        "stream_api-response-single": stream_api_response_single_output,
+        "stream_messages": stream_messages_output,
         "stream_output": stream_output_output,
         "stream_output_enabled": stream_output_enabled_output,
         "stream_output_identifier": stream_output_identifier_output,
+        "stream_output_response_single": stream_output_response_single_output,
         "stream_output_streamKey": stream_output_streamKey_output,
         "stream_output_url": stream_output_url_output,
       },
@@ -78,7 +90,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/stream_output"
+          "$ref": "#/$defs/stream_output_response_single"
         },
         "4XX": {
           "$ref": "#/$defs/stream_api-response-common-failure"
@@ -86,10 +98,12 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "stream_api-response-common-failure": stream_api_response_common_failure_output,
+        "stream_api-response-single": stream_api_response_single_output,
         "stream_messages": stream_messages_output,
         "stream_output": stream_output_output,
         "stream_output_enabled": stream_output_enabled_output,
         "stream_output_identifier": stream_output_identifier_output,
+        "stream_output_response_single": stream_output_response_single_output,
         "stream_output_streamKey": stream_output_streamKey_output,
         "stream_output_url": stream_output_url_output,
       },
@@ -107,16 +121,16 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/stream_identifier-2",
+          "description": "Identifier."
         },
         "live_input_identifier": {
-          "description": "A unique identifier for a live input.",
-          "type": "string"
+          "$ref": "#/$defs/stream_live_input_identifier",
+          "description": "A unique identifier for a live input."
         },
         "output_identifier": {
-          "description": "A unique identifier for the output.",
-          "type": "string"
+          "$ref": "#/$defs/stream_output_identifier",
+          "description": "A unique identifier for the output."
         }
       },
       required: [
@@ -124,6 +138,11 @@ export const tools: readonly Tool[] = [
         "live_input_identifier",
         "output_identifier"
       ],
+      $defs: {
+        "stream_identifier-2": stream_identifier_2,
+        "stream_live_input_identifier": stream_live_input_identifier,
+        "stream_output_identifier": stream_output_identifier,
+      },
     },
     outputSchema: {
     },
@@ -159,39 +178,32 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/stream_identifier-2",
+          "description": "Identifier."
         },
         "live_input_identifier": {
-          "description": "A unique identifier for a live input.",
-          "type": "string"
+          "$ref": "#/$defs/stream_live_input_identifier",
+          "description": "A unique identifier for a live input."
         }
       },
       required: [
         "account_id",
         "live_input_identifier"
       ],
+      $defs: {
+        "stream_identifier-2": stream_identifier_2,
+        "stream_live_input_identifier": stream_live_input_identifier,
+      },
     },
     outputSchema: {
-      "properties": {
-        "result": {
-          "items": {
-            "$ref": "#/$defs/stream_output"
-          },
-          "type": "array"
-        },
-        "result_info": {
-          "type": "object"
-        }
-      },
-      "required": [
-        "result"
-      ],
-      "type": "object",
+      "$ref": "#/$defs/stream_output_response_collection",
       $defs: {
+        "stream_api-response-common": stream_api_response_common_output,
+        "stream_messages": stream_messages_output,
         "stream_output": stream_output_output,
         "stream_output_enabled": stream_output_enabled_output,
         "stream_output_identifier": stream_output_identifier_output,
+        "stream_output_response_collection": stream_output_response_collection_output,
         "stream_output_streamKey": stream_output_streamKey_output,
         "stream_output_url": stream_output_url_output,
       },
@@ -214,32 +226,20 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "properties": {
-            "result": {
-              "items": {
-                "$ref": "#/$defs/stream_output"
-              },
-              "type": "array"
-            },
-            "result_info": {
-              "type": "object"
-            }
-          },
-          "required": [
-            "result"
-          ],
-          "type": "object"
+          "$ref": "#/$defs/stream_output_response_collection"
         },
         "4XX": {
           "$ref": "#/$defs/stream_api-response-common-failure"
         }
       },
       $defs: {
+        "stream_api-response-common": stream_api_response_common_output,
         "stream_api-response-common-failure": stream_api_response_common_failure_output,
         "stream_messages": stream_messages_output,
         "stream_output": stream_output_output,
         "stream_output_enabled": stream_output_enabled_output,
         "stream_output_identifier": stream_output_identifier_output,
+        "stream_output_response_collection": stream_output_response_collection_output,
         "stream_output_streamKey": stream_output_streamKey_output,
         "stream_output_url": stream_output_url_output,
       },
@@ -256,19 +256,19 @@ export const tools: readonly Tool[] = [
       type: "object",
       properties: {
         "account_id": {
-          "description": "Identifier.",
-          "type": "string"
+          "$ref": "#/$defs/stream_identifier-2",
+          "description": "Identifier."
         },
         "body": {
           "$ref": "#/$defs/stream_update_output_request"
         },
         "live_input_identifier": {
-          "description": "A unique identifier for a live input.",
-          "type": "string"
+          "$ref": "#/$defs/stream_live_input_identifier",
+          "description": "A unique identifier for a live input."
         },
         "output_identifier": {
-          "description": "A unique identifier for the output.",
-          "type": "string"
+          "$ref": "#/$defs/stream_output_identifier",
+          "description": "A unique identifier for the output."
         }
       },
       required: [
@@ -278,16 +278,22 @@ export const tools: readonly Tool[] = [
         "body"
       ],
       $defs: {
+        "stream_identifier-2": stream_identifier_2,
+        "stream_live_input_identifier": stream_live_input_identifier,
         "stream_output_enabled": stream_output_enabled,
+        "stream_output_identifier": stream_output_identifier,
         "stream_update_output_request": stream_update_output_request,
       },
     },
     outputSchema: {
-      "$ref": "#/$defs/stream_output",
+      "$ref": "#/$defs/stream_output_response_single",
       $defs: {
+        "stream_api-response-single": stream_api_response_single_output,
+        "stream_messages": stream_messages_output,
         "stream_output": stream_output_output,
         "stream_output_enabled": stream_output_enabled_output,
         "stream_output_identifier": stream_output_identifier_output,
+        "stream_output_response_single": stream_output_response_single_output,
         "stream_output_streamKey": stream_output_streamKey_output,
         "stream_output_url": stream_output_url_output,
       },
@@ -309,7 +315,7 @@ export const tools: readonly Tool[] = [
     responses: {
       schemas: {
         "200": {
-          "$ref": "#/$defs/stream_output"
+          "$ref": "#/$defs/stream_output_response_single"
         },
         "4XX": {
           "$ref": "#/$defs/stream_api-response-common-failure"
@@ -317,10 +323,12 @@ export const tools: readonly Tool[] = [
       },
       $defs: {
         "stream_api-response-common-failure": stream_api_response_common_failure_output,
+        "stream_api-response-single": stream_api_response_single_output,
         "stream_messages": stream_messages_output,
         "stream_output": stream_output_output,
         "stream_output_enabled": stream_output_enabled_output,
         "stream_output_identifier": stream_output_identifier_output,
+        "stream_output_response_single": stream_output_response_single_output,
         "stream_output_streamKey": stream_output_streamKey_output,
         "stream_output_url": stream_output_url_output,
       },
