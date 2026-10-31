@@ -86,9 +86,9 @@ describe('execute explains a refused request', () => {
 
     const text = await execute(token, GET_DNS)
 
-    expect(text).toContain(
-      `Cloudflare API error: GET ${DNS_PATH} returned HTTP 403: 10000: Authentication error (${DOCS_URL})`
-    )
+    expect(text).toContain(`Cloudflare API error: GET ${DNS_PATH} returned HTTP 403.`)
+    expect(text).toContain('"message": "Authentication error"')
+    expect(text).toContain(DOCS_URL)
     expect(text).toContain('was not granted a scope this endpoint accepts')
     expect(text).toContain('`dns.read` (DNS Read)')
   })
@@ -145,7 +145,7 @@ describe('execute explains a refused request', () => {
     expect(text).toContain('needs one of these permissions: DNS Read')
   })
 
-  it('omits a missing error code and does not double the period', async () => {
+  it('shows an error without a code as Cloudflare sent it', async () => {
     mockIdentityProbe({ accounts: [{ id: ACCOUNT_ID, name: 'Acc' }] })
     server.use(
       http.get(`${API_BASE}${DNS_PATH}`, () =>
@@ -158,9 +158,9 @@ describe('execute explains a refused request', () => {
 
     const text = toolText(await callTool('cfat_refused', 'execute', { code: GET_DNS }))
 
-    expect(text).toContain(
-      `GET ${DNS_PATH} returned HTTP 403: No access to the specified resource. This endpoint needs`
-    )
+    expect(text).toContain(`GET ${DNS_PATH} returned HTTP 403.`)
+    expect(text).toContain('"message": "No access to the specified resource."')
+    expect(text).toContain('This endpoint needs')
     expect(text).not.toContain('undefined')
   })
 
@@ -176,7 +176,8 @@ describe('execute explains a refused request', () => {
 
     const text = toolText(await callTool('cfat_refused', 'execute', { code: GET_DNS }))
 
-    expect(text).toContain(`GET ${DNS_PATH} returned HTTP 404: 7003: Could not route`)
+    expect(text).toContain(`GET ${DNS_PATH} returned HTTP 404.`)
+    expect(text).toContain('"code": 7003')
     expect(text).not.toContain('permission')
   })
 })
@@ -239,9 +240,8 @@ describe('a 403 about the resource or the account is not a refusal', () => {
 
     const { text, meta } = await executeResult(token, GET_DNS)
 
-    expect(text).toContain(
-      `GET ${DNS_PATH} returned HTTP 403: 403: Forbidden: workflow is not preview`
-    )
+    expect(text).toContain(`GET ${DNS_PATH} returned HTTP 403.`)
+    expect(text).toContain('"message": "Forbidden: workflow is not preview"')
     expect(text).not.toContain('was not granted')
     expect(meta).not.toHaveProperty('mcp/www_authenticate')
   })
@@ -252,7 +252,7 @@ describe('a 403 about the resource or the account is not a refusal', () => {
 
     const { text } = await executeResult(token, GET_DNS)
 
-    expect(text).toContain('5403: The given account is not valid')
+    expect(text).toContain('"code": 5403')
     expect(text).not.toContain('reconnecting will not help')
   })
 

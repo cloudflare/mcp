@@ -145,13 +145,16 @@ globalThis.fetch = async (input, init) => {
   return response;
 };
 
-// "Cloudflare API error: GET /zones/x/dns_records returned HTTP 403: 10000: Authentication error",
-// plus the server's explanation of a 401/403.
-function apiError(method, path, response, details) {
+// "Cloudflare API error: GET /zones/x/dns_records returned HTTP 403 (Ray ID 8f...).",
+// then the error body as the API sent it, then the server's explanation of a
+// 401/403. The body is raw, so nothing the API says is lost, such as an error
+// with a code but no message.
+function apiError(method, path, response, body) {
   const hint = response.headers.get(${JSON.stringify(REFUSAL_HINT_HEADER)});
-  const error = new Error("Cloudflare API error: " + String(method).toUpperCase() + " " + path.split("?")[0] +
-    " returned HTTP " + response.status + (details ? ": " + details.replace(/[. ]+$/, "") : "") +
-    (hint ? ". " + decodeURIComponent(hint) : ""));
+  const ray = response.headers.get("cf-ray");
+  const error = new Error(["Cloudflare API error: " + String(method).toUpperCase() + " " + path.split("?")[0] +
+    " returned HTTP " + response.status + (ray ? " (Ray ID " + ray + ")" : "") + ".",
+    body, hint ? decodeURIComponent(hint) : ""].filter(Boolean).join("\\n\\n"));
   const missingScope = response.headers.get(${JSON.stringify(MISSING_SCOPE_HEADER)});
   if (missingScope) error.missingScope = missingScope;
   return error;
@@ -314,10 +317,7 @@ export default class CodeExecutor extends WorkerEntrypoint {
         // API sends it, in Cloudflare's envelope or, for the few APIs without
         // it, bare.
         if (!response.ok || data?.success === false) {
-          const errorList = Array.isArray(data?.errors) ? data.errors : [];
-          const errors = errorList.map(e => (e.code === undefined ? "" : e.code + ": ") + e.message +
-            (e.documentation_url ? " (" + e.documentation_url + ")" : "")).join(", ");
-          throw apiError(method, path, response, errors);
+          throw apiError(method, path, response, JSON.stringify(data, null, 2));
         }
         return data;
       }

@@ -132,7 +132,8 @@ describe('execute', () => {
 
     expect(status).toBe(200)
     expect(result?.isError).toBe(true)
-    expect(text).toContain(`Cloudflare API error: GET ${DNS_PATH} returned HTTP 403: ${FILTERED}`)
+    expect(text).toContain(`Cloudflare API error: GET ${DNS_PATH} returned HTTP 403.`)
+    expect(text).toContain(FILTERED)
     expect(text).toContain('was not granted a scope this endpoint accepts')
     expect(text).toContain('`dns.read` (DNS Read)')
     const [challenge] = result?._meta?.['mcp/www_authenticate'] as string[]
