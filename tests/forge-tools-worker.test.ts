@@ -112,6 +112,12 @@ describe('generated direct tools (?codemode=false&experimentalForge=true)', () =
     expect(spec.paths['/accounts/{account_id}/d1/database'].get['x-api-token-group']).toContain(
       'D1 Read'
     )
+    // Built with the current processSpec(): schemas are the API's own, envelope included.
+    const subdomain = (spec.paths['/accounts/{account_id}/workers/subdomain'].get as any).responses[
+      '200'
+    ]
+    expect(JSON.stringify(subdomain.content['application/json'].schema)).toContain('"success"')
+    expect(subdomain).not.toHaveProperty('x-result-info')
     expect(JSON.parse(await text('products.json'))).toContain('workers')
     const mcpTools = JSON.parse(await text('mcp-tools.json')) as { name: string }[]
     expect(mcpTools.length).toBeGreaterThan(1000)
